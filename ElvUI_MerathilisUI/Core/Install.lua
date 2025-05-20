@@ -5,7 +5,6 @@ local PF = MER:GetModule("MER_Profiles")
 
 local _G = _G
 local ipairs, next = ipairs, next
-local format = string.format
 local tinsert = table.insert
 
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
@@ -27,8 +26,8 @@ local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoi
 local LOOT = LOOT
 local VOICE = VOICE
 
-local Reload = C_UI.Reload
-local SetCVar = C_CVar.SetCVar
+local C_UI_Reload = C_UI.Reload
+local C_CVar_SetCVar = C_CVar.SetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
@@ -42,64 +41,109 @@ local function InstallComplete(fishished)
 
 	if fishished then
 		E.db.mui.core.lastLayoutVersion = MER.DisplayVersion
-
 		IsInstalled = true
 	end
 
-	Reload()
+	C_UI_Reload()
+end
+
+function MER:ShowStepCompleteHook()
+	local stepComplete = _G["PluginInstallStepComplete"]
+
+	if not self:IsHooked(stepComplete, "OnShow") then
+		stepComplete.bg:SetVertexColor(0, 0, 0, 0.75)
+		stepComplete.lineTop:SetVertexColor(0, 0, 0, 1)
+		stepComplete.lineBottom:SetVertexColor(0, 0, 0, 1)
+
+		self:RawHookScript(stepComplete, "OnShow", function(frame)
+			if frame.message then
+				PlaySound(888)
+
+				-- Set Text
+				frame.text:SetText(frame.message)
+
+				E:UIFrameFadeOut(frame, 0.25, 0, 1)
+
+				E:Delay(2.5, function()
+					E:UIFrameFadeOut(frame, 0.25, 1, 0)
+				end)
+
+				E:Delay(4, function()
+					if frame:GetAlpha() <= 0 then
+						frame:Hide()
+					end
+				end)
+
+				frame.message = nil
+			else
+				frame:Hide()
+			end
+		end)
+	end
+end
+
+function MER:ShowStepComplete(step)
+	step = "|cccffffff" .. step .. "|r"
+
+	self:ShowStepCompleteHook()
+
+	local stepComplete = _G["PluginInstallStepComplete"]
+	stepComplete:Hide()
+	stepComplete.message = step
+	stepComplete:Show()
 end
 
 local function SetupCVars()
 	-- Setup CVars
-	SetCVar("autoQuestProgress", 1)
-	SetCVar("alwaysShowActionBars", 1)
-	SetCVar("guildMemberNotify", 1)
-	SetCVar("TargetNearestUseNew", 1)
-	SetCVar("cameraSmoothStyle", 0)
-	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
-	SetCVar("UberTooltips", 1)
-	SetCVar("lockActionBars", 1)
-	SetCVar("chatMouseScroll", 1)
-	SetCVar("countdownForCooldowns", 1)
-	SetCVar("showQuestTrackingTooltips", 1)
-	SetCVar("ffxGlow", 0)
-	SetCVar("floatingCombatTextCombatState", "1")
-	SetCVar("minimapTrackingShowAll", 1)
-	SetCVar("fstack_preferParentKeys", 0)
-	SetCVar("questTextContrast", 4) -- Black Parchment
+	C_CVar_SetCVar("autoQuestProgress", 1)
+	C_CVar_SetCVar("alwaysShowActionBars", 1)
+	C_CVar_SetCVar("guildMemberNotify", 1)
+	C_CVar_SetCVar("TargetNearestUseNew", 1)
+	C_CVar_SetCVar("cameraSmoothStyle", 0)
+	C_CVar_SetCVar("cameraDistanceMaxZoomFactor", 2.6)
+	C_CVar_SetCVar("UberTooltips", 1)
+	C_CVar_SetCVar("lockActionBars", 1)
+	C_CVar_SetCVar("chatMouseScroll", 1)
+	C_CVar_SetCVar("countdownForCooldowns", 1)
+	C_CVar_SetCVar("showQuestTrackingTooltips", 1)
+	C_CVar_SetCVar("ffxGlow", 0)
+	C_CVar_SetCVar("floatingCombatTextCombatState", "1")
+	C_CVar_SetCVar("minimapTrackingShowAll", 1)
+	C_CVar_SetCVar("fstack_preferParentKeys", 0)
+	C_CVar_SetCVar("questTextContrast", 4) -- Black Parchment
 
 	-- Nameplates
-	SetCVar("ShowClassColorInNameplate", 1)
-	SetCVar("nameplateLargerScale", 1)
-	SetCVar("nameplateLargeTopInset", -1)
-	SetCVar("nameplateMinAlpha", 1)
-	SetCVar("nameplateMinScale", 1)
-	SetCVar("nameplateMotion", 1)
-	SetCVar("nameplateOccludedAlphaMult", 1)
-	SetCVar("nameplateOtherBottomInset", -1)
-	SetCVar("nameplateOtherTopInset", -1)
-	SetCVar("nameplateOverlapH", 1.1)
-	SetCVar("nameplateOverlapV", 1.8)
-	SetCVar("nameplateSelectedScale", 1)
-	SetCVar("nameplateSelfAlpha", 1)
-	SetCVar("nameplateSelfTopInset", -1)
+	C_CVar_SetCVar("ShowClassColorInNameplate", 1)
+	C_CVar_SetCVar("nameplateLargerScale", 1)
+	C_CVar_SetCVar("nameplateLargeTopInset", -1)
+	C_CVar_SetCVar("nameplateMinAlpha", 1)
+	C_CVar_SetCVar("nameplateMinScale", 1)
+	C_CVar_SetCVar("nameplateMotion", 1)
+	C_CVar_SetCVar("nameplateOccludedAlphaMult", 1)
+	C_CVar_SetCVar("nameplateOtherBottomInset", -1)
+	C_CVar_SetCVar("nameplateOtherTopInset", -1)
+	C_CVar_SetCVar("nameplateOverlapH", 1.1)
+	C_CVar_SetCVar("nameplateOverlapV", 1.8)
+	C_CVar_SetCVar("nameplateSelectedScale", 1)
+	C_CVar_SetCVar("nameplateSelfAlpha", 1)
+	C_CVar_SetCVar("nameplateSelfTopInset", -1)
 
-	SetCVar("UnitNameEnemyGuardianName", 1)
-	SetCVar("UnitNameEnemyMinionName", 1)
-	SetCVar("UnitNameEnemyPetName", 1)
-	SetCVar("UnitNameEnemyPlayerName", 1)
-	SetCVar("profanityFilter", 0)
+	C_CVar_SetCVar("UnitNameEnemyGuardianName", 1)
+	C_CVar_SetCVar("UnitNameEnemyMinionName", 1)
+	C_CVar_SetCVar("UnitNameEnemyPetName", 1)
+	C_CVar_SetCVar("UnitNameEnemyPlayerName", 1)
+	C_CVar_SetCVar("profanityFilter", 0)
 
 	-- CVars General
-	SetCVar("chatStyle", "classic")
-	SetCVar("whisperMode", "inline")
-	SetCVar("colorChatNamesByClass", 1)
-	SetCVar("chatClassColorOverride", 0)
+	C_CVar_SetCVar("chatStyle", "classic")
+	C_CVar_SetCVar("whisperMode", "inline")
+	C_CVar_SetCVar("colorChatNamesByClass", 1)
+	C_CVar_SetCVar("chatClassColorOverride", 0)
 
-	SetCVar("speechToText", 0)
-	SetCVar("textToSpeech", 0)
+	C_CVar_SetCVar("speechToText", 0)
+	C_CVar_SetCVar("textToSpeech", 0)
 
-	SetCVar("taintLog", 0)
+	C_CVar_SetCVar("taintLog", 0)
 
 	PluginInstallStepComplete.message = MER.Title .. L["CVars Set"]
 	PluginInstallStepComplete:Show()
@@ -2682,7 +2726,7 @@ function MER:InstallAdditions(installType, mode, null)
 	end
 end
 
-function MER:Resize(firstPage, lastPage)
+function MER:Resize(firstPage, lastPage, devPage)
 	PluginInstallFrame:SetSize(860, 512)
 	PluginInstallFrame.Desc1:ClearAllPoints()
 	PluginInstallFrame.Desc1:SetPoint("TOP", PluginInstallFrame.SubTitle, "BOTTOM", 0, -30)
@@ -2696,6 +2740,8 @@ function MER:Resize(firstPage, lastPage)
 		PluginInstallFrame.peepo:SetTexture(I.Media.Textures.PepoOkaygeL)
 	elseif lastPage then
 		PluginInstallFrame.peepo:SetTexture(I.Media.Textures.PepoStrongge)
+	elseif devPage then
+		PluginInstallFrame.peepo:SetTexture(I.Media.Textures.PepoWeirdge)
 	else
 		PluginInstallFrame.peepo:SetTexture()
 	end
@@ -2703,12 +2749,12 @@ end
 
 -- ElvUI PlugIn installer
 MER.installTable = {
-	["Name"] = MER.Title,
-	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
-	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\merathilis_logo.tga]],
-	["tutorialImageSize"] = { 256, 128 },
-	["tutorialImagePoint"] = { 0, 30 },
-	["Pages"] = {
+	Name = MER.Title,
+	Title = L["|cffff7d0aMerathilisUI|r Installation"],
+	tutorialImage = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\merathilis_logo.tga]],
+	tutorialImageSize = { 256, 128 },
+	tutorialImagePoint = { 0, 30 },
+	Pages = {
 		[1] = function()
 			MER:Resize(true)
 			-- MER:InstallAdditions()
@@ -3108,13 +3154,12 @@ MER.installTable = {
 				PluginInstallFrame.Option2:SetText(L["Finished"])
 			end
 
-			if InstallStepComplete then
-				InstallStepComplete.message = MER.Title .. L["Installed"]
-				InstallStepComplete:Show()
-			end
+			-- Show Install complete message
+			local msg = MER.Title .. L[" install complete."]
+			MER:ShowStepComplete(msg)
 		end,
 		[F.IsDeveloper() and 16] = function()
-			MER:Resize(nil)
+			MER:Resize(nil, nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
 			PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])

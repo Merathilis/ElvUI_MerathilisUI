@@ -109,6 +109,7 @@ F.AddMedia("texture", "PepoLove")
 F.AddMedia("texture", "PepoBedge")
 F.AddMedia("texture", "PepoOkaygeL")
 F.AddMedia("texture", "PepoStrongge")
+F.AddMedia("texture", "PepoWeirdge")
 
 -- Role Icons
 F.AddMedia("role", "SunUITank")
