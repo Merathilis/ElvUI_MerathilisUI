@@ -9,13 +9,12 @@ local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower,
 local tinsert = tinsert
 
 function F.String.Color(msg, color)
-	if not msg then
-		F.Developer.Print(msg)
-		return
-	end
-
 	if type(color) == "string" then
-		return "|cff" .. color .. msg .. "|r"
+		if #color == 8 then
+			return "|c" .. color .. msg .. "|r"
+		else
+			return "|cff" .. color .. msg .. "|r"
+		end
 	else
 		return "|cff" .. I.Strings.Colors[color] .. msg .. "|r"
 	end

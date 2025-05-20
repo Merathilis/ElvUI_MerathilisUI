@@ -371,15 +371,15 @@ function module:GameMenu_OnShow()
 
 			if keystoneMapID and keystoneMapID > 0 then
 				local dungeonName = C_ChallengeMode_GetMapUIInfo(keystoneMapID) or L["Unknown"]
-				-- local colorObj = C_ChallengeMode_GetKeystoneLevelRarityColor(keystoneLevel)
+				local colorObj = C_ChallengeMode_GetKeystoneLevelRarityColor(keystoneLevel)
 				local levelText = "+" .. keystoneLevel
 
-				-- local levelColored = levelText
-				-- if colorObj and colorObj.GenerateHexColor then
-				-- levelColored = F.String.Color(levelText, colorObj:GenerateHexColor())
-				-- end
+				local levelColored = levelText
+				if colorObj and colorObj.GenerateHexColor then
+					levelColored = F.String.Color(levelText, colorObj:GenerateHexColor())
+				end
 
-				text = keystoneTextPrefix .. F.String.MERATHILISUI(dungeonName .. " (" .. levelText .. ")")
+				text = keystoneTextPrefix .. F.String.MERATHILISUI(dungeonName .. " (" .. levelColored .. ")")
 			else
 				text = keystoneTextPrefix .. F.String.MERATHILISUI("N/A")
 			end
