@@ -100,6 +100,14 @@ options.Notification = {
 				return not E.db.mui.notification.enable
 			end,
 		},
+		bags = {
+			order = 11,
+			type = "toggle",
+			name = L["Bags Full"],
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
+		},
 		vignette = {
 			order = 20,
 			type = "group",
