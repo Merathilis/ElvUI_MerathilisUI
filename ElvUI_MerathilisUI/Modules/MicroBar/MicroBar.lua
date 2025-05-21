@@ -169,6 +169,8 @@ local hearthstoneAndToyIDList = {
 	198156,
 	221966,
 	228940,
+	--Liberation of Undermine Drop
+	236687,
 }
 
 local hearthstonesAndToysData
