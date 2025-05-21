@@ -358,7 +358,7 @@ function module:StatusReportUpdate()
 		local version = (not E.db.mui.core.lastLayoutVersion or E.db.mui.core.lastLayoutVersion == 0)
 				and L["Not Installed"]
 			or E.db.mui.core.lastLayoutVersion
-		local versionString = (version == L["Not Installed"] or E.db.mui.core.lastLayoutVersion ~= MER.ProfileVersion)
+		local versionString = (version == L["Not Installed"] or E.db.mui.core.lastLayoutVersion ~= MER.DisplayVersion)
 				and F.String.Error(version)
 			or F.String.Good(version)
 		statusFrame.Section1.Content.Line2.Text:SetFormattedText("Profile Version: %s", versionString)
