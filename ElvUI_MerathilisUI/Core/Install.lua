@@ -43,6 +43,7 @@ local function InstallComplete(fishished)
 		E.db.mui.core.lastLayoutVersion = MER.DisplayVersion
 		IsInstalled = true
 	end
+	IsInstalled = false
 
 	C_UI_Reload()
 end
