@@ -72,6 +72,187 @@ I.Media = {
 	Armory = {},
 }
 
+I.Icons = {
+	["Role"] = {
+		["MERATHILISUI"] = {
+			["default"] = {
+				TANK = "LynUITank",
+				HEALER = "LynUIHealer",
+				DAMAGER = "LynUIDPS",
+			},
+			["raid1"] = {
+				TANK = "WhiteTank",
+				HEALER = "WhiteHealer",
+				DAMAGER = "WhiteDPS",
+			},
+			["raid2"] = {
+				TANK = "WhiteTank",
+				HEALER = "WhiteHealer",
+				DAMAGER = "WhiteDPS",
+			},
+			["raid3"] = {
+				TANK = "WhiteTank",
+				HEALER = "WhiteHealer",
+				DAMAGER = "WhiteDPS",
+			},
+		},
+		["MATERIAL"] = {
+			["default"] = {
+				TANK = "MaterialTank",
+				HEALER = "MaterialHealer",
+				DAMAGER = "MaterialDPS",
+			},
+			["raid1"] = {
+				TANK = "MaterialTank",
+				HEALER = "MaterialHealer",
+				DAMAGER = "MaterialDPS",
+			},
+			["raid2"] = {
+				TANK = "MaterialTank",
+				HEALER = "MaterialHealer",
+				DAMAGER = "MaterialDPS",
+			},
+			["raid3"] = {
+				TANK = "MaterialTank",
+				HEALER = "MaterialHealer",
+				DAMAGER = "MaterialDPS",
+			},
+		},
+		["SUNUI"] = {
+			["default"] = {
+				TANK = "SunUITank",
+				HEALER = "SunUIHealer",
+				DAMAGER = "SunUIDPS",
+			},
+			["raid1"] = {
+				TANK = "SunUITank",
+				HEALER = "SunUIHealer",
+				DAMAGER = "SunUIDPS",
+			},
+			["raid2"] = {
+				TANK = "SunUITank",
+				HEALER = "SunUIHealer",
+				DAMAGER = "SunUIDPS",
+			},
+			["raid3"] = {
+				TANK = "SunUITank",
+				HEALER = "SunUIHealer",
+				DAMAGER = "SunUIDPS",
+			},
+		},
+		["SVUI"] = {
+			["default"] = {
+				TANK = "SVUITank",
+				HEALER = "SVUIHealer",
+				DAMAGER = "SVUIDPS",
+			},
+			["raid1"] = {
+				TANK = "SVUITank",
+				HEALER = "SVUIHealer",
+				DAMAGER = "SVUIDPS",
+			},
+			["raid2"] = {
+				TANK = "SVUITank",
+				HEALER = "SVUIHealer",
+				DAMAGER = "SVUIDPS",
+			},
+			["raid3"] = {
+				TANK = "SVUITank",
+				HEALER = "SVUIHealer",
+				DAMAGER = "SVUIDPS",
+			},
+		},
+		["GLOW"] = {
+			["default"] = {
+				TANK = "GlowTank",
+				HEALER = "GlowHealer",
+				DAMAGER = "GlowDPS",
+			},
+			["raid1"] = {
+				TANK = "GlowTank",
+				HEALER = "GlowHealer",
+				DAMAGER = "GlowDPS",
+			},
+			["raid2"] = {
+				TANK = "GlowTank",
+				HEALER = "GlowHealer",
+				DAMAGER = "GlowDPS",
+			},
+			["raid3"] = {
+				TANK = "GlowTank",
+				HEALER = "GlowHealer",
+				DAMAGER = "GlowDPS",
+			},
+		},
+		["CUSTOM"] = {
+			["default"] = {
+				TANK = "CustomTank",
+				HEALER = "CustomHealer",
+				DAMAGER = "CustomDPS",
+			},
+			["raid1"] = {
+				TANK = "CustomTank",
+				HEALER = "CustomHealer",
+				DAMAGER = "CustomDPS",
+			},
+			["raid2"] = {
+				TANK = "CustomTank",
+				HEALER = "CustomHealer",
+				DAMAGER = "CustomDPS",
+			},
+			["raid3"] = {
+				TANK = "CustomTank",
+				HEALER = "CustomHealer",
+				DAMAGER = "CustomDPS",
+			},
+		},
+		["GRAVED"] = {
+			["default"] = {
+				TANK = "GravedTank",
+				HEALER = "GravedHealer",
+				DAMAGER = "GravedDPS",
+			},
+			["raid1"] = {
+				TANK = "GravedTank",
+				HEALER = "GravedHealer",
+				DAMAGER = "GravedDPS",
+			},
+			["raid2"] = {
+				TANK = "GravedTank",
+				HEALER = "GravedHealer",
+				DAMAGER = "GravedDPS",
+			},
+			["raid3"] = {
+				TANK = "GravedTank",
+				HEALER = "GravedHealer",
+				DAMAGER = "GravedDPS",
+			},
+		},
+		["ElvUI"] = {
+			["default"] = {
+				TANK = "ElvUITank",
+				HEALER = "ElvUIHealer",
+				DAMAGER = "ElvUIDPS",
+			},
+			["raid1"] = {
+				TANK = "ElvUITank",
+				HEALER = "ElvUIHealer",
+				DAMAGER = "ElvUIDPS",
+			},
+			["raid2"] = {
+				TANK = "ElvUITank",
+				HEALER = "ElvUIHealer",
+				DAMAGER = "ElvUIDPS",
+			},
+			["raid3"] = {
+				TANK = "ElvUITank",
+				HEALER = "ElvUIHealer",
+				DAMAGER = "ElvUIDPS",
+			},
+		},
+	},
+}
+
 I.ProfileNames = {
 	["Default"] = MER.Title,
 	["Development"] = MER.Title .. "Dev",

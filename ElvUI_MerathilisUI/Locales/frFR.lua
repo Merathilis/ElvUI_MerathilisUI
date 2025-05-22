@@ -1409,6 +1409,19 @@ L["Auto Fill"] = true
 L["Press the |cffffd200Delete|r key as confirmation."] = true
 L["Click to confirm"] = true
 
+-- Raid Info Frame
+L["Raid Info Frame"] = true
+L[" provides a Raid Info Frame that shows a list of players per role in your raid."] = true
+L["Enable the Raid Info Frame."] = true
+L["Temporarily shows the frame even outside of a raid for easier customization."] = true
+L["Customization"] = true
+L["Set the size of the text and icons."] = true
+L["Padding"] = true
+L["Set the outside padding of the frame."] = true
+L["Set the spacing between the icons."] = true
+L["Set the backdrop color of the frame."] = true
+L["Change the look of the icons"] = true
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
 

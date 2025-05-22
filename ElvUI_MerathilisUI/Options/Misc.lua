@@ -5,10 +5,9 @@ local AM = MER:GetModule("MER_Automation")
 local MI = MER:GetModule("MER_Misc")
 local SA = MER:GetModule("MER_SpellAlert")
 local CM = MER:GetModule("MER_ContextMenu")
-local async = MER.Utilities.Async
-local LSM = E.LSM
+local RIF = MER:GetModule("MER_RaidInfoFrame")
 
-local _G = _G
+local async = MER.Utilities.Async
 
 local GetClassColor = GetClassColor
 
@@ -1144,7 +1143,7 @@ options.contextMenu = {
 options.singingSockets = {
 	order = 16,
 	type = "group",
-	name = E.NewSign .. L["Singing Sockets"],
+	name = L["Singing Sockets"],
 	get = function(info)
 		return E.db.mui.misc.singingSockets[info[#info]]
 	end,
@@ -1171,6 +1170,163 @@ options.singingSockets = {
 			order = 1,
 			type = "toggle",
 			name = L["Enable"],
+		},
+	},
+}
+
+options.raidInfo = {
+	order = 16,
+	type = "group",
+	name = E.NewSign .. L["Raid Info Frame"],
+	get = function(info)
+		return E.db.mui.misc.raidInfo[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.misc.raidInfo[info[#info]] = value
+		E:StaticPopup_Show("CONFIG_RL")
+	end,
+	args = {
+		desc = {
+			order = 0,
+			type = "description",
+			name = MER.Title
+				.. L[" provides a Raid Info Frame that shows a list of players per role in your raid."]
+				.. "\n\n",
+			fontSize = "medium",
+		},
+		credits = {
+			order = 1,
+			type = "group",
+			name = F.cOption(L["Credits"], "orange"),
+			guiInline = true,
+			args = {
+				toxiui = {
+					order = 1,
+					type = "description",
+					name = "|cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r",
+				},
+			},
+		},
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
+			desc = L["Enable the Raid Info Frame."],
+		},
+		toggle = {
+			order = 3,
+			type = "execute",
+			name = L["Toggle"],
+			desc = L["Temporarily shows the frame even outside of a raid for easier customization."],
+			func = function()
+				RIF:ToggleFrame()
+			end,
+			disabled = function()
+				return not E.db.mui.misc.raidInfo.enable
+			end,
+		},
+		customization = {
+			order = 4,
+			type = "group",
+			name = F.cOption(L["Customization"], "orange"),
+			guiInline = true,
+			disabled = function()
+				return not E.db.mui.misc.raidInfo.enable
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(L["Customization"], "orange"),
+				},
+				size = {
+					order = 1,
+					type = "range",
+					name = L["Size"],
+					desc = L["Set the size of the text and icons."],
+					min = 8,
+					max = 64,
+					step = 1,
+					get = function()
+						return E.db.mui.misc.raidInfo.size
+					end,
+					set = function(_, value)
+						E.db.mui.misc.raidInfo.size = value
+						RIF:UpdateSize()
+					end,
+				},
+				padding = {
+					order = 2,
+					type = "range",
+					name = L["Padding"],
+					desc = L["Set the outside padding of the frame."],
+					min = 0,
+					max = 32,
+					step = 1,
+					get = function()
+						return E.db.mui.misc.raidInfo.padding
+					end,
+					set = function(_, value)
+						E.db.mui.misc.raidInfo.padding = value
+						RIF:UpdateSpacing()
+					end,
+				},
+				spacing = {
+					order = 3,
+					type = "range",
+					name = L["Spacing"],
+					desc = L["Set the spacing between the icons."],
+					min = 0,
+					max = 32,
+					step = 1,
+					get = function()
+						return E.db.mui.misc.raidInfo.spacing
+					end,
+					set = function(_, value)
+						E.db.mui.misc.raidInfo.spacing = value
+						RIF:UpdateSpacing()
+					end,
+				},
+				backdropColor = {
+					order = 4,
+					type = "color",
+					name = L["Backdrop Color"],
+					desc = L["Set the backdrop color of the frame."],
+					get = function()
+						local db = E.db.mui.misc.raidInfo.backdropColor
+						local default = P.misc.raidInfo.backdropColor
+						return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+					end,
+					set = function(_, r, g, b, a)
+						local db = E.db.mui.misc.raidInfo.backdropColor
+						db.r, db.g, db.b, db.a = r, g, b, a
+						RIF:UpdateBackdrop()
+					end,
+				},
+				roleIcons = {
+					order = 5,
+					type = "select",
+					name = L["Style"],
+					desc = L["Change the look of the icons"],
+					get = function()
+						return E.db.mui.elvUIIcons.roleIcons.theme
+					end,
+					set = function(_, value)
+						E.db.mui.elvUIIcons.roleIcons.theme = value
+						RIF:UpdateIcons()
+					end,
+					values = {
+						["MERATHILISUI"] = MER.Title .. " Style",
+						["MATERIAL"] = "Material",
+						["SUNUI"] = "SUNUI",
+						["SVUI"] = "SVUI",
+						["GLOW"] = "GLOW",
+						["CUSTOM"] = "CUSTOM",
+						["GRAVED"] = "GRAVED",
+						["ElvUI"] = "ElvUI",
+					},
+				},
+			},
 		},
 	},
 }

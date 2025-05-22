@@ -1576,6 +1576,21 @@ L["Auto Fill"] = "Auto Einfügen"
 L["Press the |cffffd200Delete|r key as confirmation."] = "Drücke zur Bestätigung die Taste |cffffd200Entfernen|r."
 L["Click to confirm"] = "Klicke zur Bestätigung"
 
+-- Raid Info Frame
+L["Raid Info Frame"] = "Raid Info Fenster"
+L[" provides a Raid Info Frame that shows a list of players per role in your raid."] =
+	" bietet ein Raid Info Fenster, das eine Liste von Spielern pro Rolle in deinem Raid anzeigt."
+L["Enable the Raid Info Frame."] = "Aktiviere das Raid Info Fenster."
+L["Temporarily shows the frame even outside of a raid for easier customization."] =
+	"Zeigt das Fenster vorübergehend auch außerhalb eines Raids an, um die Anpassung zu erleichtern."
+L["Customization"] = "Anpassung"
+L["Set the size of the text and icons."] = "Lege die Größe des Textes und der Symbole fest."
+L["Padding"] = "Abstand"
+L["Set the outside padding of the frame."] = "Lege den äußeren Abstand des Fensters fest."
+L["Set the spacing between the icons."] = "Lege den Abstand zwischen den Symbolen fest."
+L["Set the backdrop color of the frame."] = "Lege die Hintergrundfarbe des Fensters fest."
+L["Change the look of the icons"] = "Ändere das Aussehen der Symbole"
+
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 

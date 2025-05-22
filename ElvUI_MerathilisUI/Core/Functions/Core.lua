@@ -1127,6 +1127,11 @@ function F.GetTextureStrByAtlas(info, sizeX, sizeY)
 	)
 end
 
+function F.GetMedia(mediaPath, mediaName)
+	local mediaFile = mediaPath[mediaName] or mediaName
+	return mediaFile
+end
+
 function F.AddMedia(mediaType, mediaFile, lsmName, lsmType, lsmMask)
 	local path = I.MediaPaths[mediaType]
 	if path then

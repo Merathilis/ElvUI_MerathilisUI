@@ -625,6 +625,15 @@ P.misc = {
 	focuser = {
 		enable = true,
 	},
+	raidInfo = {
+		enable = true,
+		position = "TOP,ElvUIParent,TOP,0,-70",
+		size = 16,
+		spacing = 4,
+		padding = 6,
+		backdropColor = { r = 0, g = 0, b = 0, a = 0.5 },
+		roleIconStyle = "MERATHILISUI",
+	},
 }
 
 P.nameHover = {
@@ -2123,6 +2132,13 @@ P.cooldownFlash = {
 	tts = false,
 	ttsvoice = nil,
 	ttsvolume = 100,
+}
+
+P.elvUIIcons = {
+	roleIcons = {
+		enable = true,
+		theme = "MERATHILISUI", -- MERATHILISUI, MATERIAL, SUNUI, SVUI, GLOW, CUSTOM, GRAVED, ElvUI
+	},
 }
 
 P.scale = {
