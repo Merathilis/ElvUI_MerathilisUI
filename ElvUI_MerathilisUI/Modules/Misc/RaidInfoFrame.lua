@@ -43,19 +43,19 @@ function module:Create()
 	-- Tank
 	frame.tankIcon = frame:CreateTexture(nil, "ARTWORK")
 	frame.tankText = frame:CreateFontString(nil, "OVERLAY")
-	frame.tankText:FontTemplate(nil, F.FontSizeScaled(self.db.size), "OUTLINE")
+	frame.tankText:FontTemplate(nil, F.FontSizeScaled(self.db.size), "SHADOWOUTLINE")
 	frame.tankText:SetText("2")
 
 	-- Healer
 	frame.healIcon = frame:CreateTexture(nil, "ARTWORK")
 	frame.healText = frame:CreateFontString(nil, "OVERLAY")
-	frame.healText:FontTemplate(nil, F.FontSizeScaled(self.db.size), "OUTLINE")
+	frame.healText:FontTemplate(nil, F.FontSizeScaled(self.db.size), "SHADOWOUTLINE")
 	frame.healText:SetText("4")
 
 	-- DPS
 	frame.dpsIcon = frame:CreateTexture(nil, "ARTWORK")
 	frame.dpsText = frame:CreateFontString(nil, "OVERLAY")
-	frame.dpsText:FontTemplate(nil, F.FontSizeScaled(self.db.size), "OUTLINE")
+	frame.dpsText:FontTemplate(nil, F.FontSizeScaled(self.db.size), "SHADOWOUTLINE")
 	frame.dpsText:SetText("14")
 
 	-- Finalize
@@ -97,9 +97,9 @@ function module:UpdateSize()
 	self.frame.healIcon:SetSize(size, size)
 	self.frame.dpsIcon:SetSize(size, size)
 
-	self.frame.tankText:SetFont(font, size, "OUTLINE")
-	self.frame.healText:SetFont(font, size, "OUTLINE")
-	self.frame.dpsText:SetFont(font, size, "OUTLINE")
+	self.frame.tankText:SetFont(font, size, "SHADOWOUTLINE")
+	self.frame.healText:SetFont(font, size, "SHADOWOUTLINE")
+	self.frame.dpsText:SetFont(font, size, "SHADOWOUTLINE")
 
 	self:UpdateLayout()
 end
