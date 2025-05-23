@@ -180,7 +180,7 @@ function module:CreateBar()
 		function()
 			return E.db.mui.quest.switchButtons.enable
 		end,
-		"mui,quest,switchButtons"
+		"mui,modules,blizzard,switchButtons"
 	)
 end
 

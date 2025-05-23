@@ -682,7 +682,7 @@ function module:CreateFrames()
 		function()
 			return E.db.mui.smb.enable
 		end,
-		"mui,modules,maps"
+		"mui,modules,maps,smb"
 	)
 end
 

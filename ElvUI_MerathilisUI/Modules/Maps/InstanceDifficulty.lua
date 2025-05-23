@@ -128,7 +128,7 @@ function module:ConstructFrame()
 		function()
 			return E.db.mui.maps.minimap.difficulty.enable
 		end,
-		"mui,modules,maps"
+		"mui,modules,maps,instanceDifficulty"
 	)
 
 	self.frame = frame

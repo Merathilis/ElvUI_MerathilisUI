@@ -407,7 +407,7 @@ function module:Initialize()
 		nil,
 		"ALL,SOLO,MERATHILISUI",
 		nil,
-		"mui,modules,cooldownFlash"
+		"mui,modules,cooldowns,cooldownFlash"
 	)
 end
 
