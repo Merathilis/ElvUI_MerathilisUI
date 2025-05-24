@@ -6,7 +6,6 @@ local ceil = math.ceil
 
 local CreateFrame = CreateFrame
 local IsInRaid = IsInRaid
-local InCombatLockdown = InCombatLockdown
 local GetNumGroupMembers = GetNumGroupMembers
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitExists = UnitExists
@@ -47,6 +46,21 @@ function module:CreateTooltip()
 		end
 	end)
 end
+
+function module:UpdateVisibility()
+	if not self.frame then
+		return
+	end
+
+	if self.db.hideInCombat then
+		self.frame:RegisterEvent("PLAYER_REGEN_DISABLED")
+		self.frame:RegisterEvent("PLAYER_REGEN_ENABLED")
+	else
+		self.frame:UnregisterEvent("PLAYER_REGEN_DISABLED")
+		self.frame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+	end
+end
+
 function module:Create()
 	if self.frame then
 		return
@@ -104,10 +118,20 @@ function module:Create()
 	self:UpdateSpacing()
 	self:UpdateBackdrop()
 	self:Update()
+	self:UpdateVisibility()
 
 	frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-	frame:SetScript("OnEvent", function()
+	frame:SetScript("OnEvent", function(_, event)
+		local db = F.GetDBFromPath("mui.misc.raidInfo")
+		if db.hideInCombat then
+			if event == "PLAYER_REGEN_DISABLED" then
+				UIFrameFadeOut(self.frame, 0.25, self.frame:GetAlpha(), 0)
+			elseif event == "PLAYER_REGEN_ENABLED" then
+				UIFrameFadeIn(self.frame, 0.25, self.frame:GetAlpha(), 1)
+			end
+		end
+
 		self:Update()
 	end)
 end
@@ -202,7 +226,7 @@ function module:Update()
 		return
 	end
 
-	if IsInRaid() and not InCombatLockdown() then
+	if IsInRaid() then
 		self.frame:Show()
 
 		local tank, heal, dps = 0, 0, 0

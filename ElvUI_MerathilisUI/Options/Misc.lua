@@ -1303,8 +1303,20 @@ options.raidInfo = {
 						RIF:UpdateBackdrop()
 					end,
 				},
-				roleIcons = {
+				hideInCombat = {
 					order = 5,
+					type = "toggle",
+					name = L["Hide In Combat"],
+					desc = L["Hides the frame while in combat."],
+					get = function()
+						return E.db.mui.misc.raidInfo.hideInCombat
+					end,
+					set = function(_, value)
+						E.db.mui.misc.raidInfo.hideInCombat = value
+					end,
+				},
+				roleIcons = {
+					order = 6,
 					type = "select",
 					name = L["Style"],
 					desc = L["Change the look of the icons"],

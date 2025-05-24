@@ -632,6 +632,7 @@ P.misc = {
 		spacing = 4,
 		padding = 6,
 		backdropColor = { r = 0, g = 0, b = 0, a = 0.5 },
+		hideInCombat = true,
 		roleIconStyle = "MERATHILISUI",
 	},
 }
