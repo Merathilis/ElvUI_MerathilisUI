@@ -1590,6 +1590,10 @@ L["Set the outside padding of the frame."] = "Lege den äußeren Abstand des Fen
 L["Set the spacing between the icons."] = "Lege den Abstand zwischen den Symbolen fest."
 L["Set the backdrop color of the frame."] = "Lege die Hintergrundfarbe des Fensters fest."
 L["Change the look of the icons"] = "Ändere das Aussehen der Symbole"
+L["Displays the current count of Tanks, Healers, and DPS in your raid group."] =
+	"Zeigt die aktuelle Anzahl von Tanks, Heilern und Schadensverursachern in deiner Raid-Gruppe an."
+L["|cffFFFFFFLeft Click:|r Toggle Raid Frame"] = "|cffFFFFFFLinksklick:|r Raid Fenster öffnen/schließen"
+L["|cffFFFFFFRight Click:|r Toggle Settings"] = "|cffFFFFFFRechtsklick:|r Einstellungen öffnen/schließen"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

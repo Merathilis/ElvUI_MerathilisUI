@@ -1608,6 +1608,9 @@ L["Set the outside padding of the frame."] = true
 L["Set the spacing between the icons."] = true
 L["Set the backdrop color of the frame."] = true
 L["Change the look of the icons"] = true
+L["Displays the current count of Tanks, Healers, and DPS in your raid group."] = true
+L["|cffFFFFFFLeft Click:|r Toggle Raid Frame"] = true
+L["|cffFFFFFFRight Click:|r Toggle Settings"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
