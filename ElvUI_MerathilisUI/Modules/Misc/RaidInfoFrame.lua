@@ -69,7 +69,7 @@ function module:Create()
 		GameTooltip:AddLine(MER.Title .. L[" Raid Info Frame"], 1, 1, 1)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(
-			L["Displays the current count of Tanks, Healers, and DPS in your raid group"],
+			L["Displays the current count of Tanks, Healers, and DPS in your raid group."],
 			nil,
 			nil,
 			nil,
