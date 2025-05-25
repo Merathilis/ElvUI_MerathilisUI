@@ -1704,6 +1704,13 @@ P.nameplates = {
 	gradient = true,
 	enhancedAuras = {
 		enable = true,
+		width = 26,
+		height = 18,
+		font = I.Fonts.Primary,
+		fontOutline = "SHADOWOUTLINE",
+		fontSize = 10,
+		classColor = true,
+		textColor = { r = 1.0, g = 1.0, b = 1.0 },
 	},
 }
 

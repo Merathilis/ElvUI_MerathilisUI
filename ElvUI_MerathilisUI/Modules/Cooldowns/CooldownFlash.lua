@@ -252,7 +252,7 @@ end
 --------------------
 -- Event Handlers --
 --------------------
-function DCP:ADDON_LOADED(addon)
+function DCP:ADDON_LOADED()
 	if not MERData_DCP then
 		MERData_DCP = { unpack(defaultSettings) }
 	else

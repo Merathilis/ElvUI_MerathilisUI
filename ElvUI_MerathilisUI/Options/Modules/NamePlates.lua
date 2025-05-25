@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local NP = E:GetModule("NamePlates")
+local NPA = MER:GetModule("MER_NameplateAuras")
 local options = MER.options.modules.args
 
 options.nameplates = {
@@ -40,6 +41,7 @@ options.nameplates = {
 			end,
 			set = function(info, value)
 				E.db.mui.nameplates.enhancedAuras[info[#info]] = value
+				NPA:ProfileUpdate()
 				E:StaticPopup_Show("GLOBAL_RL")
 			end,
 			args = {
@@ -72,6 +74,9 @@ options.nameplates = {
 						E.db.mui.nameplates.enhancedAuras.width = value
 						NP:ConfigureAll()
 					end,
+					disabled = function()
+						return not E.db.mui.nameplates.enhancedAuras.enable
+					end,
 				},
 				height = {
 					order = 6,
@@ -86,6 +91,9 @@ options.nameplates = {
 					set = function(info, value)
 						E.db.mui.nameplates.enhancedAuras.height = value
 						NP:ConfigureAll()
+					end,
+					disabled = function()
+						return not E.db.mui.nameplates.enhancedAuras.enable
 					end,
 				},
 			},

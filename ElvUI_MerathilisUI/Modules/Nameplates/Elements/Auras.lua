@@ -15,25 +15,41 @@ local hooksecurefunc = hooksecurefunc
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 
+local function CCDebuffTextNeedsUpdate(button, db)
+	local bdb = button.cc_name.lastFontInfo
+	return not bdb or bdb[1] ~= db.font or bdb[2] ~= db.fontSize or bdb[3] ~= db.fontOutline
+end
+
+local function SetAndSaveCCDebuffFontInfo(button, db)
+	if db.fontOutline == "NONE" then
+		db.fontOutline = ""
+	end
+	button.cc_name:FontTemplate(E.Libs.LSM:Fetch("font", db.font), db.fontSize, db.fontOutline)
+	button.cc_name.lastFontInfo = { db.font, db.fontSize, db.fontOutline }
+end
+
 function module:PostUpdateAura(unit, button)
-	if button and button.spellID then
+	if button then
 		if not find(unit, "nameplate") then
 			return
 		end
 
-		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
+		local ccSpell
+		if button.spellID then
+			ccSpell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
+		end
 
 		-- Size
-		local width = button:GetWidth() or 26
-		local height = button:GetHeight() or 18
+		local width = self.db.width or button:GetWidth() and 26
+		local height = self.db.height or button:GetHeight() and 18
 
-		if spell and spell ~= "" then
+		if ccSpell and ccSpell ~= "" then
 			width = 32
 		else
 			width = width
 		end
 
-		if spell and spell ~= "" then
+		if ccSpell and ccSpell ~= "" then
 			height = 32
 		else
 			height = height
@@ -54,8 +70,22 @@ function module:PostUpdateAura(unit, button)
 
 		button.size = { ["width"] = width, ["height"] = height }
 
+		-- Stacks
+		local stackSize = 8
+
+		if ccSpell and ccSpell.stackSize then
+			stackSize = ccSpell.stackSize
+		elseif E.global.unitframe.aurafilters.CCDebuffs.spells.stackSize then
+			stackSize = E.global.unitframe.aurafilters.CCDebuffs.spells.stackSize
+		end
+
+		button.Count:FontTemplate(nil, stackSize, "SHADOWOUTLINE")
+
 		-- CC Caster Names
-		if spell and spell ~= "" and button.caster then
+		if ccSpell and ccSpell ~= "" and button.caster then
+			if CCDebuffTextNeedsUpdate(button, self.db) then
+				SetAndSaveCCDebuffFontInfo(button, self.db)
+			end
 			local name = UnitName(button.caster)
 			local class = select(2, UnitClass(button.caster))
 			local color = { r = 1, g = 1, b = 1 }
@@ -88,6 +118,7 @@ function module:Construct_AuraIcon(button)
 	if not button.cc_name then
 		button.cc_name = button:CreateFontString(nil, "OVERLAY")
 		button.cc_name:FontTemplate(nil, 10, "SHADOWOUTLINE")
+		SetAndSaveCCDebuffFontInfo(button, self.db)
 		button.cc_name:Point("BOTTOM", button, "TOP", 1, 1)
 		button.cc_name:SetJustifyH("CENTER")
 	end
@@ -100,12 +131,22 @@ function module:Construct_AuraIcon(button)
 end
 
 function module:Initialize()
-	if E.db.mui.nameplates.enhancedAuras.enable ~= true then
+	if self.Initialized then
+		return
+	end
+
+	-- Set DB
+	self.db = F.GetDBFromPath("mui.nameplates.enhancedAuras")
+	if not self.db.enable then
 		return
 	end
 
 	hooksecurefunc(NP, "Construct_Auras", module.Construct_Auras)
 	hooksecurefunc(NP, "Construct_AuraIcon", module.Construct_AuraIcon)
+
+	self.Initialized = true
 end
+
+module.ProfileUpdate = module.Initialize
 
 MER:RegisterModule(module:GetName())
