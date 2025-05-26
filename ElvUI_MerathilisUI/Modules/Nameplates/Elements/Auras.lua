@@ -40,8 +40,8 @@ function module:PostUpdateAura(unit, button)
 		end
 
 		-- Size
-		local width = self.db.width or button:GetWidth() and 26
-		local height = self.db.height or button:GetHeight() and 18
+		local width = module.db.width or button:GetWidth() and 26
+		local height = module.db.height or button:GetHeight() and 18
 
 		if ccSpell and ccSpell ~= "" then
 			width = 32
@@ -83,8 +83,8 @@ function module:PostUpdateAura(unit, button)
 
 		-- CC Caster Names
 		if ccSpell and ccSpell ~= "" and button.caster then
-			if CCDebuffTextNeedsUpdate(button, self.db) then
-				SetAndSaveCCDebuffFontInfo(button, self.db)
+			if CCDebuffTextNeedsUpdate(button, module.db) then
+				SetAndSaveCCDebuffFontInfo(button, module.db)
 			end
 			local name = UnitName(button.caster)
 			local class = select(2, UnitClass(button.caster))
@@ -117,7 +117,7 @@ function module:Construct_AuraIcon(button)
 	-- Creates an own font element for caster name
 	if not button.cc_name then
 		button.cc_name = button:CreateFontString(nil, "OVERLAY")
-		SetAndSaveCCDebuffFontInfo(button, self.db)
+		SetAndSaveCCDebuffFontInfo(button, module.db)
 		button.cc_name:Point("BOTTOM", button, "TOP", 1, 1)
 		button.cc_name:SetJustifyH("CENTER")
 	end
@@ -135,8 +135,8 @@ function module:Initialize()
 	end
 
 	-- Set DB
-	self.db = F.GetDBFromPath("mui.nameplates.enhancedAuras")
-	if not self.db.enable then
+	module.db = F.GetDBFromPath("mui.nameplates.enhancedAuras")
+	if not module.db.enable then
 		return
 	end
 
