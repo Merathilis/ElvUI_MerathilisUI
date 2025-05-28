@@ -165,8 +165,8 @@ L["Reset All Modules"] = "重置全部模組"
 L["Reset all %s modules."] = "重置全部 %s 模組."
 
 -- GameMenu
-L["GameMenu"] = true
-L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"] = true
+L["Game Menu"] = true
+L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"] = true
 L["Achievements: "] = true
 L["Achievement Points: "] = true
 L["Mounts: "] = true

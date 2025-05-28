@@ -54,7 +54,7 @@ options.name = {
 		GameMenu = {
 			order = 5,
 			type = "group",
-			name = L["GameMenu"],
+			name = F.cOption(L["Game Menu"], "orange"),
 			guiInline = true,
 			get = function(info)
 				return E.db.mui.gameMenu[info[#info]]
@@ -64,11 +64,16 @@ options.name = {
 				E:StaticPopup_Show("CONFIG_RL")
 			end,
 			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(L["Game Menu"], "orange"),
+				},
 				enable = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu. (e.g. Pepe, Logo, Bars)"],
+					desc = L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"],
 				},
 				bgColor = {
 					order = 2,
