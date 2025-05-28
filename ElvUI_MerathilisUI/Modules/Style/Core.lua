@@ -112,7 +112,9 @@ function module:ForceRefresh()
 end
 
 local handled = {
-	Frame = true,
+	Region = true,
+	Texture = true,
+	Cooldown = true,
 	ModelScene = true,
 	Slider = true,
 	ScrollFrame = true,
