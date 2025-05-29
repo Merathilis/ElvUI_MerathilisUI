@@ -2,6 +2,19 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 I.Strings = {}
 
+I.Strings.Requirements = {
+	[I.Enum.Requirements.MERUI_PROFILE] = "NO_STRING_NEEDED",
+	[I.Enum.Requirements.GRADIENT_MODE_ENABLED] = "NO_STRING_NEEDED",
+	[I.Enum.Requirements.GRADIENT_MODE_DISABLED] = "Only one theme can be activated at the same time. Please disable gradient mode",
+	[I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED] = "You can't use this module because ElvUI's ActionBars module is currently turned off. Please enable it to unlock this option.",
+}
+
+I.Strings.RequirementsDebug = {
+	[I.Enum.Requirements.MERUI_PROFILE] = "No MerathilisUI Profile",
+	[I.Enum.Requirements.GRADIENT_MODE_ENABLED] = "GM Disabled",
+	[I.Enum.Requirements.GRADIENT_MODE_DISABLED] = "GM Enabled",
+}
+
 I.Strings.Colors = {
 	[I.Enum.Colors.MER] = "00c0fa", -- #00c0fa
 	[I.Enum.Colors.DETAILS] = "f7f552", -- #f7f552

@@ -121,19 +121,5 @@ options.gameFix = {
 			end,
 			width = "full",
 		},
-		cpuProfiler = {
-			order = 4,
-			type = "toggle",
-			name = E.NewSign .. L["CPU Profiling"],
-			desc = L["If enable it will disable the CPU Profiling CVar. Which can cause some performance issues and should not be enabled by default."],
-			get = function(info)
-				return E.global.mui.advancedOptions.cpuProfiler
-			end,
-			set = function(info, value)
-				E.global.mui.core.cpuProfiler = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			width = "full",
-		},
 	},
 }

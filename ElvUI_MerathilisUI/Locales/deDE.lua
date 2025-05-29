@@ -5,6 +5,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 L["Enable"] = "Eingeschaltet"
 L[" is loaded. For any issues or suggestions join my discord: "] =
 	" wurde geladen. Um Fehler zu melden oder mir Vorschläge zu unterbreiten joined meinen Discord: "
+L["Please run through the installation process to set up the plugin.\n\n This step is needed to ensure that all features are configured correctly for your profile. You don't have to apply every step."] =
+	"Bitte durchlaufe den Installationsprozess, um das Plugin einzurichten.\n\n Dieser Schritt ist notwendig, um sicherzustellen, dass alle Funktionen korrekt für dein Profil konfiguriert sind. Du musst nicht jeden Schritt anwenden."
 L["Font"] = "Schriftart"
 L["Size"] = "Größe"
 L["Width"] = "Breite"

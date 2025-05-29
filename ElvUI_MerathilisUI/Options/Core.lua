@@ -98,8 +98,19 @@ function MER:OptionsCallback()
 			logo = {
 				order = 2,
 				type = "description",
-				name = L["MER_DESC"] .. newSignIgnored,
-				fontSize = "medium",
+				name = function()
+					local text
+					if not F.IsMERProfile() then
+						text = newSignIgnored
+							.. L["Please run through the installation process to set up the plugin.\n\n This step is needed to ensure that all features are configured correctly for your profile. You don't have to apply every step."]
+							.. newSignIgnored
+					else
+						text = L["MER_DESC"] .. newSignIgnored
+					end
+
+					return text
+				end,
+				fontSize = "large",
 				image = function()
 					return I.General.MediaPath .. "Textures\\mUI1.tga", 200, 200
 				end,
@@ -127,6 +138,9 @@ function MER:OptionsCallback()
 					MER:GetModule("MER_Misc"):StatusReportShow()
 					E:ToggleOptions()
 				end,
+				disabled = function()
+					return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE) and not F.IsMERProfile()
+				end,
 			},
 			discordButton = {
 				order = 5,
@@ -149,6 +163,9 @@ function MER:OptionsCallback()
 			desc = info.desc,
 			icon = info.icon,
 			args = info.args,
+			hidden = function() -- Hide the options if not my profile is installed
+				return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE)
+			end,
 		}
 	end
 

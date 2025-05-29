@@ -2,6 +2,13 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 I.Enum = {}
 
+I.Enum.Requirements = F.Enum({
+	"MERUI_PROFILE",
+	"GRADIENT_MODE_ENABLED",
+	"GRADIENT_MODE_DISABLED",
+	"ELVUI_ACTIONBARS_ENABLED",
+})
+
 I.Enum.Colors = F.Enum({
 	"MER",
 	"DETAILS",

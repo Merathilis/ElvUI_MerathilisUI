@@ -258,6 +258,16 @@ I.ProfileNames = {
 	["Development"] = MER.Title .. "Dev",
 }
 
+I.Requirements = {
+	["GradientMode"] = {
+		I.Enum.Requirements.DARK_MODE_DISABLED,
+		I.Enum.Requirements.ELVUI_NOT_SKINNED,
+	},
+	["VehicleBar"] = {
+		I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED,
+	},
+}
+
 I.RepairMounts = {
 	2237, -- Grizzly Hills Packmaster
 	460, -- Grand Expedition Yak

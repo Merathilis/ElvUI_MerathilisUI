@@ -4,6 +4,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "itIT")
 -- Core
 L["Enable"] = true
 L[" is loaded. For any issues or suggestions join my discord: "] = true
+L["Please run through the installation process to set up the plugin.\n\n This step is needed to ensure that all features are configured correctly for your profile. You don't have to apply every step."] =
+	true
 L["Font"] = true
 L["Size"] = true
 L["Width"] = true
