@@ -106,8 +106,111 @@ options.general = {
 	},
 }
 
-options.spellAlert = {
+options.gameMenu = {
 	order = 2,
+	type = "group",
+	name = L["Game Menu"],
+	get = function(info)
+		return E.db.mui.gameMenu[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.gameMenu[info[#info]] = value
+		E:StaticPopup_Show("CONFIG_RL")
+	end,
+	args = {
+		header = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["Game Menu"], "orange"),
+		},
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			desc = L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"],
+		},
+		bgColor = {
+			order = 2,
+			type = "color",
+			name = L["Background Color"],
+			hasAlpha = true,
+			get = function(info)
+				local t = E.db.mui.gameMenu[info[#info]]
+				local d = P.gameMenu[info[#info]]
+				return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+			end,
+			set = function(info, r, g, b, a)
+				local t = E.db.mui.gameMenu[info[#info]]
+				t.r, t.g, t.b, t.a = r, g, b, a
+			end,
+			disabled = function()
+				return not E.db.mui.gameMenu.enable
+			end,
+		},
+		info = {
+			order = 2,
+			type = "group",
+			name = L["Info"],
+			guiInline = true,
+			hidden = function()
+				return not E.db.mui.gameMenu.enable
+			end,
+			args = {
+				showCollections = {
+					order = 1,
+					type = "toggle",
+					name = L["Show Collections"],
+				},
+				showWeeklyDevles = {
+					order = 2,
+					type = "toggle",
+					name = L["Show Weekly Delves Keys"],
+				},
+				mythic = {
+					order = 3,
+					type = "group",
+					name = "|cffFF0000WIP|r" .. " " .. L["Mythic+"],
+					args = {
+						showMythicKey = {
+							order = 1,
+							type = "toggle",
+							name = L["Show Mythic+ Infos"],
+						},
+						showMythicScore = {
+							order = 2,
+							type = "toggle",
+							name = L["Show Mythic+ Score"],
+							disabled = function()
+								return not E.db.mui.gameMenu.enable or not E.db.mui.gameMenu.showMythicKey
+							end,
+						},
+						mythicHistoryLimit = {
+							order = 3,
+							type = "range",
+							name = L["History Limit"],
+							desc = L["Number of Mythic+ dungeons shown in the latest runs."],
+							min = 1,
+							max = 10,
+							step = 1,
+							get = function()
+								return E.db.mui.gameMenu.mythicHistoryLimit
+							end,
+							set = function(_, value)
+								E.db.mui.gameMenu.mythicHistoryLimit = value
+							end,
+							disabled = function()
+								return not E.db.mui.gameMenu.enable or not E.db.mui.gameMenu.showMythicKey
+							end,
+						},
+					},
+				},
+			},
+		},
+	},
+}
+
+options.spellAlert = {
+	order = 3,
 	type = "group",
 	name = L["Spell Alert Scale"],
 	get = function(info)
@@ -198,7 +301,7 @@ options.spellAlert = {
 }
 
 options.scale = {
-	order = 3,
+	order = 4,
 	type = "group",
 	name = L["Scale"],
 	args = {
@@ -548,7 +651,7 @@ options.scale = {
 }
 
 options.tags = {
-	order = 7,
+	order = 5,
 	type = "group",
 	name = L["Tags"],
 	args = {
@@ -662,7 +765,7 @@ do
 end
 
 options.alreadyKnown = {
-	order = 8,
+	order = 6,
 	type = "group",
 	name = L["Already Known"],
 	get = function(info)
@@ -745,7 +848,7 @@ options.alreadyKnown = {
 }
 
 options.mute = {
-	order = 9,
+	order = 7,
 	type = "group",
 	name = L["Mute"],
 	args = {
@@ -886,7 +989,7 @@ do
 end
 
 options.automation = {
-	order = 10,
+	order = 8,
 	type = "group",
 	name = L["Automation"],
 	get = function(info)
@@ -974,7 +1077,7 @@ options.automation = {
 }
 
 options.contextMenu = {
-	order = 15,
+	order = 9,
 	type = "group",
 	name = L["Context Menu"],
 	get = function(info)
@@ -1141,7 +1244,7 @@ options.contextMenu = {
 }
 
 options.singingSockets = {
-	order = 16,
+	order = 10,
 	type = "group",
 	name = L["Singing Sockets"],
 	get = function(info)
@@ -1175,7 +1278,7 @@ options.singingSockets = {
 }
 
 options.raidInfo = {
-	order = 16,
+	order = 11,
 	type = "group",
 	name = E.NewSign .. L["Raid Info Frame"],
 	get = function(info)
