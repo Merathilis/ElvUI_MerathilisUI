@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.general.args
+local theme = MER:GetModule("MER_Style")
 
 options.name = {
 	order = 1,
@@ -28,7 +29,8 @@ options.name = {
 			end,
 			set = function(info, value)
 				E.db.mui.style[info[#info]] = value
-				E:StaticPopup_Show("CONFIG_RL")
+				F.Event.TriggerEvent("theme.SettingsUpdate")
+				-- E:StaticPopup_Show("CONFIG_RL")
 			end,
 			args = {
 				enable = {

@@ -266,6 +266,9 @@ I.Requirements = {
 	["VehicleBar"] = {
 		I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED,
 	},
+	["AdditionalScaling"] = {
+		I.Enum.Requirements.ELTRUISM_DISABLED,
+	},
 }
 
 I.RepairMounts = {

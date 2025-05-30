@@ -43,6 +43,10 @@ function MER:CheckRequirements(requirements, skipProfile)
 			if E.private.actionbar.enable ~= true then
 				return requirement
 			end
+		elseif requirement == I.Enum.Requirements.ELTRUISM_DISABLED then
+			if E:IsAddOnEnabled("ElvUI_EltreumUI") then
+				return requirement
+			end
 		end
 	end
 

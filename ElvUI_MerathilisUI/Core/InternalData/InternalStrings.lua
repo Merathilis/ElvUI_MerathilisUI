@@ -7,6 +7,7 @@ I.Strings.Requirements = {
 	[I.Enum.Requirements.GRADIENT_MODE_ENABLED] = "NO_STRING_NEEDED",
 	[I.Enum.Requirements.GRADIENT_MODE_DISABLED] = "Only one theme can be activated at the same time. Please disable gradient mode",
 	[I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED] = "You can't use this module because ElvUI's ActionBars module is currently turned off. Please enable it to unlock this option.",
+	[I.Enum.Requirements.ELTRUISM_DISABLED] = "You can't use this module because EltruismUI is enabled. Please disable it to unlock this option.",
 }
 
 I.Strings.RequirementsDebug = {

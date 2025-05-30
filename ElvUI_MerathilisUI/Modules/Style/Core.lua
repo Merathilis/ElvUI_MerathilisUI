@@ -189,7 +189,7 @@ function module:SettingsUpdate()
 	for frame, _ in pairs(self.MERStyle) do
 		if frame.MERStyle then
 			if self.db.enable then
-				-- frame:TXCreateSoftShadow(self.db.shadowSize, self.db.shadowAlpha)
+				frame.MERStyle:Show()
 			else
 				frame.MERStyle:Hide()
 			end

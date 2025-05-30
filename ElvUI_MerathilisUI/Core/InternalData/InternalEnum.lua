@@ -7,6 +7,7 @@ I.Enum.Requirements = F.Enum({
 	"GRADIENT_MODE_ENABLED",
 	"GRADIENT_MODE_DISABLED",
 	"ELVUI_ACTIONBARS_ENABLED",
+	"ELTRUISM_DISABLED",
 })
 
 I.Enum.Colors = F.Enum({
