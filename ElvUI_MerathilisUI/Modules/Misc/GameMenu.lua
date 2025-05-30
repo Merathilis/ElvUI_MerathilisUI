@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
-local S = MER:GetModule("MER_Skins")
 
 local _G = _G
 local random = random
@@ -93,7 +92,6 @@ function module:GameMenu_OnShow()
 	bottomPanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 	bottomPanel:Width(E.screenWidth + (E.Border * 2))
 	bottomPanel:CreateBackdrop("Transparent")
-	S:CreateBackdropShadow(bottomPanel)
 
 	bottomPanel.ignoreFrameTemplates = true
 	bottomPanel.ignoreBackdropColors = true
@@ -149,7 +147,6 @@ function module:GameMenu_OnShow()
 	topPanel:Point("TOP", E.UIParent, "TOP", 0, 0)
 	topPanel:Width(E.screenWidth + (E.Border * 2))
 	topPanel:CreateBackdrop("Transparent")
-	S:CreateBackdropShadow(topPanel)
 
 	topPanel.ignoreFrameTemplates = true
 	topPanel.ignoreBackdropColors = true
@@ -444,7 +441,7 @@ end
 
 function module:GameMenu()
 	module.db = E.db.mui.gameMenu
-	if not module.db or not module.db.enable then
+	if not MER:HasRequirements(I.Requirements.GameMenu) or not module.db or not module.db.enable then
 		return
 	end
 

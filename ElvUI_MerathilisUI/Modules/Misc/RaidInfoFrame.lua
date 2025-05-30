@@ -260,7 +260,7 @@ end
 
 function module:DatabaseUpdate()
 	self.db = F.GetDBFromPath("mui.misc.raidInfo")
-	if self.db and self.db.enable then
+	if MER:HasRequirements(I.Requirements.RaidInfoFrame) and self.db and self.db.enable then
 		self:Enable()
 	end
 end

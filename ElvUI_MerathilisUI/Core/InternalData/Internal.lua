@@ -269,6 +269,8 @@ I.Requirements = {
 	["AdditionalScaling"] = {
 		I.Enum.Requirements.ELTRUISM_DISABLED,
 	},
+	["GameMenu"] = {},
+	["RaidInfoFrame"] = {},
 }
 
 I.RepairMounts = {
