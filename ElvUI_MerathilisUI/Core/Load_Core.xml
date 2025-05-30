@@ -18,8 +18,6 @@
 	<Script file="Staticpopup.lua"/>
 	<Script file="Tags.lua"/>
 	<Script file="Update.lua"/>
-	<Include file="FunStuff.xml"/>
-	<Script file="FunStuff.lua"/>
 
 	<Include file="Changelog\Load_Changelog.xml"/>
 </Ui>

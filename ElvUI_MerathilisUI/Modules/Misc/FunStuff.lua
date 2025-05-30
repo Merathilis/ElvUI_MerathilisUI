@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Misc")
 
 local _G = _G
 local random = math.random
@@ -7,25 +8,25 @@ local UnitExists = UnitExists
 
 --[[
 ##########################################################
-NPC Animations -- Credits SupervillianUI
+	NPC Animations -- Credits SupervillianUI
 ##########################################################
 ]]
 --
 
-MER.NPC = _G["MER_NPCFrame"]
+module.NPC = _G["MER_NPCFrame"]
 
 local talkAnims = { 60, 64, 65, 67 }
 
 local function NPCTalking()
 	local timer = 0
 	local sequence = random(1, #talkAnims)
-	MER.NPC.Model:ClearModel()
-	MER.NPC.Model:SetUnit("target")
-	MER.NPC.Model:SetCamDistanceScale(1.2)
-	MER.NPC.Model:SetPortraitZoom(0.95)
-	MER.NPC.Model:SetPosition(0, 0, 0)
-	MER.NPC.Model:SetAnimation(talkAnims[sequence], 0)
-	MER.NPC.Model:SetScript("OnUpdate", function(self, e)
+	module.NPC.Model:ClearModel()
+	module.NPC.Model:SetUnit("target")
+	module.NPC.Model:SetCamDistanceScale(1.2)
+	module.NPC.Model:SetPortraitZoom(0.95)
+	module.NPC.Model:SetPosition(0, 0, 0)
+	module.NPC.Model:SetAnimation(talkAnims[sequence], 0)
+	module.NPC.Model:SetScript("OnUpdate", function(self, e)
 		if timer < 2000 then
 			timer = (timer + (e * 1000))
 		else
@@ -45,14 +46,14 @@ end
 local function PlayerTalking()
 	local timer = 0
 	local sequence = random(1, #talkAnims)
-	MER.NPC.Model:ClearModel()
-	MER.NPC.Model:SetUnit("player")
-	MER.NPC.Model:SetCamDistanceScale(1)
-	MER.NPC.Model:SetPortraitZoom(0.95)
-	MER.NPC.Model:SetPosition(0.15, 0, 0)
-	MER.NPC.Model:SetRotation(-1)
-	MER.NPC.Model:SetAnimation(talkAnims[sequence], 0)
-	MER.NPC.Model:SetScript("OnUpdate", function(self, e)
+	module.NPC.Model:ClearModel()
+	module.NPC.Model:SetUnit("player")
+	module.NPC.Model:SetCamDistanceScale(1)
+	module.NPC.Model:SetPortraitZoom(0.95)
+	module.NPC.Model:SetPosition(0.15, 0, 0)
+	module.NPC.Model:SetRotation(-1)
+	module.NPC.Model:SetAnimation(talkAnims[sequence], 0)
+	module.NPC.Model:SetScript("OnUpdate", function(self, e)
 		if timer < 2000 then
 			timer = (timer + (e * 1000))
 		else
@@ -71,7 +72,7 @@ local function PlayerTalking()
 	end)
 end
 
-function MER.NPC:NPCTalksFirst()
+function module.NPC:NPCTalksFirst()
 	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then
 		return
 	end
@@ -95,7 +96,7 @@ function MER.NPC:NPCTalksFirst()
 	end)
 end
 
-function MER.NPC:PlayerTalksFirst()
+function module.NPC:PlayerTalksFirst()
 	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then
 		return
 	end
@@ -119,10 +120,17 @@ function MER.NPC:PlayerTalksFirst()
 	end)
 end
 
-function MER.NPC:Toggle(parentFrame)
+local SetNPCText = function(self, text)
+	self:Hide()
+	module.NPC.InfoTop.Text:SetText(text)
+	module.NPC.InfoTop:Show()
+end
+
+function module.NPC:Toggle(parentFrame)
 	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then
 		return
 	end
+
 	local timer = 0
 	if parentFrame then
 		self:SetParent(parentFrame)
@@ -137,7 +145,7 @@ function MER.NPC:Toggle(parentFrame)
 		self.Model:SetPortraitZoom(0.95)
 		self.Model:SetPosition(0, 0, 0)
 
-		MER.NPC:NPCTalksFirst()
+		module.NPC:NPCTalksFirst()
 	else
 		self.Model:SetScript("OnUpdate", nil)
 		self:SetAlpha(0)
@@ -145,11 +153,32 @@ function MER.NPC:Toggle(parentFrame)
 	end
 end
 
-function MER.NPC:Register(parentFrame)
+function module.NPC:Register(parentFrame, textFrame)
 	parentFrame:HookScript("OnShow", function()
-		MER.NPC:Toggle(parentFrame)
+		module.NPC:Toggle(parentFrame)
 	end)
 	parentFrame:HookScript("OnHide", function()
-		MER.NPC:Toggle()
+		module.NPC:Toggle()
 	end)
+
+	if textFrame and textFrame.SetText then
+		hooksecurefunc(textFrame, "SetText", SetNPCText)
+	end
 end
+
+function module:FunStuff()
+	if not E.db.mui.misc.funstuff then
+		return
+	end
+
+	local npc = module.NPC
+	npc.InfoTop = CreateFrame("Frame", nil, npc)
+	npc.InfoTop:SetPoint("BOTTOMLEFT", npc.Model, "BOTTOMRIGHT", 2, 22)
+	npc.InfoTop:SetSize(196, 98)
+
+	npc.InfoTop.Text = npc.InfoTop:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	npc.InfoTop.Text:SetPoint("TOPLEFT", npc.InfoTop, "TOPLEFT", 0, -33)
+	npc.InfoTop.Text:SetPoint("BOTTOMRIGHT", npc.InfoTop, "BOTTOMRIGHT", 0, 0)
+end
+
+module:AddCallback("FunStuff")

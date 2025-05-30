@@ -8,6 +8,8 @@
 	<Script file="BossBanner.lua"/>
 	<Script file="ContextMenu.lua"/>
 	<Script file="Focus.lua"/>
+	<Include file="FunStuff.xml"/>
+	<Script file="FunStuff.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
 	<Script file="Loot.lua"/>
