@@ -76,6 +76,7 @@ function module.NPC:NPCTalksFirst()
 	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then
 		return
 	end
+
 	local timer = 0
 	self.Model:ClearModel()
 	self.Model:SetUnit("target")
@@ -100,6 +101,7 @@ function module.NPC:PlayerTalksFirst()
 	if InCombatLockdown() or not E.db.mui.misc.funstuff or not UnitExists("target") then
 		return
 	end
+
 	local timer = 0
 	self.Model:ClearModel()
 	self.Model:SetUnit("player")
