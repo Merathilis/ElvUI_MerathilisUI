@@ -114,7 +114,7 @@ function F.IsSkyriding()
 	end)
 end
 
-function F.CreateStyle(frame, useStripes, useShadow, useGradient)
+function F.CreateStyle(frame, useStripes, useGradient)
 	if not frame or frame.__MERStyle or frame.MERStyle then
 		return
 	end
@@ -141,18 +141,6 @@ function F.CreateStyle(frame, useStripes, useShadow, useGradient)
 		stripes:SetBlendMode("ADD")
 
 		holder.MERstripes = stripes
-	end
-
-	if not useShadow then
-		local mshadow = holder.mShadow
-			or holder:CreateTexture(holder:GetName() and holder:GetName() .. "Overlay" or nil, "BORDER")
-		mshadow:SetInside(holder)
-		mshadow:Width(33)
-		mshadow:Height(33)
-		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
-		mshadow:SetVertexColor(1, 1, 1, 0.6)
-
-		holder.mShadow = mshadow
 	end
 
 	if not useGradient then

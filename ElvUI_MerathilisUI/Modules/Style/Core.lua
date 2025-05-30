@@ -111,17 +111,12 @@ function module:ForceRefresh()
 	E:UpdateMediaItems(true)
 end
 
-local handled = {
-	Region = true,
-	Texture = true,
-	Cooldown = true,
-	ModelScene = true,
-	Slider = true,
-	ScrollFrame = true,
-}
-
 function module:MetatableScan()
 	self.MERStyle = {}
+
+	local handled = {
+		Frame = true,
+	}
 
 	local object = CreateFrame("Frame")
 	self:API(object)
@@ -183,6 +178,25 @@ function module:Enable()
 	self:ForceRefresh()
 end
 
+function module:SettingsUpdate()
+	if not self.Initialized then
+		return
+	end
+	if not self.isEnabled then
+		return
+	end
+
+	for frame, _ in pairs(self.MERStyle) do
+		if frame.MERStyle then
+			if self.db.enable then
+				-- frame:TXCreateSoftShadow(self.db.shadowSize, self.db.shadowAlpha)
+			else
+				frame.MERStyle:Hide()
+			end
+		end
+	end
+end
+
 function module:DatabaseUpdate()
 	self.db = F.GetDBFromPath("mui.style")
 
@@ -210,6 +224,9 @@ function module:Initialize()
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("module.DatabaseUpdate", self.DatabaseUpdate, self)
+	F.Event.RegisterCallback("module.SettingsUpdate", self.SettingsUpdate, self)
+
+	self.MERStyle = {}
 
 	self.Initialized = true
 end
