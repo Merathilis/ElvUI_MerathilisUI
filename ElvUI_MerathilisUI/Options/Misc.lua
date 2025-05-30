@@ -304,6 +304,9 @@ options.scale = {
 	order = 4,
 	type = "group",
 	name = L["Scale"],
+	hidden = function()
+		return not MER:HasRequirements(I.Requirements.AdditionalScaling)
+	end,
 	args = {
 		header = {
 			order = 0,

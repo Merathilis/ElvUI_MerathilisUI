@@ -13,7 +13,9 @@ function module:Blizzard_WeeklyRewards()
 	local header = frame.HeaderFrame
 
 	frame:StripTextures()
-	module:CreateShadow(frame)
+	if frame and not frame.backdrop then
+		frame:CreateBackdrop("Transparent")
+	end
 
 	header:StripTextures()
 	header:SetPoint("TOP", 1, -42)
