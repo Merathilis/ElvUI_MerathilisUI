@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER.Modules.Skins
 local S = E:GetModule("Skins")
+local M = MER:GetModule("MER_Misc")
 
 local _G = _G
 local strfind = strfind
@@ -136,7 +137,7 @@ function module:QuestFrame()
 	end
 	QuestFrame.FriendshipStatusBar.BarBorder:Hide()
 
-	MER.NPC:Register(QuestFrame, QuestFrameNpcNameText)
+	M.NPC:Register(QuestFrame, QuestFrameNpcNameText)
 end
 
 module:AddCallback("QuestFrame")

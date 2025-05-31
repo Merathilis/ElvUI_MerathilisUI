@@ -1,6 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
-local misc = MER:GetModule("MER_Misc")
+local M = MER:GetModule("MER_Misc")
 
 local _G = _G
 local select = select
@@ -97,7 +97,7 @@ function module:GossipFrame()
 		end
 	end
 
-	misc.NPC:Register(GossipFrame, GossipFrameTitleText)
+	M.NPC:Register(GossipFrame, GossipFrameTitleText)
 end
 
 module:AddCallback("GossipFrame")
