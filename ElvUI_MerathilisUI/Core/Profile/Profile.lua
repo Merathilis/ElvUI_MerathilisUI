@@ -635,6 +635,7 @@ P.misc = {
 		hideInCombat = true,
 		roleIconStyle = "MERATHILISUI",
 	},
+	petFilterTab = true,
 }
 
 P.nameHover = {

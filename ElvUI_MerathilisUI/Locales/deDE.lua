@@ -493,6 +493,9 @@ L["Evoker"] = "Rufer"
 L["Singing Sockets"] = "Singende Sockel"
 L["Adds a Singing sockets selection tool on the Socketing Frame."] =
 	"Fügt ein Auswahlwerkzeug für singende Sockel im Sockelfenster hinzu."
+L["Pet Filter Tab"] = "Haustier Filter Tab"
+L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."] =
+	"Fügt dem Haustierführer einen Filter-Tab hinzu, mit dem Du Haustiere nach ihrem Typ filtern kannst."
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"

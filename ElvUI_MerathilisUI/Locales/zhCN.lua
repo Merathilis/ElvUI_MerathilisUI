@@ -448,6 +448,8 @@ L["Deathknight"] = true
 L["Evoker"] = true
 L["Singing Sockets"] = true
 L["Adds a Singing sockets selection tool on the Socketing Frame."] = true
+L["Pet Filter Tab"] = true
+L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "

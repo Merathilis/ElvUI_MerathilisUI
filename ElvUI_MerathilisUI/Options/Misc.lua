@@ -81,13 +81,26 @@ options.general = {
 		focuser = {
 			order = 10,
 			type = "toggle",
-			name = E.NewSign .. L["SHIFT - Focus"],
+			name = L["SHIFT - Focus"],
 			desc = L["Hold SHIFT and click to set focus on the NamePlate."],
-			get = function(info)
+			get = function()
 				return E.db.mui.misc.focuser.enable
 			end,
-			set = function(info, value)
+			set = function(_, value)
 				E.db.mui.misc.focuser.enable = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+		},
+		petFilterTab = {
+			order = 11,
+			type = "toggle",
+			name = E.NewSign .. L["Pet Filter Tab"],
+			desc = L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."],
+			get = function()
+				return E.db.mui.misc.petFilterTab
+			end,
+			set = function(_, value)
+				E.db.mui.misc.petFilterTab = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
@@ -143,7 +156,7 @@ options.gameMenu = {
 				local t = E.db.mui.gameMenu[info[#info]]
 				t.r, t.g, t.b, t.a = r, g, b, a
 			end,
-			disabled = function()
+			hidden = function()
 				return not E.db.mui.gameMenu.enable
 			end,
 		},

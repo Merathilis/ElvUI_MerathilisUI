@@ -80,9 +80,10 @@ function module:PetTabs_Load(addon)
 end
 
 function module:PetFilterTab()
-	-- if not C.db["Misc"]["PetFilter"] then
-	-- return
-	-- end
+	self.db = F.GetDBFromPath("mui.misc.petFilterTab")
+	if not self.db then
+		return
+	end
 
 	if C_AddOns_IsAddOnLoaded("Blizzard_Collections") then
 		module:PetTabs_Create()

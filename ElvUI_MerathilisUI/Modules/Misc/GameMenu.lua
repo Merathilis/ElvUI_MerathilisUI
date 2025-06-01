@@ -49,6 +49,8 @@ MER.NPCS = {
 local Sequences = { 26, 52, 69, 111, 225 }
 
 function module:GameMenu_OnShow()
+	local db = F.GetDBFromPath("mui.gameMenu")
+
 	local iconsDb = E.db.mui.armory.icons
 	local guildName = GetGuildInfo("player")
 
@@ -84,8 +86,8 @@ function module:GameMenu_OnShow()
 	mainFrame.bg:SetAllPoints(mainFrame)
 	mainFrame.bg:SetTexture(I.Media.Textures.Clean)
 
-	local bgColor = module.db.bgColor
-	local alpha = module.db.bgColor.a
+	local bgColor = db.bgColor
+	local alpha = db.bgColor.a
 	mainFrame.bg:SetVertexColor(bgColor.r, bgColor.g, bgColor.b, alpha)
 
 	local bottomPanel = CreateFrame("Frame", nil, mainFrame, "BackdropTemplate")
@@ -170,7 +172,7 @@ function module:GameMenu_OnShow()
 	topTextHolderLeft:Height(E.screenHeight * (1 / 4) - 20)
 	self.topTextHolderLeft = topTextHolderLeft
 
-	if module.db and module.db.showCollections then
+	if db and db.showCollections then
 		collections = topTextHolderLeft:CreateFontString(nil, "ARTWORK")
 		collections:Point("TOPLEFT", topTextHolderLeft, outerSpacing, outerSpacing)
 		collections:FontTemplate(nil, 24, "SHADOWOUTLINE")
@@ -230,7 +232,7 @@ function module:GameMenu_OnShow()
 		end
 	end
 
-	if module.db and module.db.showWeeklyDevles and currentKeys > 0 then
+	if db and db.showWeeklyDevles and currentKeys > 0 then
 		delves = topTextHolderRight:CreateFontString(nil, "ARTWORK")
 		delves:FontTemplate(nil, 24, "SHADOWOUTLINE")
 		delves:Point("TOPRIGHT", topTextHolderRight, -outerSpacing, outerSpacing)
@@ -258,7 +260,7 @@ function module:GameMenu_OnShow()
 	bottomTextHolderLeft:Height(E.screenHeight * (1 / 4) - 20)
 	self.bottomTextHolderLeft = bottomTextHolderLeft
 
-	if module.db and module.db.showMythicKey and UnitLevel("player") >= I.MaxLevelTable[MER.MetaFlavor] then
+	if db and db.showMythicKey and UnitLevel("player") >= I.MaxLevelTable[MER.MetaFlavor] then
 		mythic = bottomTextHolderLeft:CreateFontString(nil, "OVERLAY")
 		mythic:FontTemplate(nil, 24, "SHADOWOUTLINE")
 		mythic:Point("TOPLEFT", bottomTextHolderLeft, outerSpacing, -outerSpacing * 1.5)
@@ -270,7 +272,7 @@ function module:GameMenu_OnShow()
 		mythic.keystone:Point("TOPLEFT", mythic, "BOTTOMLEFT", 0, m(-6))
 		mythic.keystone:SetTextColor(1, 1, 1, 1)
 
-		if module.db.showMythicScore then
+		if db.showMythicScore then
 			mythic.score = bottomTextHolderLeft:CreateFontString(nil, "OVERLAY")
 			mythic.score:FontTemplate(nil, 16, "SHADOWOUTLINE")
 			mythic.score:Point("TOPLEFT", mythic.keystone, "BOTTOMLEFT", 0, m(-1))
@@ -281,7 +283,7 @@ function module:GameMenu_OnShow()
 		mythic.latestRuns:FontTemplate(nil, 16, "SHADOWOUTLINE")
 		mythic.latestRuns:Point(
 			"TOPLEFT",
-			module.db.showMythicScore and mythic.score or mythic.keystone,
+			db.showMythicScore and mythic.score or mythic.keystone,
 			"BOTTOMLEFT",
 			0,
 			m(-4)
@@ -386,7 +388,7 @@ function module:GameMenu_OnShow()
 
 		-- Update Mythic+ score
 		do
-			if module.db.showMythicScore then
+			if db.showMythicScore then
 				local info = C_PlayerInfo_GetPlayerMythicPlusRatingSummary("player")
 				if info and info.currentSeasonScore then
 					local prefix = L["M+ Score: "]
@@ -404,7 +406,7 @@ function module:GameMenu_OnShow()
 		-- Update M+ history
 		do
 			local history = C_MythicPlus_GetRunHistory(false, true)
-			local historyLimit = module.db.mythicHistoryLimit
+			local historyLimit = db.mythicHistoryLimit
 			for i = 1, 10 do
 				local historyFrame = mythic["history" .. i]
 				if historyFrame then
@@ -440,7 +442,8 @@ function module:GameMenu_OnHide()
 end
 
 function module:GameMenu()
-	module.db = E.db.mui.gameMenu
+	module.db = F.GetDBFromPath("mui.gameMenu")
+
 	if not MER:HasRequirements(I.Requirements.GameMenu) or not module.db or not module.db.enable then
 		return
 	end
