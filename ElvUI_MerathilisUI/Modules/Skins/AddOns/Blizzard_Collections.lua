@@ -9,6 +9,24 @@ function module:Blizzard_Collections()
 	end
 
 	local CollectionsJournal = _G.CollectionsJournal
+	local PetJournal = _G.PetJournal
+
+	_G.PetJournalLoadoutBorderSlotHeaderText:SetParent(PetJournal)
+	_G.PetJournalLoadoutBorderSlotHeaderText:SetPoint("CENTER", _G.PetJournalLoadoutBorderTop, "TOP", 0, 4)
+
+	for i = 1, 3 do
+		local bu = PetJournal.Loadout["Pet" .. i]
+		if bu and not bu.backdrop then
+			bu:CreateBackdrop("Transparent")
+		end
+	end
+
+	hooksecurefunc("PetJournal_UpdatePetLoadOut", function()
+		for i = 1, 3 do
+			local bu = PetJournal.Loadout["Pet" .. i]
+			bu.backdrop:SetShown(not bu.helpFrame:IsShown())
+		end
+	end)
 end
 
 module:AddCallbackForAddon("Blizzard_Collections")

@@ -1038,8 +1038,8 @@ function F.PixelIcon(self, texture, highlight)
 		return
 	end
 
-	self.bg = S:CreateBDFrame(self)
-	self.bg:SetAllPoints()
+	self:CreateBackdrop()
+	self.backdrop:SetAllPoints()
 
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
 	self.Icon:Point("TOPLEFT", E.mult, -E.mult)
@@ -1060,6 +1060,10 @@ function F.PixelIcon(self, texture, highlight)
 		self.HL:SetColorTexture(1, 1, 1, 0.25)
 		self.HL:SetAllPoints(self.Icon)
 	end
+end
+
+function F:SetBorderColor()
+	self:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
 -- Role Icons

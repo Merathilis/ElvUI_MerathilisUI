@@ -662,10 +662,9 @@ function module:MailItem_AddDelete(i)
 	local bu = CreateFrame("Button", nil, self)
 	bu:SetPoint("BOTTOMRIGHT", self:GetParent(), "BOTTOMRIGHT", -10, 5)
 	bu:SetSize(16, 16)
-	--F.PixelIcon(bu, 136813, true)
+
 	local icon = bu:CreateTexture(nil, "ARTWORK")
 	icon:SetInside()
-
 	icon:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-NotReady")
 
 	bu.id = i

@@ -787,7 +787,7 @@ function S:UpdateRecapButton()
 end
 
 function module:SetBorderColor()
-	self:SetBackdropBorderColor(0, 0, 0)
+	self:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
 --[[----------------------------------
