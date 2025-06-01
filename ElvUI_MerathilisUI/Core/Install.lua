@@ -2781,7 +2781,7 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please press the continue button to go onto the next step."])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
-				InstallComplete()
+				InstallComplete(true)
 			end)
 			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
