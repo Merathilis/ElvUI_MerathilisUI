@@ -116,6 +116,7 @@ function module:MetatableScan()
 
 	local handled = {
 		Frame = true,
+		Button = true,
 	}
 
 	local object = CreateFrame("Frame")
