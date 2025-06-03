@@ -7,8 +7,8 @@ MER.Changelog[665] = {
 	},
 	NEW = {
 		"[Install]: BREAKING CHANGE: You have to run the Install to show my options!",
-		"[Pet Filter Tab]: Added a new tabs for pet filter settings, allowing users to customize pet-related filters more easily.",
-		"[Raid Info Frame]: Added a simple Frame which shows the current raid roles and the number of players in each role.",
+		"[Pet Filter Tab]: Added a new tabs for pet filter settings, allowing users to customize pet-related filters more easily",
+		"[Raid Info Frame]: Added a simple Frame which shows the current raid roles and the number of players in each role",
 	},
 	IMPROVEMENTS = {
 		"[Enhanced NamePlate Auras]: Enhance Code a bit",

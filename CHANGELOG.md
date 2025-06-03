@@ -1,9 +1,10 @@
 ### Changes ###
 
-  * [Notification]: Fixed full bag notification
-  * [Focuser]: Added new option to shift+click a unit to set them as your focus
-  * [Misc]: Added back old ElvUI Role Icons
-  * [RBReminder]: Added more food, rune ids. Thanks @vociferoy from Discord
-  * [AutoButtons]: Added more food and flask ids
-  * [GameMenu]: Show Mythic+ infos on the GameMenu by default again
-  * [Installer]: Some minor changes to the installer
+  * [Install]: BREAKING CHANGE: You have to run the Install to show my options!
+  * [Notification]: Added the missing option for the Full Bag Alert
+  * [Pet Filter Tab]: Added a new tabs for pet filter settings, allowing users to customize pet-related filters more easily
+  * [Raid Info Frame]: Added a simple Frame which shows the current raid roles and the number of players in each role
+  * [Enhanced NamePlate Auras]: Enhance Code a bit
+  * [Game Menu]: Move the Game Menu Options to Misc
+  * [Auto Buttons]: Added more openable/usable Items
+  * [Core]: Small code improvements and optimizations
