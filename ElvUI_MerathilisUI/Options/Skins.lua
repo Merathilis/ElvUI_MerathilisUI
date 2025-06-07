@@ -33,6 +33,7 @@ local DecorAddons = {
 	{ "ProjectAzilroka", L["ProjectAzilroka"], "pa" },
 	{ "PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf" },
 	{ "RaiderIO", L["RaiderIO"], "rio" },
+	{ "Rematch", L["Rematch"], "rem" },
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "TLDRMissions", L["TLDRMissions"], "tldr" },

@@ -23,6 +23,7 @@
 	<Script file="Pawn.lua"/>
 	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="RaiderIO.lua"/>
+	<Script file="Rematch.lua"/>
 	<Script file="SimpleAddonManager.lua"/>
 	<Script file="stAddOnManager.lua"/>
 	<Script file="TomTom.lua"/>

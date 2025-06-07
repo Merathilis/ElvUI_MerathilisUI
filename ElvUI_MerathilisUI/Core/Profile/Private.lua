@@ -340,6 +340,7 @@ V.skins = {
 		mdt = true,
 		tom = true,
 		cap = true,
+		rem = true,
 		bw = {
 			enable = true,
 			queueTimer = {
