@@ -6,43 +6,10 @@ local TT = E:GetModule("Tooltip")
 local _G = _G
 local select, pairs, unpack = select, pairs, unpack
 
-local icons = {
-	Locked = { 0, 0.5, 0, 0.25 },
-	Unlocked = { 0.5, 1, 0, 0.25 },
-	Minimized = { 0, 0.5, 0.25, 0.5 },
-	Maximized = { 0.5, 1, 0.25, 0.5 },
-	SinglePanel = { 0, 0.5, 0.5, 0.75 },
-	DualPanel = { 0.5, 1, 0.5, 0.75 },
-	Pinned = { 0, 0.5, 0.75, 1 },
-}
-
-function module:SetButtonIcon(button, icon)
-	if not button.MERRematchSkinIcon then
-		button.MERRematchSkinIcon = button:CreateTexture(nil, "ARTWORK")
-		button.MERRematchSkinIcon:SetPoint("TOPLEFT", button, "TOPLEFT", 10, -10)
-		button.MERRematchSkinIcon:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -10, 10)
-		button.MERRematchSkinIcon:SetTexture("Interface\\AddOns\\RematchElvUISkin\\icons.tga")
-		button:HookScript("OnEnter", function(self)
-			button.MERRematchSkinIcon:SetVertexColor(1, 0.48235, 0.17255)
-		end)
-		button:HookScript("OnLeave", function(self)
-			button.MERRematchSkinIcon:SetVertexColor(0.9, 0.9, 0.9)
-		end)
-		button.MERRematchSkinIcon:SetVertexColor(0.9, 0.9, 0.9)
-	end
-	if icons[icon] then
-		button.MERRematchSkinIcon:SetTexCoord(unpack(icons[icon]))
-		button.MERRematchSkinIcon:SetAlpha(1)
-		if button.Texture then
-			button.Texture:SetAlpha(0)
-		end
-	end
-end
-
 function module:RematchFilter()
 	self:StripTextures()
 	S:HandleButton(self)
-	-- module:SetupArrow(self.Arrow, "right")
+	module.SetupArrow(self.Arrow, "right")
 	self.Arrow:ClearAllPoints()
 	self.Arrow:SetPoint("RIGHT")
 	self.Arrow.SetPoint = E.noop
@@ -56,8 +23,6 @@ function module:RematchButton()
 
 	self:StripTextures()
 	S:HandleButton(self)
-	-- self:DisableDrawLayer("BACKGROUND")
-	-- self:DisableDrawLayer("BORDER")
 
 	self.isSkinned = true
 end
@@ -72,6 +37,7 @@ function module:RematchIcon()
 	end
 	if self.Icon then
 		S:HandleIcon(self.Icon, true)
+		S:HandleIconBorder(self.Border, self.Icon.backdrop)
 	end
 	if self.Level then
 		if self.Level.BG then
@@ -177,6 +143,7 @@ function module:RematchLockButton(button)
 	button:CreateBackdrop("Transparent")
 	local bg = self.backdrop
 	bg:SetInside(7, 7)
+	module:SetButtonIcon(button, "Locked")
 end
 
 local function updateCollapseTexture(button, isExpanded)
@@ -251,8 +218,9 @@ local function handleList(self)
 
 			local icon = button.icon or button.Icon
 			local savedIconTexture = icon:GetTexture()
-			-- icon:Size(40)
-			-- icon:Point("LEFT", -43, 0)
+			icon:Size(39)
+			icon:ClearAllPoints()
+			icon:Point("LEFT", button, "LEFT", 4, 0)
 			S:HandleIcon(icon, true)
 			S:HandleIconBorder(button.Border, icon.backdrop)
 
@@ -262,9 +230,9 @@ local function handleList(self)
 			button:StripTextures()
 			button:CreateBackdrop("Transparent", nil, nil, true)
 			button.backdrop:ClearAllPoints()
-			button.backdrop:Point("TOPLEFT", button, 0, -2)
-			button.backdrop:Point("BOTTOMRIGHT", button, 0, 2)
-			icon:SetTexture(savedIconTexture) -- restore the texture
+			button.backdrop:Point("TOPLEFT", button, 47, -1)
+			button.backdrop:Point("BOTTOMRIGHT", button, 0, 1)
+			icon:SetTexture(savedIconTexture)
 
 			button:HookScript("OnEnter", buttonOnEnter)
 			button:HookScript("OnLeave", buttonOnLeave)
