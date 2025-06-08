@@ -41,8 +41,9 @@ function module:Configure_RestingIndicator(frame)
 		end
 
 		frame.RestingIndicator.Holder:ClearAllPoints()
+		frame.RestingIndicator.Holder:SetParent(frame)
 		frame.RestingIndicator.Holder:Point("CENTER", frame.RestingIndicator, "CENTER", 0, 0)
-		frame.RestingIndicator.Holder:SetFrameStrata("MEDIUM")
+		frame.RestingIndicator.Holder:SetFrameLevel(frame:GetFrameLevel() + 50)
 		frame.RestingIndicator.Holder:SetScale(E.db.unitframe.units.player.RestIcon.size / 15)
 
 		hooksecurefunc(frame.RestingIndicator, "PostUpdate", function()
@@ -63,39 +64,6 @@ function module:Configure_RestingIndicator(frame)
 				_G["MER_PlayerRestLoopRestTexture"].Gradient = true
 			end
 		end)
-
-		hooksecurefunc(frame, "SetAlpha", function(_, alpha)
-			frame.RestingIndicator.Holder:SetAlpha(alpha)
-		end)
-
-		frame.RestingIndicator.Holder:RegisterEvent("CINEMATIC_STOP")
-		frame.RestingIndicator.Holder:RegisterEvent("CINEMATIC_START")
-		local cinematiccheck = false
-		frame.RestingIndicator.Holder:SetScript("OnEvent", function(_, event)
-			if event == "CINEMATIC_START" then
-				frame.RestingIndicator.Holder:SetAlpha(0) --cant use hide or show or it crashes too
-				cinematiccheck = frame.RestingIndicator.Holder:IsShown()
-			else
-				if cinematiccheck then
-					frame.RestingIndicator.Holder:SetAlpha(1)
-				end
-			end
-		end)
-
-		if _G.ElvUIAFKFrame then
-			_G.ElvUIAFKFrame:HookScript("OnShow", function()
-				E:Delay(0.05, function()
-					frame.RestingIndicator.Holder:SetAlpha(0)
-				end)
-			end)
-			_G.ElvUIAFKFrame:HookScript("OnHide", function()
-				E:Delay(0.05, function()
-					if IsResting() and _G["ElvUF_Player"] and _G["ElvUF_Player"]:GetAlpha() == 1 then
-						frame.RestingIndicator.Holder:SetAlpha(1)
-					end
-				end)
-			end)
-		end
 
 		frame.RestingIndicator.MERHook = true
 	end
