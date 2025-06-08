@@ -96,17 +96,26 @@ function module:RematchDropdown()
 	module:ReskinArrow(arrow, "down")
 end
 
-function module:RematchXP()
-	self:StripTextures()
-	self:SetTexture(E.media.normTex)
-	self:CreateBackdrop("Transparent")
+function module:RematchXP(bar) -- Fix me
+	if not bar or bar.isSkinned then
+		return
+	end
+
+	bar:StripTextures()
+	bar:CreateBackdrop("Transparent")
+	bar:SetTexture(E.media.normTex)
+	E:RegisterStatusBar(bar)
+
+	bar.isSkinned = true
 end
 
 function module:RematchCard()
 	self:HideBackdrop()
+
 	if self.Source then
 		self.Source:StripTextures()
 	end
+
 	self.Middle:StripTextures()
 	self.Middle:CreateBackdrop("Transparent")
 	if self.Middle.XP then
@@ -119,23 +128,15 @@ function module:RematchCard()
 		self.Bottom.BottomBG:Hide()
 	end
 	self.Bottom:CreateBackdrop("Transparent")
-	self.Bottom.backdrop:SetPoint("TOPLEFT", -E.mult, -3)
+	self.Bottom.backdrop:Point("TOPLEFT", -E.mult, -3)
 end
 
 function module:RematchInset()
 	self:StripTextures()
 	self:CreateBackdrop("Transparent")
 	local bg = self.backdrop
-	bg:SetPoint("TOPLEFT", 3, 0)
-	bg:SetPoint("BOTTOMRIGHT", -3, 0)
-end
-
-local function buttonOnEnter(self)
-	self.bg:SetBackdropColor(F.r, F.g, F.b, 0.25)
-end
-
-local function buttonOnLeave(self)
-	self.bg:SetBackdropColor(0, 0, 0, 0.25)
+	bg:Point("TOPLEFT", 3, 0)
+	bg:Point("BOTTOMRIGHT", -3, 0)
 end
 
 function module:RematchLockButton(button)
@@ -143,7 +144,6 @@ function module:RematchLockButton(button)
 	button:CreateBackdrop("Transparent")
 	local bg = self.backdrop
 	bg:SetInside(7, 7)
-	module:SetButtonIcon(button, "Locked")
 end
 
 local function updateCollapseTexture(button, isExpanded)
