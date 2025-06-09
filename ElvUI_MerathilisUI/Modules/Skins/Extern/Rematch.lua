@@ -35,10 +35,12 @@ function module:RematchIcon()
 	if self.Border then
 		self.Border:SetAlpha(0)
 	end
+
 	if self.Icon then
 		S:HandleIcon(self.Icon, true)
 		S:HandleIconBorder(self.Border, self.Icon.backdrop)
 	end
+
 	if self.Level then
 		if self.Level.BG then
 			self.Level.BG:Hide()
@@ -47,6 +49,7 @@ function module:RematchIcon()
 			self.Level.Text:SetTextColor(1, 1, 1)
 		end
 	end
+
 	if self.GetCheckedTexture then
 		self:SetCheckedTexture("Interface\\Buttons\\CheckButtonHilight")
 	end
@@ -142,7 +145,7 @@ end
 function module:RematchLockButton(button)
 	button:StripTextures()
 	button:CreateBackdrop("Transparent")
-	local bg = self.backdrop
+	local bg = button.backdrop
 	bg:SetInside(7, 7)
 end
 
@@ -278,7 +281,8 @@ function module:ReskinRematchElements()
 	end
 
 	toolbar:StripTextures()
-	module.RematchButton(toolbar.TotalsButton)
+	toolbar.TotalsButton:StripTextures()
+	toolbar.TotalsButton:CreateBackdrop("Transparent")
 
 	for _, name in pairs({ "SummonButton", "SaveButton", "SaveAsButton", "FindBattleButton" }) do
 		local button = _G.Rematch.bottombar[name]
@@ -320,6 +324,10 @@ function module:ReskinRematchElements()
 	local target = _G.Rematch.loadedTargetPanel
 	target:StripTextures()
 	target:CreateBackdrop("Transparent")
+	S:HandleButton(target.SmallSaveButton)
+	S:HandleButton(target.SmallTeamsButton)
+	S:HandleButton(target.SmallRandomButton)
+	S:HandleButton(target.MediumLoadButton)
 	module.RematchButton(target.BigLoadSaveButton)
 
 	-- Teams
@@ -375,7 +383,7 @@ function module:ReskinRematchElements()
 	end
 
 	-- RematchPetCard
-	local petCard = _G.RematchPetCard
+	local petCard = RematchPetCard
 	petCard:StripTextures()
 	S:HandleCloseButton(petCard.CloseButton)
 	petCard.Title:StripTextures()
@@ -389,20 +397,20 @@ function module:ReskinRematchElements()
 	module.RematchCard(petCard.Back)
 
 	for i = 1, 6 do
-		local button = _G.RematchPetCard.Front.Bottom.Abilities[i]
+		local button = RematchPetCard.Front.Bottom.Abilities[i]
 		button.IconBorder:Hide()
 		select(8, button:GetRegions()):SetTexture(nil)
 		S:HandleIcon(button.Icon)
 	end
 
 	-- RematchAbilityCard
-	local abilityCard = _G.RematchAbilityCard
+	local abilityCard = RematchAbilityCard
 	abilityCard:StripTextures()
 	abilityCard:CreateBackdrop("Transparent")
 	abilityCard.Hints.HintsBG:Hide()
 
 	-- RematchWinRecordCard
-	local card = _G.RematchWinRecordCard
+	local card = RematchWinRecordCard
 	card:StripTextures()
 	S:HandleClose(card.CloseButton)
 	card.Content:StripTextures()
@@ -410,8 +418,7 @@ function module:ReskinRematchElements()
 	bg = card.Content.backdrop
 	bg:SetPoint("TOPLEFT", 2, -2)
 	bg:SetPoint("BOTTOMRIGHT", -2, 2)
-	-- local bg = B.SetBD(card.Content)
-	-- bg:SetAllPoints(card)
+
 	for _, result in pairs({ "Wins", "Losses", "Draws" }) do
 		module.RematchInput(card.Content[result].EditBox)
 		card.Content[result].Add.IconBorder:Hide()
@@ -421,7 +428,7 @@ function module:ReskinRematchElements()
 	S:HandleButton(card.Controls.CancelButton)
 
 	-- RematchDialog
-	local dialog = _G.RematchDialog
+	local dialog = RematchDialog
 	dialog:StripTextures()
 	dialog:CreateBackdrop("Transparent")
 	S:HandleCloseButton(dialog.CloseButton)
@@ -548,32 +555,39 @@ function module:Rematch()
 		journal.isSkinned = true
 	end)
 
-	hooksecurefunc(_G.RematchNotesCard, "Update", function(self)
-		if self.isSkinned then
+	hooksecurefunc(RematchNotesCard, "Update", function(card)
+		if not card or card.isSkinned then
 			return
 		end
 
-		self:StripTextures()
-		S:HandleCloseButton(self.CloseButton)
-		module:RematchLockButton(self.LockButton)
-		self.LockButton:SetPoint("TOPLEFT")
+		card:StripTextures()
+		card:CreateBackdrop("Transparent")
+		S:HandleCloseButton(card.CloseButton)
+		module:RematchLockButton(card.LockButton)
+		card.LockButton:SetPoint("TOPLEFT")
 
-		local content = self.Content
+		local content = card.Content
 		S:HandleScrollBar(content.ScrollFrame.ScrollBar)
-		content.ScrollFrame:CreateBafkdrop("Transparent")
+		content.ScrollFrame:CreateBackdrop("Transparent")
 		local bg = content.ScrollFrame.backdrop
 		bg:SetPoint("TOPLEFT", 0, 5)
 		bg:SetPoint("BOTTOMRIGHT", 0, -2)
 
-		module.RematchButton(self.Content.Bottom.DeleteButton)
-		module.RematchButton(self.Content.Bottom.UndoButton)
-		module.RematchButton(self.Content.Bottom.SaveButton)
+		if card.Content.Bottom.DeleteButton then
+			S:HandleButton(card.Content.Bottom.DeleteButton)
+		end
+		if card.Content.Bottom.UndoButton then
+			S:HandleButton(card.Content.Bottom.UndoButton)
+		end
+		if card.Content.Bottom.SaveButton then
+			S:HandleButton(card.Content.Bottom.SaveButton)
+		end
 
-		self.isSkinned = true
+		card.isSkinned = true
 	end)
 
 	local loadoutBG
-	hooksecurefunc(_G.Rematch.loadoutPanel, "Update", function(self)
+	hooksecurefunc(Rematch.loadoutPanel, "Update", function(self)
 		if not self then
 			return
 		end
