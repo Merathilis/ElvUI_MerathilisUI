@@ -21,8 +21,9 @@ function module:RematchButton()
 		return
 	end
 
-	self:StripTextures()
 	S:HandleButton(self)
+	self:DisableDrawLayer("BACKGROUND")
+	self:DisableDrawLayer("BORDER")
 
 	self.isSkinned = true
 end
@@ -59,7 +60,6 @@ end
 
 function module:RematchInput()
 	self:DisableDrawLayer("BACKGROUND")
-	-- self:HideBackdrop()
 
 	self:CreateBackdrop()
 	self.backdrop:SetPoint("TOPLEFT", 2, 0)
@@ -227,9 +227,6 @@ local function handleList(self)
 			S:HandleIcon(icon, true)
 			S:HandleIconBorder(button.Border, icon.backdrop)
 
-			local savedPetTypeTexture = button.petTypeIcon and button.petTypeIcon:GetTexture()
-			local savedFactionAtlas = button.factionIcon and button.factionIcon:GetAtlas()
-
 			button:StripTextures()
 			button:CreateBackdrop("Transparent", nil, nil, true)
 			button.backdrop:ClearAllPoints()
@@ -287,7 +284,7 @@ function module:ReskinRematchElements()
 	for _, name in pairs({ "SummonButton", "SaveButton", "SaveAsButton", "FindBattleButton" }) do
 		local button = _G.Rematch.bottombar[name]
 		if button then
-			module.RematchButton(button)
+			S:HandleButton(button)
 		end
 	end
 
@@ -307,29 +304,6 @@ function module:ReskinRematchElements()
 	module.RematchScroll(petsPanel.List)
 	module.RematchPetList(petsPanel.List)
 
-	-- RematchLoadedTeamPanel
-	local loadoutPanel = _G.Rematch.loadoutPanel
-	loadoutPanel:StripTextures()
-	loadoutPanel:CreateBackdrop("Transparent")
-	bg = loadoutPanel.backdrop
-	bg:SetBackdropColor(1, 0.8, 0, 0.1)
-	bg:SetPoint("TOPLEFT", -E.mult, -E.mult)
-	bg:SetPoint("BOTTOMRIGHT", E.mult, E.mult)
-
-	module.RematchButton(_G.Rematch.loadedTeamPanel.TeamButton)
-	_G.Rematch.loadedTeamPanel.NotesFrame:StripTextures()
-	module.RematchButton(_G.Rematch.loadedTeamPanel.NotesFrame.NotesButton)
-
-	-- RematchLoadoutPanel
-	local target = _G.Rematch.loadedTargetPanel
-	target:StripTextures()
-	target:CreateBackdrop("Transparent")
-	S:HandleButton(target.SmallSaveButton)
-	S:HandleButton(target.SmallTeamsButton)
-	S:HandleButton(target.SmallRandomButton)
-	S:HandleButton(target.MediumLoadButton)
-	module.RematchButton(target.BigLoadSaveButton)
-
 	-- Teams
 	local team = _G.Rematch.teamsPanel
 	team.Top:StripTextures()
@@ -338,6 +312,23 @@ function module:ReskinRematchElements()
 	module.RematchScroll(team.List)
 	module.RematchCollapse(team.Top.AllButton)
 	module.RematchHeaders(team.List)
+
+	local function skinList(...)
+		local _, element
+		if _G.select("#", ...) == 2 then
+			element, _ = ...
+		else
+			_, element, _ = ...
+		end
+		if element.teamID then
+			element.Back:SetTexture(nil)
+			element.Back:CreateBackdrop("Transparent")
+			element.Back.backdrop:SetAllPoints()
+
+			element.Border:SetTexture(nil)
+		end
+	end
+	_G.ScrollUtil.AddInitializedFrameCallback(team.List.ScrollBox, skinList)
 
 	-- Targets
 	local targets = _G.Rematch.targetsPanel
@@ -427,66 +418,6 @@ function module:ReskinRematchElements()
 	S:HandleButton(card.Controls.SaveButton)
 	S:HandleButton(card.Controls.CancelButton)
 
-	-- RematchDialog
-	local dialog = RematchDialog
-	dialog:StripTextures()
-	dialog:CreateBackdrop("Transparent")
-	S:HandleCloseButton(dialog.CloseButton)
-
-	module.RematchIcon(dialog.Slot)
-	module.RematchInput(dialog.EditBox)
-	dialog.Prompt:StripTextures()
-	S:HandleButton(dialog.Accept)
-	S:HandleButton(dialog.Cancel)
-	S:HandleButton(dialog.Other)
-	S:HandleCheckBox(dialog.CheckButton)
-	module.RematchInput(dialog.SaveAs.Name)
-	module.RematchInput(dialog.Send.EditBox)
-	module.RematchDropdown(dialog.SaveAs.Target)
-	module.RematchDropdown(dialog.TabPicker)
-	module.RematchIcon(dialog.Pet.Pet)
-	S:HandleRadioButton(dialog.ConflictRadios.MakeUnique)
-	S:HandleRadioButton(dialog.ConflictRadios.Overwrite)
-
-	local preferences = dialog.Preferences
-	module.RematchInput(preferences.MinHP)
-	S:HandleCheckBox(preferences.AllowMM)
-	module.RematchInput(preferences.MaxHP)
-	module.RematchInput(preferences.MinXP)
-	module.RematchInput(preferences.MaxXP)
-
-	local iconPicker = dialog.TeamTabIconPicker
-	S:HandleScrollBar(iconPicker.ScrollFrame.ScrollBar)
-	iconPicker:StripTextures()
-	iconPicker:CreateBackdrop("Transparent")
-	module.RematchInput(iconPicker.SearchBox)
-
-	S:HandleScrollBar(dialog.MultiLine.ScrollBar)
-	select(2, dialog.MultiLine:GetChildren()):HideBackdrop()
-	dialog.MultiLine:CreateBackdrop("Transparent")
-	bg = dialog.MultiLine.backdrop
-	bg:SetPoint("TOPLEFT", -5, 5)
-	bg:SetPoint("BOTTOMRIGHT", 5, -5)
-	S:HandleCheckBox(dialog.ShareIncludes.IncludePreferences)
-	S:HandleCheckBox(dialog.ShareIncludes.IncludeNotes)
-
-	local report = dialog.CollectionReport
-	module.RematchDropdown(report.ChartTypeComboBox)
-	report.Chart:StripTextures()
-	report.Chart:CreateBackdrop("Transparent")
-	bg = report.Chart.backdrop
-	bg:SetPoint("TOPLEFT", -E.mult, -3)
-	bg:SetPoint("BOTTOMRIGHT", E.mult, 2)
-	S:HandleRadioButton(report.ChartTypesRadioButton)
-	S:HandleRadioButton(report.ChartSourcesRadioButton)
-
-	local border = report.RarityBarBorder
-	border:Hide()
-	border:CreateBackdrop("Transparent")
-	bg = border.backdrop
-	bg:SetPoint("TOPLEFT", border, 6, -5)
-	bg:SetPoint("BOTTOMRIGHT", border, -6, 5)
-
 	isSkinned = true
 end
 
@@ -527,6 +458,86 @@ function module:OnShow()
 
 	frame.isSkinned = true
 end
+
+function module:RematchDialog_OnShow()
+	if self.isSkinned then
+		return
+	end
+
+	self:StripTextures()
+	self:CreateBackdrop("Transparent")
+	self.backdrop:SetAllPoints()
+	S:HandleCloseButton(self.CloseButton)
+
+	self.Prompt:StripTextures()
+	if self.AcceptButton then
+		S:HandleButton(self.AcceptButton)
+	end
+	if self.CancelButton then
+		S:HandleButton(self.CancelButton)
+	end
+	if self.OtherButton then
+		S:HandleButton(self.OtherButton)
+	end
+
+	self.Canvas.TeamPicker.Lister.Top.Back:SetTexture(nil)
+
+	if self.Canvas.TeamPicker.Lister.Top.AddButton then
+		S:HandleButton(self.Canvas.TeamPicker.Lister.Top.AddButton)
+	end
+	if self.Canvas.TeamPicker.Lister.Top.DeleteButton then
+		S:HandleButton(self.Canvas.TeamPicker.Lister.Top.DeleteButton)
+	end
+	if self.Canvas.TeamPicker.Lister.Top.UpButton then
+		S:HandleButton(self.Canvas.TeamPicker.Lister.Top.UpButton)
+	end
+	if self.Canvas.TeamPicker.Lister.Top.DownButton then
+		S:HandleButton(self.Canvas.TeamPicker.Lister.Top.DownButton)
+	end
+
+	if self.Canvas.TeamPicker.Picker.Top.AllButton then
+		S:HandleButton(self.Canvas.TeamPicker.Picker.Top.AllButton)
+	end
+
+	self.isSkinned = true
+end
+
+function module:RematchLoadoutPanel_OnShow()
+	if self.isSkinned then
+		return
+	end
+
+	self.InsetBack:SetTexture(nil)
+	self:StripTextures()
+	self:CreateBackdrop("Transparent")
+	S:HandleButton(self.AllyTeam.PrevTeamButton)
+	S:HandleButton(self.AllyTeam.NextTeamButton)
+	S:HandleButton(self.SmallSaveButton)
+	S:HandleButton(self.SmallTeamsButton)
+	S:HandleButton(self.SmallRandomButton)
+	S:HandleButton(self.MediumLoadButton)
+	S:HandleButton(self.BigLoadSaveButton)
+
+	self.isSkinned = true
+end
+
+function module:RematchLoadedTeamPanel_OnShow()
+	if self.isSkinned then
+		return
+	end
+
+	-- RematchLoadedTeamPanel
+	self:StripTextures()
+	self:CreateBackdrop("Transparent")
+	self.backdrop:SetBackdropColor(1, 0.8, 0, 0.1)
+	self.backdrop:SetPoint("TOPLEFT", -E.mult, -E.mult)
+	self.backdrop:SetPoint("BOTTOMRIGHT", E.mult, E.mult)
+
+	module.RematchButton(self.TeamButton)
+	self.NotesFrame:StripTextures()
+	module.RematchButton(self.NotesFrame.NotesButton)
+end
+
 function module:Rematch()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.rem then
 		return
@@ -544,6 +555,10 @@ function module:Rematch()
 
 	frame:HookScript("OnShow", module.OnShow)
 	module:ReskinRematchElements()
+
+	self:SecureHookScript(_G.RematchDialog, "OnShow", module.RematchDialog_OnShow)
+	self:SecureHookScript(_G.Rematch.loadedTargetPanel, "OnShow", module.RematchLoadoutPanel_OnShow)
+	self:SecureHookScript(_G.Rematch.loadedTeamPanel, "OnShow", module.RematchLoadedTeamPanel_OnShow)
 
 	local journal = _G.Rematch.journal
 	hooksecurefunc(journal, "PetJournalOnShow", function()
