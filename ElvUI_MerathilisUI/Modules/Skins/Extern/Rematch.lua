@@ -143,10 +143,13 @@ function module:RematchInset()
 end
 
 function module:RematchLockButton(button)
+	if not button then
+		return
+	end
+
 	button:StripTextures()
-	button:CreateBackdrop("Transparent")
-	local bg = button.backdrop
-	bg:SetInside(7, 7)
+	S:HandleButton(button)
+	button.backdrop:SetInside(7, 7)
 end
 
 local function updateCollapseTexture(button, isExpanded)
@@ -373,35 +376,14 @@ function module:ReskinRematchElements()
 		return
 	end
 
-	-- RematchPetCard
-	local petCard = RematchPetCard
-	petCard:StripTextures()
-	S:HandleCloseButton(petCard.CloseButton)
-	petCard.Title:StripTextures()
-	petCard.PinButton:StripTextures()
-	module.ReskinArrow(petCard.PinButton, "up")
-	petCard.PinButton:SetPoint("TOPLEFT", 5, -5)
-	petCard.Title:CreateBackdrop("Transparent")
-	bg = petCard.Title.backdrop
-	bg:SetAllPoints(petCard)
-	module.RematchCard(petCard.Front)
-	module.RematchCard(petCard.Back)
-
-	for i = 1, 6 do
-		local button = RematchPetCard.Front.Bottom.Abilities[i]
-		button.IconBorder:Hide()
-		select(8, button:GetRegions()):SetTexture(nil)
-		S:HandleIcon(button.Icon)
-	end
-
 	-- RematchAbilityCard
-	local abilityCard = RematchAbilityCard
+	local abilityCard = _G.RematchAbilityCard
 	abilityCard:StripTextures()
 	abilityCard:CreateBackdrop("Transparent")
 	abilityCard.Hints.HintsBG:Hide()
 
 	-- RematchWinRecordCard
-	local card = RematchWinRecordCard
+	local card = _G.RematchWinRecordCard
 	card:StripTextures()
 	S:HandleClose(card.CloseButton)
 	card.Content:StripTextures()
@@ -528,16 +510,69 @@ function module:RematchLoadedTeamPanel_OnShow()
 		return
 	end
 
-	-- RematchLoadedTeamPanel
 	self:StripTextures()
 	self:CreateBackdrop("Transparent")
 	self.backdrop:SetBackdropColor(1, 0.8, 0, 0.1)
 	self.backdrop:SetPoint("TOPLEFT", -E.mult, -E.mult)
 	self.backdrop:SetPoint("BOTTOMRIGHT", E.mult, E.mult)
+	self.TeamButton:StripTextures()
+	self.TeamButton:CreateBackdrop("Transparent")
+	self.TeamButton.backdrop:SetAllPoints()
 
-	module.RematchButton(self.TeamButton)
 	self.NotesFrame:StripTextures()
-	module.RematchButton(self.NotesFrame.NotesButton)
+	S:HandleButton(self.NotesFrame.NotesButton)
+
+	self.isSkinned = true
+end
+
+function module:RematchPetCard_OnShow()
+	if self.isSkinned then
+		return
+	end
+
+	self:StripTextures()
+	S:HandleCloseButton(self.CloseButton)
+
+	if self.MinimizeButton then
+		self.MinimizeButton:StripTextures()
+		S:HandleNextPrevButton(self.MinimizeButton, "down")
+	end
+
+	self.isSkinned = true
+end
+
+function module:RematchNotesCard_OnShow()
+	if self.isSkinned then
+		return
+	end
+
+	self:StripTextures()
+	self:CreateBackdrop("Transparent")
+	self.backdrop:SetPoint("TOPLEFT", -E.mult, -E.mult)
+	self.backdrop:SetPoint("BOTTOMRIGHT", E.mult, E.mult)
+
+	S:HandleCloseButton(self.CloseButton)
+	S:HandleButton(self.LockButton, nil, nil, nil, nil, nil, nil, true) -- Fix me
+
+	local content = self.Content
+	content:StripTextures()
+	content:CreateBackdrop("Transparent")
+	content.backdrop:SetPoint("TOPLEFT", 0, 5)
+	content.backdrop:SetPoint("BOTTOMRIGHT", 0, -2)
+
+	S:HandleScrollBar(content.ScrollFrame.ScrollBar)
+
+	if content.Bottom.DeleteButton then
+		S:HandleButton(content.Bottom.DeleteButton)
+	end
+	if content.Bottom.UndoButton then
+		S:HandleButton(content.Bottom.UndoButton)
+	end
+	if content.Bottom.SaveButton then
+		S:HandleButton(content.Bottom.SaveButton)
+	end
+
+	self.isSkinned = true
 end
 
 function module:Rematch_Initialize()
@@ -557,6 +592,8 @@ function module:Rematch_Initialize()
 	self:SecureHookScript(_G.RematchDialog, "OnShow", module.RematchDialog_OnShow)
 	self:SecureHookScript(_G.Rematch.loadedTargetPanel, "OnShow", module.RematchLoadoutPanel_OnShow)
 	self:SecureHookScript(_G.Rematch.loadedTeamPanel, "OnShow", module.RematchLoadedTeamPanel_OnShow)
+	self:SecureHookScript(_G.RematchPetCard, "OnShow", module.RematchPetCard_OnShow)
+	self:SecureHookScript(_G.RematchNotesCard, "OnShow", module.RematchNotesCard_OnShow)
 
 	local journal = _G.Rematch.journal
 	hooksecurefunc(journal, "PetJournalOnShow", function()
@@ -566,37 +603,6 @@ function module:Rematch_Initialize()
 		S:HandleCheckBox(journal.UseRematchCheckButton)
 
 		journal.isSkinned = true
-	end)
-
-	hooksecurefunc(_G.RematchNotesCard, "Update", function(card)
-		if not card or card.isSkinned then
-			return
-		end
-
-		card:StripTextures()
-		card:CreateBackdrop("Transparent")
-		S:HandleCloseButton(card.CloseButton)
-		module:RematchLockButton(card.LockButton)
-		card.LockButton:SetPoint("TOPLEFT")
-
-		local content = card.Content
-		S:HandleScrollBar(content.ScrollFrame.ScrollBar)
-		content.ScrollFrame:CreateBackdrop("Transparent")
-		local bg = content.ScrollFrame.backdrop
-		bg:SetPoint("TOPLEFT", 0, 5)
-		bg:SetPoint("BOTTOMRIGHT", 0, -2)
-
-		if card.Content.Bottom.DeleteButton then
-			S:HandleButton(card.Content.Bottom.DeleteButton)
-		end
-		if card.Content.Bottom.UndoButton then
-			S:HandleButton(card.Content.Bottom.UndoButton)
-		end
-		if card.Content.Bottom.SaveButton then
-			S:HandleButton(card.Content.Bottom.SaveButton)
-		end
-
-		card.isSkinned = true
 	end)
 
 	local loadoutBG
