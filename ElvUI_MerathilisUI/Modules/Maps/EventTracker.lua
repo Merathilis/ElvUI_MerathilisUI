@@ -975,7 +975,8 @@ local eventData = {
 			icon = 6694198,
 			type = "loopTimer",
 			questIDs = {
-				41996,
+				91173,
+				89295,
 			},
 			hasWeeklyReward = true,
 			duration = 15 * 60,
