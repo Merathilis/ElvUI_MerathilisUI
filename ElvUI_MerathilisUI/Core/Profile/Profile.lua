@@ -1874,6 +1874,15 @@ P.maps = {
 			second = 600,
 			stopAlertIfCompleted = true,
 		},
+		nightFall = {
+			enable = true,
+			desaturate = true,
+			alert = true,
+			sound = true,
+			soundFile = "OnePlus Surprise",
+			second = 600,
+			stopAlertIfCompleted = true,
+		},
 		ringingDeeps = {
 			enable = true,
 			desaturate = true,

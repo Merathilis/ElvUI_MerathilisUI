@@ -982,6 +982,8 @@ L["Next Location"] = true
 L["Radiant Echoes"] = true
 L["Performing"] = true
 L["Theater Troupe"] = true
+L["Nightfall"] = true
+L["Running"] = true
 L["Khaz Algar Emissary"] = true
 L["Professions Weekly"] = true
 L["Ringing Deeps"] = true
@@ -1116,7 +1118,7 @@ L["Shows all the class specific raid buffs."] =
 	"Показывает все рейдовые баффы для каждого класса."
 L["Change the alpha level of the icons."] = "Измените прозрачность значков."
 L["Shows the pixel glow on missing raidbuffs."] =
-	"Показывает свечение пикселей на отсутствующих рейдбаффах."
+	"Пок��зывает свечение пикселей на отсутствующих рейдбаффах."
 
 -- Reminder
 L["Reminder"] = "Напоминание"

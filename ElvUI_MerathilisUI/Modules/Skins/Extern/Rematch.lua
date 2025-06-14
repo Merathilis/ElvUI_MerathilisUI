@@ -465,6 +465,8 @@ function module:RematchDialog_OnShow()
 	end
 
 	self:StripTextures()
+	self.Prompt:DisableDrawLayer("BACKGROUND")
+	self.Prompt:DisableDrawLayer("BORDER")
 	self:CreateBackdrop("Transparent")
 	self.backdrop:SetAllPoints()
 	S:HandleCloseButton(self.CloseButton)
@@ -538,11 +540,7 @@ function module:RematchLoadedTeamPanel_OnShow()
 	module.RematchButton(self.NotesFrame.NotesButton)
 end
 
-function module:Rematch()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.rem then
-		return
-	end
-
+function module:Rematch_Initialize()
 	local frame = _G.Rematch and _G.Rematch.frame
 	if not frame then
 		return
@@ -570,7 +568,7 @@ function module:Rematch()
 		journal.isSkinned = true
 	end)
 
-	hooksecurefunc(RematchNotesCard, "Update", function(card)
+	hooksecurefunc(_G.RematchNotesCard, "Update", function(card)
 		if not card or card.isSkinned then
 			return
 		end
@@ -602,7 +600,7 @@ function module:Rematch()
 	end)
 
 	local loadoutBG
-	hooksecurefunc(Rematch.loadoutPanel, "Update", function(self)
+	hooksecurefunc(_G.Rematch.loadoutPanel, "Update", function(self)
 		if not self then
 			return
 		end
@@ -634,4 +632,15 @@ function module:Rematch()
 	end)
 end
 
+function module:Rematch()
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.rem then
+		return
+	end
+
+	E:Delay(0.3, function()
+		self:Rematch_Initialize()
+	end)
+end
+
 module:AddCallbackForAddon("Rematch")
+module:AddCallbackForUpdate("Rematch")
