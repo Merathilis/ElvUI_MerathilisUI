@@ -9,6 +9,8 @@ MER.Changelog[665] = {
 		"[Install]: BREAKING CHANGE: You have to run the Install to show my options!",
 		"[Pet Filter Tab]: Added a new tabs for pet filter settings, allowing users to customize pet-related filters more easily",
 		"[Raid Info Frame]: Added a simple Frame which shows the current raid roles and the number of players in each role",
+		"[Skins]: Added a really unstable and not finished skin for Rematch",
+		"[WorldMap]: Added Nightfall to the Event Tracker",
 	},
 	IMPROVEMENTS = {
 		"[Enhanced NamePlate Auras]: Enhance Code a bit",

@@ -8,3 +8,5 @@
   * [Game Menu]: Move the Game Menu Options to Misc
   * [Auto Buttons]: Added more openable/usable Items
   * [Core]: Small code improvements and optimizations
+  * [Skins]: Added a really unstable and not finished Rematch skin
+  * [WorldMap]: Added Nightfall to the Event Tracker
