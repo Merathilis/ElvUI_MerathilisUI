@@ -35,8 +35,8 @@ local eventList = {
 	-- TWW
 	-- "TWWProfessions",
 	"KhazAlgarEmissary",
-	"TheaterTroupe",
 	"Nightfall",
+	"TheaterTroupe",
 	"RingingDeeps",
 	"SpreadingTheLight",
 	"UnderworldOperative",
