@@ -4,6 +4,7 @@ ignore:
     - .gitattributes
     - .gitignore
     - .github/*
+    - .vscode/*
     - .editorconfig
     - .luacheckrc
     - m4.png
@@ -14,8 +15,8 @@ ignore:
     - CHANGELOG.txt
 
 manual-changelog:
-  filename: CHANGELOG.md
-  markup-type: markdown
+    filename: CHANGELOG.md
+    markup-type: markdown
 
 move-folders:
     ElvUI_MerathilisUI/ElvUI_MerathilisUI: ElvUI_MerathilisUI
