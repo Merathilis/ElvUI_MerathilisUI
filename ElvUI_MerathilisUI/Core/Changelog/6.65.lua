@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[665] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "18.06.2025",
 	FIXES = {
 		"[Notification]: Added the missing option for the Full Bag Alert",
 	},
