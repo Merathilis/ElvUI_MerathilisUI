@@ -1118,7 +1118,7 @@ L["Shows all the class specific raid buffs."] =
 	"Показывает все рейдовые баффы для каждого класса."
 L["Change the alpha level of the icons."] = "Измените прозрачность значков."
 L["Shows the pixel glow on missing raidbuffs."] =
-	"Пок��зывает свечение пикселей на отсутствующих рейдбаффах."
+	"Пок����зывает свечение пикселей на отсутствующих рейдбаффах."
 
 -- Reminder
 L["Reminder"] = "Напоминание"
@@ -1739,6 +1739,7 @@ L["[ABBR] Scenario"] = "Сценарий"
 L["[ABBR] Shadowmoon Burial Grounds"] = "НпЛ"
 L["[ABBR] Shoulders"] = "Плечи"
 L["[ABBR] Story"] = "Story"
+L["[ABBR] Lorewalking"] = "Lorewalking"
 L["[ABBR] Teeming Island"] = "Teeming"
 L["[ABBR] Temple of the Jade Serpent"] = "Храм Змеи"
 L["[ABBR] The Azure Vault"] = "ЛХ"

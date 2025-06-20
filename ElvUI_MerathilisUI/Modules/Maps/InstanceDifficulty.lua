@@ -96,6 +96,7 @@ function module:GetTextForDifficulty(difficulty, useDefault)
 		[208] = db["Delves"],
 		[216] = db["Quest"],
 		[220] = db["Story"],
+		[236] = db["Lorewalking"],
 	}
 
 	return text[difficulty]

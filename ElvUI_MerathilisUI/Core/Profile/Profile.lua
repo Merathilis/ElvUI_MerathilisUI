@@ -1800,6 +1800,7 @@ P.maps = {
 			["Delves"] = L["[ABBR] Delves"],
 			["Quest"] = L["[ABBR] Quest"],
 			["Story"] = L["[ABBR] Story"],
+			["Lorewalking"] = L["[ABBR] Lorewalking"],
 		},
 	},
 	rectangleMinimap = {
