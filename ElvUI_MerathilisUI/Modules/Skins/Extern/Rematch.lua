@@ -464,6 +464,12 @@ function module:RematchDialog_OnShow()
 		S:HandleButton(self.OtherButton)
 	end
 
+	self.EditBox = _G.RematchDialogCanvas.EditBox
+	if self.EditBox then
+		self.EditBox.EditBox:DisableDrawLayer("BACKGROUND")
+		S:HandleEditBox(self.EditBox.EditBox)
+	end
+
 	self.Canvas.TeamPicker.Lister.Top.Back:SetTexture(nil)
 
 	if self.Canvas.TeamPicker.Lister.Top.AddButton then
