@@ -652,6 +652,8 @@ local foods = {
 		223968,
 		225592,
 		225855,
+		233062,
+		233118,
 	},
 	vendor = {
 		-- https://www.wowhead.com/items/consumables/food-and-drinks/min-level:80/min-req-level:75?filter=92:166;1:11;0:0
