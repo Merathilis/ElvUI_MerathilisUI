@@ -57,8 +57,6 @@ function module:Blizzard_DelvesDifficultyPicker()
 	local DifficultyPickerFrame = _G.DelvesDifficultyPickerFrame
 	if DifficultyPickerFrame then
 		self:CreateShadow(DifficultyPickerFrame)
-		DifficultyPickerFrame.CloseButton:ClearAllPoints()
-		DifficultyPickerFrame.CloseButton:SetPoint("TOPRIGHT", DifficultyPickerFrame, "TOPRIGHT", -3, -3)
 
 		DifficultyPickerFrame.DelveRewardsContainerFrame:HookScript("OnShow", HandleRewards)
 		hooksecurefunc(DifficultyPickerFrame.DelveRewardsContainerFrame, "SetRewards", HandleRewards)
