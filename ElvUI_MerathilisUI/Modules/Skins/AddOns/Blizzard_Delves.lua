@@ -13,8 +13,6 @@ function module:Blizzard_DelvesCompanionConfiguration()
 	local CompanionConfigurationFrame = _G.DelvesCompanionConfigurationFrame
 	if CompanionConfigurationFrame then
 		self:CreateShadow(CompanionConfigurationFrame)
-		CompanionConfigurationFrame.CloseButton:ClearAllPoints()
-		CompanionConfigurationFrame.CloseButton:SetPoint("TOPRIGHT", CompanionConfigurationFrame, "TOPRIGHT", -3, -3)
 
 		for _, frame in pairs({
 			CompanionConfigurationFrame.CompanionCombatRoleSlot,
