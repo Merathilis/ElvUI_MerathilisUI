@@ -324,7 +324,6 @@ V.skins = {
 		et = true,
 		wa = true,
 		waOptions = true,
-		tldr = true,
 		pf = true,
 		au = true,
 		imm = true,

@@ -36,7 +36,6 @@ local DecorAddons = {
 	{ "Rematch", L["Rematch"], "rem" },
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
-	{ "TLDRMissions", L["TLDRMissions"], "tldr" },
 	{ "TomTom", L["TomTom"], "tom" },
 }
 if F.IsDeveloper() then
