@@ -30,6 +30,7 @@ local DecorAddons = {
 	{ "Myslot", L["Myslot"], "mys" },
 	{ "OmniCD", L["OmniCD"], "omniCD" },
 	{ "Pawn", L["Pawn"], "pawn" },
+	{ "tdBattlePetScript", L["Pet Battle Scripts"], "pbs" },
 	{ "ProjectAzilroka", L["ProjectAzilroka"], "pa" },
 	{ "PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf" },
 	{ "RaiderIO", L["RaiderIO"], "rio" },
