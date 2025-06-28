@@ -2,46 +2,75 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
+function module:SkinMainPanel()
+	local tdBattlePetScript = LibStub("AceAddon-3.0"):GetAddon("PetBattleScripts", true)
+	if not tdBattlePetScript then
+		print("PetBattleScripts not found!")
+		return
+	end
+
+	local uiModule = tdBattlePetScript:GetModule("UI.MainPanel", true)
+	if not uiModule or not uiModule.MainPanel then
+		print("UI.MainPanel not found!")
+		return
+	end
+
+	local mainPanel = uiModule.MainPanel
+
+	S:HandleFrame(mainPanel, nil, nil, true)
+
+	local function SkinFrame(frame)
+		if not frame or frame.MERSkin then
+			return
+		end
+
+		for i = 1, frame:GetNumRegions() do
+			local region = select(i, frame:GetRegions())
+			if region.GetTexture and region:GetTexture() and type(region:GetTexture()) == "string" then
+				local tex = strlower(region:GetTexture())
+				if
+					strfind(tex, "ui%-background%-marble")
+					or strfind(tex, "ui%-frame%-")
+					or strfind(tex, "ui%-dialog%-")
+				then
+					region:SetTexture(nil)
+				end
+			end
+		end
+
+		if frame:IsObjectType("Button") then
+			-- S:HandleButton(frame) -- find a way to handle different buttons
+		elseif frame:IsObjectType("CheckButton") then
+			S:HandleCheckBox(frame)
+		elseif frame:IsObjectType("EditBox") then
+			-- S:HandleEditBox(frame) -- Its an dynamic editbox
+			frame:StripTextures(true)
+		elseif frame:IsObjectType("Frame") and frame.ScrollBar then
+			S:HandleScrollBar(frame.ScrollBar)
+		elseif frame:IsObjectType("Frame") and frame.DropDown then
+			S:HandleDropDownBox(frame.DropDown)
+		elseif frame:IsObjectType("Frame") and frame.CloseButton then
+			S:HandleCloseButton(frame.CloseButton)
+		end
+
+		for i = 1, frame:GetNumChildren() do
+			local child = select(i, frame:GetChildren())
+			SkinFrame(child)
+		end
+
+		frame.MERSkin = true
+	end
+
+	SkinFrame(mainPanel)
+end
+
 function module:tdBattlePetScript()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.pbs then
 		return
 	end
 
 	self:DisableAddOnSkins("tdBattlePetScript", false)
-
-	--/run LibStub('AceAddon-3.0'):GetAddon('tdBattlePetScript'):GetModule('UI.MainPanel').MainPanel:SetTemplate()
-	local tdBattlePetScript = LibStub("AceAddon-3.0"):GetAddon("PetBattleScripts"):GetModule("UI.MainPanel")
-
-	S:HandleFrame(tdBattlePetScript.MainPanel, nil, nil, true)
-	for i = 1, tdBattlePetScript.MainPanel:GetNumChildren() do
-		local frame = select(i, tdBattlePetScript.MainPanel:GetChildren())
-		if frame:IsObjectType("Frame") then
-			for j = 1, frame:GetNumRegions() do
-				local region = select(j, frame:GetRegions())
-				if region.GetTexture and region:GetTexture() and type(region:GetTexture() == "string") then
-					-- print(region:GetTexture())
-					if strfind(strlower(region:GetTexture()), "ui%-background%-marble") then
-						frame:StripTextures()
-					elseif strfind(strlower(region:GetTexture()), "ui%-panel%-minimizebutton") then
-						S:HandleCloseButton(frame)
-					end
-				end
-			end
-		end
-	end
-
-	local BlockDialog = tdBattlePetScript.BlockDialog
-	S:HandleFrame(BlockDialog)
-	BlockDialog:SetFrameStrata("DIALOG")
-	BlockDialog:SetFrameLevel(10000)
-	BlockDialog.Text:FontTemplate(nil, 12, "SHADOWOUTLINE")
-	S:HandleButton(BlockDialog.AcceptButton)
-	S:HandleButton(BlockDialog.CancelButton)
-	S:HandleEditBox(BlockDialog.EditBox)
-	tdBattlePetScript.MainPanel.Portrait.Border:Hide()
-	S:HandleScrollBar(tdBattlePetScript.ScriptList.scrollBar)
-
-	S:HandleButton(_G.tdBattlePetScriptAutoButton)
+	self:SkinMainPanel()
 end
 
 module:AddCallbackForAddon("tdBattlePetScript")
