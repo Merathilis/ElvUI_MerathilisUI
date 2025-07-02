@@ -2461,6 +2461,10 @@ function MER:SetupDts()
 	}
 
 	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+		if not E.global["datatexts"]["customPanels"]["MER_TopPanel"] then
+			E.global["datatexts"]["customPanels"]["MER_TopPanel"] = {}
+		end
+
 		E.global["datatexts"]["customPanels"]["MER_TopPanel"] = {
 			["fonts"] = {
 				["enable"] = true,
