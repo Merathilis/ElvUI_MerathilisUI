@@ -1377,24 +1377,21 @@ function F.SetCallback(callback, target, times, ...)
 	E:Delay(0.1, F.SetCallback, callback, target, times + 1, ...)
 end
 
-do
-	-- Handle close button
-	function F:Texture_OnEnter()
-		if self:IsEnabled() then
-			if self.bg then
-				self.bg:SetBackdropColor(F.r, F.g, F.b, 0.25)
-			else
-				self.__texture:SetVertexColor(0, 0.6, 1, 1)
-			end
+function F:Texture_OnEnter()
+	if self:IsEnabled() then
+		if self.bg then
+			self.bg:SetBackdropColor(F.r, F.g, F.b, 0.25)
+		else
+			self.__texture:SetVertexColor(0, 0.6, 1, 1)
 		end
 	end
+end
 
-	function F:Texture_OnLeave()
-		if self.bg then
-			self.bg:SetBackdropColor(0, 0, 0, 0.25)
-		else
-			self.__texture:SetVertexColor(1, 1, 1, 1)
-		end
+function F:Texture_OnLeave()
+	if self.bg then
+		self.bg:SetBackdropColor(0, 0, 0, 0.25)
+	else
+		self.__texture:SetVertexColor(1, 1, 1, 1)
 	end
 end
 
@@ -1751,7 +1748,6 @@ function F:ReskinNavBar(bar)
 		tex:Size(14)
 		tex:Point("CENTER")
 		tex:SetTexture(E.Media.Textures.ArrowUp)
-		-- tex:SetRotation(S.ArrowRotation.down)
 
 		overflowButton:HookScript("OnEnter", F.Texture_OnEnter)
 		overflowButton:HookScript("OnLeave", F.Texture_OnLeave)
