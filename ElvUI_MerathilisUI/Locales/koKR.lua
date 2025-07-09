@@ -730,7 +730,6 @@ L["MEDIUM"] = "중간"
 
 -- Armory
 L["Armory"] = "전투정보실"
-
 L["Name Text"] = "이름 텍스트"
 L["Settings for different font strings"] = "글꼴 문자열 설정"
 L["Title Text"] = "제목 텍스트"
@@ -738,13 +737,8 @@ L["Level Title Text"] = "레벨 제목 텍스트"
 L["Font Color"] = "글꼴 색상"
 L["Short Display"] = "간단히 표시"
 L["Level Text"] = "레벨 텍스트"
-
 L["Class Text Font"] = "직업 텍스트 글꼴"
 L["Class Gradient"] = "직업 색상 그라데이션"
-
-
-
-
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r 전투정보실 모드를 켜거나 끕니다"
 L["Enchant & Socket Strings"] = "마법부여 및 소켓 문자열"
 L["Settings for strings displaying enchant and socket info from the items"] = "아이템의 마법부여 및 소켓 정보를 표시하는 문자열 설정"
