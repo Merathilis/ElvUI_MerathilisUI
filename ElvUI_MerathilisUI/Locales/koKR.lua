@@ -774,6 +774,13 @@ L["Hides the camera controls when hovering the character model."] = "캐릭터 �
 L["Add %d sockets"] = "%d개의 소켓 추가"
 L["Add enchant"] = "마법부여 추가"
 L["Attributes"] = "속성"
+L["Background Bars"] = "배경 막대"
+L["Background Alpha"] = "배경 투명도"
+L["Header Font"] = "제목 글꼴"
+L["Label Font"] = "이름 글꼴"
+L["Value Font"] = "속성 값 글꼴"
+L["Short Labels"] = "짧은 이름"
+L["Attribute Visibility"] = "속성 표시 여부"
 L["Background"] = "배경"
 L["Alpha"] = "투명도"
 L["Style"] = "스타일"
@@ -784,7 +791,6 @@ L["Hide Controls"] = "컨트롤 숨기기"
 L["Hides the camera controls when hovering the character model."] = "캐릭터 모델 위에 마우스를 올렸을 때 카메라 컨트롤을 숨깁니다"
 L["Animation"] = "애니메이션"
 L["Animation Multiplier"] = "애니메이션 배율"
-
 
 -- AutoButtons
 L["AutoButtons"] = "아이템 바"
