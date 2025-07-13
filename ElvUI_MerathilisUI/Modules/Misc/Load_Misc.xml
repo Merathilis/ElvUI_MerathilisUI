@@ -16,6 +16,7 @@
 	<Script file="Mute.lua"/>
 	<Script file="PetFilterTab.lua"/>
 	<Script file="RaidInfoFrame.lua"/>
+	<Script file="Screenshot.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="StatusReport.lua"/>
 	<Script file="RandomToy.lua"/>

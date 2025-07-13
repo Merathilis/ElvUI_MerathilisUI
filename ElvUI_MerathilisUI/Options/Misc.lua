@@ -1296,7 +1296,7 @@ options.singingSockets = {
 options.raidInfo = {
 	order = 11,
 	type = "group",
-	name = E.NewSign .. L["Raid Info Frame"],
+	name = L["Raid Info Frame"],
 	get = function(info)
 		return E.db.mui.misc.raidInfo[info[#info]]
 	end,
@@ -1456,6 +1456,97 @@ options.raidInfo = {
 						["GRAVED"] = "GRAVED",
 						["ElvUI"] = "ElvUI",
 					},
+				},
+			},
+		},
+	},
+}
+
+options.screenshot = {
+	order = 12,
+	type = "group",
+	name = E.NewSign .. L["Screenshot"],
+	get = function(info)
+		return E.db.mui.misc.screenshot[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.misc.screenshot[info[#info]] = value
+		E:StaticPopup_Show("CONFIG_RL")
+	end,
+	args = {
+		header = {
+			order = 0,
+			type = "header",
+			name = F.cOption(L["Screenshot"], "orange"),
+		},
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+		},
+		printMsg = {
+			order = 2,
+			type = "toggle",
+			name = L["Print Message"],
+			desc = L["Prints a message in the chat when you take a screenshot."],
+			disabled = function()
+				return not E.db.mui.misc.screenshot.enable
+			end,
+		},
+		hideUI = {
+			order = 3,
+			type = "toggle",
+			name = L["Hide UI"],
+			desc = L["Hides the UI when you take a screenshot."],
+			disabled = function()
+				return not E.db.mui.misc.screenshot.enable
+			end,
+		},
+		types = {
+			order = 4,
+			type = "group",
+			inline = true,
+			name = F.cOption(L["Types"], "orange"),
+			guiInline = true,
+			disabled = function()
+				return not E.db.mui.misc.screenshot.enable
+			end,
+			args = {
+				achievementEarned = {
+					order = 1,
+					type = "toggle",
+					name = L["Achievement Earned"],
+					desc = L["Takes a screenshot when you earn an achievement."],
+					disabled = function()
+						return not E.db.mui.misc.screenshot.enable
+					end,
+				},
+				challengeModeCompleted = {
+					order = 2,
+					type = "toggle",
+					name = L["Challenge Mode Completed"],
+					desc = L["Takes a screenshot when you complete a challenge mode."],
+					disabled = function()
+						return not E.db.mui.misc.screenshot.enable
+					end,
+				},
+				playerLevelUp = {
+					order = 3,
+					type = "toggle",
+					name = L["Player Level Up"],
+					desc = L["Takes a screenshot when you level up."],
+					disabled = function()
+						return not E.db.mui.misc.screenshot.enable
+					end,
+				},
+				playerDead = {
+					order = 4,
+					type = "toggle",
+					name = L["Player Dead"],
+					desc = L["Takes a screenshot when you die."],
+					disabled = function()
+						return not E.db.mui.misc.screenshot.enable
+					end,
 				},
 			},
 		},

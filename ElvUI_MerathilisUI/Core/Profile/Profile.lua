@@ -636,6 +636,16 @@ P.misc = {
 		roleIconStyle = "MERATHILISUI",
 	},
 	petFilterTab = true,
+	screenshot = {
+		enable = true,
+		printMsg = true,
+		hideUI = false,
+		achievementEarned = true,
+		challengeModeCompleted = true,
+		playerLevelUp = false,
+		playerDead = false,
+		playerStartedMoving = false,
+	},
 }
 
 P.nameHover = {

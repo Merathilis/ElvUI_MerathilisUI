@@ -444,6 +444,18 @@ L["Singing Sockets"] = true
 L["Adds a Singing sockets selection tool on the Socketing Frame."] = true
 L["Pet Filter Tab"] = true
 L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."] = true
+L["Print Message"] = true
+L["Prints a message in the chat when you take a screenshot."] = true
+L["Hide UI"] = true
+L["Hides the UI when you take a screenshot."] = true
+L["Achievement Earned"] = true
+L["Takes a screenshot when you earn an achievement."] = true
+L["Challenge Mode Completed"] = true
+L["Takes a screenshot when you complete a challenge mode."] = true
+L["Player Level Up"] = true
+L["Takes a screenshot when you level up."] = true
+L["Player Dead"] = true
+L["Takes a screenshot when you die."] = true
 
 -- Nameplates
 L["NamePlates"] = true
