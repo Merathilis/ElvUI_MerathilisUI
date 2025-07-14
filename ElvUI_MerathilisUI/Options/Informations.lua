@@ -261,6 +261,7 @@ options.name.args.localization = {
 do
 	local german = F.GetIconString(I.Media.Icons.German, 10, 20)
 	local russian = F.GetIconString(I.Media.Icons.Russian, 10, 20)
+	local korean = F.GetIconString(I.Media.Icons.Korean, 10, 20)
 
 	local localizationList = {
 		["Deutsche (deDE)" .. " " .. german] = {
@@ -268,6 +269,9 @@ do
 		},
 		["русский язык (ruRU)" .. " " .. russian] = {
 			"Hollicsh @ GitHub",
+		},
+		["한국어 (krKR)" .. " " .. korean] = {
+			"Crazyyoungs @ GitHub",
 		},
 	}
 

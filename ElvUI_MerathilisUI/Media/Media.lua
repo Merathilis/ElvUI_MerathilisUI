@@ -97,6 +97,7 @@ F.AddMedia("icon", "Oceanic")
 F.AddMedia("icon", "Portuguese")
 F.AddMedia("icon", "Russian")
 F.AddMedia("icon", "Spanish")
+F.AddMedia("icon", "Korean")
 
 F.AddMedia("texture", "arrow")
 F.AddMedia("texture", "arrowUp")
