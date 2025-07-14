@@ -17,7 +17,7 @@ function module:TakeScreenshot(event, delay)
 	end
 end
 
-function module:PlayerStartdMoving(event) -- debug
+function module:PlayerStartMoving(event) -- debug
 	module.TakeScreenshot(event)
 end
 
@@ -47,9 +47,9 @@ function module:UpdateConfig()
 	local db = E.db.mui.misc.screenshot
 
 	if db.enable and db.playerStartedMoving then
-		MER:RegisterEvent("PLAYER_STARTED_MOVING", module.PlayerStartdMoving)
+		MER:RegisterEvent("PLAYER_STARTED_MOVING", module.PlayerStartMoving)
 	else
-		MER:UnregisterEvent("PLAYER_STARTED_MOVING", module.PlayerStartdMoving)
+		MER:UnregisterEvent("PLAYER_STARTED_MOVING", module.PlayerStartMoving)
 	end
 
 	if db.enable and db.achievementEarned then
