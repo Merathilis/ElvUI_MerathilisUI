@@ -19,7 +19,7 @@ module.updateProfile = {}
 	@param {function} [func=module.name]
 ]]
 function module:AddCallback(name, func)
-	tinsert(self.nonAddonsToLoad, func or self[name]) -- test
+	tinsert(self.nonAddonsToLoad, func or self[name])
 end
 
 --[[
