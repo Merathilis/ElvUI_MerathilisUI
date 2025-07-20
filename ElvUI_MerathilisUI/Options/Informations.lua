@@ -270,7 +270,7 @@ do
 		["русский язык (ruRU)" .. " " .. russian] = {
 			"Hollicsh @ GitHub",
 		},
-		["한국어 (krKR)" .. " " .. korean] = {
+		["한국어 (koKR)" .. " " .. korean] = {
 			"Crazyyoungs @ GitHub",
 		},
 	}

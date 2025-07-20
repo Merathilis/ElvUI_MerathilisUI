@@ -11,6 +11,10 @@ function module:Blizzard_Collections()
 	local CollectionsJournal = _G.CollectionsJournal
 	local PetJournal = _G.PetJournal
 
+	for i = 1, 6 do
+		self:ReskinTab(_G["CollectionsJournalTab" .. i])
+	end
+
 	_G.PetJournalLoadoutBorderSlotHeaderText:SetParent(PetJournal)
 	_G.PetJournalLoadoutBorderSlotHeaderText:SetPoint("CENTER", _G.PetJournalLoadoutBorderTop, "TOP", 0, 4)
 

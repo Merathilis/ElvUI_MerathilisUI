@@ -5,7 +5,7 @@ function module:TakeScreenshot(event, delay)
 	local db = E.db.mui.misc.screenshot
 
 	if db and db.printMsg then
-		F.Print(format(L["taking screenshot (%s) (%s)"], event, date()))
+		F.Print(format("%s %s", L["taking screenshot"], event .. " " .. date()))
 	end
 
 	if db and db.hideUI then
@@ -17,8 +17,8 @@ function module:TakeScreenshot(event, delay)
 	end
 end
 
-function module:PlayerStartdMoving(event) -- debug
-	module.TakeScreenshot(event)
+function module:PlayerStartMoving(event) -- debug
+	module:TakeScreenshot(event)
 end
 
 function module:AchievementEarned(event, achievementID, alreadyEarned)
@@ -26,30 +26,30 @@ function module:AchievementEarned(event, achievementID, alreadyEarned)
 		return
 	end
 
-	module.TakeScreenshot(event)
+	module:TakeScreenshot(event)
 end
 
 function module:ChallengeModeCompleted(event)
 	ChallengeModeCompleteBanner:HookScript("OnShow", function()
-		module.TakeScreenshot(event, 3)
+		module:TakeScreenshot(event, 3)
 	end)
 end
 
 function module:PlayerLevelUp(event)
-	module.TakeScreenshot(event)
+	module:TakeScreenshot(event)
 end
 
 function module:PlayerDead(event)
-	module.TakeScreenshot(event)
+	module:TakeScreenshot(event)
 end
 
 function module:UpdateConfig()
 	local db = E.db.mui.misc.screenshot
 
 	if db.enable and db.playerStartedMoving then
-		MER:RegisterEvent("PLAYER_STARTED_MOVING", module.PlayerStartdMoving)
+		MER:RegisterEvent("PLAYER_STARTED_MOVING", module.PlayerStartMoving)
 	else
-		MER:UnregisterEvent("PLAYER_STARTED_MOVING", module.PlayerStartdMoving)
+		MER:UnregisterEvent("PLAYER_STARTED_MOVING", module.PlayerStartMoving)
 	end
 
 	if db.enable and db.achievementEarned then
