@@ -258,6 +258,7 @@ L["Remove This Alt"] = "이 부캐릭터 삭제"
 L["Update Alts"] = "부캐릭터 업데이트"
 L["Default Page"] = "기본 페이지"
 L["Clear All"] = "모두 지우기"
+L["Take All"] = "모두 받기"
 
 -- MicroBar
 L["Achievements"] = "업적"
