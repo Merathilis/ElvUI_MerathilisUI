@@ -2026,7 +2026,6 @@ P.smb = {
 	spacing = 2,
 	inverseDirection = false,
 	orientation = "HORIZONTAL",
-	-- calendar = false,
 	expansionLandingPage = false,
 }
 

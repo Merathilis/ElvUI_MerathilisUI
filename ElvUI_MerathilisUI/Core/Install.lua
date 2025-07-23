@@ -2554,6 +2554,12 @@ function MER:DeveloperSettings()
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["mui"]["chat"]["chatText"]["gradientName"] = true
 
+	-- SMB
+	E.db["mui"]["smb"]["backdrop"] = false
+	E.db["mui"]["smb"]["buttonsPerRow"] = 8
+	E.db["mui"]["smb"]["buttonSize"] = 26
+	E.db["mui"]["smb"]["backdropSpacing"] = 1
+
 	-- VehicleBar
 	E.db["mui"]["vehicleBar"]["enable"] = true
 
