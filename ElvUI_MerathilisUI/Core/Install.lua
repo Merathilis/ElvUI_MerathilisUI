@@ -433,30 +433,20 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 4
 	E.db["auras"]["buffs"]["verticalSpacing"] = 10
-	if E:IsAddOnEnabled("ElvUI_RatioMinimapAuras") then
-		E.db["auras"]["buffs"]["keepSizeRatio"] = false
-		E.db["auras"]["buffs"]["height"] = 28
-		E.db["auras"]["buffs"]["size"] = 36
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
-	else
-		E.db["auras"]["buffs"]["size"] = 32
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
-	end
+	E.db["auras"]["buffs"]["keepSizeRatio"] = false
+	E.db["auras"]["buffs"]["height"] = 28
+	E.db["auras"]["buffs"]["size"] = 36
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
 	E.db["auras"]["buffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
 	E.db["auras"]["buffs"]["countFontOutline"] = "SHADOWOUTLINE"
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 4
 	E.db["auras"]["debuffs"]["verticalSpacing"] = 10
-	if E:IsAddOnEnabled("ElvUI_RatioMinimapAuras") then
-		E.db["auras"]["debuffs"]["keepSizeRatio"] = false
-		E.db["auras"]["debuffs"]["height"] = 30
-		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-233,-167"
-	else
-		E.db["auras"]["debuffs"]["size"] = 34
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-233,-167"
-	end
+	E.db["auras"]["debuffs"]["keepSizeRatio"] = false
+	E.db["auras"]["debuffs"]["height"] = 30
+	E.db["auras"]["debuffs"]["size"] = 34
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-233,-167"
 	E.db["auras"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
 	E.db["auras"]["debuffs"]["countFontOutline"] = "SHADOWOUTLINE"
