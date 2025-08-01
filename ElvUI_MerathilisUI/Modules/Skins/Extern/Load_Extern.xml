@@ -14,6 +14,7 @@
 	<Script file="DetailsIcons.lua"/>
 	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="Immersion.lua"/>
+	<Script file="LibQTip.lua"/>
 	<Script file="LibUIDropDOwnMenu.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="mMediaTag.lua"/>
