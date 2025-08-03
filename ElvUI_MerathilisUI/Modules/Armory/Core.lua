@@ -9,7 +9,6 @@ local twipe = table.wipe
 
 local CreateColor = CreateColor
 local GetInventoryItemID = GetInventoryItemID
-local GetInventoryItemTexture = GetInventoryItemTexture
 local GetSpecialization = GetSpecialization
 local GetSpecializationInfo = GetSpecializationInfo
 local GetCurrentTitle = GetCurrentTitle
@@ -17,9 +16,7 @@ local GetTitleName = GetTitleName
 local UnitLevel = UnitLevel
 local UnitSex = UnitSex
 
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local GetItemInfo = C_Item.GetItemInfo
-local IsCosmeticItem = C_Item.IsCosmeticItem
 local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
 local ENUM_ITEM_CLASS_WEAPON = _G.Enum.ItemClass.Weapon
 
