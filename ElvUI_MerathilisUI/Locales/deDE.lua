@@ -511,6 +511,24 @@ L["Takes a screenshot when you level up."] = "Erstellt einen Screenshot, wenn Du
 L["Player Dead"] = "Spieler tot"
 L["Takes a screenshot when you die."] = "Erstellt einen Screenshot, wenn Du stirbst."
 
+L["Move Frames"] = "Fenster verschieben"
+L["Because of %s, this module will not be loaded."] = "Aufgrund von %s wird dieses Modul nicht geladen."
+L["This module provides the feature that repositions the frames with drag and drop."] =
+	"Dieses Modul bietet die Funktion, mit der die Fenster per Drag & Drop neu positioniert werden können."
+L["Drag"] = "Ziehen"
+L["Temporary Move"] = "Temporäres Bewegen"
+L["Hold Control + Right Click:"] = "Halte Steuerung + Rechtsklick:"
+L["Reset Position"] = "Position zurücksetzen"
+L["Move ElvUI Bags"] = "ElvUI Taschen verschieben"
+L["TSM Compatible"] = "TSM Kompatibel"
+L["Fix the merchant frame showing when you using Trade Skill Master."] =
+	"Korrigiere das Händlerfenster, das angezeigt wird, wenn Du Trader Skill Master verwendest."
+L["Remember Positions"] = "Positionen merken"
+L["Clear History"] = "Lösche History"
+L["Notice"] = "Beachten"
+L["%s may cause some frames to get messed, but you can use %s button to reset frames."] =
+	"%s Dies kann dazu führen, dass einige Frames durcheinander geraten. Sie können jedoch die Schaltfläche %s verwenden, um Frames zurückzusetzen."
+
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"
 L["Enhanced NameplateAuras"] = "Erweiterte Namensplaketten Auren"

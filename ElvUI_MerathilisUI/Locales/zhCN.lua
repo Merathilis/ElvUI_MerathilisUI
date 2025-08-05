@@ -463,6 +463,25 @@ L["Takes a screenshot when you level up."] = true
 L["Player Dead"] = true
 L["Takes a screenshot when you die."] = true
 
+-- Move Frames
+L["Move Frames"] = "移动框体"
+L["Because of %s, this module will not be loaded."] = "由于 %s 的存在, 这个模块将不会被载入."
+L["This module provides the feature that repositions the frames with drag and drop."] =
+	"这个模块提供了通过拖放来重新定位框架的功能."
+L["Drag"] = "拖拽"
+L["Temporary Move"] = "移动背包"
+L["Hold Control + Right Click:"] = "按住 Ctrl 并按鼠标右键:"
+L["Reset Position"] = "重设位置"
+L["Move ElvUI Bags"] = "移动 ElvUI 背包"
+L["TSM Compatible"] = "TSM 兼容"
+L["Fix the merchant frame showing when you using Trade Skill Master."] =
+	"修复使用 Trade Skill Master 时商人窗口自动显示的问题."
+L["Remember Positions"] = "记住位置"
+L["Clear History"] = "清除历史"
+L["Notice"] = "注意"
+L["%s may cause some frames to get messed, but you can use %s button to reset frames."] =
+	"%s 可能会造成部分框体位置背景混乱, 不过你可以通过 %s 按钮来重置框体."
+
 -- Tooltip
 L["Your Status:"] = "你的状态: "
 L["Your Status: Incomplete"] = "你的状态：未完成"

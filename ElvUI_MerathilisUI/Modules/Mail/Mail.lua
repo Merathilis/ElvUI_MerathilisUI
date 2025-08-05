@@ -169,6 +169,11 @@ function module:ConstructFrame()
 	S:CreateBackdropShadow(frame)
 	frame:EnableMouse(true)
 
+	if E.private.mui.misc.moveFrames.enable and not MER.Modules.MoveFrames.StopRunning then
+		local MF = MER:GetModule("MER_MoveFrames")
+		MF:HandleFrame("MER_Mail", "MailFrame")
+	end
+
 	self.frame = frame
 
 	if IsAddOnLoaded("Postal") then

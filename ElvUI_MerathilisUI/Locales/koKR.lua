@@ -609,6 +609,25 @@ L["Adds a filter tab to the Pet Journal, which allows you to filter pets by thei
 L["Hide In Combat"] = "전투 중 숨기기"
 L["Toggle"] = "표시 전환"
 
+-- Move Frames
+L["Move Frames"] = "프레임 이동"
+L["Because of %s, this module will not be loaded."] = "%s 때문에 이 모듈을 로드하지 못하였습니다."
+L["This module provides the feature that repositions the frames with drag and drop."] =
+	"이 모듈은 드래그 앤 드롭으로 프레임의 위치를 변경하는 기능을 제공합니다."
+L["Drag"] = "끌기"
+L["Temporary Move"] = "임시 이동"
+L["Hold Control + Right Click:"] = "Ctrl + 오른쪽 클릭 :"
+L["Reset Position"] = "위치 리셋"
+L["Move ElvUI Bags"] = "ElvUI 가방 이동"
+L["TSM Compatible"] = "TSM 호환"
+L["Fix the merchant frame showing when you using Trade Skill Master."] =
+	"Trade Skill Master 사용 시 상인 창이 자동으로 출력되는 현상이 수정되었습니다."
+L["Remember Positions"] = "위치 기억"
+L["Clear History"] = "기록 초기화"
+L["Notice"] = "알려드립니다!"
+L["%s may cause some frames to get messed, but you can use %s button to reset frames."] =
+	"%s으로 인해 일부 프레임의 배경이 혼동될 수 있지만 %s 버튼을 눌러 프레임을 재설정 할 수 있습니다."
+
 -- Nameplates
 L["NamePlates"] = "이름표"
 L["Enhanced NameplateAuras"] = "향상된 이름표 오라"
@@ -1215,10 +1234,10 @@ L["Add coords to your Minimap."] = "미니맵에 좌표를 추가합니다"
 L["Minimap Buttons"] = "미니맵 버튼 통합 바"
 L["Add an extra bar to collect minimap buttons."] =
 	"미니맵 버튼을 통합하여 표시하기 위해 버튼 바를 추가합니다."
-L["Toggle minimap buttons bar."] = "미니맵 버튼 바 토글"
+L["Toggle minimap buttons bar."] = "미니맵 ��튼 바 토��"
 L["Mouse Over"] = "마우스 오버"
 L["Only show minimap buttons bar when you mouse over it."] =
-	"미니맵 버튼 바 위에 마우스를 올려 놓을 때만 표시됩니다."
+	"미니��� 버��� 바 위에 마우스를 ���려 놓을 때만 표시됩니��."
 L["Minimap Buttons Bar"] = "미니맵 버튼 바"
 L["Bar Backdrop"] = "바 배경"
 L["Show a backdrop of the bar."] = "바의 배경을 표시합니다."

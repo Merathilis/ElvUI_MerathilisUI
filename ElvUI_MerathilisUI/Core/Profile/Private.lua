@@ -4,6 +4,16 @@ V.general = {
 	install_complete = nil,
 }
 
+V.misc = {
+	moveFrames = {
+		enable = true,
+		elvUIBags = true,
+		tradeSkillMasterCompatible = true,
+		rememberPositions = false,
+		framePositions = {},
+	},
+}
+
 V.quest = {
 	objectiveTracker = {
 		enable = true,

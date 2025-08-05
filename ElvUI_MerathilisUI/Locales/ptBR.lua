@@ -459,6 +459,22 @@ L["Takes a screenshot when you level up."] = true
 L["Player Dead"] = true
 L["Takes a screenshot when you die."] = true
 
+-- Move Frames
+L["Move Frames"] = true
+L["Because of %s, this module will not be loaded."] = true
+L["This module provides the feature that repositions the frames with drag and drop."] = true
+L["Drag"] = true
+L["Temporary Move"] = true
+L["Hold Control + Right Click:"] = true
+L["Reset Position"] = true
+L["Move ElvUI Bags"] = true
+L["TSM Compatible"] = true
+L["Fix the merchant frame showing when you using Trade Skill Master."] = true
+L["Remember Positions"] = true
+L["Clear History"] = true
+L["Notice"] = true
+L["%s may cause some frames to get messed, but you can use %s button to reset frames."] = true
+
 -- Nameplates
 L["NamePlates"] = true
 L["Enhanced NameplateAuras"] = true

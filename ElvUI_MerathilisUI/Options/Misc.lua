@@ -6,6 +6,7 @@ local MI = MER:GetModule("MER_Misc")
 local SA = MER:GetModule("MER_SpellAlert")
 local CM = MER:GetModule("MER_ContextMenu")
 local RIF = MER:GetModule("MER_RaidInfoFrame")
+local MF = MER:GetModule("MER_MoveFrames")
 
 local async = MER.Utilities.Async
 
@@ -1465,7 +1466,7 @@ options.raidInfo = {
 options.screenshot = {
 	order = 12,
 	type = "group",
-	name = E.NewSign .. L["Screenshot"],
+	name = L["Screenshot"],
 	get = function(info)
 		return E.db.mui.misc.screenshot[info[#info]]
 	end,
@@ -1547,6 +1548,124 @@ options.screenshot = {
 					disabled = function()
 						return not E.db.mui.misc.screenshot.enable
 					end,
+				},
+			},
+		},
+	},
+}
+
+options.moveFrames = {
+	order = 13,
+	type = "group",
+	name = E.NewSign .. L["Move Frames"],
+	get = function(info)
+		return E.private.mui.misc.moveFrames[info[#info]]
+	end,
+	set = function(info, value)
+		E.private.mui.misc.moveFrames[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
+	args = {
+		desc = {
+			order = 0,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			disabled = false,
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = function()
+						if MF.StopRunning then
+							return format(
+								"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
+								MF.StopRunning
+							)
+						else
+							return L["This module provides the feature that repositions the frames with drag and drop."]
+						end
+					end,
+					fontSize = "medium",
+				},
+			},
+		},
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			disabled = function()
+				return MF.StopRunning
+			end,
+		},
+		elvUIBags = {
+			order = 2,
+			type = "toggle",
+			name = L["Move ElvUI Bags"],
+			disabled = function()
+				return MF.StopRunning or not E.private.mui.misc.moveFrames.enable
+			end,
+		},
+		tradeSkillMasterCompatible = {
+			order = 3,
+			type = "toggle",
+			name = L["TSM Compatible"],
+			desc = L["Fix the merchant frame showing when you using Trade Skill Master."],
+			disabled = function()
+				return MF.StopRunning or not E.private.mui.misc.moveFrames.enable
+			end,
+		},
+		remember = {
+			order = 4,
+			type = "group",
+			inline = true,
+			name = L["Remember Positions"],
+			disabled = function()
+				return MF.StopRunning or not E.private.mui.misc.moveFrames.enable
+			end,
+			args = {
+				rememberPositions = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					set = function(info, value)
+						E.private.mui.misc.moveFrames[info[#info]] = value
+					end,
+				},
+				clearHistory = {
+					order = 2,
+					type = "execute",
+					name = L["Clear History"],
+					func = function()
+						E.private.mui.misc.moveFrames.framePositions = {}
+					end,
+				},
+				notice = {
+					order = 999,
+					type = "description",
+					name = format(
+						"\n|cffff3860%s|r %s",
+						L["Notice"],
+						format(
+							L["%s may cause some frames to get messed, but you can use %s button to reset frames."],
+							L["Remember Positions"],
+							F.CreateColorString(L["Clear History"], E.db.general.valuecolor)
+						)
+					),
+					fontSize = "medium",
+				},
+			},
+		},
+		credits = {
+			order = 5,
+			type = "group",
+			name = F.cOption(L["Credits"], "orange"),
+			guiInline = true,
+			args = {
+				tukui = {
+					order = 1,
+					type = "description",
+					name = "ElvUI_Windtools - fang2hou",
 				},
 			},
 		},

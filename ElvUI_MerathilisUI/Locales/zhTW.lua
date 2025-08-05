@@ -458,6 +458,25 @@ L["Takes a screenshot when you level up."] = true
 L["Player Dead"] = true
 L["Takes a screenshot when you die."] = true
 
+-- Move Frames
+L["Move Frames"] = "移動框架"
+L["Because of %s, this module will not be loaded."] = "由於 %s 的存在, 這個模組將不會被載入."
+L["This module provides the feature that repositions the frames with drag and drop."] =
+	"這個模組提供了通過拖放來重新定位框架的功能."
+L["Drag"] = "拖拽"
+L["Temporary Move"] = "移動背包"
+L["Hold Control + Right Click:"] = "按住 Ctrl 並按滑鼠右鍵："
+L["Reset Position"] = "重設位置"
+L["Move ElvUI Bags"] = "移動 ElvUI 背包"
+L["TSM Compatible"] = "TSM 相容性"
+L["Fix the merchant frame showing when you using Trade Skill Master."] =
+	"修正當你使用 Trade Skill Master 時商人購買框架不關閉的問題."
+L["Remember Positions"] = "位置記憶"
+L["Clear History"] = "清除歷史"
+L["Notice"] = "注意"
+L["%s may cause some frames to get messed, but you can use %s button to reset frames."] =
+	"%s 可能會造成部分框架位置背景混亂, 不過你可以通過 %s 按鈕來重置框架."
+
 -- Tooltip
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
@@ -1577,7 +1596,7 @@ L["[ABBR] Turn In"] = "交接"
 L["[ABBR] Vault of the Incarnates"] = "牢獄"
 L["[ABBR] Visions of N'Zoth"] = "幻象"
 L["[ABBR] Waist"] = "腰"
-L["[ABBR] Warfronts"] = "前線"
+L["[ABBR] Warfronts"] = "���線"
 L["[ABBR] Whisper"] = "密"
 L["[ABBR] Wind Emote"] = "情"
 L["[ABBR] World"] = "世"

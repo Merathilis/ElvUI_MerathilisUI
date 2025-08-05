@@ -369,6 +369,10 @@ local function splashFrame(frame)
 	S:HandleCloseButton(frame.Close)
 	S:HandleCheckBox(frame.HideCheckbox.CheckBox)
 	S:HandleTrimScrollBar(frame.ScrollBar)
+
+	if E.private.mui.misc.moveFrames.enable and not MER.Modules.MoveFrames.StopRunning then
+		MER.Modules.MoveFrames:HandleFrame(frame)
+	end
 end
 
 local function itemHistoryFrame(frame)

@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_EventTracker")
 local S = MER:GetModule("MER_Skins")
+local MF = MER:GetModule("MER_MoveFrames")
 local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
 
@@ -1685,6 +1686,10 @@ function module:ConstructFrame()
 
 	frame:SetHeight(30)
 	frame:SetFrameStrata("MEDIUM")
+
+	if E.private.mui.misc.moveFrames.enable then
+		MF:HandleFrame(frame, _G.WorldMapFrame)
+	end
 
 	self.frame = frame
 end

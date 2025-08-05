@@ -458,6 +458,13 @@ function MER:CheckCompatibility()
 		"db.WT.item.delete.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Misc"], L["Move Frames"]),
+		format("%s-%s", L["Misc"], L["Move Frames"]),
+		"private.mui.misc.moveFrames.enable",
+		"private.WT.misc.moveFrames.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
