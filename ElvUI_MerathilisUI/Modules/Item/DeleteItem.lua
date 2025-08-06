@@ -10,8 +10,8 @@ local pairs = pairs
 
 local CreateFrame = CreateFrame
 local StaticPopupDialogs = _G.StaticPopupDialogs
+local StaticPopup_ForEachShownDialog = _G.StaticPopup_ForEachShownDialog
 
-local STATICPOPUP_NUMDIALOGS = STATICPOPUP_NUMDIALOGS
 local DELETE_ITEM_CONFIRM_STRING = DELETE_ITEM_CONFIRM_STRING
 
 local dialogs = {
@@ -46,7 +46,7 @@ function module:AddKeySupport(dialog)
 
 	targetFrame:SetScript("OnKeyDown", function(self, key)
 		if key == "DELETE" then
-			dialog.button1:Enable()
+			dialog:GetButton1():Enable()
 		end
 	end)
 
@@ -57,7 +57,7 @@ end
 
 function module:ShowFillInButton(dialog)
 	local editBoxFrame = dialog.EditBox
-	local yesButton = dialog.button1
+	local yesButton = dialog:GetButton1()
 	if not editBoxFrame or not yesButton then
 		return
 	end
@@ -89,8 +89,7 @@ function module.HideFillInButton()
 end
 
 function module:DELETE_ITEM_CONFIRM()
-	for i = 1, STATICPOPUP_NUMDIALOGS do
-		local dialog = _G["StaticPopup" .. i]
+	StaticPopup_ForEachShownDialog(function(dialog)
 		local type = dialog.which
 		if not dialogs[type] then
 			return
@@ -108,7 +107,7 @@ function module:DELETE_ITEM_CONFIRM()
 				dialog.EditBox:SetText(DELETE_ITEM_CONFIRM_STRING)
 			end
 		end
-	end
+	end)
 end
 
 function module:Initialize()
