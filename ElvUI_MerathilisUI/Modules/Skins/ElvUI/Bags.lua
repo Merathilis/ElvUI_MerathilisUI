@@ -5,8 +5,6 @@ local B = E:GetModule("Bags")
 local _G = _G
 local pairs = pairs
 
-local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
-
 function module:ElvUI_ContainerFrames()
 	if not E.private.bags.enable then
 		return
@@ -23,8 +21,8 @@ function module:ContainerFrame()
 		return
 	end
 
-	for bagID = 1, NUM_CONTAINER_FRAMES do
-		local container = _G["ContainerFrame" .. bagID]
+	for i = 1, _G.NUM_CONTAINER_FRAMES do
+		local container = _G["ContainerFrame" .. i]
 		if container and container.template then
 			self:CreateShadow(container)
 		end
@@ -41,8 +39,16 @@ function module:ContainerFrame()
 		end
 	end
 
-	for _, tab in pairs(_G.BankFrame.Tabs) do
-		self:ReskinTab(tab)
+	if _G.BankFrame.TabSystem then
+		local tabSet = _G.BankFrame:GetTabSet()
+		if tabSet then
+			for _, tabID in ipairs(tabSet) do
+				local tabButton = _G.BankFrame:GetTabButton(tabID)
+				if tabButton then
+					self:ReskinTab(tabButton)
+				end
+			end
+		end
 	end
 end
 
