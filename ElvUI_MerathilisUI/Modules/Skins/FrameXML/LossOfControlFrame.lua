@@ -28,7 +28,7 @@ function module:LossOfControlFrame()
 		return
 	end
 
-	module:SecureHook(_G.LossOfControlFrame, "SetUpDisplay", "Blizzard_LossOfControlFrame_SetUpDisplay")
+	hooksecurefunc(_G.LossOfControlFrame, "SetUpDisplay", module.Blizzard_LossOfControlFrame_SetUpDisplay)
 end
 
 module:AddCallback("LossOfControlFrame")
