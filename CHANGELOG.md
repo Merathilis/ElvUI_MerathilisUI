@@ -1,12 +1,7 @@
 ### Changes ###
 
-  * [Install]: BREAKING CHANGE: You have to run the Install to show my options!
-  * [Notification]: Added the missing option for the Full Bag Alert
-  * [Pet Filter Tab]: Added a new tabs for pet filter settings, allowing users to customize pet-related filters more easily
-  * [Raid Info Frame]: Added a simple Frame which shows the current raid roles and the number of players in each role
-  * [Enhanced NamePlate Auras]: Enhance Code a bit
-  * [Game Menu]: Move the Game Menu Options to Misc
-  * [Auto Buttons]: Added more openable/usable Items
-  * [Core]: Small code improvements and optimizations
-  * [Skins]: Added a really unstable and not finished Rematch skin
-  * [WorldMap]: Added Nightfall to the Event Tracker
+  * [11.2]: Small fixes due to the new patch. Probably more to come
+  * [tdBattlePetScript]: Add a skin for this AddOn
+  * [Screenshot]: Add a new functionality to make Auto Screenshot at certain events
+  * [Move Frames]: Add the posibility to move the frames
+  * [AutoButtons]: Add a few more items
