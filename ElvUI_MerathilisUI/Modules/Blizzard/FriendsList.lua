@@ -165,10 +165,10 @@ local expansionData = {
 		icon = MediaPath .. "GameIcons\\WOW_Cata",
 	},
 	[WOW_PROJECT_MISTS_CLASSIC] = {
-		name = "Mist",
-		suffix = "Mist",
+		name = "MoP",
+		suffix = "MoP",
 		maxLevel = 90,
-		icon = MediaPath .. "GameIcons\\WOW_Mist",
+		icon = MediaPath .. "GameIcons\\WOW_MoP",
 	},
 }
 
