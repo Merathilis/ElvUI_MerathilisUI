@@ -14,7 +14,7 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, BigWigs, ls_Toasts, WeakAuras, WeakAurasOptions, tdBattlePetScript, BattlePetBreedID
 ## X-Credits: Simpy, Benik, Azilroka, Darth Predator, fang2hou, fgprodigal, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
-## X-ElvUIVersion: 13.94
+## X-ElvUIVersion: 13.95
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117
