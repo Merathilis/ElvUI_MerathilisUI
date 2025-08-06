@@ -24,12 +24,12 @@ local dialogs = {
 function module:AddKeySupport(dialog)
 	local targetFrame = dialog
 
-	if self.db.fillIn == "AUTO" and dialog.editBox then
-		targetFrame = dialog.editBox
+	if self.db.fillIn == "AUTO" and dialog.EditBox then
+		targetFrame = dialog.EditBox
 	end
 
 	if dialog.which ~= "DELETE_ITEM" then
-		local msg = dialog.text:GetText()
+		local msg = dialog.Text:GetText()
 		local msgTable = { strsplit("\n\n", msg) }
 
 		msg = ""
@@ -41,7 +41,7 @@ function module:AddKeySupport(dialog)
 		end
 
 		msg = msg .. L["Press the |cffffd200Delete|r key as confirmation."]
-		dialog.text:SetText(msg)
+		dialog.Text:SetText(msg)
 	end
 
 	targetFrame:SetScript("OnKeyDown", function(self, key)
@@ -56,7 +56,7 @@ function module:AddKeySupport(dialog)
 end
 
 function module:ShowFillInButton(dialog)
-	local editBoxFrame = dialog.editBox
+	local editBoxFrame = dialog.EditBox
 	local yesButton = dialog.button1
 	if not editBoxFrame or not yesButton then
 		return
@@ -105,7 +105,7 @@ function module:DELETE_ITEM_CONFIRM()
 				self:ShowFillInButton(dialog)
 				dialog:HookScript("OnHide", module.HideFillInButton)
 			elseif self.db.fillIn == "AUTO" then
-				dialog.editBox:SetText(DELETE_ITEM_CONFIRM_STRING)
+				dialog.EditBox:SetText(DELETE_ITEM_CONFIRM_STRING)
 			end
 		end
 	end
