@@ -64,9 +64,9 @@ StaticPopupDialogs.WATCHFRAME_URL = {
 	hasEditBox = true,
 	editBoxWidth = 350,
 	OnShow = function(self, text)
-		self.editBox:SetMaxLetters(0)
-		self.editBox:SetText(text)
-		self.editBox:HighlightText()
+		self.EditBox:SetMaxLetters(0)
+		self.EditBox:SetText(text)
+		self.EditBox:HighlightText()
 		selfText = text
 	end,
 	EditBoxOnEnterPressed = function(self)
