@@ -1,7 +1,6 @@
 ### Changes ###
 
-  * [11.2]: Small fixes due to the new patch. Probably more to come
-  * [tdBattlePetScript]: Add a skin for this AddOn
-  * [Screenshot]: Add a new functionality to make Auto Screenshot at certain events
-  * [Move Frames]: Add the posibility to move the frames
-  * [AutoButtons]: Add a few more items
+  * [Bags]: Fixed an error if not using the ElvUI All In One Bag
+  * [Delte Items]: Fix references to the correct global names to .EditBox and .Text
+  * [Wowhead Links]: Fix reference to the correct global names to .EditBox
+  * [World Map]: Update Map Reveal Data for 11.2

@@ -20,6 +20,7 @@ local C_Timer_NewTimer = C_Timer.NewTimer
 MER.dummy = function()
 	return
 end
+
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
 
