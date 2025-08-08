@@ -618,17 +618,15 @@ function module:UpdateBar(id)
 
 			bar:GetParent():SetParent(E.UIParent)
 		end
-
-		if bar.waitGroup.ticker then
-			bar.waitGroup.ticker:Cancel()
-		end
-
-		bar.waitGroup = nil
 	end
 
 	bar.waitGroup.ticker = NewTicker(0.1, function()
-		if not bar.waitGroup or bar.waitGroup.count == 0 then
+		if bar.waitGroup.count == 0 then
+			if bar.waitGroup.ticker then
+				bar.waitGroup.ticker:Cancel()
+			end
 			updateAlpha()
+			bar.waitGroup = nil
 		end
 	end)
 end
