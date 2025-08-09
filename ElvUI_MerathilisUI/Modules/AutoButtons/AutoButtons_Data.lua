@@ -9,6 +9,7 @@ local potions = {
 	general = {
 		5512,
 		177278,
+		224464,
 	},
 	legacy = {
 		109217,
@@ -245,7 +246,13 @@ local potions = {
 		212972,
 		212973,
 		212974,
-		224464,
+		244835,
+		244838,
+		244839,
+		244849,
+		248331,
+		248585,
+		248586,
 	},
 }
 
@@ -439,6 +446,7 @@ local runes = {
 		211495,
 	},
 	tww = {
+		-- https://www.wowhead.com/items/consumables/item-enhancements-temporary/min-level:50?filter=161:166;1:11;0:0
 		220156,
 		222502,
 		222503,
@@ -484,6 +492,9 @@ local vantus = {
 		232935,
 		232936,
 		232937,
+		244147,
+		244148,
+		244149,
 	},
 }
 
@@ -551,29 +562,8 @@ local foods = {
 		207054,
 	},
 	crafted_tww = {
+		-- https://www.wowhead.com/items/consumables/food-and-drinks/min-level:80?filter=166:86;11:11;0:0
 		-- https://www.wowhead.com/items/consumables/food-and-drinks/name:Hearty?filter=166;11;0#50
-		222307,
-		222308,
-		222309,
-		222310,
-		222311,
-		222312,
-		222313,
-		222314,
-		222315,
-		222317,
-		222318,
-		222319,
-		222324,
-		222325,
-		222326,
-		222332,
-		222333,
-		222334,
-		222335,
-		222338,
-		222343,
-		222345,
 		222702,
 		222703,
 		222704,
@@ -646,7 +636,6 @@ local foods = {
 		222779,
 		222780,
 		222781,
-		222782,
 		222783,
 		222784,
 		223968,
@@ -654,13 +643,13 @@ local foods = {
 		225855,
 		233062,
 		233118,
+		235805,
+		235853,
 	},
 	vendor = {
 		-- https://www.wowhead.com/items/consumables/food-and-drinks/min-level:80/min-req-level:75?filter=92:166;1:11;0:0
 		224762,
 		226811,
-		227272,
-		227273,
 		227301,
 		227302,
 		227303,
@@ -692,11 +681,20 @@ local foods = {
 		236633,
 		236646,
 		236647,
+		236648,
+		236649,
 		236650,
 		236680,
 		236681,
-		235805,
-		235853,
+		238896,
+		247692,
+		247693,
+		247694,
+		247695,
+		247696,
+		247698,
+		247699,
+		247700,
 	},
 	mage = {
 		-- https://www.wowhead.com/beta/items/consumables/food-and-drinks/name:Conjured+Mana
