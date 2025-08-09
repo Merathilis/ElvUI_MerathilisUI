@@ -389,7 +389,7 @@ function module:Reposition(frame, anchorPoint, relativeFrame, relativePoint, off
 
 	local path = frame.__MERFramePath
 
-	if ignorePositionRememberingFrames[path] then
+	if path == "" or ignorePositionRememberingFrames[path] then
 		self.db.framePositions[path] = nil
 		return
 	end
@@ -581,6 +581,22 @@ function module:HandleElvUIBag()
 		end)
 
 		bag.__windFramePath = "ElvUI_Bag_Container"
+	end
+end
+
+function module:IsRunning()
+	return E.private.mui.misc.moveFrames.enable and not MER.Modules.MoveFrames.StopRunning
+end
+
+function module:InternalHandle(frame, bindingTarget, remember)
+	if not self:IsRunning() then
+		return
+	end
+
+	self:HandleFrame(frame, bindingTarget)
+
+	if remember == false then
+		frame.__MERFramePath = ""
 	end
 end
 

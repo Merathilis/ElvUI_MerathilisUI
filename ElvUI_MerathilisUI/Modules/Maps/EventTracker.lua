@@ -1687,9 +1687,7 @@ function module:ConstructFrame()
 	frame:SetHeight(30)
 	frame:SetFrameStrata("MEDIUM")
 
-	if E.private.mui.misc.moveFrames.enable then
-		MF:HandleFrame(frame, _G.WorldMapFrame)
-	end
+	MF:InternalHandle(frame, _G.WorldMapFrame)
 
 	self.frame = frame
 end

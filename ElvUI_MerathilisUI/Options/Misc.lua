@@ -1603,7 +1603,7 @@ options.moveFrames = {
 			type = "toggle",
 			name = L["Move ElvUI Bags"],
 			disabled = function()
-				return MF.StopRunning or not E.private.mui.misc.moveFrames.enable
+				return MF:IsRunning()
 			end,
 		},
 		tradeSkillMasterCompatible = {
@@ -1612,7 +1612,7 @@ options.moveFrames = {
 			name = L["TSM Compatible"],
 			desc = L["Fix the merchant frame showing when you using Trade Skill Master."],
 			disabled = function()
-				return MF.StopRunning or not E.private.mui.misc.moveFrames.enable
+				return MF:IsRunning()
 			end,
 		},
 		remember = {
@@ -1621,7 +1621,7 @@ options.moveFrames = {
 			inline = true,
 			name = L["Remember Positions"],
 			disabled = function()
-				return MF.StopRunning or not E.private.mui.misc.moveFrames.enable
+				return MF:IsRunning()
 			end,
 			args = {
 				rememberPositions = {

@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Mail")
 local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
+local MF = MER:GetModule("MER_MoveFrames")
 
 -- Credits: WindTools :)
 local _G = _G
@@ -169,10 +170,7 @@ function module:ConstructFrame()
 	S:CreateBackdropShadow(frame)
 	frame:EnableMouse(true)
 
-	if E.private.mui.misc.moveFrames.enable and not MER.Modules.MoveFrames.StopRunning then
-		local MF = MER:GetModule("MER_MoveFrames")
-		MF:HandleFrame("MER_Mail", "MailFrame")
-	end
+	MF:InternalHandle(frame, _G.MailFrame)
 
 	self.frame = frame
 
