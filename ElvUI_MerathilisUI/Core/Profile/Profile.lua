@@ -646,6 +646,11 @@ P.misc = {
 		playerDead = false,
 		playerStartedMoving = false,
 	},
+	exitPhaseDiving = {
+		enable = true,
+		width = 81,
+		height = 50,
+	},
 }
 
 P.nameHover = {

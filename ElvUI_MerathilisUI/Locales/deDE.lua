@@ -510,7 +510,12 @@ L["Player Level Up"] = "Spielerlevel erhöht"
 L["Takes a screenshot when you level up."] = "Erstellt einen Screenshot, wenn Du aufsteigst."
 L["Player Dead"] = "Spieler tot"
 L["Takes a screenshot when you die."] = "Erstellt einen Screenshot, wenn Du stirbst."
+L["Add a button to exit phase diving."] = "Fügt eine Taste zum Beenden des Phasentauchens hinzu."
+L["Exit Phase Diving"] = "Phasentauchen beenden"
+L["Exit Phase Diving Button"] = "Phasentauchen beenden Taste"
+L["You can use ElvUI Mover to reposition it."] = "Du kannst den ElvUI Mover verwenden, um ihn neu zu positionieren."
 
+-- Move Frames
 L["Move Frames"] = "Fenster verschieben"
 L["Because of %s, this module will not be loaded."] = "Aufgrund von %s wird dieses Modul nicht geladen."
 L["This module provides the feature that repositions the frames with drag and drop."] =

@@ -608,6 +608,10 @@ L["Adds a filter tab to the Pet Journal, which allows you to filter pets by thei
 	"애완동물 일지에 탭을 추가하여 종류별로 필터링할 수 있습니다"
 L["Hide In Combat"] = "전투 중 숨기기"
 L["Toggle"] = "표시 전환"
+L["Add a button to exit phase diving."] = true
+L["Exit Phase Diving"] = true
+L["Exit Phase Diving Button"] = true
+L["You can use ElvUI Mover to reposition it."] = true
 
 -- Move Frames
 L["Move Frames"] = "프레임 이동"

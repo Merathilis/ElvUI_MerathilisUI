@@ -457,6 +457,10 @@ L["Player Level Up"] = true
 L["Takes a screenshot when you level up."] = true
 L["Player Dead"] = true
 L["Takes a screenshot when you die."] = true
+L["Add a button to exit phase diving."] = "添加一個按鍵來退出相位深潛"
+L["Exit Phase Diving"] = "退出相位深潛"
+L["Exit Phase Diving Button"] = "退出相位深潛按鍵"
+L["You can use ElvUI Mover to reposition it."] = "你可以使用 ElvUI 移動器來移動它."
 
 -- Move Frames
 L["Move Frames"] = "移動框架"

@@ -7,6 +7,7 @@
 	<Script file="Automation.lua"/>
 	<Script file="BossBanner.lua"/>
 	<Script file="ContextMenu.lua"/>
+	<Script file="ExitPhaseDiving.lua"/>
 	<Script file="Focus.lua"/>
 	<Include file="FunStuff.xml"/>
 	<Script file="FunStuff.lua"/>

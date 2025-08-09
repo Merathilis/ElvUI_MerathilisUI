@@ -545,6 +545,10 @@ function F.SetVertexColorDB(tex, db)
 	tex:SetVertexColor(db.r, db.g, db.b, db.a)
 end
 
+function F.GetMERStyleText(text)
+	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
+end
+
 function F.SlowColorGradient(perc, ...)
 	if perc >= 1 then
 		return select(select("#", ...) - 2, ...)
