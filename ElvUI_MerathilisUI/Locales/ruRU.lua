@@ -510,10 +510,12 @@ L["Player Level Up"] = true
 L["Takes a screenshot when you level up."] = true
 L["Player Dead"] = true
 L["Takes a screenshot when you die."] = true
-L["Add a button to exit phase diving."] = true
-L["Exit Phase Diving"] = true
-L["Exit Phase Diving Button"] = true
-L["You can use ElvUI Mover to reposition it."] = true
+L["Add a button to exit phase diving."] =
+	"Добавить кнопку для выхода из фазы погружения."
+L["Exit Phase Diving"] = "Выйти из фазы погружения"
+L["Exit Phase Diving Button"] = "Кнопка выхода из фазы погружения"
+L["You can use ElvUI Mover to reposition it."] =
+	"Вы можете использовать перемещение элементов ElvUI, чтобы изменить его положение."
 
 -- Move Frames
 L["Move Frames"] = true
@@ -1111,7 +1113,7 @@ L["Only show raid markers bar when you mouse over it."] =
 	"Показывать панель рейдовых меток только при наведении на нее указателя мыши."
 L["Tooltip"] = "Подсказка"
 L["Show the tooltip when you mouse over the button."] =
-	"Показывать всплывающую подсказку при наведении указателя мыши на кнопку."
+	"Показывать всплывающую подсказку ��ри наведении указателя мыши на кнопку."
 L["Modifier Key"] = "Клавиша-модификатор"
 L["Set the modifier key for placing world markers."] =
 	"Установите клавишу-модификатор для размещения мировых ме��ок."
