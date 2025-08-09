@@ -10,13 +10,6 @@ local hooksecurefunc = hooksecurefunc
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function SkinDialog(_, dialog)
-	if not dialog.__MERSkin then
-		module:CreateBackdropShadow(dialog)
-		dialog.__MERSkin = true
-	end
-end
-
 function module:UpdateQuestMapFrame()
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	QuestMapFrame.QuestCountFrame = frame
@@ -49,20 +42,38 @@ function module:WorldMapFrame()
 	module:CreateBackdropShadow(_G.WorldMapFrame)
 	self:UpdateQuestMapFrame()
 
-	if _G.QuestScrollFrame.Background then
-		_G.QuestScrollFrame.Background:Kill()
-	end
-	if _G.QuestScrollFrame.DetailFrame and _G.QuestScrollFrame.DetailFrame.backdrop then
-		_G.QuestScrollFrame.DetailFrame.backdrop:SetTemplate("Transparent")
-	end
+	local QuestMapFrame = _G.QuestMapFrame
 
-	if _G.QuestMapFrame.DetailsFrame then
-		if _G.QuestMapFrame.DetailsFrame.backdrop then
-			_G.QuestMapFrame.DetailsFrame.backdrop:SetTemplate("Transparent")
+	if QuestMapFrame.QuestsFrame and QuestMapFrame.QuestsFrame.ScrollFrame then
+		local QuestScrollFrame = QuestMapFrame.QuestsFrame.ScrollFrame
+		if QuestScrollFrame.Background then
+			QuestScrollFrame.Background:Kill()
 		end
 	end
 
-	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", SkinDialog)
+	if QuestMapFrame.QuestsFrame and QuestMapFrame.QuestsFrame.DetailsFrame then
+		local DetailsFrame = QuestMapFrame.QuestsFrame.DetailsFrame
+		local RewardsFrameContainer = DetailsFrame.RewardsFrameContainer
+		if DetailsFrame.backdrop then
+			DetailsFrame.backdrop:SetTemplate("Transparent")
+		end
+		if RewardsFrameContainer and RewardsFrameContainer.RewardsFrame then
+			local RewardsFrame = RewardsFrameContainer.RewardsFrame
+			if RewardsFrame.backdrop then
+				RewardsFrame.backdrop:SetTemplate("Transparent")
+			else
+				RewardsFrame:CreateBackdrop("Transparent")
+				module:Reposition(RewardsFrame.backdrop, RewardsFrame, 0, -12, 0, 0, 3)
+
+				DetailsFrame.backdrop:Point("TOPLEFT", 0, 5)
+				DetailsFrame.backdrop:Point("BOTTOMRIGHT", RewardsFrame.backdrop, "TOPRIGHT", -3, 5)
+			end
+		end
+	end
+
+	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)
+		self:CreateBackdropShadow(dialog)
+	end)
 
 	E:Delay(2, function()
 		local tabs = {

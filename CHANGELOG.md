@@ -1,6 +1,7 @@
 ### Changes ###
 
-  * [Bags]: Fixed an error if not using the ElvUI All In One Bag
-  * [Delte Items]: Fix references to the correct global names to .EditBox and .Text
-  * [Wowhead Links]: Fix reference to the correct global names to .EditBox
-  * [World Map]: Update Map Reveal Data for 11.2
+  * [Armory]: Fix crop ratio on Armory for the socket textures
+  * [[WorldQuestTab]: Added support for the World Quest Tab addon
+  * [Exit Phase Diving Button]: Added an own Button to exit the Phase Diving
+  * [World Map]: Skin the tabs on the World Map
+  * [AutoButtons]: A lot of new/updated Items

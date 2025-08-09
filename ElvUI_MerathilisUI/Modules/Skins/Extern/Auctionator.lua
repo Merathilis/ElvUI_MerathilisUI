@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
+local MF = MER:GetModule("MER_MoveFrames")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -126,8 +127,8 @@ local function configCheckbox(frame)
 	S:HandleCheckBox(frame.CheckBox)
 end
 
-local function dropDownInternal(frame)
-	S:HandleDropDownBox(frame, frame:GetWidth(), nil, true)
+local function dropDown(frame)
+	S:HandleDropDownBox(frame.DropDown, 150)
 end
 
 local function keyBindingConfig(frame)
@@ -177,7 +178,7 @@ local function configMinMax(frame)
 end
 
 local function filterKeySelector(frame)
-	-- S:HandleDropDownBox(frame, frame:GetWidth(), nil, true)
+	S:HandleDropDownBox(frame.DropDown, frame:GetWidth())
 end
 
 local function undercutScan(frame)
@@ -305,6 +306,8 @@ local function shoppingItem(frame)
 	frame:SetTemplate("Transparent")
 	module:CreateShadow(frame)
 
+	MF:InternalHandle(frame, nil, false)
+
 	local function reskinResetButton(f, anchor, x, y)
 		S:HandleButton(f)
 		f:Size(20, 20)
@@ -328,6 +331,8 @@ local function shoppingItem(frame)
 	S:HandleButton(frame.Finished)
 	S:HandleButton(frame.Cancel)
 	S:HandleButton(frame.ResetAllButton)
+
+	S:HandleButton(frame.CloseButton)
 end
 
 local function exportTextFrame(frame)
@@ -431,6 +436,48 @@ local function tryPostHook(...)
 	end
 end
 
+local function reskinDialog(frame)
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+
+	if frame.editBox then
+		S:HandleEditBox(frame.editBox)
+		frame.editBox:SetTextInsets(0, 0, 0, 0)
+	end
+	if frame.acceptButton then
+		S:HandleButton(frame.acceptButton)
+	end
+	if frame.cancelButton then
+		S:HandleButton(frame.cancelButton)
+	end
+
+	MF:InternalHandle(frame, nil, false)
+end
+
+local function reskinDialogs()
+	for _, dialogFunc in ipairs({
+		"ShowEditBox",
+		"ShowConfirm",
+		"ShowConfirmAlt",
+		"ShowMoney",
+	}) do
+		if _G.Auctionator.Dialogs[dialogFunc] then
+			local original = _G.Auctionator.Dialogs[dialogFunc]
+			_G.Auctionator.Dialogs[dialogFunc] = function(...)
+				local result = original(...)
+				for _, name in pairs(_G.UISpecialFrames) do
+					local frame = name and _G[name]
+					if frame and not frame.__windSkin and strfind(name, "^AuctionatorDialog") then
+						reskinDialog(frame)
+						frame.__windSkin = true
+					end
+				end
+				return result
+			end
+		end
+	end
+end
+
 function module:Auctionator()
 	if
 		not E.private.skins.blizzard.auctionhouse
@@ -452,8 +499,8 @@ function module:Auctionator()
 	tryPostHook("AuctionatorConfigMoneyInputMixin", "OnLoad", configMoneyInput)
 	tryPostHook("AuctionatorConfigNumericInputMixin", "OnLoad", configNumericInput)
 	tryPostHook("AuctionatorConfigRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
-	-- tryPostHook("AuctionatorDropDownInternalMixin", "Initialize", dropDownInternal)
-	-- tryPostHook("AuctionatorFilterKeySelectorMixin", "OnLoad", filterKeySelector)
+	tryPostHook("AuctionatorDropDownMixin", "OnLoad", dropDown)
+	tryPostHook("AuctionatorFilterKeySelectorMixin", "OnLoad", filterKeySelector)
 	tryPostHook("AuctionatorKeyBindingConfigMixin", "OnLoad", keyBindingConfig)
 	tryPostHook("AuctionatorResultsListingMixin", "OnShow", resultsListing)
 	tryPostHook("AuctionatorSaleItemMixin", "OnLoad", saleItem)
@@ -483,6 +530,9 @@ function module:Auctionator()
 	tryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
 	tryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
 	tryPostHook("AuctionatorBuyCommodityFrameTemplateMixin", "OnLoad", buyCommodity)
+
+	-- Dialog
+	reskinDialogs()
 end
 
 module:AddCallbackForAddon("Auctionator")

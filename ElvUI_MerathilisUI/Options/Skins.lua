@@ -14,7 +14,6 @@ local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
 	{ "ActionBarProfiles", L["ActonBarProfiles"], "abp" },
-	{ "AngrierWorldQuests", L["Angrier World Quests"], "awq" },
 	{ "Auctionator", L["Auctionator"], "au" },
 	{ "BagSync", L["BagSync"], "bSync" },
 	{ "BtWQuests", L["BtWQuests"], "btwQ" },
@@ -38,6 +37,7 @@ local DecorAddons = {
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "TomTom", L["TomTom"], "tom" },
+	{ "WorldQuestTab", L["World Quest Tab"], "wqt" },
 }
 if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })
