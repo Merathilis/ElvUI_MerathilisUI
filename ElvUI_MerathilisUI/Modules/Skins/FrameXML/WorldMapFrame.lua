@@ -63,6 +63,32 @@ function module:WorldMapFrame()
 	end
 
 	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", SkinDialog)
+
+	E:Delay(2, function()
+		local tabs = {
+			QuestMapFrame.QuestsTab,
+			QuestMapFrame.EventsTab,
+			QuestMapFrame.MapLegendTab,
+		}
+		for i, tab in pairs(tabs) do
+			if tab.backdrop then
+				self:CreateBackdropShadow(tab)
+				tab.backdrop:SetTemplate("Transparent")
+			end
+
+			if i > 1 then
+				tab:ClearAllPoints()
+				tab:SetPoint("TOP", tabs[i - 1], "BOTTOM", 0, -5)
+			end
+		end
+
+		if QuestMapFrame.QuestsTab then
+			QuestMapFrame.QuestsTab:ClearAllPoints()
+			QuestMapFrame.QuestsTab.__SetPoint = QuestMapFrame.QuestsTab.SetPoint
+			QuestMapFrame.QuestsTab.SetPoint = E.noop
+			QuestMapFrame.QuestsTab:__SetPoint("TOPLEFT", QuestMapFrame, "TOPRIGHT", 13, -30)
+		end
+	end)
 end
 
 module:AddCallback("WorldMapFrame")
