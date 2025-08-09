@@ -8,14 +8,14 @@ function module:Ace3_Frame(Constructor)
 		return Constructor
 	end
 
-	local function SkinedConstructor()
+	local function SkinnedConstructor()
 		local widget = Constructor()
 
 		module:CreateShadow(widget.frame)
 		return widget
 	end
 
-	return SkinedConstructor
+	return SkinnedConstructor
 end
 
 function module:Ace3_DropdownPullout(Constructor)
@@ -25,7 +25,7 @@ function module:Ace3_DropdownPullout(Constructor)
 		return Constructor
 	end
 
-	local function SkinedConstructor()
+	local function SkinnedConstructor()
 		local widget = Constructor()
 
 		if E.private.mui.skins.addonSkins.ace3DropdownBackdrop then
@@ -35,7 +35,7 @@ function module:Ace3_DropdownPullout(Constructor)
 		return widget
 	end
 
-	return SkinedConstructor
+	return SkinnedConstructor
 end
 
 function module:Ace3_Window(Constructor)
@@ -45,13 +45,13 @@ function module:Ace3_Window(Constructor)
 		return Constructor
 	end
 
-	local function SkinedConstructor()
+	local function SkinnedConstructor()
 		local widget = Constructor()
 		module:CreateShadow(widget.frame)
 		return widget
 	end
 
-	return SkinedConstructor
+	return SkinnedConstructor
 end
 
 function module:AceConfigDialog()

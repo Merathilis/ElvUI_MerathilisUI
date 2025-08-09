@@ -99,7 +99,7 @@ function module:WeakAurasMultiLineEditBox(Constructor)
 		return Constructor
 	end
 
-	local function SkinedConstructor()
+	local function SkinnedConstructor()
 		local widget = Constructor()
 		S:HandleButton(widget.button)
 
@@ -131,7 +131,7 @@ function module:WeakAurasMultiLineEditBox(Constructor)
 		return widget
 	end
 
-	return SkinedConstructor
+	return SkinnedConstructor
 end
 
 function module:WeakAurasDisplayButton(Constructor)
@@ -139,7 +139,7 @@ function module:WeakAurasDisplayButton(Constructor)
 		return Constructor
 	end
 
-	local function SkinedConstructor()
+	local function SkinnedConstructor()
 		local widget = Constructor()
 		if widget.background then
 			S:HandleButton(widget.frame, nil, nil, nil, true, "Transparent")
@@ -274,7 +274,7 @@ function module:WeakAurasDisplayButton(Constructor)
 		return widget
 	end
 
-	return SkinedConstructor
+	return SkinnedConstructor
 end
 
 module.WeakAurasNewButton = module.WeakAurasDisplayButton
@@ -284,7 +284,7 @@ function module:WeakAurasLoadedHeaderButton(Constructor)
 		return Constructor
 	end
 
-	local function SkinedConstructor()
+	local function SkinnedConstructor()
 		local widget = Constructor()
 
 		if widget.expand then
@@ -341,7 +341,7 @@ function module:WeakAurasLoadedHeaderButton(Constructor)
 		return widget
 	end
 
-	return SkinedConstructor
+	return SkinnedConstructor
 end
 
 do
@@ -407,7 +407,7 @@ function module:WeakAurasIconButton(Constructor)
 		return Constructor
 	end
 
-	local function SkinedConstructor()
+	local function SkinnedConstructor()
 		local widget = Constructor()
 		widget.frame:CreateBackdrop()
 		widget.frame.backdrop.Center:StripTextures()
@@ -435,7 +435,7 @@ function module:WeakAurasIconButton(Constructor)
 		return widget
 	end
 
-	return SkinedConstructor
+	return SkinnedConstructor
 end
 
 function module:WeakAuras_ShowOptions()
