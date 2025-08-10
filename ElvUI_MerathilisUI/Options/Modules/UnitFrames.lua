@@ -136,8 +136,8 @@ options.unitframes = {
 							end,
 							set = function(_, value)
 								E.db.mui.unitframes.power.model = tonumber(value)
+								E:StaticPopup_Show("CONFIG_RL")
 							end,
-							E:StaticPopup_Show("CONFIG_RL"),
 						},
 						texture = {
 							order = 4,
