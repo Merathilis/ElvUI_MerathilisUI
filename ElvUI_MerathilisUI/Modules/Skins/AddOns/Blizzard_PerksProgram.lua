@@ -48,6 +48,9 @@ function module:Blizzard_PerksProgram()
 		module:CreateBackdropShadow(footer.LeaveButton)
 		module:CreateBackdropShadow(footer.PurchaseButton)
 		module:CreateBackdropShadow(footer.RefundButton)
+		module:CreateBackdropShadow(footer.ViewCartButton)
+		module:CreateBackdropShadow(footer.AddToCartButton)
+		module:CreateBackdropShadow(footer.RemoveFromCartButton)
 	end
 end
 
