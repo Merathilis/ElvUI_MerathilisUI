@@ -6,6 +6,8 @@ local _G = _G
 local next = next
 local hooksecurefunc = hooksecurefunc
 
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+
 local function PositionTabIcons(icon, _, anchor)
 	if anchor then
 		icon:SetPoint("CENTER")
@@ -14,16 +16,12 @@ end
 
 -- Copy from ElvUI WorldMap skin
 local function reskinTab(tab)
-	if not tab then
-		return
-	end
-
 	tab:CreateBackdrop()
 	tab:Size(30, 40)
 
 	if tab.Icon then
 		tab.Icon:ClearAllPoints()
-		tab.Icon:Point("CENTER")
+		tab.Icon:SetPoint("CENTER")
 
 		hooksecurefunc(tab.Icon, "SetPoint", PositionTabIcons)
 	end
@@ -51,65 +49,118 @@ local function reskinTab(tab)
 	end
 end
 
-local function reskinQuestButton(frame)
-	if not frame or frame.__MERSkin then
-		return
-	end
-
-	frame.Bg:SetTexture(E.media.blankTex)
-	frame.Bg:SetVertexColor(1, 1, 1, 0.1)
-
-	frame.Highlight:StripTextures()
-	local tex = frame.Highlight:CreateTexture(nil, "ARTWORK")
-	tex:SetTexture(E.media.blankTex)
-	tex:SetVertexColor(1, 1, 1, 0.2)
-	tex:SetAllPoints(frame.Bg)
-	frame.Highlight.MERTex = tex
-end
-
-local function reskinQuestContainer(container)
-	S:HandleDropDownBox(container.SortDropdown)
-	S:HandleButton(container.FilterDropdown, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, true, "right")
-
-	S:HandleTrimScrollBar(container.ScrollBar)
-
-	hooksecurefunc(container.QuestScrollBox, "Update", function(scrollBox)
-		scrollBox:ForEachFrame(reskinQuestButton)
-	end)
-
-	container:CreateBackdrop("Transparent")
-	container.Background:Hide()
-	container.BorderFrame:Hide()
-	container.FilterBar:StripTextures()
-end
-
-local function reskinWhatsNew(container)
+local function reskinContainer(container)
 	container.BorderFrame:Hide()
 	container.Background:Hide()
 	container:CreateBackdrop("Transparent")
 	container.backdrop:SetOutside(container.Background)
-
-	S:HandleCloseButton(container.CloseButton)
-	container.CloseButton:Size(20, 20)
 	S:HandleTrimScrollBar(container.ScrollBar)
 end
 
-local function reskinSetting(container) end
+local function reskinQuestContainer(container)
+	reskinContainer(container)
+	S:HandleDropDownBox(container.SortDropdown)
+	S:HandleButton(container.FilterDropdown, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, true, "right")
+	container.FilterBar:StripTextures()
+end
+
+local function reskinWhatsNew(container)
+	reskinContainer(container)
+
+	container.CloseButton:Size(20, 20)
+	S:HandleCloseButton(container.CloseButton)
+end
+
+local function reskinSettings(container)
+	reskinContainer(container)
+end
+
+local function settingsCategory(frame)
+	if frame.ExpandIcon then
+		S:HandleButton(frame, true, nil, nil, true)
+		local container = CreateFrame("Frame", nil, frame:GetParent())
+		frame.Highlight:SetAlpha(0)
+		frame.backdrop:SetInside(frame, 10, 5)
+
+		F.MoveFrameWithOffset(frame.Title, 0, -2)
+		return
+	end
+
+	if frame.BGRight then
+		frame:StripTextures()
+		frame:CreateBackdrop()
+
+		frame.HighlightMiddle:SetTexture(E.media.blankTex)
+		frame.HighlightMiddle:SetVertexColor(1, 1, 1, 0.2)
+		frame.HighlightMiddle:SetAllPoints(frame.backdrop)
+
+		frame.MERSelectedTexture = frame:CreateTexture(nil, "ARTWORK")
+		frame.MERSelectedTexture:SetTexture(E.media.blankTex)
+		frame.MERSelectedTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+		frame.MERSelectedTexture:SetAlpha(0.5)
+		frame.MERSelectedTexture:SetAllPoints(frame.backdrop)
+		frame.MERSelectedTexture:Hide()
+
+		frame.BGRight:Hide()
+		frame.backdrop:SetPoint("TOPLEFT", frame.BGLeft)
+		frame.backdrop:SetPoint("BOTTOMRIGHT", frame.BGRight)
+		hooksecurefunc(frame, "SetExpanded", function(self, expanded)
+			self.MERSelectedTexture:SetShown(expanded)
+		end)
+	end
+end
+
+local function settingsCheckbox(frame)
+	S:HandleCheckBox(frame.CheckBox)
+end
+
+local function settingsSlider(frame)
+	S:HandleStepSlider(frame.SliderWithSteppers)
+	S:HandleNextPrevButton(frame.SliderWithSteppers.Back, "left")
+	S:HandleNextPrevButton(frame.SliderWithSteppers.Forward, "right")
+	S:HandleEditBox(frame.TextBox)
+end
+
+local function settingsColor(frame)
+	S:HandleButton(frame.Picker)
+	S:HandleButton(frame.ResetButton)
+end
+
+local function settingsDropDown(frame)
+	S:HandleDropDownBox(frame.Dropdown, frame:GetWidth())
+end
+
+local function settingsButton(frame)
+	S:HandleButton(frame.Button)
+end
+
+local function settingsTextInput(frame)
+	S:HandleEditBox(frame.TextBox)
+end
+
+local function listButton(button)
+	button.Bg:SetTexture(E.media.blankTex)
+	button.Bg:SetVertexColor(1, 1, 1, 0.1)
+
+	button.Highlight:StripTextures()
+	local tex = button.Highlight:CreateTexture(nil, "ARTWORK")
+	tex:SetTexture(E.media.blankTex)
+	tex:SetVertexColor(1, 1, 1, 0.2)
+	tex:SetAllPoints(button.Bg)
+	button.Highlight.MERTex = tex
+end
 
 function module:WorldQuestTab()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wqt then
 		return
 	end
 
-	local WQT_QuestMapTab = _G.WQT_QuestMapTab
-
-	if WQT_QuestMapTab then
-		reskinTab(WQT_QuestMapTab)
-		WQT_QuestMapTab.__SetPoint = WQT_QuestMapTab.SetPoint
-
-		-- hooksecurefunc(WQT_QuestMapTab, "SetPoint", function() -- C Stack error
-		-- F.MoveFrameWithOffset(WQT_QuestMapTab, 0, -2)
-		-- end)
+	if _G.WQT_QuestMapTab then
+		reskinTab(_G.WQT_QuestMapTab)
+		_G.WQT_QuestMapTab.__SetPoint = _G.WQT_QuestMapTab.SetPoint
+		hooksecurefunc(_G.WQT_QuestMapTab, "SetPoint", function()
+			F.MoveFrameWithOffset(_G.WQT_QuestMapTab, 0, -2)
+		end)
 	end
 
 	if _G.WQT_ListContainer then
@@ -121,8 +172,33 @@ function module:WorldQuestTab()
 	end
 
 	if _G.WQT_SettingsFrame then
-		reskinSetting(_G.WQT_SettingsContainer)
+		reskinSettings(_G.WQT_SettingsFrame)
 	end
 end
 
 module:AddCallbackForAddon("WorldQuestTab")
+
+local isLoaded, isFinished = C_AddOns_IsAddOnLoaded("WorldQuestTab")
+if isLoaded and isFinished then
+	local function wrap(func)
+		return function(...)
+			local args = { ... }
+			F.TaskManager:AfterLogin(function()
+				if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wqt then
+					return
+				end
+				func(unpack(args))
+			end)
+		end
+	end
+
+	module:TryPostHook("WQT_SettingsCategoryMixin", "Init", wrap(settingsCategory))
+	module:TryPostHook("WQT_SettingsCheckboxMixin", "Init", wrap(settingsCheckbox))
+	module:TryPostHook("WQT_SettingsSliderMixin", "Init", wrap(settingsSlider))
+	module:TryPostHook("WQT_SettingsColorMixin", "Init", wrap(settingsColor))
+	module:TryPostHook("WQT_SettingsDropDownMixin", "Init", wrap(settingsDropDown))
+	module:TryPostHook("WQT_SettingsButtonMixin", "Init", wrap(settingsButton))
+	module:TryPostHook("WQT_SettingsConfirmButtonMixin", "Init", wrap(settingsButton))
+	module:TryPostHook("WQT_SettingsTextInputMixin", "Init", wrap(settingsTextInput))
+	module:TryPostHook("WQT_ListButtonMixin", "Update", wrap(listButton))
+end

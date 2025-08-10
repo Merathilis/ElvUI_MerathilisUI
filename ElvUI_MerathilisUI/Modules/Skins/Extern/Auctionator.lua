@@ -422,20 +422,6 @@ local function buyCommodity(frame)
 	end
 end
 
-local function tryPostHook(...)
-	local frame, method, hookFunc = ...
-	if frame and method and _G[frame] and _G[frame][method] then
-		hooksecurefunc(_G[frame], method, function(frame, ...)
-			if not frame.__MERSkin then
-				hookFunc(frame, ...)
-				frame.__MERSkin = true
-			end
-		end)
-	else
-		module:Log("debug", "Failed to hook: " .. tostring(frame) .. " " .. tostring(method))
-	end
-end
-
 local function reskinDialog(frame)
 	frame:StripTextures()
 	frame:SetTemplate("Transparent")
@@ -490,46 +476,46 @@ function module:Auctionator()
 	module:DisableAddOnSkins("Auctionator", false)
 
 	-- widgets
-	tryPostHook("AuctionatorBuyIconNameTemplateMixin", "SetItem", buyIconName)
-	tryPostHook("AuctionatorGroupsViewGroupMixin", "SetName", viewGroup)
-	tryPostHook("AuctionatorGroupsViewItemMixin", "SetItemInfo", viewItem)
-	tryPostHook("AuctionatorConfigCheckboxMixin", "OnLoad", configCheckbox)
-	tryPostHook("AuctionatorConfigHorizontalRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
-	tryPostHook("AuctionatorConfigMinMaxMixin", "OnLoad", configMinMax)
-	tryPostHook("AuctionatorConfigMoneyInputMixin", "OnLoad", configMoneyInput)
-	tryPostHook("AuctionatorConfigNumericInputMixin", "OnLoad", configNumericInput)
-	tryPostHook("AuctionatorConfigRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
-	tryPostHook("AuctionatorDropDownMixin", "OnLoad", dropDown)
-	tryPostHook("AuctionatorFilterKeySelectorMixin", "OnLoad", filterKeySelector)
-	tryPostHook("AuctionatorKeyBindingConfigMixin", "OnLoad", keyBindingConfig)
-	tryPostHook("AuctionatorResultsListingMixin", "OnShow", resultsListing)
-	tryPostHook("AuctionatorSaleItemMixin", "OnLoad", saleItem)
-	tryPostHook("AuctionatorShoppingTabFrameMixin", "OnLoad", shoppingTabFrame)
-	tryPostHook("AuctionatorShoppingTabSearchOptionsMixin", "OnLoad", shoppingTabSearchOptions)
-	tryPostHook("AuctionatorShoppingTabListsContainerMixin", "OnLoad", shoppingTabContainer)
-	tryPostHook("AuctionatorShoppingTabRecentsContainerMixin", "OnLoad", shoppingTabContainer)
-	tryPostHook("AuctionatorShoppingTabContainerTabsMixin", "OnLoad", shoppingTabContainerTabs)
-	tryPostHook("AuctionatorBagUseMixin", "OnLoad", bagUse)
-	tryPostHook("AuctionatorSellingTabPricesContainerMixin", "OnLoad", sellingTabPricesContainer)
-	tryPostHook("AuctionatorTabContainerMixin", "OnLoad", bottomTabButtons)
-	tryPostHook("AuctionatorUndercutScanMixin", "OnLoad", undercutScan)
+	module:TryPostHook("AuctionatorBuyIconNameTemplateMixin", "SetItem", buyIconName)
+	module:TryPostHook("AuctionatorGroupsViewGroupMixin", "SetName", viewGroup)
+	module:TryPostHook("AuctionatorGroupsViewItemMixin", "SetItemInfo", viewItem)
+	module:TryPostHook("AuctionatorConfigCheckboxMixin", "OnLoad", configCheckbox)
+	module:TryPostHook("AuctionatorConfigHorizontalRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
+	module:TryPostHook("AuctionatorConfigMinMaxMixin", "OnLoad", configMinMax)
+	module:TryPostHook("AuctionatorConfigMoneyInputMixin", "OnLoad", configMoneyInput)
+	module:TryPostHook("AuctionatorConfigNumericInputMixin", "OnLoad", configNumericInput)
+	module:TryPostHook("AuctionatorConfigRadioButtonGroupMixin", "SetupRadioButtons", configRadioButtonGroup)
+	module:TryPostHook("AuctionatorDropDownMixin", "OnLoad", dropDown)
+	module:TryPostHook("AuctionatorFilterKeySelectorMixin", "OnLoad", filterKeySelector)
+	module:TryPostHook("AuctionatorKeyBindingConfigMixin", "OnLoad", keyBindingConfig)
+	module:TryPostHook("AuctionatorResultsListingMixin", "OnShow", resultsListing)
+	module:TryPostHook("AuctionatorSaleItemMixin", "OnLoad", saleItem)
+	module:TryPostHook("AuctionatorShoppingTabFrameMixin", "OnLoad", shoppingTabFrame)
+	module:TryPostHook("AuctionatorShoppingTabSearchOptionsMixin", "OnLoad", shoppingTabSearchOptions)
+	module:TryPostHook("AuctionatorShoppingTabListsContainerMixin", "OnLoad", shoppingTabContainer)
+	module:TryPostHook("AuctionatorShoppingTabRecentsContainerMixin", "OnLoad", shoppingTabContainer)
+	module:TryPostHook("AuctionatorShoppingTabContainerTabsMixin", "OnLoad", shoppingTabContainerTabs)
+	module:TryPostHook("AuctionatorBagUseMixin", "OnLoad", bagUse)
+	module:TryPostHook("AuctionatorSellingTabPricesContainerMixin", "OnLoad", sellingTabPricesContainer)
+	module:TryPostHook("AuctionatorTabContainerMixin", "OnLoad", bottomTabButtons)
+	module:TryPostHook("AuctionatorUndercutScanMixin", "OnLoad", undercutScan)
 
 	-- tab frames
-	tryPostHook("AuctionatorCancellingFrameMixin", "OnLoad", cancellingFrame)
-	tryPostHook("AuctionatorConfigTabMixin", "OnLoad", configTab)
-	tryPostHook("AuctionatorSellingTabMixin", "OnLoad", sellingTab)
+	module:TryPostHook("AuctionatorCancellingFrameMixin", "OnLoad", cancellingFrame)
+	module:TryPostHook("AuctionatorConfigTabMixin", "OnLoad", configTab)
+	module:TryPostHook("AuctionatorSellingTabMixin", "OnLoad", sellingTab)
 
 	-- frames
-	tryPostHook("AuctionatorConfigSellingFrameMixin", "OnLoad", configSellingFrame)
-	tryPostHook("AuctionatorExportTextFrameMixin", "OnLoad", exportTextFrame)
-	tryPostHook("AuctionatorListExportFrameMixin", "OnLoad", listExportFrame)
-	tryPostHook("AuctionatorListImportFrameMixin", "OnLoad", listImportFrame)
-	tryPostHook("AuctionatorItemHistoryFrameMixin", "Init", itemHistoryFrame)
-	tryPostHook("AuctionatorCraftingInfoObjectiveTrackerFrameMixin", "OnLoad", craftingInfoObjectiveTrackerFrame)
-	tryPostHook("AuctionatorCraftingInfoProfessionsFrameMixin", "OnLoad", craftingInfoProfessionsFrame)
-	tryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
-	tryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
-	tryPostHook("AuctionatorBuyCommodityFrameTemplateMixin", "OnLoad", buyCommodity)
+	module:TryPostHook("AuctionatorConfigSellingFrameMixin", "OnLoad", configSellingFrame)
+	module:TryPostHook("AuctionatorExportTextFrameMixin", "OnLoad", exportTextFrame)
+	module:TryPostHook("AuctionatorListExportFrameMixin", "OnLoad", listExportFrame)
+	module:TryPostHook("AuctionatorListImportFrameMixin", "OnLoad", listImportFrame)
+	module:TryPostHook("AuctionatorItemHistoryFrameMixin", "Init", itemHistoryFrame)
+	module:TryPostHook("AuctionatorCraftingInfoObjectiveTrackerFrameMixin", "OnLoad", craftingInfoObjectiveTrackerFrame)
+	module:TryPostHook("AuctionatorCraftingInfoProfessionsFrameMixin", "OnLoad", craftingInfoProfessionsFrame)
+	module:TryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
+	module:TryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
+	module:TryPostHook("AuctionatorBuyCommodityFrameTemplateMixin", "OnLoad", buyCommodity)
 
 	-- Dialog
 	reskinDialogs()

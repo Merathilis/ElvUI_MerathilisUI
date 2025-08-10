@@ -193,6 +193,20 @@ do
 	end
 end
 
+function module:TryPostHook(...)
+	local frame, method, hookFunc = ...
+	if frame and method and _G[frame] and _G[frame][method] then
+		hooksecurefunc(_G[frame], method, function(frame, ...)
+			if not frame.__MERSkin then
+				hookFunc(frame, ...)
+				frame.__MERSkin = true
+			end
+		end)
+	else
+		self:Log("debug", "Failed to hook: " .. tostring(frame) .. " " .. tostring(method))
+	end
+end
+
 function module:Initialize()
 	if not E.private.mui.skins.enable then
 		return
