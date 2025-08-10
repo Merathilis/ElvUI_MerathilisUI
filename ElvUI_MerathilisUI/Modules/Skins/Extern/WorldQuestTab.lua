@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local MF = MER:GetModule("MER_MoveFrames")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -73,6 +74,27 @@ end
 
 local function reskinSettings(container)
 	reskinContainer(container)
+end
+
+local function reskinFlightMapContainer(frame)
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+	module:CreateShadow(frame)
+
+	frame.__SetPoint = frame.SetPoint
+	hooksecurefunc(frame, "SetPoint", function(self)
+		F.MoveFrameWithOffset(self, 15, 0)
+	end)
+
+	hooksecurefunc(frame, "SetParent", function(self, parent)
+		MF:InternalHandle(self, parent)
+	end)
+
+	if _G.WQT_FlightMapContainerButton then
+		S:HandleButton(_G.WQT_FlightMapContainerButton)
+		_G.WQT_FlightMapContainerButton:SetTemplate("Transparent")
+		module:CreateShadow(_G.WQT_FlightMapContainerButton)
+	end
 end
 
 local function settingsCategory(frame)
@@ -173,6 +195,10 @@ function module:WorldQuestTab()
 
 	if _G.WQT_SettingsFrame then
 		reskinSettings(_G.WQT_SettingsFrame)
+	end
+
+	if _G.WQT_FlightMapContainer then
+		reskinFlightMapContainer(_G.WQT_FlightMapContainer)
 	end
 end
 

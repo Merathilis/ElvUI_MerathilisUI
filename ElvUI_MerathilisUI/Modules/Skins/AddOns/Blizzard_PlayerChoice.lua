@@ -11,87 +11,6 @@ local function ReskinOptionText(text, r, g, b)
 	end
 end
 
-local function handleItemButton(item)
-	if not item then
-		return
-	end
-
-	if item then
-		item:SetTemplate()
-		item:SetHeight(41)
-		item:OffsetFrameLevel(2)
-	end
-
-	if item.Icon then
-		item.Icon:Size(E.PixelMode and 35 or 32)
-		item.Icon:SetDrawLayer("ARTWORK")
-		item.Icon:Point("TOPLEFT", E.PixelMode and 2 or 4, -(E.PixelMode and 2 or 4))
-		S:HandleIcon(item.Icon)
-	end
-
-	if item.IconBorder then
-		S:HandleIconBorder(item.IconBorder)
-	end
-
-	if item.Count then
-		item.Count:SetDrawLayer("OVERLAY")
-		item.Count:ClearAllPoints()
-		item.Count:SetPoint("BOTTOMRIGHT", item.Icon, "BOTTOMRIGHT", 0, 0)
-	end
-
-	if item.NameFrame then
-		item.NameFrame:SetAlpha(0)
-		item.NameFrame:Hide()
-	end
-
-	if item.IconOverlay then
-		item.IconOverlay:SetAlpha(0)
-	end
-
-	if item.Name then
-		item.Name:FontTemplate()
-	end
-
-	if item.CircleBackground then
-		item.CircleBackground:SetAlpha(0)
-		item.CircleBackgroundGlow:SetAlpha(0)
-	end
-
-	for _, Region in next, { item:GetRegions() } do
-		if Region:IsObjectType("Texture") and Region:GetTexture() == [[Interface\Spellbook\Spellbook-Parts]] then
-			Region:SetTexture(E.ClearTexture)
-		end
-	end
-end
-
-local function SetupOptions(frame)
-	if not frame.__MERSkin then
-		module:CreateShadow(frame)
-
-		if frame.shadow then
-			frame.shadow:SetShown(frame.template and frame.template == "Transparent")
-			hooksecurefunc(frame, "SetTemplate", function(_, template)
-				frame.shadow:SetShown(template and template == "Transparent")
-			end)
-		end
-	end
-
-	if frame.optionFrameTemplate and frame.optionPools then
-		for option in frame.optionPools:EnumerateActiveByTemplate(frame.optionFrameTemplate) do
-			if option.WidgetContainer then
-				for _, widget in pairs(option.WidgetContainer.widgetFrames) do
-					if widget.Text then
-						F.SetFontOutline(widget.Text)
-					end
-					if widget.Item then
-						handleItemButton(widget.Item)
-					end
-				end
-			end
-		end
-	end
-end
-
 function module:Blizzard_PlayerChoice()
 	if not module:CheckDB("playerChoice", "playerChoice") then
 		return
@@ -134,8 +53,6 @@ function module:Blizzard_PlayerChoice()
 			end
 		end
 	end)
-
-	hooksecurefunc(_G.PlayerChoiceFrame, "SetupOptions", SetupOptions)
 end
 
 module:AddCallbackForAddon("Blizzard_PlayerChoice")
