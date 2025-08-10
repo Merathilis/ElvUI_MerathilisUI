@@ -65,8 +65,10 @@ function module:WorldMapFrame()
 				RewardsFrame:CreateBackdrop("Transparent")
 				module:Reposition(RewardsFrame.backdrop, RewardsFrame, 0, -12, 0, 0, 3)
 
-				DetailsFrame.backdrop:Point("TOPLEFT", 0, 5)
-				DetailsFrame.backdrop:Point("BOTTOMRIGHT", RewardsFrame.backdrop, "TOPRIGHT", -3, 5)
+				if DetailsFrame.backdrop then
+					DetailsFrame.backdrop:Point("TOPLEFT", 0, 5)
+					DetailsFrame.backdrop:Point("BOTTOMRIGHT", RewardsFrame.backdrop, "TOPRIGHT", -3, 5)
+				end
 			end
 		end
 	end

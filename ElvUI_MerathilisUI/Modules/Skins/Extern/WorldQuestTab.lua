@@ -161,14 +161,13 @@ local function settingsTextInput(frame)
 end
 
 local function listButton(button)
-	button.Bg:SetTexture(E.media.blankTex)
-	button.Bg:SetVertexColor(1, 1, 1, 0.1)
-
+	button:CreateBackdrop("Transparent")
 	button.Highlight:StripTextures()
+
 	local tex = button.Highlight:CreateTexture(nil, "ARTWORK")
 	tex:SetTexture(E.media.blankTex)
-	tex:SetVertexColor(1, 1, 1, 0.2)
-	tex:SetAllPoints(button.Bg)
+	tex:SetVertexColor(F.r, F.g, F.b, 0.2)
+	tex:SetAllPoints(button.backdrop)
 	button.Highlight.MERTex = tex
 end
 
