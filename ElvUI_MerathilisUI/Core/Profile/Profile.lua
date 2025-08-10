@@ -623,7 +623,7 @@ P.misc = {
 		enable = true,
 	},
 	focuser = {
-		enable = true,
+		enable = false,
 	},
 	raidInfo = {
 		enable = true,
