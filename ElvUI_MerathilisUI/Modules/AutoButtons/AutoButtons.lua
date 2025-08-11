@@ -401,6 +401,7 @@ function module:CreateBar(id)
 	bar.id = id
 	bar:ClearAllPoints()
 	bar:SetParent(anchor)
+	bar.anchor = anchor
 	bar:SetPoint("CENTER", anchor, "CENTER", 0, 0)
 	bar:Size(150, 40)
 	bar:CreateBackdrop("Transparent")
@@ -547,7 +548,7 @@ function module:UpdateBar(id)
 	local numMoverCols = barDB.buttonsPerRow
 	local newMoverWidth = 2 * barDB.backdropSpacing + numMoverCols * barDB.buttonWidth + (numMoverCols - 1) -- * barDB.spacing
 	local newMoverHeight = 2 * barDB.backdropSpacing + numMoverRows * barDB.buttonHeight + (numMoverRows - 1) -- * barDB.spacing
-	bar:GetParent():Size(newMoverWidth, newMoverHeight)
+	bar.anchor:Size(newMoverWidth, newMoverHeight)
 
 	bar:ClearAllPoints()
 	bar:Point(barDB.anchor)
@@ -608,30 +609,26 @@ function module:UpdateBar(id)
 		bar.backdrop:Hide()
 	end
 
-	local function updateAlpha()
-		bar.alphaMin = barDB.alphaMin
-		bar.alphaMax = barDB.alphaMax
-
-		if barDB.globalFade then
-			bar:SetAlpha(1)
-			bar:GetParent():SetParent(AB.fadeParent)
-		else
-			if barDB.mouseOver then
-				bar:SetAlpha(barDB.alphaMin)
-			else
-				bar:SetAlpha(barDB.alphaMax)
-			end
-
-			bar:GetParent():SetParent(E.UIParent)
-		end
-	end
-
 	bar.waitGroup.ticker = NewTicker(0.1, function()
 		if bar.waitGroup.count == 0 then
 			if bar.waitGroup.ticker then
 				bar.waitGroup.ticker:Cancel()
 			end
-			updateAlpha()
+			bar.alphaMin = barDB.alphaMin
+			bar.alphaMax = barDB.alphaMax
+
+			if barDB.globalFade then
+				bar:SetAlpha(1)
+				bar.anchor:SetParent(AB.fadeParent)
+			else
+				if barDB.mouseOver then
+					bar:SetAlpha(barDB.alphaMin)
+				else
+					bar:SetAlpha(barDB.alphaMax)
+				end
+
+				bar.anchor:SetParent(E.UIParent)
+			end
 			bar.waitGroup = nil
 		end
 	end)
