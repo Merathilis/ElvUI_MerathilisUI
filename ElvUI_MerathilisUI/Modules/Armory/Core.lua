@@ -9,8 +9,9 @@ local twipe = table.wipe
 
 local CreateColor = CreateColor
 local GetInventoryItemID = GetInventoryItemID
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
+local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
+local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
+local GetSpecializationRole = GetSpecializationRole
 local GetCurrentTitle = GetCurrentTitle
 local GetTitleName = GetTitleName
 local UnitLevel = UnitLevel
@@ -177,10 +178,10 @@ module.characterSlots = {
 
 function module:GetPrimaryTalentIndex()
 	local primaryTalentTreeIdx = 0
-	local primaryTalentTree = GetSpecialization()
+	local primaryTalentTree = C_SpecializationInfo_GetSpecialization()
 
 	if primaryTalentTree then
-		primaryTalentTreeIdx = GetSpecializationInfo(primaryTalentTree) or 0
+		primaryTalentTreeIdx = C_SpecializationInfo_GetSpecializationInfo(primaryTalentTree) or 0
 	end
 
 	return primaryTalentTreeIdx
@@ -206,9 +207,10 @@ function module:CheckMessageCondition(slotOptions)
 	-- Primary Stat Condition
 	if enchantNeeded and conditions.primary then
 		enchantNeeded = false
-		local spec = GetSpecialization()
+		local spec = C_SpecializationInfo_GetSpecialization()
 		if spec then
-			local primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
+			local primaryStat =
+				select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
 			enchantNeeded = (conditions.primary == primaryStat)
 		end
 	end
@@ -1041,7 +1043,7 @@ function module:UpdateCharacterStats()
 		end
 	end
 
-	local spec = GetSpecialization()
+	local spec = C_SpecializationInfo_GetSpecialization()
 	local level = UnitLevel("player")
 	local categoryYOffset = 0
 	local statYOffset = 0
@@ -1107,7 +1109,8 @@ function module:UpdateCharacterStats()
 				if showStat and (stat.primary and spec) then
 					local primaryStat
 
-					primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
+					primaryStat =
+						select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
 					if stat.primary ~= primaryStat then
 						showStat = false
 					end
@@ -1116,7 +1119,8 @@ function module:UpdateCharacterStats()
 				if showStat and (stat.primaries and spec) then
 					local primaryStat
 
-					primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
+					primaryStat =
+						select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
 
 					local foundPrimary = false
 					for _, primary in pairs(stat.primaries) do
