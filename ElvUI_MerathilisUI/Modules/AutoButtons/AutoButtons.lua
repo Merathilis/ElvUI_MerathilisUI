@@ -60,6 +60,11 @@ local forceUsableItems = {
 	[206448] = true, -- Fyr'alath the Dreamrender
 }
 
+-- If the item is lower than the threshold, it will be considered not shown
+local countThreshold = {
+	[245653] = 100,
+}
+
 local equipmentList = {}
 local function UpdateEquipmentList()
 	wipe(equipmentList)
@@ -481,7 +486,8 @@ function module:UpdateBar(id)
 	local function addButtons(list)
 		for _, itemID in pairs(list) do
 			local count = GetItemCount(itemID)
-			if count and count > 0 and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
+			local countIsValid = count and count > 0 and (not countThreshold[itemID] or count >= countThreshold[itemID])
+			if countIsValid and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
 				self:SetUpButton(bar.buttons[buttonID], { itemID = itemID }, nil, bar.waitGroup)
 				self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 				buttonID = buttonID + 1

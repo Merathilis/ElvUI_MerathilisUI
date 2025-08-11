@@ -109,7 +109,10 @@ local hearthstones = {
 	209035,
 	212337,
 	228940,
+	235016,
 	236687,
+	245970,
+	246565,
 }
 
 local hearthstoneAndToyIDList = {
@@ -145,7 +148,10 @@ local hearthstoneAndToyIDList = {
 	210455,
 	212337,
 	228940,
+	235016,
 	236687,
+	245970,
+	246565,
 	-- Patch Items
 	110560,
 	140192,
@@ -168,10 +174,6 @@ local hearthstoneAndToyIDList = {
 	172924,
 	198156,
 	221966,
-	228940,
-	235016,
-	236687,
-	245970,
 }
 
 local hearthstonesAndToysData
@@ -1571,15 +1573,8 @@ function module:UpdateHearthStoneTable()
 	}
 
 	for i = 1, 4 do
-		local level = self.covenantCache[E.myrealm]
-			and self.covenantCache[E.myrealm][E.myname]
-			and self.covenantCache[E.myrealm][E.myname][tostring(i)]
 		local toyID = covenantHearthstones[i]
-		local hasToy = PlayerHasToy(toyID) and IsToyUsable(toyID)
-
-		-- here we don't check the current active covenant.
-		-- because `/castrandom` cannot the current active covenant hearthstone.
-		hearthstonesTable[toyID] = (hasToy and level and level == 60) and true or false
+		hearthstonesTable[toyID] = false
 	end
 
 	local raceHeartstones = {
