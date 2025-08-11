@@ -1,19 +1,40 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
-local S = E:GetModule("Skins")
 
 local _G = _G
-local next, pairs, select, unpack = next, pairs, select, unpack
+local abs = abs
+local pairs = pairs
+local select = select
+local strmatch = strmatch
+local unpack = unpack
 
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
 local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
-local GetNextWaypointText = C_QuestLog.GetNextWaypointText
-local GetSelectedQuest = C_QuestLog.GetSelectedQuest
 local GetQuestID = GetQuestID
 
-local function QuestInfo_GetQuestID()
+local GetNextWaypointText = C_QuestLog.GetNextWaypointText
+local GetSelectedQuest = C_QuestLog.GetSelectedQuest
+
+local function isAlmost(a, b)
+	return abs(a - b) < 0.01
+end
+
+--[[
+	Quest Frame Skinning Helper Functions
+	Provides comprehensive styling for quest frames, objectives, and reward displays
+--]]
+
+-- Color constants for objective text styling
+local DEFAULT_COLOR = GetMaterialTextColors("Default")
+local COMPLETED_COLOR = QUEST_OBJECTIVE_COMPLETED_FONT_COLOR:GetRGB()
+
+--[[
+	Determines the appropriate quest ID based on current context
+	@return number - The current quest ID
+--]]
+local function GetCurrentQuestID()
 	if _G.QuestInfoFrame.questLog then
 		return GetSelectedQuest()
 	else
@@ -21,109 +42,296 @@ local function QuestInfo_GetQuestID()
 	end
 end
 
-local function ColorObjectivesText()
+--[[
+	Applies color coding to quest objectives based on completion status
+	Colors: Cyan for waypoints, Green for completed, White for incomplete
+--]]
+local function ApplyObjectiveTextColoring()
 	if not _G.QuestInfoFrame.questLog then
 		return
 	end
 
-	local questID = QuestInfo_GetQuestID()
+	local questID = GetCurrentQuestID()
 	local numVisibleObjectives = 0
 
+	-- Handle waypoint objectives with cyan coloring
 	local waypointText = GetNextWaypointText(questID)
 	if waypointText then
 		numVisibleObjectives = numVisibleObjectives + 1
-		local objective = _G["QuestInfoObjective" .. numVisibleObjectives]
-		objective:SetTextColor(0.4, 1, 1)
+		local objectiveFrame = _G["QuestInfoObjective" .. numVisibleObjectives]
+		if objectiveFrame then
+			objectiveFrame:SetTextColor(0, 0.82, 0.82) -- Cyan for waypoints
+		end
 	end
 
-	for i = 1, GetNumQuestLeaderBoards() do
-		local _, objectiveType, isCompleted = GetQuestLogLeaderBoard(i)
+	-- Process all quest objectives
+	for objectiveIndex = 1, GetNumQuestLeaderBoards() do
+		local description, objectiveType, isCompleted = GetQuestLogLeaderBoard(objectiveIndex)
 
-		if objectiveType ~= "spell" and objectiveType ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES then
+		-- Filter out system objectives and ensure we don't exceed display limits
+		if
+			description
+			and objectiveType ~= "spell"
+			and objectiveType ~= "log"
+			and numVisibleObjectives < _G.MAX_OBJECTIVES
+		then
 			numVisibleObjectives = numVisibleObjectives + 1
-			local objective = _G["QuestInfoObjective" .. numVisibleObjectives]
-			if objective then
+			local objectiveFrame = _G["QuestInfoObjective" .. numVisibleObjectives]
+			if objectiveFrame then
 				if isCompleted then
-					objective:SetTextColor(0.2, 1, 0.2)
+					objectiveFrame:SetTextColor(0.2, 1, 0.2) -- Green for completed
 				else
-					objective:SetTextColor(1, 1, 1)
+					objectiveFrame:SetTextColor(1, 1, 1) -- White for incomplete
 				end
 			end
 		end
 	end
 end
 
-local defaultColor = GetMaterialTextColors("Default")
-local completedColor = QUEST_OBJECTIVE_COMPLETED_FONT_COLOR:GetRGB()
-local function ReplaceTextColor(object, r)
-	if r == 0 or r == defaultColor[1] then
-		object:SetTextColor(1, 1, 1)
-	elseif r == completedColor then
-		object:SetTextColor(0.7, 0.7, 0.7)
+--[[
+	Replaces default quest text colors with enhanced visibility colors
+	@param textObject - The text object to modify
+	@param redValue - The red component of the current color
+--]]
+local function ReplaceQuestTextColor(textObject, redValue, greenValue, blueValue)
+	if redValue == 0 and isAlmost(greenValue, 0.82) and isAlmost(blueValue, 0.82) then
+		return
+	elseif redValue == 0 or redValue == DEFAULT_COLOR[1] then
+		textObject:SetTextColor(1, 1, 1) -- White for better readability
+	elseif redValue == COMPLETED_COLOR then
+		textObject:SetTextColor(0.7, 0.7, 0.7) -- Muted for completed objectives
 	end
 end
 
-local function RestyleSpellButton(bu)
-	local name = bu:GetName()
-	local icon = bu.Icon
+--[[
+	Applies minimal styling to reward buttons while preserving functionality
+	@param rewardButton - The reward button frame to style
+--]]
+local function StyleRewardButton(rewardButton)
+	if not rewardButton then
+		return
+	end
 
-	_G[name .. "NameFrame"]:Hide()
-	_G[name .. "SpellBorder"]:Hide()
+	-- Hide decorative name frame border while preserving content
+	if rewardButton.NameFrame then
+		rewardButton.NameFrame:Hide()
+	end
 
-	icon:SetPoint("TOPLEFT", 3, -2)
-	icon:SetDrawLayer("ARTWORK")
-	icon:SetTexCoord(unpack(E.TexCoords))
-	module:CreateBG(icon)
+	-- Style the reward icon with proper texture coordinates and backdrop
+	if rewardButton.Icon then
+		rewardButton.Icon:SetTexCoord(unpack(E.TexCoords))
+		if rewardButton.Icon.backdrop then
+			module:CreateBackdropShadow(rewardButton.Icon)
+			module:BindShadowColorWithBorder(rewardButton.Icon.backdrop.MERshadow, rewardButton.Icon.backdrop)
+		end
+	end
 
-	local bg = CreateFrame("Frame", nil, bu)
-	bg:SetPoint("TOPLEFT", 2, -1)
-	bg:SetPoint("BOTTOMRIGHT", 0, 14)
-	bg:SetFrameLevel(0)
-	bg:CreateBackdrop("Transparent")
+	-- Create transparent backdrop for the reward button
+	rewardButton:CreateBackdrop("Transparent")
+	if rewardButton.Icon and rewardButton.Icon.backdrop then
+		rewardButton.backdrop:SetPoint("TOPLEFT", rewardButton.Icon.backdrop, "TOPRIGHT", 2, 0)
+		rewardButton.backdrop:SetPoint("BOTTOMRIGHT", rewardButton.Icon.backdrop, 100, 0)
+	end
+	rewardButton.textBG = rewardButton.backdrop
 end
 
-local function ReskinRewardButton(bu)
-	bu.NameFrame:Hide()
-	S:HandleIcon(bu.Icon, true)
+--[[
+	Applies styling to reward buttons with specific size requirements
+	@param rewardButton - The reward button frame to style
+	@param isMapQuestInfo - Boolean indicating if this is for the map quest info frame
+--]]
+local function StyleRewardButtonWithSize(rewardButton, isMapQuestInfo)
+	if not rewardButton then
+		return
+	end
 
-	bu:CreateBackdrop("Transparent")
-	bu.backdrop:Point("TOPLEFT", bu.Icon.backdrop, "TOPRIGHT", 2, 0)
-	bu.backdrop:Point("BOTTOMRIGHT", bu.Icon.backdrop, 100, 0)
-	bu.textBG = bu.backdrop
-end
+	StyleRewardButton(rewardButton)
 
-local function ReskinRewardButtonWithSize(bu, isMapQuestInfo)
-	ReskinRewardButton(bu)
-
-	if isMapQuestInfo then
-		bu.Icon:SetSize(29, 29)
-	else
-		bu.Icon:SetSize(34, 34)
+	-- Apply size-specific adjustments based on context
+	if rewardButton.Icon then
+		if isMapQuestInfo then
+			rewardButton.Icon:SetSize(29, 29) -- Smaller size for map quest info
+		else
+			rewardButton.Icon:SetSize(34, 34) -- Standard size for regular quest info
+		end
 	end
 end
 
-local function HookTextColor_Yellow(self, r, g, b)
-	if r ~= 1 or g ~= 0.8 or b ~= 0 then
-		self:SetTextColor(1, 0.8, 0)
+--[[
+	Applies comprehensive styling to spell objective buttons
+	@param spellButton - The spell objective button frame to style
+--]]
+local function StyleSpellObjectiveButton(spellButton)
+	if not spellButton then
+		return
+	end
+
+	local buttonName = spellButton:GetName()
+	local spellIcon = spellButton.Icon
+
+	-- Hide default decorative frames
+	if _G[buttonName .. "NameFrame"] then
+		_G[buttonName .. "NameFrame"]:Hide()
+	end
+	if _G[buttonName .. "SpellBorder"] then
+		_G[buttonName .. "SpellBorder"]:Hide()
+	end
+
+	-- Style the spell icon
+	if spellIcon then
+		spellIcon:SetPoint("TOPLEFT", 3, -2)
+		spellIcon:SetDrawLayer("ARTWORK")
+		spellIcon:SetTexCoord(unpack(E.TexCoords))
+		module:CreateBackdropShadow(spellIcon)
+	end
+
+	-- Create background frame for the spell button
+	local backgroundFrame = CreateFrame("Frame", nil, spellButton)
+	backgroundFrame:SetPoint("TOPLEFT", 2, -1)
+	backgroundFrame:SetPoint("BOTTOMRIGHT", 0, 14)
+	backgroundFrame:SetFrameLevel(0)
+	backgroundFrame:CreateBackdrop("Transparent")
+end
+
+--[[
+	Hook function to maintain yellow text color for headers
+	@param textFrame - The text frame being modified
+	@param redValue - Red component of the color
+	@param greenValue - Green component of the color
+	@param blueValue - Blue component of the color
+--]]
+local function MaintainYellowTextColor(textFrame, redValue, greenValue, blueValue)
+	if redValue ~= 1 or greenValue ~= 0.8 or blueValue ~= 0 then
+		textFrame:SetTextColor(1, 0.8, 0) -- Force yellow color
 	end
 end
 
-local function SetTextColor_Yellow(font)
-	font:SetTextColor(1, 0.8, 0)
-	font:SetShadowColor(0, 0, 0, 0)
-	hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
+--[[
+	Configures font with yellow coloring and outline for quest headers
+	@param fontObject - The font object to configure
+--]]
+local function ConfigureYellowHeaderFont(fontObject)
+	if not fontObject then
+		return
+	end
+
+	F.SetFontOutline(fontObject)
+	fontObject:SetTextColor(1, 0.8, 0) -- Yellow for headers
+	fontObject:SetShadowColor(0, 0, 0, 0)
+	hooksecurefunc(fontObject, "SetTextColor", MaintainYellowTextColor)
 end
 
-local function HookTextColor_White(self, r, g, b)
-	if r ~= 1 or g ~= 1 or b ~= 1 then
-		self:SetTextColor(1, 1, 1)
+--[[
+	Hook function to maintain white text color for content
+	@param textFrame - The text frame being modified
+	@param redValue - Red component of the color
+	@param greenValue - Green component of the color
+	@param blueValue - Blue component of the color
+--]]
+local function MaintainWhiteTextColor(textFrame, redValue, greenValue, blueValue)
+	if redValue ~= 1 or greenValue ~= 1 or blueValue ~= 1 then
+		textFrame:SetTextColor(1, 1, 1) -- Force white color
 	end
 end
 
-local function SetTextColor_White(font)
-	font:SetTextColor(1, 1, 1)
-	font:SetShadowColor(0, 0, 0, 0)
-	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
+--[[
+	Configures font with white coloring and outline for quest content
+	@param fontObject - The font object to configure
+--]]
+local function ConfigureWhiteContentFont(fontObject)
+	if not fontObject then
+		return
+	end
+
+	F.SetFontOutline(fontObject)
+	fontObject:SetTextColor(1, 1, 1) -- White for content
+	fontObject:SetShadowColor(0, 0, 0, 0)
+	hooksecurefunc(fontObject, "SetTextColor", MaintainWhiteTextColor)
+end
+
+--[[
+	Main quest info display function that handles dynamic styling
+	Called whenever quest information is displayed or updated
+--]]
+function module.QuestInfo_Display()
+	-- Apply styling to quest objective text elements
+	for _, objectiveText in pairs(_G.QuestInfoObjectivesFrame.Objectives) do
+		if objectiveText and not objectiveText.__MERSkin then
+			if E.private.skins.parchmentRemoverEnable then
+				F.SetFontOutline(objectiveText)
+
+				-- Hook text color changes to maintain our styling
+				if not objectiveText.colorHooked then
+					hooksecurefunc(objectiveText, "SetTextColor", ReplaceQuestTextColor)
+					local currentRed, currentGreen, currentBlue = objectiveText:GetTextColor()
+					objectiveText:SetTextColor(currentRed, currentGreen, currentBlue)
+					objectiveText.colorHooked = true
+				end
+			end
+			objectiveText.__MERSkin = true
+		end
+	end
+
+	-- Handle dynamic quest reward styling
+	local questRewardsFrame = _G.QuestInfoFrame.rewardsFrame
+	if questRewardsFrame then
+		local isQuestLogContext = _G.QuestInfoFrame.questLog ~= nil
+		local currentQuestID = isQuestLogContext and GetSelectedQuest() or GetQuestID()
+		if currentQuestID then
+			local availableSpellRewards = C_QuestInfoSystem.GetQuestRewardSpells(currentQuestID) or {}
+
+			-- Process spell-related rewards if they exist
+			if #availableSpellRewards > 0 then
+				-- Style spell headers with proper coloring
+				for spellHeader in questRewardsFrame.spellHeaderPool:EnumerateActive() do
+					spellHeader:SetVertexColor(1, 1, 1)
+				end
+
+				-- Style follower rewards with quality-based border colors
+				for followerReward in questRewardsFrame.followerRewardPool:EnumerateActive() do
+					local portraitFrame = followerReward.PortraitFrame
+					if portraitFrame and portraitFrame.squareBG then
+						local r, g, b = E:GetItemQualityColor(portraitFrame.quality) or 1, 1, 1
+						portraitFrame.squareBG:SetBackdropBorderColor(r, g, b)
+					end
+				end
+
+				-- Apply minimal styling to spell rewards to preserve functionality
+				for spellReward in questRewardsFrame.spellRewardPool:EnumerateActive() do
+					if not spellReward.__MERSkin then
+						if spellReward.Icon then
+							spellReward.Icon:SetTexCoord(unpack(E.TexCoords))
+							if spellReward.Icon.backdrop then
+								module:CreateBackdropShadow(spellReward.Icon)
+								module:BindShadowColorWithBorder(
+									spellReward.Icon.backdrop.MERshadow,
+									spellReward.Icon.backdrop
+								)
+							end
+						end
+						spellReward.__MERSkin = true
+					end
+				end
+			end
+
+			-- Apply minimal styling to reputation rewards while preserving icons
+			for reputationReward in questRewardsFrame.reputationRewardPool:EnumerateActive() do
+				if not reputationReward.wtStyled then
+					if reputationReward.Icon then
+						reputationReward.Icon:SetTexCoord(unpack(E.TexCoords))
+						if reputationReward.Icon.backdrop then
+							module:CreateBackdropShadow(reputationReward.Icon)
+							module:BindShadowColorWithBorder(
+								reputationReward.Icon.backdrop.MERshadow,
+								reputationReward.Icon.backdrop
+							)
+						end
+					end
+					reputationReward.wtStyled = true
+				end
+			end
+		end
+	end
 end
 
 function module:QuestInfo()
@@ -131,28 +339,39 @@ function module:QuestInfo()
 		return
 	end
 
-	-- Item reward highlight
-	_G.QuestInfoItemHighlight:Kill()
+	-- Apply shadow effects to main quest frames
+	self:CreateShadow(_G.QuestFrame)
+	self:CreateShadow(_G.QuestModelScene)
+	self:CreateBackdropShadow(_G.QuestModelScene.ModelTextFrame)
+	self:Reposition(_G.QuestModelScene.ModelTextFrame.backdrop, _G.QuestModelScene.ModelTextFrame, 0, 8, 5, 0, 0)
+	self:CreateShadow(_G.QuestLogPopupDetailFrame)
+	self:CreateShadow(_G.QuestNPCModelTextFrame)
 
-	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
+	-- Hook the main quest info display function for dynamic updates
+	hooksecurefunc("QuestInfo_Display", self.QuestInfo_Display)
 
-	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
-	ColorObjectivesText()
+	-- Remove default item highlight for cleaner appearance
+	if _G.QuestInfoItemHighlight then
+		_G.QuestInfoItemHighlight:Kill()
+	end
 
-	-- [[ Quest rewards ]]
-	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
-		local bu = rewardsFrame.RewardButtons[index]
+	-- Apply styling to spell objective frame
+	if _G.QuestInfoSpellObjectiveFrame then
+		StyleSpellObjectiveButton(_G.QuestInfoSpellObjectiveFrame)
+	end
 
-		if bu and not bu.restyled then
-			ReskinRewardButtonWithSize(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
-			bu.restyled = true
+	-- Hook dynamic quest reward button creation
+	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, buttonIndex)
+		local rewardButton = rewardsFrame.RewardButtons[buttonIndex]
+		if rewardButton and not rewardButton.wtRestyled then
+			StyleRewardButtonWithSize(rewardButton, rewardsFrame == _G.MapQuestInfoRewardsFrame)
+			rewardButton.wtRestyled = true
 		end
 	end)
 
-	_G.MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
-	for _, name in
-		next,
-		{
+	-- Style static reward frames for map quest info
+	if _G.MapQuestInfoRewardsFrame then
+		local mapRewardFrameNames = {
 			"HonorFrame",
 			"MoneyFrame",
 			"SkillPointFrame",
@@ -161,162 +380,148 @@ function module:QuestInfo()
 			"TitleFrame",
 			"WarModeBonusFrame",
 		}
-	do
-		ReskinRewardButtonWithSize(_G.MapQuestInfoRewardsFrame[name], true)
-	end
 
-	for _, name in next, { "HonorFrame", "SkillPointFrame", "ArtifactXPFrame", "WarModeBonusFrame" } do
-		ReskinRewardButtonWithSize(_G.QuestInfoRewardsFrame[name])
-	end
-
-	--Spell Rewards
-	local spellRewards = { _G["QuestInfoRewardsFrame"], _G["MapQuestInfoRewardsFrame"] }
-	for _, rewardFrame in pairs(spellRewards) do
-		local spellRewardFrame = rewardFrame.spellRewardPool:Acquire()
-		local icon = spellRewardFrame.Icon
-		local nameFrame = spellRewardFrame.NameFrame
-
-		spellRewardFrame:StripTextures()
-		icon:SetTexCoord(unpack(E.TexCoords))
-		module:CreateBDFrame(icon)
-		nameFrame:Hide()
-
-		nameFrame:CreateBackdrop("Transparent")
-		nameFrame.backdrop:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
-		nameFrame.backdrop:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 101, -1)
-	end
-
-	-- Title Reward
-	do
-		local frame = _G.QuestInfoPlayerTitleFrame
-		local icon = frame.Icon
-
-		icon:SetTexCoord(unpack(E.TexCoords))
-		icon:CreateBackdrop("Transparent")
-		for i = 2, 4 do
-			select(i, frame:GetRegions()):Hide()
+		for _, rewardFrameName in pairs(mapRewardFrameNames) do
+			local rewardFrame = _G.MapQuestInfoRewardsFrame[rewardFrameName]
+			if rewardFrame then
+				StyleRewardButtonWithSize(rewardFrame, true)
+			end
 		end
 
-		frame:CreateBackdrop("Transparent")
-		frame.backdrop:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
-		frame.backdrop:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 220, -1)
+		-- Configure XP frame text shadow
+		if _G.MapQuestInfoRewardsFrame.XPFrame and _G.MapQuestInfoRewardsFrame.XPFrame.Name then
+			_G.MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
+		end
 	end
 
-	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
-		if r == 0 then
-			self:SetTextColor(0.8, 0.8, 0.8, 1)
-		elseif r == 0.2 then
-			self:SetTextColor(1, 1, 1, 1)
-		end
-	end)
+	-- Style static reward frames for regular quest info
+	if _G.QuestInfoRewardsFrame then
+		local questRewardFrameNames = { "HonorFrame", "SkillPointFrame", "ArtifactXPFrame", "WarModeBonusFrame" }
 
-	local yellowish = {
+		for _, rewardFrameName in pairs(questRewardFrameNames) do
+			local rewardFrame = _G.QuestInfoRewardsFrame[rewardFrameName]
+			if rewardFrame then
+				StyleRewardButtonWithSize(rewardFrame)
+			end
+		end
+	end
+
+	-- Style the title reward frame with proper backdrop
+	if _G.QuestInfoPlayerTitleFrame then
+		local titleRewardFrame = _G.QuestInfoPlayerTitleFrame
+		local titleIcon = titleRewardFrame.Icon
+
+		if titleIcon then
+			titleIcon:SetTexCoord(unpack(E.TexCoords))
+			titleIcon:CreateBackdrop("Transparent")
+		end
+
+		-- Hide decorative regions while preserving functionality
+		for regionIndex = 2, 4 do
+			local region = select(regionIndex, titleRewardFrame:GetRegions())
+			if region then
+				region:Hide()
+			end
+		end
+
+		-- Create backdrop for the title frame
+		titleRewardFrame:CreateBackdrop("Transparent")
+		if titleIcon then
+			titleRewardFrame.backdrop:SetPoint("TOPLEFT", titleIcon, "TOPRIGHT", 0, 2)
+			titleRewardFrame.backdrop:SetPoint("BOTTOMRIGHT", titleIcon, "BOTTOMRIGHT", 220, -1)
+		end
+	end
+
+	-- Apply font outlines to model-related text elements
+	F.SetFontOutline(_G.QuestNPCModelText)
+	F.SetFontOutline(_G.QuestNPCModelNameText)
+
+	-- Only Modify the text colors if parchment is disabled
+	if not E.private.skins.parchmentRemoverEnable then
+		return
+	end
+
+	-- Hook quest map frame for objective text coloring
+	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ApplyObjectiveTextColoring)
+
+	-- Configure money requirement text color handling
+	if _G.QuestInfoRequiredMoneyText then
+		hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(textFrame, redValue)
+			if redValue == 0 then
+				textFrame:SetTextColor(0.8, 0.8, 0.8, 1) -- Insufficient funds - muted
+			elseif redValue == 0.2 then
+				textFrame:SetTextColor(1, 1, 1, 1) -- Sufficient funds - white
+			end
+		end)
+		hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", ReplaceQuestTextColor)
+	end
+
+	-- Configure yellow text styling for quest headers
+	local questHeaderFonts = {
 		_G.QuestInfoTitleHeader,
 		_G.QuestInfoDescriptionHeader,
 		_G.QuestInfoObjectivesHeader,
-		_G.QuestInfoRewardsFrame.Header,
+		_G.QuestInfoRewardsFrame and _G.QuestInfoRewardsFrame.Header,
 		_G.QuestInfoAccountCompletedNotice,
 	}
 
-	for _, font in pairs(yellowish) do
-		SetTextColor_Yellow(font)
+	for _, headerFont in pairs(questHeaderFonts) do
+		if headerFont then
+			ConfigureYellowHeaderFont(headerFont)
+		end
 	end
 
-	local whitish = {
+	-- Configure white text styling for quest content
+	local questContentFonts = {
 		_G.QuestInfoDescriptionText,
 		_G.QuestInfoObjectivesText,
 		_G.QuestInfoGroupSize,
 		_G.QuestInfoRewardText,
 		_G.QuestInfoTimerText,
 		_G.QuestInfoSpellObjectiveLearnLabel,
-		_G.QuestInfoRewardsFrame.ItemChooseText,
-		_G.QuestInfoRewardsFrame.ItemReceiveText,
-		_G.QuestInfoRewardsFrame.PlayerTitleText,
-		_G.QuestInfoRewardsFrame.XPFrame.ReceiveText,
+		_G.QuestInfoRewardsFrame and _G.QuestInfoRewardsFrame.ItemChooseText,
+		_G.QuestInfoRewardsFrame and _G.QuestInfoRewardsFrame.ItemReceiveText,
+		_G.QuestInfoRewardsFrame and _G.QuestInfoRewardsFrame.PlayerTitleText,
+		_G.QuestInfoRewardsFrame and _G.QuestInfoRewardsFrame.XPFrame and _G.QuestInfoRewardsFrame.XPFrame.ReceiveText,
 	}
 
-	for _, font in pairs(whitish) do
-		SetTextColor_White(font)
+	for _, contentFont in pairs(questContentFonts) do
+		if contentFont then
+			ConfigureWhiteContentFont(contentFont)
+		end
 	end
 
-	-- Replace seal signature string
-	local replacedSealColor = {
-		["480404"] = "c20606",
-		["042c54"] = "1c86ee",
-	}
-	hooksecurefunc(QuestInfoSealFrame.Text, "SetText", function(self, text)
-		if text and text ~= "" then
-			local colorStr, rawText = strmatch(text, "|c[fF][fF](%x%x%x%x%x%x)(.-)|r")
-			if colorStr and rawText then
-				colorStr = replacedSealColor[colorStr] or "99ccff"
-				self:SetFormattedText("|cff%s%s|r", colorStr, rawText)
+	-- Configure spell objective learn label text color handling
+	if _G.QuestInfoSpellObjectiveLearnLabel then
+		hooksecurefunc(_G.QuestInfoSpellObjectiveLearnLabel, "SetTextColor", ReplaceQuestTextColor)
+	end
+
+	-- Configure quest type text to maintain white coloring
+	if _G.QuestInfoQuestType then
+		hooksecurefunc(_G.QuestInfoQuestType, "SetTextColor", function(textFrame, redValue, greenValue, blueValue)
+			if not (redValue == 1 and greenValue == 1 and blueValue == 1) then
+				textFrame:SetTextColor(1, 1, 1)
 			end
-		end
-	end)
+		end)
+	end
 
-	-- Others
-	hooksecurefunc("QuestInfo_Display", function()
-		local objectivesTable = QuestInfoObjectivesFrame.Objectives
-		for i = #objectivesTable, 1, -1 do
-			local object = objectivesTable[i]
-			if object.hooked then
-				break
-			end
-			hooksecurefunc(object, "SetTextColor", ReplaceTextColor)
-			local r, g, b = object:GetTextColor()
-			object:SetTextColor(r, g, b)
+	-- Configure quest seal frame text color replacement
+	if _G.QuestInfoSealFrame and _G.QuestInfoSealFrame.Text then
+		local sealColorReplacements = {
+			["480404"] = "c20606", -- Red color replacement
+			["042c54"] = "1c86ee", -- Blue color replacement
+		}
 
-			object.hooked = true
-		end
-
-		local rewardsFrame = QuestInfoFrame.rewardsFrame
-		local isQuestLog = QuestInfoFrame.questLog ~= nil
-		local questID = isQuestLog and C_QuestLog.GetSelectedQuest() or GetQuestID()
-		local spellRewards = C_QuestInfoSystem.GetQuestRewardSpells(questID) or {}
-
-		if #spellRewards > 0 then
-			-- Spell Headers
-			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
-				spellHeader:SetVertexColor(1, 1, 1)
-			end
-
-			-- Follower Rewards
-			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
-				local portrait = reward.PortraitFrame
-				if portrait then
-					local color = E:GetItemQualityColor(portrait.quality or 1)
-					portrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
+		hooksecurefunc(_G.QuestInfoSealFrame.Text, "SetText", function(textFrame, textContent)
+			if textContent and textContent ~= "" then
+				local colorString, displayText = strmatch(textContent, "|c[fF][fF](%x%x%x%x%x%x)(.-)|r")
+				if colorString and displayText then
+					colorString = sealColorReplacements[colorString] or "99ccff"
+					textFrame:SetFormattedText("|cff%s%s|r", colorString, displayText)
 				end
 			end
-			-- Spell Rewards
-			for spellReward in rewardsFrame.spellRewardPool:EnumerateActive() do
-				if not spellReward.styled then
-					ReskinRewardButton(spellReward)
-
-					spellReward.styled = true
-				end
-			end
-		end
-
-		-- Reputation Rewards
-		for repReward in rewardsFrame.reputationRewardPool:EnumerateActive() do
-			if not repReward.styled then
-				ReskinRewardButton(repReward)
-
-				repReward.styled = true
-			end
-		end
-	end)
-
-	hooksecurefunc(QuestInfoQuestType, "SetTextColor", function(text, r, g, b)
-		if not (r == 1 and g == 1 and b == 1) then
-			text:SetTextColor(1, 1, 1)
-		end
-	end)
-
-	-- Change text colors
-	hooksecurefunc(QuestInfoRequiredMoneyText, "SetTextColor", ReplaceTextColor)
-	hooksecurefunc(QuestInfoSpellObjectiveLearnLabel, "SetTextColor", ReplaceTextColor)
+		end)
+	end
 end
 
 module:AddCallback("QuestInfo")
