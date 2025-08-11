@@ -137,7 +137,7 @@ function module:QuestFrame()
 	end
 	QuestFrame.FriendshipStatusBar.BarBorder:Hide()
 
-	M.NPC:Register(QuestFrame, QuestFrameNpcNameText)
+	M.NPC:Register(QuestFrame, _G.QuestFrameNpcNameText)
 end
 
 module:AddCallback("QuestFrame")

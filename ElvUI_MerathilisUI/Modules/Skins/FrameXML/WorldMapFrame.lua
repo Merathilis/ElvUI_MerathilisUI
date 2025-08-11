@@ -63,11 +63,13 @@ function module:WorldMapFrame()
 				RewardsFrame.backdrop:SetTemplate("Transparent")
 			else
 				RewardsFrame:CreateBackdrop("Transparent")
-				module:Reposition(RewardsFrame.backdrop, RewardsFrame, 0, -12, 0, 0, 3)
+				if RewardsFrame.backdrop then
+					module:Reposition(RewardsFrame.backdrop, RewardsFrame, 0, -12, 0, 0, 3)
 
-				if DetailsFrame.backdrop then
-					DetailsFrame.backdrop:Point("TOPLEFT", 0, 5)
-					DetailsFrame.backdrop:Point("BOTTOMRIGHT", RewardsFrame.backdrop, "TOPRIGHT", -3, 5)
+					if DetailsFrame.backdrop then
+						DetailsFrame.backdrop:Point("TOPLEFT", 0, 5)
+						DetailsFrame.backdrop:Point("BOTTOMRIGHT", RewardsFrame.backdrop, "TOPRIGHT", -3, 5)
+					end
 				end
 			end
 		end
@@ -77,31 +79,28 @@ function module:WorldMapFrame()
 		self:CreateBackdropShadow(dialog)
 	end)
 
-	E:Delay(2, function()
-		local tabs = {
-			QuestMapFrame.QuestsTab,
-			QuestMapFrame.EventsTab,
-			QuestMapFrame.MapLegendTab,
-		}
-		for i, tab in pairs(tabs) do
-			if tab.backdrop then
-				self:CreateBackdropShadow(tab)
-				tab.backdrop:SetTemplate("Transparent")
-			end
-
-			if i > 1 then
-				tab:ClearAllPoints()
-				tab:SetPoint("TOP", tabs[i - 1], "BOTTOM", 0, -5)
-			end
+	local tabs = {
+		QuestMapFrame.QuestsTab,
+		QuestMapFrame.EventsTab,
+		QuestMapFrame.MapLegendTab,
+	}
+	for i, tab in pairs(tabs) do
+		if tab.backdrop then
+			self:CreateBackdropShadow(tab)
+			tab.backdrop:SetTemplate("Transparent")
 		end
 
-		if QuestMapFrame.QuestsTab then
-			QuestMapFrame.QuestsTab:ClearAllPoints()
-			QuestMapFrame.QuestsTab.__SetPoint = QuestMapFrame.QuestsTab.SetPoint
-			QuestMapFrame.QuestsTab.SetPoint = E.noop
-			QuestMapFrame.QuestsTab:__SetPoint("TOPLEFT", QuestMapFrame, "TOPRIGHT", 13, -30)
+		if i > 1 then
+			F.MoveFrameWithOffset(tab, 0, -2)
 		end
-	end)
+	end
+
+	if QuestMapFrame.QuestsTab then
+		QuestMapFrame.QuestsTab:ClearAllPoints()
+		QuestMapFrame.QuestsTab.__SetPoint = QuestMapFrame.QuestsTab.SetPoint
+		QuestMapFrame.QuestsTab.SetPoint = E.noop
+		QuestMapFrame.QuestsTab:__SetPoint("TOPLEFT", QuestMapFrame, "TOPRIGHT", 13, -30)
+	end
 end
 
 module:AddCallback("WorldMapFrame")
