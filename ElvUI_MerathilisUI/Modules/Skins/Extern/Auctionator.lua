@@ -430,11 +430,11 @@ local function reskinDialog(frame)
 		S:HandleEditBox(frame.editBox)
 		frame.editBox:SetTextInsets(0, 0, 0, 0)
 	end
-	if frame.acceptButton then
-		S:HandleButton(frame.acceptButton)
-	end
-	if frame.cancelButton then
-		S:HandleButton(frame.cancelButton)
+
+	for _, buttonName in pairs({ "acceptButton", "cancelButton", "AcceptButton", "CancelButton" }) do
+		if frame[buttonName] then
+			S:HandleButton(frame[buttonName])
+		end
 	end
 
 	MF:InternalHandle(frame, nil, false)
@@ -516,6 +516,7 @@ function module:Auctionator()
 	module:TryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
 	module:TryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
 	module:TryPostHook("AuctionatorBuyCommodityFrameTemplateMixin", "OnLoad", buyCommodity)
+	module:TryPostHook("AuctionatorBuyCommodityFinalConfirmationDialogMixin", "SetDetails", reskinDialog)
 
 	-- Dialog
 	reskinDialogs()

@@ -19,6 +19,24 @@ function module:Blizzard_Professions()
 
 	ProfessionsFrame.CraftingPage.RecipeList.BackgroundNineSlice:SetAlpha(0.45)
 	ProfessionsFrame.CraftingPage.SchematicForm.Background:SetAlpha(0.45)
+
+	local function reskinChild(child)
+		if child.NineSlice and child.NineSlice.template == "Transparent" then
+			self:CreateShadow(child.NineSlice)
+		end
+	end
+
+	hooksecurefunc("ToggleProfessionsItemFlyout", function()
+		local SchematicForm = ProfessionsFrame.CraftingPage and ProfessionsFrame.CraftingPage.SchematicForm
+		if SchematicForm then
+			for _, child in next, { SchematicForm:GetChildren() } do
+				if child.InitializeContents then
+					E:Delay(0.05, reskinChild, child)
+					hooksecurefunc(child, "InitializeContents", reskinChild)
+				end
+			end
+		end
+	end)
 end
 
 module:AddCallbackForAddon("Blizzard_Professions")
