@@ -1,76 +1,68 @@
 <Bindings>
-	<Binding name="CLICK mUI_ClearRaidFlares:LeftButton" description="Clear Flares" header="MERATHILISUI_RAIDFLARE" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare1:LeftButton" description="Blue Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare2:LeftButton" description="Green Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare3:LeftButton" description="Purple Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare4:LeftButton" description="Red Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare5:LeftButton" description="Yellow Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare6:LeftButton" description="Orange Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare7:LeftButton" description="White Flare" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK mUI_RaidFlare8:LeftButton" description="Skull Flare" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar1Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR1" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button2:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button3:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button4:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button5:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button6:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button7:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button8:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button9:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button10:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button11:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar1Button12:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
 
-	<Binding name="CLICK AutoButtonBar1Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR1" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar1Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar2Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR2" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button2:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button3:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button4:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button5:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button6:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button7:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button8:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button9:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button10:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button11:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar2Button12:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
 
-	<Binding name="CLICK AutoButtonBar2Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR2" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar2Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar3Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR3" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button2:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button3:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button4:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button5:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button6:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button7:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button8:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button9:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button10:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button11:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar3Button12:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
 
-	<Binding name="CLICK AutoButtonBar3Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR3" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar3Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar4Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR4" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button2:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button3:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button4:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button5:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button6:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button7:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button8:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button9:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button10:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button11:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar4Button12:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
 
-	<Binding name="CLICK AutoButtonBar4Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR4" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar4Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoButtonBar5Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR5" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button2:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button3:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button4:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button5:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button6:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button7:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button8:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button9:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button10:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button11:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
+	<Binding name="CLICK AutoButtonBar5Button12:LeftButton" runOnUp="false" category="BINDING_CATEGORY_ELVUI_MERATHILISUI"/>
 
-	<Binding name="CLICK AutoButtonBar5Button1:LeftButton" runOnUp="false" header="AUTOBUTTONBAR5" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button2:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button3:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button4:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button5:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button6:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button7:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button8:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button9:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button10:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button11:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
-	<Binding name="CLICK AutoButtonBar5Button12:LeftButton" runOnUp="false" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK MERExtraBindingButtonLeaveDelve:LeftButton" runOnUp="false" header="BINDING_HEADER_MEREXTRABUTTONS" category="BINDING_CATEGORY_ELVUI_MERATHILISUI_EXTRA"/>
 </Bindings>

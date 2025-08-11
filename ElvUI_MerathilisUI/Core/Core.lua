@@ -83,13 +83,17 @@ E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 	OnAccept = _G.ReloadUI,
 }
 
-_G.BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
+_G.BINDING_CATEGORY_ELVUI_MERATHILISUI = MER.Title
 for i = 1, 5 do
-	_G["BINDING_HEADER_AUTOBUTTONBAR" .. i] = L["Auto Button Bar" .. " " .. i]
+	_G["BINDING_HEADER_AUTOBUTTONBAR" .. i] =
+		F.CreateColorString(L["AutoButtonBar"] .. " " .. i, E.db.general.valuecolor)
 	for j = 1, 12 do
 		_G[format("BINDING_NAME_CLICK AutoButtonBar%dButton%d:LeftButton", i, j)] = L["Button"] .. " " .. j
 	end
 end
+
+_G.BINDING_CATEGORY_ELVUI_MERATHILISUI_EXTRA = MER.Title .. " - " .. L["Extra"]
+_G.BINDING_HEADER_MEREXTRABUTTONS = L["Extra Buttons"]
 
 -- Register own Modules
 function MER:RegisterModule(name)
