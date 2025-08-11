@@ -12,7 +12,7 @@ local IsInGroup = IsInGroup
 local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local IsPartyLFG = IsPartyLFG
-local SendChatMessage = SendChatMessage
+local C_ChatInfo_SendChatMessage = C_ChatInfo.SendChatMessage
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitInParty = UnitInParty
@@ -75,7 +75,7 @@ function module:SendMessage(text, channel, raidWarning, whisperTarget)
 
 	if channel == "WHISPER" then
 		if whisperTarget then
-			SendChatMessage(text, channel, nil, whisperTarget)
+			C_ChatInfo_SendChatMessage(text, channel, nil, whisperTarget)
 		end
 		return
 	end
@@ -95,7 +95,7 @@ function module:SendMessage(text, channel, raidWarning, whisperTarget)
 	end
 
 	if self:CheckBeforeSend(text, channel) then
-		SendChatMessage(text, channel)
+		C_ChatInfo_SendChatMessage(text, channel)
 	end
 end
 

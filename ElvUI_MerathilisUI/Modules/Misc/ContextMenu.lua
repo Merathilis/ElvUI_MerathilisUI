@@ -26,11 +26,11 @@ local GetHaste = GetHaste
 local GetLifesteal = GetLifesteal
 local GetMasteryEffect = GetMasteryEffect
 local GetRangedCritChance = GetRangedCritChance
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
+local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
+local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local GetSpellCritChance = GetSpellCritChance
 local GetVersatilityBonus = GetVersatilityBonus
-local SendChatMessage = SendChatMessage
+local C_ChatInfo_SendChatMessage = C_ChatInfo.SendChatMessage
 local UnitClass = UnitClass
 local UnitHealthMax = UnitHealthMax
 local UnitPlayerControlled = UnitPlayerControlled
@@ -320,10 +320,10 @@ module.Features = {
 		},
 		func = function(contextData)
 			local name
-			local MER_SendChatMessage = SendChatMessage
+			local MER_SendChatMessage = C_ChatInfo_SendChatMessage
 
 			if contextData.bnetIDAccount then
-				SendChatMessage = function(message)
+				MER_SendChatMessage = function(message, chatType, languageID, target)
 					BNSendWhisper(contextData.bnetIDAccount, message)
 				end
 				name = "BN"
@@ -346,13 +346,14 @@ module.Features = {
 			for i, message in ipairs({
 				format(
 					"(%s) %s: %.1f %s: %s",
-					select(2, GetSpecializationInfo(GetSpecialization())) .. select(1, UnitClass("player")),
+					select(2, C_SpecializationInfo_GetSpecializationInfo(C_SpecializationInfo_GetSpecialization()))
+						.. select(1, UnitClass("player")),
 					ITEM_LEVEL_ABBR,
 					select(2, GetAverageItemLevel()),
 					HP,
 					AbbreviateNumbers(UnitHealthMax("player"))
 				),
-				format(" * %s: %.2f%%", CRITICAL, max(GetRangedCritChance(), GetCritChance(), GetSpellCritChance(2))),
+				format(" * %s: %.2f%%", CRITICAL, max(GetRangedCritChance(), GetCritChance(), GetSpellCritChance())),
 				format(" * %s: %.2f%%", STAT_HASTE, GetHaste()),
 				format(" * %s: %.2f%%", STAT_MASTERY, GetMasteryEffect()),
 				format(
