@@ -6,6 +6,11 @@ local S = MER:GetModule("MER_Skins")
 local CreateFrame = CreateFrame
 local AuraUtil_FindAura = AuraUtil.FindAura
 
+local tooltipTitle = "Exit Phase Diving"
+async.WithSpellID(1250255, function(spell)
+	tooltipTitle = F.GetMERStyleText(spell:GetSpellName())
+end)
+
 local function hasBuff(id)
 	return AuraUtil_FindAura(function(...)
 		return id == select(13, ...)
@@ -70,7 +75,7 @@ local function createButton()
 		if hasBuff(1214374) then
 			button.Highlight:Show()
 			_G.GameTooltip:SetOwner(button, "ANCHOR_TOP", 0, 5)
-			_G.GameTooltip:SetText(F.GetMERStyleText(L["Exit Phase Diving"]), 1, 1, 1)
+			_G.GameTooltip:SetText(tooltipTitle, 1, 1, 1)
 			_G.GameTooltip:Show()
 		end
 	end)
