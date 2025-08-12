@@ -2760,7 +2760,7 @@ MER.installTable = {
 				PluginInstallFrame:HookScript("OnShow", function()
 					if PluginInstallFrame.Title then
 						if PluginInstallFrame.Title:GetText() ~= "|cffff7d0aMerathilisUI|r Installation" then
-							MER:InstallAdditions()(nil, nil, true) -- Don't use the addition on other Plugins
+							MER:InstallAdditions(nil, nil, true) -- Don't use the addition on other Plugins
 						end
 					end
 				end)
