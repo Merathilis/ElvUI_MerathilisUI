@@ -14,7 +14,6 @@ function module:SkinMenu(_, manager, _, menuDescription)
 
 	self:CreateBackdropShadow(menu)
 	menuDescription:AddMenuAcquiredCallback(createShadow)
-	print("blub")
 end
 
 module:SecureHook(S, "SkinMenu")
