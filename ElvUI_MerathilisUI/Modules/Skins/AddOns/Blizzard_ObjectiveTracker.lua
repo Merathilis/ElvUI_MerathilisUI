@@ -18,7 +18,7 @@ local trackers = {
 	_G.WorldQuestObjectiveTracker,
 }
 
-function module:ReskinOjectiveTrackerHeader(header)
+function module:ReskinObjectiveTrackerHeader(header)
 	if not header or not header.Text then
 		return
 	end
@@ -72,14 +72,12 @@ function module:SkinProgressBar(tracker, key)
 		self:CreateBackdropShadow(progressBar.Bar.Icon)
 	end
 
-	-- move text to center
 	if progressBar.Bar.Label then
 		progressBar.Bar.Label:ClearAllPoints()
 		progressBar.Bar.Label:Point("CENTER", progressBar.Bar, 0, 0)
 		F.SetFontOutline(progressBar.Bar.Label)
 	end
 
-	-- change font style of header
 	if _G.ObjectiveTrackerFrame and _G.ObjectiveTrackerFrame.HeaderMenu then
 		F.SetFontOutline(_G.ObjectiveTrackerFrame.HeaderMenu.Title)
 	end
@@ -97,8 +95,13 @@ function module:Blizzard_ObjectiveTracker()
 		return
 	end
 
+	self.questItemButtons = {}
+
+	local MainHeader = _G.ObjectiveTrackerFrame.Header
+	self:ReskinObjectiveTrackerHeader(MainHeader)
+
 	for _, tracker in pairs(trackers) do
-		self:ReskinOjectiveTrackerHeader(tracker.Header)
+		self:ReskinObjectiveTrackerHeader(tracker.Header)
 
 		for _, block in pairs(tracker.usedBlocks or {}) do
 			self:ReskinObjectiveTrackerBlock(tracker, block)
