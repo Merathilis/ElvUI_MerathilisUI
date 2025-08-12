@@ -11,7 +11,7 @@ function module:Ace3_Frame(Constructor)
 	local function SkinnedConstructor()
 		local widget = Constructor()
 
-		module:CreateShadow(widget.frame)
+		self:CreateShadow(widget.frame)
 		return widget
 	end
 
@@ -31,7 +31,7 @@ function module:Ace3_DropdownPullout(Constructor)
 		if E.private.mui.skins.addonSkins.ace3DropdownBackdrop then
 			widget.frame:SetTemplate("Transparent")
 		end
-		module:CreateShadow(widget.frame)
+		self:CreateShadow(widget.frame)
 		return widget
 	end
 
@@ -47,7 +47,7 @@ function module:Ace3_Window(Constructor)
 
 	local function SkinnedConstructor()
 		local widget = Constructor()
-		module:CreateShadow(widget.frame)
+		self:CreateShadow(widget.frame)
 		return widget
 	end
 

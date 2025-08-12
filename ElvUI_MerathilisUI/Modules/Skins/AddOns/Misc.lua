@@ -73,11 +73,17 @@ function module:BlizzMisc()
 	-- Dropdown Menu
 	self:SecureHook(S, "DropDownMenu_SkinMenu", function(_, prefix, name)
 		local backdrop = prefix and _G[name]
-		if not backdrop or not backdrop.template then
+		if not backdrop then
 			return
 		end
 
-		self:CreateShadow(backdrop)
+		if backdrop.NineSlice then
+			backdrop = backdrop.NineSlice
+		end
+
+		if backdrop.template then
+			self:CreateShadow(backdrop)
+		end
 	end)
 
 	-- What's New
