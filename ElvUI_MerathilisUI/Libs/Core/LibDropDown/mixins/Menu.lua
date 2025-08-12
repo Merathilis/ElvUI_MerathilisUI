@@ -1,13 +1,8 @@
-local MINOR = 8
-local lib, minor = LibStub('LibDropDown')
-if minor > MINOR then
-	return
-end
-
 --[[ Menu:header
 Documentation for the [Menu](Menu) object.
 Created with [LibDropDown:NewMenu()](LibDropDown#libdropdownnewmenuparent-name).
 --]]
+local lib = LibStub('LibDropDown')
 
 local function OnShow(self)
 	-- gather some size data
@@ -237,8 +232,6 @@ function menuMixin:UpdateLine(index, data)
 	end
 
 	Line:Show()
-	Line:UpdateState()
-
 	return Line
 end
 
@@ -367,18 +360,6 @@ function menuMixin:NumLines()
 	return #self.lines
 end
 
---[[ Menu:Refresh()
-Iterates through every line and refreshes it with the latest data.
-
-If used to refresh the checked state of a line, make sure to set the lines' `data.checked` to a
-function that will return the current state.
---]]
-function menuMixin:Refresh()
-	for index, data in next, self.data do
-		self:UpdateLine(index, data)
-	end
-end
-
 --[[ Menu:SetStyle(_name_)
 Sets the active style for all menus related to this one.
 
@@ -495,8 +476,7 @@ function lib:NewMenu(parent, name)
 
 	Menu:SetStyle()
 
-	-- this taints the game menu or smth
-	-- table.insert(UIMenus, Menu:GetDebugName())
+	table.insert(UIMenus, Menu:GetDebugName())
 
 	Menu.anchor = {'TOP', Menu:GetParent(), 'BOTTOM', 0, -12} -- 8, 22
 	Menu.anchorCursor = false

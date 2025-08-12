@@ -44,8 +44,9 @@
 	<Script file="Blizzard_ItemUpgradeUI.lua"/>
 	<Script file="Blizzard_LookingForGuildUI.lua"/>
 	<Script file="Blizzard_MacroUI.lua"/>
-	<Script file="Blizzard_MapCanvas.lua"/>
 	<Script file="Blizzard_MajorFactions.lua"/>
+	<Script file="Blizzard_MapCanvas.lua"/>
+	<Script file="Blizzard_Menu.lua"/>
 	<Script file="Blizzard_NewPlayerExperienceGuide.lua"/>
 	<Script file="Misc.lua"/>
 	<Script file="Blizzard_ObjectiveTracker.lua"/>

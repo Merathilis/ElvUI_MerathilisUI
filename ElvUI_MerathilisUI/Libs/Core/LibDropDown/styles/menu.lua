@@ -1,10 +1,5 @@
-local MINOR = 8
-local lib, minor = LibStub('LibDropDown')
-if minor > MINOR then
-	return
-end
-
-lib:RegisterStyle('MENU', {
+local LDD = LibStub('LibDropDown')
+LDD:RegisterStyle('MENU', {
 	padding = 10,
 	spacing = 2,
 	backdrop = {

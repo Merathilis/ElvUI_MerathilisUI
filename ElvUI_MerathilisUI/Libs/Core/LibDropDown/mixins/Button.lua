@@ -1,15 +1,10 @@
-local MINOR = 8
-local lib, minor = LibStub('LibDropDown')
-if minor > MINOR then
-	return
-end
-
 --[[ Button:header
 Documentation for the [Button](Button) object.
 Created with [LibDropDown:NewButton()](LibDropDown#libdropdownnewbuttonparent-name).
 
 For all intents and purposes, this is the equivalent to [UIDropDownMenuButtonTemplate](https://www.townlong-yak.com/framexml/live/go/UIDropDownMenuButtonTemplate).
 --]]
+local lib = LibStub('LibDropDown')
 
 local function OnEnter(self)
 	local script = self:GetParent():GetScript('OnEnter')
@@ -61,13 +56,6 @@ See [Menu:Toggle()](Menu#menutoggle).
 --]]
 function buttonMixin:Toggle()
 	self.Menu:Toggle()
-end
-
---[[ Menu:Refresh()
-See [Menu:Toggle()](Menu#refresh).
---]]
-function buttonMixin:Refresh()
-	self.Menu:Refresh()
 end
 
 --[[ Button:SetAnchor(_..._)
