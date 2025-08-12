@@ -548,7 +548,7 @@ function module:UpdateBar(id)
 	local numMoverCols = barDB.buttonsPerRow
 	local newMoverWidth = 2 * barDB.backdropSpacing + numMoverCols * barDB.buttonWidth + (numMoverCols - 1) -- * barDB.spacing
 	local newMoverHeight = 2 * barDB.backdropSpacing + numMoverRows * barDB.buttonHeight + (numMoverRows - 1) -- * barDB.spacing
-	bar.anchor:Size(newMoverWidth, newMoverHeight)
+	bar:GetParent():SetSize(newMoverWidth, newMoverHeight)
 
 	bar:ClearAllPoints()
 	bar:Point(barDB.anchor)
@@ -619,16 +619,17 @@ function module:UpdateBar(id)
 
 			if barDB.globalFade then
 				bar:SetAlpha(1)
-				bar.anchor:SetParent(AB.fadeParent)
 			else
-				if barDB.mouseOver then
-					bar:SetAlpha(barDB.alphaMin)
-				else
-					bar:SetAlpha(barDB.alphaMax)
-				end
-
-				bar.anchor:SetParent(E.UIParent)
+				bar:SetAlpha(barDB.mouseOver and barDB.alphaMin or barDB.alphaMax)
 			end
+
+			local anchor = bar:GetParent()
+			local alphaParent = barDB.globalFade and AB.fadeParent or E.UIParent
+
+			if anchor and anchor:GetParent() ~= alphaParent then
+				F.TaskManager:OutOfCombat(anchor.SetParent, anchor, alphaParent)
+			end
+
 			bar.waitGroup = nil
 		end
 	end)

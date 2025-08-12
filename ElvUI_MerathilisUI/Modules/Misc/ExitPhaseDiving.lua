@@ -49,12 +49,12 @@ local function updateButton(button, db)
 end
 
 local function createButton()
-	local button = CreateFrame("Button", "MER_ExitPhaseDivingButton", E.UIParent, "SecureActionButtonTemplate")
+	local button = CreateFrame("Button", MER.Title .. "ExitPhaseDivingButton", E.UIParent, "SecureActionButtonTemplate")
 
 	button:SetAttribute("type*", "macro")
 	button:SetAttribute("macrotext1", "/cancelaura 1214374\n/run _G.GameTooltip:Hide()")
 	button:RegisterForClicks(MER.UseKeyDown and "AnyDown" or "AnyUp")
-	button:SetPoint("CENTER", 200, -100)
+	button:SetPoint("TOP", 0, -90)
 
 	button:StripTextures()
 	button:CreateBackdrop("Transparent")
@@ -74,7 +74,7 @@ local function createButton()
 	button:SetScript("OnEnter", function()
 		if hasBuff(1214374) then
 			button.Highlight:Show()
-			_G.GameTooltip:SetOwner(button, "ANCHOR_TOP", 0, 5)
+			_G.GameTooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -5)
 			_G.GameTooltip:SetText(tooltipTitle, 1, 1, 1)
 			_G.GameTooltip:Show()
 		end
@@ -88,13 +88,13 @@ local function createButton()
 	E:CreateMover(
 		button,
 		"MER_ExitPhaseDivingButtonMover",
-		L[MER.Title .. " " .. "Exit Phase Diving Button"],
+		MER.Title .. L["Exit Phase Diving Button"],
 		nil,
 		nil,
 		nil,
 		"ALL,MERATHILISUI",
 		function()
-			return E.db.WT.misc.exitPhaseDiving.enable
+			return E.db.mui.misc.exitPhaseDiving.enable
 		end,
 		"mui,misc,exitPhaseDiving"
 	)
