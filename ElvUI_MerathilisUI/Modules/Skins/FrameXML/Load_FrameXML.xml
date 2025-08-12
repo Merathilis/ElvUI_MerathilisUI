@@ -38,6 +38,7 @@
 	<Script file="ReputationFrame.lua"/>
 	<Script file="SettingsPanel.lua"/>
 	<Script file="StackSplitFrame.lua"/>
+	<Script file="Staticpopups.lua"/>
 	<Script file="TalkingHeadUI.lua"/>
 	<Script file="TaxiFrame.lua"/>
 	<Script file="TradeFrame.lua"/>

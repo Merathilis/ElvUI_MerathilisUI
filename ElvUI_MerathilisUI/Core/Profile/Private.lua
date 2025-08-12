@@ -314,6 +314,7 @@ V.skins = {
 		delves = true,
 		lossOfControl = true,
 		petBattle = true,
+		staticPopup = true,
 	},
 
 	addonSkins = {
