@@ -6,13 +6,9 @@ local _G = _G
 local getn = getn
 
 local hooksecurefunc = hooksecurefunc
-local After = C_Timer.After
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-local MAX_STATIC_POPUPS = 4
 
 function module:BlizzMisc()
-	if not module:CheckDB("misc", "misc") then
+	if not self:CheckDB("misc", "misc") then
 		return
 	end
 
@@ -47,7 +43,7 @@ function module:BlizzMisc()
 
 	-- Chat Config
 	if E.private.skins.blizzard.blizzardOptions then
-		module:CreateShadow(_G.ChatConfigFrame)
+		self:CreateShadow(_G.ChatConfigFrame)
 	end
 
 	--DropDownMenu
@@ -57,13 +53,13 @@ function module:BlizzMisc()
 
 		local Backdrop = _G[listFrameName .. "Backdrop"]
 		if Backdrop and not Backdrop.__MERSkin then
-			module:CreateBackdropShadow(Backdrop)
+			self:CreateBackdropShadow(Backdrop)
 			Backdrop.__MERSkin = true
 		end
 
 		local menuBackdrop = _G[listFrameName .. "MenuBackdrop"]
 		if menuBackdrop and not menuBackdrop.__MERSkin then
-			module:CreateShadow(menuBackdrop)
+			self:CreateShadow(menuBackdrop)
 			menuBackdrop.__MERSkin = true
 		end
 	end)
@@ -71,46 +67,43 @@ function module:BlizzMisc()
 	--LibDropDown
 	local DropDown = _G.ElvUI_MerathilisUIMenuBackdrop
 	if DropDown then
-		module:CreateShadow(DropDown)
+		self:CreateShadow(DropDown)
 	end
 
 	-- Dropdown Menu
-	for i = 1, UIDROPDOWNMENU_MAXLEVELS, 1 do
-		local f = _G["DropDownList" .. i .. "Backdrop"]
-		self:CreateShadow(f)
-
-		f = _G["DropDownList" .. i .. "MenuBackdrop"]
-		self:CreateShadow(f)
-	end
-
-	local function StylePopups()
-		for i = 1, MAX_STATIC_POPUPS do
-			local frame = _G["ElvUI_StaticPopup" .. i]
-			if frame and not frame.skinned then
-				module:CreateShadow(frame)
-				frame.skinned = true
-			end
+	self:SecureHook(S, "DropDownMenu_SkinMenu", function(_, prefix, name)
+		local backdrop = prefix and _G[name]
+		if not backdrop or not backdrop.template then
+			return
 		end
-	end
-	After(1, StylePopups)
+
+		self:CreateShadow(backdrop)
+	end)
 
 	-- What's New
 	_G.SplashFrame:CreateBackdrop("Transparent")
-	module:CreateShadow(_G.SplashFrame)
+	self:CreateShadow(_G.SplashFrame)
 
+	-- Action Status
 	if _G.ActionStatus.Text then
 		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.actionStatus)
 	end
 
-	module:SecureHook(S, "HandleIconSelectionFrame", function(_, frame)
-		module:CreateShadow(frame)
+	self:SecureHook(S, "HandleIconSelectionFrame", function(_, frame)
+		self:CreateShadow(frame)
 	end)
 
 	-- Basic Message Dialog
 	local MessageDialog = _G.BasicMessageDialog
 	if MessageDialog then
-		module:CreateShadow(MessageDialog)
+		self:CreateShadow(MessageDialog)
 	end
+
+	-- Spirit Healer
+	self:CreateShadow(_G.GhostFrameContentsFrame)
+
+	-- Cinematic Frame
+	self:CreateShadow(_G.CinematicFrameCloseDialog)
 end
 
 module:AddCallback("BlizzMisc")
