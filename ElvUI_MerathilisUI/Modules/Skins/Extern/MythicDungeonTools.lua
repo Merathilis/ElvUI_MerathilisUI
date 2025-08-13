@@ -125,7 +125,7 @@ local function reskinButtonTexture(texture, alphaTimes)
 		return
 	end
 
-	texture:SetTexCoord(unpack(E.TexCoords))
+	texture:SetTexCoord(0, 1, 0, 1)
 	texture:SetInside()
 
 	texture:SetTexture(E.media.blankTex)
@@ -161,13 +161,42 @@ function module:MDTPullButton(Constructor)
 		hooksecurefunc(widget.frame.pickedGlow, "Show", function()
 			widget.pullNumber:FontTemplate(nil, 18, "OUTLINE")
 			widget.pullNumber:SetTextColor(1, 1, 1, 1)
-			widget.pullNumberSelected:Show()
 		end)
 
 		hooksecurefunc(widget.frame.pickedGlow, "Hide", function()
 			widget.pullNumber:FontTemplate(nil, 14, "OUTLINE")
 			widget.pullNumber:SetTextColor(1, 0.93, 0.76, 0.8)
-			widget.pullNumberSelected:Hide()
+		end)
+
+		return widget
+	end
+
+	return SkinnedConstructor
+end
+
+function module:MDTNewPullButton(Constructor)
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.mdt then
+		return Constructor
+	end
+
+	local function SkinnedConstructor()
+		local widget = Constructor()
+		widget.frame:StripTextures()
+		reskinButtonTexture(widget.background, 0.2)
+		widget.background:SetVertexColor(1, 1, 1, 0.4)
+
+		widget.MERHighlight = widget.frame:CreateTexture(nil, "OVERLAY")
+		widget.MERHighlight:SetTexture(E.media.blankTex)
+		widget.MERHighlight:SetVertexColor(1, 1, 1, 0.2)
+		widget.MERHighlight:SetAllPoints()
+		widget.MERHighlight:Hide()
+
+		widget.frame:HookScript("OnEnter", function()
+			widget.MERHighlight:Show()
+		end)
+
+		widget.frame:HookScript("OnLeave", function()
+			widget.MERHighlight:Hide()
 		end)
 
 		return widget
@@ -178,3 +207,4 @@ end
 
 module:AddCallbackForAddon("MythicDungeonTools")
 module:AddCallbackForAceGUIWidget("MDTPullButton")
+module:AddCallbackForAceGUIWidget("MDTNewPullButton")

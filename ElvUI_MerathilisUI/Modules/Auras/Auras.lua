@@ -6,7 +6,7 @@ local A = E:GetModule("Auras")
 function module:Auras_SkinIcon(_, button)
 	if not button.__MERSkin then
 		S:CreateLowerShadow(button)
-		S:BindShadowColorWithBorder(button.MERshadow, button)
+		S:BindShadowColorWithBorder(button)
 		button.__MERSkin = true
 	end
 end

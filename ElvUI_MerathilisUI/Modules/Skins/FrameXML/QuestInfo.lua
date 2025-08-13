@@ -122,7 +122,7 @@ local function StyleRewardButton(rewardButton)
 		rewardButton.Icon:SetTexCoord(unpack(E.TexCoords))
 		if rewardButton.Icon.backdrop then
 			module:CreateBackdropShadow(rewardButton.Icon)
-			module:BindShadowColorWithBorder(rewardButton.Icon.backdrop.MERshadow, rewardButton.Icon.backdrop)
+			module:BindShadowColorWithBorder(rewardButton.Icon.backdrop)
 		end
 	end
 
@@ -303,10 +303,7 @@ function module.QuestInfo_Display()
 							spellReward.Icon:SetTexCoord(unpack(E.TexCoords))
 							if spellReward.Icon.backdrop then
 								module:CreateBackdropShadow(spellReward.Icon)
-								module:BindShadowColorWithBorder(
-									spellReward.Icon.backdrop.MERshadow,
-									spellReward.Icon.backdrop
-								)
+								module:BindShadowColorWithBorder(spellReward.Icon.backdrop)
 							end
 						end
 						spellReward.__MERSkin = true
@@ -321,10 +318,7 @@ function module.QuestInfo_Display()
 						reputationReward.Icon:SetTexCoord(unpack(E.TexCoords))
 						if reputationReward.Icon.backdrop then
 							module:CreateBackdropShadow(reputationReward.Icon)
-							module:BindShadowColorWithBorder(
-								reputationReward.Icon.backdrop.MERshadow,
-								reputationReward.Icon.backdrop
-							)
+							module:BindShadowColorWithBorder(reputationReward.Icon.backdrop)
 						end
 					end
 					reputationReward.wtStyled = true

@@ -14,7 +14,7 @@ function module:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 
 	if not button.__MERSkin then
 		if button.MERshadow and button.MERshadow.__MER then
-			module:BindShadowColorWithBorder(button.MERshadow, button)
+			module:BindShadowColorWithBorder(button)
 		end
 
 		button.__MERSkin = true

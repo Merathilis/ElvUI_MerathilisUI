@@ -136,7 +136,10 @@ do
 		end
 	end
 
-	function module:BindShadowColorWithBorder(shadow, borderParent)
+	function module:BindShadowColorWithBorder(frame, borderParent)
+		local shadow = frame and frame.MERshadow
+		local borderParent = borderParent or frame
+
 		if not shadow or not shadow.__MER or not borderParent or not borderParent.SetBackdropBorderColor then
 			return
 		end

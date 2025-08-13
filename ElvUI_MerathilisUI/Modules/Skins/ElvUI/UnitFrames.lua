@@ -74,7 +74,7 @@ function module:ElvUI_UnitFrames_PostUpdateAura(uf, _, button)
 
 	if not button.__MERSkin then
 		self:CreateLowerShadow(button)
-		self:BindShadowColorWithBorder(button.MERshadow, button)
+		self:BindShadowColorWithBorder(button)
 
 		button.__MERSkin = true
 	end
