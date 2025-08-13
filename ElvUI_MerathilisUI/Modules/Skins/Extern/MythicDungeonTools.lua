@@ -248,7 +248,7 @@ function module:MDTNewPullButton(Constructor)
 	return SkinnedConstructor
 end
 
-function S:MDTSpellButton(Constructor)
+function module:MDTSpellButton(Constructor)
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.mdt then
 		return Constructor
 	end
