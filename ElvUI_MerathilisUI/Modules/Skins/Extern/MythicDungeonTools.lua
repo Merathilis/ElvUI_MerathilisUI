@@ -3,8 +3,10 @@ local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
-local CreateFrame = CreateFrame
+local pairs, unpack = pairs, unpack
 
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
 local function reskinTooltip(tt)
 	if not tt then
 		return
@@ -75,6 +77,56 @@ local function reskinProgressBar(_, progressBar)
 	F.SetFontOutline(bar.Label)
 end
 
+local function reskinButtonTexture(texture, alphaTimes)
+	if not texture then
+		return
+	end
+
+	texture:SetTexCoord(0, 1, 0, 1)
+	texture:SetInside()
+
+	texture:SetTexture(E.media.blankTex)
+	texture.SetVertexColor_ = texture.SetVertexColor
+	hooksecurefunc(texture, "SetVertexColor", function(self, r, g, b, a)
+		self:SetVertexColor_(r, g, b, a * alphaTimes)
+	end)
+	texture:SetVertexColor(texture:GetVertexColor())
+end
+
+local function reskinContainerIcon(_, icon)
+	if icon and icon.image then
+		icon.image:SetTexCoord(unpack(E.TexCoords))
+	end
+end
+
+local function reskinMapPOI(frame)
+	if not frame or frame.__MERSkin or not frame.Texture then
+		return
+	end
+
+	frame:SetTemplate()
+	module:CreateShadow(frame)
+
+	frame.HighlightTexture:Kill()
+	frame.MERHighlightTexture = frame:CreateTexture(nil, "OVERLAY")
+	frame.MERHighlightTexture:SetAllPoints(frame)
+	frame.MERHighlightTexture:SetTexture(E.media.blankTex)
+	frame.MERHighlightTexture:SetVertexColor(1, 1, 1, 0.2)
+
+	hooksecurefunc(frame.HighlightTexture, "Show", function()
+		frame.MERHighlightTexture:Show()
+	end)
+
+	hooksecurefunc(frame.HighlightTexture, "Hide", function()
+		frame.MERHighlightTexture:Hide()
+	end)
+
+	frame.Texture:SetTexCoord(unpack(E.TexCoords))
+	frame.Texture:SetInside()
+
+	frame.__MERSkin = true
+end
+
 function module:MythicDungeonTools()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.mdt then
 		return
@@ -116,24 +168,35 @@ function module:MythicDungeonTools()
 		end
 	end)
 
+	self:SecureHook(_G.MDT, "UpdateEnemyInfoFrame", function(MDT)
+		local container = MDT.enemyInfoFrame.characteristicsContainer
+		if container and not container.__MERSkin then
+			hooksecurefunc(container, "AddChild", reskinContainerIcon)
+			for _, child in pairs(container.children) do
+				reskinContainerIcon(nil, child)
+			end
+
+			container.__MERSkin = true
+		end
+	end)
+
+	self:SecureHook(_G.MDT, "POI_CreateFramePools", function(MDT)
+		for _, template in pairs({ "MapLinkPinTemplate", "DeathReleasePinTemplate", "VignettePinTemplate" }) do
+			local pool = MDT.GetFramePool(template)
+			if pool then
+				self:SecureHook(pool, "Acquire", function(p)
+					if p.active then
+						for _, frame in pairs(p.active) do
+							reskinMapPOI(frame)
+						end
+					end
+				end)
+			end
+		end
+	end)
+
 	self:SecureHook(_G.MDT, "UpdateDungeonDropDown", reskinDungeonButton)
 	self:SecureHook(_G.MDT, "SkinProgressBar", reskinProgressBar)
-end
-
-local function reskinButtonTexture(texture, alphaTimes)
-	if not texture then
-		return
-	end
-
-	texture:SetTexCoord(0, 1, 0, 1)
-	texture:SetInside()
-
-	texture:SetTexture(E.media.blankTex)
-	texture.SetVertexColor_ = texture.SetVertexColor
-	hooksecurefunc(texture, "SetVertexColor", function(self, r, g, b, a)
-		self:SetVertexColor_(r, g, b, a * alphaTimes)
-	end)
-	texture:SetVertexColor(texture:GetVertexColor())
 end
 
 function module:MDTPullButton(Constructor)
@@ -144,19 +207,12 @@ function module:MDTPullButton(Constructor)
 	local function SkinnedConstructor()
 		local widget = Constructor()
 
-		reskinButtonTexture(widget.frame.pickedGlow, 0.6)
+		reskinButtonTexture(widget.frame.pickedGlow, 0.5)
 		reskinButtonTexture(widget.frame.highlight, 0.2)
 		reskinButtonTexture(widget.background, 0.3)
 
 		widget.pullNumber:ClearAllPoints()
 		widget.pullNumber:SetPoint("CENTER", widget.frame, "LEFT", 12, -1)
-
-		widget.pullNumberSelected = widget.frame:CreateFontString(nil, "OVERLAY")
-		widget.pullNumberSelected:FontTemplate(nil, 18, "OUTLINE")
-		widget.pullNumberSelected:SetPoint("CENTER", widget.pullNumber, "CENTER", 1, -3)
-		widget.pullNumberSelected:SetTextColor(1, 1, 1, 1)
-		widget.pullNumberSelected:SetText("__")
-		widget.pullNumberSelected:SetJustifyH("CENTER")
 
 		hooksecurefunc(widget.frame.pickedGlow, "Show", function()
 			widget.pullNumber:FontTemplate(nil, 18, "OUTLINE")
@@ -184,20 +240,29 @@ function module:MDTNewPullButton(Constructor)
 		widget.frame:StripTextures()
 		reskinButtonTexture(widget.background, 0.2)
 		widget.background:SetVertexColor(1, 1, 1, 0.4)
+		reskinButtonTexture(widget.frame.highlight, 0.2)
 
-		widget.MERHighlight = widget.frame:CreateTexture(nil, "OVERLAY")
-		widget.MERHighlight:SetTexture(E.media.blankTex)
-		widget.MERHighlight:SetVertexColor(1, 1, 1, 0.2)
-		widget.MERHighlight:SetAllPoints()
-		widget.MERHighlight:Hide()
+		return widget
+	end
 
-		widget.frame:HookScript("OnEnter", function()
-			widget.MERHighlight:Show()
-		end)
+	return SkinnedConstructor
+end
 
-		widget.frame:HookScript("OnLeave", function()
-			widget.MERHighlight:Hide()
-		end)
+function S:MDTSpellButton(Constructor)
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.mdt then
+		return Constructor
+	end
+
+	local function SkinnedConstructor()
+		local widget = Constructor()
+		S:HandleIcon(widget.icon)
+		local iconWidth, iconHeight = widget.icon:GetSize()
+		widget.icon:SetSize(iconWidth - 2, iconHeight - 2)
+		F.MoveFrameWithOffset(widget.icon, -3, 0)
+
+		widget.frame.background:SetAlpha(0)
+		reskinButtonTexture(widget.frame.highlight, 0.2)
+		widget.frame:SetTemplate()
 
 		return widget
 	end
@@ -208,3 +273,4 @@ end
 module:AddCallbackForAddon("MythicDungeonTools")
 module:AddCallbackForAceGUIWidget("MDTPullButton")
 module:AddCallbackForAceGUIWidget("MDTNewPullButton")
+module:AddCallbackForAceGUIWidget("MDTSpellButton")
