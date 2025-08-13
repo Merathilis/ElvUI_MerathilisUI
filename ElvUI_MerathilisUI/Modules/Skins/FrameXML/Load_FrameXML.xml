@@ -17,6 +17,7 @@
 	<Script file="GhostFrame.lua"/>
 	<Script file="GossipFrame.lua"/>
 	<Script file="HelpFrame.lua"/>
+	<Script file="InputMethodEditor.lua"/>
 	<Script file="ItemTextFrame.lua"/>
 	<Script file="LFGFrame.lua"/>
 	<Script file="LFGList.lua"/>

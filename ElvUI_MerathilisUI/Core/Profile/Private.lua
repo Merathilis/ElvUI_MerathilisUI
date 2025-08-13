@@ -315,6 +315,7 @@ V.skins = {
 		lossOfControl = true,
 		petBattle = true,
 		staticPopup = true,
+		inputMethodEditor = true,
 	},
 
 	addonSkins = {
@@ -405,5 +406,18 @@ V.skins = {
 		name = I.Fonts.Primary,
 		size = 13,
 		style = "SHADOWOUTLINE",
+	},
+	ime = {
+		label = {
+			name = E.db.general.font,
+			size = 12,
+			style = "SHADOWOUTLINE",
+		},
+		candidate = {
+			name = E.db.general.font,
+			size = E.db.general.fontSize,
+			style = "SHADOWOUTLINE",
+		},
+		transparentBackdrop = false,
 	},
 }

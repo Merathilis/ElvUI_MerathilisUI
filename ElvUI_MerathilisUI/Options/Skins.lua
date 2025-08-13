@@ -2025,6 +2025,13 @@ options.blizzard = {
 				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.staticPopup
 			end,
 		},
+		inputMethodEditor = {
+			type = "toggle",
+			name = L["Input Method Editor"],
+			disabled = function()
+				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.inputMethodEditor
+			end,
+		},
 	},
 }
 
