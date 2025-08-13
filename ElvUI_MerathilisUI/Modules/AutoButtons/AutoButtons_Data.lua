@@ -766,6 +766,7 @@ local utilities = {
 	221953, -- (1)
 	221954, -- (2)
 	221955, -- (3)
+	247882,
 }
 
 local openableItems = {
