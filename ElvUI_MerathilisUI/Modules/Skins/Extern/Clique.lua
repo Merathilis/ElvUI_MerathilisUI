@@ -5,7 +5,12 @@ local S = E:GetModule("Skins")
 local _G = _G
 local pairs, unpack = pairs, unpack
 
+local isSkinned = false
 local function SkinFrame()
+	if isSkinned then
+		return
+	end
+
 	local BindingFrame = _G.CliqueUIBindingFrame
 	S:HandlePortraitFrame(BindingFrame)
 	module:CreateShadow(BindingFrame)
@@ -63,6 +68,12 @@ local function SkinFrame()
 		end
 	end
 
+	local Dropdown = _G.CliqueBindOtherDropdownBackdrop
+	if Dropdown then
+		Dropdown:StripTextures()
+		Dropdown:SetTemplate("Transparent")
+	end
+
 	local scrollFrame = _G.CliqueConfigUIScrollFrame
 	hooksecurefunc(scrollFrame, "Update", function(frame)
 		for _, child in next, { frame.ScrollTarget:GetChildren() } do
@@ -78,6 +89,8 @@ local function SkinFrame()
 			end
 		end
 	end)
+
+	isSkinned = true
 end
 
 local function SkinTabButton()
