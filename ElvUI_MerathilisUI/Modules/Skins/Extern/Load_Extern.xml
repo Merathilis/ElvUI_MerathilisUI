@@ -25,6 +25,7 @@
 	<Script file="Rematch.lua"/>
 	<Script file="SimpleAddonManager.lua"/>
 	<Script file="stAddOnManager.lua"/>
+	<Script file="TalentLoadoutsEx.lua"/>
 	<Script file="tdBattlePetScript.lua"/>
 	<Script file="TomTom.lua"/>
 	<Script file="WeakAuras.lua"/>

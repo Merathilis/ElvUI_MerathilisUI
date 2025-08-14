@@ -36,6 +36,7 @@ local DecorAddons = {
 	{ "Rematch", L["Rematch"], "rem" },
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
+	{ "TalentLoadoutsEx", L["Talent Loadouts Ex"], "tle" },
 	{ "TomTom", L["TomTom"], "tom" },
 	{ "WorldQuestTab", L["World Quest Tab"], "wqt" },
 }
