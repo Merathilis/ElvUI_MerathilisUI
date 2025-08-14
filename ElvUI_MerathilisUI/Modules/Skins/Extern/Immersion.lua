@@ -184,8 +184,8 @@ function module:Immersion()
 					reward.textBg = module:CreateBDFrame(reward, 0.25)
 					reward.textBg:Point("TOPLEFT", 0, -3)
 					reward.textBg:Point("BOTTOMRIGHT", 2, 7)
-					reward.Class:Point("TOPRIGHT", reward.textBg, "TOPRIGHT", -C.mult, -C.mult)
-					reward.Class:Point("BOTTOMRIGHT", reward.textBg, "BOTTOMRIGHT", -C.mult, C.mult)
+					reward.Class:Point("TOPRIGHT", reward.textBg, "TOPRIGHT", -E.mult, -E.mult)
+					reward.Class:Point("BOTTOMRIGHT", reward.textBg, "BOTTOMRIGHT", -E.mult, E.mult)
 
 					reward.isSkinned = true
 				end
@@ -202,7 +202,7 @@ function module:Immersion()
 					S:HandleIcon(icon)
 					nameFrame:Hide()
 					spellReward.textBg = module:CreateBDFrame(nameFrame, 0.25)
-					spellReward.textBg:Point("TOPLEFT", icon, "TOPRIGHT", 2, C.mult)
+					spellReward.textBg:Point("TOPLEFT", icon, "TOPRIGHT", 2, E.mult)
 					spellReward.textBg:Point("BOTTOMRIGHT", nameFrame, "BOTTOMRIGHT", -24, 15)
 				end
 			end
