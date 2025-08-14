@@ -612,6 +612,9 @@ L["Add a button to exit phase diving."] = true
 L["Exit Phase Diving"] = true
 L["Exit Phase Diving Button"] = true
 L["You can use ElvUI Mover to reposition it."] = true
+L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] = true
+L["Open Upgrade Menu"] = true
+L["Reshii Wraps Upgrade"] = true
 
 -- Move Frames
 L["Move Frames"] = "프레임 이동"
@@ -1227,7 +1230,7 @@ L["Instance Difficulty"] = "인스턴스 난이도"
 L["Reskin the instance diffculty in text style."] =
 	"인스턴스 난이도를 텍스트 스타일로 다시 디자인합니다"
 L["Text Align"] = "텍스트 정렬"
-L["Hide Blizzard Indicator"] = "블리자드 표시기 숨기기"
+L["Hide Blizzard Indicator"] = "블��자드 표시기 숨기기"
 L["Left"] = "왼쪽"
 L["Center"] = "가운데"
 L["Right"] = "오른쪽"

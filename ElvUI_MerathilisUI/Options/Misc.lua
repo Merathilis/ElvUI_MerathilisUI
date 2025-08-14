@@ -105,6 +105,12 @@ options.general = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
+		reshiiWrapsUpgrade = {
+			order = 12,
+			type = "toggle",
+			name = E.NewSign .. L["Reshii Wraps Upgrade"],
+			desc = L["Middle click the character back slot to open the Reshii Wraps upgrade menu."],
+		},
 		randomtoy = {
 			order = 20,
 			type = "input",

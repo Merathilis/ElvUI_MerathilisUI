@@ -5,6 +5,7 @@ V.general = {
 }
 
 V.misc = {
+	reshiiWrapsUpgrade = true,
 	moveFrames = {
 		enable = true,
 		elvUIBags = true,

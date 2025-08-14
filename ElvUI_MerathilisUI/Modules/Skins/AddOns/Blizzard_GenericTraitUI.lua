@@ -10,7 +10,6 @@ function module:Blizzard_GenericTraitUI()
 	end
 
 	local GenericTraitFrame = _G.GenericTraitFrame
-	GenericTraitFrame:StripTextures()
 	module:CreateShadow(GenericTraitFrame)
 end
 

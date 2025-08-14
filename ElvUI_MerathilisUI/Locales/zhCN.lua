@@ -466,6 +466,10 @@ L["Add a button to exit phase diving."] = "添加一个按钮来退出相位潜�
 L["Exit Phase Diving"] = "退出相位潜行"
 L["Exit Phase Diving Button"] = "退出相位潜行按钮"
 L["You can use ElvUI Mover to reposition it."] = "你可以使用 ElvUI 移动器来移动它."
+L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] =
+	"中键点击角色界面背部装备槽位来打开雷什裹布的升级菜单."
+L["Open Upgrade Menu"] = "打开升级菜单"
+L["Reshii Wraps Upgrade"] = "雷什裹布升级"
 
 -- Move Frames
 L["Move Frames"] = "移动框体"

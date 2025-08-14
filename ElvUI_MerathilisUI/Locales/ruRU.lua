@@ -516,6 +516,9 @@ L["Exit Phase Diving"] = "Выйти из фазы погружения"
 L["Exit Phase Diving Button"] = "Кнопка выхода из фазы погружения"
 L["You can use ElvUI Mover to reposition it."] =
 	"Вы можете использовать перемещение элементов ElvUI, чтобы изменить его положение."
+L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] = true
+L["Open Upgrade Menu"] = true
+L["Reshii Wraps Upgrade"] = true
 
 -- Move Frames
 L["Move Frames"] = true

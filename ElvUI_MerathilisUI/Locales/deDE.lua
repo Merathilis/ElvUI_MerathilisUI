@@ -514,6 +514,10 @@ L["Add a button to exit phase diving."] = "Fügt eine Taste zum Beenden des Phas
 L["Exit Phase Diving"] = "Phasentauchen beenden"
 L["Exit Phase Diving Button"] = "Phasentauchen beenden Taste"
 L["You can use ElvUI Mover to reposition it."] = "Du kannst den ElvUI Mover verwenden, um ihn neu zu positionieren."
+L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] =
+	"Mittelklick auf den Rückenslot des Charakters, um das Reshii Wraps Upgrade Menü zu öffnen."
+L["Open Upgrade Menu"] = "Upgrade Menü öffnen"
+L["Reshii Wraps Upgrade"] = true -- no need to translate
 
 -- Move Frames
 L["Move Frames"] = "Fenster verschieben"
