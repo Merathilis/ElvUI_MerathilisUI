@@ -1,9 +1,11 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
+local S = E:GetModule("Skins")
 local C = MER.Utilities.Color
+local OF = MER.Utilities.ObjectFinder
 
 local _G = _G
-local unpack = unpack
+local next, pcall, unpack = next, pcall, unpack
 local format = format
 
 local pool = {
@@ -329,5 +331,51 @@ function module:BigWigs_QueueTimer()
 	end
 end
 
+function module:BigWigs_Keystone()
+	local L = _G.BigWigsAPI and _G.BigWigsAPI:GetLocale("BigWigs")
+	local titleText = L and L.keystoneTitle
+
+	local finder = OF:New()
+	finder:Find("Frame", function(frame)
+		-- Because the function is run on any type objects, need to ensure the safety
+		local text = frame and frame.TitleContainer and frame.TitleContainer.TitleText
+		if text and text.GetText then
+			local success, result = pcall(text.GetText, text)
+			if success and result == titleText then
+				return true
+			end
+		end
+		return false
+	end, function(frame)
+		for _, child in next, { frame:GetChildren() } do
+			if child.ScrollBar then
+				S:HandleTrimScrollBar(child.ScrollBar)
+			end
+		end
+
+		frame.NineSlice:StripTextures()
+		frame.PortraitContainer:Hide()
+		frame.TopTileStreaks:Hide()
+		frame.Bg:Hide()
+		frame:SetTemplate("Transparent")
+		self:CreateShadow(frame)
+		S:HandleCloseButton(frame.CloseButton)
+
+		for _, tab in next, frame.Tabs do
+			S:HandleTab(tab)
+			self:ReskinTab(tab)
+			tab:SetHeight(32)
+
+			if tab:GetPoint(1) == "BOTTOMLEFT" then
+				tab:ClearAllPoints()
+				tab:Point("BOTTOMLEFT", 10, -31)
+			end
+		end
+	end)
+
+	finder:Start()
+end
+
 module:AddCallbackForAddon("BigWigs_Plugins")
 module:AddCallbackForEnterWorld("BigWigs_QueueTimer")
+module:AddCallbackForEnterWorld("BigWigs_Keystone")
