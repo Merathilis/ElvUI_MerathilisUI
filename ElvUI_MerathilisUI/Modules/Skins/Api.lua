@@ -349,6 +349,76 @@ function module:SetBD(f, x, y, x2, y2)
 	return bg
 end
 
+local ReplacedRoleTex = {
+	["Adventures-Tank"] = "Soulbinds_Tree_Conduit_Icon_Protect",
+	["Adventures-Healer"] = "ui_adv_health",
+	["Adventures-DPS"] = "ui_adv_atk",
+	["Adventures-DPS-Ranged"] = "Soulbinds_Tree_Conduit_Icon_Utility",
+}
+local function replaceFollowerRole(roleIcon, atlas)
+	local newAtlas = ReplacedRoleTex[atlas]
+	if newAtlas then
+		roleIcon:SetAtlas(newAtlas)
+	end
+end
+
+function module:ReskinGarrisonPortrait()
+	local level = self.Level or self.LevelText
+	if level then
+		level:ClearAllPoints()
+		level:SetPoint("BOTTOM", self, 0, 15)
+		if self.LevelCircle then
+			self.LevelCircle:Hide()
+		end
+		if self.LevelBorder then
+			self.LevelBorder:SetScale(0.0001)
+		end
+	end
+
+	self.squareBG = module:CreateBDFrame(self.Portrait, 1)
+
+	if self.PortraitRing then
+		self.PortraitRing:Hide()
+		self.PortraitRingQuality:SetTexture("")
+		self.PortraitRingCover:SetColorTexture(0, 0, 0)
+		self.PortraitRingCover:SetAllPoints(self.squareBG)
+	end
+
+	if self.Empty then
+		self.Empty:SetColorTexture(0, 0, 0)
+		self.Empty:SetAllPoints(self.Portrait)
+	end
+	if self.Highlight then
+		self.Highlight:Hide()
+	end
+	if self.PuckBorder then
+		self.PuckBorder:SetAlpha(0)
+	end
+	if self.TroopStackBorder1 then
+		self.TroopStackBorder1:SetAlpha(0)
+	end
+	if self.TroopStackBorder2 then
+		self.TroopStackBorder2:SetAlpha(0)
+	end
+
+	if self.HealthBar then
+		self.HealthBar.Border:Hide()
+
+		local roleIcon = self.HealthBar.RoleIcon
+		roleIcon:ClearAllPoints()
+		roleIcon:SetPoint("CENTER", self.squareBG, "TOPRIGHT", -2, -2)
+		replaceFollowerRole(roleIcon, roleIcon:GetAtlas())
+		hooksecurefunc(roleIcon, "SetAtlas", replaceFollowerRole)
+
+		local background = self.HealthBar.Background
+		background:SetAlpha(0)
+		background:ClearAllPoints()
+		background:SetPoint("TOPLEFT", self.squareBG, "BOTTOMLEFT", E.mult, 6)
+		background:SetPoint("BOTTOMRIGHT", self.squareBG, "BOTTOMRIGHT", -E.mult, E.mult)
+		self.HealthBar.Health:SetTexture(E.media.normTex)
+	end
+end
+
 -- ClassColored ScrollBars
 do
 	local function GrabScrollBarElement(frame, element)

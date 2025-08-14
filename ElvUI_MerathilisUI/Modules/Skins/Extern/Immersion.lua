@@ -3,96 +3,50 @@ local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
-local pairs = pairs
 
-function module:Immersion_ReskinTitleButton(frame)
-	for _, button in pairs({ frame.TitleButtons:GetChildren() }) do
-		if button and not button.__MERSkin then
-			S:HandleButton(button, nil, nil, nil, true, "Transparent")
-			button.backdrop:ClearAllPoints()
-			button.backdrop:SetPoint("TOPLEFT", button, "TOPLEFT", 3, -3)
-			button.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -10, 3)
-			module:CreateBackdropShadow(button)
+local function updateItemBorder(self)
+	if not self.backdrop then
+		return
+	end
 
-			button.Hilite:StripTextures()
-			button.Overlay:StripTextures()
-			button:SetBackdrop(nil)
-			F.SetFontOutline(button.Label)
-
-			button.__MERSkin = true
-		end
+	if self.objectType == "item" then
+		local quality = select(4, GetQuestItemInfo(self.type, self:GetID()))
+		local color = E.QualityColors[quality or 1]
+		self.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
+	elseif self.objectType == "currency" and self.currencyInfo then
+		local _, _, _, quality = CurrencyContainerUtil.GetCurrencyContainerInfo(
+			self.currencyInfo.currencyID,
+			self.currencyInfo.displayedAmount,
+			self.currencyInfo.name,
+			self.currencyInfo.texture,
+			self.currencyInfo.quality
+		)
+		local color = E.QualityColors[quality or 1]
+		self.backdrop:SetBackdropBorderColor(color.r, color.g, color.b)
+	else
+		self.backdrop:SetBackdropBorderColor(0, 0, 0)
 	end
 end
 
-function module:AttemptReskinButton()
-	self.reskinButtonAttemptCount = self.reskinButtonAttemptCount + 1
-	self:Immersion_ReskinTitleButton(_G.ImmersionFrame)
-	if self.reskinButtonAttemptCount == 10 then
-		self:CancelTimer(self.reskinButtonTimer)
+local function reskinItemButton(self)
+	if not self.textBg then
+		self.Border:Hide()
+		self.Mask:Hide()
+		self.NameFrame:Hide()
+		S:HandleIcon(self.Icon, true)
+		self.textBg = module:CreateBDFrame(self, 0.25)
+		self.textBg:ClearAllPoints()
+		self.textBg:SetPoint("TOPLEFT", self.backdrop, "TOPRIGHT", 2, 0)
+		self.textBg:SetPoint("RIGHT", -5, 0)
+		self.textBg:SetPoint("BOTTOM", self.backdrop, "BOTTOM")
 	end
 end
 
-function module:Immersion_Show()
-	self:Immersion_SpeechProgressText()
-	self:Immersion_ReskinTitleButton(_G.ImmersionFrame)
-	self.reskinButtonAttemptCount = 0
-	self.reskinButtonTimer = self:ScheduleRepeatingTimer("AttemptReskinButton", 0.1)
-	E:Delay(0.1, S.Immersion_ReskinItems, S)
-end
-
-function module:Immersion_ReskinItems()
-	for i = 1, 20 do
-		local rButton = _G["ImmersionQuestInfoItem" .. i]
-		if not rButton then
-			break
-		end
-
-		if not rButton.__MERSkin then
-			if rButton.NameFrame then
-				rButton.NameFrame:StripTextures()
-				rButton.NameFrame:CreateBackdrop("Transparent")
-				rButton.NameFrame.backdrop:ClearAllPoints()
-				rButton.NameFrame.backdrop:SetOutside(rButton.NameFrame, -18, -15)
-				module:CreateBackdropShadow(rButton.NameFrame)
-			end
-
-			rButton.__MERSkin = true
-		end
-	end
-
-	for i = 1, 20 do
-		local rButton = _G["ImmersionProgressItem" .. i]
-		if not rButton then
-			break
-		end
-
-		if not rButton.__MERSkin then
-			if rButton.NameFrame then
-				rButton.NameFrame:StripTextures()
-				rButton.NameFrame:CreateBackdrop("Transparent")
-				rButton.NameFrame.backdrop:ClearAllPoints()
-				rButton.NameFrame.backdrop:SetOutside(rButton.NameFrame, -18, -15)
-				module:CreateBackdropShadow(rButton.NameFrame)
-			end
-
-			rButton.__MERSkin = true
-		end
-	end
-end
-
-do
-	local reskin = false
-	function module:Immersion_SpeechProgressText()
-		if reskin then
-			return
-		end
-
-		local talkBox = _G.ImmersionFrame and _G.ImmersionFrame.TalkBox
-		if talkBox and talkBox.TextFrame and talkBox.TextFrame.SpeechProgress then
-			F.SetFontOutline(talkBox.TextFrame.SpeechProgress)
-
-			reskin = true
-		end
+local function reskinItemButtons(buttons)
+	for i = 1, #buttons do
+		local button = buttons[i]
+		reskinItemButton(button)
+		updateItemBorder(button)
 	end
 end
 
@@ -103,95 +57,176 @@ function module:Immersion()
 
 	module:DisableAddOnSkins("Immersion", false)
 
-	local frame = _G.ImmersionFrame
-	-- TalkBox
-	local talkBox = frame.TalkBox
+	local ImmersionFrame = _G.ImmersionFrame
+	if not ImmersionFrame then
+		return
+	end
 
-	-- Backdrop
-	talkBox.BackgroundFrame:StripTextures()
-	talkBox:CreateBackdrop("Transparent")
-	talkBox.backdrop:ClearAllPoints()
-	talkBox.backdrop:SetPoint("TOPLEFT", talkBox, "TOPLEFT", 10, -10)
-	talkBox.backdrop:SetPoint("BOTTOMRIGHT", talkBox, "BOTTOMRIGHT", -10, 10)
-	module:CreateBackdropShadow(talkBox)
+	local TalkBox = ImmersionFrame.TalkBox
+	TalkBox.PortraitFrame:StripTextures()
+	TalkBox.BackgroundFrame:StripTextures()
+	TalkBox.Hilite:StripTextures()
+	hooksecurefunc(TalkBox.TextFrame.Text, "OnDisplayLineCallback", function()
+		TalkBox.TextFrame.SpeechProgress:FontTemplate(nil, 16, "OUTLINE")
+	end)
 
-	-- Use colored backdrop edge as highlight
-	talkBox.Hilite:StripTextures()
-	talkBox:HookScript("OnEnter", function(box)
-		S.SetModifiedBackdrop(box)
+	local hilite = module:CreateBDFrame(TalkBox.Hilite, 0)
+	hilite:SetAllPoints(TalkBox)
+	hilite:SetBackdropColor(F.r, F.g, F.b, 0.25)
+	hilite:SetBackdropBorderColor(F.r, F.g, F.b, 1)
 
-		if box.backdrop.shadow then
-			box.backdrop.shadow:SetBackdropBorderColor(box.backdrop:GetBackdropBorderColor())
+	local Elements = TalkBox.Elements
+	Elements:StripTextures()
+	module:SetBD(Elements, nil, 0, -10, 0, 0)
+	Elements.Content.RewardsFrame.ItemHighlight.Icon:SetAlpha(0)
+
+	local MainFrame = TalkBox.MainFrame
+	MainFrame:StripTextures()
+	module:SetBD(MainFrame)
+	S:HandleCloseButton(MainFrame.CloseButton)
+	MainFrame.Model:StripTextures()
+	local ModelBG = module:CreateBDFrame(MainFrame.Model, 0)
+	ModelBG:SetFrameLevel(MainFrame.Model:GetFrameLevel() + 1)
+
+	local ProgressionBar = TalkBox.ProgressionBar
+	ProgressionBar:StripTextures()
+	ProgressionBar:SetStatusBarTexture(E.media.normTex)
+	module:CreateBDFrame(ProgressionBar, 0.25)
+
+	local ReputationBar = TalkBox.ReputationBar
+	ReputationBar.icon:SetPoint("TOPLEFT", -30, 6)
+	ReputationBar:StripTextures()
+	ReputationBar:SetStatusBarTexture(E.media.normTex)
+	module:CreateBDFrame(ReputationBar, 0.25)
+
+	for i = 1, 4 do
+		local notch = ReputationBar["Notch" .. i]
+		if notch then
+			notch:SetColorTexture(0, 0, 0)
+			notch:SetSize(E.mult, 16)
+		end
+	end
+
+	local Indicator = MainFrame.Indicator
+	Indicator:SetScale(1.25)
+	Indicator:ClearAllPoints()
+	Indicator:Point("RIGHT", MainFrame.CloseButton, "LEFT", -3, 0)
+
+	local TitleButtons = ImmersionFrame.TitleButtons
+	hooksecurefunc(TitleButtons, "GetButton", function(self, index)
+		local button = self.Buttons[index]
+		if button and not button.isSkinned then
+			button:StripTextures()
+			button.Hilite:StripTextures()
+			local HL = module:CreateBDFrame(button.Hilite, 0)
+			HL:SetAllPoints(button)
+			HL:SetBackdropColor(F.r, F.g, F.b, 0.25)
+			HL:SetBackdropBorderColor(F.r, F.g, F.b, 1)
+			local bg = module:SetBD(button)
+			bg:SetAllPoints()
+			button.Overlay:Hide()
+
+			if index > 1 then
+				button:ClearAllPoints()
+				button:Point("TOP", self.Buttons[index - 1], "BOTTOM", 0, -3)
+			end
+
+			button.isSkinned = true
 		end
 	end)
 
-	talkBox:HookScript("OnLeave", function(box)
-		S.SetOriginalBackdrop(box)
+	hooksecurefunc(ImmersionFrame, "AddQuestInfo", function(self)
+		local rewardsFrame = self.TalkBox.Elements.Content.RewardsFrame
 
-		if box.backdrop.shadow then
-			box.backdrop.shadow:SetBackdropBorderColor(box.backdrop:GetBackdropBorderColor())
+		-- Item Rewards
+		reskinItemButtons(rewardsFrame.Buttons)
+
+		-- Honor Rewards
+		local honorFrame = rewardsFrame.HonorFrame
+		if honorFrame then
+			reskinItemButton(honorFrame)
+		end
+
+		-- Title Rewards
+		local titleFrame = rewardsFrame.TitleFrame
+		if titleFrame and not titleFrame.textBg then
+			local icon = titleFrame.Icon
+			titleFrame:StripTextures()
+			icon:SetAlpha(1)
+			S:HandleIcon(icon)
+			titleFrame.textBg = module:CreateBDFrame(titleFrame, 0.25)
+			titleFrame.textBg:Point("TOPLEFT", icon, "TOPRIGHT", 2, E.mult)
+			titleFrame.textBg:Point("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 216, -E.mult)
+		end
+
+		-- ArtifactXP Rewards
+		local artifactXPFrame = rewardsFrame.ArtifactXPFrame
+		if artifactXPFrame then
+			reskinItemButton(artifactXPFrame)
+			artifactXPFrame.Overlay:SetAlpha(0)
+		end
+
+		-- Skill Point Rewards
+		local skillPointFrame = rewardsFrame.SkillPointFrame
+		if skillPointFrame then
+			reskinItemButton(skillPointFrame)
+		end
+
+		local spellRewards = C_QuestInfoSystem.GetQuestRewardSpells(GetQuestID()) or {}
+		if #spellRewards > 0 then
+			-- Follower Rewards
+			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
+				local portrait = reward.PortraitFrame
+				if not reward.isSkinned then
+					module:ReskinGarrisonPortrait(portrait)
+					reward.BG:Hide()
+					portrait:Point("TOPLEFT", 2, -5)
+					reward.textBg = module:CreateBDFrame(reward, 0.25)
+					reward.textBg:Point("TOPLEFT", 0, -3)
+					reward.textBg:Point("BOTTOMRIGHT", 2, 7)
+					reward.Class:Point("TOPRIGHT", reward.textBg, "TOPRIGHT", -C.mult, -C.mult)
+					reward.Class:Point("BOTTOMRIGHT", reward.textBg, "BOTTOMRIGHT", -C.mult, C.mult)
+
+					reward.isSkinned = true
+				end
+
+				local color = E.QualityColors[portrait.quality or 1]
+				portrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
+				reward.Class:SetTexCoord(unpack(E.TexCoords))
+			end
+			-- Spell Rewards
+			for spellReward in rewardsFrame.spellRewardPool:EnumerateActive() do
+				if not spellReward.textBg then
+					local icon = spellReward.Icon
+					local nameFrame = spellReward.NameFrame
+					S:HandleIcon(icon)
+					nameFrame:Hide()
+					spellReward.textBg = module:CreateBDFrame(nameFrame, 0.25)
+					spellReward.textBg:Point("TOPLEFT", icon, "TOPRIGHT", 2, C.mult)
+					spellReward.textBg:Point("BOTTOMRIGHT", nameFrame, "BOTTOMRIGHT", -24, 15)
+				end
+			end
 		end
 	end)
 
-	-- Remove background of model
-	talkBox.PortraitFrame:StripTextures()
-	talkBox.MainFrame.Model.ModelShadow:StripTextures()
-	talkBox.MainFrame.Model.PortraitBG:StripTextures()
+	hooksecurefunc(ImmersionFrame, "QUEST_PROGRESS", function(self)
+		reskinItemButtons(self.TalkBox.Elements.Progress.Buttons)
+	end)
 
-	-- No Sheen
-	talkBox.MainFrame.Sheen:StripTextures()
-	talkBox.MainFrame.TextSheen:StripTextures()
-	talkBox.MainFrame.Overlay:StripTextures()
-
-	-- Text
-	F.SetFontOutline(talkBox.NameFrame.Name)
-	F.SetFontOutline(talkBox.TextFrame.Text, nil, 15)
-
-	-- Close Button
-	S:HandleCloseButton(talkBox.MainFrame.CloseButton)
-
-	-- Indicator
-	talkBox.MainFrame.Indicator:ClearAllPoints()
-	talkBox.MainFrame.Indicator:SetPoint("RIGHT", talkBox.MainFrame.CloseButton, "LEFT", -2, 0)
-
-	-- Reputation bar
-	local repBar = talkBox.ReputationBar
-	repBar:StripTextures()
-	repBar:SetStatusBarTexture(E.media.normTex)
-	repBar:CreateBackdrop()
-	repBar:ClearAllPoints()
-	repBar:SetPoint("TOPLEFT", talkBox, "TOPLEFT", 11, -11)
-	repBar:SetHeight(6)
-
-	E:RegisterStatusBar(repBar)
-
-	-- Backdrop of elements (bottom window)
-	local elements = talkBox.Elements
-	elements:SetBackdrop(nil)
-	elements:CreateBackdrop("Transparent")
-	elements.backdrop:ClearAllPoints()
-	elements.backdrop:SetPoint("TOPLEFT", elements, "TOPLEFT", 10, -5)
-	elements.backdrop:SetPoint("BOTTOMRIGHT", elements, "BOTTOMRIGHT", -10, 5)
-	F.SetFontOutline(elements.Progress.ReqText)
-	module:CreateBackdropShadow(elements)
-
-	-- Details
-	local content = elements.Content
-	F.SetFontOutline(content.ObjectivesHeader)
-	F.SetFontOutline(content.ObjectivesText)
-	F.SetFontOutline(content.RewardText)
-	F.SetFontOutline(content.RewardsFrame.Header)
-	F.SetFontOutline(content.RewardsFrame.TitleFrame.Name)
-	F.SetFontOutline(content.RewardsFrame.XPFrame.ReceiveText)
-	F.SetFontOutline(content.RewardsFrame.XPFrame.ValueText)
-	F.SetFontOutline(content.RewardsFrame.ItemReceiveText)
-	F.SetFontOutline(content.RewardsFrame.ItemChooseText)
-	F.SetFontOutline(content.RewardsFrame.PlayerTitleText)
-	F.SetFontOutline(content.RewardsFrame.SkillPointFrame.ValueText)
-
-	-- Buttons
-	self:SecureHookScript(frame, "OnEvent", "Immersion_ReskinTitleButton")
-	self:SecureHook(frame, "Show", "Immersion_Show")
+	hooksecurefunc(ImmersionFrame, "ShowItems", function(self)
+		for tooltip in self.Inspector.tooltipFramePool:EnumerateActive() do
+			if not tooltip.styled then
+				tooltip:HideBackdrop()
+				local bg = module:SetBD(tooltip)
+				bg:SetPoint("TOPLEFT", 0, 0)
+				bg:SetPoint("BOTTOMRIGHT", 6, 0)
+				tooltip.Icon.Border:SetAlpha(0)
+				S:HandleIcon(tooltip.Icon.Texture)
+				tooltip.Hilite:SetOutside(bg, 2, 2)
+				tooltip.styled = true
+			end
+		end
+	end)
 end
 
 module:AddCallbackForAddon("Immersion")
