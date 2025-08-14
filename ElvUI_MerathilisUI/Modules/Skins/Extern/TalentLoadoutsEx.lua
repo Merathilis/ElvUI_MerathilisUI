@@ -61,8 +61,8 @@ function module:TalentLoadoutsEx()
 		frame:StripTextures()
 		module:SetBD(frame, nil, 0, 0, 0, 0)
 		frame:ClearAllPoints()
-		frame:SetPoint("TOPLEFT", _G.PlayerSpellsFrame, "TOPRIGHT", 1, 0)
-		frame:SetPoint("BOTTOMLEFT", _G.PlayerSpellsFrame, "BOTTOMRIGHT", 1, 0)
+		frame:Point("TOPLEFT", _G.PlayerSpellsFrame, "TOPRIGHT", 1, 0)
+		frame:Point("BOTTOMLEFT", _G.PlayerSpellsFrame, "BOTTOMRIGHT", 1, 0)
 		S:HandleTrimScrollBar(frame.ScrollBar)
 		ReskinChildButton(frame)
 
@@ -83,8 +83,8 @@ function module:TalentLoadoutsEx()
 				listFrame:StripTextures()
 				module:SetBD(listFrame):SetInside()
 				listFrame:ClearAllPoints()
-				listFrame:SetPoint("TOPLEFT", popupFrame, "BOTTOMLEFT")
-				listFrame:SetPoint("TOPRIGHT", popupFrame, "BOTTOMRIGHT")
+				listFrame:Point("TOPLEFT", popupFrame, "BOTTOMLEFT")
+				listFrame:Point("TOPRIGHT", popupFrame, "BOTTOMRIGHT")
 
 				for _, child in pairs({ listFrame:GetChildren() }) do
 					if child.icon and child.name then
@@ -101,16 +101,16 @@ function module:TalentLoadoutsEx()
 				textFrame:StripTextures()
 				module:SetBD(textFrame):SetInside()
 				textFrame:ClearAllPoints()
-				textFrame:SetPoint("BOTTOMLEFT", popupFrame, "TOPLEFT")
-				textFrame:SetPoint("BOTTOMRIGHT", popupFrame, "TOPRIGHT")
+				textFrame:Point("BOTTOMLEFT", popupFrame, "TOPLEFT")
+				textFrame:Point("BOTTOMRIGHT", popupFrame, "TOPRIGHT")
 				textFrame.Main:StripTextures()
 
 				local editBox = textFrame.Main and textFrame.Main.EditBox
 				if editBox then
 					S:HandleEditBox(editBox)
 					editBox:ClearAllPoints()
-					editBox:SetPoint("TOPLEFT", 2, -2)
-					editBox:SetPoint("BOTTOMRIGHT", -2, 2)
+					editBox:Point("TOPLEFT", 2, -2)
+					editBox:Point("BOTTOMRIGHT", -2, 2)
 				end
 			end
 		end

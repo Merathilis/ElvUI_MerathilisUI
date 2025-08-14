@@ -38,6 +38,7 @@ local DecorAddons = {
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "TalentLoadoutsEx", L["Talent Loadouts Ex"], "tle" },
 	{ "TomTom", L["TomTom"], "tom" },
+	{ "WIM", L["WIM"], "wim" },
 	{ "WorldQuestTab", L["World Quest Tab"], "wqt" },
 }
 if F.IsDeveloper() then
