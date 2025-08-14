@@ -68,16 +68,9 @@ local FeastList = {
 	[307157] = true,
 	[308458] = true,
 	[308462] = true,
-	[359336] = true,
 	[382423] = true,
 	[382427] = true,
 	[383063] = true,
-	[432877] = true,
-	[432878] = true,
-	[432879] = true,
-	[433292] = true,
-	[433293] = true,
-	[433294] = true,
 	[455960] = true,
 	[457283] = true,
 	[457285] = true,
@@ -86,6 +79,16 @@ local FeastList = {
 	[462211] = true,
 	[462212] = true,
 	[462213] = true,
+}
+
+local FeastList_SPELLCAST_SUCCEEDED = {
+	[359336] = true,
+	[432877] = true,
+	[432878] = true,
+	[432879] = true,
+	[433292] = true,
+	[433293] = true,
+	[433294] = true,
 }
 
 local PortalList = {
@@ -222,5 +225,8 @@ function module:Utility(event, sourceName, spellId)
 		if TryAnnounce(spellId, sourceName, 290154) then
 			return
 		end
+		if TryAnnounce(spellId, sourceName, nil, FeastList_SPELLCAST_SUCCEEDED, "feasts") then
+			return
+		end -- Since TWW, some feasts event has been changed
 	end
 end
