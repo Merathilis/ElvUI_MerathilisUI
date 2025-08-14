@@ -54,7 +54,7 @@ TooltipDataProcessor_AddTooltipPostCall(Enum_TooltipDataType_Item, function(tool
 	tooltip:AddLine(" ")
 	tooltip:AddDoubleLine(
 		format("%s %s", ScrollButtonIcon, L["Middle Button"]),
-		C.StringByTemplate(L["Open Upgrade Menu"], "primary")
+		F.GetMERStyleText(L["Open Upgrade Menu"])
 	)
 end)
 
