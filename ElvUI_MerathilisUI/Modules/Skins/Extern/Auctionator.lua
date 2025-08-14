@@ -447,15 +447,15 @@ local function reskinDialogs()
 		"ShowConfirmAlt",
 		"ShowMoney",
 	}) do
-		if _G.Auctionator.Dialogs[dialogFunc] then
+		if _G.Auctionator.Dialogs and _G.Auctionator.Dialogs[dialogFunc] then
 			local original = _G.Auctionator.Dialogs[dialogFunc]
 			_G.Auctionator.Dialogs[dialogFunc] = function(...)
 				local result = original(...)
 				for _, name in pairs(_G.UISpecialFrames) do
 					local frame = name and _G[name]
-					if frame and not frame.__windSkin and strfind(name, "^AuctionatorDialog") then
+					if frame and not frame.__MERSkin and strfind(name, "^AuctionatorDialog") then
 						reskinDialog(frame)
-						frame.__windSkin = true
+						frame.__MERSkin = true
 					end
 				end
 				return result
