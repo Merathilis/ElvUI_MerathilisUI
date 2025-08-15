@@ -207,7 +207,7 @@ function module:Immersion()
 			-- Follower Rewards
 			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
 				local portrait = reward.PortraitFrame
-				if not reward.styled then
+				if not reward.isSkinned then
 					module:ReskinGarrisonPortrait(portrait)
 					reward.BG:Hide()
 					portrait:Point("TOPLEFT", 2, -5)
@@ -217,7 +217,7 @@ function module:Immersion()
 					reward.Class:Point("TOPRIGHT", reward.textBg, "TOPRIGHT", -E.mult, -E.mult)
 					reward.Class:Point("BOTTOMRIGHT", reward.textBg, "BOTTOMRIGHT", -E.mult, E.mult)
 
-					reward.styled = true
+					reward.isSkinned = true
 				end
 
 				local color = E.QualityColors[portrait.quality or 1]
@@ -232,8 +232,8 @@ function module:Immersion()
 					S:HandleIcon(icon)
 					nameFrame:Hide()
 					spellReward.textBg = module:CreateBDFrame(nameFrame, 0.25)
-					spellReward.textBg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, E.mult)
-					spellReward.textBg:SetPoint("BOTTOMRIGHT", nameFrame, "BOTTOMRIGHT", -24, 15)
+					spellReward.textBg:Point("TOPLEFT", icon, "TOPRIGHT", 2, E.mult)
+					spellReward.textBg:Point("BOTTOMRIGHT", nameFrame, "BOTTOMRIGHT", -24, 15)
 				end
 			end
 		end
@@ -245,7 +245,7 @@ function module:Immersion()
 
 	hooksecurefunc(ImmersionFrame, "ShowItems", function(self)
 		for tooltip in self.Inspector.tooltipFramePool:EnumerateActive() do
-			if not tooltip.styled then
+			if not tooltip.isSkinned then
 				tooltip:HideBackdrop()
 				local bg = module:SetBD(tooltip)
 				bg:SetPoint("TOPLEFT", 0, 0)
@@ -253,7 +253,7 @@ function module:Immersion()
 				tooltip.Icon.Border:SetAlpha(0)
 				S:HandleIcon(tooltip.Icon.Texture)
 				tooltip.Hilite:SetOutside(bg, 2, 2)
-				tooltip.styled = true
+				tooltip.isSkinned = true
 			end
 		end
 	end)
