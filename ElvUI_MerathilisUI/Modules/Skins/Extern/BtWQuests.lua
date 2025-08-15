@@ -128,13 +128,14 @@ function module:BtWQuests()
 		return
 	end
 
+	module:DisableAddOnSkins("BtWQuestsFrame", false)
+
 	local frame = _G.BtWQuestsFrame
 	if not frame then
 		return
 	end
 
 	S:HandlePortraitFrame(frame)
-	frame.NineSlice:Kill()
 	module:CreateShadow(frame)
 	S:HandleEditBox(frame.SearchBox)
 	S:HandleDropDownBox(frame.ExpansionDropDown)
@@ -193,13 +194,16 @@ function module:BtWQuests()
 
 	if frame.CloseButton and frame.OptionsButton and frame.CharacterDropDown then
 		frame.OptionsButton:StripTextures()
-		frame.OptionsButton:SetSize(20, 20)
+		frame.OptionsButton:SetNormalTexture(I.Media.Icons.GameMenu)
+		frame.OptionsButton:SetHighlightTexture(I.Media.Icons.GameMenu)
+		frame.OptionsButton:SetPushedTexture(I.Media.Icons.GameMenu)
+		frame.OptionsButton:SetSize(16, 16)
 		frame.OptionsButton:SetHitRectInsets(0, 0, 0, 0)
 		frame.OptionsButton:ClearAllPoints()
 		frame.OptionsButton:SetPoint("RIGHT", frame.CloseButton, "LEFT", -4, 0)
 
 		frame.CharacterDropDown:ClearAllPoints()
-		frame.CharacterDropDown:SetPoint("RIGHT", frame.OptionsButton, "LEFT", -14, -4)
+		frame.CharacterDropDown:Point("RIGHT", frame.OptionsButton, "LEFT", -14, -4)
 		frame.CharacterDropDown:CreateBackdrop()
 		frame.CharacterDropDown.backdrop:ClearAllPoints()
 		frame.CharacterDropDown.backdrop:Point("TOPLEFT", 15, 0)
