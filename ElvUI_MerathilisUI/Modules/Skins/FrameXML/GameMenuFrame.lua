@@ -10,10 +10,7 @@ function module:GameMenuFrame()
 
 	local GameMenuFrame = _G.GameMenuFrame
 
-	if GameMenuFrame and not GameMenuFrame.__MERSkin then
-		module:CreateShadow(GameMenuFrame)
-		GameMenuFrame.__MERSkin = true
-	end
+	module:CreateBackdropShadow(GameMenuFrame)
 
 	-- GameMenu Header Color
 	for i = 1, GameMenuFrame:GetNumRegions() do
