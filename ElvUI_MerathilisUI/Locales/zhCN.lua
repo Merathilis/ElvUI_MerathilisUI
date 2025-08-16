@@ -689,6 +689,10 @@ L["The first button anchors itself to this point on the bar."] = true
 L["Dream Seeds"] = true
 L["Reset the button groups of this bar."] = true
 L["Holiday Reward Boxes"] = true
+L["Equipment Slots (Range)"] = "装备按栏位范围"
+L["Equipment Slots (Single)"] = "装备按栏位"
+L["Slot ID List"] = true
+L["number"] = "数字"
 
 -- Media
 L["Zone Text"] = "区域文字"

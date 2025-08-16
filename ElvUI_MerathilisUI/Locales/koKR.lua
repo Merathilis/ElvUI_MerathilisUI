@@ -960,6 +960,10 @@ L["The first button anchors itself to this point on the bar."] =
 L["Dream Seeds"] = "꿈의 씨앗"
 L["Reset the button groups of this bar."] = "이 바의 버튼 그룹을 초기화합니다"
 L["Holiday Reward Boxes"] = "축제 보상 상자"
+L["Equipment Slots (Range)"] = true
+L["Equipment Slots (Single)"] = true
+L["Slot ID List"] = true
+L["number"] = true
 
 -- Media
 L["Zone Text"] = "지역명 텍스트"
@@ -1228,7 +1232,7 @@ L["Rectangle Minimap"] = "미니맵 모양변경 [사각형]"
 L["Expansion Landing Page"] = "확장팩 시작 페이지"
 L["Instance Difficulty"] = "인스턴스 난이도"
 L["Reskin the instance diffculty in text style."] =
-	"인스턴스 난이도를 텍스트 스타일로 다시 디자인합니다"
+	"인스턴스 난이도를 텍��트 스타일로 다시 디자인합니다"
 L["Text Align"] = "텍스트 정렬"
 L["Hide Blizzard Indicator"] = "블���자드 표시기 숨기기"
 L["Left"] = "왼쪽"

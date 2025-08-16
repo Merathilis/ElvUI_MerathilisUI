@@ -764,6 +764,10 @@ L["The first button anchors itself to this point on the bar."] =
 L["Dream Seeds"] = true
 L["Reset the button groups of this bar."] = true
 L["Holiday Reward Boxes"] = true
+L["Equipment Slots (Range)"] = true
+L["Equipment Slots (Single)"] = true
+L["Slot ID List"] = true
+L["number"] = true
 
 -- Media
 L["Zone Text"] = "Текст зоны"
@@ -1109,7 +1113,7 @@ L["Inverse Mode"] = "Обратный режим"
 L["Swap the functionality of normal click and click with modifier keys."] =
 	"Поменяйте местами функциональность обычного щелчка и щелкните с помощью клавиш-модификаторов."
 L["Visibility"] = "Видимость"
-L["In Party"] = "В группе"
+L["In Party"] = "В гру��пе"
 L["Always Display"] = "Всегда отображать"
 L["Mouse Over"] = "При наведении"
 L["Only show raid markers bar when you mouse over it."] =
