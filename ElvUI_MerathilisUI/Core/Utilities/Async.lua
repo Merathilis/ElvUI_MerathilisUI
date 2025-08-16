@@ -22,7 +22,7 @@ function U.WithItemID(itemID, callback)
 	end
 
 	if not callback then
-		callback = function() end
+		callback = function(...) end
 	end
 
 	if type(callback) ~= "function" then
@@ -55,7 +55,7 @@ function U.WithSpellID(spellID, callback)
 	end
 
 	if not callback then
-		callback = function() end
+		callback = function(...) end
 	end
 
 	if type(callback) ~= "function" then
@@ -89,7 +89,7 @@ function U.WithItemIDTable(itemIDTable, tType, callback)
 	end
 
 	if not callback then
-		callback = function() end
+		callback = function(...) end
 	end
 
 	if type(callback) ~= "function" then
@@ -125,7 +125,7 @@ function U.WithSpellIDTable(spellIDTable, tType, callback)
 	end
 
 	if not callback then
-		callback = function() end
+		callback = function(...) end
 	end
 
 	if type(callback) ~= "function" then
@@ -161,7 +161,7 @@ function U.WithItemSlotID(itemSlotID, callback)
 	end
 
 	if not callback then
-		callback = function() end
+		callback = function(...) end
 	end
 
 	if type(callback) ~= "function" then

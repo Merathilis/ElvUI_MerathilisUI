@@ -2071,15 +2071,21 @@ P.pvp = {
 
 P.tooltip = {
 	modifier = "SHIFT",
-	icon = true,
+	titleIcon = {
+		enable = true,
+		width = 18,
+		height = 18,
+	},
 	factionIcon = true,
 	petIcon = true,
 	petId = true,
 	specIcon = true,
 	raceIcon = true,
 	gradientName = false,
-	yOffsetOfHealthBar = -3,
-	yOffsetOfHealthText = 0,
+	healthBar = {
+		barYOffset = -3,
+		textYOffset = 0,
+	},
 	groupInfo = {
 		enable = true,
 		title = true,

@@ -140,7 +140,7 @@ function module:Immersion()
 	local Indicator = TalkBox.MainFrame.Indicator
 	Indicator:SetScale(1.25)
 	Indicator:ClearAllPoints()
-	Indicator:Point("RIGHT", TalkBox.CloseButton, "LEFT", -3, 0)
+	Indicator:Point("RIGHT", TalkBox.MainFrame.CloseButton, "LEFT", -2, 0)
 
 	local TitleButtons = ImmersionFrame.TitleButtons
 	hooksecurefunc(TitleButtons, "GetButton", function(self, index)
@@ -246,7 +246,7 @@ function module:Immersion()
 	hooksecurefunc(ImmersionFrame, "ShowItems", function(self)
 		for tooltip in self.Inspector.tooltipFramePool:EnumerateActive() do
 			if not tooltip.isSkinned then
-				tooltip:HideBackdrop()
+				-- tooltip:HideBackdrop()
 				local bg = module:SetBD(tooltip)
 				bg:SetPoint("TOPLEFT", 0, 0)
 				bg:SetPoint("BOTTOMRIGHT", 6, 0)

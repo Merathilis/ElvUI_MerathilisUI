@@ -50,6 +50,28 @@ function MER:UpdateScripts() -- DB Convert
 		end
 	end
 
+	if privateVersion < 6.71 or profileVersion < 6.71 then
+		if E.db.mui and E.db.mui.tooltip then
+			local tdb = E.db.mui.tooltip
+			if tdb.yOffsetOfHealthBar ~= nil and tdb.healthBar.barYOffset then
+				tdb.healthBar.barYOffset = tdb.yOffsetOfHealthBar
+				tdb.yOffsetOfHealthBar = nil
+			end
+
+			if tdb.yOffsetOfHealthText ~= nil and tdb.healthBar.textYOffset then
+				tdb.healthBar.textYOffset = tdb.yOffsetOfHealthText
+				tdb.yOffsetOfHealthText = nil
+			end
+
+			if tdb.icon ~= nil then
+				tdb.titleIcon.enable = tdb.icon
+				tdb.icon = nil
+			end
+		end
+
+		UpdateMessage(L["Tooltip"] .. " - " .. L["Clear History"], privateVersion)
+	end
+
 	if not isFirstLine then
 		F.PrintGradientLine()
 	end

@@ -147,7 +147,7 @@ options.tooltip = {
 			inline = true,
 			name = "",
 			get = function(info)
-				return E.db.mui.tooltip[info[#info]]
+				return E.db.mui.tooltip.healthBar[info[#info]]
 			end,
 			set = function(info, value)
 				E.db.mui.tooltip[info[#info]] = value
@@ -159,7 +159,7 @@ options.tooltip = {
 					type = "header",
 					name = F.cOption(L["Health Bar"], "orange"),
 				},
-				yOffsetOfHealthBar = {
+				barYOffset = {
 					order = 1,
 					type = "range",
 					name = L["Health Bar Y-Offset"],
@@ -168,7 +168,7 @@ options.tooltip = {
 					max = 50,
 					step = 1,
 				},
-				yOffsetOfHealthText = {
+				textYOffset = {
 					order = 2,
 					type = "range",
 					name = L["Health Text Y-Offset"],

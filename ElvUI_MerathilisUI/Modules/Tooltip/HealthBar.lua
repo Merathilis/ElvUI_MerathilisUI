@@ -3,10 +3,10 @@ local module = MER:GetModule("MER_Tooltip")
 local ET = E:GetModule("Tooltip")
 
 function module:ChangeHealthBarPosition(_, tt)
-	local barOffset = E.db.mui.tooltip.yOffsetOfHealthBar
-	local textOffset = E.db.mui.tooltip.yOffsetOfHealthText
+	local barYOffset = E.db.mui.tooltip.healthBar.barYOffset
+	local textYOffset = E.db.mui.tooltip.healthBar.yOffsetOfHealthText
 
-	if barOffset == 0 and textOffset == 0 then
+	if barYOffset == 0 and textYOffset == 0 then
 		return
 	end
 
@@ -26,19 +26,19 @@ function module:ChangeHealthBarPosition(_, tt)
 		if ET.db.healthBar.statusPosition == "BOTTOM" then
 			if not tt.StatusBar.anchoredToTop then
 				tt.StatusBar:ClearAllPoints()
-				tt.StatusBar:SetPoint("TOPLEFT", tt, "BOTTOMLEFT", E.Border, -(E.Spacing * 3) + barOffset)
-				tt.StatusBar:SetPoint("TOPRIGHT", tt, "BOTTOMRIGHT", -E.Border, -(E.Spacing * 3) + barOffset)
+				tt.StatusBar:Point("TOPLEFT", tt, "BOTTOMLEFT", E.Border, -(E.Spacing * 3) + barYOffset)
+				tt.StatusBar:Point("TOPRIGHT", tt, "BOTTOMRIGHT", -E.Border, -(E.Spacing * 3) + barYOffset)
 				if tt.StatusBar.text then
-					tt.StatusBar.text:SetPoint("CENTER", tt.StatusBar, 0, textOffset)
+					tt.StatusBar.text:Point("CENTER", tt.StatusBar, 0, textYOffset)
 				end
 			end
 		else
 			if tt.StatusBar.anchoredToTop then
 				tt.StatusBar:ClearAllPoints()
-				tt.StatusBar:SetPoint("BOTTOMLEFT", tt, "TOPLEFT", E.Border, (E.Spacing * 3) + barOffset)
-				tt.StatusBar:SetPoint("BOTTOMRIGHT", tt, "TOPRIGHT", -E.Border, (E.Spacing * 3) + barOffset)
+				tt.StatusBar:Point("BOTTOMLEFT", tt, "TOPLEFT", E.Border, (E.Spacing * 3) + barYOffset)
+				tt.StatusBar:Point("BOTTOMRIGHT", tt, "TOPRIGHT", -E.Border, (E.Spacing * 3) + barYOffset)
 				if tt.StatusBar.text then
-					tt.StatusBar.text:SetPoint("CENTER", tt.StatusBar, 0, textOffset)
+					tt.StatusBar.text:Point("CENTER", tt.StatusBar, 0, textYOffset)
 				end
 			end
 		end
