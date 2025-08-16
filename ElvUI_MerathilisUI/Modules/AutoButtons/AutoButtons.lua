@@ -76,6 +76,33 @@ local function UpdateEquipmentList()
 	end
 end
 
+local function ParseSlotFilter(slotStr)
+	if not slotStr or slotStr == "" then
+		return nil
+	end
+
+	local allowedSlots = {}
+
+	if strmatch(slotStr, "^(%d+)-(%d+)$") then
+		local startSlot, endSlot = strmatch(slotStr, "^(%d+)-(%d+)$")
+		startSlot, endSlot = tonumber(startSlot), tonumber(endSlot)
+		if startSlot and endSlot and startSlot <= endSlot then
+			for slotID = startSlot, endSlot do
+				if slotID >= 1 and slotID <= 18 then
+					allowedSlots[slotID] = true
+				end
+			end
+		end
+	elseif strmatch(slotStr, "^%d+$") then
+		local slotID = tonumber(slotStr)
+		if slotID and slotID >= 1 and slotID <= 18 then
+			allowedSlots[slotID] = true
+		end
+	end
+
+	return allowedSlots
+end
+
 local UpdateAfterCombat = {
 	[1] = false,
 	[2] = false,
@@ -515,6 +542,22 @@ function module:UpdateBar(id)
 						self:SetUpButton(bar.buttons[buttonID], nil, slotID, bar.waitGroup)
 						self:UpdateButtonSize(bar.buttons[buttonID], barDB)
 						buttonID = buttonID + 1
+					end
+				end
+			elseif strmatch(module, "^SLOT:") then -- Equipments filtered by slot ID
+				local slotFilter = strmatch(module, "^SLOT:(.+)$")
+				local allowedSlots = ParseSlotFilter(slotFilter)
+
+				if allowedSlots then
+					for _, slotID in pairs(equipmentList) do
+						if allowedSlots[slotID] then
+							local itemID = GetInventoryItemID("player", slotID)
+							if itemID and not self.db.blackList[itemID] and buttonID <= barDB.numButtons then
+								self:SetUpButton(bar.buttons[buttonID], nil, slotID, bar.waitGroup)
+								self:UpdateButtonSize(bar.buttons[buttonID], barDB)
+								buttonID = buttonID + 1
+							end
+						end
 					end
 				end
 			elseif module == "CUSTOM" then

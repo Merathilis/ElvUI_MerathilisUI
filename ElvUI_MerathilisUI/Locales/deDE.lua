@@ -757,6 +757,10 @@ L["The first button anchors itself to this point on the bar."] =
 L["Dream Seeds"] = "Traum Saat"
 L["Reset the button groups of this bar."] = "Setze die Tastengruppen dieser Leiste zurück."
 L["Holiday Reward Boxes"] = "Feiertags Truhen"
+L["Equipment Slots (Range)"] = "Ausrüstungsplätze (Range)"
+L["Equipment Slots (Single)"] = "Ausrüstungsplätze (Single)"
+L["Slot ID List"] = true -- no need to translate
+L["number"] = true
 
 -- Media
 L["Zone Text"] = "Gebietstext"

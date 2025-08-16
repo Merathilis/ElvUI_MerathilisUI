@@ -5,17 +5,98 @@ local async = MER.Utilities.Async
 local C = MER.Utilities.Color
 local LSM = E.LSM
 
-local tinsert = table.insert
-local tremove = table.remove
 local format = string.format
 local pairs = pairs
 local tonumber = tonumber
+local tinsert = table.insert
+local tremove = table.remove
+local tconcat = table.concat
 
 local customListSelected1, customListSelected2
 
 local function desc(code, helpText)
 	return C.StringByTemplate(code, "primary") .. " = " .. helpText
 end
+
+local slotNames = {
+	[1] = HEADSLOT,
+	[2] = NECKSLOT,
+	[3] = SHOULDERSLOT,
+	[4] = SHIRTSLOT,
+	[5] = CHESTSLOT,
+	[6] = WAISTSLOT,
+	[7] = LEGSSLOT,
+	[8] = FEETSLOT,
+	[9] = WRISTSLOT,
+	[10] = HANDSSLOT,
+	[11] = FINGER0SLOT_UNIQUE,
+	[12] = FINGER1SLOT_UNIQUE,
+	[13] = TRINKET0SLOT_UNIQUE,
+	[14] = TRINKET1SLOT_UNIQUE,
+	[15] = BACKSLOT,
+	[16] = MAINHANDSLOT,
+	[17] = SECONDARYHANDSLOT,
+	[18] = RANGEDSLOT,
+	[19] = TABARDSLOT,
+}
+
+-- Generate slot ID descriptions
+local function generateSlotDesc()
+	local slots = {}
+	for id, name in ipairs(slotNames) do
+		tinsert(slots, format("|cff71d5ff%d|r=%s", id, name))
+	end
+
+	return tconcat(slots, " ")
+end
+
+local extraItemGroupTooltip = (function()
+	local lines = {
+		L["Set the type and order of button groups."],
+		L["You can separate the groups with a comma."],
+		desc("QUEST", L["Quest Items"]),
+		desc("EQUIP", L["Equipments"]),
+		desc("CUSTOM", L["Custom Items"]),
+		desc("SLOT:1-19", L["Equipment Slots (Range)"]),
+		desc("SLOT:|cffadd8e6" .. L["number"] .. "|r", L["Equipment Slots (Single)"]),
+		format("|cffadd8e6%s|r", L["Slot ID List"] .. ":"),
+		generateSlotDesc(),
+		desc("POTION", format("%s (%s)", L["Potions"], L["All"])),
+		desc("POTIONSL", format("%s |cff999999%s|r", L["Potions"], L["[ABBR] Shadowlands"])),
+		desc("POTIONDF", format("%s |cff999999%s|r", L["Potions"], L["[ABBR] Dragonflight"])),
+		desc("POTIONTWW", format("%s |cffffdd57%s|r", L["Potions"], L["[ABBR] The War Within"])),
+		desc("FLASK", format("%s (%s)", L["Flasks"], L["All"])),
+		desc("FLASKSL", format("%s |cff999999%s|r", L["Flasks"], L["[ABBR] Shadowlands"])),
+		desc("FLASKDF", format("%s |cff999999%s|r", L["Flasks"], L["[ABBR] Dragonflight"])),
+		desc("FLASKTWW", format("%s |cffffdd57%s|r", L["Flasks"], L["[ABBR] The War Within"])),
+		desc("RUNE", format("%s (%s)", L["Runes"], L["All"])),
+		desc("RUNEDF", format("%s |cff999999%s|r", L["Runes"], L["[ABBR] Dragonflight"])),
+		desc("RUNETWW", format("%s |cffffdd57%s|r", L["Runes"], L["[ABBR] The War Within"])),
+		desc("VANTUS", format("%s (%s)", L["Vantus Runes"], L["All"])),
+		desc("VANTUSTWW", format("%s |cffffdd57%s|r", L["Vantus Runes"], L["[ABBR] The War Within"])),
+		desc("FOOD", format("%s (%s)", L["Crafted Food"], L["All"])),
+		desc("FOODSL", format("%s |cff999999%s|r", L["Crafted Food"], L["[ABBR] Shadowlands"])),
+		desc("FOODDF", format("%s |cff999999%s|r", L["Crafted Food"], L["[ABBR] Dragonflight"])),
+		desc("FOODTWW", format("%s |cffffdd57%s|r", L["Crafted Food"], L["[ABBR] The War Within"])),
+		desc(
+			"FOODVENDOR",
+			format("%s (%s) |cffffdd57%s|r", L["Food"], L["Sold by vendor"], L["[ABBR] The War Within"])
+		),
+		desc("MAGEFOOD", format("%s (%s)|r", L["Food"], L["Crafted by mage"])),
+		desc("FISHING", format("%s (%s)", L["Fishing"], L["All"])),
+		desc("FISHINGTWW", format("%s |cffffdd57%s|r", L["Fishing"], L["[ABBR] The War Within"])),
+		desc("BANNER", L["Banners"]),
+		desc("UTILITY", L["Utilities"]),
+		desc("OPENABLE", L["Openable Items"]),
+		desc("PROF", format("%s |cffffdd57%s|r", L["Profession Items"], L["[ABBR] The War Within"])),
+		desc("SEEDS", L["Seeds"]),
+		desc("BIGDIG", L["Big Dig"]),
+		desc("DELVE", L["Delves"]),
+		desc("HOLIDAY", L["Holiday Reward Boxes"]),
+	}
+
+	return format("%s %s\n" .. strrep("\n%s", #lines - 2), unpack(lines))
+end)()
 
 options.autoButtons = {
 	type = "group",
@@ -201,41 +282,7 @@ for i = 1, 5 do
 						order = 15,
 						type = "input",
 						name = L["Button Groups"],
-						desc = format(
-							"%s %s\n" .. strrep("\n%s", 27),
-							L["Set the type and order of button groups."],
-							L["You can separate the groups with a comma."],
-							desc("QUEST", L["Quest Items"]),
-							desc("EQUIP", L["Equipments"]),
-							desc("POTION", L["Potions"]),
-							desc("POTIONSL", format("%s |cffffdd57[%s]|r", L["Potions"], L["Shadowlands"])),
-							desc("POTIONDF", format("%s |cffffdd57[%s]|r", L["Potions"], L["Dragonflight"])),
-							desc("FLASK", L["Flasks"]),
-							desc("FLASKSL", format("%s |cffffdd57[%s]|r", L["Flasks"], L["Shadowlands"])),
-							desc("FLASKDF", format("%s |cffffdd57[%s]|r", L["Flasks"], L["Dragonflight"])),
-							desc("RUNE", L["Runes"]),
-							desc("RUNEDF", format("%s |cffffdd57[%s]|r", L["Runes"], L["Dragonflight"])),
-							desc("FOOD", L["Crafted Food"]),
-							desc("FOODSL", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Shadowlands"])),
-							desc("FOODDF", format("%s |cffffdd57[%s]|r", L["Crafted Food"], L["Dragonflight"])),
-							desc(
-								"FOODVENDOR",
-								format("%s (%s) |cffffdd57[%s]|r", L["Food"], L["Sold by vendor"], L["Dragonflight"])
-							),
-							desc("MAGEFOOD", format("%s (%s)|r", L["Food"], L["Crafted by mage"])),
-							desc("BANNER", L["Banners"]),
-							desc("UTILITY", L["Utilities"]),
-							desc("OPENABLE", L["Openable Items"]),
-							desc("PROF", L["Profession Items"]),
-							desc("SEEDS", L["Dream Seeds"]),
-							desc("BIGDIG", L["Big Dig"]),
-							desc("ENGINEER", L["Engineer Items"]),
-							desc("DELVE", L["Delves"]),
-							desc("HOLIDAY", L["Holiday Reward Boxes"]),
-							desc("FISHING", L["Fishing"]),
-							desc("FISHINGTWW", format("%s |cffffdd57[%s]|r", L["Fishing"], L["The War Wihtin"])),
-							desc("CUSTOM", L["Custom Items"])
-						),
+						desc = extraItemGroupTooltip,
 						width = "full",
 					},
 					reset = {

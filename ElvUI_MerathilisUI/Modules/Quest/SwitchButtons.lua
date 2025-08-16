@@ -17,9 +17,7 @@ function module:CreateButton(text, tooltipText)
 
 	local button = CreateFrame("CheckButton", nil, self.bar, "UICheckButtonTemplate")
 	ES:HandleCheckBox(button)
-	if E.private.mui.skins.shadow and E.private.mui.skins.shadow.enable then
-		S:CreateBackdropShadow(button)
-	end
+	S:CreateShadowModule(button.backdrop)
 	button.originalText = text
 	button.text = button:CreateFontString()
 	F.SetFontDB(button.text, self.db.font)
