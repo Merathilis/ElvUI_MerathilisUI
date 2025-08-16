@@ -133,7 +133,7 @@ function module:ShowContextText(button)
 	CreateContextMenu(button, function(ownerRegion, rootDescription)
 		rootDescription:CreateTitle(button.name)
 
-		if not button.class then -- My favoirite do not have it
+		if not button.class then -- My favorite do not have it
 			rootDescription:CreateButton(L["Remove From Favorites"], function()
 				if button.realm then
 					E.global.mui.mail.contacts.favorites[button.name .. "-" .. button.realm] = nil
@@ -211,8 +211,8 @@ function module:ConstructButtons()
 	local toggleButton = CreateFrame("Button", "MER_MailToggleButton", _G.SendMailFrame, "SecureActionButtonTemplate")
 	toggleButton:Size(24)
 	SetButtonTexture(toggleButton, I.Media.Icons.List)
-	SetButtonTooltip(toggleButton, L["Toggle Contacts"])
-	toggleButton:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", -24, 38)
+	SetButtonTooltip(toggleButton, F.GetMERStyleText(L["Toggle Contacts"]))
+	toggleButton:Point("BOTTOMRIGHT", _G.MailFrame, "BOTTOMRIGHT", -16, 34)
 	toggleButton:RegisterForClicks("AnyUp")
 
 	toggleButton:SetScript("OnClick", function()
@@ -528,7 +528,13 @@ function module:BuildAltsData()
 		for faction, characters in pairs(factions) do
 			for name, class in pairs(characters) do
 				if not (name == E.myname and realm == E.myrealm) then
-					tinsert(data, { name = name, realm = realm, class = class, faction = faction, dType = "alt" })
+					tinsert(data, {
+						name = name,
+						realm = realm,
+						class = class,
+						faction = faction,
+						dType = "alt",
+					})
 				end
 			end
 		end
@@ -545,10 +551,12 @@ function module:BuildFriendsData()
 		if info.connected then
 			local name, realm = F.SplitString("-", info.name)
 			realm = realm or E.myrealm
-			tinsert(
-				data,
-				{ name = name, realm = realm, class = GetNonLocalizedClass(info.className), dType = "friend" }
-			)
+			tinsert(data, {
+				name = name,
+				realm = realm,
+				class = GetNonLocalizedClass(info.className),
+				dType = "friend",
+			})
 			tempKey[name .. "-" .. realm] = true
 		end
 	end

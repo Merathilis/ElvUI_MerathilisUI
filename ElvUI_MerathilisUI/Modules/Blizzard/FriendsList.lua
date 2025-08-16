@@ -7,7 +7,6 @@ local pairs = pairs
 local strsplit = strsplit
 
 local BNConnected = BNConnected
-local BNet_GetClientAtlas = BNet_GetClientAtlas
 local FriendsFrame_Update = FriendsFrame_Update
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 local TimerunningUtil_AddSmallIcon = TimerunningUtil.AddSmallIcon
@@ -289,9 +288,14 @@ function module:UpdateFriendButton(button)
 				timerunningSeasonID = gameAccountInfo.timerunningSeasonID or ""
 
 				if wowID and wowID ~= 1 and expansionData[wowID] then
-					local suffix = expansionData[wowID].suffix and " (" .. expansionData[wowID].suffix .. ")" or ""
+					local suffix = expansionData[wowID].suffix
+							and " (" .. expansionData[wowID].suffix .. ")"
+						or ""
 					local serverStrings = { strsplit(" - ", gameAccountInfo.richPresence) }
-					server = (serverStrings[#serverStrings] or BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. suffix) .. "*"
+					server = (
+						serverStrings[#serverStrings]
+						or BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. suffix
+					) .. "*"
 				elseif wowID and wowID == 1 and name == "" then
 					server = gameAccountInfo.richPresence -- Plunderstorm
 				else
@@ -325,8 +329,11 @@ function module:UpdateFriendButton(button)
 		end
 
 		-- real ID
-		local clientColor = module.db.useClientColor and clientData[gameName] and clientData[gameName].color
-		local realIDString = realID and clientColor and F.CreateColorString(realID, clientColor) or realID
+		local clientColor = module.db.useClientColor
+			and clientData[gameName]
+			and clientData[gameName].color
+		local realIDString = realID and clientColor and F.CreateColorString(realID, clientColor)
+			or realID
 
 		-- name
 		local classColor = module.db.useClassColor and GetClassColors(class)
@@ -337,7 +344,8 @@ function module:UpdateFriendButton(button)
 
 		if module.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
 			if level ~= expansionData[wowID].maxLevel or not module.db.hideMaxLevel then
-				nameString = nameString .. F.CreateColorString(": " .. level, GetQuestDifficultyColor(level))
+				nameString = nameString
+					.. F.CreateColorString(": " .. level, GetQuestDifficultyColor(level))
 			end
 		end
 
