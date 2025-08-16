@@ -146,6 +146,7 @@ P.quest = {
 	turnIn = {
 		enable = true,
 		mode = "ALL",
+		onlyRepeatable = true,
 		smartChat = true,
 		selectReward = true,
 		getBestReward = false,

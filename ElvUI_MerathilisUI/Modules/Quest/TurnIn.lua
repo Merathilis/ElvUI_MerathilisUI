@@ -57,11 +57,16 @@ local C_GossipInfo_SelectOption = C_GossipInfo.SelectOption
 local C_Item_GetItemInfo = C_Item.GetItemInfo
 local C_Minimap_GetNumTrackingTypes = C_Minimap.GetNumTrackingTypes
 local C_Minimap_GetTrackingInfo = C_Minimap.GetTrackingInfo
+local C_QuestInfoSystem_GetQuestClassification = C_QuestInfoSystem.GetQuestClassification
 local C_QuestLog_GetQuestTagInfo = C_QuestLog.GetQuestTagInfo
 local C_QuestLog_IsQuestTrivial = C_QuestLog.IsQuestTrivial
+local C_QuestLog_IsRepeatableQuest = C_QuestLog.IsRepeatableQuest
 local C_QuestLog_IsWorldQuest = C_QuestLog.IsWorldQuest
 
 local Enum_GossipOptionRecFlags_QuestLabelPrepend = Enum.GossipOptionRecFlags.QuestLabelPrepend
+local Enum_QuestClassification_Calling = Enum.QuestClassification.Calling
+local Enum_QuestClassification_Recurring = Enum.QuestClassification.Recurring
+
 local QUEST_STRING = "cFF0000FF.-" .. TRANSMOG_SOURCE_2
 local SKIP_STRING = "^.+|cFFFF0000<.+>|r"
 local DELVE_STRING = "%(Delve%)"
@@ -69,6 +74,7 @@ local DELVE_STRING = "%(Delve%)"
 local choiceQueue = nil
 
 local ignoreQuestNPC = {
+	[4311] = true,
 	[14847] = true,
 	[43929] = true,
 	[45400] = true,
@@ -81,6 +87,7 @@ local ignoreQuestNPC = {
 	[101880] = true,
 	[103792] = true,
 	[105387] = true,
+	[107934] = true,
 	[108868] = true,
 	[111243] = true,
 	[114719] = true,
@@ -100,8 +107,7 @@ local ignoreQuestNPC = {
 	[160248] = true,
 	[162804] = true,
 	[168430] = true,
-	[107934] = true,
-	[4311] = true,
+	[223875] = true,
 }
 
 local ignoreGossipNPC = {
@@ -244,6 +250,19 @@ local function IsTrackingHidden()
 			return active
 		end
 	end
+end
+
+function IsQuestRepeatable(questID)
+	if C_QuestLog_IsWorldQuest(questID) then
+		return true
+	end
+
+	if C_QuestLog_IsRepeatableQuest(questID) then
+		return true
+	end
+
+	local classification = C_QuestInfoSystem_GetQuestClassification(questID)
+	return classification == Enum_QuestClassification_Recurring or classification == Enum_QuestClassification_Calling
 end
 
 function module:GetNPCID(unit)
@@ -434,11 +453,20 @@ function module:QUEST_DETAIL()
 		return
 	end
 
-	if QuestIsFromAreaTrigger() then
-		AcceptQuest()
-	elseif QuestGetAutoAccept() then
-		AcknowledgeAutoAcceptQuest()
-	elseif not C_QuestLog_IsQuestTrivial(GetQuestID()) or IsTrackingHidden() then
+	local questID = GetQuestID()
+	if
+		QuestIsFromAreaTrigger()
+		or QuestGetAutoAccept()
+		or IsTrackingHidden()
+		or not C_QuestLog_IsQuestTrivial(questID)
+		or IsTrackingHidden()
+	then
+		if self.db.onlyRepeatable then
+			if questID and not IsQuestRepeatable(questID) then
+				return
+			end
+		end
+
 		AcceptQuest()
 	end
 end
@@ -446,6 +474,13 @@ end
 function module:QUEST_ACCEPT_CONFIRM()
 	if self:IsPaused("ACCEPT") then
 		return
+	end
+
+	if self.db.onlyRepeatable then
+		local questID = GetQuestID()
+		if questID and not IsQuestRepeatable(questID) then
+			return
+		end
 	end
 
 	AcceptQuest()
@@ -472,7 +507,13 @@ function module:QUEST_PROGRESS()
 		return
 	end
 
-	local tagInfo = C_QuestLog_GetQuestTagInfo(GetQuestID())
+	local questID = GetQuestID()
+
+	if self.db.onlyRepeatable and not IsQuestRepeatable(questID) then
+		return
+	end
+
+	local tagInfo = C_QuestLog_GetQuestTagInfo(questID)
 	if tagInfo and (tagInfo.tagID == 153 or tagInfo.worldQuestType) or self:IsIgnoredNPC() then
 		return
 	end

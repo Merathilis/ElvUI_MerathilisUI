@@ -1542,6 +1542,8 @@ L["Add Target"] = "Ziel hinzufügen"
 L["Make sure you select the NPC as your target."] = "Stelle sicher, dass du den NPC als Ziel auswählst."
 L["Delete"] = "Löschen"
 L["Delete the selected NPC."] = "Lösche den ausgewählten NPC."
+L["Only Repeatable"] = "Nur wiederholbare"
+L["Only accept and complete repeatable quests."] = "Nimmt nur wiederholbare Quests an und schließt sie ab."
 
 -- Filter
 L["Filter"] = true -- no need to translate

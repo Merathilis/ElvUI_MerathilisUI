@@ -1230,7 +1230,7 @@ L["Instance Difficulty"] = "인스턴스 난이도"
 L["Reskin the instance diffculty in text style."] =
 	"인스턴스 난이도를 텍스트 스타일로 다시 디자인합니다"
 L["Text Align"] = "텍스트 정렬"
-L["Hide Blizzard Indicator"] = "블��자드 표시기 숨기기"
+L["Hide Blizzard Indicator"] = "블���자드 표시기 숨기기"
 L["Left"] = "왼쪽"
 L["Center"] = "가운데"
 L["Right"] = "오른쪽"
@@ -1820,6 +1820,8 @@ L["Add Target"] = "대상 추가"
 L["Make sure you select the NPC as your target."] = "NPC를 대상으로 선택한 상태에서 추가하세요"
 L["Delete"] = "삭제"
 L["Delete the selected NPC."] = "선택한 NPC를 목록에서 삭제합니다"
+L["Only Repeatable"] = true
+L["Only accept and complete repeatable quests."] = true
 
 -- Filter
 L["Filter"] = "비속어 필터"

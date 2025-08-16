@@ -1430,6 +1430,8 @@ L["Add Target"] = true
 L["Make sure you select the NPC as your target."] = true
 L["Delete"] = true
 L["Delete the selected NPC."] = true
+L["Only Repeatable"] = "仅可重复"
+L["Only accept and complete repeatable quests."] = "仅接受和完成可重复任务."
 
 -- Filter
 L["Filter"] = "过滤器"

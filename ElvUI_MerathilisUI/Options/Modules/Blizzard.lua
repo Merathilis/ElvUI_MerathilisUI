@@ -1327,8 +1327,17 @@ options.blizzard.args.turnIn = {
 				NONE = L["None"],
 			},
 		},
-		reward = {
+		onlyRepeatable = {
 			order = 5,
+			type = "toggle",
+			name = L["Only Repeatable"],
+			desc = L["Only accept and complete repeatable quests."],
+			disabled = function()
+				return not E.db.mui.quest.turnIn.enable
+			end,
+		},
+		reward = {
+			order = 6,
 			type = "group",
 			inline = true,
 			name = L["Reward"],
@@ -1359,7 +1368,7 @@ options.blizzard.args.turnIn = {
 			},
 		},
 		smartChat = {
-			order = 6,
+			order = 7,
 			type = "group",
 			inline = true,
 			name = L["Smart Chat"],
@@ -1397,7 +1406,7 @@ options.blizzard.args.turnIn = {
 			},
 		},
 		ignore = {
-			order = 7,
+			order = 8,
 			type = "group",
 			inline = true,
 			name = L["Ignored NPCs"],
