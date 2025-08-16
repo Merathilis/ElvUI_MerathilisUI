@@ -38,7 +38,10 @@ local function reskinTab(tab)
 	end
 
 	for _, region in next, { tab:GetRegions() } do
-		if region:IsObjectType("Texture") and region:GetAtlas() == "QuestLog-Tab-side-Glow-hover" then
+		if
+			region:IsObjectType("Texture")
+			and region:GetAtlas() == "QuestLog-Tab-side-Glow-hover"
+		then
 			region:SetColorTexture(1, 1, 1, 0.3)
 			region:SetAllPoints()
 		end
@@ -61,7 +64,21 @@ end
 local function reskinQuestContainer(container)
 	reskinContainer(container)
 	S:HandleDropDownBox(container.SortDropdown)
-	S:HandleButton(container.FilterDropdown, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, true, "right")
+	S:HandleButton(
+		container.FilterDropdown,
+		nil,
+		nil,
+		nil,
+		nil,
+		nil,
+		nil,
+		nil,
+		nil,
+		nil,
+		nil,
+		true,
+		"right"
+	)
 	container.FilterBar:StripTextures()
 end
 
@@ -176,6 +193,8 @@ function module:WorldQuestTab()
 		return
 	end
 
+	self:DisableAddOnSkin("WorldQuestTab")
+
 	if _G.WQT_QuestMapTab then
 		reskinTab(_G.WQT_QuestMapTab)
 		_G.WQT_QuestMapTab.__SetPoint = _G.WQT_QuestMapTab.SetPoint
@@ -209,7 +228,10 @@ if isLoaded and isFinished then
 		return function(...)
 			local args = { ... }
 			F.TaskManager:AfterLogin(function()
-				if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wqt then
+				if
+					not E.private.mui.skins.addonSkins.enable
+					or not E.private.mui.skins.addonSkins.wqt
+				then
 					return
 				end
 				func(unpack(args))
