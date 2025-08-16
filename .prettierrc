@@ -3,6 +3,8 @@
 	"trailingComma": "all",
 	"useTabs": true,
 	"bracketSpacing": false,
+	"semi": false,
+	"singleQuote": false,
 	"plugins": [
 		"@prettier/plugin-lua"
 	]
