@@ -11,8 +11,6 @@ module.updateProfile = {}
 module.aceWidgets = {}
 module.enteredLoad = {}
 
-local AceGUI
-
 function module:ShadowOverlay()
 	-- Based on ncShadow
 	if not E.private.mui.skins.shadowOverlay then
@@ -167,7 +165,7 @@ do
 	local alreadyDialogSkined = false
 	function module:LibStub_NewLibrary(_, major)
 		if major == "AceGUI-3.0" and not alreadyWidgetHooked then
-			AceGUI = _G.LibStub("AceGUI-3.0")
+			local AceGUI = _G.LibStub("AceGUI-3.0")
 			self:ReskinWidgets(AceGUI)
 			self:SecureHook(AceGUI, "RegisterWidgetType", "UpdateWidget")
 			alreadyWidgetHooked = true
@@ -196,10 +194,10 @@ end
 function module:TryPostHook(...)
 	local frame, method, hookFunc = ...
 	if frame and method and _G[frame] and _G[frame][method] then
-		hooksecurefunc(_G[frame], method, function(frame, ...)
-			if not frame.__MERSkin then
-				hookFunc(frame, ...)
-				frame.__MERSkin = true
+		hooksecurefunc(_G[frame], method, function(f, ...)
+			if not f.__MERSkin then
+				hookFunc(f, ...)
+				f.__MERSkin = true
 			end
 		end)
 	else

@@ -54,13 +54,13 @@ function WS:HandleCheckBox(_, check)
 
 	if not check.MERSkin then
 		if check.GetCheckedTexture then
-			local tex = check:GetCheckedTexture()
-			if tex then
-				tex:SetTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
-				tex.SetTexture = E.noop
+			local texture = check:GetCheckedTexture()
+			if texture then
+				texture:SetTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
+				texture.SetTexture = E.noop
 				F.SetVertexColorDB(tex, db.classColor and module.ClassColor or db.color)
-				tex.SetVertexColor_Changed = tex.SetVertexColor
-				tex.SetVertexColor = function(tex, ...)
+				texture.SetVertexColor_Changed = texture.SetVertexColor
+				texture.SetVertexColor = function(tex, ...)
 					local isDefaultColor = self.IsUglyYellow(...)
 					if tex.__MERColorOverride and type(tex.__MERColorOverride) == "function" then
 						local color = tex.__MERColorOverride(...)
@@ -83,10 +83,10 @@ function WS:HandleCheckBox(_, check)
 		end
 
 		if check.GetDisabledTexture then
-			local tex = check:GetDisabledTexture()
-			if tex then
-				tex.SetTexture_Changed = tex.SetTexture
-				tex.SetTexture = function(tex, texPath)
+			local texture = check:GetDisabledTexture()
+			if texture then
+				texture.SetTexture_Changed = texture.SetTexture
+				texture.SetTexture = function(tex, texPath)
 					if not texPath then
 						return
 					end

@@ -30,14 +30,14 @@ function WS:HandleTreeGroup(widget)
 			button:SetPushedTextOffset(0, 0)
 
 			if db.text.enable then
-				local text = button.text
+				local textObj = button.text
 					or button.Text
 					or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
-				if text and text.GetTextColor then
-					F.SetFontDB(text, db.text.font)
+				if textObj and textObj.GetTextColor then
+					F.SetFontDB(textObj, db.text.font)
 
-					text.SetPoint_Changed = text.SetPoint
-					text.SetPoint = function(text, point, arg1, arg2, arg3, arg4)
+					textObj.SetPoint_Changed = textObj.SetPoint
+					textObj.SetPoint = function(text, point, arg1, arg2, arg3, arg4)
 						if point == "LEFT" and type(arg2) == "number" and abs(arg2 - 2) < 0.1 then
 							arg2 = -1
 						end
@@ -45,7 +45,7 @@ function WS:HandleTreeGroup(widget)
 						text.SetPoint_Changed(text, point, arg1, arg2, arg3, arg4)
 					end
 
-					button.MERText = text
+					button.MERText = textObj
 				end
 			end
 
