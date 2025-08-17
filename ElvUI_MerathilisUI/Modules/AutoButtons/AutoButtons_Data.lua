@@ -2,8 +2,54 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_AutoButtons")
 
 local pairs = pairs
+local select = select
 local sort = sort
 local tinsert = tinsert
+
+local GetInstanceInfo = GetInstanceInfo
+
+module.STATE = {
+	IN_DELVE = 1,
+}
+
+module.StateCache = {}
+module.StateFetcher = {
+	[module.STATE.IN_DELVE] = function()
+		local difficulty = select(3, GetInstanceInfo())
+		if difficulty and difficulty == 208 then
+			return true
+		end
+		return false
+	end,
+}
+
+function module:UpdateState(state)
+	local fetcher = module.StateFetcher[state]
+	module.StateCache[state] = fetcher and fetcher()
+end
+
+function module:GetState(state)
+	local result = module.StateCache[state]
+	if result == nil then
+		result = true -- default to true if not cached
+	end
+	return result
+end
+
+module.StateCheckList = {
+	-- Items that cannot be use outside delve
+	[233205] = module.STATE.IN_DELVE,
+	[233792] = module.STATE.IN_DELVE,
+	[248017] = module.STATE.IN_DELVE,
+	[248755] = module.STATE.IN_DELVE,
+	[248764] = module.STATE.IN_DELVE,
+	[248954] = module.STATE.IN_DELVE,
+}
+
+-- If the item is lower than the threshold, it will be considered not shown
+module.CountThreshold = {
+	[245653] = 100,
+}
 
 local potions = {
 	general = {
