@@ -32,4 +32,5 @@
 	<Script file="WeakAurasOptions.lua"/>
 	<Script file="WIM.lua"/>
 	<Script file="WorldQuestTab.lua"/>
+	<Script file="WowLua.lua"/>
 </Ui>

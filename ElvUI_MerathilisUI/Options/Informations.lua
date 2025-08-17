@@ -226,7 +226,7 @@ local DEVELOPER = {
 	"fgprodigal",
 	AddColor("fang2hou"),
 	"siweia",
-	"Witness (NDui_Plus)",
+	"|cff0080ffWitness|r (NDui_Plus)",
 	"|cff1784d1Eltreum|r",
 	"|cff18a8ffToxi|r",
 	"mcc1",

@@ -40,6 +40,7 @@ local DecorAddons = {
 	{ "TomTom", L["TomTom"], "tom" },
 	{ "WIM", L["WIM"], "wim" },
 	{ "WorldQuestTab", L["World Quest Tab"], "wqt" },
+	{ "WowLua", L["WowLua"], "wowLua" },
 }
 if F.IsDeveloper() then
 	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })
