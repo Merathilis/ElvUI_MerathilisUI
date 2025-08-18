@@ -1,13 +1,28 @@
 std = "lua51"
 max_line_length = false
 exclude_files = { "**Libs/", "**libs/", "**Libraries/" }
+max_comment_line_length = 120
+self = false
+
 ignore = {
-	"212", -- Unused argument
+	"111/ElvUI.*", -- Setting an undefined global variable starting with ElvUI
+	"112/ElvUI.*", -- Mutating an undefined global variable starting with ElvUI
+	"113/ElvUI.*", -- Accessing an undefined global variable starting with ElvUI
+	"122", -- Setting a read-only field of a global variable
+	"211/_G", -- Unused local variable _G
+	"211/MER", -- Unused local variable MER
+	"211/F", -- Unused local variable F
+	"211/E", -- Unused local variable E
+	"211/I", -- Unused local variable I
+	"211/V", -- Unused local variable V
+	"211/P", -- Unused local variable P
+	"211/G", -- Unused local variable G
+	"211/L", -- Unused local variable L
+
+	"432", -- Shadowing an upvalue argument
 }
 globals = {}
 read_globals = {
-	"ElvUI",
-	"ElvUI_MerathilisUI",
 	"101_CutsceneName_Ref",
 	"101_CutsceneName_Ref2",
 	"10_1_5_TIME_RIFTS_MINIGAME_01_WRONG_ELEMENT",
