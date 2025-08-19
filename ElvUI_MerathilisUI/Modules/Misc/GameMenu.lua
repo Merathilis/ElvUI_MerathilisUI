@@ -2,11 +2,17 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc")
 
 local _G = _G
-local random = random
+local pairs = pairs
+local random = math.random
 
 local CreateFrame = CreateFrame
-local UIFrameFadeIn = UIFrameFadeIn
+local GetGuildInfo = GetGuildInfo
+local GetSpecialization = GetSpecialization
+local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 local GetTotalAchievementPoints = GetTotalAchievementPoints
+local UIFrameFadeIn = UIFrameFadeIn
+local UnitClassBase = UnitClassBase
+local UnitLevel = UnitLevel
 
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local C_MountJournal_GetMountInfoByID = C_MountJournal.GetMountInfoByID
@@ -23,7 +29,7 @@ local C_MythicPlus_GetRunHistory = C_MythicPlus.GetRunHistory
 
 local GameMenuFrame = _G.GameMenuFrame
 
-local delvesKeys = { 84736, 84737, 84738, 84739 }
+local delvesKeys = { 91175, 91176, 91177, 91178 }
 local keyName = C_CurrencyInfo_GetCurrencyInfo(3028).name
 
 -- Credit for the Class logos: ADDOriN @DevianArt

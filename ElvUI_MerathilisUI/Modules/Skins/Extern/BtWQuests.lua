@@ -4,6 +4,9 @@ local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 
 local _G = _G
+local hooksecurefunc = hooksecurefunc
+local ipairs = ipairs
+local pairs = pairs
 
 -- Modified from NDui_Plus
 local function HandleNavButton(btn, strip, ...)
@@ -30,6 +33,12 @@ local function HandleButton(self)
 	highlight:SetVertexColor(1, 1, 1, 0.25)
 	highlight:SetInside(self.backdrop)
 
+	if self.ActiveTexture then
+		self.ActiveTexture:Kill()
+		module:CreateShadow(self.backdrop, 4, 1, 0.717, 0.058, true)
+		self.ActiveTexture = self.backdrop.MERshadow
+	end
+
 	local Active = self.Acive or self.Active
 	if Active then
 		Active:SetTexture("")
@@ -47,9 +56,9 @@ local function HandleButton(self)
 end
 
 local function ReskinItemButton(self)
-	if not self.__windSkin then
+	if not self.__MERSkin then
 		HandleButton(self)
-		self.__windSkin = true
+		self.__MERSkin = true
 	end
 
 	local Active = self.Acive or self.Active
@@ -104,7 +113,6 @@ local function ReskinSearchResults(self)
 		end
 	end
 end
-
 local function StyleSearchButton(button)
 	if not button then
 		return
@@ -128,7 +136,7 @@ function module:BtWQuests()
 		return
 	end
 
-	module:DisableAddOnSkins("BtWQuestsFrame", false)
+	module:DisableAddOnSkins("BtWQuests")
 
 	local frame = _G.BtWQuestsFrame
 	if not frame then
@@ -141,7 +149,6 @@ function module:BtWQuests()
 	S:HandleDropDownBox(frame.ExpansionDropDown)
 	TT:SetStyle(_G.BtWQuestsTooltip)
 	TT:SetStyle(frame.Tooltip)
-
 	HandledDropDown(_G.BtWQuestsOptionsMenu)
 	HandledDropDown(frame.CharacterDropDown)
 	HandledDropDown(frame.ExpansionDropDown)
@@ -158,9 +165,9 @@ function module:BtWQuests()
 		navBar.backdrop:Point("BOTTOMRIGHT")
 		HandleNavButton(navBar.home, true)
 		navBar:HookScript("OnShow", function(self)
-			if not self.__MERkin then
+			if not self.__MERSkin then
 				HandledDropDown(self.dropDown)
-				self.__MERkin = true
+				self.__MERSkin = true
 			end
 		end)
 	end
@@ -182,8 +189,8 @@ function module:BtWQuests()
 		SearchResults:StripTextures()
 		SearchResults:CreateBackdrop("Transparent")
 		module:CreateBackdropShadow(SearchResults)
-		SearchResults.backdrop:SetPoint("TOPLEFT", -10, 0)
-		SearchResults.backdrop:SetPoint("BOTTOMRIGHT", 5, 0)
+		SearchResults.backdrop:Point("TOPLEFT", -10, 0)
+		SearchResults.backdrop:Point("BOTTOMRIGHT", 5, 0)
 		S:HandleCloseButton(SearchResults.CloseButton)
 		S:HandleScrollBar(SearchResults.scrollFrame and SearchResults.scrollFrame.scrollBar)
 
@@ -200,10 +207,10 @@ function module:BtWQuests()
 		frame.OptionsButton:SetSize(16, 16)
 		frame.OptionsButton:SetHitRectInsets(0, 0, 0, 0)
 		frame.OptionsButton:ClearAllPoints()
-		frame.OptionsButton:SetPoint("RIGHT", frame.CloseButton, "LEFT", -4, 0)
+		frame.OptionsButton:Point("RIGHT", frame.CloseButton, "LEFT", -1, 1)
 
 		frame.CharacterDropDown:ClearAllPoints()
-		frame.CharacterDropDown:Point("RIGHT", frame.OptionsButton, "LEFT", -14, -4)
+		frame.CharacterDropDown:Point("RIGHT", frame.OptionsButton, "LEFT", -16, -5)
 		frame.CharacterDropDown:CreateBackdrop()
 		frame.CharacterDropDown.backdrop:ClearAllPoints()
 		frame.CharacterDropDown.backdrop:Point("TOPLEFT", 15, 0)
@@ -215,25 +222,25 @@ function module:BtWQuests()
 		S:HandleNextPrevButton(frame.NavBack)
 		frame.NavBack:SetHitRectInsets(0, 0, 0, 0)
 		frame.NavBack:ClearAllPoints()
-		frame.NavBack:SetPoint("TOPLEFT", 5, -4)
+		frame.NavBack:Point("TOPLEFT", 5, -4)
 
 		S:HandleNextPrevButton(frame.NavForward)
 		frame.NavForward:SetHitRectInsets(0, 0, 0, 0)
 		frame.NavForward:ClearAllPoints()
-		frame.NavForward:SetPoint("LEFT", frame.NavBack, "RIGHT", 2, 0)
+		frame.NavForward:Point("LEFT", frame.NavBack, "RIGHT", 2, 0)
 
 		S:HandleNextPrevButton(frame.NavHere, "down", nil, true)
 		frame.NavHere:SetHitRectInsets(0, 0, 0, 0)
 		frame.NavHere:ClearAllPoints()
-		frame.NavHere:SetPoint("LEFT", frame.NavForward, "RIGHT", 2, 0)
+		frame.NavHere:Point("LEFT", frame.NavForward, "RIGHT", 2, 0)
 	end
 
 	local ExpansionList = frame.ExpansionList
 	if ExpansionList then
 		for _, expansion in ipairs(ExpansionList.Expansions) do
 			expansion:CreateBackdrop("Transparent")
-			expansion.backdrop:SetPoint("TOPLEFT", 4, -4)
-			expansion.backdrop:SetPoint("BOTTOMRIGHT", -4, 5)
+			expansion.backdrop:Point("TOPLEFT", 4, -4)
+			expansion.backdrop:Point("BOTTOMRIGHT", -4, 5)
 			expansion.Base:SetTexture("")
 			S:HandleCheckBox(expansion.AutoLoad)
 			HandleButton(expansion.ViewAll)

@@ -168,6 +168,13 @@ function module:Immersion()
 	hooksecurefunc(ImmersionFrame, "AddQuestInfo", function(self)
 		local rewardsFrame = self.TalkBox.Elements.Content.RewardsFrame
 
+		-- ItemHighlight
+		RewardsFrame.ItemHighlight.Icon:SetOutside(rewardsFrame, 2, 2)
+		RewardsFrame.ItemHighlight.NameTag:Hide()
+		RewardsFrame.ItemHighlight.NameTag.Show = E.noop
+		RewardsFrame.ItemHighlight.TextSheen:Hide()
+		RewardsFrame.ItemHighlight.TextSheen.Show = E.noop
+
 		-- Item Rewards
 		reskinItemButtons(rewardsFrame.Buttons)
 
