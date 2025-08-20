@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_Tooltip")
 local ET = E:GetModule("Tooltip")
 
 local _G = _G
+local assert = assert
 local next = next
 local xpcall = xpcall
 local tinsert = table.insert
@@ -33,22 +34,27 @@ function module:AddCallbackForUpdate(name, func)
 	tinsert(self.updateProfile, func or self[name])
 end
 
-function module:AddInspectInfoCallback(priority, inspectFunction, useModifier, clearFunction)
-	if type(inspectFunction) == "string" then
-		inspectFunction = self[inspectFunction]
+function module:AddInspectInfoCallback(priority, inspectFunc, useModifier, clearFunc)
+	if type(inspectFunc) == "string" then
+		inspectFunc = self[inspectFunc]
 	end
+
+	assert(type(inspectFunc) == "function", "Invalid inspect function")
 
 	if useModifier then
-		self.modifierInspect[priority] = inspectFunction
+		self.modifierInspect[priority] = inspectFunc
 	else
-		self.normalInspect[priority] = inspectFunction
+		self.normalInspect[priority] = inspectFunc
 	end
 
-	if clearFunction then
-		if type(clearFunction) == "string" then
-			clearFunction = self[clearFunction]
+	if clearFunc then
+		if type(clearFunc) == "string" then
+			clearFunc = self[clearFunc]
 		end
-		self.clearInspect[priority] = clearFunction
+
+		assert(type(clearFunc) == "function", "Invalid clear function")
+
+		self.clearInspect[priority] = clearFunc
 	end
 end
 
@@ -90,7 +96,7 @@ function module:CheckModifier()
 	return true
 end
 
-function module:InspectInfo(tt, data, triedTimes)
+function T:InspectInfo(tt, data, triedTimes)
 	if tt ~= GameTooltip or (tt.IsForbidden and tt:IsForbidden()) or (ET.db and not ET.db.visibility) then
 		return
 	end
@@ -99,7 +105,20 @@ function module:InspectInfo(tt, data, triedTimes)
 		return
 	end
 
+	triedTimes = triedTimes or 0
+
 	local unit = select(2, tt:GetUnit())
+
+	if not unit then
+		local GMF = E:GetMouseFocus()
+		local focusUnit = GMF and GMF.GetAttribute and GMF:GetAttribute("unit")
+		if focusUnit then
+			unit = focusUnit
+		end
+		if not unit or not UnitExists(unit) then
+			return
+		end
+	end
 
 	if not unit or not data or not data.guid then
 		return
@@ -110,29 +129,33 @@ function module:InspectInfo(tt, data, triedTimes)
 		xpcall(func, F.Developer.ThrowError, self, tt, unit, data.guid)
 	end
 
+	-- General
+	local inCombatLockdown = InCombatLockdown()
+	local isShiftKeyDown = IsShiftKeyDown()
+	local isPlayerUnit = UnitIsPlayer(unit)
+	local isInspecting = _G.InspectPaperDollFrame and _G.InspectPaperDollFrame:IsShown()
+
+	-- Item Level
+	local itemLevelAvailable = isPlayerUnit and not inCombatLockdown and ET.db.inspectDataEnable
+
+	if self.db.forceItemLevel and not isInspecting then
+		if not isShiftKeyDown and itemLevelAvailable and not tt.ItemLevelShown then
+			local _, class = UnitClass(unit)
+			local color = class and E:ClassColor(class) or RAID_CLASS_COLORS_PRIEST
+			TT:AddInspectInfo(tt, unit, 0, color.r, color.g, color.b)
+		end
+	end
+
+	-- Modifier callbacks pre-check
 	if not self:CheckModifier() or not CanInspect(unit) then
 		return
 	end
 
-	-- If ElvUI is inspecting, just wait for 4 seconds
-	triedTimes = triedTimes or 0
-	if triedTimes > 20 then
-		return
-	end
-
-	if not InCombatLockdown() and IsShiftKeyDown() and ET.db.inspectDataEnable then
-		local isElvUITooltipItemLevelInfoAlreadyAdded = false
-		for i = #data.lines, tt:NumLines() do
-			local leftTip = _G["GameTooltipTextLeft" .. i]
-			local leftTipText = leftTip:GetText()
-			if leftTipText and leftTipText == L["Item Level:"] and leftTip:IsShown() then
-				isElvUITooltipItemLevelInfoAlreadyAdded = true
-				break
-			end
-		end
-
-		if not isElvUITooltipItemLevelInfoAlreadyAdded then
-			return E:Delay(0.2, module.InspectInfo, module, ET, tt, data, triedTimes + 1)
+	-- It ElvUI Item Level is enabled, we need to delay the modifier callbacks
+	if self.db.forceItemLevel or isShiftKeyDown and itemLevelAvailable then
+		if not tt.ItemLevelShown and triedTimes <= 4 then
+			E:Delay(0.33, T.InspectInfo, T, tt, data, triedTimes + 1)
+			return
 		end
 	end
 
@@ -145,6 +168,10 @@ function module:InspectInfo(tt, data, triedTimes)
 end
 
 function module:ElvUIRemoveTrashLines(_, tt)
+	if tt:IsForbidden() then
+		return
+	end
+
 	tt.MERInspectLoaded = false
 end
 
@@ -264,6 +291,7 @@ end
 
 function module:Initialize()
 	self.db = E.db.mui.tooltip
+
 	for index, func in next, self.load do
 		xpcall(func, F.Developer.ThrowError, self)
 		self.load[index] = nil

@@ -2094,6 +2094,7 @@ P.tooltip = {
 		classIconStyle = "flat",
 		template = "{{classIcon:18}} {{specIcon:14,18}} {{classColorStart}}{{className}} ({{specName}}){{classColorEnd}}{{amountStart}} x {{amount}}{{amountEnd}}",
 	},
+	forceItemLevel = false,
 }
 
 P.item = {
