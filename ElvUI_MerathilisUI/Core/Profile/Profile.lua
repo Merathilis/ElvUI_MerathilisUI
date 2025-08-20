@@ -1899,6 +1899,10 @@ P.maps = {
 			second = 600,
 			stopAlertIfCompleted = true,
 		},
+		ecologicalSuccession = {
+			enable = true,
+			desaturate = true,
+		},
 		nightFall = {
 			enable = true,
 			desaturate = true,

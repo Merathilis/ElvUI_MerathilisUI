@@ -1204,7 +1204,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		khazAlgarEmissary = {
-			order = 12,
+			order = 15,
 			type = "group",
 			inline = true,
 			name = L["Khaz Algar Emissary"],
@@ -1230,7 +1230,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		theaterTroupe = {
-			order = 13,
+			order = 16,
 			type = "group",
 			inline = true,
 			name = L["Theater Troupe"],
@@ -1289,8 +1289,34 @@ options.maps.args.eventTracker = {
 				},
 			},
 		},
+		ecologicalSuccession = {
+			order = 17,
+			type = "group",
+			inline = true,
+			name = E.NewSign .. L["Ecological Succession"],
+			get = function(info)
+				return E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.maps.eventTracker[info[#info - 1]][info[#info]] = value
+				ET:ProfileUpdate()
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				desaturate = {
+					order = 2,
+					type = "toggle",
+					name = L["Desaturate"],
+					desc = L["Desaturate icon if the event is completed in this week."],
+				},
+			},
+		},
 		nightFall = {
-			order = 13,
+			order = 18,
 			type = "group",
 			inline = true,
 			name = L["Nightfall"],
@@ -1350,7 +1376,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		ringingDeeps = {
-			order = 15,
+			order = 19,
 			type = "group",
 			inline = true,
 			name = L["Ringing Deeps"],
@@ -1369,7 +1395,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		spreadingTheLight = {
-			order = 16,
+			order = 20,
 			type = "group",
 			inline = true,
 			name = L["Spreading The Light"],
@@ -1388,7 +1414,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		underworldOperative = {
-			order = 17,
+			order = 21,
 			type = "group",
 			inline = true,
 			name = L["Underworld Operative"],
@@ -1407,7 +1433,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		radiantEchoes = {
-			order = 21,
+			order = 22,
 			type = "group",
 			inline = true,
 			name = L["Radiant Echoes"],
@@ -1483,7 +1509,7 @@ options.maps.args.eventTracker = {
 			},
 		},
 		bigDig = {
-			order = 22,
+			order = 23,
 			type = "group",
 			inline = true,
 			name = L["The Big Dig"],

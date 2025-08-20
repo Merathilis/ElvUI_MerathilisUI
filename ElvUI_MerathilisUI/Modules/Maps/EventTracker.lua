@@ -36,6 +36,7 @@ local eventList = {
 	-- TWW
 	-- "TWWProfessions",
 	"KhazAlgarEmissary",
+	"EcologicalSuccession",
 	"Nightfall",
 	"TheaterTroupe",
 	"RingingDeeps",
@@ -967,6 +968,22 @@ local eventData = {
 			location = GetMapInfo(2339).name,
 			label = L["Khaz Algar Emissary"],
 			onClick = worldMapIDSetter(2339),
+			onClickHelpText = L["Click to show location"],
+		},
+	},
+	EcologicalSuccession = {
+		dbKey = "ecologicalSuccession",
+		args = {
+			icon = 6921877,
+			type = "weekly",
+			questIDs = {
+				85460,
+			},
+			hasWeeklyReward = true,
+			eventName = L["Ecological Succession"],
+			location = C_Map_GetMapInfo(2371).name,
+			label = L["Ecological Succession"],
+			onClick = worldMapIDSetter(2371),
 			onClickHelpText = L["Click to show location"],
 		},
 	},
