@@ -5,8 +5,6 @@ local S = E:GetModule("Skins")
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
-local CreateFrame = CreateFrame
-
 function module:OmniCD_ConfigGUI()
 	local O = _G.OmniCD[1]
 
@@ -20,75 +18,91 @@ function module:OmniCD_ConfigGUI()
 end
 
 function module:OmniCD_Party_Icon()
-	local O = _G.OmniCD[1]
-
-	if not O.Party or not O.Party.AcquireIcon then
+	local P = _G.OmniCD[1] and _G.OmniCD[1].Party
+	if not P or not P.CreateStatusBarFramePool then
 		return
 	end
 
-	hooksecurefunc(O.Party, "AcquireIcon", function(_, barFrame, iconIndex, unitBar)
-		local icon = barFrame.icons[iconIndex]
-		if icon and not icon.__MERSkin then
-			self:CreateShadow(icon)
-			icon.__MERSkin = true
+	hooksecurefunc(P, "CreateIconFramePool", function()
+		if not P.IconPool then
+			return
 		end
+		hooksecurefunc(P.IconPool, "Acquire", function(pool)
+			for icon in pool:EnumerateActive() do
+				if not icon.__MERSkin then
+					self:CreateShadow(icon)
+					icon.__MERSkin = true
+				end
+			end
+		end)
 	end)
 end
 
-local function updateBorderVisibility(self)
-	local parent = self:GetParent()
-	if not parent or not parent.__MERSkin then
+function module:OmniCD_Party_StatusBar()
+	local P = _G.OmniCD[1] and _G.OmniCD[1].Party
+	if not P or not P.CreateStatusBarFramePool then
 		return
 	end
 
-	parent.__MERSkin:SetShown(self:IsShown())
+	local function updateBorderVisibility(borderTex)
+		local parent = borderTex:GetParent()
+		if not parent or not parent.MERshadow then
+			return
+		end
+
+		parent.MERshadow:SetShown(borderTex:IsShown())
+	end
+
+	hooksecurefunc(P, "CreateStatusBarFramePool", function()
+		if not P.StatusBarPool then
+			return
+		end
+
+		hooksecurefunc(P.StatusBarPool, "Acquire", function(pool)
+			for bar in pool:EnumerateActive() do
+				if not bar.__MERSkin then
+					self:CreateLowerShadow(bar)
+
+					-- bind the visibility to the original borders
+					if bar.borderTop then
+						hooksecurefunc(bar.borderTop, "SetShown", updateBorderVisibility)
+						hooksecurefunc(bar.borderTop, "Hide", updateBorderVisibility)
+						hooksecurefunc(bar.borderTop, "Show", updateBorderVisibility)
+					end
+					bar.__MERSkin = true
+				end
+			end
+		end)
+	end)
 end
 
 function module:OmniCD_Party_ExtraBars()
-	local O = _G.OmniCD[1]
-	local colorDB = E.db.mui.gradient
-
-	if not O.Party or not O.Party.AcquireStatusBar then
+	local P = _G.OmniCD[1] and _G.OmniCD[1].Party
+	if not P or not P.CreateStatusBarFramePool then
 		return
 	end
 
-	hooksecurefunc(O.Party, "AcquireStatusBar", function(_, icon)
-		if icon.statusBar then
-			if not icon.statusBar.__MERSkin then
-				icon.statusBar.__MERSkin = CreateFrame("Frame", nil, icon.statusBar)
-				icon.statusBar.__MERSkin:OffsetFrameLevel(-1, icon.statusBar)
+	hooksecurefunc(P, "CreateExBarFramePool", function()
+		if not P.ExBarPool then
+			return
+		end
 
-				-- bind the visibility to the original borders
-				if icon.statusBar.borderTop then
-					hooksecurefunc(icon.statusBar.borderTop, "SetShown", updateBorderVisibility)
-					hooksecurefunc(icon.statusBar.borderTop, "Hide", updateBorderVisibility)
-					hooksecurefunc(icon.statusBar.borderTop, "Show", updateBorderVisibility)
+		hooksecurefunc(P.ExBarPool, "Acquire", function(pool)
+			for bar in pool:EnumerateActive() do
+				if not bar.__MERSkin then
+					bar.anchor:StripTextures()
+					bar.anchor:SetTemplate("Transparent")
+					self:CreateShadow(bar.anchor)
+					bar.anchor:SetHeight(bar.anchor:GetHeight() + 8)
+					bar.anchor.__SetPoint = bar.anchor.SetPoint
+					hooksecurefunc(bar.anchor, "SetPoint", function()
+						F.MoveFrameWithOffset(bar.anchor, 0, 3)
+					end)
+
+					bar.__MERSkin = true
 				end
 			end
-
-			local x = icon:GetSize()
-
-			icon.statusBar.__MERSkin:ClearAllPoints()
-			icon.statusBar.__MERSkin:SetPoint("TOPLEFT", icon.statusBar, "TOPLEFT", -x - 1, 0)
-			icon.statusBar.__MERSkin:SetPoint("BOTTOMRIGHT", icon.statusBar, "BOTTOMRIGHT", 0, 0)
-			module:CreateShadow(icon.statusBar.__MERSkin)
-
-			if icon.statusBar.CastingBar then
-				S:HandleStatusBar(icon.statusBar.CastingBar)
-			end
-
-			if icon.class then
-				hooksecurefunc(icon.statusBar.BG, "SetVertexColor", function(bar)
-					if colorDB.enable then
-						if colorDB.customColor.enableClass then
-							bar:SetGradient("HORIZONTAL", F.GradientColorsCustom(bar:GetParent():GetParent().class))
-						else
-							bar:SetGradient("HORIZONTAL", F.GradientColors(bar:GetParent():GetParent().class))
-						end
-					end
-				end)
-			end
-		end
+		end)
 	end)
 end
 
@@ -98,7 +112,7 @@ function module:OmniCD()
 	end
 
 	self:OmniCD_ConfigGUI()
-	self:OmniCD_Party_Icon()
+	self:OmniCD_Party_StatusBar()
 	self:OmniCD_Party_ExtraBars()
 end
 
