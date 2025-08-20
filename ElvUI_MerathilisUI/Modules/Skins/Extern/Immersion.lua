@@ -169,11 +169,11 @@ function module:Immersion()
 		local rewardsFrame = self.TalkBox.Elements.Content.RewardsFrame
 
 		-- ItemHighlight
-		RewardsFrame.ItemHighlight.Icon:SetOutside(rewardsFrame, 2, 2)
-		RewardsFrame.ItemHighlight.NameTag:Hide()
-		RewardsFrame.ItemHighlight.NameTag.Show = E.noop
-		RewardsFrame.ItemHighlight.TextSheen:Hide()
-		RewardsFrame.ItemHighlight.TextSheen.Show = E.noop
+		rewardsFrame.ItemHighlight.Icon:SetOutside(rewardsFrame.ItemHighlight.Icon.backdrop, 2, 2)
+		rewardsFrame.ItemHighlight.NameTag:Hide()
+		rewardsFrame.ItemHighlight.NameTag.Show = E.noop
+		rewardsFrame.ItemHighlight.TextSheen:Hide()
+		rewardsFrame.ItemHighlight.TextSheen.Show = E.noop
 
 		-- Item Rewards
 		reskinItemButtons(rewardsFrame.Buttons)

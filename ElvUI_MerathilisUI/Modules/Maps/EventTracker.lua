@@ -981,7 +981,7 @@ local eventData = {
 			},
 			hasWeeklyReward = true,
 			eventName = L["Ecological Succession"],
-			location = C_Map_GetMapInfo(2371).name,
+			location = GetMapInfo(2371).name,
 			label = L["Ecological Succession"],
 			onClick = worldMapIDSetter(2371),
 			onClickHelpText = L["Click to show location"],

@@ -1,6 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Tooltip")
-local ET = E:GetModule("Tooltip")
+local TT = E:GetModule("Tooltip")
 
 local _G = _G
 local assert = assert
@@ -96,8 +96,8 @@ function module:CheckModifier()
 	return true
 end
 
-function T:InspectInfo(tt, data, triedTimes)
-	if tt ~= GameTooltip or (tt.IsForbidden and tt:IsForbidden()) or (ET.db and not ET.db.visibility) then
+function module:InspectInfo(tt, data, triedTimes)
+	if tt ~= GameTooltip or (tt.IsForbidden and tt:IsForbidden()) or (TT.db and not TT.db.visibility) then
 		return
 	end
 
@@ -136,7 +136,7 @@ function T:InspectInfo(tt, data, triedTimes)
 	local isInspecting = _G.InspectPaperDollFrame and _G.InspectPaperDollFrame:IsShown()
 
 	-- Item Level
-	local itemLevelAvailable = isPlayerUnit and not inCombatLockdown and ET.db.inspectDataEnable
+	local itemLevelAvailable = isPlayerUnit and not inCombatLockdown and TT.db.inspectDataEnable
 
 	if self.db.forceItemLevel and not isInspecting then
 		if not isShiftKeyDown and itemLevelAvailable and not tt.ItemLevelShown then
@@ -154,7 +154,7 @@ function T:InspectInfo(tt, data, triedTimes)
 	-- It ElvUI Item Level is enabled, we need to delay the modifier callbacks
 	if self.db.forceItemLevel or isShiftKeyDown and itemLevelAvailable then
 		if not tt.ItemLevelShown and triedTimes <= 4 then
-			E:Delay(0.33, T.InspectInfo, T, tt, data, triedTimes + 1)
+			E:Delay(0.33, module.InspectInfo, module, tt, data, triedTimes + 1)
 			return
 		end
 	end
@@ -194,9 +194,9 @@ function module:Event(event, ...)
 	end
 end
 
-ET._MER_GameTooltip_OnTooltipSetUnit = ET.GameTooltip_OnTooltipSetUnit
-function ET.GameTooltip_OnTooltipSetUnit(...)
-	ET._MER_GameTooltip_OnTooltipSetUnit(...)
+TT._MER_GameTooltip_OnTooltipSetUnit = TT.GameTooltip_OnTooltipSetUnit
+function TT.GameTooltip_OnTooltipSetUnit(...)
+	TT._MER_GameTooltip_OnTooltipSetUnit(...)
 
 	if not module then
 		return
@@ -223,7 +223,7 @@ function module:SetUnitText(_, tt, unit, isPlayerUnit)
 	end
 
 	local guildName = GetGuildInfo(unit)
-	local levelLine, specLine = ET:GetLevelLine(tt, (guildName and 2) or 1)
+	local levelLine, specLine = TT:GetLevelLine(tt, (guildName and 2) or 1)
 	local level, realLevel = UnitEffectiveLevel(unit), UnitLevel(unit)
 
 	if levelLine then
@@ -235,10 +235,10 @@ function module:SetUnitText(_, tt, unit, isPlayerUnit)
 			race = localizedFaction .. " " .. race
 		end
 		local hexColor = E:RGBToHex(diffColor.r, diffColor.g, diffColor.b)
-		local unitGender = ET.db.gender and genderTable[gender]
+		local unitGender = TT.db.gender and genderTable[gender]
 
 		if db.raceIcon then
-			local raceIcon = F.GetRaceAtlasString(englishRace, gender, ET.db.textFontSize, ET.db.textFontSize)
+			local raceIcon = F.GetRaceAtlasString(englishRace, gender, TT.db.textFontSize, TT.db.textFontSize)
 			if raceIcon then
 				race = raceIcon .. " " .. race
 			end
@@ -278,7 +278,7 @@ function module:SetUnitText(_, tt, unit, isPlayerUnit)
 			end
 
 			if specIcon then
-				local iconString = F.GetIconString(specIcon, ET.db.textFontSize, ET.db.textFontSize + 3, true)
+				local iconString = F.GetIconString(specIcon, TT.db.textFontSize, TT.db.textFontSize + 3, true)
 				specText = iconString .. " " .. specText
 			end
 
@@ -301,8 +301,8 @@ function module:Initialize()
 		module:RegisterEvent(name, "Event")
 	end
 
-	module:SecureHook(ET, "SetUnitText", "SetUnitText")
-	module:SecureHook(ET, "RemoveTrashLines", "ElvUIRemoveTrashLines")
+	module:SecureHook(TT, "SetUnitText", "SetUnitText")
+	module:SecureHook(TT, "RemoveTrashLines", "ElvUIRemoveTrashLines")
 	module:SecureHookScript(GameTooltip, "OnTooltipCleared", "ClearInspectInfo")
 
 	module.initialized = true
