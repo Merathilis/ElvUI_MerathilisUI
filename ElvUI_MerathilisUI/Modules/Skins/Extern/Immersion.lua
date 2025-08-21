@@ -44,6 +44,11 @@ local function reskinItemButton(self)
 		self.NameFrame.backdrop:SetOutside(self.NameFrame, -50, -15)
 		S:HandleIcon(self.Icon, true)
 		module:CreateBackdropShadow(self.NameFrame)
+
+		if self.ItemHighlight then
+			self.ItemHighlight:SetOutside(self.NameFrame, -50, -15)
+			self.ItemHighlight.Icon:SetOutside(self.Icon.backdrop)
+		end
 	end
 end
 
@@ -167,13 +172,6 @@ function module:Immersion()
 
 	hooksecurefunc(ImmersionFrame, "AddQuestInfo", function(self)
 		local rewardsFrame = self.TalkBox.Elements.Content.RewardsFrame
-
-		-- ItemHighlight
-		rewardsFrame.ItemHighlight.Icon:SetOutside(rewardsFrame.ItemHighlight.Icon.backdrop, 2, 2)
-		rewardsFrame.ItemHighlight.NameTag:Hide()
-		rewardsFrame.ItemHighlight.NameTag.Show = E.noop
-		rewardsFrame.ItemHighlight.TextSheen:Hide()
-		rewardsFrame.ItemHighlight.TextSheen.Show = E.noop
 
 		-- Item Rewards
 		reskinItemButtons(rewardsFrame.Buttons)
