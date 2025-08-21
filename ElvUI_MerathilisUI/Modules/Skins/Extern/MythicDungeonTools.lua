@@ -58,6 +58,8 @@ local function reskinDungeonButton(MDT)
 				module:CreateShadow(button)
 			end
 
+			F.MoveFrameWithOffset(button.shortText, 0, 2)
+
 			local BUTTON_SIZE = 40
 
 			button:ClearAllPoints()
@@ -212,7 +214,7 @@ function module:MDTPullButton(Constructor)
 		reskinButtonTexture(widget.background, 0.3)
 
 		widget.pullNumber:ClearAllPoints()
-		widget.pullNumber:SetPoint("CENTER", widget.frame, "LEFT", 12, -1)
+		widget.pullNumber:SetPoint("CENTER", widget.frame, "LEFT", 12, 1)
 
 		hooksecurefunc(widget.frame.pickedGlow, "Show", function()
 			widget.pullNumber:FontTemplate(nil, 18, "OUTLINE")
