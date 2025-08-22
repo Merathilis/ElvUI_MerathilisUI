@@ -317,6 +317,7 @@ V.skins = {
 		petBattle = true,
 		staticPopup = true,
 		inputMethodEditor = true,
+		uiErrors = true,
 	},
 
 	addonSkins = {
@@ -410,6 +411,12 @@ V.skins = {
 		name = I.Fonts.Primary,
 		size = 13,
 		style = "SHADOWOUTLINE",
+	},
+	uiErrors = {
+		normalTextClassColor = false,
+		normalTextColor = { r = 0.976, g = 0.980, b = 0.984 },
+		redTextColor = { r = 1.000, g = 0.388, b = 0.494 },
+		yellowTextColor = { r = 1.000, g = 0.875, b = 0.125 },
 	},
 	ime = {
 		label = {

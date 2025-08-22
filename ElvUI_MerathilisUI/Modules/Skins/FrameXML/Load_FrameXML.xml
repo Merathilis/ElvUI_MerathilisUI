@@ -44,6 +44,7 @@
 	<Script file="TaxiFrame.lua"/>
 	<Script file="TradeFrame.lua"/>
 	<Script file="UIDropDownMenu.lua"/>
+	<Script file="UIErrorsFrame.lua"/>
 	<Script file="UIWidgets.lua"/>
 	<Script file="WorldMapFrame.lua"/>
 </Ui>

@@ -100,10 +100,10 @@ options.general = {
 					desc = L["Enables/Disables a shadow overlay to darken the screen."],
 				},
 				shadow = {
-					order = 8,
+					order = 2,
 					type = "group",
 					name = F.cOption(L["Shadows"], "orange"),
-					guiInline = true,
+					inline = true,
 					get = function(info)
 						return E.private.mui.skins.shadow[info[#info]]
 					end,
@@ -143,6 +143,94 @@ options.general = {
 							end,
 							disabled = function()
 								return not E.private.mui.skins.enable
+							end,
+						},
+					},
+				},
+				uiErrors = {
+					order = 3,
+					type = "group",
+					name = L["UI Errors Frame"],
+					inline = true,
+					disabled = function()
+						return not E.private.mui.skins.enable or not E.private.mui.skins.blizzard.uiErrors
+					end,
+					args = {
+						desc = {
+							order = 1,
+							type = "description",
+							name = L["The middle top errors / messages frame (also used for quest progress text)."],
+						},
+						normalTextClassColor = {
+							order = 2,
+							type = "toggle",
+							name = L["Class Color"],
+							desc = L["Use class color for the text."],
+							get = function()
+								return E.private.mui.skins.uiErrors.normalTextClassColor
+							end,
+							set = function(_, value)
+								E.private.mui.skins.uiErrors.normalTextClassColor = value
+							end,
+						},
+						normalTextColor = {
+							order = 3,
+							type = "color",
+							name = L["Color"],
+							hasAlpha = true,
+							get = function()
+								local db = E.private.mui.skins.uiErrors.normalTextColor
+								local default = V.skins.uiErrors.normalTextColor
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(_, r, g, b, a)
+								local db = E.private.mui.skins.uiErrors.normalTextColor
+								db.r, db.g, db.b, db.a = r, g, b, a
+							end,
+							hidden = function()
+								return E.private.mui.skins.uiErrors.normalTextClassColor
+							end,
+						},
+						redTextColor = {
+							order = 4,
+							type = "color",
+							name = L["Red Color"],
+							desc = L["Replace the default color used for error messages."],
+							hasAlpha = true,
+							get = function()
+								local db = E.private.mui.skins.uiErrors.redTextColor
+								local default = V.skins.uiErrors.redTextColor
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(_, r, g, b, a)
+								local db = E.private.mui.skins.uiErrors.redTextColor
+								db.r, db.g, db.b, db.a = r, g, b, a
+							end,
+						},
+						yellowTextColor = {
+							order = 4,
+							type = "color",
+							name = L["Yellow Color"],
+							desc = L["Replace the default color used for warning messages."],
+							hasAlpha = true,
+							get = function()
+								local db = E.private.mui.skins.uiErrors.yellowTextColor
+								local default = V.skins.uiErrors.yellowTextColor
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(_, r, g, b, a)
+								local db = E.private.WT.skins.uiErrors.yellowTextColor
+								db.r, db.g, db.b, db.a = r, g, b, a
+							end,
+						},
+						testButton = {
+							order = 6,
+							type = "execute",
+							name = L["Test"],
+							func = function()
+								_G.UIErrorsFrame:AddMessage(
+									format("[%s] %s", L["MerathilisUI"], L["This is a test message"])
+								)
 							end,
 						},
 					},
@@ -1521,7 +1609,7 @@ options.blizzard = {
 			type = "toggle",
 			name = L["Mail Frame"],
 			disabled = function()
-				return not E.private.mui.skins.blizzard.enable or not E.private.mui.kins.blizzard.mail
+				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.mail
 			end,
 		},
 		timemanager = {
@@ -2034,6 +2122,12 @@ options.blizzard = {
 			disabled = function()
 				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.inputMethodEditor
 			end,
+		},
+		uiErrors = {
+			order = 10,
+			type = "toggle",
+			name = L["UI Errors"],
+			desc = L["The middle top errors / messages frame (also used for quest progress text)."],
 		},
 	},
 }
