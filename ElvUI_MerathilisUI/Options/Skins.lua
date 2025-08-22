@@ -34,6 +34,7 @@ local DecorAddons = {
 	{ "PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf" },
 	{ "RaiderIO", L["RaiderIO"], "rio" },
 	{ "Rematch", L["Rematch"], "rem" },
+	{ "SilverDragon", L["SilverDragon"], "sd" },
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "TalentLoadoutsEx", L["Talent Loadouts Ex"], "tle" },

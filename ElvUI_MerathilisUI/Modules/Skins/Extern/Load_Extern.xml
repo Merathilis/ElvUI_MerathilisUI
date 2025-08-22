@@ -23,6 +23,7 @@
 	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="RaiderIO.lua"/>
 	<Script file="Rematch.lua"/>
+	<Script file="SilverDragon.lua"/>
 	<Script file="SimpleAddonManager.lua"/>
 	<Script file="stAddOnManager.lua"/>
 	<Script file="TalentLoadoutsEx.lua"/>
