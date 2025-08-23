@@ -3,9 +3,8 @@ local module = MER:GetModule("MER_Skins")
 local C = MER.Utilities.Color
 
 local _G = _G
-local select = select
+local pairs = pairs
 
-local UnitClass = UnitClass
 local GetClassColor = GetClassColor
 
 local RED_FONT_COLOR = RED_FONT_COLOR
@@ -31,8 +30,7 @@ function module:UIErrors()
 		if r == nil or g == nil or b == nil then
 			local db = E.private.mui.skins.uiErrors
 			if db.normalTextClassColor then
-				local class = select(2, UnitClass("player"))
-				r, g, b = GetClassColor(class)
+				r, g, b = GetClassColor(E.myclass)
 				a = 1
 			else
 				r, g, b, a = db.normalTextColor.r, db.normalTextColor.g, db.normalTextColor.b, db.normalTextColor.a
