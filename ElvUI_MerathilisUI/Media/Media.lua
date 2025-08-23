@@ -99,6 +99,13 @@ F.AddMedia("icon", "Russian")
 F.AddMedia("icon", "Spanish")
 F.AddMedia("icon", "Korean")
 
+F.AddMedia("icon", "Lock", "buttonLock")
+F.AddMedia("icon", "Unlock", "buttonUnlock")
+F.AddMedia("icon", "Minus", "buttonMinus")
+F.AddMedia("icon", "Plus", "buttonPlus")
+F.AddMedia("icon", "Forward", "buttonForward")
+F.AddMedia("icon", "Delete", "buttonDelete")
+
 F.AddMedia("texture", "arrow")
 F.AddMedia("texture", "arrowUp")
 F.AddMedia("texture", "pepeSmall")
