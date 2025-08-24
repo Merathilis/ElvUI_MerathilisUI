@@ -3,7 +3,6 @@ local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 local pairs, unpack = pairs, unpack
-local strlower = strlower
 
 local GetInstanceInfo = GetInstanceInfo
 local GetAffixInfo = C_ChallengeMode.GetAffixInfo

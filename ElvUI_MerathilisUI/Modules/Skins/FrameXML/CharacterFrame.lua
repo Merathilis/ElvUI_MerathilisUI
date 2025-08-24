@@ -4,17 +4,29 @@ local module = MER:GetModule("MER_Skins")
 local _G = _G
 
 function module:Blizzard_UIPanels_Game()
-	if not module:CheckDB("character", "character") then
+	if not module:CheckDB("character") then
 		return
 	end
 
 	local CharacterFrame = _G.CharacterFrame
 
 	module:CreateShadow(CharacterFrame)
+	module:CreateShadow(_G.GearManagerDialogPopup)
 	module:CreateShadow(_G.EquipmentFlyoutFrameButtons)
 
 	for i = 1, 4 do
 		module:ReskinTab(_G["CharacterFrameTab" .. i])
+	end
+
+	-- Remove the background
+	local modelScene = _G.CharacterModelScene
+	modelScene.BackgroundTopLeft:Hide()
+	modelScene.BackgroundTopRight:Hide()
+	modelScene.BackgroundBotLeft:Hide()
+	modelScene.BackgroundBotRight:Hide()
+	modelScene.BackgroundOverlay:Hide()
+	if modelScene.backdrop then
+		modelScene.backdrop:Kill()
 	end
 
 	-- Reputation

@@ -10,6 +10,8 @@ module.nonAddonsToLoad = {}
 module.updateProfile = {}
 module.aceWidgets = {}
 module.enteredLoad = {}
+module.texturePathFetcher = E.UIParent:CreateTexture(nil, "ARTWORK")
+module.texturePathFetcher:Hide()
 
 function module:ShadowOverlay()
 	-- Based on ncShadow
@@ -17,19 +19,37 @@ function module:ShadowOverlay()
 		return
 	end
 
-	self.f = CreateFrame("Frame", MER.Title .. "ShadowBackground")
-	self.f:Point("TOPLEFT")
-	self.f:Point("BOTTOMRIGHT")
-	self.f:SetFrameLevel(0)
-	self.f:SetFrameStrata("BACKGROUND")
+	local f = CreateFrame("Frame", MER.Title .. "ShadowBackground")
+	f:Point("TOPLEFT")
+	f:Point("BOTTOMRIGHT")
+	f:SetFrameLevel(0)
+	f:SetFrameStrata("BACKGROUND")
 
-	self.f.tex = self.f:CreateTexture()
-	self.f.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
-	self.f.tex:SetAllPoints(self.f)
+	f.tex = f:CreateTexture()
+	f.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Overlay]])
+	f.tex:SetAllPoints(f)
 
-	self.f:SetAlpha(0.7)
+	f:SetAlpha(0.7)
 end
 
+---Check if the texture path is equal to the given path
+---@param texture TextureBase
+---@param path string
+---@return boolean
+function module:IsTexturePathEqual(texture, path)
+	local got = texture and texture.GetTextureFilePath and texture:GetTextureFilePath()
+	if not got then
+		return false
+	end
+
+	self.texturePathFetcher:SetTexture(path)
+	return got == self.texturePathFetcher:GetTextureFilePath()
+end
+
+---Check the skin config of both ElvUI and WindTools DB
+---@param elvuiKey string
+---@param MERKey string
+---@return boolean
 function module:CheckDB(elvuiKey, MERKey)
 	if elvuiKey then
 		MERKey = MERKey or elvuiKey
