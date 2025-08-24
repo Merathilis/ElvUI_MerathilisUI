@@ -47,7 +47,6 @@ local function reskinItemButton(self)
 
 		if self.ItemHighlight then
 			self.ItemHighlight:SetOutside(self.NameFrame, -50, -15)
-			self.ItemHighlight.Icon:SetOutside(self.Icon.backdrop)
 		end
 	end
 end
@@ -133,6 +132,9 @@ function module:Immersion()
 	elements.backdrop:Point("BOTTOMRIGHT", elements, "BOTTOMRIGHT", -10, 5)
 	F.SetFontOutline(elements.Progress.ReqText)
 	module:CreateBackdropShadow(elements)
+
+	elements.Content.RewardsFrame.ItemHighlight.Icon:Hide()
+	elements.Content.RewardsFrame.ItemHighlight.Icon.Show = function() end
 
 	for i = 1, 4 do
 		local notch = ReputationBar["Notch" .. i]

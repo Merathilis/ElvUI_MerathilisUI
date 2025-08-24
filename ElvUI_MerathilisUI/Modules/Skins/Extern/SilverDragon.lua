@@ -170,7 +170,7 @@ local function StyleSilverDragonHistoryWindow(frame, collapseButtonStatus)
 
 		hooksecurefunc(frame.collapseButton, "SetButtonMode", function(button, mode)
 			for _, tex in pairs(texes) do
-				tex:SetTexture(mode == "Plus" and I.Media.Icons.buttonPlus or I.Media.Icons.buttonMinus)
+				tex:SetTexture(mode == "Plus" and I.Media.Buttons.Plus or I.Media.Buttons.Minus)
 			end
 		end)
 
@@ -189,7 +189,7 @@ local function StyleSilverDragonHistoryWindow(frame, collapseButtonStatus)
 		disabledTex:SetVertexColor(0.5, 0.5, 0.5)
 
 		for _, tex in pairs({ normalTex, highlightTex, pushedTex, disabledTex }) do
-			tex:SetTexture(I.Media.Icons.buttonDelete)
+			tex:SetTexture(I.Media.Buttons.Delete)
 			tex:ClearAllPoints()
 			tex:Point("CENTER")
 			tex:Size(14)

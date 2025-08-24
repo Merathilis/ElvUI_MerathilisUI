@@ -359,6 +359,7 @@ V.skins = {
 		wim = true,
 		wowLua = true,
 		sd = true,
+		mrp = true,
 		bw = {
 			enable = true,
 			queueTimer = {

@@ -10,9 +10,32 @@ local format = string.format
 local tinsert = table.insert
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 local RED_FONT_COLOR = RED_FONT_COLOR
 local YELLOW_FONT_COLOR = YELLOW_FONT_COLOR
+
+local function GetAddOnIcon(addon)
+	if addon then
+		local iconTexture = GetAddOnMetadata(addon, "IconTexture")
+		local iconAtlas = GetAddOnMetadata(addon, "IconAtlas")
+
+		if not iconTexture and not iconAtlas then
+			iconTexture = [[Interface\ICONS\INV_Misc_QuestionMark]]
+		end
+
+		local logo
+		if iconTexture then
+			logo = CreateSimpleTextureMarkup(iconTexture, 14, 14)
+		elseif iconAtlas then
+			logo = CreateAtlasMarkup(iconAtlas, 14, 14)
+		end
+
+		module:Show(logo .. " " .. text)
+	else
+		module:Show(text)
+	end
+end
 
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
@@ -28,6 +51,7 @@ local DecorAddons = {
 	{ "BugSack", L["BugSack"], "bs" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "Immersion", L["Immersion"], "imm" },
+	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "MythicDungeonTools", L["Mythic Dungeon Tools"], "mdt" },
 	{ "Myslot", L["Myslot"], "mys" },
 	{ "OmniCD", L["OmniCD"], "omniCD" },
@@ -2089,11 +2113,12 @@ options.addonskins = {
 
 local addorder = 6
 for _, v in ipairs(DecorAddons) do
-	local addonName, addonString, addonOption, Notes = unpack(v)
+	local addonName, addonString, addonOption, addonIcon, Notes = unpack(v)
 	options.addonskins.args[addonOption] = {
 		order = addorder + 1,
 		type = "toggle",
 		name = addonString,
+		icon = addonIcon,
 		desc = format("%s " .. addonString .. " %s", L["Enable/Disable"], L["decor."]),
 		disabled = function()
 			return not IsAddOnLoaded(addonName)

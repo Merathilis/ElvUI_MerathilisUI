@@ -16,6 +16,7 @@
 	<Script file="LibQTip.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="mMediaTag.lua"/>
+	<Script file="MountRoutePlanner.lua"/>
 	<Script file="Myslot.lua"/>
 	<Script file="MythicDungeonTools.lua"/>
 	<Script file="OmniCD.lua"/>
