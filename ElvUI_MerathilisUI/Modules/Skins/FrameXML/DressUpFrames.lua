@@ -3,10 +3,11 @@ local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
-
 local format = string.format
+
 local CreateFrame = CreateFrame
 local PlaySound = PlaySound
+local hooksecurefunc = hooksecurefunc
 
 local function UndressButton()
 	local Button = CreateFrame("Button", nil, _G.DressUpFrame, "UIPanelButtonTemplate")
@@ -61,6 +62,20 @@ function module:DressUpFrame()
 
 	-- Undress Button
 	UndressButton()
+
+	hooksecurefunc(_G.DressUpFrame.SetSelectionPanel.ScrollBox, "Update", function(box)
+		box:ForEachFrame(function(frame)
+			if frame.__MERSkin then
+				return
+			end
+			F.SetFontOutline(frame.ItemName)
+			local width = frame.ItemSlot:GetWidth()
+			F.SetFontOutline(frame.ItemSlot)
+			frame.ItemSlot:SetWidth(width + 4)
+
+			frame.__MERSkin = true
+		end)
+	end)
 end
 
 module:AddCallback("DressUpFrame")
