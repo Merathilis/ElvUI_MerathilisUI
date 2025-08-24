@@ -514,6 +514,8 @@ L["Add a button to exit phase diving."] = "Fügt eine Taste zum Beenden des Phas
 L["Exit Phase Diving"] = "Phasentauchen beenden"
 L["Exit Phase Diving Button"] = "Phasentauchen beenden Taste"
 L["You can use ElvUI Mover to reposition it."] = "Du kannst den ElvUI Mover verwenden, um ihn neu zu positionieren."
+L["Due to Blizzard restrictions, the button area cannot be clicked through even when the button is hidden."] =
+	"Aufgrund von Blizzard-Einschränkungen kann der Schaltflächenbereich nicht angeklickt werden, auch wenn die Schaltfläche ausgeblendet ist."
 L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] =
 	"Mittelklick auf den Rückenslot des Charakters, um das Reshii Wraps Upgrade Menü zu öffnen."
 L["Open Upgrade Menu"] = "Upgrade Menü öffnen"

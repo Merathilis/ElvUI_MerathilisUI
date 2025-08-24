@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.misc.args
+local C = MER.Utilities.Color
 local AK = MER:GetModule("MER_AlreadyKnown")
 local AM = MER:GetModule("MER_Automation")
 local MI = MER:GetModule("MER_Misc")
@@ -1701,7 +1702,12 @@ options.exitPhaseDiving = {
 					type = "description",
 					name = L["Add a button to exit phase diving."]
 						.. "\n"
-						.. L["You can use ElvUI Mover to reposition it."],
+						.. L["You can use ElvUI Mover to reposition it."]
+						.. "\n\n"
+						.. C.StringByTemplate(
+							L["Due to Blizzard restrictions, the button area cannot be clicked through even when the button is hidden."],
+							"warning"
+						),
 					fontSize = "medium",
 				},
 			},

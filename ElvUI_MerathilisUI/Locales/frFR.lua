@@ -459,6 +459,7 @@ L["Add a button to exit phase diving."] = true
 L["Exit Phase Diving"] = true
 L["Exit Phase Diving Button"] = true
 L["You can use ElvUI Mover to reposition it."] = true
+L["Due to Blizzard restrictions, the button area cannot be clicked through even when the button is hidden."] = true
 L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] = true
 L["Open Upgrade Menu"] = true
 L["Reshii Wraps Upgrade"] = true

@@ -466,6 +466,8 @@ L["Add a button to exit phase diving."] = "添加一个按钮来退出相位潜�
 L["Exit Phase Diving"] = "退出相位潜行"
 L["Exit Phase Diving Button"] = "退出相位潜行按钮"
 L["You can use ElvUI Mover to reposition it."] = "你可以使用 ElvUI 移动器来移动它."
+L["Due to Blizzard restrictions, the button area cannot be clicked through even when the button is hidden."] =
+	"由于暴雪的限制, 即使按钮被隐藏, 按钮区域仍然无法点击穿透."
 L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] =
 	"中键点击角色界面背部装备槽位来打开雷什裹布的升级菜单."
 L["Open Upgrade Menu"] = "打开升级菜单"
