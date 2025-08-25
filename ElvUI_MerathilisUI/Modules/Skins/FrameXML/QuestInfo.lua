@@ -16,6 +16,7 @@ local GetQuestID = GetQuestID
 
 local GetNextWaypointText = C_QuestLog.GetNextWaypointText
 local GetSelectedQuest = C_QuestLog.GetSelectedQuest
+local GetQuestRewardSpells = C_QuestInfoSystem.GetQuestRewardSpells
 
 local function isAlmost(a, b)
 	return abs(a - b) < 0.01
@@ -276,7 +277,7 @@ local function QuestInfo_Display()
 		local currentQuestID = isQuestLogContext and GetSelectedQuest() or GetQuestID()
 
 		if currentQuestID then
-			local availableSpellRewards = C_QuestInfoSystem_GetQuestRewardSpells(currentQuestID) or {}
+			local availableSpellRewards = GetQuestRewardSpells(currentQuestID) or {}
 
 			-- Process spell-related rewards if they exist
 			if #availableSpellRewards > 0 then
