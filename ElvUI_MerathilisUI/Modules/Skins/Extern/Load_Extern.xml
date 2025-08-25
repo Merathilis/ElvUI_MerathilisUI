@@ -23,7 +23,6 @@
 	<Script file="Pawn.lua"/>
 	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="RaiderIO.lua"/>
-	<Script file="RaidMount.lua"/>
 	<Script file="Rematch.lua"/>
 	<Script file="SilverDragon.lua"/>
 	<Script file="SimpleAddonManager.lua"/>
