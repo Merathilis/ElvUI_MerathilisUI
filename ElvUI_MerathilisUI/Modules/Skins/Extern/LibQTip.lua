@@ -4,23 +4,26 @@ local TT = E:GetModule("Tooltip")
 
 local _G = _G
 
-local hooksecurefunc = hooksecurefunc
-
-local function reskinLib(self)
-	for _, tooltip in self:IterateTooltips() do
-		TT:SetStyle(tooltip)
+function module:ReskinLibQTip(lib)
+	for _, tt in lib:IterateTooltips() do
+		TT:SetStyle(tt)
+		if tt.SetCell and not self:IsHooked(tt, "SetCell") then
+			self:RawHook(tt, "SetCell", function(tt, lineNum, colNum, value, ...)
+				if type(value) == "string" then
+					value = self:StyleTextureString(value)
+				end
+				self.hooks[tt].SetCell(tt, lineNum, colNum, value, ...)
+			end)
+		end
 	end
 end
 
 function module:LibQTip()
-	local LQT = _G.LibStub("LibQTip-1.0", true)
-	if LQT then
-		hooksecurefunc(LQT, "Acquire", reskinLib)
-	end
-
-	local LQTRS = _G.LibStub("LibQTip-1.0RS", true)
-	if LQTRS then
-		hooksecurefunc(LQTRS, "Acquire", reskinLib)
+	for _, libName in ipairs({ "LibQTip-1.0", "LibQTip-1.0RS" }) do
+		local lib = _G.LibStub(libName, true)
+		if lib and lib.Acquire then
+			self:SecureHook(lib, "Acquire", "ReskinLibQTip")
+		end
 	end
 end
 
