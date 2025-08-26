@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
+local TT = E:GetModule("Tooltip")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -25,7 +26,26 @@ local function StyleSilverDragonText(fontString, size, color)
 end
 
 local function StyleSilverDragonLootWindow(frame)
-	if not frame or frame.__MERSkin then
+	if not frame then
+		return
+	end
+
+	if frame.buttons then
+		for _, button in pairs(frame.buttons) do
+			if not button.IsStyled then
+				S:HandleIcon(button.icon, true)
+				S:HandleIconBorder(button.IconBorder, button.icon.backdrop)
+				button.icon.backdrop:OffsetFrameLevel(nil, button)
+				button:GetNormalTexture():SetAlpha(0)
+				button:GetPushedTexture():SetAlpha(0)
+				button:GetHighlightTexture():SetTexture(E.media.blankTex)
+				button:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.25)
+				button.IsStyled = true
+			end
+		end
+	end
+
+	if frame.__MERSkin then
 		return
 	end
 
@@ -44,20 +64,13 @@ local function StyleSilverDragonLootWindow(frame)
 		frame.close:Point("TOPRIGHT", frame, "TOPRIGHT", -4, -4)
 	end
 
-	if frame.buttons then
-		for _, button in pairs(frame.buttons) do
-			if not button.IsStyled then
-				ES:HandleIcon(button.icon, true)
-				ES:HandleIconBorder(button.IconBorder, button.icon.backdrop)
-				button.icon.backdrop:OffsetFrameLevel(nil, button)
-				button:GetNormalTexture():SetAlpha(0)
-				button:GetPushedTexture():SetAlpha(0)
-				button:GetHighlightTexture():SetTexture(E.media.blankTex)
-				button:GetHighlightTexture():SetVertexColor(1, 1, 1, 0.25)
-				button.IsStyled = true
-			end
-		end
-	end
+	frame.__MERSetPoint = frame.SetPoint
+	F.MoveFrameWithOffset(frame, 0, -3)
+	hooksecurefunc(frame, "SetPoint", function()
+		F.MoveFrameWithOffset(frame, 0, -3)
+	end)
+
+	frame.__MERSkin = true
 end
 
 local function StyleSilverDragonPopup(popup, module)
@@ -333,6 +346,15 @@ local function SetupSilverDragonOverlay(silverDragon)
 			StyleSilverDragonLootWindow(module.lootwindow)
 		end
 	end)
+
+	if module.tooltip then
+		TT:SetStyle(module.tooltip)
+		if module.tooltip.shoppingTooltips then
+			for _, tooltip in pairs(module.tooltip.shoppingTooltips) do
+				TT:SetStyle(tooltip)
+			end
+		end
+	end
 end
 
 local function SetupSilverDragonPopups(silverDragon)

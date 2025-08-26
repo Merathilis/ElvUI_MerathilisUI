@@ -81,7 +81,7 @@ local function reskinFlightMapContainer(frame)
 	frame:SetTemplate("Transparent")
 	module:CreateShadow(frame)
 
-	frame.__SetPoint = frame.SetPoint
+	frame.__MERSetPoint = frame.SetPoint
 	hooksecurefunc(frame, "SetPoint", function(self)
 		F.MoveFrameWithOffset(self, 15, 0)
 	end)
@@ -180,7 +180,7 @@ function module:WorldQuestTab()
 
 	if _G.WQT_QuestMapTab then
 		reskinTab(_G.WQT_QuestMapTab)
-		_G.WQT_QuestMapTab.__SetPoint = _G.WQT_QuestMapTab.SetPoint
+		_G.WQT_QuestMapTab.__MERSetPoint = _G.WQT_QuestMapTab.SetPoint
 		hooksecurefunc(_G.WQT_QuestMapTab, "SetPoint", function()
 			F.MoveFrameWithOffset(_G.WQT_QuestMapTab, 0, -2)
 		end)

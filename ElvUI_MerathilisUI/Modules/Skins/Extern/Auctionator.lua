@@ -77,7 +77,7 @@ local function HandleTab(tab)
 	S:HandleTab(tab, nil, "Transparent")
 	tab.Text:ClearAllPoints()
 	tab.Text:SetPoint("CENTER", tab, "CENTER", 0, 0)
-	tab.Text.__SetPoint = tab.Text.SetPoint
+	tab.Text.__MERSetPoint = tab.Text.SetPoint
 	tab.Text.SetPoint = E.noop
 end
 

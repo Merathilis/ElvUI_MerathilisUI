@@ -1713,7 +1713,7 @@ function F.MoveFrameWithOffset(frame, x, y)
 		return
 	end
 
-	local setPoint = frame.__SetPoint or frame.SetPoint
+	local setPoint = frame.__MERSetPoint or frame.SetPoint
 
 	local pointsData = {}
 

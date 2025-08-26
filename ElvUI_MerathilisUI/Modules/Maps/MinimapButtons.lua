@@ -297,15 +297,15 @@ function module:SkinButton(frame)
 	-- If the relative frame is Minimap, then replace it to fake Minimap
 	-- It must run before FarmHud moving the Minimap
 	if IsAddOnLoaded("FarmHud") then
-		if frame.SetPoint and not frame.__SetPoint then
-			frame.__SetPoint = frame.SetPoint
+		if frame.SetPoint and not frame.__MERSetPoint then
+			frame.__MERSetPoint = frame.SetPoint
 			frame.SetPoint = function(btn, ...)
 				local point, relativeTo, relativePoint, xOfs, yOfs = ...
 				if relativeTo == _G.Minimap then
 					return
 				end
 				relativeTo = relativeTo == _G.Minimap and self.fakeMinimap or relativeTo
-				frame.__SetPoint(btn, point, relativeTo, relativePoint, xOfs, yOfs)
+				frame.__MERSetPoint(btn, point, relativeTo, relativePoint, xOfs, yOfs)
 			end
 		end
 	end

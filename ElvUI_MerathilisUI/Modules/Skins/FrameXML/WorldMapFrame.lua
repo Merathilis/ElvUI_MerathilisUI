@@ -97,9 +97,9 @@ function module:WorldMapFrame()
 
 	if QuestMapFrame.QuestsTab then
 		QuestMapFrame.QuestsTab:ClearAllPoints()
-		QuestMapFrame.QuestsTab.__SetPoint = QuestMapFrame.QuestsTab.SetPoint
+		QuestMapFrame.QuestsTab.__MERSetPoint = QuestMapFrame.QuestsTab.SetPoint
 		QuestMapFrame.QuestsTab.SetPoint = E.noop
-		QuestMapFrame.QuestsTab:__SetPoint("TOPLEFT", QuestMapFrame, "TOPRIGHT", 13, -30)
+		QuestMapFrame.QuestsTab:__MERSetPoint("TOPLEFT", QuestMapFrame, "TOPRIGHT", 13, -30)
 	end
 end
 

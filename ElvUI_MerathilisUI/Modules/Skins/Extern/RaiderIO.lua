@@ -18,13 +18,13 @@ function module:RaiderIO_DelayedSkinning()
 		-- SetTemplate/Shadow is handled with tt:SetStyle: FrameXML/GameTooltip
 		local point, relativeTo, relativePoint, xOffset, yOffset = RaiderIO_ProfileTooltip:GetPoint()
 		if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
-			RaiderIO_ProfileTooltip.__SetPoint = RaiderIO_ProfileTooltip.SetPoint
+			RaiderIO_ProfileTooltip.__MERSetPoint = RaiderIO_ProfileTooltip.SetPoint
 			hooksecurefunc(
 				RaiderIO_ProfileTooltip,
 				"SetPoint",
 				function(self, point, relativeTo, relativePoint, xOffset, yOffset)
 					if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
-						self:__SetPoint(point, relativeTo, relativePoint, 4, 0)
+						self:__MERSetPoint(point, relativeTo, relativePoint, 4, 0)
 					end
 				end
 			)
