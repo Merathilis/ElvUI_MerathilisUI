@@ -360,6 +360,7 @@ V.skins = {
 		wowLua = true,
 		sd = true,
 		mrp = true,
+		klf = true,
 		bw = {
 			enable = true,
 			queueTimer = {

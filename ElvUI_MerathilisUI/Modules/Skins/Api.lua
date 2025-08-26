@@ -669,6 +669,7 @@ function module:ReskinTab(tab)
 		return
 	end
 
+	S:HandleTab(tab)
 	self:CreateBackdropShadow(tab)
 end
 

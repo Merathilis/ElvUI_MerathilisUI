@@ -51,6 +51,7 @@ local DecorAddons = {
 	{ "BugSack", L["BugSack"], "bs" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "Immersion", L["Immersion"], "imm" },
+	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
 	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "MythicDungeonTools", L["Mythic Dungeon Tools"], "mdt" },
 	{ "Myslot", L["Myslot"], "mys" },
