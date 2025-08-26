@@ -38,6 +38,7 @@ local function StyleSilverDragonLootWindow(frame)
 
 	if frame.close then
 		ES:HandleCloseButton(frame.close)
+		frame.close:SetHitRectInsets(0, 0, 0, 0)
 		frame.close:Size(18)
 		frame.close:ClearAllPoints()
 		frame.close:Point("TOPRIGHT", frame, "TOPRIGHT", -4, -4)
@@ -70,6 +71,7 @@ local function StyleSilverDragonPopup(popup, module)
 	if popup.close then
 		ES:HandleCloseButton(popup.close)
 		popup.close:ClearAllPoints()
+		popup.close:SetHitRectInsets(0, 0, 0, 0)
 		popup.close:SetFrameLevel(popup:GetFrameLevel() + 2)
 		popup.close:Point("TOPRIGHT", popup, "TOPRIGHT", -3, -3)
 		popup.close:Size(18)
@@ -326,14 +328,11 @@ local function SetupSilverDragonOverlay(silverDragon)
 		return
 	end
 
-	local originalShowTooltip = module.ShowTooltip
-	module.ShowTooltip = function(module, pin)
-		local result = originalShowTooltip(module, pin)
+	hooksecurefunc(module, "ShowTooltip", function(module)
 		if module.lootwindow then
 			StyleSilverDragonLootWindow(module.lootwindow)
 		end
-		return result
-	end
+	end)
 end
 
 local function SetupSilverDragonPopups(silverDragon)
