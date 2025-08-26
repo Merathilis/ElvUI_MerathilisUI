@@ -4,18 +4,11 @@ local module = MER:GetModule("MER_Misc")
 local S = MER:GetModule("MER_Skins")
 
 local CreateFrame = CreateFrame
-local AuraUtil_FindAura = AuraUtil.FindAura
 
 local tooltipTitle = "Exit Phase Diving"
 async.WithSpellID(1250255, function(spell)
 	tooltipTitle = F.GetMERStyleText(spell:GetSpellName())
 end)
-
-local function hasBuff(id)
-	return AuraUtil_FindAura(function(...)
-		return id == select(13, ...)
-	end, "player", "HELPFUL")
-end
 
 local function visuallyHide(button)
 	button.backdrop:SetAlpha(0)
@@ -30,7 +23,7 @@ local function visuallyShow(button)
 end
 
 local function updateVisual(button)
-	if hasBuff(1214374) then
+	if E:GetAuraByID("player", 1214374, "HELPFUL") then
 		visuallyShow(button)
 	else
 		visuallyHide(button)
@@ -72,7 +65,7 @@ local function createButton()
 	button.Highlight:Hide()
 
 	button:SetScript("OnEnter", function()
-		if hasBuff(1214374) then
+		if E:GetAuraByID("player", 1214374, "HELPFUL") then
 			button.Highlight:Show()
 			_G.GameTooltip:SetOwner(button, "ANCHOR_BOTTOM", 0, -5)
 			_G.GameTooltip:SetText(tooltipTitle, 1, 1, 1)
