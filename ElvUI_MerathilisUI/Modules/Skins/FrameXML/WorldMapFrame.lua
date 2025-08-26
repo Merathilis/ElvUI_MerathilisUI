@@ -95,7 +95,7 @@ function module:WorldMapFrame()
 		end
 	end
 
-	if QuestMapFrame.QuestsTab then
+	if QuestMapFrame.QuestsTab and not E:IsAddOnEnabled("ElvUI_WindTools") then
 		QuestMapFrame.QuestsTab:ClearAllPoints()
 		QuestMapFrame.QuestsTab.__MERSetPoint = QuestMapFrame.QuestsTab.SetPoint
 		QuestMapFrame.QuestsTab.SetPoint = E.noop
