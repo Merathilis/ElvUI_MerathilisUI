@@ -1349,6 +1349,7 @@ P.microBar = {
 		flash = true,
 		interval = 10,
 		alwaysSystemInfo = false,
+		avoidReloadInCombat = true,
 		font = {
 			name = E.db.general.font,
 			size = 25,

@@ -72,6 +72,12 @@ function MER:UpdateScripts() -- DB Convert
 		UpdateMessage(L["Tooltip"] .. " - " .. L["Clear History"], privateVersion)
 	end
 
+	if privateVersion < 6.72 then
+		if E.global.mui then
+			E.global.mui.microBar.covenantCache = nil
+		end
+	end
+
 	if not isFirstLine then
 		F.PrintGradientLine()
 	end

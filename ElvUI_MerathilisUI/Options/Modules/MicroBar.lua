@@ -403,19 +403,25 @@ options.microBar = {
 			end,
 			args = {
 				localTime = {
-					order = 2,
+					order = 1,
 					type = "toggle",
 					name = L["Local Time"],
 				},
 				twentyFour = {
-					order = 3,
+					order = 2,
 					type = "toggle",
 					name = L["24 Hours"],
 				},
 				flash = {
-					order = 4,
+					order = 3,
 					type = "toggle",
 					name = L["Flash"],
+				},
+				avoidReloadInCombat = {
+					order = 4,
+					type = "toggle",
+					name = L["Avoid Reload in Combat"],
+					desc = L["Disable the middle click UI reloading in combat."],
 				},
 				alwaysSystemInfo = {
 					order = 5,

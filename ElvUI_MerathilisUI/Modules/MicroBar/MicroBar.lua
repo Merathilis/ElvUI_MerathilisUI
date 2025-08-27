@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_MicroBar")
 local S = MER:GetModule("MER_Skins")
 local DT = E:GetModule("DataTexts")
+local async = MER.Utilities.Async
 
 -- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
 local _G = _G
@@ -437,7 +438,7 @@ local ButtonTypes = {
 				if not InCombatLockdown() then
 					ToggleCharacter("PaperDollFrame")
 				else
-					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+					_G.UIErrorsFrame:AddMessage(_G.ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGBA())
 				end
 			end,
 		},
@@ -479,7 +480,7 @@ local ButtonTypes = {
 				if not InCombatLockdown() then
 					ToggleFriendsFrame(1)
 				else
-					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+					_G.UIErrorsFrame:AddMessage(_G.ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGBA())
 				end
 			end,
 		},
@@ -555,7 +556,7 @@ local ButtonTypes = {
 						HideUIPanel(_G.GameMenuFrame)
 					end
 				else
-					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+					_G.UIErrorsFrame:AddMessage(_G.ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGBA())
 				end
 			end,
 		},
@@ -665,7 +666,7 @@ local ButtonTypes = {
 				if not InCombatLockdown() then
 					_G.ToggleProfessionsBook()
 				else
-					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+					_G.UIErrorsFrame:AddMessage(_G.ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGBA())
 				end
 			end,
 		},
@@ -702,7 +703,7 @@ local ButtonTypes = {
 				if not InCombatLockdown() then
 					_G.PlayerSpellsUtil.ToggleSpellBookFrame()
 				else
-					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+					_G.UIErrorsFrame:AddMessage(_G.ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGBA())
 				end
 			end,
 		},
@@ -718,7 +719,7 @@ local ButtonTypes = {
 				if not InCombatLockdown() then
 					_G.PlayerSpellsUtil.ToggleClassTalentFrame()
 				else
-					_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+					_G.UIErrorsFrame:AddMessage(_G.ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGBA())
 				end
 			end,
 		},
@@ -976,7 +977,9 @@ function module:ConstructTimeArea()
 		elseif mouseButton == "RightButton" then
 			ToggleTimeManager()
 		elseif mouseButton == "MiddleButton" then
-			Reload()
+			if not InCombatLockdown() or not self.db.time.avoidReloadInCombat then
+				Reload()
+			end
 		end
 	end)
 end
@@ -1151,6 +1154,17 @@ function module:ConstructButton()
 	tinsert(self.buttons, button)
 end
 
+_G.MERMicroBar_UpdateHomeButtons = function()
+	F.TaskManager:OutOfCombat(function()
+		for _, btn in pairs(module.HomeButtons) do
+			if btn.type == "HOME" then
+				module:UpdateHomeButtonMacro(btn, "left", ButtonTypes[btn.type].item.item1)
+				module:UpdateHomeButtonMacro(btn, "right", ButtonTypes[btn.type].item.item2)
+			end
+		end
+	end)
+end
+
 function module:UpdateButton(button, buttonType)
 	if InCombatLockdown() then
 		return
@@ -1169,8 +1183,9 @@ function module:UpdateButton(button, buttonType)
 		and (config.item.item1 == L["Random Hearthstone"] or config.item.item2 == L["Random Hearthstone"])
 	then
 		button:SetAttribute("type*", "macro")
-		self:HandleRandomHomeButton(button, "left", config.item.item1)
-		self:HandleRandomHomeButton(button, "right", config.item.item2)
+		self:UpdateHomeButtonMacro(button, "left", config.item.item1)
+		self:UpdateHomeButtonMacro(button, "right", config.item.item2)
+		tinsert(self.HomeButtons, button)
 	elseif config.macro then
 		button:SetAttribute("type*", "macro")
 		button:SetAttribute("macrotext1", config.macro.LeftButton or "")
@@ -1268,6 +1283,8 @@ function module:ConstructButtons()
 end
 
 function module:UpdateButtons()
+	self.HomeButtons = {}
+
 	for i = 1, NUM_PANEL_BUTTONS do
 		self:UpdateButton(self.buttons[i], self.db.left[i])
 		self:UpdateButton(self.buttons[i + NUM_PANEL_BUTTONS], self.db.right[i])
@@ -1381,26 +1398,6 @@ function module:PLAYER_ENTERING_WORLD()
 	end)
 end
 
-function module:UpdateReknown()
-	local covenantID = GetActiveCovenantID()
-	if not covenantID or covenantID == 0 then
-		return
-	end
-
-	if not self.covenantCache[E.myrealm] then
-		self.covenantCache[E.myrealm] = {}
-	end
-
-	if not self.covenantCache[E.myrealm][E.myname] then
-		self.covenantCache[E.myrealm][E.myname] = {}
-	end
-
-	local renownLevel = GetRenownLevel()
-	if renownLevel then
-		self.covenantCache[E.myrealm][E.myname][tostring(covenantID)] = renownLevel
-	end
-end
-
 function module:Initialize()
 	self.db = E.db.mui.microBar
 	self.covenantCache = E.global.mui.microBar.covenantCache
@@ -1421,7 +1418,6 @@ function module:Initialize()
 	end
 
 	self:UpdateMetadata()
-	self:UpdateReknown()
 	self:UpdateHearthStoneTable()
 	self:ConstructBar()
 	self:ConstructTimeArea()
@@ -1432,11 +1428,8 @@ function module:Initialize()
 	self:UpdateBar()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("COVENANT_CHOSEN", function()
-		E:Delay(3, function()
-			self:UpdateReknown()
-			self:UpdateHearthStoneTable()
-			self:UpdateBar()
-		end)
+		self:UpdateHearthStoneTable()
+		self:UpdateBar()
 	end)
 
 	self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
@@ -1524,7 +1517,7 @@ function module:UpdateGuildButton()
 	end
 end
 
-function module:HandleRandomHomeButton(button, mouseButton, item)
+function module:UpdateHomeButtonMacro(button, mouseButton, item)
 	if not button or not mouseButton or not item or not availableHearthstones then
 		return
 	end
@@ -1532,12 +1525,15 @@ function module:HandleRandomHomeButton(button, mouseButton, item)
 	local attribute = mouseButton == "right" and "macrotext2" or "macrotext1"
 	local macro = "/use " .. item
 
-	if item == L["Random Hearthstone"] then
-		if #availableHearthstones > 0 then
-			macro = "/castrandom " .. strjoin(",", unpack(availableHearthstones))
-		else
-			macro = '/run UIErrorsFrame:AddMessage("' .. L["No Hearthstone Found!"] .. '", 1, 0, 0)'
-		end
+	local randomHearthstoneID = #availableHearthstones > 0 and availableHearthstones[random(#availableHearthstones)]
+	local randomHearthstone = randomHearthstoneID
+		and hearthstonesAndToysData[tostring(randomHearthstoneID)]
+		and hearthstonesAndToysData[tostring(randomHearthstoneID)].name
+	if randomHearthstone then
+		macro = format("/use %s\n/run _G.MERMicroBar_UpdateHomeButtons()", randomHearthstone)
+	else
+		macro = '/run UIErrorsFrame:AddMessage("' .. L["No Hearthstone Found!"] .. '", 1, 0, 0)'
+		macro = format('/run UIErrorsFrame:AddMessage("%s", RED_FONT_COLOR:GetRGBA())', L["No Hearthstone Found!"])
 	end
 
 	button:SetAttribute(attribute, macro)
@@ -1566,15 +1562,17 @@ function module:UpdateHearthStoneTable()
 	end
 
 	local covenantHearthstones = {
-		[1] = 184353,
-		[2] = 183716,
-		[3] = 180290,
-		[4] = 182773,
+		[184353] = { covenantID = 1, achievementCriteriaNum = 1 },
+		[183716] = { covenantID = 2, achievementCriteriaNum = 4 },
+		[180290] = { covenantID = 3, achievementCriteriaNum = 3 },
+		[182773] = { covenantID = 4, achievementCriteriaNum = 2 },
 	}
 
-	for i = 1, 4 do
-		local toyID = covenantHearthstones[i]
-		hearthstonesTable[toyID] = false
+	local activeCovenantID = GetActiveCovenantID()
+
+	for toyID, config in pairs(covenantHearthstones) do
+		local criteriaCompleted = select(3, GetAchievementCriteriaInfo(15646, config.achievementCriteriaNum))
+		hearthstonesTable[toyID] = criteriaCompleted or activeCovenantID == config.covenantID
 	end
 
 	local raceHeartstones = {
@@ -1590,36 +1588,21 @@ function module:UpdateHearthStoneTable()
 
 	availableHearthstones = {}
 
-	local index = 0
-	local itemEngine = CreateFromMixins(ItemMixin)
-
-	local function GetNextHearthStoneInfo()
-		index = index + 1
-		if hearthstoneAndToyIDList[index] then
-			itemEngine:SetItemID(hearthstoneAndToyIDList[index])
-			itemEngine:ContinueOnItemLoad(function()
-				local id = itemEngine:GetItemID()
-				if hearthstonesTable[id] then
-					if GetItemCount(id) >= 1 or PlayerHasToy(id) and IsToyUsable(id) then
-						tinsert(availableHearthstones, id)
-					end
-				end
-
-				hearthstonesAndToysData[tostring(hearthstoneAndToyIDList[index])] = {
-					name = itemEngine:GetItemName(),
-					icon = itemEngine:GetItemIcon(),
-				}
-				GetNextHearthStoneInfo()
-			end)
-		else
-			self:UpdateHomeButton()
-			if self.initialized then
-				self:UpdateButtons()
+	async.WithItemIDTable(hearthstoneAndToyIDList, "value", function(item)
+		local id = item:GetItemID()
+		if hearthstonesTable[id] then
+			if GetItemCount(id) >= 1 or PlayerHasToy(id) and IsToyUsable(id) then
+				tinsert(availableHearthstones, id)
 			end
 		end
-	end
 
-	GetNextHearthStoneInfo()
+		hearthstonesAndToysData[tostring(id)] = { name = item:GetItemName(), icon = item:GetItemIcon() }
+	end, function()
+		self:UpdateHomeButton()
+		if self.initialized then
+			self:UpdateButtons()
+		end
+	end)
 end
 
 function module:GetHearthStoneTable()
