@@ -10,8 +10,6 @@ local select = select
 local type = type
 local unpack = unpack
 
-local RunNextFrame = RunNextFrame
-
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 local function StyleSilverDragonText(fontString, size, color)
@@ -97,10 +95,10 @@ local function StyleSilverDragonPopup(popup, module)
 		ES:HandleButton(popup.lootIcon)
 		popup.lootIcon.texture:SetAtlas("VignetteLoot")
 		popup.lootIcon:HookScript("OnClick", function()
-			RunNextFrame(function()
-				if popup.lootIcon.window then
-					StyleSilverDragonLootWindow(popup.lootIcon.window)
-				end
+			F.WaitFor(function()
+				return popup.lootIcon and popup.lootIcon.window and true or false
+			end, function()
+				StyleSilverDragonLootWindow(popup.lootIcon.window)
 			end)
 		end)
 	end
@@ -342,9 +340,11 @@ local function SetupSilverDragonOverlay(silverDragon)
 	end
 
 	hooksecurefunc(module, "ShowTooltip", function(module)
-		if module.lootwindow then
+		F.WaitFor(function()
+			return module.lootwindow and true or false
+		end, function()
 			StyleSilverDragonLootWindow(module.lootwindow)
-		end
+		end)
 	end)
 
 	if module.tooltip then

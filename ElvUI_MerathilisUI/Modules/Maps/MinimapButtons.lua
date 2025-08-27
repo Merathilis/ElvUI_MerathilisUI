@@ -147,7 +147,6 @@ function MM:HandleExpansionButton()
 			end
 
 			MM:SetIconParent(button)
-			button.SetParent_ = button.SetParent
 			button.SetParent = E.noop
 			MM:SetScale(button, 1)
 
