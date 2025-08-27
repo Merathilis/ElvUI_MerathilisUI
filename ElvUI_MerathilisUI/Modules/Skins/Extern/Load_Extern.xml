@@ -27,6 +27,7 @@
 	<Script file="Rematch.lua"/>
 	<Script file="SilverDragon.lua"/>
 	<Script file="SimpleAddonManager.lua"/>
+	<Script file="SimulationCraft.lua"/>
 	<Script file="stAddOnManager.lua"/>
 	<Script file="TalentLoadoutsEx.lua"/>
 	<Script file="tdBattlePetScript.lua"/>

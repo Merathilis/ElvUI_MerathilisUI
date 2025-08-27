@@ -300,8 +300,8 @@ local function QuestInfo_Display()
 						if spellReward.Icon then
 							spellReward.Icon:CreateBackdrop()
 							spellReward.Icon:SetTexCoord(unpack(E.TexCoords))
-							S:CreateBackdropShadow(spellReward.Icon)
-							S:BindShadowColorWithBorder(spellReward.Icon.backdrop)
+							module:CreateBackdropShadow(spellReward.Icon)
+							module:BindShadowColorWithBorder(spellReward.Icon.backdrop)
 						end
 						spellReward.__MERSkin = true
 					end

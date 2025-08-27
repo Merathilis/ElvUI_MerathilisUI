@@ -361,6 +361,7 @@ V.skins = {
 		sd = true,
 		mrp = true,
 		klf = true,
+		simc = true,
 		bw = {
 			enable = true,
 			queueTimer = {

@@ -63,6 +63,7 @@ local DecorAddons = {
 	{ "RaiderIO", L["RaiderIO"], "rio" },
 	{ "Rematch", L["Rematch"], "rem" },
 	{ "SilverDragon", L["SilverDragon"], "sd" },
+	{ "Simulationcraft", L["Simulationcraft"], "simc" },
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "TalentLoadoutsEx", L["Talent Loadouts Ex"], "tle" },
@@ -2114,7 +2115,20 @@ options.addonskins = {
 
 local addorder = 6
 for _, v in ipairs(DecorAddons) do
-	local addonName, addonString, addonOption, addonIcon, Notes = unpack(v)
+	local addonName, addonString, addonOption = unpack(v)
+	local iconTexture = GetAddOnMetadata(addonName, "IconTexture")
+	local iconAtlas = GetAddOnMetadata(addonName, "IconAtlas")
+
+	if not iconTexture and not iconAtlas then
+		iconTexture = [[Interface\ICONS\INV_Misc_QuestionMark]]
+	end
+
+	if iconTexture then
+		addonString = CreateSimpleTextureMarkup(iconTexture, 14, 14) .. " " .. addonString
+	elseif iconAtlas then
+		addonString = CreateAtlasMarkup(iconAtlas, 14, 14) .. " " .. addonString
+	end
+
 	options.addonskins.args[addonOption] = {
 		order = addorder + 1,
 		type = "toggle",
