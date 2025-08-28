@@ -156,8 +156,6 @@ function module:ADDON_LOADED(_, addon)
 	end
 end
 
-module.GROUP_ROSTER_UPDATE = F.DelvesEventFix(module.UpdateFrame)
-
 function module:Initialize()
 	self.db = E.db.mui.maps.instanceDifficulty
 
