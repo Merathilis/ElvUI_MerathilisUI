@@ -9,6 +9,7 @@ local strsub = strsub
 local time = time
 local tonumber = tonumber
 local tostring = tostring
+local type = type
 
 local C_Timer_NewTicker = C_Timer.NewTicker
 

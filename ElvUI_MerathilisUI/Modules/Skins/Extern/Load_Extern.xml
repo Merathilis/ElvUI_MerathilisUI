@@ -21,6 +21,7 @@
 	<Script file="Myslot.lua"/>
 	<Script file="MythicDungeonTools.lua"/>
 	<Script file="OmniCD.lua"/>
+	<Script file="ParagonReputation.lua"/>
 	<Script file="Pawn.lua"/>
 	<Script file="PremadeGroupsFilter.lua"/>
 	<Script file="RaiderIO.lua"/>

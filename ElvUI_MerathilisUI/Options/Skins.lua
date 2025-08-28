@@ -36,6 +36,7 @@ local DecorAddons = {
 	{ "OmniCD", L["OmniCD"], "omniCD" },
 	{ "Pawn", L["Pawn"], "pawn" },
 	{ "tdBattlePetScript", L["Pet Battle Scripts"], "pbs" },
+	{ "ParagonReputation", L["Paragon Reputation"], "paragonReputation" },
 	{ "ProjectAzilroka", L["ProjectAzilroka"], "pa" },
 	{ "PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf" },
 	{ "RaiderIO", L["RaiderIO"], "rio" },

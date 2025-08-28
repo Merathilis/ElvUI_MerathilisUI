@@ -2,9 +2,17 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
 
 local _G = _G
+local next = next
+local xpcall = xpcall
+
+local CreateFrame = CreateFrame
+local GenerateClosure = GenerateClosure
+local Settings = Settings
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
+module.settingFrames = {}
+module.waitSettingFrames = {}
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
 module.updateProfile = {}
@@ -12,6 +20,19 @@ module.aceWidgets = {}
 module.enteredLoad = {}
 module.texturePathFetcher = E.UIParent:CreateTexture(nil, "ARTWORK")
 module.texturePathFetcher:Hide()
+
+local RegisterCanvasLayoutCategory = Settings.RegisterCanvasLayoutCategory
+Settings.RegisterCanvasLayoutCategory = function(frame, name)
+	if frame and name then
+		module.settingFrames[name] = frame
+		if module.waitSettingFrames[name] then
+			module.waitSettingFrames[name](frame)
+			module.waitSettingFrames[name] = nil
+		end
+	end
+
+	return RegisterCanvasLayoutCategory(frame, name)
+end
 
 function module:ShadowOverlay()
 	-- Based on ncShadow
@@ -222,6 +243,24 @@ function module:TryPostHook(...)
 		end)
 	else
 		self:Log("debug", "Failed to hook: " .. tostring(frame) .. " " .. tostring(method))
+	end
+end
+
+function module:ReskinSettingFrame(name, func)
+	if type(func) == "string" and module[func] then
+		func = GenerateClosure(module[func], S)
+	end
+
+	if not func then
+		F.Developer.ThrowError("ReskinSettingFrame: func is nil")
+		return
+	end
+
+	local frame = self.settingFrames[name]
+	if frame then
+		func(frame)
+	else
+		self.waitSettingFrames[name] = func
 	end
 end
 

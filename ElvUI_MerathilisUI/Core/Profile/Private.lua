@@ -363,6 +363,7 @@ V.skins = {
 		klf = true,
 		simc = true,
 		whisperPop = true,
+		paragonReputation = true,
 		bw = {
 			enable = true,
 			queueTimer = {
