@@ -33,7 +33,7 @@ function module:ConstructTextures(frame)
 
 	if not absorb.overlay then
 		local overlay = absorb:CreateTexture(nil, "OVERLAY", nil, 6)
-		overlay:SetTexture("Interface/RaidFrame/Shield-Overlay", true, true)
+		overlay:SetTexture("Interface/RaidFrame/Shield-Overlay", "REPEAT", "REPEAT")
 		absorb.overlay = overlay
 	end
 
@@ -46,7 +46,7 @@ function module:ConstructTextures(frame)
 	end
 end
 
-function module:ConfigureTextures(_, frame)
+function module:ConfigureTextures(unitFramesModule, frame)
 	if not (frame and frame.db and frame.db.healPrediction and frame.db.healPrediction.enable and frame.MERAbsorb) then
 		return
 	end
@@ -66,18 +66,18 @@ function module:ConfigureTextures(_, frame)
 			overlay:ClearAllPoints()
 			if isHorizontal then
 				local anchor = isReverse and "RIGHT" or "LEFT"
-				overlay.SetOverlaySize = function(self, percent)
-					self:SetWidth(frame.Health:GetWidth() * percent)
-					self:SetTexCoord(0, overlay:GetWidth() / 32, 0, overlay:GetHeight() / 32)
+				overlay.SetOverlaySize = function(overlayObj, percent)
+					overlayObj:SetWidth(frame.Health:GetWidth() * percent)
+					overlayObj:SetTexCoord(0, overlay:GetWidth() / 32, 0, overlay:GetHeight() / 32)
 				end
 				overlay:SetPoint("TOP" .. anchor, pred.absorbBar, "TOP" .. anchor)
 				overlay:SetPoint("BOTTOM" .. anchor, pred.absorbBar, "BOTTOM" .. anchor)
 			else
 				local anchor = isReverse and "TOP" or "BOTTOM"
 
-				overlay.SetOverlaySize = function(self, percent)
-					self:SetHeight(frame.Health:GetHeight() * percent)
-					self:SetTexCoord(0, overlay:GetWidth() / 32, 0, overlay:GetHeight() / 32)
+				overlay.SetOverlaySize = function(overlayObj, percent)
+					overlayObj:SetHeight(frame.Health:GetHeight() * percent)
+					overlayObj:SetTexCoord(0, overlay:GetWidth() / 32, 0, overlay:GetHeight() / 32)
 				end
 
 				overlay:SetPoint(anchor .. "LEFT", pred.absorbBar, anchor .. "LEFT")
@@ -114,12 +114,23 @@ function module:ConfigureTextures(_, frame)
 	end
 end
 
-function module:HealthPrediction_OnUpdate(object, unit, _, _, absorb, _, hasOverAbsorb, _, health, maxHealth)
+function module:HealthPrediction_OnUpdate(
+	healthPredElement,
+	unit,
+	myIncomingHeal,
+	otherIncomingHeal,
+	absorb,
+	healAbsorb,
+	hasOverAbsorb,
+	hasOverHealAbsorb,
+	health,
+	maxHealth
+)
 	if not self.db or not self.db.enable then
 		return
 	end
 
-	local frame = object.frame
+	local frame = healthPredElement.frame
 	local pred = frame.HealthPrediction
 	local overlay = frame.MERAbsorb.overlay
 	local glow = frame.MERAbsorb.glow
@@ -229,18 +240,18 @@ function module:SmoothTweak(frame)
 	frame.merSmooth = CreateFrame("statusbar", nil, E.UIParent)
 
 	-- If triggered by ElvUI smooth, do the job
-	frame.merSmooth.SetValue = function(self)
-		if self.job then
-			self.job()
-			self.job = nil
+	frame.merSmooth.SetValue = function(smoothBar)
+		if smoothBar.job then
+			smoothBar.job()
+			smoothBar.job = nil
 		end
 	end
 
 	-- Add the job to the smooth queue
-	frame.merSmooth.DoJob = function(self, job)
+	frame.merSmooth.DoJob = function(smoothBar, job)
 		if UF and UF.db and UF.db.smoothbars then
-			self.job = job
-			self:SetValue(0)
+			smoothBar.job = job
+			smoothBar:SetValue(0)
 		else
 			job()
 		end
@@ -269,7 +280,7 @@ function module:ProfileUpdate()
 
 	if not self.db or not self.db.enable then
 		for frame in pairs(framePool) do
-			self:ConfigureTextures(frame)
+			self:ConfigureTextures(UF, frame)
 		end
 	end
 
