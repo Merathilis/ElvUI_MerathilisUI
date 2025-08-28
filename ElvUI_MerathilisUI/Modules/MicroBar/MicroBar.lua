@@ -1525,18 +1525,24 @@ function module:UpdateHomeButtonMacro(button, mouseButton, item)
 	local attribute = mouseButton == "right" and "macrotext2" or "macrotext1"
 	local macro = "/use " .. item
 
-	local randomHearthstoneID = #availableHearthstones > 0 and availableHearthstones[random(#availableHearthstones)]
-	local randomHearthstone = randomHearthstoneID
-		and hearthstonesAndToysData[tostring(randomHearthstoneID)]
-		and hearthstonesAndToysData[tostring(randomHearthstoneID)].name
-	if randomHearthstone then
-		macro = format("/use %s\n/run _G.MERMicroBar_UpdateHomeButtons()", randomHearthstone)
-	else
-		macro = '/run UIErrorsFrame:AddMessage("' .. L["No Hearthstone Found!"] .. '", 1, 0, 0)'
-		macro = format('/run UIErrorsFrame:AddMessage("%s", RED_FONT_COLOR:GetRGBA())', L["No Hearthstone Found!"])
+	if item == L["Random Hearthstone"] then
+		if #availableHearthstones > 0 then
+			local randomIndex
+			if #availableHearthstones > 1 then
+				local currentIndex = button.randomHearthstoneIndex or 1
+				randomIndex = random(#availableHearthstones - 1)
+				if randomIndex >= currentIndex then
+					randomIndex = randomIndex + 1
+				end
+				button.randomHearthstoneIndex = randomIndex
+			else
+				randomIndex = 1
+			end
+			macro = format("/use item:%d\n/run _G.WTGameBar_UpdateHomeButtons()", availableHearthstones[randomIndex])
+		else
+			macro = format('/run UIErrorsFrame:AddMessage("%s", RED_FONT_COLOR:GetRGBA())', L["No Hearthstone Found!"])
+		end
 	end
-
-	button:SetAttribute(attribute, macro)
 end
 
 function module:UpdateHomeButton()
