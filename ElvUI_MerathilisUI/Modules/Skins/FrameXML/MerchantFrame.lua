@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Skins")
 
 local _G = _G
 
-local function HandleMerchantItem(index)
+function module:HandleMerchantItem(index)
 	for currencyIndex = 1, 3 do
 		local itemLine = _G["MerchantItem" .. index .. "AltCurrencyFrameItem" .. currencyIndex]
 		for _, region in pairs({ itemLine:GetRegions() }) do
@@ -15,19 +15,19 @@ local function HandleMerchantItem(index)
 end
 
 function module:MerchantFrame()
-	if not module:CheckDB("merchant", "merchant") then
+	if not self:CheckDB("merchant", "merchant") then
 		return
 	end
 
 	local MerchantFrame = _G.MerchantFrame
-	module:CreateShadow(MerchantFrame)
+	self:CreateShadow(MerchantFrame)
 
 	for i = 1, 2 do
-		module:ReskinTab(_G["MerchantFrameTab" .. i])
+		self:ReskinTab(_G["MerchantFrameTab" .. i])
 	end
 
 	for i = 1, 10 do
-		HandleMerchantItem(i)
+		self:HandleMerchantItem(i)
 	end
 end
 

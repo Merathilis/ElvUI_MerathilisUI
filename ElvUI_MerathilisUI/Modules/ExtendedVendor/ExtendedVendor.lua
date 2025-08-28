@@ -1,45 +1,55 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_ExtendedVendor")
-local MERS = MER:GetModule("MER_Skins")
-local S = E:GetModule("Skins")
+local S = MER:GetModule("MER_Skins")
+local ES = E:GetModule("Skins")
 
--- Modified from Extended Vendor UI & NDui_Plus
 local _G = _G
+local floor = math.floor
 local unpack = unpack
 
 local CreateFrame = CreateFrame
+local GetNumBuybackItems = GetNumBuybackItems
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local BLIZZARD_MERCHANT_ITEMS_PER_PAGE = 10
+local BLIZZARD_BUYBACK_ITEMS_PER_PAGE = 12
 
-function module:SkinButton(i)
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.merchant) then
+function module:SkinButton(index)
+	if not E.private.skins.blizzard.enable and E.private.skins.blizzard.merchant then
 		return
 	end
 
-	local item = _G["MerchantItem" .. i]
-	item:Size(155, 45)
+	local item = _G["MerchantItem" .. index]
+	local button = _G["MerchantItem" .. index .. "ItemButton"]
+	local icon = _G["MerchantItem" .. index .. "ItemButtonIconTexture"]
+	local money = _G["MerchantItem" .. index .. "MoneyFrame"]
+	local nameFrame = _G["MerchantItem" .. index .. "NameFrame"]
+	local name = _G["MerchantItem" .. index .. "Name"]
+	local slot = _G["MerchantItem" .. index .. "SlotTexture"]
+
 	item:StripTextures(true)
 	item:CreateBackdrop("Transparent")
+	item:Size(155, 45)
 	item.backdrop:Point("TOPLEFT", -1, 3)
 	item.backdrop:Point("BOTTOMRIGHT", 2, -3)
 
-	local slot = _G["MerchantItem" .. i .. "SlotTexture"]
-	item.Name:Point("LEFT", slot, "RIGHT", -5, 5)
-
-	local button = _G["MerchantItem" .. i .. "ItemButton"]
 	button:StripTextures()
 	button:StyleButton()
 	button:SetTemplate(nil, true)
-	button:Point("TOPLEFT", item, "TOPLEFT", 4, -4)
+	button:Size(40)
+	button:Point("TOPLEFT", item, "TOPLEFT", 4, -2)
 
-	local icon = button.icon
 	icon:SetTexCoord(unpack(E.TexCoords))
-	icon:ClearAllPoints()
-	icon:Point("TOPLEFT", 1, -1)
-	icon:Point("BOTTOMRIGHT", -1, 1)
+	icon:SetInside()
 
-	S:HandleIconBorder(button.IconBorder)
+	nameFrame:Point("LEFT", slot, "RIGHT", -6, -17)
+	name:Point("LEFT", slot, "RIGHT", -4, 5)
+
+	money:ClearAllPoints()
+	money:Point("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
+
+	S:HandleMerchantItem(index)
+	ES:HandleIconBorder(button.IconBorder)
 end
 
 function module:UpdateMerchantPositions()
@@ -70,68 +80,130 @@ function module:UpdateMerchantPositions()
 	end
 end
 
-function module:UpdateBuybackPositions()
+function module:MerchantFrame_UpdateMerchantInfo()
+	if not self.db or not self.db.enable then
+		return
+	end
+
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
 		local button = _G["MerchantItem" .. i]
+		if not button then
+			break
+		end
+
+		button:Show()
 		button:ClearAllPoints()
 
-		local contentWidth = 3 * _G["MerchantItem1"]:GetWidth() + 2 * 50
-		local firstButtonOffsetX = (_G.MerchantFrame:GetWidth() - contentWidth) / 2
-
-		if i > _G.BUYBACK_ITEMS_PER_PAGE then
-			button:Hide()
-		else
+		if (i % BLIZZARD_MERCHANT_ITEMS_PER_PAGE) == 1 then
 			if i == 1 then
-				button:SetPoint("TOPLEFT", _G.MerchantFrame, "TOPLEFT", firstButtonOffsetX, -105)
+				button:SetPoint("TOPLEFT", _G.MerchantFrame, "TOPLEFT", 11, -69)
 			else
-				if (i % 3) == 1 then
-					button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 3)], "BOTTOMLEFT", 0, -30)
-				else
-					button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 1)], "TOPRIGHT", 50, 0)
-				end
+				button:SetPoint(
+					"TOPLEFT",
+					_G["MerchantItem" .. (i - (BLIZZARD_MERCHANT_ITEMS_PER_PAGE - 1))],
+					"TOPRIGHT",
+					12,
+					0
+				)
+			end
+		else
+			if (i % 2) == 1 then
+				button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 2)], "BOTTOMLEFT", 0, -8)
+			else
+				button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 1)], "TOPRIGHT", 12, 0)
 			end
 		end
 	end
 end
 
+function module:MerchantFrame_UpdateBuybackInfo()
+	if not self.db or not self.db.enable then
+		return
+	end
+
+	local numBuybackItems = GetNumBuybackItems()
+
+	for i = BLIZZARD_BUYBACK_ITEMS_PER_PAGE + 1, _G.MERCHANT_ITEMS_PER_PAGE do
+		local button = _G["MerchantItem" .. i]
+		if not button then
+			break
+		end
+
+		button:ClearAllPoints()
+
+		if i <= numBuybackItems then
+			local row = floor((i - 1) / 3)
+			local col = (i - 1) % 3
+
+			if row == 0 then
+				-- First row of buyback items
+				if col == 0 then
+					button:SetPoint("TOPLEFT", _G.MerchantItem1, "TOPLEFT", 0, -60)
+				else
+					button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 1)], "TOPRIGHT", 12, 0)
+				end
+			else
+				-- Subsequent rows
+				if col == 0 then
+					button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 3)], "BOTTOMLEFT", 0, -15)
+				else
+					button:SetPoint("TOPLEFT", _G["MerchantItem" .. (i - 1)], "TOPRIGHT", 12, 0)
+				end
+			end
+			button:Show()
+		else
+			button:Hide()
+		end
+	end
+end
+
 function module:Initialize()
+	if IsAddOnLoaded("ExtVendor") then
+		self.StopRunning = "ExtVendor"
+		return
+	end
+
 	if not E.db.mui.merchant.enable then
 		return
 	end
 
 	self.db = E.db.mui.merchant
 
-	if IsAddOnLoaded("ExtVendor") then
-		self.StopRunning = "ExtVendor"
-		return
-	end
-
-	if IsAddOnLoaded("ExtVendor") then
-		self.StopRunning = "ExtVendor"
-		return
-	end
-
-	_G.MERCHANT_ITEMS_PER_PAGE = self.db.numberOfPages * 10
+	_G.MERCHANT_ITEMS_PER_PAGE = self.db.numberOfPages * BLIZZARD_MERCHANT_ITEMS_PER_PAGE
 	_G.MerchantFrame:SetWidth(30 + self.db.numberOfPages * 330)
 
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
 		if not _G["MerchantItem" .. i] then
-			CreateFrame("Frame", "MerchantItem" .. i, _G.MerchantFrame, "MerchantItemTemplate")
+			local frame = CreateFrame("Frame", "MerchantItem" .. i, _G.MerchantFrame, "MerchantItemTemplate")
 			self:SkinButton(i)
+
+			local altCurrencyFrame = frame:GetChild("AltCurrencyFrame") or _G["MerchantItem" .. i .. "AltCurrencyFrame"]
+			if altCurrencyFrame then
+				altCurrencyFrame:Hide()
+			end
 		end
 	end
 
 	_G.MerchantBuyBackItem:ClearAllPoints()
-	_G.MerchantBuyBackItem:SetPoint("TOPLEFT", _G.MerchantItem10, "BOTTOMLEFT", -14, -20)
-	_G.MerchantPrevPageButton:ClearAllPoints()
-	_G.MerchantPrevPageButton:SetPoint("CENTER", _G.MerchantFrame, "BOTTOM", 30, 55)
-	_G.MerchantPageText:ClearAllPoints()
-	_G.MerchantPageText:SetPoint("BOTTOM", _G.MerchantFrame, "BOTTOM", 160, 50)
-	_G.MerchantNextPageButton:ClearAllPoints()
-	_G.MerchantNextPageButton:SetPoint("CENTER", _G.MerchantFrame, "BOTTOM", 290, 55)
+	_G.MerchantBuyBackItem:SetPoint("TOPLEFT", _G.MerchantItem10, "BOTTOMLEFT", 30, -53)
 
-	self:SecureHook("MerchantFrame_UpdateMerchantInfo", "UpdateMerchantPositions")
-	self:SecureHook("MerchantFrame_UpdateBuybackInfo", "UpdateBuybackPositions")
+	_G.MerchantPrevPageButton:ClearAllPoints()
+	_G.MerchantPrevPageButton:SetPoint("CENTER", _G.MerchantFrame, "BOTTOMLEFT", 25, 96)
+	_G.MerchantPageText:ClearAllPoints()
+	_G.MerchantPageText:SetPoint("BOTTOM", _G.MerchantFrame, "BOTTOM", 0, 86)
+	_G.MerchantNextPageButton:ClearAllPoints()
+	_G.MerchantNextPageButton:SetPoint("CENTER", _G.MerchantFrame, "BOTTOMLEFT", 310, 96)
+
+	self:SecureHook("MerchantFrame_UpdateMerchantInfo", "MerchantFrame_UpdateMerchantInfo")
+	self:SecureHook("MerchantFrame_UpdateBuybackInfo", "MerchantFrame_UpdateBuybackInfo")
+end
+
+function module:ProfileUpdate()
+	self.db = E.db.mui.merchant
+
+	if self.db.enable and not self.initialized then
+		self:Initialize()
+	end
 end
 
 MER:RegisterModule(module:GetName())
