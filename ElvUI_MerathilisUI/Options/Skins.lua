@@ -15,28 +15,6 @@ local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local RED_FONT_COLOR = RED_FONT_COLOR
 local YELLOW_FONT_COLOR = YELLOW_FONT_COLOR
 
-local function GetAddOnIcon(addon)
-	if addon then
-		local iconTexture = GetAddOnMetadata(addon, "IconTexture")
-		local iconAtlas = GetAddOnMetadata(addon, "IconAtlas")
-
-		if not iconTexture and not iconAtlas then
-			iconTexture = [[Interface\ICONS\INV_Misc_QuestionMark]]
-		end
-
-		local logo
-		if iconTexture then
-			logo = CreateSimpleTextureMarkup(iconTexture, 14, 14)
-		elseif iconAtlas then
-			logo = CreateAtlasMarkup(iconAtlas, 14, 14)
-		end
-
-		module:Show(logo .. " " .. text)
-	else
-		module:Show(text)
-	end
-end
-
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
 	{ "ActionBarProfiles", L["ActonBarProfiles"], "abp" },
@@ -68,6 +46,7 @@ local DecorAddons = {
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "TalentLoadoutsEx", L["Talent Loadouts Ex"], "tle" },
 	{ "TomTom", L["TomTom"], "tom" },
+	{ "WhisperPop", L["WhisperPop"], "whisperPop" },
 	{ "WIM", L["WIM"], "wim" },
 	{ "WorldQuestTab", L["World Quest Tab"], "wqt" },
 	{ "WowLua", L["WowLua"], "wowLua" },

@@ -673,6 +673,25 @@ function module:ReskinTab(tab)
 	self:CreateBackdropShadow(tab)
 end
 
+function module:ReskinIconButton(button, icon, size, rotate)
+	button:StripTextures()
+	button.Icon = button:CreateTexture(nil, "ARTWORK")
+	button.Icon:SetTexture(icon)
+	button.Icon:Size(size, size)
+	button.Icon:Point("CENTER")
+	if rotate then
+		button.Icon:SetRotation(rotate)
+	end
+
+	button:HookScript("OnEnter", function(self)
+		self.Icon:SetVertexColor(E.media.rgbvaluecolor.r, E.media.rgbvaluecolor.g, E.media.rgbvaluecolor.b)
+	end)
+
+	button:HookScript("OnLeave", function(self)
+		self.Icon:SetVertexColor(1, 1, 1)
+	end)
+end
+
 function module:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	function AS:SkinFrame(frame, template, override, kill)
