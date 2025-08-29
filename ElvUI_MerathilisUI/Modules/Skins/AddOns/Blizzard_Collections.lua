@@ -12,7 +12,11 @@ function module:Blizzard_Collections()
 	local PetJournal = _G.PetJournal
 
 	for i = 1, 6 do
-		self:ReskinTab(_G["CollectionsJournalTab" .. i])
+		local tab = _G["CollectionsJournalTab" .. i]
+		if tab then
+			tab:SetPushedTextOffset(0, 0)
+			self:ReskinTab(tab)
+		end
 	end
 
 	_G.PetJournalLoadoutBorderSlotHeaderText:SetParent(PetJournal)

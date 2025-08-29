@@ -41,28 +41,6 @@ options.core = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
-		logLevel = {
-			order = 3,
-			type = "select",
-			name = L["Log Level"],
-			desc = L["Only display log message that the level is higher than you choose."]
-				.. "\n|cffff3860"
-				.. L["Set to 2 if you do not understand the meaning of log level."]
-				.. "|r",
-			get = function(info)
-				return E.global.mui.core.logLevel
-			end,
-			set = function(info, value)
-				E.global.mui.core.logLevel = value
-			end,
-			hidden = function() end,
-			values = {
-				[1] = "1 - |cffff3860[ERROR]|r",
-				[2] = "2 - |cffffdd57[WARNING]|r",
-				[3] = "3 - |cff209cee[INFO]|r",
-				[4] = "4 - |cff00d1b2[DEBUG]|r",
-			},
-		},
 	},
 }
 
@@ -120,6 +98,72 @@ options.gameFix = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full",
+		},
+	},
+}
+
+options.developer = {
+	order = 3,
+	type = "group",
+	name = L["Developer"],
+	args = {
+		logLevel = {
+			order = 1,
+			type = "select",
+			name = L["Log Level"],
+			desc = L["Only display log message that the level is higher than you choose."]
+				.. "\n|cffff3860"
+				.. L["Set to 2 if you do not understand the meaning of log level."]
+				.. "|r",
+			get = function(_)
+				return E.global.mui.developer.logLevel
+			end,
+			set = function(_, value)
+				E.global.mui.developer.logLevel = value
+			end,
+			values = {
+				[1] = "1 - |cffff3860[ERROR]|r",
+				[2] = "2 - |cffffdd57[WARNING]|r",
+				[3] = "3 - |cff209cee[INFO]|r",
+				[4] = "4 - |cff00d1b2[DEBUG]|r",
+			},
+		},
+		tableAttributeDisplay = {
+			order = 2,
+			type = "group",
+			name = L["Table Attribute Display"],
+			desc = L["Modify the debug tool that displays table attributes."],
+			inline = true,
+			get = function(info)
+				return E.global.mui.developer.tableAttributeDisplay[info[#info]]
+			end,
+			set = function(info, value)
+				E.global.mui.developer.tableAttributeDisplay[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				enable = {
+					order = 0,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				width = {
+					order = 1,
+					type = "range",
+					name = L["Width"],
+					min = 0,
+					max = 2000,
+					step = 10,
+				},
+				height = {
+					order = 2,
+					type = "range",
+					name = L["Height"],
+					min = 0,
+					max = 2000,
+					step = 10,
+				},
+			},
 		},
 	},
 }

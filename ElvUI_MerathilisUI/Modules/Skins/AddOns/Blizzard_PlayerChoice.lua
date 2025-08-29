@@ -1,6 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
-local S = E:GetModule("Skins")
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc

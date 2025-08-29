@@ -318,6 +318,7 @@ V.skins = {
 		staticPopup = true,
 		inputMethodEditor = true,
 		uiErrors = true,
+		debugTools = true,
 	},
 
 	libraries = {
