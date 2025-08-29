@@ -46,6 +46,11 @@ local function messageView(frame)
 	S:HandleNextPrevButton(_G.WhisperPopScrollingMessageFrameButtonUp, "up", nil, true)
 	S:HandleNextPrevButton(_G.WhisperPopScrollingMessageFrameButtonDown, "down", nil, true)
 	module:ReskinIconButton(_G.WhisperPopScrollingMessageFrameButtonEnd, I.Media.Buttons.End, 22, -1.571)
+
+	frame.__MERSetPoint = frame.SetPoint
+	hooksecurefunc(frame, "SetPoint", function(self, ...)
+		F.MoveFrameWithOffset(self, -6, 0)
+	end)
 end
 
 local function optionFrame(frame)

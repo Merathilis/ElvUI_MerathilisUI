@@ -7,6 +7,7 @@ local xpcall = xpcall
 
 local CreateFrame = CreateFrame
 local GenerateClosure = GenerateClosure
+local RunNextFrame = RunNextFrame
 local Settings = Settings
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
@@ -15,6 +16,8 @@ module.settingFrames = {}
 module.waitSettingFrames = {}
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
+module.libraryHandlers = {}
+module.libraryHandledMinors = {}
 module.updateProfile = {}
 module.aceWidgets = {}
 module.enteredLoad = {}
@@ -53,10 +56,6 @@ function module:ShadowOverlay()
 	f:SetAlpha(0.7)
 end
 
----Check if the texture path is equal to the given path
----@param texture TextureBase
----@param path string
----@return boolean
 function module:IsTexturePathEqual(texture, path)
 	local got = texture and texture.GetTextureFilePath and texture:GetTextureFilePath()
 	if not got then
@@ -67,10 +66,6 @@ function module:IsTexturePathEqual(texture, path)
 	return got == self.texturePathFetcher:GetTextureFilePath()
 end
 
----Check the skin config of both ElvUI and WindTools DB
----@param elvuiKey string
----@param MERKey string
----@return boolean
 function module:CheckDB(elvuiKey, MERKey)
 	if elvuiKey then
 		MERKey = MERKey or elvuiKey
@@ -90,31 +85,30 @@ function module:CheckDB(elvuiKey, MERKey)
 	return true
 end
 
+function module:HandleAceGUIWidget(lib, name, constructor)
+	local handler = self.aceWidgets[name]
+	if handler then
+		lib.WidgetRegistry[name] = handler(self, constructor)
+		self.aceWidgets[name] = nil
+	end
+end
+
 local function errorhandler(err)
 	return _G.geterrorhandler()(err)
 end
 
---[[
-	@param {string} name
-	@param {function} [func=module.name]
-]]
 function module:AddCallback(name, func)
 	tinsert(self.nonAddonsToLoad, func or self[name])
 end
 
---[[
-	AceGUI Widget
-	@param {string} name
-	@param {function} [func=module.name]
-]]
 function module:AddCallbackForAceGUIWidget(name, func)
-	self.aceWidgets[name] = func or self[name]
+	if type(func) == "string" then
+		func = self[func]
+	end
+
+	self.aceWidgets[name] = func
 end
 
---[[
-	@param {string} addonName
-	@param {function} [func=module.addonName]
-]]
 function module:AddCallbackForAddon(addonName, func)
 	local addon = self.addonsToLoad[addonName]
 	if not addon then
@@ -129,17 +123,24 @@ function module:AddCallbackForAddon(addonName, func)
 	tinsert(addon, func or self[addonName])
 end
 
---[[
-	@param {string} name
-	@param {function} [func=module.name]
-]]
+function module:AddCallbackForLibrary(name, func)
+	local lib = self.libraryHandlers[name]
+	if not lib then
+		self.libraryHandlers[name] = {}
+		lib = self.libraryHandlers[name]
+	end
+
+	if type(func) == "string" then
+		func = self[func]
+	end
+
+	tinsert(lib, func or self[name])
+end
+
 function module:AddCallbackForEnterWorld(name, func)
 	tinsert(self.enteredLoad, func or self[name])
 end
 
---[[
-	@param {string} addonName 插件名
-]]
 function module:PLAYER_ENTERING_WORLD()
 	if not E.initialized or not E.private.mui.skins.enable then
 		return
@@ -151,18 +152,10 @@ function module:PLAYER_ENTERING_WORLD()
 	end
 end
 
---[[
-	@param {string} name
-	@param {function} [func=module.name]
-]]
 function module:AddCallbackForUpdate(name, func)
 	tinsert(self.updateProfile, func or self[name])
 end
 
---[[
-	@param {string} addonName
-	@param {object} object
-]]
 function module:CallLoadedAddon(addonName, object)
 	for _, func in next, object do
 		xpcall(func, errorhandler, self)
@@ -171,9 +164,6 @@ function module:CallLoadedAddon(addonName, object)
 	self.addonsToLoad[addonName] = nil
 end
 
---[[
-	@param {string} addonName
-]]
 function module:ADDON_LOADED(_, addonName)
 	if not E.initialized or not E.private.mui.skins.enable then
 		return
@@ -185,51 +175,30 @@ function module:ADDON_LOADED(_, addonName)
 	end
 end
 
---[[
-	Ace3 Stuff
-]]
-function module:ReskinWidgets(AceGUI)
-	for name, oldFunc in pairs(AceGUI.WidgetRegistry) do
-		module:UpdateWidget(AceGUI, name, oldFunc)
+function module:LibStub_NewLibrary(_, major, minor)
+	if not self.libraryHandlers[major] then
+		return
 	end
-end
 
-function module:UpdateWidget(lib, name, oldFunc)
-	if self.aceWidgets[name] then
-		lib.WidgetRegistry[name] = self.aceWidgets[name](self, oldFunc)
-		self.aceWidgets[name] = nil
+	minor = minor and tonumber(strmatch(minor, "%d+"))
+	local handledMinor = self.libraryHandledMinors[major]
+	if not minor or handledMinor and handledMinor >= minor then
+		return
 	end
-end
 
-do
-	local alreadyWidgetHooked = false
-	local alreadyDialogSkined = false
-	function module:LibStub_NewLibrary(_, major)
-		if major == "AceGUI-3.0" and not alreadyWidgetHooked then
-			local AceGUI = _G.LibStub("AceGUI-3.0")
-			self:ReskinWidgets(AceGUI)
-			self:SecureHook(AceGUI, "RegisterWidgetType", "UpdateWidget")
-			alreadyWidgetHooked = true
-		elseif major == "AceConfigDialog-3.0" and not alreadyDialogSkined then
-			self:AceConfigDialog()
-			alreadyDialogSkined = true
+	self.libraryHandledMinors[major] = minor
+
+	RunNextFrame(function()
+		local lib, latestMinor = _G.LibStub(major, true)
+		if not lib or not latestMinor or latestMinor ~= minor then
+			return
 		end
-	end
-
-	function module:HookEarly()
-		local AceGUI = _G.LibStub("AceGUI-3.0")
-		if AceGUI and not alreadyWidgetHooked then
-			self:ReskinWidgets(AceGUI)
-			self:SecureHook(AceGUI, "RegisterWidgetType", "UpdateWidget")
-			alreadyWidgetHooked = true
+		for _, func in next, self.libraryHandlers[major] do
+			if not xpcall(func, F.Developer.ThrowError, self, lib) then
+				self:Log("debug", format("Failed to skin library %s", major, minor))
+			end
 		end
-
-		local AceConfigDialog = _G.LibStub("AceConfigDialog-3.0")
-		if AceConfigDialog and not alreadyDialogSkined then
-			self:AceConfigDialog()
-			alreadyDialogSkined = true
-		end
-	end
+	end)
 end
 
 function module:TryPostHook(...)
@@ -283,6 +252,15 @@ function module:Initialize()
 
 	self:HookEarly()
 	self:SecureHook(_G.LibStub, "NewLibrary", "LibStub_NewLibrary")
+	for libName in pairs(_G.LibStub.libs) do
+		local lib, minor = _G.LibStub(libName, true)
+		if lib and self.libraryHandlers[libName] then
+			self.libraryHandledMinors[libName] = minor
+			for _, func in next, self.libraryHandlers[libName] do
+				xpcall(func, F.Developer.ThrowError, self, lib)
+			end
+		end
+	end
 
 	self:ShadowOverlay()
 end

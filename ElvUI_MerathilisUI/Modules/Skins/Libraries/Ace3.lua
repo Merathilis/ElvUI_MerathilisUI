@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Skins")
 
 function module:Ace3_Frame(Constructor)
 	if
-		not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable)
+		not (E.private.mui.skins.enable and E.private.mui.skins.libraries.ace3 and E.private.mui.skins.shadow.enable)
 	then
 		return Constructor
 	end
@@ -20,7 +20,7 @@ end
 
 function module:Ace3_DropdownPullout(Constructor)
 	if
-		not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable)
+		not (E.private.mui.skins.enable and E.private.mui.skins.libraries.ace3 and E.private.mui.skins.shadow.enable)
 	then
 		return Constructor
 	end
@@ -28,7 +28,7 @@ function module:Ace3_DropdownPullout(Constructor)
 	local function SkinnedConstructor()
 		local widget = Constructor()
 
-		if E.private.mui.skins.addonSkins.ace3DropdownBackdrop then
+		if E.private.mui.skins.libraries.ace3Dropdown then
 			widget.frame:SetTemplate("Transparent")
 		end
 		self:CreateShadow(widget.frame)
@@ -40,7 +40,7 @@ end
 
 function module:Ace3_Window(Constructor)
 	if
-		not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable)
+		not (E.private.mui.skins.enable and E.private.mui.skins.libraries.ace3 and E.private.mui.skins.shadow.enable)
 	then
 		return Constructor
 	end
@@ -56,7 +56,7 @@ end
 
 function module:AceConfigDialog()
 	if
-		not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.ace3 and E.private.mui.skins.shadow.enable)
+		not (E.private.mui.skins.enable and E.private.mui.skins.libraries.ace3 and E.private.mui.skins.shadow.enable)
 	then
 		return
 	end
@@ -65,6 +65,6 @@ function module:AceConfigDialog()
 	self:CreateShadow(lib.popup)
 end
 
-module:AddCallbackForAceGUIWidget("Frame", module.Ace3_Frame)
-module:AddCallbackForAceGUIWidget("Dropdown-Pullout", module.Ace3_DropdownPullout)
-module:AddCallbackForAceGUIWidget("Window", module.Ace3_Window)
+module:AddCallbackForAceGUIWidget("Frame", "Ace3_Frame")
+module:AddCallbackForAceGUIWidget("Dropdown-Pullout", "Ace3_DropdownPullout")
+module:AddCallbackForAceGUIWidget("Window", "Ace3_Window")

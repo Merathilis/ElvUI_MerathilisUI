@@ -320,11 +320,15 @@ V.skins = {
 		uiErrors = true,
 	},
 
+	libraries = {
+		ace3 = true,
+		ace3Dropdown = true,
+		libQTip = true,
+	},
+
 	addonSkins = {
 		enable = true,
-		ace3 = true,
 		acp = true,
-		ace3DropdownBackdrop = true,
 		abp = true,
 		xiv = true,
 		btwQ = true,

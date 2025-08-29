@@ -256,8 +256,71 @@ options.font = {
 	},
 }
 
-options.widgets = {
+options.libraries = {
 	order = 3,
+	type = "group",
+	name = L["Libraries"],
+	get = function(info)
+		return E.private.mui.skins.libraries[info[#info]]
+	end,
+	set = function(info, value)
+		E.private.WT.skins.libraries[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
+	disabled = function()
+		return not E.private.mui.skins.enable
+	end,
+	args = {
+		enableAll = {
+			order = 1,
+			type = "execute",
+			name = L["Enable All"],
+			func = function()
+				for key in pairs(V.skins.libraries) do
+					E.private.mui.skins.libraries[key] = true
+				end
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+		},
+		disableAll = {
+			order = 2,
+			type = "execute",
+			name = L["Disable All"],
+			func = function()
+				for key in pairs(V.skins.libraries) do
+					E.private.mui.skins.libraries[key] = false
+				end
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+		},
+		betterOption = {
+			order = 9,
+			type = "description",
+			name = " ",
+			width = "full",
+		},
+		ace3 = {
+			order = 10,
+			type = "toggle",
+			name = L["Ace3"],
+			width = 1.5,
+		},
+		ace3Dropdown = {
+			order = 10,
+			type = "toggle",
+			name = L["Ace3 Dropdown Backdrop"],
+			width = 1.5,
+		},
+		libQTip = {
+			order = 10,
+			type = "toggle",
+			name = L["LibQTip"],
+		},
+	},
+}
+
+options.widgets = {
+	order = 4,
 	type = "group",
 	name = L["Widgets"],
 	disabled = function()
@@ -1377,7 +1440,7 @@ for _, widget in pairs({ "button", "treeGroupButton", "tab" }) do
 end
 
 options.blizzard = {
-	order = 4,
+	order = 5,
 	type = "group",
 	name = L["Blizzard"],
 	get = function(info)
@@ -2055,7 +2118,7 @@ options.blizzard = {
 }
 
 options.addonskins = {
-	order = 5,
+	order = 6,
 	type = "group",
 	name = L["AddOnSkins"],
 	get = function(info)
@@ -2093,7 +2156,7 @@ options.addonskins = {
 	},
 }
 
-local addorder = 6
+local addorder = 7
 for _, v in ipairs(DecorAddons) do
 	local addonName, addonString, addonOption = unpack(v)
 	local iconTexture = GetAddOnMetadata(addonName, "IconTexture")
@@ -2121,21 +2184,8 @@ for _, v in ipairs(DecorAddons) do
 	}
 end
 
-options.addonskins.args.ace3 = {
-	order = 7,
-	type = "toggle",
-	name = L["Ace3"],
-	get = function(info)
-		return E.private.mui.skins.addonSkins[info[#info]]
-	end,
-	set = function(info, value)
-		E.private.mui.skins.addonSkins[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
-	end,
-}
-
 options.Embed = {
-	order = 8,
+	order = 9,
 	type = "group",
 	name = L["Embed Settings"],
 	get = function(info)
@@ -2203,7 +2253,7 @@ options.Embed = {
 }
 
 options.advancedSettings = {
-	order = 9,
+	order = 10,
 	type = "group",
 	name = L["Advanced Skin Settings"],
 	disabled = function()
