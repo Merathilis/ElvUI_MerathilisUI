@@ -4,6 +4,8 @@ local module = MER:GetModule("MER_Skins")
 local _G = _G
 local next = next
 local xpcall = xpcall
+local tonumber = tonumber
+local strmatch = strmatch
 
 local CreateFrame = CreateFrame
 local GenerateClosure = GenerateClosure
@@ -158,7 +160,9 @@ end
 
 function module:CallLoadedAddon(addonName, object)
 	for _, func in next, object do
-		xpcall(func, errorhandler, self)
+		if not xpcall(func, F.Developer.ThrowError, self) then
+			self:Log("debug", format("Failed to run addon %s", addonName))
+		end
 	end
 
 	self.addonsToLoad[addonName] = nil
@@ -239,7 +243,9 @@ function module:Initialize()
 	end
 
 	for index, func in next, self.nonAddonsToLoad do
-		xpcall(func, F.Developer.ThrowError, self)
+		if not xpcall(func, F.Developer.ThrowError, self) then
+			self:Log("debug", "Failed to run skin function")
+		end
 		self.nonAddonsToLoad[index] = nil
 	end
 
@@ -257,7 +263,9 @@ function module:Initialize()
 		if lib and self.libraryHandlers[libName] then
 			self.libraryHandledMinors[libName] = minor
 			for _, func in next, self.libraryHandlers[libName] do
-				xpcall(func, F.Developer.ThrowError, self, lib)
+				if not xpcall(func, F.Developer.ThrowError, self, lib) then
+					self:Log("debug", format("Failed to skin library %s", libName, minor))
+				end
 			end
 		end
 	end

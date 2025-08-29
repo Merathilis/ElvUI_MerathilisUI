@@ -3,8 +3,9 @@ local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
-local unpack = unpack
-local pairs = pairs
+local pairs, unpack = pairs, unpack
+
+local hooksecurefunc = hooksecurefunc
 
 local function notifyButton(button)
 	button:CreateBackdrop()

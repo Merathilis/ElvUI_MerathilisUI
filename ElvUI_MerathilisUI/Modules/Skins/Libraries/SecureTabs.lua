@@ -9,17 +9,18 @@ function module:ReskinSecureTabs(lib, panel)
 	if lib.tabs[panel] then
 		for _, tab in pairs(lib.tabs[panel]) do
 			if not tab.__MER then
-				self:HandleTab(tab)
+				S:HandleTab(tab)
+				self:ReskinTab(tab)
 			end
 		end
 	end
 
 	if lib.covers[panel] then
-		for _, cover in pairs(lib.covers[panel]) do
-			if not cover.__MER then
-				S:HandleTab(cover)
-			end
-		end
+		-- for _, cover in pairs(lib.covers[panel]) do
+		-- if not cover.__MER then
+		-- S:HandleTab(cover)
+		-- end
+		-- end
 	end
 end
 
