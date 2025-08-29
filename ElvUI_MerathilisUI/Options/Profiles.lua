@@ -7,7 +7,7 @@ local ipairs, unpack = ipairs, unpack
 local CreateSimpleTextureMarkup = CreateSimpleTextureMarkup
 local CreateAtlasMarkup = CreateAtlasMarkup
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local C_AddOns_DoesAddOnExist = C_AddOns.DoesAddOnExist
 
 local Ok = F.GetIconString(I.Media.Icons.Ok, 14, 14)
 local No = F.GetIconString(I.Media.Icons.No, 14, 14)
@@ -151,7 +151,7 @@ for _, v in ipairs(SupportedProfiles) do
 			end
 		end,
 		disabled = function()
-			return not IsAddOnLoaded(addon)
+			return not C_AddOns_DoesAddOnExist(addon)
 		end,
 	}
 end

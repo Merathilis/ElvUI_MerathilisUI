@@ -9,7 +9,7 @@ local ipairs, pairs, unpack = ipairs, pairs, unpack
 local format = string.format
 local tinsert = table.insert
 
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local DoesAddOnExist = C_AddOns.DoesAddOnExist
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 local RED_FONT_COLOR = RED_FONT_COLOR
@@ -2179,7 +2179,7 @@ for _, v in ipairs(DecorAddons) do
 		icon = addonIcon,
 		desc = format("%s " .. addonString .. " %s", L["Enable/Disable"], L["decor."]),
 		disabled = function()
-			return not IsAddOnLoaded(addonName)
+			return not DoesAddOnExist(addonName)
 		end,
 	}
 end
@@ -2272,7 +2272,7 @@ options.advancedSettings = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
-				return not IsAddOnLoaded("BigWigs")
+				return not DoesAddOnExist("BigWigs")
 			end,
 			args = {
 				enable = {
@@ -2284,7 +2284,7 @@ options.advancedSettings = {
 					order = 1,
 					type = "description",
 					name = function()
-						if not IsAddOnLoaded("BigWigs") then
+						if not DoesAddOnExist("BigWigs") then
 							return C.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
 						end
 
@@ -2606,7 +2606,7 @@ options.advancedSettings = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			disabled = function()
-				return not IsAddOnLoaded("Details")
+				return not DoesAddOnExist("Details")
 			end,
 			args = {
 				enable = {
@@ -2619,7 +2619,7 @@ options.advancedSettings = {
 					order = 1,
 					type = "description",
 					name = function()
-						if not IsAddOnLoaded("Details") then
+						if not DoesAddOnExist("Details") then
 							return C.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
 						end
 

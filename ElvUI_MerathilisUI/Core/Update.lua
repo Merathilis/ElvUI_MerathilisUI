@@ -73,8 +73,16 @@ function MER:UpdateScripts() -- DB Convert
 	end
 
 	if privateVersion < 6.72 then
-		if E.global.mui then
+		if E.global.mui and E.global.mui.microBar and E.global.mui.microBar.covenantCache then
 			E.global.mui.microBar.covenantCache = nil
+		end
+	end
+
+	if globalVersion < 6.72 then
+		if E.global.mui.core and E.global.mui.core.logLevel then
+			E.global.mui.developer.logLevel = E.global.mui.core.logLevel
+			E.global.mui.core.logLevel = nil
+			UpdateMessage(L["Advanced"] .. ": " .. L["Developer"], globalVersion)
 		end
 	end
 
