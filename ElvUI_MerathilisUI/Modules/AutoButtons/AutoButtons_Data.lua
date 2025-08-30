@@ -1086,6 +1086,7 @@ local openableItems = {
 	221375,
 	221502,
 	221503,
+	224547,
 	224556,
 	224573,
 	224721,
@@ -1242,6 +1243,7 @@ local openableItems = {
 	250768,
 	250769,
 	250975,
+	255676,
 }
 
 local professionItems = {
