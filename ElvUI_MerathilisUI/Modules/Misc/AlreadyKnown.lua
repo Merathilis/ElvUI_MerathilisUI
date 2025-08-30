@@ -259,7 +259,7 @@ end
 
 function module:Initialize()
 	if IsAddOnLoaded("AlreadyKnown") then
-		self.StopRunning = "AlreadyKnonwn"
+		self.StopRunning = "AlreadyKnown"
 		return
 	end
 
@@ -276,7 +276,7 @@ end
 
 function module:ToggleSetting()
 	if IsAddOnLoaded("AlreadyKnown") then
-		self.StopRunning = "AlreadyKnonwn"
+		self.StopRunning = "AlreadyKnown"
 		return
 	end
 
