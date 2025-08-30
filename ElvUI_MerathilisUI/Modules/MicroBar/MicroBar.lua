@@ -18,19 +18,16 @@ local mod = mod
 local pairs = pairs
 local select = select
 local strfind = strfind
-local strjoin = strjoin
 local tContains = tContains
 local tinsert = tinsert
 local tonumber = tonumber
 local tostring = tostring
 local type = type
-local unpack = unpack
 
 local BNGetNumFriends = BNGetNumFriends
 local CloseAllWindows = CloseAllWindows
 local CloseMenus = CloseMenus
 local CreateFrame = CreateFrame
-local CreateFromMixins = CreateFromMixins
 local GenerateClosure = GenerateClosure
 local GetGameTime = GetGameTime
 local GetItemCooldown = C_Item.GetItemCooldown
@@ -43,7 +40,6 @@ local IsControlKeyDown = IsControlKeyDown
 local IsInGuild = IsInGuild
 local IsModifierKeyDown = IsModifierKeyDown
 local IsShiftKeyDown = IsShiftKeyDown
-local ItemMixin = ItemMixin
 local PlayerHasToy = PlayerHasToy
 local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
@@ -61,7 +57,6 @@ local GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
 local GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
 local GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
 local GetActiveCovenantID = C_Covenants.GetActiveCovenantID
-local GetRenownLevel = C_CovenantSanctumUI.GetRenownLevel
 local GetCVar = C_CVar.GetCVar
 local GetCVarBool = C_CVar.GetCVarBool
 local SetCVar = C_CVar.SetCVar
@@ -494,7 +489,7 @@ local ButtonTypes = {
 					numBNOnline = numBNOnline + 1
 					if numGameAccounts and numGameAccounts > 0 then
 						for j = 1, numGameAccounts do
-							local gameAccountInfo = GetFriendGameAccountInfo(i, j)
+							local gameAccountInfo = GetFriendGameAccountInfo(i, j) --[[@as BNetGameAccountInfo]]
 							if gameAccountInfo.clientProgram and gameAccountInfo.clientProgram == "WoW" then
 								numWoWOnline = numWoWOnline + 1
 							end
@@ -637,7 +632,7 @@ local ButtonTypes = {
 			if numMissions == 0 then
 				numMissions = ""
 			end
-			return numMissions
+			return tostring(numMissions == 0 and "" or numMissions)
 		end,
 		tooltips = "Missions",
 	},
@@ -743,7 +738,7 @@ local ButtonTypes = {
 		click = {
 			LeftButton = function()
 				local vol = GetCVar("Sound_MasterVolume")
-				vol = vol and tonumber(vol) or 0
+				local volNum = vol and tonumber(vol) or 0
 				SetCVar("Sound_MasterVolume", min(vol + 0.1, 1))
 			end,
 			MiddleButton = function()
@@ -752,13 +747,13 @@ local ButtonTypes = {
 			end,
 			RightButton = function()
 				local vol = GetCVar("Sound_MasterVolume")
-				vol = vol and tonumber(vol) or 0
+				local volNum = vol and tonumber(vol) or 0
 				SetCVar("Sound_MasterVolume", max(vol - 0.1, 0))
 			end,
 		},
 		tooltips = function(button)
 			local vol = GetCVar("Sound_MasterVolume")
-			vol = vol and tonumber(vol) or 0
+			local volNum = vol and tonumber(vol) or 0
 			DT.tooltip:ClearLines()
 			DT.tooltip:SetText(L["Volume"] .. format(": %d%%", vol * 100))
 			DT.tooltip:AddLine("\n")
@@ -769,7 +764,7 @@ local ButtonTypes = {
 
 			button.tooltipsUpdateTimer = NewTicker(0.3, function()
 				local _vol = GetCVar("Sound_MasterVolume")
-				_vol = _vol and tonumber(_vol) or 0
+				local _volNum = _vol and tonumber(_vol) or 0
 				DT.tooltip:ClearLines()
 				DT.tooltip:SetText(L["Volume"] .. format(": %d%%", _vol * 100))
 				DT.tooltip:AddLine("\n")
