@@ -1,9 +1,9 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
+local TT = E:GetModule("Tooltip")
 
 local _G = _G
-local LibStub = _G.LibStub
 
 local skinned = false
 function module:RaiderIO_DelayedSkinning()
@@ -15,20 +15,11 @@ function module:RaiderIO_DelayedSkinning()
 
 	skinned = true
 	if RaiderIO_ProfileTooltip then
-		-- SetTemplate/Shadow is handled with tt:SetStyle: FrameXML/GameTooltip
-		local point, relativeTo, relativePoint, xOffset, yOffset = RaiderIO_ProfileTooltip:GetPoint()
-		if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
-			RaiderIO_ProfileTooltip.__MERSetPoint = RaiderIO_ProfileTooltip.SetPoint
-			hooksecurefunc(
-				RaiderIO_ProfileTooltip,
-				"SetPoint",
-				function(self, point, relativeTo, relativePoint, xOffset, yOffset)
-					if xOffset and yOffset and xOffset == 0 and yOffset == 0 then
-						self:__MERSetPoint(point, relativeTo, relativePoint, 4, 0)
-					end
-				end
-			)
-		end
+		TT:SetStyle(_G.RaiderIO_ProfileTooltip)
+		_G.RaiderIO_ProfileTooltip.__MERSetPoint = _G.RaiderIO_ProfileTooltip.SetPoint
+		hooksecurefunc(_G.RaiderIO_ProfileTooltip, "SetPoint", function()
+			F.MoveFrameWithOffset(_G.RaiderIO_ProfileTooltip, 4, 0)
+		end)
 	end
 
 	local RaiderIO_SearchFrame = _G.RaiderIO_SearchFrame
@@ -72,7 +63,7 @@ function module:RaiderIO_DelayedSkinning()
 					if numChildren then
 						if numChildren == 1 then
 							frame.titleFrame = child
-							local title = child:GetChildren(1)
+							local title = child:GetChildren()
 							local titleText = title and title.text and title.text:GetText()
 							if titleText and strfind(titleText, "Raider.IO") then
 								configFrame = frame

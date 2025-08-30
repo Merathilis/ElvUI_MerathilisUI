@@ -5,7 +5,7 @@ local AB = E:GetModule("ActionBars")
 local _G = _G
 
 local _G = _G
-local NUM_STANCE_SLOTS = NUM_STANCE_SLOTS or 10
+local NUM_STANCE_SLOTS = 10
 local NUM_PET_ACTION_SLOTS = NUM_PET_ACTION_SLOTS or 10
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
 

@@ -244,7 +244,8 @@ function MER:Initialize()
 
 	self.initialized = true
 
-	self:UpdateScripts() -- Database need update first
+	self:AddCustomLinkSupport()
+	self:UpdateScripts()
 	self:InitializeModules()
 
 	self:AddMoverCategories()

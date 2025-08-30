@@ -95,6 +95,59 @@ end
 _G.BINDING_CATEGORY_ELVUI_MERATHILISUI_EXTRA = MER.Title .. " - " .. L["Extra"]
 _G.BINDING_HEADER_MEREXTRABUTTONS = L["Extra Buttons"]
 
+-- this needs to available early
+E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
+	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),
+	button1 = L["Open Changelog"],
+	button2 = CANCEL,
+	OnAccept = function()
+		E:ToggleOptions("mui,changelog")
+	end,
+	hideOnEscape = 1,
+}
+
+-- ElvUI_MerathilisUI Link Operations
+-- 1. Print "|Hmerlink:feature:arg1:arg2:arg3:..." in the chat
+-- 2. Click the link, it will trigger the corresponding function with the provided arguments
+-- => W.LinkOperations[feature](arg1, arg2, arg3, ...)
+MER.LinkOperations = {
+	["changelog"] = E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG.OnAccept,
+	["invite"] = function(name)
+		if name then
+			C_PartyInfo_InviteUnit(name)
+		end
+	end,
+}
+
+function MER:ItemRefTooltip_SetHyperlink(_, data)
+	if strsub(data, 1, 6) ~= "wtlink" then
+		return
+	end
+
+	local feature, argsString = strmatch(data, "^merlink:([^:]+)(.*)$")
+	if not feature then
+		return
+	end
+
+	local args = {}
+	if argsString and argsString ~= "" then
+		argsString = strsub(argsString, 2)
+		for arg in gmatch(argsString, "[^:]+") do
+			table.insert(args, arg)
+		end
+	end
+
+	if feature and MER.LinkOperations[feature] then
+		MER.LinkOperations[feature](unpack(args))
+	end
+end
+
+function MER:AddCustomLinkSupport()
+	if not MER:IsHooked(_G.ItemRefTooltip, "SetHyperlink") then
+		MER:Hook(_G.ItemRefTooltip, "SetHyperlink", "ItemRefTooltip_SetHyperlink", true)
+	end
+end
+
 -- Register own Modules
 function MER:RegisterModule(name)
 	if not name then

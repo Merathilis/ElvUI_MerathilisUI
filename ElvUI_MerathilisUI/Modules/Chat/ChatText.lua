@@ -58,7 +58,6 @@ local RemoveExtraSpaces = RemoveExtraSpaces
 local RemoveNewlines = RemoveNewlines
 local UnitExists = UnitExists
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
-local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsUnit = UnitIsUnit
 local UnitName = UnitName
 
@@ -72,7 +71,6 @@ local IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalForChannelID
 local IsChatLineCensored = C_ChatInfo.IsChatLineCensored
 local GetClubInfo = C_Club.GetClubInfo
 local GetInfoFromLastCommunityChatLine = C_Club.GetInfoFromLastCommunityChatLine
-local InviteUnit = C_PartyInfo.InviteUnit
 local GetTitleIconTexture = C_Texture.GetTitleIconTexture
 local GetClientTexture = _G.BNet_GetClientEmbeddedAtlas or _G.BNet_GetClientEmbeddedTexture
 local After = C_Timer.After
@@ -899,8 +897,8 @@ function CT:ShortChannel()
 	return format(noBracketsString or "|Hchannel:%s|h[%s]|h", self, abbr)
 end
 
-function CT:HandleShortChannels(msg)
-	msg = gsub(msg, "|Hchannel:(.-)|h%[(.-)%]|h", CT.ShortChannel)
+function CT:HandleShortChannels(msg, hide)
+	msg = gsub(msg, "|Hchannel:(.-)|h%[(.-)%]|h", hide and "" or CT.ShortChannel)
 	msg = gsub(msg, "CHANNEL:", "")
 	msg = gsub(msg, "^(.-|h) " .. L["whispers"], "%1")
 	msg = gsub(msg, "^(.-|h) " .. L["says"], "%1")
@@ -1611,6 +1609,7 @@ function CT:ChatFrame_MessageEventHandler(
 			-- The message formatter is captured so that the original message can be reformatted when a censored message
 			-- is approved to be shown. We only need to pack the event args if the line was censored, as the message transformation
 			-- step is the only code that needs these arguments. See ItemRef.lua "censoredmessage".
+			---@diagnostic disable-next-line: unbalanced-assignments
 			local isChatLineCensored, eventArgs, msgFormatter = IsChatLineCensored and IsChatLineCensored(arg11) -- arg11: lineID
 			if isChatLineCensored then
 				eventArgs = _G.SafePack(
@@ -1809,7 +1808,7 @@ function CT:MessageFormatter(
 		return
 	end
 
-	local showLink = 1
+	local showLink = 1 ---@type integer?
 	local bossMonster = strsub(chatType, 1, 9) == "RAID_BOSS" or strsub(chatType, 1, 7) == "MONSTER"
 	if bossMonster then
 		showLink = 0
@@ -2264,8 +2263,11 @@ function CT:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
 			if link then
 				resultText = format(onlineMessageTemplate, link, classIcon, coloredName)
 				if CT.db.guildMemberStatusInviteLink then
-					local windInviteLink =
-						format("|Hwtinvite:%s|h%s|h", link, C.StringByTemplate(format("[%s]", L["Invite"]), "info"))
+					local windInviteLink = format(
+						"|Hmerlink:invite:%s|h%s|h",
+						link,
+						C.StringByTemplate(format("[%s]", L["Invite"]), "info")
+					)
 					resultText = resultText .. " " .. windInviteLink
 				end
 				frame:AddMessage(resultText, C.RGBFromTemplate("success"))
@@ -2276,24 +2278,6 @@ function CT:ElvUIChat_GuildMemberStatusMessageHandler(frame, msg)
 
 			return true
 		end
-	end
-end
-
-function CT:BetterSystemMessage()
-	if self.db and self.db.guildMemberStatus and not self.isSystemMessageHandled then
-		local setHyperlink = _G.ItemRefTooltip.SetHyperlink
-		function _G.ItemRefTooltip.SetHyperlink(tt, data, ...)
-			if strsub(data, 1, 8) == "wtinvite" then
-				local player = strmatch(data, "wtinvite:(.+)")
-				if player then
-					InviteUnit(player)
-					return
-				end
-			end
-			setHyperlink(tt, data, ...)
-		end
-
-		self.isSystemMessageHandled = true
 	end
 end
 
@@ -2428,6 +2412,7 @@ function CT:BN_FRIEND_INFO_CHANGED(_, friendIndex, appTexture, noRetry)
 	local onlineCharacters = {}
 	local offlineCharacters = {}
 
+	---@diagnostic disable-next-line: param-type-mismatch
 	for character, characterData in pairs(characters) do
 		local fullName = characterData.data.realm and format("%s-%s", character, characterData.data.realm) or character
 

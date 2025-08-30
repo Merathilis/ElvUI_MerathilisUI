@@ -5,7 +5,7 @@ local S = MER:GetModule("MER_Skins")
 
 local _G = _G
 local ceil, floor, min = ceil, floor, min
-local pairs, print, select, sort, type, unpack = pairs, print, select, sort, type, unpack
+local pairs, sort, type, unpack = pairs, sort, type, unpack
 local strfind = strfind
 local strlen = strlen
 local strsub = strsub
@@ -129,9 +129,8 @@ function module:HandleLibDBIconButton(button, name)
 	return button:IsShown()
 end
 
-local HandleExpansionButton = MM.HandleExpansionButton
-function MM:HandleExpansionButton()
-	HandleExpansionButton()
+function module:HandleExpansionButton(...)
+	self.hooks[MM].HandleExpansionButton(...)
 
 	F.WaitFor(function()
 		return module ~= nil and module.db ~= nil
@@ -718,4 +717,5 @@ function module:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+module:RawHook(MM, "HandleExpansionButton")
 MER:RegisterModule(module:GetName())

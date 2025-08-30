@@ -154,8 +154,8 @@ function MER:OptionsCallback()
 		},
 	}
 
-	for catagory, info in pairs(MER.options) do
-		E.Options.args.mui.args[catagory] = {
+	for category, info in pairs(MER.options) do
+		E.Options.args.mui.args[category] = {
 			order = info.order,
 			type = "group",
 			childGroups = "tab",
