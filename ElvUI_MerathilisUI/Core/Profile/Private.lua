@@ -369,6 +369,7 @@ V.skins = {
 		simc = true,
 		whisperPop = true,
 		paragonReputation = true,
+		manuscriptsJournal = true,
 		bw = {
 			enable = true,
 			queueTimer = {

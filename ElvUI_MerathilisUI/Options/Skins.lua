@@ -30,6 +30,7 @@ local DecorAddons = {
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "Immersion", L["Immersion"], "imm" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
+	{ "ManuscriptsJournal", L["Manuscript Journal"], "manuscriptsJournal" },
 	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "MythicDungeonTools", L["Mythic Dungeon Tools"], "mdt" },
 	{ "Myslot", L["Myslot"], "mys" },

@@ -3,44 +3,47 @@ local module = MER:GetModule("MER_Skins")
 local S = E:GetModule("Skins")
 
 local pairs = pairs
-local tInsertUnique = tInsertUnique
 
-function module:ReskinSecureTabs(lib, panel)
+local function reskinTab(lib, panel)
 	if lib.tabs[panel] then
 		for _, tab in pairs(lib.tabs[panel]) do
-			if not tab.__MER then
+			if not tab.__MERSkin then
 				S:HandleTab(tab)
-				self:ReskinTab(tab)
+				module:ReskinTab(tab)
+				tab:Hide()
+				tab:Show()
+				tab.__MERSkin = true
 			end
 		end
 	end
+end
 
-	if lib.covers[panel] then
-		-- for _, cover in pairs(lib.covers[panel]) do
-		-- if not cover.__MER then
-		-- S:HandleTab(cover)
-		-- end
-		-- end
+local function reskinCoverTab(lib, panel)
+	local cover = lib.covers[panel]
+	if cover and not cover.__MERSkin then
+		S:HandleTab(cover)
+		cover.backdrop.Center:SetAlpha(0)
+		cover:SetPushedTextOffset(0, 0)
+		cover.__MERSkin = true
 	end
 end
 
 function module:SecureTabs(lib)
 	if lib.Add and lib.Update then
-		E:Delay(2, print, 1)
-		self:SecureHook(lib, "Add", "ReskinSecureTabs")
-		self:SecureHook(lib, "Update", "ReskinSecureTabs")
+		self:SecureHook(lib, "Add", reskinTab)
+		self:SecureHook(lib, "Update", reskinCoverTab)
 	end
 
-	local existingPanel = {}
-	for panel in pairs(lib.tabs) do
-		tInsertUnique(existingPanel, panel)
-	end
-	for panel in pairs(lib.covers) do
-		tInsertUnique(existingPanel, panel)
+	if lib.tabs then
+		for panel in pairs(lib.tabs) do
+			reskinTab(lib, panel)
+		end
 	end
 
-	for _, panel in pairs(existingPanel) do
-		self:ReskinSecureTabs(lib, panel)
+	if lib.covers then
+		for panel in pairs(lib.covers) do
+			reskinCoverTab(lib, panel)
+		end
 	end
 end
 

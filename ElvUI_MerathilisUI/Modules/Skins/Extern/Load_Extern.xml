@@ -15,6 +15,7 @@
 	<Script file="KeystoneLoot.lua"/>
 	<Script file="LibQTip.lua"/>
 	<Script file="ls_Toasts.lua"/>
+	<Script file="ManuscriptJournal.lua"/>
 	<Script file="mMediaTag.lua"/>
 	<Script file="MountRoutePlanner.lua"/>
 	<Script file="Myslot.lua"/>
