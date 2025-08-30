@@ -127,9 +127,11 @@ function F.String.Replace(s, mapping)
 	-- argument checking
 	if type(s) ~= "string" then
 		error("bad argument #1 to 'F.Replace' (string expected, got " .. type(s) .. ")")
+		return ""
 	end
 	if type(mapping) ~= "table" then
 		error("bad argument #2 to 'F.Replace' (table expected, got " .. type(mapping) .. ")")
+		return s
 	end
 
 	local pos = 1
@@ -139,6 +141,10 @@ function F.String.Replace(s, mapping)
 
 	while pos <= bytes do
 		charbytes = F.String.CharBytes(s, pos)
+		if not charbytes then
+			F.Developer.ThrowError("Invalid UTF-8 character")
+			return s
+		end
 		local c = strsub(s, pos, pos + charbytes - 1)
 
 		newstr = newstr .. (mapping[c] or c)
