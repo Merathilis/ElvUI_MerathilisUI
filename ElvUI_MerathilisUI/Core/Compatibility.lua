@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local ES = E.Skins
-local S = MER:GetModule("MER_Skins")
+local S = MER:GetModule("MER_Skins") ---@type Skins
+local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
+local ES = E:GetModule("Skins")
 
 local _G = _G
 local format = format
@@ -8,7 +9,6 @@ local gsub, ipairs, type = gsub, ipairs, type
 local strlen, strsplit = strlen, strsplit
 
 local CreateFrame = CreateFrame
-
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
@@ -30,8 +30,13 @@ function MER:ConstructCompatibilityFrame()
 	frame:SetFrameStrata("TOOLTIP")
 	frame:SetFrameLevel(9000)
 
+	MF:InternalHandle(frame)
+
 	local close = F.Widgets.New("CloseButton", frame)
-	close:SetPoint("TOPRIGHT", frame.backdrop, "TOPRIGHT")
+	if close then
+		close:Point("TOPRIGHT", frame.backdrop, "TOPRIGHT")
+		close:SetFrameLevel(frame:GetFrameLevel() + 1)
+	end
 
 	local title = frame:CreateFontString(nil, "ARTWORK")
 	title:FontTemplate()
@@ -64,12 +69,12 @@ function MER:ConstructCompatibilityFrame()
 			F.CreateColorString("]", E.db.general.valuecolor)
 		)
 	)
-	largeTip:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -10)
+	largeTip:Point("TOPLEFT", desc, "BOTTOMLEFT", 0, -10)
 
 	local tex = frame:CreateTexture("MERCompatibilityFrameIllustration", "ARTWORK")
 	tex:Size(64)
 	tex:SetTexture(I.Media.Textures.PepeArt)
-	tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -20, -25)
+	tex:Point("TOPRIGHT", frame, "TOPRIGHT", -20, -25)
 
 	local bottomDesc = frame:CreateFontString(nil, "ARTWORK")
 	bottomDesc:FontTemplate()
@@ -83,7 +88,7 @@ function MER:ConstructCompatibilityFrame()
 			.. L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."]
 	)
 	--bottomDesc:SetText("|cffff0000*|r " .. L["The feature is just a part of that module."])
-	bottomDesc:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
+	bottomDesc:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
 
 	local completeButton =
 		CreateFrame("Button", "MERCompatibilityFrameCompleteButton", frame, "UIPanelButtonTemplate, BackdropTemplate")
@@ -93,7 +98,7 @@ function MER:ConstructCompatibilityFrame()
 	completeButton.Text:SetJustifyV("MIDDLE")
 	F.SetFontOutline(completeButton.Text, E.db.general.font, "4")
 	completeButton:Size(350, 35)
-	completeButton:SetPoint("BOTTOM", bottomDesc, "TOP", 0, 10)
+	completeButton:Point("BOTTOM", bottomDesc, "TOP", 0, 10)
 	ES:HandleButton(completeButton)
 	completeButton:SetScript("OnClick", function()
 		frame:Hide()
@@ -102,13 +107,13 @@ function MER:ConstructCompatibilityFrame()
 	local scrollFrameParent =
 		CreateFrame("ScrollFrame", "MERCompatibilityFrameScrollFrameParent", frame, "UIPanelScrollFrameTemplate")
 	scrollFrameParent:CreateBackdrop("Transparent")
-	scrollFrameParent:SetPoint("TOPLEFT", largeTip, "BOTTOMLEFT", 0, -10)
-	scrollFrameParent:SetPoint("RIGHT", frame, "RIGHT", -32, 0)
-	scrollFrameParent:SetPoint("BOTTOM", completeButton, "TOP", 0, 10)
+	scrollFrameParent:Point("TOPLEFT", largeTip, "BOTTOMLEFT", 0, -10)
+	scrollFrameParent:Point("RIGHT", frame, "RIGHT", -32, 0)
+	scrollFrameParent:Point("BOTTOM", completeButton, "TOP", 0, 10)
 	ES:HandleScrollBar(scrollFrameParent.ScrollBar)
 
 	local scrollFrame = CreateFrame("Frame", "MERCompatibilityFrameScrollFrame", scrollFrameParent)
-	scrollFrame:SetSize(scrollFrameParent:GetSize())
+	scrollFrame:Size(scrollFrameParent:GetSize())
 
 	scrollFrameParent:SetScrollChild(scrollFrame)
 	frame.scrollFrameParent = scrollFrameParent
@@ -133,7 +138,7 @@ local function AddButtonToCompatibilityFrame(data)
 	leftButton.Text:SetJustifyV("MIDDLE")
 	F.SetFontOutline(leftButton.Text, E.db.general.font)
 	leftButton:Size(220, 40)
-	leftButton:SetPoint("TOPLEFT", frame.scrollFrame, "TOPLEFT", 5, -frame.numModules * 50 + 45)
+	leftButton:Point("TOPLEFT", frame.scrollFrame, "TOPLEFT", 5, -frame.numModules * 50 + 45)
 	ES:HandleButton(leftButton)
 	leftButton:SetScript("OnClick", function(self)
 		data.func1()
@@ -148,11 +153,11 @@ local function AddButtonToCompatibilityFrame(data)
 
 	local middleTexture =
 		frame.scrollFrame:CreateTexture("MERCompatibilityFrameMiddleTexture" .. frame.numModules, "ARTWORK")
-	middleTexture:SetPoint("CENTER")
+	middleTexture:Point("CENTER")
 	middleTexture:Size(20)
 	middleTexture:SetTexture(I.Media.Icons.Convert)
 	middleTexture:SetVertexColor(1, 1, 1, 1)
-	middleTexture:SetPoint("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
+	middleTexture:Point("CENTER", frame.scrollFrame, "TOP", 0, -frame.numModules * 50 + 25)
 
 	local rightButton = CreateFrame(
 		"Button",
@@ -166,7 +171,7 @@ local function AddButtonToCompatibilityFrame(data)
 	rightButton.Text:SetJustifyV("MIDDLE")
 	F.SetFontOutline(rightButton.Text, E.db.general.font)
 	rightButton:Size(220, 40)
-	rightButton:SetPoint("TOPRIGHT", frame.scrollFrame, "TOPRIGHT", -5, -frame.numModules * 50 + 45)
+	rightButton:Point("TOPRIGHT", frame.scrollFrame, "TOPRIGHT", -5, -frame.numModules * 50 + 45)
 	ES:HandleButton(rightButton)
 	rightButton:SetScript("OnClick", function(self)
 		data.func2()
@@ -219,14 +224,14 @@ local function GetCheckCompatibilityFunction(targetAddonName, targetAddonLocales
 				module1 = myModuleName,
 				plugin1 = MER.Title,
 				func1 = function()
-					myTable[myKey] = true
-					targetTable[targetKey] = false
+					---@diagnostic disable-next-line: need-check-nil
+					myTable[myKey], targetTable[targetKey] = true, false
 				end,
 				module2 = targetAddonModuleName,
 				plugin2 = targetAddonLocales,
 				func2 = function()
-					myTable[myKey] = false
-					targetTable[targetKey] = true
+					---@diagnostic disable-next-line: need-check-nil
+					myTable[myKey], targetTable[targetKey] = false, true
 				end,
 			})
 		end

@@ -429,9 +429,9 @@ function module:Frame_StopMoving(this, button)
 	end
 end
 
-function module:HandleFrame(this, bindingTarget)
+function module:HandleFrame(this, bindTo)
 	local thisFrame = getFrame(this)
-	local bindingTargetFrame = getFrame(bindingTarget)
+	local bindingTargetFrame = getFrame(bindTo)
 
 	if not thisFrame or thisFrame.MoveFrame then
 		return
@@ -439,7 +439,7 @@ function module:HandleFrame(this, bindingTarget)
 
 	if InCombatLockdown() and thisFrame:IsProtected() then
 		F.TaskManager:AfterCombat(function()
-			self:HandleFrame(this, bindingTarget)
+			self:HandleFrame(this, bindTo)
 			RunNextFrame(function()
 				local thisFrame = getFrame(this)
 				if thisFrame and thisFrame.MoveFrame then
@@ -457,7 +457,7 @@ function module:HandleFrame(this, bindingTarget)
 
 	thisFrame.__MERFramePath = this
 	if not thisFrame.MoveFrame.__MERFramePath then
-		thisFrame.MoveFrame.__MERFramePath = bindingTarget
+		thisFrame.MoveFrame.__MERFramePath = bindTo
 	end
 
 	self:SecureHookScript(thisFrame, "OnMouseDown", "Frame_StartMoving")
@@ -590,12 +590,16 @@ function module:IsRunning()
 	return E.private.mui.misc.moveFrames.enable and not MER.Modules.MoveFrames.StopRunning
 end
 
-function module:InternalHandle(frame, bindingTarget, remember)
+---Handle the internal frame movement
+---@param frame Frame The frame to move
+---@param bindTo Frame? The frame to bind to, if not provided, it will bind to the same frame
+---@param remember boolean? Whether to remember the frame position
+function module:InternalHandle(frame, bindTo, remember)
 	if not self:IsRunning() then
 		return
 	end
 
-	self:HandleFrame(frame, bindingTarget)
+	self:HandleFrame(frame, bindTo)
 
 	if remember == false then
 		frame.__MERFramePath = ""

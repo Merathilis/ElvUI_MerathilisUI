@@ -14,9 +14,9 @@ local collectgarbage = collectgarbage
 
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
+---@class ElvUI_MerathilisUI : AceAddon, AceConsole-3.0, AceEvent-3.0, AceTimer-3.0, AceHook-3.0
 local MER = AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 
---Setting up table to unpack.
 V.mui = {}
 P.mui = {}
 G.mui = {}

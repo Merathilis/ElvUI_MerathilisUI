@@ -12,6 +12,7 @@ local GetBuildInfo = GetBuildInfo
 local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
 local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
+local InviteUnit = C_PartyInfo.InviteUnit
 local GetCVarBool = C_CVar.GetCVarBool
 local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 
@@ -95,7 +96,7 @@ end
 _G.BINDING_CATEGORY_ELVUI_MERATHILISUI_EXTRA = MER.Title .. " - " .. L["Extra"]
 _G.BINDING_HEADER_MEREXTRABUTTONS = L["Extra Buttons"]
 
--- this needs to available early
+-- this needs to be available early (don't put it in Staticpopups.lua)
 E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
 	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),
 	button1 = L["Open Changelog"],
@@ -114,7 +115,7 @@ MER.LinkOperations = {
 	["changelog"] = E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG.OnAccept,
 	["invite"] = function(name)
 		if name then
-			C_PartyInfo_InviteUnit(name)
+			InviteUnit(name)
 		end
 	end,
 }
