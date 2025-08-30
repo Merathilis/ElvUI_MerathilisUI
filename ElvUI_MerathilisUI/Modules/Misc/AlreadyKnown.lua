@@ -34,8 +34,8 @@ local ItemClass_Battlepet = Enum.ItemClass.Battlepet
 local BUYBACK_ITEMS_PER_PAGE = BUYBACK_ITEMS_PER_PAGE
 local COLLECTED = COLLECTED
 local ITEM_SPELL_KNOWN = ITEM_SPELL_KNOWN
-local MAX_GUILDBANK_SLOTS_PER_TAB = MAX_GUILDBANK_SLOTS_PER_TAB or 98
-local NUM_SLOTS_PER_GUILDBANK_GROUP = NUM_SLOTS_PER_GUILDBANK_GROUP or 14
+local MAX_GUILDBANK_SLOTS_PER_TAB = 98
+local NUM_SLOTS_PER_GUILDBANK_GROUP = 14
 
 local knowables = {
 	[Enum.ItemClass.Consumable] = true,
@@ -66,7 +66,7 @@ local function IsAlreadyKnown(link, index)
 	if linkType == "battlepet" then
 		return isPetCollected(linkID)
 	elseif linkType == "item" then
-		local name, _, _, level, _, _, _, _, _, _, _, itemClassID = GetItemInfo(link)
+		local name, _, _, _, _, _, _, _, _, _, _, itemClassID = GetItemInfo(link)
 		if not name then
 			return
 		end
