@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Skins")
+local module = MER:GetModule("MER_Skins") ---@type Skins
 local AB = E:GetModule("ActionBars")
 
 local _G = _G

@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Skins")
+local module = MER:GetModule("MER_Skins") ---@type Skins
 local UF = E:GetModule("UnitFrames")
 
 local function reskinClassBar(_, frame)

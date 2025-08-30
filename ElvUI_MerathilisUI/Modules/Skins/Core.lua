@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Skins")
+local module = MER:GetModule("MER_Skins") ---@class Skins
 
 local _G = _G
 local next = next
