@@ -1,6 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
-local MF = MER:GetModule("MER_MoveFrames")
+local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 local S = E:GetModule("Skins")
 
 local _G = _G

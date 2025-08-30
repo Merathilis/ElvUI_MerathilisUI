@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_MoveFrames")
+local module = MER:GetModule("MER_MoveFrames") ---@class MoveFrames
 local B = E:GetModule("Bags")
 
 local _G = _G
@@ -440,8 +440,6 @@ function module:HandleFrame(this, bindingTarget)
 	if InCombatLockdown() and thisFrame:IsProtected() then
 		F.TaskManager:AfterCombat(function()
 			self:HandleFrame(this, bindingTarget)
-			-- Manually trigger a reposition after combat ends
-			-- Some frames may need to run the fix function first, so reposition should be run next frame to avoid issues
 			RunNextFrame(function()
 				local thisFrame = getFrame(this)
 				if thisFrame and thisFrame.MoveFrame then
@@ -584,7 +582,7 @@ function module:HandleElvUIBag()
 			GameTooltip:Show()
 		end)
 
-		bag.__windFramePath = "ElvUI_Bag_Container"
+		bag.__MERFramePath = "ElvUI_Bag_Container"
 	end
 end
 

@@ -2,7 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Mail")
 local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
-local MF = MER:GetModule("MER_MoveFrames")
+local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 
 -- Credits: WindTools :)
 local _G = _G

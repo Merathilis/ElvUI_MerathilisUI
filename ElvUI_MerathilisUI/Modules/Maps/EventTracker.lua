@@ -1,7 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_EventTracker")
 local S = MER:GetModule("MER_Skins")
-local MF = MER:GetModule("MER_MoveFrames")
+local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
 

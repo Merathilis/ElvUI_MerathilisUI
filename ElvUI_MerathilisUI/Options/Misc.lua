@@ -7,7 +7,7 @@ local MI = MER:GetModule("MER_Misc")
 local SA = MER:GetModule("MER_SpellAlert")
 local CM = MER:GetModule("MER_ContextMenu")
 local RIF = MER:GetModule("MER_RaidInfoFrame")
-local MF = MER:GetModule("MER_MoveFrames")
+local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 
 local async = MER.Utilities.Async
 
