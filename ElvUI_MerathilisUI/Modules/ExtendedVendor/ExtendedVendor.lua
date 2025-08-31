@@ -4,8 +4,8 @@ local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
 
 local _G = _G
+local pairs, unpack = pairs, unpack
 local floor = math.floor
-local unpack = unpack
 
 local CreateFrame = CreateFrame
 local GetNumBuybackItems = GetNumBuybackItems
@@ -158,9 +158,15 @@ function module:MerchantFrame_UpdateBuybackInfo()
 end
 
 function module:Initialize()
-	if IsAddOnLoaded("ExtVendor") then
-		self.StopRunning = "ExtVendor"
-		return
+	for _, addon in pairs({
+		"ExtVendor",
+		"Krowi_ExtendedVendorUI",
+		"CompactVendor",
+	}) do
+		if IsAddOnLoaded(addon) then
+			self.StopRunning = addon
+			return
+		end
 	end
 
 	if not E.db.mui.merchant.enable then
@@ -170,7 +176,7 @@ function module:Initialize()
 	self.db = E.db.mui.merchant
 
 	_G.MERCHANT_ITEMS_PER_PAGE = self.db.numberOfPages * BLIZZARD_MERCHANT_ITEMS_PER_PAGE
-	_G.MerchantFrame:SetWidth(30 + self.db.numberOfPages * 330)
+	_G.MerchantFrame:Width(30 + self.db.numberOfPages * 330)
 
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
 		if not _G["MerchantItem" .. i] then
@@ -187,7 +193,7 @@ function module:Initialize()
 	_G.MerchantBuyBackItem:ClearAllPoints()
 	_G.MerchantBuyBackItem:Point("TOPLEFT", _G.MerchantItem10, "BOTTOMLEFT", 30, -53)
 
-	local frameWidth = 30 + self.db.numberOfPages * 330
+	-- Position page navigation buttons relative to the extended frame width
 	local buttonOffset = 25 + ((self.db.numberOfPages - 1) * 165) -- Center the buttons in the extended frame
 
 	_G.MerchantPrevPageButton:ClearAllPoints()
