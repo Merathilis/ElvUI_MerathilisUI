@@ -9,6 +9,7 @@
 	<Script file="Blizzard_AzeriteEssenceUI.lua"/>
 	<Script file="Blizzard_AzeriteRespecUI.lua"/>
 	<Script file="Blizzard_AzeriteUI.lua"/>
+	<Script file="Blizzard_BattlefieldMap.lua"/>
 	<Script file="Blizzard_BindingUI.lua"/>
 	<Script file="Blizzard_BlackMarketUI.lua"/>
 	<Script file="Blizzard_Calendar.lua"/>

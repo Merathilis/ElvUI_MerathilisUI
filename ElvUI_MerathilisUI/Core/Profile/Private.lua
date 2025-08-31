@@ -319,6 +319,7 @@ V.skins = {
 		inputMethodEditor = true,
 		uiErrors = true,
 		debugTools = true,
+		battlefieldMap = true,
 	},
 
 	libraries = {

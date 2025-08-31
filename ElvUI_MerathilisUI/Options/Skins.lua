@@ -2109,8 +2109,14 @@ options.blizzard = {
 				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.inputMethodEditor
 			end,
 		},
+		battlefieldMap = {
+			type = "toggle",
+			name = L["Battlefield Map"],
+			disabled = function()
+				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.battlefieldMap
+			end,
+		},
 		uiErrors = {
-			order = 10,
 			type = "toggle",
 			name = L["UI Errors"],
 			desc = L["The middle top errors / messages frame (also used for quest progress text)."],
