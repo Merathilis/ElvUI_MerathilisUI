@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Misc")
+local module = MER:GetModule("MER_Misc") ---@class Misc
 
 local _G = _G
 local next = next
@@ -14,18 +14,16 @@ module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
 module.updateProfile = {}
 
---[[
-	@param {string} name
-	@param {function} [func=module.name]
-]]
+--- Register a callback function
+---@param name string Function name
+---@param func function|string? Callback function (defaults to module[name] if not provided)
 function module:AddCallback(name, func)
 	tinsert(self.nonAddonsToLoad, func or self[name])
 end
 
---[[
-	@param {string} addonName
-	@param {function} [func=module.addonName]
-]]
+--- Register an addon callback function
+---@param addonName string Addon name
+---@param func? function|string Addon callback function (defaults to module[addonName] if not provided)
 function module:AddCallbackForAddon(addonName, func)
 	if func and type(func) == "string" then
 		func = self[func]
@@ -40,10 +38,9 @@ function module:AddCallbackForAddon(addonName, func)
 	tinsert(addon, func or self[addonName])
 end
 
---[[
-	@param {string} name
-	@param {function} [func=module.name]
-]]
+--- Register an update callback function
+---@param name string Function name
+---@param func function|string? Callback function (defaults to self[name] if not provided)
 function module:AddCallbackForUpdate(name, func)
 	tinsert(self.updateProfile, func or self[name])
 end
@@ -55,22 +52,20 @@ local function errorhandler(err)
 	return _G.geterrorhandler()(err)
 end
 
---[[
-	回调注册的插件函数
-	@param {string} addonName 插件名
-	@param {object} object 回调的函数
-]]
+--- Call registered addon functions
+---@param addonName string Addon name
+---@param object function[] Array of callback functions
 function module:CallLoadedAddon(addonName, object)
 	for _, func in next, object do
-		xpcall(func, errorhandler, self)
+		xpcall(func, F.Developer.LogDebug, self)
 	end
 
 	self.addonsToLoad[addonName] = nil
 end
 
---[[
-	@param {string} addonName
-]]
+--- Trigger callbacks based on addon loading events
+---@param _ any Unused parameter
+---@param addonName string Addon name
 function module:ADDON_LOADED(_, addonName)
 	if not E.initialized then
 		return

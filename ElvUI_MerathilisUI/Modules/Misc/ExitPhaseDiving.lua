@@ -1,6 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local async = MER.Utilities.Async
-local module = MER:GetModule("MER_Misc")
+local module = MER:GetModule("MER_Misc") ---@class Misc
 local S = MER:GetModule("MER_Skins")
 
 local CreateFrame = CreateFrame

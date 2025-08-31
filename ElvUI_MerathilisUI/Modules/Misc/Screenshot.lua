@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Misc")
+local module = MER:GetModule("MER_Misc") ---@class Misc
 
 function module:TakeScreenshot(event, delay)
 	local db = E.db.mui.misc.screenshot

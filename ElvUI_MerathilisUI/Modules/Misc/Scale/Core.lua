@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Misc")
+local module = MER:GetModule("MER_Misc") ---@class Misc
 
 function module:Scale()
 	if not E.db and not E.db.mui then
