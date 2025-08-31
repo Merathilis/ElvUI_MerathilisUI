@@ -32,7 +32,7 @@ function module:Blizzard_Calendar()
 		end
 
 		if index == 1 then
-			F.MoveFrameWithOffset(button, 10, -5)
+			F.Move(button, 10, -5)
 		end
 	end
 

@@ -15,17 +15,14 @@ local len, utf8sub = string.len, string.utf8sub
 local tcontains = tContains
 
 local CreateFrame = CreateFrame
-local GenerateFlatClosure = GenerateFlatClosure
 local GetContainerItemID = C_Container.GetContainerItemID
 local GetContainerNumSlots = C_Container.GetContainerNumSlots
 local GetBuffDataByIndex = C_UnitAuras.GetBuffDataByIndex
-local GetInstanceInfo = GetInstanceInfo
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
-local RunNextFrame = RunNextFrame
 
 local GetInventoryItem = C_TooltipInfo.GetInventoryItem
 local GetBagItem = C_TooltipInfo.GetBagItem
@@ -1750,7 +1747,7 @@ end
 ---@param frame Frame The frame to move
 ---@param x number X offset to apply
 ---@param y number Y offset to apply
-function F.MoveFrameWithOffset(frame, x, y)
+function F.Move(frame, x, y)
 	if not frame or not frame.ClearAllPoints then
 		return
 	end

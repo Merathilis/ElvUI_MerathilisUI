@@ -58,7 +58,7 @@ local function reskinDungeonButton(MDT)
 				module:CreateShadow(button)
 			end
 
-			F.MoveFrameWithOffset(button.shortText, 0, 2)
+			F.Move(button.shortText, 0, 2)
 
 			local BUTTON_SIZE = 40
 
@@ -264,7 +264,7 @@ function module:MDTSpellButton(Constructor)
 		S:HandleIcon(widget.icon)
 		local iconWidth, iconHeight = widget.icon:GetSize()
 		widget.icon:SetSize(iconWidth - 2, iconHeight - 2)
-		F.MoveFrameWithOffset(widget.icon, -3, 0)
+		F.Move(widget.icon, -3, 0)
 
 		widget.frame.background:SetAlpha(0)
 		reskinButtonTexture(widget.frame.highlight, 0.2)

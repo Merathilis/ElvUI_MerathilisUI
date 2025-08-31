@@ -18,7 +18,7 @@ function module:RaiderIO_DelayedSkinning()
 		TT:SetStyle(_G.RaiderIO_ProfileTooltip)
 		_G.RaiderIO_ProfileTooltip.__MERSetPoint = _G.RaiderIO_ProfileTooltip.SetPoint
 		hooksecurefunc(_G.RaiderIO_ProfileTooltip, "SetPoint", function()
-			F.MoveFrameWithOffset(_G.RaiderIO_ProfileTooltip, 4, 0)
+			F.Move(_G.RaiderIO_ProfileTooltip, 4, 0)
 		end)
 	end
 

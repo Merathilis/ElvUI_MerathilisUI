@@ -882,9 +882,9 @@ function module:Rematch()
 
 	frame.__MERSetPoint = frame.SetPoint
 	hooksecurefunc(frame, "SetPoint", function()
-		F.MoveFrameWithOffset(frame, 1, 0)
+		F.Move(frame, 1, 0)
 	end)
-	F.MoveFrameWithOffset(frame, 1, 0)
+	F.Move(frame, 1, 0)
 
 	reskinMainFrame(frame)
 	reskinTitleBar(frame.TitleBar)

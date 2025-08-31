@@ -83,7 +83,7 @@ local function reskinFlightMapContainer(frame)
 
 	frame.__MERSetPoint = frame.SetPoint
 	hooksecurefunc(frame, "SetPoint", function(self)
-		F.MoveFrameWithOffset(self, 15, 0)
+		F.Move(self, 15, 0)
 	end)
 
 	hooksecurefunc(frame, "SetParent", function(self, parent)
@@ -104,7 +104,7 @@ local function settingsCategory(frame)
 		frame.Highlight:SetAlpha(0)
 		frame.backdrop:SetInside(frame, 10, 5)
 
-		F.MoveFrameWithOffset(frame.Title, 0, -2)
+		F.Move(frame.Title, 0, -2)
 		return
 	end
 
@@ -182,7 +182,7 @@ function module:WorldQuestTab()
 		reskinTab(_G.WQT_QuestMapTab)
 		_G.WQT_QuestMapTab.__MERSetPoint = _G.WQT_QuestMapTab.SetPoint
 		hooksecurefunc(_G.WQT_QuestMapTab, "SetPoint", function()
-			F.MoveFrameWithOffset(_G.WQT_QuestMapTab, 0, -2)
+			F.Move(_G.WQT_QuestMapTab, 0, -2)
 		end)
 	end
 
