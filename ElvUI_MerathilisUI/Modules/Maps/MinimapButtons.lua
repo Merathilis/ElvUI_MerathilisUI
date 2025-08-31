@@ -571,11 +571,7 @@ function module:UpdateLayout()
 		end
 
 		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable and frame.backdrop.MERshadow then
-			if not self.db.backdrop then
-				frame.backdrop.MERshadow:Show()
-			else
-				frame.backdrop.MERshadow:Hide()
-			end
+			frame.backdrop.MERshadow:SetShown(not self.db.backdrop)
 		end
 
 		if moveButton == "GameTimeFrame" then

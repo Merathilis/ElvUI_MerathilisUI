@@ -4,6 +4,7 @@ local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs = pairs
+local tcontains = tcontains
 
 local trackers = {
 	_G.ScenarioObjectiveTracker,
@@ -30,6 +31,32 @@ function module:ReskinObjectiveTrackerHeader(header)
 	F.SetFontOutline(header.Text)
 end
 
+-- Copied from ElvUI ObjectiveTracker skin
+local function ReskinQuestIcon(button)
+	if not button then
+		return
+	end
+
+	if not button.IsSkinned then
+		button:SetSize(24, 24)
+		button:SetNormalTexture(E.ClearTexture)
+		button:SetPushedTexture(E.ClearTexture)
+		button:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
+
+		local icon = button.icon or button.Icon
+		if icon then
+			S:HandleIcon(icon, true)
+			icon:SetInside()
+		end
+
+		button.IsSkinned = true
+	end
+
+	if button.backdrop then
+		button.backdrop:SetFrameLevel(0)
+	end
+end
+
 function module:ReskinObjectiveTrackerBlockRightEdgeButton(_, block)
 	local frame = block.rightEdgeFrame
 	if not frame then
@@ -45,6 +72,12 @@ function module:ReskinObjectiveTrackerBlockRightEdgeButton(_, block)
 		self:CreateBackdropShadow(frame)
 		frame.__MERSkin = true
 	end
+
+	if frame.template == "QuestObjectiveItemButtonTemplate" and not frame.__MERSkin then
+		ReskinQuestIcon(frame)
+		self:CreateShadow(frame)
+		frame.__MERSkin = true
+	end
 end
 
 function module:ReskinObjectiveTrackerBlock(_, block)
@@ -54,9 +87,8 @@ function module:ReskinObjectiveTrackerBlock(_, block)
 
 	self:ReskinObjectiveTrackerBlockRightEdgeButton(_, block)
 
-	if block.AddRightEdgeFrame and not block.__MERRightEdgeHooked then
+	if block.AddRightEdgeFrame and not self:IsHooked(block, "AddRightEdgeFrame") then
 		self:SecureHook(block, "AddRightEdgeFrame", "ReskinObjectiveTrackerBlockRightEdgeButton")
-		block.__MERRightEdgeHooked = true
 	end
 end
 
