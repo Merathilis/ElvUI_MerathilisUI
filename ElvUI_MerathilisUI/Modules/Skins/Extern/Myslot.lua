@@ -9,10 +9,6 @@ local floor = floor
 local _G = _G
 local LibStub = _G.LibStub
 
-local function isAlmost(a, b)
-	return abs(a - b) < 0.1
-end
-
 function module:Myslot()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.mys then
 		return
@@ -31,7 +27,7 @@ function module:Myslot()
 		local objType = child:GetObjectType()
 		if objType == "Button" then
 			S:HandleButton(child)
-			if isAlmost(child:GetWidth(), 25) and child:GetNumPoints() == 1 then
+			if F.IsAlmost(child:GetWidth(), 25) and child:GetNumPoints() == 1 then
 				local point, relativeTo, relativePoint, xOfs, yOfs = child:GetPoint(1)
 				if relativePoint == "RIGHT" then
 					xOfs = xOfs + 3
@@ -42,7 +38,7 @@ function module:Myslot()
 		elseif objType == "EditBox" then
 			S:HandleEditBox(child)
 		elseif objType == "Frame" then
-			if isAlmost(child:GetWidth(), 600) and isAlmost(child:GetHeight(), 455) then
+			if F.IsAlmost(child:GetWidth(), 600) and F.IsAlmost(child:GetHeight(), 455) then
 				child:SetBackdrop(nil)
 				child:CreateBackdrop("Transparent")
 				child.backdrop:SetInside(child, 2, 2)

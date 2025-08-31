@@ -1746,6 +1746,10 @@ function F.WaitFor(condition, callback, interval, maxTimes)
 	resumeCoroutine()
 end
 
+---Move frame by offset while preserving all anchor points
+---@param frame Frame The frame to move
+---@param x number X offset to apply
+---@param y number Y offset to apply
 function F.MoveFrameWithOffset(frame, x, y)
 	if not frame or not frame.ClearAllPoints then
 		return
@@ -1766,6 +1770,22 @@ function F.MoveFrameWithOffset(frame, x, y)
 		local point, relativeTo, relativePoint, xOfs, yOfs = unpack(data)
 		setPoint(frame, point, relativeTo, relativePoint, xOfs + x, yOfs + y)
 	end
+end
+
+---Check if two numbers are approximately equal
+---@param a number? First number
+---@param b number? Second number
+---@return boolean equal True if numbers are approximately equal
+function F.IsAlmost(a, b)
+	if a == nil and b ~= nil or a ~= nil and b == nil then
+		return false
+	end
+
+	if a == nil and b == nil then
+		return true
+	end
+
+	return abs(a - b) < 0.01
 end
 
 function F:ReskinNavBar(bar)

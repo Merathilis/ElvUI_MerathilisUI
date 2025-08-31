@@ -12,18 +12,6 @@ local type = type
 
 local CreateColor = CreateColor
 
-local function isAlmost(a, b)
-	if a == nil and b ~= nil or a ~= nil and b == nil then
-		return false
-	end
-
-	if a == nil and b == nil then
-		return true
-	end
-
-	return abs(a - b) < 0.1
-end
-
 local colors = {
 	greyLight = "b5b5b5",
 	primary = "00d1b2",
@@ -51,7 +39,7 @@ function U.ExtractColorFromTable(colorTable, override)
 end
 
 function U.IsRGBEqual(c1, c2)
-	return isAlmost(c1.r, c2.r) and isAlmost(c1.g, c2.g) and isAlmost(c1.b, c2.b)
+	return F.IsAlmost(c1.r, c2.r) and F.IsAlmost(c1.g, c2.g) and F.IsAlmost(c1.b, c2.b)
 end
 
 function U.HexToRGB(hex)

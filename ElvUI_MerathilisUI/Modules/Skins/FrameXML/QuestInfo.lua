@@ -18,10 +18,6 @@ local GetNextWaypointText = C_QuestLog.GetNextWaypointText
 local GetSelectedQuest = C_QuestLog.GetSelectedQuest
 local GetQuestRewardSpells = C_QuestInfoSystem.GetQuestRewardSpells
 
-local function isAlmost(a, b)
-	return abs(a - b) < 0.01
-end
-
 --[[
 	Quest Frame Skinning Helper Functions
 	Provides comprehensive styling for quest frames, objectives, and reward displays
@@ -95,7 +91,7 @@ end
 	@param redValue - The red component of the current color
 --]]
 local function ReplaceQuestTextColor(textObject, redValue, greenValue, blueValue)
-	if redValue == 0 and isAlmost(greenValue, 0.82) and isAlmost(blueValue, 0.82) then
+	if redValue == 0 and F.IsAlmost(greenValue, 0.82) and F.IsAlmost(blueValue, 0.82) then
 		return
 	elseif redValue == 0 or redValue == DEFAULT_COLOR[1] then
 		textObject:SetTextColor(1, 1, 1) -- White for better readability

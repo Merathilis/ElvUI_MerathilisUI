@@ -110,6 +110,9 @@ function module:BlizzMisc()
 
 	-- Cinematic Frame
 	self:CreateShadow(_G.CinematicFrameCloseDialog)
+
+	-- Opacity Frame
+	self:CreateShadow(_G.OpacityFrame)
 end
 
 module:AddCallback("BlizzMisc")
