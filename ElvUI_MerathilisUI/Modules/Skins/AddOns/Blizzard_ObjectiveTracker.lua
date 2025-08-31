@@ -4,7 +4,6 @@ local S = E:GetModule("Skins")
 
 local _G = _G
 local pairs = pairs
-local tcontains = tcontains
 
 local trackers = {
 	_G.ScenarioObjectiveTracker,

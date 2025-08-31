@@ -43,6 +43,8 @@ function module:MerchantFrame()
 		for i = 1, 3 do
 			local token = _G["MerchantToken" .. i]
 			if token and not token.__MERSkin then
+				local width = token:GetWidth()
+				token:Width(width + 2)
 				F.SetFontOutline(token.Count)
 				F.MoveFrameWithOffset(token.Count, -2, 0)
 				token.Icon:SetTexCoord(unpack(E.TexCoords))
