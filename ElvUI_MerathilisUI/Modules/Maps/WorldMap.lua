@@ -4,7 +4,6 @@ local module = MER:GetModule("MER_WorldMap")
 local _G = _G
 local ceil = ceil
 local gsub = gsub
-local ipairs = ipairs
 local mod = mod
 local pairs = pairs
 local strsplit = strsplit
@@ -2775,7 +2774,7 @@ local battleFieldMapCache = { overlayTextures = {}, RemoveAllData = resetCache }
 -- Interface\AddOns\Blizzard_SharedMapDataProviders\MapExplorationDataProvider.lua
 -- MapExplorationPinMixin:RefreshOverlays(fullUpdate)
 -- Some tricky code from Leatrix_Maps
-function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, mapFrame, cache)
+function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, cache)
 	local wasWaitingForLoad = pin.isWaitingForLoad
 	cache:RemoveAllData()
 	if fullUpdate or wasWaitingForLoad then
@@ -2801,10 +2800,6 @@ function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, mapFrame, cac
 	if exploredMapTextures then
 		for _, info in pairs(exploredMapTextures) do
 			local key = info.textureWidth .. ":" .. info.textureHeight .. ":" .. info.offsetX .. ":" .. info.offsetY
-			local files = {}
-			for _, fileDataID in ipairs(info.fileDataIDs) do
-				files[tostring(fileDataID)] = true
-			end
 			db[key] = nil
 		end
 	end
@@ -2823,6 +2818,15 @@ function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, mapFrame, cac
 
 	for key, files in pairs(db) do
 		local textureWidth, textureHeight, offsetX, offsetY = strsplit(":", key)
+		local textureWidth = tonumber(textureWidth)
+		local textureHeight = tonumber(textureHeight)
+		local offsetX = tonumber(offsetX)
+		local offsetY = tonumber(offsetY)
+
+		if not (textureWidth and textureHeight and offsetX and offsetY) then
+			return
+		end
+
 		local fileDataIDs = { strsplit(",", files) }
 		local numTexturesWide = ceil(textureWidth / TILE_SIZE_WIDTH)
 		local numTexturesTall = ceil(textureHeight / TILE_SIZE_HEIGHT)
@@ -2888,7 +2892,7 @@ function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, mapFrame, cac
 end
 
 -- from Leatrix_Maps
-local function MER_Pool_HideAndClearAnchors(pool, texture)
+local function MER_overlayTexturePoolResetter(pool, texture)
 	texture:SetVertexColor(1, 1, 1)
 	texture:SetAlpha(1)
 	return Pool_HideAndClearAnchors(pool, texture)
@@ -2908,18 +2912,24 @@ function module:Reveal()
 
 	for pin in WorldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
 		hooksecurefunc(pin, "RefreshOverlays", function(MER_pin, fullUpdate)
-			module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, WorldMapFrame, worldMapCache)
+			module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, worldMapCache)
 		end)
-		pin.overlayTexturePool.resetterFunc = MER_Pool_HideAndClearAnchors
+		pin.overlayTexturePool.resetterFunc = MER_overlayTexturePoolResetter
 	end
 
-	if BattlefieldMapFrame then
-		for pin in BattlefieldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
-			hooksecurefunc(pin, "RefreshOverlays", function(MER_pin, fullUpdate)
-				module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, BattlefieldMapFrame, battleFieldMapCache)
-			end)
-			pin.overlayTexturePool.resetterFunc = MER_Pool_HideAndClearAnchors
-		end
+	if IsAddOnLoaded("Blizzard_BattlefieldMap") then
+		self:RevealBattleFieldMap()
+	else
+		self:RegisterEvent("ADDON_LOADED")
+	end
+end
+
+function module:RevealBattleFieldMap()
+	for pin in BattlefieldMapFrame:EnumeratePinsByTemplate("MapExplorationPinTemplate") do
+		hooksecurefunc(pin, "RefreshOverlays", function(MER_pin, fullUpdate)
+			module:MapExplorationPin_RefreshOverlays(MER_pin, fullUpdate, battleFieldMapCache)
+		end)
+		pin.overlayTexturePool.resetterFunc = MER_overlayTexturePoolResetter
 	end
 end
 
@@ -2933,6 +2943,13 @@ function module:Scale()
 
 	EventRegistry:RegisterCallback("WorldMapMinimized", _G.WorldMapFrame.SetScale, _G.WorldMapFrame, self.db.scale.size)
 	EventRegistry:RegisterCallback("WorldMapMaximized", _G.WorldMapFrame.SetScale, _G.WorldMapFrame, 1)
+end
+
+function module:ADDON_LOADED(event, addonName)
+	if addonName == "Blizzard_BattlefieldMap" then
+		self:UnregisterEvent(event)
+		self:RevealBattleFieldMap()
+	end
 end
 
 function module:MapFunc()
