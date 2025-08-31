@@ -9,9 +9,11 @@ local hooksecurefunc = hooksecurefunc
 function module:HandleMerchantItem(index)
 	for currencyIndex = 1, 3 do
 		local itemLine = _G["MerchantItem" .. index .. "AltCurrencyFrameItem" .. currencyIndex]
-		for _, region in pairs({ itemLine:GetRegions() }) do
-			if region:GetObjectType() == "Texture" then
-				region:SetTexCoord(unpack(E.TexCoords))
+		if itemLine then
+			for _, region in pairs({ itemLine:GetRegions() }) do
+				if region:GetObjectType() == "Texture" then
+					region:SetTexCoord(unpack(E.TexCoords))
+				end
 			end
 		end
 	end
@@ -43,8 +45,7 @@ function module:MerchantFrame()
 		for i = 1, 3 do
 			local token = _G["MerchantToken" .. i]
 			if token and not token.__MERSkin then
-				local width = token:GetWidth()
-				token:Width(width + 2)
+				token:Width(token:GetWidth() + 2)
 				F.SetFontOutline(token.Count)
 				F.MoveFrameWithOffset(token.Count, -2, 0)
 				token.Icon:SetTexCoord(unpack(E.TexCoords))
