@@ -118,7 +118,6 @@ function module:UpdateButtons()
 		end
 
 		if button.isMarkButton then
-			local button = self.bar.buttons[i]
 			button:SetAttribute("shift-type*", nil)
 			button:SetAttribute("alt-type*", nil)
 			button:SetAttribute("ctrl-type*", nil)
@@ -127,14 +126,14 @@ function module:UpdateButtons()
 
 			if not self.db.inverse then
 				button:SetAttribute("macrotext1", format("/tm %d", i))
-				button:SetAttribute("macrotext2", "/tm 9")
+				button:SetAttribute("macrotext2", "/tm 0")
 				button:SetAttribute(format("%s-macrotext1", self.db.modifier), format("/wm %d", TargetToWorld[i]))
 				button:SetAttribute(format("%s-macrotext2", self.db.modifier), format("/cwm %d", TargetToWorld[i]))
 			else
 				button:SetAttribute("macrotext1", format("/wm %d", TargetToWorld[i]))
 				button:SetAttribute("macrotext2", format("/cwm %d", TargetToWorld[i]))
 				button:SetAttribute(format("%s-macrotext1", self.db.modifier), format("/tm %d", i))
-				button:SetAttribute(format("%s-macrotext2", self.db.modifier), "/tm 9")
+				button:SetAttribute(format("%s-macrotext2", self.db.modifier), "/tm 0")
 			end
 		end
 	end
@@ -169,11 +168,11 @@ function module:ToggleSettings()
 
 	if self.db.mouseOver then
 		self.bar:SetScript("OnEnter", function(self)
-			self:SetAlpha(1)
+			bar:SetAlpha(1)
 		end)
 
 		self.bar:SetScript("OnLeave", function(self)
-			self:SetAlpha(0)
+			bar:SetAlpha(0)
 		end)
 
 		self.bar:SetAlpha(0)
@@ -270,35 +269,33 @@ function module:CreateButtons()
 			button:SetAttribute("type*", "macro")
 			button:SetAttribute(format("%s-type*", self.db.modifier), "macro")
 
-			self:UpdateCountDownButton()
-
 			button.isMarkButton = true
 		elseif i == 9 then
 			tex:SetTexture("Interface\\BUTTONS\\UI-GroupLoot-Pass-Up")
 
 			button:SetAttribute("type", "click")
 			if not self.db.inverse then
-				button:SetScript("OnClick", function(self)
+				button:SetScript("OnClick", function(btn)
 					if _G[format("Is%sKeyDown", module.modifierString)]() then
 						ClearRaidMarker()
 					else
 						local now = GetTime()
 						if now - lastClear > 1 then -- limiting
 							lastClear = now
-							for i = 8, 0, -1 do
-								E:Delay((8 - i) * 0.34, SetRaidTarget, "player", i)
+							for j = 8, 0, -1 do
+								E:Delay((8 - j) * 0.34, SetRaidTarget, "player", j)
 							end
 						end
 					end
 				end)
 			else
-				button:SetScript("OnClick", function(self)
+				button:SetScript("OnClick", function(btn)
 					if _G[format("Is%sKeyDown", module.modifierString)]() then
 						local now = GetTime()
 						if now - lastClear > 1 then -- limiting
 							lastClear = now
-							for i = 8, 0, -1 do
-								E:Delay((8 - i) * 0.34, SetRaidTarget, "player", i)
+							for j = 8, 0, -1 do
+								E:Delay((8 - j) * 0.34, SetRaidTarget, "player", j)
 							end
 						end
 					else
@@ -316,13 +313,13 @@ function module:CreateButtons()
 			tex:SetTexCoord(0.25, 0.8, 0.2, 0.75)
 			button:SetAttribute("type*", "macro")
 			if IsAddOnLoaded("BigWigs") then
-				button:SetAttribute("macrotext1", "/pull " .. module.db.countDownTime)
+				button:SetAttribute("macrotext1", "/pull " .. self.db.countDownTime)
 				button:SetAttribute("macrotext2", "/pull 0")
 			elseif IsAddOnLoaded("DBM-Core") then
-				button:SetAttribute("macrotext1", "/dbm pull " .. module.db.countDownTime)
+				button:SetAttribute("macrotext1", "/dbm pull " .. self.db.countDownTime)
 				button:SetAttribute("macrotext2", "/dbm pull 0")
 			else
-				button:SetAttribute("macrotext1", _G.SLASH_COUNTDOWN1 .. " " .. module.db.countDownTime)
+				button:SetAttribute("macrotext1", _G.SLASH_COUNTDOWN1 .. " " .. self.db.countDownTime)
 				button:SetAttribute("macrotext2", _G.SLASH_COUNTDOWN1 .. " " .. -1)
 			end
 		end
@@ -387,7 +384,7 @@ function module:CreateButtons()
 			tex:SetScale(tex.__toScale)
 		end)
 
-		button:SetScript("OnEnter", function(self)
+		button:SetScript("OnEnter", function(btn)
 			if module.db.buttonAnimation then
 				local progress = F.Or(animGroup:GetProgress(), 0)
 				local currentScale = F.Or(tex:GetScale(), 1)
@@ -408,16 +405,16 @@ function module:CreateButtons()
 			end
 
 			local icon = F.GetIconString(I.Media.Textures.pepeSmall, 14)
-			self:SetBackdropBorderColor(0.7, 0.7, 0)
+			btn:SetBackdropBorderColor(0.7, 0.7, 0)
 			if module.db.tooltip then
-				GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
+				GameTooltip:SetOwner(btn, "ANCHOR_TOPRIGHT")
 				GameTooltip:SetText(tooltipTitle .. " " .. icon)
 				GameTooltip:AddLine(tooltipText, 1, 1, 1)
 				GameTooltip:Show()
 			end
 		end)
 
-		button:SetScript("OnLeave", function(self)
+		button:SetScript("OnLeave", function(btn)
 			if module.db.buttonAnimation then
 				local progress = F.Or(animGroup:GetProgress(), 0)
 				local currentScale = F.Or(tex:GetScale(), 1)
@@ -435,7 +432,7 @@ function module:CreateButtons()
 				animGroup:Play()
 			end
 
-			self:SetBackdropBorderColor(0, 0, 0)
+			btn:SetBackdropBorderColor(0, 0, 0)
 			if module.db.tooltip then
 				GameTooltip:Hide()
 			end
