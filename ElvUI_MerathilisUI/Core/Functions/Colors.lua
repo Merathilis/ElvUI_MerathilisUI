@@ -7,7 +7,6 @@ local abs = abs
 local min = min
 
 local CreateColor = CreateColor
-local GetClassColor = GetClassColor
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
@@ -459,7 +458,7 @@ function F.CreateClassColorString(text, englishClass)
 		return text
 	end
 
-	local r, g, b = GetClassColor(englishClass)
+	local r, g, b = E.myClassColor:GetRGBA()
 	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
 
 	return hex .. text .. "|r"

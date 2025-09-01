@@ -39,7 +39,7 @@ function U.ExtractColorFromTable(colorTable, override)
 end
 
 function U.IsRGBEqual(c1, c2)
-	return F.IsAlmost(c1.r, c2.r) and F.IsAlmost(c1.g, c2.g) and F.IsAlmost(c1.b, c2.b)
+	return F.IsAlmost(c1.r, c2.r, 0.005) and F.IsAlmost(c1.g, c2.g, 0.005) and F.IsAlmost(c1.b, c2.b, 0.005)
 end
 
 function U.HexToRGB(hex)

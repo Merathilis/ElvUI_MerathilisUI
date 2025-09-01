@@ -5,8 +5,6 @@ local C = MER.Utilities.Color
 local _G = _G
 local pairs = pairs
 
-local GetClassColor = GetClassColor
-
 local RED_FONT_COLOR = RED_FONT_COLOR
 local YELLOW_FONT_COLOR = YELLOW_FONT_COLOR
 
@@ -30,7 +28,7 @@ function module:UIErrors()
 		if r == nil or g == nil or b == nil then
 			local db = E.private.mui.skins.uiErrors
 			if db.normalTextClassColor then
-				r, g, b = GetClassColor(E.myclass)
+				r, g, b = E.myClassColor:GetRGBA()
 				a = 1
 			else
 				r, g, b, a = db.normalTextColor.r, db.normalTextColor.g, db.normalTextColor.b, db.normalTextColor.a
