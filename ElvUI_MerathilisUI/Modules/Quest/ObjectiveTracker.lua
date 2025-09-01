@@ -16,6 +16,7 @@ local tonumber = tonumber
 local CreateFrame = CreateFrame
 local SortQuestWatches = C_QuestLog.SortQuestWatches
 
+---@type ObjectiveTrackerModuleTemplate[]
 local trackers = {
 	_G.ScenarioObjectiveTracker,
 	_G.UIWidgetObjectiveTracker,
@@ -30,83 +31,75 @@ local trackers = {
 }
 
 do
-	local replaceRule = {}
+	---@type table<string, string>
+	local replaceRules = {}
+	local numReplaceRules = #GetKeysArray(replaceRules)
 
-	function module:ShortTitle(title)
-		if not title then
+	---Shorten the header text based on the rules defined in `replaceRules`
+	---@param headerText ObjectiveTrackerModuleHeaderTemplate_Text
+	function module:ShortHeader(headerText)
+		if numReplaceRules == 0 or not self.db or not self.db.header or not self.db.header.shortHeader then
 			return
 		end
 
-		title = F.String.Replace(title, {
+		local key = F.Strings.Replace(headerText:GetText(), {
 			["\239\188\140"] = ", ",
 			["\239\188\141"] = ".",
 		})
 
-		for longName, shortName in pairs(replaceRule) do
-			if longName == title then
-				return shortName
-			end
+		if replaceRules[key] then
+			headerText:SetText(replaceRules[key])
 		end
-		return title
 	end
 end
 
-local function SetHeaderTextColorHook(text)
-	if not text.MERHooked then
-		text.__MERSetTextColor = text.SetTextColor
-		text.SetTextColor = function(self, r, g, b, a)
-			local rgbTable = { r = r, g = g, b = b, a = a }
+---@class RGB
+---@field r number
+---@field g number
+---@field b number
 
-			if C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR["Header"], rgbTable) then
-				if module.db and module.db.enable and module.db.titleColor and module.db.titleColor.enable then
-					r = module.db.titleColor.classColor and MER.ClassColor.r or module.db.titleColor.customColorNormal.r
-					g = module.db.titleColor.classColor and MER.ClassColor.g or module.db.titleColor.customColorNormal.g
-					b = module.db.titleColor.classColor and MER.ClassColor.b or module.db.titleColor.customColorNormal.b
-				end
-			elseif C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR["HeaderHighlight"], rgbTable) then
-				if module.db and module.db.enable and module.db.titleColor and module.db.titleColor.enable then
-					r = module.db.titleColor.classColor and MER.ClassColor.r
-						or module.db.titleColor.customColorHighlight.r
-					g = module.db.titleColor.classColor and MER.ClassColor.g
-						or module.db.titleColor.customColorHighlight.g
-					b = module.db.titleColor.classColor and MER.ClassColor.b
-						or module.db.titleColor.customColorHighlight.b
-				end
-			end
-			self:__MERSetTextColor(r, g, b, a)
-		end
-		text:SetTextColor(C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Header"], { a = 1 }))
-		text.MERHooked = true
+---@class RGBA : RGB
+---@field a number
+
+---Override the Blizzard text color used in objective tracker
+---@param rgba RGBA The RGBA color table
+---@param config {classColor: boolean, customColorNormal: RGB, customColorHighlight: RGB} The configuration table
+---@param normal string The key of normal color in OBJECTIVE_TRACKER_COLOR
+---@param highlight string The key of highlight color in OBJECTIVE_TRACKER_COLOR
+---@return RGBA newRGBA The overridden RGBA color table
+local function OverrideColor(rgba, config, normal, highlight)
+	local targetColor ---@type RGB?
+	if C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR[normal], rgba) then
+		targetColor = config.classColor and E.myClassColor or config.customColorNormal
+	elseif C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR[highlight], rgba) then
+		targetColor = config.classColor and E.myClassColor or config.customColorHighlight
 	end
+
+	if targetColor then
+		rgba.r, rgba.g, rgba.b = targetColor.r, targetColor.g, targetColor.b
+	end
+
+	return rgba
 end
 
-local function SetInfoTextColorHook(text)
-	if not text.MERHooked then
-		text.__MERSetTextColor = text.SetTextColor
-		text.SetTextColor = function(self, r, g, b, a)
-			local rgbTable = { r = r, g = g, b = b, a = a }
-
-			if C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR["Normal"], rgbTable) then
-				if module.db and module.db.enable and module.db.infoColor and module.db.infoColor.enable then
-					r = module.db.infoColor.classColor and MER.ClassColor.r or module.db.infoColor.customColorNormal.r
-					g = module.db.infoColor.classColor and MER.ClassColor.g or module.db.infoColor.customColorNormal.g
-					b = module.db.infoColor.classColor and MER.ClassColor.b or module.db.infoColor.customColorNormal.b
-				end
-			elseif C.IsRGBEqual(_G.OBJECTIVE_TRACKER_COLOR["NormalHighlight"], rgbTable) then
-				if module.db and module.db.enable and module.db.infoColor and module.db.infoColor.enable then
-					r = module.db.infoColor.classColor and MER.ClassColor.r
-						or module.db.infoColor.customColorHighlight.r
-					g = module.db.infoColor.classColor and MER.ClassColor.g
-						or module.db.infoColor.customColorHighlight.g
-					b = module.db.infoColor.classColor and MER.ClassColor.b
-						or module.db.infoColor.customColorHighlight.b
-				end
-			end
-			self:__MERSetTextColor(r, g, b, a)
-		end
-		text:SetTextColor(C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Normal"], { a = 1 }))
-		text.MERHooked = true
+function module:TitleText_SetTextColor(text, r, g, b, a)
+	if not self.db or not self.db.enable or not self.db.titleColor then
+		return self.hooks[text].SetTextColor(text, r, g, b, a)
 	end
+
+	local rgba = { r = r, g = g, b = b, a = a }
+	rgba = OverrideColor(rgba, self.db.titleColor, "Header", "HeaderHighlight")
+	self.hooks[text].SetTextColor(text, rgba.r, rgba.g, rgba.b, rgba.a)
+end
+
+function module:InfoText_SetTextColor(text, r, g, b, a)
+	if not self.db or not self.db.enable or not self.db.infoColor then
+		return self.hooks[text].SetTextColor(text, r, g, b, a)
+	end
+
+	local rgba = { r = r, g = g, b = b, a = a }
+	rgba = OverrideColor(rgba, self.db.infoColor, "Normal", "NormalHighlight")
+	self.hooks[text].SetTextColor(text, rgba.r, rgba.g, rgba.b, rgba.a)
 end
 
 function module:CosmeticBar(header)
@@ -150,7 +143,7 @@ function module:CosmeticBar(header)
 
 	-- Color
 	if self.db.cosmeticBar.color.mode == "CLASS" then
-		bar:SetVertexColor(C.ExtractColorFromTable(MER.ClassColor))
+		bar:SetVertexColor(C.ExtractColorFromTable(E.myClassColor))
 	elseif self.db.cosmeticBar.color.mode == "NORMAL" then
 		bar:SetVertexColor(C.ExtractColorFromTable(self.db.cosmeticBar.color.normalColor))
 	elseif self.db.cosmeticBar.color.mode == "GRADIENT" then
@@ -166,7 +159,7 @@ function module:CosmeticBar(header)
 
 	-- Position
 	bar:ClearAllPoints()
-	bar:SetPoint("LEFT", header.Text, "LEFT", self.db.cosmeticBar.offsetX, self.db.cosmeticBar.offsetY)
+	bar:Point("LEFT", header.Text, "LEFT", self.db.cosmeticBar.offsetX, self.db.cosmeticBar.offsetY)
 
 	-- Size
 	local width = self.db.cosmeticBar.width
@@ -178,41 +171,48 @@ function module:CosmeticBar(header)
 		height = height + header.Text:GetStringHeight()
 	end
 
-	bar:SetSize(max(width, 1), max(height, 1))
+	bar:Size(max(width, 1), max(height, 1))
 
 	bar:Show()
 end
 
+---@param tracker ObjectiveTrackerModuleTemplate
 function module:ObjectiveTrackerModule_Update(tracker)
-	if tracker and tracker.Header and tracker.Header.Text then
-		self:CosmeticBar(tracker.Header)
-		F.SetFontDB(tracker.Header.Text, self.db.header)
-		if not tracker.Header.Text.__MERUnbind then
-			tracker.Header.Text.__MERUnbind = true
-			tracker.Header.Text:SetFontObject(nil)
-			tracker.Header.Text.SetFontObject = E.noop
-		end
-
-		local r = self.db.header.classColor and MER.ClassColor.r or self.db.header.color.r
-		local g = self.db.header.classColor and MER.ClassColor.g or self.db.header.color.g
-		local b = self.db.header.classColor and MER.ClassColor.b or self.db.header.color.b
-
-		tracker.Header.Text:SetTextColor(r, g, b)
-		if self.db.header.shortHeader then
-			tracker.Header.Text:SetText(self:ShortTitle(tracker.Header.Text:GetText()))
-		end
+	if not tracker or not tracker.Header or not tracker.Header.Text then
+		return
 	end
+
+	self:CosmeticBar(tracker.Header)
+	local headerText = tracker.Header.Text
+	F.SetFontDB(headerText, self.db.header)
+	if not headerText.__MERSetFontObject then
+		headerText.__MERSetFontObject = headerText.SetFontObject
+		headerText:SetFontObject(nil)
+		headerText.SetFontObject = E.noop
+	end
+
+	self:ShortHeader(headerText)
+
+	local color = self.db.header.classColor and E.myClassColor or self.db.header.color
+	headerText:SetTextColor(color.r, color.g, color.b)
 end
 
+---@param text ObjectiveTrackerModuleHeaderTemplate_Text
 function module:HandleTitleText(text)
 	F.SetFontDB(text, self.db.title)
+
 	local height = text:GetStringHeight() + 2
 	if height ~= text:GetHeight() then
-		text:SetHeight(height)
+		text:Height(height)
 	end
-	SetHeaderTextColorHook(text)
+
+	if not self:IsHooked(text, "SetTextColor") then
+		self:RawHook(text, "SetTextColor", "TitleText_SetTextColor", true)
+		self:TitleText_SetTextColor(text, C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Header"], { a = 1 }))
+	end
 end
 
+---@param text ObjectiveTrackerContainerHeaderTemplate_Text
 function module:HandleMenuText(text)
 	if not self.db.menuTitle.enable then
 		return
@@ -223,7 +223,7 @@ function module:HandleMenuText(text)
 	if not text.MERHooked then
 		text.MERHooked = true
 		if self.db.menuTitle.classColor then
-			text:SetTextColor(C.ExtractColorFromTable(MER.ClassColor))
+			text:SetTextColor(C.ExtractColorFromTable(E.myClassColor))
 		else
 			text:SetTextColor(C.ExtractColorFromTable(self.db.menuTitle.color))
 		end
@@ -235,8 +235,6 @@ function module:HandleObjectiveLine(line)
 	if not line or not line.Text or not self.db then
 		return
 	end
-
-	line.Text:SetHeight(0) -- force a clear of internals or GetHeight() might return an incorrect value
 
 	if line.objectiveKey == 0 then -- World Quest Title
 		self:HandleTitleText(line.Text)
@@ -265,12 +263,13 @@ function module:HandleObjectiveLine(line)
 		line.Text:SetText(rawText)
 	end
 
-	SetInfoTextColorHook(line.Text)
-	self:ColorfulProgression(line.Text)
+	if not self:IsHooked(line.Text, "SetTextColor") then
+		self:RawHook(line.Text, "SetTextColor", "InfoText_SetTextColor", true)
+		self:InfoText_SetTextColor(line.Text, C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Normal"], { a = 1 }))
+	end
 
-	local height = line.Text:GetHeight()
-	line.Text:SetHeight(height)
-	line:SetHeight(height)
+	self:ColorfulProgression(line.Text)
+	line:Height(line.Text:GetHeight())
 end
 
 function module:ObjectiveTrackerBlock_AddObjective(block)
