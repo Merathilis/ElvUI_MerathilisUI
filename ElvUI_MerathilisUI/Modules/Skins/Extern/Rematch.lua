@@ -802,7 +802,7 @@ local function reskinTooltips()
 end
 
 function module:Rematch()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.rem then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.rematch then
 		return
 	end
 

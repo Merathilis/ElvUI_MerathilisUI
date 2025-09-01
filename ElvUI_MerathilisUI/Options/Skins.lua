@@ -41,7 +41,7 @@ local DecorAddons = {
 	{ "ProjectAzilroka", L["ProjectAzilroka"], "pa" },
 	{ "PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf" },
 	{ "RaiderIO", L["RaiderIO"], "rio" },
-	{ "Rematch", L["Rematch"], "rem" },
+	{ "Rematch", L["Rematch"] .. " |cffff3860(" .. L["WIP"] .. ")|r", "rematch" },
 	{ "SilverDragon", L["SilverDragon"], "sd" },
 	{ "Simulationcraft", L["Simulationcraft"], "simc" },
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
