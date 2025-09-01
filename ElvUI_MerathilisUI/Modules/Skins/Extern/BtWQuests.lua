@@ -164,10 +164,10 @@ function module:BtWQuests()
 		navBar.backdrop:Point("TOPLEFT", -2, 0)
 		navBar.backdrop:Point("BOTTOMRIGHT")
 		HandleNavButton(navBar.home, true)
-		navBar:HookScript("OnShow", function(self)
-			if not self.__MERSkin then
-				HandledDropDown(self.dropDown)
-				self.__MERSkin = true
+		navBar:HookScript("OnShow", function(nav)
+			if not nav.__MERSkin then
+				HandledDropDown(nav.dropDown)
+				nav.__MERSkin = true
 			end
 		end)
 	end
