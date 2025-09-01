@@ -54,8 +54,8 @@ local DecorAddons = {
 	{ "WowLua", L["WowLua"], "wowLua" },
 }
 if F.IsDeveloper() then
-	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "wa" })
-	tinsert(DecorAddons, { "WeakAurasOptions", L["WeakAuras Options"], "waOptions" })
+	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "weakAuras" })
+	tinsert(DecorAddons, { "WeakAurasOptions", L["WeakAuras Options"], "weakAurasOptions" })
 end
 
 local function UpdateToggleDirection()

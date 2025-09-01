@@ -95,7 +95,7 @@ local function ApplyTextureCoords(tex, force)
 end
 
 function module:WeakAurasMultiLineEditBox(Constructor)
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.waOptions then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
 		return Constructor
 	end
 
@@ -135,7 +135,7 @@ function module:WeakAurasMultiLineEditBox(Constructor)
 end
 
 function module:WeakAurasDisplayButton(Constructor)
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.waOptions then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
 		return Constructor
 	end
 
@@ -280,7 +280,7 @@ end
 module.WeakAurasNewButton = module.WeakAurasDisplayButton
 
 function module:WeakAurasLoadedHeaderButton(Constructor)
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.waOptions then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
 		return Constructor
 	end
 
@@ -403,7 +403,7 @@ do
 end
 
 function module:WeakAurasIconButton(Constructor)
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.waOptions then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
 		return Constructor
 	end
 
@@ -673,7 +673,7 @@ function module:WeakAuras_TextEditor()
 end
 
 function module:WeakAurasOptions()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.waOptions then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
 		return
 	end
 

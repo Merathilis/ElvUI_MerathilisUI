@@ -3,180 +3,430 @@ local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
 
 local _G = _G
-local pairs, unpack = pairs, unpack
 local hooksecurefunc = hooksecurefunc
+local format = format
+local pairs = pairs
+local print = print
+local unpack = unpack
 
 local WeakAuras = _G.WeakAuras
-local WeakAurasPrivate = _G.WeakAurasPrivate
 
-function module:WeakAuras_PrintProfile()
-	local frame = _G.WADebugEditBox.Background
+-- ============================================================================
+-- Utility Functions
+-- ============================================================================
 
-	if frame and not frame.__MERSkin then
-		local textArea = _G.WADebugEditBoxScrollFrame:GetRegions()
-		S:HandleScrollBar(_G.WADebugEditBoxScrollFrameScrollBar)
-
-		frame:StripTextures()
-		frame:SetTemplate("Transparent")
-		module:CreateShadow(frame)
-
-		for _, child in pairs({ frame:GetChildren() }) do
-			if child:GetNumRegions() == 3 then
-				child:StripTextures()
-				local subChild = child:GetChildren()
-				subChild:ClearAllPoints()
-				subChild:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 3, 7)
-				S:HandleCloseButton(subChild)
-			end
-		end
-
-		frame.__MERSkin = true
+---Create backdrop and shadow for a frame with common settings
+---@param frame Frame The frame to apply backdrop and shadow to
+---@param useDefaultTemplate boolean? Whether to use default template
+local function CreateBackdropAndShadow(frame, useDefaultTemplate)
+	if not frame or frame.__MERBackdrop then
+		return
 	end
+
+	frame:CreateBackdrop()
+	if useDefaultTemplate ~= false then
+		frame.backdrop:SetTemplate("Transparent")
+	end
+
+	module:CreateBackdropShadow(frame, true)
+
+	frame.backdrop.Center:StripTextures()
+	frame.__MERBackdrop = true
 end
 
-function module:ProfilingWindow_UpdateButtons(frame)
-	for _, button in pairs({ frame.statsFrame:GetChildren() }) do
-		S:HandleButton(button)
+---Apply ElvUI texture coordinates to an icon
+---@param icon Texture The icon texture to apply coordinates to
+local function ApplyElvUITexCoords(icon)
+	if not icon then
+		return
 	end
 
-	for _, button in pairs({ frame.titleFrame:GetChildren() }) do
-		if not button.__MERSkin and button.GetNormalTexture then
-			local normalTextureID = button:GetNormalTexture():GetTexture()
-			if normalTextureID == 252125 then
-				button:StripTextures()
-				button.SetNormalTexture = E.noop
-				button.SetPushedTexture = E.noop
-				button.SetHighlightTexture = E.noop
+	icon:SetTexCoord(unpack(E.TexCoords))
+	icon.SetTexCoord = E.noop
+end
 
-				button.Texture = button:CreateTexture(nil, "OVERLAY")
-				button.Texture:SetPoint("CENTER")
-				button.Texture:SetTexture(E.Media.Textures.ArrowUp)
-				button.Texture:SetSize(14, 14)
+---Handle complex texture coordinate calculations for icons
+---@param icon Texture The icon texture to handle
+local function HandleComplexTexCoords(icon)
+	if not icon then
+		return
+	end
 
-				button:HookScript("OnEnter", function(self)
-					if self.Texture then
-						self.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
-					end
-				end)
+	icon.SetTexCoordOld = icon.SetTexCoord
+	icon.SetTexCoord = function(self, ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
+		local cLeft, cRight, cTop, cDown
+		if URx and URy and LRx and LRy then
+			cLeft, cRight, cTop, cDown = ULx, LRx, ULy, LRy
+		else
+			cLeft, cRight, cTop, cDown = ULx, ULy, LLx, LLy
+		end
 
-				button:HookScript("OnLeave", function(self)
-					if self.Texture then
-						self.Texture:SetVertexColor(1, 1, 1)
-					end
-				end)
-
-				button:HookScript("OnClick", function(self)
-					self.Texture:Show("")
-					if self:GetParent():GetParent().minimized then
-						button.Texture:SetRotation(S.ArrowRotation["down"])
-					else
-						button.Texture:SetRotation(S.ArrowRotation["up"])
-					end
-				end)
-
-				button:SetHitRectInsets(6, 6, 7, 7)
-				button:SetPoint("TOPRIGHT", frame.titleFrame, "TOPRIGHT", -19, 3)
+		local left, right, top, down = unpack(E.TexCoords)
+		if cLeft == 0 or cRight == 0 or cTop == 0 or cDown == 0 then
+			local width, height = cRight - cLeft, cDown - cTop
+			if width == height then
+				self:SetTexCoordOld(left, right, top, down)
+			elseif width > height then
+				self:SetTexCoordOld(left, right, top + cTop * (right - left), top + cDown * (right - left))
 			else
-				S:HandleCloseButton(button)
-				button:ClearAllPoints()
-				button:SetPoint("TOPRIGHT", frame.titleFrame, "TOPRIGHT", 3, 1)
+				self:SetTexCoordOld(left + cLeft * (down - top), left + cRight * (down - top), top, down)
 			end
-
-			button.__MERSkin = true
+		else
+			self:SetTexCoordOld(cLeft, cRight, cTop, cDown)
 		end
+	end
+
+	icon:SetTexCoord(icon:GetTexCoord())
+end
+
+---Sync backdrop alpha with icon alpha
+---@param frame Frame The frame containing the backdrop
+---@param icon Texture The icon to sync with
+local function SyncBackdropAlpha(frame, icon)
+	if not frame.backdrop or not icon then
+		return
+	end
+
+	frame.backdrop.icon = icon
+	frame.backdrop:HookScript("OnUpdate", function(self)
+		self:SetAlpha(self.icon:GetAlpha())
+		if self.MERshadow then
+			self.MERshadow:SetAlpha(self.icon:GetAlpha())
+		end
+	end)
+end
+
+-- ============================================================================
+-- Region Type Skinners
+-- ============================================================================
+
+---Skin an icon region
+---@param frame Frame The icon frame to skin
+local function SkinIconRegion(frame)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	-- Handle texture coordinates
+	if frame.icon then
+		HandleComplexTexCoords(frame.icon)
+	end
+
+	-- Create backdrop and shadow
+	CreateBackdropAndShadow(frame)
+
+	-- Sync alpha with icon
+	if frame.icon then
+		SyncBackdropAlpha(frame, frame.icon)
+	end
+
+	frame.__MERSkin = true
+end
+
+---Skin an aurabar region
+---@param frame Frame The aurabar frame to skin
+local function SkinAurabarRegion(frame)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	-- Create backdrop and shadow
+	CreateBackdropAndShadow(frame)
+
+	-- Handle icon
+	if frame.icon then
+		ApplyElvUITexCoords(frame.icon)
+	end
+
+	-- Handle icon frame
+	if frame.iconFrame then
+		frame.iconFrame:SetAllPoints(frame.icon)
+		frame.iconFrame:CreateBackdrop()
+
+		-- Sync icon frame backdrop visibility with icon
+		hooksecurefunc(frame.icon, "Hide", function()
+			frame.iconFrame.backdrop:SetShown(false)
+		end)
+
+		hooksecurefunc(frame.icon, "Show", function()
+			frame.iconFrame.backdrop:SetShown(true)
+		end)
+	end
+
+	frame.__MERSkin = true
+end
+
+---Main function to skin WeakAuras regions
+---@param frame Frame The frame to skin
+---@param regionType string The type of region ("icon", "aurabar", etc.)
+local function SkinWeakAuras(frame, regionType)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	if regionType == "icon" then
+		SkinIconRegion(frame)
+	elseif regionType == "aurabar" then
+		SkinAurabarRegion(frame)
 	end
 end
 
-local function Skin_WeakAuras(f, fType)
-	if fType == "icon" then
-		if not f.__MERStyle then
-			f.icon.SetTexCoordOld_Changed = f.icon.SetTexCoord
-			f.icon.SetTexCoord = function(self, ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
-				local cLeft, cRight, cTop, cDown
-				if URx and URy and LRx and LRy then
-					cLeft, cRight, cTop, cDown = ULx, LRx, ULy, LRy
-				else
-					cLeft, cRight, cTop, cDown = ULx, ULy, LLx, LLy
-				end
+-- ============================================================================
+-- Profiling Window Skinners
+-- ============================================================================
 
-				local left, right, top, down = unpack(E.TexCoords)
-				if cLeft == 0 or cRight == 0 or cTop == 0 or cDown == 0 then
-					local width, height = cRight - cLeft, cDown - cTop
-					if width == height then
-						self:SetTexCoordOld_Changed(left, right, top, down)
-					elseif width > height then
-						self:SetTexCoordOld_Changed(
-							left,
-							right,
-							top + cTop * (right - left),
-							top + cDown * (right - left)
-						)
-					else
-						self:SetTexCoordOld_Changed(
-							left + cLeft * (down - top),
-							left + cRight * (down - top),
-							top,
-							down
-						)
+---Strip Blizzard PortraitFrameTemplate elements
+---@param frame Frame The frame to strip elements from
+local function StripPortraitElements(frame)
+	if frame.NineSlice then
+		frame.NineSlice:Hide()
+		frame.NineSlice:SetAlpha(0)
+	end
+	if frame.PortraitContainer then
+		frame.PortraitContainer:Hide()
+		frame.PortraitContainer:SetAlpha(0)
+	end
+	if frame.portrait then
+		frame.portrait:Hide()
+		frame.portrait:SetAlpha(0)
+	end
+end
+
+---Skin a profiling line frame
+---@param frame Frame The profiling line frame to skin
+local function SkinProfilingLine(frame)
+	if not frame or frame.__MERProfilingLine then
+		return
+	end
+
+	-- Style progress bar
+	if frame.progressBar then
+		frame.progressBar:StripTextures()
+		frame.progressBar:CreateBackdrop()
+		frame.progressBar:SetStatusBarTexture(E.media.normTex)
+
+		-- Style progress bar name text
+		if frame.progressBar.name then
+			F.SetFontOutline(frame.progressBar.name)
+		end
+	end
+
+	-- Style time and spike text
+	if frame.time then
+		F.SetFontOutline(frame.time)
+	end
+	if frame.spike then
+		F.SetFontOutline(frame.spike)
+	end
+
+	frame.__MERProfilingLine = true
+end
+
+---Skin the main profiling frame
+---@param frame Frame The profiling frame to skin
+local function SkinProfilingFrame(frame)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	-- Handle main frame
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+	module:CreateShadow(frame)
+
+	-- Strip portrait elements
+	StripPortraitElements(frame)
+
+	-- Handle title bar
+	if frame.TitleBar then
+		frame.TitleBar:StripTextures()
+		frame.TitleBar:SetTemplate("Transparent")
+	end
+
+	-- Handle close button
+	if frame.CloseButton then
+		module:Proxy("HandleCloseButton", frame.CloseButton)
+	end
+
+	-- Handle buttons frame
+	if frame.buttons then
+		local buttonHandlers = {
+			report = "HandleButton",
+			stop = "HandleButton",
+			start = "HandleButton",
+			modeDropDown = "HandleDropDownBox",
+			startDropDown = "HandleDropDownBox",
+		}
+
+		for buttonName, handlerType in pairs(buttonHandlers) do
+			if frame.buttons[buttonName] then
+				module:Proxy(handlerType, frame.buttons[buttonName])
+			end
+		end
+	end
+
+	-- Handle resize button
+	if frame.ResizeButton then
+		module:Proxy("HandleNextPrevButton", frame.ResizeButton)
+	end
+
+	-- Handle column display
+	if frame.ColumnDisplay then
+		frame.ColumnDisplay:StripTextures()
+		frame.ColumnDisplay:SetTemplate("Transparent")
+
+		-- Handle column headers
+		if frame.ColumnDisplay.columnHeaders then
+			for header in frame.ColumnDisplay.columnHeaders:EnumerateActive() do
+				if header and not header.__MERSkin then
+					header:StripTextures()
+					header:SetTemplate("Transparent")
+					if header.Text then
+						F.SetFontOutline(header.Text)
 					end
-				else
-					self:SetTexCoordOld_Changed(cLeft, cRight, cTop, cDown)
+					header.__MERSkin = true
 				end
 			end
-			f.icon:SetTexCoord(f.icon:GetTexCoord())
-			f:CreateBackdrop()
-			module:CreateBackdropShadow(f, true)
-			f.backdrop.Center:StripTextures()
-			f.backdrop:SetFrameLevel(0)
-			hooksecurefunc(f, "SetFrameStrata", function()
-				f.backdrop:SetFrameLevel(0)
-			end)
-			f.backdrop.icon = f.icon
-			f.backdrop:HookScript("OnUpdate", function(self)
-				self:SetAlpha(self.icon:GetAlpha())
-				if self.MERshadow then
-					self.MERshadow:SetAlpha(self.icon:GetAlpha())
-				end
-			end)
-
-			f.__MERStyle = true
 		end
-	elseif fType == "aurabar" then
-		if not f.__MERStyle then
-			f:CreateBackdrop()
-			f.backdrop.Center:StripTextures()
-			f.backdrop:SetFrameLevel(0)
-			hooksecurefunc(f, "SetFrameStrata", function()
-				f.backdrop:SetFrameLevel(0)
-			end)
-			module:CreateBackdropShadow(f, true)
-			f.icon:SetTexCoord(unpack(E.TexCoords))
-			f.icon.SetTexCoord = E.noop
-			f.iconFrame:SetAllPoints(f.icon)
-			f.iconFrame:CreateBackdrop()
-			hooksecurefunc(f.icon, "Hide", function()
-				f.iconFrame.backdrop:SetShown(false)
-			end)
-			hooksecurefunc(f.icon, "Show", function()
-				f.iconFrame.backdrop:SetShown(true)
-			end)
+	end
 
-			f.__MERStyle = true
+	-- Handle modern scroll box
+	if frame.ScrollBox then
+		frame.ScrollBox:StripTextures()
+		frame.ScrollBox:SetTemplate("Transparent")
+	end
+
+	-- Handle modern scroll bar
+	if frame.ScrollBar then
+		module:Proxy("HandleTrimScrollBar", frame.ScrollBar)
+	end
+
+	-- Style stats text
+	if frame.stats then
+		F.SetFontOutline(frame.stats)
+	end
+
+	frame.__MERSkin = true
+end
+
+---Skin the profiling report frame
+---@param frame Frame The profiling report frame to skin
+local function SkinProfilingReport(frame)
+	if not frame or frame.__MERSkinReport then
+		return
+	end
+
+	-- Handle main frame
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+	module:CreateShadow(frame)
+
+	-- Strip portrait elements
+	StripPortraitElements(frame)
+
+	-- Handle title bar
+	if frame.TitleBar then
+		frame.TitleBar:StripTextures()
+		frame.TitleBar:SetTemplate("Transparent")
+	end
+
+	-- Handle close button
+	if frame.CloseButton then
+		module:Proxy("HandleCloseButton", frame.CloseButton)
+	end
+
+	-- Handle scroll frame for report
+	if frame.ScrollBox then
+		local scrollFrame = frame.ScrollBox
+		scrollFrame:StripTextures()
+		scrollFrame:SetTemplate("Transparent")
+
+		-- Handle scroll bar
+		local scrollBar = scrollFrame.ScrollBar
+		if not scrollBar and scrollFrame:GetName() then
+			scrollBar = _G[scrollFrame:GetName() .. "ScrollBar"]
 		end
+
+		if scrollBar and scrollBar.SetAlpha then
+			scrollBar:SetAlpha(0)
+		end
+
+		-- Handle message frame
+		if scrollFrame.messageFrame then
+			scrollFrame.messageFrame:StripTextures()
+			scrollFrame.messageFrame:SetTemplate("Transparent")
+			F.SetFontOutline(scrollFrame.messageFrame)
+		end
+	end
+
+	frame.__MERSkinReport = true
+end
+
+-- ============================================================================
+-- Hook Management
+-- ============================================================================
+
+---Setup profiling window hooks
+local function SetupProfilingHooks()
+	local function SkinProfilingFrames()
+		-- Skin main profiling frame
+		local profilingFrame = _G.WeakAurasProfilingFrame
+		if profilingFrame and not profilingFrame.__windSkin then
+			SkinProfilingFrame(profilingFrame)
+
+			-- Hook scroll box updates for profiling lines
+			if profilingFrame.ScrollBox then
+				hooksecurefunc(profilingFrame.ScrollBox, "Update", function()
+					for _, elementFrame in pairs({ profilingFrame.ScrollBox:GetFrames() }) do
+						if elementFrame and not elementFrame.__MERProfilingLine then
+							SkinProfilingLine(elementFrame)
+						end
+					end
+				end)
+			end
+		end
+
+		-- Skin profiling report frame
+		local reportFrame = _G.WeakAurasProfilingReport
+		if reportFrame and not reportFrame.__MERSkinReport then
+			SkinProfilingReport(reportFrame)
+		end
+	end
+
+	-- Hook profiling window show
+	if WeakAuras.ShowProfilingWindow then
+		module:SecureHook(WeakAuras, "ShowProfilingWindow", SkinProfilingFrames)
+	end
+
+	-- Initial skin attempt
+	SkinProfilingFrames()
+end
+
+---Setup region skinning hooks
+local function SetupRegionHooks()
+	-- Hook texture/atlas setting for region skinning
+	if WeakAuras.Private.SetTextureOrAtlas then
+		hooksecurefunc(WeakAuras.Private, "SetTextureOrAtlas", function(icon)
+			local parent = icon:GetParent()
+			local region = parent.regionType and parent or parent:GetParent()
+			if region and region.regionType then
+				SkinWeakAuras(region, region.regionType)
+			end
+		end)
 	end
 end
 
+-- ============================================================================
+-- Main Initialization
+-- ============================================================================
+
+---Main initialization function
 function module:WeakAuras()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wa then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAuras then
 		return
 	end
 
-	-- Only for me, sorry boys
-	if not F.IsDeveloper() then
-		return
-	end
-
-	-- Only works for WeakAurasPatched
+	-- Check for WeakAurasPatched
 	if not WeakAuras or not WeakAuras.Private then
 		local alertMessage = format(
 			"%s: %s %s %s",
@@ -189,33 +439,9 @@ function module:WeakAuras()
 		return
 	end
 
-	-- Handle the options region type registration
-	if WeakAuras.Private.RegisterRegionOptions then
-		self:RawHook(WeakAuras.Private, "RegisterRegionOptions", "WeakAuras_RegisterRegionOptions")
-	end
-
-	if WeakAuras.Private.SetTextureOrAtlas then
-		hooksecurefunc(WeakAuras.Private, "SetTextureOrAtlas", function(icon)
-			local parent = icon:GetParent()
-			local region = parent.regionType and parent or parent:GetParent()
-			if region and region.regionType then
-				Skin_WeakAuras(region, region.regionType)
-			end
-		end)
-	end
-
-	-- Real Time Profiling Window
-	-- Fix me
-	--[[local profilingWindow = WeakAuras.RealTimeProfilingWindow
-	if profilingWindow then
-		self:CreateShadow(profilingWindow)
-		if profilingWindow.UpdateButtons then
-			self:SecureHook(profilingWindow, "UpdateButtons", "ProfilingWindow_UpdateButtons")
-		end
-		if WeakAuras.PrintProfile then
-			self:SecureHook(WeakAuras, "PrintProfile", "WeakAuras_PrintProfile")
-		end
-	end]]
+	-- Setup hooks
+	SetupRegionHooks()
+	SetupProfilingHooks()
 end
 
 module:AddCallbackForAddon("WeakAuras")

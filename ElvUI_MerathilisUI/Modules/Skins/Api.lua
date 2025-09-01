@@ -656,12 +656,38 @@ end
 
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
 
+---Reposition frame with parameters
+---@param frame any The frame to reposition
+---@param target any The frame relative to
+---@param border number Border size
+---@param top number Top offset
+---@param bottom number Bottom offset
+---@param left number Left offset
+---@param right number Right offset
 function module:Reposition(frame, target, border, top, bottom, left, right)
 	frame:ClearAllPoints()
-	frame:SetPoint("TOPLEFT", target, "TOPLEFT", -left - border, top + border)
-	frame:SetPoint("TOPRIGHT", target, "TOPRIGHT", right + border, top + border)
-	frame:SetPoint("BOTTOMLEFT", target, "BOTTOMLEFT", -left - border, -bottom - border)
-	frame:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT", right + border, -bottom - border)
+	frame:Point("TOPLEFT", target, "TOPLEFT", -left - border, top + border)
+	frame:Point("TOPRIGHT", target, "TOPRIGHT", right + border, top + border)
+	frame:Point("BOTTOMLEFT", target, "BOTTOMLEFT", -left - border, -bottom - border)
+	frame:Point("BOTTOMRIGHT", target, "BOTTOMRIGHT", right + border, -bottom - border)
+end
+
+--Proxy function to call ElvUI Skins functions
+---@param method string The function name in ElvUI Skins
+---@param frame any The frame to pass to the function
+---@param ... any Additional arguments to pass
+function module:Proxy(method, frame, ...)
+	if not frame then
+		F.Developer.ThrowError("Failed to proxy function: frame is nil, funcName:", method)
+		return
+	end
+
+	if not S[method] then
+		F.Developer.ThrowError(format("Proxy: %s is not exist in ElvUI Skins", method))
+		return
+	end
+
+	S[method](S, frame, ...)
 end
 
 function module:ReskinTab(tab)
