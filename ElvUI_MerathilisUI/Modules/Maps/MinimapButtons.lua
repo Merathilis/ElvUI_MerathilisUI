@@ -1,30 +1,36 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_MiniMapButtons")
-local MM = E:GetModule("Minimap")
 local S = MER:GetModule("MER_Skins")
+local MM = E:GetModule("Minimap")
 
 local _G = _G
-local ceil, floor, min = ceil, floor, min
-local pairs, sort, type, unpack = pairs, sort, type, unpack
+local ceil = ceil
+local floor = floor
+local min = min
+local pairs = pairs
+local select = select
+local sort = sort
 local strfind = strfind
 local strlen = strlen
 local strsub = strsub
-local tinsert, tremove = tinsert, tremove
+local tinsert = tinsert
+local tremove = tremove
+local type = type
+local unpack = unpack
 
 local CreateFrame = CreateFrame
-local GetSpellTexture = C_Spell.GetSpellTexture
 local InCombatLockdown = InCombatLockdown
 local RegisterStateDriver = RegisterStateDriver
 local RunNextFrame = RunNextFrame
 local UnregisterStateDriver = UnregisterStateDriver
 
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local C_Spell_GetSpellTexture = C_Spell.GetSpellTexture
 
 local IgnoreList = {
 	full = {
 		"AsphyxiaUIMinimapHelpButton",
 		"AsphyxiaUIMinimapVersionButton",
-		"BattlefieldMinimap",
 		"ElvConfigToggle",
 		"ElvUIConfigToggle",
 		"ElvUI_ConsolidatedBuffs",
@@ -32,16 +38,10 @@ local IgnoreList = {
 		"ElvUI_MinimapHolder",
 		"DroodFocusMinimapButton",
 		"TimeManagerClockButton",
-		"MiniMapBattlefieldFrame",
 		"MinimapZoneTextButton",
-		"MiniMapTracking",
-		"MinimapZoomIn",
-		"MinimapZoomOut",
-		"TukuiMinimapZone",
-		"TukuiMinimapCoord",
-		"RecipeRadarMinimapButtonFrame",
-		"InstanceDifficultyFrame",
+		"GameTimeFrame",
 	},
+	libDBIcon = {},
 	startWith = {
 		"Archy",
 		"GatherMatePin",
@@ -58,7 +58,6 @@ local IgnoreList = {
 		"WestPointer",
 		"Cork",
 		"DugisArrowMinimapPoint",
-		"QuestieFrame",
 		"TTMinimapButton",
 		"QueueStatusButton",
 	},
@@ -73,35 +72,53 @@ local IgnoreList = {
 local TexCoordIgnoreList = {
 	["Narci_MinimapButton"] = true,
 	["ZygorGuidesViewerMapIcon"] = true,
-	["LibDBIcon10_IRememberYou"] = true,
 }
 
-local whiteList = {
-	"LibDBIcon",
-}
+local whiteList = {}
 
 local acceptedFrames = {
 	"BagSync_MinimapButton",
-	"WIM3MinimapButton",
 }
 
-local moveButtons = {}
+local handledButtons = {}
+
+local function isValidName(name)
+	for _, ignoreName in pairs(IgnoreList.full) do
+		if name == ignoreName then
+			return false
+		end
+	end
+
+	for _, ignoreName in pairs(IgnoreList.startWith) do
+		if strsub(name, 1, strlen(ignoreName)) == ignoreName then
+			return false
+		end
+	end
+
+	for _, ignoreName in pairs(IgnoreList.partial) do
+		if strfind(name, ignoreName) ~= nil then
+			return false
+		end
+	end
+
+	return true
+end
 
 function module:OnButtonSetShown(button, shown)
-	local btnName = button:GetName()
+	local buttonName = button:GetName()
 
-	for i, moveButtonName in pairs(moveButtons) do
-		if btnName == moveButtonName then
+	for i, handledButtonName in pairs(handledButtons) do
+		if buttonName == handledButtonName then
 			if shown then
 				return -- already in the list
 			end
-			tremove(moveButtons, i)
+			tremove(handledButtons, i)
 			break
 		end
 	end
 
 	if shown then
-		tinsert(moveButtons, btnName)
+		tinsert(handledButtons, buttonName)
 	end
 
 	self:UpdateLayout()
@@ -126,28 +143,58 @@ function module:HandleLibDBIconButton(button, name)
 
 	self:SecureHook(button, "SetShown", "OnButtonSetShown")
 
+	if button.icon and not self:IsHooked(button.icon, "SetTexCoord") then
+		self:SecureHook(button.icon, "SetTexCoord", function(_, ...)
+			local arg1, arg2, arg3, arg4 = ...
+			if
+				F.IsAlmost(arg1, 0.05)
+				and F.IsAlmost(arg2, 0.95)
+				and F.IsAlmost(arg3, 0.05)
+				and F.IsAlmost(arg4, 0.95)
+			then
+				button.icon:SetTexCoord(unpack(E.TexCoords))
+			end
+
+			if F.IsAlmost(arg1, 0) and F.IsAlmost(arg2, 1) and F.IsAlmost(arg3, 0) and F.IsAlmost(arg4, 1) then
+				button.icon:SetTexCoord(unpack(E.TexCoords))
+			end
+		end)
+	end
+
 	return button:IsShown()
 end
 
 function module:HandleExpansionButton(...)
 	self.hooks[MM].HandleExpansionButton(...)
+	self:Unhook(MM, "HandleExpansionButton")
 
+	-- Run this post hook lazily and safely
 	F.WaitFor(function()
 		return module ~= nil and module.db ~= nil
 	end, function()
-		if not module.db.expansionLandingPage then
+		if not module.db.enable or not module.db.expansionLandingPage then
 			return
 		end
 
 		F.TaskManager:OutOfCombat(function()
-			local button = _G.ExpansionLandingPageMinimapButton or _G.GarrisonLandingPageMinimapButton
+			local button = _G.ExpansionLandingPageMinimapButton
 			if not button then
 				return
 			end
 
+			self:SkinButton(button, true)
+
 			MM:SetIconParent(button)
-			button.SetParent = E.noop
 			MM:SetScale(button, 1)
+
+			F.InternalizeMethod(button, "ClearAllPoints")
+			F.InternalizeMethod(button, "SetPoint")
+			F.InternalizeMethod(button, "SetParent")
+			F.InternalizeMethod(button, "SetSize")
+			F.InternalizeMethod(button, "SetScale")
+			F.InternalizeMethod(button, "SetFrameStrata")
+			F.InternalizeMethod(button, "SetFrameLevel")
+			F.InternalizeMethod(button, "SetMovable")
 
 			local box = _G.GarrisonLandingPageTutorialBox
 			if box then
@@ -223,248 +270,231 @@ function module:SetButtonMouseOver(button, frame, rawhook)
 	end
 end
 
-local RemoveTextureID = { [136430] = true, [136467] = true, [136477] = true, [136468] = true, [130924] = true }
-local RemoveTextureFile = { "interface/characterframe", "border", "background", "alphamask", "highlight" }
-function module:RemoveTexture(texture)
-	if type(texture) ~= "number" then
-		for _, path in next, RemoveTextureFile do
-			if
-				strfind(texture, path)
-				or (strfind(texture, "interface/minimap") and not strfind(texture, "interface/minimap/tracking"))
-			then
-				return true
-			end
-		end
-	else
-		return RemoveTextureID[texture]
-	end
-end
-
-function module:SkinButton(frame)
-	tinsert(IgnoreList.full, "GameTimeFrame")
-
-	if frame == nil or frame:GetName() == nil or not frame:IsVisible() then
+function module:SkinButton(button, force)
+	if button == nil then
 		return
 	end
-	local tmp
-	local frameType = frame:GetObjectType()
+
+	local name = button:GetDebugName()
+	if not force and (name == nil or not button:IsVisible() or button.isSkinned) then
+		return
+	end
+
+	local buttonType, frameType = nil, button:GetObjectType()
 	if frameType == "Button" then
-		tmp = 1
+		buttonType = 1
 	elseif frameType == "Frame" then
 		for _, f in pairs(acceptedFrames) do
-			if frame:GetName() == f then
-				tmp = 2
+			if button:GetName() == f then
+				buttonType = 2
 				break
 			end
 		end
 	end
-	if not tmp then
+
+	if not buttonType then
 		return
 	end
 
-	local name = frame:GetName()
-	local validIcon = false
-
+	local valid = false
 	for i = 1, #whiteList do
 		if strsub(name, 1, strlen(whiteList[i])) == whiteList[i] then
-			validIcon = true
+			valid = true
 			break
 		end
 	end
 
-	if not validIcon then
-		for _, ignoreName in pairs(IgnoreList.full) do
-			if name == ignoreName then
+	if strsub(name, 1, strlen("LibDBIcon")) == "LibDBIcon" then
+		valid = true
+		for _, ignoreName in pairs(IgnoreList.libDBIcon) do
+			if strsub(name, strlen("LibDBIcon10_") + 1) == ignoreName then
 				return
 			end
 		end
+	end
 
-		for _, ignoreName in pairs(IgnoreList.startWith) do
-			if strsub(name, 1, strlen(ignoreName)) == ignoreName then
-				return
-			end
-		end
-
-		for _, ignoreName in pairs(IgnoreList.partial) do
-			if strfind(name, ignoreName) ~= nil then
-				return
-			end
-		end
+	if not valid and not isValidName(name) then
+		return
 	end
 
 	-- If the relative frame is Minimap, then replace it to fake Minimap
 	-- It must run before FarmHud moving the Minimap
-	if IsAddOnLoaded("FarmHud") then
-		if frame.SetPoint and not frame.__MERSetPoint then
-			frame.__MERSetPoint = frame.SetPoint
-			frame.SetPoint = function(btn, ...)
-				local point, relativeTo, relativePoint, xOfs, yOfs = ...
-				if relativeTo == _G.Minimap then
+	if C_AddOns_IsAddOnLoaded("FarmHud") then
+		if not self:IsHooked(button, "SetPoint") then
+			self:RawHook(button, "SetPoint", function(...)
+				local relativeTo = select(3, ...)
+				if relativeTo and relativeTo == _G.Minimap then
 					return
 				end
-				relativeTo = relativeTo == _G.Minimap and self.fakeMinimap or relativeTo
-				frame.__MERSetPoint(btn, point, relativeTo, relativePoint, xOfs, yOfs)
-			end
+				return self.hooks[button].SetPoint(...)
+			end, true)
 		end
 	end
 
+	-- Pre-skinning
 	if name == "DBMMinimapButton" then
-		frame:SetNormalTexture("Interface\\Icons\\INV_Helmet_87")
+		button:SetNormalTexture("Interface\\Icons\\INV_Helmet_87")
 	elseif name == "SmartBuff_MiniMapButton" then
-		frame:SetNormalTexture(GetSpellTexture(12051))
+		button:SetNormalTexture(C_Spell_GetSpellTexture(12051))
 	elseif name == "GRM_MinimapButton" then
-		frame.GRM_MinimapButtonBorder:Hide()
-		frame:SetPushedTexture("")
-		frame:SetHighlightTexture("")
-		frame.SetPushedTexture = E.noop
-		frame.SetHighlightTexture = E.noop
-		if frame:HasScript("OnEnter") then
-			self:SetButtonMouseOver(frame, frame, true)
-			frame.OldSetScript = frame.SetScript
-			frame.SetScript = E.noop
+		button.GRM_MinimapButtonBorder:Hide()
+		button:SetPushedTexture("")
+		button:SetHighlightTexture("")
+		button.SetPushedTexture = E.noop
+		button.SetHighlightTexture = E.noop
+		if button:HasScript("OnEnter") then
+			self:SetButtonMouseOver(button, button, true)
+			button.OldSetScript = button.SetScript
+			button.SetScript = E.noop
 		end
 	elseif strsub(name, 1, strlen("TomCats-")) == "TomCats-" then
-		frame:SetPushedTexture("")
-		frame:SetDisabledTexture("")
-		frame:GetHighlightTexture():Kill()
+		button:SetPushedTexture("")
+		button:SetDisabledTexture("")
+		button:GetHighlightTexture():Kill()
 	elseif name == "BtWQuestsMinimapButton" and _G.BtWQuestsMinimapButtonIcon then
-		for _, region in pairs({ frame:GetRegions() }) do
+		for _, region in pairs({ button:GetRegions() }) do
 			if region ~= _G.BtWQuestsMinimapButtonIcon then
 				region:SetTexture(nil)
 				region:SetAlpha(0)
 				region:Hide()
 			end
 		end
-	elseif name == "JST_MinimapButton" == frame then
-		frame.anim:Stop()
-		frame.anim.Play = E.noop
-		frame.bg:Kill()
-		frame.icon:SetAlpha(1)
-		frame.icon:Show()
-		frame.icon.Hide = E.noop
-		frame.icon2:Kill()
-		frame.timer:SetScript("OnUpdate", nil)
-		frame.timer.SetScript = E.noop
+	elseif name == "JST_MinimapButton" then
+		button.anim:Stop()
+		button.anim.Play = E.noop
+		button.bg:Kill()
+		button.icon:SetAlpha(1)
+		button.icon:Show()
+		button.icon.Hide = E.noop
+		button.icon2:Kill()
+		button.timer:SetScript("OnUpdate", nil)
+		button.timer.SetScript = E.noop
 	elseif name == "MRPMinimapButton" then
-		for _, region in pairs({ frame:GetRegions() }) do
+		for _, region in pairs({ button:GetRegions() }) do
 			if region:GetTexture() > 0 then
 				region:Hide()
 			end
 		end
-	elseif tmp ~= 2 then
-		frame:SetPushedTexture("")
-		frame:SetDisabledTexture("")
-		frame:SetHighlightTexture("")
+	elseif buttonType ~= 2 then
+		button:SetPushedTexture("")
+		button:SetDisabledTexture("")
+		button:SetHighlightTexture("")
 	end
 
-	if not frame.isSkinned then
-		if tmp ~= 2 then
-			frame:HookScript("OnClick", self.DelayedUpdateLayout)
+	if buttonType ~= 2 then
+		button:HookScript("OnClick", self.DelayedUpdateLayout)
+	end
+
+	-- Skin the textures
+	for _, region in pairs({ button:GetRegions() }) do
+		local original = {}
+		original.Width, original.Height = button:GetSize()
+		original.Point, original.relativeTo, original.relativePoint, original.xOfs, original.yOfs = button:GetPoint()
+		original.Parent = button:GetParent()
+		original.FrameStrata = button:GetFrameStrata()
+		original.FrameLevel = button:GetFrameLevel()
+		original.Scale = button:GetScale()
+		if button:HasScript("OnDragStart") then
+			original.DragStart = button:GetScript("OnDragStart")
 		end
-		for _, region in pairs({ frame:GetRegions() }) do
-			local original = {}
-			original.Width, original.Height = frame:GetSize()
-			original.Point, original.relativeTo, original.relativePoint, original.xOfs, original.yOfs = frame:GetPoint()
-			original.Parent = frame:GetParent()
-			original.FrameStrata = frame:GetFrameStrata()
-			original.FrameLevel = frame:OffsetFrameLevel()
-			original.Scale = frame:GetScale()
-			if frame:HasScript("OnDragStart") then
-				original.DragStart = frame:GetScript("OnDragStart")
-			end
-			if frame:HasScript("OnDragStop") then
-				original.DragEnd = frame:GetScript("OnDragStop")
+		if button:HasScript("OnDragStop") then
+			original.DragEnd = button:GetScript("OnDragStop")
+		end
+
+		button.original = original
+
+		if region:IsObjectType("Texture") then
+			local tex = region:GetTexture()
+
+			-- Remove rings and backdrops of LibDBIcon icons
+			if tex and strsub(name, 1, strlen("LibDBIcon")) == "LibDBIcon" then
+				if region ~= button.icon then
+					region:SetTexture(nil)
+				end
 			end
 
-			frame.original = original
-
-			if region.IsObjectType and region:IsObjectType("Texture") then
-				local t = region.GetTextureFileID and region:GetTextureFileID()
-				if not t then
-					t = strlower(tostring(region:GetTexture()))
+			if
+				tex
+				and type(tex) ~= "number"
+				and (strfind(tex, "Border") or strfind(tex, "Background") or strfind(tex, "AlphaMask"))
+			then
+				region:SetTexture(nil)
+			else
+				if name == "BagSync_MinimapButton" then
+					region:SetTexture("Interface\\AddOns\\BagSync\\media\\icon")
 				end
 
-				if module:RemoveTexture(t) then
-					region:SetTexture()
-					region:SetAlpha(0)
-				else
-					if not TexCoordIgnoreList[name] then
-						if region.GetNumMaskTextures and region.RemoveMaskTexture and region.GetMaskTexture then
-							local numMaskTextures = region:GetNumMaskTextures()
-							if numMaskTextures and numMaskTextures > 0 then
-								for i = 1, numMaskTextures do
-									region:RemoveMaskTexture(region:GetMaskTexture(i))
-								end
-							else
-								region:SetMask("")
+				if not TexCoordIgnoreList[name] then
+					-- Mask cleanup
+					if region.GetNumMaskTextures and region.RemoveMaskTexture and region.GetMaskTexture then
+						local numMaskTextures = region:GetNumMaskTextures()
+						if numMaskTextures and numMaskTextures > 0 then
+							for i = 1, numMaskTextures do
+								region:RemoveMaskTexture(region:GetMaskTexture(i))
 							end
-						elseif region.SetMask then
+						else
 							region:SetMask("")
 						end
-
-						region:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+					elseif region.SetMask then
+						region:SetMask("")
 					end
 
-					region:ClearAllPoints()
-					region:SetDrawLayer("ARTWORK")
-					region:SetInside()
+					region:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				end
 
-					local ULx, ULy, LLx, LLy, URx, URy, LRx, LRy = region:GetTexCoord()
-					if
-						ULx == 0
-						and ULy == 0
-						and LLx == 0
-						and LLy == 1
-						and URx == 1
-						and URy == 0
-						and LRx == 1
-						and LRy == 1
-					then
-						region:SetTexCoord(unpack(E.TexCoords))
-						frame:HookScript("OnLeave", function()
-							region:SetTexCoord(unpack(E.TexCoords))
-						end)
-					end
+				region:ClearAllPoints()
+				region:Point("TOPLEFT", button, "TOPLEFT", 2, -2)
+				region:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
+				region:SetDrawLayer("ARTWORK")
 
+				if name == "PS_MinimapButton" then
 					region.SetPoint = E.noop
 				end
 			end
 		end
+	end
 
-		frame:CreateBackdrop("Tranparent")
-		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
-			S:CreateBackdropShadow(frame)
-		end
-
-		self:SetButtonMouseOver(frame, frame)
-
-		if name == "Narci_MinimapButton" then
-			self:SetButtonMouseOver(frame, frame.Panel)
-			for _, child in pairs({ frame.Panel:GetChildren() }) do
-				if child.SetScript and not child.Highlight then
-					self:SetButtonMouseOver(frame, child, true)
-				end
-			end
-		elseif name == "TomCats-MinimapButton" then
-			if _G["TomCats-MinimapButtonBorder"] then
-				_G["TomCats-MinimapButtonBorder"]:SetAlpha(0)
-			end
-			if _G["TomCats-MinimapButtonBackground"] then
-				_G["TomCats-MinimapButtonBackground"]:SetAlpha(0)
-			end
-			if _G["TomCats-MinimapButtonIcon"] then
-				_G["TomCats-MinimapButtonIcon"]:ClearAllPoints()
-				_G["TomCats-MinimapButtonIcon"]:SetInside(frame.backdrop)
-				_G["TomCats-MinimapButtonIcon"].SetPoint = E.noop
-			end
-		end
-
-		frame.isSkinned = true
-
-		if self:HandleLibDBIconButton(frame, name) then
-			tinsert(moveButtons, name)
+	-- Create the backdrop
+	if button.backdrop then
+		if name == "LibDBIcon10_Musician" then
+			button.backdrop:Kill()
+			button.backdrop = nil
 		end
 	end
+
+	button:CreateBackdrop()
+	S:CreateShadowModule(button.backdrop)
+
+	self:SetButtonMouseOver(button, button)
+
+	-- After fix for some buttons
+	if name == "Narci_MinimapButton" then
+		self:SetButtonMouseOver(button, button.Panel)
+		for _, child in pairs({ button.Panel:GetChildren() }) do
+			if child.SetScript and not child.Highlight then
+				self:SetButtonMouseOver(button, child, true)
+			end
+		end
+	elseif name == "TomCats-MinimapButton" then
+		if _G["TomCats-MinimapButtonBorder"] then
+			_G["TomCats-MinimapButtonBorder"]:SetAlpha(0)
+		end
+		if _G["TomCats-MinimapButtonBackground"] then
+			_G["TomCats-MinimapButtonBackground"]:SetAlpha(0)
+		end
+		if _G["TomCats-MinimapButtonIcon"] then
+			_G["TomCats-MinimapButtonIcon"]:ClearAllPoints()
+			_G["TomCats-MinimapButtonIcon"]:SetInside(button.backdrop)
+			F.InternalizeMethod(_G["TomCats-MinimapButtonIcon"], "SetPoint")
+			_G["TomCats-MinimapButtonIcon"]:SetTexCoord(0, 0.65, 0, 0.65)
+		end
+	end
+
+	if self:HandleLibDBIconButton(button, name) then
+		tinsert(handledButtons, name)
+	end
+
+	button.isSkinned = true
 end
 
 function module.DelayedUpdateLayout()
@@ -485,10 +515,10 @@ function module:UpdateLayout()
 		self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 	end
 
-	sort(moveButtons)
+	sort(handledButtons)
 
 	local buttonsPerRow = self.db.buttonsPerRow
-	local numOfRows = ceil(#moveButtons / buttonsPerRow)
+	local numOfRows = ceil(#handledButtons / buttonsPerRow)
 	local spacing = self.db.spacing
 	local backdropSpacing = self.db.backdropSpacing
 	local buttonSize = self.db.buttonSize
@@ -496,24 +526,26 @@ function module:UpdateLayout()
 
 	local buttonX, buttonY, anchor, offsetX, offsetY
 
-	for i, moveButton in pairs(moveButtons) do
+	for i, moveButton in pairs(handledButtons) do
 		local frame = _G[moveButton]
+		F.CallMethod("ClearAllPoints", frame)
 
 		if self.db.orientation == "NOANCHOR" then
 			local original = frame.original
-			frame:SetParent(original.Parent)
+			F.CallMethod("SetParent", frame, original.Parent)
 			if original.DragStart then
-				frame:SetScript("OnDragStart", original.DragStart)
+				F.CallMethod("SetScript", frame, "OnDragStart", original.DragStart)
 			end
 			if original.DragEnd then
-				frame:SetScript("OnDragStop", original.DragEnd)
+				F.CallMethod("SetScript", frame, "OnDragStop", original.DragEnd)
 			end
 
-			frame:ClearAllPoints()
-			frame:SetSize(original.Width, original.Height)
+			F.CallMethod("SetSize", frame, original.Width, original.Height)
 
 			if original.Point ~= nil then
-				frame:SetPoint(
+				F.CallMethod(
+					"SetPoint",
+					frame,
 					original.Point,
 					original.relativeTo,
 					original.relativePoint,
@@ -521,12 +553,13 @@ function module:UpdateLayout()
 					original.yOfs
 				)
 			else
-				frame:SetPoint("CENTER", _G.Minimap, "CENTER", -80, -34)
+				F.CallMethod("SetPoint", frame, "CENTER", _G.Minimap, "CENTER", -80, -34)
 			end
-			frame:SetFrameStrata(original.FrameStrata)
-			frame:SetFrameLevel(original.FrameLevel)
-			frame:SetScale(original.Scale)
-			frame:SetMovable(true)
+
+			F.CallMethod("SetFrameStrata", frame, original.FrameStrata)
+			F.CallMethod("SetFrameLevel", frame, original.FrameLevel)
+			F.CallMethod("SetMovable", frame, true)
+			F.CallMethod("SetScale", frame, original.Scale)
 		else
 			buttonX = i % buttonsPerRow
 			buttonY = floor(i / buttonsPerRow) + 1
@@ -536,15 +569,13 @@ function module:UpdateLayout()
 				buttonY = buttonY - 1
 			end
 
-			frame:SetParent(self.bar)
-			frame:SetMovable(false)
-			frame:SetScript("OnDragStart", nil)
-			frame:SetScript("OnDragStop", nil)
+			F.CallMethod("SetParent", frame, self.bar)
+			F.CallMethod("SetFrameStrata", frame, "LOW")
+			F.CallMethod("SetFrameLevel", frame, 20)
+			F.CallMethod("SetMovable", frame, false)
+			F.CallMethod("SetScript", frame, "OnDragStart", nil)
+			F.CallMethod("SetScript", frame, "OnDragStop", nil)
 
-			frame:ClearAllPoints()
-			frame:SetFrameStrata("LOW")
-			frame:SetFrameLevel(20)
-			frame:SetSize(buttonSize, buttonSize)
 			offsetX = backdropSpacing + (buttonX - 1) * (buttonSize + spacing)
 			offsetY = backdropSpacing + (buttonY - 1) * (buttonSize + spacing)
 
@@ -566,23 +597,18 @@ function module:UpdateLayout()
 				end
 			end
 
-			frame:ClearAllPoints()
-			frame:SetPoint(anchor, self.bar, anchor, offsetX, offsetY)
+			F.CallMethod("SetSize", frame, buttonSize, buttonSize)
+			F.CallMethod("SetPoint", frame, anchor, self.bar, anchor, offsetX, offsetY)
 		end
 
 		if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable and frame.backdrop.MERshadow then
 			frame.backdrop.MERshadow:SetShown(not self.db.backdrop)
 		end
-
-		if moveButton == "GameTimeFrame" then
-			frame.MERToday:ClearAllPoints()
-			frame.MERToday:SetPoint("CENTER", frame, "CENTER", 0, -0.15 * buttonSize)
-		end
 	end
 
-	buttonsPerRow = min(buttonsPerRow, #moveButtons)
+	buttonsPerRow = min(buttonsPerRow, #handledButtons)
 
-	if self.db.orientation ~= "NOANCHOR" and #moveButtons > 0 then
+	if self.db.orientation ~= "NOANCHOR" and #handledButtons > 0 then
 		local width = buttonSize * buttonsPerRow + spacing * (buttonsPerRow - 1) + backdropSpacing * 2
 		local height = buttonSize * numOfRows + spacing * (numOfRows - 1) + backdropSpacing * 2
 
@@ -590,8 +616,8 @@ function module:UpdateLayout()
 			width, height = height, width
 		end
 
-		self.bar:SetSize(width, height)
-		self.barAnchor:SetSize(width, height)
+		self.bar:Size(width, height)
+		self.barAnchor:Size(width, height)
 		RegisterStateDriver(self.bar, "visibility", "[petbattle]hide;show")
 		self.bar:Show()
 	else
@@ -605,7 +631,7 @@ function module:UpdateLayout()
 		anchor = direction and "TOP" or "BOTTOM"
 	end
 
-	self.bar:SetPoint(anchor, self.barAnchor, anchor, 0, 0)
+	self.bar:Point(anchor, self.barAnchor, anchor, 0, 0)
 
 	if self.db.backdrop then
 		self.bar.backdrop:Show()
@@ -621,21 +647,17 @@ function module:SkinMinimapButtons()
 		self:SkinButton(child)
 	end
 
-	if self.db.expansionLandingPage then
-		self:SkinButton(_G.ExpansionLandingPageMinimapButton)
-	end
-
 	self:UpdateLayout()
 end
 
 function module:UpdateMouseOverConfig()
 	if self.db.mouseOver then
-		self.bar:SetScript("OnEnter", function(self)
-			E:UIFrameFadeIn(self, (1 - self:GetAlpha()) * 0.382, self:GetAlpha(), 1)
+		self.bar:SetScript("OnEnter", function(bar)
+			E:UIFrameFadeIn(bar, (1 - bar:GetAlpha()) * 0.382, bar:GetAlpha(), 1)
 		end)
 
-		self.bar:SetScript("OnLeave", function(self)
-			E:UIFrameFadeOut(self, self:GetAlpha() * 0.382, self:GetAlpha(), 0)
+		self.bar:SetScript("OnLeave", function(bar)
+			E:UIFrameFadeOut(bar, bar:GetAlpha() * 0.382, bar:GetAlpha(), 0)
 		end)
 
 		self.bar:SetAlpha(0)
@@ -656,16 +678,16 @@ function module:CreateFrames()
 		return
 	end
 
-	local frame = CreateFrame("Frame", nil, E.UIParent)
-	frame:SetPoint("BOTTOMRIGHT", MM.MapHolder, "TOPRIGHT", -2, 2)
+	local frame = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
+	frame:Point("TOPRIGHT", MM.MapHolder, "BOTTOMRIGHT", 0, -5)
 	frame:SetFrameStrata("BACKGROUND")
 	self.barAnchor = frame
 
-	frame = CreateFrame("Frame", nil, E.UIParent)
+	frame = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
 	frame:SetFrameStrata("LOW")
 	frame:CreateBackdrop("Transparent")
 	frame:ClearAllPoints()
-	frame:SetPoint("CENTER", self.barAnchor, "CENTER", 0, 0)
+	frame:Point("CENTER", self.barAnchor, "CENTER", 0, 0)
 	self.bar = frame
 
 	self:SkinMinimapButtons()
