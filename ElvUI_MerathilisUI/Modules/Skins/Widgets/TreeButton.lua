@@ -22,10 +22,10 @@ function WS:HandleTreeGroup(widget)
 		and E.private.mui.skins.widgets
 		and E.private.mui.skins.widgets.treeGroupButton
 
-	if widget.CreateButton and not widget.CreateButton_Changed then
-		widget.CreateButton_Changed = widget.CreateButton
+	if widget.CreateButton and not widget.CreateButton_MER then
+		widget.CreateButton_MER = widget.CreateButton
 		widget.CreateButton = function(...)
-			local button = widget.CreateButton_Changed(...)
+			local button = widget.CreateButton_MER(...)
 
 			button:SetPushedTextOffset(0, 0)
 
@@ -36,20 +36,21 @@ function WS:HandleTreeGroup(widget)
 				if textObj and textObj.GetTextColor then
 					F.SetFontDB(textObj, db.text.font)
 
-					textObj.SetPoint_Changed = textObj.SetPoint
+					textObj.SetPoint_MER = textObj.SetPoint
 					textObj.SetPoint = function(text, point, arg1, arg2, arg3, arg4)
 						if point == "LEFT" and type(arg2) == "number" and abs(arg2 - 2) < 0.1 then
 							arg2 = -1
 						end
 
-						text.SetPoint_Changed(text, point, arg1, arg2, arg3, arg4)
+						text.SetPoint_MER(text, point, arg1, arg2, arg3, arg4)
 					end
 
-					button.MERText = textObj
+					button.windWidgetText = textObj
 				end
 			end
 
 			if db.backdrop.enable then
+				-- Clear original highlight texture
 				button:SetHighlightTexture("")
 				if button.highlight then
 					button.highlight:SetTexture("")
@@ -57,8 +58,6 @@ function WS:HandleTreeGroup(widget)
 				end
 
 				-- Create background
-				button:SetHighlightTexture("")
-
 				local bg = button:CreateTexture()
 				bg:SetInside(button, 2, 0)
 				bg:SetAlpha(0)
@@ -70,7 +69,7 @@ function WS:HandleTreeGroup(widget)
 					bg:SetDrawLayer(layer, subLayer)
 				end
 
-				F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
+				F.SetVertexColorDB(bg, db.backdrop.classColor and E.myClassColor or db.backdrop.color)
 
 				button.MERAnimation = self.Animation(bg, db.backdrop.animation)
 				self.SetAnimationMetadata(button, button.MERAnimation)
@@ -92,11 +91,20 @@ function WS:HandleTreeGroup(widget)
 			end
 
 			if db.selected.enable then
-				button:CreateBackdrop()
+				button:CreateBackdrop(
+					nil,
+					LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					true
+				)
 				button.backdrop:SetInside(button, 2, 0)
-				local borderColor = db.selected.borderClassColor and module.ClassColor or db.selected.borderColor
-				local backdropColor = db.selected.backdropClassColor and module.ClassColor or db.selected.backdropColor
-				button.backdrop.Center:SetTexture(LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex)
+				local borderColor = db.selected.borderClassColor and E.myClassColor or db.selected.borderColor
+				local backdropColor = db.selected.backdropClassColor and E.myClassColor or db.selected.backdropColor
 				button.backdrop:SetBackdropBorderColor(
 					borderColor.r,
 					borderColor.g,
@@ -113,31 +121,31 @@ function WS:HandleTreeGroup(widget)
 			end
 
 			if db.selected.enable or db.text.enable then
-				button.LockHighlight_Changed = button.LockHighlight
+				button.LockHighlight_MER = button.LockHighlight
 				button.LockHighlight = function(frame)
 					if frame.backdrop then
 						frame.backdrop:Show()
 					end
 
-					if frame.MERText then
-						local color = db.text.selectedClassColor and module.ClassColor or db.text.selectedColor
-						frame.MERText:SetTextColor(color.r, color.g, color.b)
+					if frame.MERWidgetText then
+						local color = db.text.selectedClassColor and E.myClassColor or db.text.selectedColor
+						frame.MERWidgetText:SetTextColor(color.r, color.g, color.b)
 					end
 				end
-				button.UnlockHighlight_Changed = button.UnlockHighlight
+				button.UnlockHighlight_MER = button.UnlockHighlight
 				button.UnlockHighlight = function(frame)
 					if frame.backdrop then
 						frame.backdrop:Hide()
 					end
 
-					if frame.MERText then
-						local color = db.text.normalClassColor and module.ClassColor or db.text.normalColor
-						frame.MERText:SetTextColor(color.r, color.g, color.b)
+					if frame.MERWidgetText then
+						local color = db.text.normalClassColor and E.myClassColor or db.text.normalColor
+						frame.MERWidgetText:SetTextColor(color.r, color.g, color.b)
 					end
 				end
 			end
 
-			button.MERSkinned = true
+			button.MERWidgetSkinned = true
 			return button
 		end
 	end

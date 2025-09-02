@@ -30,7 +30,7 @@ function WS:HandleAce3CheckBox(check)
 	end
 
 	if self.IsUglyYellow(check:GetVertexColor()) then
-		F.SetVertexColorDB(check, db.classColor and module.ClassColor or db.color)
+		F.SetVertexColorDB(check, db.classColor and E.myClassColor or db.color)
 	end
 end
 
@@ -58,14 +58,14 @@ function WS:HandleCheckBox(_, check)
 			if texture then
 				texture:SetTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
 				texture.SetTexture = E.noop
-				F.SetVertexColorDB(tex, db.classColor and module.ClassColor or db.color)
-				texture.SetVertexColor_Changed = texture.SetVertexColor
+				F.SetVertexColorDB(tex, db.classColor and E.myClassColor or db.color)
+				texture.SetVertexColor_MER = texture.SetVertexColor
 				texture.SetVertexColor = function(tex, ...)
 					local isDefaultColor = self.IsUglyYellow(...)
 					if tex.__MERColorOverride and type(tex.__MERColorOverride) == "function" then
 						local color = tex.__MERColorOverride(...)
 						if type(color) == "table" and color.r and color.g and color.b then
-							tex:SetVertexColor_Changed(color.r, color.g, color.b, color.a)
+							tex:SetVertexColor_MER(color.r, color.g, color.b, color.a)
 							return
 						elseif type(color) == "string" and color == "DEFAULT" then
 							isDefaultColor = true
@@ -73,10 +73,10 @@ function WS:HandleCheckBox(_, check)
 					end
 
 					if isDefaultColor then
-						local color = db.classColor and module.ClassColor or db.color
-						tex:SetVertexColor_Changed(color.r, color.g, color.b, color.a)
+						local color = db.classColor and E.myClassColor or db.color
+						tex:SetVertexColor_MER(color.r, color.g, color.b, color.a)
 					else
-						tex:SetVertexColor_Changed(...)
+						tex:SetVertexColor_MER(...)
 					end
 				end
 			end

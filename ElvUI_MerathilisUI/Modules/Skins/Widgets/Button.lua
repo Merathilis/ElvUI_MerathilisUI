@@ -49,7 +49,7 @@ function WS:HandleButton(_, button)
 			bg:SetDrawLayer(layer, subLayer)
 		end
 
-		F.SetVertexColorDB(bg, db.backdrop.classColor and module.ClassColor or db.backdrop.color)
+		F.SetVertexColorDB(bg, db.backdrop.classColor and E.myClassColor or db.backdrop.color)
 
 		button.MERAnimation = self.Animation(bg, db.backdrop.animation)
 		self.SetAnimationMetadata(button, button.MERAnimation)
@@ -105,8 +105,8 @@ function WS:ElvUI_Config_SetButtonColor(_, btn)
 		local r2, g2, b2 = unpack(E.media.bordercolor)
 		btn:SetBackdropBorderColor(r2, g2, b2, 1)
 	else
-		local borderColor = db.selected.borderClassColor and MER.ClassColor or db.selected.borderColor
-		local backdropColor = db.selected.backdropClassColor and MER.ClassColor or db.selected.backdropColor
+		local borderColor = db.selected.borderClassColor and E.myClassColor or db.selected.borderColor
+		local backdropColor = db.selected.backdropClassColor and E.myClassColor or db.selected.backdropColor
 		btn:SetBackdropBorderColor(borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
 		btn:SetBackdropColor(backdropColor.r, backdropColor.g, backdropColor.b, db.selected.backdropAlpha)
 	end

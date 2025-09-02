@@ -21,17 +21,17 @@ function WS:HandleSliderFrame(_, slider)
 		return
 	end
 
-	if not slider.MERSkinned and not slider.StripTextures_ and not slider.SetThumbTexture_ then
+	if not slider.MERSkinned and not slider.StripTextures_MER and not slider.SetThumbTexture_MER then
 		slider:SetThumbTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
-		slider.StripTextures_ = slider.StripTextures
+		slider.StripTextures_MER = slider.StripTextures
 		slider.StripTextures = E.noop
-		slider.SetThumbTexture_ = slider.SetThumbTexture
+		slider.SetThumbTexture_MER = slider.SetThumbTexture
 		slider.SetThumbTexture = E.noop
 
 		slider.MERSkinned = true
 	end
 
-	F.SetVertexColorDB(slider:GetThumbTexture(), db.classColor and module.ClassColor or db.color)
+	F.SetVertexColorDB(slider:GetThumbTexture(), db.classColor and E.myClassColor or db.color)
 end
 
 WS:SecureHook(S, "HandleSliderFrame")

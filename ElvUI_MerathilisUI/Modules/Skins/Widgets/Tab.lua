@@ -15,7 +15,7 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 		return
 	end
 
-	if not tab or tab.MERSkinned then
+	if not tab or tab.MERWidgetSkinned then
 		return
 	end
 
@@ -36,7 +36,7 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 		local text = tab.text or tab.Text or tab.GetName and tab:GetName() and _G[tab:GetName() .. "Text"]
 		if text and text.GetTextColor then
 			F.SetFontDB(text, db.text.font)
-			tab.MERText = text
+			tab.MERWidgetText = text
 		end
 	end
 
@@ -55,7 +55,7 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 			bg:SetDrawLayer(layer, subLayer)
 		end
 
-		F.SetVertexColorDB(bg, db.backdrop.classColor and MER.ClassColor or db.backdrop.color)
+		F.SetVertexColorDB(bg, db.backdrop.classColor and E.myClassColor or db.backdrop.color)
 
 		tab.MERAnimation = self.Animation(bg, db.backdrop.animation)
 		tab.__MERAnimationIsTab = true
@@ -82,11 +82,11 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 		end
 	end
 
-	tab.MERSkinned = true
+	tab.MERWidgetSkinned = true
 end
 
 do
-	S.Ace3_TabSetSelected_MER = S.Ace3_TabSetSelected -- Ace3_TabSetSelected_MER (need another name since due WindTools)
+	S.Ace3_TabSetSelected_MER = S.Ace3_TabSetSelected
 	function S.Ace3_TabSetSelected(tab, selected)
 		if not tab or not tab.backdrop then
 			return S.Ace3_TabSetSelected_MER(tab, selected)
@@ -103,22 +103,22 @@ do
 
 		local db = E.private.mui.skins.widgets.tab
 
-		if db.text.enable and tab.MERText then
+		if db.text.enable and tab.MERWidgetText then
 			local color
 			if selected then
-				color = db.text.selectedClassColor and module.ClassColor or db.text.selectedColor
+				color = db.text.selectedClassColor and E.myClassColor or db.text.selectedColor
 			else
-				color = db.text.normalClassColor and module.ClassColor or db.text.normalColor
+				color = db.text.normalClassColor and E.myClassColor or db.text.normalColor
 			end
-			tab.MERText:SetTextColor(color.r, color.g, color.b)
+			tab.MERWidgetText:SetTextColor(color.r, color.g, color.b)
 		end
 
 		if not db.selected.enable then
 			return S.Ace3_TabSetSelected_MER(tab, selected)
 		end
 
-		local borderColor = db.selected.borderClassColor and module.ClassColor or db.selected.borderColor
-		local backdropColor = db.selected.backdropClassColor and module.ClassColor or db.selected.backdropColor
+		local borderColor = db.selected.borderClassColor and E.myClassColor or db.selected.borderColor
+		local backdropColor = db.selected.backdropClassColor and E.myClassColor or db.selected.backdropColor
 		if selected then
 			tab.backdrop.Center:SetTexture(LSM:Fetch("statusbar", db.selected.texture) or E.media.glossTex)
 			tab.backdrop:SetBackdropBorderColor(borderColor.r, borderColor.g, borderColor.b, db.selected.borderAlpha)
