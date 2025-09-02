@@ -5,12 +5,8 @@ local S = E:GetModule("Skins")
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 local pairs = pairs
-local strfind = strfind
 local type = type
 local unpack = unpack
-
-local buttons = {}
-local expandButtons = {}
 
 local function RemoveBorder(frame)
 	for _, region in pairs({ frame:GetRegions() }) do
@@ -26,7 +22,7 @@ end
 local function HandleAllChildButtons(frame)
 	for _, child in pairs({ frame:GetChildren() }) do
 		if child:IsObjectType("Button") then
-			S:HandleButton(child)
+			module:Proxy("HandleButton", child)
 		end
 	end
 end
@@ -62,7 +58,7 @@ end
 
 local function ReskinNormalButton(button, next)
 	if button.Left and button.Middle and button.Right and button.Text then
-		S:HandleButton(button)
+		module:Proxy("HandleButton", button)
 	end
 	if next then
 		for _, child in pairs({ button:GetChildren() }) do
@@ -94,254 +90,219 @@ local function ApplyTextureCoords(tex, force)
 	tex.MERTexCoords = true
 end
 
-function module:WeakAurasMultiLineEditBox(Constructor)
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
-		return Constructor
+function module:Ace_WeakAurasMultiLineEditBox(widget)
+	self:Proxy("HandleButton", widget.button)
+
+	widget.scrollBG:SetAlpha(0)
+	widget.scrollFrame:StripTextures()
+	self:Proxy("HandleScrollBar", widget.scrollBar)
+
+	widget.editBox:DisableDrawLayer("BACKGROUND")
+	widget.frame:CreateBackdrop()
+	widget.frame.backdrop:ClearAllPoints()
+	widget.frame.backdrop:SetFrameLevel(widget.frame:GetFrameLevel())
+	widget.frame.backdrop:Point("TOPLEFT", widget.scrollFrame, "TOPLEFT", -5, 2)
+	widget.frame.backdrop:Point("BOTTOMRIGHT", widget.scrollFrame, "BOTTOMRIGHT", 0, 0)
+
+	local onShow = widget.frame:GetScript("OnShow")
+	widget.frame:SetScript("OnShow", function(frame)
+		onShow(frame)
+		if not frame.obj or not frame.obj.extraButtons then
+			return
+		end
+
+		for _, button in pairs(frame.obj.extraButtons) do
+			if not button.__MERSkin then
+				self:Proxy("HandleButton", button)
+				button.__MERSkin = true
+			end
+		end
+	end)
+end
+
+function module:Ace_WeakAurasDisplayButton(widget)
+	if widget.background then
+		self:Proxy("HandleButton", widget.frame, nil, nil, nil, true, "Transparent")
+		widget.frame.background:SetAlpha(0)
+		widget.frame.backdrop:SetFrameLevel(widget.frame:GetFrameLevel())
+		widget.frame.backdrop.color = { widget.frame.backdrop.Center:GetVertexColor() }
+
+		hooksecurefunc(widget.frame.background, "Hide", function()
+			widget.frame.backdrop.Center:SetVertexColor(1, 0, 0, 0.3)
+		end)
+
+		hooksecurefunc(widget.frame.background, "Show", function()
+			widget.frame.backdrop.Center:SetVertexColor(unpack(widget.frame.backdrop.color))
+		end)
 	end
 
-	local function SkinnedConstructor()
-		local widget = Constructor()
-		S:HandleButton(widget.button)
+	ApplyTextureCoords(widget.icon)
 
-		widget.scrollBG:SetAlpha(0)
-		widget.scrollFrame:StripTextures()
-		S:HandleScrollBar(widget.scrollBar)
+	if widget.renamebox then
+		self:Proxy("HandleEditBox", widget.renamebox)
+	end
 
-		widget.editBox:DisableDrawLayer("BACKGROUND")
-		widget.frame:CreateBackdrop()
-		widget.frame.backdrop:ClearAllPoints()
-		widget.frame.backdrop:OffsetFrameLevel(nil, widget.frame)
-		widget.frame.backdrop:SetPoint("TOPLEFT", widget.scrollFrame, "TOPLEFT", -5, 2)
-		widget.frame.backdrop:SetPoint("BOTTOMRIGHT", widget.scrollFrame, "BOTTOMRIGHT", 0, 0)
+	if widget.frame.highlight then
+		widget.frame.highlight:SetTexture(E.media.blankTex)
+		widget.frame.highlight:SetVertexColor(1, 1, 1, 0.15)
+		widget.frame.highlight:SetInside()
+	end
 
-		local onShow = widget.frame:GetScript("OnShow")
-		widget.frame:SetScript("OnShow", function(frame)
-			onShow(frame)
-			if not frame.obj or not frame.obj.extraButtons then
-				return
+	-- Set Icon (Generally, Weakauras call this function to update the icon)
+	if widget.SetIcon then
+		local SetIcon = widget.SetIcon
+		widget.SetIcon = function(frame, icon)
+			SetIcon(frame, icon)
+			if frame.iconRegion then
+				ApplyTextureCoords(frame.iconRegion.icon, true)
 			end
+		end
+	end
 
-			for _, button in pairs(frame.obj.extraButtons) do
-				if not button.MERStyle then
-					S:HandleButton(button)
-					button.MERStyle = true
-				end
+	-- Update Thumbnail (After picking up the new icon for this aura, Weakauras will call this function)
+	if widget.UpdateThumbnail then
+		local UpdateThumbnail = widget.UpdateThumbnail
+		widget.UpdateThumbnail = function(frame)
+			UpdateThumbnail(frame)
+			if frame.thumbnail then
+				ApplyTextureCoords(frame.thumbnail.icon, true)
+			end
+		end
+	end
+
+	if widget.expand then
+		-- Expand Button
+		local expandButton = widget.expand
+		expandButton:StripTextures()
+		expandButton.SetNormalTexture = E.noop
+		expandButton.SetHighlightTexture = E.noop
+		expandButton.SetPushedTexture = E.noop
+
+		expandButton:CreateBackdrop()
+		expandButton.backdrop:SetInside(nil, 2, 2)
+		expandButton.backdrop.Center:Kill()
+		expandButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
+		expandButton.Texture = expandButton.backdrop:CreateTexture(nil, "OVERLAY")
+		expandButton.Texture:Size(12)
+		expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+		expandButton.Texture:SetVertexColor(0.5, 0.5, 0.5)
+		expandButton.Texture:Point("CENTER")
+		expandButton:HookScript("OnEnter", function(expandBtn)
+			if not expandBtn.disabled and expandBtn.backdrop then
+				expandBtn.backdrop:SetBackdropBorderColor(1, 1, 1)
 			end
 		end)
-		return widget
+
+		expandButton:HookScript("OnLeave", function(expandBtn)
+			if not expandBtn.disabled and expandBtn.backdrop then
+				expandBtn.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
+			end
+		end)
+
+		local DisableExpand = widget.DisableExpand
+		widget.DisableExpand = function(frame)
+			DisableExpand(frame)
+			expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+			expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3)
+		end
+
+		local Expand = widget.Expand
+		widget.Expand = function(frame)
+			Expand(frame)
+			expandButton.Texture:SetTexture(W.Media.Icons.buttonMinus)
+			expandButton.Texture:SetVertexColor(1, 1, 1)
+		end
+
+		local Collapse = widget.Collapse
+		widget.Collapse = function(frame)
+			Collapse(frame)
+			expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+			expandButton.Texture:SetVertexColor(1, 1, 1)
+		end
 	end
 
-	return SkinnedConstructor
+	-- Group (verb) Button
+	if widget.group then
+		-- Expand Button
+		local groupButton = widget.group
+		groupButton:StripTextures()
+		groupButton.SetNormalTexture = E.noop
+		groupButton.SetHighlightTexture = E.noop
+		groupButton.SetPushedTexture = E.noop
+
+		groupButton:CreateBackdrop()
+		groupButton.backdrop:SetInside(nil, 2, 2)
+		groupButton.backdrop.Center:Kill()
+		groupButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
+		groupButton.Texture = groupButton.backdrop:CreateTexture(nil, "OVERLAY")
+		groupButton.Texture:Size(9)
+		groupButton.Texture:SetTexture(W.Media.Icons.buttonForward)
+		groupButton.Texture:Point("CENTER")
+		groupButton:HookScript("OnEnter", function(groupBtn)
+			if not groupBtn.disabled and groupBtn.backdrop then
+				groupBtn.backdrop:SetBackdropBorderColor(1, 1, 1)
+			end
+		end)
+
+		groupButton:HookScript("OnLeave", function(groupBtn)
+			if not groupBtn.disabled and groupBtn.backdrop then
+				groupBtn.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
+			end
+		end)
+	end
 end
 
-function module:WeakAurasDisplayButton(Constructor)
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
-		return Constructor
+function module:Ace_WeakAurasLoadedHeaderButton(widget)
+	if not widget.expand then
+		return
+	end
+	local expandButton = widget.expand
+	expandButton:StripTextures()
+	expandButton.SetNormalTexture = E.noop
+	expandButton.SetHighlightTexture = E.noop
+	expandButton.SetPushedTexture = E.noop
+
+	expandButton:CreateBackdrop()
+	expandButton.backdrop:SetInside(nil, 2, 2)
+	expandButton.backdrop.Center:Kill()
+	expandButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
+	expandButton.Texture = expandButton.backdrop:CreateTexture(nil, "OVERLAY")
+	expandButton.Texture:Size(12)
+	expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+	expandButton.Texture:SetVertexColor(0.5, 0.5, 0.5)
+	expandButton.Texture:Point("CENTER")
+	expandButton:HookScript("OnEnter", function(headerBtn)
+		if not headerBtn.disabled and headerBtn.backdrop then
+			headerBtn.backdrop:SetBackdropBorderColor(1, 1, 1)
+		end
+	end)
+
+	expandButton:HookScript("OnLeave", function(headerBtn)
+		if not headerBtn.disabled and headerBtn.backdrop then
+			headerBtn.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
+		end
+	end)
+
+	local DisableExpand = widget.DisableExpand
+	widget.DisableExpand = function(frame)
+		DisableExpand(frame)
+		expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+		expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3)
 	end
 
-	local function SkinnedConstructor()
-		local widget = Constructor()
-		if widget.background then
-			S:HandleButton(widget.frame, nil, nil, nil, true, "Transparent")
-			widget.frame.background:SetAlpha(0)
-			widget.frame.backdrop:OffsetFrameLevel(nil, widget.frame)
-			widget.frame.backdrop.color = { widget.frame.backdrop.Center:GetVertexColor() }
-
-			hooksecurefunc(widget.frame.background, "Hide", function()
-				widget.frame.backdrop.Center:SetVertexColor(1, 0, 0, 0.3)
-			end)
-
-			hooksecurefunc(widget.frame.background, "Show", function()
-				widget.frame.backdrop.Center:SetVertexColor(unpack(widget.frame.backdrop.color))
-			end)
-		end
-
-		ApplyTextureCoords(widget.icon)
-
-		if widget.renamebox then
-			S:HandleEditBox(widget.renamebox)
-		end
-
-		if widget.frame.highlight then
-			widget.frame.highlight:SetTexture(E.media.blankTex)
-			widget.frame.highlight:SetVertexColor(1, 1, 1, 0.15)
-			widget.frame.highlight:SetInside()
-		end
-
-		-- Set Icon (Generally, Weakauras call this function to update the icon)
-		if widget.SetIcon then
-			local SetIcon = widget.SetIcon
-			widget.SetIcon = function(frame, icon)
-				SetIcon(frame, icon)
-				if frame.iconRegion then
-					ApplyTextureCoords(frame.iconRegion.icon, true)
-				end
-			end
-		end
-
-		-- Update Thumbnail (After picking up the new icon for this aura, Weakauras will call this function)
-		if widget.UpdateThumbnail then
-			local UpdateThumbnail = widget.UpdateThumbnail
-			widget.UpdateThumbnail = function(frame)
-				UpdateThumbnail(frame)
-				if frame.thumbnail then
-					ApplyTextureCoords(frame.thumbnail.icon, true)
-				end
-			end
-		end
-
-		if widget.expand then
-			-- Expand Button
-			local expandButton = widget.expand
-			expandButton:StripTextures()
-			expandButton.SetNormalTexture = E.noop
-			expandButton.SetHighlightTexture = E.noop
-			expandButton.SetPushedTexture = E.noop
-
-			expandButton:CreateBackdrop()
-			expandButton.backdrop:SetInside(nil, 2, 2)
-			expandButton.backdrop.Center:Kill()
-			expandButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
-			expandButton.Texture = expandButton.backdrop:CreateTexture(nil, "OVERLAY")
-			expandButton.Texture:SetSize(12, 12)
-			expandButton.Texture:SetTexture(I.Media.Icons.Plus)
-			expandButton.Texture:SetVertexColor(0.5, 0.5, 0.5, 1)
-			expandButton.Texture:SetPoint("CENTER")
-			expandButton:HookScript("OnEnter", function(self)
-				if not self.disabled and self.backdrop then
-					self.backdrop:SetBackdropBorderColor(1, 1, 1)
-				end
-			end)
-
-			expandButton:HookScript("OnLeave", function(self)
-				if not self.disabled and self.backdrop then
-					self.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
-				end
-			end)
-
-			local DisableExpand = widget.DisableExpand
-			widget.DisableExpand = function(frame)
-				DisableExpand(frame)
-				expandButton.Texture:SetTexture(I.Media.Icons.Plus)
-				expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3, 1)
-			end
-
-			local Expand = widget.Expand
-			widget.Expand = function(frame)
-				Expand(frame)
-				expandButton.Texture:SetTexture(I.Media.Icons.Minus)
-				expandButton.Texture:SetVertexColor(1, 1, 1, 1)
-			end
-
-			local Collapse = widget.Collapse
-			widget.Collapse = function(frame)
-				Collapse(frame)
-				expandButton.Texture:SetTexture(I.Media.Icons.Plus)
-				expandButton.Texture:SetVertexColor(1, 1, 1, 1)
-			end
-		end
-
-		-- Group (verb) Button
-		if widget.group then
-			-- Expand Button
-			local groupButton = widget.group
-			groupButton:StripTextures()
-			groupButton.SetNormalTexture = E.noop
-			groupButton.SetHighlightTexture = E.noop
-			groupButton.SetPushedTexture = E.noop
-
-			groupButton:CreateBackdrop()
-			groupButton.backdrop:SetInside(nil, 2, 2)
-			groupButton.backdrop.Center:Kill()
-			groupButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
-			groupButton.Texture = groupButton.backdrop:CreateTexture(nil, "OVERLAY")
-			groupButton.Texture:SetSize(9, 9)
-			groupButton.Texture:SetTexture(I.Media.Icons.Forward)
-			groupButton.Texture:SetPoint("CENTER")
-			groupButton:HookScript("OnEnter", function(self)
-				if not self.disabled and self.backdrop then
-					self.backdrop:SetBackdropBorderColor(1, 1, 1)
-				end
-			end)
-
-			groupButton:HookScript("OnLeave", function(self)
-				if not self.disabled and self.backdrop then
-					self.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
-				end
-			end)
-		end
-
-		return widget
+	local Expand = widget.Expand
+	widget.Expand = function(frame)
+		Expand(frame)
+		expandButton.Texture:SetTexture(W.Media.Icons.buttonMinus)
+		expandButton.Texture:SetVertexColor(1, 1, 1)
 	end
 
-	return SkinnedConstructor
-end
-
-module.WeakAurasNewButton = module.WeakAurasDisplayButton
-
-function module:WeakAurasLoadedHeaderButton(Constructor)
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
-		return Constructor
+	local Collapse = widget.Collapse
+	widget.Collapse = function(frame)
+		Collapse(frame)
+		expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+		expandButton.Texture:SetVertexColor(1, 1, 1)
 	end
-
-	local function SkinnedConstructor()
-		local widget = Constructor()
-
-		if widget.expand then
-			-- Expand Button
-			local expandButton = widget.expand
-			expandButton:StripTextures()
-			expandButton.SetNormalTexture = E.noop
-			expandButton.SetHighlightTexture = E.noop
-			expandButton.SetPushedTexture = E.noop
-
-			expandButton:CreateBackdrop()
-			expandButton.backdrop:SetInside(nil, 2, 2)
-			expandButton.backdrop.Center:Kill()
-			expandButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
-			expandButton.Texture = expandButton.backdrop:CreateTexture(nil, "OVERLAY")
-			expandButton.Texture:SetSize(12, 12)
-			expandButton.Texture:SetTexture(I.Media.Icons.Plus)
-			expandButton.Texture:SetVertexColor(0.5, 0.5, 0.5, 1)
-			expandButton.Texture:SetPoint("CENTER")
-			expandButton:HookScript("OnEnter", function(self)
-				if not self.disabled and self.backdrop then
-					self.backdrop:SetBackdropBorderColor(1, 1, 1)
-				end
-			end)
-
-			expandButton:HookScript("OnLeave", function(self)
-				if not self.disabled and self.backdrop then
-					self.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
-				end
-			end)
-
-			local DisableExpand = widget.DisableExpand
-			widget.DisableExpand = function(frame)
-				DisableExpand(frame)
-				expandButton.Texture:SetTexture(I.Media.Icons.Plus)
-				expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3, 1)
-			end
-
-			local Expand = widget.Expand
-			widget.Expand = function(frame)
-				Expand(frame)
-				expandButton.Texture:SetTexture(I.Media.Icons.Minus)
-				expandButton.Texture:SetVertexColor(1, 1, 1, 1)
-			end
-
-			local Collapse = widget.Collapse
-			widget.Collapse = function(frame)
-				Collapse(frame)
-				expandButton.Texture:SetTexture(I.Media.Icons.Plus)
-				expandButton.Texture:SetVertexColor(1, 1, 1, 1)
-			end
-		end
-
-		return widget
-	end
-
-	return SkinnedConstructor
 end
 
 do
@@ -359,12 +320,12 @@ do
 		local frame = _G.WeakAurasOptions.moversizer
 
 		-- Mover Edge
-		module:StripEdgeTextures(frame)
+		self:StripEdgeTextures(frame)
 		frame:CreateBackdrop()
 		frame.backdrop:SetInside(frame, 2, 2)
 		frame.backdrop.Center:Kill()
 		frame.backdrop:SetBackdropBorderColor(1, 1, 1)
-		module:CreateShadow(frame.backdrop, 4, 1, 1, 1, true)
+		self:CreateShadow(frame.backdrop, 4, 1, 1, 1, true)
 
 		-- Mover Buttons
 		for _, child in pairs({ frame:GetChildren() }) do
@@ -375,24 +336,24 @@ do
 					local anchor = button:GetPoint()
 					if anchor then
 						button:StripTextures()
-						button:SetSize(16, 16)
+						button:Size(16)
 						button:CreateBackdrop()
-						module:CreateShadow(button.backdrop)
+						self:CreateBackdropShadow(button)
 						button.Texture = button.backdrop:CreateTexture(nil, "OVERLAY")
 						button.Texture:SetTexture(E.Media.Textures.ArrowUp)
-						button.Texture:SetPoint("CENTER")
-						button.Texture:SetSize(16, 16)
+						button.Texture:Point("CENTER")
+						button.Texture:Size(16)
 						button.Texture:SetRotation(S.ArrowRotation[AnchorDict[anchor]])
 
-						button:HookScript("OnEnter", function(self)
-							if self.Texture then
-								self.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+						button:HookScript("OnEnter", function(moverBtn)
+							if moverBtn.Texture then
+								moverBtn.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
 							end
 						end)
 
-						button:HookScript("OnLeave", function(self)
-							if self.Texture then
-								self.Texture:SetVertexColor(1, 1, 1, 1)
+						button:HookScript("OnLeave", function(moverBtn)
+							if moverBtn.Texture then
+								moverBtn.Texture:SetVertexColor(1, 1, 1)
 							end
 						end)
 					end
@@ -402,63 +363,51 @@ do
 	end
 end
 
-function module:WeakAurasIconButton(Constructor)
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
-		return Constructor
+function module:Ace_WeakAurasIconButton(widget)
+	widget.frame:CreateBackdrop()
+	widget.frame.backdrop.Center:StripTextures()
+	ApplyTextureCoords(widget.texture)
+	widget.texture:SetInside(widget.frame, 3, 3)
+	widget.frame.backdrop:SetInside(widget.frame, 2, 2)
+
+	local highlightTexture = widget.frame:GetHighlightTexture()
+	if highlightTexture then
+		highlightTexture:StripTextures()
 	end
 
-	local function SkinnedConstructor()
-		local widget = Constructor()
-		widget.frame:CreateBackdrop()
-		widget.frame.backdrop.Center:StripTextures()
-		ApplyTextureCoords(widget.texture)
-		widget.texture:SetInside(widget.frame, 3, 3)
-		widget.frame.backdrop:SetInside(widget.frame, 2, 2)
-
-		local highlightTexture = widget.frame:GetHighlightTexture()
-		if highlightTexture then
-			highlightTexture:StripTextures()
+	widget.frame:HookScript("OnEnter", function(iconFrame)
+		if iconFrame.backdrop then
+			iconFrame.backdrop:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
 		end
+	end)
 
-		widget.frame:HookScript("OnEnter", function(self)
-			if self.backdrop then
-				self.backdrop:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-			end
-		end)
-
-		widget.frame:HookScript("OnLeave", function(self)
-			if self.backdrop then
-				self.backdrop:SetBackdropBorderColor(0, 0, 0)
-			end
-		end)
-
-		return widget
-	end
-
-	return SkinnedConstructor
+	widget.frame:HookScript("OnLeave", function(iconFrame)
+		if iconFrame.backdrop then
+			iconFrame.backdrop:SetBackdropBorderColor(0, 0, 0)
+		end
+	end)
 end
 
 function module:WeakAuras_ShowOptions()
 	local frame = _G.WeakAurasOptions
-	if not frame or frame.MERStyle then
+	if not frame or frame.__MERSkin then
 		return
 	end
 
 	-- Remove background
 	frame:StripTextures()
-	S:HandleFrame(frame, true, nil, 0, 0, 0, 0)
-	module:CreateShadow(frame)
+	self:Proxy("HandleFrame", frame, true, nil, 0, 0, 0, 0)
+	self:CreateShadow(frame)
 
-	S:HandleCloseButton(frame.CloseButton)
-
+	self:Proxy("HandleCloseButton", frame.CloseButton)
 	if frame.MaxMinButtonFrame.MinimizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MinimizeButton, "up", nil, true)
+		self:Proxy("HandleNextPrevButton", frame.MaxMinButtonFrame.MinimizeButton, "up", nil, true)
 		frame.MaxMinButtonFrame.MinimizeButton:ClearAllPoints()
 		frame.MaxMinButtonFrame.MinimizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
 	end
 
 	if frame.MaxMinButtonFrame.MaximizeButton then
-		S:HandleNextPrevButton(frame.MaxMinButtonFrame.MaximizeButton, "down", nil, true)
+		self:Proxy("HandleNextPrevButton", frame.MaxMinButtonFrame.MaximizeButton, "down", nil, true)
 		frame.MaxMinButtonFrame.MaximizeButton:ClearAllPoints()
 		frame.MaxMinButtonFrame.MaximizeButton:Point("RIGHT", frame.CloseButton, "LEFT")
 	end
@@ -487,7 +436,7 @@ function module:WeakAuras_ShowOptions()
 	if frame.filterInput then
 		local inputBox = frame.filterInput
 		local rightPart
-		S:HandleEditBox(inputBox)
+		self:Proxy("HandleEditBox", inputBox)
 		for i = 1, inputBox:GetNumPoints() do
 			local point, relativeFrame = inputBox:GetPoint(i)
 			if point == "RIGHT" then
@@ -515,47 +464,48 @@ function module:WeakAuras_ShowOptions()
 			end
 			local button = child:GetChildren()
 
-			if not button.MERStyle and button.GetNormalTexture then
+			if not button.__MERSkin and button.GetNormalTexture then
 				local normalTexturePath = button:GetNormalTexture():GetTexture()
 				if normalTexturePath == 252125 then
 					button:StripTextures()
+					button.SetNormalTexture = E.noop
+					button.SetPushedTexture = E.noop
+					button.SetHighlightTexture = E.noop
 
 					button.Texture = button:CreateTexture(nil, "OVERLAY")
 					button.Texture:SetPoint("CENTER")
 					button.Texture:SetTexture(E.Media.Textures.ArrowUp)
 					button.Texture:SetSize(14, 14)
 
-					button:HookScript("OnEnter", function(self)
-						if self.Texture then
-							self.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+					button:HookScript("OnEnter", function(optionsBtn)
+						if optionsBtn.Texture then
+							optionsBtn.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
 						end
 					end)
 
-					button:HookScript("OnLeave", function(self)
-						if self.Texture then
-							self.Texture:SetVertexColor(1, 1, 1, 1)
+					button:HookScript("OnLeave", function(optionsBtn)
+						if optionsBtn.Texture then
+							optionsBtn.Texture:SetVertexColor(1, 1, 1)
 						end
 					end)
 
-					button:HookScript("OnClick", function(self)
-						self:SetNormalTexture("")
-						self:SetPushedTexture("")
-						if self:GetParent():GetParent().minimized then
-							button.Texture:SetRotation(S.ArrowRotation["down"])
+					button:HookScript("OnClick", function(optionsBtn)
+						if optionsBtn:GetParent():GetParent().minimized then
+							button.Texture:SetRotation(ES.ArrowRotation["down"])
 						else
-							button.Texture:SetRotation(S.ArrowRotation["up"])
+							button.Texture:SetRotation(ES.ArrowRotation["up"])
 						end
 					end)
 
 					button:SetHitRectInsets(6, 6, 7, 7)
-					button:SetPoint("TOPRIGHT", frame.backdrop, "TOPRIGHT", -25, -5)
+					button:SetPoint("TOPRIGHT", frame.backdrop, "TOPRIGHT", -25, -1)
 				else
-					S:HandleCloseButton(button)
+					self:Proxy("HandleCloseButton", button)
 					button:ClearAllPoints()
-					button:SetPoint("TOPRIGHT", frame.backdrop, "TOPRIGHT", -3, -3)
+					button:SetPoint("TOPRIGHT", frame.backdrop, "TOPRIGHT", -5, -3)
 				end
 
-				button.MERStyle = true
+				button.__MERSkin = true
 			end
 		end
 
@@ -563,10 +513,10 @@ function module:WeakAuras_ShowOptions()
 		if frameStrata == "FULLSCREEN" then
 			child:StripTextures()
 			child:CreateBackdrop("Transparent")
-			module:CreateShadow(child.backdrop)
+			self:CreateShadow(child.backdrop)
 			for _, subChild in pairs({ child:GetChildren() }) do
 				if subChild.GetObjectType and subChild:GetObjectType() == "EditBox" then
-					S:HandleEditBox(subChild)
+					self:Proxy("HandleEditBox", subChild)
 					subChild.backdrop:SetInside(nil, 0, 7)
 				end
 			end
@@ -581,7 +531,7 @@ function module:WeakAuras_ShowOptions()
 		snippetsFrame:SetPoint("BOTTOMLEFT", frame, "BOTTOMRIGHT", 5, 0)
 		snippetsFrame:StripTextures()
 		snippetsFrame:CreateBackdrop("Transparent")
-		module:CreateBackdropShadow(snippetsFrame)
+		self:CreateBackdropShadow(snippetsFrame)
 		ReskinChildButton(snippetsFrame)
 	end
 
@@ -593,8 +543,8 @@ function module:WeakAuras_ShowOptions()
 				if child:GetNumPoints() == 2 then
 					local point, relativeFrame, relativePoint = child:GetPoint(1)
 					if point == "RIGHT" and relativeFrame == frame.filterInput and relativePoint == "RIGHT" then
-						local point, relativeFrame, relativePoint = child:GetPoint(2)
-						if point == "BOTTOM" and relativeFrame == frame and relativePoint == "TOP" then
+						local point2, relativeFrame2, relativePoint2 = child:GetPoint(2)
+						if point2 == "BOTTOM" and relativeFrame2 == frame and relativePoint2 == "TOP" then
 							importButton = child
 						end
 					end
@@ -623,10 +573,10 @@ function module:WeakAuras_ShowOptions()
 		end
 	end
 
-	frame.MERStyle = true
+	frame.__MERSkin = true
 end
 
-function postHookPrivate(method, postHook)
+local function postHookPrivate(method, postHook)
 	if not _G.WeakAuras or not _G.WeakAuras.OptionsPrivate then
 		return
 	end
@@ -642,36 +592,6 @@ function postHookPrivate(method, postHook)
 	end
 end
 
-function module:WeakAuras_TextEditor()
-	S:HandleButton(_G.WASettingsButton)
-
-	local frame = _G.WASnippetsButton:GetParent()
-	if not frame then
-		return
-	end
-
-	for _, child in pairs({ frame:GetChildren() }) do
-		if child.Text then
-			S:HandleButton(child)
-		end
-	end
-
-	frame = _G.WeakAurasSnippets
-	if not frame then
-		return
-	end
-
-	frame:SetBackdrop(nil)
-	frame:CreateBackdrop("Transparent")
-	module:CreateShadow(frame)
-
-	for _, child in pairs({ frame:GetChildren() }) do
-		if child.Text then
-			S:HandleButton(child)
-		end
-	end
-end
-
 function module:WeakAurasOptions()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.weakAurasOptions then
 		return
@@ -681,7 +601,7 @@ function module:WeakAurasOptions()
 		return
 	end
 
-	module:SecureHook(_G.WeakAuras, "ShowOptions", "WeakAuras_ShowOptions")
+	self:SecureHook(_G.WeakAuras, "ShowOptions", "WeakAuras_ShowOptions")
 
 	---@param skip boolean The skip flag
 	---@param element any The element to skin
@@ -703,7 +623,7 @@ function module:WeakAurasOptions()
 	---@return boolean hasBeenSkinned The result of the skinning operation
 	local generalButtonSkinner = function(skip, element)
 		if not skip and element and element.GetObjectType and element:GetObjectType() == "Button" then
-			S:HandleButton(element)
+			self:Proxy("HandleButton", element)
 			return true
 		end
 
@@ -729,20 +649,20 @@ function module:WeakAurasOptions()
 		skinChildren(widget)
 
 		if _G.WASettingsButton then
-			S:HandleButton(_G.WASettingsButton)
+			self:Proxy("HandleButton", _G.WASettingsButton)
 		end
 
 		if _G.WeakAurasAPISearchFrame then
-			S:HandleFrame(_G.WeakAurasAPISearchFrame, true, "Transparent")
+			self:Proxy("HandleFrame", _G.WeakAurasAPISearchFrame, true, "Transparent")
 			self:CreateShadow(_G.WeakAurasAPISearchFrame)
 
 			if _G.WeakAurasAPISearchFilterInput then
-				S:HandleEditBox(_G.WeakAurasAPISearchFilterInput)
+				self:Proxy("HandleEditBox", _G.WeakAurasAPISearchFilterInput)
 			end
 		end
 
 		if _G.WeakAurasSnippets then
-			S:HandleFrame(_G.WeakAurasSnippets, true, "Transparent")
+			self:Proxy("HandleFrame", _G.WeakAurasSnippets, true, "Transparent")
 			self:CreateShadow(_G.WeakAurasSnippets)
 			skinChildren(_G.WeakAurasSnippets)
 		end
@@ -750,9 +670,9 @@ function module:WeakAurasOptions()
 end
 
 function module:WeakAuras_CreateTemplateView(Private, frame)
-	local frame = self.hooks[_G.WeakAuras].CreateTemplateView(Private, frame)
-	HandleAllChildButtons(frame)
-	return frame
+	local templateFrame = self.hooks[_G.WeakAuras].CreateTemplateView(Private, frame)
+	HandleAllChildButtons(templateFrame)
+	return templateFrame
 end
 
 function module:WeakAurasTemplatesLoadTimerBody()
@@ -777,10 +697,14 @@ function module:WeakAurasTemplates()
 	self.weakAurasTemplatesLoadTimer = self:ScheduleRepeatingTimer("WeakAurasTemplatesLoadTimerBody", 0.1)
 end
 
+local function dbChecker(db)
+	return db.addons.weakAurasOptions
+end
+
 module:AddCallbackForAddon("WeakAurasOptions")
 module:AddCallbackForAddon("WeakAurasTemplates")
-module:AddCallbackForAceGUIWidget("WeakAurasMultiLineEditBox")
-module:AddCallbackForAceGUIWidget("WeakAurasDisplayButton")
-module:AddCallbackForAceGUIWidget("WeakAurasIconButton")
-module:AddCallbackForAceGUIWidget("WeakAurasNewButton")
-module:AddCallbackForAceGUIWidget("WeakAurasLoadedHeaderButton")
+module:AddCallbackForAceGUIWidget("WeakAurasMultiLineEditBox", "Ace_WeakAurasMultiLineEditBox", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasDisplayButton", "Ace_WeakAurasDisplayButton", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasIconButton", "Ace_WeakAurasIconButton", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasNewButton", "Ace_WeakAurasDisplayButton", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasLoadedHeaderButton", "Ace_WeakAurasLoadedHeaderButton", dbChecker)

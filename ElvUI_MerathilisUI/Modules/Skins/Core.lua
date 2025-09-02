@@ -21,7 +21,8 @@ module.nonAddonsToLoad = {}
 module.libraryHandlers = {}
 module.libraryHandledMinors = {}
 module.updateProfile = {}
-module.aceWidgets = {}
+module.aceWidgetConfigs = {}
+module.aceWidgetWaitingList = {}
 module.enteredLoad = {}
 module.texturePathFetcher = E.UIParent:CreateTexture(nil, "ARTWORK")
 module.texturePathFetcher:Hide()
@@ -87,12 +88,62 @@ function module:CheckDB(elvuiKey, MERKey)
 	return true
 end
 
+---Handle AceGUI widget styling
+---@param lib table The AceGUI library
+---@param name string The widget name
+---@param constructor function The widget constructor
 function module:HandleAceGUIWidget(lib, name, constructor)
-	local handler = self.aceWidgets[name]
-	if handler then
-		lib.WidgetRegistry[name] = handler(self, constructor)
-		self.aceWidgets[name] = nil
+	local config = self.aceWidgetConfigs[name]
+	if not config then
+		return
 	end
+
+	config.constructor = constructor
+
+	if self.db then
+		if self.db.enable and config.checker(self.db) then
+			config.constructor = constructor
+			lib.WidgetRegistry[name] = function()
+				local widget = config.constructor()
+				config.handler(widget)
+				return widget
+			end
+		end
+		return
+	end
+
+	if not self.aceWidgetWaitingList[name] then
+		self.aceWidgetWaitingList[name] = {}
+		lib.WidgetRegistry[name] = function()
+			local widget = config.constructor()
+			tinsert(self.aceWidgetWaitingList[name], widget)
+			return widget
+		end
+	end
+end
+
+function module:ProcessWaitingAceGUIWidgets()
+	local lib = LibStub:GetLibrary("AceGUI-3.0", true)
+	assert(lib, "ProcessWaitingAceWidgets: AceGUI-3.0 not found")
+
+	for name, widgets in pairs(self.aceWidgetWaitingList) do
+		local config = self.aceWidgetConfigs[name]
+		if self.db.enable and config.checker(self.db) then
+			lib.WidgetRegistry[name] = function()
+				local widget = config.constructor()
+				config.handler(widget)
+				return widget
+			end
+
+			for _, widget in ipairs(widgets) do
+				config.handler(widget)
+			end
+		else
+			lib.WidgetRegistry[name] = config.constructor
+		end
+	end
+
+	self.aceWidgetWaitingList = nil
 end
 
 local function errorhandler(err)
@@ -103,12 +154,21 @@ function module:AddCallback(name, func)
 	tinsert(self.nonAddonsToLoad, func or self[name])
 end
 
-function module:AddCallbackForAceGUIWidget(name, func)
-	if type(func) == "string" then
-		func = self[func]
+---Add a callback function for AceGUI widget styling
+---@param name string The widget name
+--@param handler function|string? The callback function or method name
+---@param checker function The checker for enabling the skin or not
+function module:AddCallbackForAceGUIWidget(name, handler, checker)
+	if type(handler) == "string" then
+		handler = GenerateClosure(self[handler], self)
 	end
 
-	self.aceWidgets[name] = func
+	assert(type(handler) == "function", "AddCallbackForAceGUIWidget: handler must be a function or method name")
+
+	self.aceWidgetConfigs[name] = {
+		checker = checker,
+		handler = handler,
+	}
 end
 
 function module:AddCallbackForAddon(addonName, func)
@@ -238,7 +298,10 @@ function module:ReskinSettingFrame(name, func)
 end
 
 function module:Initialize()
-	if not E.private.mui.skins.enable then
+	self.db = E.private.mui.skins
+	self:ProcessWaitingAceGUIWidgets()
+
+	if not self.db.enable then
 		return
 	end
 
@@ -253,20 +316,6 @@ function module:Initialize()
 		local isLoaded, isFinished = C_AddOns_IsAddOnLoaded(addonName)
 		if isLoaded and isFinished then
 			self:CallLoadedAddon(addonName, object)
-		end
-	end
-
-	self:HookEarly()
-	self:SecureHook(_G.LibStub, "NewLibrary", "LibStub_NewLibrary")
-	for libName in pairs(_G.LibStub.libs) do
-		local lib, minor = _G.LibStub(libName, true)
-		if lib and self.libraryHandlers[libName] then
-			self.libraryHandledMinors[libName] = minor
-			for _, func in next, self.libraryHandlers[libName] do
-				if not xpcall(func, F.Developer.ThrowError, self, lib) then
-					self:Log("debug", format("Failed to skin library %s", libName, minor))
-				end
-			end
 		end
 	end
 

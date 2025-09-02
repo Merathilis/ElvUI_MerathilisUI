@@ -234,3 +234,13 @@ function F.Developer.Log(var, varName)
 		DevTool:AddData(var, varName)
 	end
 end
+
+---Inspect object with DevTool addon
+---https://github.com/brittyazel/DevTool
+---@param obj any Object to inspect
+---@param name string? Name for the object (optional)
+function F.Developer.DevTool(obj, name)
+	if _G.DevTool and _G.DevTool.AddData then
+		_G.DevTool:AddData(obj, name)
+	end
+end

@@ -89,19 +89,24 @@ function module:CreateShadow(frame, size, r, g, b, force)
 	frame.MERshadow = shadow
 	frame.__MERshadow = 1
 end
-
-function module:CreateLowerShadow(frame, force)
+---@param frame any The frame to apply shadow to
+---@param size number? The shadow size (default: 4)
+---@param r number? Red color component (default: from config)
+---@param g number? Green color component (default: from config)
+---@param b number? Blue color component (default: from config)
+---@param force boolean? Force creation even if shadow is disabled
+function module:CreateLowerShadow(frame, size, r, g, b, force)
 	if not force then
 		if not E.private.mui.skins.enable or not E.private.mui.skins.shadow.enable then
 			return
 		end
 	end
 
-	module:CreateShadow(frame)
-	if frame.shadow and frame.SetFrameStrata and frame.SetFrameLevel then
+	module:CreateShadow(frame, size, r, g, b, force)
+	if frame.MERshadow and frame.SetFrameStrata and frame.SetFrameLevel then
 		local function refreshFrameLevel()
 			local parentFrameLevel = frame:GetFrameLevel()
-			frame.shadow:OffsetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
+			frame.MERshadow:OffsetFrameLevel(parentFrameLevel > 0 and parentFrameLevel - 1 or 0)
 		end
 
 		-- avoid the shadow level is reset when the frame strata/level is changed
