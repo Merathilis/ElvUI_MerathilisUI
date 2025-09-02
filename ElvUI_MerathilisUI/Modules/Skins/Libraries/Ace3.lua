@@ -28,11 +28,11 @@ end
 module:AddCallbackForLibrary("AceGUI-3.0", "AceGUI")
 module:AddCallbackForLibrary("AceConfigDialog-3.0", "AceConfigDialog")
 module:AddCallbackForAceGUIWidget("Frame", "Ace3_Frame", function(db)
-	return db.libraries.ace3 and db.shadow
+	return db.libraries.ace3 and db.shadow.enable
 end)
 module:AddCallbackForAceGUIWidget("Window", "Ace3_Frame", function(db)
-	return db.libraries.ace3 and db.shadow
+	return db.libraries.ace3 and db.shadow.enable
 end)
 module:AddCallbackForAceGUIWidget("Dropdown-Pullout", "Ace3_DropdownPullout", function(db)
-	return db.libraries.ace3 and (db.libraries.ace3Dropdown or db.shadow)
+	return db.libraries.ace3 and (db.libraries.ace3Dropdown or db.shadows.enable)
 end)

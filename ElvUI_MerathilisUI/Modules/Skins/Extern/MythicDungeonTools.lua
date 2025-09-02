@@ -244,7 +244,7 @@ function module:Ace_MDTSpellButton(widget)
 end
 
 local function dbChecker(db)
-	return db.addons.mythicDungeonTools
+	return db.addonSkins.mdt
 end
 
 module:AddCallbackForAddon("MythicDungeonTools")
