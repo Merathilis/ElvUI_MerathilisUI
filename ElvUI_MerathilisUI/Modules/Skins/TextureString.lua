@@ -174,11 +174,16 @@ function module:StyleTextureString(text)
 		local g = parts[13] or ""
 		local b = parts[14] or ""
 
+		-- Check if already cropped and not showing the full texture
 		local alreadyCropped = left and right and top and bottom
-		local afterLeft = alreadyCropped and left or texWidth * MARGIN_RATIO
-		local afterRight = alreadyCropped and right or texWidth * (1 - MARGIN_RATIO)
-		local afterTop = alreadyCropped and top or texHeight * MARGIN_RATIO
-		local afterBottom = alreadyCropped and bottom or texHeight * (1 - MARGIN_RATIO)
+		local showingFullTexture = alreadyCropped
+			and (left == 0 and right == texWidth and top == 0 and bottom == texHeight and texWidth == texHeight)
+		local shouldApplyCropping = not alreadyCropped or showingFullTexture
+
+		local afterLeft = shouldApplyCropping and (texWidth * MARGIN_RATIO) or left
+		local afterRight = shouldApplyCropping and (texWidth * (1 - MARGIN_RATIO)) or right
+		local afterTop = shouldApplyCropping and (texHeight * MARGIN_RATIO) or top
+		local afterBottom = shouldApplyCropping and (texHeight * (1 - MARGIN_RATIO)) or bottom
 
 		local result = format(
 			"%s:%s:%s:%s:%s:%d:%d:%.0f:%.0f:%.0f:%.0f",
