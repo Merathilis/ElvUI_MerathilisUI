@@ -1378,7 +1378,7 @@ function module:UpdateLayout()
 	self.bar:Size(areaWidth, areaHeight)
 end
 
-function GB:NEW_TOY_ADDED(_, toyID)
+function module:NEW_TOY_ADDED(_, toyID)
 	if toyID and tContains(hearthstoneAndToyIDList, toyID) then
 		self:UpdateHearthStoneTable()
 	end
