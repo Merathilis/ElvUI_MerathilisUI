@@ -1375,7 +1375,13 @@ function module:UpdateLayout()
 	local rightHeight = self.bar.rightPanel:IsShown() and self.bar.rightPanel:GetHeight() or 0
 	areaHeight = max(max(leftHeight, rightHeight), areaHeight)
 
-	self.bar:SetSize(areaWidth, areaHeight)
+	self.bar:Size(areaWidth, areaHeight)
+end
+
+function GB:NEW_TOY_ADDED(_, toyID)
+	if toyID and tContains(hearthstoneAndToyIDList, toyID) then
+		self:UpdateHearthStoneTable()
+	end
 end
 
 function module:PLAYER_REGEN_ENABLED()
@@ -1421,11 +1427,9 @@ function module:Initialize()
 	self:UpdateButtons()
 	self:UpdateLayout()
 	self:UpdateBar()
+	self:RegisterEvent("NEW_TOY_ADDED")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("COVENANT_CHOSEN", function()
-		self:UpdateHearthStoneTable()
-		self:UpdateBar()
-	end)
+	self:RegisterEvent("COVENANT_CHOSEN", "UpdateHearthStoneTable")
 
 	self:SecureHook(_G.GuildMicroButton, "UpdateNotificationIcon", "UpdateGuildButton")
 	self.initialized = true
