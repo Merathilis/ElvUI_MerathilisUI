@@ -14,7 +14,7 @@ local strmatch = strmatch
 local tonumber = tonumber
 
 local CreateFrame = CreateFrame
-local SortQuestWatches = C_QuestLog.SortQuestWatches
+local GetKeysArray = GetKeysArray
 
 ---@type ObjectiveTrackerModuleTemplate[]
 local trackers = {
@@ -30,28 +30,9 @@ local trackers = {
 	_G.WorldQuestObjectiveTracker,
 }
 
-do
-	---@type table<string, string>
-	local replaceRules = {}
-	local numReplaceRules = #GetKeysArray(replaceRules)
-
-	---Shorten the header text based on the rules defined in `replaceRules`
-	---@param headerText ObjectiveTrackerModuleHeaderTemplate_Text
-	function module:ShortHeader(headerText)
-		if numReplaceRules == 0 or not self.db or not self.db.header or not self.db.header.shortHeader then
-			return
-		end
-
-		local key = F.Strings.Replace(headerText:GetText(), {
-			["\239\188\140"] = ", ",
-			["\239\188\141"] = ".",
-		})
-
-		if replaceRules[key] then
-			headerText:SetText(replaceRules[key])
-		end
-	end
-end
+---@type table<string, string>
+local replaceRules = {}
+local numReplaceRules = #GetKeysArray(replaceRules)
 
 ---@class RGB
 ---@field r number
@@ -82,29 +63,19 @@ local function OverrideColor(rgba, config, normal, highlight)
 	return rgba
 end
 
-function module:TitleText_SetTextColor(text, r, g, b, a)
-	if not self.db or not self.db.enable or not self.db.titleColor then
-		return self.hooks[text].SetTextColor(text, r, g, b, a)
-	end
-
-	local rgba = { r = r, g = g, b = b, a = a }
-	rgba = OverrideColor(rgba, self.db.titleColor, "Header", "HeaderHighlight")
-	self.hooks[text].SetTextColor(text, rgba.r, rgba.g, rgba.b, rgba.a)
+---Sort quest watches after waiting for C_QuestLog to be available
+function module:SortQuestWatches()
+	F.WaitFor(function()
+		return _G.C_QuestLog ~= nil
+	end, function()
+		_G.C_QuestLog.SortQuestWatches()
+	end)
 end
 
-function module:InfoText_SetTextColor(text, r, g, b, a)
-	if not self.db or not self.db.enable or not self.db.infoColor then
-		return self.hooks[text].SetTextColor(text, r, g, b, a)
-	end
-
-	local rgba = { r = r, g = g, b = b, a = a }
-	rgba = OverrideColor(rgba, self.db.infoColor, "Normal", "NormalHighlight")
-	self.hooks[text].SetTextColor(text, rgba.r, rgba.g, rgba.b, rgba.a)
-end
-
+---Create and configure cosmetic bar for objective tracker header
+---@param header ObjectiveTrackerModuleHeaderTemplate The header frame to add cosmetic bar to
 function module:CosmeticBar(header)
 	local bar = header.MERCosmeticBar
-	self.db = E.private.mui.quest.objectiveTracker
 
 	if not self.db.cosmeticBar.enable then
 		if bar then
@@ -127,16 +98,8 @@ function module:CosmeticBar(header)
 	end
 
 	-- Border
-	if self.db.cosmeticBar.border == "NONE" then
-		bar.backdrop:Hide()
-	else
-		if self.db.cosmeticBar.border == "SHADOW" then
-			bar.backdrop.MERshadow:Show()
-		else
-			bar.backdrop.MERshadow:Hide()
-		end
-		bar.backdrop:Show()
-	end
+	bar.backdrop.MERshadow:SetShown(self.db.cosmeticBar.border == "SHADOW")
+	bar.backdrop:SetShown(self.db.cosmeticBar.border ~= "NONE")
 
 	-- Texture
 	bar:SetTexture(LSM:Fetch("statusbar", self.db.cosmeticBar.texture) or E.media.normTex)
@@ -162,8 +125,7 @@ function module:CosmeticBar(header)
 	bar:Point("LEFT", header.Text, "LEFT", self.db.cosmeticBar.offsetX, self.db.cosmeticBar.offsetY)
 
 	-- Size
-	local width = self.db.cosmeticBar.width
-	local height = self.db.cosmeticBar.height
+	local width, height = self.db.cosmeticBar.width, self.db.cosmeticBar.height
 	if self.db.cosmeticBar.widthMode == "DYNAMIC" then
 		width = width + header.Text:GetStringWidth()
 	end
@@ -172,23 +134,235 @@ function module:CosmeticBar(header)
 	end
 
 	bar:Size(max(width, 1), max(height, 1))
-
 	bar:Show()
 end
 
----@param tracker ObjectiveTrackerModuleTemplate
-function module:ObjectiveTrackerModule_Update(tracker)
-	if not tracker or not tracker.Header or not tracker.Header.Text then
+function module:RefreshAllCosmeticBars()
+	for _, tracker in pairs(trackers) do
+		self:CosmeticBar(tracker.Header)
+	end
+
+	self:SortQuestWatches()
+end
+
+function module:UpdateBackdrop()
+	local frame = _G.ObjectiveTrackerFrame
+	if not frame then
 		return
 	end
 
+	local config = self.db.backdrop
+
+	if not config.enable then
+		if frame.backdrop then
+			frame.backdrop:Hide()
+		end
+		return
+	end
+
+	if not frame.backdrop then
+		frame:CreateBackdrop()
+		S:CreateBackdropShadow(frame)
+	end
+
+	frame.backdrop:Show()
+	frame.backdrop:SetTemplate(config.transparent and "Transparent")
+	S:Reposition(
+		frame.backdrop,
+		frame,
+		0,
+		config.topLeftOffsetY + 10,
+		-config.bottomRightOffsetY + 10,
+		-config.bottomRightOffsetX + 20,
+		config.topLeftOffsetX + 15
+	)
+end
+
+---Add colorful progression and percentage to objective tracker text
+---@param text FontString? The text object to modify
+function module:ColorfulProgression(text)
+	if not text or (not self.db.colorfulProgress and not self.db.percentage) then
+		return
+	end
+
+	local raw = text:GetText()
+	if not raw then
+		return
+	end
+
+	local current, required, details = strmatch(raw, "^(%d+)/(%d+) (.+)")
+	if not current then
+		details, current, required = strmatch(raw, "(.+): (%d+)/(%d+)$")
+	end
+
+	if not (current and required and details) then
+		return
+	end
+
+	local currentNum, requiredNum = tonumber(current), tonumber(required)
+	local progress = currentNum / requiredNum
+
+	local progressText = current .. "/" .. required ---@type string
+	if self.db.colorfulProgress then
+		local progressColor = F.GetProgressColor(progress)
+		progressText = F.CreateColorString(progressText, progressColor) --[[@as string]]
+	end
+
+	---@cast details string
+	local result = progressText .. " " .. details
+
+	if self.db.percentage then
+		local percentage = format(" [%.f%%]", progress * 100)
+		if self.db.colorfulPercentage then
+			local progressColor = F.GetProgressColor(progress)
+			percentage = F.CreateColorString(percentage, progressColor) --[[@as string]]
+		end
+		result = result .. percentage
+	end
+
+	text:SetText(result)
+end
+
+---Shorten the header text based on the rules defined in `replaceRules`
+---@param headerText ObjectiveTrackerModuleHeaderTemplate_Text
+function module:ShortHeader(headerText)
+	if numReplaceRules == 0 or not self.db or not self.db.header or not self.db.header.shortHeader then
+		return
+	end
+
+	local key = F.Strings.Replace(headerText:GetText(), {
+		["\239\188\140"] = ", ",
+		["\239\188\141"] = ".",
+	})
+
+	if replaceRules[key] then
+		headerText:SetText(replaceRules[key])
+	end
+end
+
+---Override SetTextColor for block header text with custom colors
+---@param text FontString The text object
+---@param r number Red component
+---@param g number Green component
+---@param b number Blue component
+---@param a number Alpha component
+function module:BlockHeaderText_SetTextColor(text, r, g, b, a)
+	if not self.db or not self.db.enable or not self.db.titleColor then
+		return self.hooks[text].SetTextColor(text, r, g, b, a)
+	end
+
+	local rgba = { r = r, g = g, b = b, a = a }
+	rgba = OverrideColor(rgba, self.db.titleColor, "Header", "HeaderHighlight")
+	self.hooks[text].SetTextColor(text, rgba.r, rgba.g, rgba.b, rgba.a)
+end
+
+---Override SetTextColor for line text with custom colors
+---@param text FontString The text object
+---@param r number Red component
+---@param g number Green component
+---@param b number Blue component
+---@param a number Alpha component
+function module:LineText_SetTextColor(text, r, g, b, a)
+	if not self.db or not self.db.enable or not self.db.infoColor then
+		return self.hooks[text].SetTextColor(text, r, g, b, a)
+	end
+
+	local rgba = { r = r, g = g, b = b, a = a }
+	rgba = OverrideColor(rgba, self.db.infoColor, "Normal", "NormalHighlight")
+	self.hooks[text].SetTextColor(text, rgba.r, rgba.g, rgba.b, rgba.a)
+end
+
+---@param frame ObjectiveTrackerBlockTemplate|{Text: FontString}
+function module:HandleBlockHeader(frame)
+	local text = frame.HeaderText or frame.Text
+
+	F.SetFontDB(text, self.db.title)
+	text:Height(text:GetStringHeight() + 2)
+
+	if not self:IsHooked(text, "SetTextColor") then
+		self:RawHook(text, "SetTextColor", "BlockHeaderText_SetTextColor", true)
+		self:BlockHeaderText_SetTextColor(
+			text,
+			C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Header"], { a = 1 })
+		)
+	end
+end
+
+---Handle container header text styling for the objective tracker header
+---@param frame ObjectiveTrackerContainerHeaderTemplate The header element to style
+function module:HandleContainerHeader(frame)
+	if not self.db.menuTitle.enable then
+		return
+	end
+
+	F.SetFontDB(frame.Text, self.db.menuTitle.font)
+
+	if not frame.Text.__MERSetTextColor then
+		local color = self.db.menuTitle.classColor and E.myClassColor or self.db.menuTitle.color
+		frame.Text:SetTextColor(C.ExtractColorFromTable(color))
+		F.InternalizeMethod(frame.Text, "SetTextColor")
+	end
+end
+
+---Handle line styling and progression display for objective tracker lines
+---@param line Frame The line frame to handle
+---@param _ any The objective key identifier
+function module:HandleLine(line, _)
+	if self.db.noDash then
+		if line.Dash then
+			line.Dash:Hide()
+			line.Dash:SetText(nil)
+		end
+
+		local raw = line.Text:GetText()
+		if raw and raw ~= "" and strfind(raw, "^%- ") then
+			line.Text:SetText(gsub(raw, "^%- ", ""))
+		end
+	end
+
+	F.SetFontDB(line.Text, self.db.info)
+
+	if not self:IsHooked(line.Text, "SetTextColor") then
+		self:RawHook(line.Text, "SetTextColor", "LineText_SetTextColor", true)
+		self:LineText_SetTextColor(line.Text, C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Normal"], { a = 1 }))
+	end
+
+	self:ColorfulProgression(line.Text)
+	line:Height(line.Text:GetHeight())
+end
+
+---Handle objective block addition
+---@param block ObjectiveTrackerBlockTemplate The block that had an objective added
+function module:ObjectiveTrackerBlock_AddObjective(block)
+	self:HandleLine(block.lastRegion)
+end
+
+---Update scenario objective tracker criteria and hide dash icons when needed
+---@param tracker ScenarioObjectiveTracker
+---@param numCriteria number
+function module:ScenarioObjectiveTracker_UpdateCriteria(tracker, numCriteria)
+	if not self.db.noDash then
+		return
+	end
+
+	local objectivesBlock = tracker.ObjectivesBlock
+	for criteriaIndex = 1, numCriteria do
+		local existingLine = objectivesBlock:GetExistingLine(criteriaIndex)
+		existingLine.Icon:Hide()
+	end
+end
+
+---Handle tracker module updates, applying cosmetic bar, font styling, and header modifications
+---@param tracker ObjectiveTrackerModuleTemplate The tracker module being updated
+function module:ObjectiveTrackerModule_Update(tracker)
 	self:CosmeticBar(tracker.Header)
+
 	local headerText = tracker.Header.Text
 	F.SetFontDB(headerText, self.db.header)
+
 	if not headerText.__MERSetFontObject then
-		headerText.__MERSetFontObject = headerText.SetFontObject
 		headerText:SetFontObject(nil)
-		headerText.SetFontObject = E.noop
+		F.InternalizeMethod(headerText, "SetFontObject")
 	end
 
 	self:ShortHeader(headerText)
@@ -197,233 +371,44 @@ function module:ObjectiveTrackerModule_Update(tracker)
 	headerText:SetTextColor(color.r, color.g, color.b)
 end
 
----@param text ObjectiveTrackerModuleHeaderTemplate_Text
-function module:HandleTitleText(text)
-	F.SetFontDB(text, self.db.title)
-
-	local height = text:GetStringHeight() + 2
-	if height ~= text:GetHeight() then
-		text:Height(height)
-	end
-
-	if not self:IsHooked(text, "SetTextColor") then
-		self:RawHook(text, "SetTextColor", "TitleText_SetTextColor", true)
-		self:TitleText_SetTextColor(text, C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Header"], { a = 1 }))
-	end
-end
-
----@param text ObjectiveTrackerContainerHeaderTemplate_Text
-function module:HandleMenuText(text)
-	if not self.db.menuTitle.enable then
-		return
-	end
-
-	F.SetFontDB(text, self.db.menuTitle.font)
-
-	if not text.MERHooked then
-		text.MERHooked = true
-		if self.db.menuTitle.classColor then
-			text:SetTextColor(C.ExtractColorFromTable(E.myClassColor))
-		else
-			text:SetTextColor(C.ExtractColorFromTable(self.db.menuTitle.color))
-		end
-		text.SetTextColor = E.noop
-	end
-end
-
-function module:HandleObjectiveLine(line)
-	if not line or not line.Text or not self.db then
-		return
-	end
-
-	if line.objectiveKey == 0 then -- World Quest Title
-		self:HandleTitleText(line.Text)
-		return
-	end
-
-	F.SetFontDB(line.Text, self.db.info)
-
-	if self.db.noDash then
-		if line.Dash then
-			line.Dash:Hide()
-			line.Dash:SetText(nil)
-		end
-	end
-
-	if line.Text.GetText then
-		local rawText = line.Text:GetText()
-		if self.db.noDash then
-			-- Sometimes Blizzard not use dash icon, just put a dash in front of text
-			-- We need to force update the text first
-			if rawText and rawText ~= "" and strfind(rawText, "^%- ") then
-				rawText = gsub(rawText, "^%- ", "")
-			end
-		end
-
-		line.Text:SetText(rawText)
-	end
-
-	if not self:IsHooked(line.Text, "SetTextColor") then
-		self:RawHook(line.Text, "SetTextColor", "InfoText_SetTextColor", true)
-		self:InfoText_SetTextColor(line.Text, C.ExtractColorFromTable(_G.OBJECTIVE_TRACKER_COLOR["Normal"], { a = 1 }))
-	end
-
-	self:ColorfulProgression(line.Text)
-	line:Height(line.Text:GetHeight())
-end
-
-function module:ObjectiveTrackerBlock_AddObjective(block)
-	self:HandleObjectiveLine(block.lastRegion)
-end
-
-function module:ScenarioObjectiveTracker_UpdateCriteria(tracker, numCriteria)
-	if not self.db or not self.db.noDash then
-		return
-	end
-	local objectivesBlock = tracker.ObjectivesBlock
-	for criteriaIndex = 1, numCriteria do
-		local existingLine = objectivesBlock:GetExistingLine(criteriaIndex)
-		existingLine.Icon:Hide()
-	end
-end
-
-function module:ColorfulProgression(text)
-	if not self.db or not text then
-		return
-	end
-
-	local info = text:GetText()
-	if not info then
-		return
-	end
-
-	local current, required, details = strmatch(info, "^(%d-)/(%d-) (.+)")
-
-	if not (current and required and details) then
-		details, current, required = strmatch(info, "(.+): (%d-)/(%d-)$")
-	end
-
-	if not (current and required and details) then
-		return
-	end
-
-	local progress = tonumber(current) / tonumber(required)
-
-	if self.db.colorfulProgress then
-		info = F.CreateColorString(current .. "/" .. required, F.GetProgressColor(progress))
-		info = info .. " " .. details
-	end
-
-	if self.db.percentage then
-		local percentage = format("[%.f%%]", progress * 100)
-		if self.db.colorfulPercentage then
-			percentage = F.CreateColorString(percentage, F.GetProgressColor(progress))
-		end
-		info = info .. " " .. percentage
-	end
-
-	text:SetText(info)
-end
-
-function module:UpdateBackdrop()
-	if not _G.ObjectiveTrackerFrame then
-		return
-	end
-
-	local db = self.db.backdrop
-	local backdrop = _G.ObjectiveTrackerFrame.backdrop
-
-	if not db.enable then
-		if backdrop then
-			backdrop:Hide()
-		end
-		return
-	end
-
-	if not backdrop then
-		if self.db.backdrop.enable then
-			_G.ObjectiveTrackerFrame:CreateBackdrop()
-			backdrop = _G.ObjectiveTrackerFrame.backdrop
-			S:CreateShadow(backdrop)
-		end
-	end
-
-	backdrop:Show()
-	backdrop:SetTemplate(db.transparent and "Transparent")
-	backdrop:ClearAllPoints()
-	backdrop:SetPoint("TOPLEFT", _G.ObjectiveTrackerFrame, "TOPLEFT", db.topLeftOffsetX - 20, db.topLeftOffsetY + 10)
-	backdrop:SetPoint(
-		"BOTTOMRIGHT",
-		_G.ObjectiveTrackerFrame,
-		"BOTTOMRIGHT",
-		db.bottomRightOffsetX + 10,
-		db.bottomRightOffsetY - 10
-	)
-end
-
-function module:ReskinTextInsideBlock(_, block)
-	if not self.db then
-		return
-	end
-
-	if block.HeaderText then
-		self:HandleTitleText(block.HeaderText)
-	end
-
-	for _, line in pairs(block.usedLines or {}) do
-		self:HandleObjectiveLine(line)
-	end
-end
-
-function module:RefreshAllCosmeticBars()
-	for _, tracker in pairs(trackers) do
-		if tracker.Header then
-			self:CosmeticBar(tracker.Header)
-		end
-	end
-	SortQuestWatches()
-end
-
+---Handles the addition of a new objective tracker block by setting up hooks and processing its elements
+---@param _ ObjectiveTrackerModuleTemplate? The objective tracker module (unused)
+---@param block any The objective tracker block that was added
 function module:ObjectiveTrackerModule_AddBlock(_, block)
-	if block.__MERHooked then
+	if not block or not block.AddObjective then
+		-- ScenarioObjectiveTrackerStageMixin has some custom behavior
 		return
 	end
 
-	self:ReskinTextInsideBlock(nil, block)
-
-	if block.AddObjective then
+	if not self:IsHooked(block, "AddObjective") then
 		self:SecureHook(block, "AddObjective", "ObjectiveTrackerBlock_AddObjective")
 	end
 
-	block.__MERHooked = true
+	self:HandleBlockHeader(block)
+	block:ForEachUsedLine(function(line, objectiveKey)
+		self:HandleLine(line, objectiveKey)
+	end)
 end
 
+---Initialize the ObjectiveTracker module with hooks and settings
 function module:Initialize()
 	self.db = E.private.mui.quest.objectiveTracker
-	if not self.db or not self.db.enable then
+	if not self.db.enable then
 		return
 	end
 
-	self:UpdateBackdrop()
-
-	if not self.initialized then
-		for _, tracker in pairs(trackers) do
-			for _, block in pairs(tracker.usedBlocks or {}) do
-				self:ObjectiveTrackerModule_AddBlock(nil, block)
-			end
-			self:SecureHook(tracker, "Update", "ObjectiveTrackerModule_Update")
-			self:SecureHook(tracker, "AddBlock", "ObjectiveTrackerModule_AddBlock")
-		end
-
-		self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveTracker_UpdateCriteria")
-		self:HandleMenuText(_G.ObjectiveTrackerFrame.Header.Text)
-		self.initialized = true
+	for _, tracker in pairs(trackers) do
+		self:SecureHook(tracker, "Update", "ObjectiveTrackerModule_Update")
+		self:SecureHook(tracker, "AddBlock", "ObjectiveTrackerModule_AddBlock")
+		tracker:EnumerateActiveBlocks(function(block)
+			self:ObjectiveTrackerModule_AddBlock(nil, block)
+		end)
 	end
+	self:SecureHook(_G.ScenarioObjectiveTracker, "UpdateCriteria", "ScenarioObjectiveTracker_UpdateCriteria")
 
-	-- Force update all modules once we get into the game
-	E:Delay(0.5, function()
-		SortQuestWatches()
-	end)
+	self:HandleContainerHeader(_G.ObjectiveTrackerFrame.Header)
+	self:UpdateBackdrop()
+	self:SortQuestWatches()
 end
 
 MER:RegisterModule(module:GetName())
