@@ -194,16 +194,13 @@ function module:Event(event, ...)
 	end
 end
 
-TT._MER_GameTooltip_OnTooltipSetUnit = TT.GameTooltip_OnTooltipSetUnit
-function TT.GameTooltip_OnTooltipSetUnit(...)
-	TT._MER_GameTooltip_OnTooltipSetUnit(...)
-
-	if not module then
+module:SecureHook(TT, "GameTooltip_OnTooltipSetUnit", function(...)
+	if not module or not module.initialized then
 		return
 	end
 
 	module:InspectInfo(...)
-end
+end)
 
 function module.GetDungeonScore(score)
 	local color = GetDungeonScoreRarityColor(score) or HIGHLIGHT_FONT_COLOR
