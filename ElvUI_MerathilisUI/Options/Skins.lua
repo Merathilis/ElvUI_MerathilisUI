@@ -204,56 +204,6 @@ options.font = {
 				},
 			},
 		},
-		rollResult = {
-			order = 2,
-			type = "group",
-			inline = true,
-			name = L["Roll Result"],
-			get = function(info)
-				return E.private.mui.skins.rollResult[info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.rollResult[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			args = {
-				header = {
-					order = 0,
-					type = "header",
-					name = F.cOption(L["Roll Result"], "orange"),
-				},
-				tip = {
-					order = 1,
-					type = "description",
-					name = format(
-						L["It only works when you enable the skin (%s)."],
-						format("%s - %s", L["Blizzard"], L["Loot"])
-					),
-				},
-				name = {
-					order = 2,
-					type = "select",
-					dialogControl = "LSM30_Font",
-					name = L["Font"],
-					values = LSM:HashTable("font"),
-				},
-				style = {
-					order = 3,
-					type = "select",
-					name = L["Outline"],
-					values = MER.Values.FontFlags,
-					sortByValue = true,
-				},
-				size = {
-					order = 4,
-					name = L["Size"],
-					type = "range",
-					min = 5,
-					max = 60,
-					step = 1,
-				},
-			},
-		},
 	},
 }
 

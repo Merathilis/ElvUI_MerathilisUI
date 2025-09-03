@@ -420,11 +420,6 @@ V.skins = {
 		size = 15,
 		style = "SHADOWOUTLINE",
 	},
-	rollResult = {
-		name = I.Fonts.Primary,
-		size = 13,
-		style = "SHADOWOUTLINE",
-	},
 	uiErrors = {
 		normalTextClassColor = false,
 		normalTextColor = { r = 0.976, g = 0.980, b = 0.984 },
