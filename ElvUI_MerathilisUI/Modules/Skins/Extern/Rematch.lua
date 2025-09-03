@@ -769,9 +769,9 @@ local function reskinPetsPanel(frame)
 		for i = 1, #frame.Top.TypeBar.Selecteds do
 			local texture = frame.Top.TypeBar.Selecteds[i]
 			texture:SetTexture(E.media.blankTex)
-			texture.__MERSetVertexColor = texture.SetVertexColor
+			F.InternalizeMethod(texture, "SetVertexColor")
 			texture.SetVertexColor = function(t, r, g, b, a)
-				texture.__MERSetVertexColor(t, r, g, b, (a or 0.4) / 3)
+				F.CallMethod(texture, "SetVertexColor", t, r, g, b, (a or 0.4) / 3)
 			end
 		end
 	end
@@ -780,7 +780,7 @@ local function reskinPetsPanel(frame)
 		for i = 1, #frame.Top.TypeBar.Tabs do
 			local tab = frame.Top.TypeBar.Tabs[i]
 			S:HandleTab(tab)
-			tab.Text.__MERSetPoint = tab.Text.SetPoint
+			F.InternalizeMethod(tab.Text, "SetPoint")
 			hooksecurefunc(tab.Text, "SetPoint", function(t)
 				F.Move(t, 0, 2)
 			end)
@@ -820,11 +820,11 @@ function module:Rematch()
 		end)
 	end)
 
-	frame.__MERSetPoint = frame.SetPoint
+	F.InternalizeMethod(frame, "SetPoint")
+	F.Move(frame, 1, 0)
 	hooksecurefunc(frame, "SetPoint", function()
 		F.Move(frame, 1, 0)
 	end)
-	F.Move(frame, 1, 0)
 
 	reskinTooltips()
 	reskinMainFrame(frame)

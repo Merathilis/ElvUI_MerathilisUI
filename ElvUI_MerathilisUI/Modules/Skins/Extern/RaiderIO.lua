@@ -16,7 +16,7 @@ function module:RaiderIO_DelayedSkinning()
 	skinned = true
 	if RaiderIO_ProfileTooltip then
 		TT:SetStyle(_G.RaiderIO_ProfileTooltip)
-		_G.RaiderIO_ProfileTooltip.__MERSetPoint = _G.RaiderIO_ProfileTooltip.SetPoint
+		F.InternalizeMethod(_G.RaiderIO_ProfileTooltip, "SetPoint")
 		hooksecurefunc(_G.RaiderIO_ProfileTooltip, "SetPoint", function()
 			F.Move(_G.RaiderIO_ProfileTooltip, 4, 0)
 		end)

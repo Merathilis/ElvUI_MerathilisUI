@@ -124,12 +124,10 @@ local function UpdateBlock(block)
 
 			local timeBar = widgetFrame.TimerBar
 			if timeBar and not timeBar.__MERSkin then
-				timeBar.__MERSetStatusBarTexture = timeBar.SetStatusBarTexture
+				F.InternalizeMethod(timeBar, "SetStatusBarTexture", true)
 				hooksecurefunc(timeBar, "SetStatusBarTexture", function(frame)
-					if frame.__MERSetStatusBarTexture then
-						frame:__MERSetStatusBarTexture(E.media.normTex)
-						frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
-					end
+					F.CallMethod(frame, "SetStatusBarTexture", E.media.normTex)
+					frame:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
 				end)
 				hooksecurefunc(timeBar, "SetWidth", function(frame, width)
 					if width ~= 200 then

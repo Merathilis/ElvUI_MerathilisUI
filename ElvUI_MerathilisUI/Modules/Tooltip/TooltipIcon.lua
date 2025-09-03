@@ -112,7 +112,7 @@ local function setTooltipIcon(tt, data, type)
 end
 
 local function alignShoppingTooltip(tt)
-	if not tt or not tt.GetNumPoints or tt:GetNumPoints() < 2 or not tt.__MERSetPoint then
+	if not tt or not tt.GetNumPoints or tt:GetNumPoints() < 2 or not F.IsMethodInternalized(tt, "SetPoint") then
 		return
 	end
 
@@ -218,7 +218,7 @@ function T:Icons()
 			handle(_type)
 		end
 
-		_G.ShoppingTooltip1.__MERSetPoint = _G.ShoppingTooltip1.SetPoint
+		F.InternalizeMethod(_G.ShoppingTooltip1, "SetPoint")
 		hooksecurefunc(_G.ShoppingTooltip1, "SetPoint", alignShoppingTooltip)
 
 		self:ReskinRewardIcon(_G.GameTooltip.ItemTooltip)

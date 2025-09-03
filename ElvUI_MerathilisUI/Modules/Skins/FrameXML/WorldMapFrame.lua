@@ -95,11 +95,11 @@ function module:WorldMapFrame()
 		end
 	end
 
-	if QuestMapFrame.QuestsTab and not E:IsAddOnEnabled("ElvUI_WindTools") then
-		QuestMapFrame.QuestsTab:ClearAllPoints()
-		QuestMapFrame.QuestsTab.__MERSetPoint = QuestMapFrame.QuestsTab.SetPoint
-		QuestMapFrame.QuestsTab.SetPoint = E.noop
-		QuestMapFrame.QuestsTab:__MERSetPoint("TOPLEFT", QuestMapFrame, "TOPRIGHT", 13, -30)
+	local questsTab = QuestMapFrame.QuestsTab
+	if questsTab and not E:IsAddOnEnabled("ElvUI_WindTools") then
+		questsTab:ClearAllPoints()
+		F.InternalizeMethod(questsTab, "SetPoint", true)
+		F.CallMethod(questsTab, "SetPoint", "TOPLEFT", QuestMapFrame, "TOPRIGHT", 13, -30)
 	end
 end
 

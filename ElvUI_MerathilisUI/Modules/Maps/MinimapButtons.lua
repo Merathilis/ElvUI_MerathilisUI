@@ -78,6 +78,7 @@ local whiteList = {}
 
 local acceptedFrames = {
 	"BagSync_MinimapButton",
+	"WIM3MinimapButton",
 }
 
 local handledButtons = {}
