@@ -275,6 +275,9 @@ end
 ---@param frame ObjectiveTrackerBlockTemplate|{Text: FontString}
 function module:HandleBlockHeader(frame)
 	local text = frame.HeaderText or frame.Text
+	if not text then
+		return
+	end
 
 	F.SetFontDB(text, self.db.title)
 	text:Height(text:GetStringHeight() + 2)
