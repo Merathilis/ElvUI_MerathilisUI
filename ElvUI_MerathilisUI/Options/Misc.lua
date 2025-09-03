@@ -230,15 +230,15 @@ options.gameMenu = {
 	},
 }
 
-options.spellAlert = {
+options.spellActivationAlert = {
 	order = 3,
 	type = "group",
 	name = L["Spell Alert Scale"],
 	get = function(info)
-		return E.db.mui.misc.spellAlert[info[#info]]
+		return E.db.mui.misc.spellActivationAlert[info[#info]]
 	end,
 	set = function(info, value)
-		E.db.mui.misc.spellAlert[info[#info]] = value
+		E.db.mui.misc.spellActivationAlert[info[#info]] = value
 		SA:Update()
 	end,
 	args = {
@@ -278,7 +278,7 @@ options.spellAlert = {
 				C_CVar_SetCVar("displaySpellActivationOverlays", value and "1" or "0")
 			end,
 			disabled = function()
-				return not E.db.mui.misc.spellAlert.enable
+				return not E.db.mui.misc.spellActivationAlert.enable
 			end,
 		},
 		opacity = {
@@ -298,7 +298,7 @@ options.spellAlert = {
 			max = 1,
 			step = 0.01,
 			disabled = function()
-				return not E.db.mui.misc.spellAlert.enable
+				return not E.db.mui.misc.spellActivationAlert.enable
 			end,
 		},
 		scale = {
@@ -310,10 +310,10 @@ options.spellAlert = {
 			max = 5,
 			step = 0.01,
 			disabled = function()
-				return not E.db.mui.misc.spellAlert.enable
+				return not E.db.mui.misc.spellActivationAlert.enable
 			end,
 			set = function(info, value)
-				E.db.mui.misc.spellAlert[info[#info]] = value
+				E.db.mui.misc.spellActivationAlert[info[#info]] = value
 				SA:Update()
 				SA:Preview()
 			end,

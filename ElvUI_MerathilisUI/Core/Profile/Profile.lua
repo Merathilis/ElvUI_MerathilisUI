@@ -533,7 +533,7 @@ P.announcement = {
 
 P.misc = {
 	gmotd = true,
-	spellAlert = {
+	spellActivationAlert = {
 		enable = true,
 		scale = 0.65,
 	},
