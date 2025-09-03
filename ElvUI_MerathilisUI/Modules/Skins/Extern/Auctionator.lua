@@ -76,9 +76,8 @@ end
 local function HandleTab(tab)
 	S:HandleTab(tab, nil, "Transparent")
 	tab.Text:ClearAllPoints()
-	tab.Text:SetPoint("CENTER", tab, "CENTER", 0, 0)
-	tab.Text.__MERSetPoint = tab.Text.SetPoint
-	tab.Text.SetPoint = E.noop
+	F.InternalizeMethod(tab.Text, "SetPoint", true)
+	F.CallMethod(tab.Text, "SetPoint", "CENTER", tab, "CENTER", 0, 0)
 end
 
 local function buyIconName(frame)

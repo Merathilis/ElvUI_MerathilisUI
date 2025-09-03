@@ -15,7 +15,7 @@ local function styleIconsInLine(line, text)
 	text = text or line:GetText()
 	local styledText = module:StyleTextureString(text)
 	if styledText and styledText ~= text then
-		(line.__MERSetText or line.SetText)(line, styledText)
+		F.CallMethod(line, "SetText", styledText)
 	end
 end
 

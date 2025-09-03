@@ -4,37 +4,20 @@ local M = E:GetModule("Misc")
 
 local _G = _G
 local pairs = pairs
-local tinsert = tinsert
-local unpack = unpack
 
 function module:ElvUI_SkinLootRollFrame(frame)
 	if not frame or frame:IsForbidden() or frame.__MERSkin then
 		return
 	end
 
-	frame.button.__MERPoint = frame.button.Point
-	frame.button.Point = function(f, anchor, parent, point, x, y)
-		if anchor == "RIGHT" and parent == frame and point == "LEFT" then
-			f:__MERPoint(anchor, parent, point, x and x - 4, y)
-		else
-			f:__MERPoint(anchor, parent, point, x, y)
-		end
-	end
-
-	local points = {}
-	for i = 1, frame.button:GetNumPoints() do
-		tinsert(points, { frame.button:GetPoint(i) })
-	end
-
-	if #points > 0 then
-		frame.button:ClearAllPoints()
-		for _, point in pairs(points) do
-			frame.button:Point(unpack(point))
-		end
-	end
-
 	self:CreateBackdropShadow(frame.button)
 	self:CreateBackdropShadow(frame.status)
+
+	F.InternalizeMethod(frame.button, "SetPoint")
+	F.Move(frame.button, -4, 0)
+	hooksecurefunc(frame.button, "SetPoint", function()
+		F.Move(frame.button, -4, 0)
+	end)
 
 	frame.__MERSkin = true
 end

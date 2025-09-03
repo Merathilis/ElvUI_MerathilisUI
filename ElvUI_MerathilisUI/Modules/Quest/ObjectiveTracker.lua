@@ -300,7 +300,8 @@ function module:HandleContainerHeader(frame)
 	if not frame.Text.__MERSetTextColor then
 		local color = self.db.menuTitle.classColor and E.myClassColor or self.db.menuTitle.color
 		frame.Text:SetTextColor(C.ExtractColorFromTable(color))
-		F.InternalizeMethod(frame.Text, "SetTextColor")
+		F.InternalizeMethod(frame.Text, "SetTextColor", true)
+		F.CallMethod(frame.Text, "SetTextColor", C.ExtractColorFromTable(color))
 	end
 end
 
@@ -361,8 +362,8 @@ function module:ObjectiveTrackerModule_Update(tracker)
 	F.SetFontDB(headerText, self.db.header)
 
 	if not headerText.__MERSetFontObject then
-		headerText:SetFontObject(nil)
-		F.InternalizeMethod(headerText, "SetFontObject")
+		F.InternalizeMethod(headerText, "SetFontObject", true)
+		F.CallMethod(headerText, "SetFontObject", nil)
 	end
 
 	self:ShortHeader(headerText)

@@ -55,8 +55,7 @@ function module:HookPin()
 end
 
 function module:HookDistanceText()
-	_G.SuperTrackedFrame.DistanceText.__MERSetText = _G.SuperTrackedFrame.DistanceText.SetText
-
+	F.InternalizeMethod(_G.SuperTrackedFrame.DistanceText, "SetText")
 	self:SecureHook(_G.SuperTrackedFrame.DistanceText, "SetText", function(frame, text)
 		if not self or not self.db or not text then
 			return
@@ -75,7 +74,7 @@ function module:HookDistanceText()
 			text = after
 		end
 
-		frame:__MERSetText(text)
+		F.CallMethod(frame, "SetText", text)
 	end)
 end
 
