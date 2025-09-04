@@ -10,52 +10,83 @@ local tinsert = tinsert
 local tonumber = tonumber
 local tostring = tostring
 
+local GetClassInfo = GetClassInfo
 local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
-local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
-local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
 
+local C_LFGList_GetActivityInfoTable = C_LFGList.GetActivityInfoTable
+local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local C_LFGList_GetSearchResultPlayerInfo = C_LFGList.GetSearchResultPlayerInfo
+
+local GROUP_FINDER_CATEGORY_ID_DUNGEONS = GROUP_FINDER_CATEGORY_ID_DUNGEONS
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 
--- Initialize
-MER.Utilities.LFGPlayerInfo = {}
-local U = MER.Utilities.LFGPlayerInfo
+---@cast F Functions
 
--- Inject WindTools logger
-function U:GetName()
+---@class LFGPlayerInfo
+---Utility class for parsing and processing LFG (Looking For Group) player information.
+---Provides functionality to extract role, class, and specialization data from group finder results.
+MER.Utilities.LFGPlayerInfo = {}
+
+---Get the name identifier for this utility
+---@return string name The name identifier for logging
+function MER.Utilities.LFGPlayerInfo:GetName()
 	return "Utilities:LFGPlayerInfo"
 end
 
-F.Developer.InjectLogger(U)
+F.Developer.InjectLogger(MER.Utilities.LFGPlayerInfo)
 
--- Variables
-local roleOrder = {
-	[1] = "TANK",
-	[2] = "HEALER",
-	[3] = "DAMAGER",
-}
+local classIconStyle = "flat" ---@type ClassIconStyle
 
-function U.GetRoleOrder()
+---Set the class icon style for rendering
+---@param style ClassIconStyle The desired class icon styles
+function MER.Utilities.LFGPlayerInfo:SetClassIconStyle(style)
+	if style then
+		classIconStyle = style
+	end
+end
+
+---Role priority order for display and processing
+---@type ("TANK" | "HEALER" | "DAMAGER")[]
+local roleOrder = { "TANK", "HEALER", "DAMAGER" }
+
+---Get the role order array
+---@return ("TANK" | "HEALER" | "DAMAGER")[] roleOrder Array of role names in priority order
+function MER.Utilities.LFGPlayerInfo.GetRoleOrder()
 	return roleOrder
 end
 
+---Colored role names with appropriate visual styling
+---@type table<string, string>
 local coloredRoleName = {
 	TANK = "|cff00a8ff" .. L["Tank"] .. "|r",
 	HEALER = "|cff2ecc71" .. L["Healer"] .. "|r",
 	DAMAGER = "|cffe74c3c" .. L["DPS"] .. "|r",
 }
 
-function U.GetColoredRoleName(role)
+---Get colored role name for display
+---@param role string The role name ("TANK", "HEALER", "DAMAGER")
+---@return string coloredName The colored and formatted role name
+function MER.Utilities.LFGPlayerInfo.GetColoredRoleName(role)
 	return coloredRoleName[role]
 end
 
-local classIconStyle = "flat"
-local classFileToID = {} -- { ["WARRIOR"] = 1 }
-local localizedSpecNameToID = {} -- { ["Protection"] = 73 }
-local localizedSpecNameToIcon = {} -- { ["Protection"] = "Interface\\Icons\\ability_warrior_defensivestance" }
+---Mapping from class file names to class IDs
+---@type table<ClassFile, integer>
+local classFileToID = {}
 
+---Mapping from localized specialization names to specialization IDs by class
+---@type table<ClassFile, table<string, integer>>
+local localizedSpecNameToID = {}
+
+---Mapping from localized specialization names to icon paths by class
+---@type table<ClassFile, table<string, integer>>
+local localizedSpecNameToIcon = {}
+
+---Initialize class and specialization data mappings
+---Scans all available classes and their specializations to build lookup tables
 for classID = 1, 13 do
 	-- Scan all specs and specilizations, 13 is Evoker
-	local classFile = select(2, GetClassInfo(classID)) -- "WARRIOR"
+	local classFile = select(2, GetClassInfo(classID)) ---@type ClassFile|nil
 
 	if classFile then
 		classFileToID[classFile] = classID
@@ -69,35 +100,51 @@ for classID = 1, 13 do
 		end
 
 		for specIndex = 1, 4 do
-			-- Druid has the max amount of specs, which is 4
-			local specId, localizedSpecName, _, icon = GetSpecializationInfoForClassID(classID, specIndex)
-			if specId and localizedSpecName and icon then
-				localizedSpecNameToID[classFile][localizedSpecName] = specId
-				localizedSpecNameToIcon[classFile][localizedSpecName] = icon
+			local id, name, _, icon = GetSpecializationInfoForClassID(classID, specIndex)
+			if id and name and icon then
+				localizedSpecNameToID[classFile][name] = id
+				localizedSpecNameToIcon[classFile][name] = icon
 			end
 		end
 	end
 end
 
-function U.GetIconTextureWithClassAndSpecName(class, spec)
+---Get icon texture path for a specific class and specialization
+---@param class string The class file name (e.g., "WARRIOR")
+---@param spec string The localized specialization name
+---@return any|nil iconPath The icon texture path, or nil if not found
+function MER.Utilities.LFGPlayerInfo.GetIconTextureWithClassAndSpecName(class, spec)
 	return localizedSpecNameToIcon[class] and localizedSpecNameToIcon[class][spec]
 end
 
--- Cache
-U.cache = {}
+---@class CompositionRoleCache
+---@field totalAmount number Total number of players in this role
+---@field playerList table<ClassFile, table<string, number>> Nested table of players organized by class and specializations
 
-function U.cache:Clear()
+---@class CompositionRoleCacheManager
+---@field TANK CompositionRoleCache Cache for tank role
+---@field HEALER CompositionRoleCache Cache for healer role
+---@field DAMAGER CompositionRoleCache Cache for damage dealer role
+MER.Utilities.LFGPlayerInfo.Composition = {}
+
+---Clear the cache and initialize role structures
+---Resets all role data to empty state with zero counts
+function MER.Utilities.LFGPlayerInfo.Composition:Clear()
 	for _, role in ipairs(roleOrder) do
-		self[role] = {
-			totalAmount = 0,
-			playerList = {},
-		}
+		self[role] = { totalAmount = 0, playerList = {} }
 	end
 end
 
-function U.cache:AddPlayer(role, class, spec)
+---Add a player to the cache for a specific role, class, and specialization
+---@param role string The player's role ("TANK", "HEALER", "DAMAGER")
+---@param class string The player's class file name (e.g., "WARRIOR")
+---@param spec string The player's specialization name
+function MER.Utilities.LFGPlayerInfo.Composition:AddPlayer(role, class, spec)
 	if not self[role] then
-		U:Log("warning", format("cache not been initialized correctly, the role:%s is nil.", role))
+		MER.Utilities.LFGPlayerInfo:Log(
+			"warning",
+			format("cache not been initialized correctly, the role:%s is nil.", role)
+		)
 	end
 
 	if not self[role].playerList[class] then
@@ -112,8 +159,10 @@ function U.cache:AddPlayer(role, class, spec)
 	self[role].totalAmount = self[role].totalAmount + 1
 end
 
--- Main logic
-function U:Update(resultID)
+---Update cache with player information from a LFG search result
+---Processes all members in the group and categorizes them by role, class, and spec
+---@param resultID number The LFG search result ID to process
+function MER.Utilities.LFGPlayerInfo:Update(resultID)
 	local result = C_LFGList_GetSearchResultInfo(resultID)
 
 	if not result then
@@ -124,31 +173,52 @@ function U:Update(resultID)
 		self:Log("debug", "cache not updated correctly, the number of result.numMembers is nil or 0.")
 	end
 
-	self.cache:Clear()
+	self.Composition:Clear()
 
 	for i = 1, result.numMembers do
-		local role, class, _, spec = C_LFGList_GetSearchResultMemberInfo(resultID, i)
+		local memberInfo = C_LFGList_GetSearchResultPlayerInfo(resultID, i)
+		if memberInfo then
+			local role, class, spec = memberInfo.assignedRole, memberInfo.classFilename, memberInfo.specName
 
-		if not role then
-			self:Log("debug", "cache not updated correctly, the role is nil.")
-			return
+			if not role then
+				self:Log("debug", "cache not updated correctly, the role is nil.")
+				return
+			end
+
+			if not class then
+				self:Log("debug", "cache not updated correctly, the class is nil.")
+				return
+			end
+
+			if not spec then
+				self:Log("debug", "cache not updated correctly, the spec is nil.")
+				return
+			end
+
+			self.Composition:AddPlayer(role, class, spec)
 		end
-
-		if not class then
-			self:Log("debug", "cache not updated correctly, the class is nil.")
-			return
-		end
-
-		if not spec then
-			self:Log("debug", "cache not updated correctly, the spec is nil.")
-			return
-		end
-
-		self.cache:AddPlayer(role, class, spec)
 	end
 end
 
-function U:Conduct(template, role, class, spec, amount)
+---Check if a search result is for dungeon content
+---@param resultID number The LFG search result ID to check
+---@return boolean isDungeon True if the result is for dungeon content
+function MER.Utilities.LFGPlayerInfo:IsIDDungeons(resultID)
+	local result = C_LFGList_GetSearchResultInfo(resultID)
+	local activity = C_LFGList_GetActivityInfoTable(result.activityIDs[1])
+	return activity and activity.categoryID == GROUP_FINDER_CATEGORY_ID_DUNGEONS
+end
+
+---Conduct template rendering with player information
+---Template system similar to React/Vue with mustache-style syntax
+---Supports: {{classIcon}}, {{className}}, {{specIcon}}, {{specName}}, {{amount}}, etc.
+---@param template string The template string with placeholder tags
+---@param role string|nil The player's role
+---@param class string|nil The player's class file name
+---@param spec string|nil The player's specialization name
+---@param amount number|nil The number of players with this role/class/spec
+---@return string result The rendered template string
+function MER.Utilities.LFGPlayerInfo:Conduct(template, role, class, spec, amount)
 	-- This function allow you do a very simple template rendering.
 	-- The syntax like a mix of React and Vue.
 	-- The field between `{{` and `}}` should NOT have any space.
@@ -281,7 +351,11 @@ function U:Conduct(template, role, class, spec, amount)
 	return result
 end
 
-function U:ConductPreview(template)
+---Generate a preview of template rendering using sample data
+---Uses a Monk Brewmaster as sample data for demonstration
+---@param template string|nil The template string to preview
+---@return string result The rendered preview string, empty if template is nil
+function MER.Utilities.LFGPlayerInfo:ConductPreview(template)
 	if not template then
 		return ""
 	end
@@ -291,7 +365,11 @@ function U:ConductPreview(template)
 	return self:Conduct(template, "TANK", "MONK", specName, 2)
 end
 
-function U:GetPartyInfo(template)
+---Get formatted party information using the provided template
+---Processes cached player data and renders it using the template system
+---@param template string|nil The template string for formatting player info
+---@return table<string, string[]>? dataTable Table organized by role containing formatted strings, nil if template is invalid
+function MER.Utilities.LFGPlayerInfo:GetPartyInfo(template)
 	if not template then
 		self:Log("warning", "template is nil.")
 		return
@@ -299,10 +377,10 @@ function U:GetPartyInfo(template)
 
 	local dataTable = {}
 
-	for order, role in ipairs(roleOrder) do
+	for _, role in ipairs(roleOrder) do
 		dataTable[role] = {}
 
-		local members = self.cache[role]
+		local members = self.Composition[role]
 
 		for class, numberOfPlayersSortBySpec in pairs(members.playerList) do
 			for spec, numberOfPlayers in pairs(numberOfPlayersSortBySpec) do
@@ -313,10 +391,4 @@ function U:GetPartyInfo(template)
 	end
 
 	return dataTable
-end
-
-function U:SetClassIconStyle(style)
-	if style then
-		classIconStyle = style
-	end
 end

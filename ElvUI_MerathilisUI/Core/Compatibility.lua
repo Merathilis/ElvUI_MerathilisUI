@@ -415,13 +415,6 @@ function MER:CheckCompatibility()
 	)
 
 	CheckWindtools(
-		format("%s-%s", L["Tooltip"], L["Group Info"]),
-		format("%s-%s", L["Tooltip"], L["Group Info"]),
-		"db.mui.tooltip.groupInfo.enable",
-		"db.WT.tooltips.groupInfo.enable"
-	)
-
-	CheckWindtools(
 		format("%s-%s", L["Chat"], L["ChatText"]),
 		format("%s-%s", L["Social"], L["ChatText"]),
 		"db.mui.chat.chatText.enable",

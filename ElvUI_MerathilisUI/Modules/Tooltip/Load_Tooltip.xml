@@ -3,7 +3,6 @@
 
 	<Script file="Achievement.lua"/>
 	<Script file="GradientName.lua"/>
-	<Script file="GroupInfo.lua"/>
 	<Script file="HealthBar.lua"/>
 	<Script file="NameHover.lua"/>
 	<Script file="TooltipIcon.lua"/>
