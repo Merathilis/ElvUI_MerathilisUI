@@ -295,14 +295,14 @@ function module:Initialize()
 	end
 
 	for name, _ in pairs(self.eventCallback) do
-		module:RegisterEvent(name, "Event")
+		self:RegisterEvent(name, "Event")
 	end
 
-	module:SecureHook(TT, "SetUnitText", "SetUnitText")
-	module:SecureHook(TT, "RemoveTrashLines", "ElvUIRemoveTrashLines")
-	module:SecureHookScript(GameTooltip, "OnTooltipCleared", "ClearInspectInfo")
+	self:SecureHook(TT, "SetUnitText", "SetUnitText")
+	self:SecureHook(TT, "RemoveTrashLines", "ElvUIRemoveTrashLines")
+	self:SecureHookScript(GameTooltip, "OnTooltipCleared", "ClearInspectInfo")
 
-	module.initialized = true
+	self.initialized = true
 end
 
 function module:ProfileUpdate()

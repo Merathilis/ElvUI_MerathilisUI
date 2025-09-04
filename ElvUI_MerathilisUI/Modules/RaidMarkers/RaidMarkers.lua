@@ -206,9 +206,7 @@ function module:CreateBar()
 	self:CreateButtons()
 	self:ToggleSettings()
 
-	if E.private.mui.skins.enable and E.private.mui.skins.shadow.enable then
-		S:CreateBackdropShadow(self.bar)
-	end
+	S:CreateBackdropShadow(self.bar.backdrop)
 
 	E:CreateMover(
 		self.barAnchor,

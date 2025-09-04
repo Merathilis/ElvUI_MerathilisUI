@@ -260,6 +260,9 @@ options.libraries = {
 			order = 10,
 			type = "toggle",
 			name = L["Ace3 Dropdown Backdrop"],
+			disabled = function()
+				return not E.private.mui.skins.libraries.ace3
+			end,
 			width = 1.5,
 		},
 		libQTip = {

@@ -38,6 +38,21 @@ function module:AddGroupInfo(tooltip, resultID)
 		return
 	end
 
+	if config.hideBlizzard then
+		local titleFound = false
+		for i = 5, tooltip:NumLines() do
+			local text = _G["GameTooltipTextLeft" .. i]
+			local raw = text and text:GetText()
+
+			if raw == _G.MEMBERS_COLON then
+				text:SetText("")
+				titleFound = true
+			elseif titleFound and raw and strfind(raw, "^|A:groupfinder%-icon%-role%-micro") then
+				text:SetText("")
+			end
+		end
+	end
+
 	LFGPI:SetClassIconStyle(config.classIconStyle)
 	LFGPI:Update(resultID)
 
@@ -69,7 +84,7 @@ function module:AddGroupInfo(tooltip, resultID)
 	tooltip:Show()
 end
 
-function module:ShowLeaderOverallScore(self)
+function module:ShowLeaderOverallScore()
 	local resultID = self.resultID
 	local searchResultInfo = resultID and GetSearchResultInfo(resultID)
 	local activityIDs = searchResultInfo and searchResultInfo.activityIDs[1] or nil
@@ -119,10 +134,6 @@ function module:GroupInfo()
 			)
 			E.db.mui.tooltip.groupInfo.enable = false
 		end
-	end
-
-	if not E.db.mui.tooltip.groupInfo.enable then
-		return
 	end
 
 	self:SecureHook("LFGListUtil_SetSearchEntryTooltip", "AddGroupInfo")
