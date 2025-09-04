@@ -205,7 +205,7 @@ function module:MythicDungeonTools()
 	self:SecureHook(_G.MDT, "SkinProgressBar", reskinProgressBar)
 end
 
-function module:Ace_MDTPullButton(widget)
+function module:Ace3_MDTPullButton(widget)
 	reskinButtonTexture(widget.frame.pickedGlow, 0.5)
 	reskinButtonTexture(widget.frame.highlight, 0.2)
 	reskinButtonTexture(widget.background, 0.3)
@@ -224,14 +224,14 @@ function module:Ace_MDTPullButton(widget)
 	end)
 end
 
-function module:Ace_MDTNewPullButton(widget)
+function module:Ace3_MDTNewPullButton(widget)
 	widget.frame:StripTextures()
 	reskinButtonTexture(widget.background, 0.2)
 	widget.background:SetVertexColor(1, 1, 1, 0.4)
 	reskinButtonTexture(widget.frame.highlight, 0.2)
 end
 
-function module:Ace_MDTSpellButton(widget)
+function module:Ace3_MDTSpellButton(widget)
 	module:Proxy("HandleIcon", widget.icon)
 	local width, height = widget.icon:GetSize()
 	widget.icon:Size(width - 2, height - 2)
@@ -247,6 +247,6 @@ local function dbChecker(db)
 end
 
 module:AddCallbackForAddon("MythicDungeonTools")
-module:AddCallbackForAceGUIWidget("MDTPullButton", "Ace_MDTPullButton", dbChecker)
-module:AddCallbackForAceGUIWidget("MDTNewPullButton", "Ace_MDTNewPullButton", dbChecker)
-module:AddCallbackForAceGUIWidget("MDTSpellButton", "Ace_MDTSpellButton", dbChecker)
+module:AddCallbackForAceGUIWidget("MDTPullButton", "Ace3_MDTPullButton", dbChecker)
+module:AddCallbackForAceGUIWidget("MDTNewPullButton", "Ace3_MDTNewPullButton", dbChecker)
+module:AddCallbackForAceGUIWidget("MDTSpellButton", "Ace3_MDTSpellButton", dbChecker)

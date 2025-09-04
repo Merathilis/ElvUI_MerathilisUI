@@ -90,7 +90,7 @@ local function ApplyTextureCoords(tex, force)
 	tex.MERTexCoords = true
 end
 
-function module:Ace_WeakAurasMultiLineEditBox(widget)
+function module:Ace3_WeakAurasMultiLineEditBox(widget)
 	self:Proxy("HandleButton", widget.button)
 
 	widget.scrollBG:SetAlpha(0)
@@ -120,7 +120,7 @@ function module:Ace_WeakAurasMultiLineEditBox(widget)
 	end)
 end
 
-function module:Ace_WeakAurasDisplayButton(widget)
+function module:Ace3_WeakAurasDisplayButton(widget)
 	if widget.background then
 		self:Proxy("HandleButton", widget.frame, nil, nil, nil, true, "Transparent")
 		widget.frame.background:SetAlpha(0)
@@ -252,7 +252,7 @@ function module:Ace_WeakAurasDisplayButton(widget)
 	end
 end
 
-function module:Ace_WeakAurasLoadedHeaderButton(widget)
+function module:Ace3_WeakAurasLoadedHeaderButton(widget)
 	if not widget.expand then
 		return
 	end
@@ -363,7 +363,7 @@ do
 	end
 end
 
-function module:Ace_WeakAurasIconButton(widget)
+function module:Ace3_WeakAurasIconButton(widget)
 	widget.frame:CreateBackdrop()
 	widget.frame.backdrop.Center:StripTextures()
 	ApplyTextureCoords(widget.texture)
@@ -703,8 +703,8 @@ end
 
 module:AddCallbackForAddon("WeakAurasOptions")
 module:AddCallbackForAddon("WeakAurasTemplates")
-module:AddCallbackForAceGUIWidget("WeakAurasMultiLineEditBox", "Ace_WeakAurasMultiLineEditBox", dbChecker)
-module:AddCallbackForAceGUIWidget("WeakAurasDisplayButton", "Ace_WeakAurasDisplayButton", dbChecker)
-module:AddCallbackForAceGUIWidget("WeakAurasIconButton", "Ace_WeakAurasIconButton", dbChecker)
-module:AddCallbackForAceGUIWidget("WeakAurasNewButton", "Ace_WeakAurasDisplayButton", dbChecker)
-module:AddCallbackForAceGUIWidget("WeakAurasLoadedHeaderButton", "Ace_WeakAurasLoadedHeaderButton", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasMultiLineEditBox", "Ace3_WeakAurasMultiLineEditBox", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasDisplayButton", "Ace3_WeakAurasDisplayButton", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasIconButton", "Ace3_WeakAurasIconButton", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasNewButton", "Ace3_WeakAurasDisplayButton", dbChecker)
+module:AddCallbackForAceGUIWidget("WeakAurasLoadedHeaderButton", "Ace3_WeakAurasLoadedHeaderButton", dbChecker)

@@ -41,7 +41,7 @@ function MER:UpdateScripts() -- DB Convert
 
 	isFirstLine = true
 
-	if profileVersion and profileVersion <= 6.60 then
+	if profileVersion <= 6.60 then
 		if db and db.armory and db.armory.specIcon and db.armory.specIcon.name then
 			if db.armory.specIcon.name ~= I.Fonts.Icons then
 				db.armory.specIcon.name = I.Fonts.Icons
@@ -73,8 +73,9 @@ function MER:UpdateScripts() -- DB Convert
 	end
 
 	if privateVersion < 6.72 then
-		if E.global.mui and E.global.mui.microBar and E.global.mui.microBar.covenantCache then
-			E.global.mui.microBar.covenantCache = nil
+		if E.private.mui and E.private.mui.skins and E.private.mui.skins.rollResult then
+			E.global.mui.skins.rollResult = nil
+			UpdateMessage(L["Skins"] .. ": " .. L["Database cleanup"], privateVersion)
 		end
 	end
 
