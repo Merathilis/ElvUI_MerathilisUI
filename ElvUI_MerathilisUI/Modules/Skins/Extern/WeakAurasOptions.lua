@@ -184,7 +184,7 @@ function module:Ace3_WeakAurasDisplayButton(widget)
 		expandButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
 		expandButton.Texture = expandButton.backdrop:CreateTexture(nil, "OVERLAY")
 		expandButton.Texture:Size(12)
-		expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+		expandButton.Texture:SetTexture(I.Media.Icons.Plus)
 		expandButton.Texture:SetVertexColor(0.5, 0.5, 0.5)
 		expandButton.Texture:Point("CENTER")
 		expandButton:HookScript("OnEnter", function(expandBtn)
@@ -202,21 +202,21 @@ function module:Ace3_WeakAurasDisplayButton(widget)
 		local DisableExpand = widget.DisableExpand
 		widget.DisableExpand = function(frame)
 			DisableExpand(frame)
-			expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+			expandButton.Texture:SetTexture(I.Media.Icons.Plus)
 			expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3)
 		end
 
 		local Expand = widget.Expand
 		widget.Expand = function(frame)
 			Expand(frame)
-			expandButton.Texture:SetTexture(W.Media.Icons.buttonMinus)
+			expandButton.Texture:SetTexture(I.Media.Icons.Minus)
 			expandButton.Texture:SetVertexColor(1, 1, 1)
 		end
 
 		local Collapse = widget.Collapse
 		widget.Collapse = function(frame)
 			Collapse(frame)
-			expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+			expandButton.Texture:SetTexture(I.Media.Icons.Plus)
 			expandButton.Texture:SetVertexColor(1, 1, 1)
 		end
 	end
@@ -236,7 +236,7 @@ function module:Ace3_WeakAurasDisplayButton(widget)
 		groupButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
 		groupButton.Texture = groupButton.backdrop:CreateTexture(nil, "OVERLAY")
 		groupButton.Texture:Size(9)
-		groupButton.Texture:SetTexture(W.Media.Icons.buttonForward)
+		groupButton.Texture:SetTexture(I.Media.Icons.Forward)
 		groupButton.Texture:Point("CENTER")
 		groupButton:HookScript("OnEnter", function(groupBtn)
 			if not groupBtn.disabled and groupBtn.backdrop then
@@ -268,7 +268,7 @@ function module:Ace3_WeakAurasLoadedHeaderButton(widget)
 	expandButton.backdrop:SetBackdropBorderColor(0, 0, 0, 0)
 	expandButton.Texture = expandButton.backdrop:CreateTexture(nil, "OVERLAY")
 	expandButton.Texture:Size(12)
-	expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+	expandButton.Texture:SetTexture(I.Media.Icons.Plus)
 	expandButton.Texture:SetVertexColor(0.5, 0.5, 0.5)
 	expandButton.Texture:Point("CENTER")
 	expandButton:HookScript("OnEnter", function(headerBtn)
@@ -286,21 +286,21 @@ function module:Ace3_WeakAurasLoadedHeaderButton(widget)
 	local DisableExpand = widget.DisableExpand
 	widget.DisableExpand = function(frame)
 		DisableExpand(frame)
-		expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+		expandButton.Texture:SetTexture(I.Media.Icons.Plus)
 		expandButton.Texture:SetVertexColor(0.3, 0.3, 0.3)
 	end
 
 	local Expand = widget.Expand
 	widget.Expand = function(frame)
 		Expand(frame)
-		expandButton.Texture:SetTexture(W.Media.Icons.buttonMinus)
+		expandButton.Texture:SetTexture(I.Media.Icons.Minus)
 		expandButton.Texture:SetVertexColor(1, 1, 1)
 	end
 
 	local Collapse = widget.Collapse
 	widget.Collapse = function(frame)
 		Collapse(frame)
-		expandButton.Texture:SetTexture(W.Media.Icons.buttonPlus)
+		expandButton.Texture:SetTexture(I.Media.Icons.Plus)
 		expandButton.Texture:SetVertexColor(1, 1, 1)
 	end
 end
@@ -698,7 +698,7 @@ function module:WeakAurasTemplates()
 end
 
 local function dbChecker(db)
-	return db.addons.weakAurasOptions
+	return db.addonSkins.weakAurasOptions
 end
 
 module:AddCallbackForAddon("WeakAurasOptions")
