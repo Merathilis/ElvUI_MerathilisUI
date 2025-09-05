@@ -638,7 +638,6 @@ L["%s may cause some frames to get messed, but you can use %s button to reset fr
 
 -- Nameplates
 L["NamePlates"] = "이름표"
-L["Enhanced NameplateAuras"] = "향상된 이름표 오라"
 
 -- Tooltip
 L["Your Status:"] = "내 상태:"
@@ -1429,8 +1428,6 @@ L["Sat"] = "토요일"
 L["Castbar Shield"] = "시전바 보호막 아이콘"
 L["Show a shield icon on the castbar for non interruptible spells."] =
 	"차단 불가능한 주문의 시전바에 보호막 아이콘을 표시합니다"
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] =
-	"|cffFF0000주의:|r 이 설정은 ElvUI 이름표 옵션 중 버프/디버프 너비 및 높이 설정을 덮어씁니다. CC 버프는 32 x 32 크기로 고정되어 있습니다"
 
 -- Install
 L["Welcome"] = "환영합니다"

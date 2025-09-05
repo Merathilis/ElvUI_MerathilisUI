@@ -190,7 +190,7 @@ L["Number of Mythic+ dungeons shown in the latest runs."] = true
 
 -- Extended Vendor
 L["Extended Vendor"] = true
-L["Enhanced NameplateAuras"] = "增强姓名板光环"
+
 L["Extends the merchant page to show more items."] = true
 L["Number of Pages"] = true
 L["The number of pages shown in the merchant frame."] = true
@@ -1121,9 +1121,6 @@ L["Sat"] = "星期六"
 L["Castbar Shield"] = "施法条盾牌"
 L["Show a shield icon on the castbar for non interruptible spells."] =
 	"在不可打断的法术图标上添加盾牌图标"
-L["Enhanced NameplateAuras"] = "增强姓名板光环"
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] =
-	"|cffFF0000注意:|r 这会覆盖 ElvUI 姓名板 Buff/Debuffs 的长宽设置. 控制技能的图标大小固定为: 32 x 32"
 
 -- Install
 L["Welcome"] = "欢迎"
@@ -1467,7 +1464,7 @@ L["Replace the Real ID or the character name of friends with your notes."] =
 	"使用你的备注替换好友的战网名或角色名."
 L["Use Game Color"] = "使用游戏颜色"
 L["Change the color of the name to the in-playing game style."] =
-	"根据正在游玩的游戏的风格来改变姓名颜色."
+	"根据正在游玩的游���的风格来改变姓名颜色."
 L["Use Class Color"] = "使用职业颜色"
 L["Font Setting"] = "字体设定"
 L["Hide Realm"] = true

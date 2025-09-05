@@ -185,7 +185,6 @@ L["Number of Mythic+ dungeons shown in the latest runs."] = true
 
 -- Extended Vendor
 L["Extended Vendor"] = true
-L["Enhanced NameplateAuras"] = true
 L["Extends the merchant page to show more items."] = true
 L["Number of Pages"] = true
 L["The number of pages shown in the merchant frame."] = true
@@ -1105,8 +1104,6 @@ L["Sat"] = true
 -- Nameplates
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] =
-	true
 
 -- Install
 L["Welcome"] = true

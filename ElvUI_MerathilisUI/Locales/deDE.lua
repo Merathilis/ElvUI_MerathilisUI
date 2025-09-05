@@ -542,7 +542,6 @@ L["%s may cause some frames to get messed, but you can use %s button to reset fr
 
 -- Nameplates
 L["NamePlates"] = "Namensplaketten"
-L["Enhanced NameplateAuras"] = "Erweiterte Namensplaketten Auren"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

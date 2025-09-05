@@ -539,7 +539,6 @@ L["%s may cause some frames to get messed, but you can use %s button to reset fr
 
 -- Nameplates
 L["NamePlates"] = "Индикаторы здоровья"
-L["Enhanced NameplateAuras"] = "Улучшенные ауры индикаторов здоровья"
 
 -- Tooltip
 L["Your Status:"] = "Ваш статус:"
@@ -1240,8 +1239,6 @@ L["Sat"] = "Сб"
 L["Castbar Shield"] = "Щит на кастбаре"
 L["Show a shield icon on the castbar for non interruptible spells."] =
 	"Показывать значок щита на панели заклинаний для непрерываемых заклинаний."
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] =
-	"|cffFF0000ПРИМЕЧАНИЕ:|r Это перезапишет параметры индикаторы здоровья ElvUI по ширине/высотые, баффов/дебаффов. CC-бафов жестко запрограммированы на размер: 32 x 32"
 
 -- Install
 L["Welcome"] = "Добро пожаловать"
