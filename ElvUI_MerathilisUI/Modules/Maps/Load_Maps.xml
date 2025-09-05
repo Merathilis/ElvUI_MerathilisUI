@@ -2,6 +2,7 @@
 	<Script file="Minimap.lua"/>
 
 	<Script file="EventTracker.lua"/>
+	<Script file="EventTracker_Data.lua"/>
 	<Script file="InstanceDifficulty.lua"/>
 	<Script file="MinimapButtons.lua"/>
 	<Script file="MinimapCoords.lua"/>
