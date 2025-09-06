@@ -1,108 +1,78 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Skins") ---@type Skins
-local S = E:GetModule("Skins")
+local S = MER:GetModule("MER_Skins") ---@type Skins
 
 local _G = _G
-local next, unpack = next, unpack
-
-local C_CreatureInfo_GetClassInfo = C_CreatureInfo.GetClassInfo
 local hooksecurefunc = hooksecurefunc
+local next = next
+local pairs = pairs
+local select = select
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
+local GetClassInfo = GetClassInfo
 
-local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS
-local function ClassIconTexCoord(self, class)
-	local tcoords = CLASS_ICON_TCOORDS[class]
-	self:SetTexCoord(tcoords[1] + 0.022, tcoords[2] - 0.025, tcoords[3] + 0.022, tcoords[4] - 0.025)
-end
-
-local function UpdateNameFrame(self)
-	if not self.expanded then
+local function updateClassIcon(row)
+	if not row or not row.expanded then
 		return
 	end
-	if not self.bg then
-		self.bg = module:CreateBDFrame(self.Class)
-	end
 
-	local memberInfo = self:GetMemberInfo()
-	if memberInfo and memberInfo.classID then
-		local classInfo = C_CreatureInfo_GetClassInfo(memberInfo.classID)
-		if classInfo then
-			ClassIconTexCoord(self.Class, classInfo.classFile)
-		end
+	local memberInfo = row:GetMemberInfo()
+	local classId = memberInfo and memberInfo.classID
+	local englishClassName = classId and select(2, GetClassInfo(classId))
+	if englishClassName then
+		row.Class:SetTexture(F.GetClassIconWithStyle(englishClassName, "flat"))
+		row.Class:SetTexCoord(0, 1, 0, 1)
 	end
 end
 
-function module:Blizzard_Communities()
-	if not module:CheckDB("communities", "communities") then
+function S:Blizzard_Communities()
+	if not self:CheckDB("communities") then
 		return
 	end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
-	module:CreateShadow(CommunitiesFrame)
-	module:CreateShadow(CommunitiesFrame.ChatTab)
-	module:CreateShadow(CommunitiesFrame.RosterTab)
-	module:CreateShadow(CommunitiesFrame.GuildBenefitsTab)
-	module:CreateShadow(CommunitiesFrame.GuildInfoTab)
-	module:CreateShadow(_G.CommunitiesGuildLogFrame)
-	module:CreateBackdropShadow(CommunitiesFrame.GuildMemberDetailFrame)
-	module:CreateBackdropShadow(CommunitiesFrame.ClubFinderInvitationFrame)
-
-	for _, name in next, { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab" } do
-		local tab = CommunitiesFrame[name]
-		tab:GetRegions():Hide()
-		tab:GetHighlightTexture():SetColorTexture(r, g, b, 0.25)
+	if not CommunitiesFrame then
+		return
 	end
 
-	local MemberList = CommunitiesFrame.MemberList
-	-- MemberList:CreateBackdrop('Transparent')
+	self:CreateShadow(CommunitiesFrame)
+	self:CreateShadow(CommunitiesFrame.ChatTab)
+	self:CreateShadow(CommunitiesFrame.RosterTab)
+	self:CreateShadow(CommunitiesFrame.GuildBenefitsTab)
+	self:CreateShadow(CommunitiesFrame.GuildInfoTab)
+	self:CreateShadow(CommunitiesFrame.GuildMemberDetailFrame)
+	self:CreateShadow(CommunitiesFrame.ClubFinderInvitationFrame)
+	self:CreateShadow(CommunitiesFrame.RecruitmentDialog)
+	self:CreateShadow(_G.CommunitiesGuildLogFrame)
+	self:CreateShadow(_G.CommunitiesSettingsDialog)
 
-	hooksecurefunc(MemberList.ScrollBox, "Update", function(self)
-		for i = 1, self.ScrollTarget:GetNumChildren() do
-			local child = select(i, self.ScrollTarget:GetChildren())
-			if not child.styled then
-				hooksecurefunc(child, "RefreshExpandedColumns", UpdateNameFrame)
-				child.styled = true
-			end
+	local ClubFinderFrame = _G.ClubFinderCommunityAndGuildFinderFrame
+	if ClubFinderFrame then
+		self:CreateShadow(ClubFinderFrame.ClubFinderPendingTab)
+		self:CreateShadow(ClubFinderFrame.ClubFinderSearchTab)
+		self:CreateShadow(ClubFinderFrame.RequestToJoinFrame)
+	end
 
-			local header = child.ProfessionHeader
-			if header and not header.styled then
-				for j = 1, 3 do
-					select(j, header:GetRegions()):Hide()
-				end
-				header:CreateBackdrop("Transparent")
-				header.backdrop:SetInside()
-				header:SetHighlightTexture(E.media.normTex)
-				header:GetHighlightTexture():SetVertexColor(r, g, b, 0.25)
-				header:GetHighlightTexture():SetInside(header.backdrop)
-				header.Icon:CreateBackdrop()
+	hooksecurefunc(CommunitiesFrame.MemberList, "RefreshListDisplay", function(memberList)
+		local target = memberList.ScrollBox:GetScrollTarget()
+		if not target or not target.GetChildren then
+			return
+		end
 
-				header.styled = true
-			end
-
-			if child and child.bg then
-				child.bg:SetShown(child.Class:IsShown())
+		for _, row in pairs({ target:GetChildren() }) do
+			if row and not row.__windSkinHook then
+				hooksecurefunc(row, "RefreshExpandedColumns", updateClassIcon)
+				row.__windSkinHook = true
 			end
 		end
 	end)
 
-	-- Chat Tab
-	local Dialog = CommunitiesFrame.NotificationSettingsDialog
-	Dialog:StripTextures()
-	Dialog.BG:Hide()
-	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
+	local BossModel = _G.CommunitiesFrameGuildDetailsFrameNews.BossModel
+	self:CreateShadow(BossModel)
+	self:CreateShadow(BossModel.TextFrame)
 
-	local Dialog = CommunitiesFrame.EditStreamDialog
-	module:CreateBDFrame(Dialog.Description, 0.25)
-
-	local DetailFrame = CommunitiesFrame.GuildMemberDetailFrame
-	DetailFrame:ClearAllPoints()
-	DetailFrame:SetPoint("TOPLEFT", CommunitiesFrame, "TOPRIGHT", 34, 0)
-
-	hooksecurefunc(CommunitiesFrame.GuildBenefitsFrame.Rewards.ScrollBox, "Update", function(button)
-		for _, child in next, { button.ScrollTarget:GetChildren() } do
+	hooksecurefunc(CommunitiesFrame.GuildBenefitsFrame.Rewards.ScrollBox, "Update", function(scrollBox)
+		for _, child in next, { scrollBox.ScrollTarget:GetChildren() } do
 			if not child.IsSkinned then
-				S:HandleIcon(child.Icon, true)
+				self:Proxy("HandleIcon", child.Icon, true)
 				child:StripTextures()
 				child:CreateBackdrop("Transparent")
 				child.backdrop:ClearAllPoints()
@@ -121,10 +91,6 @@ function module:Blizzard_Communities()
 			end
 		end
 	end)
-
-	local BossModel = _G.CommunitiesFrameGuildDetailsFrameNews.BossModel
-	module:CreateShadow(BossModel)
-	module:CreateShadow(BossModel.TextFrame)
 end
 
-module:AddCallbackForAddon("Blizzard_Communities")
+S:AddCallbackForAddon("Blizzard_Communities")

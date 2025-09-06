@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_ItemLevel")
 local S = MER:GetModule("MER_Skins")
+local C = MER.Utilities.Color ---@type ColorUtility
 
 local _G = _G
 local pairs, select = pairs, select
