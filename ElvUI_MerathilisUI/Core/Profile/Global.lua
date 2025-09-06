@@ -13,10 +13,6 @@ G.mail = {
 	},
 }
 
-G.microBar = {
-	covenantCache = {},
-}
-
 G.bags = {
 	CustomJunkList = {},
 }
