@@ -277,7 +277,7 @@ ET.EventData = {
 			icon = 6921877,
 			type = "weekly",
 			questIDs = {
-				85460, -- 生態重構
+				85460,
 			},
 			hasWeeklyReward = true,
 			eventName = L["Ecological Succession"],
@@ -317,7 +317,7 @@ ET.EventData = {
 
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -333,7 +333,7 @@ ET.EventData = {
 			icon = 5788303,
 			type = "loopTimer",
 			questIDs = {
-				83240, -- 劇團
+				83240,
 			},
 			hasWeeklyReward = true,
 			duration = 15 * 60,
@@ -357,7 +357,7 @@ ET.EventData = {
 
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -511,7 +511,7 @@ ET.EventData = {
 
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -555,7 +555,7 @@ ET.EventData = {
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -597,7 +597,7 @@ ET.EventData = {
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -640,7 +640,7 @@ ET.EventData = {
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -682,7 +682,7 @@ ET.EventData = {
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -724,7 +724,7 @@ ET.EventData = {
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 
@@ -767,7 +767,7 @@ ET.EventData = {
 				}
 				local region = GetCurrentRegion()
 				-- TW is not a real region, so we need to check the client language if player in KR
-				if region == 2 and W.Locale ~= "koKR" then
+				if region == 2 and MER.Locale ~= "koKR" then
 					region = 4
 				end
 

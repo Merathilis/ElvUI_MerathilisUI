@@ -1,9 +1,9 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local ET = MER:GetModule("MER_EventTracker") ---@class EventTracker : AceModule, AceEvent-3.0, AceHook-3.0
 local S = MER:GetModule("MER_Skins") ---@type Skins
 local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
+local ET = MER:GetModule("MER_EventTracker") ---@class EventTracker : AceModule, AceEvent-3.0, AceHook-3.0
 
 local _G = _G
 local ceil = ceil
@@ -971,7 +971,6 @@ end
 
 function ET:UpdateTrackers()
 	self:ConstructFrame()
-
 	self.frame:ClearAllPoints()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.worldmap) then
 		self.frame:Point("TOPLEFT", _G.WorldMapFrame, "BOTTOMLEFT", -2, -self.db.style.backdropYOffset)
@@ -1030,32 +1029,31 @@ function ET:UpdateTrackers()
 			else
 				tracker.args.alertSecond = nil
 				tracker.args.stopAlertIfCompleted = nil
-
-				tracker:ClearAllPoints()
-
-				local currentWidth = self.db.style.trackerWidth * col
-					+ self.db.style.trackerHorizontalSpacing * (col - 1)
-				if currentWidth > maxWidth then
-					row = row + 1
-					col = 1
-				end
-
-				tracker:Point(
-					"TOPLEFT",
-					self.frame,
-					"TOPLEFT",
-					self.db.style.backdropSpacing
-						+ self.db.style.trackerWidth * (col - 1)
-						+ self.db.style.trackerHorizontalSpacing * (col - 1),
-					-self.db.style.backdropSpacing
-						- self.db.style.trackerHeight * (row - 1)
-						- self.db.style.trackerVerticalSpacing * (row - 1)
-				)
-
-				col = col + 1
-
-				tracker.tickFunc()
 			end
+
+			tracker:ClearAllPoints()
+
+			local currentWidth = self.db.style.trackerWidth * col + self.db.style.trackerHorizontalSpacing * (col - 1)
+			if currentWidth > maxWidth then
+				row = row + 1
+				col = 1
+			end
+
+			tracker:Point(
+				"TOPLEFT",
+				self.frame,
+				"TOPLEFT",
+				self.db.style.backdropSpacing
+					+ self.db.style.trackerWidth * (col - 1)
+					+ self.db.style.trackerHorizontalSpacing * (col - 1),
+				-self.db.style.backdropSpacing
+					- self.db.style.trackerHeight * (row - 1)
+					- self.db.style.trackerVerticalSpacing * (row - 1)
+			)
+
+			col = col + 1
+
+			tracker.tickFunc()
 		end
 	end
 
