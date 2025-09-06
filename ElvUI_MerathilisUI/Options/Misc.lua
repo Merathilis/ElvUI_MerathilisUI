@@ -1706,7 +1706,7 @@ options.exitPhaseDiving = {
 						.. "\n\n"
 						.. C.StringByTemplate(
 							L["Due to Blizzard restrictions, the button area cannot be clicked through even when the button is hidden."],
-							"warning"
+							"yellow-400"
 						),
 					fontSize = "medium",
 				},

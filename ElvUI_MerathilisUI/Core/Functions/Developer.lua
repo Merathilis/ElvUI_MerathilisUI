@@ -1,4 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = MER.Utilities.Color
+
 F.Developer = {}
 
 local _G = _G
@@ -103,7 +105,7 @@ end
 ]]
 function F.Developer.ThrowError(...)
 	local message = strjoin(" ", ...)
-	_G.geterrorhandler()(format("%s |cffff3860[ERROR]|r\n%s", MER.Title, message))
+	_G.geterrorhandler()(format("%s |cffff2457[ERROR]|r\n%s", MER.Title, message))
 end
 
 --[[
@@ -116,7 +118,7 @@ function F.Developer.LogWarning(...)
 	end
 
 	local message = strjoin(" ", ...)
-	print(format("%s |cffffdd57[WARNING]|r %s", MER.Title, message))
+	print(format("%s |cfffdc600[WARNING]|r %s", MER.Title, message))
 end
 
 --[[
@@ -129,7 +131,7 @@ function F.Developer.LogInfo(...)
 	end
 
 	local message = strjoin(" ", ...)
-	print(format("%s |cff209cee[INFO]|r %s", MER.Title, message))
+	print(format("%s |cff00a4f3[INFO]|r %s", MER.Title, message))
 end
 
 --[[
@@ -142,7 +144,7 @@ function F.Developer.LogDebug(...)
 	end
 
 	local message = strjoin(" ", ...)
-	print(format("%s |cff00d1b2[DEBUG]|r %s", MER.Title, message))
+	print(format("%s |cff00d3bc[DEBUG]|r %s", MER.Title, message))
 end
 
 do
@@ -188,7 +190,7 @@ function F.Developer.InjectLogger(module)
 
 			level = strlower(level)
 
-			local richMessage = format("|cfff6781d[%s]|r %s", self:GetName(), message)
+			local richMessage = format("%s %s", C.StringByTemplate(self.name, "amber-500"), message)
 			if level == "info" then
 				F.Developer.LogInfo(richMessage)
 			elseif level == "warning" then

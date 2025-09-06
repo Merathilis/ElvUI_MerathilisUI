@@ -176,7 +176,7 @@ local function AddSpellInfo(link)
 		local texture = GetSpellTexture(tonumber(id))
 		local icon = texture and format(ICON_STRING, texture)
 		if icon then
-			link = icon .. " |cff71d5ff" .. link .. "|r" -- I dk why the color is needed, but worked!
+			link = icon .. C.StringByTemplate(link, "sky-400")
 		end
 	end
 

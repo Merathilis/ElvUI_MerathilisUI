@@ -2245,7 +2245,7 @@ options.advancedSettings = {
 					type = "description",
 					name = function()
 						if not DoesAddOnExist("BigWigs") then
-							return C.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "danger")
+							return C.StringByTemplate(format(L["%s is not loaded."], L["BigWigs"]), "rose-500")
 						end
 
 						return C.StringByTemplate(
@@ -2254,7 +2254,7 @@ options.advancedSettings = {
 								format(L["The options below are only for BigWigs %s bar style."], MER.Title),
 								format(L["You need to manually set the bar style to %s in BigWigs first."], MER.Title)
 							),
-							"warning"
+							"yellow-400"
 						) .. L["How to change BigWigs bar style:"] .. "\n" .. L["Open BigWigs Options UI with /bw > Bars > Style."] .. "\n\n"
 					end,
 					fontSize = "medium",

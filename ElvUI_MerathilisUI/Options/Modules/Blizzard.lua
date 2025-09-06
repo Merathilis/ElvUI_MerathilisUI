@@ -78,7 +78,7 @@ options.blizzard.args.objectiveTracker = {
 			type = "description",
 			name = C.StringByTemplate(
 				L["This module may prevent clicking quest items in the objective tracker due to taint."],
-				"danger"
+				"rose-500"
 			),
 		},
 		progress = {

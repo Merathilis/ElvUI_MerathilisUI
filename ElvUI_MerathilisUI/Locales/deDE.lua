@@ -1459,6 +1459,8 @@ L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 L["Objective Tracker"] = "Questverfolgung"
 L["1. Customize the font of Objective Tracker."] = "1. Passe die Schriftart von der Questverfolgung an."
 L["2. Add colorful progress text to the quest."] = "2. Füge der Quest einen farblichen Fortschrittstext hinzu."
+L["This module may prevent clicking quest items in the objective tracker due to taint."] =
+	"Dieses Modul kann das Klicken von Questgegenständen im Questverfolgungsfenster aufgrund von Taints verhindern."
 L["Progress"] = "Fortschritt"
 L["No Dash"] = "Kein Strich"
 L["Colorful Progress"] = "Farblicher Fortschritt"

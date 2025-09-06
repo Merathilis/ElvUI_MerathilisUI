@@ -1,23 +1,12 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = MER.Utilities.Color
+
 local options = MER.options.information.args
 
 local unpack = unpack
 local tconcat, tsort = table.concat, table.sort
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
-
-local function blue(string)
-	if type(string) ~= "string" then
-		string = tostring(string)
-	end
-	return F.CreateColorString(string, { r = 0.204, g = 0.596, b = 0.859 })
-end
-local function AddColor(string)
-	if type(string) ~= "string" then
-		string = tostring(string)
-	end
-	return F.CreateColorString(string, { r = 0, g = 192, b = 250 })
-end
 
 local function SortList(a, b)
 	return E:StripString(a) < E:StripString(b)
@@ -224,7 +213,7 @@ local DEVELOPER = {
 		0.43
 	),
 	"fgprodigal",
-	AddColor("fang2hou"),
+	C.StringByTemplate("fang2hou", "blue-400"),
 	"siweia",
 	"|cff0080ffWitness|r (NDui_Plus)",
 	"|cff1784d1Eltreum|r",
@@ -281,7 +270,7 @@ do
 		options.name.args.localization.args[tostring(configOrder)] = {
 			order = configOrder,
 			type = "description",
-			name = blue(langName),
+			name = C.StringByTemplate(langName, "blue-500"),
 		}
 		configOrder = configOrder + 1
 

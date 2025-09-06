@@ -15,7 +15,7 @@ local tconcat = table.concat
 local customListSelected1, customListSelected2
 
 local function desc(code, helpText)
-	return C.StringByTemplate(code, "primary") .. " = " .. helpText
+	return C.StringByTemplate(code, "teal-400") .. " = " .. helpText
 end
 
 local slotNames = {

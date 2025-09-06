@@ -553,7 +553,7 @@ options.chat = {
 												.. "\n"
 												.. format(
 													L["Current Region: %s"],
-													C.StringByTemplate(MER.RealRegion, "warning")
+													C.StringByTemplate(MER.RealRegion, "yellow-400")
 												),
 											values = {
 												ALL = L["All"],

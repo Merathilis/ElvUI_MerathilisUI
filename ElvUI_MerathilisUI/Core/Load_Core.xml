@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Include file="Functions\Load_Functions.xml"/>
-	<Script file="Requirements.lua"/>
 	<Include file="Utilities\Load_Utilities.xml"/>
+	<Script file="Requirements.lua"/>
 
 	<!-- Settings -->
 	<Include file="InternalData\Load_InternalData.xml"/>

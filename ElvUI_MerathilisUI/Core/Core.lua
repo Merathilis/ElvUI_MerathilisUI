@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = MER.Utilities.Color ---@type ColorUtility
 
 local _G = _G
 local format = string.format
@@ -69,14 +70,21 @@ end
 
 E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 	text = format(
-		"%s\n%s\n\n|cffaaaaaa%s|r",
-		format(L["%s detects CVar %s has been changed."], MER.Title, "|cff209ceeActionButtonUseKeyDown|r"),
-		L["It will cause some buttons not work properly before UI reloading."],
+		"%s\n%s\n\n%s",
 		format(
-			L["You can disable this alert in [%s]-[%s]-[%s]"],
+			L["%s detects CVar %s has been changed."],
 			MER.Title,
-			L["Advanced Settings"],
-			L["Blizzard Fixes"]
+			C.StringByTemplate("ActionButtonUseKeyDown", "blue-400")
+		),
+		L["It will cause some buttons not work properly before UI reloading."],
+		C.StringByTemplate(
+			format(
+				L["You can disable this alert in [%s]-[%s]-[%s]"],
+				MER.Title,
+				L["Advanced Settings"],
+				L["Blizzard Fixes"]
+			),
+			"neutral-300"
 		)
 	),
 	button1 = L["Reload UI"],

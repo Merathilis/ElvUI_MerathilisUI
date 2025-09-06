@@ -1495,6 +1495,7 @@ L["1. Customize the font of Objective Tracker."] =
 	"1. Настройте шрифт отслеживания заданий."
 L["2. Add colorful progress text to the quest."] =
 	"2. Добавьте цветной текст прохождения задания."
+L["This module may prevent clicking quest items in the objective tracker due to taint."] = true
 L["Progress"] = "Прогресс"
 L["No Dash"] = "Без тире"
 L["Colorful Progress"] = "Цветной прогресс"

@@ -737,7 +737,7 @@ options.announcement.args.general = {
 			name = L["Emote Format"],
 			desc = L["The text template used in emote channel."]
 				.. "\n"
-				.. format(L["Default is %s."], C.StringByTemplate(": %s", "info")),
+				.. format(L["Default is %s."], C.StringByTemplate(": %s", "sky-500")),
 			width = 2,
 		},
 		betterAlign = {

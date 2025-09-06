@@ -1317,6 +1317,7 @@ L["Bottom Right Extra Panel"] = true
 L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = true
 L["2. Add colorful progress text to the quest."] = true
+L["This module may prevent clicking quest items in the objective tracker due to taint."] = true
 L["Progress"] = true
 L["No Dash"] = true
 L["Colorful Progress"] = true

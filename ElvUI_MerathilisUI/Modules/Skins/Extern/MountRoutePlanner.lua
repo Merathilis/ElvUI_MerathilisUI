@@ -112,7 +112,7 @@ function module:MountRoutePlanner()
 	self:CreateShadow(frame)
 
 	frame.progressBar:SetTexture(E.media.normTex)
-	frame.progressBar:SetVertexColor(MER.Utilities.Color.RGBFromTemplate("success"))
+	frame.progressBar:SetVertexColor(MER.Utilities.Color.ExtractRGBFromTemplate("green-500"))
 	frame.progressBarBG:Kill()
 	frame.progressBar:CreateBackdrop()
 	frame.progressBar.backdrop:SetAllPoints(frame.progressBarBG)

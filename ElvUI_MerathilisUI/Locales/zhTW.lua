@@ -1325,6 +1325,7 @@ L["Bottom Right Extra Panel"] = true
 L["Objective Tracker"] = true
 L["1. Customize the font of Objective Tracker."] = "1. 自訂任務追蹤字型."
 L["2. Add colorful progress text to the quest."] = "2. 為任務添加彩色進度文字."
+L["This module may prevent clicking quest items in the objective tracker due to taint."] = true
 L["Progress"] = "進度"
 L["No Dash"] = "無標記"
 L["Colorful Progress"] = "彩色進度"

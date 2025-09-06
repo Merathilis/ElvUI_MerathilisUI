@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = MER.Utilities.Color ---@type ColorUtility
 
 local print, tonumber, type = print, tonumber, type
 local format = string.format
@@ -15,7 +16,15 @@ local function UpdateMessage(text, from)
 	end
 
 	E:Delay(1, function()
-		print(text .. format("(|cff00a8ff%.2f|r -> |cff00a8ff%s|r)...", from, MER.Version) .. DONE_ICON)
+		print(
+			text
+				.. format(
+					"(%.2f -> %s)...",
+					C.StringByTemplate(from, "neutral-300"),
+					C.StringByTemplate(MER.Version, "emerald-400")
+				)
+				.. DONE_ICON
+		)
 	end)
 end
 
@@ -76,6 +85,18 @@ function MER:UpdateScripts() -- DB Convert
 		if E.private.mui and E.private.mui.skins and E.private.mui.skins.rollResult then
 			E.global.mui.skins.rollResult = nil
 			UpdateMessage(L["Skins"] .. ": " .. L["Database cleanup"], privateVersion)
+		end
+	end
+
+	if profileVersion < 6.72 then
+		if
+			E.db.mui
+			and E.db.mui.maps
+			and E.db.mui.maps.eventTracker
+			and E.db.mui.maps.eventTracker.khazAlgarEmissary
+		then
+			E.db.mui.maps.eventTracker.khazAlgarEmissary = nil
+			UpdateMessage(L["Event Tracker"] .. ": " .. L["Database cleanup"], profileVersion)
 		end
 	end
 

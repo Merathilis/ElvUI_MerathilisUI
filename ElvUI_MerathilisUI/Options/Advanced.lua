@@ -1,10 +1,10 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = MER.Utilities.Color
+
 local options = MER.options.advanced.args
 
 local _G = _G
 local format = format
-
-local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 
 options.core = {
 	order = 1,
@@ -21,10 +21,10 @@ options.core = {
 			type = "toggle",
 			name = L["Login Message"],
 			desc = L["The message will be shown in chat when you login."],
-			get = function(info)
+			get = function()
 				return E.global.mui.core.loginMsg
 			end,
-			set = function(info, value)
+			set = function(_, value)
 				E.global.mui.core.loginMsg = value
 			end,
 		},
@@ -33,10 +33,10 @@ options.core = {
 			type = "toggle",
 			name = L["Compatibility Check"],
 			desc = L["Help you to enable/disable the modules for a better experience with other plugins."],
-			get = function(info)
+			get = function()
 				return E.global.mui.core.compatibilityCheck
 			end,
-			set = function(info, value)
+			set = function(_, value)
 				E.global.mui.core.compatibilityCheck = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
@@ -62,10 +62,10 @@ options.gameFix = {
 				L["It will alert you to reload UI when you change the CVar %s."],
 				"|cff209ceeActionButtonUseKeyDown|r"
 			),
-			get = function(info)
+			get = function()
 				return E.global.mui.advancedOptions.cvarAlert
 			end,
-			set = function(info, value)
+			set = function(_, value)
 				E.global.mui.advancedOptions.cvarAlert = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
@@ -76,10 +76,10 @@ options.gameFix = {
 			type = "toggle",
 			name = L["Guild News"],
 			desc = L["This will fix the current Guild News jam."],
-			get = function(info)
+			get = function()
 				return E.global.mui.advancedOptions.guildNews
 			end,
-			set = function(info, value)
+			set = function(_, value)
 				E.global.mui.advancedOptions.guildNews = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
@@ -90,10 +90,10 @@ options.gameFix = {
 			type = "toggle",
 			name = L["Advanced CLEU Etrace"],
 			desc = L["Enhanced Combat Log Events in /etrace frame."],
-			get = function(info)
+			get = function()
 				return E.global.mui.advancedOptions.advancedCLEUEventTrace
 			end,
-			set = function(info, value)
+			set = function(_, value)
 				E.global.mui.advancedOptions.advancedCLEUEventTrace = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
@@ -112,9 +112,8 @@ options.developer = {
 			type = "select",
 			name = L["Log Level"],
 			desc = L["Only display log message that the level is higher than you choose."]
-				.. "\n|cffff3860"
-				.. L["Set to 2 if you do not understand the meaning of log level."]
-				.. "|r",
+				.. "\n"
+				.. C.StringByTemplate(L["Set to 2 if you do not understand the meaning of log level."], "rose-500"),
 			get = function(_)
 				return E.global.mui.developer.logLevel
 			end,
@@ -122,10 +121,10 @@ options.developer = {
 				E.global.mui.developer.logLevel = value
 			end,
 			values = {
-				[1] = "1 - |cffff3860[ERROR]|r",
-				[2] = "2 - |cffffdd57[WARNING]|r",
-				[3] = "3 - |cff209cee[INFO]|r",
-				[4] = "4 - |cff00d1b2[DEBUG]|r",
+				[1] = "1 - |cffff2457[ERROR]|r",
+				[2] = "2 - |cfffdc600[WARNING]|r",
+				[3] = "3 - |cff00a4f3[INFO]|r",
+				[4] = "4 - |cff00d3bc[DEBUG]|r",
 			},
 		},
 		tableAttributeDisplay = {

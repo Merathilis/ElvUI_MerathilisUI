@@ -229,7 +229,7 @@ local function ItemLevel_ReplaceGuildNews(button, _, text, name, link, ...)
 	end
 
 	if cache[link] then
-		local coloredItemLevel = format("|cfff1c40f%s|r", cache[link])
+		local coloredItemLevel = C.StringByTemplate(cache[link], "yellow-400")
 		link = gsub(link, "|h%[(.-)%]|h", "|h[" .. coloredItemLevel .. ":%1]|h")
 		button.text:SetFormattedText(text, name, link, ...)
 	end

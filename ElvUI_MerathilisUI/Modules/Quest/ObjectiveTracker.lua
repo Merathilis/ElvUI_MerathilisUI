@@ -378,7 +378,7 @@ end
 ---Handles the addition of a new objective tracker block by setting up hooks and processing its elements
 ---@param _ ObjectiveTrackerModuleTemplate? The objective tracker module (unused)
 ---@param block any The objective tracker block that was added
-function module:ObjectiveTrackerModule_AddBlock(_, block)
+function module:ObjectiveTrackerModule_AddBlock(f, block)
 	if not block or not block.AddObjective then
 		-- ScenarioObjectiveTrackerStageMixin has some custom behavior
 		return
@@ -386,6 +386,10 @@ function module:ObjectiveTrackerModule_AddBlock(_, block)
 
 	if not self:IsHooked(block, "AddObjective") then
 		self:SecureHook(block, "AddObjective", "ObjectiveTrackerBlock_AddObjective")
+	end
+
+	if not (block.HeaderText or block.Text) then
+		F.Developer.LogDebug("Special Block:", f:GetDebugName())
 	end
 
 	self:HandleBlockHeader(block)
