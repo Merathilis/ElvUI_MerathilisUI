@@ -8,6 +8,8 @@ local isFirstLine = true
 
 local DONE_ICON = format(" |T%s:0|t", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Complete.tga]])
 
+---@param text string
+---@param from number
 local function UpdateMessage(text, from)
 	if isFirstLine then
 		isFirstLine = false
@@ -15,34 +17,36 @@ local function UpdateMessage(text, from)
 		F.Print(L["Update"])
 	end
 
-	E:Delay(1, function()
-		print(
-			text
-				.. format(
-					"(%.2f -> %s)...",
-					C.StringByTemplate(from, "neutral-300"),
-					C.StringByTemplate(MER.Version, "emerald-400")
-				)
-				.. DONE_ICON
-		)
-	end)
+	local versionText = format(
+		"(%s -> %s)...",
+		C.StringByTemplate(format("%.2f", from), "neutral-300"),
+		C.StringByTemplate(W.Version, "emerald-400")
+	)
+
+	E:Delay(1, print, text, versionText, DONE_ICON)
 end
 
-function MER:UpdateScripts() -- DB Convert
-	local currentVersion = tonumber(MER.Version) -- Installed MerathilisUI Version
-	local globalVersion = tonumber(E.global.mui.version or "0") -- Version in ElvUI Global
+function MER:UpdateScripts()
+	local currentVersion = tonumber(MER.Version) or 0 -- Installed MerathilisUI Version
+	local globalVersion = tonumber(E.global.mui.version) or 0 -- Version in ElvUI Global
 
 	local db = E.db.mui
 	local private = E.private.mui
 	local global = E.global.mui
+
+	-- from old updater
+	if globalVersion == 0 then
+		globalVersion = tonumber(E.global.mui.Version) or 0
+		E.global.mui.Version = nil
+	end
 
 	-- changelog display
 	if globalVersion == 0 or globalVersion ~= currentVersion then
 		self.showChangeLog = true
 	end
 
-	local profileVersion = tonumber(E.db.mui.version or globalVersion) -- Version in ElvUI Profile
-	local privateVersion = tonumber(E.private.mui.version or globalVersion) -- Version in ElvUI Private
+	local profileVersion = tonumber(E.db.mui.version) or globalVersion -- Version in ElvUI Profile
+	local privateVersion = tonumber(E.private.mui.version) or globalVersion -- Version in ElvUI Private
 
 	if globalVersion == currentVersion and profileVersion == currentVersion and privateVersion == currentVersion then
 		return
