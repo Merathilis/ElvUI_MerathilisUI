@@ -186,7 +186,7 @@ ET.EventData = {
 			icon = 236681,
 			type = "weekly",
 			questIDs = {
-				[L["Delves Weekly"]] = {
+				[F.GetIconString(6025441, 14, 16, true) .. " " .. L["Delves Weekly"]] = {
 					82706,
 					82708,
 					82709,
@@ -195,11 +195,11 @@ ET.EventData = {
 					82712,
 					82746,
 				},
-				[L["Archives Weekly"]] = {
+				[F.GetIconString(1411833, 14, 16, true) .. " " .. L["Archives Weekly"]] = {
 					82678,
 					82679,
 				},
-				[L["Weekend Event"]] = {
+				[F.GetIconString(134015, 14, 16, true) .. " " .. L["Weekend Event"]] = {
 					83345,
 					83347,
 					83357,
@@ -213,7 +213,7 @@ ET.EventData = {
 					83366,
 					84776,
 				},
-				[L["Dungeon Weekly"]] = {
+				[F.GetIconString(5554512, 14, 16, true) .. " " .. L["Dungeon Weekly"]] = {
 					-- https://www.wowhead.com/npc=226623/biergoth
 					83432,
 					83436,
@@ -294,7 +294,6 @@ ET.EventData = {
 			type = "loopTimer",
 			questIDs = {
 				91173,
-				89295,
 			},
 			hasWeeklyReward = true,
 			duration = 15 * 60,
@@ -308,12 +307,12 @@ ET.EventData = {
 			runningText = L["Running"],
 			startTimestamp = (function()
 				local timestampTable = {
-					[1] = 1724976005, -- NA
-					[2] = 1724976005, -- KR
-					[3] = 1724976005, -- EU
-					[4] = 1724976005, -- TW
-					[5] = 1724976005, -- CN
-					[72] = 1724976000,
+					[1] = 1757134800, -- NA
+					[2] = 1757134800, -- KR
+					[3] = 1757134800, -- EU
+					[4] = 1757134800, -- TW
+					[5] = 1757134800, -- CN
+					[72] = 1757134800, -- PTR
 				}
 
 				local region = GetCurrentRegion()
@@ -348,12 +347,12 @@ ET.EventData = {
 			runningText = L["Performing"],
 			startTimestamp = (function()
 				local timestampTable = {
-					[1] = 1724976005, -- NA
-					[2] = 1724976005, -- KR
-					[3] = 1724976005, -- EU
-					[4] = 1724976005, -- TW
-					[5] = 1724976005, -- CN
-					[72] = 1724976000,
+					[1] = 1757134800, -- NA
+					[2] = 1757134800, -- KR
+					[3] = 1757134800, -- EU
+					[4] = 1757134800, -- TW
+					[5] = 1757134800, -- CN
+					[72] = 1757134800, -- PTR
 				}
 
 				local region = GetCurrentRegion()
