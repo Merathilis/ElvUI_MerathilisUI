@@ -376,9 +376,9 @@ function module:ObjectiveTrackerModule_Update(tracker)
 end
 
 ---Handles the addition of a new objective tracker block by setting up hooks and processing its elements
----@param _ ObjectiveTrackerModuleTemplate? The objective tracker module (unused)
+---@param tracker ObjectiveTrackerModuleTemplate? The objective tracker module (unused)
 ---@param block any The objective tracker block that was added
-function module:ObjectiveTrackerModule_AddBlock(f, block)
+function module:ObjectiveTrackerModule_AddBlock(tracker, block)
 	if not block or not block.AddObjective then
 		-- ScenarioObjectiveTrackerStageMixin has some custom behavior
 		return
@@ -389,7 +389,7 @@ function module:ObjectiveTrackerModule_AddBlock(f, block)
 	end
 
 	if not (block.HeaderText or block.Text) then
-		F.Developer.LogDebug("Special Block:", f:GetDebugName())
+		F.Developer.LogDebug("Tracker block has no header or text:", tracker and tracker:GetDebugName())
 	end
 
 	self:HandleBlockHeader(block)
