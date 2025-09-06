@@ -1,5 +1,4 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local C = MER.Utilities.Color
 
 F.Developer = {}
 
@@ -190,7 +189,7 @@ function F.Developer.InjectLogger(module)
 
 			level = strlower(level)
 
-			local richMessage = format("%s %s", C.StringByTemplate(self.name, "amber-500"), message)
+			local richMessage = format("%s %s", MER.Utilities.Color.StringByTemplate(self.name, "amber-500"), message)
 			if level == "info" then
 				F.Developer.LogInfo(richMessage)
 			elseif level == "warning" then
