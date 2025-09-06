@@ -68,6 +68,7 @@ local Reload = C_UI.Reload
 
 local FollowerType_8_0 = Enum.GarrisonFollowerType.FollowerType_8_0_GarrisonFollower
 local FollowerType_9_0 = Enum.GarrisonFollowerType.FollowerType_9_0_GarrisonFollower
+local Enum_CovenantType = Enum.CovenantType
 
 local NUM_PANEL_BUTTONS = 7
 local IconString = "|T%s:16:18:0:0:64:64:4:60:7:57"
@@ -1567,10 +1568,10 @@ function module:UpdateHearthStoneTable()
 	end
 
 	local covenantHearthstones = {
-		[184353] = { covenantID = 1, achievementCriteriaNum = 1 },
-		[183716] = { covenantID = 2, achievementCriteriaNum = 4 },
-		[180290] = { covenantID = 3, achievementCriteriaNum = 3 },
-		[182773] = { covenantID = 4, achievementCriteriaNum = 2 },
+		[184353] = { covenantID = Enum_CovenantType.Kyrian, achievementCriteriaNum = 1 },
+		[183716] = { covenantID = Enum_CovenantType.Venthyr, achievementCriteriaNum = 4 },
+		[180290] = { covenantID = Enum_CovenantType.NightFae, achievementCriteriaNum = 3 },
+		[182773] = { covenantID = Enum_CovenantType.Necrolord, achievementCriteriaNum = 2 },
 	}
 
 	local activeCovenantID = GetActiveCovenantID()
