@@ -58,9 +58,9 @@ function S:Blizzard_Communities()
 		end
 
 		for _, row in pairs({ target:GetChildren() }) do
-			if row and not row.__windSkinHook then
+			if row and not row.__MERSkinHook then
 				hooksecurefunc(row, "RefreshExpandedColumns", updateClassIcon)
-				row.__windSkinHook = true
+				row.__MERSkinHook = true
 			end
 		end
 	end)

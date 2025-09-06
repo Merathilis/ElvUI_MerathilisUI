@@ -36,8 +36,8 @@ local function ReskinUIWidgetContainer(container)
 		end
 	end
 
-	hooksecurefunc(container, "ProcessWidget", function(container)
-		for _, widget in pairs(container.widgetFrames) do
+	hooksecurefunc(container, "ProcessWidget", function(widgetContainer)
+		for _, widget in pairs(widgetContainer.widgetFrames) do
 			if not widget.__MERSkin then
 				ReskinText(widget.Text)
 				ReskinBar(widget.Bar)
