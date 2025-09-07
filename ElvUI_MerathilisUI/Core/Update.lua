@@ -87,7 +87,7 @@ function MER:UpdateScripts()
 
 	if privateVersion < 6.72 then
 		if E.private.mui and E.private.mui.skins and E.private.mui.skins.rollResult then
-			E.global.mui.skins.rollResult = nil
+			E.private.mui.skins.rollResult = nil
 			UpdateMessage(L["Skins"] .. ": " .. L["Database cleanup"], privateVersion)
 		end
 	end

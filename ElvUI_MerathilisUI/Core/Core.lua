@@ -41,12 +41,20 @@ MER.MSQ = _G.LibStub("Masque", true)
 
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI1.tga]]
-
-MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
-
 MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
 MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
 MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
+MER.MailTex = "Interface\\Minimap\\Tracking\\Mailbox"
+MER.GearTex = "Interface\\WorldMap\\Gear_64"
+MER.EyeTex = "Interface\\Minimap\\Raid_Icon"
+MER.GarrTex = "Interface\\HelpFrame\\HelpIcon-ReportLag"
+MER.CopyTex = "Interface\\Buttons\\UI-GuildButton-PublicNote-Up"
+MER.BinTex = "Interface\\HelpFrame\\ReportLagIcon-Loot"
+MER.QuestTex = "adventureguide-microbutton-alert"
+MER.ObjectTex = "Warfronts-BaseMapIcons-Horde-Barracks-Minimap"
+MER.CreditTex = "Interface\\HelpFrame\\HelpIcon-KnowledgeBase"
+
+MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
 
 MER.RegisteredModules = {}
 MER.Changelog = {}
