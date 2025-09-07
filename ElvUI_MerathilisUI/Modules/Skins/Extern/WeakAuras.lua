@@ -10,29 +10,17 @@ local WeakAuras = _G.WeakAuras
 
 ---Create backdrop and shadow for a frame with common settings
 ---@param frame Frame The frame to apply backdrop and shadow to
----@param useDefaultTemplate boolean? Whether to use default template
-local function CreateBackdropAndShadow(frame, useDefaultTemplate)
+local function CreateBackdropAndShadow(frame)
 	if not frame or frame.__MERBackdrop then
 		return
 	end
 
-	frame:CreateBackdrop(not useDefaultTemplate and "Transparent")
+	frame.customBackdropAlpha = 0
+	frame:CreateBackdrop("Transparent")
 
 	module:CreateBackdropShadow(frame, true)
 
-	frame.backdrop.Center:StripTextures()
 	frame.__MERBackdrop = true
-end
-
----Apply ElvUI texture coordinates to an icon
----@param icon Texture The icon texture to apply coordinates to
-local function ApplyElvUITexCoords(icon)
-	if not icon then
-		return
-	end
-
-	F.InternalizeMethod(icon, "SetTexCoord")
-	F.CallMethod(icon, "SetTexCoord", unpack(E.TexCoords))
 end
 
 ---Handle complex texture coordinate calculations for icons
@@ -44,11 +32,9 @@ local function HandleComplexTexCoords(icon)
 
 	F.InternalizeMethod(icon, "SetTexCoord")
 	icon.SetTexCoord = function(self, ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
-		local cLeft, cRight, cTop, cDown
+		local cLeft, cRight, cTop, cDown = ULx, ULy, LLx, LLy
 		if URx and URy and LRx and LRy then
 			cLeft, cRight, cTop, cDown = ULx, LRx, ULy, LRy
-		else
-			cLeft, cRight, cTop, cDown = ULx, ULy, LLx, LLy
 		end
 
 		local left, right, top, down = unpack(E.TexCoords)
@@ -86,9 +72,10 @@ local function SyncBackdropAlpha(frame, icon)
 
 	frame.backdrop.icon = icon
 	frame.backdrop:HookScript("OnUpdate", function(self)
-		self:SetAlpha(self.icon:GetAlpha())
+		local alpha = self.icon:GetAlpha()
+		self:SetAlpha(alpha)
 		if self.MERshadow then
-			self.MERshadow:SetAlpha(self.icon:GetAlpha())
+			self.MERshadow:SetAlpha(alpha)
 		end
 	end)
 end
@@ -96,34 +83,18 @@ end
 ---Skin an icon region
 ---@param frame Frame The icon frame to skin
 local function SkinIconRegion(frame)
-	if not frame or frame.__MERSkin then
-		return
-	end
-
 	if frame.icon then
 		HandleComplexTexCoords(frame.icon)
-	end
-
-	CreateBackdropAndShadow(frame)
-
-	if frame.icon then
 		SyncBackdropAlpha(frame, frame.icon)
 	end
-
-	frame.__MERSkin = true
 end
 
 ---Skin an aurabar region
 ---@param frame Frame The aurabar frame to skin
 local function SkinAurabarRegion(frame)
-	if not frame or frame.__MERSkin then
-		return
-	end
-
-	CreateBackdropAndShadow(frame)
-
 	if frame.icon then
-		ApplyElvUITexCoords(frame.icon)
+		F.InternalizeMethod(frame.icon, "SetTexCoord", true)
+		F.CallMethod(frame.icon, "SetTexCoord", unpack(E.TexCoords))
 	end
 
 	if frame.iconFrame then
@@ -139,8 +110,6 @@ local function SkinAurabarRegion(frame)
 			frame.iconFrame.backdrop:SetShown(true)
 		end)
 	end
-
-	frame.__MERSkin = true
 end
 
 ---Main function to skin WeakAuras regions
@@ -152,10 +121,14 @@ local function SkinWeakAuras(frame, regionType)
 	end
 
 	if regionType == "icon" then
+		CreateBackdropAndShadow(frame)
 		SkinIconRegion(frame)
 	elseif regionType == "aurabar" then
+		CreateBackdropAndShadow(frame)
 		SkinAurabarRegion(frame)
 	end
+
+	frame.__MERSkin = true
 end
 
 function module:WeakAuras()
