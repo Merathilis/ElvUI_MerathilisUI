@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_ChatLink")
+local C = MER.Utilities.Color
 
 local _G = _G
 local format = format
