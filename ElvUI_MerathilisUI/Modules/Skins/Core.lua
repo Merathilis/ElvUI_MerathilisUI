@@ -152,7 +152,7 @@ end
 
 ---Add a callback function for AceGUI widget styling
 ---@param name string The widget name
---@param handler function|string? The callback function or method name
+---@param handler function|string? The callback function or method name
 ---@param checker function The checker for enabling the skin or not
 function module:AddCallbackForAceGUIWidget(name, handler, checker)
 	if type(handler) == "string" then

@@ -20,7 +20,7 @@ local function UpdateMessage(text, from)
 	local versionText = format(
 		"(%s -> %s)...",
 		C.StringByTemplate(format("%.2f", from), "neutral-300"),
-		C.StringByTemplate(W.Version, "emerald-400")
+		C.StringByTemplate(MER.Version, "emerald-400")
 	)
 
 	E:Delay(1, print, text, versionText, DONE_ICON)
