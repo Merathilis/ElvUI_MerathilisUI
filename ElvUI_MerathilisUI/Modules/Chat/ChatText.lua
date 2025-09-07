@@ -2420,7 +2420,6 @@ function CT:ProfileUpdate()
 	self:UpdateRoleIcons()
 	self:ToggleReplacement()
 	self:CheckLFGRoles()
-	self:BetterSystemMessage()
 end
 
 MER:RegisterModule(CT:GetName())

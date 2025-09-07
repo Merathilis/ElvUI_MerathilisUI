@@ -146,10 +146,6 @@ function module:ProcessWaitingAceGUIWidgets()
 	self.aceWidgetWaitingList = nil
 end
 
-local function errorhandler(err)
-	return _G.geterrorhandler()(err)
-end
-
 function module:AddCallback(name, func)
 	tinsert(self.nonAddonsToLoad, func or self[name])
 end
@@ -209,7 +205,7 @@ function module:PLAYER_ENTERING_WORLD()
 	end
 
 	for index, func in next, self.enteredLoad do
-		xpcall(func, errorhandler, self)
+		xpcall(func, F.Developer.ThrowError, self)
 		self.enteredLoad[index] = nil
 	end
 end

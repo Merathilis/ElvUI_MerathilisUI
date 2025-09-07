@@ -19,6 +19,8 @@ local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 
 local C_Timer_NewTimer = C_Timer.NewTimer
 
+E.myClassColor = E.myClassColor or E:ClassColor(E.myclass, true)
+
 MER.dummy = function()
 	return
 end

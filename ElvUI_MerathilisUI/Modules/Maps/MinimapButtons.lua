@@ -21,7 +21,6 @@ local unpack = unpack
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local RegisterStateDriver = RegisterStateDriver
-local RunNextFrame = RunNextFrame
 local UnregisterStateDriver = UnregisterStateDriver
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
@@ -144,22 +143,15 @@ function module:HandleLibDBIconButton(button, name)
 
 	self:SecureHook(button, "SetShown", "OnButtonSetShown")
 
-	if button.icon and not self:IsHooked(button.icon, "SetTexCoord") then
-		self:SecureHook(button.icon, "SetTexCoord", function(_, ...)
-			local arg1, arg2, arg3, arg4 = ...
-			if
-				F.IsAlmost(arg1, 0.05)
-				and F.IsAlmost(arg2, 0.95)
-				and F.IsAlmost(arg3, 0.05)
-				and F.IsAlmost(arg4, 0.95)
-			then
-				button.icon:SetTexCoord(unpack(E.TexCoords))
-			end
-
-			if F.IsAlmost(arg1, 0) and F.IsAlmost(arg2, 1) and F.IsAlmost(arg3, 0) and F.IsAlmost(arg4, 1) then
-				button.icon:SetTexCoord(unpack(E.TexCoords))
+	if button.icon and button.icon.SetTexCoord and not self:IsHooked(button.icon, "SetTexCoord") then
+		F.InternalizeMethod(button.icon, "SetTexCoord")
+		self:SecureHook(button.icon, "SetTexCoord", function(icon, arg1, arg2, arg3, arg4)
+			local args = { arg1, arg2, arg3, arg4 }
+			if F.IsAlmost(args, { 0.05, 0.95, 0.05, 0.95 }, 0.002) or F.IsAlmost(args, { 0, 1, 0, 1 }, 0.002) then
+				F.CallMethod(icon, "SetTexCoord", unpack(E.TexCoords))
 			end
 		end)
+		button.icon:SetTexCoord(unpack(E.TexCoords))
 	end
 
 	return button:IsShown()
