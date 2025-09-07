@@ -1402,7 +1402,6 @@ end
 
 function module:Initialize()
 	self.db = E.db.mui.microBar
-	self.covenantCache = E.global.mui.microBar.covenantCache
 
 	if not self.db or not self.db.enable then
 		return
