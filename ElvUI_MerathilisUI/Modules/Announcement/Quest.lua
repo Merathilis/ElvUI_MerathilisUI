@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Announcement")
+local module = MER:GetModule("MER_Announcement") ---@class Announcement
 
 local _G = _G
 local format = format
@@ -29,7 +29,7 @@ local function GetQuests()
 		local questInfo = GetInfo(questIndex)
 		if questInfo then
 			local skip = questInfo.isHeader or questInfo.isBounty or questInfo.isHidden
-            local tagInfo = GetQuestTagInfo(questInfo.questID)
+			local tagInfo = GetQuestTagInfo(questInfo.questID)
 
 			if tagInfo and ignoreTagIDs[tagInfo.tagID] then
 				skip = true

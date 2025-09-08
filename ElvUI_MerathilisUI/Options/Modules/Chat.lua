@@ -875,7 +875,7 @@ options.chat = {
 		emote = {
 			order = 31,
 			type = "group",
-			name = L["Emote"],
+			name = E.NewSign .. F.cOption(L["Emote"], "orange"),
 			get = function(info)
 				return E.db.mui.chat.emote[info[#info]]
 			end,

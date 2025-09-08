@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Announcement")
+local module = MER:GetModule("MER_Announcement") ---@class Announcement : AceModule, AceEvent-3.0
 
 local _G = _G
 

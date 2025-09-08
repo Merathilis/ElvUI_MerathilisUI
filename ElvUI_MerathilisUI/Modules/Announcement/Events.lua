@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Announcement")
+local module = MER:GetModule("MER_Announcement") ---@class Announcement
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 
@@ -56,7 +56,6 @@ function module:COMBAT_LOG_EVENT_UNFILTERED()
 end
 
 function module:PLAYER_ENTERING_WORLD(event, ...)
-	self.playerEnteredWorld = true
 	self:Quest()
 	E:Delay(2, self.Keystone, self, event)
 	E:Delay(4, self.ResetAuthority, self)
@@ -68,10 +67,7 @@ function module:CHALLENGE_MODE_COMPLETED(event, ...)
 end
 
 function module:QUEST_LOG_UPDATE()
-	if not self.playerEnteredWorld then
-		return
-	end
-	self:Quest()
+	F.TaskManager:AfterLogin(self.Quest, self)
 end
 
 function module:CHAT_MSG_ADDON(_, prefix, text)

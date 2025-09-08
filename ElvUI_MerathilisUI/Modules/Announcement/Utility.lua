@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Announcement")
+local module = MER:GetModule("MER_Announcement") ---@class Announcement
 
 local gsub = gsub
 local tostring = tostring

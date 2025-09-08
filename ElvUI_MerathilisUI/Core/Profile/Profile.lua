@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = MER.Utilities.Color
 
 local _G = _G
 
@@ -404,24 +405,24 @@ P.announcement = {
 		},
 		tag = {
 			enable = true,
-			color = { r = 0.490, g = 0.373, b = 1.000 },
+			color = C.GetRGBFromTemplate("yellow-300"),
 		},
 		suggestedGroup = {
 			enable = true,
-			color = { r = 1.000, g = 0.220, b = 0.220 },
+			color = C.GetRGBFromTemplate("rose-500"),
 		},
 		level = {
 			enable = true,
-			color = { r = 0.773, g = 0.424, b = 0.941 },
+			color = C.GetRGBFromTemplate("emerald-400"),
 			hideOnMax = true,
 		},
 		daily = {
 			enable = true,
-			color = { r = 1.000, g = 0.980, b = 0.396 },
+			color = C.GetRGBFromTemplate("cyan-500"),
 		},
 		weekly = {
 			enable = true,
-			color = { r = 0.196, g = 1.000, b = 0.494 },
+			color = C.GetRGBFromTemplate("blue-500"),
 		},
 	},
 	resetInstance = {
