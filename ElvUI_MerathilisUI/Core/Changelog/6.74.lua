@@ -1,6 +1,6 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
-MER.Changelog[673] = {
+MER.Changelog[674] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {},
 	NEW = {},

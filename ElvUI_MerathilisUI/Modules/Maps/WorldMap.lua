@@ -2817,11 +2817,11 @@ function module:MapExplorationPin_RefreshOverlays(pin, fullUpdate, cache)
 	local mapType = GetMapInfo(mapID).mapType or 0
 
 	for key, files in pairs(db) do
-		local textureWidth, textureHeight, offsetX, offsetY = strsplit(":", key)
-		local textureWidth = tonumber(textureWidth)
-		local textureHeight = tonumber(textureHeight)
-		local offsetX = tonumber(offsetX)
-		local offsetY = tonumber(offsetY)
+		local textureWidthStr, textureHeightStr, offsetXStr, offsetYStr = strsplit(":", key)
+		local textureWidth = tonumber(textureWidthStr)
+		local textureHeight = tonumber(textureHeightStr)
+		local offsetX = tonumber(offsetXStr)
+		local offsetY = tonumber(offsetYStr)
 
 		if not (textureWidth and textureHeight and offsetX and offsetY) then
 			return

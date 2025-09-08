@@ -441,9 +441,9 @@ function module:HandleFrame(this, bindTo)
 		F.TaskManager:AfterCombat(function()
 			self:HandleFrame(this, bindTo)
 			RunNextFrame(function()
-				local thisFrame = getFrame(this)
-				if thisFrame and thisFrame.MoveFrame then
-					self:Reposition(thisFrame.MoveFrame)
+				local repositionFrame = getFrame(this)
+				if repositionFrame and repositionFrame.MoveFrame then
+					self:Reposition(repositionFrame.MoveFrame)
 				end
 			end)
 		end)
@@ -547,43 +547,28 @@ function module:HandleElvUIBag()
 	if not self.db.elvUIBags then
 		return
 	end
+	local frame = B[frameName]
 
-	local bag = B:GetContainerFrame()
-	local container = B:GetContainerFrame(true)
-
-	if bag and not bag._MERFramePath then
-		bag:SetScript("OnDragStart", function(frame)
-			frame:StartMoving()
-		end)
-		if bag.helpButton then
-			bag.helpButton:SetScript("OnEnter", function(frame)
-				local GameTooltip = _G.GameTooltip
-				GameTooltip:SetOwner(frame, "ANCHOR_TOPLEFT", 0, 4)
-				GameTooltip:ClearLines()
-				GameTooltip:AddDoubleLine(L["Drag"] .. ":", L["Temporary Move"], 1, 1, 1)
-				GameTooltip:AddDoubleLine(L["Hold Control + Right Click:"], L["Reset Position"], 1, 1, 1)
-				GameTooltip:Show()
-			end)
-		end
-
-		bag.__MERFramePath = "ElvUI_Bag_Bag"
+	if not frame or frame.__MERFramePath then
+		return
 	end
 
-	if container and not bag.__MERFramePath then
-		container:SetScript("OnDragStart", function(frame)
-			frame:StartMoving()
-		end)
-		container:SetScript("OnEnter", function(frame)
+	frame:SetScript("OnDragStart", function(dragFrame)
+		dragFrame:StartMoving()
+	end)
+
+	if frame.helpButton then
+		frame.helpButton:SetScript("OnEnter", function(helpButton)
 			local GameTooltip = _G.GameTooltip
-			GameTooltip:SetOwner(frame, "ANCHOR_TOPLEFT", 0, 4)
+			GameTooltip:SetOwner(helpButton, "ANCHOR_TOPLEFT", 0, 4)
 			GameTooltip:ClearLines()
 			GameTooltip:AddDoubleLine(L["Drag"] .. ":", L["Temporary Move"], 1, 1, 1)
 			GameTooltip:AddDoubleLine(L["Hold Control + Right Click:"], L["Reset Position"], 1, 1, 1)
 			GameTooltip:Show()
 		end)
-
-		bag.__MERFramePath = "ElvUI_Bag_Container"
 	end
+
+	frame.__MERFramePath = "ElvUI_" .. frameName
 end
 
 function module:IsRunning()
@@ -651,7 +636,8 @@ function module:Initialize()
 	end
 
 	-- ElvUI Bag
-	F.TaskManager:OutOfCombat(self.HandleElvUIBag, self)
+	F.TaskManager:OutOfCombat(self.HandleElvUIBag, self, "BagFrame")
+	F.TaskManager:OutOfCombat(self.HandleElvUIBag, self, "BankFrame")
 
 	local GetBagsShown = _G.ContainerFrameSettingsManager.GetBagsShown
 	self:SecureHook(_G.ContainerFrameSettingsManager, "GetBagsShown", function()

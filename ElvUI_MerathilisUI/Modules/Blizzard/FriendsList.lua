@@ -288,14 +288,9 @@ function module:UpdateFriendButton(button)
 				timerunningSeasonID = gameAccountInfo.timerunningSeasonID or ""
 
 				if wowID and wowID ~= 1 and expansionData[wowID] then
-					local suffix = expansionData[wowID].suffix
-							and " (" .. expansionData[wowID].suffix .. ")"
-						or ""
+					local suffix = expansionData[wowID].suffix and " (" .. expansionData[wowID].suffix .. ")" or ""
 					local serverStrings = { strsplit(" - ", gameAccountInfo.richPresence) }
-					server = (
-						serverStrings[#serverStrings]
-						or BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. suffix
-					) .. "*"
+					server = (serverStrings[#serverStrings] or BNET_FRIEND_TOOLTIP_WOW_CLASSIC .. suffix) .. "*"
 				elseif wowID and wowID == 1 and name == "" then
 					server = gameAccountInfo.richPresence -- Plunderstorm
 				else
@@ -329,11 +324,8 @@ function module:UpdateFriendButton(button)
 		end
 
 		-- real ID
-		local clientColor = module.db.useClientColor
-			and clientData[gameName]
-			and clientData[gameName].color
-		local realIDString = realID and clientColor and F.CreateColorString(realID, clientColor)
-			or realID
+		local clientColor = module.db.useClientColor and clientData[gameName] and clientData[gameName].color
+		local realIDString = realID and clientColor and F.CreateColorString(realID, clientColor) or realID
 
 		-- name
 		local classColor = module.db.useClassColor and GetClassColors(class)
@@ -344,8 +336,7 @@ function module:UpdateFriendButton(button)
 
 		if module.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
 			if level ~= expansionData[wowID].maxLevel or not module.db.hideMaxLevel then
-				nameString = nameString
-					.. F.CreateColorString(": " .. level, GetQuestDifficultyColor(level))
+				nameString = nameString .. F.CreateColorString(": " .. level, GetQuestDifficultyColor(level))
 			end
 		end
 
@@ -408,18 +399,18 @@ function module:UpdateFriendButton(button)
 
 	-- font style hack
 	if not cache.name then
-		local name, size, style = button.name:GetFont()
+		local fontName, size, style = button.name:GetFont()
 		cache.name = {
-			name = name,
+			name = fontName,
 			size = size,
 			style = style,
 		}
 	end
 
 	if not cache.info then
-		local name, size, style = button.info:GetFont()
+		local fontName, size, style = button.info:GetFont()
 		cache.info = {
-			name = name,
+			name = fontName,
 			size = size,
 			style = style,
 		}
