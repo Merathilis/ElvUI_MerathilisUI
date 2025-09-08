@@ -201,6 +201,14 @@ L["Actionbar 3 (below)"] = "행동단축바 3 (하단)"
 L["Actionbar 4 (below)"] = "행동단축바 4 (하단)"
 L["Actionbar 5 (below)"] = "행동단축바 5 (하단)"
 L["Actionbar 6 (above)"] = "행동단축바 6 (상단)"
+L["Move (L\124\124R) Reset"] = true
+L["Emote Selector"] = "이모티콘 선택"
+L["Emote"] = "감정 표현(이모티콘)"
+L["Parse emote expression from other players."] = "다른 플레이어에게 이모티콘을 보냅니다."
+L["Emote Icon Size"] = "이모티콘 크기"
+L["Use Emote Panel"] = "이모티콘 패널 사용"
+L["Press { to active the emote select window."] = "{ 를 눌러 이모티콘 선택 창을 엽니다."
+L["Chat Bubbles"] = "말풍선"
 
 -- Combat Alert
 L["Combat Alert"] = "전투 알림"

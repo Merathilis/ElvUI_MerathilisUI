@@ -3,6 +3,7 @@ local options = MER.options.modules.args
 local module = MER:GetModule("MER_Chat")
 local CH = E:GetModule("Chat")
 local CB = MER:GetModule("MER_ChatBar")
+local ME = MER:GetModule("MER_Emotes")
 local CL = MER:GetModule("MER_ChatLink")
 local CT = MER:GetModule("MER_ChatText")
 local CF = MER:GetModule("MER_ChatFade")
@@ -53,11 +54,6 @@ options.chat = {
 					type = "toggle",
 					name = L["Hide Community Chat"],
 					desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
-				},
-				emotes = {
-					order = 3,
-					type = "toggle",
-					name = L["Emotes"],
 				},
 				editBoxPosition = {
 					order = 4,
@@ -873,6 +869,68 @@ options.chat = {
 							},
 						},
 					},
+				},
+			},
+		},
+		emote = {
+			order = 31,
+			type = "group",
+			name = L["Emote"],
+			get = function(info)
+				return E.db.mui.chat.emote[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.chat.emote[info[#info]] = value
+				ME:ProfileUpdate()
+			end,
+			args = {
+				desc = {
+					order = 0,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Parse emote expression from other players."],
+							fontSize = "medium",
+						},
+					},
+				},
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					width = "full",
+				},
+				size = {
+					name = L["Emote Icon Size"],
+					order = 2,
+					type = "range",
+					disabled = function()
+						return not E.db.mui.chat.emote.enable
+					end,
+					min = 5,
+					max = 35,
+					step = 1,
+				},
+				panel = {
+					order = 3,
+					type = "toggle",
+					name = L["Use Emote Panel"],
+					desc = L["Press { to active the emote select window."],
+					disabled = function()
+						return not E.db.mui.chat.emote.enable
+					end,
+				},
+				chatBubbles = {
+					order = 4,
+					type = "toggle",
+					name = L["Chat Bubbles"],
+					disabled = function()
+						return not E.db.mui.chat.emote.enable
+					end,
 				},
 			},
 		},

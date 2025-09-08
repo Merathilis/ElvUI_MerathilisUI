@@ -193,7 +193,6 @@ P.chat = {
 	enable = true,
 	chatButton = true,
 	hideChat = false,
-	emotes = true,
 	editBoxPosition = "ABOVE_CHAT",
 	chatText = {
 		enable = true,
@@ -212,6 +211,12 @@ P.chat = {
 		bnetFriendOnline = true,
 		bnetFriendOffline = false,
 		factionIcon = true,
+	},
+	emote = {
+		enable = true,
+		size = 16,
+		panel = true,
+		chatBubbles = true,
 	},
 	chatLink = {
 		enable = true,
@@ -318,6 +323,12 @@ P.chat = {
 				name = "",
 				color = { r = 0.72, g = 0.27, b = 0.86, a = 1 },
 				abbr = L["Community"],
+			},
+			emote = {
+				enable = false,
+				icon = true,
+				color = { r = 1, g = 0.33, b = 0.52, a = 1 },
+				abbr = L["MER Emote"],
 			},
 			roll = {
 				enable = true,

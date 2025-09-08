@@ -1,231 +1,288 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Emotes")
-local S = MER:GetModule("MER_Skins")
-local Style = MER:GetModule("MER_Style")
-local CH = E:GetModule("Chat")
-local ES = E:GetModule("Skins")
+local S = MER:GetModule("MER_Skins") ---@type Skins
 
 local _G = _G
+local ceil = ceil
+local floor = floor
+local gsub = gsub
+local ipairs = ipairs
 local pairs = pairs
-local format = string.format
-local gmatch, gsub = gmatch, gsub
-local tinsert = table.insert
-local strmatch, strtrim = strmatch, strtrim
+local strsub = strsub
 
-local CreateFrame = CreateFrame
 local ChatEdit_ActivateChat = ChatEdit_ActivateChat
 local ChatEdit_ChooseBoxForSend = ChatEdit_ChooseBoxForSend
-local GetMessageInfo = C_Club.GetMessageInfo
-local InCombatLockdown = InCombatLockdown
-local UISpecialFrames = UISpecialFrames
+local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
+local CreateFrame = CreateFrame
 
-local ChatEmote = {}
-module.ChatEmote = ChatEmote
+local C_ChatBubbles_GetAllChatBubbles = C_ChatBubbles.GetAllChatBubbles
 
 local emotes = {
-	-- RaidTarget
-	{ "{rt1}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_1]=] },
-	{ "{rt2}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_2]=] },
-	{ "{rt3}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_3]=] },
-	{ "{rt4}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_4]=] },
-	{ "{rt5}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_5]=] },
-	{ "{rt6}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_6]=] },
-	{ "{rt7}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_7]=] },
-	{ "{rt8}", [=[Interface\TargetingFrame\UI-RaidTargetingIcon_8]=] },
+	{ key = "angel", zhTW = "天使", zhCN = "天使" },
+	{ key = "angry", zhTW = "生氣", zhCN = "生气" },
+	{ key = "biglaugh", zhTW = "大笑", zhCN = "大笑" },
+	{ key = "clap", zhTW = "鼓掌", zhCN = "鼓掌" },
+	{ key = "cool", zhTW = "酷", zhCN = "酷" },
+	{ key = "cry", zhTW = "哭", zhCN = "哭" },
+	{ key = "cutie", zhTW = "可愛", zhCN = "可爱" },
+	{ key = "despise", zhTW = "鄙視", zhCN = "鄙视" },
+	{ key = "dreamsmile", zhTW = "美夢", zhCN = "美梦" },
+	{ key = "embarrass", zhTW = "尷尬", zhCN = "尴尬" },
+	{ key = "evil", zhTW = "邪惡", zhCN = "邪恶" },
+	{ key = "excited", zhTW = "興奮", zhCN = "兴奋" },
+	{ key = "faint", zhTW = "暈", zhCN = "晕" },
+	{ key = "fight", zhTW = "打架", zhCN = "打架" },
+	{ key = "flu", zhTW = "流感", zhCN = "流感" },
+	{ key = "freeze", zhTW = "呆", zhCN = "呆" },
+	{ key = "frown", zhTW = "皺眉", zhCN = "皱眉" },
+	{ key = "greet", zhTW = "致敬", zhCN = "致敬" },
+	{ key = "grimace", zhTW = "鬼臉", zhCN = "鬼脸" },
+	{ key = "growl", zhTW = "齜牙", zhCN = "龇牙" },
+	{ key = "happy", zhTW = "開心", zhCN = "开心" },
+	{ key = "heart", zhTW = "心", zhCN = "心" },
+	{ key = "horror", zhTW = "恐懼", zhCN = "恐惧" },
+	{ key = "ill", zhTW = "生病", zhCN = "生病" },
+	{ key = "innocent", zhTW = "無辜", zhCN = "无辜" },
+	{ key = "kongfu", zhTW = "功夫", zhCN = "功夫" },
+	{ key = "love", zhTW = "花痴", zhCN = "花痴" },
+	{ key = "mail", zhTW = "郵件", zhCN = "邮件" },
+	{ key = "makeup", zhTW = "化妝", zhCN = "化妆" },
+	{ key = "mario", zhTW = "馬里奧", zhCN = "马里奥" },
+	{ key = "meditate", zhTW = "沉思", zhCN = "沉思" },
+	{ key = "miserable", zhTW = "可憐", zhCN = "可怜" },
+	{ key = "okay", zhTW = "好", zhCN = "好" },
+	{ key = "pretty", zhTW = "漂亮", zhCN = "漂亮" },
+	{ key = "puke", zhTW = "吐", zhCN = "吐" },
+	{ key = "shake", zhTW = "握手", zhCN = "握手" },
+	{ key = "shout", zhTW = "喊", zhCN = "喊" },
+	{ key = "shuuuu", zhTW = "閉嘴", zhCN = "闭嘴" },
+	{ key = "shy", zhTW = "害羞", zhCN = "害羞" },
+	{ key = "sleep", zhTW = "睡覺", zhCN = "睡觉" },
+	{ key = "smile", zhTW = "微笑", zhCN = "微笑" },
+	{ key = "suprise", zhTW = "吃驚", zhCN = "吃惊" },
+	{ key = "surrender", zhTW = "失敗", zhCN = "失败" },
+	{ key = "sweat", zhTW = "流汗", zhCN = "流汗" },
+	{ key = "tear", zhTW = "流淚", zhCN = "流泪" },
+	{ key = "tears", zhTW = "悲劇", zhCN = "悲剧" },
+	{ key = "think", zhTW = "想", zhCN = "想" },
+	{ key = "titter", zhTW = "偷笑", zhCN = "偷笑" },
+	{ key = "ugly", zhTW = "猥瑣", zhCN = "猥琐" },
+	{ key = "victory", zhTW = "勝利", zhCN = "胜利" },
+	{ key = "volunteer", zhTW = "雷鋒", zhCN = "雷锋" },
+	{ key = "wronged", zhTW = "委屈", zhCN = "委屈" },
 
-	-- ElvUI's emotes
-	{ ":angry:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Angry]=] },
-	{ ":blush:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Blush]=] },
-	{ ":broken_heart:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\BrokenHeart]=] },
-	{ ":call_me:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\CallMe]=] },
-	{ ":cry:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Cry]=] },
-	{ ":facepalm:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Facepalm]=] },
-	{ ":grin:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Grin]=] },
-	{ ":heart:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Heart]=] },
-	{ ":heart_eyes:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\HeartEyes]=] },
-	{ ":joy:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Joy]=] },
-	{ ":kappa:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Kappa]=] },
-	{ ":meaw:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Meaw]=] },
-	{ ":middle_finger:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\MiddleFinger]=] },
-	{ ":murloc:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Murloc]=] },
-	{ ":ok_hand:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\OkHand]=] },
-	{ ":open_mouth:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\OpenMouth]=] },
-	{ ":poop:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Poop]=] },
-	{ ":rage:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Rage]=] },
-	{ ":sadkitty:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SadKitty]=] },
-	{ ":scream:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Scream]=] },
-	{ ":scream_cat:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ScreamCat]=] },
-	{ ":slight_frown:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SlightFrown]=] },
-	{ ":smile:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Smile]=] },
-	{ ":smirk:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Smirk]=] },
-	{ ":sob:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Sob]=] },
-	{ ":sunglasses:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Sunglasses]=] },
-	{ ":thinking:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Thinking]=] },
-	{ ":thumbs_up:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ThumbsUp]=] },
-	{ ":semi_colon:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\SemiColon]=] },
-	{ ":wink:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\Wink]=] },
-	{ ":zzz:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\ZZZ]=] },
-	{ ":stuck_out_tongue:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongue]=] },
-	{ ":stuck_out_tongue_closed_eyes:", [=[Interface\AddOns\ElvUI\Core\Media\ChatEmojis\StuckOutTongueClosedEyes]=] },
-
-	-- My emots
-	{
-		":monkaomega:",
-		[=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\monkaomega]=],
-	},
-	{ ":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\salt]=] },
-	{ ":sadge:", [=[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\ChatEmojis\sadge]=] },
+	{ key = "wrong", zhTW = "錯", zhCN = "错", texture = "Interface\\RaidFrame\\ReadyCheck-NotReady" },
+	{ key = "right", zhTW = "對", zhCN = "对", texture = "Interface\\RaidFrame\\ReadyCheck-Ready" },
+	{ key = "question", zhTW = "疑問", zhCN = "疑问", texture = "Interface\\RaidFrame\\ReadyCheck-Waiting" },
+	{ key = "skull", zhTW = "骷髏", zhCN = "骷髅", texture = "Interface\\TargetingFrame\\UI-TargetingFrame-Skull" },
+	{ key = "sheep", zhTW = "羊", zhCN = "羊", texture = "Interface\\TargetingFrame\\UI-TargetingFrame-Sheep" },
 }
-module.emotes = emotes
 
-local text, texture
+local function EmoteButton_OnClick(self, button)
+	local editBox = ChatEdit_ChooseBoxForSend()
+	ChatEdit_ActivateChat(editBox)
+	editBox:SetText(gsub(editBox:GetText(), "{$", "") .. self.emote)
+	if button == "LeftButton" then
+		self:GetParent():Hide()
+	end
+end
 
-local function CreateEmoteTableFrame()
-	local button
+local function EmoteButton_OnEnter(self)
+	self:GetParent().title:SetText(self.emote)
+end
+
+local function EmoteButton_OnLeave(self)
+	self:GetParent().title:SetText("")
+end
+
+local function ReplaceEmote(value)
+	local emote = gsub(value, "[%{%}]", "")
+	for _, v in ipairs(emotes) do
+		if emote == v.key or emote == v.zhCN or emote == v.zhTW then
+			return "|T"
+				.. ((v.texture or "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Emotes\\") .. v.key)
+				.. ":"
+				.. module.db.size
+				.. "|t"
+		end
+	end
+	return value
+end
+
+local function EmoteFilter(_, _, msg, ...)
+	if module.db.enable then
+		msg = gsub(msg, "%{.-%}", ReplaceEmote)
+	end
+
+	return false, msg, ...
+end
+
+function module:CreateInterface()
 	local width, height, column, space = 20, 20, 10, 6
 	local index = 0
-
-	local color = { r = 1, g = 1, b = 1 }
-	color = RAID_CLASS_COLORS[E.myclass]
-
-	local frame = CreateFrame("Frame", "MER_EmoteTableFrame", E.UIParent, "UIPanelDialogTemplate,BackdropTemplate")
-	_G.MER_EmoteTableFrameTitleBG:Hide()
-	_G.MER_EmoteTableFrameDialogBG:Hide()
+	local frame = CreateFrame("Frame", "MER_CustomEmoteFrame", E.UIParent, "UIPanelDialogTemplate")
+	_G.MER_CustomEmoteFrameTitleBG:Hide()
+	_G.MER_CustomEmoteFrameDialogBG:Hide()
 	frame:StripTextures()
 	frame:CreateBackdrop("Transparent")
 	S:CreateShadowModule(frame.backdrop)
-	ES:HandleCloseButton(_G.MER_EmoteTableFrameClose)
+	S:Proxy("HandleCloseButton", _G.MER_CustomEmoteFrameClose)
 
 	frame:SetWidth(column * (width + space) + 24)
-	frame:Point("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 0, 5)
+	frame:SetClampedToScreen(true)
 	frame:SetFrameStrata("DIALOG")
+	frame:SetPoint("LEFT", _G.LeftChatPanel, "RIGHT", 60, 0)
 
-	frame.line = CreateFrame("Frame", nil, frame)
-	frame.line:Point("BOTTOM", frame, "TOP", 0, 0)
-	Style:CreateGradientFrame(
-		frame.line,
-		(column * (width + space) + 24),
-		2,
-		"Horizontal",
-		color.r,
-		color.g,
-		color.b,
-		0.7,
-		color.r,
-		color.g,
-		color.b,
-		0
-	)
+	frame:SetMovable(true)
+	frame:EnableMouse(true)
+	frame:RegisterForDrag("LeftButton")
 
-	tinsert(UISpecialFrames, frame:GetDebugName())
+	frame:SetScript("OnMouseDown", function(scriptFrame, mouseButton)
+		if mouseButton == "LeftButton" and not scriptFrame.isMoving then
+			scriptFrame:StartMoving()
+			scriptFrame.isMoving = true
+		end
+	end)
+	frame:SetScript("OnMouseUp", function(scriptFrame, mouseButton)
+		if mouseButton == "LeftButton" and scriptFrame.isMoving then
+			scriptFrame:StopMovingOrSizing()
+			scriptFrame.isMoving = false
+		elseif mouseButton == "RightButton" and not scriptFrame.isMoving then
+			scriptFrame:ClearAllPoints()
+			scriptFrame:SetPoint("TOPLEFT", _G.MER_CustomEmoteFrameMover, "TOPLEFT", 0, 0)
+		end
+	end)
+	frame:SetScript("OnHide", function(scriptFrame)
+		if scriptFrame.isMoving then
+			scriptFrame:StopMovingOrSizing()
+			scriptFrame.isMoving = false
+		end
+	end)
 
-	for i = 1, #emotes do
-		text = emotes[i][1]
-		texture = emotes[i][2]
-		button = CreateFrame("Button", format("IconButton%d", i), frame)
+	frame.title = frame:CreateFontString(nil, "ARTWORK", "ChatFontNormal")
+	frame.title:SetPoint("TOP", frame, "TOP", 0, -9)
+	frame.title:FontTemplate(E.media.normFont, 16, "OUTLINE")
+
+	local tipsButton = CreateFrame("Frame", nil, frame)
+	tipsButton:SetSize(25, 25)
+	tipsButton:SetPoint("TOPLEFT", frame, "TOPLEFT", 3, -4)
+	tipsButton.text = tipsButton:CreateFontString(nil, "ARTWORK")
+	tipsButton.text:SetPoint("CENTER", 0, 0)
+	tipsButton.text:FontTemplate(E.media.normFont, 14, "OUTLINE")
+	tipsButton.text:SetText("?")
+	tipsButton:SetScript("OnEnter", function()
+		frame.title:SetText(L["Move (L\124\124R) Reset"])
+	end)
+	tipsButton:SetScript("OnLeave", function()
+		frame.title:SetText("")
+	end)
+
+	for _, v in pairs(emotes) do
+		local button = CreateFrame("Button", nil, frame)
+		button.emote = "{" .. (v[E.global.general.locale] or v.key) .. "}"
 		button:SetSize(width, height)
+		if v.texture then
+			button:SetNormalTexture(v.texture)
+		else
+			button:SetNormalTexture("Interface\\Addons\\ElvUI_MerathilisUI\\Media\\Emotes\\" .. v.key)
+		end
 		button:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
-
-		button.text = text
-
-		button.texture = button:CreateTexture(nil, "ARTWORK")
-		button.texture:SetTexture(texture)
-		button.texture:SetAllPoints(button)
-
-		button:Show()
-		button:Point("TOPLEFT", 16 + (index % column) * (width + space), -36 - floor(index / column) * (height + space))
-		button:SetScript("OnMouseUp", ChatEmote.EmoteIconMouseUp)
-		button:EnableMouse(true)
+		button:SetPoint(
+			"TOPLEFT",
+			16 + (index % column) * (width + space),
+			-36 - floor(index / column) * (height + space)
+		)
+		button:SetScript("OnMouseUp", EmoteButton_OnClick)
+		button:SetScript("OnEnter", EmoteButton_OnEnter)
+		button:SetScript("OnLeave", EmoteButton_OnLeave)
 		index = index + 1
 	end
 	frame:SetHeight(ceil(index / column) * (height + space) + 46)
 	frame:Hide()
+
+	self:SecureHook("ChatEdit_OnTextChanged")
+
+	self.EmoteSelector = frame
+
+	E:CreateMover(frame, "MER_CustomEmoteFrameMover", L["Emote Selector"], nil, nil, nil, "ALL,MERATHILISUI", function()
+		return self.db.enable
+	end, "mui,modules,chat,emotes")
 end
 
-function ChatEmote.ToggleEmoteTable()
-	if not _G.MER_EmoteTableFrame then
-		CreateEmoteTableFrame()
+function module:ChatEdit_OnTextChanged(chatEdit, userInput)
+	if not (self.db and self.db.panel and self.db.enable) then
+		return
 	end
-	if _G.MER_EmoteTableFrame:IsShown() then
-		_G.MER_EmoteTableFrame:Hide()
-	else
-		_G.MER_EmoteTableFrame:Show()
+	local text = chatEdit:GetText()
+	if userInput and (strsub(text, -1) == "{") then
+		self.EmoteSelector:Show()
 	end
 end
 
-function ChatEmote.EmoteIconMouseUp(frame, button)
-	if button == "LeftButton" then
-		local ChatFrameEditBox = ChatEdit_ChooseBoxForSend()
-		if not ChatFrameEditBox:IsShown() then
-			ChatEdit_ActivateChat(ChatFrameEditBox)
-		end
-		ChatFrameEditBox:Insert(frame.text)
-	end
-	ChatEmote.ToggleEmoteTable()
-end
-
-function module:LoadChatEmote()
-	function C_Club.GetMessageInfo(clubId, streamId, messageId)
-		local message = GetMessageInfo(clubId, streamId, messageId)
-		message.content = CH:GetSmileyReplacementText(message.content)
-		return message
-	end
-
-	function CH:InsertEmotions(msg)
-		for word in gmatch(msg, "%s-%S+%s*") do
-			word = strtrim(word)
-			local pattern = E:EscapeString(word)
-			local emoji = CH.Smileys[pattern]
-			if emoji and strmatch(msg, "[%s%p]-" .. pattern .. "[%s%p]*") then
-				local encode = E.Libs.Deflate:EncodeForPrint(word) -- btw keep `|h|cFFffffff|r|h` as it is
-				msg = gsub(
-					msg,
-					"([%s%p]-)" .. pattern .. "([%s%p]*)",
-					(encode and ("%1|Helvmoji:%%" .. encode .. "|h|cFFffffff|r|h") or "%1") .. emoji .. "%2"
-				)
+function module:ParseChatBubbles()
+	for _, frame in pairs(C_ChatBubbles_GetAllChatBubbles()) do
+		local holder = frame:GetChildren()
+		---@cast holder ChatBubbleTemplate
+		if holder and not holder:IsForbidden() then
+			local str = holder and holder.String
+			if str then
+				local oldMessage = str:GetText()
+				local afterMessage = gsub(oldMessage, "%{.-%}", ReplaceEmote)
+				if oldMessage ~= afterMessage then
+					str:SetText(afterMessage)
+				end
 			end
 		end
-		return msg
+	end
+end
+
+function module:HandleEmoteWithBubble()
+	if self.db and self.db.enable and self.db.chatBubbles then
+		self.bubbleTimer = self:ScheduleRepeatingTimer("ParseChatBubbles", 0.1)
+	else
+		if self.bubbleTimer then
+			self:CancelTimer(self.bubbleTimer)
+			self.bubbleTimer = nil
+		end
 	end
 end
 
 function module:Initialize()
-	if E.db.mui.chat.emotes ~= true or E.private.chat.enable ~= true then
+	self.db = E.db.mui.chat.emote
+
+	if self.initialized or not self.db.enable then
 		return
 	end
 
-	local Emote = self.ChatEmote
-	local ChatEmote = CreateFrame("Button", "mUIEmote", _G.LeftChatPanel)
-	ChatEmote:Point("RIGHT", _G.ElvUI_CopyChatButton1, "LEFT", 0, 0)
-	ChatEmote:Size(12, 12)
-	ChatEmote:SetScript("OnClick", function()
-		if InCombatLockdown() then
-			return
-		end
-		Emote.ToggleEmoteTable()
-	end)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_BATTLEGROUND", EmoteFilter)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_EMOTE", EmoteFilter)
 
-	ChatEmote:SetNormalTexture(I.General.ElvUIMediaPath .. "ChatEmojis\\Smile")
-	ChatEmote:GetNormalTexture():SetDesaturated(true)
-	ChatEmote:GetNormalTexture():SetAlpha(0.45)
+	self:CreateInterface()
+	self:HandleEmoteWithBubble()
 
-	ChatEmote:SetScript("OnEnter", function(self)
-		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6)
-		_G.GameTooltip:AddLine(L["Click to open Emoticon Frame"])
-		_G.GameTooltip:Show()
-		ChatEmote:SetNormalTexture(I.General.ElvUIMediaPath .. "ChatEmojis\\Scream")
-		ChatEmote:GetNormalTexture():SetDesaturated(false)
-		ChatEmote:GetNormalTexture():SetAlpha(1)
-	end)
+	self.initialized = true
+end
 
-	ChatEmote:SetScript("OnLeave", function(self)
-		_G.GameTooltip:Hide()
-		ChatEmote:SetNormalTexture(I.General.ElvUIMediaPath .. "ChatEmojis\\Smile")
-		ChatEmote:GetNormalTexture():SetDesaturated(true)
-		ChatEmote:GetNormalTexture():SetAlpha(0.45)
-	end)
+function module:ProfileUpdate()
+	self:Initialize()
 
-	self:LoadChatEmote()
+	if self.initialized and not self.db.enable then
+		self.EmoteSelector:Hide()
+	end
+
+	MER:GetModule("MER_ChatBar"):UpdateBar()
+
+	self:HandleEmoteWithBubble()
 end
 
 MER:RegisterModule(module:GetName())

@@ -158,6 +158,14 @@ L["Actionbar 3 (below)"] = true
 L["Actionbar 4 (below)"] = true
 L["Actionbar 5 (below)"] = true
 L["Actionbar 6 (above)"] = true
+L["Move (L\124\124R) Reset"] = true
+L["Emote Selector"] = true
+L["Emote"] = true
+L["Parse emote expression from other players."] = true
+L["Emote Icon Size"] = true
+L["Use Emote Panel"] = true
+L["Press { to active the emote select window."] = true
+L["Chat Bubbles"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "Сигнал боя"

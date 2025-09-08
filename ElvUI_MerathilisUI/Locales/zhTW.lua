@@ -136,6 +136,14 @@ L["Actionbar 3 (below)"] = true
 L["Actionbar 4 (below)"] = true
 L["Actionbar 5 (below)"] = true
 L["Actionbar 6 (above)"] = true
+L["Move (L\124\124R) Reset"] = "移動 (左\124\124右) 重置"
+L["Emote Selector"] = "表情選擇工具"
+L["Emote"] = "表情"
+L["Parse emote expression from other players."] = "解析其他玩家發送的表情."
+L["Emote Icon Size"] = "表情符號尺寸"
+L["Use Emote Panel"] = "表情面板"
+L["Press { to active the emote select window."] = "按下 { （英文左大括號）來激活視窗"
+L["Chat Bubbles"] = "聊天氣泡"
 
 -- Combat Alert
 L["Combat Alert"] = "戰鬥提醒"

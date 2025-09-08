@@ -152,6 +152,14 @@ L["Actionbar 3 (below)"] = "Aktionsleiste 3 (unter)"
 L["Actionbar 4 (below)"] = "Aktionsleiste 4 (unter)"
 L["Actionbar 5 (below)"] = "Aktionsleiste 5 (unter)"
 L["Actionbar 6 (above)"] = "Aktionsleiste 6 (oberhalb)"
+L["Move (L\124\124R) Reset"] = "Bewege (L\124\124R) Reset"
+L["Emote Selector"] = "Emotes Auswahl"
+L["Emote"] = true
+L["Parse emote expression from other players."] = "Emote-Ausdrücke anderer Spieler analysieren"
+L["Emote Icon Size"] = "Emotes Symbolgröße"
+L["Use Emote Panel"] = "Verwende Emotes Panel"
+L["Press { to active the emote select window."] = "Drücken Sie { um das Emote-Auswahlfenster zu aktivieren."
+L["Chat Bubbles"] = "Sprechblasen"
 
 -- Combat Alert
 L["Combat Alert"] = "Kampfalarmierung"

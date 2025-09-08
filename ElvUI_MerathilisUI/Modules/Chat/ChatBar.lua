@@ -12,7 +12,6 @@ local tostring = tostring
 
 local GetClubInfo = C_Club.GetClubInfo
 local IsGuildOfficer = C_GuildInfo.IsGuildOfficer
-local After = C_Timer.After
 local ChatFrame_AddChannel = ChatFrame_AddChannel
 local ChatFrame_OpenChat = ChatFrame_OpenChat
 local CreateFrame = CreateFrame
@@ -100,22 +99,22 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		F.SetFontDB(button.text, self.db.font)
 		button.defaultFontSize = self.db.font.size
 
-		button:SetScript("OnEnter", function(self)
+		button:SetScript("OnEnter", function(btn)
 			if module.db.style == "BLOCK" then
-				if self.backdrop.MERshadow then
-					self.backdrop.MERshadow:SetBackdropBorderColor(
+				if btn.backdrop.MERshadow then
+					btn.backdrop.MERshadow:SetBackdropBorderColor(
 						ElvUIValueColor.r,
 						ElvUIValueColor.g,
 						ElvUIValueColor.b
 					)
-					self.backdrop.MERshadow:Show()
+					btn.backdrop.MERshadow:Show()
 				end
 			else
-				local fontName, _, fontFlags = self.text:GetFont()
-				self.text:FontTemplate(fontName, self.defaultFontSize + 4, fontFlags)
+				local fontName, _, fontFlags = btn.text:GetFont()
+				btn.text:FontTemplate(fontName, btn.defaultFontSize + 4, fontFlags)
 			end
 
-			_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 7)
+			_G.GameTooltip:SetOwner(btn, "ANCHOR_TOP", 0, 7)
 			_G.GameTooltip:SetText(tooltip or _G[name] or "")
 
 			if tips then
@@ -127,19 +126,19 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 			_G.GameTooltip:Show()
 		end)
 
-		button:SetScript("OnLeave", function(self)
+		button:SetScript("OnLeave", function(btn)
 			_G.GameTooltip:Hide()
 			if module.db.style == "BLOCK" then
-				self.backdrop.MERshadow:SetBackdropBorderColor(0, 0, 0)
+				btn.backdrop.MERshadow:SetBackdropBorderColor(0, 0, 0)
 
 				if not module.db.blockShadow then
-					if self.backdrop.MERshadow then
-						self.backdrop.MERshadow:Hide()
+					if btn.backdrop.MERshadow then
+						btn.backdrop.MERshadow:Hide()
 					end
 				end
 			else
-				local fontName, _, fontFlags = self.text:GetFont()
-				self.text:FontTemplate(fontName, self.defaultFontSize, fontFlags)
+				local fontName, _, fontFlags = btn.text:GetFont()
+				btn.text:FontTemplate(fontName, btn.defaultFontSize, fontFlags)
 			end
 		end)
 
@@ -229,7 +228,7 @@ function module:UpdateBar()
 		end
 
 		if show then
-			local chatFunc = function(self, mouseButton)
+			local chatFunc = function(btn, mouseButton)
 				if mouseButton ~= "LeftButton" or not db.cmd then
 					return
 				end
@@ -253,18 +252,20 @@ function module:UpdateBar()
 
 	if self.db.channels.world.enable then
 		local db = self.db.channels.world
+		local config = GetBestWorldChannelConfig(db.config)
 
-		if not db.name or db.name == "" then
+		if not config or not config.name or config.name == "" then
+			self:Log("warning", L["World channel no found, please setup again."])
 			self:DisableButton("WORLD")
 		else
-			local chatFunc = function(self, mouseButton)
-				local channelId = GetChannelName(db.name)
+			local chatFunc = function(btn, mouseButton)
+				local channelId = GetChannelName(config.name)
 				if mouseButton == "LeftButton" then
 					local autoJoined = false
-					if channelId == 0 and db.autoJoin then
-						JoinPermanentChannel(db.name)
-						ChatFrame_AddChannel(DefaultChatFrame, db.name)
-						channelId = GetChannelName(db.name)
+					if channelId == 0 and config.autoJoin then
+						JoinPermanentChannel(config.name)
+						ChatFrame_AddChannel(DefaultChatFrame, config.name)
+						channelId = GetChannelName(config.name)
 						autoJoined = true
 					end
 					if channelId == 0 then
@@ -273,7 +274,7 @@ function module:UpdateBar()
 					local currentText = DefaultChatFrame.editBox:GetText()
 					local command = format("/%s ", channelId)
 					if autoJoined then
-						After(0.5, function()
+						E:Delay(0.5, function()
 							ChatFrame_OpenChat(command .. currentText, DefaultChatFrame)
 						end)
 					else
@@ -281,26 +282,18 @@ function module:UpdateBar()
 					end
 				elseif mouseButton == "RightButton" then
 					if channelId == 0 then
-						JoinPermanentChannel(db.name)
-						ChatFrame_AddChannel(DefaultChatFrame, db.name)
+						JoinPermanentChannel(config.name)
+						ChatFrame_AddChannel(DefaultChatFrame, config.name)
 					else
-						LeaveChannelByName(db.name)
+						LeaveChannelByName(config.name)
 					end
 				end
 			end
 
-			self:UpdateButton(
-				"WORLD",
-				chatFunc,
-				anchor,
-				offsetX,
-				offsetY,
-				db.color,
-				self.db.tex,
-				db.name,
-				{ L["Left Click: Change to"] .. " " .. db.name, L["Right Click: Join/Leave"] .. " " .. db.name },
-				db.abbr
-			)
+			self:UpdateButton("WORLD", chatFunc, anchor, offsetX, offsetY, db.color, self.db.tex, config.name, {
+				L["Left Click: Change to"] .. " " .. config.name,
+				L["Right Click: Join/Leave"] .. " " .. config.name,
+			}, db.abbr)
 
 			numberOfButtons = numberOfButtons + 1
 
@@ -313,10 +306,12 @@ function module:UpdateBar()
 	else
 		self:DisableButton("WORLD")
 	end
+
 	if self.db.channels.community.enable then
 		local db = self.db.channels.community
 		local name = db.name
 		if not name or name == "" then
+			self:Log("warning", L["Club channel no found, please setup again."])
 			self:DisableButton("CLUB")
 		else
 			local chatFunc = function(_, mouseButton)
@@ -325,9 +320,9 @@ function module:UpdateBar()
 				end
 				local clubChannelId = GetCommunityChannelByName(name)
 				if not clubChannelId then
-					F.Print(
-						module,
-						format(L["Club channel %s not found, please use the full name of the channel."], name)
+					self:Log(
+						"warning",
+						format(L["Club channel %s no found, please use the full name of the channel."], name)
 					)
 				else
 					local currentText = DefaultChatFrame.editBox:GetText()
@@ -350,14 +345,56 @@ function module:UpdateBar()
 		self:DisableButton("CLUB")
 	end
 
+	if self.db.channels.emote.enable and E.db.mui.chat.emotes then
+		local db = self.db.channels.emote
+
+		local chatFunc = function(btn, mouseButton)
+			if mouseButton == "LeftButton" then
+				if _G.MER_EmoteFrame then
+					if _G.MER_EmoteFrame:IsShown() then
+						_G.MER_EmoteFrame:Hide()
+					else
+						_G.MER_EmoteFrame:Show()
+					end
+				else
+					module:Log("warning", L["Please enable Emote module in WindTools Social category."])
+				end
+			end
+		end
+
+		local abbr = db.icon
+				and ("|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Emotes\\mario:" .. self.db.font.size .. "|t")
+			or db.abbr
+		self:UpdateButton(
+			"MEREmote",
+			chatFunc,
+			anchor,
+			offsetX,
+			offsetY,
+			db.color,
+			self.db.tex,
+			"MER " .. L["Emote"],
+			{ L["Left Click: Toggle"] },
+			abbr
+		)
+
+		numberOfButtons = numberOfButtons + 1
+
+		if anchor == "LEFT" then
+			offsetX = offsetX + (self.db.buttonWidth + self.db.spacing)
+		else
+			offsetY = offsetY - (self.db.buttonHeight + self.db.spacing)
+		end
+	else
+		self:DisableButton("MEREmote")
+	end
+
 	if self.db.channels.roll.enable then
 		local db = self.db.channels.roll
 
-		local chatFunc = function(self, mouseButton)
+		local chatFunc = function(btn, mouseButton)
 			if mouseButton == "LeftButton" then
 				RandomRoll(1, 100)
-			elseif mouseButton == "RightButton" then
-				RandomRoll(1, 50)
 			end
 		end
 
@@ -411,8 +448,14 @@ function module:UpdateBar()
 
 	if self.db.backdrop then
 		self.bar.backdrop:Show()
+		if E.private.mui.skins.shadow.enable and self.bar.MERshadow then
+			self.bar.MERshadow:Show()
+		end
 	else
 		self.bar.backdrop:Hide()
+		if E.private.mui.skins.shadow.enable and self.bar.MERshadow then
+			self.bar.MERshadow:Hide()
+		end
 	end
 end
 
