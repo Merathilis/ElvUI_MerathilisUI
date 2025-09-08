@@ -48,15 +48,13 @@ local DecorAddons = {
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "TalentLoadoutsEx", L["Talent Loadouts Ex"], "tle" },
 	{ "TomTom", L["TomTom"], "tom" },
+	{ "WeakAuras", L["WeakAuras"], "weakAuras" },
+	{ "WeakAurasOptions", L["WeakAuras Options"], "weakAurasOptions" },
 	{ "WhisperPop", E.NewSign .. L["WhisperPop"], "whisperPop" },
 	{ "WIM", L["WIM"], "wim" },
 	{ "WorldQuestTab", L["World Quest Tab"], "wqt" },
 	{ "WowLua", L["WowLua"], "wowLua" },
 }
-if F.IsDeveloper() then
-	tinsert(DecorAddons, { "WeakAuras", L["WeakAuras"], "weakAuras" })
-	tinsert(DecorAddons, { "WeakAurasOptions", L["WeakAuras Options"], "weakAurasOptions" })
-end
 
 local function UpdateToggleDirection()
 	module:RefreshToggleDirection()
