@@ -221,7 +221,15 @@ LSM:Register("sound", "OnePlus Surprise", [[Interface\AddOns\ElvUI_MerathilisUI\
 E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\UI-LFG-ICON-ROLES]]
 E.media.checked = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\checked]]
 
+---Role icon texture coordinates system
+---Provides texture coordinates for LFG role icons
 do
+	---Get texture coordinates for role icons
+	---@param role "TANK"|"HEALER"|"DPS"|"DAMAGER"|"LEADER"|"READY"|"PENDING"|"REFUSE" The role identifier
+	---@return number left Left texture coordinate
+	---@return number right Right texture coordinate
+	---@return number top Top texture coordinate
+	---@return number bottom Bottom texture coordinate
 	function F.GetRoleTexCoord(role)
 		if role == "TANK" then
 			return 0.32 / 9.03, 2.04 / 9.03, 2.65 / 9.03, 4.3 / 9.03
@@ -238,6 +246,7 @@ do
 		elseif role == "REFUSE" then
 			return 2.68 / 9.03, 4.4 / 9.03, 5.02 / 9.03, 6.7 / 9.03
 		end
+		return 0, 1, 0, 1
 	end
 
 	F.AddMedia("texture", "UI-LFG-ICON-ROLES", "ROLES")

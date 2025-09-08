@@ -23,9 +23,8 @@ function WS:HandleSliderFrame(_, slider)
 
 	if not slider.MERSkinned and not slider.StripTextures_MER and not slider.SetThumbTexture_MER then
 		slider:SetThumbTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
-		slider.StripTextures_MER = slider.StripTextures
-		slider.StripTextures = E.noop
-		slider.SetThumbTexture_MER = slider.SetThumbTexture
+		F.InternalizeMethod(slider, "StripTextures", true)
+		F.InternalizeMethod(slider, "SetThumbTexture", true)
 		slider.SetThumbTexture = E.noop
 
 		slider.MERSkinned = true
