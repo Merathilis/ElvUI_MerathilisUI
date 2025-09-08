@@ -5,5 +5,5 @@
 	<Script file="GradientName.lua"/>
 	<Script file="HealthBar.lua"/>
 	<Script file="NameHover.lua"/>
-	<Script file="TooltipIcon.lua"/>
+	<Script file="Icons.lua"/>
 </Ui>

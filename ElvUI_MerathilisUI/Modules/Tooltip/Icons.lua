@@ -92,26 +92,19 @@ local iconFunctions = {
 	end,
 }
 
-local function escapePattern(str)
-	return str:gsub("([^%w])", "%%%1")
-end
-
 local function setTooltipIcon(tt, data, type)
 	local icon = iconFunctions[type] and iconFunctions[type](data)
 	local title = data.lines and data.lines[1] and data.lines[1].leftText
 	local iconDB = E.db.mui.tooltip.titleIcon
 	local iconString = icon and F.GetIconString(icon, iconDB.height, iconDB.width, true)
-
 	if not title or not iconString then
 		return
 	end
 
-	local escapedTitle = escapePattern(title)
-
 	for i = 1, 3 do
 		local row = _G[tt:GetName() .. "TextLeft" .. i]
 		local existingText = row and row:GetText()
-		if existingText and strfind(existingText, escapedTitle) then
+		if existingText and strfind(existingText, title, 1, true) then
 			if iconString and existingText and not strfind(existingText, "^|T") then
 				row:SetText(iconString .. " " .. existingText)
 			end
