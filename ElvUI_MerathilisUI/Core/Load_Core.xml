@@ -13,6 +13,8 @@
 	<Script file="Compatibility.lua"/>
 	<Script file="Dropdown.lua"/>
 	<Script file="Install.lua"/>
+	<Script file="KeystoneInfo.lua"/>
+	<Script file="Metadata.lua"/>
 	<Script file="Layout.lua"/>
 	<Script file="SplashScreen.lua"/>
 	<Script file="Staticpopup.lua"/>

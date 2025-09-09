@@ -13,6 +13,7 @@
 	<Script file="FunStuff.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
+	<Script file="LFGList.lua"/>
 	<Script file="Loot.lua"/>
 	<Script file="MoveFrames.lua"/>
 	<Script file="Mute.lua"/>

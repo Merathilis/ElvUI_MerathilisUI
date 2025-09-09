@@ -125,8 +125,9 @@ MER.Modules.FriendsList = MER:NewModule("MER_FriendsList", "AceHook-3.0")
 MER.Modules.HealPrediction = MER:NewModule("MER_HealPrediction", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.InstanceDifficulty = MER:NewModule("MER_InstanceDifficulty", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
+MER.Modules.KeystoneInfo = MER:NewModule("MER_KeystoneInfo", "AceEvent-3.0")
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
-MER.Modules.LFGInfo = MER:NewModule("MER_LFGInfo", "AceHook-3.0", "AceEvent-3.0")
+MER.Modules.LFGList = MER:NewModule("MER_LFGList", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Mail = MER:NewModule("MER_Mail", "AceHook-3.0")
 MER.Modules.MicroBar = MER:NewModule("MER_MicroBar", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.MiniMap = MER:NewModule("MER_Minimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
@@ -170,26 +171,10 @@ MER.Modules.ZoneText = MER:NewModule("MER_ZoneText", "AceHook-3.0")
 -- Utilities namespace
 MER.Utilities = {}
 
--- Libraries
-do
-	MER.Libs = {}
-	MER.LibsMinor = {}
-
-	function MER:AddLib(name, major, minor)
-		if not name then
-			return
-		end
-
-		-- in this case: `major` is the lib table and `minor` is the minor version
-		if type(major) == "table" and type(minor) == "number" then
-			MER.Libs[name], MER.LibsMinor[name] = major, minor
-		else -- in this case: `major` is the lib name and `minor` is the silent switch
-			MER.Libs[name], MER.LibsMinor[name] = _G.LibStub(major, minor)
-		end
-	end
-
-	MER:AddLib("LDD", "LibDropDown")
-end
+-- Pre-register libs into ElvUI
+E:AddLib("LDD", "LibDropDown")
+E:AddLib("OpenRaid", "LibOpenRaid-1.0")
+E:AddLib("Keystone", "LibKeystone")
 
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()

@@ -85,6 +85,8 @@ F.AddMedia("icon", "Warning")
 F.AddMedia("icon", "Flash")
 F.AddMedia("icon", "New")
 
+F.AddMedia("icon", "Leader")
+
 F.AddMedia("icon", "m2")
 
 -- Flags

@@ -664,6 +664,49 @@ P.misc = {
 		width = 81,
 		height = 50,
 	},
+	lfgList = {
+		enable = true,
+		icon = {
+			enable = true,
+			hideDefaultClassCircle = true,
+			leader = true,
+			reskin = true,
+			pack = "SQUARE",
+			size = 16,
+			border = false,
+			alpha = 1,
+		},
+		line = {
+			enable = true,
+			tex = "ElvUI Norm1",
+			width = 16,
+			height = 3,
+			offsetX = 0,
+			offsetY = -1,
+			alpha = 1,
+		},
+		additionalText = {
+			enable = true,
+			target = "DESC",
+			shortenDescription = true,
+			template = "{{score}} {{text}}",
+		},
+		partyKeystone = {
+			enable = true,
+			font = {
+				name = E.db.general.font,
+				size = 12,
+				style = "OUTLINE",
+			},
+		},
+		rightPanel = {
+			enable = true,
+			autoRefresh = true,
+			autoJoin = false,
+			skipConfirmation = false,
+			adjustFontSize = MER.ChineseLocale and 1 or 0,
+		},
+	},
 }
 
 P.nameHover = {

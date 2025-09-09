@@ -21,6 +21,10 @@ G.maps = {
 	eventTracker = {},
 }
 
+G.misc = {
+	lfgList = {},
+}
+
 G.advancedOptions = {
 	advancedCLEUEventTrace = false,
 	cvarAlert = false,

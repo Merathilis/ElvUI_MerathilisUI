@@ -467,6 +467,13 @@ function MER:CheckCompatibility()
 		"private.WT.misc.moveFrames.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Misc"], L["Move Frames"]),
+		format("%s-%s", L["Misc"], L["Move Frames"]),
+		"db.mui.misc.lfgList.enable",
+		"private.WT.misc.lfgList.enable"
+	)
+
 	CheckShadowAndLight(
 		format("%s-%s", L["Skins"], L["Shadow"]),
 		L["Enhanced Shadow"],
