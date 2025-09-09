@@ -1681,6 +1681,9 @@ function F.ProcessMovers(dbRef)
 	end
 end
 
+---@type table<any, table> Throttle states storage
+local throttleStates = {}
+
 function F.Throttle(duration, key, func, ...)
 	if type(duration) ~= "number" or duration <= 0 then
 		F.Developer.ThrowError("Invalid duration for F.Throttle: must be a positive number")
@@ -1722,6 +1725,32 @@ function F.Throttle(duration, key, func, ...)
 	end)
 end
 
+---Create a throttled version of a function
+---@param duration number Duration in seconds to throttle
+---@param func function The function to throttle
+---@return function throttledFunction The throttled version of the function
+function F.ThrottleFunction(duration, func)
+	return function(...)
+		F.Throttle(duration, func, func, ...)
+	end
+end
+
+---Cancel throttle for a specific key
+---@param key any The throttle key to cancel
+function F.CancelThrottle(key)
+	local state = throttleStates[key]
+	if state and state.timer then
+		state.timer:Cancel()
+		state.timer = nil
+		state.isThrottling = false
+	end
+end
+
+---Wait for condition to be true, then execute callback
+---@param condition function Function that returns boolean when condition is met
+---@param callback function Function to execute when condition is true
+---@param interval number? Check interval in seconds (default: 0.1)
+---@param maxTimes number? Maximum number of checks (default: 10)
 function F.WaitFor(condition, callback, interval, maxTimes)
 	interval = interval or 0.1
 	maxTimes = maxTimes or 10

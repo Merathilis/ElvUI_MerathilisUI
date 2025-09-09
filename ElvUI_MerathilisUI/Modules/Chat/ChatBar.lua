@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_ChatBar")
+local module = MER:GetModule("MER_ChatBar") ---@class ChatBar : AceModule, AceHook-3.0, AceEvent-3.0
 local S = MER:GetModule("MER_Skins")
 local LSM = E.LSM
 
@@ -7,11 +7,11 @@ local _G = _G
 local format = format
 local ipairs = ipairs
 local pairs = pairs
+local sort = sort
 local strmatch = strmatch
+local tinsert = tinsert
 local tostring = tostring
 
-local GetClubInfo = C_Club.GetClubInfo
-local IsGuildOfficer = C_GuildInfo.IsGuildOfficer
 local ChatFrame_AddChannel = ChatFrame_AddChannel
 local ChatFrame_OpenChat = ChatFrame_OpenChat
 local CreateFrame = CreateFrame
@@ -24,14 +24,17 @@ local IsInGroup = IsInGroup
 local IsInGuild = IsInGuild
 local IsInRaid = IsInRaid
 local JoinPermanentChannel = JoinPermanentChannel
-local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
-local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 local LeaveChannelByName = LeaveChannelByName
 local RandomRoll = RandomRoll
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 
-local normalChannelsIndex = { "SAY", "YELL", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER", "EMOTE" }
+local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
+local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
+
+local BUTTON_HOVER_FONT_SIZE_INCREASE = 4
+local MOUSE_OVER_HEIGHT_PADDING = 6
+local NORMAL_CHANNELS = { "SAY", "YELL", "PARTY", "INSTANCE", "RAID", "RAID_WARNING", "GUILD", "OFFICER", "EMOTE" }
 
 local checkFunctions = {
 	PARTY = function()
@@ -50,21 +53,146 @@ local checkFunctions = {
 		return IsInGuild()
 	end,
 	OFFICER = function()
-		return IsInGuild() and IsGuildOfficer()
+		return IsInGuild() and C_GuildInfo_IsGuildOfficer()
 	end,
 }
 
+---Get community channel ID by channel name
+---@param text string The community channel name to search for
+---@return number? channelId The channel ID if found
 local function GetCommunityChannelByName(text)
 	local channelList = { GetChannelList() }
-	for k, v in pairs(channelList) do
+	for _, v in pairs(channelList) do
 		local clubId = strmatch(tostring(v), "Community:(.-):")
 		if clubId then
-			local info = GetClubInfo(clubId)
-			if info.name == text then
-				return GetChannelName(tostring(v))
+			local info = C_Club_GetClubInfo(clubId)
+			if info and info.name == text then
+				return select(1, GetChannelName(tostring(v)))
 			end
 		end
 	end
+end
+
+---Calculate the next button position offset
+---@param anchor string The anchor direction ("LEFT" or "TOP")
+---@param offsetX number Current X offset
+---@param offsetY number Current Y offset
+---@param buttonWidth number Width of the button
+---@param buttonHeight number Height of the button
+---@param spacing number Spacing between buttons
+---@return number newOffsetX The new X offset
+---@return number newOffsetY The new Y offset
+local function CalculateNextOffset(anchor, offsetX, offsetY, buttonWidth, buttonHeight, spacing)
+	if anchor == "LEFT" then
+		return offsetX + buttonWidth + spacing, offsetY
+	else
+		return offsetX, offsetY - buttonHeight - spacing
+	end
+end
+
+---Calculate the total size of the chat bar
+---@param orientation string Bar orientation ("HORIZONTAL" or "VERTICAL")
+---@param numberOfButtons number Total number of buttons
+---@param spacing number Spacing between buttons
+---@param buttonWidth number Width of each button
+---@param buttonHeight number Height of each button
+---@param hasBackdrop boolean Whether the bar has a backdrop
+---@param backdropSpacing number Spacing for the backdrop
+---@return number width The calculated bar width
+---@return number height The calculated bar height
+local function CalculateBarSize(
+	orientation,
+	numberOfButtons,
+	spacing,
+	buttonWidth,
+	buttonHeight,
+	hasBackdrop,
+	backdropSpacing
+)
+	local width, height
+
+	if hasBackdrop then
+		if orientation == "HORIZONTAL" then
+			width = backdropSpacing * 2 + buttonWidth * numberOfButtons + spacing * (numberOfButtons - 1)
+			height = backdropSpacing * 2 + buttonHeight
+		else
+			width = backdropSpacing * 2 + buttonWidth
+			height = backdropSpacing * 2 + buttonHeight * numberOfButtons + spacing * (numberOfButtons - 1)
+		end
+	else
+		if orientation == "HORIZONTAL" then
+			width = buttonWidth * numberOfButtons + spacing * (numberOfButtons - 1)
+			height = buttonHeight
+		else
+			width = buttonWidth
+			height = buttonHeight * numberOfButtons + spacing * (numberOfButtons - 1)
+		end
+	end
+
+	return width, height
+end
+
+---Get the initial offset for button positioning
+---@param hasBackdrop boolean Whether the bar has a backdrop
+---@param backdropSpacing number Spacing for the backdrop
+---@param anchor string The anchor direction ("LEFT" or "TOP")
+---@return number offsetX The initial X offset
+---@return number offsetY The initial Y offset
+local function GetInitialOffset(hasBackdrop, backdropSpacing, anchor)
+	local offsetX, offsetY = 0, 0
+
+	if hasBackdrop then
+		if anchor == "LEFT" then
+			offsetX = offsetX + backdropSpacing
+		else
+			offsetY = offsetY - backdropSpacing
+		end
+	end
+
+	return offsetX, offsetY
+end
+
+---Find the best matching world channel configuration
+---@param configTable table Array of channel configurations
+---@return table? config The best matching configuration or nil
+local function GetBestWorldChannelConfig(configTable)
+	local validConfigs = {}
+
+	for _, c in pairs(configTable) do
+		if
+			(c.region == "ALL" or c.region == MER.RealRegion)
+			and (c.faction == "ALL" or c.faction == E.myfaction)
+			and (c.realmID == "ALL" or c.realmID == MER.CurrentRealmID)
+		then
+			tinsert(validConfigs, c)
+		end
+	end
+
+	sort(validConfigs, function(a, b)
+		if a.region ~= "ALL" and b.region == "ALL" then
+			return true
+		end
+
+		if a.region == "ALL" and b.region ~= "ALL" then
+			return false
+		end
+
+		if a.faction ~= "ALL" and b.faction == "ALL" then
+			return true
+		end
+
+		if a.faction == "ALL" and b.faction ~= "ALL" then
+			return false
+		end
+
+		if a.realmID == "ALL" and b.realmID ~= "ALL" then
+			return true
+		end
+
+		return false
+	end)
+
+	return validConfigs[1]
 end
 
 function module:OnEnterBar()
@@ -79,6 +207,18 @@ function module:OnLeaveBar()
 	end
 end
 
+---Update or create a chat button
+---@param name string The button name/identifier
+---@param func function The click handler function
+---@param anchorPoint string The anchor point for positioning
+---@param x number X position offset
+---@param y number Y position offset
+---@param color RGBA? Color configuration for the button
+---@param tex string? Texture name for block style
+---@param tooltip string? Tooltip text
+---@param tips table? Array of tooltip tips
+---@param abbr string Button abbreviation or icon
+---@return Button button The created or updated button
 function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip, tips, abbr)
 	local ElvUIValueColor = E.db.general.valuecolor
 
@@ -99,26 +239,23 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		F.SetFontDB(button.text, self.db.font)
 		button.defaultFontSize = self.db.font.size
 
+		-- Tooltip
 		button:SetScript("OnEnter", function(btn)
 			if module.db.style == "BLOCK" then
-				if btn.backdrop.MERshadow then
-					btn.backdrop.MERshadow:SetBackdropBorderColor(
-						ElvUIValueColor.r,
-						ElvUIValueColor.g,
-						ElvUIValueColor.b
-					)
-					btn.backdrop.MERshadow:Show()
+				if btn.backdrop.shadow then
+					btn.backdrop.shadow:SetBackdropBorderColor(ElvUIValueColor.r, ElvUIValueColor.g, ElvUIValueColor.b)
+					btn.backdrop.shadow:Show()
 				end
 			else
 				local fontName, _, fontFlags = btn.text:GetFont()
-				btn.text:FontTemplate(fontName, btn.defaultFontSize + 4, fontFlags)
+				btn.text:FontTemplate(fontName, btn.defaultFontSize + BUTTON_HOVER_FONT_SIZE_INCREASE, fontFlags)
 			end
 
 			_G.GameTooltip:SetOwner(btn, "ANCHOR_TOP", 0, 7)
-			_G.GameTooltip:SetText(tooltip or _G[name] or "")
+			_G.GameTooltip:SetText(button.tooltip or _G[name] or "")
 
 			if tips then
-				for _, tip in ipairs(tips) do
+				for _, tip in ipairs(button.tips) do
 					_G.GameTooltip:AddLine(tip)
 				end
 			end
@@ -148,6 +285,10 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		self.bar[name] = button
 	end
 
+	self.bar[name].tooltip = tooltip
+	self.bar[name].tips = tips
+
+	-- Block style
 	if self.db.style == "BLOCK" then
 		self.bar[name].colorBlock:SetTexture(tex and LSM:Fetch("statusbar", tex) or E.media.normTex)
 
@@ -167,7 +308,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 
 		self.bar[name].text:Hide()
 	else
-		local buttonText = self.db.color and F.CreateColorString(abbr, color) or abbr
+		local buttonText = self.db.color and color and F.CreateColorString(abbr, color) or abbr
 		self.bar[name].text:SetText(buttonText)
 		self.bar[name].defaultFontSize = self.db.font.size
 		F.SetFontDB(self.bar[name].text, self.db.font)
@@ -177,15 +318,17 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		self.bar[name].backdrop:Hide()
 	end
 
+	-- Update size and position
 	self.bar[name]:Size(module.db.buttonWidth, module.db.buttonHeight)
 	self.bar[name]:ClearAllPoints()
 	self.bar[name]:Point(anchorPoint, module.bar, anchorPoint, x, y)
 
 	self.bar[name]:Show()
-
 	return self.bar[name]
 end
 
+---Hide/disable a chat button
+---@param name string The button name to disable
 function module:DisableButton(name)
 	if self.bar[name] then
 		self.bar[name]:Hide()
@@ -198,26 +341,17 @@ function module:UpdateBar()
 	end
 
 	if InCombatLockdown() then
-		self:RegisterEvent("PLAYER_REGEN_ENABLED")
+		F.TaskManager:AfterCombat(self.UpdateBar, self)
 		return
 	end
 
 	local numberOfButtons = 0
-	local width, height
-
+	local orientation, hasBackdrop, backdropSpacing = self.db.orientation, self.db.backdrop, self.db.backdropSpacing
+	local buttonWidth, buttonHeight, spacing = self.db.buttonWidth, self.db.buttonHeight, self.db.spacing
 	local anchor = self.db.orientation == "HORIZONTAL" and "LEFT" or "TOP"
-	local offsetX = 0
-	local offsetY = 0
+	local offsetX, offsetY = GetInitialOffset(hasBackdrop, backdropSpacing, anchor)
 
-	if self.db.backdrop then
-		if anchor == "LEFT" then
-			offsetX = offsetX + self.db.backdropSpacing
-		else
-			offsetY = offsetY - self.db.backdropSpacing
-		end
-	end
-
-	for _, name in ipairs(normalChannelsIndex) do
+	for _, name in ipairs(NORMAL_CHANNELS) do
 		local db = self.db.channels[name]
 		local show = db and db.enable
 
@@ -228,7 +362,7 @@ function module:UpdateBar()
 		end
 
 		if show then
-			local chatFunc = function(btn, mouseButton)
+			local chatFunc = function(_, mouseButton)
 				if mouseButton ~= "LeftButton" or not db.cmd then
 					return
 				end
@@ -239,12 +373,7 @@ function module:UpdateBar()
 
 			self:UpdateButton(name, chatFunc, anchor, offsetX, offsetY, db.color, self.db.tex, nil, nil, db.abbr)
 			numberOfButtons = numberOfButtons + 1
-
-			if anchor == "LEFT" then
-				offsetX = offsetX + (self.db.buttonWidth + self.db.spacing)
-			else
-				offsetY = offsetY - (self.db.buttonHeight + self.db.spacing)
-			end
+			offsetX, offsetY = CalculateNextOffset(anchor, offsetX, offsetY, buttonWidth, buttonHeight, spacing)
 		else
 			self:DisableButton(name)
 		end
@@ -255,10 +384,10 @@ function module:UpdateBar()
 		local config = GetBestWorldChannelConfig(db.config)
 
 		if not config or not config.name or config.name == "" then
-			self:Log("warning", L["World channel no found, please setup again."])
+			F.Print(L["World channel no found, please setup again."])
 			self:DisableButton("WORLD")
 		else
-			local chatFunc = function(btn, mouseButton)
+			local chatFunc = function(_, mouseButton)
 				local channelId = GetChannelName(config.name)
 				if mouseButton == "LeftButton" then
 					local autoJoined = false
@@ -274,9 +403,8 @@ function module:UpdateBar()
 					local currentText = DefaultChatFrame.editBox:GetText()
 					local command = format("/%s ", channelId)
 					if autoJoined then
-						E:Delay(0.5, function()
-							ChatFrame_OpenChat(command .. currentText, DefaultChatFrame)
-						end)
+						-- If the channel is just joined, delay a bit to let the server process it
+						E:Delay(0.5, ChatFrame_OpenChat, command .. currentText, DefaultChatFrame)
 					else
 						ChatFrame_OpenChat(command .. currentText, DefaultChatFrame)
 					end
@@ -296,12 +424,7 @@ function module:UpdateBar()
 			}, db.abbr)
 
 			numberOfButtons = numberOfButtons + 1
-
-			if anchor == "LEFT" then
-				offsetX = offsetX + (self.db.buttonWidth + self.db.spacing)
-			else
-				offsetY = offsetY - (self.db.buttonHeight + self.db.spacing)
-			end
+			offsetX, offsetY = CalculateNextOffset(anchor, offsetX, offsetY, buttonWidth, buttonHeight, spacing)
 		end
 	else
 		self:DisableButton("WORLD")
@@ -311,7 +434,7 @@ function module:UpdateBar()
 		local db = self.db.channels.community
 		local name = db.name
 		if not name or name == "" then
-			self:Log("warning", L["Club channel no found, please setup again."])
+			F.Print(L["Club channel no found, please setup again."])
 			self:DisableButton("CLUB")
 		else
 			local chatFunc = function(_, mouseButton)
@@ -320,10 +443,7 @@ function module:UpdateBar()
 				end
 				local clubChannelId = GetCommunityChannelByName(name)
 				if not clubChannelId then
-					self:Log(
-						"warning",
-						format(L["Club channel %s no found, please use the full name of the channel."], name)
-					)
+					F.Print(format(L["Club channel %s no found, please use the full name of the channel."], name))
 				else
 					local currentText = DefaultChatFrame.editBox:GetText()
 					local command = format("/%s ", clubChannelId)
@@ -334,30 +454,25 @@ function module:UpdateBar()
 			self:UpdateButton("CLUB", chatFunc, anchor, offsetX, offsetY, db.color, self.db.tex, name, nil, db.abbr)
 
 			numberOfButtons = numberOfButtons + 1
-
-			if anchor == "LEFT" then
-				offsetX = offsetX + (self.db.buttonWidth + self.db.spacing)
-			else
-				offsetY = offsetY - (self.db.buttonHeight + self.db.spacing)
-			end
+			offsetX, offsetY = CalculateNextOffset(anchor, offsetX, offsetY, buttonWidth, buttonHeight, spacing)
 		end
 	else
 		self:DisableButton("CLUB")
 	end
 
-	if self.db.channels.emote.enable and E.db.mui.chat.emotes then
+	if self.db.channels.emote.enable and E.db.WT.social.emote.enable then
 		local db = self.db.channels.emote
 
 		local chatFunc = function(btn, mouseButton)
 			if mouseButton == "LeftButton" then
-				if _G.MER_EmoteFrame then
-					if _G.MER_EmoteFrame:IsShown() then
-						_G.MER_EmoteFrame:Hide()
+				if _G.MER_CustomEmoteFrame then
+					if _G.MER_CustomEmoteFrame:IsShown() then
+						_G.MER_CustomEmoteFrame:Hide()
 					else
-						_G.MER_EmoteFrame:Show()
+						_G.MER_CustomEmoteFrame:Show()
 					end
 				else
-					module:Log("warning", L["Please enable Emote module in WindTools Social category."])
+					F.Print(L["Please enable Emote module in MerathilisUI Chat category."])
 				end
 			end
 		end
@@ -377,14 +492,9 @@ function module:UpdateBar()
 			{ L["Left Click: Toggle"] },
 			abbr
 		)
-
 		numberOfButtons = numberOfButtons + 1
-
-		if anchor == "LEFT" then
-			offsetX = offsetX + (self.db.buttonWidth + self.db.spacing)
-		else
-			offsetY = offsetY - (self.db.buttonHeight + self.db.spacing)
-		end
+		offsetX, offsetY =
+			CalculateNextOffset(anchor, offsetX, offsetY, self.db.buttonWidth, self.db.buttonHeight, self.db.spacing)
 	else
 		self:DisableButton("MEREmote")
 	end
@@ -392,7 +502,7 @@ function module:UpdateBar()
 	if self.db.channels.roll.enable then
 		local db = self.db.channels.roll
 
-		local chatFunc = function(btn, mouseButton)
+		local chatFunc = function(_, mouseButton)
 			if mouseButton == "LeftButton" then
 				RandomRoll(1, 100)
 			end
@@ -403,42 +513,20 @@ function module:UpdateBar()
 		self:UpdateButton("ROLL", chatFunc, anchor, offsetX, offsetY, db.color, self.db.tex, nil, nil, abbr)
 
 		numberOfButtons = numberOfButtons + 1
-
-		if anchor == "LEFT" then
-			offsetX = offsetX + (self.db.buttonWidth + self.db.spacing)
-		else
-			offsetY = offsetY - (self.db.buttonHeight + self.db.spacing)
-		end
+		offsetX, offsetY =
+			CalculateNextOffset(anchor, offsetX, offsetY, self.db.buttonWidth, self.db.buttonHeight, self.db.spacing)
 	else
 		self:DisableButton("ROLL")
 	end
 
-	if self.db.backdrop then
-		if self.db.orientation == "HORIZONTAL" then
-			width = self.db.backdropSpacing * 2
-				+ self.db.buttonWidth * numberOfButtons
-				+ self.db.spacing * (numberOfButtons - 1)
-			height = self.db.backdropSpacing * 2 + self.db.buttonHeight
-		else
-			width = self.db.backdropSpacing * 2 + self.db.buttonWidth
-			height = self.db.backdropSpacing * 2
-				+ self.db.buttonHeight * numberOfButtons
-				+ self.db.spacing * (numberOfButtons - 1)
-		end
-	else
-		if self.db.orientation == "HORIZONTAL" then
-			width = self.db.buttonWidth * numberOfButtons + self.db.spacing * (numberOfButtons - 1)
-			height = self.db.buttonHeight
-		else
-			width = self.db.buttonWidth
-			height = self.db.buttonHeight * numberOfButtons + self.db.spacing * (numberOfButtons - 1)
-		end
-	end
+	-- Update the size of the bar
+	local width, height =
+		CalculateBarSize(orientation, numberOfButtons, spacing, buttonWidth, buttonHeight, hasBackdrop, backdropSpacing)
 
 	if self.db.mouseOver then
 		self.bar:SetAlpha(0)
 		if not self.db.backdrop then
-			height = height + 6
+			height = height + MOUSE_OVER_HEIGHT_PADDING
 		end
 	else
 		self.bar:SetAlpha(1)
@@ -459,12 +547,14 @@ function module:UpdateBar()
 	end
 end
 
+module.UpdateBar = F.ThrottleFunction(0.1, module.UpdateBar)
+
 function module:CreateBar()
 	if self.bar then
 		return
 	end
 
-	local bar = CreateFrame("Frame", "ChatBar", E.UIParent, "SecureHandlerStateTemplate")
+	local bar = CreateFrame("Frame", "MER_ChatBar", E.UIParent, "SecureHandlerStateTemplate")
 
 	bar:SetResizable(false)
 	bar:SetClampedToScreen(true)
@@ -481,14 +571,8 @@ function module:CreateBar()
 	self:HookScript(self.bar, "OnLeave", "OnLeaveBar")
 end
 
-function module:PLAYER_REGEN_ENABLED()
-	self:UpdateBar()
-	self:UnregisterEvent("PLAYER_REGEN_ENABLED")
-end
-
 function module:Initialize()
 	self.db = E.db.mui.chat.chatBar
-
 	if not self.db.enable then
 		return
 	end
@@ -527,7 +611,7 @@ function module:ProfileUpdate()
 		self:RegisterEvent("PLAYER_GUILD_UPDATE", "UpdateBar")
 	else
 		self:UnregisterEvent("GROUP_ROSTER_UPDATE")
-		self:UnregisterEvent("PLAYER_GUILD_UPDATE", "UpdateBar")
+		self:UnregisterEvent("PLAYER_GUILD_UPDATE")
 	end
 end
 
