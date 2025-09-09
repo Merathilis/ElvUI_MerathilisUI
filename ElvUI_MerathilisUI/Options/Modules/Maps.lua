@@ -74,10 +74,9 @@ options.maps = {
 							type = "description",
 							name = function()
 								if WM.StopRunning then
-									return format(
-										"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
-										WM.StopRunning
-									)
+									local errorMsg =
+										format(L["Because of %s, this module will not be loaded."], WM.StopRunning)
+									return C.StringByTemplate(errorMsg, "rose-500")
 								else
 									return L["This module will help you to reveal and resize maps."]
 								end

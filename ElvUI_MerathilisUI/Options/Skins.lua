@@ -1188,9 +1188,10 @@ options.widgets = {
 				desc = {
 					order = 2,
 					type = "description",
-					name = "|cffff0000"
-						.. L["To enable this feature, you need to enable the check box skin in ElvUI Skins first."]
-						.. "|r",
+					name = C.StringByTemplate(
+						L["To enable this feature, you need to enable the check box skin in ElvUI Skins first."],
+						"rose-500"
+					),
 					hidden = function(info)
 						return E.private.skins.checkBoxSkin
 					end,

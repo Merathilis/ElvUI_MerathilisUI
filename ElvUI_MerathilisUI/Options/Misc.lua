@@ -810,10 +810,8 @@ options.alreadyKnown = {
 					type = "description",
 					name = function()
 						if AK.StopRunning then
-							return format(
-								"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
-								AK.StopRunning
-							)
+							local errorMsg = format(L["Because of %s, this module will not be loaded."], AK.StopRunning)
+							return C.StringByTemplate(errorMsg, "rose-500")
 						else
 							return L["Puts a overlay on already known learnable items on vendors and AH."]
 						end
@@ -1585,10 +1583,8 @@ options.moveFrames = {
 					type = "description",
 					name = function()
 						if MF.StopRunning then
-							return format(
-								"|cffff3860" .. L["Because of %s, this module will not be loaded."] .. "|r",
-								MF.StopRunning
-							)
+							local errorMsg = format(L["Because of %s, this module will not be loaded."], MF.StopRunning)
+							return C.StringByTemplate(errorMsg, "rose-500")
 						else
 							return L["This module provides the feature that repositions the frames with drag and drop."]
 						end
