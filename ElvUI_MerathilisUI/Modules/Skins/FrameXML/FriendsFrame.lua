@@ -20,28 +20,30 @@ function FriendsCount_OnEvent(event, ...)
 end
 
 local function UpdateFriendsButton(button)
-	if not button.right then
-		button.right = button:CreateTexture(nil, "BACKGROUND")
-		button.right:SetWidth(button:GetWidth() / 2)
-		button.right:SetHeight(32)
-		button.right:SetPoint("LEFT", button, "CENTER", 0)
-		button.right:SetTexture(E.LSM:Fetch("statusbar", E.media.normTex))
-		button.right:SetGradient("HORIZONTAL", CreateColor(0.243, 0.57, 1, 0), CreateColor(0.243, 0.57, 1, 0.25))
+	if button.right then
+		return
+	end
 
-		if button.gameIcon then
-			button.gameIcon:HookScript("OnShow", function()
-				button.right:Show()
-			end)
+	button.right = button:CreateTexture(nil, "BACKGROUND")
+	button.right:SetWidth(button:GetWidth() / 2)
+	button.right:SetHeight(32)
+	button.right:SetPoint("LEFT", button, "CENTER", 0)
+	button.right:SetTexture(E.Media.Textures.White8x8)
+	button.right:SetGradient("HORIZONTAL", CreateColor(0.243, 0.57, 1, 0), CreateColor(0.243, 0.57, 1, 0.25))
 
-			button.gameIcon:HookScript("OnHide", function()
-				button.right:Hide()
-			end)
+	if button.gameIcon then
+		button.gameIcon:HookScript("OnShow", function()
+			button.right:Show()
+		end)
 
-			if button.gameIcon:IsShown() then
-				button.right:Show()
-			else
-				button.right:Hide()
-			end
+		button.gameIcon:HookScript("OnHide", function()
+			button.right:Hide()
+		end)
+
+		if button.gameIcon:IsShown() then
+			button.right:Show()
+		else
+			button.right:Hide()
 		end
 	end
 end
@@ -62,6 +64,19 @@ end
 
 local function DiffColor(level)
 	return C.HexRGB(GetQuestDifficultyColor(level))
+end
+
+local function UpdateRewards()
+	for tab in _G.RecruitAFriendRewardsFrame.rewardTabPool:EnumerateActive() do
+		if not tab.__MERSkin then
+			module:CreateBackdropShadow(tab)
+			local relativeTo = select(2, tab:GetPoint(1))
+			if relativeTo and relativeTo == _G.RecruitAFriendRewardsFrame then
+				F.Move(tab, 4, 0)
+			end
+			tab.__MERSkin = true
+		end
+	end
 end
 
 function module:FriendsFrame()
@@ -115,7 +130,9 @@ function module:FriendsFrame()
 		AnimateTexCoords(_G.FriendsFrameIcon, 512, 256, 64, 64, 25, elapsed, 0.01)
 	end)
 
-	module:SecureHook("FriendsFrame_UpdateFriendButton", UpdateFriendsButton)
+	self:SecureHook("FriendsFrame_UpdateFriendButton", UpdateFriendsButton)
+	self:SecureHook(_G.RecruitAFriendRewardsFrame, "UpdateRewards", UpdateRewards)
+	UpdateRewards()
 
 	-- Who Frame
 	local columnTable = {
