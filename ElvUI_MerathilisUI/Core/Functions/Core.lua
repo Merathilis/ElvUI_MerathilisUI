@@ -631,13 +631,10 @@ do
 	end
 end
 
-function F.Print(text)
-	if not text then
-		return
-	end
-
-	local message = format("%s: %s", MER.Title, text)
-	print(message)
+---Print message with MerathilisUI title prefix
+---@param ... string|number Message parts to print
+function F.Print(...)
+	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
 end
 
 function F.DebugPrint(text, msgtype)

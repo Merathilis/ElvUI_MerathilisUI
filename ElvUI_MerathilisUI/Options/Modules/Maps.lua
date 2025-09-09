@@ -397,7 +397,15 @@ options.maps = {
 						feature = {
 							order = 1,
 							type = "description",
-							name = L["Add an extra bar to collect minimap buttons."],
+							name = function()
+								if SMB.StopRunning then
+									local errorMsg =
+										format(L["Because of %s, this module will not be loaded."], SMB.StopRunning)
+									return C.StringByTemplate(errorMsg, "rose-500")
+								else
+									return L["Add an extra bar to collect minimap buttons."]
+								end
+							end,
 							fontSize = "medium",
 						},
 					},
