@@ -331,8 +331,8 @@ function module:SkinButton(button, force)
 		button.GRM_MinimapButtonBorder:Hide()
 		button:SetPushedTexture("")
 		button:SetHighlightTexture("")
-		button.SetPushedTexture = E.noop
-		button.SetHighlightTexture = E.noop
+		F.InternalizeMethod(button, "SetPushedTexture", true)
+		F.InternalizeMethod(button, "SetHighlightTexture", true)
 		if button:HasScript("OnEnter") then
 			self:SetButtonMouseOver(button, button, true)
 			button.OldSetScript = button.SetScript
@@ -359,7 +359,7 @@ function module:SkinButton(button, force)
 		button.icon.Hide = E.noop
 		button.icon2:Kill()
 		button.timer:SetScript("OnUpdate", nil)
-		button.timer.SetScript = E.noop
+		F.InternalizeMethod(button.timer, "SetScript", true)
 	elseif name == "MRPMinimapButton" then
 		for _, region in pairs({ button:GetRegions() }) do
 			if region:GetTexture() > 0 then
@@ -715,6 +715,11 @@ function module:PLAYER_ENTERING_WORLD()
 end
 
 function module:Initialize()
+	if C_AddOns_IsAddOnLoaded("BasicMinimap") then
+		self.StopRunning = "BasicMinimap"
+		return
+	end
+
 	self.db = E.db.mui.smb
 	if not self.db.enable then
 		return
