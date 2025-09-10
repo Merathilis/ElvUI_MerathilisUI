@@ -1684,9 +1684,19 @@ end
 ---@type table<any, table> Throttle states storage
 local throttleStates = {}
 
+---Throttle function execution to prevent excessive calls
+---@param duration number Duration in seconds to throttle
+---@param key any? Unique key for throttling (optional, defaults to function)
+---@param func function The function to throttle
+---@param ... any Arguments to pass to the function
 function F.Throttle(duration, key, func, ...)
 	if type(duration) ~= "number" or duration <= 0 then
 		F.Developer.ThrowError("Invalid duration for F.Throttle: must be a positive number")
+	end
+
+	if duration == 0 then
+		func(...) -- No throttling (only for testing purpose)
+		return
 	end
 
 	if type(func) ~= "function" then
@@ -1759,7 +1769,11 @@ function F.WaitFor(condition, callback, interval, maxTimes)
 		local leftTimes = maxTimes
 
 		while leftTimes > 0 do
-			if condition() then
+			local success, result = pcall(condition)
+			if success and result then
+				if type(result) == "string" and result == "end" then
+					break
+				end
 				callback()
 				return
 			end

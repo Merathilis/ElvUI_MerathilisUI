@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_LFGList")
+local LL = MER:GetModule("MER_LFGList")
 local KI = MER:GetModule("MER_KeystoneInfo")
 local S = MER:GetModule("MER_Skins") ---@type Skins
 local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
@@ -65,7 +65,6 @@ local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpeci
 local Enum_LFGListFilter = Enum.LFGListFilter
 
 local GROUP_FINDER_CATEGORY_ID_DUNGEONS = GROUP_FINDER_CATEGORY_ID_DUNGEONS
-local GROUP_FINDER_CUSTOM_CATEGORY = GROUP_FINDER_CUSTOM_CATEGORY
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
 local seasonGroups = C_LFGList_GetAvailableActivityGroups(
@@ -175,8 +174,8 @@ local sortMode = {
 	},
 }
 
-function module:GetPlayerDB(key)
-	local globalDB = E.global.mui.misc.lfgList
+function LL:GetPlayerDB(key)
+	local globalDB = E.global.WT.misc.lfgList
 
 	if not globalDB then
 		return {}
@@ -197,7 +196,7 @@ function module:GetPlayerDB(key)
 	return globalDB[E.myrealm][E.myname][key] --[[@as table]]
 end
 
-function module:UpdateAdditionalText(button, score, best)
+function LL:UpdateAdditionalText(button, score, best)
 	local db = self.db.additionalText
 
 	if not db.enable or not button.Name or not button.ActivityName then
@@ -227,7 +226,7 @@ function module:UpdateAdditionalText(button, score, best)
 	target:SetText(result)
 end
 
-function module:MemberDisplay_SetActivity(memberDisplay, activity)
+function LL:MemberDisplay_SetActivity(memberDisplay, activity)
 	memberDisplay.resultID = activity and activity.GetID and activity:GetID() or nil
 end
 
@@ -237,7 +236,7 @@ end
 ---@param icon Texture The texture object representing the role icon to be reskinned.
 ---@param role "TANK" | "HEALER" | "DAMAGER" | nil The player's role. If nil, the icon will be hidden.
 ---@param data [ClassFile, string, boolean]? Optional cached data containing [class, specialization, isLeader] information.
-function module:ReskinIcon(parent, icon, role, data)
+function LL:ReskinIcon(parent, icon, role, data)
 	local class, spec, isLeader
 	if data then
 		class, spec, isLeader = data[1], data[2], data[3]
@@ -313,7 +312,7 @@ function module:ReskinIcon(parent, icon, role, data)
 	end
 end
 
-function module:UpdateEnumerate(Enumerate)
+function LL:UpdateEnumerate(Enumerate)
 	local button = Enumerate:GetParent():GetParent()
 
 	if not button.resultID then
@@ -383,7 +382,7 @@ function module:UpdateEnumerate(Enumerate)
 	end
 end
 
-function module:UpdateRoleCount(RoleCount)
+function LL:UpdateRoleCount(RoleCount)
 	if RoleCount.TankIcon then
 		self:ReskinIcon(nil, RoleCount.TankIcon, "TANK")
 	end
@@ -401,7 +400,7 @@ function FakeChatEditBox:GetText()
 	return "/keystone"
 end
 
-function module:InitializePartyKeystoneFrame()
+function LL:InitializePartyKeystoneFrame()
 	local frame = CreateFrame("Frame", "WTPartyKeystoneFrame", _G.ChallengesFrame)
 	frame:Size(200, 150)
 	frame:SetTemplate("Transparent")
@@ -499,7 +498,7 @@ function module:InitializePartyKeystoneFrame()
 	self.partyKeystoneFrame = frame
 end
 
-function module:UpdatePartyKeystoneFrame()
+function LL:UpdatePartyKeystoneFrame()
 	if not self.db.partyKeystone.enable then
 		if self.partyKeystoneFrame then
 			self.partyKeystoneFrame:Hide()
@@ -583,12 +582,12 @@ function module:UpdatePartyKeystoneFrame()
 	frame:Show()
 end
 
-function module:RequestKeystoneData()
+function LL:RequestKeystoneData()
 	E:Delay(0.5, self.UpdatePartyKeystoneFrame, self)
 	E:Delay(2, self.UpdatePartyKeystoneFrame, self)
 end
 
-function module:RefreshSearch()
+function LL:RefreshSearch()
 	if not self.db.rightPanel.enable or not self.db.rightPanel.autoRefresh then
 		return
 	end
@@ -596,7 +595,7 @@ function module:RefreshSearch()
 	_G.LFGListSearchPanel_DoSearch(_G.LFGListFrame.SearchPanel)
 end
 
-function module:RepositionRaiderIOProfileTooltip(frame)
+function LL:RepositionRaiderIOProfileTooltip(frame)
 	local anchor = _G.RaiderIO_ProfileTooltipAnchor
 	if not anchor then
 		return
@@ -618,7 +617,7 @@ function module:RepositionRaiderIOProfileTooltip(frame)
 	end
 end
 
-function module:InitializeRightPanel()
+function LL:InitializeRightPanel()
 	if self.rightPanel then
 		return
 	end
@@ -763,7 +762,7 @@ function module:InitializeRightPanel()
 		filterButton:Point(anchorPoint, filters, anchorPoint, 0, yOffset)
 
 		filterButton.tex = filterButton:CreateTexture(nil, "ARTWORK")
-		filterButton.tex:Size(20)
+		filterButton.tex:Size(20, 20)
 		filterButton.tex:Point("LEFT", filterButton, "LEFT", 4, 0)
 		filterButton.tex:SetTexture(MER.MythicPlusMapData[mapID].tex)
 
@@ -780,7 +779,7 @@ function module:InitializeRightPanel()
 				btn:SetActive(not btn.active)
 				dfDB[mapID] = btn.active
 				self:UpdateAdvancedFilters()
-				module:RefreshSearch()
+				LL:RefreshSearch()
 			end
 		end)
 
@@ -820,7 +819,7 @@ function module:InitializeRightPanel()
 		dfDB.leaderScore = tonumber(text) or 0
 		editBox:SetText(tostring(dfDB.leaderScore))
 		editBox:ClearFocus()
-		module:RefreshSearch()
+		LL:RefreshSearch()
 	end)
 
 	S:Proxy("HandleEditBox", leaderScore.editBox)
@@ -844,7 +843,7 @@ function module:InitializeRightPanel()
 			btn:SetActive(not btn.active)
 			dfDB.leaderScoreEnable = btn.active
 			self:UpdateAdvancedFilters()
-			module:RefreshSearch()
+			LL:RefreshSearch()
 		end
 	end)
 
@@ -883,7 +882,7 @@ function module:InitializeRightPanel()
 		dfDB.leaderDungeonScore = tonumber(text) or 0
 		editBox:SetText(tostring(dfDB.leaderDungeonScore))
 		editBox:ClearFocus()
-		module:RefreshSearch()
+		LL:RefreshSearch()
 	end)
 
 	S:Proxy("HandleEditBox", leaderDungeonScore.editBox)
@@ -906,7 +905,7 @@ function module:InitializeRightPanel()
 			local dfDB = self:GetPlayerDB("dungeonFilter")
 			btn:SetActive(not btn.active)
 			dfDB.leaderDungeonScoreEnable = btn.active
-			module:RefreshSearch()
+			LL:RefreshSearch()
 		end
 	end)
 
@@ -973,21 +972,20 @@ function module:InitializeRightPanel()
 	addSetActive(roleAvailable)
 
 	roleAvailable:SetScript("OnMouseDown", function(btn, button)
-		if button ~= "LeftButton" then
-			return
-		end
-		local dfDB = self:GetPlayerDB("dungeonFilter")
-		btn:SetActive(not btn.active)
-		if not self.db.rightPanel.disableSafeFilters and btn.active then
-			needTank:SetActive(false)
-			needHealer:SetActive(false)
-			dfDB.needTankEnable = false
-			dfDB.needHealerEnable = false
-		end
+		if button == "LeftButton" then
+			local dfDB = self:GetPlayerDB("dungeonFilter")
+			btn:SetActive(not btn.active)
+			if not self.db.rightPanel.disableSafeFilters and btn.active then
+				needTank:SetActive(false)
+				needHealer:SetActive(false)
+				dfDB.needTankEnable = false
+				dfDB.needHealerEnable = false
+			end
 
-		dfDB.roleAvailableEnable = btn.active
-		self:UpdateAdvancedFilters()
-		self:RefreshSearch()
+			dfDB.roleAvailableEnable = btn.active
+			self:UpdateAdvancedFilters()
+			LL:RefreshSearch()
+		end
 	end)
 
 	filters.roleAvailable = roleAvailable
@@ -1025,7 +1023,7 @@ function module:InitializeRightPanel()
 			end
 			dfDB.needTankEnable = btn.active
 			self:UpdateAdvancedFilters()
-			module:RefreshSearch()
+			LL:RefreshSearch()
 		end
 	end)
 
@@ -1064,7 +1062,7 @@ function module:InitializeRightPanel()
 			end
 			dfDB.needHealerEnable = btn.active
 			self:UpdateAdvancedFilters()
-			module:RefreshSearch()
+			LL:RefreshSearch()
 		end
 	end)
 
@@ -1223,7 +1221,7 @@ function module:InitializeRightPanel()
 
 			btn.descending = not btn.descending
 			btn.tex:SetRotation(btn.descending and 0 or 3.14)
-			module:RefreshSearch()
+			LL:RefreshSearch()
 			dfDB.sortDescending = btn.descending
 
 			_G.GameTooltip:ClearLines()
@@ -1286,7 +1284,7 @@ function module:InitializeRightPanel()
 			end
 
 			sortByButton.text:SetText(sortMode[btn.sortBy].text)
-			module:RefreshSearch()
+			LL:RefreshSearch()
 			dfDB.sortBy = btn.sortBy
 
 			local tooltip = btn.sortBy and sortMode[btn.sortBy] and sortMode[btn.sortBy].tooltip
@@ -1340,11 +1338,11 @@ function module:InitializeRightPanel()
 	-- 	print(categoryID, filters, baseFilters)
 	-- end)
 	local buttonData = {
-		{ text = L["Mythic+"], categoryID = GROUP_FINDER_CATEGORY_ID_DUNGEONS, filters = 0 },
-		{ text = L["Raids"], categoryID = 3, filters = 1 },
-		{ text = L["Delves"], categoryID = 121, filters = 0 },
-		{ text = L["Quest"], categoryID = 1, filters = 0 },
-		{ text = L["Custom"], categoryID = GROUP_FINDER_CUSTOM_CATEGORY, filters = 0 },
+		{ text = L["Mythic+"], categoryID = 2, filters = 0, baseFilters = 4 },
+		{ text = L["Raids"], categoryID = 3, filters = 1, baseFilters = 4 },
+		{ text = L["Delves"], categoryID = 121, filters = 0, baseFilters = 4 },
+		{ text = L["Quest"], categoryID = 1, filters = 0, baseFilters = 4 },
+		{ text = L["Custom"], categoryID = 6, filters = 0, baseFilters = 4 },
 	}
 
 	for i, data in ipairs(buttonData) do
@@ -1374,13 +1372,13 @@ function module:InitializeRightPanel()
 			btn:SetActive(false)
 		end)
 
-		button:SetScript("OnMouseDown", function(_, mouseButton)
+		button:SetScript("OnMouseDown", function(btn, mouseButton)
 			if mouseButton ~= "LeftButton" then
 				return
 			end
 
 			if _G.PVEFrame.activeTabIndex ~= 1 then
-				_G.PVEFrame_ShowFrame("GroupFinderFrame")
+				PVEFrame_ShowFrame("GroupFinderFrame")
 			end
 
 			if not _G.LFGListFrame.SearchPanel:IsShown() or _G.GroupFinderFrame.selection ~= _G.LFGListPVEStub then
@@ -1396,30 +1394,13 @@ function module:InitializeRightPanel()
 
 			for _, categoryButton in ipairs(selection.CategoryButtons) do
 				if categoryButton.categoryID == data.categoryID and categoryButton.filters == data.filters then
-					local baseFilters = _G.LFGListFrame.baseFilters
-
-					-- Set the selectedCategory and selectedFilters to a not nil value will cause taint, needs cleanup later
-					self.needTaintCleanup = true
-					selection.selectedCategory = data.categoryID
-					selection.selectedFilters = data.filters
-
 					LFGListSearchPanel_Clear(searchPanel)
-					LFGListSearchPanel_SetCategory(searchPanel, data.categoryID, data.filters, baseFilters)
+					LFGListSearchPanel_SetCategory(searchPanel, data.categoryID, data.filters, data.baseFilters)
 					LFGListSearchPanel_DoSearch(searchPanel)
-					_G.LFGListFrame_SetActivePanel(_G.LFGListFrame, searchPanel)
+					LFGListFrame_SetActivePanel(_G.LFGListFrame, searchPanel)
 					return
 				end
 			end
-		end)
-
-		-- Prehook the back button to clear the selectedCategory and selectedFilters to avoid taint
-		local backButtonOnClick = _G.LFGListFrame.SearchPanel.BackButton:GetScript("OnClick")
-		_G.LFGListFrame.SearchPanel.BackButton:SetScript("OnClick", function(...)
-			if self.needTaintCleanup then
-				_G.LFGListFrame.CategorySelection.selectedCategory = nil
-				_G.LFGListFrame.CategorySelection.selectedFilters = nil
-			end
-			backButtonOnClick(...)
 		end)
 
 		button:SetActive(false)
@@ -1433,7 +1414,7 @@ function module:InitializeRightPanel()
 	self.rightPanel = frame
 end
 
-function module:UpdateRightPanel()
+function LL:UpdateRightPanel()
 	if not self.db.rightPanel.enable then
 		if self.rightPanel then
 			self.rightPanel:Hide()
@@ -1500,13 +1481,13 @@ function module:UpdateRightPanel()
 	self:UpdateAdvancedFilters()
 end
 
-function module:LFGListEventHandler(event)
+function LL:LFGListEventHandler(event)
 	if event == "ACTIVE_PLAYER_SPECIALIZATION_CHANGED" or event == "GROUP_ROSTER_UPDATE" then
 		self:UpdateAdvancedFilters()
 	end
 end
 
-function module:GetPartyRoles()
+function LL:GetPartyRoles()
 	local partyMember = { TANK = 0, HEALER = 0, DAMAGER = 0 }
 
 	if IsInGroup() then
@@ -1535,7 +1516,7 @@ function module:GetPartyRoles()
 	return partyMember
 end
 
-function module:UpdateAdvancedFilters()
+function LL:UpdateAdvancedFilters()
 	local advFilters = C_LFGList_GetAdvancedFilter()
 	local partyMember = self:GetPartyRoles()
 	local dfDB = self:GetPlayerDB("dungeonFilter")
@@ -1574,7 +1555,7 @@ function module:UpdateAdvancedFilters()
 	C_LFGList_SaveAdvancedFilter(advFilters)
 end
 
-function module:OnUpdateResultList(searchPanel)
+function LL:OnUpdateResultList(searchPanel)
 	local results = CopyTable(searchPanel.results, true)
 	if _G.LFGListFrame.SearchPanel.categoryID ~= 2 then
 		return
@@ -1665,12 +1646,12 @@ function module:OnUpdateResultList(searchPanel)
 	_G.LFGListSearchPanel_UpdateResults(searchPanel)
 end
 
-function module:GROUP_ROSTER_UPDATE(...)
+function LL:GROUP_ROSTER_UPDATE(...)
 	self:RequestKeystoneData()
 	self:LFGListEventHandler(...)
 end
 
-function module:Initialize()
+function LL:Initialize()
 	if C_AddOns_IsAddOnLoaded("PremadeGroupsFilter") then
 		self.StopRunning = "Premade Groups Filter"
 		return
@@ -1702,7 +1683,7 @@ function module:Initialize()
 	self:SecureHook("PVEFrame_ShowFrame", "UpdateRightPanel")
 	self:SecureHook("LFGListSearchPanel_UpdateResultList", "OnUpdateResultList")
 	self:SecureHook("LFGListSearchPanel_DoSearch", function()
-		module.lastRefreshTimestamp = GetTime()
+		LL.lastRefreshTimestamp = GetTime()
 	end)
 
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "RequestKeystoneData")
@@ -1714,4 +1695,4 @@ function module:Initialize()
 	E:Delay(2, self.UpdatePartyKeystoneFrame, self)
 end
 
-MER:RegisterModule(module:GetName())
+MER:RegisterModule(LL:GetName())

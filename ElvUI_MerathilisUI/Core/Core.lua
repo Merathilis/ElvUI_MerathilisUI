@@ -341,31 +341,3 @@ function MER:ADDON_LOADED(event, addOnName)
 		self:TryReplaceEventTraceLogEvent()
 	end
 end
-
-MER.SpecializationInfo = {}
-
-MER.RealRegion = (function()
-	local region = GetCurrentRegionName()
-	if region == "KR" and MER.ChineseLocale then
-		region = "TW" -- Fix taiwan server region issue
-	end
-
-	return region
-end)()
-
-MER.CurrentRealmID = GetRealmID()
-MER.CurrentRealmName = GetRealmName()
-
-function MER:InitializeMetadata()
-	for classID = 1, 13 do
-		local class = {}
-		for specIndex = 1, 4 do
-			local data = { GetSpecializationInfoForClassID(classID, specIndex) }
-			if #data > 0 then
-				tinsert(class, { specID = data[1], name = data[2], icon = data[4], role = data[5] })
-			end
-		end
-
-		tinsert(MER.SpecializationInfo, class)
-	end
-end

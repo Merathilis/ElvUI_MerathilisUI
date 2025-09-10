@@ -1,5 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
+local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
+
 -- Mythic+
 MER.MythicPlusMapData = {
 	-- https://wago.tools/db2/MapChallengeMode
@@ -74,3 +76,75 @@ MER.RaidData = {
 		},
 	},
 }
+
+MER.SpecializationInfo = {}
+
+MER.RealRegion = (function()
+	local region = GetCurrentRegionName()
+	if region == "KR" and MER.ChineseLocale then
+		region = "TW" -- Fix taiwan server region issue
+	end
+
+	return region
+end)()
+
+MER.CurrentRealmID = GetRealmID()
+MER.CurrentRealmName = GetRealmName()
+
+function MER:InitializeMetadata()
+	for id in pairs(MER.MythicPlusMapData) do
+		local name, _, timeLimit, tex = C_ChallengeMode_GetMapUIInfo(id)
+		MER.MythicPlusMapData[id].name = name
+		MER.MythicPlusMapData[id].tex = tex
+		MER.MythicPlusMapData[id].idString = tostring(id)
+		MER.MythicPlusMapData[id].timeLimit = timeLimit
+		if MER.MythicPlusMapData[id].timers then
+			MER.MythicPlusMapData[id].timers[#MER.MythicPlusMapData[id].timers] = timeLimit
+		end
+
+		-- debug: print mythic+ map data
+		-- E:Delay(3, function()
+		-- 	print("MythicPlusMapData", id, name, "Tex:", F.GetTextureString(tex, 16, 16, true))
+		-- 	for i, timer in pairs(MER.MythicPlusMapData[id].timers) do
+		-- 		local mm = floor(timer / 60)
+		-- 		local ss = timer % 60
+		-- 		print("  Timer", i, ":", format("%02d:%02d", mm, ss))
+		-- 	end
+		-- end)
+	end
+
+	for id in pairs(MER.MythicPlusSeasonAchievementData) do
+		MER.Utilities.Async.WithAchievementID(id, function(data)
+			MER.MythicPlusSeasonAchievementData[id].name = data[2]
+			MER.MythicPlusSeasonAchievementData[id].tex = data[10]
+			MER.MythicPlusSeasonAchievementData[id].idString = tostring(id)
+		end)
+	end
+
+	for id in pairs(MER.RaidData) do
+		local result = { GetLFGDungeonInfo(id) }
+		MER.RaidData[id].name = result[1]
+		MER.RaidData[id].idString = tostring(id)
+	end
+
+	for classID = 1, 13 do
+		local class = {}
+		for specIndex = 1, 4 do
+			local data = { GetSpecializationInfoForClassID(classID, specIndex) }
+			if #data > 0 then
+				tinsert(class, { specID = data[1], name = data[2], icon = data[4], role = data[5] })
+			end
+		end
+
+		tinsert(MER.SpecializationInfo, class)
+	end
+
+	-- debug: check all achievements
+	-- for i, data in ipairs(MER.RaidData[2805].achievements) do
+	-- for j, id in ipairs(data) do
+	-- MER.Utilities.Async.WithAchievementID(id, function(data)
+	-- E:Delay(1.3 * (i - 1) + j * 0.1, print, data[1], data[2])
+	-- end)
+	-- end
+	-- end
+end
