@@ -65,6 +65,7 @@ local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpeci
 local Enum_LFGListFilter = Enum.LFGListFilter
 
 local GROUP_FINDER_CATEGORY_ID_DUNGEONS = GROUP_FINDER_CATEGORY_ID_DUNGEONS
+local GROUP_FINDER_CUSTOM_CATEGORY = GROUP_FINDER_CUSTOM_CATEGORY
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
 local seasonGroups = C_LFGList_GetAvailableActivityGroups(
@@ -690,7 +691,7 @@ function module:InitializeRightPanel()
 	for i = 1, #affixes do
 		local affix = frame.affix:CreateTexture(nil, "ARTWORK")
 		affix:CreateBackdrop()
-		affix:Size(buttonSize, buttonSize)
+		affix:Size(buttonSize)
 		affix:Point("LEFT", frame.affix, "LEFT", 2 + (i - 1) * (buttonSize + space), 0)
 		local fileDataID = select(3, C_ChallengeMode_GetAffixInfo(affixes[i].id))
 		affix:SetTexture(fileDataID)
@@ -762,7 +763,7 @@ function module:InitializeRightPanel()
 		filterButton:Point(anchorPoint, filters, anchorPoint, 0, yOffset)
 
 		filterButton.tex = filterButton:CreateTexture(nil, "ARTWORK")
-		filterButton.tex:Size(20, 20)
+		filterButton.tex:Size(20)
 		filterButton.tex:Point("LEFT", filterButton, "LEFT", 4, 0)
 		filterButton.tex:SetTexture(MER.MythicPlusMapData[mapID].tex)
 
@@ -972,20 +973,21 @@ function module:InitializeRightPanel()
 	addSetActive(roleAvailable)
 
 	roleAvailable:SetScript("OnMouseDown", function(btn, button)
-		if button == "LeftButton" then
-			local dfDB = self:GetPlayerDB("dungeonFilter")
-			btn:SetActive(not btn.active)
-			if not self.db.rightPanel.disableSafeFilters and btn.active then
-				needTank:SetActive(false)
-				needHealer:SetActive(false)
-				dfDB.needTankEnable = false
-				dfDB.needHealerEnable = false
-			end
-
-			dfDB.roleAvailableEnable = btn.active
-			self:UpdateAdvancedFilters()
-			module:RefreshSearch()
+		if button ~= "LeftButton" then
+			return
 		end
+		local dfDB = self:GetPlayerDB("dungeonFilter")
+		btn:SetActive(not btn.active)
+		if not self.db.rightPanel.disableSafeFilters and btn.active then
+			needTank:SetActive(false)
+			needHealer:SetActive(false)
+			dfDB.needTankEnable = false
+			dfDB.needHealerEnable = false
+		end
+
+		dfDB.roleAvailableEnable = btn.active
+		self:UpdateAdvancedFilters()
+		self:RefreshSearch()
 	end)
 
 	filters.roleAvailable = roleAvailable
@@ -1329,7 +1331,7 @@ function module:InitializeRightPanel()
 	local quickAccessTitle = quickAccessPanel:CreateFontString(nil, "OVERLAY")
 	F.SetFontOutline(quickAccessTitle, nil, 16 + self.db.rightPanel.adjustFontSize)
 	quickAccessTitle:Point("TOP", quickAccessPanel, "TOP", 0, 0)
-	quickAccessTitle:SetText(F.GetMERStyleText(L["Quick Access"]))
+	quickAccessTitle:SetText(F.GetWindStyleText(L["Quick Access"]))
 
 	local quickAccessButtons = {}
 
@@ -1338,11 +1340,11 @@ function module:InitializeRightPanel()
 	-- 	print(categoryID, filters, baseFilters)
 	-- end)
 	local buttonData = {
-		{ text = L["Mythic+"], categoryID = 2, filters = 0, baseFilters = 4 },
-		{ text = L["Raids"], categoryID = 3, filters = 1, baseFilters = 4 },
-		{ text = L["Delves"], categoryID = 121, filters = 0, baseFilters = 4 },
-		{ text = L["Quest"], categoryID = 1, filters = 0, baseFilters = 4 },
-		{ text = L["Custom"], categoryID = 6, filters = 0, baseFilters = 4 },
+		{ text = L["Mythic+"], categoryID = GROUP_FINDER_CATEGORY_ID_DUNGEONS, filters = 0 },
+		{ text = L["Raids"], categoryID = 3, filters = 1 },
+		{ text = L["Delves"], categoryID = 121, filters = 0 },
+		{ text = L["Quest"], categoryID = 1, filters = 0 },
+		{ text = L["Custom"], categoryID = GROUP_FINDER_CUSTOM_CATEGORY, filters = 0 },
 	}
 
 	for i, data in ipairs(buttonData) do
@@ -1372,13 +1374,13 @@ function module:InitializeRightPanel()
 			btn:SetActive(false)
 		end)
 
-		button:SetScript("OnMouseDown", function(btn, mouseButton)
+		button:SetScript("OnMouseDown", function(_, mouseButton)
 			if mouseButton ~= "LeftButton" then
 				return
 			end
 
 			if _G.PVEFrame.activeTabIndex ~= 1 then
-				PVEFrame_ShowFrame("GroupFinderFrame")
+				_G.PVEFrame_ShowFrame("GroupFinderFrame")
 			end
 
 			if not _G.LFGListFrame.SearchPanel:IsShown() or _G.GroupFinderFrame.selection ~= _G.LFGListPVEStub then
@@ -1394,13 +1396,30 @@ function module:InitializeRightPanel()
 
 			for _, categoryButton in ipairs(selection.CategoryButtons) do
 				if categoryButton.categoryID == data.categoryID and categoryButton.filters == data.filters then
+					local baseFilters = _G.LFGListFrame.baseFilters
+
+					-- Set the selectedCategory and selectedFilters to a not nil value will cause taint, needs cleanup later
+					self.needTaintCleanup = true
+					selection.selectedCategory = data.categoryID
+					selection.selectedFilters = data.filters
+
 					LFGListSearchPanel_Clear(searchPanel)
-					LFGListSearchPanel_SetCategory(searchPanel, data.categoryID, data.filters, data.baseFilters)
+					LFGListSearchPanel_SetCategory(searchPanel, data.categoryID, data.filters, baseFilters)
 					LFGListSearchPanel_DoSearch(searchPanel)
-					LFGListFrame_SetActivePanel(_G.LFGListFrame, searchPanel)
+					_G.LFGListFrame_SetActivePanel(_G.LFGListFrame, searchPanel)
 					return
 				end
 			end
+		end)
+
+		-- Prehook the back button to clear the selectedCategory and selectedFilters to avoid taint
+		local backButtonOnClick = _G.LFGListFrame.SearchPanel.BackButton:GetScript("OnClick")
+		_G.LFGListFrame.SearchPanel.BackButton:SetScript("OnClick", function(...)
+			if self.needTaintCleanup then
+				_G.LFGListFrame.CategorySelection.selectedCategory = nil
+				_G.LFGListFrame.CategorySelection.selectedFilters = nil
+			end
+			backButtonOnClick(...)
 		end)
 
 		button:SetActive(false)
