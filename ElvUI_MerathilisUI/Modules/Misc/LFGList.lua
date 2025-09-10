@@ -1331,7 +1331,7 @@ function module:InitializeRightPanel()
 	local quickAccessTitle = quickAccessPanel:CreateFontString(nil, "OVERLAY")
 	F.SetFontOutline(quickAccessTitle, nil, 16 + self.db.rightPanel.adjustFontSize)
 	quickAccessTitle:Point("TOP", quickAccessPanel, "TOP", 0, 0)
-	quickAccessTitle:SetText(F.GetWindStyleText(L["Quick Access"]))
+	quickAccessTitle:SetText(F.GetMERStyleText(L["Quick Access"]))
 
 	local quickAccessButtons = {}
 

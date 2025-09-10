@@ -11,19 +11,30 @@ function module:Blizzard_PlayerSpells()
 	local frame = _G.PlayerSpellsFrame
 	self:CreateShadow(frame)
 
-	for _, tab in next, { frame.TabSystem:GetChildren() } do
-		module:ReskinTab(tab)
-	end
-
 	self:CreateBackdropShadow(_G.ClassTalentLoadoutImportDialog)
 	self:CreateBackdropShadow(_G.ClassTalentLoadoutEditDialog)
+
+	for _, tab in next, { frame.TabSystem:GetChildren() } do
+		module:ReskinTab(tab)
+		tab:SetPushedTextOffset(0, 0)
+	end
+
+	local SpellBookFrame = _G.PlayerSpellsFrame.SpellBookFrame
+	if SpellBookFrame then
+		for _, tab in next, { SpellBookFrame.CategoryTabSystem:GetChildren() } do
+			tab.Text:ClearAllPoints()
+			tab.Text:Point("CENTER")
+			F.InternalizeMethod(tab.Text, "SetPoint", true)
+			tab:SetPushedTextOffset(0, 0)
+		end
+	end
 
 	local TalentsSelect = _G.HeroTalentsSelectionDialog
 	if TalentsSelect then
 		hooksecurefunc(TalentsSelect, "ShowDialog", function(frame)
 			if not frame.__MERSkin then
-				frame.__MERSkin = true
 				self:HighAlphaTransparent(TalentsSelect)
+				frame.__MERSkin = true
 			end
 		end)
 	end
