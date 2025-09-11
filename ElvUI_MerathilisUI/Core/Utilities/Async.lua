@@ -1,8 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
-MER.Utilities.Async = {}
-local U = MER.Utilities.Async
-
 local ipairs = ipairs
 local pairs = pairs
 local type = type
@@ -10,12 +7,22 @@ local type = type
 local Item = Item
 local Spell = Spell
 
+local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
+
+---@class AsyncUtility Asynchronous operation utilities
+MER.Utilities.Async = {}
+
+---@type table<string, table> Cache for loaded items and spells
 local cache = {
 	item = {},
 	spell = {},
 }
 
-function U.WithItemID(itemID, callback)
+---Load item data asynchronously and execute callback by item ID
+---@param itemID number The item ID to load
+---@param callback ItemCallback? Callback function to execute when item is loaded
+---@return any? item Cached item data if available
+function MER.Utilities.Async.WithItemID(itemID, callback)
 	if type(itemID) ~= "number" then
 		return
 	end
@@ -48,7 +55,37 @@ function U.WithItemID(itemID, callback)
 	return itemInstance
 end
 
-function U.WithSpellID(spellID, callback)
+---Load item data asynchronously and execute callback by item link
+---@param itemLink string The item link to load
+---@param callback ItemCallback? Callback function to execute when item is loaded
+---@return any
+function MER.Utilities.Async.WithItemLink(itemLink, callback)
+	if type(itemLink) ~= "string" then
+		return
+	end
+
+	if not callback then
+		callback = function(...) end
+	end
+
+	if type(callback) ~= "function" then
+		return
+	end
+
+	local itemID = C_Item_GetItemInfoInstant(itemLink)
+	if not itemID then
+		F.Developer.LogDebug("Failed to get itemID for itemLink: " .. itemLink)
+		return
+	end
+
+	return W.Utilities.Async.WithItemID(itemID, callback)
+end
+
+---Load spell data asynchronously and execute callback
+---@param spellID number The spell ID to load
+---@param callback function? Callback function to execute when spell is loaded
+---@return any? spell Cached spell data if available
+function MER.Utilities.Async.WithSpellID(spellID, callback)
 	if type(spellID) ~= "number" then
 		return
 	end
@@ -82,7 +119,12 @@ function U.WithSpellID(spellID, callback)
 	return spellInstance
 end
 
-function U.WithItemIDTable(itemIDTable, tType, callback, tableCallback)
+---Load multiple items asynchronously from a table
+---@param itemIDTable table Table containing item IDs
+---@param tType string? Type of table processing
+---@param callback function? Callback for individual items
+---@param tableCallback function? Callback for completed table
+function MER.Utilities.Async.WithItemIDTable(itemIDTable, tType, callback, tableCallback)
 	if type(itemIDTable) ~= "table" then
 		return
 	end
@@ -167,7 +209,12 @@ function U.WithItemIDTable(itemIDTable, tType, callback, tableCallback)
 	end
 end
 
-function U.WithSpellIDTable(spellIDTable, tType, callback)
+---Load multiple spells asynchronously from a table
+---@param spellIDTable table Table containing spell IDs
+---@param tType string? Type of table processing
+---@param callback function? Callback for individual spells
+---@param tableCallback function? Callback for completed table
+function MER.Utilities.Async.WithSpellIDTable(spellIDTable, tType, callback, tableCallback)
 	if type(spellIDTable) ~= "table" then
 		return
 	end
@@ -180,30 +227,79 @@ function U.WithSpellIDTable(spellIDTable, tType, callback)
 		return
 	end
 
+	if not tableCallback then
+		tableCallback = function(...) end
+	end
+
+	if type(tableCallback) ~= "function" then
+		return
+	end
+
 	if type(tType) ~= "string" then
 		tType = "value"
 	end
 
+	local totalItems = 0
+	local completedItems = 0
+	local results = {}
+
+	-- Count total items first
+	if tType == "list" then
+		totalItems = #spellIDTable
+	elseif tType == "value" then
+		for _ in pairs(spellIDTable) do
+			totalItems = totalItems + 1
+		end
+	elseif tType == "key" then
+		for spellID, value in pairs(spellIDTable) do
+			if value then
+				totalItems = totalItems + 1
+			end
+		end
+	end
+
+	local function onSpellComplete(spellID, spellInstance)
+		completedItems = completedItems + 1
+		results[spellID] = spellInstance
+
+		-- Call individual callback
+		callback(spellInstance)
+
+		-- Check if all spells are complete
+		if completedItems >= totalItems then
+			tableCallback(results, spellIDTable)
+		end
+	end
+
 	if tType == "list" then
 		for _, spellID in ipairs(spellIDTable) do
-			U.WithSpellID(spellID, callback)
+			W.Utilities.Async.WithSpellID(spellID, function(spellInstance)
+				onSpellComplete(spellID, spellInstance)
+			end)
 		end
-	end
-
-	if tType == "value" then
+	elseif tType == "value" then
 		for _, spellID in pairs(spellIDTable) do
-			U.WithSpellID(spellID, callback)
+			W.Utilities.Async.WithSpellID(spellID, function(spellInstance)
+				onSpellComplete(spellID, spellInstance)
+			end)
+		end
+	elseif tType == "key" then
+		for spellID, value in pairs(spellIDTable) do
+			if value then
+				W.Utilities.Async.WithSpellID(spellID, function(spellInstance)
+					onSpellComplete(spellID, spellInstance)
+				end)
+			end
 		end
 	end
 
-	if tType == "key" then
-		for spellID, _ in pairs(spellIDTable) do
-			U.WithSpellID(spellID, callback)
-		end
+	-- Handle empty table case
+	if totalItems == 0 then
+		tableCallback({}, spellIDTable)
 	end
 end
 
-function U.WithItemSlotID(itemSlotID, callback)
+function MER.Utilities.Async.WithItemSlotID(itemSlotID, callback)
 	if type(itemSlotID) ~= "number" then
 		return
 	end
