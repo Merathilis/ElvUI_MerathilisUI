@@ -78,7 +78,7 @@ function MER.Utilities.Async.WithItemLink(itemLink, callback)
 		return
 	end
 
-	return W.Utilities.Async.WithItemID(itemID, callback)
+	return MER.Utilities.Async.WithItemID(itemID, callback)
 end
 
 ---Load spell data asynchronously and execute callback
