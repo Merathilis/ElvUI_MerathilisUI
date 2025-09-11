@@ -273,20 +273,20 @@ function MER.Utilities.Async.WithSpellIDTable(spellIDTable, tType, callback, tab
 
 	if tType == "list" then
 		for _, spellID in ipairs(spellIDTable) do
-			W.Utilities.Async.WithSpellID(spellID, function(spellInstance)
+			MER.Utilities.Async.WithSpellID(spellID, function(spellInstance)
 				onSpellComplete(spellID, spellInstance)
 			end)
 		end
 	elseif tType == "value" then
 		for _, spellID in pairs(spellIDTable) do
-			W.Utilities.Async.WithSpellID(spellID, function(spellInstance)
+			MER.Utilities.Async.WithSpellID(spellID, function(spellInstance)
 				onSpellComplete(spellID, spellInstance)
 			end)
 		end
 	elseif tType == "key" then
 		for spellID, value in pairs(spellIDTable) do
 			if value then
-				W.Utilities.Async.WithSpellID(spellID, function(spellInstance)
+				MER.Utilities.Async.WithSpellID(spellID, function(spellInstance)
 					onSpellComplete(spellID, spellInstance)
 				end)
 			end
