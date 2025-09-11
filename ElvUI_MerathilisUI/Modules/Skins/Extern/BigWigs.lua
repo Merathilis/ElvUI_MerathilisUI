@@ -339,6 +339,10 @@ function module:BigWigs_Keystone()
 	local BigWigsL = _G.BigWigsAPI and _G.BigWigsAPI:GetLocale("BigWigs")
 	local titleText = BigWigsL and BigWigsL.keystoneTitle
 
+	if not titleText then
+		return
+	end
+
 	local finder = OF:New()
 	finder:Find("Frame", function(frame)
 		-- Because the function is run on any type objects, need to ensure the safety
@@ -365,14 +369,16 @@ function module:BigWigs_Keystone()
 		self:CreateShadow(frame)
 		S:HandleCloseButton(frame.CloseButton)
 
-		for _, tab in next, frame.Tabs do
-			S:HandleTab(tab)
-			self:ReskinTab(tab)
-			tab:SetHeight(32)
+		if frame.Tabs then
+			for _, tab in next, frame.Tabs do
+				self:Proxy("HandleTab", tab)
+				self:ReskinTab(tab)
+				tab:SetHeight(32)
 
-			if tab:GetPoint(1) == "BOTTOMLEFT" then
-				tab:ClearAllPoints()
-				tab:Point("BOTTOMLEFT", 10, -31)
+				if tab:GetPoint(1) == "BOTTOMLEFT" then
+					tab:ClearAllPoints()
+					tab:Point("BOTTOMLEFT", 10, -31)
+				end
 			end
 		end
 	end)
