@@ -183,20 +183,20 @@ function MER.Utilities.Async.WithItemIDTable(itemIDTable, tType, callback, table
 
 	if tType == "list" then
 		for _, itemID in ipairs(itemIDTable) do
-			U.WithItemID(itemID, function(itemInstance)
+			MER.Utilities.Async.WithItemID(itemID, function(itemInstance)
 				onItemComplete(itemID, itemInstance)
 			end)
 		end
 	elseif tType == "value" then
 		for _, itemID in pairs(itemIDTable) do
-			U.WithItemID(itemID, function(itemInstance)
+			MER.Utilities.Async.WithItemID(itemID, function(itemInstance)
 				onItemComplete(itemID, itemInstance)
 			end)
 		end
 	elseif tType == "key" then
 		for itemID, value in pairs(itemIDTable) do
 			if value then
-				U.WithItemID(itemID, function(itemInstance)
+				MER.Utilities.Async.WithItemID(itemID, function(itemInstance)
 					onItemComplete(itemID, itemInstance)
 				end)
 			end
