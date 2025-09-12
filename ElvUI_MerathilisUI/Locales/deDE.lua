@@ -528,56 +528,6 @@ L["Middle click the character back slot to open the Reshii Wraps upgrade menu."]
 	"Mittelklick auf den Rückenslot des Charakters, um das Reshii Wraps Upgrade Menü zu öffnen."
 L["Open Upgrade Menu"] = "Upgrade Menü öffnen"
 L["Reshii Wraps Upgrade"] = true -- no need to translate
-L["Dungeon Score"] = "Dungeon Wertunng"
-L["Leader's Dungeon Score"] = "Anführers Dungeon Wertung"
-L["Overall Score"] = "Gesamtwertung"
-L["Leader's Overall Score"] = "Anführers Gesamtwertung"
-L["Party Keystone"] = "Gruppen Schlüsselstein"
-L["More"] = "Mehr"
-L["You need to install Details! first."] = "Du musst zuerst Details! installieren."
-L["Click to open Details! keystone info window."] =
-	"Klicke hier, um das Schlüsselstein-Infofenster „Details!“ zu öffnen."
-L["Send"] = "Senden"
-L["You are not in a party."] = "Du bist nicht in einer Gruppe."
-L["Click to send keystone info to party chat."] =
-	"Klicke hier, um Schlüsselstein-Informationen an den Party-Chat zu senden."
-L["Affixes"] = "Affixe"
-L["Leader Score"] = "Führer Punkte"
-L["Leader Score Over"] = "Anführer Wertung Über"
-L["The overall mythic+ score of the leader."] = "Die mythische+ Gesamtwertung des Anführers."
-L["Dungeon Score Over"] = "Dungeon Wertung Über"
-L["Leader's Dungeon Score"] = "Anführers Dungeon Wertung"
-L["The recruited dungeon mythic+ score of the leader."] = "Die rekrutierte Dungeon Mythisch+ Wertung des Anführers."
-L["Role Available"] = "Verfügbare Rolle"
-L["Has Tank"] = "Hat einen Tank"
-L["Has Healer"] = "Hat einen Heiler"
-L["Enable this filter will only show the group that fits you or your group members to join."] =
-	"Aktiviert diesen Filter, um nur die Gruppe anzuzeigen, die zu Dir oder Deinen Gruppenmitgliedern passt."
-L["It will check the role of current party members if you are in a group."] =
-	"Es wird die Rolle der aktuellen Gruppenspieler überprüfen, wenn Du in einer Gruppe bist."
-L["Otherwise, it will filter with your current specialization."] =
-	"Andernfalls wird mit Deiner aktuellen Spezialisierung gefiltert."
-L["Enable this filter will only show the group that have the tank already in party."] =
-	"Wenn Du diesen Filter aktivierst, wird nur die Gruppe angezeigt, deren Tank bereits in der Gruppe ist."
-L["If you already have a tank in your group and you use the 'Role Available' filter, it won't find any match."] =
-	"Wenn Du bereits einen Tank in Deiner Gruppe hast und den Filter „Rolle verfügbar“ verwenden, wird keine Übereinstimmung gefunden."
-L["Enable this filter will only show the group that have the healer already in party."] =
-	"Wenn Du diesen Filter aktivierst, wird nur die Gruppe angezeigt, in der der Heiler bereits in der Gruppe ist."
-L["If you already have a healer in your group and you use the 'Role Available' filter, it won't find any match."] =
-	"Wenn Du bereits einen Heiler in Deiner Gruppe hast und den Filter „Rolle verfügbar“ verwenden, wird keine Übereinstimmung gefunden."
-L["The Great Vault"] = "Die große Schatzkammer"
-L["No weekly runs found."] = "Keine wöchentlichen Läufe gefunden."
-L["Click to open the weekly rewards frame."] = "Klicke um das wöchentliche Belohnungsfenster zu öffnen."
-L["No Mythic+ Runs"] = "Keine Mythisch+ Läufe"
-L["Descending"] = "Absteigend"
-L["Ascending"] = "Aufsteigend"
-L["Sort by"] = "Sortieren nach"
-L["Quick Access"] = "Schnellzugriff"
-L["Mythic+"] = "Mytisch+"
-L["Raids"] = "Schlachtzüge"
-L["Delves"] = "Tiefen"
-L["Quest"] = true
-L["Custom"] = "Benutzerdefiniert"
 
 -- Move Frames
 L["Move Frames"] = "Fenster verschieben"
