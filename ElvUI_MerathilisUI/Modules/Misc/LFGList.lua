@@ -326,40 +326,42 @@ function LL:UpdateEnumerate(Enumerate)
 		return
 	end
 
-	---@type table<string, [ClassFile, string, boolean][]>
-	local cache = { TANK = {}, HEALER = {}, DAMAGER = {} }
+	if self.db.icon.enable then
+		---@type table<string, [ClassFile, string, boolean][]>
+		local cache = { TANK = {}, HEALER = {}, DAMAGER = {} }
 
-	for i = 1, result.numMembers do
-		local playerInfo = C_LFGList_GetSearchResultPlayerInfo(button.resultID, i)
-		if playerInfo then
-			local role, class, spec, isLeader =
-				playerInfo.assignedRole, playerInfo.classFilename, playerInfo.specName, playerInfo.isLeader
-			tinsert(cache[role], { class, spec, isLeader })
-		end
-	end
-
-	for i = 5, 1, -1 do -- The index of icon starts from right
-		local icon = Enumerate["Icon" .. i]
-		local roleIcon = icon.RoleIcon
-		local classCircle = icon.ClassCircle
-
-		if roleIcon and roleIcon.SetTexture then
-			if #cache.TANK > 0 then
-				self:ReskinIcon(Enumerate, roleIcon, "TANK", cache.TANK[1])
-				tremove(cache.TANK, 1)
-			elseif #cache.HEALER > 0 then
-				self:ReskinIcon(Enumerate, roleIcon, "HEALER", cache.HEALER[1])
-				tremove(cache.HEALER, 1)
-			elseif #cache.DAMAGER > 0 then
-				self:ReskinIcon(Enumerate, roleIcon, "DAMAGER", cache.DAMAGER[1])
-				tremove(cache.DAMAGER, 1)
-			else
-				self:ReskinIcon(Enumerate, roleIcon)
+		for i = 1, result.numMembers do
+			local playerInfo = C_LFGList_GetSearchResultPlayerInfo(button.resultID, i)
+			if playerInfo then
+				local role, class, spec, isLeader =
+					playerInfo.assignedRole, playerInfo.classFilename, playerInfo.specName, playerInfo.isLeader
+				tinsert(cache[role], { class, spec, isLeader })
 			end
 		end
 
-		if classCircle and self.db.icon.hideDefaultClassCircle then
-			classCircle:Hide()
+		for i = 5, 1, -1 do -- The index of icon starts from right
+			local icon = Enumerate["Icon" .. i]
+			local roleIcon = icon.RoleIcon
+			local classCircle = icon.ClassCircle
+
+			if roleIcon and roleIcon.SetTexture then
+				if #cache.TANK > 0 then
+					self:ReskinIcon(Enumerate, roleIcon, "TANK", cache.TANK[1])
+					tremove(cache.TANK, 1)
+				elseif #cache.HEALER > 0 then
+					self:ReskinIcon(Enumerate, roleIcon, "HEALER", cache.HEALER[1])
+					tremove(cache.HEALER, 1)
+				elseif #cache.DAMAGER > 0 then
+					self:ReskinIcon(Enumerate, roleIcon, "DAMAGER", cache.DAMAGER[1])
+					tremove(cache.DAMAGER, 1)
+				else
+					self:ReskinIcon(Enumerate, roleIcon)
+				end
+			end
+
+			if classCircle and self.db.icon.hideDefaultClassCircle then
+				classCircle:Hide()
+			end
 		end
 	end
 
@@ -383,6 +385,10 @@ function LL:UpdateEnumerate(Enumerate)
 end
 
 function LL:UpdateRoleCount(RoleCount)
+	if not self.db.icon.enable then
+		return
+	end
+
 	if RoleCount.TankIcon then
 		self:ReskinIcon(nil, RoleCount.TankIcon, "TANK")
 	end
@@ -1669,10 +1675,8 @@ function LL:Initialize()
 	C_MythicPlus.RequestCurrentAffixes()
 	C_MythicPlus.RequestMapInfo()
 
-	if self.db.icon.enable then
-		self:SecureHook("LFGListGroupDataDisplayEnumerate_Update", "UpdateEnumerate")
-		self:SecureHook("LFGListGroupDataDisplayRoleCount_Update", "UpdateRoleCount")
-	end
+	self:SecureHook("LFGListGroupDataDisplayEnumerate_Update", "UpdateEnumerate")
+	self:SecureHook("LFGListGroupDataDisplayRoleCount_Update", "UpdateRoleCount")
 
 	self:SecureHook(_G.PVEFrame, "Show", function()
 		self:RequestKeystoneData()
