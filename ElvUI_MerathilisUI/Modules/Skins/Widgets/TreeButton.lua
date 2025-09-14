@@ -8,7 +8,12 @@ local abs = abs
 local type = type
 
 function WS:HandleTreeGroup(widget)
-	if not E.private.mui.skins.enable or not E.private.mui.skins.widgets.treeGroupButton.enable then
+	local db = E.private.mui
+		and E.private.mui.skins
+		and E.private.mui.skins.widgets
+		and E.private.mui.skins.widgets.treeGroupButton
+
+	if not E.private.mui.skins.enable or not db.enable then
 		return
 	end
 
@@ -16,11 +21,6 @@ function WS:HandleTreeGroup(widget)
 		self:RegisterLazyLoad(widget, "HandleTreeGroup")
 		return
 	end
-
-	local db = E.private.mui
-		and E.private.mui.skins
-		and E.private.mui.skins.widgets
-		and E.private.mui.skins.widgets.treeGroupButton
 
 	if widget.CreateButton and not widget.CreateButton_MER then
 		widget.CreateButton_MER = widget.CreateButton

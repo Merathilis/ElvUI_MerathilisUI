@@ -58,8 +58,16 @@ options.vehicleBar = {
 						E:StaticPopup_Show("CONFIG_RL")
 					end,
 				},
+			},
+		},
+		buttonGroup = {
+			order = 4,
+			type = "group",
+			name = E.NewSign .. L["Buttons"],
+			desc = L["Settings for the Action Bar Buttons of the Vehicle Bar.\n\n"],
+			args = {
 				buttonWidth = {
-					order = 3,
+					order = 1,
 					type = "range",
 					name = L["Button Width"],
 					desc = L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."],
@@ -71,10 +79,36 @@ options.vehicleBar = {
 						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
 					end,
 				},
+				showKeybinds = {
+					order = 2,
+					type = "toggle",
+					name = E.NewSign .. L["Show Keybinds"],
+					desc = L["Toggle whether to show keybinds of an action bar button on the Vehicle Bar."],
+					get = function()
+						return E.db.mui.vehicleBar.showKeybinds
+					end,
+					set = function(_, value)
+						E.db.mui.vehicleBar.showKeybinds = value
+						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
+					end,
+				},
+				showMacro = {
+					order = 3,
+					type = "toggle",
+					name = E.NewSign .. L["Show Macro Text"],
+					desc = L["Toggle whether to show macro text of an action bar button on the Vehicle Bar."],
+					get = function()
+						return E.db.mui.vehicleBar.showMacro
+					end,
+					set = function(_, value)
+						E.db.mui.vehicleBar.showMacro = value
+						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
+					end,
+				},
 			},
 		},
 		animationsGroup = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = L["Animations"],
 			disabled = function()
@@ -111,7 +145,7 @@ options.vehicleBar = {
 			},
 		},
 		vigorGroupGroup = {
-			order = 5,
+			order = 6,
 			type = "group",
 			name = L["Skyriding Bar"],
 			disabled = function()

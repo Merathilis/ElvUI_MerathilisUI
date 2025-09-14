@@ -1320,6 +1320,9 @@ P.vehicleBar = {
 	animations = true,
 	animationsMult = 1,
 
+	showKeybinds = true,
+	showMacro = true,
+
 	position = "BOTTOM,ElvUIParent,BOTTOM,0,140",
 
 	vigorBar = {
