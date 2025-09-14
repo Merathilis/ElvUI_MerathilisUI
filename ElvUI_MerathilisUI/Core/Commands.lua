@@ -52,8 +52,8 @@ do
 			for i = 1, GetNumAddOns() do
 				local name = GetAddOnInfo(i)
 				if not AcceptableAddons[name] and E:IsAddOnEnabled(name) then
-					DisableAddOn(name, E.myname)
-					_G.ElvDB.MER.DisabledAddOns[name] = i
+					DisableAddOn(name, E.myguid)
+					ElvDB.MER.DisabledAddOns[name] = i
 				end
 			end
 
@@ -70,7 +70,7 @@ do
 
 			if next(ElvDB.MER.DisabledAddOns) then
 				for name in pairs(ElvDB.MER.DisabledAddOns) do
-					EnableAddOn(name, E.myname)
+					EnableAddOn(name, E.myguid)
 				end
 				wipe(ElvDB.MER.DisabledAddOns)
 				Reload()
