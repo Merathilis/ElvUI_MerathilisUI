@@ -15,7 +15,7 @@ local function SkinProfilingLine(frame)
 
 	if frame.progressBar then
 		frame.progressBar:SetStatusBarTexture(E.media.normTex)
-		F.SetFontOutline(frame.progressBar.name, W.AsianLocale and E.db.general.font or nil)
+		F.SetFontOutline(frame.progressBar.name)
 	end
 
 	if frame.time then
