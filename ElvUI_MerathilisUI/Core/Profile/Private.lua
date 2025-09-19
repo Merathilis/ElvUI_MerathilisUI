@@ -368,6 +368,7 @@ V.skins = {
 		mrp = true,
 		klf = true,
 		simc = true,
+		aio = true,
 		whisperPop = true,
 		paragonReputation = true,
 		manuscriptsJournal = true,

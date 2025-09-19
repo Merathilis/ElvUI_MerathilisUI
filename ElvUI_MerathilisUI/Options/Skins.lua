@@ -18,6 +18,7 @@ local YELLOW_FONT_COLOR = YELLOW_FONT_COLOR
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
 	{ "ActionBarProfiles", L["ActonBarProfiles"], "abp" },
+	{ "AdvancedInterfaceOptions", L["Advanced Interface Options"], "aio" },
 	{ "Auctionator", L["Auctionator"], "au" },
 	{ "BagSync", L["BagSync"], "bSync" },
 	{ "BtWQuests", L["BtWQuests"], "btwQ" },

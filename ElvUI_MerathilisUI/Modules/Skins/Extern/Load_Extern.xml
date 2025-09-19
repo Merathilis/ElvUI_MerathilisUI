@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="ACP.lua"/>
 	<Script file="ActionBarProfiles.lua"/>
+	<Script file="AdvancedInterfaceOptions.lua"/>
 	<Script file="Auctionator.lua"/>
 	<Script file="BagSync.lua"/>
 	<Script file="BigWigs.lua"/>
