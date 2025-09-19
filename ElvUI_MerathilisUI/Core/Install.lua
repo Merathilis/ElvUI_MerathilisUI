@@ -1639,8 +1639,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
 	E.db["unitframe"]["units"]["target"]["buffs"]["maxDuration"] = 0
-	E.db["unitframe"]["units"]["target"]["buffs"]["priority"] =
-		"Blacklist,Personal,Boss,Whitelist,PlayerBuffs,nonPersonal"
 	E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "- Expressway"
 	E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
 	E.db["unitframe"]["units"]["target"]["buffs"]["durationPosition"] = "TOP"
