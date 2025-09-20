@@ -112,16 +112,17 @@ E:AddTag("name:gradientcustom", "UNIT_NAME_UPDATE", function(unit)
 end)
 
 -- Class Icons
-for index, style in pairs(F.GetClassIconStyleList()) do
+for _, style in pairs(F.GetClassIconStyleList()) do
 	E:AddTag("classicon-" .. style, "UNIT_NAME_UPDATE", function(unit)
 		local englishClass = select(2, UnitClass(unit))
-		return englishClass and F.GetClassIconStringWithStyle(englishClass, style)
+		return englishClass and F.GetClassIconStringWithStyle(englishClass, style) or ""
 	end)
+
 	for i = 1, GetNumClasses() do
 		local englishClass = select(2, GetClassInfo(i))
 		if englishClass then
 			E:AddTag("classicon-" .. style .. ":" .. strlower(englishClass), "UNIT_NAME_UPDATE", function()
-				return F.GetClassIconStringWithStyle(englishClass, style)
+				return F.GetClassIconStringWithStyle(englishClass, style) or ""
 			end)
 		end
 	end
