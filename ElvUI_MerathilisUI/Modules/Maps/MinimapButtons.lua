@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_MiniMapButtons")
 local S = MER:GetModule("MER_Skins")
 local MM = E:GetModule("Minimap")
+local C = MER.Utilities.Color
 
 local _G = _G
 local ceil = ceil
@@ -199,7 +200,7 @@ function module:HandleExpansionButton(...)
 			button.AlertText:Kill()
 			button.AlertText.SetText = function(_, text)
 				if text then
-					local event = F.CreateColorString(button.title or L["Garrison"], E.db.general.valuecolor)
+					local event = C.StringWithRGB(button.title or L["Garrison"], E.db.general.valuecolor)
 					F.Print(event .. " " .. text)
 				end
 			end

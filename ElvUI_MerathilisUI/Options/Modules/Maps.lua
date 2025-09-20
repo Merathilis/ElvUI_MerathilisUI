@@ -783,10 +783,7 @@ options.maps = {
 									confirm = function()
 										return format(
 											L["Are you sure to delete the %s command?"],
-											F.CreateColorString(
-												envs.superTracker.selectedCommand,
-												E.db.general.valuecolor
-											)
+											C.StringWithRGB(envs.superTracker.selectedCommand, E.db.general.valuecolor)
 										)
 									end,
 									disabled = function()

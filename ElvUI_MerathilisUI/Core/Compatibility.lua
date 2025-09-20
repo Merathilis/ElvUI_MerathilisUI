@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins") ---@type Skins
 local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 local ES = E:GetModule("Skins")
+local C = MER.Utilities.Color
 
 local _G = _G
 local format = format
@@ -64,9 +65,9 @@ function MER:ConstructCompatibilityFrame()
 	largeTip:SetText(
 		format(
 			"%s %s %s",
-			F.CreateColorString("[", E.db.general.valuecolor),
+			C.StringWithRGB("[", E.db.general.valuecolor),
 			L["Choose the module you would like to |cff00ff00use|r"],
-			F.CreateColorString("]", E.db.general.valuecolor)
+			C.StringWithRGB("]", E.db.general.valuecolor)
 		)
 	)
 	largeTip:Point("TOPLEFT", desc, "BOTTOMLEFT", 0, -10)

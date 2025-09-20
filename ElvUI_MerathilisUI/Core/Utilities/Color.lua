@@ -401,28 +401,49 @@ function MER.Utilities.Color.StringByTemplate(text, template)
 	return MER.Utilities.Color.StringWithHex(text, color)
 end
 
+---Create class colored string
+---@param text string The text to colorize
+---@param classFile ClassFile? The English class name (e.g., "WARRIOR", "MAGE")
+---@return string? coloredText The class colored string or nil if parameters are invalid
+function MER.Utilities.Color.StringWithClassColor(text, classFile)
+	if not text or type(text) ~= "string" then
+		F.Developer.LogDebug("Functions.StringWithClassColor: text not found")
+		return
+	end
+
+	if not classFile or type(classFile) ~= "string" then
+		F.Developer.LogDebug("Color.StringWithClassColor: class not found")
+		return
+	end
+
+	local color = E:ClassColor(classFile, true)
+	if not color then
+		F.Developer.LogDebug("Color.StringWithClassColor: invalid class " .. tostring(classFile))
+		return
+	end
+
+	return MER.Utilities.Color.StringWithRGB(text, color.r, color.g, color.b)
+end
+
 ---Create colored string with RGB values
----@param text any The text to colorize (will be converted to string)
----@param r number|table Red component (0-1) or color table with r,g,b fields
----@param g number? Green component (0-1, required if r is number)
----@param b number? Blue component (0-1, required if r is number)
+---@param text string|number The text or number to colorize
+---@param r number Red component (0-1)
+---@param g number Green component (0-1)
+---@param b number Blue component (0-1)
 ---@return string coloredText The colored string
 function MER.Utilities.Color.StringWithRGB(text, r, g, b)
 	if text == nil then
 		F.Developer.LogDebug("Text parameter cannot be nil")
 		return ""
 	end
-	if type(text) ~= "string" then
-		text = tostring(text)
-	end
 
-	if type(r) == "table" then
+	text = tostring(text)
+
+	if type(r) == "table" then -- Color table provided
 		if type(r.r) ~= "number" or type(r.g) ~= "number" or type(r.b) ~= "number" then
 			F.Developer.LogDebug("Color table must contain r, g, b numeric values")
 		end
-		g = r.g
-		b = r.b
-		r = r.r
+		r, g, b = r.r, r.g, r.b
 	else
 		if type(r) ~= "number" or type(g) ~= "number" or type(b) ~= "number" then
 			F.Developer.LogDebug("RGB values must be numbers when not using a color table")

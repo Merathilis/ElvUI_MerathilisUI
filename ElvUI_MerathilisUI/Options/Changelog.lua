@@ -1,11 +1,12 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.changelog.args
+local C = MER.Utilities.Color
 
 local function Color(string)
 	if type(string) ~= "string" then
 		string = tostring(string)
 	end
-	return F.CreateColorString(string, E.db.general.valuecolor)
+	return C.StringWithRGB(string, E.db.general.valuecolor)
 end
 
 options.changelog = {

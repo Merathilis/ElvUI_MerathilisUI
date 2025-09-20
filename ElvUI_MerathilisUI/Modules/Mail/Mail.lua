@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_Mail")
 local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
 local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
+local C = MER.Utilities.Color
 
 -- Credits: WindTools :)
 local _G = _G
@@ -460,7 +461,7 @@ function module:UpdatePage(pageIndex)
 					button.faction = temp.faction
 					button.BNName = temp.BNName
 				end
-				button:SetText(button.class and F.CreateClassColorString(button.name, button.class) or button.name)
+				button:SetText(button.class and C.StringWithClassColor(button.name, button.class) or button.name)
 				button:Show()
 			else
 				button.dType = nil

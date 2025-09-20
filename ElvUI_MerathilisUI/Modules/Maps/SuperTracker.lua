@@ -9,7 +9,7 @@ local tinsert = tinsert
 
 local ClearUserWaypoint = C_Map.ClearUserWaypoint
 local GetBestMapForUnit = C_Map.GetBestMapForUnit
-local GetMapInfo = C_Map.GetMapInfo
+local C_Map_GetMapInfo = C_Map.GetMapInfo
 local HasUserWaypoint = C_Map.HasUserWaypoint
 local CanSetUserWaypointOnMap = C_Map.CanSetUserWaypointOnMap
 local GetDistance = C_Navigation.GetDistance
@@ -181,7 +181,12 @@ function module.commandHandler(msg, isPreview)
 			waypointString = waypointString .. ", " .. numbers[3]
 		end
 
-		local mapData = GetMapInfo(mapID) or GetMapInfo(GetBestMapForUnit("player"))
+		local mapData = mapID and C_Map_GetMapInfo(mapID)
+		if not mapData then
+			local uiMapID = C_Map_GetBestMapForUnit("player")
+			mapData = uiMapID and C_Map_GetMapInfo(uiMapID)
+		end
+
 		return true, mapData.name .. " (" .. waypointString .. ")"
 	else
 		module:SetWaypoint(mapID, unpack(numbers))
@@ -192,10 +197,10 @@ function module:SetWaypoint(mapID, x, y, z)
 	mapID = mapID or _G.WorldMapFrame:IsShown() and _G.WorldMapFrame:GetMapID() or GetBestMapForUnit("player")
 
 	-- colored waypoint string
-	local mapData = GetMapInfo(mapID)
+	local mapData = C_Map_GetMapInfo(mapID) ---@type UiMapDetails?
 	if not mapData then
 		mapID = GetBestMapForUnit("player")
-		mapData = GetMapInfo(mapID)
+		mapData = mapID and C_Map_GetMapInfo(mapID) --[[@as UiMapDetails]]
 	end
 	local mapName = mapData.name
 	local location = format("%s, %s", x, y)
@@ -250,7 +255,7 @@ function module:WaypointParse()
 	local editBox = F.Widgets.New("Input", _G.WorldMapFrame, 200, 20, function(eb)
 		self.commandHandler(eb:GetText(), false)
 		eb:ClearFocus()
-	end)
+	end) --[[@as EditBox]]
 
 	module.WorldMapInput = editBox
 
@@ -290,7 +295,7 @@ function module:WaypointParse()
 		end
 
 		local success, preview = self.commandHandler(inputText, true)
-		statusText:SetText(C.StringByTemplate(preview, success and "green-400" or "rose-500"))
+		statusText:SetText(C.StringByTemplate(preview or "", success and "green-400" or "rose-500"))
 	end)
 
 	F.Widgets.AddTooltip(

@@ -429,47 +429,6 @@ function F.unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
 
----Create colored string from database settings
----@param text string The text to colorize
----@param db RGB Color database containing r, g, b values
----@return string? coloredText The colored string or nil if parameters are invalid
-function F.CreateColorString(text, db)
-	if not text or type(text) ~= "string" then
-		F.Developer.LogDebug("Functions.CreateColorString: text not found")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.CreateColorString: db not found")
-		return
-	end
-
-	local hex = db.r and db.g and db.b and E:RGBToHex(db.r, db.g, db.b) or "|cffffffff"
-
-	return hex .. text .. "|r"
-end
-
----Create class colored string
----@param text string The text to colorize
----@param classFile ClassFile? The English class name (e.g., "WARRIOR", "MAGE")
----@return string? coloredText The class colored string or nil if parameters are invalid
-function F.CreateClassColorString(text, classFile)
-	if not text or type(text) ~= "string" then
-		F.Developer.LogDebug("Functions.CreateClassColorString: text not found")
-		return
-	end
-
-	if not classFile or type(classFile) ~= "string" then
-		F.Developer.LogDebug("Functions.CreateClassColorString: class not found")
-		return
-	end
-
-	local r, g, b = GetClassColor(classFile)
-	local hex = r and g and b and E:RGBToHex(r, g, b) or "|cffffffff"
-
-	return hex .. text .. "|r"
-end
-
 --return the background offset
 local function bgfade(isBG)
 	if isBG then

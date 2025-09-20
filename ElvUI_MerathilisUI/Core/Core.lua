@@ -104,8 +104,7 @@ E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 
 _G.BINDING_CATEGORY_ELVUI_MERATHILISUI = MER.Title
 for i = 1, 5 do
-	_G["BINDING_HEADER_AUTOBUTTONBAR" .. i] =
-		F.CreateColorString(L["AutoButtonBar"] .. " " .. i, E.db.general.valuecolor)
+	_G["BINDING_HEADER_AUTOBUTTONBAR" .. i] = C.StringWithRGB(L["AutoButtonBar"] .. " " .. i, E.db.general.valuecolor)
 	for j = 1, 12 do
 		_G[format("BINDING_NAME_CLICK AutoButtonBar%dButton%d:LeftButton", i, j)] = L["Button"] .. " " .. j
 	end

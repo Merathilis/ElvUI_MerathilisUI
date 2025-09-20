@@ -1,5 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local T = MER:GetModule("MER_Tooltip")
+local C = MER.Utilities.Color
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -212,7 +213,7 @@ function T:AddPetID(tt, unit, guid)
 	end
 
 	local speciesID = UnitBattlePetSpeciesID(unit)
-	local speciesIDString = speciesID and F.CreateColorString(tostring(speciesID), E.db.general.valuecolor)
+	local speciesIDString = speciesID and C.StringWithRGB(tostring(speciesID), E.db.general.valuecolor)
 	if speciesIDString then
 		tt:AddDoubleLine(L["Pet ID"] .. ": ", speciesIDString or ("|cffeeeeee" .. L["Unknown"] .. "|r"))
 	end

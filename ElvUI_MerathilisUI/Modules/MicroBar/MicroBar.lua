@@ -3,6 +3,7 @@ local GB = MER:GetModule("MER_MicroBar")
 local S = MER:GetModule("MER_Skins")
 local DT = E:GetModule("DataTexts")
 local async = MER.Utilities.Async
+local C = MER.Utilities.Color
 
 -- Credits: fang2hou - ElvUI_Windtools (and me for the initial idea ^^)
 local _G = _G
@@ -1026,7 +1027,7 @@ function GB:UpdateTime()
 		minute = format("%02d", minute)
 	end
 
-	panel.colon:SetText(F.CreateColorString(":", self.mouseOverRGB))
+	panel.colon:SetText(C.StringWithRGB(":", self.mouseOverRGB))
 	panel.hour:SetText(hour)
 	panel.minutes:SetText(minute)
 	panel.colon:ClearAllPoints()
@@ -1229,7 +1230,7 @@ function GB:UpdateButton(button, buttonType)
 		button.additionalTextTimer:Cancel()
 	end
 
-	button.additionalTextFormat = F.CreateColorString("%s", self.mouseOverRGB)
+	button.additionalTextFormat = C.StringWithRGB("%s", self.mouseOverRGB)
 
 	if config.additionalText and self.db.additionalText.enable then
 		button.additionalText:SetFormattedText(

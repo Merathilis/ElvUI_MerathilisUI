@@ -1,8 +1,8 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_FriendsList")
+local C = MER.Utilities.Color
 
 local _G = _G
-local format = format
 local pairs = pairs
 local strsplit = strsplit
 
@@ -325,18 +325,18 @@ function module:UpdateFriendButton(button)
 
 		-- real ID
 		local clientColor = module.db.useClientColor and clientData[gameName] and clientData[gameName].color
-		local realIDString = realID and clientColor and F.CreateColorString(realID, clientColor) or realID
+		local realIDString = realID and clientColor and C.StringWithRGB(realID, clientColor) or realID
 
 		-- name
 		local classColor = module.db.useClassColor and GetClassColors(class)
-		local nameString = name and classColor and F.CreateColorString(name, classColor) or name
+		local nameString = name and classColor and C.StringWithRGB(name, classColor) or name
 		if timerunningSeasonID ~= "" and nameString ~= nil then
 			nameString = TimerunningUtil_AddSmallIcon(nameString) or nameString
 		end
 
 		if module.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
 			if level ~= expansionData[wowID].maxLevel or not module.db.hideMaxLevel then
-				nameString = nameString .. F.CreateColorString(": " .. level, GetQuestDifficultyColor(level))
+				nameString = nameString .. C.StringWithRGB(": " .. level, GetQuestDifficultyColor(level))
 			end
 		end
 
@@ -358,9 +358,9 @@ function module:UpdateFriendButton(button)
 			end
 
 			if area and area ~= "" and server and server ~= "" and server ~= E.myrealm then
-				buttonText = F.CreateColorString(area .. " - " .. server, self.db.areaColor)
+				buttonText = C.StringWithRGB(area .. " - " .. server, self.db.areaColor)
 			elseif area and area ~= "" then
-				buttonText = F.CreateColorString(area, self.db.areaColor)
+				buttonText = C.StringWithRGB(area, self.db.areaColor)
 			else
 				buttonText = server or ""
 			end

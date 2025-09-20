@@ -8,8 +8,6 @@ local SA = MER:GetModule("MER_SpellAlert")
 local CM = MER:GetModule("MER_ContextMenu")
 local RIF = MER:GetModule("MER_RaidInfoFrame")
 local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
-local LL = MER:GetModule("MER_LFGList")
-local LSM = E.LSM
 
 local async = MER.Utilities.Async
 
@@ -999,7 +997,7 @@ do
 			local color = item:GetItemQualityColor()
 
 			local iconString = F.GetIconString(icon)
-			local nameString = F.CreateColorString(name, color)
+			local nameString = C.StringWithRGB(name, color)
 
 			options.mute.args.other.args[name] = {
 				order = data.id,
@@ -1654,7 +1652,7 @@ options.moveFrames = {
 						format(
 							L["%s may cause some frames to get messed, but you can use %s button to reset frames."],
 							L["Remember Positions"],
-							F.CreateColorString(L["Clear History"], E.db.general.valuecolor)
+							C.StringWithRGB(L["Clear History"], E.db.general.valuecolor)
 						)
 					),
 					fontSize = "medium",

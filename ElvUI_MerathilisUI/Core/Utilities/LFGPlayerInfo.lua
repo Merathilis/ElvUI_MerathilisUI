@@ -1,4 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = MER.Utilities.Color
 
 local format = format
 local gsub = gsub
@@ -313,7 +314,7 @@ function MER.Utilities.LFGPlayerInfo:Conduct(template, role, class, spec, amount
 			return ""
 		end
 
-		return F.CreateClassColorString(sub, class)
+		return C.StringWithClassColor(sub, class)
 	end)
 
 	-- {{amountStart}} ... {{amountEnd}}
@@ -345,7 +346,7 @@ function MER.Utilities.LFGPlayerInfo:Conduct(template, role, class, spec, amount
 			self:Log("warning", "className not found, class is not given.")
 			return ""
 		end
-		return F.CreateClassColorString(sub, class)
+		return C.StringWithClassColor(sub, class)
 	end)
 
 	return result

@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_SwitchButtons")
 local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
+local C = MER.Utilities.Color
 
 local _G = _G
 
@@ -21,7 +22,7 @@ function module:CreateButton(text, tooltipText)
 	button.originalText = text
 	button.text = button:CreateFontString()
 	F.SetFontDB(button.text, self.db.font)
-	button.text:SetText(F.CreateColorString(button.originalText, self.db.font.color))
+	button.text:SetText(C.StringWithRGB(button.originalText, self.db.font.color))
 	button.text:SetJustifyV("MIDDLE")
 	button.text:SetJustifyH("LEFT")
 	button.text:SetPoint("LEFT", button, "RIGHT")
@@ -68,7 +69,7 @@ function module:UpdateButton(button, enable)
 			button.buttonSize = self.db.font.size + 12
 		end
 
-		button.text:SetText(F.CreateColorString(button.originalText, self.db.font.color))
+		button.text:SetText(C.StringWithRGB(button.originalText, self.db.font.color))
 		local checkedTexture = button:GetCheckedTexture()
 		checkedTexture:SetVertexColor(self.db.font.color.r, self.db.font.color.g, self.db.font.color.b)
 		button.buttonSize = button.buttonSize + button.text:GetStringWidth()

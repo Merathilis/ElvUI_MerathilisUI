@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnitFrames")
 local HP = MER:GetModule("MER_HealPrediction")
 local options = MER.options.modules.args
+local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
 
 local format = string.format
@@ -456,8 +457,8 @@ options.unitframes = {
 										"%s\n%s",
 										format(
 											L["The absorb style %s and %s is highly recommended with %s tweaks."],
-											F.CreateColorString(L["Overflow"], E.db.general.valuecolor),
-											F.CreateColorString(L["Auto Height"], E.db.general.valuecolor),
+											C.StringWithRGB(L["Overflow"], E.db.general.valuecolor),
+											C.StringWithRGB(L["Auto Height"], E.db.general.valuecolor),
 											L["MerathilisUI"]
 										),
 										L["Here are some buttons for helping you change the setting of all absorb bars by one-click."]
@@ -468,7 +469,7 @@ options.unitframes = {
 									type = "execute",
 									name = format(
 										L["Set All Absorb Style to %s"],
-										F.CreateColorString(L["Overflow"], E.db.general.valuecolor)
+										C.StringWithRGB(L["Overflow"], E.db.general.valuecolor)
 									),
 									func = function(info)
 										HP:ChangeDB(function(db)
@@ -482,7 +483,7 @@ options.unitframes = {
 									type = "execute",
 									name = format(
 										L["Set All Absorb Style to %s"],
-										F.CreateColorString(L["Auto Height"], E.db.general.valuecolor)
+										C.StringWithRGB(L["Auto Height"], E.db.general.valuecolor)
 									),
 									func = function(info)
 										HP:ChangeDB(function(db)
@@ -513,8 +514,8 @@ options.unitframes = {
 									type = "execute",
 									name = format(
 										L["Set %s to %s"],
-										F.CreateColorString(L["Max Overflow"], E.db.general.valuecolor),
-										F.CreateColorString("0", E.db.general.valuecolor)
+										C.StringWithRGB(L["Max Overflow"], E.db.general.valuecolor),
+										C.StringWithRGB("0", E.db.general.valuecolor)
 									),
 									func = function(info)
 										E.db.unitframe.colors.healPrediction.maxOverflow = 0

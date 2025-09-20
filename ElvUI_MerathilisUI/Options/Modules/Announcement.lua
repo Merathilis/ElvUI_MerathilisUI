@@ -12,7 +12,7 @@ local GetSpellLink = C_Spell.GetSpellLink
 local GetSpellName = C_Spell.GetSpellName
 
 local function ImportantColorString(string)
-	return F.CreateColorString(string, { r = 0.204, g = 0.596, b = 0.859 })
+	return C.StringWithRGB(string, { r = 0.204, g = 0.596, b = 0.859 })
 end
 
 local function FormatDesc(code, helpText)

@@ -1,6 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_MiniMapPing")
-local LSM = E.LSM
+local C = MER.Utilities.Color
 
 local _G = _G
 local max = max
@@ -53,9 +53,9 @@ do
 		end
 
 		if self.db.classColor then
-			name = F.CreateClassColorString(name, englishClass)
+			name = C.StringWithClassColor(name, englishClass)
 		else
-			name = F.CreateColorString(name, self.db.customColor)
+			name = C.StringWithRGB(name, self.db.customColor)
 		end
 
 		self.text:SetText(name)

@@ -124,29 +124,29 @@ function module:Quest()
 
 		if questCache.frequency == 1 and config.daily.enable then
 			extraInfo = extraInfo .. "[" .. _G.DAILY .. "]"
-			extraInfoColored = extraInfoColored .. F.CreateColorString("[" .. _G.DAILY .. "]", config.daily.color)
+			extraInfoColored = extraInfoColored .. C.StringWithRGB("[" .. _G.DAILY .. "]", config.daily.color)
 		elseif questCache.frequency == 2 and config.weekly.enable then
 			extraInfo = extraInfo .. "[" .. _G.WEEKLY .. "]"
-			extraInfoColored = extraInfoColored .. F.CreateColorString("[" .. _G.WEEKLY .. "]", config.weekly.color)
+			extraInfoColored = extraInfoColored .. C.StringWithRGB("[" .. _G.WEEKLY .. "]", config.weekly.color)
 		end
 
 		if questCache.suggestedGroup > 1 and config.suggestedGroup.enable then
 			extraInfo = extraInfo .. "[" .. questCache.suggestedGroup .. "]"
 			extraInfoColored = extraInfoColored
-				.. F.CreateColorString("[" .. questCache.suggestedGroup .. "]", config.suggestedGroup.color)
+				.. C.StringWithRGB("[" .. questCache.suggestedGroup .. "]", config.suggestedGroup.color)
 		end
 
 		if questCache.level and config.level.enable then
 			if not config.level.hideOnMax or questCache.level ~= GetMaxLevelForPlayerExpansion() then
 				extraInfo = extraInfo .. "[" .. questCache.level .. "]"
 				extraInfoColored = extraInfoColored
-					.. F.CreateColorString("[" .. questCache.level .. "]", config.level.color)
+					.. C.StringWithRGB("[" .. questCache.level .. "]", config.level.color)
 			end
 		end
 
 		if questCache.tag and config.tag then
 			extraInfo = extraInfo .. "[" .. questCache.tag .. "]"
-			extraInfoColored = extraInfoColored .. F.CreateColorString("[" .. questCache.tag .. "]", config.tag.color)
+			extraInfoColored = extraInfoColored .. C.StringWithRGB("[" .. questCache.tag .. "]", config.tag.color)
 		end
 
 		local questCacheOld = lastList[questID]
@@ -154,12 +154,10 @@ function module:Quest()
 		if questCacheOld then
 			if not questCacheOld.isComplete then
 				if questCache.isComplete then
-					mainInfo = questCache.title
-						.. " "
-						.. F.CreateColorString(L["Completed"], { r = 0.5, g = 1, b = 0.5 })
+					mainInfo = questCache.title .. " " .. C.StringWithRGB(L["Completed"], { r = 0.5, g = 1, b = 0.5 })
 					mainInfoColored = questCache.link
 						.. " "
-						.. F.CreateColorString(L["Completed"], { r = 0.5, g = 1, b = 0.5 })
+						.. C.StringWithRGB(L["Completed"], { r = 0.5, g = 1, b = 0.5 })
 					needAnnounce = true
 				elseif #questCacheOld > 0 and #questCache > 0 then
 					for queryIndex = 1, #questCache do
@@ -192,8 +190,7 @@ function module:Quest()
 								mainInfoColored = questCache.link .. " " .. questCache[queryIndex].item .. " "
 
 								mainInfo = mainInfo .. progressInfo
-								mainInfoColored = mainInfoColored
-									.. F.CreateColorString(progressInfoColored, progressColor)
+								mainInfoColored = mainInfoColored .. C.StringWithRGB(progressInfoColored, progressColor)
 								needAnnounce = true
 							end
 						end
@@ -205,7 +202,7 @@ function module:Quest()
 				mainInfo = questCache.link .. " " .. L["Accepted"]
 				mainInfoColored = questCache.link
 					.. " "
-					.. F.CreateColorString(L["Accepted"], { r = 1, g = 1, b = 1 })
+					.. C.StringWithRGB(L["Accepted"], { r = 1, g = 1, b = 1 })
 					.. format(" |T%s:0|t", I.Media.Icons.Accept)
 				needAnnounce = true
 			end

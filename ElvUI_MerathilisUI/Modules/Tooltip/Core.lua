@@ -235,7 +235,7 @@ function module:SetUnitText(_, tt, unit, isPlayerUnit)
 		local unitGender = TT.db.gender and genderTable[gender]
 
 		if db.raceIcon then
-			local raceIcon = F.GetRaceAtlasString(englishRace, gender, TT.db.textFontSize, TT.db.textFontSize)
+			local raceIcon = F.GetRaceAtlasString(englishRace, gender or 1, TT.db.textFontSize, TT.db.textFontSize)
 			if raceIcon then
 				race = raceIcon .. " " .. race
 			end

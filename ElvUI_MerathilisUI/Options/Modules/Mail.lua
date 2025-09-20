@@ -1,6 +1,7 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Mail")
 local options = MER.options.modules.args
+local C = MER.Utilities.Color
 
 local pairs = pairs
 
@@ -88,7 +89,7 @@ do
 					for realm, factions in pairs(E.global.mui.mail.contacts.alts) do
 						for _, characters in pairs(factions) do
 							for name, class in pairs(characters) do
-								result[name .. "-" .. realm] = F.CreateClassColorString(name .. "-" .. realm, class)
+								result[name .. "-" .. realm] = C.StringWithClassColor(name .. "-" .. realm, class)
 							end
 						end
 					end

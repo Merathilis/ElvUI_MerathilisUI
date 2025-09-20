@@ -308,7 +308,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 
 		self.bar[name].text:Hide()
 	else
-		local buttonText = self.db.color and color and F.CreateColorString(abbr, color) or abbr
+		local buttonText = self.db.color and color and C.StringWithRGB(abbr, color) or abbr
 		self.bar[name].text:SetText(buttonText)
 		self.bar[name].defaultFontSize = self.db.font.size
 		F.SetFontDB(self.bar[name].text, self.db.font)
