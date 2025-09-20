@@ -383,20 +383,6 @@ local function listImportFrame(frame)
 	S:HandleTrimScrollBar(frame.ScrollBar)
 end
 
-local function splashFrame(frame)
-	frame:StripTextures()
-	frame:SetTemplate("Transparent")
-	module:CreateShadow(frame)
-
-	S:HandleCloseButton(frame.Close)
-	S:HandleCheckBox(frame.HideCheckbox.CheckBox)
-	S:HandleTrimScrollBar(frame.ScrollBar)
-
-	if E.private.mui.misc.moveFrames.enable and not MER.Modules.MoveFrames.StopRunning then
-		MER.Modules.MoveFrames:HandleFrame(frame)
-	end
-end
-
 local function itemHistoryFrame(frame)
 	frame:StripTextures()
 	frame:SetTemplate("Transparent")
@@ -517,7 +503,6 @@ function module:Auctionator()
 	module:TryPostHook("AuctionatorCraftingInfoObjectiveTrackerFrameMixin", "OnLoad", craftingInfoObjectiveTrackerFrame)
 	module:TryPostHook("AuctionatorCraftingInfoProfessionsFrameMixin", "OnLoad", craftingInfoProfessionsFrame)
 	module:TryPostHook("AuctionatorShoppingItemMixin", "OnLoad", shoppingItem)
-	module:TryPostHook("AuctionatorSplashScreenMixin", "OnLoad", splashFrame)
 	module:TryPostHook("AuctionatorBuyCommodityFrameTemplateMixin", "OnLoad", buyItem)
 	module:TryPostHook("AuctionatorBuyItemFrameTemplateMixin", "OnLoad", buyItem)
 	module:TryPostHook("AuctionatorBuyCommodityFinalConfirmationDialogMixin", "SetDetails", reskinDialog)
