@@ -958,16 +958,16 @@ do
 	SampleStrings.svui = icons
 
 	icons = ""
-	icons = icons .. E:TextureString(E.Media.Textures.Tank, ":16:16") .. " "
-	icons = icons .. E:TextureString(E.Media.Textures.Healer, ":16:16") .. " "
-	icons = icons .. E:TextureString(E.Media.Textures.DPS, ":16:16")
-	SampleStrings.elvui = icons
-
-	icons = ""
 	icons = icons .. CT.cache.blizzardRoleIcons.Tank .. " "
 	icons = icons .. CT.cache.blizzardRoleIcons.Healer .. " "
 	icons = icons .. CT.cache.blizzardRoleIcons.DPS
 	SampleStrings.blizzard = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(CT.cache.elvuiRoleIconsPath.Tank, ":16:16:0:0:64:64:2:56:2:56") .. " "
+	icons = icons .. E:TextureString(CT.cache.elvuiRoleIconsPath.Healer, ":16:16:0:0:64:64:2:56:2:56") .. " "
+	icons = icons .. E:TextureString(CT.cache.elvuiRoleIconsPath.DPS, ":16:16")
+	SampleStrings.elvui = icons
 
 	icons = ""
 	icons = icons .. E:TextureString(I.Media.RoleIcons.CustomTank, ":16:16") .. " "

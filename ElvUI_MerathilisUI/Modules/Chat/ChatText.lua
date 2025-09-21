@@ -906,7 +906,7 @@ function CT:CheckLFGRoles()
 
 	local playerRole = UnitGroupRolesAssigned("player")
 	if playerRole then
-		lfgRoles[PLAYER_NAME] = roleIcons[playerRole]
+		lfgRoles[PLAYER_NAME] = roleIcons and roleIcons[playerRole]
 	end
 
 	local unit = (IsInRaid() and "raid" or "party")
@@ -917,7 +917,7 @@ function CT:CheckLFGRoles()
 
 			if role and name then
 				name = (realm and realm ~= "" and name .. "-" .. realm) or name .. "-" .. PLAYER_REALM
-				lfgRoles[name] = roleIcons[role]
+				lfgRoles[name] = roleIcons and roleIcons[role]
 			end
 		end
 	end
