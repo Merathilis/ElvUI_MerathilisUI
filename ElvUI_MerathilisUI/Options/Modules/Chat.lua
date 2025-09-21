@@ -958,6 +958,12 @@ do
 	SampleStrings.svui = icons
 
 	icons = ""
+	icons = icons .. E:TextureString(E.Media.Textures.Tank, ":16:16") .. " "
+	icons = icons .. E:TextureString(E.Media.Textures.Healer, ":16:16") .. " "
+	icons = icons .. E:TextureString(E.Media.Textures.DPS, ":16:16")
+	SampleStrings.elvui = icons
+
+	icons = ""
 	icons = icons .. CT.cache.blizzardRoleIcons.Tank .. " "
 	icons = icons .. CT.cache.blizzardRoleIcons.Healer .. " "
 	icons = icons .. CT.cache.blizzardRoleIcons.DPS
@@ -1069,19 +1075,18 @@ do
 						type = "select",
 						name = L["Class Icon Style"],
 						desc = L["Select the style of class icon."],
-						values = {
-							SUNUI = SampleStrings.sunui,
-							LYNUI = SampleStrings.lynui,
-							SVUI = SampleStrings.svui,
-							CUSTOM = SampleStrings.custom,
-							GLOW = SampleStrings.glow,
-							MAIN = SampleStrings.main,
-							WHITE = SampleStrings.white,
-							MATERIAL = SampleStrings.material,
-							BLIZZARD = SampleStrings.blizzard,
-							ELVUI_OLD = SampleStrings.elvui_old,
-							DEFAULT = SampleStrings.elvui,
-						},
+						values = function()
+							local v = {}
+							for _, style in pairs(F.GetClassIconStyleList()) do
+								local rogueSample = F.GetClassIconStringWithStyle("ROGUE", style, 16, 16)
+								local druidSample = F.GetClassIconStringWithStyle("DRUID", style, 16, 16)
+								local paladinSample = F.GetClassIconStringWithStyle("PALADIN", style, 16, 16)
+
+								local sample = rogueSample .. " " .. druidSample .. " " .. paladinSample
+								v[style] = sample
+							end
+							return v
+						end,
 					},
 					factionIcon = {
 						order = 4,
