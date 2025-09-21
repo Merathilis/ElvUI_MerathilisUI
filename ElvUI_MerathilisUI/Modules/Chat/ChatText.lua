@@ -741,7 +741,7 @@ function CT:UpdateRoleIcons()
 		_G.INLINE_TANK_ICON = roleIcons.TANK
 		_G.INLINE_HEALER_ICON = roleIcons.HEALER
 		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
-	elseif pack == "ELVUI_OLD" then
+	elseif pack == "SVUI" then
 		roleIcons = {
 			TANK = E:TextureString(I.Media.RoleIcons.SVUITank, sizeString),
 			HEALER = E:TextureString(I.Media.RoleIcons.SVUIHealer, sizeString),
@@ -806,6 +806,16 @@ function CT:UpdateRoleIcons()
 			TANK = E:TextureString(I.Media.RoleIcons.MainTank, sizeString),
 			HEALER = E:TextureString(I.Media.RoleIcons.MainHealer, sizeString),
 			DAMAGER = E:TextureString(I.Media.RoleIcons.MainDPS, sizeString),
+		}
+
+		_G.INLINE_TANK_ICON = roleIcons.TANK
+		_G.INLINE_HEALER_ICON = roleIcons.HEALER
+		_G.INLINE_DAMAGER_ICON = roleIcons.DAMAGER
+	elseif pack == "ELVUI_OLD" then
+		roleIcons = {
+			TANK = E:TextureString(I.Media.RoleIcons.ElvUITank, sizeString),
+			HEALER = E:TextureString(I.Media.RoleIcons.ElvUIHealer, sizeString),
+			DAMAGER = E:TextureString(I.Media.RoleIcons.ElvUIDPS, sizeString),
 		}
 
 		_G.INLINE_TANK_ICON = roleIcons.TANK
@@ -918,6 +928,7 @@ function CT:CheckLFGRoles()
 			if role and name then
 				name = (realm and realm ~= "" and name .. "-" .. realm) or name .. "-" .. PLAYER_REALM
 				lfgRoles[name] = roleIcons[role]
+				-- print(name, roleIcons[role])
 			end
 		end
 	end
