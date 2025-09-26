@@ -634,6 +634,19 @@ function F.Color.UpdateGradient(obj, perc, minColor, maxColor)
 	)
 end
 
+function F.HexRGB(r, g, b)
+	if r then
+		if type(r) == "table" then
+			if r.r then
+				r, g, b = r.r, r.g, r.b
+			else
+				r, g, b = unpack(r)
+			end
+		end
+		return format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
+	end
+end
+
 local progressColor = {
 	start = { r = 1.000, g = 0.647, b = 0.008 },
 	complete = { r = 0.180, g = 0.835, b = 0.451 },
