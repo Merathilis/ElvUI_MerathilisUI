@@ -36,13 +36,13 @@ function WS:HandleTreeGroup(widget)
 				if textObj and textObj.GetTextColor then
 					F.SetFontDB(textObj, db.text.font)
 
-					textObj.SetPoint_MER = textObj.SetPoint
+					F.InternalizeMethod(textObj, "SetPoint")
 					textObj.SetPoint = function(text, point, arg1, arg2, arg3, arg4)
 						if point == "LEFT" and type(arg2) == "number" and abs(arg2 - 2) < 0.1 then
 							arg2 = -1
 						end
 
-						text.SetPoint_MER(text, point, arg1, arg2, arg3, arg4)
+						F.CallMethod(text, "SetPoint", point, arg1, arg2, arg3, arg4)
 					end
 
 					button.windWidgetText = textObj
@@ -132,7 +132,7 @@ function WS:HandleTreeGroup(widget)
 						frame.MERWidgetText:SetTextColor(color.r, color.g, color.b)
 					end
 				end
-				button.UnlockHighlight_MER = button.UnlockHighlight
+				button.__UnlockHighlight = button.UnlockHighlight
 				button.UnlockHighlight = function(frame)
 					if frame.backdrop then
 						frame.backdrop:Hide()

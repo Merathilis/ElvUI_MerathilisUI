@@ -1810,8 +1810,6 @@ function F.Move(frame, x, y)
 		return
 	end
 
-	local setPoint = frame.__SetPoint or frame.SetPoint
-
 	---@type table[] Store all current anchor points
 	local positionData = {}
 
@@ -1824,7 +1822,7 @@ function F.Move(frame, x, y)
 
 	for _, data in pairs(positionData) do
 		local point, relativeTo, relativePoint, xOfs, yOfs = unpack(data)
-		setPoint(frame, point, relativeTo, relativePoint, xOfs + x, yOfs + y)
+		F.CallMethod(frame, "SetPoint", point, relativeTo, relativePoint, xOfs + x, yOfs + y)
 	end
 end
 
