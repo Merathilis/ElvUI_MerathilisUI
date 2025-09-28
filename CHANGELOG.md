@@ -1,4 +1,8 @@
 ### Changes ###
 
-  * [Core]: Fix some internal code structures which breaks the compatibility to WindTools
-  * [Minimap Buttons]: Fix an obsolete db entry which broke the MicroBar
+  * [ElvUI]: Required Version >14.00
+  * [MicroBar]: Fix random hearthstone on the MicroBar
+  * [Who Frame]: Fix a lua error on the Who Frame
+  * [AIO skin]: Added new skin for Advanced Interface Options
+  * [Chat]: Rewrote the Emote Module completly
+  * [Skins]: Updated a lot of skins with some updated functions
