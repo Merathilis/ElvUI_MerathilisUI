@@ -111,6 +111,8 @@ F.AddMedia("button", "Setting")
 F.AddMedia("button", "Start")
 F.AddMedia("button", "End")
 F.AddMedia("button", "Discord")
+F.AddMedia("button", "Pin")
+F.AddMedia("button", "Undo")
 
 F.AddMedia("texture", "arrow")
 F.AddMedia("texture", "arrowUp")
