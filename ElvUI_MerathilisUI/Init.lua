@@ -93,6 +93,7 @@ MER.IsRetail = MER.MetaFlavor == "Mainline"
 
 -- Modules
 MER.Modules = {}
+MER.Modules.AchievementTracker = MER:NewModule("MER_AchievementTracker", "AceEvent-3.0")
 MER.Modules.ActionBars = MER:NewModule("MER_Actionbars", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.AlreadyKnown = MER:NewModule("MER_AlreadyKnown", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.Announcement = MER:NewModule("MER_Announcement", "AceEvent-3.0")

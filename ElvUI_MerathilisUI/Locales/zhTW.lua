@@ -474,6 +474,9 @@ L["Middle click the character back slot to open the Reshii Wraps upgrade menu."]
 	"中鍵點擊角色界面背部裝備槽位來打開瑞西纏帶的升級選單."
 L["Open Upgrade Menu"] = "開啟升級選單"
 L["Reshii Wraps Upgrade"] = "瑞西纏帶升級"
+L["Cannot track more than %d achievements"] = true
+L["Track Achievement"] = true
+L["Untrack Achievement"] = true
 
 -- Move Frames
 L["Move Frames"] = "移動框架"

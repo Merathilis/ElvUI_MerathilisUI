@@ -528,6 +528,9 @@ L["Middle click the character back slot to open the Reshii Wraps upgrade menu."]
 	"Mittelklick auf den Rückenslot des Charakters, um das Reshii Wraps Upgrade Menü zu öffnen."
 L["Open Upgrade Menu"] = "Upgrade Menü öffnen"
 L["Reshii Wraps Upgrade"] = true -- no need to translate
+L["Cannot track more than %d achievements"] = "Kann nicht mehr als %d Erfolge verfolgen"
+L["Track Achievement"] = "Erfolge verfolgen"
+L["Untrack Achievement"] = "Erfolge nicht mehr verfolgen"
 
 -- Move Frames
 L["Move Frames"] = "Fenster verschieben"

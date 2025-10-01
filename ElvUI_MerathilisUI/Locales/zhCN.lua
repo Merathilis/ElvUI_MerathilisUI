@@ -480,6 +480,9 @@ L["Middle click the character back slot to open the Reshii Wraps upgrade menu."]
 	"中键点击角色界面背部装备槽位来打开雷什裹布的升级菜单."
 L["Open Upgrade Menu"] = "打开升级菜单"
 L["Reshii Wraps Upgrade"] = "雷什裹布升级"
+L["Cannot track more than %d achievements"] = true
+L["Track Achievement"] = true
+L["Untrack Achievement"] = true
 
 -- Move Frames
 L["Move Frames"] = "移动框体"
