@@ -2,9 +2,11 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_AchievementTracker") ---@class AchievementTracker
 
 local _G = _G
-local C_Timer_After = C_Timer.After
 local ipairs = ipairs
 local tremove = tremove
+
+local C_Timer_After = C_Timer.After
+local InCombatLockdown = InCombatLockdown
 
 -- Track event registration state.
 local eventsRegistered = false
@@ -32,10 +34,32 @@ end
 function module:CRITERIA_UPDATE()
 	if _G.MER_AchievementTracker and module:GetScanState().scannedSinceInit then
 		C_Timer_After(0.5, function()
-			if _G.MER_AchievementTracker then
+			if _G.MER_AchievementTracker and not InCombatLockdown() then
 				module:UpdateAchievementList()
 			end
 		end)
+	end
+end
+
+---Handle PLAYER_REGEN_ENABLED event (leaving combat)
+---@return nil
+function module:PLAYER_REGEN_ENABLED()
+	-- Resume scan if we were scanning before combat
+	if _G.MER_AchievementTracker and _G.MER_AchievementTracker:IsVisible() and not module:GetScanState().isScanning then
+		C_Timer_After(1.0, function()
+			if _G.MER_AchievementTracker and _G.MER_AchievementTracker:IsVisible() and not InCombatLockdown() then
+				module:StartAchievementScan()
+			end
+		end)
+	end
+end
+
+---Handle PLAYER_REGEN_DISABLED event (entering combat)
+---@return nil
+function module:PLAYER_REGEN_DISABLED()
+	-- Stop any ongoing scan when entering combat
+	if module:GetScanState().isScanning then
+		module:StopScanDueToCombat()
 	end
 end
 
@@ -45,6 +69,8 @@ local function RegisterAchievementEvents()
 	if not eventsRegistered then
 		module:RegisterEvent("ACHIEVEMENT_EARNED")
 		module:RegisterEvent("CRITERIA_UPDATE")
+		module:RegisterEvent("PLAYER_REGEN_ENABLED")
+		module:RegisterEvent("PLAYER_REGEN_DISABLED")
 		eventsRegistered = true
 	end
 end
@@ -55,6 +81,8 @@ local function UnregisterAchievementEvents()
 	if eventsRegistered then
 		module:UnregisterEvent("ACHIEVEMENT_EARNED")
 		module:UnregisterEvent("CRITERIA_UPDATE")
+		module:UnregisterEvent("PLAYER_REGEN_ENABLED")
+		module:UnregisterEvent("PLAYER_REGEN_DISABLED")
 		eventsRegistered = false
 	end
 end

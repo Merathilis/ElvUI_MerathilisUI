@@ -10,6 +10,7 @@ local unpack = unpack
 local tinsert = tinsert
 local sort = sort
 local format = format
+local InCombatLockdown = InCombatLockdown
 
 local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
@@ -131,6 +132,10 @@ local function ScanAchievements(callback, updateProgress, applyFiltersFunc)
 	end
 
 	local function scanStep()
+		if module:StopScanDueToCombat() then
+			return
+		end
+
 		local scanned = 0
 
 		while currentCategory <= #categories and scanned < module.Config.BATCH_SIZE do
@@ -206,6 +211,9 @@ local function ScanAchievements(callback, updateProgress, applyFiltersFunc)
 			module.scanState.isScanning = false
 			callback(module.scanState.filteredResults)
 		else
+			if module:StopScanDueToCombat() then
+				return
+			end
 			C_Timer_After(module.Config.SCAN_DELAY, scanStep)
 		end
 	end
@@ -290,7 +298,11 @@ function module:StartAchievementScan()
 		return
 	end
 
-	local panel = _G.MER_AchievementTracker
+	if InCombatLockdown() then
+		return
+	end
+
+	local panel = _G.MER_AchievementTracker --[[@as MER_AchievementTracker]]
 	if panel.progressContainer then
 		panel.progressContainer:Show()
 		panel.progressBar:SetValue(0)

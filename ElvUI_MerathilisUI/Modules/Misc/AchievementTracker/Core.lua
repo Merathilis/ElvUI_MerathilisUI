@@ -96,6 +96,23 @@ function module:Initialize()
 	self.initialized = true
 end
 
+---Stop scan due to combat and cleanup UI
+---@return boolean # If scan was stopped due to combat
+function module:StopScanDueToCombat()
+	local panel = _G.MER_AchievementTracker --[[@as MER_AchievementTracker]]
+	if InCombatLockdown() then
+		module.scanState.isScanning = false
+		if panel then
+			if panel.progressContainer then
+				panel.progressContainer:Hide()
+			end
+		end
+		return true
+	end
+
+	return false
+end
+
 ---Handle profile updates
 ---@return nil
 function module:ProfileUpdate()

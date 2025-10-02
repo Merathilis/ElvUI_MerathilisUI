@@ -9,6 +9,8 @@ local ipairs = ipairs
 local max = max
 local floor = floor
 local format = format
+local InCombatLockdown = InCombatLockdown
+local C_Timer_After = C_Timer.After
 
 local C_ContentTracking_GetTrackedIDs = C_ContentTracking.GetTrackedIDs
 local C_ContentTracking_IsTracking = C_ContentTracking.IsTracking
@@ -354,7 +356,11 @@ function module:UpdateAchievementList()
 		return
 	end
 
-	local panel = _G.MER_AchievementTracker
+	if InCombatLockdown() then
+		return
+	end
+
+	local panel = _G.MER_AchievementTracker --[[@as MER_AchievementTracker]]
 	local content = panel.content
 	local scanState = module:GetScanState()
 
