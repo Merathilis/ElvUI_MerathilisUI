@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins") ---@type Skins
 
 local _G = _G
+local pairs = pairs
 
 local CVAR_BROWSER_CONFIG_DIALOG_KEY = "AdvancedInterfaceOptions_cVar"
 

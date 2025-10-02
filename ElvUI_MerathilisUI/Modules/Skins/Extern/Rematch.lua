@@ -6,9 +6,17 @@ local LSM = E.Libs.LSM
 local C = MER.Utilities.Color
 
 local _G = _G
-local next, pairs, select, unpack = next, pairs, select, unpack
-
 local hooksecurefunc = hooksecurefunc
+local ipairs = ipairs
+local max = math.max
+local pairs = pairs
+local select = select
+local strfind = strfind
+local type = type
+local unpack = unpack
+
+local CreateFrame = CreateFrame
+local RunNextFrame = RunNextFrame
 
 local function ReskinIconButton(button)
 	if not button or button.__MERSkin then
@@ -58,35 +66,6 @@ local function ReskinIconButton(button)
 	button.__MERSkin = true
 end
 
-local function ReskinCloseButton(button)
-	if not button then
-		return
-	end
-
-	S:HandleCloseButton(button)
-	button.Icon = E.noop
-	button.SetNormalTexture = E.noop
-	button.SetPushedTexture = E.noop
-	button.SetHighlightTexture = E.noop
-end
-
-local function ClearTextureButton(button, icon)
-	if not button then
-		return
-	end
-	if icon then
-		icon = button.Icon:GetTexture()
-	else
-		button.Icon = E.noop
-	end
-
-	button:StripTextures()
-	button.SetNormalTexture = E.noop
-	button.SetPushedTexture = E.noop
-	button.SetHighlightTexture = E.noop
-	button.Icon:SetTexture(icon)
-end
-
 ---Reskin the Rematch button
 ---@param button Button
 local function ReskinButton(button)
@@ -134,532 +113,6 @@ local function ReskinToggleButton(button)
 	button.__MERSkin = true
 end
 
-local function ReskinFilterButton(button)
-	if not button then
-		return
-	end
-	ReskinButton(button)
-	button.Arrow:OldSetTexture(E.Media.Textures.ArrowUp)
-	button.Arrow:SetRotation(ES.ArrowRotation.right)
-end
-
-local function ReskinEditBox(editBox)
-	local searchIconTex
-	if editBox.SearchIcon and editBox.SearchIcon.GetTexture then
-		searchIconTex = editBox.SearchIcon:GetTexture()
-	end
-	editBox:StripTextures()
-	if searchIconTex then
-		editBox.SearchIcon:SetTexture(searchIconTex)
-	end
-
-	S:HandleEditBox(editBox)
-	editBox.backdrop:SetOutside(0, 0)
-end
-
-local function ReskinDropdown(dropdown) -- modified from NDui
-	dropdown:SetBackdrop(nil)
-	dropdown:StripTextures()
-	dropdown:CreateBackdrop()
-	dropdown.backdrop:SetInside(dropdown, 2, 2)
-	if dropdown.Icon then
-		dropdown.Icon:SetAlpha(1)
-		dropdown.Icon:CreateBackdrop()
-	end
-	local arrow = dropdown:GetChildren()
-	S:HandleNextPrevButton(arrow, "down")
-end
-
-local function ReskinScrollBar(scrollBar)
-	S:HandleScrollBar(scrollBar)
-	scrollBar.Thumb.backdrop:ClearAllPoints()
-	scrollBar.Thumb.backdrop:Point("TOPLEFT", scrollBar.Thumb, "TOPLEFT", 3, -3)
-	scrollBar.Thumb.backdrop:Point("BOTTOMRIGHT", scrollBar.Thumb, "BOTTOMRIGHT", -1, 3)
-
-	ReskinButton(scrollBar.BottomButton)
-	local tex = scrollBar.BottomButton:GetNormalTexture()
-	tex:SetTexture(E.media.blankTex)
-	tex:SetVertexColor(1, 1, 1, 0)
-
-	tex = scrollBar.BottomButton:GetPushedTexture()
-	tex:SetTexture(E.media.blankTex)
-	tex:SetVertexColor(1, 1, 1, 0.3)
-
-	ReskinButton(scrollBar.TopButton)
-	tex = scrollBar.TopButton:GetNormalTexture()
-	tex:SetTexture(E.media.blankTex)
-	tex:SetVertexColor(1, 1, 1, 0)
-
-	tex = scrollBar.TopButton:GetPushedTexture()
-	tex:SetTexture(E.media.blankTex)
-	tex:SetVertexColor(1, 1, 1, 0.3)
-end
-
-local function ReskinXPBar(bar)
-	if not bar then
-		return
-	end
-	local iconTex = bar.Icon and bar.Icon:GetTexture()
-	bar:StripTextures()
-	if iconTex then
-		bar.Icon:SetTexture(iconTex)
-	end
-	bar:SetStatusBarTexture(E.media.normTex)
-	bar:CreateBackdrop("Transparent")
-end
-
-local function ReskinCard(card)
-	if not card then
-		return
-	end
-
-	card:SetBackdrop(nil)
-	card:CreateBackdrop("Transparent")
-	module:CreateBackdropShadow(card)
-
-	if card.Source then
-		card.Source:StripTextures()
-	end
-
-	card.Middle:StripTextures()
-
-	if card.Middle.XP then
-		ReskinXPBar(card.Middle.XP)
-		card.Middle.XP:Height(15)
-	end
-
-	if card.Middle.Lore then
-		F.SetFontOutline(card.Middle.Lore, E.db.general.font)
-		card.Middle.Lore:SetTextColor(1, 1, 1, 1)
-	end
-
-	if card.Bottom.AbilitiesBG then
-		card.Bottom.AbilitiesBG:Hide()
-	end
-
-	if card.Bottom.BottomBG then
-		card.Bottom.BottomBG:Hide()
-	end
-end
-
-local function ReskinOptions(list)
-	local buttons = list.ScrollFrame.Buttons
-	if not buttons then
-		return
-	end
-	for i = 1, #buttons do
-		local button = buttons[i]
-		if not button.__MERSkin then
-			S:HandleButton(button)
-			button.backdrop:SetInside(button, 1, 1)
-			button.HeaderBack:StripTextures()
-			button.HeaderBack = button.backdrop
-			button.__MERSkin = true
-		end
-	end
-end
-
-local function ReskinTeamList(panel)
-	if panel then
-		for i = 1, 3 do
-			local loadout = panel.Loadouts[i]
-			if loadout and not loadout.__MERSkin then
-				loadout:StripTextures()
-				S:HandleButton(loadout)
-				loadout.backdrop:SetInside(loadout, 2, 2)
-				ReskinIconButton(loadout.Pet.Pet)
-				if loadout.Pet.Pet.Level then
-					loadout.Pet.Pet.Level.Text:SetTextColor(1, 1, 1)
-					loadout.Pet.Pet.Level.Text:FontTemplate()
-					loadout.Pet.Pet.Level.BG:SetTexture(nil)
-				end
-				ReskinXPBar(loadout.HP)
-				ReskinXPBar(loadout.XP)
-				loadout.XP:SetSize(255, 7)
-				loadout.HP.MiniHP:SetText("HP")
-				for j = 1, 3 do
-					ReskinIconButton(loadout.Abilities[j])
-				end
-
-				loadout.__MERSkin = true
-			end
-		end
-	end
-end
-
-local function ReskinFlyout(frame)
-	if not frame or frame.__MERSkin then
-		return
-	end
-
-	frame:SetBackdrop(nil)
-	frame:CreateBackdrop()
-	frame.backdrop:SetInside(frame, 2, 2)
-	module:CreateBackdropShadow(frame)
-	hooksecurefunc(frame, "Show", function(self)
-		local abilities = self.Abilities
-		if abilities then
-			for i = 1, #abilities do
-				local ability = abilities[i]
-				ReskinIconButton(ability)
-			end
-		end
-	end)
-	frame.__MERSkin = true
-end
-
-function module:Rematch_LeftBottom()
-	if not _G.RematchPetPanel.List then
-		return
-	end
-
-	local list = _G.RematchPetPanel.List
-
-	list.Background:Kill()
-	list:CreateBackdrop()
-	list.backdrop:SetInside(list, 1, 2)
-	ReskinScrollBar(list.ScrollFrame.ScrollBar)
-
-	hooksecurefunc(_G.RematchPetPanel.List, "Update", reskinPetList)
-	hooksecurefunc(_G.RematchQueuePanel.List, "Update", reskinPetList)
-end
-
-function module:Rematch_Middle() -- Modified from NDui
-	local panel = _G.RematchLoadoutPanel and _G.RematchLoadoutPanel.Target
-	if panel then
-		panel:StripTextures()
-		panel:CreateBackdrop()
-		ReskinButton(panel.TargetButton)
-		panel.ModelBorder:SetBackdrop(nil)
-		panel.ModelBorder:DisableDrawLayer("BACKGROUND")
-		panel.ModelBorder:CreateBackdrop("Transparent")
-		panel.ModelBorder.backdrop:SetInside(panel.ModelBorder, 4, 3)
-		ReskinButton(panel.LoadSaveButton)
-		for i = 1, 3 do
-			local button = panel["Pet" .. i]
-			if button then
-				button:StripTextures()
-				ReskinIconButton(button)
-			end
-		end
-	end
-
-	ReskinTeamList(_G.RematchLoadoutPanel)
-	ReskinFlyout(_G.RematchLoadoutPanel.Flyout)
-	hooksecurefunc(_G.RematchLoadoutPanel, "UpdateLoadouts", ReskinTeamList)
-
-	-- Target Panel
-	panel = _G.RematchLoadoutPanel and _G.RematchLoadoutPanel.TargetPanel
-	if panel then
-		panel.Top:StripTextures()
-		ReskinButton(panel.Top.BackButton)
-		ReskinEditBox(panel.Top.SearchBox)
-		panel.Top.SearchBox:ClearAllPoints()
-		panel.Top.SearchBox:Point("TOPLEFT", panel.Top, "TOPLEFT", 3, -3)
-		panel.Top.SearchBox:Point("RIGHT", panel.Top.BackButton, "LEFT", -2, 0)
-		panel.List.Background:Kill()
-		panel.List:CreateBackdrop()
-		panel.List.backdrop:SetInside(panel.List, 2, 2)
-		ReskinScrollBar(panel.List.ScrollFrame.ScrollBar)
-		hooksecurefunc(panel.List, "Update", reskinPetList)
-	end
-end
-
-function module:Rematch_Right()
-	-- Team Panel
-	local panel = _G.RematchTeamPanel
-	if panel then
-		panel.Top:StripTextures()
-		ReskinEditBox(panel.Top.SearchBox)
-		panel.Top.SearchBox:ClearAllPoints()
-		panel.Top.SearchBox:Point("TOPLEFT", panel.Top, "TOPLEFT", 3, -3)
-		panel.Top.SearchBox:Point("RIGHT", panel.Top.Teams, "LEFT", -2, 0)
-		ReskinFilterButton(panel.Top.Teams)
-		panel.List.Background:Kill()
-		panel.List:CreateBackdrop()
-		panel.List.backdrop:SetInside(panel.List, 0, 2)
-		ReskinScrollBar(panel.List.ScrollFrame.ScrollBar)
-		hooksecurefunc(panel.List, "Update", reskinPetList)
-	end
-
-	-- Queue Panel
-	panel = _G.RematchQueuePanel
-	if panel then
-		panel.Top:StripTextures()
-		ReskinFilterButton(panel.Top.QueueButton)
-		panel.List.Background:Kill()
-		panel.List:CreateBackdrop()
-		panel.List.backdrop:SetInside(panel.List, 2, 2)
-		ReskinScrollBar(panel.List.ScrollFrame.ScrollBar)
-		hooksecurefunc(panel.List, "Update", reskinPetList)
-	end
-
-	-- Option Panel
-	panel = _G.RematchOptionPanel
-	if panel then
-		panel.Top:StripTextures()
-		ReskinEditBox(panel.Top.SearchBox)
-		for i = 1, 4 do
-			ReskinIconButton(panel.Growth.Corners[i])
-		end
-		panel.List.Background:Kill()
-		panel.List:CreateBackdrop()
-		panel.List.backdrop:SetInside(panel.List, 2, 2)
-		ReskinScrollBar(panel.List.ScrollFrame.ScrollBar)
-		hooksecurefunc(panel.List, "Update", ReskinOptions)
-	end
-end
-
-function module:Rematch_Footer()
-	-- Tabs
-	for _, tab in pairs({ _G.RematchJournal.PanelTabs:GetChildren() }) do
-		tab:StripTextures()
-		tab:CreateBackdrop("Transparent")
-		tab.backdrop:Point("TOPLEFT", 10, E.PixelMode and -1 or -3)
-		tab.backdrop:Point("BOTTOMRIGHT", -10, 3)
-		F.SetFontOutline(tab.Text)
-		self:CreateBackdropShadow(tab)
-	end
-
-	-- Buttons
-	ReskinButton(_G.RematchBottomPanel.SummonButton)
-	ReskinButton(_G.RematchBottomPanel.SaveButton)
-	ReskinButton(_G.RematchBottomPanel.SaveAsButton)
-	ReskinButton(_G.RematchBottomPanel.FindBattleButton)
-	S:HandleCheckBox(_G.RematchBottomPanel.UseDefault)
-
-	hooksecurefunc(_G.RematchJournal, "SetupUseRematchButton", function()
-		if _G.UseRematchButton then
-			S:HandleCheckBox(_G.UseRematchButton)
-		end
-	end)
-end
-
-function module:Rematch_Dialog()
-	if not _G.RematchDialog then
-		return
-	end
-
-	-- Background
-	local dialog = _G.RematchDialog
-	dialog:StripTextures()
-	dialog.Prompt:StripTextures()
-	dialog:CreateBackdrop("Transparent")
-	self:CreateBackdropShadow(dialog)
-
-	-- Buttons
-	ReskinCloseButton(dialog.CloseButton)
-	ReskinButton(dialog.Accept)
-	ReskinButton(dialog.Cancel)
-
-	-- Icon selector
-	ReskinIconButton(dialog.Slot)
-	ReskinEditBox(dialog.EditBox)
-	dialog.TeamTabIconPicker:StripTextures()
-	dialog.TeamTabIconPicker:CreateBackdrop()
-	S:HandleScrollBar(dialog.TeamTabIconPicker.ScrollFrame.ScrollBar)
-	hooksecurefunc(_G.RematchTeamTabs, "UpdateTabIconPickerList", function()
-		local buttons = dialog.TeamTabIconPicker.ScrollFrame.buttons
-		for i = 1, #buttons do
-			local line = buttons[i]
-			for j = 1, 10 do
-				local button = line.Icons[j]
-				if button and not button.__MERSkin then
-					button:Size(26, 26)
-					button.Icon = button.Texture
-					reskinIconButton(button)
-					button.__MERSkin = true
-				end
-			end
-		end
-	end)
-
-	-- Checkbox
-	S:HandleCheckBox(dialog.CheckButton)
-
-	-- Dropdown
-	ReskinDropdown(dialog.SaveAs.Target)
-	ReskinDropdown(dialog.TabPicker)
-
-	-- Save as [team]
-	hooksecurefunc(_G.Rematch, "UpdateSaveAsDialog", function()
-		for i = 1, 3 do
-			local button = _G.RematchDialog.SaveAs.Team.Pets[i]
-			ReskinIconButton(button)
-			button.Icon.backdrop:SetBackdropBorderColor(button.IconBorder:GetVertexColor())
-			local abilities = button.Abilities
-			if abilities then
-				for j = 1, #abilities do
-					ReskinIconButton(abilities[j])
-				end
-			end
-		end
-	end)
-
-	-- Collection
-	local collection = dialog.CollectionReport
-	hooksecurefunc(_G.Rematch, "ShowCollectionReport", function()
-		for i = 1, 4 do
-			local bar = collection.RarityBar[i]
-			bar:SetTexture(E.media.normTex)
-		end
-		if not collection.RarityBarBorder.backdrop then
-			collection.RarityBarBorder:StripTextures()
-			collection.RarityBarBorder:CreateBackdrop("Transparent")
-			collection.RarityBarBorder.backdrop:SetInside(collection.RarityBarBorder, 6, 5)
-		end
-	end)
-
-	hooksecurefunc(collection, "UpdateChart", function()
-		for i = 1, 10 do
-			local col = collection.Chart.Columns[i]
-			col.Bar:SetTexture(E.media.blankTex)
-			col.IconBorder:Hide()
-		end
-	end)
-	ReskinDropdown(collection.ChartTypeComboBox)
-	collection.Chart:StripTextures()
-	collection.Chart:CreateBackdrop("Transparent")
-	collection.Chart.backdrop:SetInside(collection.Chart, 2, 2)
-	S:HandleRadioButton(collection.ChartTypesRadioButton)
-	S:HandleRadioButton(collection.ChartSourcesRadioButton)
-end
-
-function module:Rematch_AbilityCard()
-	if not _G.RematchAbilityCard then
-		return
-	end
-
-	local card = _G.RematchAbilityCard
-	card:SetBackdrop(nil)
-	card.TitleBG:SetAlpha(0)
-	card.Hints.HintsBG:SetAlpha(0)
-	card:CreateBackdrop("Transparent")
-	self:CreateBackdropShadow(card)
-end
-
-function module:Rematch_PetCard()
-	if not _G.RematchPetCard then
-		return
-	end
-
-	local card = _G.RematchPetCard
-	card:StripTextures()
-	card.Title:StripTextures()
-	card:CreateBackdrop("Transparent")
-	self:CreateBackdropShadow(card)
-	ReskinCloseButton(card.CloseButton)
-	S:HandleNextPrevButton(card.PinButton, "up")
-	card.PinButton:ClearAllPoints()
-	card.PinButton:Point("TOPLEFT", 3, -3)
-	ReskinCard(card.Front)
-	ReskinCard(card.Back)
-
-	for i = 1, 6 do
-		local button = card.Front.Bottom.Abilities[i]
-		button.IconBorder:Kill()
-		select(8, button:GetRegions()):SetTexture(nil)
-		ReskinIconButton(button.Icon)
-	end
-end
-
-function module:Rematch_RightTabs()
-	hooksecurefunc(_G.RematchTeamTabs, "Update", function(tabs)
-		for _, tab in next, tabs.Tabs do
-			if tab and not tab.__MERSkin then
-				tab.Background:Kill()
-				reskinIconButton(tab)
-				self:CreateBackdropShadow(tab.Icon)
-				tab:Size(40)
-				tab.__MERSkin = true
-			end
-		end
-	end)
-end
-
-function module:Rematch_Standalone()
-	if not _G.RematchFrame then
-		return
-	end
-
-	local frame = _G.RematchFrame
-	frame:StripTextures()
-	frame:CreateBackdrop()
-	self:CreateBackdropShadow(frame)
-
-	frame.TitleBar:StripTextures()
-	ReskinCloseButton(frame.TitleBar.CloseButton)
-	ClearTextureButton(frame.TitleBar.MinimizeButton, true)
-	ClearTextureButton(frame.TitleBar.SinglePanelButton, true)
-	ClearTextureButton(frame.TitleBar.LockButton, true)
-
-	for _, tab in pairs({ frame.PanelTabs:GetChildren() }) do
-		tab:StripTextures()
-		tab:CreateBackdrop("Transparent")
-		tab.backdrop:Point("TOPLEFT", 10, E.PixelMode and -1 or -3)
-		tab.backdrop:Point("BOTTOMRIGHT", -10, 3)
-		F.SetFontOutline(tab.Text)
-		self:CreateBackdropShadow(tab)
-	end
-
-	-- Mini Panel
-	local mini = _G.RematchMiniPanel
-	if mini then
-		ReskinFlyout(mini.Flyout)
-		hooksecurefunc(mini, "Update", function(panel)
-			panel.Background:Kill()
-			local pets = panel.Pets
-			for i = 1, 3 do
-				local button = panel.Pets[i]
-				ReskinIconButton(button)
-				button.Icon.backdrop:SetBackdropBorderColor(button.IconBorder:GetVertexColor())
-				local abilities = button.Abilities
-				if abilities then
-					for j = 1, #abilities do
-						ReskinIconButton(abilities[j])
-					end
-				end
-				ReskinXPBar(button.HP)
-				ReskinXPBar(button.XP)
-			end
-		end)
-	end
-end
-
-function module:Rematch_SkinLoad()
-	if _G.RematchJournal.skinLoaded then
-		return
-	end
-
-	module:Rematch_Middle()
-
-	-- Mini frame target
-	if _G.RematchMiniPanel.Target then
-		local panel = _G.RematchMiniPanel.Target
-		local greenCheckTex = panel.GreenCheck and panel.GreenCheck:GetTexture()
-		panel:StripTextures()
-		if greenCheckTex then
-			panel.GreenCheck:SetTexture(greenCheckTex)
-		end
-		panel:CreateBackdrop()
-		panel.ModelBorder:SetBackdrop(nil)
-		panel.ModelBorder:DisableDrawLayer("BACKGROUND")
-		panel.ModelBorder:CreateBackdrop("Transparent")
-		panel.ModelBorder.backdrop:SetInside(panel.ModelBorder, 4, 3)
-		ReskinButton(panel.LoadButton)
-		for i = 1, 3 do
-			local button = panel.Pets[i]
-			if button then
-				ReskinIconButton(button)
-			end
-		end
-	end
-
-	-- Tooltip
-
-	_G.RematchJournal.skinLoaded = true
-end
-
 local function ReskinCardStatusBar(parent, key)
 	if not parent or not key or not parent[key] or parent[key].__MERSkin then
 		return
@@ -672,7 +125,7 @@ local function ReskinCardStatusBar(parent, key)
 	parent[key]:SetTexture(E.media.normTex)
 	parent[key .. "Frame"] = CreateFrame("Frame", nil, parent)
 	parent[key .. "Frame"]:SetTemplate("Transparent")
-	parent[key .. "Frame"]:SetAllPoints(parent[key .. "Back"])
+	parent[key .. "Frame"]:SetAllPoints(back)
 	back:SetAlpha(0)
 	border:SetAlpha(0)
 	parent[key]:SetParent(parent[key .. "Frame"])
@@ -705,19 +158,82 @@ local function ReskinPet(frame)
 	frame.LevelText:ClearAllPoints()
 	frame.LevelText:Point("BOTTOMRIGHT", frame.Icon, "BOTTOMRIGHT", 2, 0)
 
-	frame.Status:SetAllPoints(frame.Icon)
-	hooksecurefunc(frame.Status, "SetTexCoord", function(self, ...)
-		if F.IsAlmost({ 0.3125, 0.625, 0, 0.625 }, { ... }) then
-			self:SetTexCoord(0.325, 0.6125, 0.025, 0.6)
-		elseif F.IsAlmost({ 0, 0.3125, 0, 0.625 }, { ... }) then
-			self:SetTexCoord(0.0125, 0.3, 0.025, 0.6)
-		end
-	end)
-
-	local ULx, ULy, _, _, _, _, LRx, LRy = frame.Status:GetTexCoord()
-	frame.Status:SetTexCoord(ULx, LRx, ULy, LRy)
+	if frame.Status then
+		frame.Status:SetAllPoints(frame.Icon)
+		hooksecurefunc(frame.Status, "SetTexCoord", function(self, ...)
+			if F.IsAlmost({ 0.3125, 0.625, 0, 0.625 }, { ... }) then
+				self:SetTexCoord(0.325, 0.6125, 0.025, 0.6)
+			elseif F.IsAlmost({ 0, 0.3125, 0, 0.625 }, { ... }) then
+				self:SetTexCoord(0.0125, 0.3, 0.025, 0.6)
+			end
+		end)
+		local ULx, ULy, _, _, _, _, LRx, LRy = frame.Status:GetTexCoord()
+		frame.Status:SetTexCoord(ULx, LRx, ULy, LRy)
+	end
 
 	frame.__MERSkin = true
+end
+
+local function ReskinSelectionIndicator(frame)
+	for _, child in pairs({ frame:GetChildren() }) do
+		if not child.__MERSkin and child.data and child.parentKey and child.Top then
+			child:CreateBackdrop()
+			child.backdrop:SetInside(child, 1, 1)
+			child.backdrop.Center:Kill()
+			hooksecurefunc(child.Top, "SetVertexColor", function(t, r, g, b, a)
+				child.backdrop:SetBackdropBorderColor(r, g, b)
+			end)
+			child.Top:SetVertexColor(child.Top:GetVertexColor())
+
+			module:Proxy("HandleBlizzardRegions", child)
+			child.Top:Kill()
+			child.Bottom:Kill()
+
+			child.__MERSkin = true
+		end
+	end
+end
+
+local function ReskinCheck(frame)
+	if not frame.Check or frame.Check.__MERSkin then
+		return
+	end
+
+	frame.CheckFrame = CreateFrame("Frame", nil, frame)
+	frame.CheckFrame:SetTemplate()
+	frame.CheckFrame:Size(14, 14)
+	frame.CheckFrame:Point("LEFT", frame.Check, "LEFT", 6, 0)
+	frame.CheckFrame:SetShown(frame.Check:IsShown())
+	frame.CheckFrame.Checked = frame.CheckFrame:CreateTexture(nil, "OVERLAY")
+	frame.CheckFrame.Checked:SetInside(frame.CheckFrame)
+	if E.private.mui.skins.widgets.checkBox.enable then
+		local db = E.private.mui.skins.widgets.checkBox
+		frame.CheckFrame.Checked:SetTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
+		F.SetVertexColorDB(frame.CheckFrame.Checked, db.classColor and E.myClassColor or db.color)
+	else
+		frame.CheckFrame.Checked:SetTexture(E.Media.Textures.Melli)
+		frame.CheckFrame.Checked:SetVertexColor(1, 0.82, 0, 0.8)
+	end
+
+	hooksecurefunc(frame.Check, "SetTexCoord", function(_, ...)
+		local hidden = F.IsAlmost({ 0, 0.25, 0.5, 0.75 }, { ... })
+		frame.CheckFrame.Checked:SetShown(not hidden)
+	end)
+	local ULx, ULy, _, _, _, _, LRx, LRy = frame.Check:GetTexCoord()
+	frame.Check:SetTexCoord(ULx, LRx, ULy, LRy)
+
+	frame.Check:Kill()
+	hooksecurefunc(frame.Check, "Show", function()
+		frame.CheckFrame:SetShown(true)
+	end)
+	hooksecurefunc(frame.Check, "Hide", function()
+		frame.CheckFrame:SetShown(false)
+	end)
+	hooksecurefunc(frame.Check, "SetShown", function(_, shown)
+		frame.CheckFrame:SetShown(shown)
+	end)
+
+	frame.Check.__MERSkin = true
 end
 
 local function ReskinList(frame)
@@ -764,7 +280,7 @@ local function ReskinTitleBar(frame)
 
 	frame.Portrait:Kill()
 	F.SetFontOutline(frame.Title)
-	S:HandleCloseButton(frame.CloseButton)
+	module:Proxy("HandleCloseButton", frame.CloseButton)
 end
 
 local function ReskinToolBar(frame)
@@ -806,23 +322,7 @@ local function ReskinPetListButton(frame)
 		return
 	end
 
-	for _, child in pairs({ frame:GetChildren() }) do
-		if not child.__MERSkin and child.data and child.parentKey and child.Top then
-			child:CreateBackdrop()
-			child.backdrop:SetInside(child, 1, 1)
-			child.backdrop.Center:Kill()
-			hooksecurefunc(child.Top, "SetVertexColor", function(t, r, g, b, a)
-				child.backdrop:SetBackdropBorderColor(r, g, b)
-			end)
-			child.Top:SetVertexColor(child.Top:GetVertexColor())
-
-			module:Proxy("HandleBlizzardRegions", child)
-			child.Top:Kill()
-			child.Bottom:Kill()
-
-			child.__MERSkin = true
-		end
-	end
+	ReskinSelectionIndicator(frame)
 
 	if frame.__MERSkin then
 		return
@@ -1143,7 +643,7 @@ local function ReskinListElement(frame)
 		return
 	end
 
-	if frame.ExpandIcon and not frame.ExpandIcon.__windSkin then
+	if frame.ExpandIcon and not frame.ExpandIcon.__MERSkin then
 		ReskinButton(frame)
 		if frame.Border then
 			frame.Border:Kill()
@@ -1161,48 +661,6 @@ local function ReskinListElement(frame)
 		frame.ExpandIcon:SetTexCoord(ULx, LRx, ULy, LRy)
 
 		frame.ExpandIcon.__MERSkin = true
-	end
-
-	local function ReskinCheck(frame)
-		if not frame.Check or frame.Check.__MERSkin then
-			return
-		end
-
-		frame.CheckFrame = CreateFrame("Frame", nil, frame)
-		frame.CheckFrame:SetTemplate()
-		frame.CheckFrame:Size(14, 14)
-		frame.CheckFrame:Point("LEFT", frame.Check, "LEFT", 6, 0)
-		frame.CheckFrame:SetShown(frame.Check:IsShown())
-		frame.CheckFrame.Checked = frame.CheckFrame:CreateTexture(nil, "OVERLAY")
-		frame.CheckFrame.Checked:SetInside(frame.CheckFrame)
-		if E.private.mui.skins.widgets.checkBox.enable then
-			local db = E.private.mui.skins.widgets.checkBox
-			frame.CheckFrame.Checked:SetTexture(LSM:Fetch("statusbar", db.texture) or E.media.normTex)
-			F.SetVertexColorDB(frame.CheckFrame.Checked, db.classColor and E.myClassColor or db.color)
-		else
-			frame.CheckFrame.Checked:SetTexture(E.Media.Textures.Melli)
-			frame.CheckFrame.Checked:SetVertexColor(1, 0.82, 0, 0.8)
-		end
-
-		hooksecurefunc(frame.Check, "SetTexCoord", function(_, ...)
-			local hidden = F.IsAlmost({ 0, 0.25, 0.5, 0.75 }, { ... })
-			frame.CheckFrame.Checked:SetShown(not hidden)
-		end)
-		local ULx, ULy, _, _, _, _, LRx, LRy = frame.Check:GetTexCoord()
-		frame.Check:SetTexCoord(ULx, LRx, ULy, LRy)
-
-		frame.Check:Kill()
-		hooksecurefunc(frame.Check, "Show", function()
-			frame.CheckFrame:SetShown(true)
-		end)
-		hooksecurefunc(frame.Check, "Hide", function()
-			frame.CheckFrame:SetShown(false)
-		end)
-		hooksecurefunc(frame.Check, "SetShown", function(_, shown)
-			frame.CheckFrame:SetShown(shown)
-		end)
-
-		frame.Check.__MERSkin = true
 	end
 
 	ReskinCheck(frame)
@@ -1232,41 +690,28 @@ local function ReskinTeamButton(frame)
 		return
 	end
 
-	for _, child in pairs({ frame:GetChildren() }) do
-		if not child.__MERSkin and child.data and child.parentKey and child.Top then
-			child:CreateBackdrop()
-			child.backdrop:SetInside(child, 1, 1)
-			child.backdrop.Center:Kill()
-			hooksecurefunc(child.Top, "SetVertexColor", function(t, r, g, b, a)
-				child.backdrop:SetBackdropBorderColor(r, g, b)
-			end)
-			child.Top:SetVertexColor(child.Top:GetVertexColor())
-
-			module:Proxy("HandleBlizzardRegions", child)
-			child.Top:Kill()
-			child.Bottom:Kill()
-
-			child.__MERSkin = true
-		end
-	end
-
 	if frame.__MERSkin then
 		return
 	end
 
-	frame.Border:Kill()
-	frame.Back:Kill()
-	frame.MERHighlight = frame:CreateTexture(nil, "OVERLAY")
-	frame.MERHighlight:SetTexture(E.media.blankTex)
-	frame.MERHighlight:SetAllPoints(frame.Back)
-	frame.MERHighlight:SetVertexColor(1, 1, 1, 0.2)
-	frame.MERHighlight:Hide()
-	frame:HookScript("OnEnter", function()
-		frame.MERHighlight:Show()
-	end)
-	frame:HookScript("OnLeave", function()
+	if frame.Border then
+		frame.Border:Kill()
+	end
+
+	if frame.Back then
+		frame.Back:Kill()
+		frame.MERHighlight = frame:CreateTexture(nil, "OVERLAY")
+		frame.MERHighlight:SetTexture(E.media.blankTex)
+		frame.MERHighlight:SetAllPoints(frame.Back)
+		frame.MERHighlight:SetVertexColor(1, 1, 1, 0.2)
 		frame.MERHighlight:Hide()
-	end)
+		frame:HookScript("OnEnter", function()
+			frame.MERHighlight:Show()
+		end)
+		frame:HookScript("OnLeave", function()
+			frame.MERHighlight:Hide()
+		end)
+	end
 
 	frame.__MERSkin = true
 end
@@ -1297,7 +742,11 @@ local function ReskinTeamsPanel(frame)
 	hooksecurefunc(frame.List.ScrollBox, "Update", function()
 		frame.List.ScrollBox:ForEachFrame(ReskinTeamButton)
 	end)
+	hooksecurefunc(frame.List, "Refresh", function()
+		frame.List.ScrollBox:ForEachFrame(ReskinSelectionIndicator)
+	end)
 	frame.List.ScrollBox:ForEachFrame(ReskinTeamButton)
+	frame.List.ScrollBox:ForEachFrame(ReskinSelectionIndicator)
 end
 
 local function ReskinTargetsButton(frame)
@@ -1378,10 +827,13 @@ local function ReskinQueuePanel(frame)
 
 	-- List
 	ReskinList(frame.List)
-	hooksecurefunc(frame.List.ScrollBox, "Update", function()
-		frame.List.ScrollBox:ForEachFrame(ReskinListElement)
+	hooksecurefunc(frame.List, "Refresh", function()
+		frame.List.ScrollBox:ForEachFrame(ReskinPetListButton)
 	end)
-	frame.List.ScrollBox:ForEachFrame(ReskinListElement)
+	hooksecurefunc(frame.List.ScrollBox, "Update", function()
+		frame.List.ScrollBox:ForEachFrame(ReskinPetListButton)
+	end)
+	frame.List.ScrollBox:ForEachFrame(ReskinPetListButton)
 end
 
 local function ReskinOptionsPanel(frame)
@@ -1488,7 +940,9 @@ local function ReskinPetCard(frame)
 		F.Move(frame.PinButton, 4, -4)
 	end)
 
-	frame.Content.NineSlice:SetTemplate("Transparent")
+	frame.Content.NineSlice:SetAlpha(0)
+	frame.Content:SetTemplate("Transparent")
+	module:CreateShadow(frame.Content)
 	frame.Content.Back.Source:StripTextures()
 
 	ReskinRoundButton(frame.Content.Top.PetIcon)
@@ -1504,6 +958,423 @@ local function ReskinPetCard(frame)
 		button.IconFrame:SetTemplate()
 		button.IconFrame:SetOutside(button.Icon)
 		button.Icon:SetParent(button.IconFrame)
+	end
+
+	hooksecurefunc(frame, "SetAlpha", function(_, alpha)
+		if frame.Content.shadow then
+			frame.Content.shadow:SetShown(alpha == 0)
+		end
+	end)
+	frame:SetAlpha(frame:GetAlpha())
+
+	frame.__MERSkin = true
+end
+
+local function ReskinCanvas(frame)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	local function ReskinTopFrame(topFrame)
+		if not topFrame then
+			return
+		end
+		topFrame:CreateBackdrop()
+		module:Reposition(topFrame.backdrop, topFrame, 0, 0, 1, 0, 0)
+		topFrame.Back:Kill()
+		module:Proxy("HandleBlizzardRegions", topFrame)
+		topFrame.Top:Kill()
+		topFrame.Bottom:Kill()
+	end
+
+	local function ReskinDropDown(dropDownFrame)
+		dropDownFrame.Left:Kill()
+		dropDownFrame.Middle:Kill()
+		dropDownFrame.Right:Kill()
+		dropDownFrame:SetTemplate()
+		dropDownFrame.DropDownButton:Kill()
+		dropDownFrame.DropDownTex = dropDownFrame:CreateTexture(nil, "OVERLAY")
+		dropDownFrame.DropDownTex:SetInside(dropDownFrame.DropDownButton, 1, 1)
+		dropDownFrame.DropDownTex:SetTexture(E.Media.Textures.ArrowUp)
+		dropDownFrame.DropDownTex:SetRotation(S.ArrowRotation.down)
+		dropDownFrame.DropDownTex:SetScript("OnEnter", function(t)
+			t:SetVertexColor(unpack(E.media.rgbvaluecolor))
+		end)
+		dropDownFrame.DropDownTex:SetScript("OnLeave", function(t)
+			t:SetVertexColor(1, 1, 1)
+		end)
+		dropDownFrame.DropDownTex:SetScript("OnMouseDown", function()
+			dropDownFrame:OnClick(dropDownFrame.DropDownButton)
+		end)
+	end
+
+	local LayoutTabs = frame.LayoutTabs
+	if LayoutTabs then
+		LayoutTabs:StripTextures()
+		for i = 1, 4 do
+			local tab = LayoutTabs["Tab" .. i]
+			tab:Height(25)
+			module:Proxy("HandleTab", tab)
+		end
+	end
+
+	local ComboBox = frame.ComboBox
+	if ComboBox then
+		ReskinDropDown(ComboBox.ComboBox)
+	end
+
+	local GroupSelect = frame.GroupSelect
+	if GroupSelect then
+		for _, tex in pairs({ GroupSelect.Button:GetRegions() }) do
+			if
+				tex:IsObjectType("Texture")
+				and tex ~= GroupSelect.Button.Icon
+				and tex ~= GroupSelect.Button.IconMask
+			then
+				tex:Kill()
+			end
+		end
+		ReskinButton(GroupSelect.Button)
+	end
+
+	local GroupPicker = frame.GroupPicker
+	if GroupPicker then
+		ReskinTopFrame(GroupPicker.Top)
+		ReskinButton(GroupPicker.Top.CancelButton)
+		F.Move(GroupPicker.Top.Label, 0, -1)
+
+		ReskinList(GroupPicker.List)
+		hooksecurefunc(GroupPicker.List.ScrollBox, "Update", function()
+			GroupPicker.List.ScrollBox:ForEachFrame(ReskinButton)
+		end)
+		GroupPicker.List.ScrollBox:ForEachFrame(ReskinButton)
+	end
+
+	local TeamWithAbilities = frame.TeamWithAbilities
+	if TeamWithAbilities then
+		for _, subGroup in pairs({ TeamWithAbilities:GetChildren() }) do
+			if subGroup and subGroup:IsObjectType("Frame") and subGroup.Pet then
+				ReskinPet(subGroup.Pet)
+				subGroup.AbilityBar.AbilitiesBorder:Kill()
+				for _, child in pairs({ subGroup.AbilityBar:GetChildren() }) do
+					if child ~= subGroup.AbilityBar.AbilitiesBorder then
+						child:CreateBackdrop()
+					end
+				end
+			end
+		end
+	end
+
+	local TeamPicker = frame.TeamPicker
+	if TeamPicker then
+		local Lister, Picker = TeamPicker.Lister, TeamPicker.Picker
+
+		-- Lister
+		ReskinTopFrame(Lister.Top)
+		ReskinButton(Lister.Top.AddButton)
+
+		for _, button in pairs({
+			Lister.Top.AddButton,
+			Lister.Top.DeleteButton,
+			Lister.Top.UpButton,
+			Lister.Top.DownButton,
+		}) do
+			button:Width(button:GetWidth() - 3)
+			ReskinButton(button)
+		end
+
+		F.Move(Lister.Top.DeleteButton, 4, 0)
+		F.Move(Lister.Top.UpButton, -4, 0)
+
+		ReskinList(Lister.List)
+		hooksecurefunc(Lister.List.ScrollBox, "Update", function()
+			Lister.List.ScrollBox:ForEachFrame(ReskinTargetsButton)
+		end)
+		hooksecurefunc(Lister.List, "Refresh", function()
+			Lister.List.ScrollBox:ForEachFrame(ReskinSelectionIndicator)
+		end)
+		Lister.List.ScrollBox:ForEachFrame(ReskinTargetsButton)
+		Lister.List.ScrollBox:ForEachFrame(ReskinSelectionIndicator)
+
+		-- Picker
+		ReskinTopFrame(Picker.Top)
+		ReskinToggleButton(Picker.Top.AllButton)
+		ReskinButton(Picker.Top.CancelButton)
+		module:Proxy("HandleEditBox", Picker.Top.SearchBox)
+		for _, tex in pairs(Picker.Top.SearchBox.Back) do
+			tex:Kill()
+		end
+		Picker.Top.SearchBox:ClearAllPoints()
+		Picker.Top.SearchBox:Point("TOPLEFT", Picker.Top.AllButton, "TOPRIGHT", 5, 0)
+		Picker.Top.SearchBox:Point("BOTTOMRIGHT", Picker.Top.CancelButton, "BOTTOMLEFT", -5, 0)
+
+		-- List
+		ReskinList(Picker.List)
+		hooksecurefunc(Picker.List.ScrollBox, "Update", function()
+			Picker.List.ScrollBox:ForEachFrame(ReskinTargetsButton)
+		end)
+		Picker.List.ScrollBox:ForEachFrame(ReskinTargetsButton)
+	end
+
+	local Preferences = frame.Preferences
+	if Preferences then
+		for _, input in pairs({
+			Preferences.MinLevel,
+			Preferences.MaxLevel,
+			Preferences.MinHealth,
+			Preferences.MaxHealth,
+		}) do
+			module:Proxy("HandleEditBox", input)
+			for _, tex in pairs(input.Back) do
+				tex:Kill()
+			end
+
+			input.backdrop:Point("TOPLEFT", input, "TOPLEFT", 2, 0)
+		end
+		module:Proxy("HandleCheckBox", Preferences.AllowMM)
+		Preferences.AllowMM:Size(22, 22)
+		F.Move(Preferences.AllowMM.Text, 0, -2)
+
+		Preferences.ExpectedDamage.Borders:Kill()
+
+		local texture = Preferences.ExpectedDamage.Selected
+		texture:SetTexture(E.media.blankTex)
+		F.InternalizeMethod(texture, "SetVertexColor")
+		texture.SetVertexColor = function(t, r, g, b, a)
+			F.CallMethod(t, "SetVertexColor", r, g, b, (a or 0.4) / 3)
+		end
+		texture:SetVertexColor(texture:GetVertexColor())
+	end
+
+	local WinRecord = frame.WinRecord
+	if WinRecord then
+		for _, input in pairs({ WinRecord.Wins, WinRecord.Losses, WinRecord.Draws }) do
+			module:Proxy("HandleEditBox", input)
+			for _, tex in pairs(input.Back) do
+				tex:Kill()
+			end
+
+			input.backdrop:Point("TOPLEFT", input, "TOPLEFT", 2, 0)
+		end
+
+		for _, button in pairs({
+			WinRecord.DrawsMinus,
+			WinRecord.DrawsPlus,
+			WinRecord.LossesMinus,
+			WinRecord.LossesPlus,
+			WinRecord.WinsMinus,
+			WinRecord.WinsPlus,
+		}) do
+			ReskinButton(button)
+			local isPlus = strfind(button:GetDebugName(), "Plus", 1, true) ~= nil
+			F.Move(button, isPlus and 2 or 4, 0)
+		end
+	end
+
+	local Line = frame.Line
+	if Line then
+		local region = select(1, Line:GetRegions())
+		if region and region:IsObjectType("Texture") then
+			region:SetTexture(E.media.blankTex)
+			region:SetVertexColor(C.ExtractRGBAFromTemplate("gray-700"))
+			region:SetInside(Line, 0, 1)
+		end
+	end
+
+	local MultiLineEditBox = frame.MultiLineEditBox
+	if MultiLineEditBox then
+		MultiLineEditBox:StripTextures()
+		MultiLineEditBox:SetTemplate("Transparent")
+
+		local scrollFrame = MultiLineEditBox.ScrollFrame
+		module:Proxy("HandleEditBox", scrollFrame.EditBox)
+		scrollFrame.EditBox.backdrop:Point("TOPLEFT", scrollFrame.EditBox, "TOPLEFT", 2, 0)
+		local PleaseWait = scrollFrame.PleaseWait
+		PleaseWait.Bar:SetTexture(E.media.normTex)
+		PleaseWait.Border:Kill()
+		module:Proxy("HandleScrollBar", scrollFrame.ScrollBar, 0, 2)
+	end
+
+	local IncludeCheckButtons = frame.IncludeCheckButtons
+	if IncludeCheckButtons then
+		for _, checkButton in pairs({
+			IncludeCheckButtons.IncludeNotes,
+			IncludeCheckButtons.IncludePreferences,
+		}) do
+			module:Proxy("HandleCheckBox", checkButton)
+			checkButton:Size(22, 22)
+			F.Move(checkButton.Text, 0, -1)
+		end
+	end
+
+	local EditBox = frame.EditBox
+	if EditBox then
+		EditBox.EditBox:StripTextures()
+		module:Proxy("HandleEditBox", EditBox.EditBox)
+		module:Reposition(EditBox.EditBox.backdrop, EditBox.EditBox, -2, -2, -1, -2, 1)
+	end
+
+	local Pet = frame.Pet
+	if Pet then
+		ReskinPetListButton(Pet.ListButtonPet)
+	end
+
+	local ColorPicker = frame.ColorPicker
+	if ColorPicker then
+		for _, swatch in pairs(ColorPicker.Swatches) do
+			swatch.Border:Kill()
+			swatch:CreateBackdrop()
+			swatch.backdrop:SetOutside(swatch, 1, 1)
+			swatch.backdrop:SetBackdropBorderColor(swatch.Selected:GetVertexColor())
+			swatch.Selected:Kill()
+			F.InternalizeMethod(swatch.Selected, "SetShown", true)
+			hooksecurefunc(swatch.Selected, "SetShown", function(_, shown)
+				swatch.backdrop:SetShown(shown)
+			end)
+			swatch.backdrop:SetShown(swatch.Selected:IsShown())
+		end
+	end
+
+	local IconPicker = frame.IconPicker
+	if IconPicker then
+		for _, region in pairs({ IconPicker:GetRegions() }) do
+			if region:IsObjectType("Texture") and region ~= IconPicker.Icon then
+				region:Kill()
+			end
+		end
+		IconPicker.Icon:SetTexCoord(unpack(E.TexCoords))
+
+		for i, region in ipairs({ IconPicker.SearchBox:GetRegions() }) do
+			if i > 5 then
+				break
+			end
+			if region:IsObjectType("Texture") then
+				region:Kill()
+			end
+		end
+		module:Proxy("HandleEditBox", IconPicker.SearchBox)
+		module:Reposition(IconPicker.SearchBox.backdrop, IconPicker.SearchBox, -1, 0, 0, 0, 2)
+		ReskinList(IconPicker.List)
+	end
+
+	local CheckButton = frame.CheckButton
+	if CheckButton then
+		module:Proxy("HandleCheckBox", CheckButton.Check)
+		CheckButton.Check:Size(22, 22)
+		F.Move(CheckButton.CheckText, 0, -1)
+	end
+
+	local BarChartDropDown = frame.BarChartDropDown
+	if BarChartDropDown then
+		ReskinDropDown(BarChartDropDown.DropDown)
+	end
+
+	local DropDown = frame.DropDown
+	if DropDown then
+		ReskinDropDown(DropDown.DropDown)
+	end
+
+	local PetSummary = frame.PetSummary
+	if PetSummary then
+		PetSummary.LeftCap:Kill()
+		PetSummary.RightCap:Kill()
+		PetSummary.MidBorder:Kill()
+		PetSummary.ProgressBarBackdrop = CreateFrame("Frame", nil, PetSummary)
+		PetSummary.ProgressBarBackdrop:SetTemplate()
+		PetSummary.ProgressBarBackdrop:Point("TOPLEFT", PetSummary.LeftCap, "TOPLEFT", 0, 0)
+		PetSummary.ProgressBarBackdrop:Point("BOTTOMRIGHT", PetSummary.RightCap, "BOTTOMRIGHT", 0, 0)
+		PetSummary.ProgressBarBackdrop:SetFrameLevel(PetSummary:GetFrameLevel())
+
+		PetSummary.PoorBar:SetTexture(E.media.normTex)
+		PetSummary.CommonBar:SetTexture(E.media.normTex)
+		PetSummary.UncommonBar:SetTexture(E.media.normTex)
+		PetSummary.RareBar:SetTexture(E.media.normTex)
+	end
+
+	frame.__MERSkin = true
+end
+
+local function ReskinDialog(frame)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+	module:CreateShadow(frame)
+
+	ReskinTitlebarButton(frame.CloseButton)
+	F.Move(frame.CloseButton, -4, -4)
+	ReskinTitlebarButton(frame.MinimizeButton, 16)
+	F.Move(frame.MinimizeButton, -4, 2)
+
+	if frame.CloseButton then
+		ReskinTitlebarButton(frame.CloseButton)
+		F.Move(frame.CloseButton, -4, -4)
+	end
+	ReskinButton(frame.AcceptButton)
+	ReskinButton(frame.CancelButton)
+	ReskinButton(frame.OtherButton)
+
+	frame.OtherButton:Width(frame.OtherButton:GetWidth() - 5)
+	frame.CancelButton:Width(frame.CancelButton:GetWidth() - 5)
+	frame.AcceptButton:ClearAllPoints()
+	frame.AcceptButton:Point("LEFT", frame.OtherButton, "RIGHT", 3, 0)
+	frame.AcceptButton:Point("RIGHT", frame.CancelButton, "LEFT", -3, 0)
+
+	local Prompt = frame.Prompt
+	if Prompt then
+		Prompt:StripTextures()
+		Prompt.TopBar = Prompt:CreateTexture(nil, "ARTWORK")
+		Prompt.TopBar:SetTexture(E.media.blankTex)
+		Prompt.TopBar:SetVertexColor(C.ExtractRGBAFromTemplate("gray-400"))
+		Prompt.TopBar:Height(3)
+		Prompt.TopBar:SetPoint("TOPLEFT", Prompt, "TOPLEFT", 1, -1)
+		Prompt.TopBar:SetPoint("TOPRIGHT", Prompt, "TOPRIGHT", -1, -1)
+	end
+
+	ReskinCanvas(frame.Canvas)
+
+	frame.__MERSkin = true
+end
+
+local function ReskinNotesCard(frame)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	frame:StripTextures()
+	frame:SetTemplate("Transparent")
+	module:CreateShadow(frame)
+
+	ReskinTitlebarButton(frame.CloseButton)
+	F.Move(frame.CloseButton, -4, -4)
+	ReskinTitlebarButton(frame.LockButton, 14)
+	F.Move(frame.LockButton, 4, -4)
+
+	frame.Content.NineSlice:SetAlpha(0)
+	frame.Content:SetTemplate("Transparent")
+	module:CreateShadow(frame.Content)
+
+	hooksecurefunc(frame, "SetAlpha", function(_, alpha)
+		if frame.Content.shadow then
+			frame.Content.shadow:SetShown(alpha == 0)
+		end
+	end)
+	frame:SetAlpha(frame:GetAlpha())
+
+	local ScrollFrame = frame.Content.ScrollFrame
+	module:Proxy("HandleEditBox", ScrollFrame.EditBox)
+	ScrollFrame.EditBox.backdrop:Point("TOPLEFT", ScrollFrame.EditBox, "TOPLEFT", 2, 0)
+	module:Proxy("HandleScrollBar", ScrollFrame.ScrollBar, 0, 2)
+
+	local Bottom = frame.Content.Bottom
+	if Bottom then
+		Bottom.Back:Kill()
+		for _, button in pairs({ Bottom.DeleteButton, Bottom.SaveButton, Bottom.UndoButton }) do
+			ReskinButton(button)
+			button:Width(button:GetWidth() - 5)
+		end
 	end
 
 	frame.__MERSkin = true
@@ -1528,7 +1399,7 @@ function module:Rematch()
 		return
 	end
 
-	local frame = _G.Rematch and _G.Rematch.frame
+	local frame = _G.Rematch and _G.Rematch.frame --[[@as BackdropTemplate]]
 	if not frame then
 		return
 	end
@@ -1549,6 +1420,8 @@ function module:Rematch()
 		ReskinQueuePanel(frame.QueuePanel)
 		ReskinOptionsPanel(frame.OptionsPanel)
 		ReskinPetCard(_G.Rematch.petCard)
+		ReskinNotesCard(_G.Rematch.notes)
+		ReskinDialog(_G.Rematch.dialog)
 	end)
 
 	F.InternalizeMethod(frame, "SetPoint")
