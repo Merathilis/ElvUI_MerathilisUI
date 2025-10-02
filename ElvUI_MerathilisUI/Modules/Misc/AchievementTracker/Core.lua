@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_AchievementTracker") ---@class AchievementTracker : AceModule, AceEvent-3.0
+local A = MER:GetModule("MER_AchievementTracker") ---@class AchievementTracker : AceModule, AceEvent-3.0
 
 local _G = _G
 local UIParentLoadAddOn = UIParentLoadAddOn
@@ -16,7 +16,7 @@ local UIParentLoadAddOn = UIParentLoadAddOn
 ---@field BUTTON_SPACING number
 ---@field ICON_SIZE number
 ---@field PROGRESS_BAR_WIDTH number
-module.Config = {
+A.Config = {
 	PANEL_WIDTH = 450,
 	PANEL_HEIGHT = 500,
 	MIN_THRESHOLD = 50,
@@ -42,10 +42,10 @@ module.Config = {
 ---@field selectedCategory string|nil
 ---@field showOnlyRewards boolean
 ---@field expandedAchievements table<number, boolean>
-module.scanState = {
+A.States = {
 	isScanning = false,
 	scannedSinceInit = false,
-	currentThreshold = module.Config.DEFAULT_THRESHOLD,
+	currentThreshold = A.Config.DEFAULT_THRESHOLD,
 	results = {},
 	filteredResults = {},
 	sortBy = "percent",
@@ -56,11 +56,53 @@ module.scanState = {
 	expandedAchievements = {},
 }
 
+---Initialize the achievements module
+---@return nil
+function A:Initialize()
+	if not E.db or not E.db.mui or not E.db.mui.misc.achievementTracker then
+		return
+	end
+
+	self.db = E.db.mui.misc.achievementTracker
+
+	UIParentLoadAddOn("Blizzard_AchievementUI")
+	self.initialized = true
+end
+
+---Stop scan due to combat and cleanup UI
+---@return boolean # If scan was stopped due to combat
+function A:StopScanDueToCombat()
+	if InCombatLockdown() then
+		A.States.isScanning = false
+		if self.MainFrame.ProgressFrame then
+			self.MainFrame.ProgressFrame:Hide()
+		end
+		return true
+	end
+	return false
+end
+
+---Handle profile updates
+---@return nil
+function A:ProfileUpdate()
+	if not self.initialized then
+		self:Initialize()
+	end
+
+	if not E.private.mui.misc.achievements then
+		A:UnregisterEvent("ADDON_LOADED")
+		A:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		A:UnregisterEvent("ACHIEVEMENT_EARNED")
+		A:UnregisterEvent("CRITERIA_UPDATE")
+		self.initialized = false
+	end
+end
+
 ---Handle ADDON_LOADED event
 ---@param _ any
 ---@param addonName string
 ---@return nil
-function module:ADDON_LOADED(_, addonName)
+function A:ADDON_LOADED(_, addonName)
 	if addonName == "Blizzard_AchievementUI" then
 		self:CreateAchievementTrackerPanel()
 		self:HookAchievementFrame()
@@ -69,66 +111,19 @@ end
 
 ---Handle PLAYER_ENTERING_WORLD event
 ---@return nil
-function module:PLAYER_ENTERING_WORLD()
+function A:PLAYER_ENTERING_WORLD()
 	self:HookAchievementFrame()
 end
 
-MER:AddCommand("AchievementTracker", { "/merat", "/merachievements" }, function()
+MER:AddCommand("AchievementTracker", { "/MERat", "/MERachievements" }, function()
 	if not _G.MER_AchievementTracker then
-		module1:CreateAchievementTrackerPanel()
+		A:CreateAchievementTrackerPanel()
 	end
 	_G.MER_AchievementTracker:Show()
-	module:StartAchievementScan()
+	A:StartAchievementScan()
 end)
 
----Initialize the achievements module
----@return nil
-function module:Initialize()
-	if not E.initialized or not E.private or not E.private.mui or not E.private.mui.misc then
-		return
-	end
+A:RegisterEvent("ADDON_LOADED")
+A:RegisterEvent("PLAYER_ENTERING_WORLD")
 
-	if not E.private.mui.misc.achievementTracker or self.initialized then
-		return
-	end
-
-	UIParentLoadAddOn("Blizzard_AchievementUI")
-	self.initialized = true
-end
-
----Stop scan due to combat and cleanup UI
----@return boolean # If scan was stopped due to combat
-function module:StopScanDueToCombat()
-	local panel = _G.MER_AchievementTracker --[[@as MER_AchievementTracker]]
-	if InCombatLockdown() then
-		module.scanState.isScanning = false
-		if panel then
-			if panel.progressContainer then
-				panel.progressContainer:Hide()
-			end
-		end
-		return true
-	end
-
-	return false
-end
-
----Handle profile updates
----@return nil
-function module:ProfileUpdate()
-	self.initialized = false
-	self:Initialize()
-
-	if not E.private.mui.misc.achievements then
-		module:UnregisterEvent("ADDON_LOADED")
-		module:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		module:UnregisterEvent("ACHIEVEMENT_EARNED")
-		module:UnregisterEvent("CRITERIA_UPDATE")
-		self.initialized = false
-	end
-end
-
-module:RegisterEvent("ADDON_LOADED")
-module:RegisterEvent("PLAYER_ENTERING_WORLD")
-
-MER:RegisterModule(module:GetName())
+MER:RegisterModule(A:GetName())

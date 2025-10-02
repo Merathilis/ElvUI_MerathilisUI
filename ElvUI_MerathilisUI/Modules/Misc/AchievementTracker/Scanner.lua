@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_AchievementTracker") ---@class AchievementTracker
+local A = MER:GetModule("MER_AchievementTracker") ---@class AchievementTracker
 local async = MER.Utilities.Async
 
 local _G = _G
@@ -114,12 +114,12 @@ end
 ---@param applyFiltersFunc ApplyFiltersCallback|nil
 ---@return nil
 local function ScanAchievements(callback, updateProgress, applyFiltersFunc)
-	if module.scanState.isScanning then
+	if A.States.isScanning then
 		return
 	end
 
-	module.scanState.isScanning = true
-	module.scanState.results = {}
+	A.States.isScanning = true
+	A.States.results = {}
 
 	local categories = GetCategoryList()
 	local currentCategory = 1
@@ -132,13 +132,13 @@ local function ScanAchievements(callback, updateProgress, applyFiltersFunc)
 	end
 
 	local function scanStep()
-		if module:StopScanDueToCombat() then
+		if A:StopScanDueToCombat() then
 			return
 		end
 
 		local scanned = 0
 
-		while currentCategory <= #categories and scanned < module.Config.BATCH_SIZE do
+		while currentCategory <= #categories and scanned < A.Config.BATCH_SIZE do
 			local categoryID = categories[currentCategory]
 			local numAchievements = GetCategoryNumAchievements(categoryID)
 
@@ -155,11 +155,11 @@ local function ScanAchievements(callback, updateProgress, applyFiltersFunc)
 
 						if not completed then
 							local details = GetAchievementDetails(achievementID)
-							if details.percent >= module.scanState.currentThreshold then
+							if details.percent >= A.States.currentThreshold then
 								local categoryName = GetCategoryInfo(categoryID)
 								local rewardItemID = C_AchievementInfo_GetRewardItemID(achievementID)
 
-								tinsert(module.scanState.results, {
+								tinsert(A.States.results, {
 									id = achievementID,
 									name = name,
 									description = description,
@@ -208,13 +208,13 @@ local function ScanAchievements(callback, updateProgress, applyFiltersFunc)
 			if applyFiltersFunc then
 				applyFiltersFunc()
 			end
-			module.scanState.isScanning = false
-			callback(module.scanState.filteredResults)
+			A.States.isScanning = false
+			callback(A.States.filteredResults)
 		else
-			if module:StopScanDueToCombat() then
+			if A:StopScanDueToCombat() then
 				return
 			end
-			C_Timer_After(module.Config.SCAN_DELAY, scanStep)
+			C_Timer_After(A.Config.SCAN_DELAY, scanStep)
 		end
 	end
 
@@ -223,16 +223,16 @@ end
 
 ---Apply filters and sorting to results
 ---@return nil
-function module:ApplyFiltersAndSort()
+function A:ApplyFiltersAndSort()
 	-- Start with all results
 	local filtered = {}
 
-	for _, achievement in ipairs(module.scanState.results) do
+	for _, achievement in ipairs(A.States.results) do
 		local includeAchievement = true
 
 		-- Apply search filter
-		if module.scanState.searchTerm and module.scanState.searchTerm ~= "" then
-			local searchLower = module.scanState.searchTerm:lower()
+		if A.States.searchTerm and A.States.searchTerm ~= "" then
+			local searchLower = A.States.searchTerm:lower()
 			local nameLower = achievement.name:lower()
 			local descLower = (achievement.description or ""):lower()
 			if not (nameLower:find(searchLower, 1, true) or descLower:find(searchLower, 1, true)) then
@@ -241,14 +241,14 @@ function module:ApplyFiltersAndSort()
 		end
 
 		-- Apply category filter
-		if includeAchievement and module.scanState.selectedCategory then
-			if achievement.categoryName ~= module.scanState.selectedCategory then
+		if includeAchievement and A.States.selectedCategory then
+			if achievement.categoryName ~= A.States.selectedCategory then
 				includeAchievement = false
 			end
 		end
 
 		-- Apply rewards filter
-		if includeAchievement and module.scanState.showOnlyRewards then
+		if includeAchievement and A.States.showOnlyRewards then
 			if not achievement.rewardItemID then
 				includeAchievement = false
 			end
@@ -259,42 +259,33 @@ function module:ApplyFiltersAndSort()
 		end
 	end
 
-	module.scanState.filteredResults = filtered
+	self.States.filteredResults = filtered
 
-	sort(module.scanState.filteredResults, function(a, b)
+	sort(self.States.filteredResults, function(a, b)
 		local aVal, bVal
 
-		if module.scanState.sortBy == "percent" then
+		if self.States.sortBy == "percent" then
 			aVal, bVal = a.percent, b.percent
-		elseif module.scanState.sortBy == "name" then
+		elseif self.States.sortBy == "name" then
 			aVal, bVal = a.name:lower(), b.name:lower()
-		elseif module.scanState.sortBy == "category" then
+		elseif self.States.sortBy == "category" then
 			aVal, bVal = a.categoryName:lower(), b.categoryName:lower()
 		end
 
-		if module.scanState.sortOrder == "desc" then
+		if self.States.sortOrder == "desc" then
 			return aVal > bVal
 		else
 			return aVal < bVal
 		end
 	end)
 
-	local panel = _G.MER_AchievementTracker
-	if panel and panel.UpdateDropdowns then
-		panel:UpdateDropdowns()
-	end
+	self.MainFrame:UpdateDropdowns()
 end
 
 ---Start the achievement scan
 ---@return nil
-function module:StartAchievementScan()
-	if not _G.MER_AchievementTracker then
-		return
-	end
-
-	-- Don't start scan if events aren't registered (UI not shown)
-	-- We'll check if the tracker panel is visible instead
-	if not _G.MER_AchievementTracker or not _G.MER_AchievementTracker:IsVisible() then
+function A:StartAchievementScan()
+	if not self.MainFrame or not self.MainFrame:IsShown() then
 		return
 	end
 
@@ -302,37 +293,30 @@ function module:StartAchievementScan()
 		return
 	end
 
-	local panel = _G.MER_AchievementTracker --[[@as MER_AchievementTracker]]
-	if panel.progressContainer then
-		panel.progressContainer:Show()
-		panel.progressBar:SetValue(0)
-		panel.progressText:SetText(L["Starting scan..."])
-		panel.progressText:SetTextColor(0.7, 0.7, 0.7)
-	end
+	local ProgressFrame = self.MainFrame.ProgressFrame
+	ProgressFrame.Bar:SetValue(0)
+	ProgressFrame.Bar.ProgressText:SetText("")
 
-	ScanAchievements(function(results)
-		if panel.progressContainer then
-			panel.progressContainer:Hide()
-		end
-		module:UpdateAchievementList()
-	end, function(categoryIndex, achievementIndex, progress, scanned, total)
-		if panel.progressBar and panel.progressText then
-			panel.progressBar:SetValue(progress)
-			panel.progressText:SetText(format(L["Scanning... %d/%d (%.0f%%)"], scanned, total, progress))
-			panel.progressText:SetTextColor(0.7, 0.7, 0.7)
-		end
+	ScanAchievements(function(_)
+		ProgressFrame:Hide()
+		self:UpdateAchievementList()
+	end, function(_, _, progress, scanned, total)
+		ProgressFrame.Bar:SetValue(progress)
+		ProgressFrame.Bar.ProgressText:SetText(format("%d / %d  -  %.0f %%", scanned, total, progress))
 	end, function()
-		module:ApplyFiltersAndSort()
+		self:ApplyFiltersAndSort()
 	end)
+
+	ProgressFrame:Show()
 end
 
 ---Get unique categories from current results
 ---@return table<string>
-function module:GetUniqueCategories()
+function A:GetUniqueCategories()
 	local categories = {}
 	local seen = {}
 
-	for _, achievement in ipairs(module.scanState.results) do
+	for _, achievement in ipairs(self.States.results) do
 		if achievement.categoryName and not seen[achievement.categoryName] then
 			tinsert(categories, achievement.categoryName)
 			seen[achievement.categoryName] = true
@@ -341,18 +325,4 @@ function module:GetUniqueCategories()
 
 	sort(categories)
 	return categories
-end
-
----Get scan state for external access
----@return AchievementScanState
-function module:GetScanState()
-	return module.scanState
-end
-
----Set scan state properties
----@param key string
----@param value any
----@return nil
-function module:SetScanState(key, value)
-	module.scanState[key] = value
 end

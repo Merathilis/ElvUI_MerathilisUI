@@ -1826,6 +1826,39 @@ function F.Move(frame, x, y)
 	end
 end
 
+---@param fontFile string Font path or name
+---@param fontSize number Font size
+---@param fontStyle string Font style (e.g., "OUTLINE")
+---@param texts string | string[] Text or array of texts to measure
+---@return number maxWidth The maximum width among the provided texts
+function F.GetAdaptiveTextWidth(fontFile, fontSize, fontStyle, texts)
+	if not F.__GetAdaptiveTextWidthFont then
+		F.__GetAdaptiveTextWidthFont = E.UIParent:CreateFontString(nil, "OVERLAY")
+		F.__GetAdaptiveTextWidthFont:Hide()
+		F.InternalizeMethod(F.__GetAdaptiveTextWidthFont, "Show", true)
+	end
+
+	local font = F.__GetAdaptiveTextWidthFont
+	font:FontTemplate(fontFile or E.media.normFont, fontSize or E.db.general.fontSize, fontStyle or "NONE")
+
+	if type(texts) == "string" then
+		texts = { texts }
+	end
+
+	local maxWidth = 0
+	for _, text in pairs(texts) do
+		if type(text) == "string" then
+			font:SetText(text)
+			local width = font:GetStringWidth()
+			if width > maxWidth then
+				maxWidth = width
+			end
+		end
+	end
+
+	return maxWidth
+end
+
 ---Check if two numbers are approximately equal
 ---@param a? number|number[] First number or array of numbers
 ---@param b? number|number[] Second number or array of numbers

@@ -5,7 +5,6 @@ V.general = {
 }
 
 V.misc = {
-	achievementTracker = true,
 	reshiiWrapsUpgrade = true,
 	moveFrames = {
 		enable = true,

@@ -665,6 +665,31 @@ P.misc = {
 		width = 81,
 		height = 50,
 	},
+	achievementTracker = {
+		enable = true,
+		automation = {
+			expanded = true,
+			scan = true,
+		},
+		button = {
+			height = 45,
+			spacing = 4,
+			progressWidth = 100,
+		},
+		panel = {
+			width = 450,
+			height = 500,
+		},
+		threshold = {
+			min = 50,
+			max = 99,
+			default = 80,
+		},
+		scan = {
+			batchSize = 30,
+			delay = 0.01,
+		},
+	},
 }
 
 P.nameHover = {
