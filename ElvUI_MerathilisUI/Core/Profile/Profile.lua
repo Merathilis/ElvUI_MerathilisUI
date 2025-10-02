@@ -571,6 +571,7 @@ P.misc = {
 			[229386] = false,
 			[339588] = false,
 			[312762] = false,
+			[40192] = false,
 		},
 		other = {
 			["Crying"] = false,

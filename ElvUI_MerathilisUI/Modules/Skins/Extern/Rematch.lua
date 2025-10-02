@@ -693,7 +693,7 @@ local function ReskinPet(frame)
 	frame.MERIconBorder = CreateFrame("Frame", nil, frame)
 	frame.MERIconBorder:SetOutside(frame.Icon)
 	frame.MERIconBorder:SetTemplate()
-	hooksecurefunc(frame.Border, "SetVertexColor", function(self, r, g, b)
+	hooksecurefunc(frame.Border, "SetVertexColor", function(_, r, g, b)
 		frame.MERIconBorder:SetBackdropBorderColor(r, g, b)
 	end)
 	frame.Border:SetVertexColor(frame.Border:GetVertexColor())
@@ -704,6 +704,18 @@ local function ReskinPet(frame)
 	frame.LevelText:SetJustifyH("RIGHT")
 	frame.LevelText:ClearAllPoints()
 	frame.LevelText:Point("BOTTOMRIGHT", frame.Icon, "BOTTOMRIGHT", 2, 0)
+
+	frame.Status:SetAllPoints(frame.Icon)
+	hooksecurefunc(frame.Status, "SetTexCoord", function(self, ...)
+		if F.IsAlmost({ 0.3125, 0.625, 0, 0.625 }, { ... }) then
+			self:SetTexCoord(0.325, 0.6125, 0.025, 0.6)
+		elseif F.IsAlmost({ 0, 0.3125, 0, 0.625 }, { ... }) then
+			self:SetTexCoord(0.0125, 0.3, 0.025, 0.6)
+		end
+	end)
+
+	local ULx, ULy, _, _, _, _, LRx, LRy = frame.Status:GetTexCoord()
+	frame.Status:SetTexCoord(ULx, LRx, ULy, LRy)
 
 	frame.__MERSkin = true
 end
