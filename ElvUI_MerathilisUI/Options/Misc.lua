@@ -8,6 +8,7 @@ local SA = MER:GetModule("MER_SpellAlert")
 local CM = MER:GetModule("MER_ContextMenu")
 local RIF = MER:GetModule("MER_RaidInfoFrame")
 local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
+local AT = MER:GetModule("MER_AchievementTracker")
 
 local async = MER.Utilities.Async
 
@@ -111,12 +112,6 @@ options.general = {
 			type = "toggle",
 			name = L["Reshii Wraps Upgrade"],
 			desc = L["Middle click the character back slot to open the Reshii Wraps upgrade menu."],
-		},
-		achievementTracker = {
-			order = 16,
-			type = "toggle",
-			name = E.NewSign .. L["Achievement Tracker"],
-			desc = L["Show an enhanced achievement tracker with filtering and detailed progress information."],
 		},
 		randomtoy = {
 			order = 20,
@@ -1753,6 +1748,40 @@ options.exitPhaseDiving = {
 					name = F.GetMERStyleText("ElvUI_Windtools"),
 				},
 			},
+		},
+	},
+}
+
+options.achievementTracker = {
+	order = 13,
+	type = "group",
+	name = L["Achievement Tracker"],
+	get = function(info)
+		return E.db.mui.misc.achievementTracker[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.misc.achievementTracker[info[#info]] = value
+		AT:ProfileUpdate()
+	end,
+	args = {
+		desc = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Show an enhanced achievement tracker with filtering and detailed progress information."],
+					fontSize = "medium",
+				},
+			},
+		},
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
 		},
 	},
 }
