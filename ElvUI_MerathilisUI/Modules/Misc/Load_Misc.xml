@@ -2,6 +2,7 @@
 	<Script file="Core.lua"/>
 
 	<Script file="Misc.lua"/>
+	<Script file="AchievementTracker.lua"/>
 	<Script file="Afk.lua"/>
 	<Script file="AlreadyKnown.lua"/>
 	<Script file="Automation.lua"/>
@@ -28,9 +29,5 @@
 	<Script file="WAAnchor.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
 
-	<Script file="AchievementTracker\Core.lua" />
-	<Script file="AchievementTracker\Scanner.lua" />
-	<Script file="AchievementTracker\UI.lua" />
-	<Script file="AchievementTracker\Events.lua" />
 	<Include file="Scale\Load_Scale.xml"/>
 </Ui>
