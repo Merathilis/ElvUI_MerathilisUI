@@ -44,14 +44,14 @@ function module:AddKeySupport(dialog)
 		dialog.Text:SetText(msg)
 	end
 
-	targetFrame:SetScript("OnKeyDown", function(self, key)
+	targetFrame:SetScript("OnKeyDown", function(_, key)
 		if key == "DELETE" then
 			dialog:GetButton1():Enable()
 		end
 	end)
 
-	targetFrame:HookScript("OnHide", function(self)
-		self:SetScript("OnKeyDown", nil)
+	targetFrame:HookScript("OnHide", function()
+		targetFrame:SetScript("OnKeyDown", nil)
 	end)
 end
 
@@ -74,9 +74,9 @@ function module:ShowFillInButton(dialog)
 	self.fillInButton:SetPoint("BOTTOMRIGHT", editBoxFrame, "BOTTOMRIGHT", 2, 4)
 
 	self.fillInButton:SetText("|cffe74c3c" .. L["Click to confirm"] .. "|r")
-	self.fillInButton:SetScript("OnClick", function(self)
+	self.fillInButton:SetScript("OnClick", function()
 		yesButton:Enable()
-		self:SetText("|cff2ecc71" .. L["Confirmed"] .. "|r")
+		self.fillInButton:SetText("|cff2ecc71" .. L["Confirmed"] .. "|r")
 	end)
 	self.fillInButton:Show()
 end
