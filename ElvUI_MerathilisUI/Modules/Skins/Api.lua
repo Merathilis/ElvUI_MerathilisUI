@@ -1117,3 +1117,38 @@ function module:RefreshToggleDirection()
 		module:SetToggleDirection(frame)
 	end
 end
+
+-- Modified from ElvUI WorldMap skin
+function module:ReskinWorldMapTab(tab)
+	tab:CreateBackdrop()
+	tab:Size(30, 40)
+
+	if tab.Icon then
+		F.InternalizeMethod(tab.Icon, "SetPoint", true)
+		F.InternalizeMethod(tab.Icon, "ClearAllPoints", true)
+		F.CallMethod(tab.Icon, "ClearAllPoints")
+		F.CallMethod(tab.Icon, "SetPoint", "CENTER")
+	end
+
+	if tab.Background then
+		tab.Background:SetAlpha(0)
+	end
+
+	if tab.SelectedTexture then
+		tab.SelectedTexture:SetDrawLayer("ARTWORK")
+		tab.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
+		tab.SelectedTexture:SetAllPoints()
+	end
+
+	for _, region in next, { tab:GetRegions() } do
+		if region:IsObjectType("Texture") and region:GetAtlas() == "QuestLog-Tab-side-Glow-hover" then
+			region:SetColorTexture(1, 1, 1, 0.3)
+			region:SetAllPoints()
+		end
+	end
+
+	if tab.backdrop then
+		module:CreateBackdropShadow(tab)
+		tab.backdrop:SetTemplate("Transparent")
+	end
+end

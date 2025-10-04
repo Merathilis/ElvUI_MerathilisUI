@@ -9,41 +9,6 @@ local hooksecurefunc = hooksecurefunc
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
--- Modified from ElvUI WorldMap skin
-local function reskinTab(tab)
-	tab:CreateBackdrop()
-	tab:Size(30, 40)
-
-	if tab.Icon then
-		F.InternalizeMethod(tab.Icon, "SetPoint", true)
-		F.InternalizeMethod(tab.Icon, "ClearAllPoints", true)
-		F.CallMethod(tab.Icon, "ClearAllPoints")
-		F.CallMethod(tab.Icon, "SetPoint", "CENTER")
-	end
-
-	if tab.Background then
-		tab.Background:SetAlpha(0)
-	end
-
-	if tab.SelectedTexture then
-		tab.SelectedTexture:SetDrawLayer("ARTWORK")
-		tab.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
-		tab.SelectedTexture:SetAllPoints()
-	end
-
-	for _, region in next, { tab:GetRegions() } do
-		if region:IsObjectType("Texture") and region:GetAtlas() == "QuestLog-Tab-side-Glow-hover" then
-			region:SetColorTexture(1, 1, 1, 0.3)
-			region:SetAllPoints()
-		end
-	end
-
-	if tab.backdrop then
-		module:CreateBackdropShadow(tab)
-		tab.backdrop:SetTemplate("Transparent")
-	end
-end
-
 local function reskinContainer(container)
 	container.BorderFrame:Hide()
 	container.Background:Hide()
@@ -174,7 +139,7 @@ function module:WorldQuestTab()
 
 	local tab = _G.WQT_QuestMapTab
 	if tab then
-		reskinTab(tab)
+		module:ReskinWorldMapTab(tab)
 		F.InternalizeMethod(tab, "SetPoint")
 		hooksecurefunc(tab, "SetPoint", function()
 			F.Move(tab, 0, -2)
