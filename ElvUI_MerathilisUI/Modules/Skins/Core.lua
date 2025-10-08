@@ -323,6 +323,7 @@ function module:Initialize()
 
 	self:ShadowOverlay()
 
+	-- Temp moved
 	module:AddCallbackForLibrary("AceGUI-3.0", "AceGUI")
 	module:AddCallbackForLibrary("AceConfigDialog-3.0", "AceConfigDialog")
 	module:AddCallbackForLibrary("AceConfigDialog-3.0-ElvUI", "AceConfigDialog")

@@ -32,6 +32,7 @@ function module:Ace3_DropdownPullout(widget)
 	self:CreateShadow(widget.frame)
 end
 
+-- currently in Initialize from Skins, till its fixed
 -- module:AddCallbackForLibrary("AceGUI-3.0", "AceGUI")
 -- module:AddCallbackForLibrary("AceConfigDialog-3.0", "AceConfigDialog")
 -- module:AddCallbackForLibrary("AceConfigDialog-3.0-ElvUI", "AceConfigDialog")

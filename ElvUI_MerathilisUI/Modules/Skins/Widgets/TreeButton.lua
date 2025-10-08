@@ -13,7 +13,7 @@ function WS:HandleTreeGroup(widget)
 		and E.private.mui.skins.widgets
 		and E.private.mui.skins.widgets.treeGroupButton
 
-	if not E.private.mui.skins.enable or not db.enable then
+	if not db or not db.enable then
 		return
 	end
 

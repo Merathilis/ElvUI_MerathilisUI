@@ -6,6 +6,7 @@ local C = MER.Utilities.Color
 local async = MER.Utilities.Async
 
 local _G = _G
+
 local floor = floor
 local format = format
 local ipairs = ipairs
@@ -14,11 +15,20 @@ local max = max
 local pairs = pairs
 local select = select
 local sort = sort
+local strfind = strfind
+local strlower = strlower
+local strtrim = strtrim
+local tFilter = tFilter
 local tinsert = tinsert
+local tonumber = tonumber
+local tostring = tostring
 local tremove = tremove
 local unpack = unpack
 
+local CreateDataProvider = CreateDataProvider
 local CreateFrame = CreateFrame
+local CreateFramePool = CreateFramePool
+local CreateScrollBoxListLinearView = CreateScrollBoxListLinearView
 local GameTooltip = _G.GameTooltip
 local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
 local GetAchievementInfo = GetAchievementInfo
@@ -26,7 +36,7 @@ local GetAchievementNumCriteria = GetAchievementNumCriteria
 local GetCategoryInfo = GetCategoryInfo
 local GetCategoryList = GetCategoryList
 local GetCategoryNumAchievements = GetCategoryNumAchievements
-local InCombatLockdown = InCombatLockdown
+local GetKeysArray = GetKeysArray
 local PlaySound = PlaySound
 
 local C_AchievementInfo_GetRewardItemID = C_AchievementInfo.GetRewardItemID
@@ -38,472 +48,412 @@ local C_ContentTracking_StartTracking = C_ContentTracking.StartTracking
 local C_ContentTracking_StopTracking = C_ContentTracking.StopTracking
 
 local Constants_ContentTrackingConsts = Constants.ContentTrackingConsts
-local ERR_NOT_IN_COMBAT = ERR_NOT_IN_COMBAT
 local Enum_ContentTrackingStopType = Enum.ContentTrackingStopType
 local Enum_ContentTrackingType = Enum.ContentTrackingType
 local RED_FONT_COLOR = RED_FONT_COLOR
 local SOUNDKIT = SOUNDKIT
+local ScrollBoxConstants = ScrollBoxConstants
+local ScrollUtil = ScrollUtil
+
+local ELEMENT_ICON_SIZE = 36
+local ELEMENT_PADDING = 8
+local ELEMENT_CRITERIA_LINE_HEIGHT = 12
+local ELEMENT_CRITERIA_LINE_SPACING = 2
+local ELEMENT_PERCENTAGE_HEIGHT = 35
+local REWARDS_ICON_OFFSET_X = 80
 
 ---@class AchievementData
 ---@field id number
 ---@field name string
 ---@field description string
 ---@field icon number
----@field percent number
----@field completedCriteria number
----@field totalCriteria number
----@field criteria AchievementCriteria[]
----@field categoryID number
----@field categoryName string
+---@field category { id: number, name: string }
+---@field criteriaData AchievementCriteriaData
 ---@field flags number
----@field rewardText string
----@field rewardItemID number|nil
----@field wasEarnedByMe boolean
----@field earnedBy string
----@field month number
----@field day number
----@field year number
----@field isStatistic boolean
+---@field reward { itemID: number|nil, text: string }
+---@field isExpanded? boolean whether the element is expanded to show details
+---@field isLastElement? boolean used to avoid cutting off the last element when expanding
 
----@class AchievementCriteria
+---@class AchievementCriteriaDataDetail
 ---@field text string
----@field type number
----@field done boolean
+---@field completed boolean
 ---@field quantity number
----@field required number
----@field assetID number
----@field quantityString string
----@field criteriaID number
----@field eligible boolean
+---@field reqQuantity number
 
----@class AchievementDetails
+---@class AchievementCriteriaData
+---@field completed number
+---@field total number
 ---@field percent number
----@field completedCriteria number
----@field totalCriteria number
----@field criteria AchievementCriteria[]
+---@field details AchievementCriteriaDataDetail[]
 
----@class AchievementConfig
----@field PANEL_WIDTH number
----@field PANEL_HEIGHT number
----@field MIN_THRESHOLD number
----@field MAX_THRESHOLD number
----@field DEFAULT_THRESHOLD number
----@field BATCH_SIZE number
----@field SCAN_DELAY number
----@field BUTTON_HEIGHT number
----@field BUTTON_SPACING number
----@field ICON_SIZE number
----@field PROGRESS_BAR_WIDTH number
-AT.Config = {
-	PANEL_WIDTH = 450,
-	PANEL_HEIGHT = 500,
-	MIN_THRESHOLD = 50,
-	MAX_THRESHOLD = 99,
-	DEFAULT_THRESHOLD = 80,
-	BATCH_SIZE = 20,
-	SCAN_DELAY = 0.01,
-	BUTTON_HEIGHT = 48,
-	BUTTON_SPACING = 4,
-	ICON_SIZE = 28,
-	PROGRESS_BAR_WIDTH = 90,
-}
-
----@class AchievementScanState
----@field isScanning boolean
----@field scannedSinceInit boolean
----@field currentThreshold number
----@field results AchievementData[]
----@field filteredResults AchievementData[]
----@field sortBy "percent"|"name"|"category"
----@field sortOrder "asc"|"desc"
----@field searchTerm string
----@field selectedCategory string|nil
----@field showOnlyRewards boolean
----@field expandedAchievements table<number, boolean>
 AT.states = {
-	isScanning = false,
-	scannedSinceInit = false,
-	currentThreshold = 80,
-	results = {},
-	filteredResults = {},
-	sortBy = "percent",
-	sortOrder = "desc",
-	searchTerm = "",
-	selectedCategory = nil,
-	showOnlyRewards = false,
-	expandedAchievements = {},
+	isScanning = false, ---@type boolean
+	results = {}, ---@type AchievementData[]
+	filters = {
+		categoryID = nil, ---@type string|nil
+		hasRewards = false, ---@type boolean
+		minPercent = 0, ---@type number
+		pattern = "", ---@type string
+	},
+	sort = {
+		by = "percent", ---@type "percent"|"name"|"category"
+		order = "desc", ---@type "asc"|"desc"
+	},
 }
 
---Calculate completion percentage and get detailed info for an achievement
+---Calculate completion percentage and get detailed info for an achievement
 ---@param achievementID number
----@return AchievementDetails
-local function GetAchievementDetails(achievementID)
-	local numCriteria = GetAchievementNumCriteria(achievementID)
-	if not numCriteria or numCriteria == 0 then
-		return {
-			percent = 0,
-			completedCriteria = 0,
-			totalCriteria = 0,
-			criteria = {},
-		}
+---@return AchievementCriteriaData
+local function GetCriteriaData(achievementID)
+	local total, completed = GetAchievementNumCriteria(achievementID), 0
+	if not total or total == 0 then
+		return { percent = 0, total = 0, details = {}, completed = 0 }
 	end
 
-	local completed = 0
-	local criteria = {}
-
-	for i = 1, numCriteria do
-		local criteriaString, criteriaType, done, quantity, requiredQuantity, _, _, assetID, quantityString, criteriaID, eligible =
-			GetAchievementCriteriaInfo(achievementID, i)
-		tinsert(criteria, {
-			text = criteriaString,
-			type = criteriaType,
-			done = done,
-			quantity = quantity,
-			required = requiredQuantity,
-			assetID = assetID,
-			quantityString = quantityString,
-			criteriaID = criteriaID,
-			eligible = eligible,
-		})
-
-		if done then
+	local details = {}
+	for i = 1, total do
+		local criteriaString, _, criteriaCompleted, quantity, reqQuantity = GetAchievementCriteriaInfo(achievementID, i)
+		tinsert(
+			details,
+			{ text = criteriaString, completed = criteriaCompleted, quantity = quantity, reqQuantity = reqQuantity }
+		)
+		if criteriaCompleted then
 			completed = completed + 1
 		end
 	end
 
-	return {
-		percent = (completed / numCriteria) * 100,
-		completedCriteria = completed,
-		totalCriteria = numCriteria,
-		criteria = criteria,
-	}
+	return { percent = (completed / total) * 100, total = total, details = details, completed = completed }
 end
 
----Scan all achievements and gather data based on current settings
----@param callback fun(results: AchievementData[])
----@param updateProgress fun(categoryIndex: number, achievementIndex: number, progress: number, scanned: number, total: number)
----@param applyFiltersFunc fun()
-function AT:ScanAllAchievements(callback, updateProgress, applyFiltersFunc)
+function AT:ScanAchievements()
 	if self.states.isScanning then
 		return
+	end
+
+	if self.MainFrame and self.MainFrame:IsVisible() then
+		self.MainFrame.ProgressFrame.Bar:SetValue(0)
+		self.MainFrame.ProgressFrame.Bar.ProgressText:SetText("")
+		self.MainFrame.ProgressFrame:Show()
 	end
 
 	self.states.isScanning = true
 	self.states.results = {}
 
+	local current, scanned, total, currentCategory = 1, 0, 0, 1
 	local categories = GetCategoryList()
-	local currentCategory = 1
-	local currentAchievement = 1
-	local totalAchievements = 0
-	local scannedAchievements = 0
-
 	for _, categoryID in ipairs(categories) do
-		totalAchievements = totalAchievements + GetCategoryNumAchievements(categoryID)
+		total = total + GetCategoryNumAchievements(categoryID)
 	end
 
 	local function scanStep()
-		local scanned = 0
-
-		while currentCategory <= #categories and scanned < self.db.scan.batchSize do
+		local stepScanned = 0
+		while currentCategory <= #categories and stepScanned < self.db.scan.batchSize do
 			local categoryID = categories[currentCategory]
 			local numAchievements = GetCategoryNumAchievements(categoryID)
 
-			if currentAchievement <= numAchievements then
-				local achievementID = select(1, GetAchievementInfo(categoryID, currentAchievement))
-				if
-					achievementID
-					and C_AchievementInfo_IsValidAchievement(achievementID)
-					and not C_AchievementInfo_IsGuildAchievement(achievementID)
-				then
-					async.WithAchievementID(achievementID, function(achievementData)
-						local _, name, _, completed, month, day, year, description, flags, icon, rewardText, _, wasEarnedByMe, earnedBy, isStatistic =
-							unpack(achievementData)
-
-						if not completed then
-							local details = GetAchievementDetails(achievementID)
-							if details.percent >= self.states.currentThreshold then
-								local categoryName = GetCategoryInfo(categoryID)
-								local rewardItemID = C_AchievementInfo_GetRewardItemID(achievementID)
-
-								tinsert(self.states.results, {
-									id = achievementID,
-									name = name,
-									description = description,
-									icon = icon,
-									percent = details.percent,
-									completedCriteria = details.completedCriteria,
-									totalCriteria = details.totalCriteria,
-									criteria = details.criteria,
-									categoryID = categoryID,
-									categoryName = categoryName,
-									flags = flags,
-									rewardText = rewardText,
-									rewardItemID = rewardItemID,
-									wasEarnedByMe = wasEarnedByMe,
-									earnedBy = earnedBy,
-									month = month,
-									day = day,
-									year = year,
-									isStatistic = isStatistic,
-								})
-							end
+			if current <= numAchievements then
+				local id = select(1, GetAchievementInfo(categoryID, current))
+				if id and C_AchievementInfo_IsValidAchievement(id) and not C_AchievementInfo_IsGuildAchievement(id) then
+					async.WithAchievementID(id, function(data)
+						local _, name, _, completed, _, _, _, description, flags, icon, rewardText = unpack(data)
+						if completed then
+							return
 						end
+
+						---@type AchievementData
+						local result = {
+							id = id,
+							name = name,
+							description = description,
+							icon = icon,
+							category = { id = categoryID, name = GetCategoryInfo(categoryID) },
+							criteriaData = GetCriteriaData(id),
+							flags = flags,
+							reward = { itemID = C_AchievementInfo_GetRewardItemID(id), text = rewardText },
+						}
+
+						tinsert(self.states.results, result)
 					end)
 				end
-				currentAchievement = currentAchievement + 1
-				scanned = scanned + 1
-				scannedAchievements = scannedAchievements + 1
 
-				if updateProgress then
-					local progress = (scannedAchievements / totalAchievements) * 100
-					updateProgress(
-						currentCategory,
-						currentAchievement,
-						progress,
-						scannedAchievements,
-						totalAchievements
+				current, scanned, stepScanned = current + 1, scanned + 1, stepScanned + 1
+				if self.MainFrame and self.MainFrame:IsVisible() then
+					local progress = (scanned / total) * 100
+					self.MainFrame.ProgressFrame.Bar:SetValue(progress)
+					self.MainFrame.ProgressFrame.Bar.ProgressText:SetText(
+						format("%d / %d  -  %.0f %%", scanned, total, progress)
 					)
 				end
 			else
-				currentCategory = currentCategory + 1
-				currentAchievement = 1
+				current, currentCategory = 1, currentCategory + 1
 			end
 		end
 
 		if currentCategory > #categories then
-			applyFiltersFunc()
 			self.states.isScanning = false
-			callback(self.states.filteredResults)
+			if self.MainFrame and self.MainFrame:IsVisible() then
+				self.MainFrame.ProgressFrame:Hide()
+				self:UpdateView()
+			end
 		else
-			-- if self:StopScanDueToCombat() then
-			-- 	return
-			-- end
-
-			E:Delay(self.db.scan.delay, scanStep)
+			E:Delay(self.db.scan.batchInterval, scanStep)
 		end
 	end
 
 	scanStep()
 end
 
-function AT:ApplyFiltersAndSort()
-	-- Start with all results
-	local filtered = {}
+--- Set the element data for the achievement tracker
+function AT:UpdateView()
+	local filters = self.states.filters
+	local results = tFilter(self.states.results, function(data)
+		---@cast data AchievementData
+		if filters.hasRewards and not data.reward.itemID then
+			return false
+		end
 
-	for _, achievement in ipairs(self.states.results) do
-		local includeAchievement = true
+		if filters.categoryID and data.category.id ~= filters.categoryID then
+			return false
+		end
 
-		-- Apply search filter
-		if self.states.searchTerm and self.states.searchTerm ~= "" then
-			local searchLower = self.states.searchTerm:lower()
-			local nameLower = achievement.name:lower()
-			local descLower = (achievement.description or ""):lower()
-			if not (nameLower:find(searchLower, 1, true) or descLower:find(searchLower, 1, true)) then
-				includeAchievement = false
+		if data.criteriaData.percent < self.db.threshold then
+			return false
+		end
+
+		if filters.pattern and strtrim(filters.pattern) ~= "" then
+			local found = false
+
+			local isNumber = tostring(tonumber(filters.pattern)) == filters.pattern
+			if isNumber then
+				local id = tonumber(filters.pattern)
+				if id and (id == data.id or id == data.reward.itemID) then
+					found = true
+				end
+			else
+				local patternLower = strlower(filters.pattern)
+				for _, targetFields in pairs({ data.name, data.description, data.reward.text }) do
+					if targetFields and strfind(strlower(targetFields), patternLower, 1, true) then
+						found = true
+						break
+					end
+				end
+			end
+
+			if not found then
+				return false
 			end
 		end
 
-		-- Apply category filter
-		if includeAchievement and self.states.selectedCategory then
-			if achievement.categoryName ~= self.states.selectedCategory then
-				includeAchievement = false
-			end
-		end
+		return true
+	end, true)
 
-		-- Apply rewards filter
-		if includeAchievement and self.states.showOnlyRewards then
-			if not achievement.rewardItemID then
-				includeAchievement = false
-			end
-		end
-
-		if includeAchievement then
-			tinsert(filtered, achievement)
-		end
-	end
-
-	self.states.filteredResults = filtered
-
-	sort(self.states.filteredResults, function(a, b)
+	sort(results, function(a, b)
+		---@cast a AchievementData
+		---@cast b AchievementData
 		local aVal, bVal
 
-		if self.states.sortBy == "percent" then
-			aVal, bVal = a.percent, b.percent
-		elseif self.states.sortBy == "name" then
+		if self.states.sort.by == "percent" then
+			aVal, bVal = a.criteriaData.percent, b.criteriaData.percent
+		elseif self.states.sort.by == "name" then
 			aVal, bVal = a.name:lower(), b.name:lower()
-		elseif self.states.sortBy == "category" then
-			aVal, bVal = a.categoryName:lower(), b.categoryName:lower()
+		elseif self.states.sort.by == "category" then
+			aVal, bVal = a.category.id, b.category.id
 		end
 
-		if self.states.sortOrder == "desc" then
+		if self.states.sort.order == "desc" then
 			return aVal > bVal
 		else
 			return aVal < bVal
 		end
 	end)
 
+	if self.LastElement then
+		self.LastElement.isLastElement = nil
+		self.LastElement = nil
+	end
+
+	if #results > 0 then
+		self.LastElement = results[#results]
+		self.LastElement.isLastElement = true
+	end
+
+	local dataProvider = CreateDataProvider()
+	dataProvider:InsertTable(results)
+	self.MainFrame.ScrollFrame.ScrollView:SetDataProvider(dataProvider)
 	self.MainFrame:UpdateDropdowns()
 end
 
-function AT:StartAchievementScan()
-	if not self.MainFrame or not self.MainFrame:IsShown() then
+---Update criteria data for an achievement
+---@param data AchievementData
+function AT:UpdateCriteriaData(data)
+	local latest = GetCriteriaData(data.id)
+	local old = data.criteriaData
+	if old.completed == latest.completed and old.total == latest.total then
 		return
 	end
 
-	local ProgressFrame = self.MainFrame.ProgressFrame
-	ProgressFrame.Bar:SetValue(0)
-	ProgressFrame.Bar.ProgressText:SetText("")
-
-	self:ScanAllAchievements(function(_)
-		ProgressFrame:Hide()
-		self:UpdateAchievementList()
-	end, function(_, _, progress, scanned, total)
-		ProgressFrame.Bar:SetValue(progress)
-		ProgressFrame.Bar.ProgressText:SetText(format("%d / %d  -  %.0f %%", scanned, total, progress))
-	end, function()
-		self:ApplyFiltersAndSort()
-	end)
-
-	ProgressFrame:Show()
+	data.criteriaData = latest
 end
 
-function AT:GetUniqueCategories()
-	local categories = {} ---@type string[]
-	local seen = {} ---@type table<string, boolean>
+---Apply achievement data to a UI element
+---@param frame Frame
+---@param data AchievementData
+function AT:ScrollElementInitializer(frame, data, scrollBox)
+	self:UpdateCriteriaData(data)
 
-	for _, achievement in ipairs(self.states.results) do
-		if achievement.categoryName and not seen[achievement.categoryName] then
-			tinsert(categories, achievement.categoryName)
-			seen[achievement.categoryName] = true
+	frame.data = data
+
+	if not frame.Initialized then
+		frame:SetTemplate()
+		frame:SetBackdropColor(C.ExtractRGBAFromTemplate("neutral-900"))
+		frame:SetScript("OnEnter", function()
+			frame:SetBackdropColor(C.ExtractRGBAFromTemplate("neutral-700"))
+		end)
+		frame:SetScript("OnLeave", function()
+			frame:SetBackdropColor(C.ExtractRGBAFromTemplate("neutral-900"))
+		end)
+
+		local ProgressBackdrop = CreateFrame("StatusBar", nil, frame)
+		ProgressBackdrop:Point("TOPLEFT", frame, "TOPLEFT", 1, -1)
+		ProgressBackdrop:Point("BOTTOMRIGHT", frame, "TOPRIGHT", -1, 1 - (ELEMENT_ICON_SIZE + 2 * ELEMENT_PADDING))
+		ProgressBackdrop:SetStatusBarTexture(E.media.normTex)
+		ProgressBackdrop:SetMinMaxValues(0, 100)
+		ProgressBackdrop:SetAlpha(0.2)
+		ProgressBackdrop:SetFrameLevel(frame:GetFrameLevel() + 1)
+		frame.ProgressBackdrop = ProgressBackdrop
+
+		local Background = ProgressBackdrop:CreateTexture(nil, "BACKGROUND")
+		Background:SetAllPoints()
+		Background:SetColorTexture(C.ExtractRGBFromTemplate("neutral-950"))
+		frame.ProgressBackdrop.Background = Background
+
+		local IconFrame = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+		IconFrame:Size(ELEMENT_ICON_SIZE)
+		IconFrame:Point("TOPLEFT", frame, "TOPLEFT", 8, -8)
+		IconFrame:SetTemplate()
+		IconFrame:SetFrameLevel(frame:GetFrameLevel() + 2)
+		frame.IconFrame = IconFrame
+
+		local Icon = IconFrame:CreateTexture(nil, "ARTWORK")
+		Icon:SetInside(IconFrame)
+		Icon:SetTexCoord(unpack(E.TexCoords))
+		frame.IconFrame.Icon = Icon
+
+		local PercentageFrame = CreateFrame("Frame", nil, frame)
+		PercentageFrame:Size(64, ELEMENT_PERCENTAGE_HEIGHT)
+		PercentageFrame:Point("TOPRIGHT", frame, "TOPRIGHT", -8, -8)
+		frame.PercentageFrame = PercentageFrame
+
+		local PercentageText = PercentageFrame:CreateFontString(nil, "OVERLAY")
+		F.SetFontOutline(PercentageText, F.GetCompatibleFont("Accidental Presidency"), 20)
+		PercentageText:SetJustifyH("LEFT")
+		PercentageText:SetJustifyV("BOTTOM")
+		PercentageText:Size(24, PercentageFrame:GetHeight())
+		PercentageText:SetText("%")
+		PercentageText:Point("RIGHT", PercentageFrame, "RIGHT", 0, 0)
+		frame.PercentageFrame.PercentageText = PercentageText
+
+		local ValueText = PercentageFrame:CreateFontString(nil, "OVERLAY")
+		F.SetFontOutline(ValueText, F.GetCompatibleFont("Accidental Presidency"), 40)
+		ValueText:SetJustifyH("RIGHT")
+		ValueText:SetJustifyV("BOTTOM")
+		ValueText:Height(PercentageFrame:GetHeight())
+		ValueText:Point("RIGHT", PercentageText, "LEFT", 0, -4)
+		frame.PercentageFrame.ValueText = ValueText
+
+		local IndicatorFrame = CreateFrame("Frame", nil, frame)
+		IndicatorFrame:SetAllPoints(ProgressBackdrop)
+		IndicatorFrame:SetFrameLevel(frame:GetFrameLevel() + 2)
+		frame.IndicatorFrame = IndicatorFrame
+
+		local TrackingText = IndicatorFrame:CreateFontString(nil, "OVERLAY")
+		F.SetFontOutline(TrackingText, E.db.general.font, 10)
+		TrackingText:SetJustifyH("CENTER")
+		TrackingText:SetJustifyV("MIDDLE")
+		TrackingText:Point("CENTER", IndicatorFrame, "BOTTOM", 0, 1)
+		TrackingText:SetText(L["Tracking"])
+		TrackingText:SetTextColor(C.ExtractRGBAFromTemplate("green-200"))
+		frame.IndicatorFrame.TrackingText = TrackingText
+
+		local RewardsIcon = IndicatorFrame:CreateTexture(nil, "OVERLAY")
+		RewardsIcon:Size(floor(ELEMENT_ICON_SIZE * 0.68))
+		RewardsIcon:Point("RIGHT", -REWARDS_ICON_OFFSET_X, 0)
+		RewardsIcon:CreateBackdrop()
+		RewardsIcon:SetTexCoord(unpack(E.TexCoords))
+		RewardsIcon:SetScript("OnEnter", function(self)
+			if not frame.data.reward.itemID then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetItemByID(frame.data.reward.itemID)
+			GameTooltip:Show()
+		end)
+		RewardsIcon:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
+		frame.IndicatorFrame.RewardsIcon = RewardsIcon
+
+		local TextFrame = CreateFrame("Frame", nil, frame)
+		TextFrame:Point("TOPLEFT", frame.IconFrame, "TOPRIGHT", 8, -4)
+		TextFrame:Point("BOTTOMRIGHT", frame.PercentageFrame, "BOTTOMLEFT", -8, 0)
+		frame.TextFrame = TextFrame
+
+		local Name = TextFrame:CreateFontString(nil, "OVERLAY")
+		F.SetFontOutline(Name, E.db.general.font, 15)
+		Name:SetTextColor(C.ExtractRGBAFromTemplate("amber-400"))
+		Name:SetJustifyH("LEFT")
+		Name:Point("TOPLEFT", TextFrame, "TOPLEFT", 0, 0)
+		frame.TextFrame.Name = Name
+
+		local Category = TextFrame:CreateFontString(nil, "OVERLAY")
+		F.SetFontOutline(Category, E.db.general.font, 12)
+		Category:SetJustifyH("LEFT")
+		Category:SetTextColor(C.ExtractRGBAFromTemplate("neutral-300"))
+		Category:Point("TOPLEFT", Name, "BOTTOMLEFT", 0, -3)
+		frame.TextFrame.Category = Category
+
+		local DetailFrame = CreateFrame("Frame", nil, frame)
+		DetailFrame:Point("TOPLEFT", ProgressBackdrop, "BOTTOMLEFT", 0, 0)
+		DetailFrame:Point("TOPRIGHT", ProgressBackdrop, "BOTTOMRIGHT", 0, 0)
+		DetailFrame:SetFrameLevel(frame:GetFrameLevel() + 2)
+		DetailFrame:Hide()
+		frame.DetailFrame = DetailFrame
+		frame.DetailFrame.Criteria = {}
+
+		local Description = DetailFrame:CreateFontString(nil, "OVERLAY")
+		F.SetFontOutline(Description, E.db.general.font, 12)
+		Description:Point("TOP", DetailFrame, "TOP", 0, -ELEMENT_PADDING)
+		Description:Width(frame:GetWidth() - 4 * ELEMENT_PADDING)
+		Description:SetJustifyH("CENTER")
+		Description:SetJustifyV("MIDDLE")
+		Description:SetTextColor(C.ExtractRGBAFromTemplate("neutral-200"))
+		Description:SetWordWrap(true)
+
+		frame.DetailFrame.Description = Description
+		frame:EnableMouse(true)
+
+		frame.UpdateHeight = function(self)
+			self.data.height = 2 + self.ProgressBackdrop:GetHeight()
+
+			if self.data.isExpanded then
+				self.data.height = self.data.height + self.DetailFrame:GetHeight()
+			end
+
+			self:Height(self.data.height)
 		end
-	end
 
-	sort(categories)
-	return categories
-end
+		frame:SetScript("OnMouseDown", function(self, button)
+			if button == "LeftButton" then
+				self.data.isExpanded = not self.data.isExpanded
+				self.DetailFrame:SetShown(self.data.isExpanded)
+				self:UpdateHeight()
 
-function AT:UpdateAchievementList()
-	if not self.MainFrame then
-		return
-	end
-
-	local Content = self.MainFrame.ScrollFrame.Content
-	F.TaskManager:OutOfCombat(function()
-		for _, child in pairs({ Content:GetChildren() }) do
-			child:Hide()
-			child:SetParent(nil)
-		end
-
-		local yOffset = -8
-		for _, achievement in ipairs(self.states.filteredResults) do
-			local isExpanded = self.states.expandedAchievements[achievement.id] or false
-			local buttonHeight = self.db.button.height
-
-			if isExpanded and achievement.criteria then
-				local criteriaCount = #achievement.criteria
-				buttonHeight = buttonHeight + (criteriaCount * 18) + 12
-			end
-
-			local Button = CreateFrame("Button", nil, Content, "UIPanelButtonTemplate")
-			Button:Size(self.db.panel.width - 40, buttonHeight)
-			Button:Point("TOPLEFT", Content, "TOPLEFT", 10, yOffset)
-
-			S:Proxy("HandleButton", Button)
-
-			local ExpandArrow = Button:CreateTexture(nil, "OVERLAY")
-			ExpandArrow:Size(12, 12)
-			ExpandArrow:Point("LEFT", Button, "LEFT", 4, 0)
-			ExpandArrow:SetTexture(I.Media.Textures.arrow)
-			ExpandArrow:SetVertexColor(0.8, 0.8, 0.8)
-			ExpandArrow:SetRotation(isExpanded and 0 or -1.57)
-
-			local IconFrame = CreateFrame("Frame", nil, Button)
-			IconFrame:Size(AT.Config.ICON_SIZE, AT.Config.ICON_SIZE)
-			IconFrame:Point("TOPLEFT", Button, "TOPLEFT", 20, -10)
-			IconFrame:SetTemplate("Transparent")
-
-			local Icon = IconFrame:CreateTexture(nil, "ARTWORK")
-			Icon:Size(AT.Config.ICON_SIZE - 4, AT.Config.ICON_SIZE - 4)
-			Icon:Point("CENTER", IconFrame, "CENTER", 0, 0)
-			Icon:SetTexture(achievement.icon)
-			Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-
-			local ProgressBar = CreateFrame("StatusBar", nil, Button)
-			ProgressBar:Size(self.db.button.progressWidth, 12)
-			ProgressBar:Point("TOPRIGHT", Button, "TOPRIGHT", -10, -18)
-			ProgressBar:SetStatusBarTexture(E.media.normTex)
-			ProgressBar:SetMinMaxValues(0, 100)
-			ProgressBar:SetValue(achievement.percent)
-
-			local color
-			if achievement.percent >= 90 then
-				color = C.GetRGBFromTemplate("emerald-500")
-			elseif achievement.percent >= 75 then
-				color = C.GetRGBFromTemplate("green-500")
-			elseif achievement.percent >= 60 then
-				color = C.GetRGBFromTemplate("yellow-500")
-			else
-				color = C.GetRGBFromTemplate("orange-500")
-			end
-			ProgressBar:SetStatusBarColor(color.r, color.g, color.b)
-			ProgressBar:CreateBackdrop("Transparent")
-
-			local ProgressText = ProgressBar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-			ProgressText:Point("CENTER", ProgressBar, "CENTER", 0, 0)
-			ProgressText:SetText(format("%.0f%%", achievement.percent))
-			ProgressText:SetTextColor(1, 1, 1)
-			F.SetFontOutline(ProgressText)
-
-			local NameText = Button:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-			NameText:Point("LEFT", IconFrame, "RIGHT", 10, 6)
-			NameText:Point("RIGHT", ProgressBar, "LEFT", -10, 6)
-			NameText:SetText(achievement.name)
-			NameText:SetTextColor(1, 1, 1)
-			NameText:SetJustifyH("LEFT")
-			F.SetFontOutline(NameText)
-
-			local CategoryText = Button:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-			CategoryText:Point("LEFT", IconFrame, "RIGHT", 10, -6)
-			CategoryText:Point("RIGHT", ProgressBar, "LEFT", -10, -6)
-			CategoryText:SetText(achievement.categoryName)
-			CategoryText:SetTextColor(0.7, 0.7, 0.7)
-			CategoryText:SetJustifyH("LEFT")
-			F.SetFontOutline(CategoryText)
-
-			local CriteriaText = Button:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-			CriteriaText:Point("LEFT", IconFrame, "RIGHT", 10, -18)
-			CriteriaText:Point("RIGHT", ProgressBar, "LEFT", -10, -18)
-			CriteriaText:SetText(format(L["%d/%d criteria"], achievement.completedCriteria, achievement.totalCriteria))
-			CriteriaText:SetTextColor(0.6, 0.6, 0.6)
-			CriteriaText:SetJustifyH("LEFT")
-			F.SetFontOutline(CriteriaText)
-
-			local RewardIcon
-			if achievement.rewardItemID then
-				RewardIcon = Button:CreateTexture(nil, "OVERLAY")
-				RewardIcon:Size(16, 16)
-				RewardIcon:Point("RIGHT", ProgressBar, "LEFT", -5, 0)
-				RewardIcon:SetTexture("Interface\\Icons\\INV_Misc_Gift_01")
-				RewardIcon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			end
-
-			local TrackButton = CreateFrame("CheckButton", nil, Button, "UICheckButtonTemplate")
-			TrackButton:Size(20, 20)
-			if RewardIcon then
-				TrackButton:Point("TOPRIGHT", RewardIcon, "TOPLEFT", -4, 2)
-			else
-				TrackButton:Point("TOPRIGHT", ProgressBar, "TOPLEFT", -8, 2)
-			end
-			TrackButton:SetFrameLevel(Button:GetFrameLevel() + 2)
-			S:Proxy("HandleCheckBox", TrackButton)
-
-			local isTracked = C_ContentTracking_IsTracking(Enum_ContentTrackingType.Achievement, achievement.id)
-			TrackButton:SetChecked(isTracked)
-			TrackButton:SetShown(achievement.percent < 100)
-			TrackButton:SetScript("OnClick", function(btn)
-				local checked = btn:GetChecked()
-
-				if checked then
+				scrollBox:FullUpdate(ScrollBoxConstants.UpdateImmediately)
+				if self.data.isLastElement then
+					scrollBox:ScrollToEnd()
+				end
+			elseif button == "MiddleButton" then
+				if not C_ContentTracking_IsTracking(Enum_ContentTrackingType.Achievement, self.data.id) then
 					local trackedCount = #C_ContentTracking_GetTrackedIDs(Enum_ContentTrackingType.Achievement)
 					if trackedCount >= Constants_ContentTrackingConsts.MaxTrackedAchievements then
 						_G.UIErrorsFrame:AddMessage(
@@ -511,104 +461,143 @@ function AT:UpdateAchievementList()
 								L["Cannot track more than %d achievements"],
 								Constants_ContentTrackingConsts.MaxTrackedAchievements
 							),
-							1.0,
-							0.1,
-							0.1,
-							1.0
+							RED_FONT_COLOR:GetRGBA()
 						)
-						btn:SetChecked(false)
 						return
 					end
 
-					local trackingError =
-						C_ContentTracking_StartTracking(Enum_ContentTrackingType.Achievement, achievement.id)
-					if trackingError then
-						btn:SetChecked(false)
-					else
+					local err = C_ContentTracking_StartTracking(Enum_ContentTrackingType.Achievement, self.data.id)
+					if not err then
 						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+						IndicatorFrame.TrackingText:SetShown(true)
 					end
 				else
 					C_ContentTracking_StopTracking(
 						Enum_ContentTrackingType.Achievement,
-						achievement.id,
+						self.data.id,
 						Enum_ContentTrackingStopType.Manual
 					)
 					PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+					IndicatorFrame.TrackingText:SetShown(false)
 				end
-			end)
-
-			TrackButton:SetScript("OnEnter", function(btn)
-				GameTooltip:SetOwner(btn, "ANCHOR_RIGHT")
-				if btn:GetChecked() then
-					GameTooltip:SetText(L["Untrack Achievement"] or "Untrack Achievement", nil, nil, nil, nil, true)
-				else
-					GameTooltip:SetText(L["Track Achievement"] or "Track Achievement", nil, nil, nil, nil, true)
-				end
-				GameTooltip:Show()
-			end)
-
-			TrackButton:SetScript("OnLeave", function()
-				GameTooltip:Hide()
-			end)
-
-			if isExpanded and achievement.criteria then
-				local criteriaYOffset = -50
-				for i, criteria in ipairs(achievement.criteria) do
-					local statusIcon = Button:CreateTexture(nil, "OVERLAY")
-					statusIcon:Size(14, 14)
-					statusIcon:Point("TOPLEFT", Button, "TOPLEFT", 20, criteriaYOffset)
-
-					if criteria.done then
-						statusIcon:SetTexture("Interface/AchievementFrame/UI-Achievement-Criteria-Check")
-						statusIcon:SetVertexColor(0, 1, 0)
-					else
-						statusIcon:SetTexture("Interface/Buttons/UI-CheckBox-Check-Disabled")
-						statusIcon:SetVertexColor(0.5, 0.5, 0.5)
-					end
-
-					local criteriaLine = Button:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-					criteriaLine:Point("LEFT", statusIcon, "RIGHT", 4, 0)
-					criteriaLine:Point("RIGHT", Button, "RIGHT", -15, 0)
-					criteriaLine:SetJustifyH("LEFT")
-
-					local progressInfo = ""
-					if criteria.required and criteria.required > 1 then
-						progressInfo = format(" (%d/%d)", criteria.quantity or 0, criteria.required)
-					end
-
-					criteriaLine:SetText(format("%s%s", criteria.text or "Unknown", progressInfo))
-					criteriaLine:SetTextColor(
-						criteria.done and 0.9 or 0.6,
-						criteria.done and 0.9 or 0.6,
-						criteria.done and 0.9 or 0.6
-					)
-					F.SetFontOutline(criteriaLine)
-
-					criteriaYOffset = criteriaYOffset - 18
-				end
+			elseif button == "RightButton" then
+				_G.AchievementFrame_SelectAchievement(self.data.id)
 			end
+		end)
 
-			Button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-			Button:SetScript("OnClick", function(_, mouseButton)
-				if mouseButton == "RightButton" then
-					self.states.expandedAchievements[achievement.id] = not isExpanded
-					AT:UpdateAchievementList()
-				else
-					if _G.AchievementFrame then
-						_G.AchievementFrame_SelectAchievement(achievement.id)
-						if not _G.AchievementFrame:IsShown() then
-							_G.AchievementFrame_ToggleAchievementFrame()
-						end
-					end
+		frame.DetailFrame:SetScript("OnShow", function()
+			for i, detail in ipairs(frame.data.criteriaData.details) do
+				local line = self.MainFrame.CriteriaLinePool:Acquire() ---@type Frame
+				line:SetParent(frame.DetailFrame)
+				line:Size(frame.DetailFrame:GetWidth(), ELEMENT_CRITERIA_LINE_HEIGHT)
+
+				if not line.StatusIcon then
+					line.StatusIcon = line:CreateTexture(nil, "OVERLAY")
+					line.StatusIcon:Size(14, 14)
+					line.StatusIcon:Point("LEFT", line, "LEFT", 5, 0)
+					line.StatusIcon:SetTexture(I.Media.Icons.Check)
+					line.StatusIcon:SetVertexColor(C.ExtractRGBFromTemplate("emerald-500"))
 				end
-			end)
 
-			yOffset = yOffset - (buttonHeight + self.db.button.spacing)
-		end
+				if not line.Text then
+					line.Text = line:CreateFontString(nil, "OVERLAY")
+					F.SetFontOutline(line.Text, E.db.general.font, 11)
+					line.Text:Point("LEFT", line.StatusIcon, "RIGHT", 4, 0)
+					line.Text:Point("RIGHT", line, "RIGHT", 0, 0)
+					line.Text:SetJustifyH("LEFT")
+					line.Text:SetJustifyV("MIDDLE")
+				end
 
-		local totalHeight = -yOffset + self.db.button.spacing
-		Content:SetHeight(max(100, totalHeight))
-	end)
+				line.StatusIcon:SetShown(detail.completed)
+				local text = detail.text or L["Unknown"]
+				if detail.reqQuantity and detail.reqQuantity > 1 then
+					text = text .. format(" (%d/%d)", detail.quantity, detail.reqQuantity)
+				end
+				line.Text:SetText(text)
+				if detail.completed then
+					line.Text:SetTextColor(C.ExtractRGBAFromTemplate("emerald-500"))
+				else
+					line.Text:SetTextColor(C.ExtractRGBAFromTemplate("neutral-300"))
+				end
+				line:Point(
+					"TOPLEFT",
+					frame.DetailFrame.Description,
+					"BOTTOMLEFT",
+					0,
+					-ELEMENT_PADDING - (i - 1) * (ELEMENT_CRITERIA_LINE_HEIGHT + ELEMENT_CRITERIA_LINE_SPACING)
+				)
+				line:Show()
+				frame.DetailFrame.Criteria[i] = line
+			end
+		end)
+
+		frame.DetailFrame:SetScript("OnHide", function()
+			for i = #frame.DetailFrame.Criteria, 1, -1 do
+				local line = tremove(frame.DetailFrame.Criteria, i)
+				line:ClearAllPoints()
+				line:Hide()
+				line:SetParent(self.MainFrame)
+				self.MainFrame.CriteriaLinePool:Release(line)
+			end
+		end)
+
+		frame.Initialized = true
+	end
+
+	local color
+	if data.criteriaData.percent >= 90 then
+		color = C.GetRGBFromTemplate("emerald-500")
+	elseif data.criteriaData.percent >= 75 then
+		color = C.GetRGBFromTemplate("green-500")
+	elseif data.criteriaData.percent >= 60 then
+		color = C.GetRGBFromTemplate("yellow-500")
+	else
+		color = C.GetRGBFromTemplate("orange-500")
+	end
+	frame.ProgressBackdrop:SetStatusBarColor(color.r, color.g, color.b)
+	frame.ProgressBackdrop:SetValue(data.criteriaData.percent)
+	frame.IndicatorFrame.TrackingText:SetShown(
+		C_ContentTracking_IsTracking(Enum_ContentTrackingType.Achievement, data.id)
+	)
+	frame.IndicatorFrame.RewardsIcon:Hide()
+	frame.IndicatorFrame.RewardsIcon.backdrop:Hide()
+	if data.reward.itemID then
+		async.WithItemID(data.reward.itemID, function(item)
+			if not item then
+				return
+			end
+			frame.IndicatorFrame.RewardsIcon:SetTexture(item:GetItemIcon())
+			if item:GetItemQuality() then
+				frame.IndicatorFrame.RewardsIcon.backdrop:SetBackdropBorderColor(item:GetItemQualityColorRGB())
+			else
+				frame.IndicatorFrame.RewardsIcon.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+			end
+			frame.IndicatorFrame.RewardsIcon:Show()
+			frame.IndicatorFrame.RewardsIcon.backdrop:Show()
+		end)
+	end
+
+	frame.IconFrame.Icon:SetTexture(data.icon)
+	frame.PercentageFrame.ValueText:SetText(tostring(floor(data.criteriaData.percent)))
+	frame.TextFrame.Name:SetText(data.name)
+	frame.TextFrame.Category:SetText(data.category.name)
+	frame.DetailFrame.Description:SetText(data.description)
+	local detailFrameHeight = 2 * ELEMENT_PADDING
+		+ frame.DetailFrame.Description:GetLineHeight() * frame.DetailFrame.Description:GetNumLines()
+	if data.criteriaData.total > 0 then
+		detailFrameHeight = detailFrameHeight
+			+ ELEMENT_PADDING
+			+ data.criteriaData.total * (ELEMENT_CRITERIA_LINE_HEIGHT + ELEMENT_CRITERIA_LINE_SPACING)
+			- ELEMENT_CRITERIA_LINE_SPACING
+	end
+
+	frame.DetailFrame:Height(detailFrameHeight)
+	frame.DetailFrame:SetShown(data.isExpanded)
+	frame:UpdateHeight()
+end
+
+function AT:ScrollElementResetter(frame)
+	frame.DetailFrame:Hide()
 end
 
 function AT:Construct()
@@ -617,12 +606,11 @@ function AT:Construct()
 	end
 
 	---@class MER_AchievementTracker : Frame, BackdropTemplate
-	local MainFrame = CreateFrame("Frame", "MER_AchievementTracker", _G.AchievementFrame, "BackdropTemplate")
-	MainFrame:Size(self.db.panel.width, self.db.panel.height)
-	MainFrame:Point("TOPLEFT", _G.AchievementFrame, "TOPRIGHT", 4, 0)
+	local MainFrame = CreateFrame("Frame", "MER_AchievementTracker", E.UIParent, "BackdropTemplate")
+	MainFrame:Size(self.db.width, self.db.height)
 	MainFrame:SetTemplate("Transparent")
+	MainFrame:SetShown(self.db.enabled and self.db.show)
 	S:CreateShadow(MainFrame)
-	MF:InternalHandle(MainFrame, _G.AchievementFrame)
 	self.MainFrame = MainFrame
 	MainFrame.States = self.states
 
@@ -633,10 +621,14 @@ function AT:Construct()
 	SearchBox:SetFont(E.db.general.font, E.db.general.fontSize, "OUTLINE")
 	SearchBox:SetAutoFocus(false)
 	SearchBox:SetMaxLetters(50)
-	SearchBox:HookScript("OnTextChanged", function(editBox)
-		self.states.searchTerm = editBox:GetText()
-		self:ApplyFiltersAndSort()
-		self:UpdateAchievementList()
+	SearchBox.Instructions:SetText(L["Search by name, description, ID"])
+	SearchBox:HookScript("OnEnterPressed", function(editBox)
+		self.states.filters.pattern = editBox:GetText()
+		self:UpdateView()
+	end)
+	SearchBox:HookScript("OnTextSet", function(editBox)
+		self.states.filters.pattern = editBox:GetText()
+		self:UpdateView()
 	end)
 	SearchBox:HookScript("OnEscapePressed", function(editBox)
 		editBox:ClearFocus()
@@ -656,18 +648,21 @@ function AT:Construct()
 	ThresholdSlider:Point("LEFT", ControlFrame1, "LEFT", 11, -8)
 	ThresholdSlider:SetOrientation("HORIZONTAL")
 	ThresholdSlider:SetObeyStepOnDrag(true)
-	ThresholdSlider:SetMinMaxValues(self.db.threshold.min, self.db.threshold.max)
+	ThresholdSlider:SetMinMaxValues(0, 100)
 	ThresholdSlider:SetValueStep(1)
-	ThresholdSlider:SetValue(self.states.currentThreshold)
+	ThresholdSlider:SetValue(self.db.threshold)
 	S:Proxy("HandleSliderFrame", ThresholdSlider)
 	ThresholdSlider.Text = ThresholdSlider:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 	ThresholdSlider.Text:Point("BOTTOM", ThresholdSlider, "TOP", 0, 2)
-	ThresholdSlider.Text:SetText(L["Threshold"] .. ": " .. self.states.currentThreshold .. "%")
+	ThresholdSlider.Text:SetText(L["Threshold"] .. ": " .. self.db.threshold .. "%")
 	ThresholdSlider.Text:SetTextColor(C.ExtractRGBAFromTemplate("neutral-50"))
 	F.SetFontOutline(ThresholdSlider.Text)
 	ThresholdSlider:SetScript("OnValueChanged", function(slider, value)
-		self.states.currentThreshold = floor(value)
-		slider.Text:SetText(L["Threshold"] .. ": " .. self.states.currentThreshold .. "%")
+		self.db.threshold = floor(value)
+		slider.Text:SetText(L["Threshold"] .. ": " .. self.db.threshold .. "%")
+		F.Throttle(1, "AchievementTrackerThreshold", function()
+			self:UpdateView()
+		end)
 	end)
 	ControlFrame1.ThresholdSlider = ThresholdSlider
 
@@ -678,13 +673,13 @@ function AT:Construct()
 	F.SetFontOutline(ShowAllButton.Text, E.db.general.font)
 	S:Proxy("HandleButton", ShowAllButton)
 	ShowAllButton:SetScript("OnClick", function()
-		self.states.searchTerm = ""
-		self.states.selectedCategory = nil
-		self.states.showOnlyRewards = false
-		self.states.currentThreshold = self.db.threshold.min
-		ThresholdSlider:SetValue(self.db.threshold.min)
+		self.states.filters.pattern = ""
+		self.states.filters.categoryID = nil
+		self.states.filters.hasRewards = false
+		self.db.threshold = 0
+		ThresholdSlider:SetValue(0)
 		SearchBox:SetText("")
-		self:StartAchievementScan()
+		self:UpdateView()
 	end)
 	ControlFrame1.ShowAllButton = ShowAllButton
 
@@ -695,9 +690,9 @@ function AT:Construct()
 	F.SetFontOutline(NearlyCompleteButton.Text)
 	S:Proxy("HandleButton", NearlyCompleteButton)
 	NearlyCompleteButton:SetScript("OnClick", function()
-		self.states.currentThreshold = 95
+		self.db.threshold = 95
 		ThresholdSlider:SetValue(95)
-		self:StartAchievementScan()
+		self:UpdateView()
 	end)
 	ControlFrame1.NearlyCompleteButton = NearlyCompleteButton
 
@@ -710,13 +705,22 @@ function AT:Construct()
 	RefreshButton.Icon:SetTexture(I.Media.Buttons.Undo)
 	S:Proxy("HandleButton", RefreshButton)
 	RefreshButton:SetScript("OnClick", function()
-		self:StartAchievementScan()
+		self:ScanAchievements()
+	end)
+	RefreshButton:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(L["Rescan All Achievements"], 1, 1, 1)
+		GameTooltip:Show()
+	end)
+	RefreshButton:SetScript("OnLeave", function()
+		GameTooltip:Hide()
 	end)
 	ControlFrame1.RefreshButton = RefreshButton
 
 	local ControlFrame2 = CreateFrame("Frame", nil, MainFrame, "BackdropTemplate")
-	ControlFrame2:Size(self.db.panel.width - 20, 32)
-	ControlFrame2:Point("TOP", ControlFrame1, "BOTTOM", 0, -5)
+	ControlFrame2:Height(32)
+	ControlFrame2:Point("TOPLEFT", ControlFrame1, "BOTTOMLEFT", 0, -5)
+	ControlFrame2:Point("TOPRIGHT", ControlFrame1, "BOTTOMRIGHT", 0, -5)
 	ControlFrame2:SetTemplate("Transparent")
 	MainFrame.ControlFrame2 = ControlFrame2
 
@@ -724,27 +728,61 @@ function AT:Construct()
 	CategoryDropdown:Point("LEFT", ControlFrame2, "LEFT", 8, 0)
 	S:Proxy("HandleDropDownBox", CategoryDropdown, 150)
 	CategoryDropdown:SetupMenu(function(_, rootDescription)
+		---@cast rootDescription RootMenuDescriptionProxy
 		rootDescription:CreateRadio(L["All Categories"] or "All Categories", function()
-			return self.states.selectedCategory == nil
+			return self.states.filters.categoryID == nil
 		end, function()
-			self.states.selectedCategory = nil
-			self:ApplyFiltersAndSort()
-			self:UpdateAchievementList()
+			self.states.filters.categoryID = nil
+			self:UpdateView()
 		end)
 
 		rootDescription:CreateDivider()
 
-		local categories = self:GetUniqueCategories()
-		for _, categoryName in ipairs(categories) do
-			rootDescription:CreateRadio(categoryName, function()
-				return self.states.selectedCategory == categoryName
-			end, function()
-				self.states.selectedCategory = categoryName
-				self:ApplyFiltersAndSort()
-				self:UpdateAchievementList()
+		local categories = GetCategoryList()
+		local categoryTable = {} ---@type table<number, { id: number, name: string, subCategories: { id: number, name: string }[] }>
+		for _, categoryID in ipairs(categories) do
+			local title, parentCategoryID = GetCategoryInfo(categoryID)
+			if parentCategoryID and parentCategoryID > 0 then
+				if categoryTable[parentCategoryID] == nil then
+					categoryTable[parentCategoryID] = {
+						id = parentCategoryID,
+						name = GetCategoryInfo(parentCategoryID),
+						subCategories = {},
+					}
+				end
+
+				categoryTable[parentCategoryID].subCategories[#categoryTable[parentCategoryID].subCategories + 1] = {
+					id = categoryID,
+					name = title,
+				}
+			end
+		end
+
+		for _, category in pairs(categoryTable) do
+			sort(category.subCategories, function(a, b)
+				return a.name < b.name
 			end)
 		end
+
+		local sortedKeys = GetKeysArray(categoryTable)
+		sort(sortedKeys, function(a, b)
+			return categoryTable[a].id < categoryTable[b].id
+		end)
+
+		for _, parentCategoryID in ipairs(sortedKeys) do
+			local category = categoryTable[parentCategoryID]
+			local parent = rootDescription:CreateTitle(category.name)
+			for _, subCategory in ipairs(category.subCategories) do
+				parent:CreateRadio(subCategory.name, function()
+					return self.states.filters.categoryID == subCategory.id
+				end, function()
+					self.states.filters.categoryID = subCategory.id
+					self:UpdateView()
+				end)
+			end
+		end
 	end)
+
 	ControlFrame2.CategoryDropdown = CategoryDropdown
 
 	local RewardsCheckButton = CreateFrame("CheckButton", nil, ControlFrame2, "UICheckButtonTemplate")
@@ -754,11 +792,10 @@ function AT:Construct()
 	RewardsCheckButton.Text:SetTextColor(1, 1, 1)
 	F.SetFontOutline(RewardsCheckButton.Text)
 	S:Proxy("HandleCheckBox", RewardsCheckButton)
-	RewardsCheckButton:SetChecked(self.states.showOnlyRewards)
+	RewardsCheckButton:SetChecked(self.states.filters.hasRewards)
 	RewardsCheckButton:SetScript("OnClick", function()
-		self.states.showOnlyRewards = RewardsCheckButton:GetChecked()
-		self:ApplyFiltersAndSort()
-		self:UpdateAchievementList()
+		self.states.filters.hasRewards = RewardsCheckButton:GetChecked()
+		self:UpdateView()
 	end)
 	ControlFrame2.RewardsCheckButton = RewardsCheckButton
 
@@ -771,17 +808,15 @@ function AT:Construct()
 	SortOrderButton.Arrow:Point("CENTER")
 	SortOrderButton.Arrow:SetTexture(I.Media.Textures.arrow)
 	SortOrderButton.Arrow:SetVertexColor(1, 1, 1)
-	local function UpdateArrow()
-		SortOrderButton.Arrow:SetRotation(self.states.sortOrder == "desc" and 0 or math_pi)
+	SortOrderButton.UpdateArrow = function(button)
+		button.Arrow:SetRotation(self.states.sort.order == "desc" and 0 or math_pi)
 	end
-	SortOrderButton:SetScript("OnClick", function()
-		local newOrder = self.states.sortOrder == "desc" and "asc" or "desc"
-		self.states.sortOrder = newOrder
-		UpdateArrow()
-		self:ApplyFiltersAndSort()
-		self:UpdateAchievementList()
+	SortOrderButton:SetScript("OnClick", function(button)
+		self.states.sort.order = self.states.sort.order == "desc" and "asc" or "desc"
+		self:UpdateView()
+		button:UpdateArrow()
 	end)
-	UpdateArrow()
+	SortOrderButton:UpdateArrow()
 	ControlFrame2.SortOrderButton = SortOrderButton
 
 	local SortDropdown = CreateFrame("DropdownButton", nil, ControlFrame2, "WowStyle1DropdownTemplate")
@@ -800,27 +835,51 @@ function AT:Construct()
 	SortDropdown:SetupMenu(function(_, rootDescription)
 		for _, option in ipairs(sortOptions) do
 			rootDescription:CreateRadio(option.text, function()
-				return self.states.sortBy == option.value
+				return self.states.sort.by == option.value
 			end, function()
-				self.states.sortBy = option.value
-				self:ApplyFiltersAndSort()
-				self:UpdateAchievementList()
+				self.states.sort.by = option.value
+				self:UpdateView()
 			end, option.value)
 		end
 	end)
 
-	local ScrollFrame = CreateFrame("ScrollFrame", nil, MainFrame, "UIPanelScrollFrameTemplate")
-	ScrollFrame:Size(self.db.panel.width - 20, self.db.panel.height - 140)
-	ScrollFrame:Point("TOP", ControlFrame2, "BOTTOM", 0, -5)
-	ScrollFrame.ScrollBar:Point("TOPRIGHT", ScrollFrame, "TOPRIGHT", -2, -2)
-	ScrollFrame.ScrollBar:Point("BOTTOMRIGHT", ScrollFrame, "BOTTOMRIGHT", -2, 2)
-	S:Proxy("HandleScrollBar", ScrollFrame.ScrollBar)
+	local ScrollFrame = CreateFrame("Frame", nil, MainFrame)
+	ScrollFrame:Point("TOPLEFT", ControlFrame2, "BOTTOMLEFT", 0, -8)
+	ScrollFrame:Point("TOPRIGHT", ControlFrame2, "BOTTOMRIGHT", 0, -8)
+	ScrollFrame:Point("BOTTOM", MainFrame, "BOTTOM", 0, 8)
 	MainFrame.ScrollFrame = ScrollFrame
 
-	local ScrollContent = CreateFrame("Frame", nil, ScrollFrame)
-	ScrollContent:Size(self.db.panel.width - 20, 100)
-	ScrollFrame:SetScrollChild(ScrollContent)
-	ScrollFrame.Content = ScrollContent
+	local ScrollBar = CreateFrame("EventFrame", nil, ScrollFrame, "MinimalScrollBar")
+	ScrollBar:SetPoint("TOPRIGHT", ScrollFrame, "TOPRIGHT", -5, 0)
+	ScrollBar:SetPoint("BOTTOMRIGHT", ScrollFrame, "BOTTOMRIGHT", -5, 0)
+	S:Proxy("HandleTrimScrollBar", ScrollBar)
+	ScrollFrame.ScrollBar = ScrollBar
+
+	local ScrollBox = CreateFrame("Frame", nil, ScrollFrame, "WowScrollBoxList")
+	ScrollBox:Point("TOPLEFT", ScrollFrame, "TOPLEFT", 0, 0)
+	ScrollBox:Point("BOTTOMRIGHT", ScrollBar, "BOTTOMLEFT", -8, 0)
+	ScrollBox:SetTemplate("Transparent")
+	ScrollBox:SetClipsChildren(true)
+	ScrollFrame.ScrollBox = ScrollBox
+
+	local ScrollView = CreateScrollBoxListLinearView()
+
+	local DataProvider = CreateDataProvider()
+	DataProvider:InsertTable({})
+
+	ScrollView--[[@as ScrollBoxLinearBaseViewMixin]]:SetPadding(8, 8, 8, 8, 8)
+	ScrollView:SetDataProvider(DataProvider)
+	ScrollView:SetElementInitializer("BackdropTemplate", function(frame, data)
+		self:ScrollElementInitializer(frame, data, ScrollBox)
+	end)
+	ScrollView:SetElementExtentCalculator(function(dataIndex, elementData)
+		return elementData.height or (ELEMENT_ICON_SIZE + 2 * ELEMENT_PADDING)
+	end)
+	ScrollView:SetElementResetter(function(frame)
+		self:ScrollElementResetter(frame)
+	end)
+	ScrollUtil.InitScrollBoxListWithScrollBar(ScrollBox, ScrollBar, ScrollView)
+	ScrollFrame.ScrollView = ScrollView
 
 	local ProgressFrame = CreateFrame("Frame", nil, MainFrame)
 	ProgressFrame:SetFrameStrata("DIALOG")
@@ -828,7 +887,7 @@ function AT:Construct()
 	MainFrame.ProgressFrame = ProgressFrame
 
 	local ProgressBar = CreateFrame("StatusBar", nil, ProgressFrame)
-	ProgressBar:Size(self.db.panel.width - 50, 26)
+	ProgressBar:Size(self.db.width - 50, 26)
 	ProgressBar:Point("CENTER", ProgressFrame, "CENTER")
 	ProgressBar:SetStatusBarTexture(E.media.normTex)
 	ProgressBar:SetMinMaxValues(0, 100)
@@ -873,74 +932,55 @@ function AT:Construct()
 		CategoryDropdown:GenerateMenu()
 	end
 
-	MainFrame.ProgressFrame:Hide()
-end
-
-function AT:InitMainFrame()
-	self:Construct()
-
-	self:SecureHookScript(_G.AchievementFrame, "OnShow", function()
-		self:RegisterEvent("ACHIEVEMENT_EARNED")
-		self:RegisterEvent("CRITERIA_UPDATE")
-
-		self.MainFrame:Show()
-
-		if not self.states.scannedSinceInit then
-			self.states.scannedSinceInit = true
-			self:StartAchievementScan()
+	MainFrame:SetScript("OnShow", function()
+		if self.states.isScanning then
+			MainFrame.ProgressFrame:Show()
+			return
+		else
+			MainFrame.ProgressFrame:Hide()
 		end
-	end)
 
-	self:SecureHookScript(_G.AchievementFrame, "OnHide", function()
-		self:UnregisterEvent("ACHIEVEMENT_EARNED")
-		self:UnregisterEvent("CRITERIA_UPDATE")
-		self.MainFrame:Hide()
-		self.states.isScanning = false
-	end)
-
-	MER:AddCommand("AchievementTracker", { "/MERat", "/MERachievements" }, function()
-		if InCombatLockdown() then
-			_G.UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGBA())
+		if #self.states.results == 0 and self.db.scan.automation.enable and self.db.scan.automation.onShow then
+			self:ScanAchievements()
 			return
 		end
-		self.MainFrame:Show()
-		self:StartAchievementScan()
+
+		self:UpdateView()
 	end)
-end
 
-function AT:UpdateStyle()
-	local MainFrame = self.MainFrame
-	if not MainFrame then
-		return
-	end
-
-	MainFrame:Size(self.db.panel.width, self.db.panel.height)
+	MainFrame.ProgressFrame:Hide()
+	MainFrame.CriteriaLinePool = CreateFramePool("Frame", nil, "BackdropTemplate")
 end
 
 ---Handle ACHIEVEMENT_EARNED event
----@param achievementID number
+---@param id number
 ---@param alreadyEarned boolean
-function AT:ACHIEVEMENT_EARNED(achievementID, alreadyEarned)
-	if self.MainFrame and not alreadyEarned then
-		for i, achievement in ipairs(self.states.results) do
-			if achievement.id == achievementID then
-				tremove(self.states.results, i)
-				self:ApplyFiltersAndSort()
-				self:UpdateAchievementList()
-				break
+function AT:ACHIEVEMENT_EARNED(id, alreadyEarned)
+	if alreadyEarned then
+		return
+	end
+
+	for i, achievement in ipairs(self.states.results) do
+		if achievement.id == id then
+			tremove(self.states.results, i)
+			if self.MainFrame:IsVisible() then
+				self:UpdateView()
 			end
+			break
 		end
 	end
 end
 
 function AT:CRITERIA_UPDATE()
-	if _G.MER_AchievementTracker and self.states.scannedSinceInit then
-		E:Delay(0.5, function()
-			if _G.MER_AchievementTracker and not InCombatLockdown() then
-				self:UpdateAchievementList()
-			end
-		end)
-	end
+	F.Throttle(0.5, "AchievementTrackerCriteriaUpdate", function()
+		if self.MainFrame and self.MainFrame:IsVisible() then
+			self
+				.MainFrame
+				.ScrollFrame
+				.ScrollBox--[[@as ScrollBoxBaseMixin]]
+				:FullUpdate(ScrollBoxConstants.UpdateImmediately)
+		end
+	end)
 end
 
 ---@param _ any
@@ -948,10 +988,32 @@ end
 function AT:ADDON_LOADED(_, addonName)
 	if addonName == "Blizzard_AchievementUI" then
 		self:UnregisterEvent("ADDON_LOADED")
-		if _G.AchievementFrame then
-			self:InitMainFrame()
-		end
+		self:UpdatePosition()
 	end
+end
+
+function AT:UpdatePosition()
+	if not _G.AchievementFrame then
+		return false
+	end
+
+	self.MainFrame:ClearAllPoints()
+	self.MainFrame:Point("TOPLEFT", _G.AchievementFrame, "TOPRIGHT", 4, 0)
+	self.MainFrame:SetParent(_G.AchievementFrame)
+	MF:InternalHandle(self.MainFrame, _G.AchievementFrame)
+
+	self.ToggleButton = CreateFrame("Button", nil, _G.AchievementFrame, "UIPanelButtonTemplate")
+	self.ToggleButton:Point("BOTTOMRIGHT", _G.AchievementFrame, "BOTTOMRIGHT", -4, 4)
+	self.ToggleButton:SetText(F.GetMERStyleText(L["Achievement Tracker"]))
+	F.SetFontOutline(self.ToggleButton.Text, E.db.general.font, 10)
+	local buttonWidth = 20 + max(40, F.GetAdaptiveTextWidth(E.media.normFont, 10, "OUTLINE", L["Achievement Tracker"]))
+	self.ToggleButton:Size(buttonWidth, 18)
+	self.ToggleButton:SetScript("OnClick", function()
+		self.db.show = not self.MainFrame:IsShown()
+		self.MainFrame:SetShown(self.db.show)
+	end)
+	S:Proxy("HandleButton", self.ToggleButton)
+	return true
 end
 
 function AT:Initialize()
@@ -961,17 +1023,43 @@ function AT:Initialize()
 
 	self.db = E.db.mui.misc.achievementTracker
 
-	if not self.db.enable or self.initialized then
+	if not self.db.enable then
+		self:Disable()
+		if self.initialized then
+			self.MainFrame:Hide()
+			self.ToggleButton:Hide()
+			if self.ToggleButton then
+				self.ToggleButton:Hide()
+			end
+			self.MainFrame.CriteriaLinePool:ReleaseAll()
+		end
 		return
 	end
 
-	self.db.currentThreshold = self.db.threshold.default
+	if not self.initialized then
+		self:Construct()
+		if not self:UpdatePosition() then
+			self:RegisterEvent("ADDON_LOADED")
+		end
 
-	if _G.AchievementFrame then
-		self:InitMainFrame()
-	else
-		self:RegisterEvent("ADDON_LOADED")
+		self:RegisterEvent("ACHIEVEMENT_EARNED")
+		self:RegisterEvent("CRITERIA_UPDATE")
 	end
+
+	self:Enable()
+	if self.ToggleButton then
+		self.ToggleButton:Show()
+	end
+	self.MainFrame:SetShown(self.db.show)
+	self.MainFrame:Size(self.db.width, self.db.height)
+
+	F.TaskManager:AfterLogin(function()
+		if #self.states.results == 0 and self.db.scan.automation.enable and self.db.scan.automation.onLogin then
+			self:ScanAchievements()
+		else
+			self:UpdateView()
+		end
+	end)
 
 	self.initialized = true
 end
