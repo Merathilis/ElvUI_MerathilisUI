@@ -1,4 +1,4 @@
-## Interface: 110200
+## Interface: 110205
 ## Author: Merathilis
 ## Version: @project-version@
 ## X-Version: 6.74
@@ -14,7 +14,7 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, Details, WeakAuras, BigWigs, WorldQuestTab, Rematch
 ## X-Credits: Simpy, Benik, Azilroka, Darth Predator, fang2hou, fgprodigal, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
-## X-ElvUIVersion: 14.01
+## X-ElvUIVersion: 14.02
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117

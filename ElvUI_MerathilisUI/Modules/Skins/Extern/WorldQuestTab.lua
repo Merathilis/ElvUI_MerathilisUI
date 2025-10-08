@@ -4,7 +4,6 @@ local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 local S = E:GetModule("Skins")
 
 local _G = _G
-local next = next
 local hooksecurefunc = hooksecurefunc
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
