@@ -320,6 +320,7 @@ V.skins = {
 		uiErrors = true,
 		debugTools = true,
 		battlefieldMap = true,
+		recentAllies = true,
 	},
 
 	libraries = {
