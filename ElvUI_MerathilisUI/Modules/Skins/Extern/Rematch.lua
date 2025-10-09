@@ -113,6 +113,63 @@ local function ReskinToggleButton(button)
 	button.__MERSkin = true
 end
 
+local texList = {
+	close = { E.Media.Textures.Close, 0 },
+	minimize = { E.Media.Textures.ArrowUp, S.ArrowRotation.up },
+	maximize = { E.Media.Textures.ArrowUp, S.ArrowRotation.down },
+	left = { E.Media.Textures.ArrowUp, S.ArrowRotation.left },
+	right = { E.Media.Textures.ArrowUp, S.ArrowRotation.right },
+	pin = { I.Media.Icons.Pin, 0 },
+	lock = { I.Media.Icons.Lock, 0 },
+	unlock = { I.Media.Icons.Unlock, 0 },
+	flip = { I.Media.Icons.Undo, 0 },
+}
+
+---@param frame Button?
+---@param size number?
+local function ReskinTitlebarButton(frame, size)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	---@param tex Texture
+	---@param r number?
+	---@param g number?
+	---@param b number?
+	local function UpdateTexture(tex, r, g, b)
+		if not frame.icon or not texList[frame.icon] then
+			return
+		end
+		local texData = texList[frame.icon]
+
+		tex:SetTexture(texData[1])
+		tex:SetRotation(texData[2] or 0)
+		tex:SetTexCoord(0, 1, 0, 1)
+		tex:Size(size or 12)
+		tex:SetVertexColor(r or 1, g or 1, b or 1)
+		tex:SetAlpha(1)
+		tex:SetBlendMode("BLEND")
+
+		F.InternalizeMethod(tex, "SetTexture", true)
+		F.InternalizeMethod(tex, "SetTexCoord", true)
+	end
+
+	local hoverColor = E.media.rgbvaluecolor
+
+	frame.Update = function(self)
+		UpdateTexture(self:GetNormalTexture(), 1, 1, 1)
+		UpdateTexture(self:GetDisabledTexture(), 0.5, 0.5, 0.5)
+		UpdateTexture(self:GetPushedTexture(), hoverColor.r, hoverColor.g, hoverColor.b)
+		UpdateTexture(self:GetHighlightTexture(), hoverColor.r, hoverColor.g, hoverColor.b)
+	end
+
+	frame:Update()
+
+	frame:Size(size or 12, size or 12)
+
+	frame.__MERSkin = true
+end
+
 local function ReskinCardStatusBar(parent, key)
 	if not parent or not key or not parent[key] or parent[key].__MERSkin then
 		return
@@ -280,7 +337,18 @@ local function ReskinTitleBar(frame)
 
 	frame.Portrait:Kill()
 	F.SetFont(frame.Title)
-	module:Proxy("HandleCloseButton", frame.CloseButton)
+
+	ReskinTitlebarButton(frame.CloseButton)
+	F.Move(frame.CloseButton, -4, -4)
+	ReskinTitlebarButton(frame.MinimizeButton, 16)
+	F.Move(frame.MinimizeButton, -4, 2)
+
+	ReskinTitlebarButton(frame.LockButton, 14)
+	F.Move(frame.LockButton, 4, -4)
+	ReskinTitlebarButton(frame.NextModeButton, 14)
+	F.Move(frame.NextModeButton, 4, 0)
+	ReskinTitlebarButton(frame.PrevModeButton, 14)
+	F.Move(frame.PrevModeButton, 4, 0)
 end
 
 local function ReskinToolBar(frame)
@@ -860,52 +928,6 @@ local function ReskinOptionsPanel(frame)
 		frame.List.ScrollBox:ForEachFrame(ReskinListElement)
 	end)
 	frame.List.ScrollBox:ForEachFrame(ReskinListElement)
-end
-
-local texList = {
-	close = { E.Media.Textures.Close, 0 },
-	minimize = { E.Media.Textures.ArrowUp, S.ArrowRotation.up },
-	maximize = { E.Media.Textures.ArrowUp, S.ArrowRotation.down },
-	left = { E.Media.Textures.ArrowUp, S.ArrowRotation.left },
-	right = { E.Media.Textures.ArrowUp, S.ArrowRotation.right },
-	pin = { I.Media.Icons.Pin, 0 },
-	lock = { I.Media.Icons.Lock, 0 },
-	unlock = { I.Media.Icons.Unlock, 0 },
-	flip = { I.Media.Icons.Undo, 0 },
-}
-
-local function ReskinTitlebarButton(frame, size)
-	if not frame or frame.__MERSkin then
-		return
-	end
-
-	local function UpdateTexture(tex, r, g, b)
-		if not frame.icon or not texList[frame.icon] then
-			return
-		end
-
-		tex:SetTexture(texList[frame.icon][1])
-		tex:SetRotation(texList[frame.icon][2] or 0)
-		tex:SetTexCoord(0, 1, 0, 1)
-		tex:Size(size or 12, size or 12)
-		tex:SetVertexColor(r or 1, g or 1, b or 1)
-		tex:SetAlpha(1)
-	end
-
-	local hoverColor = E.media.rgbvaluecolor
-
-	frame.Update = function(self)
-		UpdateTexture(self:GetNormalTexture(), 1, 1, 1)
-		UpdateTexture(self:GetDisabledTexture(), 0.5, 0.5, 0.5)
-		UpdateTexture(self:GetPushedTexture(), hoverColor.r, hoverColor.g, hoverColor.b)
-		UpdateTexture(self:GetHighlightTexture(), hoverColor.r, hoverColor.g, hoverColor.b)
-	end
-
-	frame:Update()
-
-	frame:Size(size or 12, size or 12)
-
-	frame.__MERSkin = true
 end
 
 local function ReskinRoundButton(frame)
