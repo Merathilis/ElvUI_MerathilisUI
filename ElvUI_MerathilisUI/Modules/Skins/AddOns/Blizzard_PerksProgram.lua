@@ -32,7 +32,7 @@ function module:Blizzard_PerksProgram()
 				button.MERshadow:SetAllPoints()
 			end
 
-			F.SetFontOutline(button.Text)
+			F.SetFont(button.Text)
 		end
 
 		module:CreateBackdropShadow(footer.RotateButtonContainer.RotateLeftButton)

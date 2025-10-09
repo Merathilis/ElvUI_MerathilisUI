@@ -361,6 +361,9 @@ function F.SetFontFromDB(db, prefix, fs, color, fontOverwrite, useScaling)
 	end
 end
 
+---Set font style from database settings
+---@param text FontString The FontString object to modify
+---@param db table Font style database containing name, size, and style
 function F.SetFontDB(text, db)
 	if not text or not text.GetFont then
 		F.Developer.LogDebug("Functions.SetFontDB: text not found")
@@ -377,6 +380,9 @@ function F.SetFontDB(text, db)
 	text:FontTemplate(db.name and LSM:Fetch("font", db.name) or fontName, db.size or fontHeight, db.style or "NONE")
 end
 
+---Set font color from database settings
+---@param text FontString The FontString object to modify
+---@param db table Font color database containing r, g, b, a values
 function F.SetFontColorDB(text, db)
 	if not text or not text.GetFont then
 		F.Developer.LogDebug("Functions.SetFontColorDB: text not found")
@@ -391,12 +397,17 @@ function F.SetFontColorDB(text, db)
 	text:SetTextColor(db.r, db.g, db.b, db.a)
 end
 
-function F.SetFontOutline(text, font, size)
+---Change font outline style to OUTLINE and remove shadow
+---@param text FontString The FontString object to modify
+---@param font string? Font path or name (optional)
+---@param size number|string? Font size or size change amount as string (optional)
+---@param style string? Font outline style. (optional, default is "OUTLINE")
+function F.SetFont(text, font, size, style)
 	if not text or not text.GetFont then
-		F.Developer.LogDebug("Functions.SetFontOutline: text not found")
+		F.Developer.LogDebug("Functions.SetFont: text not found")
 		return
 	end
-	local fontName, fontHeight, fontStyle = text:GetFont()
+	local fontName, fontHeight = text:GetFont()
 
 	if type(size) == "string" then
 		size = fontHeight + (tonumber(size) or 0)
@@ -406,7 +417,7 @@ function F.SetFontOutline(text, font, size)
 		font = LSM:Fetch("font", font)
 	end
 
-	text:FontTemplate(font or fontName, size or fontHeight, fontStyle or "SHADOWOUTLINE")
+	text:FontTemplate(font or fontName, size or fontHeight, style or "SHADOWOUTLINE")
 	text:SetShadowColor(0, 0, 0, 0)
 	text.SetShadowColor = E.noop
 end

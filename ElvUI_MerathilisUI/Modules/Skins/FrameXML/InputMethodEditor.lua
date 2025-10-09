@@ -26,7 +26,7 @@ function module:InputMethodEditor()
 				self:SecureHook(editBox, "Show", function()
 					for _, region in pairs({ langIcon:GetRegions() }) do
 						if region:GetObjectType() == "FontString" then
-							F.SetFontOutline(region)
+							F.SetFont(region)
 							region:ClearAllPoints()
 							region:SetPoint("CENTER", langIcon, "CENTER", 0, 0)
 							self:Unhook(editBox, "Show")

@@ -9,7 +9,7 @@ function module:ElvUICopyChatFrame()
 	end
 
 	self:CreateShadow(_G.ElvUI_CopyChatFrame)
-	F.SetFontOutline(_G.ElvUI_CopyChatFrameEditBox)
+	F.SetFont(_G.ElvUI_CopyChatFrameEditBox)
 end
 
 module:AddCallback("ElvUICopyChatFrame")

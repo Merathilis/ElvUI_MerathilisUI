@@ -119,7 +119,7 @@ function module:MountRoutePlanner()
 
 	for _, region in pairs({ frame:GetRegions() }) do
 		if region.GetObjectType and region:GetObjectType() == "FontString" then
-			F.SetFontOutline(region)
+			F.SetFont(region)
 		end
 	end
 

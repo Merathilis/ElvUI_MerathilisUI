@@ -416,10 +416,10 @@ function module:UpdateFriendButton(button)
 		}
 	end
 
-	F.SetFontOutline(button.name)
+	F.SetFont(button.name)
 	F.SetFontDB(button.name, module.db.nameFont)
 
-	F.SetFontOutline(button.info)
+	F.SetFont(button.info)
 	F.SetFontDB(button.info, module.db.infoFont)
 
 	-- favorite icon

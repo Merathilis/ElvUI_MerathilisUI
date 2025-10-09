@@ -68,9 +68,9 @@ function module:DressUpFrame()
 			if frame.__MERSkin then
 				return
 			end
-			F.SetFontOutline(frame.ItemName)
+			F.SetFont(frame.ItemName)
 			local width = frame.ItemSlot:GetWidth()
-			F.SetFontOutline(frame.ItemSlot)
+			F.SetFont(frame.ItemSlot)
 			frame.ItemSlot:SetWidth(width + 4)
 
 			frame.__MERSkin = true

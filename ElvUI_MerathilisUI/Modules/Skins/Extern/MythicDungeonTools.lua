@@ -76,7 +76,7 @@ local function reskinProgressBar(_, progressBar)
 
 	bar.Label:ClearAllPoints()
 	bar.Label:Point("CENTER", bar, 0, 0)
-	F.SetFontOutline(bar.Label)
+	F.SetFont(bar.Label)
 end
 
 local function reskinButtonTexture(texture, alphaTimes)
@@ -214,12 +214,12 @@ function module:Ace3_MDTPullButton(widget)
 	widget.pullNumber:Point("CENTER", widget.frame, "LEFT", 12, 1)
 
 	hooksecurefunc(widget.frame.pickedGlow, "Show", function()
-		F.SetFontOutline(widget.pullNumber, E.db.general.font, 22)
+		F.SetFont(widget.pullNumber, E.db.general.font, 22)
 		widget.pullNumber:SetTextColor(1, 1, 1, 1)
 	end)
 
 	hooksecurefunc(widget.frame.pickedGlow, "Hide", function()
-		F.SetFontOutline(widget.pullNumber, E.db.general.font, 16)
+		F.SetFont(widget.pullNumber, E.db.general.font, 16)
 		widget.pullNumber:SetTextColor(1, 0.93, 0.76, 0.8)
 	end)
 end

@@ -130,7 +130,7 @@ function module:Immersion()
 	elements.backdrop:ClearAllPoints()
 	elements.backdrop:Point("TOPLEFT", elements, "TOPLEFT", 10, -5)
 	elements.backdrop:Point("BOTTOMRIGHT", elements, "BOTTOMRIGHT", -10, 5)
-	F.SetFontOutline(elements.Progress.ReqText)
+	F.SetFont(elements.Progress.ReqText)
 	module:CreateBackdropShadow(elements)
 
 	elements.Content.RewardsFrame.ItemHighlight.Icon:Hide()

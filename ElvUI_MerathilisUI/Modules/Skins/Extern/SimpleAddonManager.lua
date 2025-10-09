@@ -10,7 +10,7 @@ local function ReskinScrollFrameItems(frame, template)
 	if template == "SimpleAddonManagerAddonItem" or template == "SimpleAddonManagerCategoryItem" then
 		for _, btn in pairs(frame.buttons) do
 			if not btn.__MERSkin then
-				F.SetFontOutline(btn.Name)
+				F.SetFont(btn.Name)
 				S:HandleCheckBox(btn.EnabledButton)
 				if btn.ExpandOrCollapseButton then
 					S:HandleCollapseTexture(btn.ExpandOrCollapseButton)
