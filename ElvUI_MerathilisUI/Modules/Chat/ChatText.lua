@@ -86,6 +86,7 @@ do --this can save some main file locals
 	local x, y = ":16:16", ":13:25"
 
 	local ElvBlue = E:TextureString(E.Media.ChatLogos.ElvBlue, y)
+	local ElvPink = E:TextureString(E.Media.ChatLogos.ElvPink, y)
 	local ElvGreen = E:TextureString(E.Media.ChatLogos.ElvGreen, y)
 	local ElvOrange = E:TextureString(E.Media.ChatLogos.ElvOrange, y)
 	local ElvPurple = E:TextureString(E.Media.ChatLogos.ElvPurple, y)
@@ -93,7 +94,6 @@ do --this can save some main file locals
 	local ElvYellow = E:TextureString(E.Media.ChatLogos.ElvYellow, y)
 	local ElvSimpy = E:TextureString(E.Media.ChatLogos.ElvSimpy, y)
 
-	local Bathrobe = E:TextureString(E.Media.ChatLogos.Bathrobe, x)
 	local Rainbow = E:TextureString(E.Media.ChatLogos.Rainbow, x)
 	local Hibiscus = E:TextureString(E.Media.ChatLogos.Hibiscus, x)
 	local Gem = E:TextureString(E.Media.ChatLogos.Gem, x)
@@ -107,8 +107,8 @@ do --this can save some main file locals
 		(a = a - (b and 1 or -1) if (b and a == 1 or a == 0) or a == #c then b = not b end return c[a])
 	]]
 
-	local itsElv, itsMis, itsSimpy, itsMel, itsThradex, itsPooc
-	do --Simpy Chaos: super cute text coloring function that ignores hyperlinks and keywords
+	local itsElv, itsWife, itsSimpy, itsMel, itsMis, itsThradex, itsPooc, itsBot
+	do -- Simpy Chaos: super cute text coloring function that ignores hyperlinks and keywords
 		local e, f, g = { "||", "|Helvmoji:.-|h.-|h", "|[Cc].-|[Rr]", "|[TA].-|[ta]", "|H.-|h.-|h" }, {}, {}
 		local prettify = function(t, ...)
 			return gsub(
@@ -209,7 +209,11 @@ do --this can save some main file locals
 				0.75
 			)
 		end
-		--Mels: Fiery Rose (F94F6D), Saffron (F7C621), Emerald (4FC16D), Medium Slate Blue (7C7AF7), Cyan Process (11AFEA)
+		-- Wife Colors
+		local WifeColors = function(t)
+			return specialText(t, 0.32, 0.76, 0.98, 0.63, 0.36, 0.98, 0.77, 0.47, 0.98, 0.99, 0.5, 0.75)
+		end
+		-- Mels: Fiery Rose (F94F6D), Saffron (F7C621), Emerald (4FC16D), Medium Slate Blue (7C7AF7), Cyan Process (11AFEA)
 		local MelColors = function(t)
 			return specialText(
 				t,
@@ -262,11 +266,45 @@ do --this can save some main file locals
 			return specialText(t, 0.9, 0.8, 0.5)
 		end
 
+		-- Botanica: Dark Cyan (048BA8), Mid Turquoise (52CCC0), Lime Green (32CD32), Khaki (EFEA5A), Coral (FF8348), Salmon (F24374), Blue Violet (9933ff), Sea Green (0DB39E)
+		local BotsColors = function(t)
+			return specialText(
+				t,
+				0.01,
+				0.54,
+				0.65,
+				0.30,
+				0.80,
+				0.64,
+				0.19,
+				0.80,
+				0.19,
+				0.93,
+				0.91,
+				0.35,
+				1.00,
+				0.51,
+				0.28,
+				0.94,
+				0.26,
+				0.45,
+				0.60,
+				0.20,
+				1.00,
+				0.05,
+				0.70,
+				0.61
+			)
+		end
+
 		itsSimpy = function()
 			return ElvSimpy, SimpyColors
 		end
 		itsElv = function()
 			return ElvBlue, ElvColors
+		end
+		itsWife = function()
+			return ElvPink, WifeColors
 		end
 		itsMel = function()
 			return Hibiscus, MelColors
@@ -279,6 +317,9 @@ do --this can save some main file locals
 		end
 		itsPooc = function()
 			return ElvBlue, PoocsColors
+		end
+		itsBot = function()
+			return Gem, BotsColors
 		end
 	end
 
@@ -511,7 +552,7 @@ do --this can save some main file locals
 			z["Player-1401-04217BB2"] = ElvPurple -- [Alliance] Warlock:	Asragoth
 			z["Player-1401-0421EB9F"] = ElvBlue -- [Alliance] Warrior:	Brítt
 			z["Player-1401-0421F909"] = ElvRed -- [Alliance] Paladin:	Damará
-			z["Player-1401-0B12A2DC"] = ElvRed --	 . [Alliance] Paladin:	Damara/Legion Remix
+			z["Player-1401-0B12A2DC"] = ElvRed -- [Alliance] Paladin:	Damara/Legion Remix
 			z["Player-1401-0421EC36"] = ElvBlue -- [Alliance] Priest:	Jazira
 			z["Player-1401-0A9B0131"] = ElvYellow -- [Alliance] Rogue:	Anonia
 			z["Player-1401-041E4D64"] = ElvGreen -- [Alliance] Monk:		Maithilis
