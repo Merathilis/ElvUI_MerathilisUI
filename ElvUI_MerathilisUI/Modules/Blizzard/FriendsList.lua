@@ -132,6 +132,10 @@ local clientData = {
 	},
 }
 
+local timerunningSeasonIcon = {
+	[2] = MediaPath .. "GameIcons\\WOW_LEG",
+}
+
 local expansionData = {
 	[WOW_PROJECT_MAINLINE] = {
 		name = "Retail",
@@ -379,6 +383,13 @@ function module:UpdateFriendButton(button)
 
 			if self.db.textures.gameIcon == "PATCH" and wowID and expansionData[wowID] then
 				texOrAtlas = expansionData[wowID].icon
+				if
+					wowID == WOW_PROJECT_MAINLINE
+					and timerunningSeasonID
+					and timerunningSeasonIcon[timerunningSeasonID]
+				then
+					texOrAtlas = timerunningSeasonIcon[timerunningSeasonID]
+				end
 			end
 
 			if self.db.textures.gameIcon == "FACTION" and faction and factionIcons[faction] then
