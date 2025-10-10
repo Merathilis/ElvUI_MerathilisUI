@@ -5,8 +5,23 @@ local S = E:GetModule("Skins")
 local _G = _G
 
 local function ReskinText(text)
-	if text then
-		F.SetFont(text)
+	if not text then
+		return
+	end
+
+	F.SetFont(text)
+
+	F.InternalizeMethod(text, "SetText")
+	hooksecurefunc(text, "SetText", function(self, newText)
+		local styled = module:StyleTextureString(newText)
+		if styled and styled ~= newText then
+			F.CallMethod(self, "SetText", styled)
+		end
+	end)
+
+	local currentText = text:GetText()
+	if currentText then
+		text:SetText(currentText)
 	end
 end
 
@@ -24,10 +39,6 @@ local function ReskinBar(bar)
 end
 
 local function ReskinUIWidgetContainer(container)
-	if not container or not container.widgetFrames then
-		return
-	end
-
 	for _, widget in pairs(container.widgetFrames) do
 		if not widget.__MERSkin then
 			ReskinText(widget.Text)
@@ -35,16 +46,6 @@ local function ReskinUIWidgetContainer(container)
 			widget.__MERSkin = true
 		end
 	end
-
-	hooksecurefunc(container, "ProcessWidget", function(widgetContainer)
-		for _, widget in pairs(widgetContainer.widgetFrames) do
-			if not widget.__MERSkin then
-				ReskinText(widget.Text)
-				ReskinBar(widget.Bar)
-				widget.__MERSkin = true
-			end
-		end
-	end)
 end
 
 local function ReskinPartitionFrame(partitionFrame)
@@ -133,7 +134,14 @@ function module:BlizzardUIWidget()
 
 	S.SkinTextWithStateWidget = E.noop -- Use Blizzard default color
 
-	ReskinUIWidgetContainer(_G.UIWidgetTopCenterContainerFrame)
+	for _, container in pairs({ _G.UIWidgetTopCenterContainerFrame, _G.UIWidgetBelowMinimapContainerFrame }) do
+		if not container or not container.widgetFrames then
+			return
+		end
+
+		ReskinUIWidgetContainer(container)
+		hooksecurefunc(container, "ProcessWidget", ReskinUIWidgetContainer)
+	end
 end
 
 module:AddCallback("BlizzardUIWidget")
