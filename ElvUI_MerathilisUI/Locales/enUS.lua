@@ -963,6 +963,20 @@ L["Calendar"] = true
 L["Add calendar button to the bar."] = true
 L["Garrison"] = true
 L["Add garrison button to the bar."] = true
+L["All handled minimap buttons"] = true
+L["Buttons matching earlier patterns will appear first."] = true
+L["Enter a comma-separated list of Lua regex patterns."] = true
+L["If you are not familiar with Lua regex, try using AI to help you."] = true
+L["Leading and trailing whitespace in each pattern will be automatically trimmed."] = true
+L["Priority Patterns"] = true
+L["Recent Allies"] = true
+L["Reset sorting priority to default value."] = true
+L["Reverse Order"] = true
+L["Reverse the sort order of buttons."] = true
+L["Set the sorting priority of minimap buttons by patterns."] = true
+L["Sorting Priority"] = true
+L["Updated minimap buttons layout."] = true
+L["Use command %s to view all handled buttons and their current sorting priority."] = true
 
 -- Raid Marks
 L["Raid Markers"] = true

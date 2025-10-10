@@ -7,6 +7,9 @@ local C = MER.Utilities.Color
 local _G = _G
 local ceil = ceil
 local floor = floor
+local format = format
+local gmatch = gmatch
+local gsub = gsub
 local min = min
 local pairs = pairs
 local select = select
@@ -14,6 +17,7 @@ local sort = sort
 local strfind = strfind
 local strlen = strlen
 local strsub = strsub
+local strtrim = strtrim
 local tinsert = tinsert
 local tremove = tremove
 local type = type
@@ -81,7 +85,7 @@ local acceptedFrames = {
 	"WIM3MinimapButton",
 }
 
-local handledButtons = {}
+local handledButtons = {} ---@type table<integer, {name: string, debugName: string, frame: Frame}>
 
 local function isValidName(name)
 	for _, ignoreName in pairs(IgnoreList.full) do
@@ -106,10 +110,10 @@ local function isValidName(name)
 end
 
 function module:OnButtonSetShown(button, shown)
-	local buttonName = button:GetName()
+	local name, debugName = button:GetName(), button:GetDebugName()
 
-	for i, handledButtonName in pairs(handledButtons) do
-		if buttonName == handledButtonName then
+	for i, names in pairs(handledButtons) do
+		if name == names.name or debugName == names.debugName then
 			if shown then
 				return -- already in the list
 			end
@@ -119,7 +123,7 @@ function module:OnButtonSetShown(button, shown)
 	end
 
 	if shown then
-		tinsert(handledButtons, buttonName)
+		tinsert(handledButtons, { name = name, debugName = debugName, frame = button })
 	end
 
 	self:UpdateLayout()
@@ -483,7 +487,8 @@ function module:SkinButton(button, force)
 	end
 
 	if self:HandleLibDBIconButton(button, name) then
-		tinsert(handledButtons, name)
+		local debugName = button:GetDebugName()
+		tinsert(handledButtons, { name = name, debugName = debugName, frame = button })
 	end
 
 	button.isSkinned = true
@@ -493,6 +498,93 @@ function module.DelayedUpdateLayout()
 	if module.db.orientation ~= "NOANCHOR" then
 		E:Delay(1, module.UpdateLayout, module)
 	end
+end
+
+function module:GetSortPriorityPatterns()
+	local priorityPatterns = {}
+
+	for pattern in gmatch(self.db.sortingPriority, "([^,]+)") do
+		pattern = strtrim(pattern)
+		if pattern ~= "" then
+			tinsert(priorityPatterns, pattern)
+		end
+	end
+
+	return priorityPatterns
+end
+
+function module:SortButtons()
+	local numButtons = #handledButtons
+	if numButtons <= 1 then
+		return
+	end
+
+	local priorityPatterns = self:GetSortPriorityPatterns()
+	local numPatterns = #priorityPatterns
+	local defaultPriority = numPatterns + 1
+
+	-- Pre-compute button metadata for efficient sorting
+	local buttonData = {}
+	for i = 1, numButtons do
+		local button = handledButtons[i]
+		local name = button.name or button.debugName or ""
+		local priority = defaultPriority
+
+		-- Find highest priority pattern match
+		for p = 1, numPatterns do
+			if strfind(name, priorityPatterns[p]) then
+				priority = p
+				break
+			end
+		end
+
+		buttonData[i] = {
+			button = button,
+			name = name,
+			priority = priority,
+			originalIndex = i, -- For stable sort
+		}
+	end
+
+	-- Single-pass sort: priority first, then alphabetically, then stable by original index
+	sort(buttonData, function(a, b)
+		if a.priority ~= b.priority then
+			return a.priority < b.priority
+		end
+		if a.name ~= b.name then
+			return a.name < b.name
+		end
+		return a.originalIndex < b.originalIndex -- Stable sort fallback
+	end)
+
+	-- Rebuild handledButtons array from sorted data
+	for i = 1, numButtons do
+		handledButtons[i] = buttonData[i].button
+	end
+
+	-- In-place reversal if needed
+	if self.db.reverseOrder then
+		local halfLen = floor(numButtons / 2)
+		for i = 1, halfLen do
+			local j = numButtons - i + 1
+			handledButtons[i], handledButtons[j] = handledButtons[j], handledButtons[i]
+		end
+	end
+end
+
+function module:PrintAllButtonNames()
+	F.PrintGradientLine()
+	F.Print(L["Priority Patterns"] .. ":")
+	for i, pattern in pairs(self:GetSortPriorityPatterns()) do
+		F.Print(i, C.StringByTemplate(gsub(pattern, "\124", "\124\124"), "amber-300"))
+	end
+	F.Print(L["All handled minimap buttons:"])
+	for i, button in pairs(handledButtons) do
+		local name = button.name or button.debugName
+		name = name and gsub(name, "\124", "\124\124") or format('"" (%s)', C.StringByTemplate(L["no name"], "red-300"))
+		F.Print(i, C.StringByTemplate(name, "cyan-300"))
+	end
+	F.PrintGradientLine()
 end
 
 function module:UpdateLayout()
@@ -507,7 +599,7 @@ function module:UpdateLayout()
 		self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 	end
 
-	sort(handledButtons)
+	module:SortButtons()
 
 	local buttonsPerRow = self.db.buttonsPerRow
 	local numOfRows = ceil(#handledButtons / buttonsPerRow)
@@ -518,8 +610,8 @@ function module:UpdateLayout()
 
 	local buttonX, buttonY, anchor, offsetX, offsetY
 
-	for i, moveButton in pairs(handledButtons) do
-		local frame = _G[moveButton]
+	for i, handledButton in pairs(handledButtons) do
+		local frame = handledButton.frame
 		F.CallMethod(frame, "ClearAllPoints")
 
 		if self.db.orientation == "NOANCHOR" then
@@ -730,6 +822,15 @@ function module:Initialize()
 	self:UpdateMouseOverConfig()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+	MER:AddCommand("minimapbuttons", "MERmmb", function(arg)
+		if arg == "all" then
+			module:PrintAllButtonNames()
+		else
+			F.Print(L["Updated minimap buttons layout."])
+			module:UpdateLayout()
+		end
+	end)
 end
 
 module:RawHook(MM, "HandleExpansionButton")

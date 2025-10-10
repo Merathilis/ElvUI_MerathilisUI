@@ -2058,8 +2058,10 @@ P.smb = {
 	backdropSpacing = 2,
 	spacing = 2,
 	inverseDirection = false,
+	reverseOrder = false,
 	orientation = "HORIZONTAL",
 	expansionLandingPage = false,
+	sortingPriority = "^Expansion, _BugSack, WeakAuras$, _Saved, _MER",
 }
 
 P.raidmarkers = {

@@ -6,6 +6,7 @@ local format = format
 local next, pairs, print, type = next, pairs, print, type
 local strlower = strlower
 local strsub = strsub
+local strupper = strupper
 local wipe = table.wipe
 
 local SetCVar = C_CVar.SetCVar
@@ -15,7 +16,12 @@ local DisableAddOn = C_AddOns.DisableAddOn
 local EnableAddOn = C_AddOns.EnableAddOn
 local GetNumAddOns = C_AddOns.GetNumAddOns
 
+---Registers a new command with the MerathilisUI addon system
+---@param name string The name/identifier for the command
+---@param keys string|table The command key(s) or aliases that will trigger this command
+---@param func function The callback function to execute when the command is invoked
 function MER:AddCommand(name, keys, func)
+	name = strupper(name)
 	if not _G.SlashCmdList["MERATHILISUI_" .. name] then
 		_G.SlashCmdList["MERATHILISUI_" .. name] = func
 

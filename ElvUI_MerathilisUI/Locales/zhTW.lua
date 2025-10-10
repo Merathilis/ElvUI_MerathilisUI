@@ -973,6 +973,23 @@ L["Calendar"] = "行事曆"
 L["Add calendar button to the bar."] = "添加行事曆按鍵到條上."
 L["Garrison"] = "要塞"
 L["Add garrison button to the bar."] = "添加要塞按鍵到條上."
+L["All handled minimap buttons"] = "所有被處理的小地圖按鍵"
+L["Buttons matching earlier patterns will appear first."] = "匹配到更前面規則的按鍵將優先顯示."
+L["Enter a comma-separated list of Lua regex patterns."] = "輸入以英文逗號分隔的 Lua 正則表達式規則."
+L["If you are not familiar with Lua regex, try using AI to help you."] =
+	"如果你不熟悉 Lua 正則表達式, 可以嘗試借用 AI 的力量."
+L["Leading and trailing whitespace in each pattern will be automatically trimmed."] =
+	"每個規則的前後空格將自動被清除."
+L["Priority Patterns"] = "優先級規則"
+L["Recent Allies"] = "近期盟友"
+L["Reset sorting priority to default value."] = "重置排序優先級為預設值."
+L["Reverse Order"] = "反轉順序"
+L["Reverse the sort order of buttons."] = "反轉按鍵的排序順序."
+L["Set the sorting priority of minimap buttons by patterns."] = "設定小地圖按鍵的排序優先級."
+L["Sorting Priority"] = "排序優先級"
+L["Updated minimap buttons layout."] = "已更新小地圖按鍵佈局."
+L["Use command %s to view all handled buttons and their current sorting priority."] =
+	"使用指令 %s 來查看所有被管理的按鍵及其當前排序優先級."
 
 --Raid Marks
 L["Raid Markers"] = "團隊標記"
@@ -1554,7 +1571,7 @@ L["Disable debug mode"] = "停用偵錯模式"
 L["Reenable the addons that disabled by debug mode."] = "重新啟用偵錯模式禁用的插件."
 L["Debug Enviroment"] = "偵錯環境"
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] =
-	"你可以使用 |cff00ff00/muidebug off|r 指令來退出偵錯模式."
+	"你可以使用 |cff00ff00/muidebug off|r 指令來退���偵錯模式."
 L["After you stop debuging, %s will reenable the addons automatically."] =
 	"在停止偵錯模式後, %s 將自動重新啟用插件."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =

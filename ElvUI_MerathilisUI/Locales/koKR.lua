@@ -1284,6 +1284,20 @@ L["Calendar"] = "달력"
 L["Add calendar button to the bar."] = "바에 달력 버튼을 추가합니다."
 L["Garrison"] = "주둔지"
 L["Add garrison button to the bar."] = "바에 주둔지 버튼을 추가합니다."
+L["All handled minimap buttons"] = true
+L["Buttons matching earlier patterns will appear first."] = true
+L["Enter a comma-separated list of Lua regex patterns."] = true
+L["If you are not familiar with Lua regex, try using AI to help you."] = true
+L["Leading and trailing whitespace in each pattern will be automatically trimmed."] = true
+L["Priority Patterns"] = true
+L["Recent Allies"] = true
+L["Reset sorting priority to default value."] = true
+L["Reverse Order"] = true
+L["Reverse the sort order of buttons."] = true
+L["Set the sorting priority of minimap buttons by patterns."] = true
+L["Sorting Priority"] = true
+L["Updated minimap buttons layout."] = true
+L["Use command %s to view all handled buttons and their current sorting priority."] = true
 
 --Raid Marks
 L["Raid Markers"] = "공격대 징표"

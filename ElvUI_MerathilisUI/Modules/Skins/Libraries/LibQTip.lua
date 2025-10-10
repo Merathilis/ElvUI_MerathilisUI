@@ -2,11 +2,8 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local TT = E:GetModule("Tooltip")
 
-local _G = _G
 local type = type
 local select = select
-local pairs = pairs
-local LibStub = _G.LibStub
 
 function module:LibQTip_UpdateScrolling(tooltip, ...)
 	local slider = tooltip and tooltip.slider
@@ -77,7 +74,7 @@ function module:ReskinLibQTip(lib)
 	end
 end
 
-function module:LibQTip()
+function module:LibQTip(lib)
 	if lib.Acquire then
 		self:SecureHook(lib, "Acquire", "ReskinLibQTip")
 	end

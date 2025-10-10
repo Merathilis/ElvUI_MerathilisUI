@@ -987,6 +987,25 @@ L["Calendar"] = "日历"
 L["Add calendar button to the bar."] = "添加日历按钮到条上."
 L["Garrison"] = "要塞"
 L["Add garrison button to the bar."] = "添加要塞按钮到条上."
+L["All handled minimap buttons"] = "所有处理过的小地图按钮:"
+L["Buttons matching earlier patterns will appear first."] = "匹配到更前面规则的按钮将优先出现."
+L["Enter a comma-separated list of Lua regex patterns."] =
+	"输入一个以逗号分隔的 Lua 正则表达式规则列表."
+L["If you are not familiar with Lua regex, try using AI to help you."] =
+	"如果你不熟悉 Lua 正则表达式, 可以尝试借助 AI 的力量."
+L["Leading and trailing whitespace in each pattern will be automatically trimmed."] =
+	"每个规则的前后空格将被自动清除."
+L["Priority Patterns"] = "优先级规则"
+L["Recent Allies"] = "近期盟友"
+L["Reset sorting priority to default value."] = "重置排序优先级为默认值."
+L["Reverse Order"] = "反向排序"
+L["Reverse the sort order of buttons."] = "反转按钮的排序顺序."
+L["Set the sorting priority of minimap buttons by patterns."] =
+	"通过规则来设定小地图按钮的排序优先级."
+L["Sorting Priority"] = "排序优先级"
+L["Updated minimap buttons layout."] = "已更新小地图按钮布局."
+L["Use command %s to view all handled buttons and their current sorting priority."] =
+	"使用命令 %s 来查看所有被处理的按钮及其当前排序优先级."
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"
@@ -1446,14 +1465,14 @@ L["Make sure you select the NPC as your target."] = true
 L["Delete"] = true
 L["Delete the selected NPC."] = true
 L["Only Repeatable"] = "仅可重复"
-L["Only accept and complete repeatable quests."] = "仅接受和完成可重复任务."
+L["Only accept and complete repeatable quests."] = "���接受��完成可重复任务."
 
 -- Filter
-L["Filter"] = "过滤器"
+L["Filter"] = "过���器"
 L["Unblock the profanity filter."] = "解锁语言过滤器."
 L["Profanity Filter"] = "语言过滤器"
 L["Enable this option will unblock the setting of profanity filter. [CN Server]"] =
-	"开启这个选项将解锁语言过滤器的设定.[国服]"
+	"开启这个��项将解锁语言过滤器的设定.[国服]"
 
 -- Friends List
 L["Friends List"] = "好友列表"

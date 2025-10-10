@@ -469,8 +469,14 @@ options.maps = {
 							name = L["Inverse Direction"],
 							desc = L["Reverse the direction of adding buttons."],
 						},
-						orientation = {
+						reverseOrder = {
 							order = 4,
+							type = "toggle",
+							name = L["Reverse Order"],
+							desc = L["Reverse the sort order of buttons."],
+						},
+						orientation = {
+							order = 5,
 							type = "select",
 							name = L["Orientation"],
 							desc = L["Arrangement direction of the bar."],
@@ -481,11 +487,47 @@ options.maps = {
 							},
 							set = function(info, value)
 								E.db.mui.smb[info[#info]] = value
-								if value == "NOANCHOR" and E.db.mui.smb.calendar then
-									E:StaticPopup_Show("PRIVATE_RL")
-								else
-									SMB:UpdateLayout()
-								end
+								MB:UpdateLayout()
+							end,
+						},
+
+						betterAlign = {
+							order = 6,
+							type = "description",
+							name = " ",
+							width = "full",
+						},
+						sortingPriority = {
+							order = 7,
+							type = "input",
+							multiline = 5,
+							width = "full",
+							name = L["Sorting Priority"],
+							desc = format(
+								"%s\n\n%s\n%s\n%s\n\n%s\n%s",
+								L["Set the sorting priority of minimap buttons by patterns."],
+								L["Enter a comma-separated list of Lua regex patterns."],
+								L["Buttons matching earlier patterns will appear first."],
+								L["Leading and trailing whitespace in each pattern will be automatically trimmed."],
+								L["If you are not familiar with Lua regex, try using AI to help you."],
+								format(
+									L["Use command %s to view all handled buttons and their current sorting priority."],
+									C.StringByTemplate("/MERmmb all", "teal-300")
+								)
+							),
+							set = function(info, value)
+								E.db.mui.smb[info[#info]] = value
+								MB:UpdateLayout()
+							end,
+						},
+						resetSortingPriority = {
+							order = 8,
+							type = "execute",
+							name = L["Reset"],
+							desc = L["Reset sorting priority to default value."],
+							func = function()
+								E.db.mui.smb.sortingPriority = P.smb.sortingPriority
+								MB:UpdateLayout()
 							end,
 						},
 					},
