@@ -1,14 +1,15 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
+local assert = assert
 local coroutine = coroutine
 local ipairs = ipairs
 local math = math
 local pcall = pcall
 local setmetatable = setmetatable
 local tinsert = tinsert
-local xpcall = xpcall
 local type = type
+local xpcall = xpcall
 
 local RunNextFrame = RunNextFrame
 
@@ -30,11 +31,13 @@ function ObjectFinder:New(parent)
 	o.isRunning = false
 	o.coroutine = nil
 
+	assert(o.parent and o.parent.GetChildren, "Parent must be a valid Frame with GetChildren method")
+
 	return o
 end
 
 --- Add a search request to the queue
---- @param objectType string Type of UI object to find (e.g., "Frame", "Texture", "Button")
+---@param objectType? string Type of UI object to find (e.g., "Frame", "Texture", "Button") or nil for any type
 --- @param match function(UIObject): boolean Callback to check if object matches criteria
 --- @param callback function(UIObject): void Callback to execute when match is found
 function ObjectFinder:Find(objectType, match, callback)
@@ -48,6 +51,10 @@ function ObjectFinder:Find(objectType, match, callback)
 			return
 		end
 	end
+
+	assert(type(objectType) == "string" or objectType == nil, "objectType must be a string or nil")
+	assert(type(match) == "function", "match must be a function")
+	assert(type(callback) == "function" or callback == nil, "callback must be a function or nil")
 
 	tinsert(self.requests, {
 		objectType = objectType,
@@ -118,7 +125,7 @@ function ObjectFinder:Start()
 						for requestIndex, request in ipairs(self.requests) do
 							if
 								not self.found[requestIndex]
-								and objType == request.objectType
+								and (request.objectType == nil or objType == request.objectType)
 								and request.match(obj)
 							then
 								self.found[requestIndex] = obj

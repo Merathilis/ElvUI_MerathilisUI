@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
+local OF = MER.Utilities.ObjectFinder
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -372,6 +373,22 @@ local function SetupSilverDragonHistory(silverDragon)
 	end
 end
 
+local function StyleMountCountButton()
+	local finder = OF:New(_G.MountJournal.MountCount)
+
+	finder:Find("Button", function(frame)
+		local texture = frame and frame.texture
+		if texture and S:IsTexturePathEqual(texture, [[Interface\Icons\INV_Misc_Head_Dragon_01]]) then
+			return true
+		end
+		return false
+	end, function(frame)
+		S:Proxy("HandleIcon", frame.texture, true)
+	end)
+
+	finder:Start()
+end
+
 function S:SilverDragon()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.sd then
 		return
@@ -388,6 +405,8 @@ function S:SilverDragon()
 	SetupSilverDragonPopups(SilverDragon)
 	SetupSilverDragonHistory(SilverDragon)
 	SetupSilverDragonOverlay(SilverDragon)
+
+	self:AddCallbackForAddon("Blizzard_Collections", StyleMountCountButton)
 end
 
 S:AddCallbackForAddon("SilverDragon")
