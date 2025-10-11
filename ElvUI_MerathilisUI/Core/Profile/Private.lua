@@ -373,6 +373,7 @@ V.skins = {
 		whisperPop = true,
 		paragonReputation = true,
 		manuscriptsJournal = true,
+		plumber = true,
 		bw = {
 			enable = true,
 			queueTimer = {

@@ -142,6 +142,7 @@ end
 
 local function configCheckbox(frame)
 	S:HandleCheckBox(frame.CheckBox)
+	frame.CheckBox:Size(24)
 end
 
 local function dropDown(frame)
