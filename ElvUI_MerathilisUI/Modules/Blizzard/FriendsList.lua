@@ -1,19 +1,22 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_FriendsList")
+local FL = MER:GetModule("MER_FriendsList")
 local C = MER.Utilities.Color
 
 local _G = _G
 local pairs = pairs
+local select = select
 local strsplit = strsplit
+local strupper = strupper
 
 local BNConnected = BNConnected
 local FriendsFrame_Update = FriendsFrame_Update
+local GetClassInfo = GetClassInfo
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 local TimerunningUtil_AddSmallIcon = TimerunningUtil.AddSmallIcon
 
-local GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
-local GetClassColor = C_ClassColor.GetClassColor
-local GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
+local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
+local C_ClassColor_GetClassColor = C_ClassColor.GetClassColor
+local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
 
 local BNET_FRIEND_TOOLTIP_WOW_CLASSIC = BNET_FRIEND_TOOLTIP_WOW_CLASSIC
 local FRIENDS_BUTTON_TYPE_BNET = FRIENDS_BUTTON_TYPE_BNET
@@ -40,9 +43,8 @@ local MediaPath = I.General.MediaPath .. "FriendList\\"
 
 local cache = {}
 
--- Manully code the atlas "battlenetclienticon"
--- note: Destiny 2 is not included
-module.projectCodes = {
+-- Manually code the atlas "battlenetclienticon"
+local projectCodes = {
 	["ANBS"] = "Diablo Immortal",
 	["Hero"] = "Heroes of the Storm",
 	["OSI"] = "Diablo II",
@@ -63,14 +65,7 @@ module.projectCodes = {
 	["WOW"] = "World of Warcraft",
 	["PRO"] = "Overwatch",
 	["PRO-ZHCN"] = "Overwatch",
-	["CLNT"] = "Battle.net Client",
 }
-
-setmetatable(module.projectCodes, {
-	__index = function(t, k)
-		return rawget(t, k) or ("Unknown: %s"):format(k)
-	end,
-})
 
 local clientData = {
 	["Diablo Immortal"] = {
@@ -140,7 +135,7 @@ local expansionData = {
 	[WOW_PROJECT_MAINLINE] = {
 		name = "Retail",
 		suffix = nil,
-		maxLevel = GetMaxLevelForPlayerExpansion(),
+		maxLevel = MER.MaxLevelForPlayerExpansion,
 		icon = MediaPath .. "GameIcons\\WOW_Retail",
 	},
 	[WOW_PROJECT_CLASSIC] = {
@@ -162,8 +157,8 @@ local expansionData = {
 		icon = MediaPath .. "GameIcons\\WOW_WotLK",
 	},
 	[WOW_PROJECT_CATACLYSM_CLASSIC] = {
-		name = "Catalysm",
-		suffix = "Catalysm",
+		name = "Cata",
+		suffix = "Cata",
 		maxLevel = 85,
 		icon = MediaPath .. "GameIcons\\WOW_Cata",
 	},
@@ -176,8 +171,8 @@ local expansionData = {
 }
 
 local factionIcons = {
-	["Alliance"] = MediaPath .. "Alliance",
-	["Horde"] = MediaPath .. "Horde",
+	["Alliance"] = MediaPath .. "GameIcons\\Alliance",
+	["Horde"] = MediaPath .. "GameIcons\\Horde",
 }
 
 local statusIcons = {
@@ -201,31 +196,27 @@ local statusIcons = {
 	},
 }
 
-local function GetClassColors(className)
+local function GetClassColor(className)
 	for class, localizedName in pairs(LOCALIZED_CLASS_NAMES_MALE) do
 		if className == localizedName then
-			return GetClassColor(class)
+			return C_ClassColor_GetClassColor(class)
 		end
 	end
 
 	if MER.Locale == "deDE" or MER.Locale == "frFR" then
 		for class, localizedName in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
 			if className == localizedName then
-				return GetClassColor(class)
+				return C_ClassColor_GetClassColor(class)
 			end
 		end
 	end
 end
 
-function module:UpdateFriendButton(button)
-	if not button then
-		return
-	end
-
+function FL:UpdateFriendButton(button)
 	if not self.db.enable then
 		if cache.name and cache.info then
-			F.SetFontWithDB(button.name, cache.name)
-			F.SetFontWithDB(button.info, cache.info)
+			F.SetFontDB(button.name, cache.name)
+			F.SetFontDB(button.info, cache.info)
 		end
 		return
 	end
@@ -239,8 +230,8 @@ function module:UpdateFriendButton(button)
 	if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
 		-- WoW friends
 		wowID = WOW_PROJECT_MAINLINE
-		gameName = module.projectCodes["WOW"]
-		local friendInfo = GetFriendInfoByIndex(button.id)
+		gameName = projectCodes["WOW"]
+		local friendInfo = C_FriendList_GetFriendInfoByIndex(button.id)
 		name, server = strsplit("-", friendInfo.name) -- server is nil if it's not a cross-realm friend
 		level = friendInfo.level
 		class = friendInfo.className
@@ -261,13 +252,13 @@ function module:UpdateFriendButton(button)
 		end
 	elseif button.buttonType == FRIENDS_BUTTON_TYPE_BNET and BNConnected() then
 		-- Battle.net friends
-		local friendAccountInfo = GetFriendAccountInfo(button.id)
+		local friendAccountInfo = C_BattleNet_GetFriendAccountInfo(button.id)
 		if friendAccountInfo then
 			realID = friendAccountInfo.accountName
 			note = friendAccountInfo.note
 
 			local gameAccountInfo = friendAccountInfo.gameAccountInfo
-			gameName = module.projectCodes[strupper(gameAccountInfo.clientProgram)]
+			gameName = projectCodes[strupper(gameAccountInfo.clientProgram)]
 
 			if gameAccountInfo.isOnline then
 				if friendAccountInfo.isAFK or gameAccountInfo.isGameAFK then
@@ -306,7 +297,7 @@ function module:UpdateFriendButton(button)
 
 	-- Status icon
 	if status then
-		local pack = module.db.textures.status
+		local pack = self.db.textures.status
 		if statusIcons[pack] then
 			button.status:SetTexture(statusIcons[pack][status])
 		end
@@ -319,7 +310,7 @@ function module:UpdateFriendButton(button)
 		local buttonTitle, buttonText
 
 		-- override Real ID or name with note
-		if module.db.useNoteAsName and note and note ~= "" then
+		if self.db.useNoteAsName and note and note ~= "" then
 			if realID then
 				realID = note
 			else
@@ -328,18 +319,18 @@ function module:UpdateFriendButton(button)
 		end
 
 		-- real ID
-		local clientColor = module.db.useClientColor and clientData[gameName] and clientData[gameName].color
+		local clientColor = self.db.useClientColor and clientData[gameName] and clientData[gameName].color
 		local realIDString = realID and clientColor and C.StringWithRGB(realID, clientColor) or realID
 
 		-- name
-		local classColor = module.db.useClassColor and GetClassColors(class)
+		local classColor = self.db.useClassColor and GetClassColor(class)
 		local nameString = name and classColor and C.StringWithRGB(name, classColor) or name
-		if timerunningSeasonID ~= "" and nameString ~= nil then
-			nameString = TimerunningUtil_AddSmallIcon(nameString) or nameString
+		if timerunningSeasonID and timerunningSeasonID ~= "" and nameString ~= nil then
+			nameString = TimerunningUtil_AddSmallIcon(nameString) or nameString -- add timerunning tag
 		end
 
-		if module.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
-			if level ~= expansionData[wowID].maxLevel or not module.db.hideMaxLevel then
+		if self.db.level and wowID and expansionData[wowID] and level and level ~= 0 then
+			if level ~= expansionData[wowID].maxLevel or not self.db.hideMaxLevel then
 				nameString = nameString .. C.StringWithRGB(": " .. level, GetQuestDifficultyColor(level))
 			end
 		end
@@ -373,8 +364,8 @@ function module:UpdateFriendButton(button)
 		end
 
 		-- temporary fix for upgrading db from old version
-		if module.db.textures.client ~= "blizzard" then
-			module.db.textures.client = "modern"
+		if self.db.textures.client ~= "blizzard" then
+			self.db.textures.client = "modern"
 		end
 
 		-- game icon
@@ -428,10 +419,10 @@ function module:UpdateFriendButton(button)
 	end
 
 	F.SetFont(button.name)
-	F.SetFontDB(button.name, module.db.nameFont)
+	F.SetFontDB(button.name, self.db.nameFont)
 
 	F.SetFont(button.info)
-	F.SetFontDB(button.info, module.db.infoFont)
+	F.SetFontDB(button.info, self.db.infoFont)
 
 	-- favorite icon
 	if button.Favorite:IsShown() then
@@ -440,7 +431,121 @@ function module:UpdateFriendButton(button)
 	end
 end
 
-function module:Initialize()
+function FL:UpdateRecentAllyButton(button)
+	local data = button.elementData
+	if not self.db.enable or not data then
+		return
+	end
+
+	-- Status Icon
+	local status
+	local stateData = data.stateData
+	if stateData.isOnline then
+		if stateData.isAFK then
+			status = "AFK"
+		elseif stateData.isDND then
+			status = "DND"
+		else
+			status = "Online"
+		end
+	else
+		status = "Offline"
+	end
+
+	if status then
+		local pack = self.db.textures.status
+		if statusIcons[pack] then
+			button.OnlineStatusIcon:SetTexture(statusIcons[pack][status])
+		end
+	end
+
+	local CharacterData = button.CharacterData
+	if not CharacterData then
+		return
+	end
+
+	local characterData = data.characterData
+
+	-- Title
+	if CharacterData.Name then
+		for _, key in pairs({ "NameDivider", "Level", "LevelDivider", "Class" }) do
+			if CharacterData[key] then
+				CharacterData[key]:Hide()
+			end
+		end
+
+		local classFile = characterData and characterData.classID and select(2, GetClassInfo(characterData.classID))
+		local nameString = stateData.isOnline
+				and (characterData.name and self.db.useClassColor and C.StringWithClassColor(
+					characterData.name,
+					classFile
+				) or characterData.name)
+			or C.StringByTemplate(characterData.name, "gray-400")
+
+		local level = characterData.level
+		if level then
+			if level ~= expansionData[WOW_PROJECT_MAINLINE].maxLevel or not self.db.hideMaxLevel then
+				nameString = nameString .. C.StringWithRGB(": " .. level, GetQuestDifficultyColor(level))
+			end
+		end
+
+		if nameString then
+			CharacterData.Name:SetText(nameString)
+		end
+
+		F.SetFont(CharacterData.Name)
+		F.SetFontDB(CharacterData.Name, self.db.nameFont)
+		CharacterData.Name.maxWidth = button:GetWidth() - 60
+		CharacterData.Name:Width(CharacterData.Name.maxWidth)
+	end
+
+	-- Most Recent Interaction
+	if CharacterData.MostRecentInteraction then
+		-- Most Recent Interaction
+		F.SetFont(CharacterData.MostRecentInteraction)
+		F.SetFontDB(CharacterData.MostRecentInteraction, self.db.infoFont)
+	end
+
+	-- Info
+	if CharacterData.Location then
+		if stateData.currentLocation then
+			local realmName = characterData.realmName or ""
+			if self.db.hideRealm then
+				realmName = ""
+			end
+
+			local locationText, color
+			if
+				stateData.currentLocation
+				and stateData.currentLocation ~= ""
+				and realmName
+				and realmName ~= ""
+				and realmName ~= E.myrealm
+			then
+				locationText = stateData.currentLocation .. " - " .. realmName
+				color = self.db.areaColor
+			elseif stateData.currentLocation and stateData.currentLocation ~= "" then
+				locationText = stateData.currentLocation
+				color = self.db.areaColor
+			else
+				locationText = realmName or ""
+			end
+
+			if not stateData.isOnline then
+				locationText = C.StringByTemplate(locationText, "gray-400")
+			elseif color then
+				locationText = C.StringWithRGB(locationText, color)
+			end
+
+			CharacterData.Location:SetText(locationText)
+		end
+
+		F.SetFont(CharacterData.Location)
+		F.SetFontDB(CharacterData.Location, self.db.infoFont)
+	end
+end
+
+function FL:Initialize()
 	if not E.db.mui.blizzard.friendsList.enable then
 		return
 	end
@@ -448,17 +553,28 @@ function module:Initialize()
 	self.db = E.db.mui.blizzard.friendsList
 
 	self:SecureHook("FriendsFrame_UpdateFriendButton", "UpdateFriendButton")
+	if _G.RecentAlliesFrame and _G.RecentAlliesFrame.List and _G.RecentAlliesFrame.List.ScrollBox then
+		self:SecureHook(_G.RecentAlliesFrame.List.ScrollBox, "Update", function(scrollBox)
+			scrollBox:ForEachFrame(function(button)
+				self:UpdateRecentAllyButton(button)
+			end)
+		end)
+	end
+
 	self.initialized = true
 end
 
-function module:ProfileUpdate()
+function FL:ProfileUpdate()
 	self.db = E.db.mui.blizzard.friendsList
 
 	if self.db and self.db.enable and not self.initialized then
-		self:SecureHook("FriendsFrame_UpdateFriendButton", "UpdateFriendButton")
+		self:Initialize()
 	end
 
 	FriendsFrame_Update()
+	_G.RecentAlliesFrame.List.ScrollBox:ForEachFrame(function(button)
+		self:UpdateRecentAllyButton(button)
+	end)
 end
 
-MER:RegisterModule(module:GetName())
+MER:RegisterModule(FL:GetName())
