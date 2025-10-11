@@ -1716,15 +1716,6 @@ P.unitframes = {
 			color = { r = 0, g = 0.75, b = 0.98, a = 1 },
 		},
 	},
-	swing = {
-		enable = false,
-		mcolor = { r = 0.8, g = 0.8, b = 0.8 },
-		tcolor = { r = 0.65, g = 0.63, b = 0.35 },
-		ocolor = { r = 0, g = 0.5, b = 1 },
-	},
-	counterBar = {
-		enable = true,
-	},
 	style = true,
 	raidIcons = true,
 	roleIcons = {
@@ -1733,24 +1724,6 @@ P.unitframes = {
 	},
 	highlight = true,
 	auras = true,
-	offlineIndicator = {
-		enable = true,
-		size = 36,
-		anchorPoint = "RIGHT",
-		xOffset = 20,
-		yOffset = 0,
-		texture = "MATERIAL",
-		custom = "",
-	},
-	deathIndicator = {
-		enable = true,
-		size = 36,
-		anchorPoint = "CENTER",
-		xOffset = 0,
-		yOffset = 0,
-		texture = "MATERIAL",
-		custom = "",
-	},
 	restingIndicator = {
 		enable = true,
 		customClassColor = false,

@@ -13,6 +13,7 @@ local unpack = unpack
 
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
+-- Common styling utilities
 local function StyleSilverDragonText(fontString, size, color)
 	if not fontString then
 		return
@@ -32,8 +33,8 @@ local function StyleSilverDragonLootWindow(_, frame)
 	if frame.buttons then
 		for _, button in pairs(frame.buttons) do
 			if not button.IsStyled then
-				S:HandleIcon(button.icon, true)
-				S:HandleIconBorder(button.IconBorder, button.icon.backdrop)
+				S:Proxy("HandleIcon", button.icon, true)
+				S:Proxy("HandleIconBorder", button.IconBorder, button.icon.backdrop)
 				button.icon.backdrop:OffsetFrameLevel(nil, button)
 				button:GetNormalTexture():SetAlpha(0)
 				button:GetPushedTexture():SetAlpha(0)
@@ -48,7 +49,7 @@ local function StyleSilverDragonLootWindow(_, frame)
 		return
 	end
 
-	ES:HandleFrame(frame)
+	S:Proxy("HandleFrame", frame)
 	S:CreateShadow(frame)
 
 	if frame.title then
@@ -56,7 +57,7 @@ local function StyleSilverDragonLootWindow(_, frame)
 	end
 
 	if frame.close then
-		ES:HandleCloseButton(frame.close)
+		S:Proxy("HandleCloseButton", frame.close)
 		frame.close:SetHitRectInsets(0, 0, 0, 0)
 		frame.close:Size(18)
 		frame.close:ClearAllPoints()
@@ -73,15 +74,17 @@ local function StyleSilverDragonLootWindow(_, frame)
 end
 
 local function StyleSilverDragonPopup(popup, module)
-	ES:HandleFrame(popup)
+	-- Style the main frame
+	S:Proxy("HandleFrame", popup)
 	S:CreateShadow(popup)
 
+	-- Style elements
 	if popup.background then
 		popup.background:SetAllPoints()
 	end
 
 	if popup.close then
-		ES:HandleCloseButton(popup.close)
+		S:Proxy("HandleCloseButton", popup.close)
 		popup.close:ClearAllPoints()
 		popup.close:SetHitRectInsets(0, 0, 0, 0)
 		popup.close:SetFrameLevel(popup:GetFrameLevel() + 2)
@@ -93,7 +96,7 @@ local function StyleSilverDragonPopup(popup, module)
 	end
 
 	if popup.lootIcon then
-		ES:HandleButton(popup.lootIcon)
+		S:Proxy("HandleButton", popup.lootIcon)
 		popup.lootIcon.texture:SetAtlas("VignetteLoot")
 	end
 
@@ -122,6 +125,7 @@ local function StyleSilverDragonPopup(popup, module)
 		popup.raidIcon:SetTexture([[Interface\TargetingFrame\UI-RaidTargetingIcons]])
 	end
 
+	-- Override source text behavior
 	popup.SetSource = function(_, source)
 		if module.db.profile.model then
 			popup.source:SetText(source or "")
@@ -136,7 +140,7 @@ local function StyleSilverDragonHistoryLine(line)
 		return
 	end
 
-	ES:Proxy("HandleButton", line)
+	S:Proxy("HandleButton", line)
 
 	line.icon:SetTexCoord(unpack(E.TexCoords))
 	line.title:SetJustifyH("LEFT")
@@ -161,7 +165,7 @@ local function StyleSilverDragonHistoryWindow(frame, collapseButtonStatus)
 		frame.collapseButton.SetDisabledAtlas = E.noop
 		frame.collapseButton.SetHighlightAtlas = E.noop
 
-		ES:HandleButton(frame.collapseButton)
+		S:Proxy("HandleButton", frame.collapseButton)
 		local normalTex = frame.collapseButton:GetNormalTexture()
 		local pushedTex = frame.collapseButton:GetPushedTexture()
 		local disabledTex = frame.collapseButton:GetDisabledTexture()
@@ -188,7 +192,7 @@ local function StyleSilverDragonHistoryWindow(frame, collapseButtonStatus)
 		frame.clearButton:Size(20)
 		frame.clearButton:StripTextures()
 
-		ES:HandleButton(frame.clearButton)
+		S:Proxy("HandleButton", frame.clearButton)
 		local normalTex = frame.clearButton:GetNormalTexture()
 		local highlightTex = frame.clearButton:GetHighlightTexture()
 		local pushedTex = frame.clearButton:GetPushedTexture()
@@ -203,11 +207,14 @@ local function StyleSilverDragonHistoryWindow(frame, collapseButtonStatus)
 		end
 	end
 
-	ES:HandleFrame(frame)
+	-- Style main frame
+	S:Proxy("HandleFrame", frame)
 	S:CreateShadow(frame)
 
+	-- Style title
 	StyleSilverDragonText(frame.title, E.db.general.fontSize)
 
+	-- Fix dragon textures
 	for i = 1, frame:GetNumRegions() do
 		local region = select(i, frame:GetRegions())
 		if region and region:GetObjectType() == "Texture" then
@@ -218,6 +225,7 @@ local function StyleSilverDragonHistoryWindow(frame, collapseButtonStatus)
 		end
 	end
 
+	-- Style resize button
 	if frame.resize then
 		local normalTex = frame.resize:GetNormalTexture()
 		local highlightTex = frame.resize:GetHighlightTexture()
@@ -234,9 +242,10 @@ local function StyleSilverDragonHistoryWindow(frame, collapseButtonStatus)
 		frame.resize:SetFrameLevel(200)
 	end
 
+	-- Style container and setup line hooks
 	if frame.container then
 		local container = frame.container
-		ES:HandleTrimScrollBar(container.scrollBar)
+		S:Proxy("HandleTrimScrollBar", container.scrollBar)
 		container.scrollBox:ForEachFrame(StyleSilverDragonHistoryLine)
 		hooksecurefunc(container.scrollBox, "Update", function(box)
 			box:ForEachFrame(StyleSilverDragonHistoryLine)
@@ -244,10 +253,21 @@ local function StyleSilverDragonHistoryWindow(frame, collapseButtonStatus)
 	end
 end
 
+local function StyleWorldNavFrame()
+	for _, child in pairs({ _G.WorldMapFrame.navBar:GetChildren() }) do
+		if child and child.options and child.texture then
+			S:Proxy("HandleIcon", child.texture, true)
+			return
+		end
+	end
+end
+
 local function ConfigureSilverDragonPopup(popup, config, module)
+	-- Set background color
 	local r, g, b, a = unpack(config.background)
 	popup:SetBackdropColor(r, g, b, a)
 
+	-- Set border color
 	if config.classcolor then
 		local classColor = RAID_CLASS_COLORS[E.myclass]
 		if classColor then
@@ -257,6 +277,7 @@ local function ConfigureSilverDragonPopup(popup, config, module)
 		popup:SetBackdropBorderColor(unpack(E.media.bordercolor))
 	end
 
+	-- Layout elements based on model setting
 	popup.title:ClearAllPoints()
 	popup.status:ClearAllPoints()
 	popup.source:ClearAllPoints()
@@ -331,11 +352,13 @@ local function SetupSilverDragonPopups(silverDragon)
 		return
 	end
 
-	function module.Looks:ElvUI_MerathilisUI(popup, config)
+	-- Register the MerathilisUI look
+	function module.Looks:MerathilisUI(popup, config)
 		StyleSilverDragonPopup(popup, module)
 	end
 
-	module:RegisterLookConfig("ElvUI_MerathilisUI", {
+	-- Register look configuration
+	module:RegisterLookConfig("MerathilisUI", {
 		classcolor = {
 			type = "toggle",
 			name = "Class colored border",
@@ -349,8 +372,9 @@ local function SetupSilverDragonPopups(silverDragon)
 		ConfigureSilverDragonPopup(popup, config, module)
 	end)
 
+	-- Set default style if needed
 	if module.db.profile.style == "SilverDragon" then
-		module.db.profile.style = "ElvUI_MerathilisUI"
+		module.db.profile.style = "MerathilisUI"
 	end
 end
 
@@ -373,20 +397,25 @@ local function SetupSilverDragonHistory(silverDragon)
 	end
 end
 
-local function StyleMountCountButton()
-	local finder = OF:New(_G.MountJournal.MountCount)
+local function SetupMountCountButton(silverDragon)
+	local module = silverDragon:GetModule("LDB", true)
+	if not module then
+		return
+	end
 
-	finder:Find("Button", function(frame)
-		local texture = frame and frame.texture
-		if texture and S:IsTexturePathEqual(texture, [[Interface\Icons\INV_Misc_Head_Dragon_01]]) then
-			return true
+	hooksecurefunc(module, "SetupMounts", function()
+		if not _G.MountJournal or not _G.MountJournal.MountCount then
+			return
 		end
-		return false
-	end, function(frame)
-		S:Proxy("HandleIcon", frame.texture, true)
-	end)
 
-	finder:Start()
+		for _, child in pairs({ _G.MountJournal.MountCount:GetChildren() }) do
+			local texture = child and child.texture
+			if texture and S:IsTexturePathEqual(texture, [[Interface\Icons\INV_Misc_Head_Dragon_01]]) then
+				S:Proxy("HandleIcon", texture, true)
+				return
+			end
+		end
+	end)
 end
 
 function S:SilverDragon()
@@ -405,8 +434,8 @@ function S:SilverDragon()
 	SetupSilverDragonPopups(SilverDragon)
 	SetupSilverDragonHistory(SilverDragon)
 	SetupSilverDragonOverlay(SilverDragon)
-
-	self:AddCallbackForAddon("Blizzard_Collections", StyleMountCountButton)
+	SetupMountCountButton(SilverDragon)
+	StyleWorldNavFrame()
 end
 
 S:AddCallbackForAddon("SilverDragon")

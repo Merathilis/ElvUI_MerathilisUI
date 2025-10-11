@@ -1,13 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="CastBar.lua"/>
-	<Script file="CounterBar.lua"/>
-	<Script file="DeathIndicator.lua"/>
 	<Script file="Health.lua"/>
 	<Script file="HealPrediction.lua"/>
-	<Script file="OfflineIndicator.lua"/>
 	<Script file="Power.lua"/>
 	<Script file="RaidIcon.lua"/>
 	<Script file="RestingIndicator.lua"/>
 	<Script file="RoleIcons.lua"/>
-	<Script file="Swing.lua"/>
 </Ui>
