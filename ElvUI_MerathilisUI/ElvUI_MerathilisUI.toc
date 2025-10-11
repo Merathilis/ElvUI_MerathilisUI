@@ -1,7 +1,7 @@
 ## Interface: 110205
 ## Author: Merathilis
 ## Version: @project-version@
-## X-Version: 6.75
+## X-Version: 6.76
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## AddonCompartmentFunc: MerathilisUI_OnAddonCompartmentClick
 ## IconTexture: Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\m2
@@ -13,7 +13,7 @@
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, Details, WeakAuras, BigWigs, WorldQuestTab, Rematch
-## X-Credits: Simpy, Benik, Azilroka, Darth Predator, fang2hou, fgprodigal, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
+## X-Credits: Simpy, fang2hou, Benik, Azilroka, Darth Predator, fgprodigal, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
 ## X-ElvUIVersion: 14.02
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
