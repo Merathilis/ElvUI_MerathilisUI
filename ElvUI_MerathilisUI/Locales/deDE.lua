@@ -1033,18 +1033,18 @@ L["Add coords to your Minimap."] = "Füge Deiner Minikarte Koordinaten hinzu."
 -- SMB
 L["Minimap Buttons"] = "Minikarte Tasten"
 L["Add an extra bar to collect minimap buttons."] =
-	"Fügt eine zusätzliche Leiste hinzu, um Minikartenschaltflächen zu sammeln."
+	"Fügt eine zusätzliche Leiste hinzu, um Minikarten Tasten zu sammeln."
 L["Toggle minimap buttons bar."] = "Minikarte Tastenleiste einblenden"
 L["Mouse Over"] = "Mouseover"
 L["Only show minimap buttons bar when you mouse over it."] =
-	"Zeige die Minikartenschaltflächenleiste nur an, wenn mit der Maus darüber gefahren wird."
+	"Zeige die Minikartentastenleiste nur an, wenn mit der Maus darüber gefahren wird."
 L["Minimap Buttons Bar"] = "Minikarte Tastenleiste"
 L["Bar Backdrop"] = "Leistenhintergrund"
 L["Show a backdrop of the bar."] = "Zeige einen Hintergrund von der Leiste."
 L["Backdrop Spacing"] = "Hintergrund Abstand"
 L["The spacing between the backdrop and the buttons."] = "Der Abstand zwischen dem Hintergrund und den Tasten."
 L["Inverse Direction"] = "Umgekehrte Richtung"
-L["Reverse the direction of adding buttons."] = "Kehre die Richtung des Hinzufügens von Schaltflächen um."
+L["Reverse the direction of adding buttons."] = "Kehre die Richtung des Hinzufügens von Tasten um."
 L["Orientation"] = "Orientierung"
 L["Arrangement direction of the bar."] = "Arrangierrichtung der Leiste."
 L["Drag"] = "Ziehen"
@@ -1062,20 +1062,20 @@ L["Calendar"] = "Kalender"
 L["Add calendar button to the bar."] = "Fügt der Leiste die Schaltfläche Kalender hinzu."
 L["Garrison"] = "Garnison"
 L["Add garrison button to the bar."] = "Fügt der Leiste einer Garnisons Taste hinzu."
-L["All handled minimap buttons"] = true
-L["Buttons matching earlier patterns will appear first."] = true
-L["Enter a comma-separated list of Lua regex patterns."] = true
-L["If you are not familiar with Lua regex, try using AI to help you."] = true
-L["Leading and trailing whitespace in each pattern will be automatically trimmed."] = true
-L["Priority Patterns"] = true
-L["Recent Allies"] = true
-L["Reset sorting priority to default value."] = true
-L["Reverse Order"] = true
-L["Reverse the sort order of buttons."] = true
-L["Set the sorting priority of minimap buttons by patterns."] = true
-L["Sorting Priority"] = true
-L["Updated minimap buttons layout."] = true
-L["Use command %s to view all handled buttons and their current sorting priority."] = true
+L["All handled minimap buttons"] = "Alle Tasten der Minikarte werden bearbeitet"
+L["Buttons matching earlier patterns will appear first."] = "Tasten, die früheren Mustern entsprechen, werden zuerst angezeigt."
+L["Enter a comma-separated list of Lua regex patterns."] = "Gebe eine durch Kommas getrennte Liste von Lua-Regex-Mustern ein."
+L["If you are not familiar with Lua regex, try using AI to help you."] = "Wenn Du mit Lua-Regex nicht vertraut sind, versuche, KI als Hilfe zu verwenden."
+L["Leading and trailing whitespace in each pattern will be automatically trimmed."] = "Führende und nachfolgende Leerzeichen in jedem Muster werden automatisch entfernt."
+L["Priority Patterns"] = "Prioritätsmuster"
+L["Recent Allies"] = "Jüngste Verbündete"
+L["Reset sorting priority to default value."] = "Sortierpriorität auf Standardwert zurücksetzen."
+L["Reverse Order"] = "Umgekehrte Reihenfolge"
+L["Reverse the sort order of buttons."] = "Kehrt die Sortierreihenfolge der Tasten um."
+L["Set the sorting priority of minimap buttons by patterns."] = "Lege die Sortierpriorität der Minikarten Tasten nach Mustern fest."
+L["Sorting Priority"] = "Sortierpriorität"
+L["Updated minimap buttons layout."] = "Aktualisiertes Layout der Minikarten Tasten."
+L["Use command %s to view all handled buttons and their current sorting priority."] = "Verwende den Befehl %s, um alle behandelten Tasten und ihre aktuelle Sortierpriorität anzuzeigen."
 
 -- RaidMarks
 L["Raid Markers"] = "Schlachtzugs Markierungen"
