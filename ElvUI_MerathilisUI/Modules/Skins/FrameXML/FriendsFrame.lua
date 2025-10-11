@@ -18,15 +18,15 @@ function FriendsCount_OnEvent(event, ...)
 	_G.MER_FriendsCounter:SetText(bnetCount .. "|cff416380/200|r")
 end
 
-local function UpdateFriendsButton(button)
+local function ReskinFriendButton(button)
 	if button.right then
 		return
 	end
 
 	button.right = button:CreateTexture(nil, "BACKGROUND")
-	button.right:SetWidth(button:GetWidth() / 2)
-	button.right:SetHeight(32)
-	button.right:SetPoint("LEFT", button, "CENTER", 0)
+	button.right:Width(button:GetWidth() / 2)
+	button.right:Height(32)
+	button.right:Point("LEFT", button, "CENTER", 0)
 	button.right:SetTexture(E.Media.Textures.White8x8)
 	button.right:SetGradient("HORIZONTAL", CreateColor(0.243, 0.57, 1, 0), CreateColor(0.243, 0.57, 1, 0.25))
 
@@ -63,6 +63,67 @@ end
 
 local function DiffColor(level)
 	return F.HexRGB(GetQuestDifficultyColor(level))
+end
+
+local function ReskinPartyButton(button)
+	button:Width(button:GetWidth() - 4)
+
+	module:Proxy("HandleButton", button)
+	local normal = button:GetNormalTexture()
+	normal:SetTexture(I.Media.Icons.Plus)
+	normal:SetTexCoord(0, 1, 0, 1)
+	normal:Size(14)
+	normal:ClearAllPoints()
+	normal:Point("CENTER")
+	normal:SetVertexColor(1, 1, 1, 1)
+	normal:Show()
+
+	local highlight = button:GetHighlightTexture()
+	highlight:SetTexture(E.media.blankTex)
+	highlight:SetColorTexture(1, 1, 1, 0.2)
+	highlight:SetInside(button)
+	highlight:SetDrawLayer("OVERLAY")
+	highlight:Hide()
+
+	button:HookScript("OnEnter", function()
+		highlight:Show()
+	end)
+
+	button:HookScript("OnLeave", function()
+		highlight:Hide()
+	end)
+
+	F.Move(button, -3, 0)
+end
+
+local function ReskinRecentAllyButton(button)
+	if not button or button.__MERSkin then
+		return
+	end
+
+	local normal = button:GetNormalTexture()
+	normal:SetTexture(E.media.blankTex)
+	normal:Width(button:GetWidth() / 2)
+	normal:Height(button:GetHeight() - 2)
+	normal:Point("LEFT", button, "CENTER", 0)
+	normal:SetGradient("HORIZONTAL", CreateColor(0.243, 0.57, 1, 0), CreateColor(0.243, 0.57, 1, 0.25))
+
+	local highlight = button:GetHighlightTexture()
+	highlight:SetTexture(E.media.blankTex)
+	highlight:SetVertexColor(0.243, 0.57, 1, 0.2)
+	highlight:SetInside(button)
+
+	button:HookScript("OnEnter", function()
+		highlight:Show()
+	end)
+
+	button:HookScript("OnLeave", function()
+		highlight:Hide()
+	end)
+
+	ReskinPartyButton(button.PartyButton)
+
+	button.__MERSkin = true
 end
 
 local function UpdateRewards()
@@ -129,7 +190,15 @@ function module:FriendsFrame()
 		AnimateTexCoords(_G.FriendsFrameIcon, 512, 256, 64, 64, 25, elapsed, 0.01)
 	end)
 
-	self:SecureHook("FriendsFrame_UpdateFriendButton", UpdateFriendsButton)
+	self:SecureHook("FriendsFrame_UpdateFriendButton", ReskinFriendButton)
+
+	local RecentAlliesFrame = _G.RecentAlliesFrame
+	if RecentAlliesFrame and RecentAlliesFrame.List and RecentAlliesFrame.List.ScrollBox then
+		self:SecureHook(RecentAlliesFrame.List.ScrollBox, "Update", function(scrollBox)
+			scrollBox:ForEachFrame(ReskinRecentAllyButton)
+		end)
+	end
+
 	self:SecureHook(_G.RecruitAFriendRewardsFrame, "UpdateRewards", UpdateRewards)
 	UpdateRewards()
 
@@ -181,77 +250,4 @@ function module:FriendsFrame()
 	end)
 end
 
-local function SkinRecentAllyEntry(button)
-	if not button or button.__MERSkin then
-		return
-	end
-
-	if button.PartyButton then
-		local partyButton = button.PartyButton
-
-		module:Proxy("HandleButton", partyButton)
-
-		local normalTexture = partyButton:GetNormalTexture()
-		if normalTexture then
-			normalTexture:SetTexture("Interface\\FriendsFrame\\TravelPass-Invite")
-			normalTexture:SetTexCoord(0.01562500, 0.26562500, 0.27343750, 0.52343750)
-			normalTexture:SetAllPoints(partyButton)
-			normalTexture:SetVertexColor(1, 1, 1, 1)
-		end
-
-		local pushedTexture = partyButton:GetPushedTexture()
-		if pushedTexture then
-			pushedTexture:SetTexture("Interface\\FriendsFrame\\TravelPass-Invite")
-			pushedTexture:SetTexCoord(0.42187500, 0.67187500, 0.27343750, 0.52343750)
-			pushedTexture:SetAllPoints(partyButton)
-			pushedTexture:SetVertexColor(1, 1, 1, 1)
-		end
-
-		local highlightTexture = partyButton:GetHighlightTexture()
-		if highlightTexture then
-			highlightTexture:SetTexture("Interface\\FriendsFrame\\TravelPass-Invite")
-			highlightTexture:SetTexCoord(0.42187500, 0.67187500, 0.00781250, 0.25781250)
-			highlightTexture:SetAllPoints(partyButton)
-			highlightTexture:SetVertexColor(1, 1, 1, 0.5)
-		end
-
-		local disabledTexture = partyButton:GetDisabledTexture()
-		if disabledTexture then
-			disabledTexture:SetTexture("Interface\\FriendsFrame\\TravelPass-Invite")
-			disabledTexture:SetTexCoord(0.01562500, 0.26562500, 0.00781250, 0.25781250)
-			disabledTexture:SetAllPoints(partyButton)
-			disabledTexture:SetVertexColor(0.5, 0.5, 0.5, 1)
-		end
-	end
-
-	button.__MERSkin = true
-end
-
-function module:RecentAlliesFrame()
-	if not self:CheckDB("friends", "recentAllies") then
-		return
-	end
-
-	local RecentAlliesFrame = _G.RecentAlliesFrame
-	if not RecentAlliesFrame then
-		return
-	end
-
-	self:CreateShadow(RecentAlliesFrame)
-
-	-- if RecentAlliesFrame.List and RecentAlliesFrame.List.ScrollBox then
-	-- hooksecurefunc(RecentAlliesFrame.List.ScrollBox, "Update", function(scrollBox)
-	-- local target = scrollBox:GetScrollTarget()
-	-- if not target or not target.GetChildren then
-	-- return
-	-- end
-	--
-	-- for _, button in pairs({ target:GetChildren() }) do
-	-- SkinRecentAllyEntry(button)
-	-- end
-	-- end)
-	-- end
-end
-
 module:AddCallback("FriendsFrame")
-module:AddCallback("RecentAlliesFrame")
