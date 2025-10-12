@@ -1472,6 +1472,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["player"]["classAdditional"]["width"] = 285
 	E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 12
 	E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
@@ -2390,7 +2391,8 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,209"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,89"
 	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,209"
-	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
+	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,243"
+	E.db["movers"]["AdditionalPowerMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,209"
 	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,188"
 	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,293"
