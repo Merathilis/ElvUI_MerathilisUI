@@ -12,10 +12,10 @@ local GetAchievementInfo = GetAchievementInfo
 local GetItemNameByID = C_Item.GetItemNameByID
 local GetItemInfoInstant = C_Item.GetItemInfoInstant
 local GetPvpTalentInfoByID = GetPvpTalentInfoByID
-local GetSpellTexture = C_Spell.GetSpellTexture
+local C_Spell_GetSpellTexture = C_Spell.GetSpellTexture
 local GetTalentInfoByID = GetTalentInfoByID
 
-local GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
+local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
 local GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local GetConduitCollectionData = C_Soulbinds.GetConduitCollectionData
 local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
@@ -135,7 +135,8 @@ local function AddKeystoneIcon(link)
 	end
 
 	if module.db.icon then
-		local texture = select(4, GetMapUIInfo(tonumber(mapID)))
+		local mapIDNum = tonumber(mapID)
+		local texture = mapIDNum and select(4, C_ChallengeMode_GetMapUIInfo(mapIDNum))
 		local icon = texture and format(ICON_STRING, texture)
 		if icon then
 			link = icon .. " " .. link
@@ -175,7 +176,8 @@ local function AddSpellInfo(link)
 	end
 
 	if module.db.icon then
-		local texture = GetSpellTexture(tonumber(id))
+		local spellIDNum = tonumber(id)
+		local texture = spellIDNum and C_Spell_GetSpellTexture(spellIDNum)
 		local icon = texture and format(ICON_STRING, texture)
 		if icon then
 			link = icon .. C.StringByTemplate(link, "sky-400")
@@ -193,7 +195,8 @@ local function AddEnchantInfo(link)
 	end
 
 	if module.db.icon then
-		local texture = GetSpellTexture(tonumber(id))
+		local enchantIDNum = tonumber(id)
+		local texture = enchantIDNum and C_Spell_GetSpellTexture(enchantIDNum)
 		local icon = texture and format(ICON_STRING, texture)
 		if icon then
 			link = icon .. " " .. link
@@ -211,7 +214,8 @@ local function AddPvPTalentInfo(link)
 	end
 
 	if module.db.icon then
-		local texture = select(3, GetPvpTalentInfoByID(tonumber(id)))
+		local pvpTalentIDNum = tonumber(id)
+		local texture = pvpTalentIDNum and select(3, GetPvpTalentInfoByID(pvpTalentIDNum))
 		local icon = texture and format(ICON_STRING, texture)
 		if icon then
 			link = icon .. " " .. link
@@ -229,7 +233,8 @@ local function AddTalentInfo(link)
 	end
 
 	if module.db.icon then
-		local texture = select(3, GetTalentInfoByID(tonumber(id)))
+		local talentIDNum = tonumber(id)
+		local texture = talentIDNum and select(3, GetTalentInfoByID(talentIDNum))
 		local icon = texture and format(ICON_STRING, texture)
 		if icon then
 			link = icon .. " " .. link
@@ -247,7 +252,8 @@ local function AddAchievementInfo(link)
 	end
 
 	if module.db.icon then
-		local texture = select(10, GetAchievementInfo(tonumber(id)))
+		local achievementIDNum = tonumber(id)
+		local texture = achievementIDNum and select(10, GetAchievementInfo(achievementIDNum))
 		local icon = texture and format(ICON_STRING, texture)
 		if icon then
 			link = icon .. " " .. link
