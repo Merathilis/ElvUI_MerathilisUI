@@ -72,71 +72,7 @@ options.unitframes = {
 						E.db.mui.unitframes.power[info[#info]] = value
 						E:StaticPopup_Show("CONFIG_RL")
 					end,
-					args = {
-						enable = {
-							order = 1,
-							type = "toggle",
-							name = L["Enable"],
-							desc = L["Enable the animated Power Bar"],
-						},
-						type = {
-							order = 2,
-							type = "select",
-							name = L["Select Model"],
-							style = "radio",
-							disabled = function()
-								return not E.db.mui.unitframes.power.enable
-							end,
-							values = {
-								["DEFAULT"] = L["Default"],
-								["CUSTOM"] = CUSTOM,
-							},
-							sorting = {
-								"DEFAULT",
-								"CUSTOM",
-							},
-						},
-						customModel = {
-							order = 3,
-							type = "input",
-							name = L["Type the Model ID"],
-							width = "full",
-							disabled = function()
-								return E.db.mui.unitframes.power.type == "DEFAULT"
-									or not E.db.mui.unitframes.power.enable
-							end,
-							validate = function(_, value)
-								if tonumber(value) ~= nil then
-									return true
-								else
-									return E:StaticPopup_Show("VERSION_MISMATCH") and false
-								end
-							end,
-							get = function()
-								return tostring(E.db.mui.unitframes.power.model)
-							end,
-							set = function(_, value)
-								E.db.mui.unitframes.power.model = tonumber(value)
-								E:StaticPopup_Show("CONFIG_RL")
-							end,
-						},
-						texture = {
-							order = 4,
-							type = "select",
-							name = L["Power"],
-							desc = L["Power statusbar texture."],
-							dialogControl = "LSM30_Statusbar",
-							values = LSM:HashTable("statusbar"),
-							-- function() return not E.db.mui.unitframes.power.enable end,
-							get = function(info)
-								return E.db.mui.unitframes.power[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.unitframes.power[info[#info]] = value
-								module:ChangePowerBarTexture()
-							end,
-						},
-					},
+					args = {},
 				},
 				castbar = {
 					order = 12,

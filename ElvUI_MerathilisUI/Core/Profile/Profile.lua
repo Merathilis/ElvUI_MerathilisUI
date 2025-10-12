@@ -1700,12 +1700,7 @@ P.unitframes = {
 		blizzardOverAbsorbGlow = true,
 		blizzardAbsorbOverlay = true,
 	},
-	power = {
-		enable = true,
-		type = "DEFAULT",
-		model = 1715069,
-		texture = E.db.unitframe.statusbar,
-	},
+	power = {},
 	castbar = {
 		enable = true,
 		texture = "ElvUI Blank",

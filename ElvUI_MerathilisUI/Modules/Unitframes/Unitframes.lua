@@ -39,67 +39,6 @@ function module:CreateHighlight(frame)
 	end)
 end
 
-function module:CreateAnimatedBars(frame)
-	if not frame then
-		return
-	end
-	if not E.db.unitframe.units.player.power.enable then
-		return
-	end -- only Player for now
-
-	local db = E.db.mui.unitframes.power
-	frame.__MERAnim = CreateFrame("FRAME", nil, frame) -- Main Frame
-
-	if db and db.enable then
-		if not frame.animation then
-			local animation = CreateFrame("PlayerModel", "MER_PowerBarEffect", frame.__MERAnim)
-
-			if db.type == "DEFAULT" then
-				animation:SetModel(1715069)
-				animation:MakeCurrentCameraCustom()
-				animation:SetPortraitZoom(1)
-				animation:SetTransform(CreateVector3D(-0.035, 0, 0), CreateVector3D(4.7123889803847, 0, 0), 1)
-				animation:SetAlpha(0.65)
-			elseif db.type == "CUSTOM" then
-				animation:SetModel(db.model)
-			end
-
-			animation:SetKeepModelOnHide(true)
-			animation:SetInside(frame:GetStatusBarTexture(), 0, 0)
-
-			frame.animation = animation
-		end
-
-		if not frame.sparkle then
-			local sparkle = CreateFrame("PlayerModel", nil, frame.__MERAnim)
-			sparkle:SetKeepModelOnHide(true)
-			sparkle:SetModel(1630153)
-			sparkle:ClearTransform()
-			sparkle:SetPosition(4, 0.32, 1.85, 0)
-
-			local h = frame:GetHeight()
-			sparkle:SetPoint("RIGHT", frame.__MERAnim)
-			sparkle:SetInside(frame:GetStatusBarTexture(), 0, 0)
-			sparkle:SetSize(h * 2, h)
-			sparkle:SetAlpha(0.2)
-
-			frame.sparkle = sparkle
-		end
-
-		frame.__MERAnim:SetAllPoints(frame:GetStatusBarTexture())
-		frame.__MERAnim:Show()
-
-		frame.__MERAnim:RegisterEvent("PLAYER_ENTERING_WORLD")
-		frame.__MERAnim:RegisterEvent("PORTRAITS_UPDATED")
-		frame.__MERAnim:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
-		frame.__MERAnim:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-		frame.__MERAnim:RegisterEvent("CINEMATIC_STOP")
-		frame.__MERAnim:RegisterUnitEvent("PLAYER_FLAGS_CHANGED", "player")
-	else
-		frame.__MERAnim:Hide()
-	end
-end
-
 function module:Initialize()
 	if not E.private.unitframe.enable then
 		return
