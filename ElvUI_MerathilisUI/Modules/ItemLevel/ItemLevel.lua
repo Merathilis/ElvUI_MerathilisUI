@@ -8,6 +8,7 @@ local pairs, select = pairs, select
 
 local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
 local GetItemInfo = C_Item.GetItemInfo
+local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 local GetContainerItemLink = C_Container.GetContainerItemLink
 local GetInventoryItemLink = GetInventoryItemLink
 
@@ -226,7 +227,7 @@ local function ItemLevel_ReplaceGuildNews(button, _, text, name, link, ...)
 	end
 
 	if not cache[link] then
-		cache[link] = F.GetRealItemLevelByLink(link)
+		cache[link] = C_Item_GetDetailedItemLevelInfo(link)
 	end
 
 	if cache[link] then

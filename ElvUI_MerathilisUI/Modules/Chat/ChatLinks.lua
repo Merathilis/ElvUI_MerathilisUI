@@ -18,6 +18,7 @@ local GetTalentInfoByID = GetTalentInfoByID
 local GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
 local GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local GetConduitCollectionData = C_Soulbinds.GetConduitCollectionData
+local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 
 local ICON_STRING = "|T%s:16:18:0:0:64:64:4:60:7:57:255:255:255|t"
 
@@ -87,7 +88,7 @@ local function AddItemInfo(link)
 
 	-- item Level
 	if module.db.level then
-		level = F.GetRealItemLevelByLink(link)
+		level = C_Item_GetDetailedItemLevelInfo(link)
 	end
 
 	-- armor
