@@ -8,6 +8,10 @@ function module:TomTom()
 		return
 	end
 
+	if not _G.TomTom then
+		return
+	end
+
 	local MyFrameDropDownBackdrop = _G.MyFrameDropDownBackdrop
 	if MyFrameDropDownBackdrop then
 		MyFrameDropDownBackdrop:StripTextures()
@@ -25,6 +29,19 @@ function module:TomTom()
 		_G.TomTomDropdownBackdrop:StripTextures()
 		_G.TomTomDropdownBackdrop:SetTemplate("Transparent")
 	end
+
+	local TomTomBlock = _G.TomTomBlock
+	if TomTomBlock then
+		self:Proxy("HandleFrame", TomTomBlock)
+		self:CreateShadow(_G.TomTomBlock)
+		self:BindShadowColorWithBorder(_G.TomTomBlock)
+
+		if TomTomBlock.Text then
+			F.SetFont(TomTomBlock.Text, E.db.general.font)
+		end
+	end
+
+	self:DisableAddOnSkins("TomTom")
 end
 
 module:AddCallbackForAddon("TomTom")
