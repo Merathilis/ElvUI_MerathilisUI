@@ -215,7 +215,7 @@ function module:Immersion()
 			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
 				local portrait = reward.PortraitFrame
 				if not reward.isSkinned then
-					module:ReskinGarrisonPortrait(portrait)
+					S:ReskinGarrisonPortrait(portrait)
 					reward.BG:Hide()
 					portrait:Point("TOPLEFT", 2, -5)
 					reward.textBg = module:CreateBDFrame(reward, 0.25)
