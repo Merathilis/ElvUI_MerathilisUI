@@ -283,6 +283,7 @@ do
 			end
 		end
 
+		self:HookUIError()
 		self:FixGame()
 
 		Engine[2]:GradientColorUpdate()

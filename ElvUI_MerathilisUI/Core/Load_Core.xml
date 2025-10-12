@@ -19,6 +19,7 @@
 	<Script file="SplashScreen.lua"/>
 	<Script file="Staticpopup.lua"/>
 	<Script file="Tags.lua"/>
+	<Script file="UIError.lua"/>
 	<Script file="Update.lua"/>
 
 	<Include file="Changelog\Load_Changelog.xml"/>
