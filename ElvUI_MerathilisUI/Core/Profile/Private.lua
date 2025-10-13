@@ -374,6 +374,7 @@ V.skins = {
 		paragonReputation = true,
 		manuscriptsJournal = true,
 		plumber = true,
+		legionRemixHelper = true,
 		bw = {
 			enable = true,
 			queueTimer = {

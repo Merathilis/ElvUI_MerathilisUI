@@ -14,6 +14,7 @@
 	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="Immersion.lua"/>
 	<Script file="KeystoneLoot.lua"/>
+	<Script file="LegionRemixHelper.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="ManuscriptJournal.lua"/>
 	<Script file="mMediaTag.lua"/>
