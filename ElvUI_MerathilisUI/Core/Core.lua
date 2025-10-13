@@ -327,6 +327,10 @@ function MER:FixGame()
 			self:RegisterEvent("ADDON_LOADED")
 		end
 	end
+
+	if db.fixSetPassThroughButtons then
+		_G.BonusObjectivePinMixin.SetPassThroughButtons = E.noop
+	end
 end
 
 function MER:ADDON_LOADED(event, addOnName)

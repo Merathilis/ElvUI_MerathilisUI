@@ -28,6 +28,7 @@ G.misc = {
 G.advancedOptions = {
 	advancedCLEUEventTrace = false,
 	cvarAlert = false,
+	fixSetPassThroughButtons = true,
 	guildNews = true,
 }
 
