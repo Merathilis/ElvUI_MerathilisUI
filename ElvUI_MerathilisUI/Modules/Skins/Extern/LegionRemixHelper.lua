@@ -159,7 +159,7 @@ local function ReskinFlyoutFrame(parent)
 						hooksecurefunc(grandChild, "Update", ReskinScrollBox)
 						ReskinScrollBox()
 					elseif grandChild.Back and grandChild.Forward and grandChild.Track then
-						S:Proxy("HandleTrimScrollBar", grandChild)
+						module:Proxy("HandleTrimScrollBar", grandChild)
 					end
 				end
 			end, 0.01, 100)
@@ -240,7 +240,7 @@ local function ReskinContentTabs(frame)
 				for _, greatGrandChild in pairs({ grandChild:GetChildren() }) do
 					for _, greatGreatGrandChild in pairs({ greatGrandChild:GetChildren() }) do
 						if greatGreatGrandChild:IsObjectType("Button") then
-							S:Proxy("HandleButton", greatGreatGrandChild, true)
+							module:Proxy("HandleButton", greatGreatGrandChild, true)
 							greatGreatGrandChild.Center:Show()
 							greatGreatGrandChild.Center:SetAtlas(nil)
 							greatGreatGrandChild.Center:SetTexture(E.media.normTex)

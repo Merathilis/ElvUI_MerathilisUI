@@ -521,6 +521,7 @@ function module:UpdateBar(id)
 		if bar.register then
 			UnregisterStateDriver(bar, "visibility")
 			bar.register = false
+			bar.registeredVisibility = nil
 		end
 		bar:Hide()
 		return
@@ -598,6 +599,7 @@ function module:UpdateBar(id)
 		if bar.register then
 			UnregisterStateDriver(bar, "visibility")
 			bar.register = false
+			bar.registeredVisibility = nil
 		end
 		bar:Hide()
 		return
@@ -663,9 +665,16 @@ function module:UpdateBar(id)
 		button.bind:Point("TOPRIGHT", button, "TOPRIGHT", barDB.bindFont.xOffset, barDB.bindFont.yOffset)
 	end
 
+	if bar.registeredVisibility ~= barDB.visibility and bar.register then
+		UnregisterStateDriver(bar, "visibility")
+		bar.register = false
+		bar.registeredVisibility = nil
+	end
+
 	if not bar.register then
 		RegisterStateDriver(bar, "visibility", barDB.visibility)
 		bar.register = true
+		bar.registeredVisibility = barDB.visibility
 	end
 
 	-- Toggle shadow
