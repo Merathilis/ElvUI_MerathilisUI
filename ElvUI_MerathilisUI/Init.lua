@@ -237,7 +237,15 @@ function MER:Initialize()
 	self:AddMoverCategories()
 	self:InitializeMetadata()
 
+	-- To avoid the update tips from ElvUI when alpha/beta versions are used
 	EP:RegisterPlugin(addon, MER.OptionsCallback, false, xVersionString)
+
+	-- Fix the bug that locale files loaded after option table is created
+	local pluginTitle = L["Plugins"]
+	MER:SecureHook(EP, "GetPluginOptions", function()
+		E.Options.args.plugins.name = pluginTitle
+	end)
+
 	self:SecureHook(E, "UpdateAll", "UpdateModules")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 
