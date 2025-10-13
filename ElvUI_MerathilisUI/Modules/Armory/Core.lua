@@ -37,7 +37,7 @@ module.characterSlots = {
 	["NeckSlot"] = {
 		id = 2,
 		needsEnchant = false,
-		needsSocket = true,
+		needsSocket = not PlayerIsTimerunning() and true or false,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
@@ -120,20 +120,20 @@ module.characterSlots = {
 	},
 	["Finger0Slot"] = {
 		id = 11,
-		needsEnchant = true,
+		needsEnchant = not PlayerIsTimerunning() and true or false,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = true,
+		needsSocket = not PlayerIsTimerunning() and true or false,
 		direction = module.enumDirection.RIGHT,
 	},
 	["Finger1Slot"] = {
 		id = 12,
-		needsEnchant = true,
+		needsEnchant = not PlayerIsTimerunning() and true or false,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = true,
+		needsSocket = not PlayerIsTimerunning() and true or false,
 		direction = module.enumDirection.RIGHT,
 	},
 	["Trinket0Slot"] = {
