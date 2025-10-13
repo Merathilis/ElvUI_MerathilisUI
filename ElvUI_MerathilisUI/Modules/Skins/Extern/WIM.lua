@@ -27,6 +27,7 @@ local function HandleChatFrame(frame)
 	local chat = frame.widgets.chat_display
 	local up = frame.widgets.scroll_up
 	local down = frame.widgets.scroll_down
+	local exit = frame.widgets.close
 
 	for _, v in pairs({ "tl", "tr", "bl", "br", "t", "b", "l", "r", "bg" }) do
 		backdrop[v]:SetTexture(nil)
@@ -48,6 +49,17 @@ local function HandleChatFrame(frame)
 	S:HandleNextPrevButton(down, "down")
 	down:SetPoint("BOTTOMRIGHT", -10, 33)
 	DisableTexture(down)
+
+	if exit then
+		exit:StripTextures()
+		exit:Size(28)
+		exit:ClearAllPoints()
+		exit:Point("TOPRIGHT", -2, 0)
+
+		local arrow = exit:CreateTexture(MER.Title .. "arrow", "ARTWORK")
+		arrow:SetTexture(I.Media.Textures.arrow)
+		arrow:SetAllPoints()
+	end
 
 	frame.circle = frame:CreateTexture(nil, "BACKGROUND")
 	frame.circle:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles")
