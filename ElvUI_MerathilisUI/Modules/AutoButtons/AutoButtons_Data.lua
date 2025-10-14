@@ -49,6 +49,8 @@ module.StateCheckList = {
 -- If the item is lower than the threshold, it will be considered not shown
 module.CountThreshold = {
 	[245653] = 100,
+	[253224] = 10, -- Mote of Broken Time
+	[254267] = 100, -- Fragmented Memento of Epoch Challenges
 }
 
 local potions = {
@@ -1259,6 +1261,8 @@ local openableItems = {
 	246936,
 	248247,
 	251821,
+	253224,
+	254267,
 	254847,
 	254848,
 	254849,
