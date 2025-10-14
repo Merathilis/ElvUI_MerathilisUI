@@ -1483,6 +1483,13 @@ options.blizzard = {
 				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.character
 			end,
 		},
+		cooldownViewer = {
+			type = "toggle",
+			name = L["Cooldown Viewer"],
+			disabled = function()
+				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.cooldownManager
+			end,
+		},
 		gossip = {
 			type = "toggle",
 			name = L["Gossip Frame"],
@@ -2645,8 +2652,24 @@ options.advancedSettings = {
 					type = "description",
 					name = L["The middle top errors / messages frame (also used for quest progress text)."],
 				},
-				normalTextClassColor = {
+				width = {
 					order = 2,
+					type = "range",
+					name = L["Width"],
+					desc = L["Set the width of UIErrorsFrame."],
+					min = 256,
+					max = 2048,
+					step = 1,
+					get = function()
+						return E.private.mui.skins.uiErrors.width
+					end,
+					set = function(_, value)
+						E.private.mui.skins.uiErrors.uiErrors.width = value
+						_G.UIErrorsFrame:SetWidth(value)
+					end,
+				},
+				normalTextClassColor = {
+					order = 3,
 					type = "toggle",
 					name = L["Class Color"],
 					desc = L["Use class color for the text."],
@@ -2658,7 +2681,7 @@ options.advancedSettings = {
 					end,
 				},
 				normalTextColor = {
-					order = 3,
+					order = 4,
 					type = "color",
 					name = L["Color"],
 					hasAlpha = true,
@@ -2676,7 +2699,7 @@ options.advancedSettings = {
 					end,
 				},
 				redTextColor = {
-					order = 4,
+					order = 5,
 					type = "color",
 					name = L["Red Color"],
 					desc = L["Replace the default color used for error messages."],
@@ -2692,7 +2715,7 @@ options.advancedSettings = {
 					end,
 				},
 				yellowTextColor = {
-					order = 4,
+					order = 6,
 					type = "color",
 					name = L["Yellow Color"],
 					desc = L["Replace the default color used for warning messages."],
@@ -2708,7 +2731,7 @@ options.advancedSettings = {
 					end,
 				},
 				testButton = {
-					order = 6,
+					order = 7,
 					type = "execute",
 					name = L["Test"],
 					func = function()

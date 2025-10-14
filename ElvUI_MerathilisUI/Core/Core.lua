@@ -329,6 +329,7 @@ function MER:FixGame()
 	end
 
 	if db.fixSetPassThroughButtons then
+		_G.QuestPinMixin.SetPassThroughButtons = E.noop
 		_G.BonusObjectivePinMixin.SetPassThroughButtons = E.noop
 	end
 end

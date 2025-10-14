@@ -321,6 +321,7 @@ V.skins = {
 		debugTools = true,
 		battlefieldMap = true,
 		recentAllies = true,
+		cooldownViewer = true,
 	},
 
 	libraries = {
@@ -426,6 +427,7 @@ V.skins = {
 	},
 	uiErrors = {
 		normalTextClassColor = false,
+		width = 1024,
 		normalTextColor = { r = 0.976, g = 0.980, b = 0.984 },
 		redTextColor = { r = 1.000, g = 0.388, b = 0.494 },
 		yellowTextColor = { r = 1.000, g = 0.875, b = 0.125 },

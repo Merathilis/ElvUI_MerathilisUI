@@ -20,6 +20,8 @@ function module:UIErrors()
 		return
 	end
 
+	_G.UIErrorsFrame:SetWidth(E.private.mui.skins.uiErrors.width)
+
 	MER:RegisterUIErrorHandler(function(params)
 		if params.r == nil or params.g == nil or params.b == nil then
 			local db = E.private.mui.skins.uiErrors

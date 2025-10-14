@@ -83,7 +83,7 @@ options.gameFix = {
 				E.global.mui.advancedOptions.guildNews = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-			width = "full",
+			width = 2,
 		},
 		advancedCLEUEventTrace = {
 			order = 3,
@@ -98,6 +98,20 @@ options.gameFix = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			width = "full",
+		},
+		fixSetPassThroughButtons = {
+			order = 3,
+			type = "toggle",
+			name = L["Fix SetPassThroughButtons"],
+			desc = L["Fix the issue that sometimes SetPassThroughButtons got tainted."],
+			get = function(info)
+				return E.global.mui.advancedOptions.fixSetPassThroughButtons
+			end,
+			set = function(info, value)
+				E.global.mui.advancedOptions.fixSetPassThroughButtons = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			width = 2,
 		},
 	},
 }

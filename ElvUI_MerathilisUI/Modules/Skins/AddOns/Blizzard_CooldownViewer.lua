@@ -1,11 +1,12 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local S = E:GetModule("Skins")
 
 local _G = _G
 local ipairs = ipairs
 local hooksecurefunc = hooksecurefunc
 
-function S:Blizzard_CooldownViewer()
+function module:Blizzard_CooldownViewer()
 	if not self:CheckDB("cooldownManager", "cooldownViewer") then
 		return
 	end
@@ -37,6 +38,32 @@ function S:Blizzard_CooldownViewer()
 			F.Move(tab, 0, -2)
 		end
 	end
+
+	self:SecureHook(S, "CooldownManager_SkinIcon", function(_, _, icon)
+		if icon.__MERSkin then
+			return
+		end
+		self:CreateBackdropShadow(icon)
+		icon.__MERSkin = true
+	end)
+
+	self:SecureHook(S, "CooldownManager_SkinBar", function(_, _, bar)
+		---@cast bar StatusBar
+		if bar.__MERSkin then
+			return
+		end
+
+		bar:SetStatusBarTexture(E.media.normTex)
+		bar:GetStatusBarTexture():SetTextureSliceMode(0)
+
+		for _, region in pairs({ bar:GetRegions() }) do
+			if region:IsObjectType("Texture") and region.backdrop then
+				self:CreateBackdropShadow(region)
+				break
+			end
+		end
+		bar.__MERSkin = true
+	end)
 end
 
 module:AddCallbackForAddon("Blizzard_CooldownViewer")
