@@ -37,7 +37,7 @@ module.characterSlots = {
 	["NeckSlot"] = {
 		id = 2,
 		needsEnchant = false,
-		needsSocket = not PlayerIsTimerunning() and true or false,
+		needsSocket = true,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
@@ -120,20 +120,20 @@ module.characterSlots = {
 	},
 	["Finger0Slot"] = {
 		id = 11,
-		needsEnchant = not PlayerIsTimerunning() and true or false,
+		needsEnchant = true,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = not PlayerIsTimerunning() and true or false,
+		needsSocket = true,
 		direction = module.enumDirection.RIGHT,
 	},
 	["Finger1Slot"] = {
 		id = 12,
-		needsEnchant = not PlayerIsTimerunning() and true or false,
+		needsEnchant = true,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = not PlayerIsTimerunning() and true or false,
+		needsSocket = true,
 		direction = module.enumDirection.RIGHT,
 	},
 	["Trinket0Slot"] = {
@@ -581,7 +581,7 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 
 	-- Enchant/Socket Text Handling
 	if self.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
-		if self.db.pageInfo.missingSocketText and slotOptions.needsSocket then
+		if self.db.pageInfo.missingSocketText and slotOptions.needsSocket and not E.TimerunningID then
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
 				local missingGemSlots = 2 - #slotInfo.gems
 				if missingGemSlots > 0 then
