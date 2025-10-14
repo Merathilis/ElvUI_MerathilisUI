@@ -343,7 +343,7 @@ function module:BigWigs_Keystone()
 		return
 	end
 
-	local finder = OF:New()
+	local finder = OF.New()
 	finder:Find("Frame", function(frame)
 		-- Because the function is run on any type objects, need to ensure the safety
 		local text = frame and frame.TitleContainer and frame.TitleContainer.TitleText

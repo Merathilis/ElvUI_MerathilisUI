@@ -1,8 +1,6 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
-local ES = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
-local OF = MER.Utilities.ObjectFinder
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
