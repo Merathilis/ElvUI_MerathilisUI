@@ -21,6 +21,7 @@
 	<Script file="Blizzard_Collections.lua"/>
 	<Script file="Blizzard_Communities.lua"/>
 	<Script file="Blizzard_Contribution.lua"/>
+	<Script file="Blizzard_CooldownViewer.lua"/>
 	<Script file="Blizzard_CovenantPreviewUI.lua"/>
 	<Script file="Blizzard_CovenantSanctum.lua"/>
 	<Script file="Blizzard_CovenantRenown.lua"/>
