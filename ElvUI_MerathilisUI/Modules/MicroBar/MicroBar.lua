@@ -43,7 +43,6 @@ local IsModifierKeyDown = IsModifierKeyDown
 local IsShiftKeyDown = IsShiftKeyDown
 local PlaySound = PlaySound
 local PlayerHasToy = PlayerHasToy
-local PlayerIsTimerunning = PlayerIsTimerunning
 local RegisterStateDriver = RegisterStateDriver
 local ResetCPUUsage = ResetCPUUsage
 local Screenshot = Screenshot
@@ -81,7 +80,6 @@ local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:
 
 local RED_FONT_COLOR = RED_FONT_COLOR
 
-local isTimerunning = PlayerIsTimerunning()
 local friendOnline = gsub(_G.ERR_FRIEND_ONLINE_SS, "\124Hplayer:%%s\124h%[%%s%]\124h", "")
 local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
 
@@ -608,7 +606,7 @@ local ButtonTypes = {
 				DT.tooltip:SetText(L["Home"])
 				DT.tooltip:AddLine("\n")
 				AddDoubleLineForItem(GB.db.home.left, LeftButtonIcon)
-				if isTimerunning then
+				if PlayerIsTimerunning() then
 					AddDoubleLineForItem(250411, ScrollButtonIcon)
 				end
 				AddDoubleLineForItem(GB.db.home.right, RightButtonIcon)
@@ -1193,7 +1191,7 @@ function GB:UpdateButton(button, buttonType)
 		self:UpdateHomeButtonMacro(button, "left", config.item.item1)
 		self:UpdateHomeButtonMacro(button, "right", config.item.item2)
 		-- Legion Remix Hearthstone (250411)
-		button:SetAttribute("macrotext3", isTimerunning and "/use item:250411" or "")
+		button:SetAttribute("macrotext3", PlayerIsTimerunning() and "/use item:250411" or "")
 		tinsert(self.HomeButtons, button)
 	elseif config.macro then
 		button:SetAttribute("type*", "macro")
