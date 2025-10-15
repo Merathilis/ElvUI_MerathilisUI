@@ -69,7 +69,8 @@ local Enum_QuestClassification_Calling = Enum.QuestClassification.Calling
 local Enum_QuestClassification_Recurring = Enum.QuestClassification.Recurring
 
 local QUEST_STRING = "cFF0000FF.-" .. TRANSMOG_SOURCE_2
-local SKIP_STRING = "^.+|cFFFF0000<.+>|r"
+local SKIP_STRING_1 = "^.+|cFFFF0000<.+>|r"
+local SKIP_STRING_2 = "|cnRED_FONT_COLOR"
 local DELVE_STRING = "%(Delve%)"
 
 local choiceQueue = nil
@@ -364,8 +365,8 @@ function module:GOSSIP_SHOW()
 
 	local gossipOptions = C_GossipInfo_GetOptions() or C_GossipInfo_GetActiveDelveGossip()
 	local numGossipOptions = gossipOptions and #gossipOptions
-	for index, gossipOption in ipairs(gossipOptions) do
-		if strfind(gossipOption.name, SKIP_STRING) then
+	for _, gossipOption in ipairs(gossipOptions) do
+		if strfind(gossipOption.name, SKIP_STRING_1) or strfind(gossipOption.name, SKIP_STRING_2) then
 			return
 		end
 	end
