@@ -43,6 +43,7 @@ local IsModifierKeyDown = IsModifierKeyDown
 local IsShiftKeyDown = IsShiftKeyDown
 local PlaySound = PlaySound
 local PlayerHasToy = PlayerHasToy
+local PlayerIsTimerunning = PlayerIsTimerunning
 local RegisterStateDriver = RegisterStateDriver
 local ResetCPUUsage = ResetCPUUsage
 local Screenshot = Screenshot
@@ -80,6 +81,7 @@ local ScrollButtonIcon = "|TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:
 
 local RED_FONT_COLOR = RED_FONT_COLOR
 
+local isTimerunning = PlayerIsTimerunning()
 local friendOnline = gsub(_G.ERR_FRIEND_ONLINE_SS, "\124Hplayer:%%s\124h%[%%s%]\124h", "")
 local friendOffline = gsub(_G.ERR_FRIEND_OFFLINE_S, "%%s", "")
 
@@ -158,6 +160,7 @@ local hearthstoneAndToyIDList = {
 	140192,
 	141605,
 	180817,
+	250411,
 	-- Engineering Wormholes
 	-- https://www.wowhead.com/items/name:Generator?filter=86:195;5:2;0:0
 	18984,
@@ -600,21 +603,20 @@ local ButtonTypes = {
 		icon = I.Media.Icons.Home,
 		item = {},
 		tooltips = function(button)
-			DT.tooltip:ClearLines()
-			DT.tooltip:SetText(L["Home"])
-			DT.tooltip:AddLine("\n")
-			AddDoubleLineForItem(GB.db.home.left, LeftButtonIcon)
-			AddDoubleLineForItem(GB.db.home.right, RightButtonIcon)
-			DT.tooltip:Show()
-
-			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, function()
+			local function Update()
 				DT.tooltip:ClearLines()
 				DT.tooltip:SetText(L["Home"])
 				DT.tooltip:AddLine("\n")
 				AddDoubleLineForItem(GB.db.home.left, LeftButtonIcon)
+				if isTimerunning then
+					AddDoubleLineForItem(250411, ScrollButtonIcon)
+				end
 				AddDoubleLineForItem(GB.db.home.right, RightButtonIcon)
 				DT.tooltip:Show()
-			end)
+			end
+
+			button.tooltipsUpdateTimer = C_Timer_NewTicker(1, Update)
+			Update()
 		end,
 		tooltipsLeave = function(button)
 			if button.tooltipsUpdateTimer and button.tooltipsUpdateTimer.Cancel then
@@ -1190,11 +1192,14 @@ function GB:UpdateButton(button, buttonType)
 		button:SetAttribute("type*", "macro")
 		self:UpdateHomeButtonMacro(button, "left", config.item.item1)
 		self:UpdateHomeButtonMacro(button, "right", config.item.item2)
+		-- Legion Remix Hearthstone (250411)
+		button:SetAttribute("macrotext3", isTimerunning and "/use item:250411" or "")
 		tinsert(self.HomeButtons, button)
 	elseif config.macro then
 		button:SetAttribute("type*", "macro")
 		button:SetAttribute("macrotext1", config.macro.LeftButton or "")
 		button:SetAttribute("macrotext2", config.macro.RightButton or config.macro.LeftButton or "")
+		button:SetAttribute("macrotext3", "")
 	elseif config.click then
 		button.Click = function(_, mouseButton)
 			local func = mouseButton and config.click[mouseButton] or config.click.LeftButton
