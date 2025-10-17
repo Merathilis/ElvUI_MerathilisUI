@@ -125,20 +125,6 @@ function module:WIM()
 		return
 	end
 
-	local minimap = _G.WIM3MinimapButton
-	if minimap then
-		if minimap.overlay then
-			minimap.overlay:SetTexture("")
-			minimap.overlay:Hide()
-		end
-		if minimap.bg then
-			minimap.bg:StripTextures()
-		end
-		if minimap.backGround then
-			minimap.backGround:SetTexture("")
-		end
-	end
-
 	hooksecurefunc(WIM, "CreateWhisperWindow", HandleWindow)
 	hooksecurefunc(WIM, "CreateChatWindow", HandleWindow)
 	hooksecurefunc(WIM, "CreateW2WWindow", HandleWindow)
