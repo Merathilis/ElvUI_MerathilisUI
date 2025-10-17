@@ -142,16 +142,15 @@ local function ReskinTitlebarButton(frame, size)
 		end
 		local texData = texList[frame.icon]
 
-		tex:SetTexture(texData[1])
-		tex:SetRotation(texData[2] or 0)
-		tex:SetTexCoord(0, 1, 0, 1)
+		F.InternalizeMethod(tex, "SetTexture", true)
+		F.InternalizeMethod(tex, "SetTexCoord", true)
+		F.CallMethod(tex, "SetTexture", texData[1])
+		F.CallMethod(tex, "SetTexCoord", 0, 1, 0, 1)
 		tex:Size(size or 12)
+		tex:SetRotation(texData[2] or 0)
 		tex:SetVertexColor(r or 1, g or 1, b or 1)
 		tex:SetAlpha(1)
 		tex:SetBlendMode("BLEND")
-
-		F.InternalizeMethod(tex, "SetTexture", true)
-		F.InternalizeMethod(tex, "SetTexCoord", true)
 	end
 
 	local hoverColor = E.media.rgbvaluecolor
@@ -191,6 +190,18 @@ local function ReskinCardStatusBar(parent, key)
 		F.Move(text, 0, 1)
 	end
 
+	hooksecurefunc(parent[key], "Hide", function()
+		parent[key .. "Frame"]:Hide()
+	end)
+
+	hooksecurefunc(parent[key], "Show", function()
+		parent[key .. "Frame"]:Show()
+	end)
+
+	hooksecurefunc(parent[key], "SetShown", function(_, shown)
+		parent[key .. "Frame"]:SetShown(shown)
+	end)
+
 	parent[key].__MERSkin = true
 end
 
@@ -226,6 +237,10 @@ local function ReskinPet(frame)
 		end)
 		local ULx, ULy, _, _, _, _, LRx, LRy = frame.Status:GetTexCoord()
 		frame.Status:SetTexCoord(ULx, LRx, ULy, LRy)
+	end
+
+	if frame.Icon then
+		frame.Icon:SetTexCoord(unpack(E.TexCoords))
 	end
 
 	frame.__MERSkin = true
@@ -637,14 +652,17 @@ local function ReskinLoadout(frame)
 	end
 
 	module:Proxy("HandleBlizzardRegions", frame)
+	frame:SetTemplate()
 	frame.Top:Kill()
 	frame.Bottom:Kill()
 	frame.Back:Kill()
-	frame.Highlight:SetTexture(E.media.blankTex)
-	frame.Highlight:SetVertexColor(1, 1, 1, 0.1)
-	frame:SetTemplate()
+	if frame.Highlight then
+		frame.Highlight:SetTexture(E.media.blankTex)
+		frame.Highlight:SetVertexColor(1, 1, 1, 0.1)
+	end
 
-	ReskinPet(frame.Pet)
+	-- Mini Loadout has no own Pet frame
+	ReskinPet(frame.Pet or frame)
 
 	local AbilityBar = frame.AbilityBar
 	if AbilityBar then
@@ -658,8 +676,37 @@ local function ReskinLoadout(frame)
 
 	ReskinCardStatusBar(frame, "HpBar")
 	ReskinCardStatusBar(frame, "XpBar")
+	ReskinCardStatusBar(frame, "TopStatusBar")
+	ReskinCardStatusBar(frame, "BottomStatusBar")
 
 	frame.__MERSkin = true
+end
+
+local function ReskinAbilityFlyout(frame)
+	frame:CreateBackdrop()
+	frame.backdrop:SetInside(frame, 1, 1)
+	frame.backdrop:SetFrameLevel(frame:GetFrameLevel())
+	module:CreateBackdropShadow(frame)
+	frame.Border:Kill()
+
+	for _, button in pairs({ frame:GetChildren() }) do
+		if button ~= frame.Border and button ~= frame.anchoredTo then
+			ReskinIconButton(button)
+		end
+	end
+
+	hooksecurefunc(frame, "FillAbilityFlyout", function(self)
+		if self.__MERSkin then
+			return
+		end
+		frame.AbilitySelecteds[1]:SetTexture(E.media.blankTex)
+		frame.AbilitySelecteds[1]:SetVertexColor(C.ExtractRGBAFromTemplate("yellow-300"))
+		frame.AbilitySelecteds[1]:SetAlpha(0.4)
+		frame.AbilitySelecteds[2]:SetTexture(E.media.blankTex)
+		frame.AbilitySelecteds[2]:SetVertexColor(C.ExtractRGBAFromTemplate("green-300"))
+		frame.AbilitySelecteds[2]:SetAlpha(0.4)
+		self.__MERSkin = true
+	end)
 end
 
 local function ReskinLoadoutPanel(frame)
@@ -679,30 +726,7 @@ local function ReskinLoadoutPanel(frame)
 
 	local AbilityFlyout = frame.AbilityFlyout
 	if AbilityFlyout then
-		AbilityFlyout:CreateBackdrop()
-		AbilityFlyout.backdrop:SetInside(AbilityFlyout, 1, 1)
-		AbilityFlyout.backdrop:SetFrameLevel(AbilityFlyout:GetFrameLevel())
-		module:CreateBackdropShadow(AbilityFlyout)
-		AbilityFlyout.Border:Kill()
-
-		for _, button in pairs({ AbilityFlyout:GetChildren() }) do
-			if button ~= AbilityFlyout.Border and button ~= AbilityFlyout.anchoredTo then
-				ReskinIconButton(button)
-			end
-		end
-
-		hooksecurefunc(AbilityFlyout, "FillAbilityFlyout", function(self)
-			if self.__MERSkin then
-				return
-			end
-			AbilityFlyout.AbilitySelecteds[1]:SetTexture(E.media.blankTex)
-			AbilityFlyout.AbilitySelecteds[1]:SetVertexColor(C.ExtractRGBAFromTemplate("yellow-300"))
-			AbilityFlyout.AbilitySelecteds[1]:SetAlpha(0.4)
-			AbilityFlyout.AbilitySelecteds[2]:SetTexture(E.media.blankTex)
-			AbilityFlyout.AbilitySelecteds[2]:SetVertexColor(C.ExtractRGBAFromTemplate("green-300"))
-			AbilityFlyout.AbilitySelecteds[2]:SetAlpha(0.4)
-			self.__MERSkin = true
-		end)
+		ReskinAbilityFlyout(AbilityFlyout)
 	end
 end
 
@@ -809,6 +833,7 @@ local function ReskinTeamsPanel(frame)
 	ReskinList(frame.List)
 	hooksecurefunc(frame.List.ScrollBox, "Update", function()
 		frame.List.ScrollBox:ForEachFrame(ReskinTeamButton)
+		frame.List.ScrollBox:ForEachFrame(ReskinSelectionIndicator)
 	end)
 	hooksecurefunc(frame.List, "Refresh", function()
 		frame.List.ScrollBox:ForEachFrame(ReskinSelectionIndicator)
@@ -1118,6 +1143,7 @@ local function ReskinCanvas(frame)
 		ReskinList(Lister.List)
 		hooksecurefunc(Lister.List.ScrollBox, "Update", function()
 			Lister.List.ScrollBox:ForEachFrame(ReskinTargetsButton)
+			Lister.List.ScrollBox:ForEachFrame(ReskinSelectionIndicator)
 		end)
 		hooksecurefunc(Lister.List, "Refresh", function()
 			Lister.List.ScrollBox:ForEachFrame(ReskinSelectionIndicator)
@@ -1409,6 +1435,26 @@ local function ReskinNotesCard(frame)
 	frame.__MERSkin = true
 end
 
+local function ReskinMiniLoadoutPanel(frame)
+	if not frame or frame.__MERSkin then
+		return
+	end
+
+	local AbilityFlyout = frame.AbilityFlyout
+	if AbilityFlyout then
+		ReskinAbilityFlyout(AbilityFlyout)
+	end
+
+	local Loadouts = frame.Loadouts
+	if Loadouts then
+		for _, loadout in pairs(Loadouts) do
+			ReskinLoadout(loadout)
+		end
+	end
+
+	frame.__MERSkin = true
+end
+
 function module:RematchButton()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.rematch then
 		return
@@ -1433,32 +1479,6 @@ function module:Rematch()
 		return
 	end
 
-	self:SecureHook(frame, "Show", function()
-		self:Unhook(frame, "Show")
-		self:Proxy("HandleCheckBox", _G.Rematch.journal.UseRematchCheckButton)
-		MF:InternalHandle(frame, "CollectionsJournal")
-		MF:InternalHandle(frame.ToolBar, "CollectionsJournal")
-		self:SecureHook(frame, "Show", function()
-			frame:EnableMouse(true)
-		end)
-		ReskinPetsPanel(frame.PetsPanel)
-		ReskinPanelTabs(frame.PanelTabs)
-		ReskinLoadoutPanel(frame.LoadoutPanel)
-		ReskinTeamsPanel(frame.TeamsPanel)
-		ReskinTargetsPanel(frame.TargetsPanel)
-		ReskinQueuePanel(frame.QueuePanel)
-		ReskinOptionsPanel(frame.OptionsPanel)
-		ReskinPetCard(_G.Rematch.petCard)
-		ReskinNotesCard(_G.Rematch.notes)
-		ReskinDialog(_G.Rematch.dialog)
-	end)
-
-	F.InternalizeMethod(frame, "SetPoint")
-	hooksecurefunc(frame, "SetPoint", function()
-		F.Move(frame, 1, 0)
-	end)
-	F.Move(frame, 1, 0)
-
 	ReskinTooltipsAndMenus()
 	ReskinMainFrame(frame)
 	ReskinTitleBar(frame.TitleBar)
@@ -1466,6 +1486,52 @@ function module:Rematch()
 	ReskinBottomBar(frame.BottomBar)
 	ReskinLoadedTargetPanel(frame.LoadedTargetPanel, frame.PetsPanel, frame.TargetsPanel)
 	ReskinLoadedTeamPanel(frame.LoadedTeamPanel)
+
+	local skinned = false
+	local checkButtonSkinned = false
+	local moveHandled = false
+
+	self:SecureHook(frame, "Show", function()
+		if not skinned then
+			skinned = true
+			ReskinPetsPanel(frame.PetsPanel)
+			ReskinPanelTabs(frame.PanelTabs)
+			ReskinLoadoutPanel(frame.LoadoutPanel)
+			ReskinMiniLoadoutPanel(frame.MiniLoadoutPanel)
+			ReskinTeamsPanel(frame.TeamsPanel)
+			ReskinTargetsPanel(frame.TargetsPanel)
+			ReskinQueuePanel(frame.QueuePanel)
+			ReskinOptionsPanel(frame.OptionsPanel)
+			ReskinPetCard(_G.Rematch.petCard)
+			ReskinNotesCard(_G.Rematch.notes)
+			ReskinDialog(_G.Rematch.dialog)
+		end
+
+		if not checkButtonSkinned and _G.Rematch.journal and _G.Rematch.journal.UseRematchCheckButton then
+			checkButtonSkinned = true
+			self:Proxy("HandleCheckBox", _G.Rematch.journal.UseRematchCheckButton)
+		end
+
+		if not moveHandled and _G.CollectionsJournal then
+			moveHandled = true
+			MF:InternalHandle(frame, "CollectionsJournal")
+			MF:InternalHandle(frame.ToolBar, "CollectionsJournal")
+		end
+
+		local _, relativeTo = frame:GetPoint(1)
+		MF:SetMovable(frame, relativeTo and relativeTo == _G.CollectionsJournal)
+	end)
+
+	F.InternalizeMethod(frame, "SetPoint")
+	hooksecurefunc(frame, "SetPoint", function(_, _, relativeTo)
+		if relativeTo and relativeTo == _G.CollectionsJournal then
+			F.Move(frame, 1, 0)
+		end
+	end)
+	local _, relativeTo = frame:GetPoint(1)
+	if relativeTo and relativeTo == _G.CollectionsJournal then
+		F.Move(frame, 1, 0)
+	end
 end
 
 module:AddCallbackForAddon("Rematch")

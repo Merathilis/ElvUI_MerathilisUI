@@ -613,7 +613,7 @@ function module:InternalHandle(frame, bindTo, remember)
 	end
 end
 
-function MF:SetMovable(frame, movable)
+function module:SetMovable(frame, movable)
 	if not self:IsRunning() then
 		return
 	end
