@@ -435,7 +435,7 @@ function module:Frame_StartMoving(this, button)
 		return
 	end
 
-	if button == "LeftButton" and this.MoveFrame:IsMovable() then
+	if button == "LeftButton" and this.MoveFrame:IsMovable() and not this.MoveFrame.__MERMoveFrameDisabled then
 		this.MoveFrame:StartMoving()
 	end
 end
@@ -611,6 +611,19 @@ function module:InternalHandle(frame, bindTo, remember)
 	if remember == false then
 		frame.__MERFramePath = ""
 	end
+end
+
+function MF:SetMovable(frame, movable)
+	if not self:IsRunning() then
+		return
+	end
+
+	local targetFrame = getFrame(frame)
+	if not targetFrame then
+		return
+	end
+
+	targetFrame.__MERMoveFrameDisabled = not movable
 end
 
 function module:Initialize()
