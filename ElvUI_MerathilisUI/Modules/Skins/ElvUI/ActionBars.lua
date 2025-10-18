@@ -150,7 +150,7 @@ function module:Skin_ElvUI_ActionBars()
 		if button.hover then
 			button.hover:SetAlpha(0)
 		end
-		module:CreateBackdropShadow(button, true)
+		self:CreateBackdropShadow(button, true)
 
 		local tex = button:GetNormalTexture()
 		if tex then
@@ -159,7 +159,23 @@ function module:Skin_ElvUI_ActionBars()
 			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
 			tex:SetTexture(I.Media.Textures.arrow)
 			tex:SetTexCoord(0, 1, 0, 1)
-			tex:SetVertexColor(1, 1, 1, 1)
+			tex:SetVertexColor(1, 1, 1)
+		end
+
+		tex = button:GetPushedTexture()
+		if tex then
+			tex:ClearAllPoints()
+			tex:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -4)
+			tex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 4)
+			tex:SetTexture(I.Media.Textures.arrow)
+			tex:SetTexCoord(0, 1, 0, 1)
+			tex:SetVertexColor(1, 0, 0)
+		end
+
+		tex = button:GetHighlightTexture()
+		if tex then
+			tex:SetTexture(nil)
+			tex:Hide()
 		end
 	end
 end
