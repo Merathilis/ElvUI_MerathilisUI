@@ -477,6 +477,8 @@ L["Reshii Wraps Upgrade"] = "瑞西纏帶升級"
 L["Cannot track more than %d achievements"] = true
 L["Track Achievement"] = true
 L["Untrack Achievement"] = true
+L["Quick Keystone"] = "快速鑰石"
+L["Put the keystone from bag automatically."] = "自動放置背包中的傳奇地城鑰石."
 
 -- Move Frames
 L["Move Frames"] = "移動框架"
@@ -1559,7 +1561,7 @@ L["Choose the module you would like to |cff00ff00use|r"] = "選擇你更傾向�
 L["If you find the %s module conflicts with another addon, alert me via Discord."] =
 	"如果你發現 %s 的模組與其他插件衝突了, 可以透過 Discord 來進行回報."
 L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] =
-	"你可以通過設定位於 [MerathilisUI]-[信息] 底部的選項來啟用/停用相容性檢查."
+	"你可以通過設定位於 [MerathilisUI]-[信��] 底部的選項來啟用/停用相容性檢查."
 L["Complete"] = "完成"
 
 -- Debug

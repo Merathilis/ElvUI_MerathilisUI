@@ -531,6 +531,8 @@ L["Reshii Wraps Upgrade"] = true -- no need to translate
 L["Cannot track more than %d achievements"] = "Kann nicht mehr als %d Erfolge verfolgen"
 L["Track Achievement"] = "Erfolge verfolgen"
 L["Untrack Achievement"] = "Erfolge nicht mehr verfolgen"
+L["Quick Keystone"] = "Schneller Schlüsselstein"
+L["Put the keystone from bag automatically."] = "Lege den Schlüsselstein automatisch aus der Tasche ein."
 
 -- Move Frames
 L["Move Frames"] = "Fenster verschieben"
@@ -1063,19 +1065,25 @@ L["Add calendar button to the bar."] = "Fügt der Leiste die Schaltfläche Kalen
 L["Garrison"] = "Garnison"
 L["Add garrison button to the bar."] = "Fügt der Leiste einer Garnisons Taste hinzu."
 L["All handled minimap buttons"] = "Alle Tasten der Minikarte werden bearbeitet"
-L["Buttons matching earlier patterns will appear first."] = "Tasten, die früheren Mustern entsprechen, werden zuerst angezeigt."
-L["Enter a comma-separated list of Lua regex patterns."] = "Gebe eine durch Kommas getrennte Liste von Lua-Regex-Mustern ein."
-L["If you are not familiar with Lua regex, try using AI to help you."] = "Wenn Du mit Lua-Regex nicht vertraut sind, versuche, KI als Hilfe zu verwenden."
-L["Leading and trailing whitespace in each pattern will be automatically trimmed."] = "Führende und nachfolgende Leerzeichen in jedem Muster werden automatisch entfernt."
+L["Buttons matching earlier patterns will appear first."] =
+	"Tasten, die früheren Mustern entsprechen, werden zuerst angezeigt."
+L["Enter a comma-separated list of Lua regex patterns."] =
+	"Gebe eine durch Kommas getrennte Liste von Lua-Regex-Mustern ein."
+L["If you are not familiar with Lua regex, try using AI to help you."] =
+	"Wenn Du mit Lua-Regex nicht vertraut sind, versuche, KI als Hilfe zu verwenden."
+L["Leading and trailing whitespace in each pattern will be automatically trimmed."] =
+	"Führende und nachfolgende Leerzeichen in jedem Muster werden automatisch entfernt."
 L["Priority Patterns"] = "Prioritätsmuster"
 L["Recent Allies"] = "Jüngste Verbündete"
 L["Reset sorting priority to default value."] = "Sortierpriorität auf Standardwert zurücksetzen."
 L["Reverse Order"] = "Umgekehrte Reihenfolge"
 L["Reverse the sort order of buttons."] = "Kehrt die Sortierreihenfolge der Tasten um."
-L["Set the sorting priority of minimap buttons by patterns."] = "Lege die Sortierpriorität der Minikarten Tasten nach Mustern fest."
+L["Set the sorting priority of minimap buttons by patterns."] =
+	"Lege die Sortierpriorität der Minikarten Tasten nach Mustern fest."
 L["Sorting Priority"] = "Sortierpriorität"
 L["Updated minimap buttons layout."] = "Aktualisiertes Layout der Minikarten Tasten."
-L["Use command %s to view all handled buttons and their current sorting priority."] = "Verwende den Befehl %s, um alle behandelten Tasten und ihre aktuelle Sortierpriorität anzuzeigen."
+L["Use command %s to view all handled buttons and their current sorting priority."] =
+	"Verwende den Befehl %s, um alle behandelten Tasten und ihre aktuelle Sortierpriorität anzuzeigen."
 
 -- RaidMarks
 L["Raid Markers"] = "Schlachtzugs Markierungen"

@@ -483,6 +483,8 @@ L["Reshii Wraps Upgrade"] = "雷什裹布升级"
 L["Cannot track more than %d achievements"] = true
 L["Track Achievement"] = true
 L["Untrack Achievement"] = true
+L["Quick Keystone"] = "快速钥石"
+L["Put the keystone from bag automatically."] = "自动放置背包内的史诗地下城钥石."
 
 -- Move Frames
 L["Move Frames"] = "移动框体"

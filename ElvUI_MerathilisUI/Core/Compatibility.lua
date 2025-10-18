@@ -482,6 +482,13 @@ function MER:CheckCompatibility()
 		"private.sle.module.shadows.enable"
 	)
 
+	CheckWindtools(
+		format("%s-%s", L["Misc"], L["Quick Keystone"]),
+		format("%s-%s", L["Combat"], L["Quick Keystone"]),
+		"db.mui.misc.quickKeystone.enable",
+		"db.WT.combat.quickKeystone.enable"
+	)
+
 	CheckShadowAndLight(L["Raid Markers"], L["Raid Markers"], "db.mui.raidmarkers.enable", "db.sle.raidmarkers.enable")
 
 	CheckShadowAndLight(

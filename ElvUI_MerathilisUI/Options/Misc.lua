@@ -2,13 +2,14 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.misc.args
 local C = MER.Utilities.Color
 local AK = MER:GetModule("MER_AlreadyKnown")
-local AM = MER:GetModule("MER_Automation")
-local MI = MER:GetModule("MER_Misc")
-local SA = MER:GetModule("MER_SpellAlert")
-local CM = MER:GetModule("MER_ContextMenu")
-local RIF = MER:GetModule("MER_RaidInfoFrame")
-local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 local AT = MER:GetModule("MER_AchievementTracker")
+local AM = MER:GetModule("MER_Automation")
+local CM = MER:GetModule("MER_ContextMenu")
+local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
+local MI = MER:GetModule("MER_Misc")
+local RIF = MER:GetModule("MER_RaidInfoFrame")
+local SA = MER:GetModule("MER_SpellAlert")
+local QK = MER:GetModule("MER_QuickKeystone")
 
 local async = MER.Utilities.Async
 
@@ -1753,7 +1754,7 @@ options.exitPhaseDiving = {
 }
 
 options.achievementTracker = {
-	order = 13,
+	order = 15,
 	type = "group",
 	name = L["Achievement Tracker"],
 	get = function(info)
@@ -1901,6 +1902,41 @@ options.achievementTracker = {
 					end,
 				},
 			},
+		},
+	},
+}
+
+options.quickKeystone = {
+	order = 16,
+	name = E.NewSign .. L["Quick Keystone"],
+	type = "group",
+	get = function(info)
+		return E.db.mui.misc.quickKeystone[info[#info]]
+	end,
+	set = function(info, value)
+		E.db.mui.misc.quickKeystone[info[#info]] = value
+		QK:ProfileUpdate()
+	end,
+	args = {
+		desc = {
+			order = 1,
+			type = "group",
+			inline = true,
+			name = L["Description"],
+			args = {
+				feature = {
+					order = 1,
+					type = "description",
+					name = L["Put the keystone from bag automatically."],
+					fontSize = "medium",
+				},
+			},
+		},
+		enable = {
+			order = 2,
+			type = "toggle",
+			name = L["Enable"],
+			width = "full",
 		},
 	},
 }

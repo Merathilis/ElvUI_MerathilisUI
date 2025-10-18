@@ -18,6 +18,7 @@
 	<Script file="MoveFrames.lua"/>
 	<Script file="Mute.lua"/>
 	<Script file="PetFilterTab.lua"/>
+	<Script file="QuickKeystone.lua"/>
 	<Script file="RaidInfoFrame.lua"/>
 	<Script file="RandomToy.lua"/>
 	<Script file="ReshiiWrapsUpgrade.lua"/>

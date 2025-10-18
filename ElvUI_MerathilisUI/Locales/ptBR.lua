@@ -477,6 +477,8 @@ L["Reshii Wraps Upgrade"] = true
 L["Cannot track more than %d achievements"] = true
 L["Track Achievement"] = true
 L["Untrack Achievement"] = true
+L["Quick Keystone"] = true
+L["Put the keystone from bag automatically."] = true
 
 -- Move Frames
 L["Move Frames"] = true

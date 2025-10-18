@@ -471,6 +471,11 @@ L["Due to Blizzard restrictions, the button area cannot be clicked through even 
 L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] = true
 L["Open Upgrade Menu"] = true
 L["Reshii Wraps Upgrade"] = true
+L["Cannot track more than %d achievements"] = true
+L["Track Achievement"] = true
+L["Untrack Achievement"] = true
+L["Quick Keystone"] = true
+L["Put the keystone from bag automatically."] = true
 
 -- Move Frames
 L["Move Frames"] = true

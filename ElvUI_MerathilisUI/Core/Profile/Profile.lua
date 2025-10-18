@@ -682,6 +682,9 @@ P.misc = {
 			},
 		},
 	},
+	quickKeystone = {
+		enable = true,
+	},
 }
 
 P.nameHover = {

@@ -531,6 +531,8 @@ L["Reshii Wraps Upgrade"] = true
 L["Cannot track more than %d achievements"] = true
 L["Track Achievement"] = true
 L["Untrack Achievement"] = true
+L["Quick Keystone"] = true
+L["Put the keystone from bag automatically."] = true
 
 -- Move Frames
 L["Move Frames"] = true
@@ -1124,7 +1126,7 @@ L["takes 3s"] = "занимает 3c"
 L["%s + Click to remove all worldmarkers."] =
 	"%s + щелкните, чтобы удалить все мировые метки."
 L["Click to remove all worldmarkers."] = "Нажмите, чтобы удалить все мировые метки."
-L["%s + Click to clear all marks."] = "% s + щелкните, чтобы удалить все метки."
+L["%s + Click to clear all marks."] = "% s + щ��лкните, чтобы удалить все метки."
 L["Left Click to ready check."] =
 	"Щелкните левой кнопкой мыши, чтобы провести проверку готовности."
 L["Right click to toggle advanced combat logging."] =
