@@ -327,22 +327,8 @@ end
 
 local function ReskinMainFrame(frame)
 	frame:StripTextures()
-	frame:SetTemplate()
+	frame:SetTemplate("Transparent")
 	module:CreateShadow(frame)
-	if not E.private.mui.skins.shadow and not E.private.mui.skins.shadow.enable then
-		return
-	end
-	hooksecurefunc(frame, "Show", function()
-		if _G.CollectionsJournal and _G.CollectionsJournal.MERshadow then
-			_G.CollectionsJournal.MERshadow:Hide()
-		end
-	end)
-
-	hooksecurefunc(frame, "Hide", function()
-		if _G.CollectionsJournal and _G.CollectionsJournal.MERshadow then
-			_G.CollectionsJournal.MERshadow:Show()
-		end
-	end)
 end
 
 local function ReskinTitleBar(frame)
@@ -1455,17 +1441,59 @@ local function ReskinMiniLoadoutPanel(frame)
 	frame.__MERSkin = true
 end
 
-function module:RematchButton()
+function module:BlizzardCollections_Rematch()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.rematch then
 		return
 	end
 
-	if not _G.Rematch or not _G.Rematch.journal then
+	local Rematch = _G.Rematch
+	if not Rematch then
 		return
 	end
 
+	local Journal = Rematch.journal
+	if not Journal then
+		return
+	end
+
+	local function HidePetJournalElements()
+		if not Journal:IsActive() then
+			return
+		end
+
+		_G.CollectionsJournalCloseButton:Hide()
+		_G.CollectionsJournalTitleText:Hide()
+		_G.CollectionsJournal.backdrop:SetTemplate("NoBackdrop")
+		if _G.CollectionsJournal.shadow then
+			_G.CollectionsJournal.shadow:Hide()
+		end
+	end
+
+	local function RestoreJournalElements()
+		if not Journal:IsActive() then
+			return
+		end
+
+		_G.CollectionsJournal.backdrop:SetTemplate("Transparent")
+		_G.CollectionsJournalCloseButton:Show()
+		_G.CollectionsJournalTitleText:Show()
+		if _G.CollectionsJournal.shadow then
+			_G.CollectionsJournal.shadow:Show()
+		end
+	end
+
+	self:SecureHook(Journal, "PLAYER_REGEN_ENABLED", HidePetJournalElements)
+	self:SecureHook(Journal, "PetJournalOnShow", HidePetJournalElements)
+	self:SecureHook(Journal, "PetJournalOnSetShown", function(_, shown)
+		(shown and HidePetJournalElements or RestoreJournalElements)()
+	end)
+	self:Hook(Journal, "PLAYER_REGEN_DISABLED", RestoreJournalElements)
+	self:Hook(Journal, "PetJournalOnHide", RestoreJournalElements)
+
+	self:HookScript(Rematch.bottombar.UseRematchCheckButton, "OnClick", RestoreJournalElements)
+
 	RunNextFrame(function()
-		self:Proxy("HandleCheckBox", _G.Rematch.journal.UseRematchCheckButton)
+		self:Proxy("HandleCheckBox", Journal.UseRematchCheckButton)
 	end)
 end
 
@@ -1535,4 +1563,4 @@ function module:Rematch()
 end
 
 module:AddCallbackForAddon("Rematch")
-module:AddCallbackForAddon("Blizzard_Collections", "RematchButton")
+module:AddCallbackForAddon("Blizzard_Collections", "BlizzardCollections_Rematch")
