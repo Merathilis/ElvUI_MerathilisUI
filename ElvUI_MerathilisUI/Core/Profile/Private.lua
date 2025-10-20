@@ -322,6 +322,7 @@ V.skins = {
 		battlefieldMap = true,
 		recentAllies = true,
 		cooldownViewer = true,
+		catalogShop = true,
 	},
 
 	libraries = {

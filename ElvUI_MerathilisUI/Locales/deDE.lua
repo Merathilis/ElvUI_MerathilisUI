@@ -1473,6 +1473,7 @@ L["Invert Ease"] = "Übergang umkehren"
 L["The easing function used for colorize the button."] =
 	"Die Übergangs Funktion, die zum Einfärben der Schaltfläche verwendet wird."
 L["UI Widget"] = true -- no need to translate
+L["Shop"] = true -- no need to translate
 
 -- Panels
 L["Panels"] = "Leisten"

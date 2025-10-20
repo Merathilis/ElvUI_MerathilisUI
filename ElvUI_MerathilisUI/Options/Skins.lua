@@ -2083,6 +2083,11 @@ options.blizzard = {
 			name = L["UI Errors"],
 			desc = L["The middle top errors / messages frame (also used for quest progress text)."],
 		},
+		catalogShop = {
+			order = 10,
+			type = "toggle",
+			name = L["Shop"],
+		},
 	},
 }
 

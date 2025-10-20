@@ -1126,7 +1126,7 @@ L["takes 3s"] = "занимает 3c"
 L["%s + Click to remove all worldmarkers."] =
 	"%s + щелкните, чтобы удалить все мировые метки."
 L["Click to remove all worldmarkers."] = "Нажмите, чтобы удалить все мировые метки."
-L["%s + Click to clear all marks."] = "% s + щ��лкните, чтобы удалить все метки."
+L["%s + Click to clear all marks."] = "% s + щ����лкните, чтобы удалить все метки."
 L["Left Click to ready check."] =
 	"Щелкните левой кнопкой мыши, чтобы провести проверку готовности."
 L["Right click to toggle advanced combat logging."] =
@@ -1501,6 +1501,7 @@ L["Generally, enabling this option makes the value increase faster in the first 
 L["Invert Ease"] = true
 L["The easing function used for colorize the button."] = true
 L["UI Widget"] = true
+L["Shop"] = true
 
 -- Panels
 L["Panels"] = "Панели"

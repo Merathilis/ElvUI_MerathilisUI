@@ -1336,6 +1336,7 @@ L["Generally, enabling this option makes the value increase faster in the first 
 L["Invert Ease"] = true
 L["The easing function used for colorize the button."] = true
 L["UI Widget"] = true
+L["Shop"] = true
 
 -- Panels
 L["Panels"] = true

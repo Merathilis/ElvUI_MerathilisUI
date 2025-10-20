@@ -13,6 +13,7 @@
 	<Script file="Blizzard_BindingUI.lua"/>
 	<Script file="Blizzard_BlackMarketUI.lua"/>
 	<Script file="Blizzard_Calendar.lua"/>
+	<Script file="Blizzard_CatalogShop.lua"/>
 	<Script file="Blizzard_ChallengesUI.lua"/>
 	<Script file="Blizzard_Channels.lua"/>
 	<Script file="Blizzard_ChromieTimeUI.lua"/>

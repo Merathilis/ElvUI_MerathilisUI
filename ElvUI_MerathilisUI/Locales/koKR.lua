@@ -1704,6 +1704,7 @@ L["Type"] = "유형"
 L["Fade"] = "부드러운 표시"
 L["AddOns"] = "애드온"
 L["Advanced CLEU Etrace"] = "고급 CLEU 추적"
+L["Shop"] = true
 
 -- Panels
 L["Panels"] = "패널"
