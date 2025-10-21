@@ -1474,6 +1474,26 @@ L["The easing function used for colorize the button."] =
 	"Die Übergangs Funktion, die zum Einfärben der Schaltfläche verwendet wird."
 L["UI Widget"] = true -- no need to translate
 L["Shop"] = true -- no need to translate
+L["BACKGROUND"] = "Hintergrund"
+L["Bar Texture"] = "Leistentextur"
+L["Buff Bar"] = "Stärkungszauber Leiste"
+L["Buff Icon"] = "Stärkungszauber Symbol"
+L["Charge Count Text"] = true
+L["DIALOG"] = "Dialog"
+L["Disable ElvUI's LibCustomGlow for fixing cooldown animations."] = true
+L["Essential"] = true
+L["Frame Level"] = "Fensterebene"
+L["Frame Strata"] = "Fensterschicht"
+L["HIGH"] = "Hoch"
+L["Horizontal Justify"] = true
+L["Icon Height Ratio"] = true
+L["LOW"] = true
+L["MEDIUM"] = true
+L["Relative Point"] = true
+L["Set the height ratio of icons inside Cooldown Viewer."] = true
+L["Smooth Bars"] = "Sanfte Leistenübergänge"
+L["TOOLTIP"] = true
+L["Use Blizzard Glow"] = true
 
 -- Panels
 L["Panels"] = "Leisten"

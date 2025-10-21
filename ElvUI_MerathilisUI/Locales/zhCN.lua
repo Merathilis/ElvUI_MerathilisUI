@@ -1369,6 +1369,27 @@ L["Invert Ease"] = true
 L["The easing function used for colorize the button."] = true
 L["UI Widget"] = true
 L["Shop"] = true
+L["BACKGROUND"] = "背景"
+L["Bar Texture"] = "条材质"
+L["Buff Bar"] = "增益条"
+L["Buff Icon"] = "增益图标"
+L["Charge Count Text"] = "充能计数文字"
+L["DIALOG"] = "对话框"
+L["Disable ElvUI's LibCustomGlow for fixing cooldown animations."] =
+	"禁用 ElvUI 的 LibCustomGlow 来修复冷却动画."
+L["Essential"] = "主要"
+L["Frame Level"] = "框架层次"
+L["Frame Strata"] = "框架层级"
+L["HIGH"] = "高"
+L["Horizontal Justify"] = "水平对齐"
+L["Icon Height Ratio"] = "图标高度比例"
+L["LOW"] = "低"
+L["MEDIUM"] = "中"
+L["Relative Point"] = "相对点"
+L["Set the height ratio of icons inside Cooldown Viewer."] = "设定冷却监控内图标的高度比例."
+L["Smooth Bars"] = "条平滑化"
+L["TOOLTIP"] = "鼠标提示"
+L["Use Blizzard Glow"] = "使用暴雪发光"
 
 -- Panels
 L["Panels"] = true

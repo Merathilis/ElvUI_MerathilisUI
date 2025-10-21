@@ -1337,6 +1337,27 @@ L["Invert Ease"] = true
 L["The easing function used for colorize the button."] = true
 L["UI Widget"] = true
 L["Shop"] = true
+L["BACKGROUND"] = true
+L["Bar Texture"] = "條材質"
+L["Buff Bar"] = "增益條"
+L["Buff Icon"] = "增益圖示"
+L["Charge Count Text"] = "充能數量文字"
+L["DIALOG"] = true
+L["Disable ElvUI's LibCustomGlow for fixing cooldown animations."] =
+	"停用除了 ElvUI 核心, ElvUI %s 和 BugSack 以外所有插件."
+L["Essential"] = "主要"
+L["Frame Level"] = "框架層次"
+L["Frame Strata"] = "框架層級"
+L["HIGH"] = true
+L["Horizontal Justify"] = "水平對齊"
+L["Icon Height Ratio"] = "圖示高度比例"
+L["LOW"] = true
+L["MEDIUM"] = true
+L["Relative Point"] = "相對點"
+L["Set the height ratio of icons inside Cooldown Viewer."] = "設定冷卻技能監控內圖示的高度比例."
+L["Smooth Bars"] = "條平滑化"
+L["TOOLTIP"] = true
+L["Use Blizzard Glow"] = "使用暴雪發光"
 
 -- Panels
 L["Panels"] = true
@@ -1554,9 +1575,9 @@ L["Changelog"] = "更新記錄"
 -- Compatibility
 L["Compatibility Check"] = "相容性確認"
 L["Help you to enable/disable the modules for a better experience with other plugins."] =
-	"為了保證與其他插件的使用體驗, 幫助你啟用/停用一些模組."
+	"為了保證與其���插件��使用體驗, 幫助你啟用/停用一些模���."
 L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
-	"不同的插件和 ElvUI 增強中有非常多的模組, 但其中部分模組功能是高度相似的."
+	"不同的插件��� ElvUI 增��中有非常多的模組, 但其中部分模組功能是高度相似的."
 L["Have a good time with %s!"] = "希望 %s 能讓你玩得開心!"
 L["Choose the module you would like to |cff00ff00use|r"] = "選擇你更傾向於|cff00ff00使用|r的模組"
 L["If you find the %s module conflicts with another addon, alert me via Discord."] =
