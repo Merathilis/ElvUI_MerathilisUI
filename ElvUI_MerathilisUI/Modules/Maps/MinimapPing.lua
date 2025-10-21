@@ -76,7 +76,7 @@ function module:UpdateText()
 		self.text = text
 	end
 
-	F.SetFontDB(self.text, self.db.font)
+	F.SetFontWithDB(self.text, self.db.font)
 	self.text:ClearAllPoints()
 	self.text:Point("CENTER", _G.Minimap, "CENTER", self.db.xOffset, self.db.yOffset)
 end

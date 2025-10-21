@@ -28,7 +28,7 @@ function module:ReskinDistanceText()
 		return
 	end
 
-	F.SetFontDB(_G.SuperTrackedFrame.DistanceText, self.db.distanceText)
+	F.SetFontWithDB(_G.SuperTrackedFrame.DistanceText, self.db.distanceText)
 	_G.SuperTrackedFrame.DistanceText:SetTextColor(
 		self.db.distanceText.color.r,
 		self.db.distanceText.color.g,

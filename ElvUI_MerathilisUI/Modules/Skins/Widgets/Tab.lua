@@ -35,7 +35,7 @@ function WS:HandleTab(_, tab, noBackdrop, template)
 	if db.text.enable then
 		local text = tab.text or tab.Text or tab.GetName and tab:GetName() and _G[tab:GetName() .. "Text"]
 		if text and text.GetTextColor then
-			F.SetFontDB(text, db.text.font)
+			F.SetFontWithDB(text, db.text.font)
 			tab.MERWidgetText = text
 		end
 	end

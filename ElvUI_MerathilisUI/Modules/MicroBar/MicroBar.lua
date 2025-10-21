@@ -861,12 +861,12 @@ end
 function GB:ConstructTimeArea()
 	local colon = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	colon:SetPoint("CENTER")
-	F.SetFontDB(colon, self.db.time.font)
+	F.SetFontWithDB(colon, self.db.time.font)
 	self.bar.middlePanel.colon = colon
 
 	local hour = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	hour:SetPoint("RIGHT", colon, "LEFT", 1, 0)
-	F.SetFontDB(hour, self.db.time.font)
+	F.SetFontWithDB(hour, self.db.time.font)
 	self.bar.middlePanel.hour = hour
 
 	hour.group = _G.CreateAnimationGroup(hour)
@@ -876,7 +876,7 @@ function GB:ConstructTimeArea()
 
 	local minutes = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	minutes:SetPoint("LEFT", colon, "RIGHT", 0, 0)
-	F.SetFontDB(minutes, self.db.time.font)
+	F.SetFontWithDB(minutes, self.db.time.font)
 	self.bar.middlePanel.minutes = minutes
 
 	minutes.group = _G.CreateAnimationGroup(minutes)
@@ -885,7 +885,7 @@ function GB:ConstructTimeArea()
 
 	local text = self.bar.middlePanel:CreateFontString(nil, "OVERLAY")
 	text:SetPoint("TOP", self.bar, "BOTTOM", 0, -5)
-	F.SetFontDB(text, self.db.additionalText.font)
+	F.SetFontWithDB(text, self.db.additionalText.font)
 	text:SetAlpha(self.db.time.alwaysSystemInfo and 1 or 0)
 	self.bar.middlePanel.text = text
 
@@ -1002,10 +1002,10 @@ function GB:UpdateTime()
 		return
 	end
 
-	F.SetFontDB(panel.hour, self.db.time.font)
-	F.SetFontDB(panel.minutes, self.db.time.font)
-	F.SetFontDB(panel.colon, self.db.time.font)
-	F.SetFontDB(panel.text, self.db.additionalText.font)
+	F.SetFontWithDB(panel.hour, self.db.time.font)
+	F.SetFontWithDB(panel.minutes, self.db.time.font)
+	F.SetFontWithDB(panel.colon, self.db.time.font)
+	F.SetFontWithDB(panel.text, self.db.additionalText.font)
 
 	panel.hour.group:Stop()
 	animationReset(panel.hour.group.anim)
@@ -1151,7 +1151,7 @@ function GB:ConstructButton()
 
 	local additionalText = button:CreateFontString(nil, "OVERLAY")
 	additionalText:SetPoint(self.db.additionalText.anchor, self.db.additionalText.x, self.db.additionalText.y)
-	F.SetFontDB(additionalText, self.db.additionalText.font)
+	F.SetFontWithDB(additionalText, self.db.additionalText.font)
 	additionalText:SetJustifyH("CENTER")
 	additionalText:SetJustifyV("MIDDLE")
 	button.additionalText = additionalText
@@ -1267,7 +1267,7 @@ function GB:UpdateButton(button, buttonType)
 			self.db.additionalText.x,
 			self.db.additionalText.y
 		)
-		F.SetFontDB(button.additionalText, self.db.additionalText.font)
+		F.SetFontWithDB(button.additionalText, self.db.additionalText.font)
 		button.additionalText:Show()
 	else
 		button.additionalText:Hide()

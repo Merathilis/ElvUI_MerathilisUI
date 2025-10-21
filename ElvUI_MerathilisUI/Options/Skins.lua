@@ -208,74 +208,8 @@ options.font = {
 	},
 }
 
-options.libraries = {
-	order = 3,
-	type = "group",
-	name = L["Libraries"],
-	get = function(info)
-		return E.private.mui.skins.libraries[info[#info]]
-	end,
-	set = function(info, value)
-		E.private.WT.skins.libraries[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
-	end,
-	disabled = function()
-		return not E.private.mui.skins.enable
-	end,
-	args = {
-		enableAll = {
-			order = 1,
-			type = "execute",
-			name = L["Enable All"],
-			func = function()
-				for key in pairs(V.skins.libraries) do
-					E.private.mui.skins.libraries[key] = true
-				end
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-		},
-		disableAll = {
-			order = 2,
-			type = "execute",
-			name = L["Disable All"],
-			func = function()
-				for key in pairs(V.skins.libraries) do
-					E.private.mui.skins.libraries[key] = false
-				end
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-		},
-		betterOption = {
-			order = 9,
-			type = "description",
-			name = " ",
-			width = "full",
-		},
-		ace3 = {
-			order = 10,
-			type = "toggle",
-			name = L["Ace3"],
-			width = 1.5,
-		},
-		ace3Dropdown = {
-			order = 10,
-			type = "toggle",
-			name = L["Ace3 Dropdown Backdrop"],
-			disabled = function()
-				return not E.private.mui.skins.libraries.ace3
-			end,
-			width = 1.5,
-		},
-		libQTip = {
-			order = 10,
-			type = "toggle",
-			name = L["LibQTip"],
-		},
-	},
-}
-
 options.widgets = {
-	order = 4,
+	order = 3,
 	type = "group",
 	name = L["Widgets"],
 	disabled = function()
@@ -2036,13 +1970,6 @@ options.blizzard = {
 				return not E.private.mui.skins.blizzard.enable or not E.private.mui.skins.blizzard.perks
 			end,
 		},
-		uiWidgets = {
-			type = "toggle",
-			name = L["UI Widgets"],
-			disabled = function()
-				return not E.private.mui.skins.blizzard.enable
-			end,
-		},
 		delves = {
 			type = "toggle",
 			name = L["Delves"],
@@ -2130,7 +2057,73 @@ options.addonskins = {
 	},
 }
 
-local addorder = 7
+options.libraries = {
+	order = 7,
+	type = "group",
+	name = L["Libraries"],
+	get = function(info)
+		return E.private.mui.skins.libraries[info[#info]]
+	end,
+	set = function(info, value)
+		E.private.WT.skins.libraries[info[#info]] = value
+		E:StaticPopup_Show("PRIVATE_RL")
+	end,
+	disabled = function()
+		return not E.private.mui.skins.enable
+	end,
+	args = {
+		enableAll = {
+			order = 1,
+			type = "execute",
+			name = L["Enable All"],
+			func = function()
+				for key in pairs(V.skins.libraries) do
+					E.private.mui.skins.libraries[key] = true
+				end
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+		},
+		disableAll = {
+			order = 2,
+			type = "execute",
+			name = L["Disable All"],
+			func = function()
+				for key in pairs(V.skins.libraries) do
+					E.private.mui.skins.libraries[key] = false
+				end
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+		},
+		betterOption = {
+			order = 9,
+			type = "description",
+			name = " ",
+			width = "full",
+		},
+		ace3 = {
+			order = 10,
+			type = "toggle",
+			name = L["Ace3"],
+			width = 1.5,
+		},
+		ace3Dropdown = {
+			order = 10,
+			type = "toggle",
+			name = L["Ace3 Dropdown Backdrop"],
+			disabled = function()
+				return not E.private.mui.skins.libraries.ace3
+			end,
+			width = 1.5,
+		},
+		libQTip = {
+			order = 10,
+			type = "toggle",
+			name = L["LibQTip"],
+		},
+	},
+}
+
+local addorder = 8
 for _, v in ipairs(DecorAddons) do
 	local addonName, addonString, addonOption = unpack(v)
 	local iconTexture = GetAddOnMetadata(addonName, "IconTexture")
@@ -2234,8 +2227,647 @@ options.advancedSettings = {
 		return not E.private.mui.skins.enable
 	end,
 	args = {
-		bigWigsSkin = {
+		cooldownViewer = {
 			order = 1,
+			type = "group",
+			name = E.NewSign .. L["Cooldown Viewer"],
+			hidden = function()
+				return not E.private.mui.skins.blizzard.enable
+					or not E.private.skins.blizzard.cooldownManager
+					or not E.private.mui.skins.blizzard.cooldownViewer
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					get = function(info)
+						return E.private.mui.skins.cooldownViewer[info[#info]]
+					end,
+					set = function(info, value)
+						E.private.mui.skins.cooldownViewer[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+				},
+				general = {
+					order = 2,
+					type = "group",
+					inline = true,
+					name = L["General"],
+					get = function(info)
+						return E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+						S:RefreshElvUICustomGlowOnCooldownManager()
+					end,
+					disabled = function()
+						return not E.private.mui.skins.cooldownViewer.enable
+					end,
+					args = {
+						barShadow = {
+							order = 1,
+							type = "toggle",
+							name = L["Shadow"] .. " - " .. L["Bar"],
+						},
+						iconShadow = {
+							order = 2,
+							type = "toggle",
+							name = L["Shadow"] .. " - " .. L["Icon"],
+						},
+						useBlizzardGlow = {
+							order = 3,
+							type = "toggle",
+							name = L["Use Blizzard Glow"],
+							desc = L["Disable ElvUI's LibCustomGlow for fixing cooldown animations."],
+						},
+					},
+				},
+				essential = {
+					order = 3,
+					type = "group",
+					name = L["Essential"],
+					get = function(info)
+						return E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+						S:CooldownManager_HandleViewer(_G.EssentialCooldownViewer)
+					end,
+					disabled = function()
+						return not E.private.mui.skins.cooldownViewer.enable
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							set = function(info, value)
+								E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+						},
+						frameStrata = {
+							order = 2,
+							type = "select",
+							name = L["Frame Strata"],
+							values = {
+								BACKGROUND = L["BACKGROUND"],
+								LOW = L["LOW"],
+								MEDIUM = L["MEDIUM"],
+								HIGH = L["HIGH"],
+								DIALOG = L["DIALOG"],
+								TOOLTIP = L["TOOLTIP"],
+							},
+						},
+						frameLevel = {
+							order = 3,
+							type = "range",
+							name = L["Frame Level"],
+							min = 1,
+							max = 2000,
+							step = 1,
+						},
+						iconHeightRatio = {
+							order = 4,
+							type = "range",
+							name = L["Icon Height Ratio"],
+							desc = L["Set the height ratio of icons inside Cooldown Viewer."],
+							min = 0.1,
+							max = 2,
+							step = 0.01,
+						},
+						chargeCountText = {
+							order = 5,
+							type = "group",
+							inline = true,
+							name = L["Charge Count Text"],
+							get = function(info)
+								return E.private.mui.skins.cooldownViewer[info[#info - 2]][info[#info - 1]][info[#info]]
+							end,
+							set = function(info, value)
+								E.private.mui.skins.cooldownViewer[info[#info - 2]][info[#info - 1]][info[#info]] =
+									value
+								module:CooldownManager_HandleViewer(_G.EssentialCooldownViewer)
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = {
+										NONE = L["None"],
+										OUTLINE = L["Outline"],
+										THICKOUTLINE = L["Thick"],
+										SHADOW = L["|cff888888Shadow|r"],
+										SHADOWOUTLINE = L["|cff888888Shadow|r Outline"],
+										SHADOWTHICKOUTLINE = L["|cff888888Shadow|r Thick"],
+										MONOCHROME = L["|cFFAAAAAAMono|r"],
+										MONOCHROMEOUTLINE = L["|cFFAAAAAAMono|r Outline"],
+										MONOCHROMETHICKOUTLINE = L["|cFFAAAAAAMono|r Thick"],
+									},
+								},
+								size = {
+									order = 3,
+									name = L["Size"],
+									type = "range",
+									min = 5,
+									max = 60,
+									step = 1,
+								},
+								justifyH = {
+									order = 4,
+									type = "select",
+									name = L["Horizontal Justify"],
+									values = {
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+									},
+								},
+								point = {
+									order = 5,
+									type = "select",
+									name = L["Anchor Point"],
+									values = {
+										TOPLEFT = L["TOPLEFT"],
+										TOP = L["TOP"],
+										TOPRIGHT = L["TOPRIGHT"],
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+										BOTTOMLEFT = L["BOTTOMLEFT"],
+										BOTTOM = L["BOTTOM"],
+										BOTTOMRIGHT = L["BOTTOMRIGHT"],
+									},
+								},
+								relativePoint = {
+									order = 6,
+									type = "select",
+									name = L["Relative Point"],
+									values = {
+										TOPLEFT = L["TOPLEFT"],
+										TOP = L["TOP"],
+										TOPRIGHT = L["TOPRIGHT"],
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+										BOTTOMLEFT = L["BOTTOMLEFT"],
+										BOTTOM = L["BOTTOM"],
+										BOTTOMRIGHT = L["BOTTOMRIGHT"],
+									},
+								},
+								offsetX = {
+									order = 4,
+									name = L["X-Offset"],
+									type = "range",
+									min = -100,
+									max = 100,
+									step = 1,
+								},
+								offsetY = {
+									order = 5,
+									name = L["Y-Offset"],
+									type = "range",
+									min = -100,
+									max = 100,
+									step = 1,
+								},
+							},
+						},
+					},
+				},
+				utility = {
+					order = 4,
+					type = "group",
+					name = L["Utility"],
+					get = function(info)
+						return E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+						module:CooldownManager_HandleViewer(_G.UtilityCooldownViewer)
+					end,
+					disabled = function()
+						return not E.private.mui.skins.cooldownViewer.enable
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							set = function(info, value)
+								E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+						},
+						frameStrata = {
+							order = 2,
+							type = "select",
+							name = L["Frame Strata"],
+							values = {
+								BACKGROUND = L["BACKGROUND"],
+								LOW = L["LOW"],
+								MEDIUM = L["MEDIUM"],
+								HIGH = L["HIGH"],
+								DIALOG = L["DIALOG"],
+								TOOLTIP = L["TOOLTIP"],
+							},
+						},
+						frameLevel = {
+							order = 3,
+							type = "range",
+							name = L["Frame Level"],
+							min = 1,
+							max = 2000,
+							step = 1,
+						},
+						iconHeightRatio = {
+							order = 4,
+							type = "range",
+							name = L["Icon Height Ratio"],
+							desc = L["Set the height ratio of icons inside Cooldown Viewer."],
+							min = 0.1,
+							max = 2,
+							step = 0.01,
+						},
+						chargeCountText = {
+							order = 5,
+							type = "group",
+							inline = true,
+							name = L["Charge Count Text"],
+							get = function(info)
+								return E.private.mui.skins.cooldownViewer[info[#info - 2]][info[#info - 1]][info[#info]]
+							end,
+							set = function(info, value)
+								E.private.mui.skins.cooldownViewer[info[#info - 2]][info[#info - 1]][info[#info]] =
+									value
+								module:CooldownManager_HandleViewer(_G.EssentialCooldownViewer)
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = {
+										NONE = L["None"],
+										OUTLINE = L["Outline"],
+										THICKOUTLINE = L["Thick"],
+										SHADOW = L["|cff888888Shadow|r"],
+										SHADOWOUTLINE = L["|cff888888Shadow|r Outline"],
+										SHADOWTHICKOUTLINE = L["|cff888888Shadow|r Thick"],
+										MONOCHROME = L["|cFFAAAAAAMono|r"],
+										MONOCHROMEOUTLINE = L["|cFFAAAAAAMono|r Outline"],
+										MONOCHROMETHICKOUTLINE = L["|cFFAAAAAAMono|r Thick"],
+									},
+								},
+								size = {
+									order = 3,
+									name = L["Size"],
+									type = "range",
+									min = 5,
+									max = 60,
+									step = 1,
+								},
+								justifyH = {
+									order = 4,
+									type = "select",
+									name = L["Horizontal Justify"],
+									values = {
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+									},
+								},
+								point = {
+									order = 5,
+									type = "select",
+									name = L["Anchor Point"],
+									values = {
+										TOPLEFT = L["TOPLEFT"],
+										TOP = L["TOP"],
+										TOPRIGHT = L["TOPRIGHT"],
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+										BOTTOMLEFT = L["BOTTOMLEFT"],
+										BOTTOM = L["BOTTOM"],
+										BOTTOMRIGHT = L["BOTTOMRIGHT"],
+									},
+								},
+								relativePoint = {
+									order = 6,
+									type = "select",
+									name = L["Relative Point"],
+									values = {
+										TOPLEFT = L["TOPLEFT"],
+										TOP = L["TOP"],
+										TOPRIGHT = L["TOPRIGHT"],
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+										BOTTOMLEFT = L["BOTTOMLEFT"],
+										BOTTOM = L["BOTTOM"],
+										BOTTOMRIGHT = L["BOTTOMRIGHT"],
+									},
+								},
+								offsetX = {
+									order = 4,
+									name = L["X-Offset"],
+									type = "range",
+									min = -100,
+									max = 100,
+									step = 1,
+								},
+								offsetY = {
+									order = 5,
+									name = L["Y-Offset"],
+									type = "range",
+									min = -100,
+									max = 100,
+									step = 1,
+								},
+							},
+						},
+					},
+				},
+				buffIcon = {
+					order = 5,
+					type = "group",
+					name = L["Buff Icon"],
+					get = function(info)
+						return E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+						module:CooldownManager_HandleViewer(_G.BuffIconCooldownViewer)
+					end,
+					disabled = function()
+						return not E.private.mui.skins.cooldownViewer.enable
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							set = function(info, value)
+								E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+						},
+						frameStrata = {
+							order = 2,
+							type = "select",
+							name = L["Frame Strata"],
+							values = {
+								BACKGROUND = L["BACKGROUND"],
+								LOW = L["LOW"],
+								MEDIUM = L["MEDIUM"],
+								HIGH = L["HIGH"],
+								DIALOG = L["DIALOG"],
+								TOOLTIP = L["TOOLTIP"],
+							},
+						},
+						frameLevel = {
+							order = 3,
+							type = "range",
+							name = L["Frame Level"],
+							min = 1,
+							max = 2000,
+							step = 1,
+						},
+						iconHeightRatio = {
+							order = 4,
+							type = "range",
+							name = L["Icon Height Ratio"],
+							desc = L["Set the height ratio of icons inside Cooldown Viewer."],
+							min = 0.1,
+							max = 2,
+							step = 0.01,
+						},
+						chargeCountText = {
+							order = 5,
+							type = "group",
+							inline = true,
+							name = L["Charge Count Text"],
+							get = function(info)
+								return E.private.mui.skins.cooldownViewer[info[#info - 2]][info[#info - 1]][info[#info]]
+							end,
+							set = function(info, value)
+								E.private.mui.skins.cooldownViewer[info[#info - 2]][info[#info - 1]][info[#info]] =
+									value
+								module:CooldownManager_HandleViewer(_G.EssentialCooldownViewer)
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = {
+										NONE = L["None"],
+										OUTLINE = L["Outline"],
+										THICKOUTLINE = L["Thick"],
+										SHADOW = L["|cff888888Shadow|r"],
+										SHADOWOUTLINE = L["|cff888888Shadow|r Outline"],
+										SHADOWTHICKOUTLINE = L["|cff888888Shadow|r Thick"],
+										MONOCHROME = L["|cFFAAAAAAMono|r"],
+										MONOCHROMEOUTLINE = L["|cFFAAAAAAMono|r Outline"],
+										MONOCHROMETHICKOUTLINE = L["|cFFAAAAAAMono|r Thick"],
+									},
+								},
+								size = {
+									order = 3,
+									name = L["Size"],
+									type = "range",
+									min = 5,
+									max = 60,
+									step = 1,
+								},
+								justifyH = {
+									order = 4,
+									type = "select",
+									name = L["Horizontal Justify"],
+									values = {
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+									},
+								},
+								point = {
+									order = 5,
+									type = "select",
+									name = L["Anchor Point"],
+									values = {
+										TOPLEFT = L["TOPLEFT"],
+										TOP = L["TOP"],
+										TOPRIGHT = L["TOPRIGHT"],
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+										BOTTOMLEFT = L["BOTTOMLEFT"],
+										BOTTOM = L["BOTTOM"],
+										BOTTOMRIGHT = L["BOTTOMRIGHT"],
+									},
+								},
+								relativePoint = {
+									order = 6,
+									type = "select",
+									name = L["Relative Point"],
+									values = {
+										TOPLEFT = L["TOPLEFT"],
+										TOP = L["TOP"],
+										TOPRIGHT = L["TOPRIGHT"],
+										LEFT = L["LEFT"],
+										CENTER = L["CENTER"],
+										RIGHT = L["RIGHT"],
+										BOTTOMLEFT = L["BOTTOMLEFT"],
+										BOTTOM = L["BOTTOM"],
+										BOTTOMRIGHT = L["BOTTOMRIGHT"],
+									},
+								},
+								offsetX = {
+									order = 4,
+									name = L["X-Offset"],
+									type = "range",
+									min = -100,
+									max = 100,
+									step = 1,
+								},
+								offsetY = {
+									order = 5,
+									name = L["Y-Offset"],
+									type = "range",
+									min = -100,
+									max = 100,
+									step = 1,
+								},
+							},
+						},
+					},
+				},
+				buffBar = {
+					order = 6,
+					type = "group",
+					name = L["Buff Bar"],
+					get = function(info)
+						return E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]]
+					end,
+					set = function(info, value)
+						E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+						module:CooldownManager_HandleViewer(_G.BuffBarCooldownViewer)
+					end,
+					disabled = function()
+						return not E.private.mui.skins.cooldownViewer.enable
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							set = function(info, value)
+								E.private.mui.skins.cooldownViewer[info[#info - 1]][info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+						},
+						frameStrata = {
+							order = 2,
+							type = "select",
+							name = L["Frame Strata"],
+							values = {
+								BACKGROUND = L["BACKGROUND"],
+								LOW = L["LOW"],
+								MEDIUM = L["MEDIUM"],
+								HIGH = L["HIGH"],
+								DIALOG = L["DIALOG"],
+								TOOLTIP = L["TOOLTIP"],
+							},
+						},
+						frameLevel = {
+							order = 3,
+							type = "range",
+							name = L["Frame Level"],
+							min = 1,
+							max = 2000,
+							step = 1,
+						},
+						iconHeightRatio = {
+							order = 4,
+							type = "range",
+							name = L["Icon Height Ratio"],
+							desc = L["Set the height ratio of icons inside Cooldown Viewer."],
+							min = 0.1,
+							max = 2,
+							step = 0.01,
+						},
+						smooth = {
+							order = 5,
+							type = "toggle",
+							name = L["Smooth Bars"],
+						},
+						barTexture = {
+							order = 6,
+							type = "select",
+							dialogControl = "LSM30_Statusbar",
+							name = L["Bar Texture"],
+							values = LSM:HashTable("statusbar"),
+						},
+						colorLeft = {
+							order = 7,
+							type = "color",
+							name = L["Left Color"],
+							hasAlpha = true,
+							get = function()
+								local db = E.private.mui.skins.cooldownViewer.buffBar.colorLeft
+								local default = V.skins.cooldownViewer.buffBar.colorLeft
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(_, r, g, b, a)
+								local db = E.private.mui.skins.cooldownViewer.buffBar.colorLeft
+								db.r, db.g, db.b, db.a = r, g, b, a
+							end,
+						},
+						colorRight = {
+							order = 8,
+							type = "color",
+							name = L["Right Color"],
+							hasAlpha = true,
+							get = function()
+								local db = E.private.mui.skins.cooldownViewer.buffBar.colorRight
+								local default = V.skins.cooldownViewer.buffBar.colorRight
+								return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a
+							end,
+							set = function(_, r, g, b, a)
+								local db = E.private.mui.skins.cooldownViewer.buffBar.colorRight
+								db.r, db.g, db.b, db.a = r, g, b, a
+							end,
+						},
+					},
+				},
+			},
+		},
+		bigWigsSkin = {
+			order = 2,
 			type = "group",
 			name = L["BigWigs Skin"],
 			get = function(info)
@@ -2569,7 +3201,7 @@ options.advancedSettings = {
 			},
 		},
 		dtSkin = {
-			order = 2,
+			order = 3,
 			type = "group",
 			name = L["Details Skin"],
 			get = function(info)
@@ -2645,9 +3277,9 @@ options.advancedSettings = {
 			},
 		},
 		uiErrors = {
-			order = 3,
+			order = 4,
 			type = "group",
-			name = E.NewSign .. L["UI Errors Frame"],
+			name = L["UI Errors Frame"],
 			disabled = function()
 				return not E.private.mui.skins.enable or not E.private.mui.skins.blizzard.uiErrors
 			end,

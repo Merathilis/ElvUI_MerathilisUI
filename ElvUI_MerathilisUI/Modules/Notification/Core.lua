@@ -146,7 +146,7 @@ function module:CreateToast()
 	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
 	local title = toast:CreateFontString(nil, "OVERLAY")
-	F.SetFontDB(title, db.titleFont)
+	F.SetFontWithDB(title, db.titleFont)
 	title:SetShadowOffset(1, -1)
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -5)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
@@ -155,7 +155,7 @@ function module:CreateToast()
 	toast.title = title
 
 	local text = toast:CreateFontString(nil, "OVERLAY")
-	F.SetFontDB(text, db.textFont)
+	F.SetFontWithDB(text, db.textFont)
 	text:SetShadowOffset(1, -1)
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 17)
 	text:SetPoint("RIGHT", toast, -9, 0)

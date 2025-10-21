@@ -36,7 +36,7 @@ function module:RefreshAlert()
 
 	self.db = E.db.mui.CombatAlert
 
-	F.SetFontDB(self.alert.text, self.db.font)
+	F.SetFontWithDB(self.alert.text, self.db.font)
 	self.alert:SetScale(self.db.style.scale or 0.8)
 end
 

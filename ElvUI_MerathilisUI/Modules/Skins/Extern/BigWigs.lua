@@ -317,7 +317,7 @@ function module:BigWigs_QueueTimer()
 				frame.text.SetFormattedText = function(textFrame, _, time)
 					textFrame:SetText(format("%d", time))
 				end
-				F.SetFontDB(frame.text, db.countDown)
+				F.SetFontWithDB(frame.text, db.countDown)
 				frame.text:ClearAllPoints()
 				frame.text:SetPoint("TOP", frame, "TOP", db.countDown.offsetX, db.countDown.offsetY)
 

@@ -34,7 +34,7 @@ function WS:HandleTreeGroup(widget)
 					or button.Text
 					or button.GetName and button:GetName() and _G[button:GetName() .. "Text"]
 				if textObj and textObj.GetTextColor then
-					F.SetFontDB(textObj, db.text.font)
+					F.SetFontWithDB(textObj, db.text.font)
 
 					F.InternalizeMethod(textObj, "SetPoint")
 					textObj.SetPoint = function(text, point, arg1, arg2, arg3, arg4)

@@ -92,7 +92,7 @@ function module:BlizzMisc()
 
 	-- Action Status
 	if _G.ActionStatus.Text then
-		F.SetFontDB(_G.ActionStatus.Text, E.private.mui.skins.actionStatus)
+		F.SetFontWithDB(_G.ActionStatus.Text, E.private.mui.skins.actionStatus)
 	end
 
 	self:SecureHook(S, "HandleIconSelectionFrame", function(_, frame)

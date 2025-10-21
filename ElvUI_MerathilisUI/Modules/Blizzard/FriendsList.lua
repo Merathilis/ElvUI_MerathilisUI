@@ -215,8 +215,8 @@ end
 function FL:UpdateFriendButton(button)
 	if not self.db.enable then
 		if cache.name and cache.info then
-			F.SetFontDB(button.name, cache.name)
-			F.SetFontDB(button.info, cache.info)
+			F.SetFontWithDB(button.name, cache.name)
+			F.SetFontWithDB(button.info, cache.info)
 		end
 		return
 	end
@@ -419,10 +419,10 @@ function FL:UpdateFriendButton(button)
 	end
 
 	F.SetFont(button.name)
-	F.SetFontDB(button.name, self.db.nameFont)
+	F.SetFontWithDB(button.name, self.db.nameFont)
 
 	F.SetFont(button.info)
-	F.SetFontDB(button.info, self.db.infoFont)
+	F.SetFontWithDB(button.info, self.db.infoFont)
 
 	-- favorite icon
 	if button.Favorite:IsShown() then
@@ -494,7 +494,7 @@ function FL:UpdateRecentAllyButton(button)
 		end
 
 		F.SetFont(CharacterData.Name)
-		F.SetFontDB(CharacterData.Name, self.db.nameFont)
+		F.SetFontWithDB(CharacterData.Name, self.db.nameFont)
 		CharacterData.Name.maxWidth = button:GetWidth() - 60
 		CharacterData.Name:Width(CharacterData.Name.maxWidth)
 	end
@@ -503,7 +503,7 @@ function FL:UpdateRecentAllyButton(button)
 	if CharacterData.MostRecentInteraction then
 		-- Most Recent Interaction
 		F.SetFont(CharacterData.MostRecentInteraction)
-		F.SetFontDB(CharacterData.MostRecentInteraction, self.db.infoFont)
+		F.SetFontWithDB(CharacterData.MostRecentInteraction, self.db.infoFont)
 	end
 
 	-- Info
@@ -541,7 +541,7 @@ function FL:UpdateRecentAllyButton(button)
 		end
 
 		F.SetFont(CharacterData.Location)
-		F.SetFontDB(CharacterData.Location, self.db.infoFont)
+		F.SetFontWithDB(CharacterData.Location, self.db.infoFont)
 	end
 end
 

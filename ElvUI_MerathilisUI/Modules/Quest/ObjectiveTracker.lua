@@ -279,7 +279,7 @@ function module:HandleBlockHeader(frame)
 		return
 	end
 
-	F.SetFontDB(text, self.db.title)
+	F.SetFontWithDB(text, self.db.title)
 	text:Height(text:GetStringHeight() + 2)
 
 	if not self:IsHooked(text, "SetTextColor") then
@@ -298,7 +298,7 @@ function module:HandleContainerHeader(frame)
 		return
 	end
 
-	F.SetFontDB(frame.Text, self.db.menuTitle.font)
+	F.SetFontWithDB(frame.Text, self.db.menuTitle.font)
 
 	if not F.IsMethodInternalized(frame.Text, "SetTextColor") then
 		F.InternalizeMethod(frame.Text, "SetTextColor", true)
@@ -324,7 +324,7 @@ function module:HandleLine(line, _)
 		end
 	end
 
-	F.SetFontDB(line.Text, self.db.info)
+	F.SetFontWithDB(line.Text, self.db.info)
 
 	if not self:IsHooked(line.Text, "SetTextColor") then
 		self:RawHook(line.Text, "SetTextColor", "LineText_SetTextColor", true)
@@ -362,7 +362,7 @@ function module:ObjectiveTrackerModule_Update(tracker)
 	self:CosmeticBar(tracker.Header)
 
 	local headerText = tracker.Header.Text
-	F.SetFontDB(headerText, self.db.header)
+	F.SetFontWithDB(headerText, self.db.header)
 
 	if not F.IsMethodInternalized(headerText, "SetFontObject") then
 		F.InternalizeMethod(headerText, "SetFontObject", true)

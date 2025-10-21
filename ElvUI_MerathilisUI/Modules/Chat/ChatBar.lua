@@ -236,7 +236,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 
 		button.text = button:CreateFontString(nil, "OVERLAY")
 		button.text:Point("CENTER", button, "CENTER", 0, 0)
-		F.SetFontDB(button.text, self.db.font)
+		F.SetFontWithDB(button.text, self.db.font)
 		button.defaultFontSize = self.db.font.size
 
 		-- Tooltip
@@ -311,7 +311,7 @@ function module:UpdateButton(name, func, anchorPoint, x, y, color, tex, tooltip,
 		local buttonText = self.db.color and color and C.StringWithRGB(abbr, color) or abbr
 		self.bar[name].text:SetText(buttonText)
 		self.bar[name].defaultFontSize = self.db.font.size
-		F.SetFontDB(self.bar[name].text, self.db.font)
+		F.SetFontWithDB(self.bar[name].text, self.db.font)
 		self.bar[name].text:Show()
 
 		self.bar[name].colorBlock:Hide()

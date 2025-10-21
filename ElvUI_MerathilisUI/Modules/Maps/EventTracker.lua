@@ -925,7 +925,7 @@ function ET:SetFont(target, size)
 		return
 	end
 
-	F.SetFontDB(target, {
+	F.SetFontWithDB(target, {
 		name = self.db.font.name,
 		size = floor(size * self.db.font.scale),
 		style = self.db.font.outline,

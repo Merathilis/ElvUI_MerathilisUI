@@ -85,7 +85,7 @@ function module:SettingsUpdate()
 		self:CreateCoordsFrame()
 	end
 
-	F.SetFontDB(self.coordsHolder.playerCoords, self.db.font)
+	F.SetFontWithDB(self.coordsHolder.playerCoords, self.db.font)
 
 	self.displayFormat = format("%s, %s", self.db.format or "%.0f", self.db.format or "%.0f")
 	self:UpdateCoordinatesPosition()

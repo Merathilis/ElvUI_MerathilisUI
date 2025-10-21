@@ -364,14 +364,14 @@ end
 ---Set font style from database settings
 ---@param text FontString The FontString object to modify
 ---@param db table Font style database containing name, size, and style
-function F.SetFontDB(text, db)
+function F.SetFontWithDB(text, db)
 	if not text or not text.GetFont then
-		F.Developer.LogDebug("Functions.SetFontDB: text not found")
+		F.Developer.LogDebug("Functions.SetFontWithDB: text not found")
 		return
 	end
 
 	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.SetFontDB: db not found")
+		F.Developer.LogDebug("Functions.SetFontWithDB: db not found")
 		return
 	end
 

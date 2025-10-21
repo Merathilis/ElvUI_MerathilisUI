@@ -116,7 +116,7 @@ function module:ConstructFrame()
 	frame:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -15, -40)
 
 	local text = frame:CreateFontString(nil, "OVERLAY")
-	F.SetFontDB(text, self.db.font)
+	F.SetFontWithDB(text, self.db.font)
 	text:Point(self.db.align or "LEFT")
 	frame.text = text
 

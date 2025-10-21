@@ -21,7 +21,7 @@ function module:CreateButton(text, tooltipText)
 	S:CreateShadowModule(button.backdrop)
 	button.originalText = text
 	button.text = button:CreateFontString()
-	F.SetFontDB(button.text, self.db.font)
+	F.SetFontWithDB(button.text, self.db.font)
 	button.text:SetText(C.StringWithRGB(button.originalText, self.db.font.color))
 	button.text:SetJustifyV("MIDDLE")
 	button.text:SetJustifyH("LEFT")
@@ -54,7 +54,7 @@ function module:UpdateButton(button, enable)
 	end
 
 	if enable then
-		F.SetFontDB(button.text, self.db.font)
+		F.SetFontWithDB(button.text, self.db.font)
 
 		button.buttonSize = 0
 

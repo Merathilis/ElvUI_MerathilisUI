@@ -1,10 +1,192 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
+local LSM = E.Libs.LSM
+local C = MER.Utilities.Color
 
 local _G = _G
 local ipairs = ipairs
 local hooksecurefunc = hooksecurefunc
+
+local hookFunctions = {
+	RefreshSpellCooldownInfo = S.CooldownManager_RefreshSpellCooldownInfo,
+	OnSpellActivationOverlayGlowShowEvent = function(...)
+		if not module.db or not module.db.cooldownViewer.general.useBlizzardGlow then
+			return S.CooldownManager_ShowGlowEvent(...)
+		end
+	end,
+	OnSpellActivationOverlayGlowHideEvent = function(...)
+		if not module.db or not module.db.cooldownViewer.general.useBlizzardGlow then
+			return S.CooldownManager_HideGlowEvent(...)
+		end
+	end,
+	RefreshOverlayGlow = function(...)
+		if not module.db or not module.db.cooldownViewer.general.useBlizzardGlow then
+			return S.CooldownManager_RefreshOverlayGlow(...)
+		end
+	end,
+	SetTimerShown = S.CooldownManager_SetTimerShown,
+}
+
+function S:CooldownManager_SkinItemFrame(frame)
+	if frame.Cooldown then
+		frame.Cooldown:SetSwipeTexture(E.media.blankTex)
+
+		if not frame.Cooldown.isRegisteredCooldown then
+			E:RegisterCooldown(frame.Cooldown, "cdmanager")
+
+			for key, func in next, hookFunctions do
+				if frame[key] then
+					hooksecurefunc(frame, key, func)
+				end
+			end
+		end
+	end
+
+	if frame.Bar then
+		S:CooldownManager_SkinBar(frame, frame.Bar)
+	elseif frame.Icon then
+		S:CooldownManager_SkinIcon(frame, frame.Icon)
+	end
+end
+
+local function UpdateFrameAndStrata(frame, config)
+	frame:SetFrameStrata(module.db.cooldownViewer[config].frameStrata)
+	frame:SetFrameLevel(module.db.cooldownViewer[config].frameLevel)
+end
+
+local iconHandlers = {}
+local hookedIcons = {}
+
+local function UpdateIcon(frame, config)
+	local Icon = frame.Icon
+	if Icon then
+		if Icon and not Icon.__MERSkin and module.db.cooldownViewer.general.iconShadow then
+			module:CreateBackdropShadow(Icon)
+			Icon.__MERSkin = true
+		end
+
+		if not iconHandlers[config] then
+			iconHandlers[config] = function(self)
+				local width = self:GetWidth()
+				local iconHeightRatio = module.db.cooldownViewer[config].iconHeightRatio
+				local newHeight = ceil(width * iconHeightRatio + 0.5)
+				self:Height(newHeight)
+				self.Icon:SetTexCoord(E:CropRatio(width, newHeight))
+			end
+		end
+
+		if not hookedIcons[frame] then
+			hooksecurefunc(frame, "SetWidth", iconHandlers[config])
+			hooksecurefunc(frame, "SetSize", iconHandlers[config])
+			hookedIcons[frame] = true
+		end
+
+		iconHandlers[config](frame)
+	end
+
+	local ChargeCountText = frame.ChargeCount and frame.ChargeCount.Current
+	if ChargeCountText then
+		F.SetFontWithDB(ChargeCountText, module.db.cooldownViewer[config].chargeCountText)
+		ChargeCountText:SetJustifyH(module.db.cooldownViewer[config].chargeCountText.justifyH)
+		ChargeCountText:ClearAllPoints()
+		ChargeCountText:Point(
+			module.db.cooldownViewer[config].chargeCountText.point,
+			frame,
+			module.db.cooldownViewer[config].chargeCountText.relativePoint,
+			module.db.cooldownViewer[config].chargeCountText.offsetX,
+			module.db.cooldownViewer[config].chargeCountText.offsetY
+		)
+	end
+end
+
+function module:CooldownManager_AcquireItemFrame(container, frame)
+	if not container or not container.itemFramePool then
+		return
+	end
+
+	if container == _G.EssentialCooldownViewer then
+		UpdateFrameAndStrata(frame, "essential")
+		UpdateIcon(frame, "essential")
+	elseif container == _G.UtilityCooldownViewer then
+		UpdateFrameAndStrata(frame, "utility")
+		UpdateIcon(frame, "utility")
+	elseif container == _G.BuffIconCooldownViewer then
+		UpdateFrameAndStrata(frame, "buffIcon")
+		UpdateIcon(frame, "buffIcon")
+	elseif container == _G.BuffBarCooldownViewer then
+		UpdateFrameAndStrata(frame, "buffBar")
+
+		local Icon = frame.Icon
+		if Icon and Icon.Icon then
+			if not Icon.Icon.__MERSkin and self.db.cooldownViewer.general.iconShadow then
+				module:CreateBackdropShadow(Icon.Icon)
+				Icon.Icon.__MERSkin = true
+			end
+		end
+
+		local Bar = frame.Bar
+		if Bar then
+			if not Bar.__MERSkin and self.db.cooldownViewer.general.barShadow then
+				for _, region in pairs({ Bar:GetRegions() }) do
+					if region:IsObjectType("Texture") and region.backdrop then
+						self:CreateBackdropShadow(region)
+						break
+					end
+				end
+				Bar.__MERSkin = true
+			end
+
+			local statusBarTex = Bar:GetStatusBarTexture() --[[@as Texture]]
+			statusBarTex:SetTexture(LSM:Fetch("statusbar", self.db.cooldownViewer.buffBar.barTexture))
+			statusBarTex:SetGradient(
+				"HORIZONTAL",
+				C.CreateColorFromTable(self.db.cooldownViewer.buffBar.colorLeft),
+				C.CreateColorFromTable(self.db.cooldownViewer.buffBar.colorRight)
+			)
+			statusBarTex:ClearTextureSlice()
+			statusBarTex:SetTextureSliceMode(0)
+
+			if self.db.cooldownViewer.buffBar.smooth then
+				E:SetSmoothing(Bar, true)
+			end
+		end
+	else
+		return
+	end
+end
+
+function module:CooldownManager_HandleViewer(element)
+	if not self:IsHooked(element, "OnAcquireItemFrame") then
+		self:SecureHook(element, "OnAcquireItemFrame", "CooldownManager_AcquireItemFrame")
+	end
+
+	for frame in element.itemFramePool:EnumerateActive() do
+		self:CooldownManager_AcquireItemFrame(element, frame)
+	end
+end
+
+function module:Blizzard_CooldownViewer_Modification()
+	if not self.db.cooldownViewer.enable then
+		return
+	end
+
+	if self.db.cooldownViewer.utility.enable then
+		self:CooldownManager_HandleViewer(_G.UtilityCooldownViewer)
+	end
+
+	if self.db.cooldownViewer.buffBar.enable then
+		self:CooldownManager_HandleViewer(_G.BuffBarCooldownViewer)
+	end
+
+	if self.db.cooldownViewer.buffIcon.enable then
+		self:CooldownManager_HandleViewer(_G.BuffIconCooldownViewer)
+	end
+
+	if self.db.cooldownViewer.essential.enable then
+		self:CooldownManager_HandleViewer(_G.EssentialCooldownViewer)
+	end
+end
 
 function module:Blizzard_CooldownViewer()
 	if not self:CheckDB("cooldownManager", "cooldownViewer") then
@@ -39,31 +221,7 @@ function module:Blizzard_CooldownViewer()
 		end
 	end
 
-	self:SecureHook(S, "CooldownManager_SkinIcon", function(_, _, icon)
-		if icon.__MERSkin then
-			return
-		end
-		self:CreateBackdropShadow(icon)
-		icon.__MERSkin = true
-	end)
-
-	self:SecureHook(S, "CooldownManager_SkinBar", function(_, _, bar)
-		---@cast bar StatusBar
-		if bar.__MERSkin then
-			return
-		end
-
-		bar:SetStatusBarTexture(E.media.normTex)
-		bar:GetStatusBarTexture():SetTextureSliceMode(0)
-
-		for _, region in pairs({ bar:GetRegions() }) do
-			if region:IsObjectType("Texture") and region.backdrop then
-				self:CreateBackdropShadow(region)
-				break
-			end
-		end
-		bar.__MERSkin = true
-	end)
+	self:Blizzard_CooldownViewer_Modification()
 end
 
 module:AddCallbackForAddon("Blizzard_CooldownViewer")

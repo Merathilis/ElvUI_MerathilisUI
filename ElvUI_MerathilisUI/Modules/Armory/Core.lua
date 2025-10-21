@@ -355,7 +355,7 @@ function module:UpdateItemLevel()
 		return
 	end
 
-	F.SetFontDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont)
+	F.SetFontWithDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont)
 
 	local itemLevelText
 
@@ -402,12 +402,12 @@ function module:UpdateItemLevel()
 end
 
 function module:UpdateTitle()
-	F.SetFontDB(self.nameText, module.db.nameText)
-	F.SetFontDB(self.titleText, module.db.titleText)
-	F.SetFontDB(self.levelTitleText, module.db.levelTitleText)
-	F.SetFontDB(self.levelText, module.db.levelText)
-	F.SetFontDB(self.classText, module.db.classText)
-	F.SetFontDB(self.specIcon, module.db.specIcon)
+	F.SetFontWithDB(self.nameText, module.db.nameText)
+	F.SetFontWithDB(self.titleText, module.db.titleText)
+	F.SetFontWithDB(self.levelTitleText, module.db.levelTitleText)
+	F.SetFontWithDB(self.levelText, module.db.levelText)
+	F.SetFontWithDB(self.classText, module.db.classText)
+	F.SetFontWithDB(self.specIcon, module.db.specIcon)
 
 	local titleId = GetCurrentTitle()
 	local titleName = GetTitleName(titleId) or ""
@@ -773,12 +773,12 @@ function module:UpdatePageInfo(_, _, which)
 
 			-- ItemLevel Slot Text
 			if slotFrame.iLvlText then
-				F.SetFontDB(slotFrame.iLvlText, module.db.pageInfo.iLvLFont)
+				F.SetFontWithDB(slotFrame.iLvlText, module.db.pageInfo.iLvLFont)
 			end
 
 			-- Enchant Slot Text
 			if slotFrame.enchantText then
-				F.SetFontDB(slotFrame.enchantText, module.db.pageInfo.enchantFont)
+				F.SetFontWithDB(slotFrame.enchantText, module.db.pageInfo.enchantFont)
 			end
 		end
 	end
@@ -802,7 +802,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 	local classColorShift = E.db.mui.themes.classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
 
 	-- Set custom font
-	F.SetFontDB(frame.Title, module.db.stats.headerFont)
+	F.SetFontWithDB(frame.Title, module.db.stats.headerFont)
 
 	local categoryHeader = F.String.StripColor(frame.Title:GetText())
 
@@ -940,7 +940,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 
 	-- Set custom font gradient for label
 	if frame.Label then
-		F.SetFontDB(frame.Label, module.db.stats.labelFont)
+		F.SetFontWithDB(frame.Label, module.db.stats.labelFont)
 
 		local labelString = F.String.StripColor(frame.Label:GetText())
 
@@ -964,7 +964,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 
 	-- Set custom for value
 	if frame.Value then
-		F.SetFontDB(frame.Value, module.db.stats.valueFont)
+		F.SetFontWithDB(frame.Value, module.db.stats.valueFont)
 	end
 
 	-- Set custom background gradient

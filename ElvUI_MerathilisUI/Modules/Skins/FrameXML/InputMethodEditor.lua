@@ -49,8 +49,8 @@ function module:InputMethodEditor()
 	for i = 1, 10 do
 		local cf = IMECandidatesFrame["c" .. i]
 		if cf then
-			F.SetFontDB(cf.label, E.private.mui.skins.ime.label)
-			F.SetFontDB(cf.candidate, E.private.mui.skins.ime.candidate)
+			F.SetFontWithDB(cf.label, E.private.mui.skins.ime.label)
+			F.SetFontWithDB(cf.candidate, E.private.mui.skins.ime.candidate)
 			cf.candidate:Width(1000) -- Show full candidate text
 		end
 	end
