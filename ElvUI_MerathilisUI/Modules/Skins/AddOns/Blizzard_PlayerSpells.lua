@@ -13,8 +13,9 @@ function module:Blizzard_PlayerSpells()
 	local frame = _G.PlayerSpellsFrame
 	self:CreateShadow(frame)
 
-	self:CreateBackdropShadow(_G.ClassTalentLoadoutImportDialog)
+	self:CreateBackdropShadow(_G.ClassTalentLoadoutCreateDialog)
 	self:CreateBackdropShadow(_G.ClassTalentLoadoutEditDialog)
+	self:CreateBackdropShadow(_G.ClassTalentLoadoutImportDialog)
 
 	for _, tab in next, { frame.TabSystem:GetChildren() } do
 		module:ReskinTab(tab)
