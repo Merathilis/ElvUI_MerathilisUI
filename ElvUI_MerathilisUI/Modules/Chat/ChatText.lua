@@ -687,20 +687,21 @@ CT.cache.blizzardRoleIcons = {
 
 local logoSmall = F.GetIconString(I.Media.Logos.LogoSmall, 14)
 local authorIcons = {
-	["Asragoth-Shattrath"] = logoSmall, -- [Alliance] Warlock
-	["Brítt-Shattrath"] = logoSmall, -- [Alliance] Warrior
-	["Damará-Shattrath"] = logoSmall, -- [Alliance] Paladin
-	["Damara-Shattrath"] = logoSmall, -- [Alliance] Paladin/Legion Remix
-	["Jazira-Shattrath"] = logoSmall, -- [Alliance] Priest
-	["Maithilis-Shattrath"] = logoSmall, -- [Alliance] Monk
-	["Mattdemôn-Shattrath"] = logoSmall, -- [Alliance] DH
-	["Melisendra-Shattrath"] = logoSmall, -- [Alliance] Mage
-	["Merathilis-Shattrath"] = logoSmall, -- [Alliance] Druid
-	["Merathilîs-Shattrath"] = logoSmall, -- [Alliance] Shaman
-	["Róhal-Shattrath"] = logoSmall, -- [Alliance] Hunter
-	["Jahzzy-Garrosh"] = logoSmall, -- [Alliance] Hunter
-	["Ronan-Shattrath"] = logoSmall, -- [Alliance] Shaman
-	["Anonia-Shattrath"] = logoSmall, -- [Alliance] Rogue
+	["Player-1401-04217BB2"] = logoSmall, -- [Alliance] Warlock: Asragoth
+	["Player-1401-0421EB9F"] = logoSmall, -- [Alliance] Warrior: Brítt
+	["Player-1401-0421F909"] = logoSmall, -- [Alliance] Paladin: Damará
+	["Player-1401-0B12A2DC"] = logoSmall, -- [Alliance] Paladin: Damara/Legion Remix
+	["Player-1401-0421EC36"] = logoSmall, -- [Alliance] Priest: Jazira
+	["Player-1401-0A9B0131"] = logoSmall, -- [Alliance] Rogue: Anonia
+	["Player-1401-041E4D64"] = logoSmall, -- [Alliance] Monk: Maithilis
+	["Player-1401-0648F4AD"] = logoSmall, -- [Alliance] DH: Mattdemôn
+	["Player-1401-0421F27B"] = logoSmall, -- [Alliance] Mage: Melisendra
+	["Player-1401-04221546"] = logoSmall, -- [Alliance] Druid: Merathilis
+	["Player-1401-04221344"] = logoSmall, -- [Alliance] Shaman:	Merathilîs
+	["Player-1401-0A80006F"] = logoSmall, -- [Alliance] Shaman:	Ronan
+	["Player-1401-0A4C8DF4"] = logoSmall, -- [Alliance] Evoker:	Meravoker
+	["Player-1401-041C0AE2"] = logoSmall, -- [Alliance] Hunter:	Róhal
+	["Player-1401-05CEABFA"] = logoSmall, -- [Alliance] DK: Jahzzy
 }
 
 CH:AddPluginIcons(function(sender)

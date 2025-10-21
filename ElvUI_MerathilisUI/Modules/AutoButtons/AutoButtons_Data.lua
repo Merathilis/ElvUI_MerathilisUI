@@ -819,8 +819,14 @@ local utilities = {
 
 local openableItems = {
 	92794,
-	-- Legion Remix
+	-- Legion Remix - Start
 	152102,
+	152103,
+	152104,
+	152105,
+	152106,
+	152107,
+	-- Legion Remix - End
 	171209,
 	171210,
 	171211,
