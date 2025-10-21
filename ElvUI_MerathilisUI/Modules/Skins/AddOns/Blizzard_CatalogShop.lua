@@ -6,8 +6,17 @@ function module:Blizzard_CatalogShop()
 		return
 	end
 
-	local ShopFrame = _G.CatalogShopFrame
-	module:CreateShadow(ShopFrame)
+	local CatalogShopFrame = _G.CatalogShopFrame
+	if not CatalogShopFrame then
+		return
+	end
+
+	self:CreateShadow(CatalogShopFrame)
+
+	local CatalogShopDetailsFrame = CatalogShopFrame.CatalogShopDetailsFrame
+	if CatalogShopDetailsFrame then
+		self:CreateShadow(CatalogShopDetailsFrame)
+	end
 end
 
 module:AddCallback("Blizzard_CatalogShop")
