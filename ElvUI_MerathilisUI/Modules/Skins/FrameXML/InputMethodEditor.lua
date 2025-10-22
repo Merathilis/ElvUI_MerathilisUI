@@ -9,7 +9,7 @@ function module:ChatFrameEditBox_SetText(_, text, skip)
 		return
 	end
 
-	local after = gsub(text, "：", ": ")
+	local after = gsub(text, "：", ":")
 
 	if text ~= after then
 		self:SetText(after, true)
