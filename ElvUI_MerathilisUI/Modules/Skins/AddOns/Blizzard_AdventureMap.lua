@@ -9,30 +9,23 @@ function module:Blizzard_AdventureMap()
 	end
 
 	local AdventureMapQuestChoiceDialog = _G.AdventureMapQuestChoiceDialog
-	AdventureMapQuestChoiceDialog.Rewards:SetAlpha(0)
-	AdventureMapQuestChoiceDialog.Background:Hide()
+	local childFrame = AdventureMapQuestChoiceDialog.Details.Child
 
-	AdventureMapQuestChoiceDialog.CloseButton:SetPoint("TOPRIGHT", -5, -5)
-	AdventureMapQuestChoiceDialog.DeclineButton:SetPoint("BOTTOMRIGHT", -5, 5)
-	AdventureMapQuestChoiceDialog.AcceptButton:SetPoint("BOTTOMLEFT", 5, 5)
+	self:CreateShadow(AdventureMapQuestChoiceDialog.backdrop or AdventureMapQuestChoiceDialog)
 
-	module:CreateShadow(AdventureMapQuestChoiceDialog)
+	F.SetFont(childFrame.TitleHeader)
+	F.SetFont(childFrame.DescriptionText)
+	F.SetFont(childFrame.ObjectivesHeader)
+	F.SetFont(childFrame.ObjectivesText)
+	F.SetFont(AdventureMapQuestChoiceDialog.RewardsHeader)
 
 	hooksecurefunc(AdventureMapQuestChoiceDialog, "RefreshRewards", function()
 		for reward in AdventureMapQuestChoiceDialog.rewardPool:EnumerateActive() do
 			if not reward.__MERSkin then
-				if reward.Icon then
-					reward.Icon:CreateBackdrop()
-					reward.Icon:SetTexCoord(unpack(E.TexCoords))
-				end
-
-				if reward.ItemNameBG then
-					reward.ItemNameBG:SetAlpha(0)
-					reward.MERItemNameBG = CreateFrame("Frame", nil, reward)
-					module:Reposition(reward.MERItemNameBG, reward.ItemNameBG, 2, 0, 0, -3, -1)
-					reward.MERItemNameBG:SetFrameLevel(reward:GetFrameLevel())
-					reward.MERItemNameBG:SetTemplate("Transparent")
-				end
+				reward.MERItemNameBG = CreateFrame("Frame", nil, reward)
+				reward.MERItemNameBG:SetFrameLevel(reward:GetFrameLevel())
+				reward.MERItemNameBG:SetTemplate("Transparent")
+				module:Reposition(reward.MERItemNameBG, reward.ItemNameBG, 2, 0, -1, -3, -1)
 				reward.__MERSkin = true
 			end
 		end
