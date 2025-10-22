@@ -1705,25 +1705,19 @@ L["Fade"] = "부드러운 표시"
 L["AddOns"] = "애드온"
 L["Advanced CLEU Etrace"] = "고급 CLEU 추적"
 L["Shop"] = true
-L["BACKGROUND"] = true
 L["Bar Texture"] = true
 L["Buff Bar"] = true
 L["Buff Icon"] = true
 L["Charge Count Text"] = true
-L["DIALOG"] = true
 L["Disable ElvUI's LibCustomGlow for fixing cooldown animations."] = true
 L["Essential"] = true
 L["Frame Level"] = true
 L["Frame Strata"] = true
-L["HIGH"] = true
 L["Horizontal Justify"] = true
 L["Icon Height Ratio"] = true
-L["LOW"] = true
-L["MEDIUM"] = true
 L["Relative Point"] = true
 L["Set the height ratio of icons inside Cooldown Viewer."] = true
 L["Smooth Bars"] = true
-L["TOOLTIP"] = true
 L["Use Blizzard Glow"] = true
 
 -- Panels

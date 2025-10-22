@@ -1337,26 +1337,20 @@ L["Invert Ease"] = true
 L["The easing function used for colorize the button."] = true
 L["UI Widget"] = true
 L["Shop"] = true
-L["BACKGROUND"] = true
 L["Bar Texture"] = "條材質"
 L["Buff Bar"] = "增益條"
 L["Buff Icon"] = "增益圖示"
 L["Charge Count Text"] = "充能數量文字"
-L["DIALOG"] = true
 L["Disable ElvUI's LibCustomGlow for fixing cooldown animations."] =
 	"停用除了 ElvUI 核心, ElvUI %s 和 BugSack 以外所有插件."
 L["Essential"] = "主要"
 L["Frame Level"] = "框架層次"
 L["Frame Strata"] = "框架層級"
-L["HIGH"] = true
 L["Horizontal Justify"] = "水平對齊"
 L["Icon Height Ratio"] = "圖示高度比例"
-L["LOW"] = true
-L["MEDIUM"] = true
 L["Relative Point"] = "相對點"
 L["Set the height ratio of icons inside Cooldown Viewer."] = "設定冷卻技能監控內圖示的高度比例."
 L["Smooth Bars"] = "條平滑化"
-L["TOOLTIP"] = true
 L["Use Blizzard Glow"] = "使用暴雪發光"
 
 -- Panels
