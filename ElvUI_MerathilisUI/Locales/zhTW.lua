@@ -1352,6 +1352,10 @@ L["Relative Point"] = "相對點"
 L["Set the height ratio of icons inside Cooldown Viewer."] = "設定冷卻技能監控內圖示的高度比例."
 L["Smooth Bars"] = "條平滑化"
 L["Use Blizzard Glow"] = "使用暴雪發光"
+L["This module will override ElvUI's Cooldown Manager count font settings."] =
+	"這個模組將會覆蓋 ElvUI 冷卻技能管理器的計數字形設定."
+L["To enable the modifications below, you need to enable [%s] - [%s] skin first."] =
+	"要啟用以下修改, 你需要先啟用 [%s] - [%s] 皮膚."
 
 -- Panels
 L["Panels"] = true

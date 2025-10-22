@@ -1127,7 +1127,7 @@ L["%s + Click to remove all worldmarkers."] =
 	"%s + щелкните, чтобы удалить все мировые метки."
 L["Click to remove all worldmarkers."] = "Нажмите, чтобы удалить все мировые метки."
 L["%s + Click to clear all marks."] =
-	"% s + ��������лкните, чтобы удалить все метки."
+	"% s + ����������лкните, чтобы удалить все метки."
 L["Left Click to ready check."] =
 	"Щелкните левой кнопкой мыши, чтобы провести проверку готовности."
 L["Right click to toggle advanced combat logging."] =
@@ -1517,6 +1517,8 @@ L["Relative Point"] = true
 L["Set the height ratio of icons inside Cooldown Viewer."] = true
 L["Smooth Bars"] = true
 L["Use Blizzard Glow"] = true
+L["This module will override ElvUI's Cooldown Manager count font settings."] = true
+L["To enable the modifications below, you need to enable [%s] - [%s] skin first."] = true
 
 -- Panels
 L["Panels"] = "Панели"

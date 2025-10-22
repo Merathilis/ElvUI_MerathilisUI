@@ -1488,6 +1488,10 @@ L["Relative Point"] = true
 L["Set the height ratio of icons inside Cooldown Viewer."] = true
 L["Smooth Bars"] = "Sanfte Leistenübergänge"
 L["Use Blizzard Glow"] = true
+L["This module will override ElvUI's Cooldown Manager count font settings."] =
+	"Dieses Modul überschreibt die Schriftarteneinstellungen des Cooldown Managers von ElvUI."
+L["To enable the modifications below, you need to enable [%s] - [%s] skin first."] =
+	"Um die folgenden Änderungen zu aktivieren, müssen Sie zuerst die Skin [%s] - [%s] aktivieren."
 
 -- Panels
 L["Panels"] = "Leisten"

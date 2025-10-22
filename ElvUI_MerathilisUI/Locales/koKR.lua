@@ -1719,6 +1719,8 @@ L["Relative Point"] = true
 L["Set the height ratio of icons inside Cooldown Viewer."] = true
 L["Smooth Bars"] = true
 L["Use Blizzard Glow"] = true
+L["This module will override ElvUI's Cooldown Manager count font settings."] = true
+L["To enable the modifications below, you need to enable [%s] - [%s] skin first."] = true
 
 -- Panels
 L["Panels"] = "패널"
