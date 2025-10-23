@@ -11,7 +11,7 @@ function module:Blizzard_AdventureMap()
 	local AdventureMapQuestChoiceDialog = _G.AdventureMapQuestChoiceDialog
 	local childFrame = AdventureMapQuestChoiceDialog.Details.Child
 
-	self:CreateShadow(AdventureMapQuestChoiceDialog.backdrop or AdventureMapQuestChoiceDialog)
+	self:CreateBackdropShadow(AdventureMapQuestChoiceDialog)
 
 	F.SetFont(childFrame.TitleHeader)
 	F.SetFont(childFrame.DescriptionText)
