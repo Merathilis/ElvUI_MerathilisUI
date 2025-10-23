@@ -166,8 +166,8 @@ P.quest = {
 		weekly = {
 			template = format("[%s]", L["Weekly"]),
 			color = {
-				left = C.GetRGBFromTemplate("blue-400"),
-				right = C.GetRGBFromTemplate("blue-200"),
+				left = C.GetRGBFromTemplate("teal-400"),
+				right = C.GetRGBFromTemplate("teal-200"),
 			},
 		},
 		title = {

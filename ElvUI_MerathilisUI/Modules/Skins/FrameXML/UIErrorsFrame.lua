@@ -20,7 +20,17 @@ function module:UIErrors()
 		return
 	end
 
-	_G.UIErrorsFrame:SetWidth(E.private.mui.skins.uiErrors.width)
+	_G.UIErrorsFrame:Width(E.private.mui.skins.uiErrors.width)
+
+	hooksecurefunc(_G.UIErrorsFrame, "SetWidth", function(frame, _, skip)
+		if not skip then
+			frame:Width(E.private.mui.skins.uiErrors.width)
+		end
+	end)
+
+	hooksecurefunc(_G.UIErrorsFrame, "SetSize", function(frame)
+		frame:Width(E.private.mui.skins.uiErrors.width, true)
+	end)
 
 	MER:RegisterUIErrorHandler(function(params)
 		if params.r == nil or params.g == nil or params.b == nil then

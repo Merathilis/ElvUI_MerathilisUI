@@ -3301,8 +3301,8 @@ options.advancedSettings = {
 						return E.private.mui.skins.uiErrors.width
 					end,
 					set = function(_, value)
-						E.private.mui.skins.uiErrors.uiErrors.width = value
-						_G.UIErrorsFrame:SetWidth(value)
+						E.private.mui.skins.uiErrors.width = value
+						_G.UIErrorsFrame:Width(value, true)
 					end,
 				},
 				normalTextClassColor = {
