@@ -48,13 +48,11 @@ function module:CheckBeforeSend(text, channel)
 	return true
 end
 
---[[
-	Send Message
-	@param {string} text The text you want to send to others
-	@param {string} channel the channel in Blizzard codes format
-	@param {boolean} raidWarning Let the function send raid warning if possible
-	@param {string} whisperTarget The target if the channel is whisper
-]]
+---Send Message
+---@param text string The text you want to send to others
+---@param channel any The channel in Blizzard codes format
+---@param raidWarning any Let the function send raid warning if possible
+---@param whisperTarget any The target if the channel is whisper
 function module:SendMessage(text, channel, raidWarning, whisperTarget)
 	-- Skip if the channel is NONE
 	if channel == "NONE" then
@@ -99,10 +97,9 @@ function module:SendMessage(text, channel, raidWarning, whisperTarget)
 	end
 end
 
---[[
-    @param {object} channelDB
-    @return {string}
-]]
+---Fetch the most suitable channel configuration
+---@param channelDB table Channel configuration table
+---@return string
 function module:GetChannel(channelDB)
 	if
 		(IsPartyLFG() or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) or IsInRaid(LE_PARTY_CATEGORY_INSTANCE))
@@ -176,19 +173,18 @@ function module:Initialize()
 
 	self:InitializeAuthority()
 	self:ResetAuthority()
-	self:UpdateBlizzardQuestAnnouncement()
 
 	self.initialized = true
 end
 
 function module:ProfileUpdate()
 	self:Initialize()
-	self:UpdateBlizzardQuestAnnouncement()
 
 	if self.db.enable or not self.initialized then
 		return
 	end
 
+	-- If the module is disabled from profile, unregister all events and reset authority
 	for _, event in pairs(self.EventList) do
 		module:UnregisterEvent(event)
 	end

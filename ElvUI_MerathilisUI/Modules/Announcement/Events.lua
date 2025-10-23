@@ -14,12 +14,11 @@ module.EventList = {
 	"GROUP_ROSTER_UPDATE",
 	"ITEM_CHANGED",
 	"PLAYER_ENTERING_WORLD",
-	"QUEST_LOG_UPDATE",
 	"UNIT_SPELLCAST_SUCCEEDED",
 }
 
 -- CHAT_MSG_SYSTEM: text, playerName, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, unused, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons
-function module:CHAT_MSG_SYSTEM(event, text)
+function module:CHAT_MSG_SYSTEM(_, text)
 	local data = {}
 
 	self:ResetInstance(text)
@@ -55,19 +54,14 @@ function module:COMBAT_LOG_EVENT_UNFILTERED()
 	end
 end
 
-function module:PLAYER_ENTERING_WORLD(event, ...)
-	self:Quest()
+function module:PLAYER_ENTERING_WORLD(event)
 	E:Delay(2, self.Keystone, self, event)
 	E:Delay(4, self.ResetAuthority, self)
 	E:Delay(10, self.ResetAuthority, self)
 end
 
-function module:CHALLENGE_MODE_COMPLETED(event, ...)
+function module:CHALLENGE_MODE_COMPLETED(event)
 	E:Delay(2, self.Keystone, self, event)
-end
-
-function module:QUEST_LOG_UPDATE()
-	F.TaskManager:AfterLogin(self.Quest, self)
 end
 
 function module:CHAT_MSG_ADDON(_, prefix, text)
@@ -80,6 +74,6 @@ function module:GROUP_ROSTER_UPDATE()
 	self:ResetAuthority()
 end
 
-function module:UNIT_SPELLCAST_SUCCEEDED(event, unitTarget, castGUID, spellId)
+function module:UNIT_SPELLCAST_SUCCEEDED(event, unitTarget, _, spellId)
 	self:Utility(event, UnitName(unitTarget), spellId)
 end

@@ -22,6 +22,7 @@ local DEFAULT_HANDLER_PRIORITY = 1000
 ---@field priority number
 ---@field handler UIErrorHandlerFunc
 
+MER.UIERRORFRAME_IGNORE_PATTERN = "MERATHILISUI_IGNORE"
 MER.UIErrorHandlers = MER.UIErrorHandlers or {} ---@type UIErrorHandler[]
 
 function MER:HookUIError()
@@ -30,6 +31,10 @@ function MER:HookUIError()
 	end
 
 	self:RawHook(_G.UIErrorsFrame, "AddMessage", function(frame, message, r, g, b, a)
+		if message and message == MER.UIERRORFRAME_IGNORE_PATTERN then
+			return
+		end
+
 		local params = { frame = frame, message = message, r = r, g = g, b = b, a = a } ---@type UIErrorHandlerParams
 		for _, handlerData in ipairs(self.UIErrorHandlers) do
 			local success, result = xpcall(handlerData.handler, F.Developer.ThrowError, params)

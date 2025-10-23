@@ -1,4 +1,4 @@
-local E, _, V, P, G = unpack(ElvUI)
+local E, _, V, P, G = unpack(ElvUI) ---@type ElvUI
 local addon, Engine = ...
 
 local EP = E.Libs.EP
@@ -146,6 +146,7 @@ MER.Modules.PetBattleScripts = MER:NewModule("MER_PetBattleScripts")
 MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0", "AceTimer-3.0")
 MER.Modules.Progress = MER:NewModule("MER_Progress")
 MER.Modules.PVP = MER:NewModule("MER_PVP", "AceEvent-3.0")
+MER.Modules.QuestProgress = MER:NewModule("MER_QuestProgress", "AceEvent-3.0")
 MER.Modules.QuickKeystone = MER:NewModule("MER_QuickKeystone", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.RaidBuffs = MER:NewModule("MER_RaidBuffs")
 MER.Modules.RaidCD = MER:NewModule("MER_RaidCD", "AceEvent-3.0", "AceTimer-3.0")

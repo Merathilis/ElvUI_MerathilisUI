@@ -652,6 +652,9 @@ local progressColor = {
 	complete = { r = 0.180, g = 0.835, b = 0.451 },
 }
 
+---Get color based on progress value (0.0 to 1.0)
+---@param progress number Progress value between 0 and 1
+---@return RGB color Color table with r, g, b values
 function F.GetProgressColor(progress)
 	local r = (progressColor.complete.r - progressColor.start.r) * progress + progressColor.start.r
 	local g = (progressColor.complete.g - progressColor.start.g) * progress + progressColor.start.g
