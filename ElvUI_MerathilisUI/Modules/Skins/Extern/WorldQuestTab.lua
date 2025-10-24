@@ -2,6 +2,7 @@ local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
 local S = E:GetModule("Skins")
+local C = MER.Utilities.Color
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -58,7 +59,6 @@ end
 local function settingsCategory(frame)
 	if frame.ExpandIcon then
 		S:HandleButton(frame, true, nil, nil, true)
-		local container = CreateFrame("Frame", nil, frame:GetParent())
 		frame.Highlight:SetAlpha(0)
 		frame.backdrop:SetInside(frame, 10, 5)
 
@@ -119,14 +119,23 @@ local function settingsTextInput(frame)
 end
 
 local function listButton(button)
-	button:CreateBackdrop("Transparent")
-	button.Highlight:StripTextures()
+	button.Bg:SetTexture(E.media.blankTex)
+	button.Bg:SetVertexColor(C.ExtractRGBFromTemplate("neutral-500"))
 
+	button.Highlight:StripTextures()
 	local tex = button.Highlight:CreateTexture(nil, "ARTWORK")
-	tex:SetTexture(E.media.blankTex)
+	tex:SetTexture(E.media.normTex)
 	tex:SetVertexColor(F.r, F.g, F.b, 0.2)
-	tex:SetAllPoints(button.backdrop)
+	tex:SetInside(button)
 	button.Highlight.MERTex = tex
+
+	button.TrackedBorder:StripTextures()
+	tex = button.TrackedBorder:CreateTexture(nil, "OVERLAY")
+	tex:SetTexture(E.media.normTex)
+	tex:SetVertexColor(C.ExtractRGBFromTemplate("amber-400"))
+	tex:SetAlpha(0.3)
+	tex:SetInside(button)
+	button.TrackedBorder.MERTex = tex
 end
 
 function module:WorldQuestTab()
