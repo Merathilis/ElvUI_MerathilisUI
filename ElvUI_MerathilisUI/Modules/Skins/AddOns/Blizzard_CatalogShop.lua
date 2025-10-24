@@ -6,6 +6,10 @@ function module:Blizzard_CatalogShop()
 		return
 	end
 
+	if E.private.skins.blizzard.tooltip and _G.CatalogShopTooltip then
+		self:ReskinTooltip(_G.CatalogShopTooltip)
+	end
+
 	local CatalogShopFrame = _G.CatalogShopFrame
 	if not CatalogShopFrame then
 		return
@@ -16,6 +20,14 @@ function module:Blizzard_CatalogShop()
 	local CatalogShopDetailsFrame = CatalogShopFrame.CatalogShopDetailsFrame
 	if CatalogShopDetailsFrame then
 		self:CreateShadow(CatalogShopDetailsFrame)
+	end
+
+	local ProductDetailsContainerFrame = CatalogShopFrame.ProductDetailsContainerFrame
+	if ProductDetailsContainerFrame then
+		local BackButton = ProductDetailsContainerFrame.BackButton
+		if BackButton then
+			self:CreateBackdropShadow(BackButton, true)
+		end
 	end
 end
 

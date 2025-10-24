@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Skins") ---@type Skins
+local module = MER:GetModule("MER_Skins") ---@class Skins
 local TT = E:GetModule("Tooltip")
 
 local _G = _G
@@ -52,6 +52,7 @@ function module:StyleIconsInTooltip(tt)
 	end
 end
 
+---@param tt table GameTooltip like frame
 function module:ReskinTooltip(tt)
 	if not tt or (tt == E.ScanTooltip or tt.IsEmbedded or not tt.NineSlice) or tt:IsForbidden() then
 		return
