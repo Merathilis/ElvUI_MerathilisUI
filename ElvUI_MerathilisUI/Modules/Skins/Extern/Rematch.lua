@@ -230,9 +230,9 @@ local function ReskinPet(frame)
 		frame.Status:SetAllPoints(frame.Icon)
 		hooksecurefunc(frame.Status, "SetTexCoord", function(self, ...)
 			if F.IsAlmost({ 0.3125, 0.625, 0, 0.625 }, { ... }) then
-				self:SetTexCoord(0.325, 0.6125, 0.025, 0.6)
+				self:SetTexCoord(0.3375, 0.6, 0.05, 0.6)
 			elseif F.IsAlmost({ 0, 0.3125, 0, 0.625 }, { ... }) then
-				self:SetTexCoord(0.0125, 0.3, 0.025, 0.6)
+				self:SetTexCoord(0.025, 0.2875, 0.05, 0.6)
 			end
 		end)
 		local ULx, ULy, _, _, _, _, LRx, LRy = frame.Status:GetTexCoord()
@@ -517,13 +517,24 @@ local function ReskinPetsPanel(frame)
 	hooksecurefunc(frame.List, "Refresh", function()
 		frame.List.ScrollBox:ForEachFrame(ReskinPetListButton)
 	end)
-	frame.List.ScrollBox:ForEachFrame(ReskinPetListButton)
+	frame:HookScript("OnShow", function()
+		RunNextFrame(function()
+			frame.List.ScrollBox:ForEachFrame(ReskinPetListButton)
+		end)
+	end)
+	RunNextFrame(function()
+		frame.List.ScrollBox:ForEachFrame(ReskinPetListButton)
+	end)
 end
 
 local function ReskinTooltipsAndMenus()
 	_G.RematchTooltip:StripTextures()
 	_G.RematchTooltip:CreateBackdrop("Transparent")
 	module:CreateBackdropShadow(_G.RematchTooltip)
+
+	_G.RematchAbilityTooltip:StripTextures()
+	_G.RematchAbilityTooltip:CreateBackdrop("Transparent")
+	module:CreateBackdropShadow(_G.RematchAbilityTooltip)
 
 	_G.FloatingPetBattleAbilityTooltip:StripTextures()
 	_G.FloatingPetBattleAbilityTooltip:CreateBackdrop("Transparent")
