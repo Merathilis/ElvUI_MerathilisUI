@@ -60,11 +60,13 @@ V.quest = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize + 1,
 			style = "SHADOWOUTLINE",
+			wordWrap = true,
 		},
 		info = {
 			name = E.db.general.font,
 			size = E.db.general.fontSize,
 			style = "SHADOWOUTLINE",
+			wordWrap = true,
 		},
 		titleColor = {
 			enable = true,
