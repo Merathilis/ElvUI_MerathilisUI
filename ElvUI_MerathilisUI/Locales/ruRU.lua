@@ -369,9 +369,6 @@ L["Cannot reset %s (There are players still inside the instance.)"] =
 	"Невозможно сбросить %s (внутри подземелья все еще есть игроки.)"
 L["Let your teammates know the progress of quests."] =
 	"Сообщайте товарищам по команде о ходе выполнения квестов."
-L["Disable Blizzard"] = "Отключить Blizzard"
-L["Disable Blizzard quest progress message."] =
-	"Отключить сообщение о выполнении квеста Blizzard."
 L["Include Details"] = "Включить детали"
 L["Announce every time the progress has been changed."] =
 	"Объявлять каждый раз, когда прогресс был изменен."
@@ -384,18 +381,9 @@ L["Emote"] = "Эмоция"
 L["Party"] = "Группа"
 L["Yell"] = "Крик"
 L["Say"] = "Сказать"
-L["The category of the quest."] = "Категория квеста."
 L["Suggested Group"] = "Предлагаемая группа"
-L["If the quest is suggested with multi-players, add the number of players to the message."] =
-	"Если квест предлагается с несколькими игроками, добавьте количество игроков в сообщение."
-L["The level of the quest."] = "Уровень квеста."
 L["Hide Max Level"] = "Скрыть максимальный уровень"
-L["Hide the level part if the quest level is the max level of this expansion."] =
-	"Скройте часть уровня, если уровень квеста является максимальным уровнем этого дополнения."
-L["Add the prefix if the quest is a daily quest."] =
-	"Добавьте префикс, если квест является ежедневным квестом."
-L["Add the prefix if the quest is a weekly quest."] =
-	"Добавьте префикс, если квест еженедельный."
+L["Hide the level part if the quest level is the same as your character level."] = true
 L["Send the use of portals, ritual of summoning, feasts, etc."] =
 	"Отправить использование порталов, ритуал призыва, пиры и т.д."
 L["Feasts"] = "Праздники"
@@ -1127,13 +1115,13 @@ L["%s + Click to remove all worldmarkers."] =
 	"%s + щелкните, чтобы удалить все мировые метки."
 L["Click to remove all worldmarkers."] = "Нажмите, чтобы удалить все мировые метки."
 L["%s + Click to clear all marks."] =
-	"% s + ����������лкните, чтобы удалить все метки."
+	"% s + ������������лкните, чтобы удалить все метки."
 L["Left Click to ready check."] =
 	"Щелкните левой кнопкой мыши, чтобы провести проверку готовности."
 L["Right click to toggle advanced combat logging."] =
 	"Щелкните правой кнопкой мыши, чтобы включить расширенный журнал боя."
 L["Left Click to start count down."] =
-	"Щелкните левой кнопкой мыши, чтобы начать обратный отсчет."
+	"Щелкни����е левой кнопкой мыши, чтобы начать обратный отсчет."
 L["Add an extra bar to let you set raid markers efficiently."] =
 	"Добавляет дополнительную панель, позволяющую эффективно устанавливать маркеры рейда."
 L["Toggle raid markers bar."] = "Переключить панель меток рейда."
@@ -1519,6 +1507,38 @@ L["Smooth Bars"] = true
 L["Use Blizzard Glow"] = true
 L["This module will override ElvUI's Cooldown Manager count font settings."] = true
 L["To enable the modifications below, you need to enable [%s] - [%s] skin first."] = true
+L["%s contains the daily quest label."] = true
+L["%s contains the quest level."] = true
+L["%s contains the quest objective progress."] = true
+L["%s contains the quest tag, which is typically the quest series name."] = true
+L["%s contains the quest title."] = true
+L["%s contains the suggested group size for the quest."] = true
+L["%s contains the weekly quest label."] = true
+L["Daily quest label"] = true
+L["Detail Template"] = true
+L["Display colorful quest progress information to replace Blizzard's default."] = true
+L["Hide On Character Level"] = true
+L["Hide the level part if the quest level is the same as your character level."] = true
+L["Message Template"] = true
+L["Objective"] = true
+L["Objective Color"] = true
+L["Quest level"] = true
+L["Quest link"] = true
+L["Quest progress (including objectives)"] = true
+L["Quest tags (Quest series)"] = true
+L["Quest title"] = true
+L["Reset the template to default value."] = true
+L["Status icon (accept/complete)"] = true
+L["Suggested group size"] = true
+L["Template Elements"] = true
+L["Test Quest Name"] = true
+L["Test Series"] = true
+L["Test Target"] = true
+L["The progress details like 10/20."] = true
+L["The template for rendering announcement message."] = true
+L["The template for rendering progress message in UIErrorsFrame."] = true
+L["The template of each element can be customized in %s module."] = true
+L["Weekly quest label"] = true
 
 -- Panels
 L["Panels"] = "Панели"

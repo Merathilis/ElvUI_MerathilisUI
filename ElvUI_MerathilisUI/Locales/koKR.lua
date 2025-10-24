@@ -460,8 +460,6 @@ L["Cannot reset %s (There are players offline in your party.)"] =
 L["Cannot reset %s (There are players still inside the instance.)"] =
 	"%s 리셋 실패! (인던에 남아 있는 파티원이 있습니다.)"
 L["Let your teammates know the progress of quests."] = "팀원들에게 퀘스트 진행 상황을 알립니다"
-L["Disable Blizzard"] = "Blizzard 알림 끄기"
-L["Disable Blizzard quest progress message."] = "Blizzard 기본 퀘스트 진행 메시지를 비활성화합니다"
 L["Include Details"] = "세부 정보 포함"
 L["Announce every time the progress has been changed."] = "진행 상황이 변경될 때마다 알림을 보냅니다"
 L["In Party"] = "파티 중"
@@ -473,18 +471,9 @@ L["Emote"] = "감정 표현"
 L["Party"] = "파티"
 L["Yell"] = "외침"
 L["Say"] = "일반 말하기"
-L["The category of the quest."] = "퀘스트의 분류입니다"
 L["Suggested Group"] = "권장 파티 인원"
-L["If the quest is suggested with multi-players, add the number of players to the message."] =
-	"퀘스트가 다인 협동을 권장할 경우, 인원 수를 메시지에 추가합니다"
-L["The level of the quest."] = "퀘스트의 레벨입니다"
 L["Hide Max Level"] = "최고 레벨일 경우 숨기기"
-L["Hide the level part if the quest level is the max level of this expansion."] =
-	"퀘스트 레벨이 이번 확장팩의 최대 레벨일 경우 레벨 표시를 숨깁니다"
-L["Add the prefix if the quest is a daily quest."] =
-	"퀘스트가 일일 퀘스트일 경우 접두어를 추가합니다"
-L["Add the prefix if the quest is a weekly quest."] =
-	"퀘스트가 주간 퀘스트일 경우 접두어를 추가합니다"
+L["Hide the level part if the quest level is the same as your character level."] = true
 L["Send the use of portals, ritual of summoning, feasts, etc."] =
 	"차원문, 소환 의식, 연회 등 사용 시 알림을 보냅니다"
 L["Feasts"] = "혈기 왕성한 연회"
@@ -629,6 +618,38 @@ L["Track Achievement"] = true
 L["Untrack Achievement"] = true
 L["Quick Keystone"] = true
 L["Put the keystone from bag automatically."] = true
+L["%s contains the daily quest label."] = true
+L["%s contains the quest level."] = true
+L["%s contains the quest objective progress."] = true
+L["%s contains the quest tag, which is typically the quest series name."] = true
+L["%s contains the quest title."] = true
+L["%s contains the suggested group size for the quest."] = true
+L["%s contains the weekly quest label."] = true
+L["Daily quest label"] = true
+L["Detail Template"] = true
+L["Display colorful quest progress information to replace Blizzard's default."] = true
+L["Hide On Character Level"] = true
+L["Hide the level part if the quest level is the same as your character level."] = true
+L["Message Template"] = true
+L["Objective"] = true
+L["Objective Color"] = true
+L["Quest level"] = true
+L["Quest link"] = true
+L["Quest progress (including objectives)"] = true
+L["Quest tags (Quest series)"] = true
+L["Quest title"] = true
+L["Reset the template to default value."] = true
+L["Status icon (accept/complete)"] = true
+L["Suggested group size"] = true
+L["Template Elements"] = true
+L["Test Quest Name"] = true
+L["Test Series"] = true
+L["Test Target"] = true
+L["The progress details like 10/20."] = true
+L["The template for rendering announcement message."] = true
+L["The template for rendering progress message in UIErrorsFrame."] = true
+L["The template of each element can be customized in %s module."] = true
+L["Weekly quest label"] = true
 
 -- Move Frames
 L["Move Frames"] = "프레임 이동"
@@ -1202,23 +1223,23 @@ L["Iskaaran Fishing Net"] = "이스카라 낚시 그물"
 L["Net #%d"] = "그물 #%d"
 L["Net %s can be collected"] = "그물 %s은 수집할 수 있습니다"
 L["No Nets Set"] = "설정된 그물이 없습니다"
-L["Custom String"] = "사용자 문자열"
+L["Custom String"] = "사용자 문자���"
 L["Custom Strings"] = "사용자 문자열들"
 L["Custom color can be used by adding the following code"] =
 	"다음 코드를 추가하여 사용자 색상을 사용할 수 있습니다"
 L["Difficulty"] = "난이도"
-L["M+ Level"] = "쐐기돌 난이도"
+L["M+ Level"] = "쐐��돌 난이도"
 L["Number of Players"] = "플레이어 수"
 L["Placeholders"] = "치환자"
 L["Use Default"] = "기본값 사용"
-L["Researchers Under Fire"] = "위협받는 연구진"
+L["Researchers Under Fire"] = "���협받는 연구진"
 L["Time Rift"] = "시간 균열"
 L["Superbloom"] = "만개화"
 L["Big Dig"] = "대규모 발굴"
 L["The Big Dig"] = "대규모 발굴 이벤트"
 L["Horizontal Spacing"] = "가로 간격"
-L["Show a backdrop of the trackers."] = "추적기에 배경을 표시합니다"
-L["The Y-Offset of the backdrop."] = "배경의 Y 오프셋"
+L["Show a backdrop of the trackers."] = "추적기에 배경��� 표시합니다"
+L["The Y-Offset of the backdrop."] = "���경의 Y 오프셋"
 L["The height of the tracker."] = "추적기 높이"
 L["The spacing between the backdrop and the trackers."] = "배경과 추적기 사이 간격"
 L["The spacing between the tracker and the world map."] = "추적기와 세계 지도 사이 간격"

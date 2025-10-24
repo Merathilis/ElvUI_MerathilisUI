@@ -353,8 +353,6 @@ L["Cannot reset %s (There are players offline in your party.)"] =
 L["Cannot reset %s (There are players still inside the instance.)"] =
 	"%s kann nicht zurückgesetzt werden (Es befinden sich noch Spieler in der Instanz.)"
 L["Let your teammates know the progress of quests."] = "Lass deine Teamkollegen den Fortschritt der Quests wissen."
-L["Disable Blizzard"] = "Deaktiviere Blizzard"
-L["Disable Blizzard quest progress message."] = "Deaktiviere Blizzards Questfortschrittsnachricht"
 L["Include Details"] = "Details einschließen"
 L["Announce every time the progress has been changed."] = "Kündige jedes mal an, wenn der Fortschritt geändert wurde."
 L["In Party"] = "In Gruppe"
@@ -366,19 +364,12 @@ L["Emote"] = true -- no need to translate
 L["Party"] = "Gruppe"
 L["Yell"] = "Schreien"
 L["Say"] = "Sagen"
-L["The category of the quest."] = "Die Kategorie der Quest."
 L["Suggested Group"] = "Vorgeschlagene Gruppe"
-L["If the quest is suggested with multi-players, add the number of players to the message."] =
-	"Wenn die Quest für mehrere Spieler vorgeschlagen wird, füge der Nachricht die Anzahl der Spieler hinzu."
 L["The level of the quest."] = "Das Level der Quest."
 L["Hide Max Level"] = "Verstecke auf Max Level"
-L["Hide the level part if the quest level is the max level of this expansion."] =
-	"Verstecke den Level-Teil, wenn das Quest-Level das maximale Level dieser Erweiterung ist."
+L["Hide the level part if the quest level is the same as your character level"] =
+	"Verstecke den Level-Teil, wenn das Quest-Level das selbe ist wie dein Level."
 L["Highlight Color"] = "Hervorhebungsfarbe"
-L["Add the prefix if the quest is a daily quest."] =
-	"Fügt das Präfix hinzu, wenn es sich bei der Quest um eine tägliche Quest handelt."
-L["Add the prefix if the quest is a weekly quest."] =
-	"Fügt das Präfix hinzu, wenn es sich bei der Quest um eine wöchentliche Quest handelt."
 L["Send the use of portals, ritual of summoning, feasts, etc."] =
 	"Sende die Verwendung von Portalen, Beschwörungsritualen, Festen usw."
 L["Feasts"] = "Feste"
@@ -533,6 +524,38 @@ L["Track Achievement"] = "Erfolge verfolgen"
 L["Untrack Achievement"] = "Erfolge nicht mehr verfolgen"
 L["Quick Keystone"] = "Schneller Schlüsselstein"
 L["Put the keystone from bag automatically."] = "Lege den Schlüsselstein automatisch aus der Tasche ein."
+L["%s contains the daily quest label."] = true
+L["%s contains the quest level."] = true
+L["%s contains the quest objective progress."] = true
+L["%s contains the quest tag, which is typically the quest series name."] = true
+L["%s contains the quest title."] = true
+L["%s contains the suggested group size for the quest."] = true
+L["%s contains the weekly quest label."] = true
+L["Daily quest label"] = true
+L["Detail Template"] = true
+L["Display colorful quest progress information to replace Blizzard's default."] = true
+L["Hide On Character Level"] = true
+L["Hide the level part if the quest level is the same as your character level."] = true
+L["Message Template"] = true
+L["Objective"] = true
+L["Objective Color"] = true
+L["Quest level"] = true
+L["Quest link"] = true
+L["Quest progress (including objectives)"] = true
+L["Quest tags (Quest series)"] = true
+L["Quest title"] = true
+L["Reset the template to default value."] = true
+L["Status icon (accept/complete)"] = true
+L["Suggested group size"] = true
+L["Template Elements"] = true
+L["Test Quest Name"] = true
+L["Test Series"] = true
+L["Test Target"] = true
+L["The progress details like 10/20."] = true
+L["The template for rendering announcement message."] = true
+L["The template for rendering progress message in UIErrorsFrame."] = true
+L["The template of each element can be customized in %s module."] = true
+L["Weekly quest label"] = true
 
 -- Move Frames
 L["Move Frames"] = "Fenster verschieben"
