@@ -4,56 +4,6 @@ local S = E:GetModule("Skins")
 
 local _G = _G
 
-function module:BugSack_InterfaceOptionOnShow(frame)
-	if frame.__MERSkin then
-		return
-	end
-
-	if _G.BugSackFontSize then
-		local dropdown = _G.BugSackFontSize
-		S:HandleDropDownBox(dropdown, nil, nil, true)
-
-		local point, relativeTo, relativePoint, xOffset, yOffset = dropdown:GetPoint(1)
-		dropdown:ClearAllPoints()
-		dropdown:SetPoint(point, relativeTo, relativePoint, xOffset - 1, yOffset)
-
-		dropdown.__MERSkinMarked = true
-	end
-
-	if _G.BugSackSoundDropdown then
-		local dropdown = _G.BugSackSoundDropdown
-		S:HandleDropDownBox(dropdown, nil, nil, true)
-
-		local point, relativeTo, relativePoint = dropdown:GetPoint(1)
-		dropdown:ClearAllPoints()
-		dropdown:SetPoint(point, relativeTo, relativePoint)
-
-		dropdown.__MERSkinMarked = true
-	end
-
-	for _, child in pairs({ frame:GetChildren() }) do
-		if child.__MERSkinMarked then
-			child.__MERSkinMarked = nil
-		else
-			local objectType = child:GetObjectType()
-			if objectType == "Button" then
-				S:HandleButton(child)
-			elseif objectType == "CheckButton" then
-				S:HandleButton(child)
-
-				-- fix master channel checkbox position
-				local point, relativeTo, relativePoint = child:GetPoint(1)
-				if point == "LEFT" and relativeTo == _G.BugSackSoundDropdown then
-					child:ClearAllPoints()
-					child:SetPoint(point, relativeTo, relativePoint, 0, 3)
-				end
-			end
-		end
-	end
-
-	frame.__MERSkin = true
-end
-
 function module:BugSack_OpenSack()
 	if _G.BugSackFrame.__MERSkin then
 		return
@@ -131,8 +81,18 @@ function module:BugSack()
 		return
 	end
 
-	module:SecureHook(_G.BugSack, "OpenSack", "BugSack_OpenSack")
 	module:DisableAddOnSkins("BugSack", false)
+
+	self:SecureHook(_G.BugSack, "OpenSack", "BugSack_OpenSack")
+
+	-- Handle the special dropdown in settings
+	hooksecurefunc(SettingsPanel.Container.SettingsList.ScrollBox, "Update", function(scrollBox)
+		scrollBox:ForEachFrame(function(frame)
+			if frame.soundDropdown and frame.soundDropdown.intrinsic == "DropdownButton" then
+				self:Proxy("HandleDropDownBox", frame.soundDropdown)
+			end
+		end)
+	end)
 end
 
 module:AddCallbackForAddon("BugSack")
