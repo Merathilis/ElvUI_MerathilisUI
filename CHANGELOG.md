@@ -1,4 +1,6 @@
 ### Changes ###
 
-  * [Install]: Added additional mana bars to the install
-  * [Unitframes]: Fixed an issue where the animated power bar cause some frames to hide
+  * [Misc]: Added a quick keystone feature
+  * [Skins]: Updated a tons of skins
+  * [Skins]: Added a skin for the CatalogShop
+  * [Quest]: Split the QuestProgress in an own module
