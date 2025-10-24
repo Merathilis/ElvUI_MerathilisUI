@@ -131,7 +131,6 @@ function module:BugSack()
 		return
 	end
 
-	module:SecureHookScript(_G.BugSack.frame, "OnShow", "BugSack_InterfaceOptionOnShow")
 	module:SecureHook(_G.BugSack, "OpenSack", "BugSack_OpenSack")
 	module:DisableAddOnSkins("BugSack", false)
 end
