@@ -502,6 +502,11 @@ L["The template for rendering announcement message."] = true
 L["The template for rendering progress message in UIErrorsFrame."] = true
 L["The template of each element can be customized in %s module."] = true
 L["Weekly quest label"] = true
+L["Fonts"] = true
+L["Quest Progress and Error Text"] = true
+L["To ensure the colorful progress information remains clearly visible across different environments, the 'OUTLINE' font style is recommended."] =
+	true
+L["You can find the setting in 'ElvUI > %s > %s > %s'."] = true
 
 -- Move Frames
 L["Move Frames"] = true

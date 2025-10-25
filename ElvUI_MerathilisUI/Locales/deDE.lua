@@ -561,6 +561,11 @@ L["The template for rendering progress message in UIErrorsFrame."] =
 L["The template of each element can be customized in %s module."] =
 	"Die Vorlage jedes Elements kann im Modul %s angepasst werden."
 L["Weekly quest label"] = "Wöchentliche Quest Name"
+L["Fonts"] = "Schriftarten"
+L["Quest Progress and Error Text"] = "Questfortschritt und Fehlermeldungstext"
+L["To ensure the colorful progress information remains clearly visible across different environments, the 'OUTLINE' font style is recommended."] =
+	"Um sicherzustellen, dass die farbenfrohen Fortschrittsinformationen in verschiedenen Umgebungen klar sichtbar bleiben, wird der Schriftstil 'OUTLINE' empfohlen."
+L["You can find the setting in 'ElvUI > %s > %s > %s'."] = "Du findest die Einstellung in 'ElvUI > %s > %s > %s'."
 
 -- Move Frames
 L["Move Frames"] = "Fenster verschieben"
@@ -1172,7 +1177,7 @@ L["Right click to toggle advanced combat logging."] =
 L["Count Down"] = "Zähler"
 L["Count Down Time"] = "Countdown Zeit"
 L["Count down time in seconds."] = "Countdown Zeit in Sekunden."
-L["Button Size"] = "Tasten Größe"
+L["Button Size"] = "Tasten Grö��e"
 L["The size of the buttons."] = "Die Größe der Tasten."
 L["Button Spacing"] = "Tasten Abstand"
 L["The spacing between buttons."] = "Der Abstand zwischen den Tasten."
