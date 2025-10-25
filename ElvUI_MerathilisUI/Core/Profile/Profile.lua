@@ -269,6 +269,7 @@ P.chat = {
 		enable = true,
 		abbreviation = "DEFAULT",
 		removeBrackets = true,
+		trimEditBoxHeader = true,
 		roleIconSize = 16,
 		roleIconStyle = "LYNUI",
 		removeRealm = true,

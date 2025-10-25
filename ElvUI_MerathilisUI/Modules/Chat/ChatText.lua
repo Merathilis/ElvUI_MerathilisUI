@@ -1,5 +1,5 @@
 local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local CT = MER:GetModule("MER_ChatText")
+local CT = MER:GetModule("MER_ChatText") ---@class ChatTextModule : AceModule, AceEvent-3.0, AceHook-3.0
 local CH = E:GetModule("Chat")
 local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
@@ -21,6 +21,7 @@ local strlower = strlower
 local strmatch = strmatch
 local strsplit = strsplit
 local strsub = strsub
+local strtrim = strtrim
 local strupper = strupper
 local time = time
 local tinsert = tinsert
@@ -1674,7 +1675,10 @@ function CT:ChatFrame_MessageEventHandler(
 				and (not CH.db.noAlertInCombat or not InCombatLockdown())
 			then
 				CH.SoundTimer = E:Delay(5, CH.ThrottleSound)
-				PlaySoundFile(LSM:Fetch("sound", alertType), "Master")
+				local alertFile = LSM:Fetch("sound", alertType)
+				if alertFile then
+					PlaySoundFile(alertFile, "Master")
+				end
 			end
 
 			local accessID = _G.ChatHistory_GetAccessID(chatGroup, chatTarget)
@@ -2002,6 +2006,36 @@ function CT:MessageFormatter(
 	return body
 end
 
+function CT:EditBoxHeader_SetText(header, text, skip)
+	if not self.db.enable or not self.db.trimEditBoxHeader or not text or skip then
+		return
+	end
+
+	local after = strtrim(text)
+	if text ~= after then
+		header:SetText(after, true)
+	end
+end
+
+function CT:EditBoxHeader_SetFormattedText(header, fmt, ...)
+	if not self.db.enable or not self.db.trimEditBoxHeader or not fmt then
+		return
+	end
+
+	local args = { ... }
+	local last = args[#args]
+
+	if type(last) == "boolean" and last == true then
+		return
+	end
+
+	local after = strtrim(fmt)
+	if fmt ~= after then
+		args[#args + 1] = true
+		header:SetFormattedText(after, unpack(args))
+	end
+end
+
 function CT:ToggleReplacement()
 	if not self.db then
 		return
@@ -2078,9 +2112,23 @@ function CT:ToggleReplacement()
 			initRecord.ChatFrame_MessageEventHandler = false
 		end
 	end
+
+	if self.db.enable and self.db.trimEditBoxHeader and MER.Locale == "zhCN" then
+		for i = 1, NUM_CHAT_WINDOWS do
+			local editBox = _G["ChatFrame" .. i .. "EditBox"]
+			if editBox and editBox.header then
+				local header = editBox.header
+				if not self:IsHooked(header, "SetText") then
+					self:SecureHook(header, "SetText", "EditBoxHeader_SetText")
+					self:SecureHook(header, "SetFormattedText", "EditBoxHeader_SetFormattedText")
+					self:EditBoxHeader_SetText(header, header:GetText())
+				end
+			end
+		end
+	end
 end
 
-function CT:SendAchivementMessage()
+function CT:SendAchievementMessage()
 	if not self.db or not self.db.enable or not self.db.mergeAchievement then
 		return
 	end
@@ -2170,7 +2218,7 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 
 	if not cache[achievementID] then
 		cache[achievementID] = {}
-		C_Timer_After(0.1, function()
+		E:Delay(0.1, function()
 			local players = {}
 			for k in pairs(cache[achievementID]) do
 				tinsert(players, k)
@@ -2187,8 +2235,8 @@ function CT:ElvUIChat_AchievementMessageHandler(event, frame, achievementMessage
 
 				if not self.waitForAchievementMessage then
 					self.waitForAchievementMessage = true
-					C_Timer_After(0.2, function()
-						self:SendAchivementMessage()
+					E:Delay(0.2, function()
+						self:SendAchievementMessage()
 						self.waitForAchievementMessage = false
 					end)
 				end
