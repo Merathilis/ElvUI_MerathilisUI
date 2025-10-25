@@ -168,6 +168,10 @@ F.AddMedia("role", "ElvUITank")
 F.AddMedia("role", "ElvUIHealer")
 F.AddMedia("role", "ElvUIDPS")
 
+F.AddMedia("role", "BlizzTank")
+F.AddMedia("role", "BlizzHealer")
+F.AddMedia("role", "BlizzDPS")
+
 F.AddMedia("texture", "EmptyTex")
 F.AddMedia("texture", "GlowTex")
 

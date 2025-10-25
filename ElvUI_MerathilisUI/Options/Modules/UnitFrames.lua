@@ -503,6 +503,12 @@ do
 	icons = icons .. E:TextureString(I.Media.RoleIcons.ElvUIHealer, ":16:16") .. " "
 	icons = icons .. E:TextureString(I.Media.RoleIcons.ElvUIDPS, ":16:16")
 	SampleStrings.elvui_old = icons
+
+	icons = ""
+	icons = icons .. E:TextureString(I.Media.RoleIcons.BlizzTank, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.BlizzHealer, ":16:16") .. " "
+	icons = icons .. E:TextureString(I.Media.RoleIcons.BlizzDPS, ":16:16")
+	SampleStrings.blizzard = icons
 end
 
 options.unitframes.args.general.args.roleIcons = {
@@ -537,8 +543,8 @@ options.unitframes.args.general.args.roleIcons = {
 				MAIN = SampleStrings.main,
 				WHITE = SampleStrings.white,
 				MATERIAL = SampleStrings.material,
-				BLIZZARD = SampleStrings.blizzard,
 				ELVUI_OLD = SampleStrings.elvui_old,
+				BLIZZARD = SampleStrings.blizzard,
 				DEFAULT = SampleStrings.elvui,
 			},
 		},
