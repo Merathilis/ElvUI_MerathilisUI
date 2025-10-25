@@ -288,8 +288,8 @@ function module:Initialize()
 	end
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
-	anchorFrame:SetSize(bannerWidth, 50)
-	anchorFrame:SetPoint("TOP", 0, -80)
+	anchorFrame:Size(bannerWidth, 50)
+	anchorFrame:Point("TOP", 0, -75)
 	E:CreateMover(
 		anchorFrame,
 		"MER_NotificationMover",
