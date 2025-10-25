@@ -1036,7 +1036,7 @@ function F.PixelIcon(self, texture, highlight)
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
 	self.Icon:Point("TOPLEFT", E.mult, -E.mult)
 	self.Icon:Point("BOTTOMRIGHT", -E.mult, E.mult)
-	self.Icon:SetTexCoord(unpack(E.TexCoords))
+	self.Icon:SetTexCoords()
 
 	if texture then
 		local atlas = strmatch(texture, "Atlas:(.+)$")

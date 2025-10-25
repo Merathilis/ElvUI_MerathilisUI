@@ -199,7 +199,7 @@ local function ReskinCollectionTabScrollBox(scrollBox)
 		end
 
 		local iconTex, borderTex, description, _, hoverTex = button.icon:GetRegions()
-		iconTex:SetTexCoord(unpack(E.TexCoords))
+		iconTex:SetTexCoords()
 		F.InternalizeMethod(iconTex, "SetTexCoord", true)
 		iconTex:CreateBackdrop()
 		borderTex:SetAlpha(0)

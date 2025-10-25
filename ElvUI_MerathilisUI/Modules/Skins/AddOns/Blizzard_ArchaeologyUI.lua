@@ -32,13 +32,13 @@ function module:Blizzard_ArchaeologyUI()
 		local bu = _G["ArchaeologyFrameCompletedPageArtifact" .. i]
 		bu:GetRegions():Hide()
 		select(2, bu:GetRegions()):Hide()
-		select(3, bu:GetRegions()):SetTexCoord(unpack(E.TexCoords))
+		select(3, bu:GetRegions()):SetTexCoords()
 		select(4, bu:GetRegions()):SetTextColor(1, 1, 1)
 		select(5, bu:GetRegions()):SetTextColor(1, 1, 1)
 		bu:SetTemplate("Transparent")
 	end
 
-	_G.ArchaeologyFrameArtifactPageIcon:SetTexCoord(unpack(E.TexCoords))
+	_G.ArchaeologyFrameArtifactPageIcon:SetTexCoords()
 end
 
 module:AddCallbackForAddon("Blizzard_ArchaeologyUI")

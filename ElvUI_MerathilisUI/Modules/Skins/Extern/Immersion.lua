@@ -229,7 +229,7 @@ function module:Immersion()
 
 				local color = E.QualityColors[portrait.quality or 1]
 				portrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
-				reward.Class:SetTexCoord(unpack(E.TexCoords))
+				reward.Class:SetTexCoords()
 			end
 			-- Spell Rewards
 			for spellReward in rewardsFrame.spellRewardPool:EnumerateActive() do

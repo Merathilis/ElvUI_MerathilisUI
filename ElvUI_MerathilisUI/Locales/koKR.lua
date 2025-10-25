@@ -1848,6 +1848,8 @@ L["Style"] = "스타일"
 L["Height Mode"] = "높이 모드"
 L["Menu Title"] = "메뉴 제목"
 L["it shows when objective tracker is collapsed."] = "임무 추적기가 접혀 있을 때 표시됩니다"
+L["Word Wrap"] = true
+L["Enable word wrap for long text."] = true
 
 -- Quest
 L["Switch Buttons"] = "UI 모듈 전환 버튼"

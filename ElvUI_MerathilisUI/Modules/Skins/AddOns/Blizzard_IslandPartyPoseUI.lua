@@ -24,7 +24,7 @@ function module:Blizzard_IslandsPartyPoseUI()
 
 	rewardFrame.NameFrame:SetAlpha(0)
 	rewardFrame.IconBorder:SetAlpha(0)
-	rewardFrame.Icon:SetTexCoord(unpack(E.TexCoords))
+	rewardFrame.Icon:SetTexCoords()
 	module:CreateBDFrame(rewardFrame.Icon)
 end
 

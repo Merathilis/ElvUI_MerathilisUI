@@ -38,7 +38,7 @@ function module:Blizzard_PVPUI()
 			ic:SetPoint("TOPLEFT", bu.Name, "BOTTOMLEFT", 0, -8)
 			cu.Amount:SetPoint("LEFT", ic, "RIGHT", 4, 0)
 
-			ic:SetTexCoord(unpack(E.TexCoords))
+			ic:SetTexCoords()
 			ic.bg = module:CreateBG(ic)
 			ic.bg:SetDrawLayer("BACKGROUND", 1)
 		end

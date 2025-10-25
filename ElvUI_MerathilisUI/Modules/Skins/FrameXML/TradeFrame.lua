@@ -13,7 +13,7 @@ local UnitGUID = UnitGUID
 local function ReskinButton(bu)
 	bu:SetNormalTexture("")
 	bu:SetPushedTexture("")
-	bu.icon:SetTexCoord(unpack(E.TexCoords))
+	bu.icon:SetTexCoords()
 	bu.IconBorder:SetAlpha(0)
 	bu:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
 end

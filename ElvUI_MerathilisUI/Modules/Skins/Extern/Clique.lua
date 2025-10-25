@@ -102,15 +102,15 @@ local function SkinTabButton()
 	S:HandleFrame(tab)
 
 	tab:SetNormalTexture(I.General.MediaPath .. "Textures\\clique") --override the Texture to take account for Simpy's Icon pack
-	tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+	tab:GetNormalTexture():SetTexCoords()
 	tab:GetNormalTexture():SetInside()
 
 	tab:SetPushedTexture(I.General.MediaPath .. "Textures\\clique") -- override the Texture to take account for Simpy's Icon pack
-	tab:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
+	tab:GetPushedTexture():SetTexCoords()
 	tab:GetPushedTexture():SetInside()
 
 	tab:SetHighlightTexture(I.General.MediaPath .. "Textures\\clique") -- override the Texture to take account for Simpy's Icon pack
-	tab:GetHighlightTexture():SetTexCoord(unpack(E.TexCoords))
+	tab:GetHighlightTexture():SetTexCoords()
 	tab:GetHighlightTexture():SetInside()
 
 	tab:CreateBackdrop("Transparent")

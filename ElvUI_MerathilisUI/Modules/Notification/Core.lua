@@ -235,12 +235,12 @@ function module:DisplayToast(name, message, clickFunc, texture, ...)
 			if ... then
 				toast.icon:SetTexCoord(...)
 			else
-				toast.icon:SetTexCoord(unpack(E.TexCoords))
+				toast.icon:SetTexCoords()
 			end
 		end
 	else
 		toast.icon:SetTexture("Interface\\Icons\\achievement_general")
-		toast.icon:SetTexCoord(unpack(E.TexCoords))
+		toast.icon:SetTexCoords()
 	end
 
 	toast.title:SetText(name)

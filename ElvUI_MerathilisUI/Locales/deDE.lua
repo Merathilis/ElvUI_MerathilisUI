@@ -527,15 +527,18 @@ L["Put the keystone from bag automatically."] = "Lege den Schlüsselstein automa
 L["%s contains the daily quest label."] = "%s enthält die Bezeichnung der täglichen Quest."
 L["%s contains the quest level."] = "%s enthält die Queststufe."
 L["%s contains the quest objective progress."] = "%s enthält den Fortschritt des Questziels."
-L["%s contains the quest tag, which is typically the quest series name."] = "%s enthält das Quest-Tag, das normalerweise der Name der Questreihe ist."
+L["%s contains the quest tag, which is typically the quest series name."] =
+	"%s enthält das Quest-Tag, das normalerweise der Name der Questreihe ist."
 L["%s contains the quest title."] = "%s enthält den Questtitel."
 L["%s contains the suggested group size for the quest."] = "%s enthält die empfohlene Gruppengröße für die Quest."
 L["%s contains the weekly quest label."] = "%s enthält die Bezeichnung der wöchentlichen Quest."
 L["Daily quest label"] = "Tägliches Quest Bezeichnung"
 L["Detail Template"] = "Detail Vorlage"
-L["Display colorful quest progress information to replace Blizzard's default."] = "Zeigt farbige Informationen zum Questfortschritt an, um die Standardeinstellung von Blizzard zu ersetzen."
+L["Display colorful quest progress information to replace Blizzard's default."] =
+	"Zeigt farbige Informationen zum Questfortschritt an, um die Standardeinstellung von Blizzard zu ersetzen."
 L["Hide On Character Level"] = "Auf Charakterebene ausblenden"
-L["Hide the level part if the quest level is the same as your character level."] = "Blendet den Levelteil aus, wenn die Queststufe mit Deiner Charakterstufe übereinstimmt."
+L["Hide the level part if the quest level is the same as your character level."] =
+	"Blendet den Levelteil aus, wenn die Queststufe mit Deiner Charakterstufe übereinstimmt."
 L["Message Template"] = "Nachrichtenvorlage"
 L["Objective"] = "Verfolgungsziel"
 L["Objective Color"] = "Verfolgungszielfarbe"
@@ -553,8 +556,10 @@ L["Test Series"] = "Test Serien"
 L["Test Target"] = "Test Ziel"
 L["The progress details like 10/20."] = "Die Fortschrittsdetails wie 10/20."
 L["The template for rendering announcement message."] = "Die Vorlage zum Rendern der Ankündigungsnachricht."
-L["The template for rendering progress message in UIErrorsFrame."] = "Die Vorlage zum Rendern von Fortschrittsmeldungen in UIErrorsFrame."
-L["The template of each element can be customized in %s module."] = "Die Vorlage jedes Elements kann im Modul %s angepasst werden."
+L["The template for rendering progress message in UIErrorsFrame."] =
+	"Die Vorlage zum Rendern von Fortschrittsmeldungen in UIErrorsFrame."
+L["The template of each element can be customized in %s module."] =
+	"Die Vorlage jedes Elements kann im Modul %s angepasst werden."
 L["Weekly quest label"] = "Wöchentliche Quest Name"
 
 -- Move Frames
@@ -1585,6 +1590,8 @@ L["Style"] = "Stil"
 L["Height Mode"] = "Höhenmodus"
 L["Menu Title"] = "Menütitel"
 L["it shows when objective tracker is collapsed."] = "Wird angezeigt, wenn der Ziel Tracker zusammengeklappt ist."
+L["Word Wrap"] = "Zeilenumbruch"
+L["Enable word wrap for long text."] = "Aktiviert den Zeilenumbruch für lange Texte"
 
 -- Quest
 L["Switch Buttons"] = "Wechsel Tasten"

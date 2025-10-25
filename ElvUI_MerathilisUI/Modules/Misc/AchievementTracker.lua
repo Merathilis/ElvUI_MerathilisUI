@@ -475,7 +475,7 @@ function AT:ScrollElementInitializer(frame, data, scrollBox)
 
 		local Icon = IconFrame:CreateTexture(nil, "ARTWORK")
 		Icon:SetInside(IconFrame)
-		Icon:SetTexCoord(unpack(E.TexCoords))
+		Icon:SetTexCoords()
 		frame.IconFrame.Icon = Icon
 
 		local PercentageFrame = CreateFrame("Frame", nil, frame)
@@ -518,7 +518,7 @@ function AT:ScrollElementInitializer(frame, data, scrollBox)
 		RewardsIcon:Size(floor(ELEMENT_ICON_SIZE * 0.68))
 		RewardsIcon:Point("RIGHT", -REWARDS_ICON_OFFSET_X, 0)
 		RewardsIcon:CreateBackdrop()
-		RewardsIcon:SetTexCoord(unpack(E.TexCoords))
+		RewardsIcon:SetTexCoords()
 		RewardsIcon:SetScript("OnEnter", function(icon)
 			if not frame.data.reward.itemID then
 				return

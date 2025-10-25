@@ -118,7 +118,7 @@ local function StyleRewardButton(rewardButton)
 	end
 
 	rewardButton.Icon:CreateBackdrop("Transparent")
-	rewardButton.Icon:SetTexCoord(unpack(E.TexCoords))
+	rewardButton.Icon:SetTexCoords()
 	module:CreateBackdropShadow(rewardButton.Icon)
 	module:BindShadowColorWithBorder(rewardButton.Icon.backdrop)
 
@@ -175,7 +175,7 @@ local function StyleSpellObjectiveButton(spellButton)
 	if spellIcon then
 		spellIcon:Point("TOPLEFT", 3, -2)
 		spellIcon:SetDrawLayer("ARTWORK")
-		spellIcon:SetTexCoord(unpack(E.TexCoords))
+		spellIcon:SetTexCoords()
 		module:CreateBackdropShadow(spellIcon)
 	end
 
@@ -295,7 +295,7 @@ local function QuestInfo_Display()
 					if not spellReward.__MERSkin then
 						if spellReward.Icon then
 							spellReward.Icon:CreateBackdrop()
-							spellReward.Icon:SetTexCoord(unpack(E.TexCoords))
+							spellReward.Icon:SetTexCoords()
 							module:CreateBackdropShadow(spellReward.Icon)
 							module:BindShadowColorWithBorder(spellReward.Icon.backdrop)
 						end
@@ -309,7 +309,7 @@ local function QuestInfo_Display()
 				if not reputationReward.__MERSkin then
 					if reputationReward.Icon then
 						reputationReward.Icon:CreateBackdrop()
-						reputationReward.Icon:SetTexCoord(unpack(E.TexCoords))
+						reputationReward.Icon:SetTexCoords()
 						module:CreateBackdropShadow(reputationReward.Icon)
 						module:BindShadowColorWithBorder(reputationReward.Icon.backdrop)
 					end
@@ -398,7 +398,7 @@ function module:QuestInfo()
 		local titleIcon = titleRewardFrame.Icon
 
 		if titleIcon then
-			titleIcon:SetTexCoord(unpack(E.TexCoords))
+			titleIcon:SetTexCoords()
 			titleIcon:CreateBackdrop("Transparent")
 		end
 

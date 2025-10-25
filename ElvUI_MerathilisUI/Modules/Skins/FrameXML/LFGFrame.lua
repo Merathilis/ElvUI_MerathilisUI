@@ -15,7 +15,7 @@ local function StyleRewardButton(button)
 	local count = _G[buttonName .. "Count"]
 	local na = _G[buttonName .. "NameFrame"]
 
-	icon:SetTexCoord(unpack(E.TexCoords))
+	icon:SetTexCoords()
 	icon:SetDrawLayer("OVERLAY")
 
 	count:SetDrawLayer("OVERLAY")

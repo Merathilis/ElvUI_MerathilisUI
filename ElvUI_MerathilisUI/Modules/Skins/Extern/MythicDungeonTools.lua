@@ -37,7 +37,7 @@ local function reskinDungeonButton(MDT)
 			local button = _G["MDTDungeonButton" .. idx]
 
 			if button.texture then
-				button.texture:SetTexCoord(unpack(E.TexCoords))
+				button.texture:SetTexCoords()
 				button.texture:SetInside()
 			end
 
@@ -97,7 +97,7 @@ end
 
 local function reskinContainerIcon(_, icon)
 	if icon and icon.image then
-		icon.image:SetTexCoord(unpack(E.TexCoords))
+		icon.image:SetTexCoords()
 	end
 end
 
@@ -123,7 +123,7 @@ local function reskinMapPOI(frame)
 		frame.MERHighlightTexture:Hide()
 	end)
 
-	frame.Texture:SetTexCoord(unpack(E.TexCoords))
+	frame.Texture:SetTexCoords()
 	frame.Texture:SetInside()
 
 	frame.__MERSkin = true

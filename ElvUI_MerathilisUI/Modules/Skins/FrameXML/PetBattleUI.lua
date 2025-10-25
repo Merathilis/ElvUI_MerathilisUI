@@ -115,7 +115,7 @@ function module:PetBattleUI()
 			if petOwner == Enum.BattlePetOwner.Ally then
 				self.Icon:SetTexCoord(0.92, 0.08, 0.08, 0.92)
 			else
-				self.Icon:SetTexCoord(unpack(E.TexCoords))
+				self.Icon:SetTexCoords()
 			end
 		end
 		if self.glow then

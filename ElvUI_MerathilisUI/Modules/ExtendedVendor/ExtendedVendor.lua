@@ -37,7 +37,7 @@ function module:SkinButton(index)
 	button:Point("TOPLEFT", item, "TOPLEFT", 4, -4)
 
 	local icon = button.icon
-	icon:SetTexCoord(unpack(E.TexCoords))
+	icon:SetTexCoords()
 
 	icon:ClearAllPoints()
 	icon:Point("TOPLEFT", 1, -1)

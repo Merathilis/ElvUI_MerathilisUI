@@ -22,7 +22,7 @@ local function notifyButton(button)
 	button:GetCheckedTexture():SetTexture(E.Media.Textures.White8x8)
 	button:GetCheckedTexture():SetVertexColor(1, 0.875, 0.125, 0.3)
 
-	button.icon:SetTexCoord(unpack(E.TexCoords))
+	button.icon:SetTexCoords()
 end
 
 local function mainView(frame)

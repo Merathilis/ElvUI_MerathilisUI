@@ -1428,6 +1428,8 @@ L["Style"] = true
 L["Height Mode"] = true
 L["Menu Title"] = true
 L["it shows when objective tracker is collapsed."] = true
+L["Word Wrap"] = true
+L["Enable word wrap for long text."] = true
 
 -- Quest
 L["Switch Buttons"] = true

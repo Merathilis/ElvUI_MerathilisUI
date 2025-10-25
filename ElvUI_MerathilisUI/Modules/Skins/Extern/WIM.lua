@@ -91,7 +91,7 @@ local function HandleIconButton(button)
 		button:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.25)
 		button:SetPushedTexture(0)
 		button.SetPushedTexture = E.noop
-		button.icon:SetTexCoord(unpack(E.TexCoords))
+		button.icon:SetTexCoords()
 
 		button.isSkinned = true
 	end

@@ -478,7 +478,7 @@ end
 function module:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
-	icon:SetTexCoord(unpack(E.TexCoords))
+	icon:SetTexCoords()
 
 	if icon:GetDrawLayer() ~= "ARTWORK" then
 		icon:SetDrawLayer("ARTWORK")
@@ -498,7 +498,7 @@ function module:PixelIcon(self, texture, highlight)
 	self.backdrop:SetAllPoints()
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
 	self.Icon:SetInside(self.backdrop)
-	self.Icon:SetTexCoord(unpack(E.TexCoords))
+	self.Icon:SetTexCoords()
 	if texture then
 		local atlas = strmatch(texture, "Atlas:(.+)$")
 		if atlas then

@@ -79,7 +79,7 @@ function keyFeedback:PLAYER_LOGIN()
 			return
 		end
 		self.icon:SetTexture(tex)
-		self.icon:SetTexCoord(unpack(E.TexCoords))
+		self.icon:SetTexCoords()
 
 		if fullUpdate then
 			self:UpdateCooldownOrCast()
@@ -258,7 +258,7 @@ function keyFeedback:UNIT_SPELLCAST_SUCCEEDED(event, unit, lineID, spellID)
 			local frame, isNew = self.iconPool:Acquire()
 			local texture = select(3, getSpellInfo(spellID))
 			frame.icon:SetTexture(texture)
-			frame.icon:SetTexCoord(unpack(E.TexCoords))
+			frame.icon:SetTexCoords()
 			frame:Show()
 			frame.ag:Play()
 		end
@@ -481,7 +481,7 @@ local function createPoolIcon(pool)
 	f:SetAlpha(0)
 
 	t:SetTexture("Interface\\Icons\\Spell_Shadow_SacrificialShield")
-	t:SetTexCoord(unpack(E.TexCoords))
+	t:SetTexCoords()
 
 	local ag = f:CreateAnimationGroup()
 	f.ag = ag

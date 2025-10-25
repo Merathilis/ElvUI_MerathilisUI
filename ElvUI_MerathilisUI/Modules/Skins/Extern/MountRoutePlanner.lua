@@ -82,8 +82,8 @@ local function mountButton(button)
 		return false
 	end
 
-	button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
-	button:GetHighlightTexture():SetTexCoord(unpack(E.TexCoords))
+	button:GetNormalTexture():SetTexCoords()
+	button:GetHighlightTexture():SetTexCoords()
 	button:CreateBackdrop()
 end
 
@@ -93,8 +93,8 @@ local function actionButton(button)
 		return false
 	end
 
-	button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
-	button:GetHighlightTexture():SetTexCoord(unpack(E.TexCoords))
+	button:GetNormalTexture():SetTexCoords()
+	button:GetHighlightTexture():SetTexCoords()
 	button:SetTemplate()
 end
 

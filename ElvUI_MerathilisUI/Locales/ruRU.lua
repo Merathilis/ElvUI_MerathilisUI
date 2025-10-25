@@ -1614,6 +1614,8 @@ L["Height Mode"] = "Режим высоты"
 L["Menu Title"] = "Название меню"
 L["it shows when objective tracker is collapsed."] =
 	"он показывает, когда объектный трекер свернут."
+L["Word Wrap"] = true
+L["Enable word wrap for long text."] = true
 
 -- Quest
 L["Switch Buttons"] = true

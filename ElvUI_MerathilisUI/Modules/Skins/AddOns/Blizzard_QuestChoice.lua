@@ -42,13 +42,13 @@ function module:Blizzard_QuestChoice()
 		option.OptionText:SetTextColor(0.9, 0.9, 0.9)
 
 		item.Name:SetTextColor(1, 1, 1)
-		item.Icon:SetTexCoord(unpack(E.TexCoords))
+		item.Icon:SetTexCoords()
 		item.bg = module:CreateBG(item.Icon)
 
 		for j = 1, 3 do
 			local cu = currencies["Currency" .. j]
 
-			cu.Icon:SetTexCoord(unpack(E.TexCoords))
+			cu.Icon:SetTexCoords()
 			module:CreateBG(cu.Icon)
 		end
 	end
