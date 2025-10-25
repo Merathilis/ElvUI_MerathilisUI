@@ -1622,6 +1622,7 @@ local seeds = {
 local holidayRewards = {
 	17726,
 	21746,
+	37586,
 	54536,
 	54537,
 	116762,
