@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local C = MER.Utilities.Color ---@type ColorUtility
 
 local print, tonumber, type = print, tonumber, type

@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local CF = MER:GetModule("MER_Cooldown")
 local options = MER.options.modules.args
 

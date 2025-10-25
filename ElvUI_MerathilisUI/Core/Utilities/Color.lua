@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 ---@class ColorUtility Color manipulation and conversion utilities
 MER.Utilities.Color = {}

@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.LSM or E.Libs.LSM
 
 local westAndRUBits = LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western

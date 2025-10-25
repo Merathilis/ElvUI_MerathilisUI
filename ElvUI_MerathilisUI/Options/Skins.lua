@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local options = MER.options.skins.args
 local C = MER.Utilities.Color
@@ -17,45 +17,21 @@ local YELLOW_FONT_COLOR = YELLOW_FONT_COLOR
 
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
-	{ "ActionBarProfiles", L["ActonBarProfiles"], "abp" },
 	{ "AdvancedInterfaceOptions", L["Advanced Interface Options"], "aio" },
-	{ "Auctionator", L["Auctionator"], "au" },
-	{ "BagSync", L["BagSync"], "bSync" },
-	{ "BtWQuests", L["BtWQuests"], "btwQ" },
 	{ "Capping", L["Capping"], "cap" },
-	{ "cargBags_Nivaya", L["cargBags_Nivaya"], "cbn" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "ElvUI_BenikUI", L["BenikUI"], "bui" },
 	{ "ElvUI_mMediaTag", L["mMediaTag & Tools"], "mmt" },
-	{ "BugSack", L["BugSack"], "bs" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
-	{ "Immersion", L["Immersion"], "imm" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
-	{ "LegionRemixHelper", L["Legion Remix Helper"], "legionRemixHelper" },
-	{ "ManuscriptsJournal", L["Manuscript Journal"], "manuscriptsJournal" },
 	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
-	{ "MythicDungeonTools", L["Mythic Dungeon Tools"], "mdt" },
-	{ "Myslot", L["Myslot"], "mys" },
-	{ "OmniCD", L["OmniCD"], "omniCD" },
 	{ "Pawn", L["Pawn"], "pawn" },
-	{ "Plumber", E.NewSign .. L["Plumber"], "plumber" },
 	{ "tdBattlePetScript", L["Pet Battle Scripts"], "pbs" },
 	{ "ParagonReputation", L["Paragon Reputation"], "paragonReputation" },
 	{ "ProjectAzilroka", L["ProjectAzilroka"], "pa" },
-	{ "PremadeGroupsFilter", L["PremadeGroupsFilter"], "pf" },
-	{ "RaiderIO", L["RaiderIO"], "rio" },
-	{ "Rematch", L["Rematch"], "rematch" },
-	{ "SilverDragon", L["SilverDragon"], "sd" },
-	{ "Simulationcraft", L["Simulationcraft"], "simc" },
 	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
-	{ "TalentLoadoutsEx", L["Talent Loadouts Ex"], "tle" },
-	{ "TomTom", L["TomTom"], "tom" },
-	{ "WeakAuras", L["WeakAuras"], "weakAuras" },
-	{ "WeakAurasOptions", L["WeakAuras Options"], "weakAurasOptions" },
-	{ "WhisperPop", L["WhisperPop"], "whisperPop" },
 	{ "WIM", L["WIM"], "wim" },
-	{ "WorldQuestTab", L["World Quest Tab"], "wqt" },
 	{ "WowLua", L["WowLua"], "wowLua" },
 }
 

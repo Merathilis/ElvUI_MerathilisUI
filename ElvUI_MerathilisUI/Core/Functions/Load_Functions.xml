@@ -3,11 +3,10 @@
 
 	<Script file="Colors.lua"/>
 	<Script file="Animations.lua"/>
+	<Script file="Colors.lua"/>
 	<Script file="Developer.lua"/>
 	<Script file="Event.lua"/>
-	<Script file="Smooth.lua"/>
 	<Script file="Strings.lua"/>
 	<Script file="Table.lua"/>
-	<Script file='TaskManager.lua'/>
 	<Script file="Widgets.lua"/>
 </Ui>

@@ -7,12 +7,13 @@
 ## IconTexture: Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\m2
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
-## RequiredDeps: ElvUI
-## Group: ElvUI
 ## DefaultState: Enabled
+## Dependencies: ElvUI
+## Group: ElvUI
+## RequiredDeps: ElvUI_WindTools
+## OptionalDeps: SharedMedia,  ElvUI_mMediaTag, Details, WeakAuras, BigWigs, WorldQuestTab, Rematch
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
-## OptionalDeps: SharedMedia, Details, WeakAuras, BigWigs, WorldQuestTab, Rematch
 ## X-Credits: Simpy, fang2hou, Benik, Azilroka, Darth Predator, fgprodigal, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
 ## X-ElvUIVersion: 14.02
 ## X-Curse-Project-Name: MerathilisUI
