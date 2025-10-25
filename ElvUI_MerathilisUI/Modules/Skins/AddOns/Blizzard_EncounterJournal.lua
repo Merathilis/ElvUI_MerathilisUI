@@ -13,11 +13,15 @@ local pairs = pairs
 ---@param y? number
 local function createPositionHook(tab, point, relativeTo, relativePoint, x, y)
 	tab:ClearAllPoints()
-	tab:SetPoint(point, relativeTo, relativePoint, x, y)
+	tab:Point(point, relativeTo, relativePoint, x, y)
 	---@param frame Frame
-	hooksecurefunc(tab, "Point", function(frame)
+	hooksecurefunc(tab, "Point", function(frame, _, _, _, _, _, skip)
+		if skip then
+			return
+		end
+
 		frame:ClearAllPoints()
-		frame:SetPoint(point, relativeTo, relativePoint, x, y)
+		frame:Point(point, relativeTo, relativePoint, x, y, true)
 	end)
 end
 

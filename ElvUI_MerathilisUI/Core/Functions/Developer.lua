@@ -14,6 +14,7 @@ MER.IsDev = {
 	["Anonia"] = true,
 	["Damará"] = true,
 	["Damara"] = true, -- Legion Remix
+	["Jhazzy"] = true, -- Legion Remix
 	["Jazira"] = true,
 	["Jústice"] = true,
 	["Maithilis"] = true,
