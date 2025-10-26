@@ -2,6 +2,7 @@ local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local PI = E:GetModule("PluginInstaller")
 local CH = E:GetModule("Chat")
 local PF = MER:GetModule("MER_Profiles")
+local _, WF = unpack(WindTools)
 
 local _G = _G
 local ipairs, next = ipairs, next
@@ -607,7 +608,7 @@ function MER:SetupLayout()
 	E.db["movers"]["TotemTrackerMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,457,13"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 	E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
-	E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-157"
+	E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-175"
 
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
@@ -2964,19 +2965,21 @@ MER.installTable = {
 
 				PluginInstallFrame.Option1:Show()
 				PluginInstallFrame.Option1:SetScript("OnClick", function()
-					PF:ApplyBigWigsProfile()
+					PF:ApplyWindToolsProfile()
 				end)
 				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
 				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option1:SetText("BigWigs")
+				PluginInstallFrame.Option1:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
 			else
-				PluginInstallFrame.SubTitle:SetText(F.String.BigWigs("BigWigs"))
+				PluginInstallFrame.SubTitle:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
 
 				PluginInstallFrame.Desc1:SetText(
-					F.String.Warning("Oops, looks like you don't have " .. F.String.BigWigs("BigWigs") .. " installed!")
+					F.String.Warning(
+						"Oops, looks like you don't have " .. F.String.WindTools("ElvUI_WindTools") .. " installed!"
+					)
 				)
 				PluginInstallFrame.Desc2:SetText(
-					"If you're a new player, we recommend installing " .. F.String.BigWigs("BigWigs") .. "!"
+					"If you're a new player, we recommend installing " .. F.String.WindTools("ElvUI_WindTools") .. "!"
 				)
 			end
 		end,
