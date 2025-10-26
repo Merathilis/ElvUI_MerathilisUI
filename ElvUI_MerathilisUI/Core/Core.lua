@@ -1,5 +1,5 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local C = MER.Utilities.Color ---@type ColorUtility
+local C = W.Utilities.Color ---@type ColorUtility
 
 local _G = _G
 local format = string.format
@@ -15,15 +15,10 @@ local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
 local InviteUnit = C_PartyInfo.InviteUnit
 local GetCVarBool = C_CVar.GetCVarBool
-local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 
 local C_Timer_NewTimer = C_Timer.NewTimer
 
 E.myClassColor = E.myClassColor or E:ClassColor(E.myclass, true)
-
-MER.dummy = function()
-	return
-end
 
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))

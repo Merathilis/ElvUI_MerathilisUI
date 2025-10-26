@@ -1,6 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_MiniMapPing")
-local C = MER.Utilities.Color
+local C = W.Utilities.Color
 
 local _G = _G
 local max = max

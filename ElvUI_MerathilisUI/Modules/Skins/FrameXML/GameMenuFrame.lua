@@ -1,7 +1,7 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local MF = MER:GetModule("MER_MoveFrames")
-local C = MER.Utilities.Color
+local C = W.Utilities.Color
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc

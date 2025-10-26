@@ -14,12 +14,12 @@ function module:TalkingHeadUI()
 		TalkingHeadFrame.MainFrame.CloseButton:Point("TOPRIGHT", TalkingHeadFrame.BackgroundFrame, "TOPRIGHT", 0, -2)
 
 		TalkingHeadFrame.NameFrame.Name:SetTextColor(1, 0.82, 0.02)
-		TalkingHeadFrame.NameFrame.Name.SetTextColor = MER.dummy
+		TalkingHeadFrame.NameFrame.Name.SetTextColor = E.noop
 		TalkingHeadFrame.NameFrame.Name:SetShadowColor(0, 0, 0, 1)
 		TalkingHeadFrame.NameFrame.Name:SetShadowOffset(2, -2)
 
 		TalkingHeadFrame.TextFrame.Text:SetTextColor(1, 1, 1)
-		TalkingHeadFrame.TextFrame.Text.SetTextColor = MER.dummy
+		TalkingHeadFrame.TextFrame.Text.SetTextColor = E.noop
 		TalkingHeadFrame.TextFrame.Text:SetShadowColor(0, 0, 0, 1)
 		TalkingHeadFrame.TextFrame.Text:SetShadowOffset(2, -2)
 

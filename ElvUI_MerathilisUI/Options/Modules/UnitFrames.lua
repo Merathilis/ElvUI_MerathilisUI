@@ -1,7 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnitFrames")
 local options = MER.options.modules.args
-local C = MER.Utilities.Color
 local LSM = E.Libs.LSM
 
 local format = string.format

@@ -1,5 +1,5 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local C = MER.Utilities.Color
+local C = W.Utilities.Color
 
 local options = MER.options.information.args
 

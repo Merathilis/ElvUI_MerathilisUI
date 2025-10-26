@@ -2,15 +2,8 @@ local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 local module = MER:GetModule("MER_Chat")
 local CH = E:GetModule("Chat")
-local CB = MER:GetModule("MER_ChatBar")
-local C = MER.Utilities.Color
-local LSM = E.LSM
 
 local _G = _G
-local tremove = tremove
-local wipe = wipe
-
-local worldChannelTemp = {}
 
 options.chat = {
 	type = "group",

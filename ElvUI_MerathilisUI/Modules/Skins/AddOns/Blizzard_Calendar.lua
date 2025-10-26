@@ -45,7 +45,7 @@ function module:Blizzard_Calendar()
 		bu:SetHighlightTexture(E["media"].normTex)
 		local hl = bu:GetHighlightTexture()
 		hl:SetVertexColor(r, g, b, 0.2)
-		hl.SetAlpha = MER.dummy
+		hl.SetAlpha = E.noop
 		hl:SetPoint("TOPLEFT", -1, 1)
 		hl:SetPoint("BOTTOMRIGHT")
 	end

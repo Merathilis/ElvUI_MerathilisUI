@@ -41,41 +41,22 @@ options.general = {
 			name = L["Wowhead Links"],
 			desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 		},
-		hideBossBanner = {
-			order = 6,
-			type = "toggle",
-			name = L["Hide Boss Banner"],
-			desc = L["This will hide the popup, that shows loot, after you kill a boss"],
-		},
 		tradeTabs = {
-			order = 7,
+			order = 6,
 			type = "toggle",
 			name = L["Trade Tabs"],
 			desc = L["Enable Tabs on the Profession Frames"],
 		},
 		spacer = {
-			order = 8,
+			order = 7,
 			type = "description",
 			name = " ",
 		},
 		blockRequest = {
-			order = 9,
+			order = 8,
 			type = "toggle",
 			name = L["Block Join Requests"],
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
-		},
-		focuser = {
-			order = 10,
-			type = "toggle",
-			name = L["SHIFT - Focus"],
-			desc = L["Hold SHIFT and click to set focus on the NamePlate."],
-			get = function()
-				return E.db.mui.misc.focuser.enable
-			end,
-			set = function(_, value)
-				E.db.mui.misc.focuser.enable = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
 		},
 		petFilterTab = {
 			order = 11,

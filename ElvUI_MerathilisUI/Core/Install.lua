@@ -2986,6 +2986,34 @@ MER.installTable = {
 		[11] = function()
 			MER:Resize(nil)
 
+			if E:IsAddOnEnabled("ElvUI_WindTools") then
+				PluginInstallFrame.SubTitle:SetText(F.GetWindStyleText(L["ElvUI_WindTools"]))
+				PluginInstallFrame.Desc1:SetText(
+					"BigWigs is a boss encounter AddOn. It consists of many individual encounter scripts, or boss modules; mini AddOns that are designed to trigger alert messages, timer bars, sounds, and so forth, for one specific raid encounter."
+				)
+				PluginInstallFrame.Desc2:SetText("Importance: " .. F.String.Good("Low"))
+
+				PluginInstallFrame.Option1:Show()
+				PluginInstallFrame.Option1:SetScript("OnClick", function()
+					PF:ApplyBigWigsProfile()
+				end)
+				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
+				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
+				PluginInstallFrame.Option1:SetText("BigWigs")
+			else
+				PluginInstallFrame.SubTitle:SetText(F.String.BigWigs("BigWigs"))
+
+				PluginInstallFrame.Desc1:SetText(
+					F.String.Warning("Oops, looks like you don't have " .. F.String.BigWigs("BigWigs") .. " installed!")
+				)
+				PluginInstallFrame.Desc2:SetText(
+					"If you're a new player, we recommend installing " .. F.String.BigWigs("BigWigs") .. "!"
+				)
+			end
+		end,
+		[12] = function()
+			MER:Resize(nil)
+
 			PluginInstallFrame.SubTitle:SetText(L["Plugins"])
 			PluginInstallFrame.Desc1:SetText(
 				L["This part of the installation process will apply changes to ElvUI Plugins"]
@@ -3043,7 +3071,7 @@ MER.installTable = {
 				end
 			end
 		end,
-		[12] = function()
+		[13] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("BigWigs") then
@@ -3071,7 +3099,7 @@ MER.installTable = {
 				)
 			end
 		end,
-		[13] = function()
+		[14] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("Details") then
@@ -3098,7 +3126,7 @@ MER.installTable = {
 				PluginInstallFrame.Desc2:SetText("Please install Details and restart the installer!")
 			end
 		end,
-		[14] = function()
+		[15] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("OmniCD") then
@@ -3119,7 +3147,7 @@ MER.installTable = {
 				PluginInstallFrame.Desc2:SetText("Please install OmniCD and restart the installer!")
 			end
 		end,
-		[15] = function()
+		[16] = function()
 			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
@@ -3155,7 +3183,7 @@ MER.installTable = {
 			local msg = MER.Title .. L[" install complete."]
 			MER:ShowStepComplete(msg)
 		end,
-		[F.IsDeveloper() and 16] = function()
+		[F.IsDeveloper() and 17] = function()
 			MER:Resize(nil, nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
@@ -3189,12 +3217,13 @@ MER.installTable = {
 		[8] = L["ActionBars"],
 		[9] = L["NamePlates"],
 		[10] = L["UnitFrames"],
-		[11] = L["Plugins"],
-		[12] = L["BigWigs"],
-		[13] = L["Details"],
-		[14] = L["OmniCD"],
-		[15] = L["Installation Complete"],
-		[F.IsDeveloper() and 16] = L["Developer Settings"],
+		[11] = L["WindTools"],
+		[12] = L["Plugins"],
+		[13] = L["BigWigs"],
+		[14] = L["Details"],
+		[15] = L["OmniCD"],
+		[16] = L["Installation Complete"],
+		[F.IsDeveloper() and 17] = L["Developer Settings"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],

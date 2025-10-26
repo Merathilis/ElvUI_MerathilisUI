@@ -1,5 +1,5 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local async = MER.Utilities.Async
+local async = W.Utilities.Async
 
 local format = format
 
