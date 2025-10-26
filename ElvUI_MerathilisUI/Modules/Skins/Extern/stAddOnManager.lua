@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 
 local _G = _G
 local CreateFrame = CreateFrame
@@ -17,7 +18,7 @@ function module:ProjectAzilroka()
 			if stFrame and not stFrame.isSkinned then
 				stFrame:SetTemplate("Transparent")
 				stFrame.AddOns:SetTemplate("Transparent")
-				module:CreateShadow(stFrame)
+				WS:CreateShadow(stFrame)
 
 				stFrame.isSkinned = true
 			end

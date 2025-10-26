@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 
 local _G = _G
 local unpack = unpack
@@ -67,7 +68,7 @@ function module:ls_Toasts()
 
 	LST.RegisterCallback({}, "SetSkin", function(_, toast)
 		if toast and not toast.__MERSkin then
-			module:CreateShadow(toast)
+			WS:CreateShadow(toast)
 			toast.__MERSkin = true
 		end
 	end)

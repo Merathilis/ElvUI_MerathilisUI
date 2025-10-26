@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="ACP.lua"/>
+	<Script file="BagSync.lua"/>
 	<Script file="BigWigs.lua"/>
 	<Script file="Clique.lua"/>
 	<Script file="Capping.lua"/>
@@ -8,7 +9,6 @@
 	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="KeystoneLoot.lua"/>
 	<Script file="ls_Toasts.lua"/>
-	<Script file="mMediaTag.lua"/>
 	<Script file="MountRoutePlanner.lua"/>
 	<Script file="ParagonReputation.lua"/>
 	<Script file="Pawn.lua"/>

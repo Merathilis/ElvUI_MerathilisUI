@@ -1,6 +1,7 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
+local WS = W:GetModule("Skins")
 local LSM = E.LSM
 
 local _G = _G
@@ -206,11 +207,11 @@ function F.CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	if t == "Transparent" then
 		backdropa = 0.45
 		F.CreateBorder(f, true, true)
-		S:CreateBackdropShadow(f.backdrop)
+		WS:CreateBackdropShadow(f.backdrop)
 	elseif t == "Overlay" then
 		backdropa = 1
 		F.CreateOverlay(f)
-		S:CreateBackdropShadow(f.backdrop)
+		WS:CreateBackdropShadow(f.backdrop)
 	elseif t == "Invisible" then
 		backdropa = 0
 		bordera = 0

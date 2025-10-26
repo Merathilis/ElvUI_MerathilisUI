@@ -17,11 +17,9 @@ local YELLOW_FONT_COLOR = YELLOW_FONT_COLOR
 
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
-	{ "AdvancedInterfaceOptions", L["Advanced Interface Options"], "aio" },
+	{ "BagSync", L["BagSync"], "bSync" },
 	{ "Capping", L["Capping"], "cap" },
 	{ "Clique", L["Clique"], "cl" },
-	{ "ElvUI_BenikUI", L["BenikUI"], "bui" },
-	{ "ElvUI_mMediaTag", L["mMediaTag & Tools"], "mmt" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
 	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },

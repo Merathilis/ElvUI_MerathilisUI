@@ -27,19 +27,6 @@ module.enteredLoad = {}
 module.texturePathFetcher = E.UIParent:CreateTexture(nil, "ARTWORK")
 module.texturePathFetcher:Hide()
 
-local RegisterCanvasLayoutCategory = Settings.RegisterCanvasLayoutCategory
-Settings.RegisterCanvasLayoutCategory = function(frame, name)
-	if frame and name then
-		module.settingFrames[name] = frame
-		if module.waitSettingFrames[name] then
-			module.waitSettingFrames[name](frame)
-			module.waitSettingFrames[name] = nil
-		end
-	end
-
-	return RegisterCanvasLayoutCategory(frame, name)
-end
-
 function module:ShadowOverlay()
 	-- Based on ncShadow
 	if not E.private.mui.skins.shadowOverlay then

@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -39,7 +40,7 @@ function module:ACP()
 	module:DisableAddOnSkins("ACP", false)
 
 	S:HandleFrame(_G.ACP_AddonList, true, nil, 10, nil, -30)
-	module:CreateBackdropShadow(_G.ACP_AddonList)
+	WS:CreateBackdropShadow(_G.ACP_AddonList)
 
 	HandleDropdown(_G.ACP_AddonListSortDropDown)
 

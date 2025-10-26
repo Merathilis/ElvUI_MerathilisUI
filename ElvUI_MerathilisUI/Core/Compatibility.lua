@@ -1,6 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule("MER_Skins") ---@type Skins
 local ES = E:GetModule("Skins")
+local WS = W:GetModule("Skins") ---@type Skins
 local MF = W:GetModule("MoveFrames") ---@type MoveFrames
 local C = W.Utilities.Color
 
@@ -19,7 +19,7 @@ function MER:ConstructCompatibilityFrame()
 	frame:Size(550, 500)
 	frame:SetPoint("CENTER")
 	frame:CreateBackdrop("Transparent")
-	S:CreateShadowModule(frame.backdrop)
+	WS:CreateShadowModule(frame.backdrop)
 	frame.numModules = 0
 	frame:Hide()
 	frame:SetScript("OnHide", function()

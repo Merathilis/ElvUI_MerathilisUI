@@ -1,6 +1,7 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Cooldown")
 local MERS = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local GetTime = GetTime
@@ -42,7 +43,7 @@ local DCPT = DCP:CreateTexture(nil, "BORDER")
 DCPT:SetAllPoints(DCP)
 -- MERS:CreateBDFrame(DCP)
 MERS:CreateSD(DCP, 2, 2)
-MERS:CreateBackdropShadow(DCP)
+WS:CreateBackdropShadow(DCP)
 
 local defaultSettings = {
 	enable = false,

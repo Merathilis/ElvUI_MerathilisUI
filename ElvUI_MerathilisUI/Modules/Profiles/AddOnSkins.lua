@@ -1,8 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 
-local unpack = unpack
-
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 function module:LoadAddOnSkinsProfile()

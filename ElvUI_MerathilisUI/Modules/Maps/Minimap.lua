@@ -1,7 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Minimap")
-local S = MER:GetModule("MER_Skins")
-local MM = E:GetModule("Minimap")
+local WS = W:GetModule("Skins")
 local LCG = E.Libs.CustomGlow
 
 local _G = _G
@@ -39,7 +38,7 @@ function module:CheckStatus()
 end
 
 function module:StyleMinimap()
-	S:CreateBackdropShadow(Minimap)
+	WS:CreateBackdropShadow(Minimap)
 end
 
 function module:Initialize()

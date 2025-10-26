@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -109,10 +110,10 @@ function module:MountRoutePlanner()
 	end
 
 	frame:SetTemplate("Transparent")
-	self:CreateShadow(frame)
+	WS:CreateShadow(frame)
 
 	frame.progressBar:SetTexture(E.media.normTex)
-	frame.progressBar:SetVertexColor(MER.Utilities.Color.ExtractRGBFromTemplate("green-500"))
+	frame.progressBar:SetVertexColor(W.Utilities.Color.ExtractRGBFromTemplate("green-500"))
 	frame.progressBarBG:Kill()
 	frame.progressBar:CreateBackdrop()
 	frame.progressBar.backdrop:SetAllPoints(frame.progressBarBG)
@@ -137,8 +138,6 @@ function module:MountRoutePlanner()
 			child:Size(24, 24)
 		end
 	end
-
-	local waitForUpdate = false
 
 	hooksecurefunc(frame.stepText, "SetText", function()
 		if frame.rewardIcons then

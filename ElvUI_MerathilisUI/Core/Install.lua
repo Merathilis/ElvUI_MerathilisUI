@@ -2446,38 +2446,9 @@ function MER:SetupDts()
 		border = true,
 		panelTransparency = true,
 		numPoints = 2,
-		"DurabilityItemLevel",
+		E:IsAddOnEnabled("ElvUI_mMediaTag") and "DurabilityIlevel" or "Durability",
 		"Gold",
 	}
-
-	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
-		E.global["datatexts"]["customPanels"]["MER_TopPanel"] = {
-			["fonts"] = {
-				["enable"] = true,
-				["font"] = "- Expressway",
-				["fontSize"] = 10,
-				["fontOutline"] = "SHADOWOUTLINE",
-			},
-			["height"] = 20,
-			["width"] = 100,
-			["numPoints"] = 1,
-			["backdrop"] = false,
-			["visibility"] = "[petbattle][combat] hide;show",
-			["name"] = "MER_TopPanel",
-			["frameStrata"] = "LOW",
-			["frameLevel"] = 1,
-		}
-		E.DataTexts:UpdatePanelInfo("MER_TopPanel")
-
-		E.db["datatexts"]["panels"]["MER_TopPanel"] = {
-			[1] = "mTeleports",
-			[2] = "",
-			[3] = "",
-			["battleground"] = false,
-			["enable"] = true,
-		}
-		E.db["movers"]["DTPanelMER_TopPanelMover"] = "TOP,ElvUIParent,TOP,0,0"
-	end
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2987,11 +2958,9 @@ MER.installTable = {
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("ElvUI_WindTools") then
-				PluginInstallFrame.SubTitle:SetText(F.GetWindStyleText(L["ElvUI_WindTools"]))
-				PluginInstallFrame.Desc1:SetText(
-					"BigWigs is a boss encounter AddOn. It consists of many individual encounter scripts, or boss modules; mini AddOns that are designed to trigger alert messages, timer bars, sounds, and so forth, for one specific raid encounter."
-				)
-				PluginInstallFrame.Desc2:SetText("Importance: " .. F.String.Good("Low"))
+				PluginInstallFrame.SubTitle:SetText(L["ElvUI_WindTools"])
+				PluginInstallFrame.Desc1:SetText("Maybe the BEST ElvUI plugin to enhance your game experience.")
+				PluginInstallFrame.Desc2:SetText("Importance: " .. F.String.Error("HIGH"))
 
 				PluginInstallFrame.Option1:Show()
 				PluginInstallFrame.Option1:SetScript("OnClick", function()

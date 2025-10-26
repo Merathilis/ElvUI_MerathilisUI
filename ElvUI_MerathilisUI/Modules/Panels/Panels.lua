@@ -1,7 +1,7 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Panels")
 local Style = MER:GetModule("MER_Style")
-local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 
 local CreateFrame = CreateFrame
 local CreateColor = CreateColor
@@ -54,7 +54,7 @@ function module:CreatePanels()
 	topLeftStyle:Size(panelSize, 4)
 	topLeftStyle:Point("TOPLEFT", E.UIParent, "TOPLEFT", 2, -8)
 	MER_TopLeftStyle = topLeftStyle
-	S:CreateShadow(topLeftStyle)
+	WS:CreateShadow(topLeftStyle)
 	topLeftStyle:Hide(topLeftStyle)
 
 	local TopLeftStylePanel = CreateFrame("Frame", "MER_TopLeftExtraStyle", E.UIParent, "BackdropTemplate")
@@ -72,7 +72,7 @@ function module:CreatePanels()
 	bottomLeftSytle:Size(panelSize, 4)
 	bottomLeftSytle:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 10)
 	MER_BottomLeftStyle = bottomLeftSytle
-	S:CreateShadow(bottomLeftSytle)
+	WS:CreateShadow(bottomLeftSytle)
 	bottomLeftSytle:Hide()
 
 	local BottomLeftStylePanel = CreateFrame("Frame", "MER_BottomLeftExtraStyle", E.UIParent, "BackdropTemplate")
@@ -90,7 +90,7 @@ function module:CreatePanels()
 	topRightStyle:Size(panelSize, 4)
 	topRightStyle:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -8)
 	MER_TopRightStyle = topRightStyle
-	S:CreateShadow(topRightStyle)
+	WS:CreateShadow(topRightStyle)
 	topRightStyle:Hide()
 
 	local TopRightStylePanel = CreateFrame("Frame", "MER_TopRightExtraStyle", E.UIParent, "BackdropTemplate")
@@ -108,7 +108,7 @@ function module:CreatePanels()
 	bottomRightStyle:Size(panelSize, 4)
 	bottomRightStyle:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 10)
 	MER_BottomRightStyle = bottomRightStyle
-	S:CreateShadow(bottomRightStyle)
+	WS:CreateShadow(bottomRightStyle)
 	bottomRightStyle:Hide()
 
 	local BottomRightStylePanel = CreateFrame("Frame", "MER_BottomRightExtraStyle", E.UIParent, "BackdropTemplate")

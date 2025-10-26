@@ -1,6 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
-local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 local LSM = E.Libs.LSM
 
 local tinsert = table.insert
@@ -90,7 +90,7 @@ function module:CreateVigorSegments()
 		end
 
 		segment:SetMinMaxValues(0, 1)
-		S:CreateShadow(segment)
+		WS:CreateShadow(segment)
 
 		tinsert(segments, segment)
 	end

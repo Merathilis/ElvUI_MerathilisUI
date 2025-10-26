@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -14,7 +15,7 @@ function module:Pawn()
 	local Texture = "Interface\\AddOns\\Pawn\\Textures\\PawnLogo"
 
 	S:HandleFrame(_G.PawnUIFrame, true)
-	module:CreateBackdropShadow(_G.PawnUIFrame)
+	WS:CreateBackdropShadow(_G.PawnUIFrame)
 
 	S:HandleCloseButton(_G.PawnUIFrame_TinyCloseButton)
 	S:HandleScrollBar(_G.PawnUIScaleSelectorScrollFrameScrollBar)
@@ -99,7 +100,7 @@ function module:Pawn()
 		if _G.PawnSocketingTooltip then
 			_G.PawnSocketingTooltip:StripTextures()
 			_G.PawnSocketingTooltip:CreateBackdrop("Transparent")
-			module:CreateBackdropShadow(_G.PawnSocketingTooltip)
+			WS:CreateBackdropShadow(_G.PawnSocketingTooltip)
 		end
 	end)
 end

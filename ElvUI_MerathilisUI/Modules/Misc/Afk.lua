@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 local AFK = E:GetModule("AFK")
 
 local _G = _G
@@ -209,7 +210,7 @@ local function Initialize()
 		AFK.AFKMode.Panel:Size((GetScreenWidth() / 2), 80)
 		AFK.AFKMode.Panel:CreateBackdrop("Transparent")
 		AFK.AFKMode.Panel:SetFrameStrata("FULLSCREEN")
-		S:CreateBackdropShadow(AFK.AFKMode.Panel)
+		WS:CreateBackdropShadow(AFK.AFKMode.Panel)
 
 		E["frames"][AFK.AFKMode.Panel] = true
 		AFK.AFKMode.Panel.ignoreFrameTemplates = true

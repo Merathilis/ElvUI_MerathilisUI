@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -12,7 +13,7 @@ function module:GlobalIgnoreList()
 	FriendsFrame:HookScript("OnShow", function()
 		if GIL and not GIL.MERStyle then
 			S:HandlePortraitFrame(GIL)
-			module:CreateShadow(GIL)
+			WS:CreateShadow(GIL)
 			for i = 1, 3 do
 				S:HandleTab(_G["GILTab" .. i])
 				module:ReskinTab(_G["GILTab" .. i])

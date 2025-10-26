@@ -1,6 +1,7 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
+local WS = W:GetModule("Skins")
 
 local _G = _G
 local pairs = pairs
@@ -21,7 +22,7 @@ function module:WorldQuestTab()
 	S:HandleCloseButton(_G.WowLuaButton_Close)
 	_G.WowLuaFrameTitle:Point("TOP", 15, -5)
 	_G.WowLuaButton_Close:Point("TOPRIGHT", -5, -5)
-	module:CreateShadow(frame)
+	WS:CreateShadow(frame)
 
 	_G.WowLuaFrameResizeBar:StripTextures()
 	S:HandleScrollBar(_G.WowLuaFrameEditScrollFrameScrollBar)

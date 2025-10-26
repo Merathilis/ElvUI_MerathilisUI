@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -13,7 +14,7 @@ local function SkinFrame()
 
 	local BindingFrame = _G.CliqueUIBindingFrame
 	S:HandlePortraitFrame(BindingFrame)
-	module:CreateShadow(BindingFrame)
+	WS:CreateShadow(BindingFrame)
 
 	local browsePage = _G.CliqueConfigUIBindingFrameBrowsePage
 	S:HandleButton(browsePage.AddButton)
@@ -25,7 +26,7 @@ local function SkinFrame()
 	local actionCatalog = _G.CliqueConfigUIActionCatalogFrame
 	actionCatalog:StripTextures()
 	actionCatalog:SetTemplate("Transparent")
-	module:CreateShadow(actionCatalog)
+	WS:CreateShadow(actionCatalog)
 	actionCatalog:ClearAllPoints()
 	actionCatalog:Point("LEFT", _G.CliqueUIBindingFrame, "RIGHT", 2, 0)
 	S:HandleEditBox(_G.CliqueConfigUISpellbookSearch)

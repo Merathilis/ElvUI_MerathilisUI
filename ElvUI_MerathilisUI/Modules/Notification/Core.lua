@@ -1,6 +1,7 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Notification")
 local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 
 -- Credits RealUI
 local unpack, type, pairs = unpack, type, pairs
@@ -131,7 +132,7 @@ function module:CreateToast()
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
 	toast:CreateBackdrop("Transparent")
-	S:CreateBackdropShadow(toast, true)
+	WS:CreateBackdropShadow(toast, true)
 	toast:CreateCloseButton(10)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")

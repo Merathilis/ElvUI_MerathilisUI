@@ -1,6 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
-local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 
 local wipe, sort, format = wipe, sort, string.format
 local next, pairs, ipairs, tinsert = next, pairs, ipairs, tinsert
@@ -193,7 +193,7 @@ function module:StatusReportCreate()
 	statusFrame:Point("CENTER", E.UIParent, "CENTER")
 	statusFrame:SetFrameStrata("HIGH")
 	statusFrame:CreateBackdrop("Transparent")
-	S:CreateBackdropShadow(statusFrame)
+	WS:CreateBackdropShadow(statusFrame)
 	statusFrame:CreateCloseButton()
 	statusFrame:SetMovable(true)
 	statusFrame:Size(0, 100)
@@ -205,7 +205,7 @@ function module:StatusReportCreate()
 	pluginFrame:Point("TOPLEFT", statusFrame, "TOPRIGHT", E:Scale(E.Border * 3 + 1), 0)
 	pluginFrame:SetFrameStrata("HIGH")
 	pluginFrame:CreateBackdrop("Transparent")
-	S:CreateBackdropShadow(pluginFrame)
+	WS:CreateBackdropShadow(pluginFrame)
 	pluginFrame:Size(0, 25)
 	statusFrame.AddOnFrame = pluginFrame
 
