@@ -2,6 +2,7 @@ local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ES = E:GetModule("Skins")
 local WS = W:GetModule("Skins") ---@type Skins
 local MF = W:GetModule("MoveFrames") ---@type MoveFrames
+local _, WF = unpack(WindTools or {})
 local C = W.Utilities.Color
 
 local _G = _G
@@ -41,7 +42,7 @@ function MER:ConstructCompatibilityFrame()
 
 	local title = frame:CreateFontString(nil, "ARTWORK")
 	title:FontTemplate()
-	F.SetFont(title, nil, "2")
+	WF.SetFont(title, nil, "2")
 	title:SetText(MER.Title .. " " .. L["Compatibility Check"])
 	title:SetPoint("TOP", frame, "TOP", 0, -10)
 
@@ -49,7 +50,7 @@ function MER:ConstructCompatibilityFrame()
 	desc:FontTemplate()
 	desc:SetJustifyH("LEFT")
 	desc:Width(420)
-	F.SetFont(desc, nil, "-1")
+	WF.SetFont(desc, nil, "-1")
 	desc:SetText(
 		L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."]
 			.. " "
@@ -61,7 +62,7 @@ function MER:ConstructCompatibilityFrame()
 	largeTip:FontTemplate()
 	largeTip:SetJustifyH("CENTER")
 	largeTip:Width(500)
-	F.SetFont(largeTip, nil, "7")
+	WF.SetFont(largeTip, nil, "7")
 	largeTip:SetText(
 		format(
 			"%s %s %s",
@@ -81,7 +82,7 @@ function MER:ConstructCompatibilityFrame()
 	bottomDesc:FontTemplate()
 	bottomDesc:SetJustifyH("LEFT")
 	bottomDesc:Width(530)
-	F.SetFont(bottomDesc, nil, "-1")
+	WF.SetFont(bottomDesc, nil, "-1")
 	bottomDesc:SetText(
 		newSignIgnored
 			.. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title)
@@ -97,7 +98,7 @@ function MER:ConstructCompatibilityFrame()
 	completeButton.Text:SetText(L["Complete"])
 	completeButton.Text:SetJustifyH("CENTER")
 	completeButton.Text:SetJustifyV("MIDDLE")
-	F.SetFont(completeButton.Text, E.db.general.font, "4")
+	WF.SetFont(completeButton.Text, E.db.general.font, "4")
 	completeButton:Size(350, 35)
 	completeButton:Point("BOTTOM", bottomDesc, "TOP", 0, 10)
 	ES:HandleButton(completeButton)
@@ -137,7 +138,7 @@ local function AddButtonToCompatibilityFrame(data)
 	leftButton.Text:SetText(format("%s\n%s", data.module1, data.plugin1))
 	leftButton.Text:SetJustifyH("CENTER")
 	leftButton.Text:SetJustifyV("MIDDLE")
-	F.SetFont(leftButton.Text, E.db.general.font)
+	WF.SetFont(leftButton.Text, E.db.general.font)
 	leftButton:Size(220, 40)
 	leftButton:Point("TOPLEFT", frame.scrollFrame, "TOPLEFT", 5, -frame.numModules * 50 + 45)
 	ES:HandleButton(leftButton)
@@ -170,7 +171,7 @@ local function AddButtonToCompatibilityFrame(data)
 	rightButton.Text:SetText(format("%s\n%s", data.module2, data.plugin2))
 	rightButton.Text:SetJustifyH("CENTER")
 	rightButton.Text:SetJustifyV("MIDDLE")
-	F.SetFont(rightButton.Text, E.db.general.font)
+	WF.SetFont(rightButton.Text, E.db.general.font)
 	rightButton:Size(220, 40)
 	rightButton:Point("TOPRIGHT", frame.scrollFrame, "TOPRIGHT", -5, -frame.numModules * 50 + 45)
 	ES:HandleButton(rightButton)

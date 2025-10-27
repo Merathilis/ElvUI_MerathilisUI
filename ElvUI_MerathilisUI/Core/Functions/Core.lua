@@ -362,67 +362,6 @@ function F.SetFontFromDB(db, prefix, fs, color, fontOverwrite, useScaling)
 	end
 end
 
----Set font style from database settings
----@param text FontString The FontString object to modify
----@param db table Font style database containing name, size, and style
-function F.SetFontWithDB(text, db)
-	if not text or not text.GetFont then
-		F.Developer.LogDebug("Functions.SetFontWithDB: text not found")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.SetFontWithDB: db not found")
-		return
-	end
-
-	local fontName, fontHeight = text:GetFont()
-
-	text:FontTemplate(db.name and LSM:Fetch("font", db.name) or fontName, db.size or fontHeight, db.style or "NONE")
-end
-
----Set font color from database settings
----@param text FontString The FontString object to modify
----@param db table Font color database containing r, g, b, a values
-function F.SetFontColorDB(text, db)
-	if not text or not text.GetFont then
-		F.Developer.LogDebug("Functions.SetFontColorDB: text not found")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.SetFontColorWithDB: db not found")
-		return
-	end
-
-	text:SetTextColor(db.r, db.g, db.b, db.a)
-end
-
----Change font outline style to OUTLINE and remove shadow
----@param text FontString The FontString object to modify
----@param font string? Font path or name (optional)
----@param size number|string? Font size or size change amount as string (optional)
----@param style string? Font outline style. (optional, default is "OUTLINE")
-function F.SetFont(text, font, size, style)
-	if not text or not text.GetFont then
-		F.Developer.LogDebug("Functions.SetFont: text not found")
-		return
-	end
-	local fontName, fontHeight = text:GetFont()
-
-	if type(size) == "string" then
-		size = fontHeight + (tonumber(size) or 0)
-	end
-
-	if font and not strfind(font, "%.ttf") and not strfind(font, "%.otf") then
-		font = LSM:Fetch("font", font)
-	end
-
-	text:FontTemplate(font or fontName, size or fontHeight, style or "SHADOWOUTLINE")
-	text:SetShadowColor(0, 0, 0, 0)
-	text.SetShadowColor = E.noop
-end
-
 function F.FontSize(value)
 	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale)
 		or value

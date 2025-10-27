@@ -2,6 +2,7 @@ local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
+local _, WF = unpack(WindTools or {})
 
 local _G = _G
 
@@ -120,7 +121,7 @@ function module:MountRoutePlanner()
 
 	for _, region in pairs({ frame:GetRegions() }) do
 		if region.GetObjectType and region:GetObjectType() == "FontString" then
-			F.SetFont(region)
+			WF.SetFont(region)
 		end
 	end
 

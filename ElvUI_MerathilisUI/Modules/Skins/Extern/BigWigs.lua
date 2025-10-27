@@ -2,6 +2,7 @@ local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
 local WS = W:GetModule("Skins")
+local _, WF = unpack(WindTools or {})
 local C = W.Utilities.Color
 local OF = W.Utilities.ObjectFinder
 
@@ -318,7 +319,7 @@ function module:BigWigs_QueueTimer()
 				frame.text.SetFormattedText = function(textFrame, _, time)
 					textFrame:SetText(format("%d", time))
 				end
-				F.SetFontWithDB(frame.text, db.countDown)
+				WF.SetFontWithDB(frame.text, db.countDown)
 				frame.text:ClearAllPoints()
 				frame.text:SetPoint("TOP", frame, "TOP", db.countDown.offsetX, db.countDown.offsetY)
 
