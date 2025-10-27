@@ -1342,7 +1342,7 @@ do
 	local protected_call = {}
 
 	function protected_call._error_handler(err)
-		F.Developer.LogInfo(err)
+		WF.Developer.LogInfo(err)
 	end
 
 	function protected_call._handle_result(success, ...)

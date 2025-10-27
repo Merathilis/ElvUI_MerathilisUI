@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
+local _, WF = unpack(WindTools or {})
 
 function module:LoadLSProfile()
 	local profileName = I.ProfileNames.Default
@@ -105,7 +106,7 @@ end
 
 function module:ApplyLSProfile()
 	if not E:IsAddOnEnabled("ls_Toasts") then
-		F.Developer.LogWarning("ls_Toasts is not enabled. Will not apply profile.")
+		WF.Developer.LogWarning("ls_Toasts is not enabled. Will not apply profile.")
 		return
 	end
 

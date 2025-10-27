@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
+local _, WF = unpack(WindTools or {})
 
 function module:LoadmMediaTagProfile()
 	E.db["mMT"]["general"]["greeting"] = false
@@ -40,7 +41,7 @@ end
 
 function module:ApplymMediaTagProfile()
 	if not E:IsAddOnEnabled("ElvUI_mMediaTag") then
-		F.Developer.LogWarning(L["ElvUI_mMediaTag is not enabled. Will not apply profile."])
+		WF.Developer.LogWarning(L["ElvUI_mMediaTag is not enabled. Will not apply profile."])
 		return
 	end
 

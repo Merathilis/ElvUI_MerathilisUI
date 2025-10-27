@@ -182,7 +182,7 @@ function MER:InitializeModules()
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
-			xpcall(module.Initialize, F.Developer.LogDebug, module)
+			xpcall(module.Initialize, WF.Developer.LogDebug, module)
 		end
 	end
 

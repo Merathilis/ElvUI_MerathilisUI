@@ -105,7 +105,6 @@ MER.Modules.Filter = MER:NewModule("MER_Filter", "AceEvent-3.0")
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.MiniMap = MER:NewModule("MER_Minimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-MER.Modules.MiniMapPing = MER:NewModule("MER_MiniMapPing", "AceEvent-3.0")
 MER.Modules.Misc = MER:NewModule("MER_Misc", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 MER.Modules.NamePlates = MER:NewModule("MER_NamePlates", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Notification = MER:NewModule("MER_Notification", "AceEvent-3.0")
@@ -120,12 +119,9 @@ MER.Modules.Reminder = MER:NewModule("MER_Reminder", "AceEvent-3.0", "AceTimer-3
 MER.Modules.Skins = MER:NewModule("MER_Skins", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.SplashScreen = MER:NewModule("MER_SplashScreen", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Style = MER:NewModule("MER_Style", "AceHook-3.0")
-MER.Modules.Talent = MER:NewModule("MER_Talent", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Tooltip = MER:NewModule("MER_Tooltip", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
-MER.Modules.WorldMap = MER:NewModule("MER_WorldMap", "AceHook-3.0", "AceEvent-3.0")
-MER.Modules.ZoneText = MER:NewModule("MER_ZoneText", "AceHook-3.0")
 
 -- Utilities namespace
 MER.Utilities = {}
@@ -216,7 +212,7 @@ do
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 		if isInitialLogin then
 			E:Delay(6, self.CheckInstalledVersion, self)
-			local icon = Engine[2].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
+			local icon = Engine[3].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(
 					icon
@@ -224,7 +220,7 @@ do
 						.. self.Title
 						.. format("|cff00c0fa%s|r", self.Version)
 						.. L[" is loaded. For any issues or suggestions join my discord: "]
-						.. Engine[2].PrintURL("https://discord.gg/28We6esE9v")
+						.. Engine[3].PrintURL("https://discord.gg/28We6esE9v")
 				)
 			end
 

@@ -104,7 +104,7 @@ end
 
 function MER:ShowStatusReport()
 	if not F.IsMERProfile() then
-		F.Developer.LogInfo("You are not using a " .. MER.Title .. " Profile")
+		WF.Developer.LogInfo("You are not using a " .. MER.Title .. " Profile")
 		return
 	end
 
@@ -125,12 +125,12 @@ function MER:HandleChatCommand(msg)
 	elseif category == "install" or category == "i" then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	elseif F.IsMERProfile() then
-		F.Developer.LogInfo("Usage: /mer cl; changelog; install; i; info; settings; status")
+		WF.Developer.LogInfo("Usage: /mer cl; changelog; install; i; info; settings; status")
 	else
-		F.Developer.LogInfo(
+		WF.Developer.LogInfo(
 			"You are not using a " .. MER.Title .. " profile. Please install " .. MER.Title .. " first."
 		)
-		F.Developer.LogInfo("Usage: /mer cl; changelog; install; i; settings")
+		WF.Developer.LogInfo("Usage: /mer cl; changelog; install; i; settings")
 	end
 end
 

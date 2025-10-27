@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
+local _, WF = unpack(WindTools or {})
 
 function module:LoadOmniCDProfile()
 	local pf = {}
@@ -159,13 +160,13 @@ end
 
 function module:ApplyOmniCDProfile()
 	if not E:IsAddOnEnabled("OmniCD") then
-		F.Developer.LogWarning("OmniCD is not enabled. Will not apply profile.")
+		WF.Developer.LogWarning("OmniCD is not enabled. Will not apply profile.")
 		return
 	end
 
 	local db = _G.OmniCD and _G.OmniCD[1]
 	if not db then
-		F.Developer.LogWarning("Database not found for OmniCD -- will not apply profile.")
+		WF.Developer.LogWarning("Database not found for OmniCD -- will not apply profile.")
 		return
 	end
 
