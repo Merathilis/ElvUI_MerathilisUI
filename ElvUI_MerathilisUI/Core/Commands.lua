@@ -1,4 +1,5 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local _, WF = unpack(WindTools or {})
 
 local _G = _G
 
@@ -82,22 +83,22 @@ do
 				Reload()
 			end
 		else
-			F.PrintGradientLine()
-			F.Print(L["Usage"] .. ": /muidebug [on|off]")
+			WF.PrintGradientLine()
+			WF.Print(L["Usage"] .. ": /muidebug [on|off]")
 			print("on  ", L["Enable debug mode"])
 			print("      ", format(L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."], MER.Title))
 			print("off ", L["Disable debug mode"])
 			print("      ", L["Reenable the addons that disabled by debug mode."])
-			F.PrintGradientLine()
+			WF.PrintGradientLine()
 		end
 	end)
 
 	function MER.PrintDebugEnviromentTip()
-		F.PrintGradientLine()
-		F.Print(L["Debug Enviroment"])
+		WF.PrintGradientLine()
+		WF.Print(L["Debug Enviroment"])
 		print(L["You can use |cff00ff00/muidebug off|r command to exit debug mode."])
 		print(format(L["After you stop debuging, %s will reenable the addons automatically."], MER.Title))
-		F.PrintGradientLine()
+		WF.PrintGradientLine()
 	end
 end
 

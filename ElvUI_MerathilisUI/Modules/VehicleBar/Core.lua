@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
+local _, WF = unpack(WindTools or {})
 
 local format = string.format
 
@@ -21,8 +22,8 @@ function module:OnShowEvent()
 		local widgetInfo = self:GetWidgetInfo()
 		if self.vigorBar.segments and widgetInfo then
 			if #self.vigorBar.segments < widgetInfo.numTotalFrames then
-				F.Developer.LogDebug("Amount of segments is wrong ~ recreating segments.")
-				F.Developer.LogDebug(
+				WF.Developer.LogDebug("Amount of segments is wrong ~ recreating segments.")
+				WF.Developer.LogDebug(
 					"Segments: " .. #self.vigorBar.segments .. "; Total: " .. widgetInfo.numTotalFrames
 				)
 

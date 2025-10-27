@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local C = W.Utilities.Color ---@type ColorUtility
+local _, WF = unpack(WindTools or {})
 
 local print, tonumber, type = print, tonumber, type
 local format = string.format
@@ -13,8 +14,8 @@ local DONE_ICON = format(" |T%s:0|t", [[Interface\AddOns\ElvUI_MerathilisUI\Medi
 local function UpdateMessage(text, from)
 	if isFirstLine then
 		isFirstLine = false
-		F.PrintGradientLine()
-		F.Print(L["Update"])
+		WF.PrintGradientLine()
+		WF.Print(L["Update"])
 	end
 
 	local versionText = format(
@@ -113,7 +114,7 @@ function MER:UpdateScripts()
 	end
 
 	if not isFirstLine then
-		F.PrintGradientLine()
+		WF.PrintGradientLine()
 	end
 
 	E.global.mui.version = MER.Version

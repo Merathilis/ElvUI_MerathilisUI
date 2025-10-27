@@ -1,9 +1,10 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
+local _, WF = unpack(WindTools or {})
 
 function module:Scale()
 	if not E.db and not E.db.mui then
-		F.Developer.LogDebug("Scaling >> Database not found. Scalling is not loaded!")
+		WF.Developer.LogDebug("Scaling >> Database not found. Scalling is not loaded!")
 		return
 	end
 

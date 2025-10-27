@@ -8,5 +8,4 @@
 	<Script file="Event.lua"/>
 	<Script file="Strings.lua"/>
 	<Script file="Table.lua"/>
-	<Script file="Widgets.lua"/>
 </Ui>

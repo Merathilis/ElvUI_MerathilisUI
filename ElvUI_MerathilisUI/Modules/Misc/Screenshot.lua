@@ -1,11 +1,12 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
+local _, WF = unpack(WindTools or {})
 
 function module:TakeScreenshot(event, delay)
 	local db = E.db.mui.misc.screenshot
 
 	if db and db.printMsg then
-		F.Print(format("%s %s", L["taking screenshot"], event .. " " .. date()))
+		WF.Print(format("%s %s", L["taking screenshot"], event .. " " .. date()))
 	end
 
 	if db and db.hideUI then

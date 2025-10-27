@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Notification")
+local _, WF = unpack(WindTools or {})
 
 local _G = _G
 local format = string.format
@@ -94,7 +95,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 						""
 					)
 				end
-				F.Print(currentTime .. " -> " .. tex .. F.String.MERATHILISUI(nameString or vignetteInfo.name or ""))
+				WF.Print(currentTime .. " -> " .. tex .. F.String.MERATHILISUI(nameString or vignetteInfo.name or ""))
 			end
 
 			local time = GetTime()

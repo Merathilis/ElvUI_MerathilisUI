@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local CF = MER:GetModule("MER_Cooldown")
+local _, WF = unpack(WindTools or {})
 local options = MER.options.modules.args
 
 local C_VoiceChat_GetTtsVoices = C_VoiceChat and C_VoiceChat.GetTtsVoices
@@ -261,7 +262,7 @@ do
 						E.db.mui.cooldownFlash.ignoredSpells[tempName] = true
 						tempName = nil
 					else
-						F.Print(L["Please set the name first."])
+						WF.Print(L["Please set the name first."])
 					end
 				end,
 			},

@@ -34,7 +34,7 @@ function MER:ConstructCompatibilityFrame()
 
 	MF:InternalHandle(frame)
 
-	local close = F.Widgets.New("CloseButton", frame)
+	local close = WF.Widgets.New("CloseButton", frame)
 	if close then
 		close:Point("TOPRIGHT", frame.backdrop, "TOPRIGHT")
 		close:SetFrameLevel(frame:GetFrameLevel() + 1)

@@ -480,20 +480,6 @@ function F.ConvertToHSL(r, g, b)
 	return h * 360, s, l
 end
 
-function F.SetVertexColorDB(tex, db)
-	if not tex or not tex.GetVertexColor then
-		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture color database")
-		return
-	end
-
-	tex:SetVertexColor(db.r, db.g, db.b, db.a)
-end
-
 function F.GetMERStyleText(text)
 	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
 end
@@ -535,14 +521,6 @@ function F.Round(n, q)
 	return int * q
 end
 
-function F.AlmostEqual(a, b)
-	if not a or not b then
-		return false
-	end
-
-	return abs(a - b) <= 0.001
-end
-
 function F.cOption(name, color)
 	local hex
 	if color == "orange" then
@@ -558,34 +536,6 @@ function F.cOption(name, color)
 	end
 
 	return (hex):format(name)
-end
-
-do
-	local gradientLine = E:TextGradient(
-		"----------------------------------",
-		0.910,
-		0.314,
-		0.357,
-		0.976,
-		0.835,
-		0.431,
-		0.953,
-		0.925,
-		0.761,
-		0.078,
-		0.694,
-		0.671
-	)
-
-	function F.PrintGradientLine()
-		print(gradientLine)
-	end
-end
-
----Print message with MerathilisUI title prefix
----@param ... string|number Message parts to print
-function F.Print(...)
-	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
 end
 
 function F.DebugPrint(text, msgtype)
