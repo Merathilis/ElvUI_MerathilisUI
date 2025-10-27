@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@class Skins
+local _, WF = unpack(WindTools or {})
 
 local _G = _G
 local next = next
@@ -198,7 +199,7 @@ function module:PLAYER_ENTERING_WORLD()
 	end
 
 	for index, func in next, self.enteredLoad do
-		xpcall(func, F.Developer.ThrowError, self)
+		xpcall(func, WF.Developer.ThrowError, self)
 		self.enteredLoad[index] = nil
 	end
 end
@@ -212,7 +213,7 @@ end
 ---@param callbacks table The callback functions table
 function module:CallLoadedAddon(addonName, callbacks)
 	for _, callback in next, callbacks do
-		if not xpcall(callback, F.Developer.ThrowError, self) then
+		if not xpcall(callback, WF.Developer.ThrowError, self) then
 			self:Log("debug", format("Failed to run addon %s", addonName))
 		end
 	end
@@ -250,7 +251,7 @@ function module:LibStub_NewLibrary(_, major, minor)
 			return
 		end
 		for _, func in next, self.libraryHandlers[major] do
-			if not xpcall(func, F.Developer.ThrowError, self, lib) then
+			if not xpcall(func, WF.Developer.ThrowError, self, lib) then
 				self:Log("debug", format("Failed to skin library %s", major, minor))
 			end
 		end
@@ -277,7 +278,7 @@ function module:ReskinSettingFrame(name, func)
 	end
 
 	if not func then
-		F.Developer.ThrowError("ReskinSettingFrame: func is nil")
+		WF.Developer.ThrowError("ReskinSettingFrame: func is nil")
 		return
 	end
 
@@ -298,7 +299,7 @@ function module:Initialize()
 	end
 
 	for index, func in next, self.nonAddonsToLoad do
-		if not xpcall(func, F.Developer.ThrowError, self) then
+		if not xpcall(func, WF.Developer.ThrowError, self) then
 			self:Log("debug", "Failed to run skin function")
 		end
 		self.nonAddonsToLoad[index] = nil

@@ -1,4 +1,5 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local _, WF = unpack(WindTools or {})
 F.Event = {}
 
 local next, pairs, select, type, unpack = next, pairs, select, type, unpack
@@ -56,7 +57,7 @@ do
 		if generator then
 			return generator(f, ...)
 		end
-		F.Developer.ThrowError(
+		WF.Developer.ThrowError(
 			"Closure generation does not support more than " .. (#closureGeneration - 1) .. " parameters"
 		)
 	end
@@ -98,7 +99,7 @@ do
 		if attribute == InsertEventAttribute then
 			local event = securecallfunction(unpack, value)
 			if type(event) ~= "string" then
-				return F.Developer.ThrowError("'event' requires string type", event)
+				return WF.Developer.ThrowError("'event' requires string type", event)
 			end
 			for _, callbackTable in pairs(callbackTables) do
 				if not callbackTable[event] then
@@ -130,14 +131,14 @@ do
 
 	function F.Event.RegisterCallback(event, func, owner, ...)
 		if type(event) ~= "string" then
-			return F.Developer.ThrowError("RegisterCallback 'event' requires string type.", event)
+			return WF.Developer.ThrowError("RegisterCallback 'event' requires string type.", event)
 		elseif type(func) ~= "function" then
-			return F.Developer.ThrowError("RegisterCallback 'func' requires function type.", event)
+			return WF.Developer.ThrowError("RegisterCallback 'func' requires function type.", event)
 		else
 			if owner == nil then
 				owner = F.Event.GenerateOwnerId()
 			elseif type(owner) == "number" then
-				return F.Developer.ThrowError("RegisterCallback 'owner' as number is reserved internally.")
+				return WF.Developer.ThrowError("RegisterCallback 'owner' as number is reserved internally.")
 			end
 		end
 
@@ -162,7 +163,7 @@ do
 
 	function F.Event.TriggerEvent(event, ...)
 		if type(event) ~= "string" then
-			return F.Developer.ThrowError("TriggerEvent 'event' requires string type.", event)
+			return WF.Developer.ThrowError("TriggerEvent 'event' requires string type.", event)
 		end
 
 		local closures = F.Event.GetCallbacksByEvent(callbackType.CLOSURE, event)
@@ -240,9 +241,9 @@ do
 
 	function F.Event.UnregisterCallback(event, owner)
 		if type(event) ~= "string" then
-			F.Developer.ThrowError("UnregisterCallback 'event' requires string type", event)
+			WF.Developer.ThrowError("UnregisterCallback 'event' requires string type", event)
 		elseif owner == nil then
-			F.Developer.ThrowError("UnregisterCallback 'owner' is required", owner)
+			WF.Developer.ThrowError("UnregisterCallback 'owner' is required", owner)
 		end
 
 		for _, callbackTable in pairs(callbackTables) do

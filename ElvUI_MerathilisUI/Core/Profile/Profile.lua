@@ -133,15 +133,6 @@ P.misc = {
 	respec = true,
 	tradeTabs = true,
 	blockRequest = false,
-	contextMenu = {
-		enable = true,
-		sectionTitle = true,
-		armory = MER.Locale ~= "zhCN",
-		armoryOverride = {},
-		guildInvite = true,
-		who = true,
-		reportStats = false,
-	},
 	singingSockets = {
 		enable = true,
 	},

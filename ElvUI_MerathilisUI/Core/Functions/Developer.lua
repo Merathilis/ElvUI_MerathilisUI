@@ -100,15 +100,6 @@ function F.Developer.Print(object)
 end
 
 --[[
-	Custom Error Handler
-	@param ...string Error Message
-]]
-function F.Developer.ThrowError(...)
-	local message = strjoin(" ", ...)
-	_G.geterrorhandler()(format("%s |cffff2457[ERROR]|r\n%s", MER.Title, message))
-end
-
---[[
 	Custom Logger [WARNING]
 	@param ...string Message
 ]]

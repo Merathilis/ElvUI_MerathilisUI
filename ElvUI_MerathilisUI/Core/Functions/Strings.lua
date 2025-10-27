@@ -1,4 +1,5 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local _, WF = unpack(WindTools or {})
 F.String = {}
 
 local error = error
@@ -142,7 +143,7 @@ function F.String.Replace(s, mapping)
 	while pos <= bytes do
 		charbytes = F.String.CharBytes(s, pos)
 		if not charbytes then
-			F.Developer.ThrowError("Invalid UTF-8 character")
+			WF.Developer.ThrowError("Invalid UTF-8 character")
 			return s
 		end
 		local c = strsub(s, pos, pos + charbytes - 1)

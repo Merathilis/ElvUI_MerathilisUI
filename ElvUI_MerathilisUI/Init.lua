@@ -98,7 +98,6 @@ MER.Modules.ActionBars = MER:NewModule("MER_Actionbars", "AceEvent-3.0", "AceHoo
 MER.Modules.Armory = MER:NewModule("MER_Armory", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.BagInfo = MER:NewModule("MER_BagInfo", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Changelog = MER:NewModule("MER_Changelog", "AceEvent-3.0", "AceTimer-3.0")
-MER.Modules.ContextMenu = MER:NewModule("MER_ContextMenu", "AceHook-3.0")
 MER.Modules.Cooldown = MER:NewModule("MER_Cooldown", "AceHook-3.0")
 MER.Modules.CombatText = MER:NewModule("MER_CombatText", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.EventTracker = MER:NewModule("MER_EventTracker", "AceEvent-3.0", "AceHook-3.0")

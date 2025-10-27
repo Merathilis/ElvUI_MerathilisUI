@@ -1,7 +1,7 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule("MER_Skins")
 local ES = E:GetModule("Skins")
 local WS = W:GetModule("Skins")
+local _, WF = unpack(WindTools or {})
 local LSM = E.LSM
 
 local _G = _G
@@ -1685,7 +1685,7 @@ local throttleStates = {}
 ---@param ... any Arguments to pass to the function
 function F.Throttle(duration, key, func, ...)
 	if type(duration) ~= "number" or duration <= 0 then
-		F.Developer.ThrowError("Invalid duration for F.Throttle: must be a positive number")
+		WF.Developer.ThrowError("Invalid duration for F.Throttle: must be a positive number")
 	end
 
 	if duration == 0 then
@@ -1694,7 +1694,7 @@ function F.Throttle(duration, key, func, ...)
 	end
 
 	if type(func) ~= "function" then
-		F.Developer.ThrowError("Invalid function for F.Throttle: third argument must be a function")
+		WF.Developer.ThrowError("Invalid function for F.Throttle: third argument must be a function")
 	end
 
 	local finalKey = key ~= nil and key or func
@@ -1784,7 +1784,7 @@ function F.WaitFor(condition, callback, interval, maxTimes)
 	local function resumeCoroutine()
 		local success, delay = coroutine.resume(co)
 		if not success then
-			F.Developer.ThrowError("WaitFor coroutine error:", tostring(delay))
+			WF.Developer.ThrowError("WaitFor coroutine error:", tostring(delay))
 			return
 		end
 		if coroutine.status(co) ~= "dead" then

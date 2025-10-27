@@ -1,5 +1,6 @@
 local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local C = W.Utilities.Color ---@type ColorUtility
+local _, WF = unpack(WindTools or {})
 
 local _G = _G
 local format = string.format
@@ -164,7 +165,7 @@ end
 -- Register own Modules
 function MER:RegisterModule(name)
 	if not name then
-		F.Developer.ThrowError("The name of module is required!")
+		WF.Developer.ThrowError("The name of module is required!")
 		return
 	end
 
