@@ -37,6 +37,7 @@ module.ReminderBuffs = {
 	DefiledAugmentRune = {
 		393438, -- Dreambound Augment Rune
 		453250, -- Crystallized Augment Rune
+		1234969, -- Ethereal Augment Rune
 	},
 	Food = {
 		-- Well Fed
