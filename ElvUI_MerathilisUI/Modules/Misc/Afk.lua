@@ -1,4 +1,4 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = MER:GetModule("MER_Skins")
 local WS = W:GetModule("Skins")
 local AFK = E:GetModule("AFK")

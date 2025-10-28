@@ -1,4 +1,4 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_RaidBuffs")
 local LCG = E.Libs.CustomGlow
 
@@ -37,6 +37,7 @@ module.ReminderBuffs = {
 	DefiledAugmentRune = {
 		393438, -- Dreambound Augment Rune
 		453250, -- Crystallized Augment Rune
+		1234969, -- Ethereal Augment Rune
 	},
 	Food = {
 		-- Well Fed

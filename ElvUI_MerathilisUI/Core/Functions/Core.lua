@@ -1,7 +1,6 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ES = E:GetModule("Skins")
 local WS = W:GetModule("Skins")
-local _, WF = unpack(WindTools or {})
 local LSM = E.LSM
 
 local _G = _G

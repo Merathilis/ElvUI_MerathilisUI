@@ -1,6 +1,5 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local C = W.Utilities.Color ---@type ColorUtility
-local _, WF = unpack(WindTools or {})
 
 local _G = _G
 local format = string.format
@@ -28,8 +27,6 @@ MER.IsRetail = select(4, GetBuildInfo()) >= 100207
 MER.IsNewPatch = select(4, GetBuildInfo()) >= 110000 -- 11.0
 MER.IsPTR = select(4, GetBuildInfo()) == 102007 -- 10.2.7
 
-MER.Locale = GetLocale()
-MER.ChineseLocale = strsub(MER.Locale, 0, 2) == "zh"
 MER.MaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion()
 
 -- Masque support

@@ -1,8 +1,7 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local PI = E:GetModule("PluginInstaller")
 local CH = E:GetModule("Chat")
 local PF = MER:GetModule("MER_Profiles")
-local _, WF = unpack(WindTools)
 
 local _G = _G
 local ipairs, next = ipairs, next

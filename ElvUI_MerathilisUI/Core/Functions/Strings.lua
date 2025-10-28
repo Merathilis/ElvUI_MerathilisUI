@@ -1,5 +1,4 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local _, WF = unpack(WindTools or {})
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.String = {}
 
 local error = error

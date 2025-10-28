@@ -1,5 +1,4 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local _, WF = unpack(WindTools or {})
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Developer = {}
 
 MER.IsDev = {
@@ -45,4 +44,19 @@ MER.IsDevRealm = {
 
 function F.IsDeveloper()
 	return MER.IsDev[E.myname] and MER.IsDevRealm[E.myrealm] or false
+end
+
+do
+	local messages = {}
+	function F.Developer.PrintDelayedMessages()
+		for _, msg in ipairs(messages) do
+			F.Developer.Print(msg)
+		end
+
+		messages = {}
+	end
+
+	function F.Developer.AddDelayedMessage(str)
+		tinsert(messages, str)
+	end
 end

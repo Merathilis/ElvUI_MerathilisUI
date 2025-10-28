@@ -16,7 +16,7 @@ local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 ---@class ElvUI_MerathilisUI : AceAddon, AceConsole-3.0, AceEvent-3.0, AceTimer-3.0, AceHook-3.0
 local MER = AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
-local W = unpack(WindTools) or _G.LibStub("AceAddon-3.0"):GetAddon("ElvUI_WindTools")
+local W, WF = unpack(WindTools or {})
 
 V.mui = {}
 P.mui = {}
@@ -26,13 +26,14 @@ local I = {}
 
 Engine[1] = MER
 Engine[2] = W
-Engine[3] = {} ---@class Functions
-Engine[4] = E
-Engine[5] = I
-Engine[6] = V.mui
-Engine[7] = P.mui
-Engine[8] = G.mui
-Engine[9] = L
+Engine[3] = WF
+Engine[4] = {} ---@class Functions
+Engine[5] = E
+Engine[6] = I
+Engine[7] = V.mui
+Engine[8] = P.mui
+Engine[9] = G.mui
+Engine[10] = L
 _G[addon] = Engine
 
 local versionString = GetAddOnMetadata(addon, "Version")
@@ -159,11 +160,11 @@ function MER:Initialize()
 	end
 
 	for _, module in self:IterateModules() do
-		Engine[3].Developer.InjectLogger(module)
+		WF.Developer.InjectLogger(module)
 	end
 
 	hooksecurefunc(MER, "NewModule", function(_, name)
-		Engine[3].Developer.InjectLogger(name)
+		WF.Developer.InjectLogger(name)
 	end)
 
 	-- No need to do the ElvUI install, so hide it
@@ -212,7 +213,7 @@ do
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 		if isInitialLogin then
 			E:Delay(6, self.CheckInstalledVersion, self)
-			local icon = Engine[3].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
+			local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(
 					icon
@@ -220,7 +221,7 @@ do
 						.. self.Title
 						.. format("|cff00c0fa%s|r", self.Version)
 						.. L[" is loaded. For any issues or suggestions join my discord: "]
-						.. Engine[3].PrintURL("https://discord.gg/28We6esE9v")
+						.. Engine[4].PrintURL("https://discord.gg/28We6esE9v")
 				)
 			end
 
@@ -246,7 +247,7 @@ do
 
 		self:FixGame()
 
-		Engine[3]:GradientColorUpdate()
+		Engine[4]:GradientColorUpdate()
 
 		E:Delay(1, collectgarbage, "collect")
 	end

@@ -1,6 +1,5 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_CombatText")
-local _, WF = unpack(WindTools or {})
 
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
 

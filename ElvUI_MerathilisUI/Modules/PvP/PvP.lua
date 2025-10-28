@@ -1,6 +1,5 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_PVP")
-local _, WF = unpack(WindTools or {})
 
 local _G = _G
 local format = string.format

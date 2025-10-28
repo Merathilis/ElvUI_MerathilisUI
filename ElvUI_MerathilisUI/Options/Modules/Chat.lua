@@ -1,4 +1,4 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 local module = MER:GetModule("MER_Chat")
 local CH = E:GetModule("Chat")

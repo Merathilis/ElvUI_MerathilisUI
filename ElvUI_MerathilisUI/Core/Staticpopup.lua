@@ -1,4 +1,4 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local PF = MER:GetModule("MER_Profiles")
 
 local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn

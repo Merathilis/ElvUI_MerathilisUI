@@ -1,6 +1,5 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local CF = MER:GetModule("MER_Cooldown")
-local _, WF = unpack(WindTools or {})
 local options = MER.options.modules.args
 
 local C_VoiceChat_GetTtsVoices = C_VoiceChat and C_VoiceChat.GetTtsVoices

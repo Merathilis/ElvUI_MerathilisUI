@@ -1,8 +1,7 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ES = E:GetModule("Skins")
 local WS = W:GetModule("Skins") ---@type Skins
 local MF = W:GetModule("MoveFrames") ---@type MoveFrames
-local _, WF = unpack(WindTools or {})
 local C = W.Utilities.Color
 
 local _G = _G

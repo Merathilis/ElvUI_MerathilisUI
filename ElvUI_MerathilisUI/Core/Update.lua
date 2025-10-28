@@ -1,6 +1,5 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local C = W.Utilities.Color ---@type ColorUtility
-local _, WF = unpack(WindTools or {})
 
 local print, tonumber, type = print, tonumber, type
 local format = string.format

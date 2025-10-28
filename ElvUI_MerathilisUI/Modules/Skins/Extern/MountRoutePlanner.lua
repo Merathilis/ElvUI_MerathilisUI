@@ -1,8 +1,7 @@
-local MER, W, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
-local _, WF = unpack(WindTools or {})
 
 local _G = _G
 
@@ -26,7 +25,7 @@ local function reskinTextButton(button)
 
 	S:HandleButton(button)
 
-	if MER.ChineseLocale then
+	if W.ChineseLocale then
 		button:SetWidth(80)
 	end
 end
