@@ -2492,8 +2492,6 @@ function MER:DeveloperSettings()
 	E.db["general"]["cropIcon"] = 0
 	E.db["general"]["autoRepair"] = "GUILD"
 	E.db["tooltip"]["showElvUIUsers"] = true
-	E.db["mui"]["misc"]["automation"]["enable"] = true
-	E.db["mui"]["misc"]["automation"]["hideBagAfterEnteringCombat"] = true
 	E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
 	E.db["mui"]["pvp"]["duels"]["regular"] = true
 	E.db["mui"]["pvp"]["duels"]["pet"] = true
@@ -2509,13 +2507,6 @@ function MER:DeveloperSettings()
 
 	-- Chat
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	E.db["mui"]["chat"]["chatText"]["gradientName"] = true
-
-	-- SMB
-	E.db["mui"]["smb"]["backdrop"] = false
-	E.db["mui"]["smb"]["buttonsPerRow"] = 8
-	E.db["mui"]["smb"]["buttonSize"] = 26
-	E.db["mui"]["smb"]["backdropSpacing"] = 1
 
 	-- VehicleBar
 	E.db["mui"]["vehicleBar"]["enable"] = true
@@ -2561,11 +2552,6 @@ function MER:DeveloperSettings()
 		["attachTextTo"] = "Frame",
 		["text_format"] = "[users:elvui]",
 	}
-
-	if E.myclass == "WARRIOR" then
-		E.db["mui"]["unitframes"]["power"]["type"] = "CUSTOM"
-		E.db["mui"]["unitframes"]["power"]["model"] = 840943
-	end
 
 	PluginInstallStepComplete.message = MER.Title .. L["Developer Settings Done"]
 	PluginInstallStepComplete:Show()
