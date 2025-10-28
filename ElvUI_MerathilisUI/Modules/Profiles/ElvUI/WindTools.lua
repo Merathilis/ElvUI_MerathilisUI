@@ -81,7 +81,7 @@ function module:LoadWindToolsProfile()
 	private["skins"]["widgets"]["treeGroupButton"]["enable"] = false
 	private["unitFrames"]["roleIcon"]["roleIconStyle"] = "LYNUI"
 
-	if not E.db.movers then
+	if E and E.db and not E.db.movers then
 		E.db.movers = {}
 	end
 
@@ -90,15 +90,14 @@ function module:LoadWindToolsProfile()
 	E.db.movers["WTExtraItemsBar3Mover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-12,279"
 	E.db.movers["WTExtraItemsBar4Mover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-263,321"
 	E.db.movers["WTExtraItemsBar5Mover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-260,363"
+
+	E.db.movers["WTInstanceDifficultyFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-197,-43"
 end
 
 function module:ApplyWindToolsProfile()
 	module:Wrap("Applying WindTools Profile ...", function()
 		-- Apply Fonts
 		self:LoadWindToolsProfile()
-
-		FCT:UpdateUnitFrames()
-		FCT:UpdateNamePlates()
 
 		E:UpdateMedia()
 		E:UpdateFontTemplates()
