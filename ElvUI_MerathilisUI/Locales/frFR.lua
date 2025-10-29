@@ -785,13 +785,6 @@ L["Duration"] = true
 L["Fade Out"] = true
 L["Scale"] = true
 L["Hide Blizzard"] = true
-L["Change the shape of ElvUI minimap."] = true
-L["Height Percentage"] = true
-L["Percentage of ElvUI minimap size."] = true
-L["MiniMap Buttons"] = true
-L["Minimap Ping"] = "Ping de la minicarte"
-L["Add Server Name"] = "Ajouter un nom de serveur"
-L["Only In Combat"] = true
 L["Fade-In"] = true
 L["The time of animation. Set 0 to disable animation."] =
 	"La durée des animations. Mettre 0 pour désactiver l'animation."

@@ -27,6 +27,7 @@ function module:LoadWindToolsProfile()
 	db["announcement"]["taunt"]["player"]["player"]["enable"] = false
 	db["announcement"]["threatTransfer"]["enable"] = false
 	db["announcement"]["threatTransfer"]["onlyNotTank"] = false
+	db["announcement"]["utility"]["spells"]["698"] = L["{rt1} %player% is casting %spell%, please assist! {rt1}"]
 	db["combat"]["classHelper"]["deathStrikeEstimator"]["enable"] = true
 	db["combat"]["classHelper"]["deathStrikeEstimator"]["hideIfTheBarOutside"] = true
 	db["combat"]["classHelper"]["deathStrikeEstimator"]["onlyInCombat"] = true
@@ -75,13 +76,13 @@ function module:LoadWindToolsProfile()
 	private["maps"]["superTracker"]["enable"] = false
 	private["misc"]["autoToggleChatBubble"] = true
 	private["quest"]["objectiveTracker"]["enable"] = true
+	private["quest"]["objectiveTracker"]["info"]["size"] = 11
+	private["quest"]["objectiveTracker"]["info"]["style"] = "SHADOWOUTLINE"
 	private["skins"]["widgets"]["button"]["enable"] = false
 	private["skins"]["widgets"]["checkBox"]["enable"] = false
 	private["skins"]["widgets"]["tab"]["enable"] = false
 	private["skins"]["widgets"]["treeGroupButton"]["enable"] = false
 	private["unitFrames"]["roleIcon"]["roleIconStyle"] = "LYNUI"
-	private["objectiveTracker"]["info"]["size"] = 11
-	private["objectiveTracker"]["info"]["style"] = "SHADOWOUTLINE"
 
 	if E and E.db and not E.db.movers then
 		E.db.movers = {}

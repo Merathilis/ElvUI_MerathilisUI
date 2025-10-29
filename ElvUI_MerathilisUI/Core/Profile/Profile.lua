@@ -853,23 +853,6 @@ P.nameplates = {
 P.maps = {
 	minimap = {
 		flash = true,
-		ping = {
-			enable = true,
-			xOffset = 0,
-			yOffset = 2,
-			fadeInTime = 0.5,
-			stayTime = 3,
-			fadeOutTime = 0.5,
-			addRealm = false,
-			onlyInCombat = false,
-			classColor = true,
-			customColor = { r = 1, g = 1, b = 1 },
-			font = {
-				name = E.db.general.font,
-				size = 12,
-				style = "SHADOWOUTLINE",
-			},
-		},
 	},
 }
 
