@@ -769,46 +769,6 @@ L["Hides the camera controls when hovering the character model."] =
 L["Animation"] = true
 L["Animation Multiplier"] = "Animationsmultiplikator"
 
--- AutoButtons
-L["AutoButtons"] = "Autom. Tasten"
-L["Bar"] = "Leiste"
-L["Only show the bar when you mouse over it."] = "Zeige die Leiste nur an, wenn mit der Maus darüber gefahren wird."
-L["Bar Backdrop"] = "Leistenhintergrund"
-L["Show a backdrop of the bar."] = "Zeige einen Hintergrund auf der Leiste."
-L["Button Width"] = "Tastenbreite"
-L["The width of the buttons."] = "Die Breite der Tasten"
-L["Button Height"] = "Tastenhöhe"
-L["The height of the buttons."] = "Die Höhe der Tasten"
-L["Counter"] = "Zähler"
-L["Button Groups"] = "Tastengruppen"
-L["Key Binding"] = "Tastenbelegung"
-L["Custom Items"] = "Benutzerdefinierte Gegenstände"
-L["List"] = "Liste"
-L["New Item ID"] = "ID des neuen Gegenstands"
-L["Auto Button Bar"] = "Autom. Tastenleiste"
-L["Quest Items"] = "Questgegenstände"
-L["Equipments"] = "Ausrüstungen"
-L["Potions"] = "Tränke"
-L["Flasks"] = "Fläschchen"
-L["Food"] = "Essen"
-L["Crafted by mage"] = "Hergestellt vom Magier"
-L["Banners"] = "Banner"
-L["Utilities"] = "Werkzeuge"
-L["Fade Time"] = "Ausblendzeit"
-L["Alpha Min"] = "Transparens Min"
-L["Alpha Max"] = "Transparenz Max"
-L["Inherit Global Fade"] = "Erben globales Verblassen"
-L["Anchor Point"] = "Ankerpunkt"
-L["The first button anchors itself to this point on the bar."] =
-	"Die erste Taste verankert sich an diesem Punkt auf der Leiste."
-L["Dream Seeds"] = "Traum Saat"
-L["Reset the button groups of this bar."] = "Setze die Tastengruppen dieser Leiste zurück."
-L["Holiday Reward Boxes"] = "Feiertags Truhen"
-L["Equipment Slots (Range)"] = "Ausrüstungsplätze (Range)"
-L["Equipment Slots (Single)"] = "Ausrüstungsplätze (Single)"
-L["Slot ID List"] = true -- no need to translate
-L["number"] = true
-
 -- Media
 L["Zone Text"] = "Gebietstext"
 L["Font Size"] = "Schriftgröße"

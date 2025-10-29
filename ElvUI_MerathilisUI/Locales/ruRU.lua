@@ -728,48 +728,6 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 
--- AutoButtons
-L["AutoButtons"] = "Автоматические кнопки"
-L["Bar"] = "Панель"
-L["Only show the bar when you mouse over it."] =
-	"Показывать панель только при наведении на нее указателя мыши."
-L["Bar Backdrop"] = "Фон панели"
-L["Show a backdrop of the bar."] = "Покажите фон панели."
-L["Button Width"] = "Ширина кнопки"
-L["The width of the buttons."] = "Ширина кнопок."
-L["Button Height"] = "Высота кнопки"
-L["The height of the buttons."] = "Высота кнопок."
-L["Counter"] = "Счетчик"
-L["Button Groups"] = "Кнопки групп"
-L["Key Binding"] = "Привязка клавиш"
-L["Custom Items"] = "Свои предметы"
-L["List"] = "Список"
-L["New Item ID"] = "ID нового предмета"
-L["Auto Button Bar"] = "Панель автокнопок"
-L["Quest Items"] = "Предметы для заданий"
-L["Equipments"] = "Экипировка"
-L["Potions"] = "Зелья"
-L["Flasks"] = "Настои"
-L["Food"] = "Еда"
-L["Crafted by mage"] = "Создано магом"
-L["Banners"] = "Баннеры"
-L["Utilities"] = "Утилиты"
-L["Custom Items"] = "Свои предметы"
-L["Fade Time"] = "Время исчезновения"
-L["Alpha Min"] = "Минимальная прозрачность"
-L["Alpha Max"] = "Максимальная прозрачность"
-L["Inherit Global Fade"] = "Наследовать глобальное исчезновение"
-L["Anchor Point"] = "Точка привязки"
-L["The first button anchors itself to this point on the bar."] =
-	"Первая кнопка привязывается к этой точке на панели."
-L["Dream Seeds"] = true
-L["Reset the button groups of this bar."] = true
-L["Holiday Reward Boxes"] = true
-L["Equipment Slots (Range)"] = true
-L["Equipment Slots (Single)"] = true
-L["Slot ID List"] = true
-L["number"] = true
-
 -- Media
 L["Zone Text"] = "Текст зоны"
 L["Font Size"] = "Размер шрифта"

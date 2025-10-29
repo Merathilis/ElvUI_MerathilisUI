@@ -680,46 +680,6 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 
--- AutoButtons
-L["AutoButtons"] = true
-L["Bar"] = true
-L["Only show the bar when you mouse over it."] = true
-L["Bar Backdrop"] = true
-L["Show a backdrop of the bar."] = true
-L["Button Width"] = true
-L["The width of the buttons."] = true
-L["Button Height"] = true
-L["The height of the buttons."] = true
-L["Counter"] = true
-L["Button Groups"] = true
-L["Key Binding"] = true
-L["Custom Items"] = true
-L["List"] = true
-L["New Item ID"] = true
-L["Auto Button Bar"] = true
-L["Quest Items"] = true
-L["Equipments"] = true
-L["Potions"] = true
-L["Food"] = true
-L["Crafted by mage"] = true
-L["Flasks"] = true
-L["Banners"] = true
-L["Utilities"] = true
-L["Custom Items"] = true
-L["Fade Time"] = true
-L["Alpha Min"] = true
-L["Alpha Max"] = true
-L["Inherit Global Fade"] = true
-L["Anchor Point"] = true
-L["The first button anchors itself to this point on the bar."] = true
-L["Dream Seeds"] = true
-L["Reset the button groups of this bar."] = true
-L["Holiday Reward Boxes"] = true
-L["Equipment Slots (Range)"] = true
-L["Equipment Slots (Single)"] = true
-L["Slot ID List"] = true
-L["number"] = true
-
 -- Media
 L["Zone Text"] = true
 L["Font Size"] = true

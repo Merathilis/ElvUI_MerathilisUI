@@ -168,10 +168,6 @@ function MER:OptionsCallback()
 			end,
 		}
 	end
-
-	-- Data warmup
-	async.WithItemIDTable(E.db.mui.autoButtons.blackList, "key")
-	async.WithItemIDTable(E.db.mui.autoButtons.customList, "value")
 end
 
 MER.AnimationEaseTable = {

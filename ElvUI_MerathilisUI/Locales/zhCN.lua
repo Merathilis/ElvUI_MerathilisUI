@@ -703,45 +703,6 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 
--- AutoButtons
-L["AutoButtons"] = "自动按键"
-L["Bar"] = "动作条"
-L["Only show the bar when you mouse over it."] = "鼠标滑过时显示"
-L["Bar Backdrop"] = "动作条背景"
-L["Show a backdrop of the bar."] = "为动作条显示一个背景."
-L["Button Width"] = "按键宽度"
-L["The width of the buttons."] = "按键的宽度"
-L["Button Height"] = "按键高度"
-L["The height of the buttons."] = "按键的高度"
-L["Counter"] = "计数"
-L["Button Groups"] = "按键组"
-L["Key Binding"] = "按键绑定"
-L["Custom Items"] = "自订物品"
-L["List"] = "列表"
-L["New Item ID"] = "新物品ID"
-L["Auto Button Bar"] = "自动按键动作条"
-L["Quest Items"] = "任务物品"
-L["Equipments"] = "装备"
-L["Potions"] = "药水"
-L["Flasks"] = "合剂"
-L["Food"] = "食物"
-L["Crafted by mage"] = "由法师制作"
-L["Banners"] = "战旗"
-L["Utilities"] = "实用"
-L["Fade Time"] = "淡入时间"
-L["Alpha Min"] = "最小透明度"
-L["Alpha Max"] = "最大透明度"
-L["Inherit Global Fade"] = true
-L["Anchor Point"] = true
-L["The first button anchors itself to this point on the bar."] = true
-L["Dream Seeds"] = true
-L["Reset the button groups of this bar."] = true
-L["Holiday Reward Boxes"] = true
-L["Equipment Slots (Range)"] = "装备按栏位范围"
-L["Equipment Slots (Single)"] = "装备按栏位"
-L["Slot ID List"] = true
-L["number"] = "数字"
-
 -- Media
 L["Zone Text"] = "区域文字"
 L["Font Size"] = "字体大小"

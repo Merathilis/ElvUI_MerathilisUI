@@ -686,46 +686,6 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 
--- AutoButtons
-L["AutoButtons"] = "BoutonsAuto"
-L["Bar"] = "Barre"
-L["Only show the bar when you mouse over it."] = "N'afficher la barre qu'au survol de la souris."
-L["Bar Backdrop"] = "Fond de la barre"
-L["Show a backdrop of the bar."] = "Montrer le fond de la barre."
-L["Button Width"] = "Largeur des boutons"
-L["The width of the buttons."] = "La largeur des boutons."
-L["Button Height"] = "Hauteur des boutons"
-L["The height of the buttons."] = "La hauteur des boutons."
-L["Counter"] = "Compteur"
-L["Button Groups"] = "Groupes de boutons"
-L["Key Binding"] = "Raccourcis clavier"
-L["Custom Items"] = "Objets personnalisés"
-L["List"] = "Liste"
-L["New Item ID"] = "ID de l'objet"
-L["Auto Button Bar"] = true
-L["Quest Items"] = "Objets de quête"
-L["Equipments"] = "Équipements"
-L["Potions"] = "Potions"
-L["Flasks"] = "Flacons"
-L["Food"] = "Nourriture"
-L["Crafted by mage"] = "Fabriqué par un mage"
-L["Banners"] = "Bannières"
-L["Utilities"] = "Divers"
-L["Custom Items"] = "Objets personnalisés"
-L["Fade Time"] = "Durée du fondu"
-L["Alpha Min"] = "Alpha Min"
-L["Alpha Max"] = "Alpha Max"
-L["Inherit Global Fade"] = true
-L["Anchor Point"] = true
-L["The first button anchors itself to this point on the bar."] = true
-L["Dream Seeds"] = true
-L["Reset the button groups of this bar."] = true
-L["Holiday Reward Boxes"] = true
-L["Equipment Slots (Range)"] = true
-L["Equipment Slots (Single)"] = true
-L["Slot ID List"] = true
-L["number"] = true
-
 -- Media
 L["Zone Text"] = true
 L["Font Size"] = true

@@ -80,6 +80,8 @@ function module:LoadWindToolsProfile()
 	private["skins"]["widgets"]["tab"]["enable"] = false
 	private["skins"]["widgets"]["treeGroupButton"]["enable"] = false
 	private["unitFrames"]["roleIcon"]["roleIconStyle"] = "LYNUI"
+	private["objectiveTracker"]["info"]["size"] = 11
+	private["objectiveTracker"]["info"]["style"] = "SHADOWOUTLINE"
 
 	if E and E.db and not E.db.movers then
 		E.db.movers = {}

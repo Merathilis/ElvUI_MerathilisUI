@@ -961,49 +961,6 @@ L["Hides the camera controls when hovering the character model."] =
 L["Animation"] = "애니메이션"
 L["Animation Multiplier"] = "애니메이션 배율"
 
--- AutoButtons
-L["AutoButtons"] = "아이템 바"
-L["Bar"] = "바"
-L["Only show the bar when you mouse over it."] = "마우스 오버 시에만 바를 표시합니다."
-L["Bar Backdrop"] = "바 배경"
-L["Show a backdrop of the bar."] = "바의 배경을 표시합니다."
-L["Button Width"] = "버튼 폭"
-L["The width of the buttons."] = "버튼의 너비입니다."
-L["Button Height"] = "버튼 높이"
-L["The height of the buttons."] = "버튼의 높이입니다."
-L["AutoButtons"] = "아이템 바"
-L["Crafting Quality Tier"] = "제작 품질 등급"
-L["Counter"] = "개수 글씨 설정"
-L["Button Groups"] = "버튼 그룹"
-L["Key Binding"] = "단축키 글씨 설정"
-L["Custom Items"] = "사용자 지정 아이템"
-L["List"] = "목록"
-L["New Item ID"] = "새 아이템 ID"
-L["Auto Button Bar"] = "아이템 바"
-L["Quest Items"] = "퀘스트 아이템"
-L["Equipments"] = "장비"
-L["Potions"] = "물약"
-L["Flasks"] = "영약"
-L["Food"] = "음식"
-L["Crafted by mage"] = "마법사 창조"
-L["Banners"] = "전투 깃발"
-L["Utilities"] = "유틸리티"
-L["Custom Items"] = "사용자 지정 아이템"
-L["Fade Time"] = "사라지는 시간 설정"
-L["Alpha Min"] = "최소 알파값"
-L["Alpha Max"] = "최대 알파값"
-L["Inherit Global Fade"] = "전역 흐려짐 상속"
-L["Anchor Point"] = "고정 위치"
-L["The first button anchors itself to this point on the bar."] =
-	"첫 번째 버튼이 바의 이 위치를 기준으로 고정됩니다"
-L["Dream Seeds"] = "꿈의 씨앗"
-L["Reset the button groups of this bar."] = "이 바의 버튼 그룹을 초기화합니다"
-L["Holiday Reward Boxes"] = "축제 보상 상자"
-L["Equipment Slots (Range)"] = true
-L["Equipment Slots (Single)"] = true
-L["Slot ID List"] = true
-L["number"] = true
-
 -- Media
 L["Zone Text"] = "지역명 텍스트"
 L["Font Size"] = "글꼴 크기"

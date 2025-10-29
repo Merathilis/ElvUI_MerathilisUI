@@ -95,17 +95,6 @@ E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 	OnAccept = _G.ReloadUI,
 }
 
-_G.BINDING_CATEGORY_ELVUI_MERATHILISUI = MER.Title
-for i = 1, 5 do
-	_G["BINDING_HEADER_AUTOBUTTONBAR" .. i] = C.StringWithRGB(L["AutoButtonBar"] .. " " .. i, E.db.general.valuecolor)
-	for j = 1, 12 do
-		_G[format("BINDING_NAME_CLICK AutoButtonBar%dButton%d:LeftButton", i, j)] = L["Button"] .. " " .. j
-	end
-end
-
-_G.BINDING_CATEGORY_ELVUI_MERATHILISUI_EXTRA = MER.Title .. " - " .. L["Extra"]
-_G.BINDING_HEADER_MEREXTRABUTTONS = L["Extra Buttons"]
-
 -- this needs to be available early (don't put it in Staticpopups.lua)
 E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
 	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),

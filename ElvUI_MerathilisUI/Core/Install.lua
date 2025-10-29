@@ -380,8 +380,6 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "- Expressway"
-	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
-	E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
 
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["bottomPanel"] = false
@@ -901,9 +899,6 @@ function MER:SetupActionbars()
 	E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
-	E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,216"
-	E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,247"
-	E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,279"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2487,12 +2482,10 @@ function MER:DeveloperSettings()
 	E.db["general"]["cropIcon"] = 0
 	E.db["general"]["autoRepair"] = "GUILD"
 	E.db["tooltip"]["showElvUIUsers"] = true
-	E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
 	E.db["mui"]["pvp"]["duels"]["regular"] = true
 	E.db["mui"]["pvp"]["duels"]["pet"] = true
 	E.db["mui"]["pvp"]["duels"]["announce"] = true
 	E.private["mui"]["skins"]["shadowOverlay"] = true
-	E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
 	E.db["mui"]["tooltip"]["gradientName"] = true
 	E.db["mui"]["nameHover"]["gradient"] = true
 	E.db["mui"]["scale"]["enable"] = true
