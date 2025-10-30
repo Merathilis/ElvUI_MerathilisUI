@@ -8,8 +8,8 @@ if not IsAddOnLoaded("ElvUI_WindTools") then
 end
 
 function module:LoadWindToolsProfile()
-	local db = E.db.WT
-	local private = E.private.WT
+	local db = E and E.db and E.db.WT
+	local private = E and E.private and E.private.WT
 
 	if not db or not private then
 		return
@@ -27,7 +27,6 @@ function module:LoadWindToolsProfile()
 	db["announcement"]["taunt"]["player"]["player"]["enable"] = false
 	db["announcement"]["threatTransfer"]["enable"] = false
 	db["announcement"]["threatTransfer"]["onlyNotTank"] = false
-	db["announcement"]["utility"]["spells"]["698"] = L["{rt1} %player% is casting %spell%, please assist! {rt1}"]
 	db["combat"]["classHelper"]["deathStrikeEstimator"]["enable"] = true
 	db["combat"]["classHelper"]["deathStrikeEstimator"]["hideIfTheBarOutside"] = true
 	db["combat"]["classHelper"]["deathStrikeEstimator"]["onlyInCombat"] = true
@@ -78,10 +77,10 @@ function module:LoadWindToolsProfile()
 	private["quest"]["objectiveTracker"]["enable"] = true
 	private["quest"]["objectiveTracker"]["info"]["size"] = 11
 	private["quest"]["objectiveTracker"]["info"]["style"] = "SHADOWOUTLINE"
-	private["skins"]["widgets"]["button"]["enable"] = false
-	private["skins"]["widgets"]["checkBox"]["enable"] = false
-	private["skins"]["widgets"]["tab"]["enable"] = false
-	private["skins"]["widgets"]["treeGroupButton"]["enable"] = false
+	private["skins"]["widgets"]["button"]["enable"] = true
+	private["skins"]["widgets"]["checkBox"]["enable"] = true
+	private["skins"]["widgets"]["tab"]["enable"] = true
+	private["skins"]["widgets"]["treeGroupButton"]["enable"] = true
 	private["unitFrames"]["roleIcon"]["roleIconStyle"] = "LYNUI"
 
 	if E and E.db and not E.db.movers then
