@@ -537,7 +537,7 @@ function F.cOption(name, color)
 	return (hex):format(name)
 end
 
----Print message with WindTools title prefix
+---Print message with MerathilisUI title prefix
 ---@param ... string|number Message parts to print
 function F.Print(...)
 	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
