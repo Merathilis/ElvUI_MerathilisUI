@@ -537,6 +537,14 @@ function F.cOption(name, color)
 	return (hex):format(name)
 end
 
+---Print message with WindTools title prefix
+---@param ... string|number Message parts to print
+function F.Print(...)
+	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
+end
+hooksecurefunc(WF, "Print", F.Print) -- Override WindTools Print
+WF.Print = F.Print
+
 function F.DebugPrint(text, msgtype)
 	if not text then
 		return
