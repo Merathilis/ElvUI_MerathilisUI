@@ -263,60 +263,7 @@ function MER:TryReplaceEventTraceLogEvent()
 	end
 end
 
-function MER:FixGame()
-	local db = E.global.mui.advancedOptions
-	if not db then
-		return
-	end
-
-	-- Button Fix
-	if db.cvarAlert then
-		self:RegisterEvent("CVAR_UPDATE", function(_, cvar, value)
-			if cvar == "ActionButtonUseKeyDown" and MER.UseKeyDown ~= (value == "1") then
-				E:StaticPopup_Show("MERATHILISUI_BUTTON_FIX_RELOAD")
-			end
-		end)
-	end
-
-	if db.guildNews then
-		-- https://nga.178.com/read.php?tid=42399961
-		local newsRequireUpdate, newsTimer
-		_G.CommunitiesFrameGuildDetailsFrameNews:SetScript("OnEvent", function(frame, event)
-			if event == "GUILD_NEWS_UPDATE" then
-				if newsTimer then
-					newsRequireUpdate = true
-				else
-					_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
-
-					-- After 1 second, if guild news still need to be updated, update again
-					newsTimer = C_Timer_NewTimer(1, function()
-						if newsRequireUpdate then
-							_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
-						end
-						newsTimer = nil
-					end)
-				end
-			else
-				_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
-			end
-		end)
-	end
-
-	if db.advancedCLEUEventTrace then
-		if EventTrace then
-			self:TryReplaceEventTraceLogEvent()
-		else
-			self:RegisterEvent("ADDON_LOADED")
-		end
-	end
-
-	if db.fixSetPassThroughButtons then
-		_G.QuestPinMixin.SetPassThroughButtons = E.noop
-		_G.BonusObjectivePinMixin.SetPassThroughButtons = E.noop
-	end
-end
-
-function MER:ADDON_LOADED(event, addOnName)
+function MER:ADDON_LOADED(_, addOnName)
 	if addOnName ~= "Blizzard_EventTrace" then
 		return
 	end

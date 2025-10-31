@@ -101,8 +101,6 @@ MER.Modules.BagInfo = MER:NewModule("MER_BagInfo", "AceHook-3.0", "AceEvent-3.0"
 MER.Modules.Changelog = MER:NewModule("MER_Changelog", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Cooldown = MER:NewModule("MER_Cooldown", "AceHook-3.0")
 MER.Modules.CombatText = MER:NewModule("MER_CombatText", "AceEvent-3.0", "AceTimer-3.0")
-MER.Modules.EventTracker = MER:NewModule("MER_EventTracker", "AceEvent-3.0", "AceHook-3.0")
-MER.Modules.Filter = MER:NewModule("MER_Filter", "AceEvent-3.0")
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.MiniMap = MER:NewModule("MER_Minimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
@@ -114,7 +112,6 @@ MER.Modules.PetBattleScripts = MER:NewModule("MER_PetBattleScripts")
 MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0", "AceTimer-3.0")
 MER.Modules.PVP = MER:NewModule("MER_PVP", "AceEvent-3.0")
 MER.Modules.RaidBuffs = MER:NewModule("MER_RaidBuffs")
-MER.Modules.RaidCD = MER:NewModule("MER_RaidCD", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.RaidInfoFrame = MER:NewModule("MER_RaidInfoFrame")
 MER.Modules.Reminder = MER:NewModule("MER_Reminder", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Skins = MER:NewModule("MER_Skins", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
@@ -123,9 +120,6 @@ MER.Modules.Style = MER:NewModule("MER_Style", "AceHook-3.0")
 MER.Modules.Tooltip = MER:NewModule("MER_Tooltip", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
-
--- Utilities namespace
-MER.Utilities = {}
 
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
@@ -153,7 +147,7 @@ function MER:Initialize()
 	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
 
 	if MER.IsDevelop then
-		Engine[2].DebugPrint(
+		Engine[4].DebugPrint(
 			"You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help",
 			"warning"
 		)
@@ -244,8 +238,6 @@ do
 				E:Delay(4, self.PrintDebugEnviromentTip)
 			end
 		end
-
-		self:FixGame()
 
 		Engine[4]:GradientColorUpdate()
 

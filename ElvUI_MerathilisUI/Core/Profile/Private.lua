@@ -17,7 +17,6 @@ V.skins = {
 		bs = true,
 		pa = true,
 		ls = true,
-		dbm = true,
 		cl = true,
 		cbn = true,
 		et = true,

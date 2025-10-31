@@ -511,26 +511,6 @@ L["Same Message Interval"] = "동일 메시지 간격 제한"
 L["Time interval between sending same messages measured in seconds."] =
 	"같은 메시지를 반복해서 전송할 때의 시간 간격(초 단위)"
 L["Set to 0 to disable."] = "0으로 설정하면 비활성화됩니다"
-L["Automation"] = "자동화"
-L["Automate your game life."] = "게임 생활을 자동화합니다"
-L["Auto Hide Bag"] = "가방 자동 숨김"
-L["Automatically close bag if player enters combat."] = "전투에 진입하면 가방을 자동으로 닫습니다"
-L["Auto Hide Map"] = "지도 자동 숨김"
-L["Automatically close world map if player enters combat."] =
-	"전투에 진입하면 세계 지도를 자동으로 닫습니다"
-L["Accept Resurrect"] = "부활 자동 수락"
-L["Accept resurrect from other player automatically when you not in combat."] =
-	"비전투 상태일 때 다른 플레이어의 부활을 자동으로 수락합니다"
-L["Accept Combat Resurrect"] = "전투 중 부활 자동 수락"
-L["Accept resurrect from other player automatically when you in combat."] =
-	"전투 중일 때 다른 플레이어의 부활을 자동으로 수락합니다"
-L["Confirm Summon"] = "소환 자동 확인"
-L["Confirm summon from other player automatically."] =
-	"다른 플레이어의 소환 요청을 자동으로 수락합니다"
-L["Quick Delete"] = "빠른 삭제"
-L["This will add the 'DELETE' text to the Item Delete Dialog."] =
-	"아이템 삭제 창에 'DELETE' 입력란을 추가합니다"
-L["Confirmed"] = "확인됨"
 L["Show all stats on the Character Frame"] = "캐릭터 창에 모든 능력치를 표시합니다"
 L["Block Join Requests"] = "가입 요청 차단"
 L["|nIf checked, only popout join requests from friends and guild members."] =
