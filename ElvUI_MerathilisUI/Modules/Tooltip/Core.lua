@@ -32,10 +32,6 @@ function module:Initialize()
 		self.load[index] = nil
 	end
 
-	for name, _ in pairs(self.eventCallback) do
-		self:RegisterEvent(name, "Event")
-	end
-
 	self.initialized = true
 end
 

@@ -74,8 +74,6 @@ function module:Initialize()
 	hooksecurefunc(AB, "StyleShapeShift", module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
-	-- RoleIcons
-	module:Configure_RoleIcons()
 
 	self:RegisterEvent("ADDON_LOADED")
 end
