@@ -57,98 +57,6 @@ L["Only display log message that the level is higher than you choose."] = true
 L["Set to 2 if you do not understand the meaning of log level."] = true
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
--- Bags
-
--- Chat
-L["CHAT_AFK"] = "[AFK]"
-L["CHAT_DND"] = "[DND]"
-L["BACK"] = "Back"
-L["has come |cff298F00online|r."] = true -- Guild Message
-L["has gone |cffff0000offline|r."] = true -- Guild Message
-L[" has come |cff298F00online|r."] = true -- Battle.Net Message
-L[" has gone |cffff0000offline|r."] = true -- Battle.Net Message
-L["|cFF00c0failvl|r: %d"] = true
-L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
-L["Requires level: %d - %d"] = true
-L["Requires level: %d - %d (%d)"] = true
-L["(+%.1f Rested)"] = true
-L["Unknown"] = true
-L["Chat Item Level"] = true
-L["Shows the slot and item level in the chat"] = true
-L["Expand the chat"] = true
-L["Chat Menu"] = true
-L["Create a chat button to increase the chat size."] = true
-L["Hide Player Brackets"] = true
-L["Removes brackets around the person who posts a chat message."] = true
-L["Hide Chat Side Panel"] = true
-L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
-L["Chat Bar"] = true
-L["Shows a ChatBar with different quick buttons."] = true
-L["Hide Community Chat"] = true
-L["Adds an overlay to the Community Chat. Useful for streamers."] = true
-L["Chat Hidden. Click to show"] = true
-L["Click to open Emoticon Frame"] = true
-L["Emotes"] = true
-L["Damage Meter Filter"] = true
-L["Fade Chat"] = true
-L["Auto hide timeout"] = true
-L["Seconds before fading chat panel"] = true
-L["Seperators"] = true
-L["Orientation"] = true
-L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = true
-L["Channel Name"] = true
-L["Abbreviation"] = true
-L["Auto Join"] = true
-L["World"] = true
-L["Channels"] = true
-L["Block Shadow"] = true
-L["Hide channels not exist."] = true
-L["Only show chat bar when you mouse over it."] = true
-L["Button"] = true
-L["Item Level Links"] = true
-L["Filter"] = true
-L["Block"] = true
-L["Custom Online Message"] = true
-L["Chat Link"] = true
-L["Add extra information on the link, so that you can get basic information but do not need to click"] = true
-L["Additional Information"] = true
-L["Level"] = true
-L["Translate Item"] = true
-L["Translate the name in item links into your language."] = true
-L["Icon"] = true
-L["Armor Category"] = true
-L["Weapon Category"] = true
-L["Filters some messages out of your chat, that some Spam AddOns use."] = true
-L["Display the level of the item on the item link."] = true
-L["Numerical Quality Tier"] = true
-L["%player% has earned the achievement %achievement%!"] = true
-L["%players% have earned the achievement %achievement%!"] = true
-L["%players% (%bnet%) has come online."] = "%players% (%bnet%) se conectou."
-L["%players% (%bnet%) has gone offline."] = "%players% (%bnet%) se desconectou."
-L["BNet Friend Offline"] = true
-L["BNet Friend Online"] = true
-L["Show a message when a Battle.net friend's wow character comes online."] = true
-L["Show a message when a Battle.net friend's wow character goes offline."] = true
-L["Show the class icon before the player name."] = true
-L["Show the faction icon before the player name."] = true
-L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] = true
-L["This feature only works for message that sent by this module."] = true
-L["Position of the Chat EditBox, if the Actionbar backdrop is disabled, this will be forced to be above chat."] = true
-L["Actionbar 1 (below)"] = true
-L["Actionbar 2 (below)"] = true
-L["Actionbar 3 (below)"] = true
-L["Actionbar 4 (below)"] = true
-L["Actionbar 5 (below)"] = true
-L["Actionbar 6 (above)"] = true
-L["Move (L\124\124R) Reset"] = true
-L["Emote Selector"] = true
-L["Emote"] = true
-L["Parse emote expression from other players."] = true
-L["Emote Icon Size"] = true
-L["Use Emote Panel"] = true
-L["Press { to active the emote select window."] = true
-L["Chat Bubbles"] = true
-
 -- Combat Alert
 L["Combat Alert"] = true
 L["Enable/Disable the combat message if you enter/leave the combat."] = true
@@ -194,76 +102,6 @@ L["Show Mythic+ Infos"] = true
 L["Show Mythic+ Score"] = true
 L["History Limit"] = true
 L["Number of Mythic+ dungeons shown in the latest runs."] = true
-
--- Extended Vendor
-L["Extended Vendor"] = true
-L["Extends the merchant page to show more items."] = true
-L["Number of Pages"] = true
-L["The number of pages shown in the merchant frame."] = true
-
--- Shadows
-L["Shadows"] = true
-L["Increase Size"] = true
-L["Make shadow thicker."] = true
-
--- Mail
-L["Mail"] = true
-L["Alternate Character"] = true
-L["Alt List"] = true
-L["Delete"] = true
-L["Favorites"] = true
-L["Favorite List"] = true
-L["Name"] = true
-L["Realm"] = true
-L["Add"] = true
-L["Please set the name and realm first."] = true
-L["Toggle Contacts"] = true
-L["Online Friends"] = true
-L["Add To Favorites"] = true
-L["Remove From Favorites"] = true
-L["Remove This Alt"] = true
-
--- MicroBar
-L["Backdrop"] = true
-L["Backdrop Spacing"] = true
-L["The spacing between the backdrop and the buttons."] = true
-L["Time Width"] = true
-L["Time Height"] = true
-L["The spacing between buttons."] = true
-L["The size of the buttons."] = true
-L["Slow Mode"] = true
-L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
-	true
-L["Display"] = true
-L["Fade Time"] = true
-L["Tooltip Position"] = true
-L["Mode"] = true
-L["None"] = true
-L["Class Color"] = true
-L["Custom"] = true
-L["Additional Text"] = true
-L["Interval"] = true
-L["The interval of updating."] = true
-L["Home"] = true
-L["Left Button"] = true
-L["Right Button"] = true
-L["Left Panel"] = true
-L["Right Panel"] = true
-L["Button #%d"] = true
-L["Pet Journal"] = true
-L["Show Pet Journal"] = true
-L["Random Favorite Pet"] = true
-L["Screenshot"] = true
-L["Screenshot immediately"] = true
-L["Screenshot after 2 secs"] = true
-L["Toy Box"] = true
-L["Collections"] = true
-L["Show Collections"] = true
-L["Random Favorite Mount"] = true
-L["Decrease the volume"] = true
-L["Increase the volume"] = true
-L["Profession"] = true
-L["Volume"] = true
 
 -- Misc
 L["Misc"] = true
@@ -312,22 +150,6 @@ L["Toys"] = true
 L["Random Toy"] = true
 L["Text Style"] = true
 L["COLOR"] = true
-L["Hide Boss Banner"] = true
-L["This will hide the popup, that shows loot, after you kill a boss"] = true
-L["{rt1} %player% cast %spell% -> %target% {rt1}"] = true
-L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] = true
-L["{rt1} %player% is casting %spell%, please assist! {rt1}"] = true
-L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] = true
-L["{rt1} %player% opened %spell%! {rt1}"] = true
-L["{rt1} %player% puts %spell% {rt1}"] = true
-L["{rt1} %player% used %spell% {rt1}"] = true
-L["{rt1} %player% puts down %spell%! {rt1}"] = true
-L["Completed"] = true
-L["%s has been reseted"] = true
-L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] = true
-L["Cannot reset %s (There are players offline in your party.)"] = true
-L["Cannot reset %s (There are players still inside the instance.)"] = true
-L["Let your teammates know the progress of quests."] = true
 L["Include Details"] = true
 L["Announce every time the progress has been changed."] = true
 L["In Party"] = true
@@ -496,69 +318,8 @@ L["To ensure the colorful progress information remains clearly visible across di
 	true
 L["You can find the setting in 'ElvUI > %s > %s > %s'."] = true
 
--- Move Frames
-L["Move Frames"] = true
-L["Because of %s, this module will not be loaded."] = true
-L["This module provides the feature that repositions the frames with drag and drop."] = true
-L["Drag"] = true
-L["Temporary Move"] = true
-L["Hold Control + Right Click:"] = true
-L["Reset Position"] = true
-L["Move ElvUI Bags"] = true
-L["TSM Compatible"] = true
-L["Fix the merchant frame showing when you using Trade Skill Master."] = true
-L["Remember Positions"] = true
-L["Clear History"] = true
-L["Notice"] = true
-L["%s may cause some frames to get messed, but you can use %s button to reset frames."] = true
-
 -- Nameplates
 L["NamePlates"] = true
-
--- Tooltip
-L["Your Status:"] = true
-L["Your Status: Incomplete"] = true
-L["Your Status: Completed on "] = true
-L["Adds an icon for spells and items on your tooltip."] = true
-L["Adds an Icon for battle pets on the tooltip."] = true
-L["Adds an Icon for the faction on the tooltip."] = true
-L["Adds information to the tooltip, on which char you earned an achievement."] = true
-L["Keystone"] = true
-L["Adds descriptions for mythic keystone properties to their tooltips."] = true
-L["Title Color"] = true
-L["Change the color of the title in the Tooltip."] = true
-L["FACTION"] = "Faction"
-L["Only Icons"] = true
-L["Use the new style tooltip."] = "Use the new style tooltip."
-L["Display in English"] = "Display in English"
-L["Show icon"] = "Show icon"
-L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
-L["Show the rank of shards."] = true
-L["Pet Battle"] = true
-L["Tooltip Icons"] = true
-L["Pet Icon"] = true
-L["Pet ID"] = true
-L["Add an icon for indicating the type of the pet."] = true
-L["Show battle pet species ID in tooltips."] = true
-L["The modifer key to show additional information from %s."] = true
-L["Display TargetTarget"] = true
-L["Gradient Color"] = true
-L["Colors the player names in a gradient instead of class color"] = true
-L["Health Bar Y-Offset"] = true
-L["Change the postion of the health bar."] = true
-L["Health Text Y-Offset"] = true
-L["Change the postion of the health text."] = true
-L["Class Icon Style"] = true
-L["Reference"] = true
-L["Preview"] = true
-L["Template"] = true
-L["Please click the button below to read reference."] = true
-L["Spec Icon"] = true
-L["Show the icon of the specialization."] = true
-L["Race Icon"] = true
-L["Show the icon of the player race."] = true
-L["Health Bar"] = true
-L["Group Info"] = true
 
 -- Notification
 L["Notification"] = true
@@ -586,15 +347,6 @@ L["Title Font"] = true
 L["Text Font"] = true
 L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
-
--- DataTexts
-L["|cffFFFFFFLeft Click:|r Open Character Frame"] = true
-L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
-
--- DataBars
-L["DataBars"] = true
-L["Add some stylish buttons at the bottom of the DataBars"] = true
-L["Style DataBars"] = true
 
 -- PVP
 L["Automatically cancel PvP duel requests."] = true
@@ -675,53 +427,6 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 
--- Media
-L["Zone Text"] = true
-L["Font Size"] = true
-L["Subzone Text"] = true
-L["PvP Status Text"] = true
-L["Misc Texts"] = true
-L["Mail Text"] = true
-L["Chat Editbox Text"] = true
-L["Gossip and Quest Frames Text"] = true
-L["Objective Tracker Header Text"] = true
-L["Objective Tracker Text"] = true
-L["Banner Big Text"] = true
-L["MER_MEDIA_ZONES"] = {
-	"Washington",
-	"Moscow",
-	"Moon Base",
-	"Goblin Spa Resort",
-	"Illuminaty Headquaters",
-	"Elv's Closet",
-	"BlizzCon",
-}
-L["MER_MEDIA_PVP"] = {
-	"(Horde Territory)",
-	"(Alliance Territory)",
-	"(Contested Territory)",
-	"(Russian Territory)",
-	"(Aliens Territory)",
-	"(Cats Territory)",
-	"(Japanese Territory)",
-	"(EA Territory)",
-}
-L["MER_MEDIA_SUBZONES"] = {
-	"Administration",
-	"Hellhole",
-	"Alley of Bullshit",
-	"Dr. Pepper Storage",
-	"Vodka Storage",
-	"Last National Bank",
-}
-L["MER_MEDIA_PVPARENA"] = {
-	"(PvP)",
-	"No Smoking!",
-	"Only 5% Taxes",
-	"Free For All",
-	"Self destruction is in process",
-}
-
 -- Unitframes
 L["UnitFrames"] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
@@ -767,247 +472,6 @@ L["Role Icons"] = true
 L["Heal Prediction"] = true
 L["Add an additional overlay to the absorb bar."] = true
 
--- Maps
-L["Maps"] = true
-L["World Map"] = true
-L["Duration"] = true
-L["Fade Out"] = true
-L["Scale"] = true
-L["Add Server Name"] = true
-L["Only In Combat"] = true
-L["Fade-In"] = true
-L["The time of animation. Set 0 to disable animation."] = true
-L["Blinking Minimap"] = true
-L["Enable the blinking animation for new mail or pending invites."] = true
-L["Super Tracker"] = true
-L["Description"] = true
-L["Additional features for waypoint."] = true
-L["Auto Track Waypoint"] = true
-L["Auto track the waypoint after setting."] = true
-L["Middle Click To Clear"] = true
-L["Middle click the waypoint to clear it."] = true
-L["No Distance Limitation"] = true
-L["Force to track the target even if it over 1000 yds."] = true
-L["Distance Text"] = true
-L["Only Number"] = true
-L["Add Command"] = true
-L["Add a input box to the world map."] = true
-L["Are you sure to delete the %s command?"] = true
-L["Can not set waypoint on this map."] = true
-L["Command"] = true
-L["Command Configuration"] = true
-L["Command List"] = true
-L["Delete Command"] = true
-L["Delete the selected command."] = true
-L["Enable to use the command to set the waypoint."] = true
-L["Go to ..."] = true
-L["Input Box"] = true
-L["New Command"] = true
-L["No Arg"] = true
-L["Smart Waypoint"] = true
-L["The argument is invalid."] = true
-L["The argument is needed."] = true
-L["The command to set a waypoint."] = true
-L["The coordinates contain illegal number."] = true
-L["Waypoint %s has been set."] = true
-L["Waypoint Parse"] = true
-L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] = true
-L["illegal"] = true
-L["invalid"] = true
-L["Because of %s, this module will not be loaded."] = true
-L["This module will help you to reveal and resize maps."] = true
-L["Reveal"] = true
-L["Use Colored Fog"] = true
-L["Remove Fog of War from your world map."] = true
-L["Style Fog of War with special color."] = true
-L["Resize world map."] = true
-L["LFG Queue"] = true
-L["Right click to switch expansion"] = true
-L["Add trackers for world events in the bottom of world map."] = true
-L["Alert"] = true
-L["Alert Second"] = true
-L["Alert will be triggered when the remaining time is less than the set value."] = true
-L["Community Feast"] = true
-L["Cooking"] = true
-L["Dragonbane Keep"] = true
-L["Duration"] = true
-L["Event Tracker"] = true
-L["Feast"] = true
-L["In Progress"] = true
-L["Location"] = true
-L["Siege On Dragonbane Keep"] = true
-L["Status"] = true
-L["Waiting"] = true
-L["Weekly Reward"] = true
-L["%s will be started in %s!"] = true
-L["Next Event"] = true
-L["Stop Alert if Completed"] = true
-L["Stop alert when the event is completed in this week."] = true
-L["Alert Sound"] = true
-L["Play sound when the alert is triggered."] = true
-L["Sound File"] = true
-L["Only DF Character"] = true
-L["Stop alert when the player have not entered Dragonlands yet."] = true
-L["The offset of the frame from the bottom of world map. (Default is -3)"] = true
-L["Alert Timeout"] = true
-L["All nets can be collected"] = true
-L["Can be collected"] = true
-L["Can be set"] = true
-L["Fishing Net"] = true
-L["Fishing Nets"] = true
-L["Iskaaran Fishing Net"] = true
-L["Net #%d"] = true
-L["Net %s can be collected"] = true
-L["No Nets Set"] = true
-L["Custom String"] = true
-L["Custom Strings"] = true
-L["Custom color can be used by adding the following code"] = true
-L["Difficulty"] = true
-L["M+ Level"] = true
-L["Number of Players"] = true
-L["Placeholders"] = true
-L["Use Default"] = true
-L["Researchers Under Fire"] = "Pesquisadores sob fogo"
-L["Time Rift"] = "Fenda Temporal"
-L["Superbloom"] = true
-L["Big Dig"] = true
-L["The Big Dig"] = true
-L["Horizontal Spacing"] = true
-L["Show a backdrop of the trackers."] = true
-L["The Y-Offset of the backdrop."] = true
-L["The height of the tracker."] = true
-L["The spacing between the backdrop and the trackers."] = true
-L["The spacing between the tracker and the world map."] = true
-L["The spacing between trackers."] = true
-L["The width of the tracker."] = true
-L["Vertical Spacing"] = true
-L["Click to show location"] = true
-L["Current Location"] = true
-L["Echoes"] = true
-L["Next Location"] = true
-L["Radiant Echoes"] = true
-L["Performing"] = true
-L["Theater Troupe"] = true
-L["Nightfall"] = true
-L["Running"] = true
-L["Khaz Algar Emissary"] = true
-L["Professions Weekly"] = true
-L["Ringing Deeps"] = true
-L["Spreading The Light"] = true
-L["Underworld Operative"] = true
-L["World Soul"] = true
-L["Rectangle Minimap"] = true
-L["Expansion Landing Page"] = true
-L["Instance Difficulty"] = true
-L["Reskin the instance diffculty in text style."] = true
-L["Text Align"] = true
-L["Hide Blizzard Indicator"] = true
-L["Left"] = true
-L["Center"] = true
-L["Right"] = true
-L["Minimap Coords"] = true
-L["Add coords to your Minimap."] = true
-
--- SMB
-L["Minimap Buttons"] = true
-L["Add an extra bar to collect minimap buttons."] = true
-L["Toggle minimap buttons bar."] = true
-L["Mouse Over"] = true
-L["Only show minimap buttons bar when you mouse over it."] = true
-L["Minimap Buttons Bar"] = true
-L["Bar Backdrop"] = true
-L["Show a backdrop of the bar."] = true
-L["Backdrop Spacing"] = true
-L["The spacing between the backdrop and the buttons."] = true
-L["Inverse Direction"] = true
-L["Reverse the direction of adding buttons."] = true
-L["Orientation"] = true
-L["Arrangement direction of the bar."] = true
-L["Drag"] = true
-L["Horizontal"] = true
-L["Vertical"] = true
-L["Buttons"] = true
-L["Buttons Per Row"] = true
-L["The amount of buttons to display per row."] = true
-L["Button Size"] = true
-L["The size of the buttons."] = true
-L["Button Spacing"] = true
-L["The spacing between buttons."] = true
-L["Blizzard Buttons"] = true
-L["Calendar"] = true
-L["Add calendar button to the bar."] = true
-L["Garrison"] = true
-L["Add garrison button to the bar."] = true
-L["All handled minimap buttons"] = true
-L["Buttons matching earlier patterns will appear first."] = true
-L["Enter a comma-separated list of Lua regex patterns."] = true
-L["If you are not familiar with Lua regex, try using AI to help you."] = true
-L["Leading and trailing whitespace in each pattern will be automatically trimmed."] = true
-L["Priority Patterns"] = true
-L["Recent Allies"] = true
-L["Reset sorting priority to default value."] = true
-L["Reverse Order"] = true
-L["Reverse the sort order of buttons."] = true
-L["Set the sorting priority of minimap buttons by patterns."] = true
-L["Sorting Priority"] = true
-L["Updated minimap buttons layout."] = true
-L["Use command %s to view all handled buttons and their current sorting priority."] = true
-
--- Raid Marks
-L["Raid Markers"] = true
-L["Raid Markers Bar"] = true
-L["Raid Utility"] = true
-L["Left Click to mark the target with this mark."] = true
-L["Right Click to clear the mark on the target."] = true
-L["%s + Left Click to place this worldmarker."] = true
-L["%s + Right Click to clear this worldmarker."] = true
-L["%s + Left Click to mark the target with this mark."] = true
-L["%s + Right Click to clear the mark on the target."] = true
-L["Click to clear all marks."] = true
-L["takes 3s"] = true
-L["%s + Click to remove all worldmarkers."] = true
-L["Click to remove all worldmarkers."] = true
-L["%s + Click to clear all marks."] = true
-L["Left Click to ready check."] = true
-L["Right click to toggle advanced combat logging."] = true
-L["Left Click to start count down."] = true
-L["Add an extra bar to let you set raid markers efficiently."] = true
-L["Toggle raid markers bar."] = true
-L["Inverse Mode"] = true
-L["Swap the functionality of normal click and click with modifier keys."] = true
-L["Visibility"] = true
-L["In Party"] = true
-L["Always Display"] = true
-L["Mouse Over"] = true
-L["Only show raid markers bar when you mouse over it."] = true
-L["Tooltip"] = true
-L["Show the tooltip when you mouse over the button."] = true
-L["Modifier Key"] = true
-L["Set the modifier key for placing world markers."] = true
-L["Shift Key"] = true
-L["Ctrl Key"] = true
-L["Alt Key"] = true
-L["Bar Backdrop"] = true
-L["Show a backdrop of the bar."] = true
-L["Backdrop Spacing"] = true
-L["The spacing between the backdrop and the buttons."] = true
-L["Orientation"] = true
-L["Arrangement direction of the bar."] = true
-L["Raid Buttons"] = true
-L["Ready Check"] = true
-L["Advanced Combat Logging"] = true
-L["Left Click to ready check."] = true
-L["Right click to toggle advanced combat logging."] = true
-L["Count Down"] = true
-L["Count Down Time"] = true
-L["Count down time in seconds."] = true
-L["Button Size"] = true
-L["The size of the buttons."] = true
-L["Button Spacing"] = true
-L["The spacing between buttons."] = true
-L["Button Backdrop"] = true
-L["Button Animation"] = true
-
 -- Raid Buffs
 L["Raid Buff Reminder"] = true
 L["Shows a frame with flask/food/rune."] = true
@@ -1041,29 +505,6 @@ L["Show In Arena"] = true
 L["Spell Name"] = true
 L["Spell List"] = true
 
--- CVars
-L["\n\nDefault: |cff00ff001|r"] = true
-L["\n\nDefault: |cffff00000|r"] = true
-L["alwaysCompareItems"] = true
-L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
-L["breakUpLargeNumbers"] = true
-L["breakUpLargeNumbers_DESC"] = "Toggles using commas in large numbers\r\rDefault: |cff00ff001|r"
-L["scriptErrors"] = true
-L["enableWoWMouse"] = true
-L["trackQuestSorting"] = true
-L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r default: top"
-L["autoLootDefault"] = true
-L["autoDismountFlying"] = true
-L["removeChatDelay"] = true
-L["screenshotQuality"] = true
-L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
-L["showTutorials"] = true
-L["WorldTextScale"] = true
-L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
-L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
-	"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
-
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
@@ -1092,8 +533,6 @@ L["Sat"] = true
 -- Nameplates
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] =
-	true
 
 -- Install
 L["Welcome"] = true
@@ -1178,8 +617,6 @@ L["Creates decorative stripes and a gradient on some frames"] = true
 L["Screen Shadow Overlay"] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Undress Button"] = true
-L["Subpages"] = true
-L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 L["Enable/Disable"] = true
 L["decor."] = true
 L["MerathilisUI Button Style"] = true
@@ -1327,123 +764,11 @@ L["Bottom Left Extra Panel"] = true
 L["Bottom Right Panel"] = true
 L["Bottom Right Extra Panel"] = true
 
--- Objective Tracker
-L["Objective Tracker"] = true
-L["1. Customize the font of Objective Tracker."] = true
-L["2. Add colorful progress text to the quest."] = true
-L["This module may prevent clicking quest items in the objective tracker due to taint."] = true
-L["Progress"] = true
-L["No Dash"] = true
-L["Colorful Progress"] = true
-L["Percentage"] = true
-L["Add percentage text after quest text."] = true
-L["Colorful Percentage"] = true
-L["Make the additional percentage text be colored."] = true
-L["Cosmetic Bar"] = true
-L["Border"] = true
-L["Border Alpha"] = true
-L["Width Mode"] = true
-L["'Absolute' mode means the width of the bar is fixed."] = true
-L["'Dynamic' mode will also add the width of header text."] = true
-L["'Absolute' mode means the height of the bar is fixed."] = true
-L["'Dynamic' mode will also add the height of header text."] = true
-L["Absolute"] = true
-L["Dyanamic"] = true
-L["Color Mode"] = true
-L["Gradient"] = true
-L["Class Color"] = true
-L["Normal Color"] = true
-L["Gradient Color 1"] = true
-L["Gradient Color 2"] = true
-L["Presets"] = true
-L["Preset %d"] = true
-L["Here are some example presets, just try them!"] = true
-L["Default"] = true
-L["Header"] = true
-L["Short Header"] = true
-L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] = true
-L["Title Color"] = true
-L["Change the color of quest titles."] = true
-L["Use Class Color"] = true
-L["Highlight Color"] = true
-L["Title"] = true
-L["Bottom Right Offset X"] = true
-L["Bottom Right Offset Y"] = true
-L["Top Left Offset X"] = true
-L["Top Left Offset Y"] = true
-L["Transparent"] = true
-L["Style"] = true
-L["Height Mode"] = true
-L["Menu Title"] = true
-L["it shows when objective tracker is collapsed."] = true
-L["Word Wrap"] = true
-L["Enable word wrap for long text."] = true
-
--- Quest
-L["Switch Buttons"] = true
-L["Add a bar that contains buttons to enable/disable modules quickly."] = true
-L["Hide With Objective Tracker"] = true
-L["Bar Backdrop"] = true
-L["Announcement"] = true
-L["Quest"] = true
-L["Turn In"] = true
-L["Make quest acceptance and completion automatically."] = true
-L["Mode"] = true
-L["Only Accept"] = true
-L["Only Complete"] = true
-L["Pause On Press"] = true
-L["Pause the automation by pressing a modifier key."] = true
-L["Reward"] = true
-L["Select Reward"] = true
-L["If there are multiple items in the reward list, it will select the reward with the highest sell price."] = true
-L["Get Best Reward"] = true
-L["Complete the quest with the most valuable reward."] = true
-L["Smart Chat"] = true
-L["Chat with NPCs smartly. It will automatically select the best option for you."] = true
-L["Dark Moon"] = true
-L["Accept the teleportation from Darkmoon Faire Mystic Mage automatically."] = true
-L["Follower Assignees"] = true
-L["Open the window of follower recruit automatically."] = true
-L["Ignored NPCs"] = true
-L["If you add the NPC into the list, all automation will do not work for it."] = true
-L["Ignore List"] = true
-L["Add Target"] = true
-L["Make sure you select the NPC as your target."] = true
-L["Delete"] = true
-L["Delete the selected NPC."] = true
-L["Only Repeatable"] = true
-L["Only accept and complete repeatable quests."] = true
-
 -- Filter
 L["Filter"] = true
 L["Unblock the profanity filter."] = true
 L["Profanity Filter"] = true
 L["Enable this option will unblock the setting of profanity filter. [CN Server]"] = true
-
--- Friends List
-L["Friends List"] = true
-L["Add additional information to the friend frame."] = true
-L["Modify the texture of status and make name colorful."] = true
-L["Enhanced Texture"] = true
-L["Game Icons"] = true
-L["Default"] = true
-L["Modern"] = true
-L["Status Icon Pack"] = true
-L["Diablo 3"] = true
-L["Square"] = true
-L["Faction Icon"] = true
-L["Use faction icon instead of WoW icon."] = true
-L["Name"] = true
-L["Level"] = true
-L["Hide Max Level"] = true
-L["Use Note As Name"] = true
-L["Replace the Real ID or the character name of friends with your notes."] = true
-L["Use Game Color"] = true
-L["Change the color of the name to the in-playing game style."] = true
-L["Use Class Color"] = true
-L["Font Setting"] = true
-L["Hide Realm"] = true
-L["Hide the realm name of friends."] = true
 
 -- Vehicle Bar
 L["VehicleBar"] = true
@@ -1453,18 +778,6 @@ L["The color for vigor bar's speed text when you are regaining vigor."] = true
 L["Animations"] = true
 L["Animation Speed"] = true
 L["Skyriding Bar"] = true
-
--- Delete Item
-L["Delete Item"] = true
-L["This module provides several easy-to-use methods of deleting items."] = true
-L["Use Delete Key"] = true
-L["Allow you to use Delete Key for confirming deleting."] = true
-L["Fill In"] = true
-L["Disable"] = true
-L["Fill by click"] = true
-L["Auto Fill"] = true
-L["Press the |cffffd200Delete|r key as confirmation."] = true
-L["Click to confirm"] = true
 
 -- Raid Info Frame
 L["Raid Info Frame"] = true
