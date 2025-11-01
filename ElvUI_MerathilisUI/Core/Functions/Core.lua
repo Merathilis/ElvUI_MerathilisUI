@@ -222,13 +222,6 @@ function F.CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
-function F.ChooseForGradient(normalValue, gradientValue)
-	if E.db.mui.gradient.enable then
-		return gradientValue
-	end
-	return normalValue
-end
-
 -- Scaling
 function F.PerfectScale(n)
 	local m = E.mult
