@@ -36,11 +36,10 @@ L["General"] = "일반"
 L["Modules"] = "모듈"
 L["Media"] = "미디어"
 L["MER_DESC"] =
-	[=[|cffffffffMerathilis|r|cffff7d0aUI|r는 ElvUI의 확장 애드온입니다. 다음과 같은 기능을 제공합니다:
+	[=[|cffffffffMerathilis|r|cffff7d0aUI|r는 ElvUI의 & ElvUI_WindTools 확장 애드온입니다. 다음과 같은 기능을 제공합니다:
 
 - 다양한 신규 기능 추가
 - 전체적으로 투명한 디자인
-- 기존 ElvUI 스킨 전면 재작성
 - 개발자의 개인 레이아웃 적용
 
 |cFF00c0fa참고:|r 대부분의 ElvUI 플러그인과 호환됩니다.

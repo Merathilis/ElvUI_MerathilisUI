@@ -35,11 +35,10 @@ L["Description"] = "Beschreibung"
 L["General"] = "Allgemein"
 L["Modules"] = "Module"
 L["Media"] = "Medien"
-L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r ist eine Erweiterung für ElvUI. Sie ergänzt:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r ist eine Erweiterung für ElvUI & ElvUI_WindTools. Es ergänzt:
 
 - viele neue Funktionen
 - einen transparenten Look
-- alle ElvUI Skins wurden überarbeitet
 - mein persönliches Layout
 
 |cFF00c0faHinweis:|r |cffff7d0aMerathilisUI|r ist mit den meisten anderen ElvUI Plugins kompatibel.

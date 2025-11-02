@@ -33,15 +33,14 @@ L["Description"] = "描述"
 L["General"] = true
 L["Modules"] = true
 L["Media"] = true
-L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它增加了:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI & ElvUI_WindTools. It adds:
 
-- 大量新特性
-- 一个整体的透明外观
-- 重写了所有的ElvUI外观
-- 我的个人布局
+- a lot of new features
+- a transparent overall look
+- my personal Layout
 
-|cFF00c0faNote:|r 它与其他大多数ElvUI插件兼容.
-但是如果你在我的之外安装了另一个布局，你必须手动调整它。.
+|cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
+But if you install another Layout over mine, you must adjust it manually.
 
 |cffff8000Newest additions are marked with: |r]=]
 L["Enables the stripes/gradient look on the frames"] = true
