@@ -242,6 +242,7 @@ function MER:UpdateScripts()
 				UpdateMessage(L["Private: Skins - Cooldown Viewer"] .. ": " .. L["Database cleanup"], privateVersion)
 			end
 		end
+
 		if db then
 			if db.merchant then
 				db.merchant = nil
@@ -334,33 +335,9 @@ function MER:UpdateScripts()
 				db.unitframes.roleIcons = nil
 				UpdateMessage(L["Profile: Unitframes - Role Icons"] .. ": " .. L["Database cleanup"], profileVersion)
 			end
-			if db.maps.minimap.ping then
-				db.maps.minimap.ping = nil
-				UpdateMessage(L["Profile: Minimap - Ping"] .. ": " .. L["Database cleanup"], profileVersion)
-			end
-			if db.maps.minimap.coords then
-				db.maps.minimap.coords = nil
-				UpdateMessage(L["Profile: Minimap - Coords"] .. ": " .. L["Database cleanup"], profileVersion)
-			end
-			if db.maps.instanceDifficulty then
-				db.maps.instanceDifficulty = nil
-				UpdateMessage(L["Profile: Maps - Instance Difficulty"] .. ": " .. L["Database cleanup"], profileVersion)
-			end
-			if db.maps.rectangleMinimap then
-				db.maps.rectangleMinimap = nil
-				UpdateMessage(L["Profile: Maps - Rectangle Minimap"] .. ": " .. L["Database cleanup"], profileVersion)
-			end
-			if db.maps.superTracker then
-				db.maps.superTracker = nil
-				UpdateMessage(L["Profile: Maps - Super Tracker"] .. ": " .. L["Database cleanup"], profileVersion)
-			end
-			if db.maps.worldMap then
-				db.maps.worldMap = nil
-				UpdateMessage(L["Profile: Maps - World Map"] .. ": " .. L["Database cleanup"], profileVersion)
-			end
-			if db.maps.eventTracker then
-				db.maps.eventTracker = nil
-				UpdateMessage(L["Profile: Maps - Event Tracker"] .. ": " .. L["Database cleanup"], profileVersion)
+			if db.maps then
+				db.maps = nil
+				UpdateMessage(L["Profile: Map Settings"] .. ": " .. L["Database cleanup"], profileVersion)
 			end
 			if db.smb then
 				db.smb = nil

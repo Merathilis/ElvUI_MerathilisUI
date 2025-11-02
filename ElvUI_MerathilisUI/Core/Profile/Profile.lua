@@ -850,12 +850,6 @@ P.nameplates = {
 	gradient = true,
 }
 
-P.maps = {
-	minimap = {
-		flash = true,
-	},
-}
-
 P.media = {}
 
 P.panels = {
