@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 
 function module:LoadTomTomProfile()
@@ -38,7 +38,7 @@ end
 
 function module:ApplyTomTomProfile()
 	if not E:IsAddOnEnabled("TomTom") then
-		F.Developer.LogWarning("TomTom is not enabled. Will not apply profile.")
+		WF.Developer.LogWarning("TomTom is not enabled. Will not apply profile.")
 		return
 	end
 

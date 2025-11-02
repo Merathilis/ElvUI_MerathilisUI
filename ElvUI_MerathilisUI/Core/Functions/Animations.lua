@@ -1,6 +1,5 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Animation = {}
--- local A = F.Animation
 
 local pi = math.pi
 local cos = math.cos

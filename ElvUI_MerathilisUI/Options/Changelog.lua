@@ -1,6 +1,6 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.changelog.args
-local C = MER.Utilities.Color
+local C = W.Utilities.Color
 
 local function Color(string)
 	if type(string) ~= "string" then

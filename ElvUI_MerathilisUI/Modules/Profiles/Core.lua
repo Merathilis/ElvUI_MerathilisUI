@@ -1,6 +1,6 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
-local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 
 local CreateFrame = CreateFrame
 local CreateSimpleTextureMarkup = CreateSimpleTextureMarkup
@@ -17,7 +17,7 @@ function module:CreateSplashFrame()
 	module.backgroundFade:SetAlpha(1)
 	module.backgroundFade:Hide()
 
-	S:CreateShadow(module.backgroundFade)
+	WS:CreateShadow(module.backgroundFade)
 
 	local bg = F.Table.HexToRGB("#282828cc")
 	local gr = F.Table.HexToRGB(I.Strings.Colors[I.Enum.Colors.MER])

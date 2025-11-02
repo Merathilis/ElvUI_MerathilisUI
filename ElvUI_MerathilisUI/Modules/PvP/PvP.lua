@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_PVP")
 
 local _G = _G
@@ -54,7 +54,7 @@ function module:BlockDuel(event, name)
 	end
 
 	if cancelled then
-		F.Print(format(L["MER_DuelCancel_" .. cancelled], name))
+		WF.Print(format(L["MER_DuelCancel_" .. cancelled], name))
 	end
 end
 

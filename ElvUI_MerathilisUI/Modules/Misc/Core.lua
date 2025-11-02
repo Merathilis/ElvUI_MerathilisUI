@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
 
 local _G = _G
@@ -57,7 +57,7 @@ end
 ---@param object function[] Array of callback functions
 function module:CallLoadedAddon(addonName, object)
 	for _, func in next, object do
-		xpcall(func, F.Developer.LogDebug, self)
+		xpcall(func, WF.Developer.LogDebug, self)
 	end
 
 	self.addonsToLoad[addonName] = nil

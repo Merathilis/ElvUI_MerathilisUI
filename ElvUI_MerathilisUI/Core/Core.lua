@@ -1,5 +1,5 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local C = MER.Utilities.Color ---@type ColorUtility
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = W.Utilities.Color ---@type ColorUtility
 
 local _G = _G
 local format = string.format
@@ -15,15 +15,10 @@ local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
 local InviteUnit = C_PartyInfo.InviteUnit
 local GetCVarBool = C_CVar.GetCVarBool
-local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 
 local C_Timer_NewTimer = C_Timer.NewTimer
 
 E.myClassColor = E.myClassColor or E:ClassColor(E.myclass, true)
-
-MER.dummy = function()
-	return
-end
 
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
@@ -32,8 +27,6 @@ MER.IsRetail = select(4, GetBuildInfo()) >= 100207
 MER.IsNewPatch = select(4, GetBuildInfo()) >= 110000 -- 11.0
 MER.IsPTR = select(4, GetBuildInfo()) == 102007 -- 10.2.7
 
-MER.Locale = GetLocale()
-MER.ChineseLocale = strsub(MER.Locale, 0, 2) == "zh"
 MER.MaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion()
 
 -- Masque support
@@ -102,17 +95,6 @@ E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
 	OnAccept = _G.ReloadUI,
 }
 
-_G.BINDING_CATEGORY_ELVUI_MERATHILISUI = MER.Title
-for i = 1, 5 do
-	_G["BINDING_HEADER_AUTOBUTTONBAR" .. i] = C.StringWithRGB(L["AutoButtonBar"] .. " " .. i, E.db.general.valuecolor)
-	for j = 1, 12 do
-		_G[format("BINDING_NAME_CLICK AutoButtonBar%dButton%d:LeftButton", i, j)] = L["Button"] .. " " .. j
-	end
-end
-
-_G.BINDING_CATEGORY_ELVUI_MERATHILISUI_EXTRA = MER.Title .. " - " .. L["Extra"]
-_G.BINDING_HEADER_MEREXTRABUTTONS = L["Extra Buttons"]
-
 -- this needs to be available early (don't put it in Staticpopups.lua)
 E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
 	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),
@@ -169,7 +151,7 @@ end
 -- Register own Modules
 function MER:RegisterModule(name)
 	if not name then
-		F.Developer.ThrowError("The name of module is required!")
+		WF.Developer.ThrowError("The name of module is required!")
 		return
 	end
 
@@ -186,7 +168,7 @@ function MER:InitializeModules()
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
-			xpcall(module.Initialize, F.Developer.LogDebug, module)
+			xpcall(module.Initialize, WF.Developer.LogDebug, module)
 		end
 	end
 
@@ -281,60 +263,7 @@ function MER:TryReplaceEventTraceLogEvent()
 	end
 end
 
-function MER:FixGame()
-	local db = E.global.mui.advancedOptions
-	if not db then
-		return
-	end
-
-	-- Button Fix
-	if db.cvarAlert then
-		self:RegisterEvent("CVAR_UPDATE", function(_, cvar, value)
-			if cvar == "ActionButtonUseKeyDown" and MER.UseKeyDown ~= (value == "1") then
-				E:StaticPopup_Show("MERATHILISUI_BUTTON_FIX_RELOAD")
-			end
-		end)
-	end
-
-	if db.guildNews then
-		-- https://nga.178.com/read.php?tid=42399961
-		local newsRequireUpdate, newsTimer
-		_G.CommunitiesFrameGuildDetailsFrameNews:SetScript("OnEvent", function(frame, event)
-			if event == "GUILD_NEWS_UPDATE" then
-				if newsTimer then
-					newsRequireUpdate = true
-				else
-					_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
-
-					-- After 1 second, if guild news still need to be updated, update again
-					newsTimer = C_Timer_NewTimer(1, function()
-						if newsRequireUpdate then
-							_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
-						end
-						newsTimer = nil
-					end)
-				end
-			else
-				_G.CommunitiesGuildNewsFrame_OnEvent(frame, event)
-			end
-		end)
-	end
-
-	if db.advancedCLEUEventTrace then
-		if EventTrace then
-			self:TryReplaceEventTraceLogEvent()
-		else
-			self:RegisterEvent("ADDON_LOADED")
-		end
-	end
-
-	if db.fixSetPassThroughButtons then
-		_G.QuestPinMixin.SetPassThroughButtons = E.noop
-		_G.BonusObjectivePinMixin.SetPassThroughButtons = E.noop
-	end
-end
-
-function MER:ADDON_LOADED(event, addOnName)
+function MER:ADDON_LOADED(_, addOnName)
 	if addOnName ~= "Blizzard_EventTrace" then
 		return
 	end

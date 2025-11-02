@@ -1,6 +1,6 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule("MER_Skins")
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ES = E:GetModule("Skins")
+local WS = W:GetModule("Skins")
 local LSM = E.LSM
 
 local _G = _G
@@ -206,11 +206,11 @@ function F.CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	if t == "Transparent" then
 		backdropa = 0.45
 		F.CreateBorder(f, true, true)
-		S:CreateBackdropShadow(f.backdrop)
+		WS:CreateBackdropShadow(f.backdrop)
 	elseif t == "Overlay" then
 		backdropa = 1
 		F.CreateOverlay(f)
-		S:CreateBackdropShadow(f.backdrop)
+		WS:CreateBackdropShadow(f.backdrop)
 	elseif t == "Invisible" then
 		backdropa = 0
 		bordera = 0
@@ -220,13 +220,6 @@ function F.CreatePanel(f, t, w, h, a1, p, a2, x, y)
 
 	f.backdrop:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
-end
-
-function F.ChooseForGradient(normalValue, gradientValue)
-	if E.db.mui.gradient.enable then
-		return gradientValue
-	end
-	return normalValue
 end
 
 -- Scaling
@@ -361,67 +354,6 @@ function F.SetFontFromDB(db, prefix, fs, color, fontOverwrite, useScaling)
 	end
 end
 
----Set font style from database settings
----@param text FontString The FontString object to modify
----@param db table Font style database containing name, size, and style
-function F.SetFontWithDB(text, db)
-	if not text or not text.GetFont then
-		F.Developer.LogDebug("Functions.SetFontWithDB: text not found")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.SetFontWithDB: db not found")
-		return
-	end
-
-	local fontName, fontHeight = text:GetFont()
-
-	text:FontTemplate(db.name and LSM:Fetch("font", db.name) or fontName, db.size or fontHeight, db.style or "NONE")
-end
-
----Set font color from database settings
----@param text FontString The FontString object to modify
----@param db table Font color database containing r, g, b, a values
-function F.SetFontColorDB(text, db)
-	if not text or not text.GetFont then
-		F.Developer.LogDebug("Functions.SetFontColorDB: text not found")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.SetFontColorWithDB: db not found")
-		return
-	end
-
-	text:SetTextColor(db.r, db.g, db.b, db.a)
-end
-
----Change font outline style to OUTLINE and remove shadow
----@param text FontString The FontString object to modify
----@param font string? Font path or name (optional)
----@param size number|string? Font size or size change amount as string (optional)
----@param style string? Font outline style. (optional, default is "OUTLINE")
-function F.SetFont(text, font, size, style)
-	if not text or not text.GetFont then
-		F.Developer.LogDebug("Functions.SetFont: text not found")
-		return
-	end
-	local fontName, fontHeight = text:GetFont()
-
-	if type(size) == "string" then
-		size = fontHeight + (tonumber(size) or 0)
-	end
-
-	if font and not strfind(font, "%.ttf") and not strfind(font, "%.otf") then
-		font = LSM:Fetch("font", font)
-	end
-
-	text:FontTemplate(font or fontName, size or fontHeight, style or "SHADOWOUTLINE")
-	text:SetShadowColor(0, 0, 0, 0)
-	text.SetShadowColor = E.noop
-end
-
 function F.FontSize(value)
 	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale)
 		or value
@@ -540,20 +472,6 @@ function F.ConvertToHSL(r, g, b)
 	return h * 360, s, l
 end
 
-function F.SetVertexColorDB(tex, db)
-	if not tex or not tex.GetVertexColor then
-		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture to handling")
-		return
-	end
-
-	if not db or type(db) ~= "table" then
-		F.Developer.LogDebug("Functions.SetVertexColorDB: No texture color database")
-		return
-	end
-
-	tex:SetVertexColor(db.r, db.g, db.b, db.a)
-end
-
 function F.GetMERStyleText(text)
 	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
 end
@@ -595,14 +513,6 @@ function F.Round(n, q)
 	return int * q
 end
 
-function F.AlmostEqual(a, b)
-	if not a or not b then
-		return false
-	end
-
-	return abs(a - b) <= 0.001
-end
-
 function F.cOption(name, color)
 	local hex
 	if color == "orange" then
@@ -620,33 +530,13 @@ function F.cOption(name, color)
 	return (hex):format(name)
 end
 
-do
-	local gradientLine = E:TextGradient(
-		"----------------------------------",
-		0.910,
-		0.314,
-		0.357,
-		0.976,
-		0.835,
-		0.431,
-		0.953,
-		0.925,
-		0.761,
-		0.078,
-		0.694,
-		0.671
-	)
-
-	function F.PrintGradientLine()
-		print(gradientLine)
-	end
-end
-
 ---Print message with MerathilisUI title prefix
 ---@param ... string|number Message parts to print
 function F.Print(...)
 	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
 end
+hooksecurefunc(WF, "Print", F.Print) -- Override WindTools Print
+WF.Print = F.Print
 
 function F.DebugPrint(text, msgtype)
 	if not text then
@@ -1452,7 +1342,7 @@ do
 	local protected_call = {}
 
 	function protected_call._error_handler(err)
-		F.Developer.LogInfo(err)
+		WF.Developer.LogInfo(err)
 	end
 
 	function protected_call._handle_result(success, ...)
@@ -1684,7 +1574,7 @@ local throttleStates = {}
 ---@param ... any Arguments to pass to the function
 function F.Throttle(duration, key, func, ...)
 	if type(duration) ~= "number" or duration <= 0 then
-		F.Developer.ThrowError("Invalid duration for F.Throttle: must be a positive number")
+		WF.Developer.ThrowError("Invalid duration for F.Throttle: must be a positive number")
 	end
 
 	if duration == 0 then
@@ -1693,7 +1583,7 @@ function F.Throttle(duration, key, func, ...)
 	end
 
 	if type(func) ~= "function" then
-		F.Developer.ThrowError("Invalid function for F.Throttle: third argument must be a function")
+		WF.Developer.ThrowError("Invalid function for F.Throttle: third argument must be a function")
 	end
 
 	local finalKey = key ~= nil and key or func
@@ -1783,7 +1673,7 @@ function F.WaitFor(condition, callback, interval, maxTimes)
 	local function resumeCoroutine()
 		local success, delay = coroutine.resume(co)
 		if not success then
-			F.Developer.ThrowError("WaitFor coroutine error:", tostring(delay))
+			WF.Developer.ThrowError("WaitFor coroutine error:", tostring(delay))
 			return
 		end
 		if coroutine.status(co) ~= "dead" then

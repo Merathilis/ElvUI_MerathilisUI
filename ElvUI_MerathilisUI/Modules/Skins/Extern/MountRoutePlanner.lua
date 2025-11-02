@@ -1,5 +1,6 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
@@ -24,7 +25,7 @@ local function reskinTextButton(button)
 
 	S:HandleButton(button)
 
-	if MER.ChineseLocale then
+	if W.ChineseLocale then
 		button:SetWidth(80)
 	end
 end
@@ -109,17 +110,17 @@ function module:MountRoutePlanner()
 	end
 
 	frame:SetTemplate("Transparent")
-	self:CreateShadow(frame)
+	WS:CreateShadow(frame)
 
 	frame.progressBar:SetTexture(E.media.normTex)
-	frame.progressBar:SetVertexColor(MER.Utilities.Color.ExtractRGBFromTemplate("green-500"))
+	frame.progressBar:SetVertexColor(W.Utilities.Color.ExtractRGBFromTemplate("green-500"))
 	frame.progressBarBG:Kill()
 	frame.progressBar:CreateBackdrop()
 	frame.progressBar.backdrop:SetAllPoints(frame.progressBarBG)
 
 	for _, region in pairs({ frame:GetRegions() }) do
 		if region.GetObjectType and region:GetObjectType() == "FontString" then
-			F.SetFont(region)
+			WF.SetFont(region)
 		end
 	end
 
@@ -137,8 +138,6 @@ function module:MountRoutePlanner()
 			child:Size(24, 24)
 		end
 	end
-
-	local waitForUpdate = false
 
 	hooksecurefunc(frame.stepText, "SetText", function()
 		if frame.rewardIcons then

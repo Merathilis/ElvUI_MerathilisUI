@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Style")
 
 local assert = assert
@@ -60,7 +60,7 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 		end
 
 		if not frame.CreateStyle then
-			return F.Developer.LogDebug("API functions not found!", "MERCreateStyle", not frame.CreateStyle)
+			return WF.Developer.LogDebug("API functions not found!", "MERCreateStyle", not frame.CreateStyle)
 		end
 
 		frame:CreateStyle()

@@ -1,5 +1,5 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local C = MER.Utilities.Color ---@type ColorUtility
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local C = W.Utilities.Color ---@type ColorUtility
 
 local print, tonumber, type = print, tonumber, type
 local format = string.format
@@ -13,8 +13,8 @@ local DONE_ICON = format(" |T%s:0|t", [[Interface\AddOns\ElvUI_MerathilisUI\Medi
 local function UpdateMessage(text, from)
 	if isFirstLine then
 		isFirstLine = false
-		F.PrintGradientLine()
-		F.Print(L["Update"])
+		WF.PrintGradientLine()
+		WF.Print(L["Update"])
 	end
 
 	local versionText = format(
@@ -105,15 +105,289 @@ function MER:UpdateScripts()
 	end
 
 	if globalVersion < 6.72 then
-		if E.global.mui.core and E.global.mui.core.logLevel then
-			E.global.mui.developer.logLevel = E.global.mui.core.logLevel
-			E.global.mui.core.logLevel = nil
+		if global.core and global.core.logLevel then
+			global.developer.logLevel = global.core.logLevel
+			global.core.logLevel = nil
 			UpdateMessage(L["Advanced"] .. ": " .. L["Developer"], globalVersion)
 		end
 	end
 
+	if privateVersion < 6.79 or profileVersion < 6.79 or globalVersion < 6.79 then
+		if global then
+			if global.mail then
+				global.mail = nil
+				UpdateMessage(L["Global: Mail"] .. ": " .. L["Database cleanup"], globalVersion)
+			end
+			if global.bags then
+				global.bags = nil
+				UpdateMessage(L["Global: Bags"] .. ": " .. L["Database cleanup"], globalVersion)
+			end
+			if global.maps then
+				global.maps = nil
+				UpdateMessage(L["Global: Maps"] .. ": " .. L["Database cleanup"], globalVersion)
+			end
+			if global.misc then
+				global.misc = nil
+				UpdateMessage(L["Global: Misc"] .. ": " .. L["Database cleanup"], globalVersion)
+			end
+			if global.advancedOptions then
+				global.advancedOptions = nil
+				UpdateMessage(L["Global: Advanced"] .. ": " .. L["Database cleanup"], globalVersion)
+			end
+			if global.developer then
+				global.developer = nil
+				UpdateMessage(L["Global:Developer"] .. ": " .. L["Database cleanup"], globalVersion)
+			end
+		end
+
+		if private then
+			if private.misc then
+				private.misc = nil
+				UpdateMessage(L["Private: Advanced"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.quest then
+				private.quest = nil
+				UpdateMessage(L["Private: Quest"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins then
+				if private.skins.shadow then
+					private.skins.shadow = nil
+					UpdateMessage(L["Private: Skins - Shadow"] .. ": " .. L["Database cleanup"], privateVersion)
+				end
+			end
+			if private.skins.widgets then
+				private.skins.widgets = nil
+				UpdateMessage(L["Private: Skins - Widgets"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.blizzard then
+				private.skins.blizzard = nil
+				UpdateMessage(L["Private: Skins - Blizzard"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.libraries then
+				private.skins.libraries = nil
+				UpdateMessage(L["Private: Skins - Libraries"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.btwQ then
+				private.skins.addonSkins.btwQ = nil
+				UpdateMessage(L["Private: Skins - BtwQuest"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.bui then
+				private.skins.addonSkins.bui = nil
+				UpdateMessage(L["Private: Skins - BenikUI"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.weakAuras then
+				private.skins.addonSkins.weakAuras = nil
+				UpdateMessage(L["Private: Skins - WeakAuras"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.weakAurasOptions then
+				private.skins.addonSkins.weakAurasOptions = nil
+				UpdateMessage(L["Private: Skins - WeakAuras Options"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.imm then
+				private.skins.addonSkins.imm = nil
+				UpdateMessage(L["Private: Skins - Immersion"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.rio then
+				private.skins.addonSkins.rio = nil
+				UpdateMessage(L["Private: Skins - RaiderIO"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.mdt then
+				private.skins.addonSkins.mdt = nil
+				UpdateMessage(
+					L["Private: Skins - Method Dungeon Tool"] .. ": " .. L["Database cleanup"],
+					privateVersion
+				)
+			end
+			if private.skins.addonSkins.tom then
+				private.skins.addonSkins.tom = nil
+				UpdateMessage(L["Private: Skins - TomTom"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.rematch then
+				private.skins.addonSkins.rematch = nil
+				UpdateMessage(L["Private: Skins - Rematch"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.simc then
+				private.skins.addonSkins.simc = nil
+				UpdateMessage(L["Private: Skins - SimulationCraft"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.aio then
+				private.skins.addonSkins.aio = nil
+				UpdateMessage(
+					L["Private: Skins - AdvancedInterfaceOptions"] .. ": " .. L["Database cleanup"],
+					privateVersion
+				)
+			end
+			if private.skins.addonSkins.whisperPop then
+				private.skins.addonSkins.whisperPop = nil
+				UpdateMessage(L["Private: Skins - WhisperPop "] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.plumber then
+				private.skins.addonSkins.plumber = nil
+				UpdateMessage(L["Private: Skins - Plumber"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.addonSkins.legionRemixHelper then
+				private.skins.addonSkins.legionRemixHelper = nil
+				UpdateMessage(L["Private: Skins - LegionRemixHelper"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.uiErrors then
+				private.skins.uiErrors = nil
+				UpdateMessage(L["Private: Skins - UIErrors"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.mui.skins.ime then
+				private.skins.ime = nil
+				UpdateMessage(L["Private: Skins - UIErrors"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+			if private.skins.cooldownViewer then
+				private.skins.cooldownViewer = nil
+				UpdateMessage(L["Private: Skins - Cooldown Viewer"] .. ": " .. L["Database cleanup"], privateVersion)
+			end
+		end
+
+		if db then
+			if db.merchant then
+				db.merchant = nil
+				UpdateMessage(L["Profile: Extended Vendor Frame"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.blizzard then
+				db.blizzard = nil
+				UpdateMessage(L["Profile: Blizzard"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.quest then
+				db.quest = nil
+				UpdateMessage(L["Profile: Quest"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.chat then
+				db.chat = nil
+				UpdateMessage(L["Profile: Chat"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.mail then
+				db.mail = nil
+				UpdateMessage(L["Profile: Mail"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.announcement then
+				db.announcement = nil
+				UpdateMessage(L["Profile: Announcement"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.spellActivationAlert then
+				db.misc.spellActivationAlert = nil
+				UpdateMessage(L["Profile: Spell Activation Alert"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.hideBossBanner then
+				db.misc.hideBossBanner = nil
+				UpdateMessage(L["Profile: Hide Boss Banner"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.alreadyKnown then
+				db.misc.alreadyKnown = nil
+				UpdateMessage(L["Profile: Already Known"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.mute then
+				db.misc.mute = nil
+				UpdateMessage(L["Profile: Mute"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.randomToy then
+				db.misc.randomToy = nil
+				UpdateMessage(L["Profile: Random Toy"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.automation then
+				db.misc.automation = nil
+				UpdateMessage(L["Profile: Automation"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.contextMenu then
+				db.misc.contextMenu = nil
+				UpdateMessage(L["Profile: Context Menu"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.focuser then
+				db.misc.focuser = nil
+				UpdateMessage(L["Profile: Focuser"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.exitPhaseDiving then
+				db.misc.exitPhaseDiving = nil
+				UpdateMessage(L["Profile: Exit Phase Diving"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.achievementTracker then
+				db.achievementTracker = nil
+				UpdateMessage(L["Profile: Achievement Tracker"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.misc.quickKeystone then
+				db.misc.quickKeystone = nil
+				UpdateMessage(L["Profile: Quick Keystone"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.datatexts and db.datatexts.durabilityIlevel then
+				db.datatexts.durabilityIlevel = nil
+				UpdateMessage(L["Profile: Durability Datatext"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.autoButtons then
+				db.autoButtons = nil
+				UpdateMessage(L["Profile: Auto Buttons"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.microBar then
+				db.microBar = nil
+				UpdateMessage(L["Profile: Micro Bar"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.unitframes.healhealPrediction then
+				db.unitframes.healhealPrediction = nil
+				UpdateMessage(
+					L["Profile: Unitframes - Heal Prediction"] .. ": " .. L["Database cleanup"],
+					profileVersion
+				)
+			end
+			if db.unitframes.roleIcons then
+				db.unitframes.roleIcons = nil
+				UpdateMessage(L["Profile: Unitframes - Role Icons"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.maps then
+				db.maps = nil
+				UpdateMessage(L["Profile: Map Settings"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.smb then
+				db.smb = nil
+				UpdateMessage(L["Profile: Minimap Button Bar"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.raidmarkers then
+				db.raidmarkers = nil
+				UpdateMessage(L["Profile: Raid Markers"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.tooltip.modifier then
+				db.tooltip.modifier = nil
+				UpdateMessage(L["Profile: Tooltip - Modifier"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.tooltip.titleIcon then
+				db.tooltip.titleIcon = nil
+				UpdateMessage(L["Profile: Tooltip - Title Icon"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.tooltip.factionIcon then
+				db.tooltip.factionIcon = nil
+				UpdateMessage(L["Profile: Tooltip - Faction Icon"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.tooltip.petIcon then
+				db.tooltip.petIcon = nil
+				UpdateMessage(L["Profile: Tooltip - Pet Icon"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.tooltip.specIcon then
+				db.tooltip.specIcon = nil
+				UpdateMessage(L["Profile: Tooltip - Spec Icon"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.tooltip.raceIcon then
+				db.tooltip.raceIcon = nil
+				UpdateMessage(L["Profile: Tooltip - Race Icon"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.tooltip.healthBar then
+				db.tooltip.healthBar = nil
+				UpdateMessage(L["Profile: Tooltip - Health Bar"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.tooltip.forceItemLevel then
+				db.tooltip.forceItemLevel = nil
+				UpdateMessage(L["Profile: Tooltip - Force Item Level"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+			if db.item then
+				db.item = nil
+				UpdateMessage(L["Profile: Item"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
+		end
+	end
+
 	if not isFirstLine then
-		F.PrintGradientLine()
+		WF.PrintGradientLine()
 	end
 
 	E.global.mui.version = MER.Version

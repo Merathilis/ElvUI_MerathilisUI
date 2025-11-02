@@ -3,7 +3,5 @@
 
 	<Script file="Achievement.lua"/>
 	<Script file="GradientName.lua"/>
-	<Script file="HealthBar.lua"/>
 	<Script file="NameHover.lua"/>
-	<Script file="Icons.lua"/>
 </Ui>

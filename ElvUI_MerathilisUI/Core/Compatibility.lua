@@ -1,8 +1,8 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule("MER_Skins") ---@type Skins
-local MF = MER:GetModule("MER_MoveFrames") ---@type MoveFrames
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ES = E:GetModule("Skins")
-local C = MER.Utilities.Color
+local WS = W:GetModule("Skins") ---@type Skins
+local MF = W:GetModule("MoveFrames") ---@type MoveFrames
+local C = W.Utilities.Color
 
 local _G = _G
 local format = format
@@ -19,7 +19,7 @@ function MER:ConstructCompatibilityFrame()
 	frame:Size(550, 500)
 	frame:SetPoint("CENTER")
 	frame:CreateBackdrop("Transparent")
-	S:CreateShadowModule(frame.backdrop)
+	WS:CreateShadowModule(frame.backdrop)
 	frame.numModules = 0
 	frame:Hide()
 	frame:SetScript("OnHide", function()
@@ -33,7 +33,7 @@ function MER:ConstructCompatibilityFrame()
 
 	MF:InternalHandle(frame)
 
-	local close = F.Widgets.New("CloseButton", frame)
+	local close = WF.Widgets.New("CloseButton", frame)
 	if close then
 		close:Point("TOPRIGHT", frame.backdrop, "TOPRIGHT")
 		close:SetFrameLevel(frame:GetFrameLevel() + 1)
@@ -41,7 +41,7 @@ function MER:ConstructCompatibilityFrame()
 
 	local title = frame:CreateFontString(nil, "ARTWORK")
 	title:FontTemplate()
-	F.SetFont(title, nil, "2")
+	WF.SetFont(title, nil, "2")
 	title:SetText(MER.Title .. " " .. L["Compatibility Check"])
 	title:SetPoint("TOP", frame, "TOP", 0, -10)
 
@@ -49,7 +49,7 @@ function MER:ConstructCompatibilityFrame()
 	desc:FontTemplate()
 	desc:SetJustifyH("LEFT")
 	desc:Width(420)
-	F.SetFont(desc, nil, "-1")
+	WF.SetFont(desc, nil, "-1")
 	desc:SetText(
 		L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."]
 			.. " "
@@ -61,7 +61,7 @@ function MER:ConstructCompatibilityFrame()
 	largeTip:FontTemplate()
 	largeTip:SetJustifyH("CENTER")
 	largeTip:Width(500)
-	F.SetFont(largeTip, nil, "7")
+	WF.SetFont(largeTip, nil, "7")
 	largeTip:SetText(
 		format(
 			"%s %s %s",
@@ -81,7 +81,7 @@ function MER:ConstructCompatibilityFrame()
 	bottomDesc:FontTemplate()
 	bottomDesc:SetJustifyH("LEFT")
 	bottomDesc:Width(530)
-	F.SetFont(bottomDesc, nil, "-1")
+	WF.SetFont(bottomDesc, nil, "-1")
 	bottomDesc:SetText(
 		newSignIgnored
 			.. format(L["If you find the %s module conflicts with another addon, alert me via Discord."], MER.Title)
@@ -97,7 +97,7 @@ function MER:ConstructCompatibilityFrame()
 	completeButton.Text:SetText(L["Complete"])
 	completeButton.Text:SetJustifyH("CENTER")
 	completeButton.Text:SetJustifyV("MIDDLE")
-	F.SetFont(completeButton.Text, E.db.general.font, "4")
+	WF.SetFont(completeButton.Text, E.db.general.font, "4")
 	completeButton:Size(350, 35)
 	completeButton:Point("BOTTOM", bottomDesc, "TOP", 0, 10)
 	ES:HandleButton(completeButton)
@@ -137,7 +137,7 @@ local function AddButtonToCompatibilityFrame(data)
 	leftButton.Text:SetText(format("%s\n%s", data.module1, data.plugin1))
 	leftButton.Text:SetJustifyH("CENTER")
 	leftButton.Text:SetJustifyV("MIDDLE")
-	F.SetFont(leftButton.Text, E.db.general.font)
+	WF.SetFont(leftButton.Text, E.db.general.font)
 	leftButton:Size(220, 40)
 	leftButton:Point("TOPLEFT", frame.scrollFrame, "TOPLEFT", 5, -frame.numModules * 50 + 45)
 	ES:HandleButton(leftButton)
@@ -170,7 +170,7 @@ local function AddButtonToCompatibilityFrame(data)
 	rightButton.Text:SetText(format("%s\n%s", data.module2, data.plugin2))
 	rightButton.Text:SetJustifyH("CENTER")
 	rightButton.Text:SetJustifyV("MIDDLE")
-	F.SetFont(rightButton.Text, E.db.general.font)
+	WF.SetFont(rightButton.Text, E.db.general.font)
 	rightButton:Size(220, 40)
 	rightButton:Point("TOPRIGHT", frame.scrollFrame, "TOPRIGHT", -5, -frame.numModules * 50 + 45)
 	ES:HandleButton(rightButton)
@@ -198,7 +198,7 @@ local function GetDatabaseRealValue(path)
 				end
 				accessValue = accessValue[key]
 			else
-				F.Developer.LogWarning("[Compatibility] database path not found\n" .. path)
+				WF.Developer.LogWarning("[Compatibility] database path not found\n" .. path)
 				return
 			end
 		end
@@ -254,240 +254,6 @@ function MER:CheckCompatibility()
 	end
 
 	self:ConstructCompatibilityFrame()
-
-	-- Windtools
-	CheckWindtools(
-		L["AutoButtons"],
-		L["Extra Items Bar"],
-		"db.mui.autoButtons.enable",
-		"db.WT.item.extraItemsBar.enable"
-	)
-
-	CheckWindtools(L["Micro Bar"], L["Game Bar"], "db.mui.microBar.enable", "db.WT.misc.gameBar.enable")
-
-	CheckWindtools(L["Mail"], L["Contacts"], "db.mui.mail.enable", "db.WT.item.contacts.enable")
-
-	CheckWindtools(
-		format("%s-%s", L["Tooltip"], L["Tooltip Icons"]),
-		format("%s-%s", L["Tooltip"], L["Add Icon"]),
-		"db.mui.tooltip.icon",
-		"private.WT.tooltips.icon"
-	)
-
-	CheckWindtools(
-		L["Role Icon"],
-		L["Role Icon"],
-		"db.mui.unitframes.roleIcons",
-		"private.WT.unitFrames.roleIcon.enable"
-	)
-
-	CheckWindtools(L["Combat Alert"], L["Combat Alert"], "db.mui.CombatAlert.enable", "db.WT.combat.combatAlert.enable")
-
-	CheckWindtools(
-		L["Minimap Ping"],
-		L["Who Clicked Minimap"],
-		"db.mui.maps.minimap.ping.enable",
-		"db.WT.maps.whoClicked.enable"
-	)
-
-	CheckWindtools(
-		L["Minimap Buttons"],
-		L["Minimap Buttons"],
-		"db.mui.smb.enable",
-		"private.WT.maps.minimapButtons.enable"
-	)
-
-	CheckWindtools(L["Chat Bar"], L["Chat Bar"], "db.mui.chat.chatBar.enable", "db.WT.social.chatBar.enable")
-
-	CheckWindtools(L["Chat Link"], L["Chat Link"], "db.mui.chat.chatLink.enable", "db.WT.social.chatLink.enable")
-
-	CheckWindtools(L["Raid Markers"], L["Raid Markers"], "db.mui.raidmarkers.enable", "db.WT.combat.raidMarkers.enable")
-
-	CheckWindtools(
-		L["Super Tracker"],
-		L["Super Tracker"],
-		"db.mui.maps.superTracker.enable",
-		"private.WT.maps.superTracker.enable"
-	)
-
-	CheckWindtools(
-		L["Merchant"],
-		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
-		"db.mui.merchant.enable",
-		"private.WT.item.extendMerchantPages.enable"
-	)
-
-	CheckWindtools(
-		L["Heal Prediction"],
-		L["Absorb"],
-		"db.mui.unitframes.healPrediction.enable",
-		"db.WT.unitFrames.absorb.enable"
-	)
-
-	CheckWindtools(
-		L["Objective Tracker"],
-		L["Objective Tracker"],
-		"private.mui.quest.objectiveTracker.enable",
-		"private.WT.quest.objectiveTracker.enable"
-	)
-
-	CheckWindtools(
-		L["Button"],
-		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Button"]),
-		"private.mui.skins.widgets.button.enable",
-		"private.WT.skins.widgets.button.enable"
-	)
-
-	CheckWindtools(
-		L["Check Box"],
-		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Check Box"]),
-		"private.mui.skins.widgets.checkBox.enable",
-		"private.WT.skins.widgets.checkBox.enable"
-	)
-
-	CheckWindtools(
-		L["Tab"],
-		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Tab"]),
-		"private.mui.skins.widgets.tab.enable",
-		"private.WT.skins.widgets.tab.enable"
-	)
-
-	CheckWindtools(
-		L["Tree Group Button"],
-		format("%s-%s-%s", L["Skins"], L["Widgets"], L["Tree Group Button"]),
-		"private.mui.skins.widgets.treeGroupButton.enable",
-		"private.WT.skins.widgets.treeGroupButton.enable"
-	)
-
-	CheckWindtools(
-		L["WeakAuras"],
-		format("%s-%s-%s", L["Skins"], L["Addons"], L["WeakAuras"]),
-		"private.mui.skins.addonSkins.wa",
-		"private.WT.skins.addons.weakAuras"
-	)
-
-	CheckWindtools(
-		L["WeakAuras Options"],
-		format("%s-%s-%s", L["Skins"], L["Addons"], L["WeakAuras Options"]),
-		"private.mui.skins.addonSkins.waOptions",
-		"private.WT.skins.addons.weakAurasOptions"
-	)
-
-	CheckWindtools(
-		L["Friends List"],
-		L["Friend List"],
-		"db.mui.blizzard.friendsList.enable",
-		"db.WT.social.friendList.enable"
-	)
-
-	CheckWindtools(L["World Map"], L["World Map"], "db.mui.maps.worldMap.enable", "private.WT.maps.worldMap.enable")
-
-	CheckWindtools(
-		format("%s-%s", L["UnitFrames"], L["Role Icons"]),
-		format("%s-%s", L["UnitFrames"], L["Role Icon"]),
-		"db.mui.unitframes.roleIcons.enable",
-		"private.WT.unitFrames.roleIcon.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Chat"], L["Role Icons"]),
-		L["Chat Text"],
-		"db.mui.chat.chatText.enable",
-		"db.WT.social.chatText.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Misc"], L["Spell Alert Scale"]),
-		format("%s-%s", L["Misc"], L["Spell Activation Alert"]),
-		"db.mui.misc.spellAlert.enable",
-		"db.WT.misc.spellActivationAlert.enable"
-	)
-
-	CheckWindtools(L["Announcement"], L["Announcement"], "db.mui.announcement.enable", "db.WT.announcement.enable")
-
-	CheckWindtools(
-		L["Event Tracker"],
-		L["Event Tracker"],
-		"db.mui.maps.eventTracker.enable",
-		"db.WT.maps.eventTracker.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["AddOnSkins"], L["Auctionator"]),
-		format("%s-%s", L["Skins"], L["Auctionator"]),
-		"private.mui.skins.addonSkins.au",
-		"private.WT.skins.addons.auctionator"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Chat"], L["ChatText"]),
-		format("%s-%s", L["Social"], L["ChatText"]),
-		"db.mui.chat.chatText.enable",
-		"db.WT.social.chatText.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Quest"], L["Turn In"]),
-		format("%s-%s", L["Quest"], L["Turn In"]),
-		"db.mui.quest.turnIn.enable",
-		"db.WT.quest.turnIn.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Quest"], L["Switch Buttons"]),
-		format("%s-%s", L["Quest"], L["Switch Buttons"]),
-		"db.mui.quest.switchButtons.enable",
-		"db.WT.quest.switchButtons.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Tooltip"], L["Race Icon"]),
-		format("%s-%s-%s-%s", L["Tooltips"], L["General"], L["ElvUI Tooltip Tweaks"], L["Race Icon"]),
-		"db.mui.tooltip.raceIcon",
-		"db.WT.tooltips.elvUITweaks.raceIcon"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Tooltip"], L["Spec Icon"]),
-		format("%s-%s-%s-%s", L["Tooltips"], L["General"], L["ElvUI Tooltip Tweaks"], L["Spec Icon"]),
-		"db.mui.tooltip.specIcon",
-		"db.WT.tooltips.elvUITweaks.specIcon"
-	)
-
-	CheckWindtools(
-		L["Delete Item"],
-		format("%s-%s", L["Item"], L["Delete Item"]),
-		"db.mui.item.delete.enable",
-		"db.WT.item.delete.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Misc"], L["Move Frames"]),
-		format("%s-%s", L["Misc"], L["Move Frames"]),
-		"private.mui.misc.moveFrames.enable",
-		"private.WT.misc.moveFrames.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Misc"], L["Move Frames"]),
-		format("%s-%s", L["Misc"], L["Move Frames"]),
-		"db.mui.misc.lfgList.enable",
-		"private.WT.misc.lfgList.enable"
-	)
-
-	CheckShadowAndLight(
-		format("%s-%s", L["Skins"], L["Shadow"]),
-		L["Enhanced Shadow"],
-		"private.mui.skins.shadow",
-		"private.sle.module.shadows.enable"
-	)
-
-	CheckWindtools(
-		format("%s-%s", L["Misc"], L["Quick Keystone"]),
-		format("%s-%s", L["Combat"], L["Quick Keystone"]),
-		"db.mui.misc.quickKeystone.enable",
-		"db.WT.combat.quickKeystone.enable"
-	)
 
 	CheckShadowAndLight(L["Raid Markers"], L["Raid Markers"], "db.mui.raidmarkers.enable", "db.sle.raidmarkers.enable")
 

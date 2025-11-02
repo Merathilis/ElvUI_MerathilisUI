@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
 
 local _G = _G
@@ -11,7 +11,6 @@ local PlayerHasToy = PlayerHasToy
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_Spell_IsCurrentSpell = C_Spell.IsCurrentSpell
-local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
 local C_Spell_GetSpellTexture = C_Spell.GetSpellTexture
 local C_SpellBook_GetSpellBookItemName = C_SpellBook.GetSpellBookItemName
 local C_SpellBook_GetSpellBookItemTexture = C_SpellBook.GetSpellBookItemTexture

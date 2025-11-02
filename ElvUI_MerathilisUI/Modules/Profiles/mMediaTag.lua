@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 
 function module:LoadmMediaTagProfile()
@@ -40,7 +40,7 @@ end
 
 function module:ApplymMediaTagProfile()
 	if not E:IsAddOnEnabled("ElvUI_mMediaTag") then
-		F.Developer.LogWarning(L["ElvUI_mMediaTag is not enabled. Will not apply profile."])
+		WF.Developer.LogWarning(L["ElvUI_mMediaTag is not enabled. Will not apply profile."])
 		return
 	end
 

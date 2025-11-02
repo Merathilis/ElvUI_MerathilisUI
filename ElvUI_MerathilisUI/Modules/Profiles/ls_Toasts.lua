@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 
 function module:LoadLSProfile()
@@ -105,7 +105,7 @@ end
 
 function module:ApplyLSProfile()
 	if not E:IsAddOnEnabled("ls_Toasts") then
-		F.Developer.LogWarning("ls_Toasts is not enabled. Will not apply profile.")
+		WF.Developer.LogWarning("ls_Toasts is not enabled. Will not apply profile.")
 		return
 	end
 

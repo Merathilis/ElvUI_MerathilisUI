@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 I.General = {
 	AddOnPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\",

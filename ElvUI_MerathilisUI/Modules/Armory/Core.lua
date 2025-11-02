@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory")
 local M = E:GetModule("Misc")
 
@@ -355,7 +355,7 @@ function module:UpdateItemLevel()
 		return
 	end
 
-	F.SetFontWithDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont)
+	WF.SetFontWithDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont)
 
 	local itemLevelText
 
@@ -395,19 +395,19 @@ function module:UpdateItemLevel()
 		module.frame.ItemLevelText:SetText(F.String.ElvUIValue(itemLevelText))
 	elseif module.db.stats.itemLevelFont.itemLevelFontColor == "CUSTOM" then
 		module.frame.ItemLevelText:SetText(itemLevelText)
-		F.SetFontColorDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont.color)
+		WF.SetFontColorWithDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont.color)
 	else
 		module.frame.ItemLevelText:SetText(itemLevelText)
 	end
 end
 
 function module:UpdateTitle()
-	F.SetFontWithDB(self.nameText, module.db.nameText)
-	F.SetFontWithDB(self.titleText, module.db.titleText)
-	F.SetFontWithDB(self.levelTitleText, module.db.levelTitleText)
-	F.SetFontWithDB(self.levelText, module.db.levelText)
-	F.SetFontWithDB(self.classText, module.db.classText)
-	F.SetFontWithDB(self.specIcon, module.db.specIcon)
+	WF.SetFontWithDB(self.nameText, module.db.nameText)
+	WF.SetFontWithDB(self.titleText, module.db.titleText)
+	WF.SetFontWithDB(self.levelTitleText, module.db.levelTitleText)
+	WF.SetFontWithDB(self.levelText, module.db.levelText)
+	WF.SetFontWithDB(self.classText, module.db.classText)
+	WF.SetFontWithDB(self.specIcon, module.db.specIcon)
 
 	local titleId = GetCurrentTitle()
 	local titleName = GetTitleName(titleId) or ""
@@ -439,7 +439,7 @@ function module:UpdateTitle()
 		self.nameText:SetText(F.String.GradientClass(E.myname))
 	else
 		self.nameText:SetText(E.myname)
-		F.SetFontColorDB(self.nameText, module.db.nameText.color)
+		WF.SetFontColorWithDB(self.nameText, module.db.nameText.color)
 	end
 
 	self.classSymbol:SetTexture(MER.ClassIcons[E.myclass])
@@ -448,7 +448,7 @@ function module:UpdateTitle()
 		self.titleText:SetText(F.String.FastGradient(titleName, 0, 0.9, 1, 0, 0.6, 1))
 	else
 		self.titleText:SetText(titleName)
-		F.SetFontColorDB(self.titleText, module.db.titleText.color)
+		WF.SetFontColorWithDB(self.titleText, module.db.titleText.color)
 	end
 
 	if module.db.levelTitleText.short then
@@ -464,14 +464,14 @@ function module:UpdateTitle()
 		self.specIcon:SetText(F.String.RGB(fontIcon, classColorNormal))
 	else
 		self.specIcon:SetText(fontIcon)
-		F.SetFontColorDB(self.specIcon, module.db.specIcon.color)
+		WF.SetFontColorWithDB(self.specIcon, module.db.specIcon.color)
 	end
 
 	if module.db.classText.fontColor == "CLASS" then
 		self.classText:SetText(F.String.GradientClass(classNames[currentClass], nil, true))
 	else
 		self.classText:SetText(classNames[currentClass])
-		F.SetFontColorDB(self.classText, module.db.classText.color)
+		WF.SetFontColorWithDB(self.classText, module.db.classText.color)
 	end
 
 	self.nameText:ClearAllPoints()
@@ -773,12 +773,12 @@ function module:UpdatePageInfo(_, _, which)
 
 			-- ItemLevel Slot Text
 			if slotFrame.iLvlText then
-				F.SetFontWithDB(slotFrame.iLvlText, module.db.pageInfo.iLvLFont)
+				WF.SetFontWithDB(slotFrame.iLvlText, module.db.pageInfo.iLvLFont)
 			end
 
 			-- Enchant Slot Text
 			if slotFrame.enchantText then
-				F.SetFontWithDB(slotFrame.enchantText, module.db.pageInfo.enchantFont)
+				WF.SetFontWithDB(slotFrame.enchantText, module.db.pageInfo.enchantFont)
 			end
 		end
 	end
@@ -802,7 +802,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 	local classColorShift = E.db.mui.themes.classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
 
 	-- Set custom font
-	F.SetFontWithDB(frame.Title, module.db.stats.headerFont)
+	WF.SetFontWithDB(frame.Title, module.db.stats.headerFont)
 
 	local categoryHeader = F.String.StripColor(frame.Title:GetText())
 
@@ -813,7 +813,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 		frame.Title:SetText(F.String.GradientClass(categoryHeader))
 	else
 		frame.Title:SetText(categoryHeader)
-		F.SetFontColorDB(frame.Title, module.db.stats.headerFont.color)
+		WF.SetFontColorWithDB(frame.Title, module.db.stats.headerFont.color)
 	end
 
 	-- Create left divider
@@ -940,7 +940,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 
 	-- Set custom font gradient for label
 	if frame.Label then
-		F.SetFontWithDB(frame.Label, module.db.stats.labelFont)
+		WF.SetFontWithDB(frame.Label, module.db.stats.labelFont)
 
 		local labelString = F.String.StripColor(frame.Label:GetText())
 
@@ -954,7 +954,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 			frame.Label:SetText(F.String.GradientClass(labelString, nil, true))
 		else
 			frame.Label:SetText(labelString)
-			F.SetFontColorDB(frame.Label, module.db.stats.labelFont.color)
+			WF.SetFontColorWithDB(frame.Label, module.db.stats.labelFont.color)
 		end
 	end
 
@@ -964,7 +964,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 
 	-- Set custom for value
 	if frame.Value then
-		F.SetFontWithDB(frame.Value, module.db.stats.valueFont)
+		WF.SetFontWithDB(frame.Value, module.db.stats.valueFont)
 	end
 
 	-- Set custom background gradient

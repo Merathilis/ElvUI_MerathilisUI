@@ -1,8 +1,9 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
-local C = MER.Utilities.Color
-local OF = MER.Utilities.ObjectFinder
+local WS = W:GetModule("Skins")
+local C = W.Utilities.Color
+local OF = W.Utilities.ObjectFinder
 
 local _G = _G
 local next, pcall, unpack = next, pcall, unpack
@@ -21,7 +22,7 @@ function pool:Get(type)
 
 		local backdrop = CreateFrame("Frame", nil, E.UIParent)
 		backdrop:SetTemplate("Transparent")
-		module:CreateShadow(backdrop)
+		WS:CreateShadow(backdrop)
 		backdrop.MERPoolType = "backdrop"
 
 		return backdrop
@@ -291,7 +292,7 @@ function module:BigWigs_QueueTimer()
 				local parent = frame:GetParent()
 				frame:StripTextures()
 				frame:CreateBackdrop("Transparent")
-				self:CreateBackdropShadow(frame)
+				WS:CreateBackdropShadow(frame)
 
 				E:SetSmoothing(frame, db.smooth)
 
@@ -317,7 +318,7 @@ function module:BigWigs_QueueTimer()
 				frame.text.SetFormattedText = function(textFrame, _, time)
 					textFrame:SetText(format("%d", time))
 				end
-				F.SetFontWithDB(frame.text, db.countDown)
+				WF.SetFontWithDB(frame.text, db.countDown)
 				frame.text:ClearAllPoints()
 				frame.text:SetPoint("TOP", frame, "TOP", db.countDown.offsetX, db.countDown.offsetY)
 
@@ -366,7 +367,7 @@ function module:BigWigs_Keystone()
 		frame.TopTileStreaks:Hide()
 		frame.Bg:Hide()
 		frame:SetTemplate("Transparent")
-		self:CreateShadow(frame)
+		WS:CreateShadow(frame)
 		S:HandleCloseButton(frame.CloseButton)
 
 		if frame.Tabs then

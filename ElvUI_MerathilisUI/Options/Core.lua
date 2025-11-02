@@ -1,5 +1,5 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local async = MER.Utilities.Async
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local async = W.Utilities.Async
 
 local format = format
 
@@ -168,10 +168,6 @@ function MER:OptionsCallback()
 			end,
 		}
 	end
-
-	-- Data warmup
-	async.WithItemIDTable(E.db.mui.autoButtons.blackList, "key")
-	async.WithItemIDTable(E.db.mui.autoButtons.customList, "value")
 end
 
 MER.AnimationEaseTable = {

@@ -1,12 +1,13 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 function module:BagSyncSearch()
 	local Search = module.AddOn:GetModule("Search")
 
 	S:HandleFrame(Search.frame, true)
-	module:CreateBackdropShadow(Search.frame)
+	WS:CreateBackdropShadow(Search.frame)
 
 	S:HandleCloseButton(Search.frame.closeBtn)
 	S:HandleEditBox(Search.frame.SearchBox)
@@ -27,12 +28,12 @@ function module:BagSyncSearch()
 	end
 
 	S:HandleFrame(Search.helpFrame, true)
-	module:CreateBackdropShadow(Search.helpFrame)
+	WS:CreateBackdropShadow(Search.helpFrame)
 	S:HandleCloseButton(Search.helpFrame.CloseButton)
 	S:HandleScrollBar(Search.helpFrame.ScrollFrame.ScrollBar)
 
 	S:HandleFrame(Search.savedSearch, true)
-	module:CreateBackdropShadow(Search.savedSearch)
+	WS:CreateBackdropShadow(Search.savedSearch)
 	S:HandleCloseButton(Search.savedSearch.CloseButton)
 	S:HandleButton(Search.savedSearch.addSavedBtn)
 	S:HandleScrollBar(Search.savedSearch.scrollFrame.scrollBar)
@@ -45,7 +46,7 @@ function module:BagSyncAdvancedSearch()
 	local adv = module.AddOn:GetModule("AdvancedSearch")
 
 	S:HandleFrame(adv.frame, true)
-	module:CreateBackdropShadow(adv.frame)
+	WS:CreateBackdropShadow(adv.frame)
 
 	S:HandleCloseButton(adv.frame.closeBtn)
 	S:HandleEditBox(adv.frame.SearchBox)
@@ -70,7 +71,7 @@ function module:BagSyncCurrency()
 	local Currency = module.AddOn:GetModule("Currency")
 
 	S:HandleFrame(Currency.frame, true)
-	module:CreateBackdropShadow(Currency.frame)
+	WS:CreateBackdropShadow(Currency.frame)
 	S:HandleCloseButton(Currency.frame.closeBtn)
 
 	local header = Currency.frame
@@ -88,7 +89,7 @@ function module:BagSyncProfessions()
 	local Professions = module.AddOn:GetModule("Professions")
 
 	S:HandleFrame(Professions.frame, true)
-	module:CreateBackdropShadow(Professions.frame)
+	WS:CreateBackdropShadow(Professions.frame)
 	S:HandleCloseButton(Professions.frame.closeBtn)
 
 	local header = Professions.frame
@@ -106,7 +107,7 @@ function module:BagSyncBlacklist()
 	local Blacklist = module.AddOn:GetModule("Blacklist")
 
 	S:HandleFrame(Blacklist.frame, true)
-	module:CreateBackdropShadow(Blacklist.frame)
+	WS:CreateBackdropShadow(Blacklist.frame)
 	S:HandleCloseButton(Blacklist.frame.closeBtn)
 	S:HandleDropDownBox(Blacklist.frame.guildDD)
 	S:HandleButton(Blacklist.frame.addGuildBtn)
@@ -128,7 +129,7 @@ function module:BagSyncWhitelist()
 	local Whitelist = module.AddOn:GetModule("Whitelist")
 
 	S:HandleFrame(Whitelist.frame, true)
-	module:CreateBackdropShadow(Whitelist.frame)
+	WS:CreateBackdropShadow(Whitelist.frame)
 	S:HandleCloseButton(Whitelist.frame.closeBtn)
 	S:HandleButton(Whitelist.frame.addItemIDBtn)
 	S:HandleEditBox(Whitelist.frame.itemIDBox)
@@ -144,7 +145,7 @@ function module:BagSyncWhitelist()
 	end
 
 	S:HandleFrame(Whitelist.warningFrame, true)
-	module:CreateBackdropShadow(Whitelist.warningFrame)
+	WS:CreateBackdropShadow(Whitelist.warningFrame)
 	S:HandleCloseButton(Whitelist.warningFrame.CloseButton)
 end
 
@@ -152,7 +153,7 @@ function module:BagSyncGold()
 	local Gold = module.AddOn:GetModule("Gold")
 
 	S:HandleFrame(Gold.frame, true)
-	module:CreateBackdropShadow(Gold.frame)
+	WS:CreateBackdropShadow(Gold.frame)
 	S:HandleCloseButton(Gold.frame.closeBtn)
 
 	local header = Gold.frame
@@ -170,7 +171,7 @@ function module:BagSyncProfiles()
 	local Profiles = module.AddOn:GetModule("Profiles")
 
 	S:HandleFrame(Profiles.frame, true)
-	module:CreateBackdropShadow(Profiles.frame)
+	WS:CreateBackdropShadow(Profiles.frame)
 	S:HandleCloseButton(Profiles.frame.closeBtn)
 
 	local header = Profiles.frame
@@ -187,7 +188,7 @@ end
 function module:BagSyncSortOrder()
 	local SortOrder = module.AddOn:GetModule("SortOrder")
 	S:HandleFrame(SortOrder.frame, true)
-	module:CreateBackdropShadow(SortOrder.frame)
+	WS:CreateBackdropShadow(SortOrder.frame)
 	S:HandleCloseButton(SortOrder.frame.closeBtn)
 
 	local header = SortOrder.frame
@@ -212,7 +213,7 @@ function module:BagSyncSortOrder()
 	end
 
 	S:HandleFrame(SortOrder.warningFrame, true)
-	module:CreateBackdropShadow(SortOrder.warningFrame)
+	WS:CreateBackdropShadow(SortOrder.warningFrame)
 	S:HandleCloseButton(SortOrder.warningFrame.CloseButton)
 end
 
@@ -220,7 +221,7 @@ function module:BagSyncDetails()
 	local Details = module.AddOn:GetModule("Details")
 
 	S:HandleFrame(Details.frame, true)
-	module:CreateBackdropShadow(Details.frame)
+	WS:CreateBackdropShadow(Details.frame)
 	S:HandleCloseButton(Details.frame.closeBtn)
 
 	local header = Details.frame

@@ -1,6 +1,6 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
-local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 local ES = E:GetModule("Skins")
 
 local _G = _G
@@ -37,7 +37,7 @@ function module:CreateGMOTD()
 		gmotd:SetScript("OnMouseUp", gmotd.StopMovingOrSizing)
 		gmotd:CreateBackdrop("Transparent")
 		gmotd.backdrop:SetAllPoints()
-		S:CreateBackdropShadow(gmotd)
+		WS:CreateBackdropShadow(gmotd)
 
 		gmotd:Hide()
 

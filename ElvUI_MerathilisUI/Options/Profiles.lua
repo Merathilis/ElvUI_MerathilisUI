@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 local options = MER.options.profiles.args
 
@@ -22,6 +22,7 @@ local SupportedProfiles = {
 	{ "ls_Toasts", "ls_Toasts" },
 	{ "OmniCD", "OmniCD" },
 	{ "TomTom", "TomTom" },
+	{ "ElvUI_WindTools", "WindTools" },
 }
 
 options.generalGroup = {
@@ -148,6 +149,8 @@ for _, v in ipairs(SupportedProfiles) do
 				module:ApplyOmniCDProfile()
 			elseif addon == "TomTom" then
 				module:ApplyTomTomProfile()
+			elseif addon == "ElvUI_WindTools" then
+				module:ApplyWindToolsProfile()
 			end
 		end,
 		disabled = function()

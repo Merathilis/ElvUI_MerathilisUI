@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local PI = E:GetModule("PluginInstaller")
 local CH = E:GetModule("Chat")
 local PF = MER:GetModule("MER_Profiles")
@@ -380,8 +380,6 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "- Expressway"
-	E.db["mui"]["maps"]["rectangleMinimap"]["enable"] = true
-	E.db["mui"]["maps"]["rectangleMinimap"]["heightPercentage"] = 0.65
 
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["bottomPanel"] = false
@@ -446,7 +444,7 @@ function MER:SetupLayout()
 	E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 	E.db["auras"]["debuffs"]["height"] = 30
 	E.db["auras"]["debuffs"]["size"] = 34
-	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-233,-167"
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-234,-189"
 	E.db["auras"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
 	E.db["auras"]["debuffs"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -582,14 +580,9 @@ function MER:SetupLayout()
 
 	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
 	E.db["movers"]["MER_EquipmentSetsBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-75,14"
-	E.db["movers"]["MER_MicroBarMover"] = "TOP,ElvUIParent,TOP,0,-19"
-	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
 	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-20"
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,268,-15"
-	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-75"
-	E.db["movers"]["MER_MinimapButtonBarAnchor"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-211"
-	E.db["movers"]["MER_InstanceDifficultyFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-15,-40"
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -607,7 +600,7 @@ function MER:SetupLayout()
 	E.db["movers"]["TotemTrackerMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,457,13"
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 	E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
-	E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-157"
+	E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-7,-165"
 
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
@@ -678,7 +671,7 @@ function MER:SetupLayout()
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,1"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,470,1"
 	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
-	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-25"
+	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-40"
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
@@ -906,9 +899,6 @@ function MER:SetupActionbars()
 	E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,304,140"
-	E.db["movers"]["AutoButtonBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,216"
-	E.db["movers"]["AutoButtonBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,247"
-	E.db["movers"]["AutoButtonBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,279"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2391,8 +2381,12 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,209"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,89"
 	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,209"
-	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,243"
-	E.db["movers"]["AdditionalPowerMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
+	if E.myclass == "DRUID" then
+		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,243"
+	else
+		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,231"
+	end
+	E.db["movers"]["AdditionalPowerMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,231"
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,209"
 	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,188"
 	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,293"
@@ -2446,38 +2440,9 @@ function MER:SetupDts()
 		border = true,
 		panelTransparency = true,
 		numPoints = 2,
-		"DurabilityItemLevel",
+		E:IsAddOnEnabled("ElvUI_mMediaTag") and "DurabilityIlevel" or "Durability",
 		"Gold",
 	}
-
-	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
-		E.global["datatexts"]["customPanels"]["MER_TopPanel"] = {
-			["fonts"] = {
-				["enable"] = true,
-				["font"] = "- Expressway",
-				["fontSize"] = 10,
-				["fontOutline"] = "SHADOWOUTLINE",
-			},
-			["height"] = 20,
-			["width"] = 100,
-			["numPoints"] = 1,
-			["backdrop"] = false,
-			["visibility"] = "[petbattle][combat] hide;show",
-			["name"] = "MER_TopPanel",
-			["frameStrata"] = "LOW",
-			["frameLevel"] = 1,
-		}
-		E.DataTexts:UpdatePanelInfo("MER_TopPanel")
-
-		E.db["datatexts"]["panels"]["MER_TopPanel"] = {
-			[1] = "mTeleports",
-			[2] = "",
-			[3] = "",
-			["battleground"] = false,
-			["enable"] = true,
-		}
-		E.db["movers"]["DTPanelMER_TopPanelMover"] = "TOP,ElvUIParent,TOP,0,0"
-	end
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2521,14 +2486,10 @@ function MER:DeveloperSettings()
 	E.db["general"]["cropIcon"] = 0
 	E.db["general"]["autoRepair"] = "GUILD"
 	E.db["tooltip"]["showElvUIUsers"] = true
-	E.db["mui"]["misc"]["automation"]["enable"] = true
-	E.db["mui"]["misc"]["automation"]["hideBagAfterEnteringCombat"] = true
-	E.db["mui"]["maps"]["superTracker"]["noLimit"] = true
 	E.db["mui"]["pvp"]["duels"]["regular"] = true
 	E.db["mui"]["pvp"]["duels"]["pet"] = true
 	E.db["mui"]["pvp"]["duels"]["announce"] = true
 	E.private["mui"]["skins"]["shadowOverlay"] = true
-	E.db["mui"]["unitframes"]["healPrediction"]["enable"] = true
 	E.db["mui"]["tooltip"]["gradientName"] = true
 	E.db["mui"]["nameHover"]["gradient"] = true
 	E.db["mui"]["scale"]["enable"] = true
@@ -2538,13 +2499,6 @@ function MER:DeveloperSettings()
 
 	-- Chat
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	E.db["mui"]["chat"]["chatText"]["gradientName"] = true
-
-	-- SMB
-	E.db["mui"]["smb"]["backdrop"] = false
-	E.db["mui"]["smb"]["buttonsPerRow"] = 8
-	E.db["mui"]["smb"]["buttonSize"] = 26
-	E.db["mui"]["smb"]["backdropSpacing"] = 1
 
 	-- VehicleBar
 	E.db["mui"]["vehicleBar"]["enable"] = true
@@ -2590,11 +2544,6 @@ function MER:DeveloperSettings()
 		["attachTextTo"] = "Frame",
 		["text_format"] = "[users:elvui]",
 	}
-
-	if E.myclass == "WARRIOR" then
-		E.db["mui"]["unitframes"]["power"]["type"] = "CUSTOM"
-		E.db["mui"]["unitframes"]["power"]["model"] = 840943
-	end
 
 	PluginInstallStepComplete.message = MER.Title .. L["Developer Settings Done"]
 	PluginInstallStepComplete:Show()
@@ -2986,6 +2935,34 @@ MER.installTable = {
 		[11] = function()
 			MER:Resize(nil)
 
+			if E:IsAddOnEnabled("ElvUI_WindTools") then
+				PluginInstallFrame.SubTitle:SetText(L["ElvUI_WindTools"])
+				PluginInstallFrame.Desc1:SetText("Maybe the BEST ElvUI plugin to enhance your game experience.")
+				PluginInstallFrame.Desc2:SetText("Importance: " .. F.String.Error("HIGH"))
+
+				PluginInstallFrame.Option1:Show()
+				PluginInstallFrame.Option1:SetScript("OnClick", function()
+					PF:ApplyWindToolsProfile()
+				end)
+				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
+				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
+				PluginInstallFrame.Option1:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
+			else
+				PluginInstallFrame.SubTitle:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
+
+				PluginInstallFrame.Desc1:SetText(
+					F.String.Warning(
+						"Oops, looks like you don't have " .. F.String.WindTools("ElvUI_WindTools") .. " installed!"
+					)
+				)
+				PluginInstallFrame.Desc2:SetText(
+					"If you're a new player, we recommend installing " .. F.String.WindTools("ElvUI_WindTools") .. "!"
+				)
+			end
+		end,
+		[12] = function()
+			MER:Resize(nil)
+
 			PluginInstallFrame.SubTitle:SetText(L["Plugins"])
 			PluginInstallFrame.Desc1:SetText(
 				L["This part of the installation process will apply changes to ElvUI Plugins"]
@@ -3043,7 +3020,7 @@ MER.installTable = {
 				end
 			end
 		end,
-		[12] = function()
+		[13] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("BigWigs") then
@@ -3071,7 +3048,7 @@ MER.installTable = {
 				)
 			end
 		end,
-		[13] = function()
+		[14] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("Details") then
@@ -3098,7 +3075,7 @@ MER.installTable = {
 				PluginInstallFrame.Desc2:SetText("Please install Details and restart the installer!")
 			end
 		end,
-		[14] = function()
+		[15] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("OmniCD") then
@@ -3119,7 +3096,7 @@ MER.installTable = {
 				PluginInstallFrame.Desc2:SetText("Please install OmniCD and restart the installer!")
 			end
 		end,
-		[15] = function()
+		[16] = function()
 			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
@@ -3155,7 +3132,7 @@ MER.installTable = {
 			local msg = MER.Title .. L[" install complete."]
 			MER:ShowStepComplete(msg)
 		end,
-		[F.IsDeveloper() and 16] = function()
+		[F.IsDeveloper() and 17] = function()
 			MER:Resize(nil, nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
@@ -3189,12 +3166,13 @@ MER.installTable = {
 		[8] = L["ActionBars"],
 		[9] = L["NamePlates"],
 		[10] = L["UnitFrames"],
-		[11] = L["Plugins"],
-		[12] = L["BigWigs"],
-		[13] = L["Details"],
-		[14] = L["OmniCD"],
-		[15] = L["Installation Complete"],
-		[F.IsDeveloper() and 16] = L["Developer Settings"],
+		[11] = L["WindTools"],
+		[12] = L["Plugins"],
+		[13] = L["BigWigs"],
+		[14] = L["Details"],
+		[15] = L["OmniCD"],
+		[16] = L["Installation Complete"],
+		[F.IsDeveloper() and 17] = L["Developer Settings"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],

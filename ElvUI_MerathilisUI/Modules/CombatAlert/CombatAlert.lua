@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_CombatText")
 
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
@@ -36,7 +36,7 @@ function module:RefreshAlert()
 
 	self.db = E.db.mui.CombatAlert
 
-	F.SetFontWithDB(self.alert.text, self.db.font)
+	WF.SetFontWithDB(self.alert.text, self.db.font)
 	self.alert:SetScale(self.db.style.scale or 0.8)
 end
 

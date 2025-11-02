@@ -1,6 +1,7 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Notification")
 local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 
 -- Credits RealUI
 local unpack, type, pairs = unpack, type, pairs
@@ -131,7 +132,7 @@ function module:CreateToast()
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
 	toast:CreateBackdrop("Transparent")
-	S:CreateBackdropShadow(toast, true)
+	WS:CreateBackdropShadow(toast, true)
 	toast:CreateCloseButton(10)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
@@ -146,7 +147,7 @@ function module:CreateToast()
 	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
 	local title = toast:CreateFontString(nil, "OVERLAY")
-	F.SetFontWithDB(title, db.titleFont)
+	WF.SetFontWithDB(title, db.titleFont)
 	title:SetShadowOffset(1, -1)
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -5)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
@@ -155,7 +156,7 @@ function module:CreateToast()
 	toast.title = title
 
 	local text = toast:CreateFontString(nil, "OVERLAY")
-	F.SetFontWithDB(text, db.textFont)
+	WF.SetFontWithDB(text, db.textFont)
 	text:SetShadowOffset(1, -1)
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 17)
 	text:SetPoint("RIGHT", toast, -9, 0)
@@ -264,7 +265,7 @@ end
 
 -- Test function
 local function testCallback()
-	F.Print("Banner clicked!")
+	WF.Print("Banner clicked!")
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)

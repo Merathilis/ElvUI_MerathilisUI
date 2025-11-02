@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
 
 options.Notification = {
@@ -256,7 +256,7 @@ do
 						E.db.mui.notification.vignette.blacklist[tonumber(tempID)] = true
 						tempID = nil
 					else
-						F.Print(L["Please set the ID first."])
+						WF.Print(L["Please set the ID first."])
 					end
 				end,
 			},

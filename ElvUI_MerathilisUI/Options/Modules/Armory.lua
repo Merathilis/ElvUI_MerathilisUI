@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory")
 local options = MER.options.modules.args
 local M = E.Misc
@@ -50,12 +50,12 @@ options.armory = {
 		general = {
 			order = 3,
 			type = "group",
-			name = E.NewSign .. L["General"],
+			name = L["General"],
 			args = {
 				backgroundGroup = {
 					order = 1,
 					type = "group",
-					name = E.NewSign .. L["Background"],
+					name = L["Background"],
 					get = function(info)
 						return E.db.mui.armory.background[info[#info]]
 					end,
@@ -127,7 +127,7 @@ options.armory = {
 				animationGroup = {
 					order = 2,
 					type = "group",
-					name = E.NewSign .. L["Animation"],
+					name = L["Animation"],
 					args = {
 						animations = {
 							order = 1,
@@ -1070,7 +1070,7 @@ options.armory = {
 		attributesGroup = {
 			order = 16,
 			type = "group",
-			name = E.NewSign .. L["Attributes"],
+			name = L["Attributes"],
 			get = function(info)
 				return E.db.mui.armory.stats[info[#info]]
 			end,

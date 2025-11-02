@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local _G = _G
 
@@ -48,6 +48,7 @@ do
 		["ElvUI_Options"] = true,
 		["ElvUI_CPU"] = true,
 		["ElvUI_MerathilisUI"] = true,
+		["ElvUI_WindTools"] = true,
 		["!BugGrabber"] = true,
 		["BugSack"] = true,
 	}
@@ -82,28 +83,28 @@ do
 				Reload()
 			end
 		else
-			F.PrintGradientLine()
-			F.Print(L["Usage"] .. ": /muidebug [on|off]")
+			WF.PrintGradientLine()
+			WF.Print(L["Usage"] .. ": /muidebug [on|off]")
 			print("on  ", L["Enable debug mode"])
 			print("      ", format(L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."], MER.Title))
 			print("off ", L["Disable debug mode"])
 			print("      ", L["Reenable the addons that disabled by debug mode."])
-			F.PrintGradientLine()
+			WF.PrintGradientLine()
 		end
 	end)
 
 	function MER.PrintDebugEnviromentTip()
-		F.PrintGradientLine()
-		F.Print(L["Debug Enviroment"])
+		WF.PrintGradientLine()
+		WF.Print(L["Debug Enviroment"])
 		print(L["You can use |cff00ff00/muidebug off|r command to exit debug mode."])
 		print(format(L["After you stop debuging, %s will reenable the addons automatically."], MER.Title))
-		F.PrintGradientLine()
+		WF.PrintGradientLine()
 	end
 end
 
 function MER:ShowStatusReport()
 	if not F.IsMERProfile() then
-		F.Developer.LogInfo("You are not using a " .. MER.Title .. " Profile")
+		WF.Developer.LogInfo("You are not using a " .. MER.Title .. " Profile")
 		return
 	end
 
@@ -124,12 +125,12 @@ function MER:HandleChatCommand(msg)
 	elseif category == "install" or category == "i" then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	elseif F.IsMERProfile() then
-		F.Developer.LogInfo("Usage: /mer cl; changelog; install; i; info; settings; status")
+		WF.Developer.LogInfo("Usage: /mer cl; changelog; install; i; info; settings; status")
 	else
-		F.Developer.LogInfo(
+		WF.Developer.LogInfo(
 			"You are not using a " .. MER.Title .. " profile. Please install " .. MER.Title .. " first."
 		)
-		F.Developer.LogInfo("Usage: /mer cl; changelog; install; i; settings")
+		WF.Developer.LogInfo("Usage: /mer cl; changelog; install; i; settings")
 	end
 end
 

@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Table = {}
 
 local pairs, next, type, select, unpack = pairs, next, type, select, unpack
@@ -121,7 +121,7 @@ function F.Table.CrushDebug(ret, ...)
 						and k ~= "uiScaleInformed"
 						and k ~= "convertPages"
 					then
-						F.Developer.LogDebug("Setting new k,v", k, v)
+						WF.Developer.LogDebug("Setting new k,v", k, v)
 					end
 
 					rawset(ret, k, v)

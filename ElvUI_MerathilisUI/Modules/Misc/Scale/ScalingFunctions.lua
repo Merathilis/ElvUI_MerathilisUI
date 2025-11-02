@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
 
 local talentsHooked = false
@@ -7,7 +7,7 @@ function module:SetElementScale(dbName, blizzName)
 	local option = E.db.mui.scale[dbName]
 
 	if not option then
-		F.Developer.LogDebug("AdditionalScaling > option " .. dbName .. " not found, skipping scaling!")
+		WF.Developer.LogDebug("AdditionalScaling > option " .. dbName .. " not found, skipping scaling!")
 		return
 	end
 

@@ -1,5 +1,6 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 
 local DetailsGradient = {
 	["WARRIOR"] = { r1 = 0.60, g1 = 0.40, b1 = 0.20, r2 = 0.66, g2 = 0.53, b2 = 0.34 },
@@ -137,7 +138,7 @@ local function SetupInstance(instance)
 
 	instance.baseframe:CreateBackdrop("Transparent")
 	instance.baseframe.backdrop:SetPoint("TOPLEFT", -1, 18)
-	module:CreateBackdropShadow(instance.baseframe)
+	WS:CreateBackdropShadow(instance.baseframe)
 
 	if instance:GetId() < 4 then
 		local open, close = module:CreateToggle(instance.baseframe)

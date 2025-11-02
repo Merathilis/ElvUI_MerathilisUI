@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Notification")
 
 local format = string.format
@@ -12,7 +12,7 @@ local HAVE_MAIL = HAVE_MAIL
 local hasMail = false
 function module:UPDATE_PENDING_MAIL()
 	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.mail or InCombatLockdown() then
+	if not module.db or not module.db.enable or InCombatLockdown() then
 		return
 	end
 

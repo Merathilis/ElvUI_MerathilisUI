@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 
 function module:LoadCappingProfile()
@@ -28,7 +28,7 @@ end
 
 function module:ApplyCappingProfile()
 	if not E:IsAddOnEnabled("Capping") then
-		F.Developer.LogWarning("Capping is not enabled. Will not apply profile.")
+		WF.Developer.LogWarning("Capping is not enabled. Will not apply profile.")
 		return
 	end
 

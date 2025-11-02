@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
 local options = MER.options.modules.args
 local LSM = E.Libs.LSM
@@ -63,7 +63,7 @@ options.vehicleBar = {
 		buttonGroup = {
 			order = 4,
 			type = "group",
-			name = E.NewSign .. L["Buttons"],
+			name = L["Buttons"],
 			desc = L["Settings for the Action Bar Buttons of the Vehicle Bar.\n\n"],
 			args = {
 				buttonWidth = {
@@ -82,7 +82,7 @@ options.vehicleBar = {
 				showKeybinds = {
 					order = 2,
 					type = "toggle",
-					name = E.NewSign .. L["Show Keybinds"],
+					name = L["Show Keybinds"],
 					desc = L["Toggle whether to show keybinds of an action bar button on the Vehicle Bar."],
 					get = function()
 						return E.db.mui.vehicleBar.showKeybinds
@@ -95,7 +95,7 @@ options.vehicleBar = {
 				showMacro = {
 					order = 3,
 					type = "toggle",
-					name = E.NewSign .. L["Show Macro Text"],
+					name = L["Show Macro Text"],
 					desc = L["Toggle whether to show macro text of an action bar button on the Vehicle Bar."],
 					get = function()
 						return E.db.mui.vehicleBar.showMacro

@@ -33,15 +33,14 @@ L["Description"] = "描述"
 L["General"] = true
 L["Modules"] = true
 L["Media"] = true
-L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r 是ElvUI的扩展. 它增加了:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI & ElvUI_WindTools. It adds:
 
-- 大量新特性
-- 一个整体的透明外观
-- 重写了所有的ElvUI外观
-- 我的个人布局
+- a lot of new features
+- a transparent overall look
+- my personal Layout
 
-|cFF00c0faNote:|r 它与其他大多数ElvUI插件兼容.
-但是如果你在我的之外安装了另一个布局，你必须手动调整它。.
+|cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
+But if you install another Layout over mine, you must adjust it manually.
 
 |cffff8000Newest additions are marked with: |r]=]
 L["Enables the stripes/gradient look on the frames"] = true
@@ -54,99 +53,6 @@ L["Only display log message that the level is higher than you choose."] = "只�
 L["Set to 2 if you do not understand the meaning of log level."] =
 	"如果你不理解什么是日志级别, 设置为 2 就行."
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
-
--- Bags
-
--- Chat
-L["CHAT_AFK"] = "[AFK]"
-L["CHAT_DND"] = "[DND]"
-L["BACK"] = "后退"
-L["|cFF00c0failvl|r: %d"] = "|cFF00c0fa物品等级|r: %d"
-L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = "|CFF1EFF00%s|r |CFFFF0000出售.|r"
-L["Requires level: %d - %d"] = "需要等级: %d - %d"
-L["Requires level: %d - %d (%d)"] = "需要等级: %d - %d (%d)"
-L["(+%.1f Rested)"] = "(+%.1f 休息)"
-L["Unknown"] = "未知"
-L["Chat Item Level"] = "聊天物品等级"
-L["Shows the slot and item level in the chat"] = "显示聊天中的插槽和物品等级"
-L["Expand the chat"] = "展开聊天框"
-L["Chat Menu"] = "聊天菜单"
-L["Create a chat button to increase the chat size."] = "创建一个按钮用来调整聊天框大小"
-L["Hide Player Brackets"] = "隐藏玩家括号"
-L["Removes brackets around the person who posts a chat message."] = "删除聊天框中玩家名字两边的括号."
-L["Hide Community Chat"] = "隐藏社区聊天"
-L["Adds an overlay to the Community Chat. Useful for streamers."] =
-	"在社区聊天内容上添加一个遮罩，对主播很有用"
-L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
-L["Chat Bar"] = "聊天条"
-L["Shows a ChatBar with different quick buttons."] = "用不同的快捷按钮显示一个聊天条"
-L["Click to open Emoticon Frame"] = "点击打开表情框架"
-L["Emotes"] = "表情"
-L["Damage Meter Filter"] = "伤害统计过滤"
-L["Fade Chat"] = "聊天渐隐"
-L["Auto hide timeout"] = "时间"
-L["Seconds before fading chat panel"] = "多少秒后聊天框自动隐藏"
-L["Seperators"] = "标签分隔符"
-L["Orientation"] = "方向"
-L["Community"] = "社群"
-L["Please use Blizzard Communities UI add the channel to your main chat frame first."] = "请先加入一个社区."
-L["Channel Name"] = "频道名称"
-L["Abbreviation"] = "缩写"
-L["Auto Join"] = "自动加入"
-L["World"] = "世界"
-L["Channels"] = "频道"
-L["Block Shadow"] = "按键阴影"
-L["Hide channels not exist."] = "隐藏不存在的频道."
-L["Only show chat bar when you mouse over it."] = "鼠标滑过时显示."
-L["Button"] = "按键"
-L["Item Level Links"] = "物品等级链接"
-L["Filter"] = "过滤器"
-L["Block"] = "块"
-L["Use Icon"] = "使用图标"
-L["Use a icon rather than text"] = "使用图标"
-L["Use Color"] = "使用颜色"
-L["Font Setting"] = "字体设定"
-L["Custom Online Message"] = true
-L["Chat Link"] = "聊天链接"
-L["Add extra information on the link, so that you can get basic information but do not need to click"] =
-	"为链接添加额外信息, 这样你就可以不通过点击也能获取到基础信息"
-L["Additional Information"] = "额外信息"
-L["Level"] = "等级"
-L["Translate Item"] = "翻译物品"
-L["Translate the name in item links into your language."] = "将物品链接中的名称翻译为你的语言."
-L["Icon"] = "图标"
-L["Armor Category"] = "护甲分类"
-L["Weapon Category"] = "武器分类"
-L["Filters some messages out of your chat, that some Spam AddOns use."] = true
-L["Display the level of the item on the item link."] = true
-L["Numerical Quality Tier"] = true
-L["%player% has earned the achievement %achievement%!"] = "%player%获得了成就%achievement%!"
-L["%players% have earned the achievement %achievement%!"] = "%players%获得了成就%achievement%!"
-L["%players% (%bnet%) has come online."] = "%players% (%bnet%) 已经上线。"
-L["%players% (%bnet%) has gone offline."] = "%players% (%bnet%) 已经离线。"
-L["BNet Friend Offline"] = true
-L["BNet Friend Online"] = true
-L["Show a message when a Battle.net friend's wow character comes online."] = true
-L["Show a message when a Battle.net friend's wow character goes offline."] = true
-L["Show the class icon before the player name."] = true
-L["Show the faction icon before the player name."] = true
-L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] = true
-L["This feature only works for message that sent by this module."] = true
-L["Position of the Chat EditBox, if the Actionbar backdrop is disabled, this will be forced to be above chat."] = true
-L["Actionbar 1 (below)"] = true
-L["Actionbar 2 (below)"] = true
-L["Actionbar 3 (below)"] = true
-L["Actionbar 4 (below)"] = true
-L["Actionbar 5 (below)"] = true
-L["Actionbar 6 (above)"] = true
-L["Move (L\124\124R) Reset"] = "移动 (左\124\124右) 重置"
-L["Emote Selector"] = "表情选择器"
-L["Emote"] = "表情"
-L["Parse emote expression from other players."] = "解析其他玩家发来的表情."
-L["Emote Icon Size"] = "表情图标大小"
-L["Use Emote Panel"] = "表情面板"
-L["Press { to active the emote select window."] = "按下 { （英文左大括号）来激活窗口"
-L["Chat Bubbles"] = "聊天气泡"
 
 -- Combat Alert
 L["Combat Alert"] = "战斗提示"
@@ -196,77 +102,6 @@ L["Show Mythic+ Score"] = true
 L["History Limit"] = true
 L["Number of Mythic+ dungeons shown in the latest runs."] = true
 
--- Extended Vendor
-L["Extended Vendor"] = true
-
-L["Extends the merchant page to show more items."] = true
-L["Number of Pages"] = true
-L["The number of pages shown in the merchant frame."] = true
-
--- Shadows
-L["Shadows"] = true
-L["Increase Size"] = "增大尺寸"
-L["Make shadow thicker."] = "让阴影变得更加厚实."
-
--- Mail
-L["Mail"] = "邮件"
-L["Alternate Character"] = "其他角色"
-L["Alt List"] = "角色列表"
-L["Delete"] = "删除"
-L["Favorites"] = "收藏"
-L["Favorite List"] = "收藏列表"
-L["Name"] = "姓名"
-L["Realm"] = "服务器"
-L["Add"] = "添加"
-L["Please set the name and realm first."] = "请先填写姓名和服务器."
-L["Toggle Contacts"] = "开/关通讯录"
-L["Online Friends"] = "在线好友"
-L["Add To Favorites"] = "添加到收藏"
-L["Remove From Favorites"] = "从收藏移除"
-L["Remove This Alt"] = true
-
--- MicroBar
-L["Backdrop"] = "背景"
-L["Backdrop Spacing"] = "背景间距"
-L["The spacing between the backdrop and the buttons."] = "背景和按键间的间距."
-L["Time Width"] = "时间宽度"
-L["Time Height"] = "时间高度"
-L["The spacing between buttons."] = "按键间的间距"
-L["The size of the buttons."] = "按键大小"
-L["Slow Mode"] = "慢速模式"
-L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
-	"以更慢的时间(10秒)更新额外文字"
-L["Display"] = "显示"
-L["Fade Time"] = "淡入时间"
-L["Tooltip Position"] = "鼠标提示位置"
-L["Mode"] = "模式"
-L["None"] = "无"
-L["Class Color"] = "职业色"
-L["Custom"] = "自订"
-L["Additional Text"] = "额外文字"
-L["Interval"] = "时间间隔"
-L["The interval of updating."] = "更新时间间隔"
-L["Home"] = "家"
-L["Left Button"] = "左键"
-L["Right Button"] = "右键"
-L["Left Panel"] = "左面板"
-L["Right Panel"] = "右面板"
-L["Button #%d"] = "按键 #%d"
-L["Pet Journal"] = "宠物"
-L["Show Pet Journal"] = "显示小伙伴手册"
-L["Random Favorite Pet"] = "随机偏好小伙伴"
-L["Screenshot"] = "截图"
-L["Screenshot immediately"] = "立即截图"
-L["Screenshot after 2 secs"] = "2秒后截图"
-L["Toy Box"] = "玩具"
-L["Collections"] = "藏品"
-L["Show Collections"] = "显示藏品"
-L["Random Favorite Mount"] = "随机偏好坐骑"
-L["Decrease the volume"] = "降低音量"
-L["Increase the volume"] = "增大音量"
-L["Profession"] = "专业"
-L["Volume"] = "音量"
-
 -- Misc
 L["Misc"] = "杂项"
 L["Artifact Power"] = "神器能量"
@@ -313,27 +148,6 @@ L["Toys"] = true
 L["Random Toy"] = true
 L["Text Style"] = true
 L["COLOR"] = true
-L["Hide Boss Banner"] = true
-L["This will hide the popup, that shows loot, after you kill a boss"] = true
-L["{rt1} %player% cast %spell% -> %target% {rt1}"] = "%player%使用了%spell% -> %target%"
-L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] =
-	"{rt1} %player%使用了%spell%, 各位快来领面包哦! {rt1}"
-L["{rt1} %player% is casting %spell%, please assist! {rt1}"] =
-	"{rt1} %player%正在进行 %spell%, 请配合点门哦! {rt1}"
-L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] = true
-L["{rt1} %player% opened %spell%! {rt1}"] = "{rt1} %player%开启了%spell% {rt1}"
-L["{rt1} %player% puts %spell% {rt1}"] = "{rt1} %player%放置了%spell% {rt1}"
-L["{rt1} %player% used %spell% {rt1}"] = "{rt1} %player% 使用了 %spell% {rt1}"
-L["{rt1} %player% puts down %spell%! {rt1}"] = true
-L["Completed"] = "已完成"
-L["%s has been reseted"] = "已重置 %s"
-L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] =
-	"重置 %s 失败（有玩家在尝试进入副本）"
-L["Cannot reset %s (There are players offline in your party.)"] = "重置 %s 失败（有离线玩家）"
-L["Cannot reset %s (There are players still inside the instance.)"] = "重置 %s 失败（副本内还有玩家）"
-L["Let your teammates know the progress of quests."] = true
-L["Include Details"] = true
-L["Announce every time the progress has been changed."] = true
 L["In Party"] = true
 L["In Instance"] = true
 L["In Raid"] = true
@@ -380,20 +194,6 @@ L["Mute the sound of jewelcrafting."] = true
 L["Same Message Interval"] = true
 L["Time interval between sending same messages measured in seconds."] = true
 L["Set to 0 to disable."] = true
-L["Automation"] = true
-L["Automate your game life."] = true
-L["Auto Hide Bag"] = true
-L["Automatically close bag if player enters combat."] = true
-L["Auto Hide Map"] = true
-L["Automatically close world map if player enters combat."] = true
-L["Accept Resurrect"] = true
-L["Accept resurrect from other player automatically when you not in combat."] = true
-L["Accept Combat Resurrect"] = true
-L["Accept resurrect from other player automatically when you in combat."] = true
-L["Confirm Summon"] = true
-L["Confirm summon from other player automatically."] = true
-L["Quick Delete"] = true
-L["This will add the 'DELETE' text to the Item Delete Dialog."] = true
 L["Show all stats on the Character Frame"] = true
 L["Block Join Requests"] = true
 L["|nIf checked, only popout join requests from friends and guild members."] = true
@@ -519,73 +319,6 @@ L["To ensure the colorful progress information remains clearly visible across di
 	true
 L["You can find the setting in 'ElvUI > %s > %s > %s'."] = true
 
--- Move Frames
-L["Move Frames"] = "移动框体"
-L["Because of %s, this module will not be loaded."] = "由于 %s 的存在, 这个模块将不会被载入."
-L["This module provides the feature that repositions the frames with drag and drop."] =
-	"这个模块提供了通过拖放来重新定位框架的功能."
-L["Drag"] = "拖拽"
-L["Temporary Move"] = "移动背包"
-L["Hold Control + Right Click:"] = "按住 Ctrl 并按鼠标右键:"
-L["Reset Position"] = "重设位置"
-L["Move ElvUI Bags"] = "移动 ElvUI 背包"
-L["TSM Compatible"] = "TSM 兼容"
-L["Fix the merchant frame showing when you using Trade Skill Master."] =
-	"修复使用 Trade Skill Master 时商人窗口自动显示的问题."
-L["Remember Positions"] = "记住位置"
-L["Clear History"] = "清除历史"
-L["Notice"] = "注意"
-L["%s may cause some frames to get messed, but you can use %s button to reset frames."] =
-	"%s 可能会造成部分框体位置背景混乱, 不过你可以通过 %s 按钮来重置框体."
-
--- Tooltip
-L["Your Status:"] = "你的状态: "
-L["Your Status: Incomplete"] = "你的状态：未完成"
-L["Your Status: Completed on "] = "您的状态：完成于"
-L["Adds an icon for spells and items on your tooltip."] = "在鼠标提示中为法术和物品添加一个图标."
-L["Adds an Icon for battle pets on the tooltip."] = "在鼠标提示中为战斗宠物添加一个图标."
-L["Adds an Icon for the faction on the tooltip."] = "在鼠标提示中为阵营添加一个图标."
-L["Adds information to the tooltip, on which char you earned an achievement."] =
-	"在鼠标提示中增加一个信息,显示你在哪个角色上取得了成就."
-L["Keystone"] = "大秘境钥匙"
-L["Adds descriptions for mythic keystone properties to their tooltips."] =
-	"鼠标提示中添加大米钥匙的词缀描述"
-L["Title Color"] = "标题颜色"
-L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
-L["FACTION"] = "阵营"
-L["Only Icons"] = "仅图标"
-L["Use the new style tooltip."] = "使用新的鼠标提示外观，将腐蚀特效名称显示到腐蚀属性后。"
-L["Display in English"] = "显示英语腐化特效名称"
-L["Show icon"] = "显示图标"
-L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
-L["Domination Rank"] = "統御等級"
-L["Show the rank of shards."] = "显示统御碎片的等级."
-L["Pet Battle"] = true
-L["Tooltip Icons"] = true
-L["Pet Icon"] = true
-L["Pet ID"] = true
-L["Add an icon for indicating the type of the pet."] = true
-L["Show battle pet species ID in tooltips."] = true
-L["The modifer key to show additional information from %s."] = true
-L["Display TargetTarget"] = true
-L["Gradient Color"] = true
-L["Colors the player names in a gradient instead of class color"] = true
-L["Health Bar Y-Offset"] = true
-L["Change the postion of the health bar."] = true
-L["Health Text Y-Offset"] = true
-L["Change the postion of the health text."] = true
-L["Class Icon Style"] = true
-L["Reference"] = true
-L["Preview"] = true
-L["Template"] = true
-L["Please click the button below to read reference."] = true
-L["Spec Icon"] = true
-L["Show the icon of the specialization."] = true
-L["Race Icon"] = true
-L["Show the icon of the player race."] = true
-L["Health Bar"] = true
-L["Group Info"] = true
-
 -- Notification
 L["Notification"] = "通知"
 L["Display a Toast Frame for different notifications."] = "为不同的通知显示一个提示框."
@@ -613,15 +346,6 @@ L["Title Font"] = true
 L["Text Font"] = true
 L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
-
--- DataTexts
-L["|cffFFFFFFLeft Click:|r Open Character Frame"] = true
-L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
-
--- DataBars
-L["DataBars"] = "数据条"
-L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底部添加一些美观的按钮"
-L["Style DataBars"] = "样式数据条"
 
 -- PVP
 L["Duels"] = "决斗"
@@ -703,92 +427,6 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 
--- AutoButtons
-L["AutoButtons"] = "自动按键"
-L["Bar"] = "动作条"
-L["Only show the bar when you mouse over it."] = "鼠标滑过时显示"
-L["Bar Backdrop"] = "动作条背景"
-L["Show a backdrop of the bar."] = "为动作条显示一个背景."
-L["Button Width"] = "按键宽度"
-L["The width of the buttons."] = "按键的宽度"
-L["Button Height"] = "按键高度"
-L["The height of the buttons."] = "按键的高度"
-L["Counter"] = "计数"
-L["Button Groups"] = "按键组"
-L["Key Binding"] = "按键绑定"
-L["Custom Items"] = "自订物品"
-L["List"] = "列表"
-L["New Item ID"] = "新物品ID"
-L["Auto Button Bar"] = "自动按键动作条"
-L["Quest Items"] = "任务物品"
-L["Equipments"] = "装备"
-L["Potions"] = "药水"
-L["Flasks"] = "合剂"
-L["Food"] = "食物"
-L["Crafted by mage"] = "由法师制作"
-L["Banners"] = "战旗"
-L["Utilities"] = "实用"
-L["Fade Time"] = "淡入时间"
-L["Alpha Min"] = "最小透明度"
-L["Alpha Max"] = "最大透明度"
-L["Inherit Global Fade"] = true
-L["Anchor Point"] = true
-L["The first button anchors itself to this point on the bar."] = true
-L["Dream Seeds"] = true
-L["Reset the button groups of this bar."] = true
-L["Holiday Reward Boxes"] = true
-L["Equipment Slots (Range)"] = "装备按栏位范围"
-L["Equipment Slots (Single)"] = "装备按栏位"
-L["Slot ID List"] = true
-L["number"] = "数字"
-
--- Media
-L["Zone Text"] = "区域文字"
-L["Font Size"] = "字体大小"
-L["Subzone Text"] = "子区域文字"
-L["PvP Status Text"] = "PvP 状态文字"
-L["Misc Texts"] = "杂项文字"
-L["Mail Text"] = "邮件文字"
-L["Chat Editbox Text"] = "聊天输入框文字"
-L["Gossip and Quest Frames Text"] = "聊天及任务界面文字"
-L["Objective Tracker Header Text"] = "任务追踪标题文字"
-L["Objective Tracker Text"] = "任务追踪文字"
-L["Banner Big Text"] = "横幅文字"
-L["MER_MEDIA_ZONES"] = {
-	"Washington",
-	"Moscow",
-	"Moon Base",
-	"Goblin Spa Resort",
-	"Illuminaty Headquaters",
-	"Elv's Closet",
-	"BlizzCon",
-}
-L["MER_MEDIA_PVP"] = {
-	"(Horde Territory)",
-	"(Alliance Territory)",
-	"(Contested Territory)",
-	"(Russian Territory)",
-	"(Aliens Territory)",
-	"(Cats Territory)",
-	"(Japanese Territory)",
-	"(EA Territory)",
-}
-L["MER_MEDIA_SUBZONES"] = {
-	"Administration",
-	"Hellhole",
-	"Alley of Bullshit",
-	"Dr. Pepper Storage",
-	"Vodka Storage",
-	"Last National Bank",
-}
-L["MER_MEDIA_PVPARENA"] = {
-	"(PvP)",
-	"No Smoking!",
-	"Only 5% Taxes",
-	"Free For All",
-	"Self destruction is in process",
-}
-
 -- Unitframes
 L["UnitFrames"] = "单位框体"
 L["Adds a shadow to the debuffs that the debuff color is more visible."] =
@@ -842,263 +480,6 @@ L["Role Icons"] = true
 L["Heal Prediction"] = true
 L["Add an additional overlay to the absorb bar."] = true
 
--- Maps
-L["Maps"] = true
-L["World Map"] = true
-L["Duration"] = true
-L["Fade Out"] = true
-L["Scale"] = true
-L["Hide Blizzard"] = true
-L["Change the shape of ElvUI minimap."] = true
-L["Height Percentage"] = true
-L["Percentage of ElvUI minimap size."] = true
-L["MiniMap"] = "小地图"
-L["MiniMap Buttons"] = "小地图按钮"
-L["Minimap Ping"] = "小地图点击"
-L["Add Server Name"] = "添加服务器名称"
-L["Only In Combat"] = "仅在战斗中"
-L["Fade-In"] = "淡入"
-L["The time of animation. Set 0 to disable animation."] = "时间动画. 设置为0来关闭动画"
-L["Blinking Minimap"] = "小地图边框闪亮"
-L["Enable the blinking animation for new mail or pending invites."] =
-	"为新邮件或等待的邀请启用闪光动画."
-L["Super Tracker"] = "超级追踪"
-L["Description"] = "描述"
-L["Additional features for waypoint."] = "为标记点添加额外功能."
-L["Auto Track Waypoint"] = "自动追踪标记"
-L["Auto track the waypoint after setting."] = "在设定标记后自动进行追踪."
-L["Middle Click To Clear"] = true
-L["Middle click the waypoint to clear it."] = true
-L["No Distance Limitation"] = "无距离限制"
-L["Force to track the target even if it over 1000 yds."] = "强制追踪超过 1000 码的目标."
-L["Distance Text"] = "距离文字"
-L["Only Number"] = "仅数字"
-L["Add Command"] = "添加命令"
-L["Add a input box to the world map."] = "在世界地图中添加一个输入框."
-L["Are you sure to delete the %s command?"] = "你确定要删除 %s 命令?"
-L["Can not set waypoint on this map."] = "无法在这个地图上设置路径点."
-L["Command"] = "命令"
-L["Command Configuration"] = "命令设置"
-L["Command List"] = "命令列表"
-L["Delete Command"] = "删除命令"
-L["Delete the selected command."] = "删除选中的命令."
-L["Enable to use the command to set the waypoint."] = "启用使用命令设置路径点的功能."
-L["Go to ..."] = "前往 ..."
-L["Input Box"] = "输入框"
-L["New Command"] = "新命令"
-L["No Arg"] = "无参数"
-L["Smart Waypoint"] = "智能路径点"
-L["The argument is invalid."] = "参数无效."
-L["The argument is needed."] = "需要参数."
-L["The command to set a waypoint."] = "设置路径点的命令."
-L["The coordinates contain illegal number."] = "坐标包含非法数字."
-L["Waypoint %s has been set."] = "已设置 %s 路径点."
-L["Waypoint Parse"] = "路径点解析"
-L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] =
-	"你可以在这里粘贴任何包含坐标的文字, 然后按 回车键 设置路径点."
-L["illegal"] = "非法"
-L["invalid"] = "无效"
-L["Because of %s, this module will not be loaded."] = true
-L["This module will help you to reveal and resize maps."] = true
-L["Reveal"] = true
-L["Use Colored Fog"] = true
-L["Remove Fog of War from your world map."] = true
-L["Style Fog of War with special color."] = true
-L["Resize world map."] = true
-L["LFG Queue"] = true
-L["Right click to switch expansion"] = true
-L["Add trackers for world events in the bottom of world map."] = true
-L["Alert"] = true
-L["Alert Second"] = true
-L["Alert will be triggered when the remaining time is less than the set value."] = true
-L["Community Feast"] = true
-L["Cooking"] = true
-L["Dragonbane Keep"] = true
-L["Duration"] = true
-L["Event Tracker"] = true
-L["Feast"] = true
-L["In Progress"] = true
-L["Location"] = true
-L["Siege On Dragonbane Keep"] = true
-L["Status"] = true
-L["Waiting"] = true
-L["Weekly Reward"] = true
-L["%s will be started in %s!"] = true
-L["Next Event"] = true
-L["Stop Alert if Completed"] = true
-L["Stop alert when the event is completed in this week."] = true
-L["Alert Sound"] = true
-L["Play sound when the alert is triggered."] = true
-L["Sound File"] = true
-L["Only DF Character"] = true
-L["Stop alert when the player have not entered Dragonlands yet."] = true
-L["The offset of the frame from the bottom of world map. (Default is -3)"] = true
-L["Alert Timeout"] = true
-L["All nets can be collected"] = true
-L["Can be collected"] = true
-L["Can be set"] = true
-L["Fishing Net"] = true
-L["Fishing Nets"] = true
-L["Iskaaran Fishing Net"] = true
-L["Net #%d"] = true
-L["Net %s can be collected"] = true
-L["No Nets Set"] = true
-L["Custom String"] = "自定义字符串"
-L["Custom Strings"] = "自定义字符串"
-L["Custom color can be used by adding the following code"] = true
-L["Difficulty"] = "难度"
-L["M+ Level"] = "M+ 等级"
-L["Number of Players"] = "玩家数量"
-L["Placeholders"] = "占位符"
-L["Use Default"] = "使用默认"
-L["Researchers Under Fire"] = true
-L["Time Rift"] = true
-L["Superbloom"] = true
-L["Big Dig"] = true
-L["The Big Dig"] = true
-L["Horizontal Spacing"] = true
-L["Show a backdrop of the trackers."] = true
-L["The Y-Offset of the backdrop."] = true
-L["The height of the tracker."] = true
-L["The spacing between the backdrop and the trackers."] = true
-L["The spacing between the tracker and the world map."] = true
-L["The spacing between trackers."] = true
-L["The width of the tracker."] = true
-L["Vertical Spacing"] = true
-L["Click to show location"] = true
-L["Current Location"] = "当前位置"
-L["Echoes"] = "回响"
-L["Next Location"] = "下次位置"
-L["Radiant Echoes"] = "光耀回响"
-L["Performing"] = true
-L["Theater Troupe"] = true
-L["Nightfall"] = true
-L["Running"] = true
-L["Khaz Algar Emissary"] = true
-L["Professions Weekly"] = true
-L["Ringing Deeps"] = true
-L["Spreading The Light"] = true
-L["Underworld Operative"] = true
-L["World Soul"] = true
-L["Rectangle Minimap"] = true
-L["Expansion Landing Page"] = true
-L["Instance Difficulty"] = true
-L["Reskin the instance diffculty in text style."] = true
-L["Text Align"] = true
-L["Hide Blizzard Indicator"] = true
-L["Left"] = true
-L["Center"] = true
-L["Right"] = true
-L["Minimap Coords"] = true
-L["Add coords to your Minimap."] = true
-
--- SMB
-L["Minimap Buttons"] = "小地图按钮"
-L["Add an extra bar to collect minimap buttons."] = "添加一个额外的条来收集小地图图标."
-L["Toggle minimap buttons bar."] = "开关小地图按钮条."
-L["Mouse Over"] = "鼠标滑过显示"
-L["Only show minimap buttons bar when you mouse over it."] = "只在鼠标滑过时显示小地图按钮条."
-L["Minimap Buttons Bar"] = "小地图按钮条"
-L["Bar Backdrop"] = "条背景"
-L["Show a backdrop of the bar."] = "为条添加一个背景."
-L["Backdrop Spacing"] = "背景间距"
-L["The spacing between the backdrop and the buttons."] = "背景与按钮之间的间隙."
-L["Inverse Direction"] = "反向"
-L["Reverse the direction of adding buttons."] = "反转添加按钮时的方向."
-L["Orientation"] = "按钮对齐方向"
-L["Arrangement direction of the bar."] = "条的成长方向."
-L["Drag"] = "拖拽"
-L["Horizontal"] = "水平"
-L["Vertical"] = "垂直"
-L["Buttons"] = "按钮数"
-L["Buttons Per Row"] = "每行按钮数"
-L["The amount of buttons to display per row."] = "每行显示多少个按钮数"
-L["Button Size"] = "按钮大小"
-L["The size of the buttons."] = "按钮的大小."
-L["Button Spacing"] = "按钮间距"
-L["The spacing between buttons."] = "两个按钮间的距离."
-L["Blizzard Buttons"] = "暴雪按钮"
-L["Calendar"] = "日历"
-L["Add calendar button to the bar."] = "添加日历按钮到条上."
-L["Garrison"] = "要塞"
-L["Add garrison button to the bar."] = "添加要塞按钮到条上."
-L["All handled minimap buttons"] = "所有处理过的小地图按钮:"
-L["Buttons matching earlier patterns will appear first."] = "匹配到更前面规则的按钮将优先出现."
-L["Enter a comma-separated list of Lua regex patterns."] =
-	"输入一个以逗号分隔的 Lua 正则表达式规则列表."
-L["If you are not familiar with Lua regex, try using AI to help you."] =
-	"如果你不熟悉 Lua 正则表达式, 可以尝试借助 AI 的力量."
-L["Leading and trailing whitespace in each pattern will be automatically trimmed."] =
-	"每个规则的前后空格将被自动清除."
-L["Priority Patterns"] = "优先级规则"
-L["Recent Allies"] = "近期盟友"
-L["Reset sorting priority to default value."] = "重置排序优先级为默认值."
-L["Reverse Order"] = "反向排序"
-L["Reverse the sort order of buttons."] = "反转按钮的排序顺序."
-L["Set the sorting priority of minimap buttons by patterns."] =
-	"通过规则来设定小地图按钮的排序优先级."
-L["Sorting Priority"] = "排序优先级"
-L["Updated minimap buttons layout."] = "已更新小地图按钮布局."
-L["Use command %s to view all handled buttons and their current sorting priority."] =
-	"使用命令 %s 来查看所有被处理的按钮及其当前排序优先级."
-
--- Raid Marks
-L["Raid Markers"] = "团队标记"
-L["Raid Markers Bar"] = "团队标记条"
-L["Raid Utility"] = "团队工具"
-L["Left Click to mark the target with this mark."] = "左键点击以标记目标"
-L["Right Click to clear the mark on the target."] = "右键点选以清除目标的标记."
-L["%s + Left Click to place this worldmarker."] = "%s + 左键点击 放置这个光柱."
-L["%s + Right Click to clear this worldmarker."] = "%s + 右键点击 清除这个光柱."
-L["%s + Left Click to mark the target with this mark."] = "%s + 点击 以标记目标"
-L["%s + Right Click to clear the mark on the target."] = "%s + 右键点选 以清除目标的标记"
-L["Click to clear all marks."] = "点选清除所有标记"
-L["takes 3s"] = "需 3 秒"
-L["%s + Click to remove all worldmarkers."] = "%s + 点击 清除所有光柱."
-L["Click to remove all worldmarkers."] = "点击清除所有光柱."
-L["%s + Click to clear all marks."] = "%s + 点击 清除所有标记"
-L["Left Click to ready check."] = "左键点击: 团队确认"
-L["Right click to toggle advanced combat logging."] = "右键点击: 开关高级战斗记录."
-L["Left Click to start count down."] = "左键点击: 开始倒数."
-L["Add an extra bar to let you set raid markers efficiently."] =
-	"添加一个额外的条让你更加效率得设定团队标记."
-L["Toggle raid markers bar."] = "开关团队标记条."
-L["Inverse Mode"] = "反向模式"
-L["Swap the functionality of normal click and click with modifier keys."] =
-	"对调正常点击和按下修饰键时点击的功能."
-L["Visibility"] = "可见性"
-L["In Party"] = "在小队中"
-L["Always Display"] = "总是显示"
-L["Mouse Over"] = "鼠标滑过显示"
-L["Only show raid markers bar when you mouse over it."] = "只在鼠标滑过时显示团队标记条."
-L["Tooltip"] = "鼠标提示"
-L["Show the tooltip when you mouse over the button."] = "在鼠标悬浮时添加提示."
-L["Modifier Key"] = "组合键"
-L["Set the modifier key for placing world markers."] = "设定标示团队光柱的组合键"
-L["Shift Key"] = "Shift 键"
-L["Ctrl Key"] = "Ctrl 键"
-L["Alt Key"] = "Alt 键"
-L["Bar Backdrop"] = "条背景"
-L["Show a backdrop of the bar."] = "为条添加一个背景."
-L["Backdrop Spacing"] = "背景间距"
-L["The spacing between the backdrop and the buttons."] = "背景与按钮之间的间隙."
-L["Orientation"] = "按钮对齐方向"
-L["Arrangement direction of the bar."] = "条的成长方向."
-L["Raid Buttons"] = "Raid 按钮"
-L["Ready Check"] = "准备确认"
-L["Advanced Combat Logging"] = "高级战斗记录"
-L["Left Click to ready check."] = "左键点击: 团队确认"
-L["Right click to toggle advanced combat logging."] = "右键点击: 开关高级战斗记录."
-L["Count Down"] = "倒数"
-L["Count Down Time"] = "倒数时间"
-L["Count down time in seconds."] = "倒数时间秒数."
-L["Button Size"] = "按钮大小"
-L["The size of the buttons."] = "按钮的大小."
-L["Button Spacing"] = "按钮间距"
-L["The spacing between buttons."] = "两个按钮间的距离."
-L["Button Backdrop"] = "按钮背景"
-L["Button Animation"] = "按钮动画"
-
 -- Raid Buffs
 L["Raid Buff Reminder"] = "团队BUFF提醒"
 L["Shows a frame with flask/food/rune."] = "显示一个带合剂/食物/符文的框架."
@@ -1132,29 +513,6 @@ L["Show In Raid"] = "在团队中显示"
 L["Show In Arena"] = "在竞技场中显示"
 L["Spell Name"] = true
 L["Spell List"] = true
-
--- CVars
-L["\n\nDefault: |cff00ff001|r"] = "\n\n默认: |cff00ff00开|r"
-L["\n\nDefault: |cffff00000|r"] = "\n\n默认: |cffff0000关|r"
-L["alwaysCompareItems"] = "总是比较物品"
-L["alwaysCompareItems_DESC"] = "总是显示比较物品鼠标提示\r\r默认: |cffff0000关|r"
-L["breakUpLargeNumbers"] = "缩写数字"
-L["breakUpLargeNumbers_DESC"] = "缩写大数字\r\r默认: |cff00ff00开|r"
-L["scriptErrors"] = "脚本报错"
-L["enableWoWMouse"] = "启用WoW鼠标"
-L["trackQuestSorting"] = "任务追踪排序"
-L["trackQuestSorting_DESC"] = "新追踪的任务在任务追踪列表的位置 \r\r 默认: top"
-L["autoLootDefault"] = "自动拾取"
-L["autoDismountFlying"] = "自动取消飞行坐骑"
-L["removeChatDelay"] = "移除聊天延时"
-L["screenshotQuality"] = "截图质量"
-L["screenshotQuality_DESC"] = "截图质量\r\r默认: |cff00ff003|r"
-L["showTutorials"] = "显示教程"
-L["World Text Scale"] = "世界文字尺寸"
-L["WorldTextScale_DESC"] = "游戏世界中伤害数字、经验获取、神器获得等字体的尺寸\r\r默认: 1.0"
-L["floatingCombatTextCombatDamageDirectionalScale"] = "直接伤害文字速度"
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
-	"直接伤害文字移动速度 (禁用 = 无数字)\r\r默认: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] =
@@ -1282,9 +640,6 @@ L["Creates decorative stripes and a gradient on some frames"] = "在一些框架
 L["MerathilisUI Style"] = "MerathilisUI 样式"
 L["Screen Shadow Overlay"] = true
 L["Undress Button"] = "解除装备按钮"
-L["Subpages"] = "子页面"
-L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] =
-	"子页面有10个物品, 这个选项设置了一页里有多少子页面"
 L["Enable/Disable"] = "启用/禁用"
 L["decor."] = "装饰"
 L["Enables/Disables a shadow overlay to darken the screen."] = true
@@ -1436,127 +791,12 @@ L["Bottom Left Extra Panel"] = "左下额外面板"
 L["Bottom Right Panel"] = "右下面板"
 L["Bottom Right Extra Panel"] = "右下额外面板"
 
--- Objective Tracker
-L["Objective Tracker"] = true
-L["1. Customize the font of Objective Tracker."] = "1. 自定义任务追踪的字体."
-L["2. Add colorful progress text to the quest."] = "2. 为任务添加彩色的进度文字."
-L["This module may prevent clicking quest items in the objective tracker due to taint."] = true
-L["Progress"] = "进度"
-L["No Dash"] = "无标记"
-L["Colorful Progress"] = "彩色进度"
-L["Percentage"] = "百分比"
-L["Add percentage text after quest text."] = "在任务文本后添加百分比文字."
-L["Colorful Percentage"] = "彩色百分比"
-L["Make the additional percentage text be colored."] = "使额外的百分比文字为彩色."
-L["Cosmetic Bar"] = "装饰条"
-L["Border"] = "边框"
-L["Border Alpha"] = "边框透明度"
-L["Width Mode"] = "宽度模式"
-L["'Absolute' mode means the width of the bar is fixed."] = "'绝对' 模式意味着宽度是固定的."
-L["'Dynamic' mode will also add the width of header text."] = "'动态' 模式将自动加上顶部文字的宽度."
-L["'Absolute' mode means the height of the bar is fixed."] = "'绝对' 模式���味着高度是固定的."
-L["'Dynamic' mode will also add the height of header text."] = "'动态' 模式将自动加上顶部文字的高度."
-L["Absolute"] = "绝对"
-L["Dyanamic"] = "动态"
-L["Color Mode"] = "颜色模式"
-L["Gradient"] = "渐变"
-L["Class Color"] = "职业色"
-L["Normal Color"] = "正常颜色"
-L["Gradient Color 1"] = "渐变色 1"
-L["Gradient Color 2"] = "渐变色 2"
-L["Presets"] = "预设"
-L["Preset %d"] = "%d 号预设"
-L["Here are some example presets, just try them!"] = "这里有一些示例预设, 赶快试一试!"
-L["Default"] = "默认"
-L["Header"] = "顶部"
-L["Short Header"] = "简短顶部"
-L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] =
-	"使用简短名字替代, 比如 托加斯特,罪魂之塔 为 托加斯特."
-L["Title Color"] = "标题颜色"
-L["Change the color of quest titles."] = "修改任务标题文字颜色."
-L["Use Class Color"] = "使用职业颜色"
-L["Highlight Color"] = "高亮颜色"
-L["Title"] = "标题"
-L["Bottom Right Offset X"] = "右下角 X 偏移"
-L["Bottom Right Offset Y"] = "右下角 Y 偏移"
-L["Top Left Offset X"] = "左上角 X 轴偏移"
-L["Top Left Offset Y"] = "左上角 Y 轴偏移"
-L["Transparent"] = "透明"
-L["Style"] = true
-L["Height Mode"] = true
-L["Menu Title"] = true
-L["it shows when objective tracker is collapsed."] = true
-L["Word Wrap"] = true
-L["Enable word wrap for long text."] = true
-
--- Quest
-L["Switch Buttons"] = true
-L["Add a bar that contains buttons to enable/disable modules quickly."] = true
-L["Hide With Objective Tracker"] = true
-L["Bar Backdrop"] = true
-L["Announcement"] = true
-L["Quest"] = true
-L["Turn In"] = true
-L["Make quest acceptance and completion automatically."] = true
-L["Mode"] = true
-L["Only Accept"] = true
-L["Only Complete"] = true
-L["Pause On Press"] = true
-L["Pause the automation by pressing a modifier key."] = true
-L["Reward"] = true
-L["Select Reward"] = true
-L["If there are multiple items in the reward list, it will select the reward with the highest sell price."] = true
-L["Get Best Reward"] = true
-L["Complete the quest with the most valuable reward."] = true
-L["Smart Chat"] = true
-L["Chat with NPCs smartly. It will automatically select the best option for you."] = true
-L["Dark Moon"] = true
-L["Accept the teleportation from Darkmoon Faire Mystic Mage automatically."] = true
-L["Follower Assignees"] = true
-L["Open the window of follower recruit automatically."] = true
-L["Ignored NPCs"] = true
-L["If you add the NPC into the list, all automation will do not work for it."] = true
-L["Ignore List"] = true
-L["Add Target"] = true
-L["Make sure you select the NPC as your target."] = true
-L["Delete"] = true
-L["Delete the selected NPC."] = true
-L["Only Repeatable"] = "仅可重复"
-L["Only accept and complete repeatable quests."] = "���接受��完成可重复任务."
-
 -- Filter
 L["Filter"] = "过���器"
 L["Unblock the profanity filter."] = "解锁语言过滤器."
 L["Profanity Filter"] = "语言过滤器"
 L["Enable this option will unblock the setting of profanity filter. [CN Server]"] =
 	"开启这个��项将解锁语言过滤器的设定.[国服]"
-
--- Friends List
-L["Friends List"] = "好友列表"
-L["Add additional information to the friend frame."] = "为好友框体添加额外的信息."
-L["Modify the texture of status and make name colorful."] = "设定状态的材质, 彩色化名字."
-L["Enhanced Texture"] = "材质增强"
-L["Game Icons"] = "游戏图标"
-L["Default"] = "默认"
-L["Modern"] = "现代"
-L["Status Icon Pack"] = "状态图标包"
-L["Diablo 3"] = "暗黑破坏神 III"
-L["Square"] = "方块"
-L["Faction Icon"] = "阵营图标"
-L["Use faction icon instead of WoW icon."] = "使用阵营图标来代替魔兽世界游戏图标."
-L["Name"] = "姓名"
-L["Level"] = "等级"
-L["Hide Max Level"] = "隐藏满级"
-L["Use Note As Name"] = "使用备注作为名字"
-L["Replace the Real ID or the character name of friends with your notes."] =
-	"使用你的备注替换好友的战网名或角色名."
-L["Use Game Color"] = "使用游戏颜色"
-L["Change the color of the name to the in-playing game style."] =
-	"根据正在游玩的游���的风格来改变姓名颜色."
-L["Use Class Color"] = "使用职业颜色"
-L["Font Setting"] = "字体设定"
-L["Hide Realm"] = true
-L["Hide the realm name of friends."] = true
 
 -- Vehicle Bar
 L["VehicleBar"] = true
@@ -1566,18 +806,6 @@ L["The color for vigor bar's speed text when you are regaining vigor."] = true
 L["Animations"] = true
 L["Animation Speed"] = true
 L["Skyriding Bar"] = true
-
--- Delete Item
-L["Delete Item"] = true
-L["This module provides several easy-to-use methods of deleting items."] = true
-L["Use Delete Key"] = true
-L["Allow you to use Delete Key for confirming deleting."] = true
-L["Fill In"] = true
-L["Disable"] = true
-L["Fill by click"] = true
-L["Auto Fill"] = true
-L["Press the |cffffd200Delete|r key as confirmation."] = true
-L["Click to confirm"] = true
 
 -- Raid Info Frame
 L["Raid Info Frame"] = true

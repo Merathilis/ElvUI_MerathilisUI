@@ -1,6 +1,6 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
-local S = MER:GetModule("MER_Skins")
+local WS = W:GetModule("Skins")
 local LAB = LibStub("LibActionButton-1.0-ElvUI")
 
 local format = string.format
@@ -173,7 +173,7 @@ function module:UpdateBar()
 			self.ab:StyleButton(button, nil, nil)
 			button:SetTemplate("Transparent")
 			button:SetCheckedTexture("")
-			S:CreateShadow(button)
+			WS:CreateShadow(button)
 			button.MasqueSkinned = true
 
 			button.Count:ClearAllPoints()

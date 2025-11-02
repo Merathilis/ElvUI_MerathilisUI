@@ -1,4 +1,4 @@
-local MER, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnitFrames")
 local UF = E:GetModule("UnitFrames")
 local AB = E:GetModule("ActionBars")
@@ -74,8 +74,6 @@ function module:Initialize()
 	hooksecurefunc(AB, "StyleShapeShift", module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
-	-- RoleIcons
-	module:Configure_RoleIcons()
 
 	self:RegisterEvent("ADDON_LOADED")
 end

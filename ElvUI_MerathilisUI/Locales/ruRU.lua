@@ -34,11 +34,10 @@ L["Description"] = "Описание"
 L["General"] = "Общий"
 L["Modules"] = "Модули"
 L["Media"] = "Медиа"
-L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI. It adds:
+L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI & ElvUI_WindTools. It adds:
 
 - a lot of new features
 - a transparent overall look
-- rewrote all existing ElvUI Skins
 - my personal Layout
 
 |cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
@@ -57,115 +56,6 @@ L["Only display log message that the level is higher than you choose."] =
 L["Set to 2 if you do not understand the meaning of log level."] =
 	"Установите на 2, если вы не понимаете значение уровня журнала."
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
-
--- Bags
-
--- Chat
-L["CHAT_AFK"] = "[AFK]"
-L["CHAT_DND"] = "[DND]"
-L["BACK"] = "Назад"
-L["|cFF00c0failvl|r: %d"] = true
-L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
-L["Requires level: %d - %d"] = "Требуется уровень: %d - %d"
-L["Requires level: %d - %d (%d)"] = "Требуется уровень: %d - %d (%d)"
-L["(+%.1f Rested)"] = "(+%.1f Отдохнул)"
-L["Unknown"] = "Неизвестно"
-L["Chat Item Level"] = "Уровень предмета чата"
-L["Shows the slot and item level in the chat"] =
-	"Показывает слот и уровень предмета в чате"
-L["Expand the chat"] = "Развернуть чат"
-L["Chat Menu"] = "Меню чата"
-L["Create a chat button to increase the chat size."] =
-	"Создайте кнопку чата, чтобы увеличить размер чата."
-L["Hide Player Brackets"] = "Скрыть скобки игроков"
-L["Removes brackets around the person who posts a chat message."] =
-	"Удаляет скобки вокруг ника игрока, который отправляет сообщение в чат."
-L["Hide Chat Side Panel"] = "Скрыть боковую панель чата"
-L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] =
-	"Удаляет боковую панель чата. |cffFF0000ПРЕДУПРЕЖДЕНИЕ: Если вы отключите эту опцию, вы должны будете настроить макет.|r"
-L["Chat Bar"] = "Панель чата"
-L["Shows a ChatBar with different quick buttons."] =
-	"Показывает панель чата с различными кнопками быстрого доступа."
-L["Hide Community Chat"] = "Скрыть чат сообщества"
-L["Adds an overlay to the Community Chat. Useful for streamers."] =
-	"Добавляет оверлей в чат сообщества. Полезно для стримеров."
-L["Chat Hidden. Click to show"] = "Скрытый чат. Нажмите, чтобы показать"
-L["Click to open Emoticon Frame"] = "Нажмите, чтобы открыть рамку смайликов"
-L["Emotes"] = "Эмоции"
-L["Damage Meter Filter"] = "Фильтр индикатора урона"
-L["Fade Chat"] = "Исчезающий чат"
-L["Auto hide timeout"] = "Тайм-аут автоматического скрытия"
-L["Seconds before fading chat panel"] =
-	"За несколько секунд до исчезновения панели чата"
-L["Seperators"] = "Разделители"
-L["Orientation"] = "Ориентация"
-L["Please use Blizzard Communities UI add the channel to your main chat frame first."] =
-	"Пожалуйста, используйте пользовательский интерфейс сообществ Blizzard, чтобы добавить канал в основую панель чата."
-L["Channel Name"] = "Название канала"
-L["Abbreviation"] = "Сокращение"
-L["Auto Join"] = "Автоматическое присоединение"
-L["World"] = "Мир"
-L["Channels"] = "Каналы"
-L["Block Shadow"] = "Блокировка тени"
-L["Hide channels not exist."] = "Скрыть каналы не существуют."
-L["Only show chat bar when you mouse over it."] =
-	"Показывать панель чата только при наведении на нее указателя мыши."
-L["Button"] = "Кнопка"
-L["Item Level Links"] = "Ссылки уровня предмета"
-L["Filter"] = "Фильтр"
-L["Block"] = "Блокировать"
-L["Custom Online Message"] = "Пользовательское онлайн-сообщение"
-L["Filters some messages out of your chat, that some Spam AddOns use."] =
-	"Отфильтровывает некоторые сообщения из вашего чата, которые используют некоторые аддоны для спама."
-L["Chat Link"] = "Ссылки чата"
-L["Add extra information on the link, so that you can get basic information but do not need to click"] =
-	"Добавить дополнительную информацию по ссылке, чтобы вы могли получить основную информацию, не нажимая на нее."
-L["Additional Information"] = "Дополнительная информация"
-L["Level"] = "Уровень"
-L["Translate Item"] = "Переводить предмет"
-L["Translate the name in item links into your language."] =
-	"Переведите название в ссылках на товары на свой язык."
-L["Icon"] = "Иконка"
-L["Armor Category"] = "Категория брони"
-L["Weapon Category"] = "Категория оружия"
-L["Display the level of the item on the item link."] =
-	"Отображение уровня предмета по ссылке предмета."
-L["Numerical Quality Tier"] = "Числовой уровень качества"
-L["%player% has earned the achievement %achievement%!"] =
-	"%player% заработал достижение %achievement%!"
-L["%players% have earned the achievement %achievement%!"] =
-	"%players% заработали достижение %achievement%!"
-L["%players% (%bnet%) has come online."] = "%players% (%bnet%) входит в сеть."
-L["%players% (%bnet%) has gone offline."] = "%players% (%bnet%) выходит из сети."
-L["BNet Friend Offline"] = "BNet друг офлайн"
-L["BNet Friend Online"] = "BNet друг онлайн"
-L["Show a message when a Battle.net friend's wow character comes online."] =
-	"Показывать сообщение, когда персонаж друга из Battle.net входит в сеть."
-L["Show a message when a Battle.net friend's wow character goes offline."] =
-	"Показывать сообщение, когда персонаж друга из Battle.net выходит из сети."
-L["Show the class icon before the player name."] =
-	"Показывать значок класса перед именем игрока."
-L["Show the faction icon before the player name."] =
-	"Показывать значок фракции перед именем игрока."
-L["The message will only be shown in the chat frame (or chat tab) with Blizzard service alert channel on."] =
-	"Сообщение будет отображаться только во фрейме чата (или на вкладке чата) при включенном канале оповещения службы Blizzard."
-L["This feature only works for message that sent by this module."] =
-	"Эта функция работает только для сообщений, отправленных этим модулем."
-L["Position of the Chat EditBox, if the Actionbar backdrop is disabled, this will be forced to be above chat."] = true
-L["Actionbar 1 (below)"] = true
-L["Actionbar 2 (below)"] = true
-L["Actionbar 3 (below)"] = true
-L["Actionbar 4 (below)"] = true
-L["Actionbar 5 (below)"] = true
-L["Actionbar 6 (above)"] = true
-L["Move (L\124\124R) Reset"] = true
-L["Emote Selector"] = true
-L["Emote"] = true
-L["Parse emote expression from other players."] = true
-L["Emote Icon Size"] = true
-L["Use Emote Panel"] = true
-L["Press { to active the emote select window."] = true
-L["Chat Bubbles"] = true
 
 -- Combat Alert
 L["Combat Alert"] = "Сигнал боя"
@@ -217,80 +107,6 @@ L["Show Mythic+ Infos"] = true
 L["Show Mythic+ Score"] = true
 L["History Limit"] = true
 L["Number of Mythic+ dungeons shown in the latest runs."] = true
-
--- Extended Vendor
-L["Extended Vendor"] = "Расширенный продавец"
-L["Extends the merchant page to show more items."] =
-	"Расширяет страницу продавца, чтобы показать больше товаров."
-L["Number of Pages"] = "Количество страниц"
-L["The number of pages shown in the merchant frame."] =
-	"Количество страниц, отображаемых в рамке продавца."
-
--- Shadows
-L["Shadows"] = "Тени"
-L["Increase Size"] = "Увеличить размер"
-L["Make shadow thicker."] = "Делает тени толще."
-
--- Mail
-L["Mail"] = "Почта"
-L["Alternate Character"] = "Альтернативный персонаж"
-L["Alt List"] = "Альтернативный список"
-L["Delete"] = "Удалить"
-L["Favorites"] = "Избранное"
-L["Favorite List"] = "Список избранных"
-L["Name"] = "Имя"
-L["Realm"] = "Реалм"
-L["Add"] = "Добавить"
-L["Please set the name and realm first."] =
-	"Пожалуйста, сначала укажите имя и область."
-L["Toggle Contacts"] = "Переключить контакты"
-L["Online Friends"] = "Друзья онлайн"
-L["Add To Favorites"] = "Добавить в избранное"
-L["Remove From Favorites"] = "Удалить из избранного"
-L["Remove This Alt"] = "Удалить этого альта"
-
--- MicroBar
-L["Backdrop"] = "Фон"
-L["Backdrop Spacing"] = "Отступ фона"
-L["The spacing between the backdrop and the buttons."] =
-	"Расстояние между фоном панели и кнопками."
-L["Time Width"] = "Ширина времени"
-L["Time Height"] = "Высота времени"
-L["The spacing between buttons."] = "Расстояние между кнопками"
-L["The size of the buttons."] = "Размер кнопок."
-L["Slow Mode"] = "Медленный режим"
-L["Update the additional text every 10 seconds rather than every 1 second such that the used memory will be lower."] =
-	"Обновляет дополнительный текст каждые 10 секунд, а не каждую секунду, для уменьшения объема используемой памяти."
-L["Display"] = "Дисплей"
-L["Fade Time"] = "Время исчезновения"
-L["Tooltip Position"] = "Положение всплывающей подсказки"
-L["Mode"] = "Режим"
-L["None"] = "Нет"
-L["Class Color"] = "Цвет класса"
-L["Custom"] = "Свой"
-L["Additional Text"] = "Дополнительный текст"
-L["Interval"] = "Интервал"
-L["The interval of updating."] = "Интервал обновления."
-L["Home"] = "Дом"
-L["Left Button"] = "Левая кнопка"
-L["Right Button"] = "Правая кнопка"
-L["Left Panel"] = "Левая панель"
-L["Right Panel"] = "Правая панель"
-L["Button #%d"] = "Кнопка #%d"
-L["Pet Journal"] = "Атлас питомцев"
-L["Show Pet Journal"] = "Показывать Атлас питомцев"
-L["Random Favorite Pet"] = "Случайный любимый питомец"
-L["Screenshot"] = "Скриншот"
-L["Screenshot immediately"] = "Быстрый скриншот"
-L["Screenshot after 2 secs"] = "Скриншот через 2 секунды"
-L["Toy Box"] = "Коробка игрушек"
-L["Collections"] = "Коллекции"
-L["Show Collections"] = "Показать Коллекции"
-L["Random Favorite Mount"] = "Случайное любимое средство передвижения"
-L["Decrease the volume"] = "Уменьшить громкость"
-L["Increase the volume"] = "Увеличить громкость"
-L["Profession"] = "Профессия"
-L["Volume"] = "Громкость"
 
 -- Misc
 L["Misc"] = "Разное"
@@ -345,30 +161,6 @@ L["Toys"] = "Игрушки"
 L["Random Toy"] = "Случайная игрушка"
 L["Text Style"] = "Стиль текста"
 L["COLOR"] = "ЦВЕТ"
-L["Hide Boss Banner"] = "Скрыть баннер босса"
-L["This will hide the popup, that shows loot, after you kill a boss"] =
-	"Это скроет всплывающее окно, показывающее добычу, после того, как вы убьете босса."
-L["{rt1} %player% cast %spell% -> %target% {rt1}"] = "%player% применяет %spell% -> %target%"
-L["{rt1} %player% cast %spell%, today's special is Anchovy Pie! {rt1}"] =
-	"{rt1} %player% применяет %spell%, особенное блюдо сегодняшнего дня - пирог с анчоусами! {rt1}"
-L["{rt1} %player% is casting %spell%, please assist! {rt1}"] =
-	"{rt1} %player% кастует %spell%, пожалуйста, помогите! {rt1}"
-L["{rt1} %player% is handing out %spell%, go and get one! {rt1}"] =
-	"{rt1} %player% раздает %spell%, иди и возьми! {rt1}"
-L["{rt1} %player% opened %spell%! {rt1}"] = "{rt1} %player% открыл %spell%! {rt1}"
-L["{rt1} %player% puts %spell% {rt1}"] = "{rt1} %player% ставит %spell% {rt1}"
-L["{rt1} %player% used %spell% {rt1}"] = "{rt1} %player% использует %spell% {rt1}"
-L["{rt1} %player% puts down %spell%! {rt1}"] = "{rt1} %player% кладет %spell%! {rt1}"
-L["Completed"] = "Завершено"
-L["%s has been reseted"] = "%s был сброшен"
-L["Cannot reset %s (There are players in your party attempting to zone into an instance.)"] =
-	"Невозможно сбросить %s (в вашей группе есть игроки, пытающиеся проникнуть в подземелье.)"
-L["Cannot reset %s (There are players offline in your party.)"] =
-	"Невозможно сбросить %s (в вашей группе есть игроки не в сети.)"
-L["Cannot reset %s (There are players still inside the instance.)"] =
-	"Невозможно сбросить %s (внутри подземелья все еще есть игроки.)"
-L["Let your teammates know the progress of quests."] =
-	"Сообщайте товарищам по команде о ходе выполнения квестов."
 L["Include Details"] = "Включить детали"
 L["Announce every time the progress has been changed."] =
 	"Объявлять каждый раз, когда прогресс был изменен."
@@ -420,20 +212,6 @@ L["Mute the sound of jewelcrafting."] = "Приглушите звук ювел�
 L["Same Message Interval"] = true
 L["Time interval between sending same messages measured in seconds."] = true
 L["Set to 0 to disable."] = true
-L["Automation"] = true
-L["Automate your game life."] = true
-L["Auto Hide Bag"] = true
-L["Automatically close bag if player enters combat."] = true
-L["Auto Hide Map"] = true
-L["Automatically close world map if player enters combat."] = true
-L["Accept Resurrect"] = true
-L["Accept resurrect from other player automatically when you not in combat."] = true
-L["Accept Combat Resurrect"] = true
-L["Accept resurrect from other player automatically when you in combat."] = true
-L["Confirm Summon"] = true
-L["Confirm summon from other player automatically."] = true
-L["Quick Delete"] = true
-L["This will add the 'DELETE' text to the Item Delete Dialog."] = true
 L["Show all stats on the Character Frame"] = true
 L["Block Join Requests"] = true
 L["|nIf checked, only popout join requests from friends and guild members."] = true
@@ -522,79 +300,8 @@ L["Untrack Achievement"] = true
 L["Quick Keystone"] = true
 L["Put the keystone from bag automatically."] = true
 
--- Move Frames
-L["Move Frames"] = true
-L["Because of %s, this module will not be loaded."] = true
-L["This module provides the feature that repositions the frames with drag and drop."] = true
-L["Drag"] = true
-L["Temporary Move"] = true
-L["Hold Control + Right Click:"] = true
-L["Reset Position"] = true
-L["Move ElvUI Bags"] = true
-L["TSM Compatible"] = true
-L["Fix the merchant frame showing when you using Trade Skill Master."] = true
-L["Remember Positions"] = true
-L["Clear History"] = true
-L["Notice"] = true
-L["%s may cause some frames to get messed, but you can use %s button to reset frames."] = true
-
 -- Nameplates
 L["NamePlates"] = "Индикаторы здоровья"
-
--- Tooltip
-L["Your Status:"] = "Ваш статус:"
-L["Your Status: Incomplete"] = "Ваш статус: Не завершен"
-L["Your Status: Completed on "] = "Ваш статус: Завершено"
-L["Adds an icon for spells and items on your tooltip."] =
-	"Добавляет значок заклинаний и предметов во всплывающую подсказку."
-L["Adds an Icon for battle pets on the tooltip."] =
-	"Добавляет значок для боевых питомцев во всплывающую подсказку."
-L["Adds an Icon for the faction on the tooltip."] =
-	"Добавляет значок фракции во всплывающую подсказку."
-L["Adds information to the tooltip, on which char you earned an achievement."] =
-	"Добавляет во всплывающую подсказку информацию о том, на каком персонаже вы получили достижение."
-L["Keystone"] = "Эпохальный ключ"
-L["Adds descriptions for mythic keystone properties to their tooltips."] =
-	"Добавляет описания свойств мифических ключей во всплывающие подсказки."
-L["Title Color"] = "Цвет заголовка"
-L["Change the color of the title in the Tooltip."] =
-	"Измените цвет заголовка в подсказке."
-L["FACTION"] = "Фракция"
-L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Активные азеритовые таланты"
-L["Only Icons"] = "Только значки"
-L["Display in English"] = "Отображать английские названия"
-L["Show icon"] = "Показать значок"
-L["Show the spell icon along with the name."] =
-	"Показать значок заклинания вместе с названием."
-L["Show the rank of shards."] = "Показать ранг осколков."
-L["Pet Battle"] = "Битва питомцев"
-L["Tooltip Icons"] = "Значки подсказок"
-L["Use the new style tooltip."] = "Use the new style tooltip."
-L["Pet Battle"] = true
-L["Tooltip Icons"] = true
-L["Pet Icon"] = true
-L["Pet ID"] = true
-L["Add an icon for indicating the type of the pet."] = true
-L["Show battle pet species ID in tooltips."] = true
-L["The modifer key to show additional information from %s."] = true
-L["Display TargetTarget"] = true
-L["Gradient Color"] = true
-L["Colors the player names in a gradient instead of class color"] = true
-L["Health Bar Y-Offset"] = true
-L["Change the postion of the health bar."] = true
-L["Health Text Y-Offset"] = true
-L["Change the postion of the health text."] = true
-L["Class Icon Style"] = true
-L["Reference"] = true
-L["Preview"] = true
-L["Template"] = true
-L["Please click the button below to read reference."] = true
-L["Spec Icon"] = true
-L["Show the icon of the specialization."] = true
-L["Race Icon"] = true
-L["Show the icon of the player race."] = true
-L["Health Bar"] = true
-L["Group Info"] = true
 
 -- Notification
 L["Notification"] = "Уведомления"
@@ -630,16 +337,6 @@ L["Text Font"] = "Шрифт текста"
 L["Debug Print"] = "Отображение отладки"
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] =
 	"Включите эту опцию, чтобы получить отображение чата с именем и идентификатором из виньеток на мини-карте."
-
--- DataTexts
-L["|cffFFFFFFLeft Click:|r Open Character Frame"] = true
-L["|cffFFFFFFRight Click:|r Summon Grand Expedition Yak"] = true
-
--- DataBars
-L["DataBars"] = "Инфо-полосы"
-L["Add some stylish buttons at the bottom of the DataBars"] =
-	"Добавьте несколько стильных кнопок в нижней части инфо-полос."
-L["Style DataBars"] = "Стиль инфо-полос"
 
 -- PVP
 L["Automatically cancel PvP duel requests."] =
@@ -728,95 +425,6 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 
--- AutoButtons
-L["AutoButtons"] = "Автоматические кнопки"
-L["Bar"] = "Панель"
-L["Only show the bar when you mouse over it."] =
-	"Показывать панель только при наведении на нее указателя мыши."
-L["Bar Backdrop"] = "Фон панели"
-L["Show a backdrop of the bar."] = "Покажите фон панели."
-L["Button Width"] = "Ширина кнопки"
-L["The width of the buttons."] = "Ширина кнопок."
-L["Button Height"] = "Высота кнопки"
-L["The height of the buttons."] = "Высота кнопок."
-L["Counter"] = "Счетчик"
-L["Button Groups"] = "Кнопки групп"
-L["Key Binding"] = "Привязка клавиш"
-L["Custom Items"] = "Свои предметы"
-L["List"] = "Список"
-L["New Item ID"] = "ID нового предмета"
-L["Auto Button Bar"] = "Панель автокнопок"
-L["Quest Items"] = "Предметы для заданий"
-L["Equipments"] = "Экипировка"
-L["Potions"] = "Зелья"
-L["Flasks"] = "Настои"
-L["Food"] = "Еда"
-L["Crafted by mage"] = "Создано магом"
-L["Banners"] = "Баннеры"
-L["Utilities"] = "Утилиты"
-L["Custom Items"] = "Свои предметы"
-L["Fade Time"] = "Время исчезновения"
-L["Alpha Min"] = "Минимальная прозрачность"
-L["Alpha Max"] = "Максимальная прозрачность"
-L["Inherit Global Fade"] = "Наследовать глобальное исчезновение"
-L["Anchor Point"] = "Точка привязки"
-L["The first button anchors itself to this point on the bar."] =
-	"Первая кнопка привязывается к этой точке на панели."
-L["Dream Seeds"] = true
-L["Reset the button groups of this bar."] = true
-L["Holiday Reward Boxes"] = true
-L["Equipment Slots (Range)"] = true
-L["Equipment Slots (Single)"] = true
-L["Slot ID List"] = true
-L["number"] = true
-
--- Media
-L["Zone Text"] = "Текст зоны"
-L["Font Size"] = "Размер шрифта"
-L["Subzone Text"] = "Текст подзоны"
-L["PvP Status Text"] = "Текст статуса PvP"
-L["Misc Texts"] = "Разные тексты"
-L["Mail Text"] = "Текст письма"
-L["Chat Editbox Text"] = "Текст в поле редактирования чата"
-L["Gossip and Quest Frames Text"] = "Текст сплетен и заданий"
-L["Objective Tracker Header Text"] = "Текст заголовка отслеживания заданий"
-L["Objective Tracker Text"] = "Текст отслеживания заданий"
-L["Banner Big Text"] = "Большой текст баннера"
-L["MER_MEDIA_ZONES"] = {
-	"Washington",
-	"Moscow",
-	"Moon Base",
-	"Goblin Spa Resort",
-	"Illuminaty Headquaters",
-	"Elv's Closet",
-	"BlizzCon",
-}
-L["MER_MEDIA_PVP"] = {
-	"(Horde Territory)",
-	"(Alliance Territory)",
-	"(Contested Territory)",
-	"(Russian Territory)",
-	"(Aliens Territory)",
-	"(Cats Territory)",
-	"(Japanese Territory)",
-	"(EA Territory)",
-}
-L["MER_MEDIA_SUBZONES"] = {
-	"Administration",
-	"Hellhole",
-	"Alley of Bullshit",
-	"Dr. Pepper Storage",
-	"Vodka Storage",
-	"Last National Bank",
-}
-L["MER_MEDIA_PVPARENA"] = {
-	"(PvP)",
-	"No Smoking!",
-	"Only 5% Taxes",
-	"Free For All",
-	"Self destruction is in process",
-}
-
 -- Unitframes
 L["UnitFrames"] = "Рамки юнитов"
 L["Adds a shadow to the debuffs that the debuff color is more visible."] =
@@ -873,300 +481,6 @@ L["Heal Prediction"] = "Предсказание исцеления"
 L["Add an additional overlay to the absorb bar."] =
 	"Добавьте дополнительное наложение на полосу поглощения."
 
--- Maps
-L["Maps"] = "Карты"
-L["World Map"] = "Карта мира"
-L["Instance Difficulty"] = "Сложность подземелья"
-L["Duration"] = "Продолжительность"
-L["Fade Out"] = "Исчезновение"
-L["Scale"] = "Масштаб"
-L["Reskin the instance diffculty in text style."] =
-	"Измените сложность подземелья в текстовом стиле."
-L["Hide Blizzard"] = "Скрыть Blizzard"
-L["Change the shape of ElvUI minimap."] = "Измените форму миникарты ElvUI."
-L["Height Percentage"] = "Рост в процентах"
-L["Percentage of ElvUI minimap size."] = "Процент размера миникарты ElvUI."
-L["MiniMap Buttons"] = "Кнопки мини-карты"
-L["Minimap Ping"] = "Пинг на миникарте"
-L["Add Server Name"] = "Добавить имя сервера"
-L["Only In Combat"] = "Только в бою"
-L["Fade-In"] = "Появление"
-L["The time of animation. Set 0 to disable animation."] =
-	"Время анимации. Установите 0, чтобы отключить анимацию."
-L["Blinking Minimap"] = "Мигающая миникарта"
-L["Enable the blinking animation for new mail or pending invites."] =
-	"Включите мигающую анимацию для новой почты или ожидающих приглашений."
-L["Super Tracker"] = "Супер трекер"
-L["Description"] = "Описание"
-L["Additional features for waypoint."] =
-	"Дополнительные возможности для путевой точки."
-L["Auto Track Waypoint"] = "Автосопровождение путевой точки"
-L["Auto track the waypoint after setting."] =
-	"Автоматическое отслеживание путевой точки после настройки."
-L["Middle Click To Clear"] = "Средний щелчок, чтобы очистить"
-L["Middle click the waypoint to clear it."] =
-	"Щелкните средней кнопкой мыши по путевой точке, чтобы очистить ее."
-L["No Distance Limitation"] = "Без ограничения расстояния"
-L["Force to track the target even if it over 1000 yds."] =
-	"Принудительно отслеживать цель, даже если она дальше чем 1000 м."
-L["Distance Text"] = "Текст дистанции"
-L["Only Number"] = "Только цифры"
-L["Add Command"] = "Добавить команду"
-L["Add a input box to the world map."] = "Добавьте поле ввода на карту мира."
-L["Are you sure to delete the %s command?"] =
-	"Вы уверены, что хотите удалить команду %s?"
-L["Can not set waypoint on this map."] =
-	"Невозможно установить путевую точку на этой карте."
-L["Command"] = "Команда"
-L["Command Configuration"] = "Конфигурация команды"
-L["Command List"] = "Список команд"
-L["Delete Command"] = "Удалить команду"
-L["Delete the selected command."] = "Удалить выбранную команду."
-L["Enable to use the command to set the waypoint."] =
-	"Включите, чтобы использовать команду для установки путевой точки."
-L["Go to ..."] = "Перейти к ..."
-L["Input Box"] = "Поле ввода"
-L["New Command"] = "Новая команда"
-L["No Arg"] = "Нет аргумента"
-L["Smart Waypoint"] = "Умная путевая точка"
-L["The argument is invalid."] = "Аргумент недействителен."
-L["The argument is needed."] = "Необходим аргумент."
-L["The command to set a waypoint."] = "Команда для установки путевой точки."
-L["The coordinates contain illegal number."] =
-	"Координаты содержат недопустимое значение."
-L["Waypoint %s has been set."] = "Установлена путевая точка %s."
-L["Waypoint Parse"] = "Разбор путевой точки"
-L["You can paste any text contains coordinates here, and press ENTER to set the waypoint in map."] =
-	"Вы можете вставить сюда любой текст, содержащий координаты, и нажать ENTER, чтобы установить путевую точку на карте."
-L["illegal"] = "незаконный"
-L["invalid"] = "недействителен"
-L["Because of %s, this module will not be loaded."] =
-	"Из-за %s этот модуль не будет загружен."
-L["This module will help you to reveal and resize maps."] =
-	"Этот модуль поможет вам раскрывать и изменять размеры карт."
-L["Reveal"] = "Раскрыть"
-L["Use Colored Fog"] = "Использовать цветной туман"
-L["Remove Fog of War from your world map."] = "Удалите Туман войны с вашей карты мира."
-L["Style Fog of War with special color."] = "Стиль Туман войны с особым цветом."
-L["Resize world map."] = "Изменение размера карты мира."
-L["LFG Queue"] = "Очередь LFG"
-L["Right click to switch expansion"] =
-	"Щелкните правой кнопкой мыши, чтобы переключить расширение"
-L["Add trackers for world events in the bottom of world map."] =
-	"Добавьте трекеры мировых событий внизу карты мира."
-L["Alert"] = "Оповещение"
-L["Alert Second"] = "Второе оповещение"
-L["Alert will be triggered when the remaining time is less than the set value."] =
-	"Оповещение будет срабатывать, когда оставшееся время меньше установленного значения."
-L["Community Feast"] = "Праздник сообщества"
-L["Cooking"] = "Готовка"
-L["Dragonbane Keep"] = "Крепость Драконьей погибели"
-L["Duration"] = "Продолжительность"
-L["Event Tracker"] = "Трекер событий"
-L["Feast"] = "Праздник"
-L["In Progress"] = "В процессе"
-L["Location"] = "Расположение"
-L["Siege On Dragonbane Keep"] = "Осада Крепости Драконьего Погибели"
-L["Status"] = "Статус"
-L["Waiting"] = "Ожидание"
-L["Weekly Reward"] = "Еженедельная награда"
-L["%s will be started in %s!"] = "%s будет запущен в %s!"
-L["Next Event"] = "Следующее событие"
-L["Stop Alert if Completed"] = "Остановить оповещение, если завершено"
-L["Stop alert when the event is completed in this week."] =
-	"Остановить оповещение, когда событие завершится на этой неделе."
-L["Alert Sound"] = "Звук оповещения"
-L["Play sound when the alert is triggered."] =
-	"Воспроизведение звука при срабатывании оповещения."
-L["Sound File"] = "Звуковой файл"
-L["Only DF Character"] = "Только DF-персонаж"
-L["Stop alert when the player have not entered Dragonlands yet."] =
-	"Остановить оповещение, когда игрок еще не вошел в Драконьи земли."
-L["The offset of the frame from the bottom of world map. (Default is -3)"] =
-	"Смещение фрейма от нижней части карты мира. (по умолчанию -3)"
-L["Alert Timeout"] = "Время ожидания оповещения"
-L["All nets can be collected"] = "Все сети можно собрать"
-L["Can be collected"] = "Можно собрать"
-L["Can be set"] = "Может быть установлен"
-L["Fishing Net"] = "Рыболовная сеть"
-L["Fishing Nets"] = "Рыболовные сети"
-L["Iskaaran Fishing Net"] = "Искаарская рыболовная сеть"
-L["Net #%d"] = "Чистая #%d"
-L["Net %s can be collected"] = "Можно собрать чистый %s"
-L["No Nets Set"] = "Сети не установлены"
-L["Custom String"] = "Пользовательская строка"
-L["Custom Strings"] = "Пользовательские строки"
-L["Custom color can be used by adding the following code"] =
-	"Пользовательский цвет можно использовать, добавив следующий код"
-L["Difficulty"] = "Сложность"
-L["M+ Level"] = "М+ Уровень"
-L["Number of Players"] = "Количество игроков"
-L["Placeholders"] = "Заполнители"
-L["Use Default"] = "Использовать по умолчанию"
-L["Researchers Under Fire"] = "Исследователи под огнем"
-L["Time Rift"] = "Разлом во времени"
-L["Superbloom"] = "Цветочный бум"
-L["Big Dig"] = "Большие раскопки"
-L["The Big Dig"] = "Большие раскопки: Удел Предателя"
-L["Horizontal Spacing"] = true
-L["Show a backdrop of the trackers."] = true
-L["The Y-Offset of the backdrop."] = true
-L["The height of the tracker."] = true
-L["The spacing between the backdrop and the trackers."] = true
-L["The spacing between the tracker and the world map."] = true
-L["The spacing between trackers."] = true
-L["The width of the tracker."] = true
-L["Vertical Spacing"] = true
-L["Click to show location"] = true
-L["Current Location"] = true
-L["Echoes"] = true
-L["Next Location"] = true
-L["Radiant Echoes"] = true
-L["Performing"] = true
-L["Theater Troupe"] = true
-L["Nightfall"] = true
-L["Running"] = true
-L["Khaz Algar Emissary"] = true
-L["Professions Weekly"] = true
-L["Ringing Deeps"] = true
-L["Spreading The Light"] = true
-L["Underworld Operative"] = true
-L["World Soul"] = true
-L["Rectangle Minimap"] = true
-L["Expansion Landing Page"] = true
-L["Instance Difficulty"] = true
-L["Reskin the instance diffculty in text style."] = true
-L["Text Align"] = true
-L["Hide Blizzard Indicator"] = true
-L["Left"] = true
-L["Center"] = true
-L["Right"] = true
-L["Minimap Coords"] = true
-L["Add coords to your Minimap."] = true
-
--- SMB
-L["Minimap Buttons"] = "Кнопки миникарты"
-L["Add an extra bar to collect minimap buttons."] =
-	"Добавляет дополнительную панель для сбора кнопок миникарты."
-L["Toggle minimap buttons bar."] = "Переключить панель кнопок миникарты."
-L["Mouse Over"] = "При наведении"
-L["Only show minimap buttons bar when you mouse over it."] =
-	"Показывать панель кнопок миникарты только при наведении на нее указателя мыши."
-L["Minimap Buttons Bar"] = "Панель кнопок миникарты"
-L["Bar Backdrop"] = "Фон панели"
-L["Show a backdrop of the bar."] = "Покажите фон панели."
-L["Backdrop Spacing"] = "Отступ фона"
-L["The spacing between the backdrop and the buttons."] =
-	"Расстояние между фоном панели и кнопками."
-L["Inverse Direction"] = "Обратное направление"
-L["Reverse the direction of adding buttons."] =
-	"Меняет направление добавления кнопок на противоположное."
-L["Orientation"] = "Ориентация"
-L["Arrangement direction of the bar."] = "Устройство направления панели."
-L["Drag"] = "Тянуть"
-L["Horizontal"] = "Горизонтально"
-L["Vertical"] = "Вертикально"
-L["Buttons"] = "Кнопок"
-L["Buttons Per Row"] = "Кнопок в ряду"
-L["The amount of buttons to display per row."] = "Количество кнопок в каждом ряду"
-L["Button Size"] = "Размер кнопок"
-L["The size of the buttons."] = "Размер кнопок."
-L["Button Spacing"] = "Отступ кнопок"
-L["The spacing between buttons."] = "Расстояние между кнопками."
-L["Blizzard Buttons"] = "Кнопки Blizzard"
-L["Calendar"] = "Календарь"
-L["Add calendar button to the bar."] = "Добавить кнопку календаря на панель."
-L["Garrison"] = "Гарнизон"
-L["Add garrison button to the bar."] = "Добавить кнопку гарнизона на панель."
-L["All handled minimap buttons"] = true
-L["Buttons matching earlier patterns will appear first."] = true
-L["Enter a comma-separated list of Lua regex patterns."] = true
-L["If you are not familiar with Lua regex, try using AI to help you."] = true
-L["Leading and trailing whitespace in each pattern will be automatically trimmed."] = true
-L["Priority Patterns"] = true
-L["Recent Allies"] = true
-L["Reset sorting priority to default value."] = true
-L["Reverse Order"] = true
-L["Reverse the sort order of buttons."] = true
-L["Set the sorting priority of minimap buttons by patterns."] = true
-L["Sorting Priority"] = true
-L["Updated minimap buttons layout."] = true
-L["Use command %s to view all handled buttons and their current sorting priority."] = true
-
--- Raid Marks
-L["Raid Markers"] = "Метки рейда"
-L["Raid Markers Bar"] = "Панель меток рейда"
-L["Raid Utility"] = "Управление рейдом"
-L["Left Click to mark the target with this mark."] =
-	"Щелкните левой кнопкой мыши, чтобы отметить цель этой меткой."
-L["Right Click to clear the mark on the target."] =
-	"Щелкните правой кнопкой мыши, чтобы убрать метку с цели."
-L["%s + Left Click to place this worldmarker."] =
-	"%s + левая кнопка мыши, чтобы разместить этот мировую метку."
-L["%s + Right Click to clear this worldmarker."] =
-	"%s + правая кнопка мыши, чтобы очистить эту мировую метку."
-L["%s + Left Click to mark the target with this mark."] =
-	"%s + левая кнопка мыши, чтобы отметить цель этой меткой."
-L["%s + Right Click to clear the mark on the target."] =
-	"%s + правая кнопка мыши, чтобы удалить метку с цели."
-L["Click to clear all marks."] = "Нажмите, чтобы удалить все отметки."
-L["takes 3s"] = "занимает 3c"
-L["%s + Click to remove all worldmarkers."] =
-	"%s + щелкните, чтобы удалить все мировые метки."
-L["Click to remove all worldmarkers."] = "Нажмите, чтобы удалить все мировые метки."
-L["%s + Click to clear all marks."] =
-	"% s + ������������лкните, чтобы удалить все метки."
-L["Left Click to ready check."] =
-	"Щелкните левой кнопкой мыши, чтобы провести проверку готовности."
-L["Right click to toggle advanced combat logging."] =
-	"Щелкните правой кнопкой мыши, чтобы включить расширенный журнал боя."
-L["Left Click to start count down."] =
-	"Щелкни����е левой кнопкой мыши, чтобы начать обратный отсчет."
-L["Add an extra bar to let you set raid markers efficiently."] =
-	"Добавляет дополнительную панель, позволяющую эффективно устанавливать маркеры рейда."
-L["Toggle raid markers bar."] = "Переключить панель меток рейда."
-L["Inverse Mode"] = "Обратный режим"
-L["Swap the functionality of normal click and click with modifier keys."] =
-	"Поменяйте местами функциональность обычного щелчка и щелкните с помощью клавиш-модификаторов."
-L["Visibility"] = "Видимость"
-L["In Party"] = "В гру��пе"
-L["Always Display"] = "Всегда отображать"
-L["Mouse Over"] = "При наведении"
-L["Only show raid markers bar when you mouse over it."] =
-	"Показывать панель рейдовых меток только при наведении на нее указателя мыши."
-L["Tooltip"] = "Подсказка"
-L["Show the tooltip when you mouse over the button."] =
-	"Показывать всплывающую подсказку ��ри наведении указателя мыши на кнопку."
-L["Modifier Key"] = "Клавиша-модификатор"
-L["Set the modifier key for placing world markers."] =
-	"Установите клавишу-модификатор для размещения мировых ме��ок."
-L["Shift Key"] = "Клавиша Shift"
-L["Ctrl Key"] = "Клавиша Ctrl"
-L["Alt Key"] = "Клавиша Alt"
-L["Bar Backdrop"] = "Фон панели"
-L["Show a backdrop of the bar."] = "Покажите фон панели."
-L["Backdrop Spacing"] = "Отступ фона"
-L["The spacing between the backdrop and the buttons."] =
-	"Расстояние между фоном панели и кнопками."
-L["Orientation"] = "Ориентация"
-L["Arrangement direction of the bar."] = "Устройство направления панели."
-L["Raid Buttons"] = "Кнопка рейда"
-L["Ready Check"] = "Проверка готовности"
-L["Advanced Combat Logging"] = "Расширенный журнал боя"
-L["Left Click to ready check."] =
-	"Щелкните левой кнопкой мыши, чтобы провести проверку готовности."
-L["Right click to toggle advanced combat logging."] =
-	"Щелкните правой кнопкой мыши, чтобы включить расширенный журнал боя."
-L["Count Down"] = "Обратный отсчет"
-L["Count Down Time"] = "Обратный отсчет времени"
-L["Count down time in seconds."] = "Обратный отсчет времени в секундах."
-L["Button Size"] = "Размер кнопок"
-L["The size of the buttons."] = "Размер кнопок."
-L["Button Spacing"] = "Отступ кнопок"
-L["The spacing between buttons."] = "Расстояние между кнопками."
-L["Button Backdrop"] = "Фон кнопки"
-L["Button Animation"] = "Анимация кнопки"
-
 -- Raid Buffs
 L["Raid Buff Reminder"] = "Напоминание о баффе рейда"
 L["Shows a frame with flask/food/rune."] = "Показывает рамку с флягой/едой/руной."
@@ -1201,29 +515,6 @@ L["Show In Raid"] = "Отображать в рейде"
 L["Show In Arena"] = "Отображать на арене"
 L["Spell Name"] = "Название заклинания"
 L["Spell List"] = "Список заклинаний"
-
--- CVars
-L["\n\nDefault: |cff00ff001|r"] = true
-L["\n\nDefault: |cffff00000|r"] = true
-L["alwaysCompareItems"] = true
-L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
-L["breakUpLargeNumbers"] = true
-L["breakUpLargeNumbers_DESC"] = "Toggles using commas in large numbers\r\rDefault: |cff00ff001|r"
-L["scriptErrors"] = true
-L["enableWoWMouse"] = true
-L["trackQuestSorting"] = true
-L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r default: top"
-L["autoLootDefault"] = true
-L["autoDismountFlying"] = true
-L["removeChatDelay"] = true
-L["screenshotQuality"] = true
-L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
-L["showTutorials"] = true
-L["WorldTextScale"] = true
-L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
-L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] =
-	"Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] =
@@ -1300,7 +591,7 @@ L["This part of the installation changes the default ElvUI look."] =
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] =
 	"Эта часть процесса установки заполнит инфо-тексты MerathilisUI.\r|cffff8000Это не касается инфо-текстов ElvUI|r"
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] =
-	"Эта часть процесса установки изменит положение ваших панелей действий и включит фоны."
+	"Эта часть пр��цесса установки изменит положение ваших панелей действий и включит фоны."
 L["This part of the installation process will change your NamePlates."] =
 	"Эта часть процесса установки изменит ваши индикаторы здоровья."
 L["This part of the installation process will reposition your Unitframes."] =
@@ -1364,10 +655,7 @@ L["Screen Shadow Overlay"] = "Наложение теней экрана"
 L["Enables/Disables a shadow overlay to darken the screen."] =
 	"Включает/отключает наложение теней для затемнения экрана."
 L["Undress Button"] = "Кнопка раздевания"
-L["Subpages"] = "Подстраницы"
-L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] =
-	"Подстраницы представляют собой блоки из 10 элементов. Эта опция устанавливает, сколько подстраниц будет отображаться на одной странице."
-L["Enable/Disable"] = "Включить/Выключить"
+L["Enable/Disable"] = "Включить/Выклю��ить"
 L["decor."] = "декор."
 L["MerathilisUI Button Style"] = "Стиль кнопки MerathilisUI"
 L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] =
@@ -1434,7 +722,7 @@ L["Item Upgrade"] = "Улучшение предмета"
 L["Trade"] = "Торговля"
 L["Allied Races"] = "Союзные расы"
 L["Archaeology Frame"] = "Рамка археологии"
-L["Azerite Essence"] = "Азеритовая эссенция"
+L["Azerite Essence"] = "Азерито��ая эссенция"
 L["Item Interaction"] = "Взаимодействие с предметами"
 L["Anima Diversion"] = "Отвод анимы"
 L["Soulbinds"] = "Связи душ"
@@ -1559,102 +847,6 @@ L["Bottom Left Extra Panel"] = "Нижняя левая доп. панель"
 L["Bottom Right Panel"] = "Нижняя правая панель"
 L["Bottom Right Extra Panel"] = "Нижняя правая доп. панель"
 
--- Objective Tracker
-L["Objective Tracker"] = "Отслеживание заданий"
-L["1. Customize the font of Objective Tracker."] =
-	"1. Настройте шрифт отслеживания заданий."
-L["2. Add colorful progress text to the quest."] =
-	"2. Добавьте цветной текст прохождения задания."
-L["This module may prevent clicking quest items in the objective tracker due to taint."] = true
-L["Progress"] = "Прогресс"
-L["No Dash"] = "Без тире"
-L["Colorful Progress"] = "Цветной прогресс"
-L["Percentage"] = "Процент"
-L["Add percentage text after quest text."] =
-	"Добавляет процентный текст после текста задания."
-L["Colorful Percentage"] = "Цветной процент"
-L["Make the additional percentage text be colored."] =
-	"Делает дополнительный процентный текст цветным."
-L["Cosmetic Bar"] = "Панель косметики"
-L["Border"] = "Граница"
-L["Border Alpha"] = "Прозрачность окантовки"
-L["Width Mode"] = "Режим ширины"
-L["'Absolute' mode means the width of the bar is fixed."] =
-	"Режим 'Абсолют' означает, что ширина полосы фиксирована."
-L["'Dynamic' mode will also add the width of header text."] =
-	"Режим 'Динамический' также добавит ширину текста заголовка."
-L["'Absolute' mode means the height of the bar is fixed."] =
-	"Режим 'Абсолют' означает, что высота полосы фиксирована."
-L["'Dynamic' mode will also add the height of header text."] =
-	"Режим 'Динамический' также добавит высоту текста заголовка."
-L["Absolute"] = "Абсолют"
-L["Dyanamic"] = "Динамический"
-L["Color Mode"] = "Цветной режим"
-L["Gradient"] = "Градиент"
-L["Class Color"] = "Цвет класса"
-L["Normal Color"] = "Обычный цвет"
-L["Gradient Color 1"] = "Градиент цвет 1"
-L["Gradient Color 2"] = "Градиент цвет 2"
-L["Presets"] = "Пресеты"
-L["Preset %d"] = "Пресет %d"
-L["Here are some example presets, just try them!"] =
-	"Вот несколько примеров пресетов, просто попробуйте их!"
-L["Default"] = "По умолчанию"
-L["Header"] = "Заголовок"
-L["Short Header"] = "Короткий заголовок"
-L["Use short name instead. e.g. Torghast, Tower of the Damned to Torghast."] =
-	"Использывать короткое имя. Например: Торгаст,Торгаст башня Проклятых."
-L["Title Color"] = "Цвет заголовка"
-L["Change the color of quest titles."] = "Изменить цвет заголовков заданий."
-L["Use Class Color"] = "Использовать цвет класса"
-L["Highlight Color"] = "Цвет выделения"
-L["Title"] = "Название"
-L["Bottom Right Offset X"] = "Нижнее правое смещение X"
-L["Bottom Right Offset Y"] = "Нижнее правое смещение Y"
-L["Top Left Offset X"] = "Верхнее левое смещение X"
-L["Top Left Offset Y"] = "Верхнее левое смещение Y"
-L["Transparent"] = "Прозрачный"
-L["Style"] = "Стиль"
-L["Height Mode"] = "Режим высоты"
-L["Menu Title"] = "Название меню"
-L["it shows when objective tracker is collapsed."] =
-	"он показывает, когда объектный трекер свернут."
-L["Word Wrap"] = true
-L["Enable word wrap for long text."] = true
-
--- Quest
-L["Switch Buttons"] = true
-L["Add a bar that contains buttons to enable/disable modules quickly."] = true
-L["Hide With Objective Tracker"] = true
-L["Bar Backdrop"] = true
-L["Announcement"] = true
-L["Quest"] = true
-L["Turn In"] = true
-L["Make quest acceptance and completion automatically."] = true
-L["Mode"] = true
-L["Only Accept"] = true
-L["Only Complete"] = true
-L["Pause On Press"] = true
-L["Pause the automation by pressing a modifier key."] = true
-L["Reward"] = true
-L["Select Reward"] = true
-L["If there are multiple items in the reward list, it will select the reward with the highest sell price."] = true
-L["Get Best Reward"] = true
-L["Complete the quest with the most valuable reward."] = true
-L["Smart Chat"] = true
-L["Chat with NPCs smartly. It will automatically select the best option for you."] = true
-L["Dark Moon"] = true
-L["Accept the teleportation from Darkmoon Faire Mystic Mage automatically."] = true
-L["Follower Assignees"] = true
-L["Open the window of follower recruit automatically."] = true
-L["Ignored NPCs"] = true
-L["If you add the NPC into the list, all automation will do not work for it."] = true
-L["Ignore List"] = true
-L["Add Target"] = true
-L["Make sure you select the NPC as your target."] = true
-L["Delete"] = true
-L["Delete the selected NPC."] = true
-
 -- Filter
 L["Filter"] = "Фильтр"
 L["Unblock the profanity filter."] =
@@ -1662,36 +854,6 @@ L["Unblock the profanity filter."] =
 L["Profanity Filter"] = "Фильтр ненормативной лексики"
 L["Enable this option will unblock the setting of profanity filter. [CN Server]"] =
 	"Включите эту опцию, чтобы разблокировать настройку фильтра ненормативной лексики. [CN сервер]"
-
--- Friends List
-L["Friends List"] = "Список друзей"
-L["Add additional information to the friend frame."] =
-	"Добавляет дополнительную информацию в список друзей."
-L["Modify the texture of status and make name colorful."] =
-	"Измените текстуру статуса и сделайте имя цветным."
-L["Enhanced Texture"] = "Улучшенная текстура"
-L["Game Icons"] = "Иконки игры"
-L["Default"] = "По умолчанию"
-L["Modern"] = "Современный"
-L["Status Icon Pack"] = "Пакет значков статуса"
-L["Diablo 3"] = true
-L["Square"] = "Квадрат"
-L["Faction Icon"] = "Значок фракции"
-L["Use faction icon instead of WoW icon."] =
-	"Использовать значок фракции вместо значка WoW."
-L["Name"] = "Имя"
-L["Level"] = "Уровень"
-L["Hide Max Level"] = "Скрыть максимальный уровень"
-L["Use Note As Name"] = "Использовать заметку вместо имени"
-L["Replace the Real ID or the character name of friends with your notes."] =
-	"Замените Real ID или имя персонажа друзей на свою заметку."
-L["Use Game Color"] = "Использовать цвет игры"
-L["Change the color of the name to the in-playing game style."] =
-	"Изменить цвет имени на стиль игры."
-L["Use Class Color"] = "Использовать цвет класса"
-L["Font Setting"] = "Настройка шрифта"
-L["Hide Realm"] = true
-L["Hide the realm name of friends."] = true
 
 -- Vehicle Bar
 L["VehicleBar"] = true
@@ -1701,18 +863,6 @@ L["The color for vigor bar's speed text when you are regaining vigor."] = true
 L["Animations"] = true
 L["Animation Speed"] = true
 L["Skyriding Bar"] = true
-
--- Delete Item
-L["Delete Item"] = true
-L["This module provides several easy-to-use methods of deleting items."] = true
-L["Use Delete Key"] = true
-L["Allow you to use Delete Key for confirming deleting."] = true
-L["Fill In"] = true
-L["Disable"] = true
-L["Fill by click"] = true
-L["Auto Fill"] = true
-L["Press the |cffffd200Delete|r key as confirmation."] = true
-L["Click to confirm"] = true
 
 -- Raid Info Frame
 L["Raid Info Frame"] = true
