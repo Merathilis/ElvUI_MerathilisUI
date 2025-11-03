@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[700] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "03.11.2025",
 	FIXES = {},
 	NEW = {
 		"[Core]: YOU NEED ELVUI_WINDTOOLS TO USE MERATHILISUI NOW!",
