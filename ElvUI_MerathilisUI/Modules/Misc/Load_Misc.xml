@@ -9,7 +9,6 @@
 	<Script file="Gmotd.lua"/>
 	<Script file="PetFilterTab.lua"/>
 	<Script file="RaidInfoFrame.lua"/>
-	<Script file="Screenshot.lua"/>
 	<Script file="StatusReport.lua"/>
 	<Script file="SingingSockets.lua"/>
 	<Script file="TradeTabs.lua"/>

@@ -283,20 +283,6 @@ L["Adds a filter tab to the Pet Journal, which allows you to filter pets by thei
 L["Print Message"] = "Nachricht im Chatfenster"
 L["Prints a message in the chat when you take a screenshot."] =
 	"Zeigt eine Nachricht im Chat an, wenn Du einen Screenshot machst."
-L["Hide UI"] = "UI ausblenden"
-L["Hides the UI when you take a screenshot."] = "Blendet die Benutzeroberfläche aus, wenn Du einen Screenshot machst."
-L["Achievement Earned"] = "Erfolg errungen"
-L["Takes a screenshot when you earn an achievement."] = "Erstellt einen Screenshot, wenn Du einen Erfolg errungen hast."
-L["Challenge Mode Completed"] = "Herausforderungsmodus abgeschlossen"
-L["Takes a screenshot when you complete a challenge mode."] =
-	"Erstellt einen Screenshot, wenn Du einen Herausforderungsmodus abgeschlossen hast."
-L["Player Level Up"] = "Spielerlevel erhöht"
-L["Takes a screenshot when you level up."] = "Erstellt einen Screenshot, wenn Du aufsteigst."
-L["Player Dead"] = "Spieler tot"
-L["Takes a screenshot when you die."] = "Erstellt einen Screenshot, wenn Du stirbst."
-L["Add a button to exit phase diving."] = "Fügt eine Taste zum Beenden des Phasentauchens hinzu."
-L["Exit Phase Diving"] = "Phasentauchen beenden"
-L["Exit Phase Diving Button"] = "Phasentauchen beenden Taste"
 L["You can use ElvUI Mover to reposition it."] = "Du kannst den ElvUI Mover verwenden, um ihn neu zu positionieren."
 L["Due to Blizzard restrictions, the button area cannot be clicked through even when the button is hidden."] =
 	"Aufgrund von Blizzard-Einschränkungen kann der Schaltflächenbereich nicht angeklickt werden, auch wenn die Schaltfläche ausgeblendet ist."

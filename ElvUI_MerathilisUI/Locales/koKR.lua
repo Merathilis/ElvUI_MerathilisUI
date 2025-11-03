@@ -385,18 +385,6 @@ L["Types"] = "스크린샷 유형"
 L["Print Message"] = "스샷를 채팅 메시지 출력"
 L["Prints a message in the chat when you take a screenshot."] =
 	"스크린샷을 찍으면 채팅창에 메시지를 출력합니다."
-L["Hide UI"] = "UI 숨기기"
-L["Hides the UI when you take a screenshot."] = "스크린샷을 찍을 때 UI를 숨깁니다."
-L["Achievement Earned"] = "업적 달성 시 촬영"
-L["Takes a screenshot when you earn an achievement."] =
-	"업적을 획득하면 자동으로 스크린샷을 찍습니다."
-L["Challenge Mode Completed"] = "도전 모드 완료 시 촬영"
-L["Takes a screenshot when you complete a challenge mode."] =
-	"도전 모드 완료 시 자동으로 스크린샷을 찍습니다."
-L["Player Level Up"] = "레벨 상승 시 촬영"
-L["Takes a screenshot when you level up."] = "레벨 업 시 자동으로 스크린샷을 찍습니다."
-L["Player Dead"] = "사망 시 촬영"
-L["Takes a screenshot when you die."] = "캐릭터가 사망했을 때 자동으로 스크린샷을 찍습니다."
 
 -- PVP
 L["Automatically cancel PvP duel requests."] = "PvP 결투 요청을 자동으로 거절합니다"

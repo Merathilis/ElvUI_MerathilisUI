@@ -312,6 +312,10 @@ function MER:UpdateScripts()
 				db.misc.quickKeystone = nil
 				UpdateMessage(L["Profile: Quick Keystone"] .. ": " .. L["Database cleanup"], profileVersion)
 			end
+			if db.misc.screenshot then
+				db.misc.screenshot = nil
+				UpdateMessage(L["Profile: Screenshot"] .. ": " .. L["Database cleanup"], profileVersion)
+			end
 			if db.datatexts and db.datatexts.durabilityIlevel then
 				db.datatexts.durabilityIlevel = nil
 				UpdateMessage(L["Profile: Durability Datatext"] .. ": " .. L["Database cleanup"], profileVersion)
