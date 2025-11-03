@@ -233,7 +233,7 @@ function MER:UpdateScripts()
 				private.skins.uiErrors = nil
 				UpdateMessage(L["Private: Skins - UIErrors"] .. ": " .. L["Database cleanup"], privateVersion)
 			end
-			if private.mui.skins.ime then
+			if private.skins.ime then
 				private.skins.ime = nil
 				UpdateMessage(L["Private: Skins - UIErrors"] .. ": " .. L["Database cleanup"], privateVersion)
 			end
