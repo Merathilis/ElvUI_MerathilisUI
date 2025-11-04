@@ -35,6 +35,7 @@ function module:LoadWindToolsProfile()
 	db["combat"]["combatAlert"]["enable"] = false
 	db["combat"]["combatAlert"]["text"] = false
 	db["combat"]["raidMarkers"]["enable"] = false
+	db["item"]["alreadyKnown"]["enable"] = true
 	db["item"]["extraItemsBar"]["bar1"]["backdropSpacing"] = 1
 	db["item"]["extraItemsBar"]["bar1"]["buttonHeight"] = 26
 	db["item"]["extraItemsBar"]["bar1"]["buttonWidth"] = 30
@@ -58,6 +59,7 @@ function module:LoadWindToolsProfile()
 	db["misc"]["automation"]["hideBagAfterEnteringCombat"] = true
 	db["misc"]["automation"]["hideWorldMapAfterEnteringCombat"] = true
 	db["misc"]["cooldownTextOffset"]["enable"] = true
+	db["misc"]["gameBar"]["enable"] = true
 	db["misc"]["gameBar"]["home"]["left"] = "RANDOM"
 	db["misc"]["spellActivationAlert"]["enable"] = true
 	db["quest"]["turnIn"]["enable"] = false
@@ -72,7 +74,7 @@ function module:LoadWindToolsProfile()
 	private["maps"]["instanceDifficulty"]["font"]["style"] = "SHADOWOUTLINE"
 	private["maps"]["minimapButtons"]["buttonsPerRow"] = 7
 	private["maps"]["minimapButtons"]["mouseOver"] = true
-	private["maps"]["superTracker"]["enable"] = false
+	private["maps"]["superTracker"]["enable"] = true
 	private["misc"]["autoToggleChatBubble"] = true
 	private["quest"]["objectiveTracker"]["enable"] = true
 	private["quest"]["objectiveTracker"]["info"]["size"] = 11
@@ -83,7 +85,7 @@ function module:LoadWindToolsProfile()
 	private["skins"]["widgets"]["treeGroupButton"]["enable"] = true
 	private["unitFrames"]["roleIcon"]["roleIconStyle"] = "LYNUI"
 
-	if E and E.db and not E.db.movers then
+	if not E.db.movers then
 		E.db.movers = {}
 	end
 
