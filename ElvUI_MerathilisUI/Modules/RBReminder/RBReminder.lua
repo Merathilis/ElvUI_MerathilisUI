@@ -365,6 +365,10 @@ function module:CreateIconBuff(name, relativeTo, firstbutton)
 end
 
 function module:Visibility()
+	if not self.Anchor and not self.Anchor.mover then
+		return
+	end
+
 	if module.db.enable then
 		RegisterStateDriver(
 			self.frame,

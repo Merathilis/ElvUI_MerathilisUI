@@ -3,7 +3,6 @@ local module = MER:GetModule("MER_Actionbars")
 local S = MER:GetModule("MER_Skins")
 
 local _G = _G
-local unpack = unpack
 local select = select
 local tinsert = tinsert
 local tremove = tremove
@@ -340,7 +339,6 @@ function keyFeedback:CreateFeedbackButton(autoKeyup)
 
 	local bg = S:CreateBDFrame(mirror)
 	bg:SetBackdropBorderColor(0, 0, 0, 1)
-	S:CreateShadow(bg)
 
 	mirror:Show()
 	mirror._elapsed = 0
@@ -470,7 +468,6 @@ local function createPoolIcon(pool)
 
 	local bg = S:CreateBDFrame(f)
 	bg:SetBackdropBorderColor(0, 0, 0)
-	S:CreateShadow(bg)
 
 	f:EnableMouse(false)
 	f:SetHeight(db.lineIconSize or 28)
