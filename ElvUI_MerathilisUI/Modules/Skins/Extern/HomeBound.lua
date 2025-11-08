@@ -10,6 +10,9 @@ function module:HomeBound()
 	local mainFrame = _G.HB_MainFrame
 	S:HandleFrame(mainFrame)
 
+	local supportFrame = _G.HB_SupportFrame
+	S:HandleFrame(supportFrame)
+
 	--[[
 		ToDO: Skin the MainFrame Close Button, Tooltip sutff
 	]]
@@ -30,6 +33,15 @@ function module:HomeBound()
 					scrollBar.backdrop:Hide()
 				end
 			end
+		end
+	end
+
+	for _, child in pairs({ _G.HB_SupportFrame:GetChildren() }) do
+		local objectType = child.GetObjectType and child:GetObjectType()
+		if objectType == "Button" then -- currently only one Button
+			S:HandleCloseButton(child)
+		elseif objectType == "EditBox" then
+			S:HandleEditBox(child)
 		end
 	end
 end
