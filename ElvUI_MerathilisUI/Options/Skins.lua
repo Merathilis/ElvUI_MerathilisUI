@@ -5,15 +5,11 @@ local C = W.Utilities.Color
 local LSM = E.Libs.LSM
 
 local _G = _G
-local ipairs, pairs, unpack = ipairs, pairs, unpack
+local ipairs, unpack = ipairs, unpack
 local format = string.format
-local tinsert = table.insert
 
 local DoesAddOnExist = C_AddOns.DoesAddOnExist
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
-
-local RED_FONT_COLOR = RED_FONT_COLOR
-local YELLOW_FONT_COLOR = YELLOW_FONT_COLOR
 
 local DecorAddons = {
 	{ "ACP", L["AddOn Control Panel"], "acp" },
@@ -21,6 +17,7 @@ local DecorAddons = {
 	{ "Capping", L["Capping"], "cap" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
+	{ "HomeBound", L["Home Bound"], "homeBound" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
 	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "Pawn", L["Pawn"], "pawn" },

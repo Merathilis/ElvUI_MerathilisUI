@@ -38,6 +38,7 @@ V.skins = {
 		klf = true,
 		paragonReputation = true,
 		manuscriptsJournal = true,
+		homeBound = true,
 		bw = {
 			enable = true,
 			queueTimer = {

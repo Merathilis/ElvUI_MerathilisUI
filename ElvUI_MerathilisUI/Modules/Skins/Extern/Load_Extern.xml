@@ -7,6 +7,7 @@
 	<Script file="Details.lua"/>
 	<Script file="DetailsIcons.lua"/>
 	<Script file="GlobalIgnoreList.lua"/>
+	<Script file="HomeBound.lua"/>
 	<Script file="KeystoneLoot.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="MountRoutePlanner.lua"/>
