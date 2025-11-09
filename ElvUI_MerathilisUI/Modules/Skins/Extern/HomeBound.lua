@@ -13,11 +13,14 @@ function module:HomeBound()
 	local supportFrame = _G.HB_SupportFrame
 	S:HandleFrame(supportFrame)
 
+	local wowheadFrame = _G.HB_WowheadLinkFrame
+	S:HandleFrame(wowheadFrame)
+
 	--[[
-		ToDO: Skin the MainFrame Close Button, Tooltip sutff
+		ToDo: Skin the MainFrame Close Button, Tooltip stuff
 	]]
 
-	for _, child in pairs({ _G.HB_MainFrame:GetChildren() }) do
+	for _, child in pairs({ mainFrame:GetChildren() }) do
 		local objectType = child.GetObjectType and child:GetObjectType()
 		if objectType == "Button" and child.Text and child:GetText() then
 			S:HandleButton(child, true)
@@ -36,9 +39,18 @@ function module:HomeBound()
 		end
 	end
 
-	for _, child in pairs({ _G.HB_SupportFrame:GetChildren() }) do
+	for _, child in pairs({ supportFrame:GetChildren() }) do
 		local objectType = child.GetObjectType and child:GetObjectType()
-		if objectType == "Button" then -- currently only one Button
+		if objectType == "Button" then
+			S:HandleCloseButton(child)
+		elseif objectType == "EditBox" then
+			S:HandleEditBox(child)
+		end
+	end
+
+	for _, child in pairs({ wowheadFrame:GetChildren() }) do
+		local objectType = child.GetObjectType and child:GetObjectType()
+		if objectType == "Button" then
 			S:HandleCloseButton(child)
 		elseif objectType == "EditBox" then
 			S:HandleEditBox(child)
