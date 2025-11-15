@@ -125,6 +125,12 @@ function module:WIM()
 		return
 	end
 
+	local menu = _G["WIM3Menu"]
+	if menu then
+		menu:StripTextures()
+		menu:CreateBackdrop("Transparent")
+	end
+
 	hooksecurefunc(WIM, "CreateWhisperWindow", HandleWindow)
 	hooksecurefunc(WIM, "CreateChatWindow", HandleWindow)
 	hooksecurefunc(WIM, "CreateW2WWindow", HandleWindow)
