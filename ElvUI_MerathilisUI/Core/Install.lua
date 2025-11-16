@@ -418,7 +418,9 @@ function MER:SetupLayout()
 	E.db["general"]["guildBank"]["itemLevelFontOutline"] = "SHADOWOUTLINE"
 	E.db["general"]["queueStatus"]["enable"] = true
 	E.db["general"]["queueStatus"]["font"] = "- Expressway"
-
+	E.db["general"]["queueStatus"]["position"] = "TOP"
+	E.db["general"]["queueStatus"]["xOffset"] = 0
+	E.db["general"]["queueStatus"]["yOffset"] = 10
 	--[[----------------------------------
 	--	ProfileDB - Auras
 	--]]
