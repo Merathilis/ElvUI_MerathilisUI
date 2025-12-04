@@ -17,7 +17,6 @@ local DecorAddons = {
 	{ "Capping", L["Capping"], "cap" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
-	{ "HomeBound", L["Home Bound"], "homeBound" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
 	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "Pawn", L["Pawn"], "pawn" },
