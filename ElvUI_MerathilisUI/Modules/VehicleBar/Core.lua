@@ -10,47 +10,12 @@ local UnregisterStateDriver = UnregisterStateDriver
 
 function module:OnShowEvent()
 	self:StopAllAnimations()
-	local defaultVigorBar = _G["UIWidgetPowerBarContainerFrame"]
-
-	if self.vigorBar and self:IsVigorAvailable() then
-		-- Hide the Default Vigor Bar
-		if defaultVigorBar then
-			defaultVigorBar:Hide()
-		end
-
-		local widgetInfo = self:GetWidgetInfo()
-		if self.vigorBar.segments and widgetInfo then
-			if #self.vigorBar.segments < widgetInfo.numTotalFrames then
-				WF.Developer.LogDebug("Amount of segments is wrong ~ recreating segments.")
-				WF.Developer.LogDebug(
-					"Segments: " .. #self.vigorBar.segments .. "; Total: " .. widgetInfo.numTotalFrames
-				)
-
-				for _, segment in ipairs(self.vigorBar.segments) do
-					segment:Kill()
-				end
-				self.vigorBar.segments = {}
-
-				self:CreateVigorSegments()
-			end
-		elseif defaultVigorBar and not defaultVigorBar:IsShown() then
-			defaultVigorBar:Show()
-		end
-	end
 
 	local animationsAllowed = self.db.animations and (not InCombatLockdown()) and not self.combatLock
 
 	if animationsAllowed then
 		for i, button in ipairs(self.bar.buttons) do
 			self:SetupButtonAnim(button, i)
-		end
-
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments and self.vigorBar.speedText then
-			for i, segment in ipairs(self.vigorBar.segments) do
-				self:SetupButtonAnim(segment, i)
-			end
-
-			self:SetupButtonAnim(self.vigorBar.speedText, 8)
 		end
 	end
 
@@ -63,37 +28,9 @@ function module:OnShowEvent()
 		end
 	end
 
-	if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments and self.vigorBar.speedText then
-		for _, segment in ipairs(self.vigorBar.segments) do
-			if animationsAllowed then
-				segment:SetAlpha(0)
-				segment.FadeIn:Play()
-			else
-				segment:SetAlpha(1)
-			end
-		end
-
-		if animationsAllowed then
-			self.vigorBar.speedText:SetAlpha(0)
-			self.vigorBar.speedText.FadeIn:Play()
-		else
-			self.vigorBar.speedText:SetAlpha(1)
-		end
-	end
-
-	if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.speedText then
-		self.vigorBar:Show()
-		self.vigorBar.speedText:Show()
-	end
-
 	self:UpdateKeybinds()
 end
-function module:OnHideEvent()
-	if self.vigorBar then
-		self.vigorBar:Hide()
-		self.vigorBar.speedText:Hide()
-	end
-end
+
 function module:OnCombatEvent(toggle)
 	self.combatLock = toggle
 	if self.combatLock then
@@ -122,13 +59,6 @@ function module:Disable()
 		end
 
 		self.bar:Hide()
-	end
-
-	if self.vigorBar then
-		self.vigorBar:Hide()
-		if self.vigorBar.speedText then
-			self.vigorBar.speedText:Hide()
-		end
 	end
 
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
@@ -211,7 +141,6 @@ function module:DatabaseUpdate()
 
 	-- Set db
 	self.db = E.db.mui.vehicleBar
-	self.vdb = E.db.mui.vehicleBar.vigorBar
 
 	-- Enable only out of combat
 	F.Event.ContinueOutOfCombat(function()
@@ -229,9 +158,7 @@ function module:Initialize()
 	-- Vars
 	self.combatLock = false
 	self.ab = E:GetModule("ActionBars")
-	self.vigorBar = nil
 	self.previousBarWidth = nil
-	self.vigorHeight = 10
 	self.spacing = 2
 
 	-- Register for updates

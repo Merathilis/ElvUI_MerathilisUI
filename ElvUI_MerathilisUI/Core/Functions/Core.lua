@@ -105,13 +105,6 @@ function F.UpdateDBFromPathRGB(db, path)
 	F.UpdateDBFromPath(db, path, "a")
 end
 
-function F.IsSkyriding()
-	return E:Delay(0.01, function()
-		return ((IsMounted() or GetShapeshiftForm() ~= 0) and HasBonusActionBar())
-			or UnitPowerBarID("player") == I.Constants.VIGOR_BAR_ID
-	end)
-end
-
 function F.CreateStyle(frame, useStripes, useGradient)
 	if not frame or frame.__MERStyle or frame.MERStyle then
 		return

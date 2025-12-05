@@ -5,34 +5,7 @@ local AB = MER:GetModule("MER_Actionbars")
 local sub = string.utf8sub
 local len = strlenutf8
 
-local C_UIWidgetManager = C_UIWidgetManager
 local GetPlayerAuraBySpellID = C_UnitAuras.GetPlayerAuraBySpellID
-local GetPowerBarWidgetSetID = C_UIWidgetManager.GetPowerBarWidgetSetID
-local GetAllWidgetsBySetID = C_UIWidgetManager.GetAllWidgetsBySetID
-local GetFillUpFramesWidgetVisualizationInfo = C_UIWidgetManager.GetFillUpFramesWidgetVisualizationInfo
-
-function module:IsVigorAvailable()
-	if F.IsSkyriding() then
-		return true
-	else
-		return false
-	end
-end
-
-function module:GetWidgetInfo()
-	local widgetSetID = GetPowerBarWidgetSetID()
-	local widgets = GetAllWidgetsBySetID(widgetSetID)
-
-	local widgetInfo = nil
-	for _, w in pairs(widgets) do
-		local tempInfo = GetFillUpFramesWidgetVisualizationInfo(w.widgetID)
-		if tempInfo and tempInfo.shownState == 1 then
-			widgetInfo = tempInfo
-		end
-	end
-
-	return widgetInfo
-end
 
 function module:FixKeybindText(text)
 	if text and text ~= _G.RANGE_INDICATOR then
@@ -69,16 +42,5 @@ function module:FormatKeybind(keybind)
 		return text
 	else
 		return text
-	end
-end
-
-function module:ColorSpeedText(msg)
-	local thrillActive = GetPlayerAuraBySpellID(377234)
-	if thrillActive then
-		local r, g, b = self.vdb.thrillColor.r, self.vdb.thrillColor.g, self.vdb.thrillColor.b
-
-		return F.String.Color(msg, F.String.FastRGB(r, g, b))
-	else
-		return msg
 	end
 end

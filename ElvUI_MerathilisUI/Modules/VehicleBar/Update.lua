@@ -8,53 +8,10 @@ local ipairs, pairs = ipairs, pairs
 local strsplit = strsplit
 local Round = Round
 
-local BASE_MOVEMENT_SPEED = BASE_MOVEMENT_SPEED
 local GetOverrideBarIndex = GetOverrideBarIndex
 local GetVehicleBarIndex = GetVehicleBarIndex
 
 local GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
-
-function module:UpdateVigorSegments()
-	local widgetInfo = module:GetWidgetInfo()
-
-	if not widgetInfo then
-		return
-	end
-
-	local widgetInfo = self:GetWidgetInfo()
-
-	if not widgetInfo then
-		return
-	end
-
-	local currentVigor = widgetInfo.numFullFrames
-	local partialFill = widgetInfo.fillValue / widgetInfo.fillMax
-
-	for i, segment in ipairs(self.vigorBar.segments) do
-		if i <= currentVigor then
-			segment:SetValue(1)
-			segment:Show()
-		elseif i == currentVigor + 1 then
-			segment:SetValue(partialFill)
-			segment:Show()
-		else
-			segment:SetValue(0)
-			segment:Show()
-		end
-	end
-end
-
-function module:UpdateSpeedText()
-	if self:IsVigorAvailable() and not self.vigorBar then
-		return
-	end
-
-	local isGliding, _, forwardSpeed = GetGlidingInfo()
-	local base = isGliding and forwardSpeed or GetUnitSpeed("player")
-	local movespeed = Round(base / BASE_MOVEMENT_SPEED * 100)
-
-	self.vigorBar.speedText:SetText(self:ColorSpeedText(format("%d%%", movespeed)))
-end
 
 function module:UpdateKeybinds()
 	for i, button in ipairs(self.bar.buttons) do
@@ -82,34 +39,6 @@ function module:UpdateKeybinds()
 			end
 		end
 	end
-end
-
-function module:UpdateVigorBar()
-	if F.Table.IsEmpty(self.vigorBar.segments) then
-		self:CreateVigorSegments()
-	end
-
-	local currentBarWidth = self.bar:GetWidth()
-	if currentBarWidth ~= self.previousBarWidth then
-		local width = currentBarWidth - self.spacing
-		self.vigorBar:SetWidth(width)
-
-		self.previousBarWidth = currentBarWidth
-	end
-
-	local widgetInfo = self:GetWidgetInfo()
-
-	if widgetInfo and widgetInfo.numTotalFrames then
-		local maxVigor = widgetInfo.numTotalFrames
-
-		local segmentWidth = (self.vigorBar:GetWidth() / maxVigor) - (self.spacing * 2)
-
-		for _, segment in ipairs(self.vigorBar.segments) do
-			segment:SetWidth(segmentWidth) -- Update the width of each segment
-		end
-	end
-
-	self:UpdateVigorSegments()
 end
 
 function module:UpdateBar()
@@ -220,7 +149,6 @@ function module:UpdateBar()
 
 	-- Hook for animation
 	self:SecureHookScript(bar, "OnShow", "OnShowEvent")
-	self:SecureHookScript(bar, "OnHide", "OnHideEvent")
 
 	bar:Hide()
 
@@ -241,10 +169,6 @@ function module:UpdateBar()
 		-- Force update
 		for _, button in pairs(bar.buttons) do
 			button:UpdateAction()
-		end
-
-		if not self.vigorBar and self.vdb.enable then
-			self:CreateVigorBar()
 		end
 	end
 

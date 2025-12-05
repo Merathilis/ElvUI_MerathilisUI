@@ -538,12 +538,6 @@ P.vehicleBar = {
 	showMacro = true,
 
 	position = "BOTTOM,ElvUIParent,BOTTOM,0,140",
-
-	vigorBar = {
-		enable = true,
-		thrillColor = { r = 0, g = 0.792, b = 1 },
-		texture = "ElvUI Norm1",
-	},
 }
 
 P.gradient = {
