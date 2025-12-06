@@ -15,16 +15,13 @@ local FCF_DockFrame = FCF_DockFrame
 local FCF_OpenNewWindow = FCF_OpenNewWindow
 local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
 local FCF_StopDragging = FCF_StopDragging
-local ChatFrame_AddChannel = ChatFrame_AddChannel
 local ChatFrame_AddMessageGroup = ChatFrame_AddMessageGroup
 local ChatFrame_RemoveMessageGroup = ChatFrame_RemoveMessageGroup
-local ChatFrame_RemoveChannel = ChatFrame_RemoveChannel
 local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
 local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEditBox
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
-local LOOT = LOOT
-local VOICE = VOICE
+local VOICE, LOOT, GENERAL, TRADE = VOICE, LOOT, GENERAL, TRADE
 
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
@@ -165,7 +162,7 @@ local function SetupChat()
 	FCF_ResetChatWindow(voiceChat, VOICE)
 	FCF_DockFrame(voiceChat, 3)
 
-	-- Open one new channel for own Trade
+	-- Open one new channel for own LOOT
 	FCF_OpenNewWindow()
 
 	for id, name in next, chats do
@@ -179,9 +176,9 @@ local function SetupChat()
 		FCF_SetChatWindowFontSize(nil, frame, 11)
 
 		if id == 1 then
-			FCF_SetWindowName(frame, _G.GENERAL)
+			FCF_SetWindowName(frame, GENERAL)
 		elseif id == 2 then
-			FCF_SetWindowName(frame, _G.LOG)
+			FCF_SetWindowName(frame, LOG)
 		elseif id == 3 then
 			VoiceTranscriptionFrame_UpdateVisibility(frame)
 			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
@@ -194,36 +191,42 @@ local function SetupChat()
 		FCF_StopDragging(frame)
 	end
 
-	ChatFrame_RemoveChannel(_G.ChatFrame4, L["Trade"])
-	ChatFrame_AddChannel(_G.ChatFrame1, L["Trade"])
+	local ChatFrame1_AddChannel = _G.ChatFrame1.AddChannel or _G.ChatFrame_AddChannel
+	local ChatFrame4_RemoveChannel = _G.ChatFrame4.RemoveChannel or _G.ChatFrame_RemoveChannel
+	ChatFrame4_RemoveChannel(_G.ChatFrame4, L["Trade"])
+	ChatFrame1_AddChannel(_G.ChatFrame1, L["Trade"])
 
-	ChatFrame_AddMessageGroup(_G.ChatFrame1, "TARGETICONS")
-	ChatFrame_AddMessageGroup(_G.ChatFrame4, "COMBAT_FACTION_CHANGE")
-	ChatFrame_AddMessageGroup(_G.ChatFrame4, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame_AddMessageGroup(_G.ChatFrame4, "COMBAT_HONOR_GAIN")
-	ChatFrame_AddMessageGroup(_G.ChatFrame4, "COMBAT_XP_GAIN")
-	ChatFrame_AddMessageGroup(_G.ChatFrame4, "CURRENCY")
-	ChatFrame_AddMessageGroup(_G.ChatFrame4, "LOOT")
-	ChatFrame_AddMessageGroup(_G.ChatFrame4, "MONEY")
-	ChatFrame_AddMessageGroup(_G.ChatFrame4, "SKILL")
+	local ChatFrame1_AddMessageGroup = _G.ChatFrame1.AddMessageGroup or _G.ChatFrame_AddMessageGroup
+	local ChatFrame4_AddMessageGroup = _G.ChatFrame4_AddMessageGroup or _G.ChatFrame_AddMessageGroup
+	ChatFrame1_AddMessageGroup(_G.ChatFrame1, "TARGETICONS")
+	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_FACTION_CHANGE")
+	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_GUILD_XP_GAIN")
+	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_HONOR_GAIN")
+	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_XP_GAIN")
+	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "CURRENCY")
+	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "LOOT")
+	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "MONEY")
+	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "SKILL")
 
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_FACTION_CHANGE")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_HONOR_GAIN")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_XP_GAIN")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame1, "CURRENCY")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame1, "LOOT")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame1, "MONEY")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame1, "SKILL")
+	local ChatFrame1_RemoveMessageGroup = _G.ChatFrame1.RemoveMessageGroup or _G.ChatFrame_RemoveMessageGroup
+	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_FACTION_CHANGE")
+	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_GUILD_XP_GAIN")
+	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_HONOR_GAIN")
+	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_XP_GAIN")
+	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "CURRENCY")
+	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "LOOT")
+	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "MONEY")
+	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "SKILL")
 
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "SAY")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "YELL")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "GUILD")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "WHISPER")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "BN_WHISPER")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "PARTY")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "PARTY_LEADER")
-	ChatFrame_RemoveMessageGroup(_G.ChatFrame4, "CHANNEL")
+	local ChatFrame4_RemoveMessageGroup = _G.ChatFrame4.RemoveMessageGroup or _G.ChatFrame_RemoveMessageGroup
+	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "SAY")
+	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "YELL")
+	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "GUILD")
+	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "WHISPER")
+	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "BN_WHISPER")
+	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "PARTY")
+	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "PARTY_LEADER")
+	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "CHANNEL")
 
 	local chatGroup = {
 		"SAY",
