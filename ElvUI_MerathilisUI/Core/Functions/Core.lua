@@ -215,7 +215,14 @@ function F.CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
--- Scaling
+function F.AlmostEqual(a, b)
+	if not a or not b then
+		return false
+	end
+
+	return abs(a - b) <= 0.001
+end
+
 function F.PerfectScale(n)
 	local m = E.mult
 	return (m == 1 or n == 0) and n or (n * m)

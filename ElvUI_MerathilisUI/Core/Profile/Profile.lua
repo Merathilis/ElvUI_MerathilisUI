@@ -540,6 +540,25 @@ P.vehicleBar = {
 	position = "BOTTOM,ElvUIParent,BOTTOM,0,140",
 }
 
+P.miniMapCoords = {
+	enable = true,
+	xOffset = 0,
+	yOffset = 75,
+	format = "%.0f",
+	mouseOver = false,
+
+	font = {
+		name = E.db.general.font,
+		size = 14,
+		style = "SHADOWOUTLINE",
+		color = {
+			r = 1,
+			g = 1,
+			b = 1,
+		},
+	},
+}
+
 P.gradient = {
 	enable = true,
 

@@ -5,6 +5,7 @@
 	<Script file='CombatAlert.lua'/>
 	<Script file='Cooldowns.lua'/>
 	<Script file='ItemLevel.lua'/>
+	<Script file='Maps.lua'/>
 	<Script file='NamePlates.lua'/>
 	<Script file='Notifications.lua'/>
 	<Script file='Panels.lua'/>

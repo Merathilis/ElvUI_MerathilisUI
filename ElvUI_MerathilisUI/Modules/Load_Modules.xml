@@ -8,6 +8,7 @@
 	<Include file="CombatAlert\Load_CombatAlert.xml"/>
 	<Include file="Cooldowns\Load_Cooldowns.xml"/>
 	<Include file="ItemLevel\Load_ItemLevel.xml"/>
+	<Include file="Maps\Load_Maps.xml"/>
 	<Include file="Misc\Load_Misc.xml"/>
 	<Include file="Nameplates\Load_Nameplates.xml"/>
 	<Include file="Notification\Load_Notification.xml"/>

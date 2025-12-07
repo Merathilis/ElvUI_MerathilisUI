@@ -50,7 +50,7 @@ function module:UpdateBar()
 
 	-- Default position
 	local point, anchor, attachTo, x, y =
-		strsplit(",", F.Position(strsplit(",", self.db.position or "BOTTOM,ElvUIParent,BOTTOM,0,140")))
+		strsplit(",", F.Position(strsplit(",", self.db.position or "BOTTOM,ElvUIParent,BOTTOM,0,160")))
 	bar:SetPoint(point, anchor, attachTo, x, y)
 
 	self.bar = bar
