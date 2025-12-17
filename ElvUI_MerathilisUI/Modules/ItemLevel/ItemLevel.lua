@@ -115,9 +115,9 @@ function module:ItemLevel_ScrappingUpdate()
 		quality = self.item:GetItemQuality()
 	end
 	local level = F.GetItemLevel(self.itemLink)
-	local color = E:GetItemQualityColor(quality)
+	local r, g, b = E:GetItemQualityColor(quality)
 	self.iLvl:SetText(level)
-	self.iLvl:SetTextColor(color.r, color.g, color.b)
+	self.iLvl:SetTextColor(r, g, b)
 end
 
 function module:ItemLevel_ScrappingSetup()
