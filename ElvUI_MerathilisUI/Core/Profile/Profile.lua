@@ -1056,4 +1056,8 @@ P.scale = {
 	friends = {
 		scale = 1,
 	},
+
+	encounterjournal = {
+		scale = 1,
+	},
 }

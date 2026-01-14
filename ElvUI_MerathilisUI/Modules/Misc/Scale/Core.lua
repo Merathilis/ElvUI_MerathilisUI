@@ -25,6 +25,7 @@ function module:Scale()
 	module:SetElementScale("quest", "QuestFrame")
 	module:SetElementScale("mailbox", "MailFrame")
 	module:SetElementScale("friends", "FriendsFrame")
+	module:SetElementScale("encounterjournal", "EncounterJournal")
 
 	module:AddCallbackOrScale("Blizzard_InspectUI", self.ScaleInspectUI)
 	module:AddCallbackOrScale("Blizzard_PlayerSpells", self.ScaleTalents)

@@ -524,6 +524,21 @@ options.scale = {
 					max = 3,
 					step = 0.05,
 				},
+				encounterjournal = {
+					order = 16,
+					type = "range",
+					name = L["Encounter Journal"],
+					get = function(_)
+						return E.db.mui.scale.encounterjournal.scale
+					end,
+					set = function(_, value)
+						E.db.mui.scale.encounterjournal.scale = value
+						MI:Scale()
+					end,
+					min = 0.5,
+					max = 3,
+					step = 0.05,
+				},
 			},
 		},
 	},
