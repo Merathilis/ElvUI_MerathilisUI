@@ -5,7 +5,34 @@ local AB = MER:GetModule("MER_Actionbars")
 local sub = string.utf8sub
 local len = strlenutf8
 
-local GetPlayerAuraBySpellID = C_UnitAuras.GetPlayerAuraBySpellID
+local C_Spell_GetSpellCharges = C_Spell.GetSpellCharges
+local C_UnitAuras_GetPlayerAuraBySpellID = C_UnitAuras.GetPlayerAuraBySpellID
+
+function module:IsVigorAvailable()
+	-- Check if player has the skyriding spell AND currently has vigor charges available
+	if not F.IsSkyriding() then
+		return false
+	end
+
+	-- If we can get spell charge info, we're actively skyriding
+	local chargeInfo = C_Spell_GetSpellCharges(I.Constants.SKYWARD_ASCENT_SPELL_ID)
+	return chargeInfo ~= nil
+end
+
+function module:GetSpellChargeInfo()
+	local chargeInfo = C_Spell_GetSpellCharges(I.Constants.SKYWARD_ASCENT_SPELL_ID)
+	return chargeInfo
+end
+
+function module:ColorSpeedText(msg)
+	local thrillActive = C_UnitAuras_GetPlayerAuraBySpellID(I.Constants.THRILL_OF_THE_SKIES_SPELL_ID)
+	if thrillActive then
+		local r, g, b = self.vdb.thrillColor.r, self.vdb.thrillColor.g, self.vdb.thrillColor.b
+		return F.String.Color(msg, F.String.FastRGB(r, g, b))
+	else
+		return msg
+	end
+end
 
 function module:FixKeybindText(text)
 	if text and text ~= _G.RANGE_INDICATOR then

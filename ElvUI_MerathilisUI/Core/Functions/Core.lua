@@ -14,6 +14,7 @@ local max, min, modf = math.max, math.min, math.modf
 local len, utf8sub = string.len, string.utf8sub
 local tcontains = tContains
 
+local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 local CreateFrame = CreateFrame
 local GetContainerItemID = C_Container.GetContainerItemID
 local GetContainerNumSlots = C_Container.GetContainerNumSlots
@@ -1849,4 +1850,10 @@ function F:ReskinNavBar(bar)
 	end
 
 	bar.navBarStyled = true
+end
+
+function F.IsSkyriding()
+	-- Use GetGlidingInfo to check if player is in a Dragonriding zone on an applicable mount
+	local _, canGlide = C_PlayerInfo_GetGlidingInfo()
+	return canGlide == true
 end

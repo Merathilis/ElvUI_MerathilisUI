@@ -11,11 +11,34 @@ local UnregisterStateDriver = UnregisterStateDriver
 function module:OnShowEvent()
 	self:StopAllAnimations()
 
+	if self.vigorBar and self:IsVigorAvailable() then
+		local widgetInfo = self:GetSpellChargeInfo()
+		if self.vigorBar.segments and widgetInfo then
+			-- Check if we have the correct amount of segments. If not, recreate the segments.
+			if #self.vigorBar.segments < widgetInfo.maxCharges then
+				-- Clear existing segments
+				for _, segment in ipairs(self.vigorBar.segments) do
+					segment:Kill()
+				end
+				self.vigorBar.segments = {} -- Clear the table
+
+				-- Create new segments
+				self:CreateVigorSegments()
+			end
+		end
+	end
+
 	local animationsAllowed = self.db.animations and (not InCombatLockdown()) and not self.combatLock
 
 	if animationsAllowed then
 		for i, button in ipairs(self.bar.buttons) do
 			self:SetupButtonAnim(button, i)
+		end
+
+		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments then
+			for i, segment in ipairs(self.vigorBar.segments) do
+				self:SetupButtonAnim(segment, i)
+			end
 		end
 	end
 
@@ -28,7 +51,31 @@ function module:OnShowEvent()
 		end
 	end
 
+	if self:IsVigorAvailable() and self.vigorBar and self.vigorBar.segments then
+		for _, segment in ipairs(self.vigorBar.segments) do
+			if animationsAllowed then
+				segment:SetAlpha(0)
+				segment.FadeIn:Play()
+			else
+				segment:SetAlpha(1)
+			end
+		end
+	end
+
+	-- Show the custom vigor bar when the vehicle bar is shown
+	if self:IsVigorAvailable() and self.vigorBar then
+		self.vigorBar:Show()
+	end
+
+	-- Update keybinds when the bar is shown
 	self:UpdateKeybinds()
+end
+
+function module:OnHideEvent()
+	-- Hide the custom vigor bar when the vehicle bar is hidden
+	if self.vigorBar then
+		self.vigorBar:Hide()
+	end
 end
 
 function module:OnCombatEvent(toggle)
@@ -59,6 +106,15 @@ function module:Disable()
 		end
 
 		self.bar:Hide()
+
+		if self.vigorBar then
+			self.vigorBar:Hide()
+			-- Cancel speed text ticker if it exists
+			if self.vigorBar.speedTextTicker then
+				self.vigorBar.speedTextTicker:Cancel()
+				self.vigorBar.speedTextTicker = nil
+			end
+		end
 	end
 
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
@@ -72,17 +128,8 @@ function module:Enable()
 
 	self:UpdateBar()
 
-	local page = format(
-		"[overridebar] %d; [vehicleui][possessbar] %d; [bonusbar:5] 11; [shapeshift] %d;",
-		GetOverrideBarIndex(),
-		GetVehicleBarIndex(),
-		GetTempShapeshiftBarIndex()
-	)
-
-	RegisterStateDriver(self.bar, "page", page)
-
 	local visibility =
-		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", "[bonusbar:5]" or "")
+		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", "[bonusbar:5]")
 
 	self:Hook(self.ab, "PositionAndSizeBar", function(_, barName)
 		local bar = self.ab["handledBars"][barName]
@@ -141,6 +188,7 @@ function module:DatabaseUpdate()
 
 	-- Set db
 	self.db = E.db.mui.vehicleBar
+	self.vdb = E.db.mui.vehicleBar.vigorBar
 
 	-- Enable only out of combat
 	F.Event.ContinueOutOfCombat(function()
@@ -158,7 +206,7 @@ function module:Initialize()
 	-- Vars
 	self.combatLock = false
 	self.ab = E:GetModule("ActionBars")
-	self.previousBarWidth = nil
+	self.vigorBar = nil
 	self.spacing = 2
 
 	-- Register for updates

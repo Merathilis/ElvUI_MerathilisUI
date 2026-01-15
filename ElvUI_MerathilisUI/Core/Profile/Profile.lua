@@ -537,7 +537,23 @@ P.vehicleBar = {
 	showKeybinds = true,
 	showMacro = true,
 
-	position = "BOTTOM,ElvUIParent,BOTTOM,0,140",
+	position = "BOTTOM,ElvUIParent,BOTTOM,0,150",
+
+	vigorBar = {
+		enable = true,
+		height = 10,
+		normalTexture = E.db.unitframe.statusbar,
+		darkTexture = E.db.unitframe.statusbar,
+		useCustomColor = false,
+		customColorLeft = { r = 0.208, g = 0.424, b = 1 },
+		customColorRight = { r = 0, g = 0.835, b = 1 },
+		thrillColor = F.Table.HexToRGB("#00caff"),
+		showSpeedText = true,
+		speedTextFont = I.Fonts.Primary,
+		speedTextFontSize = 20,
+		speedTextOffsetY = -5,
+		speedTextUpdateRate = 0.1,
+	},
 }
 
 P.miniMapCoords = {
