@@ -25,7 +25,6 @@ function module:Scale()
 	module:SetElementScale("quest", "QuestFrame")
 	module:SetElementScale("mailbox", "MailFrame")
 	module:SetElementScale("friends", "FriendsFrame")
-	module:SetElementScale("encounterjournal", "EncounterJournal")
 
 	module:AddCallbackOrScale("Blizzard_InspectUI", self.ScaleInspectUI)
 	module:AddCallbackOrScale("Blizzard_PlayerSpells", self.ScaleTalents)
@@ -33,6 +32,7 @@ function module:Scale()
 	module:AddCallbackOrScale("Blizzard_Collections", self.ScaleCollections)
 	module:AddCallbackOrScale("Blizzard_Collections", self.AdjustTransmogFrame)
 	module:AddCallbackOrScale("Blizzard_Professions", self.ScaleProfessions)
+	module:AddCallbackOrScale("Blizzard_EncounterJournal", self.ScaleEncounterJournal)
 end
 
 module:AddCallback("Scale")

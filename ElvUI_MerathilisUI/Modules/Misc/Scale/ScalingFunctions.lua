@@ -121,3 +121,7 @@ function module:ScaleProfessions()
 		end
 	end)
 end
+
+function module:ScaleEncounterJournal()
+	module:SetElementScale("encounterjournal", "EncounterJournal")
+end
