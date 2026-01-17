@@ -1,4 +1,4 @@
 ### Changes ###
 
-  * [Skins]: Fixed an error on the ScrappingMachine Frame
-  * [Minimap Coords]: Added back Minimap Coordinates module
+  * [Scale]: Added an option to scale the Encounter Journal
+  * [Vehicle Bar]: Bring back the Vigor Bar and Speed Text
