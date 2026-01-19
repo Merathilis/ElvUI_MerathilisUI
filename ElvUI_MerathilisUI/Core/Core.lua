@@ -16,8 +16,6 @@ local InCombatLockdown = InCombatLockdown
 local InviteUnit = C_PartyInfo.InviteUnit
 local GetCVarBool = C_CVar.GetCVarBool
 
-local C_Timer_NewTimer = C_Timer.NewTimer
-
 E.myClassColor = E.myClassColor or E:ClassColor(E.myclass, true)
 
 MER.ElvUIVersion = tonumber(E.version)
