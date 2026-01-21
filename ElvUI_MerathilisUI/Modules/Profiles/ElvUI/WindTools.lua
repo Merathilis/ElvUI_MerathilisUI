@@ -60,7 +60,7 @@ function module:LoadWindToolsProfile()
 	db["misc"]["automation"]["hideWorldMapAfterEnteringCombat"] = true
 	db["misc"]["cooldownTextOffset"]["enable"] = true
 	db["misc"]["gameBar"]["enable"] = true
-	db["misc"]["gameBar"]["home"]["left"] = "RANDOM"
+	-- db["misc"]["gameBar"]["home"]["left"] = "RANDOM"
 	db["misc"]["spellActivationAlert"]["enable"] = true
 	db["quest"]["turnIn"]["enable"] = false
 	db["social"]["chatText"]["removeBrackets"] = true

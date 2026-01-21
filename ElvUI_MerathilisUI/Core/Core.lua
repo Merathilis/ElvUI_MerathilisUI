@@ -21,8 +21,7 @@ E.myClassColor = E.myClassColor or E:ClassColor(E.myclass, true)
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
 
-MER.IsRetail = select(4, GetBuildInfo()) >= 100207
-MER.IsNewPatch = select(4, GetBuildInfo()) >= 110000 -- 11.0
+MER.IsRetail = select(4, GetBuildInfo()) >= 120000
 MER.IsPTR = select(4, GetBuildInfo()) == 102007 -- 10.2.7
 
 MER.MaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion()
@@ -161,7 +160,7 @@ function MER:RegisterModule(name)
 end
 
 function MER:InitializeModules()
-	E:UpdateCooldownSettings("all")
+	-- E:UpdateCooldownSettings("all")
 
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = self:GetModule(moduleName)

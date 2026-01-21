@@ -4,7 +4,7 @@ local module = MER:GetModule("MER_UnitFrames")
 local CreateColor = CreateColor
 local hooksecurefunc = hooksecurefunc
 
-local MAX_BOSS_FRAMES = 8
+local MAX_BOSS_FRAMES = 5
 local units = { "Player", "Target", "Focus", "Pet" }
 
 local function ConfigureCastbarSpark(unit, unitframe)

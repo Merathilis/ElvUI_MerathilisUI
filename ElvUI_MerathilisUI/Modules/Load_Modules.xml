@@ -10,7 +10,7 @@
 	<Include file="ItemLevel\Load_ItemLevel.xml"/>
 	<Include file="Maps\Load_Maps.xml"/>
 	<Include file="Misc\Load_Misc.xml"/>
-	<Include file="Nameplates\Load_Nameplates.xml"/>
+	<!-- <Include file="Nameplates\Load_Nameplates.xml"/> -->
 	<Include file="Notification\Load_Notification.xml"/>
 	<Include file="Panels\Load_Panels.xml"/>
 	<Include file="Profiles\Load_Profiles.xml"/>
