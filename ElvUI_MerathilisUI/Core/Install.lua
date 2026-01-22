@@ -109,26 +109,7 @@ local function SetupCVars()
 	C_CVar_SetCVar("questTextContrast", 4) -- Black Parchment
 
 	-- Nameplates
-	C_CVar_SetCVar("ShowClassColorInNameplate", 1)
-	C_CVar_SetCVar("nameplateLargerScale", 1)
-	C_CVar_SetCVar("nameplateLargeTopInset", -1)
-	C_CVar_SetCVar("nameplateMinAlpha", 1)
-	C_CVar_SetCVar("nameplateMinScale", 1)
-	C_CVar_SetCVar("nameplateMotion", 1)
-	C_CVar_SetCVar("nameplateOccludedAlphaMult", 1)
-	C_CVar_SetCVar("nameplateOtherBottomInset", -1)
-	C_CVar_SetCVar("nameplateOtherTopInset", -1)
-	C_CVar_SetCVar("nameplateOverlapH", 1.1)
-	C_CVar_SetCVar("nameplateOverlapV", 1.8)
-	C_CVar_SetCVar("nameplateSelectedScale", 1)
-	C_CVar_SetCVar("nameplateSelfAlpha", 1)
-	C_CVar_SetCVar("nameplateSelfTopInset", -1)
-
-	C_CVar_SetCVar("UnitNameEnemyGuardianName", 1)
-	C_CVar_SetCVar("UnitNameEnemyMinionName", 1)
-	C_CVar_SetCVar("UnitNameEnemyPetName", 1)
-	C_CVar_SetCVar("UnitNameEnemyPlayerName", 1)
-	C_CVar_SetCVar("profanityFilter", 0)
+	-- TODO:
 
 	-- CVars General
 	C_CVar_SetCVar("chatStyle", "classic")
@@ -1143,55 +1124,55 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["smoothbars"] = true
 	E.db["unitframe"]["statusbar"] = "ElvUI Norm1"
 
-	-- E.db["unitframe"]["colors"]["castColor"] = {
-	-- ["r"] = 0.1,
-	-- ["g"] = 0.1,
-	-- ["b"] = 0.1,
-	-- }
-	-- E.db["unitframe"]["colors"]["transparentAurabars"] = true
-	-- E.db["unitframe"]["colors"]["transparentPower"] = false
-	-- E.db["unitframe"]["colors"]["transparentCastbar"] = false
-	--
-	-- if layout == "gradient" then
-	-- E.db["unitframe"]["colors"]["transparentHealth"] = false
-	-- E.db["unitframe"]["colors"]["healthclass"] = true
-	-- E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
-	-- E.db["unitframe"]["colors"]["classbackdrop"] = false
-	-- elseif layout == "dark" then
-	-- E.db["unitframe"]["colors"]["transparentHealth"] = true
-	-- E.db["unitframe"]["colors"]["healthclass"] = false
-	-- E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
-	-- E.db["unitframe"]["colors"]["classbackdrop"] = true
-	-- end
-	-- E.db["unitframe"]["colors"]["castClassColor"] = false
-	-- E.db["unitframe"]["colors"]["castReactionColor"] = false
-	-- E.db["unitframe"]["colors"]["powerclass"] = false
-	-- E.db["unitframe"]["colors"]["power"]["MANA"] = { r = 0, g = 0.66, b = 1 }
-	-- E.db["unitframe"]["colors"]["power"]["RAGE"] = { r = 0.780, g = 0.125, b = 0.184 }
-	-- E.db["unitframe"]["colors"]["power"]["FOCUS"] = { r = 1, g = 0.50, b = 0.25 }
-	-- E.db["unitframe"]["colors"]["power"]["ENERGY"] = { r = 1, g = 0.96, b = 0.41 }
-	-- E.db["unitframe"]["colors"]["power"]["PAIN"] = { r = 1, g = 0.51, b = 0, atlas = "_DemonHunter-DemonicPainBar" }
-	-- E.db["unitframe"]["colors"]["power"]["FURY"] = { r = 0.298, g = 1, b = 0, atlas = "_DemonHunter-DemonicFuryBar" }
-	-- E.db["unitframe"]["colors"]["power"]["ALT_POWER"] = { r = 0.2, g = 0.54, b = 0.8 }
-	-- E.db["unitframe"]["colors"]["power"]["RUNIC_POWER"] = { r = 0, g = 0.89, b = 1 }
-	-- E.db["unitframe"]["colors"]["power"]["MAELSTROM"] = { r = 0, g = 0.5, b = 1, atlas = "_Shaman-MaelstromBar" }
-	-- E.db["unitframe"]["colors"]["power"]["LUNAR_POWER"] = { r = 0, g = 0.619, b = 0.972, atlas = "_Druid-LunarBar" }
-	-- E.db["unitframe"]["colors"]["invertPower"] = true
-	-- E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
-	-- E.db["unitframe"]["colors"]["useDeadBackdrop"] = false
-	-- E.db["unitframe"]["colors"]["healthMultiplier"] = 0.75
-	-- E.db["unitframe"]["debuffHighlighting"] = "FILL"
+	E.db["unitframe"]["colors"]["castColor"] = {
+		["r"] = 0.1,
+		["g"] = 0.1,
+		["b"] = 0.1,
+	}
+	E.db["unitframe"]["colors"]["transparentAurabars"] = true
+	E.db["unitframe"]["colors"]["transparentPower"] = false
+	E.db["unitframe"]["colors"]["transparentCastbar"] = false
+
+	if layout == "gradient" then
+		E.db["unitframe"]["colors"]["transparentHealth"] = false
+		E.db["unitframe"]["colors"]["healthclass"] = true
+		E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
+		E.db["unitframe"]["colors"]["classbackdrop"] = false
+	elseif layout == "dark" then
+		E.db["unitframe"]["colors"]["transparentHealth"] = true
+		E.db["unitframe"]["colors"]["healthclass"] = false
+		E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
+		E.db["unitframe"]["colors"]["classbackdrop"] = true
+	end
+	E.db["unitframe"]["colors"]["castClassColor"] = false
+	E.db["unitframe"]["colors"]["castReactionColor"] = false
+	E.db["unitframe"]["colors"]["powerclass"] = false
+	E.db["unitframe"]["colors"]["power"]["MANA"] = { r = 0, g = 0.66, b = 1 }
+	E.db["unitframe"]["colors"]["power"]["RAGE"] = { r = 0.780, g = 0.125, b = 0.184 }
+	E.db["unitframe"]["colors"]["power"]["FOCUS"] = { r = 1, g = 0.50, b = 0.25 }
+	E.db["unitframe"]["colors"]["power"]["ENERGY"] = { r = 1, g = 0.96, b = 0.41 }
+	E.db["unitframe"]["colors"]["power"]["PAIN"] = { r = 1, g = 0.51, b = 0, atlas = "_DemonHunter-DemonicPainBar" }
+	E.db["unitframe"]["colors"]["power"]["FURY"] = { r = 0.298, g = 1, b = 0, atlas = "_DemonHunter-DemonicFuryBar" }
+	E.db["unitframe"]["colors"]["power"]["ALT_POWER"] = { r = 0.2, g = 0.54, b = 0.8 }
+	E.db["unitframe"]["colors"]["power"]["RUNIC_POWER"] = { r = 0, g = 0.89, b = 1 }
+	E.db["unitframe"]["colors"]["power"]["MAELSTROM"] = { r = 0, g = 0.5, b = 1, atlas = "_Shaman-MaelstromBar" }
+	E.db["unitframe"]["colors"]["power"]["LUNAR_POWER"] = { r = 0, g = 0.619, b = 0.972, atlas = "_Druid-LunarBar" }
+	E.db["unitframe"]["colors"]["invertPower"] = true
+	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
+	E.db["unitframe"]["colors"]["useDeadBackdrop"] = false
+	E.db["unitframe"]["colors"]["healthMultiplier"] = 0.75
+	E.db["unitframe"]["debuffHighlighting"] = "FILL"
 
 	-- Frame Glow
-	-- E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
-	-- E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = false
-	-- E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["class"] = true
-	-- E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["a"] = 0.5
-	-- E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["b"] = 0
-	-- E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
-	-- E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
-	-- E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	-- E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MER_Stripes"
+	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
+	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = false
+	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["class"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["a"] = 0.5
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["b"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MER_Stripes"
 
 	-- Player
 	E.db["unitframe"]["units"]["player"]["width"] = 200
