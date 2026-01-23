@@ -513,18 +513,6 @@ L["Role Icons"] = "Rollensymbole"
 L["Heal Prediction"] = "Heilungshervorsage"
 L["Add an additional overlay to the absorb bar."] = "Füge der Absorptionsleiste eine zusätzliche Überlagerung hinzu."
 
--- Raid Buffs
-L["Raid Buff Reminder"] = "Schlachtzugsbufferinnerung"
-L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Fläschchen/Essen/Runen an."
-L["Class Specific Buffs"] = "Klassenspezifische Buffs"
-L["Shows all the class specific raid buffs."] = "Zeigt alle klassenspezifischen Buffs."
-L["Change the alpha level of the icons."] = "Ändert den Alphawert der Symbole"
-L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fehlenden klassenspezifischen Buff."
-
--- Reminder
-L["Reminder"] = "Erinnerung"
-L["Reminds you on self Buffs."] = "Erinnert Dich an eigene Buffs."
-
 -- Cooldowns
 L["Cooldowns"] = "Abklingzeiten"
 L["Cooldown Flash"] = "Abklingzeiten Aufleuchten"

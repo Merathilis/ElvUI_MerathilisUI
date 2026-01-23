@@ -435,6 +435,10 @@ function MER:SetupLayout()
 	E.db["auras"]["debuffs"]["timeFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["debuffs"]["timeFontSize"] = 12
 	E.db["auras"]["debuffs"]["timeFontOutline"] = "SHADOWOUTLINE"
+	E.db["cooldown"]["auras"]["colors"]["text"]["r"] = 0
+	E.db["cooldown"]["auras"]["colors"]["text"]["g"] = 0.7529411764705882
+	E.db["cooldown"]["auras"]["colors"]["text"]["b"] = 0.9803921568627451
+	E.db["cooldown"]["auras"]["colors"]["text"]["a"] = 1
 
 	--[[----------------------------------
 	--	ProfileDB - Bags
@@ -520,7 +524,6 @@ function MER:SetupLayout()
 
 	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
 	E.db["movers"]["MER_EquipmentSetsBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-75,14"
-	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-20"
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,268,-15"
 	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-75"
 
@@ -841,13 +844,13 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["smoothbars"] = true
 	E.db["nameplates"]["statusbar"] = "ElvUI Norm1"
-	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
+	-- E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
-	-- E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "- GothamNarrow-Black"
-	-- E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 9
-	-- E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "- GothamNarrow-Black"
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = "[name]"
@@ -881,11 +884,11 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 9
-	-- E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 10
-	-- E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = "[name]"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = "[name]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
@@ -926,12 +929,12 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 9
-	-- E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 10
-	-- E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = "[name]"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = "[name]"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
@@ -971,9 +974,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 9
-	-- E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["enable"] = true
-	-- E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = "[name]"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = "[name]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["yOffset"] = -9
@@ -999,7 +1002,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["yOffset"] = -9
-	-- E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["format"] = "[difficultycolor][level]"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["format"] = "[difficultycolor][level]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
@@ -1032,10 +1035,10 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 9
-	-- E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["enable"] = true
-	-- E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = "[namecolor][name]"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = "[namecolor][name]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["yOffset"] = -9
@@ -1063,10 +1066,11 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["durationPosition"] = "CENTER"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["keepSizeRatio"] = false
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["auras"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 10
-	-- E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["format"] = "[difficultycolor][level]"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["format"] = "[difficultycolor][level]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["fontSize"] = 9
@@ -1243,7 +1247,7 @@ function MER:SetupUnitframes(layout)
 		["xOffset"] = 0,
 		["yOffset"] = 16,
 		["size"] = 11,
-		-- ["text_format"] = "[classicon-flatborder][name]",
+		["text_format"] = "[classicon-flatborder][name]",
 		["attachTextTo"] = "Frame",
 	}
 
@@ -1252,7 +1256,7 @@ function MER:SetupUnitframes(layout)
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "LEFT",
-		-- ["text_format"] = "[perhp<%]",
+		["text_format"] = "[perhp<%]",
 		["attachTextTo"] = "Frame",
 		["xOffset"] = 0,
 		["yOffset"] = 0,
@@ -1262,18 +1266,17 @@ function MER:SetupUnitframes(layout)
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "RIGHT",
-		-- ["text_format"] = "[health:current:shortvalue]",
+		["text_format"] = "[health:current:shortvalue]",
 		["attachTextTo"] = "Frame",
 		["xOffset"] = 0,
 		["yOffset"] = 0,
 	}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = nil
 	E.db["unitframe"]["units"]["player"]["customTexts"]["MERPower"] = {
 		["font"] = "- GothamNarrow-Black",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 12,
 		["justifyH"] = "CENTER",
-		-- ["text_format"] = "[power]",
+		["text_format"] = "[curpp]",
 		["attachTextTo"] = "Power",
 		["xOffset"] = 0,
 		["yOffset"] = 0,
@@ -1294,7 +1297,7 @@ function MER:SetupUnitframes(layout)
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "LEFT",
-		-- ["text_format"] = "[group]",
+		["text_format"] = "[group]",
 		["attachTextTo"] = "Frame",
 		["xOffset"] = 0,
 		["yOffset"] = -16,
@@ -1394,6 +1397,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["b"] = 1
 	E.db["unitframe"]["units"]["target"]["castbar"]["timeToHold"] = 0.8
 	E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 12
+	E.db["unitframe"]["units"]["target"]["auras"]["enable"] = false
 	E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 28
 	E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 2
 	E.db["unitframe"]["units"]["target"]["debuffs"]["xOffset"] = -2
@@ -1433,7 +1437,7 @@ function MER:SetupUnitframes(layout)
 		["xOffset"] = 2,
 		["yOffset"] = 16,
 		["size"] = 11,
-		-- ["text_format"] = "[classification:icon][name][classicon-flatborder]",
+		["text_format"] = "[classification:icon][name]",
 		["attachTextTo"] = "Frame",
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
@@ -1441,7 +1445,7 @@ function MER:SetupUnitframes(layout)
 		["size"] = 11,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "RIGHT",
-		-- ["text_format"] = "[perhp<%]",
+		["text_format"] = "[perhp<%]",
 		["attachTextTo"] = "Health",
 		["yOffset"] = -1,
 		["xOffset"] = 0,
@@ -1451,7 +1455,7 @@ function MER:SetupUnitframes(layout)
 		["size"] = 11,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "LEFT",
-		-- ["text_format"] = "[health:current:shortvalue]",
+		["text_format"] = "[health:current:shortvalue]",
 		["attachTextTo"] = "Health",
 		["yOffset"] = -1,
 		["xOffset"] = 0,
@@ -1461,7 +1465,7 @@ function MER:SetupUnitframes(layout)
 		["size"] = 11,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "RIGHT",
-		-- ["text_format"] = "[power:current:shortvalue]",
+		["text_format"] = "[curpp]",
 		["attachTextTo"] = "Health",
 		["yOffset"] = -19,
 		["xOffset"] = 3,
@@ -1550,691 +1554,691 @@ function MER:SetupUnitframes(layout)
 	-- E.db["unitframe"]["units"]["targettarget"]["cutaway"]["health"]["enabled"] = true
 
 	-- Focus
-	-- E.db["unitframe"]["units"]["focus"]["width"] = 100
-	-- E.db["unitframe"]["units"]["focus"]["height"] = 32
-	-- E.db["unitframe"]["units"]["focus"]["disableMouseoverGlow"] = false
-	-- E.db["unitframe"]["units"]["focus"]["name"]["attachTextTo"] = "Health"
-	-- E.db["unitframe"]["units"]["focus"]["name"]["position"] = "CENTER"
-	-- E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[namecolor][name:medium]"
-	-- E.db["unitframe"]["units"]["focus"]["health"]["position"] = "LEFT"
-	-- E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["focus"]["health"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["focus"]["health"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["focus"]["health"]["attachTextTo"] = "InfoPanel"
-	-- E.db["unitframe"]["units"]["focus"]["health"]["bgUseBarTexture"] = true
-	-- E.db["unitframe"]["units"]["focus"]["power"]["position"] = "RIGHT"
-	-- E.db["unitframe"]["units"]["focus"]["power"]["height"] = 6
-	-- E.db["unitframe"]["units"]["focus"]["power"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["focus"]["power"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["focus"]["power"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["focus"]["power"]["attachTextTo"] = "InfoPanel"
-	-- E.db["unitframe"]["units"]["focus"]["castbar"]["enable"] = true
-	-- E.db["unitframe"]["units"]["focus"]["castbar"]["latency"] = true
-	-- E.db["unitframe"]["units"]["focus"]["castbar"]["insideInfoPanel"] = false
-	-- E.db["unitframe"]["units"]["focus"]["castbar"]["iconSize"] = 20
-	-- E.db["unitframe"]["units"]["focus"]["castbar"]["height"] = 18
-	-- E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 100
-	-- E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
-	-- E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
-	-- E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
-	-- E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
+	E.db["unitframe"]["units"]["focus"]["width"] = 100
+	E.db["unitframe"]["units"]["focus"]["height"] = 32
+	E.db["unitframe"]["units"]["focus"]["disableMouseoverGlow"] = false
+	E.db["unitframe"]["units"]["focus"]["name"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["focus"]["name"]["position"] = "CENTER"
+	E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[namecolor][name:medium]"
+	E.db["unitframe"]["units"]["focus"]["health"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = ""
+	E.db["unitframe"]["units"]["focus"]["health"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["focus"]["health"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["focus"]["health"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["focus"]["health"]["bgUseBarTexture"] = true
+	E.db["unitframe"]["units"]["focus"]["power"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["focus"]["power"]["height"] = 6
+	E.db["unitframe"]["units"]["focus"]["power"]["text_format"] = ""
+	E.db["unitframe"]["units"]["focus"]["power"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["focus"]["power"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["focus"]["power"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["focus"]["castbar"]["enable"] = true
+	E.db["unitframe"]["units"]["focus"]["castbar"]["latency"] = true
+	E.db["unitframe"]["units"]["focus"]["castbar"]["insideInfoPanel"] = false
+	E.db["unitframe"]["units"]["focus"]["castbar"]["iconSize"] = 20
+	E.db["unitframe"]["units"]["focus"]["castbar"]["height"] = 18
+	E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 100
+	E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
+	E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
+	E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
+	E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
 
 	-- FocusTarget
-	-- E.db["unitframe"]["units"]["focustarget"]["enable"] = false
+	E.db["unitframe"]["units"]["focustarget"]["enable"] = false
 
 	-- Raid1
-	-- E.db["unitframe"]["units"]["raid1"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["height"] = 35
-	-- E.db["unitframe"]["units"]["raid1"]["width"] = 83
-	-- E.db["unitframe"]["units"]["raid1"]["threatStyle"] = "GLOW"
-	-- E.db["unitframe"]["units"]["raid1"]["orientation"] = "MIDDLE"
-	-- E.db["unitframe"]["units"]["raid1"]["horizontalSpacing"] = 3
-	-- E.db["unitframe"]["units"]["raid1"]["verticalSpacing"] = 2
-	-- E.db["unitframe"]["units"]["raid1"]["disableMouseoverGlow"] = false
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFontSize"] = 12
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["clickThrough"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["yOffset"] = -8
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["sizeOverride"] = 15
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["maxDuration"] = 0
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["priority"] =
-	-- "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["growthX"] = "LEFT"
-	-- E.db["unitframe"]["units"]["raid1"]["debuffs"]["perrow"] = 5
-	-- E.db["unitframe"]["units"]["raid1"]["rdebuffs"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid1"]["rdebuffs"]["font"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid1"]["rdebuffs"]["fontSize"] = 10
-	-- E.db["unitframe"]["units"]["raid1"]["rdebuffs"]["size"] = 20
-	-- E.db["unitframe"]["units"]["raid1"]["numGroups"] = 5
-	-- E.db["unitframe"]["units"]["raid1"]["growthDirection"] = "RIGHT_UP"
-	-- E.db["unitframe"]["units"]["raid1"]["portrait"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid1"]["name"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["raid1"]["buffIndicator"]["fontSize"] = 11
-	-- E.db["unitframe"]["units"]["raid1"]["buffIndicator"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["position"] = "TOPLEFT"
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["xOffset"] = 1
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["yOffset"] = -1
-	-- E.db["unitframe"]["units"]["raid1"]["power"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["power"]["height"] = 4
-	-- E.db["unitframe"]["units"]["raid1"]["power"]["hideonnpc"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["power"]["powerPrediction"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["power"]["onlyHealer"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["groupBy"] = "ROLE"
-	-- E.db["unitframe"]["units"]["raid1"]["health"]["frequentUpdates"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["health"]["position"] = "BOTTOM"
-	-- E.db["unitframe"]["units"]["raid1"]["health"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["raid1"]["health"]["attachTextTo"] = "Health"
-	-- E.db["unitframe"]["units"]["raid1"]["health"]["bgUseBarTexture"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["yOffset"] = 5
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["anchorPoint"] = "CENTER"
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["clickThrough"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["useBlacklist"] = false
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["useWhitelist"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["noDuration"] = false
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["playerOnly"] = false
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["perrow"] = 1
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["useFilter"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["noConsolidated"] = false
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["sizeOverride"] = 20
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["useFilter"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid1"]["buffs"]["priority"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid1"]["raidicon"]["attachTo"] = "CENTER"
-	-- E.db["unitframe"]["units"]["raid1"]["raidicon"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid1"]["raidicon"]["yOffset"] = 5
-	-- E.db["unitframe"]["units"]["raid1"]["raidicon"]["size"] = 15
-	-- E.db["unitframe"]["units"]["raid1"]["raidicon"]["yOffset"] = 0
-	-- if not E.db["unitframe"]["units"]["raid1"]["customTexts"] then
-	-- E.db["unitframe"]["units"]["raid1"]["customTexts"] = {}
-	-- end
+	E.db["unitframe"]["units"]["raid1"]["enable"] = true
+	E.db["unitframe"]["units"]["raid1"]["height"] = 35
+	E.db["unitframe"]["units"]["raid1"]["width"] = 83
+	E.db["unitframe"]["units"]["raid1"]["threatStyle"] = "GLOW"
+	E.db["unitframe"]["units"]["raid1"]["orientation"] = "MIDDLE"
+	E.db["unitframe"]["units"]["raid1"]["horizontalSpacing"] = 3
+	E.db["unitframe"]["units"]["raid1"]["verticalSpacing"] = 2
+	E.db["unitframe"]["units"]["raid1"]["disableMouseoverGlow"] = false
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFontSize"] = 12
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["enable"] = true
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["clickThrough"] = true
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["yOffset"] = -8
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["sizeOverride"] = 15
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["maxDuration"] = 0
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["priority"] =
+		"Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["growthX"] = "LEFT"
+	E.db["unitframe"]["units"]["raid1"]["debuffs"]["perrow"] = 5
+	E.db["unitframe"]["units"]["raid1"]["rdebuffs"]["enable"] = false
+	E.db["unitframe"]["units"]["raid1"]["rdebuffs"]["font"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid1"]["rdebuffs"]["fontSize"] = 10
+	E.db["unitframe"]["units"]["raid1"]["rdebuffs"]["size"] = 20
+	E.db["unitframe"]["units"]["raid1"]["numGroups"] = 5
+	E.db["unitframe"]["units"]["raid1"]["growthDirection"] = "RIGHT_UP"
+	E.db["unitframe"]["units"]["raid1"]["portrait"]["enable"] = false
+	E.db["unitframe"]["units"]["raid1"]["name"]["text_format"] = ""
+	E.db["unitframe"]["units"]["raid1"]["buffIndicator"]["fontSize"] = 11
+	E.db["unitframe"]["units"]["raid1"]["buffIndicator"]["size"] = 10
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["size"] = 10
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["position"] = "TOPLEFT"
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["yOffset"] = -1
+	E.db["unitframe"]["units"]["raid1"]["power"]["enable"] = true
+	E.db["unitframe"]["units"]["raid1"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["raid1"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["raid1"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["raid1"]["power"]["onlyHealer"] = true
+	E.db["unitframe"]["units"]["raid1"]["groupBy"] = "ROLE"
+	E.db["unitframe"]["units"]["raid1"]["health"]["frequentUpdates"] = true
+	E.db["unitframe"]["units"]["raid1"]["health"]["position"] = "BOTTOM"
+	E.db["unitframe"]["units"]["raid1"]["health"]["text_format"] = ""
+	E.db["unitframe"]["units"]["raid1"]["health"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["raid1"]["health"]["bgUseBarTexture"] = true
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["enable"] = true
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["yOffset"] = 5
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["anchorPoint"] = "CENTER"
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["clickThrough"] = true
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["useBlacklist"] = false
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["useWhitelist"] = true
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["noDuration"] = false
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["playerOnly"] = false
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["perrow"] = 1
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["useFilter"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["noConsolidated"] = false
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["sizeOverride"] = 20
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["useFilter"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid1"]["buffs"]["priority"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid1"]["raidicon"]["attachTo"] = "CENTER"
+	E.db["unitframe"]["units"]["raid1"]["raidicon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid1"]["raidicon"]["yOffset"] = 5
+	E.db["unitframe"]["units"]["raid1"]["raidicon"]["size"] = 15
+	E.db["unitframe"]["units"]["raid1"]["raidicon"]["yOffset"] = 0
+	if not E.db["unitframe"]["units"]["raid1"]["customTexts"] then
+		E.db["unitframe"]["units"]["raid1"]["customTexts"] = {}
+	end
 	-- Delete old customTexts/ Create empty table
-	-- E.db["unitframe"]["units"]["raid1"]["customTexts"] = {}
+	E.db["unitframe"]["units"]["raid1"]["customTexts"] = {}
 	-- Create own customTexts
-	-- E.db["unitframe"]["units"]["raid1"]["customTexts"]["Status"] = {
-	-- ["font"] = "- GothamNarrow-Black",
-	-- ["justifyH"] = "CENTER",
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["xOffset"] = 0,
-	-- ["yOffset"] = -12,
-	-- ["size"] = 9,
-	-- ["attachTextTo"] = "Health",
-	-- ["text_format"] = "[statustimer]",
-	-- }
-	-- E.db["unitframe"]["units"]["raid1"]["customTexts"]["name1"] = {
-	-- ["font"] = "- GothamNarrow-Black",
-	-- ["size"] = 9,
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["justifyH"] = "CENTER",
-	-- ["yOffset"] = 0,
-	-- ["xOffset"] = 0,
-	-- ["attachTextTo"] = "Health",
-	-- ["text_format"] = "[name:gradient]",
-	-- }
-	-- E.db["unitframe"]["units"]["raid1"]["infoPanel"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid1"]["infoPanel"]["height"] = 13
-	-- E.db["unitframe"]["units"]["raid1"]["infoPanel"]["transparent"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["damager"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["tank"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["heal"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["attachTo"] = "Health"
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["yOffset"] = -1
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["xOffset"] = 1
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid1"]["roleIcon"]["position"] = "TOPLEFT"
+	E.db["unitframe"]["units"]["raid1"]["customTexts"]["Status"] = {
+		["font"] = "- GothamNarrow-Black",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = -12,
+		["size"] = 9,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[statustimer]",
+	}
+	E.db["unitframe"]["units"]["raid1"]["customTexts"]["name1"] = {
+		["font"] = "- GothamNarrow-Black",
+		["size"] = 9,
+		["fontOutline"] = "SHADOWOUTLINE",
+		["justifyH"] = "CENTER",
+		["yOffset"] = 0,
+		["xOffset"] = 0,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[name]",
+	}
+	E.db["unitframe"]["units"]["raid1"]["infoPanel"]["enable"] = false
+	E.db["unitframe"]["units"]["raid1"]["infoPanel"]["height"] = 13
+	E.db["unitframe"]["units"]["raid1"]["infoPanel"]["transparent"] = true
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["enable"] = true
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["damager"] = true
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["tank"] = true
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["heal"] = true
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["attachTo"] = "Health"
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["yOffset"] = -1
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["size"] = 10
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["position"] = "TOPLEFT"
 	--
-	-- if layout == "gradient" then
-	-- E.db["unitframe"]["units"]["raid1"]["colorOverride"] = "USE_DEFAULT"
-	-- elseif layout == "dark" then
-	-- E.db["unitframe"]["units"]["raid1"]["colorOverride"] = "FORCE_OFF"
-	-- end
-	-- E.db["unitframe"]["units"]["raid1"]["readycheckIcon"]["size"] = 20
-	-- E.db["unitframe"]["units"]["raid1"]["healPrediction"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid1"]["healPrediction"]["absorbStyle"] = "NORMAL"
-	-- E.db["unitframe"]["units"]["raid1"]["healPrediction"]["anchorPoint"] = "BOTTOM"
-	-- E.db["unitframe"]["units"]["raid1"]["healPrediction"]["height"] = -1
-	-- E.db["unitframe"]["units"]["raid1"]["cutaway"]["health"]["enabled"] = true
+	if layout == "gradient" then
+		E.db["unitframe"]["units"]["raid1"]["colorOverride"] = "USE_DEFAULT"
+	elseif layout == "dark" then
+		E.db["unitframe"]["units"]["raid1"]["colorOverride"] = "FORCE_OFF"
+	end
+	E.db["unitframe"]["units"]["raid1"]["readycheckIcon"]["size"] = 20
+	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["enable"] = true
+	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["absorbStyle"] = "NORMAL"
+	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["height"] = -1
+	E.db["unitframe"]["units"]["raid1"]["cutaway"]["health"]["enabled"] = true
 
 	-- Raid2
-	-- E.db["unitframe"]["units"]["raid2"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["height"] = 35
-	-- E.db["unitframe"]["units"]["raid2"]["width"] = 83
-	-- E.db["unitframe"]["units"]["raid2"]["threatStyle"] = "GLOW"
-	-- E.db["unitframe"]["units"]["raid2"]["orientation"] = "MIDDLE"
-	-- E.db["unitframe"]["units"]["raid2"]["horizontalSpacing"] = 3
-	-- E.db["unitframe"]["units"]["raid2"]["verticalSpacing"] = 2
-	-- E.db["unitframe"]["units"]["raid2"]["disableMouseoverGlow"] = false
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFontSize"] = 12
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["clickThrough"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["yOffset"] = -8
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["sizeOverride"] = 15
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["maxDuration"] = 0
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["priority"] =
-	-- "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["growthX"] = "LEFT"
-	-- E.db["unitframe"]["units"]["raid2"]["debuffs"]["perrow"] = 5
-	-- E.db["unitframe"]["units"]["raid2"]["rdebuffs"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid2"]["rdebuffs"]["font"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid2"]["rdebuffs"]["fontSize"] = 10
-	-- E.db["unitframe"]["units"]["raid2"]["rdebuffs"]["size"] = 20
-	-- E.db["unitframe"]["units"]["raid2"]["numGroups"] = 5
-	-- E.db["unitframe"]["units"]["raid2"]["growthDirection"] = "RIGHT_UP"
-	-- E.db["unitframe"]["units"]["raid2"]["portrait"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid2"]["name"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["raid2"]["buffIndicator"]["fontSize"] = 11
-	-- E.db["unitframe"]["units"]["raid2"]["buffIndicator"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["position"] = "TOPLEFT"
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["xOffset"] = 1
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["yOffset"] = -1
-	-- E.db["unitframe"]["units"]["raid2"]["power"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["power"]["height"] = 4
-	-- E.db["unitframe"]["units"]["raid2"]["power"]["hideonnpc"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["power"]["powerPrediction"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["power"]["onlyHealer"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["groupBy"] = "ROLE"
-	-- E.db["unitframe"]["units"]["raid2"]["health"]["frequentUpdates"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["health"]["position"] = "BOTTOM"
-	-- E.db["unitframe"]["units"]["raid2"]["health"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["raid2"]["health"]["attachTextTo"] = "Health"
-	-- E.db["unitframe"]["units"]["raid2"]["health"]["bgUseBarTexture"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["yOffset"] = 5
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["anchorPoint"] = "CENTER"
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["clickThrough"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["useBlacklist"] = false
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["useWhitelist"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["noDuration"] = false
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["playerOnly"] = false
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["perrow"] = 1
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["useFilter"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["noConsolidated"] = false
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["sizeOverride"] = 20
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["useFilter"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid2"]["buffs"]["priority"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid2"]["raidicon"]["attachTo"] = "CENTER"
-	-- E.db["unitframe"]["units"]["raid2"]["raidicon"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid2"]["raidicon"]["yOffset"] = 5
-	-- E.db["unitframe"]["units"]["raid2"]["raidicon"]["size"] = 15
-	-- E.db["unitframe"]["units"]["raid2"]["raidicon"]["yOffset"] = 0
-	-- if not E.db["unitframe"]["units"]["raid2"]["customTexts"] then
-	-- E.db["unitframe"]["units"]["raid2"]["customTexts"] = {}
-	-- end
+	E.db["unitframe"]["units"]["raid2"]["enable"] = true
+	E.db["unitframe"]["units"]["raid2"]["height"] = 35
+	E.db["unitframe"]["units"]["raid2"]["width"] = 83
+	E.db["unitframe"]["units"]["raid2"]["threatStyle"] = "GLOW"
+	E.db["unitframe"]["units"]["raid2"]["orientation"] = "MIDDLE"
+	E.db["unitframe"]["units"]["raid2"]["horizontalSpacing"] = 3
+	E.db["unitframe"]["units"]["raid2"]["verticalSpacing"] = 2
+	E.db["unitframe"]["units"]["raid2"]["disableMouseoverGlow"] = false
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFontSize"] = 12
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["enable"] = true
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["clickThrough"] = true
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["yOffset"] = -8
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["sizeOverride"] = 15
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["maxDuration"] = 0
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["priority"] =
+		"Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["growthX"] = "LEFT"
+	E.db["unitframe"]["units"]["raid2"]["debuffs"]["perrow"] = 5
+	E.db["unitframe"]["units"]["raid2"]["rdebuffs"]["enable"] = false
+	E.db["unitframe"]["units"]["raid2"]["rdebuffs"]["font"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid2"]["rdebuffs"]["fontSize"] = 10
+	E.db["unitframe"]["units"]["raid2"]["rdebuffs"]["size"] = 20
+	E.db["unitframe"]["units"]["raid2"]["numGroups"] = 5
+	E.db["unitframe"]["units"]["raid2"]["growthDirection"] = "RIGHT_UP"
+	E.db["unitframe"]["units"]["raid2"]["portrait"]["enable"] = false
+	E.db["unitframe"]["units"]["raid2"]["name"]["text_format"] = ""
+	E.db["unitframe"]["units"]["raid2"]["buffIndicator"]["fontSize"] = 11
+	E.db["unitframe"]["units"]["raid2"]["buffIndicator"]["size"] = 10
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["size"] = 10
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["position"] = "TOPLEFT"
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["yOffset"] = -1
+	E.db["unitframe"]["units"]["raid2"]["power"]["enable"] = true
+	E.db["unitframe"]["units"]["raid2"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["raid2"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["raid2"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["raid2"]["power"]["onlyHealer"] = true
+	E.db["unitframe"]["units"]["raid2"]["groupBy"] = "ROLE"
+	E.db["unitframe"]["units"]["raid2"]["health"]["frequentUpdates"] = true
+	E.db["unitframe"]["units"]["raid2"]["health"]["position"] = "BOTTOM"
+	E.db["unitframe"]["units"]["raid2"]["health"]["text_format"] = ""
+	E.db["unitframe"]["units"]["raid2"]["health"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["raid2"]["health"]["bgUseBarTexture"] = true
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["enable"] = true
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["yOffset"] = 5
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["anchorPoint"] = "CENTER"
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["clickThrough"] = true
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["useBlacklist"] = false
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["useWhitelist"] = true
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["noDuration"] = false
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["playerOnly"] = false
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["perrow"] = 1
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["useFilter"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["noConsolidated"] = false
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["sizeOverride"] = 20
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["useFilter"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid2"]["buffs"]["priority"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid2"]["raidicon"]["attachTo"] = "CENTER"
+	E.db["unitframe"]["units"]["raid2"]["raidicon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid2"]["raidicon"]["yOffset"] = 5
+	E.db["unitframe"]["units"]["raid2"]["raidicon"]["size"] = 15
+	E.db["unitframe"]["units"]["raid2"]["raidicon"]["yOffset"] = 0
+	if not E.db["unitframe"]["units"]["raid2"]["customTexts"] then
+		E.db["unitframe"]["units"]["raid2"]["customTexts"] = {}
+	end
 	-- Delete old customTexts/ Create empty table
-	-- E.db["unitframe"]["units"]["raid2"]["customTexts"] = {}
+	E.db["unitframe"]["units"]["raid2"]["customTexts"] = {}
 	-- Create own customTexts
-	-- E.db["unitframe"]["units"]["raid2"]["customTexts"]["Status"] = {
-	-- ["font"] = "- GothamNarrow-Black",
-	-- ["justifyH"] = "CENTER",
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["xOffset"] = 0,
-	-- ["yOffset"] = -12,
-	-- ["size"] = 9,
-	-- ["attachTextTo"] = "Health",
-	-- ["text_format"] = "[statustimer]",
-	-- }
-	-- E.db["unitframe"]["units"]["raid2"]["customTexts"]["name1"] = {
-	-- ["font"] = "- GothamNarrow-Black",
-	-- ["size"] = 9,
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["justifyH"] = "CENTER",
-	-- ["yOffset"] = 0,
-	-- ["xOffset"] = 0,
-	-- ["attachTextTo"] = "Health",
-	-- ["text_format"] = "[name:gradient]",
-	-- }
-	-- E.db["unitframe"]["units"]["raid2"]["infoPanel"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid2"]["infoPanel"]["height"] = 13
-	-- E.db["unitframe"]["units"]["raid2"]["infoPanel"]["transparent"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["damager"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["tank"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["heal"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["attachTo"] = "Health"
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["yOffset"] = -1
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["xOffset"] = 1
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid2"]["roleIcon"]["position"] = "TOPLEFT"
-	--
-	-- if layout == "gradient" then
-	-- E.db["unitframe"]["units"]["raid2"]["colorOverride"] = "USE_DEFAULT"
-	-- elseif layout == "dark" then
-	-- E.db["unitframe"]["units"]["raid2"]["colorOverride"] = "FORCE_OFF"
-	-- end
-	-- E.db["unitframe"]["units"]["raid2"]["readycheckIcon"]["size"] = 20
-	-- E.db["unitframe"]["units"]["raid2"]["healPrediction"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid2"]["healPrediction"]["absorbStyle"] = "NORMAL"
-	-- E.db["unitframe"]["units"]["raid2"]["healPrediction"]["anchorPoint"] = "BOTTOM"
-	-- E.db["unitframe"]["units"]["raid2"]["healPrediction"]["height"] = -1
-	-- E.db["unitframe"]["units"]["raid2"]["cutaway"]["health"]["enabled"] = true
+	E.db["unitframe"]["units"]["raid2"]["customTexts"]["Status"] = {
+		["font"] = "- GothamNarrow-Black",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = -12,
+		["size"] = 9,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[statustimer]",
+	}
+	E.db["unitframe"]["units"]["raid2"]["customTexts"]["name1"] = {
+		["font"] = "- GothamNarrow-Black",
+		["size"] = 9,
+		["fontOutline"] = "SHADOWOUTLINE",
+		["justifyH"] = "CENTER",
+		["yOffset"] = 0,
+		["xOffset"] = 0,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[name:gradient]",
+	}
+	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["enable"] = false
+	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["height"] = 13
+	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["transparent"] = true
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["enable"] = true
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["damager"] = true
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["tank"] = true
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["heal"] = true
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["attachTo"] = "Health"
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["yOffset"] = -1
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["size"] = 10
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["position"] = "TOPLEFT"
+
+	if layout == "gradient" then
+		E.db["unitframe"]["units"]["raid2"]["colorOverride"] = "USE_DEFAULT"
+	elseif layout == "dark" then
+		E.db["unitframe"]["units"]["raid2"]["colorOverride"] = "FORCE_OFF"
+	end
+	E.db["unitframe"]["units"]["raid2"]["readycheckIcon"]["size"] = 20
+	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["enable"] = true
+	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["absorbStyle"] = "NORMAL"
+	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["height"] = -1
+	E.db["unitframe"]["units"]["raid2"]["cutaway"]["health"]["enabled"] = true
 
 	-- Raid3
-	-- E.db["unitframe"]["units"]["raid3"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["height"] = 35
-	-- E.db["unitframe"]["units"]["raid3"]["width"] = 83
-	-- E.db["unitframe"]["units"]["raid3"]["threatStyle"] = "GLOW"
-	-- E.db["unitframe"]["units"]["raid3"]["orientation"] = "MIDDLE"
-	-- E.db["unitframe"]["units"]["raid3"]["horizontalSpacing"] = 3
-	-- E.db["unitframe"]["units"]["raid3"]["verticalSpacing"] = 2
-	-- E.db["unitframe"]["units"]["raid3"]["disableMouseoverGlow"] = false
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFontSize"] = 12
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["clickThrough"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["yOffset"] = -8
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["sizeOverride"] = 15
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["maxDuration"] = 0
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["priority"] =
-	-- "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["growthX"] = "LEFT"
-	-- E.db["unitframe"]["units"]["raid3"]["debuffs"]["perrow"] = 5
-	-- E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["font"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["fontSize"] = 10
-	-- E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["size"] = 20
-	-- E.db["unitframe"]["units"]["raid3"]["numGroups"] = 8
-	-- E.db["unitframe"]["units"]["raid3"]["growthDirection"] = "RIGHT_UP"
-	-- E.db["unitframe"]["units"]["raid3"]["portrait"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid3"]["name"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["raid3"]["buffIndicator"]["fontSize"] = 11
-	-- E.db["unitframe"]["units"]["raid3"]["buffIndicator"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["position"] = "TOPLEFT"
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["xOffset"] = 1
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["yOffset"] = -1
-	-- E.db["unitframe"]["units"]["raid3"]["power"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["power"]["height"] = 4
-	-- E.db["unitframe"]["units"]["raid3"]["power"]["hideonnpc"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["power"]["powerPrediction"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["power"]["onlyHealer"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["groupBy"] = "ROLE"
-	-- E.db["unitframe"]["units"]["raid3"]["health"]["frequentUpdates"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["health"]["position"] = "BOTTOM"
-	-- E.db["unitframe"]["units"]["raid3"]["health"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["raid3"]["health"]["attachTextTo"] = "Health"
-	-- E.db["unitframe"]["units"]["raid3"]["health"]["bgUseBarTexture"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["yOffset"] = 5
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["anchorPoint"] = "CENTER"
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["clickThrough"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["useBlacklist"] = false
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["useWhitelist"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["noDuration"] = false
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["playerOnly"] = false
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["perrow"] = 1
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["useFilter"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["noConsolidated"] = false
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["sizeOverride"] = 20
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["useFilter"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid3"]["buffs"]["priority"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["raid3"]["raidicon"]["attachTo"] = "CENTER"
-	-- E.db["unitframe"]["units"]["raid3"]["raidicon"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["raid3"]["raidicon"]["yOffset"] = 5
-	-- E.db["unitframe"]["units"]["raid3"]["raidicon"]["size"] = 15
-	-- E.db["unitframe"]["units"]["raid3"]["raidicon"]["yOffset"] = 0
-	-- if not E.db["unitframe"]["units"]["raid3"]["customTexts"] then
-	-- E.db["unitframe"]["units"]["raid3"]["customTexts"] = {}
-	-- end
+	E.db["unitframe"]["units"]["raid3"]["enable"] = true
+	E.db["unitframe"]["units"]["raid3"]["height"] = 35
+	E.db["unitframe"]["units"]["raid3"]["width"] = 83
+	E.db["unitframe"]["units"]["raid3"]["threatStyle"] = "GLOW"
+	E.db["unitframe"]["units"]["raid3"]["orientation"] = "MIDDLE"
+	E.db["unitframe"]["units"]["raid3"]["horizontalSpacing"] = 3
+	E.db["unitframe"]["units"]["raid3"]["verticalSpacing"] = 2
+	E.db["unitframe"]["units"]["raid3"]["disableMouseoverGlow"] = false
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFontSize"] = 12
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["enable"] = true
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["clickThrough"] = true
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["yOffset"] = -8
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["sizeOverride"] = 15
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["maxDuration"] = 0
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["priority"] =
+		"Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["growthX"] = "LEFT"
+	E.db["unitframe"]["units"]["raid3"]["debuffs"]["perrow"] = 5
+	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["enable"] = false
+	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["font"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["fontSize"] = 10
+	E.db["unitframe"]["units"]["raid3"]["rdebuffs"]["size"] = 20
+	E.db["unitframe"]["units"]["raid3"]["numGroups"] = 8
+	E.db["unitframe"]["units"]["raid3"]["growthDirection"] = "RIGHT_UP"
+	E.db["unitframe"]["units"]["raid3"]["portrait"]["enable"] = false
+	E.db["unitframe"]["units"]["raid3"]["name"]["text_format"] = ""
+	E.db["unitframe"]["units"]["raid3"]["buffIndicator"]["fontSize"] = 11
+	E.db["unitframe"]["units"]["raid3"]["buffIndicator"]["size"] = 10
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["size"] = 10
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["position"] = "TOPLEFT"
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["yOffset"] = -1
+	E.db["unitframe"]["units"]["raid3"]["power"]["enable"] = true
+	E.db["unitframe"]["units"]["raid3"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["raid3"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["raid3"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["raid3"]["power"]["onlyHealer"] = true
+	E.db["unitframe"]["units"]["raid3"]["groupBy"] = "ROLE"
+	E.db["unitframe"]["units"]["raid3"]["health"]["frequentUpdates"] = true
+	E.db["unitframe"]["units"]["raid3"]["health"]["position"] = "BOTTOM"
+	E.db["unitframe"]["units"]["raid3"]["health"]["text_format"] = ""
+	E.db["unitframe"]["units"]["raid3"]["health"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["raid3"]["health"]["bgUseBarTexture"] = true
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["enable"] = true
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["yOffset"] = 5
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["anchorPoint"] = "CENTER"
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["clickThrough"] = true
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["useBlacklist"] = false
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["useWhitelist"] = true
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["noDuration"] = false
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["playerOnly"] = false
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["perrow"] = 1
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["useFilter"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["noConsolidated"] = false
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["sizeOverride"] = 20
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["useFilter"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid3"]["buffs"]["priority"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid3"]["raidicon"]["attachTo"] = "CENTER"
+	E.db["unitframe"]["units"]["raid3"]["raidicon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid3"]["raidicon"]["yOffset"] = 5
+	E.db["unitframe"]["units"]["raid3"]["raidicon"]["size"] = 15
+	E.db["unitframe"]["units"]["raid3"]["raidicon"]["yOffset"] = 0
+	if not E.db["unitframe"]["units"]["raid3"]["customTexts"] then
+		E.db["unitframe"]["units"]["raid3"]["customTexts"] = {}
+	end
 	-- Delete old customTexts/ Create empty table
-	-- E.db["unitframe"]["units"]["raid3"]["customTexts"] = {}
+	E.db["unitframe"]["units"]["raid3"]["customTexts"] = {}
 	-- Create own customTexts
-	-- E.db["unitframe"]["units"]["raid3"]["customTexts"]["Status"] = {
-	-- ["font"] = "- GothamNarrow-Black",
-	-- ["justifyH"] = "CENTER",
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["xOffset"] = 0,
-	-- ["yOffset"] = -12,
-	-- ["size"] = 9,
-	-- ["attachTextTo"] = "Health",
-	-- ["text_format"] = "[statustimer]",
-	-- }
-	-- E.db["unitframe"]["units"]["raid3"]["customTexts"]["name1"] = {
-	-- ["font"] = "- GothamNarrow-Black",
-	-- ["size"] = 9,
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["justifyH"] = "CENTER",
-	-- ["yOffset"] = 0,
-	-- ["xOffset"] = 0,
-	-- ["attachTextTo"] = "Health",
-	-- ["text_format"] = "[name:gradient]",
-	-- }
-	-- E.db["unitframe"]["units"]["raid3"]["infoPanel"]["enable"] = false
-	-- E.db["unitframe"]["units"]["raid3"]["infoPanel"]["height"] = 13
-	-- E.db["unitframe"]["units"]["raid3"]["infoPanel"]["transparent"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["damager"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["tank"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["heal"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["attachTo"] = "Health"
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["yOffset"] = -1
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["xOffset"] = 1
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["size"] = 10
-	-- E.db["unitframe"]["units"]["raid3"]["roleIcon"]["position"] = "TOPLEFT"
-	--
-	-- if layout == "gradient" then
-	-- E.db["unitframe"]["units"]["raid3"]["colorOverride"] = "USE_DEFAULT"
-	-- elseif layout == "dark" then
-	-- E.db["unitframe"]["units"]["raid3"]["colorOverride"] = "FORCE_OFF"
-	-- end
-	-- E.db["unitframe"]["units"]["raid3"]["readycheckIcon"]["size"] = 20
-	-- E.db["unitframe"]["units"]["raid3"]["healPrediction"]["enable"] = true
-	-- E.db["unitframe"]["units"]["raid3"]["healPrediction"]["absorbStyle"] = "NORMAL"
-	-- E.db["unitframe"]["units"]["raid3"]["healPrediction"]["anchorPoint"] = "BOTTOM"
-	-- E.db["unitframe"]["units"]["raid3"]["healPrediction"]["height"] = -1
-	-- E.db["unitframe"]["units"]["raid3"]["cutaway"]["health"]["enabled"] = true
+	E.db["unitframe"]["units"]["raid3"]["customTexts"]["Status"] = {
+		["font"] = "- GothamNarrow-Black",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = -12,
+		["size"] = 9,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[statustimer]",
+	}
+	E.db["unitframe"]["units"]["raid3"]["customTexts"]["name1"] = {
+		["font"] = "- GothamNarrow-Black",
+		["size"] = 9,
+		["fontOutline"] = "SHADOWOUTLINE",
+		["justifyH"] = "CENTER",
+		["yOffset"] = 0,
+		["xOffset"] = 0,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[name:gradient]",
+	}
+	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["enable"] = false
+	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["height"] = 13
+	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["transparent"] = true
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["enable"] = true
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["damager"] = true
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["tank"] = true
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["heal"] = true
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["attachTo"] = "Health"
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["yOffset"] = -1
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["size"] = 10
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["position"] = "TOPLEFT"
+
+	if layout == "gradient" then
+		E.db["unitframe"]["units"]["raid3"]["colorOverride"] = "USE_DEFAULT"
+	elseif layout == "dark" then
+		E.db["unitframe"]["units"]["raid3"]["colorOverride"] = "FORCE_OFF"
+	end
+	E.db["unitframe"]["units"]["raid3"]["readycheckIcon"]["size"] = 20
+	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["enable"] = true
+	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["absorbStyle"] = "NORMAL"
+	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["height"] = -1
+	E.db["unitframe"]["units"]["raid3"]["cutaway"]["health"]["enabled"] = true
 
 	-- Party
-	-- E.db["unitframe"]["units"]["party"]["enable"] = true
-	-- E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
-	-- E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
-	-- E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
-	-- E.db["unitframe"]["units"]["party"]["showPlayer"] = false
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 32
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = -2
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["clickThrough"] = true
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["spacing"] = 1
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["attachTo"] = "FRAME"
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] =
-	-- "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "LEFT"
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 2
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "SHADOWOUTLINE"
-	-- E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
-	-- E.db["unitframe"]["units"]["party"]["rdebuffs"]["yOffset"] = 12
-	-- E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
-	-- E.db["unitframe"]["units"]["party"]["buffIndicator"]["fontSize"] = 11
-	-- E.db["unitframe"]["units"]["party"]["orientation"] = "MIDDLE"
-	-- E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 1
-	-- E.db["unitframe"]["units"]["party"]["roleIcon"]["enable"] = true
-	-- E.db["unitframe"]["units"]["party"]["roleIcon"]["xOffset"] = 1
-	-- E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 11
-	-- E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "LEFT"
-	-- E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["party"]["targetsGroup"]["enable"] = false
-	-- E.db["unitframe"]["units"]["party"]["targetsGroup"]["anchorPoint"] = "BOTTOM"
-	-- E.db["unitframe"]["units"]["party"]["targetsGroup"]["name"]["text_format"] = "[name:short]"
-	-- E.db["unitframe"]["units"]["party"]["targetsGroup"]["height"] = 16
-	-- E.db["unitframe"]["units"]["party"]["targetsGroup"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 79
-	-- E.db["unitframe"]["units"]["party"]["readycheckIcon"]["size"] = 20
-	-- E.db["unitframe"]["units"]["party"]["power"]["enable"] = true
-	-- E.db["unitframe"]["units"]["party"]["power"]["height"] = 4
-	-- E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
-	-- E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
-	-- E.db["unitframe"]["units"]["party"]["power"]["hideonnpc"] = true
-	-- E.db["unitframe"]["units"]["party"]["power"]["powerPrediction"] = true
-	-- E.db["unitframe"]["units"]["party"]["power"]["onlyHealer"] = true
-	--
-	-- if layout == "gradient" then
-	-- E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
-	-- elseif layout == "dark" then
-	-- E.db["unitframe"]["units"]["party"]["colorOverride"] = "FOCE_OFF"
-	-- end
-	-- E.db["unitframe"]["units"]["party"]["width"] = 160
-	-- E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
-	-- E.db["unitframe"]["units"]["party"]["health"]["position"] = "CENTER"
-	-- E.db["unitframe"]["units"]["party"]["health"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["party"]["health"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["party"]["health"]["yOffset"] = 2
-	-- E.db["unitframe"]["units"]["party"]["health"]["bgUseBarTexture"] = true
-	-- E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "Frame"
-	-- E.db["unitframe"]["units"]["party"]["name"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["party"]["name"]["position"] = "BOTTOMLEFT"
-	-- E.db["unitframe"]["units"]["party"]["groupBy"] = "ROLE"
-	-- E.db["unitframe"]["units"]["party"]["height"] = 36
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 12
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 20
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["useBlacklist"] = false
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["useWhitelist"] = true
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["playerOnly"] = false
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 3
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "TOPLEFT"
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "TurtleBuffs"
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -15
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
-	-- E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16
-	-- E.db["unitframe"]["units"]["party"]["petsGroup"]["yOffset"] = -1
-	-- E.db["unitframe"]["units"]["party"]["petsGroup"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["party"]["petsGroup"]["width"] = 60
-	-- E.db["unitframe"]["units"]["party"]["raidicon"]["attachToObject"] = "Frame"
-	-- E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "RIGHT"
-	-- E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = -2
-	-- E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
-	-- E.db["unitframe"]["units"]["party"]["healPrediction"]["enable"] = true
-	-- E.db["unitframe"]["units"]["party"]["healPrediction"]["absorbStyle"] = "NORMAL"
-	-- E.db["unitframe"]["units"]["party"]["healPrediction"]["anchorPoint"] = "BOTTOM"
-	-- E.db["unitframe"]["units"]["party"]["healPrediction"]["height"] = -1
-	-- E.db["unitframe"]["units"]["party"]["cutaway"]["health"]["enabled"] = true
-	-- E.db["unitframe"]["units"]["party"]["CombatIcon"]["size"] = 12
-	-- E.db["unitframe"]["units"]["party"]["CombatIcon"]["texture"] = "COMBAT"
-	-- E.db["unitframe"]["units"]["party"]["CombatIcon"]["customTexture"] = ""
-	-- E.db["unitframe"]["units"]["party"]["CombatIcon"]["anchorPoint"] = "LEFT"
-	-- E.db["unitframe"]["units"]["party"]["CombatIcon"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["party"]["CombatIcon"]["yOffset"] = 10
-	-- if E.db["unitframe"]["units"]["party"]["customTexts"] then
-	-- E.db["unitframe"]["units"]["party"]["customTexts"] = nil
-	-- end
-	-- Delete old customTexts/ Create empty table
-	-- E.db["unitframe"]["units"]["party"]["customTexts"] = {}
-	-- Create own customTexts
-	-- E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
-	-- ["font"] = "- GothamNarrow-Black",
-	-- ["size"] = 11,
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["justifyH"] = "CENTER",
-	-- ["yOffset"] = 0,
-	-- ["xOffset"] = 0,
-	-- ["attachTextTo"] = "Frame",
-	-- ["text_format"] = "[name:gradient]",
-	-- }
-	-- E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
-	-- ["font"] = "- GothamNarrow-Black",
-	-- ["justifyH"] = "CENTER",
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["xOffset"] = 0,
-	-- ["yOffset"] = -12,
-	-- ["size"] = 9,
-	-- ["attachTextTo"] = "Frame",
-	-- ["text_format"] = "[statustimer]",
-	-- }
+	E.db["unitframe"]["units"]["party"]["enable"] = true
+	E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
+	E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
+	E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
+	E.db["unitframe"]["units"]["party"]["showPlayer"] = false
+	E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
+	E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 32
+	E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = -2
+	E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
+	E.db["unitframe"]["units"]["party"]["debuffs"]["clickThrough"] = true
+	E.db["unitframe"]["units"]["party"]["debuffs"]["spacing"] = 1
+	E.db["unitframe"]["units"]["party"]["debuffs"]["attachTo"] = "FRAME"
+	E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] =
+		"Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+	E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 2
+	E.db["unitframe"]["units"]["party"]["debuffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "- Expressway"
+	E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "SHADOWOUTLINE"
+	E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
+	E.db["unitframe"]["units"]["party"]["rdebuffs"]["yOffset"] = 12
+	E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
+	E.db["unitframe"]["units"]["party"]["buffIndicator"]["fontSize"] = 11
+	E.db["unitframe"]["units"]["party"]["orientation"] = "MIDDLE"
+	E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 1
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["enable"] = true
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 11
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["targetsGroup"]["enable"] = false
+	E.db["unitframe"]["units"]["party"]["targetsGroup"]["anchorPoint"] = "BOTTOM"
+	E.db["unitframe"]["units"]["party"]["targetsGroup"]["name"]["text_format"] = "[name:short]"
+	E.db["unitframe"]["units"]["party"]["targetsGroup"]["height"] = 16
+	E.db["unitframe"]["units"]["party"]["targetsGroup"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 79
+	E.db["unitframe"]["units"]["party"]["readycheckIcon"]["size"] = 20
+	E.db["unitframe"]["units"]["party"]["power"]["enable"] = true
+	E.db["unitframe"]["units"]["party"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
+	E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
+	E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
+	E.db["unitframe"]["units"]["party"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["party"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["party"]["power"]["onlyHealer"] = true
 
-	-- E.db["unitframe"]["units"]["party"]["power"]["displayAltPower"] = true
+	if layout == "gradient" then
+		E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
+	elseif layout == "dark" then
+		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FOCE_OFF"
+	end
+	E.db["unitframe"]["units"]["party"]["width"] = 160
+	E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
+	E.db["unitframe"]["units"]["party"]["health"]["position"] = "CENTER"
+	E.db["unitframe"]["units"]["party"]["health"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["health"]["text_format"] = ""
+	E.db["unitframe"]["units"]["party"]["health"]["yOffset"] = 2
+	E.db["unitframe"]["units"]["party"]["health"]["bgUseBarTexture"] = true
+	E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "Frame"
+	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = ""
+	E.db["unitframe"]["units"]["party"]["name"]["position"] = "BOTTOMLEFT"
+	E.db["unitframe"]["units"]["party"]["groupBy"] = "ROLE"
+	E.db["unitframe"]["units"]["party"]["height"] = 36
+	E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 12
+	E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 20
+	E.db["unitframe"]["units"]["party"]["buffs"]["useBlacklist"] = false
+	E.db["unitframe"]["units"]["party"]["buffs"]["useWhitelist"] = true
+	E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
+	E.db["unitframe"]["units"]["party"]["buffs"]["playerOnly"] = false
+	E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 3
+	E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "TOPLEFT"
+	E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
+	E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
+	E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
+	E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -15
+	E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
+	E.db["unitframe"]["units"]["party"]["buffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16
+	E.db["unitframe"]["units"]["party"]["petsGroup"]["yOffset"] = -1
+	E.db["unitframe"]["units"]["party"]["petsGroup"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["petsGroup"]["width"] = 60
+	E.db["unitframe"]["units"]["party"]["raidicon"]["attachToObject"] = "Frame"
+	E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "RIGHT"
+	E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = -2
+	E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
+	E.db["unitframe"]["units"]["party"]["healPrediction"]["enable"] = true
+	E.db["unitframe"]["units"]["party"]["healPrediction"]["absorbStyle"] = "NORMAL"
+	E.db["unitframe"]["units"]["party"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+	E.db["unitframe"]["units"]["party"]["healPrediction"]["height"] = -1
+	E.db["unitframe"]["units"]["party"]["cutaway"]["health"]["enabled"] = true
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["size"] = 12
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["texture"] = "COMBAT"
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["customTexture"] = ""
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["anchorPoint"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["CombatIcon"]["yOffset"] = 10
+	if E.db["unitframe"]["units"]["party"]["customTexts"] then
+		E.db["unitframe"]["units"]["party"]["customTexts"] = nil
+	end
+	-- Delete old customTexts/ Create empty table
+	E.db["unitframe"]["units"]["party"]["customTexts"] = {}
+	-- Create own customTexts
+	E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
+		["font"] = "- GothamNarrow-Black",
+		["size"] = 11,
+		["fontOutline"] = "SHADOWOUTLINE",
+		["justifyH"] = "CENTER",
+		["yOffset"] = 0,
+		["xOffset"] = 0,
+		["attachTextTo"] = "Frame",
+		["text_format"] = "[name:gradient]",
+	}
+	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
+		["font"] = "- GothamNarrow-Black",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = -12,
+		["size"] = 9,
+		["attachTextTo"] = "Frame",
+		["text_format"] = "[statustimer]",
+	}
+
+	E.db["unitframe"]["units"]["party"]["power"]["displayAltPower"] = true
 
 	-- Assist
-	-- E.db["unitframe"]["units"]["assist"]["enable"] = false
+	E.db["unitframe"]["units"]["assist"]["enable"] = false
 
 	-- Tank
-	-- E.db["unitframe"]["units"]["tank"]["enable"] = false
+	E.db["unitframe"]["units"]["tank"]["enable"] = false
 
 	-- Pet
-	-- E.db["unitframe"]["units"]["pet"]["aurabar"]["enable"] = false
-	-- E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = true
-	-- E.db["unitframe"]["units"]["pet"]["castbar"]["latency"] = true
-	-- E.db["unitframe"]["units"]["pet"]["castbar"]["width"] = 75
-	-- E.db["unitframe"]["units"]["pet"]["castbar"]["height"] = 10
-	-- E.db["unitframe"]["units"]["pet"]["castbar"]["insideInfoPanel"] = true
-	-- E.db["unitframe"]["units"]["pet"]["buffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["pet"]["buffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["pet"]["buffs"]["countFontSize"] = 8
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["fontSize"] = 10
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["attachTo"] = "FRAME"
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["sizeOverride"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["perrow"] = 5
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["anchorPoint"] = "TOPLEFT"
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["pet"]["debuffs"]["countFontSize"] = 8
-	-- E.db["unitframe"]["units"]["pet"]["health"]["position"] = "LEFT"
-	-- E.db["unitframe"]["units"]["pet"]["health"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["pet"]["health"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["health"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["health"]["attachTextTo"] = "InfoPanel"
-	-- E.db["unitframe"]["units"]["pet"]["health"]["bgUseBarTexture"] = true
-	-- E.db["unitframe"]["units"]["pet"]["power"]["position"] = "RIGHT"
-	-- E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
-	-- E.db["unitframe"]["units"]["pet"]["power"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["pet"]["power"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "Health"
-	-- E.db["unitframe"]["units"]["pet"]["name"]["attachTextTo"] = "Health"
-	-- E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:short]"
-	-- E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["pet"]["width"] = 75
-	-- E.db["unitframe"]["units"]["pet"]["height"] = 20
-	-- E.db["unitframe"]["units"]["pet"]["power"]["height"] = 6
-	-- E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = false
-	-- E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
-	-- E.db["unitframe"]["units"]["pet"]["orientation"] = "MIDDLE"
-	-- E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = false
-	-- E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 14
-	-- E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
-
+	E.db["unitframe"]["units"]["pet"]["aurabar"]["enable"] = false
+	E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = true
+	E.db["unitframe"]["units"]["pet"]["castbar"]["latency"] = true
+	E.db["unitframe"]["units"]["pet"]["castbar"]["width"] = 75
+	E.db["unitframe"]["units"]["pet"]["castbar"]["height"] = 10
+	E.db["unitframe"]["units"]["pet"]["castbar"]["insideInfoPanel"] = true
+	E.db["unitframe"]["units"]["pet"]["buffs"]["enable"] = true
+	E.db["unitframe"]["units"]["pet"]["buffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["pet"]["buffs"]["countFontSize"] = 8
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["fontSize"] = 10
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["attachTo"] = "FRAME"
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["sizeOverride"] = 0
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["perrow"] = 5
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["countFontSize"] = 8
+	E.db["unitframe"]["units"]["pet"]["health"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["pet"]["health"]["text_format"] = ""
+	E.db["unitframe"]["units"]["pet"]["health"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["health"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["health"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["pet"]["health"]["bgUseBarTexture"] = true
+	E.db["unitframe"]["units"]["pet"]["power"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["pet"]["power"]["text_format"] = ""
+	E.db["unitframe"]["units"]["pet"]["power"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["pet"]["name"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:short]"
+	E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["width"] = 75
+	E.db["unitframe"]["units"]["pet"]["height"] = 20
+	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 6
+	E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = false
+	E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
+	E.db["unitframe"]["units"]["pet"]["orientation"] = "MIDDLE"
+	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = false
+	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 14
+	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
+	--
 	-- Arena
-	-- E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
-
+	E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
+	--
 	-- Boss
-	-- E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 32
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "RIGHT"
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 2
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 4
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["attachTo"] = "FRAME"
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
-	-- E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
-	-- E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = false
-	-- E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
-	-- E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
-	-- E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.8
-	-- E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
-	-- E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
-	-- E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
-	-- if not E.db["unitframe"]["units"]["boss"]["customTexts"] then
-	-- E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
-	-- end
+	E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["enable"] = true
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 32
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "RIGHT"
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 2
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 4
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["attachTo"] = "FRAME"
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
+	E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
+	E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = false
+	E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
+	E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
+	E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.8
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
+	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then
+		E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
+	end
 	-- Delete old customTexts/ Create empty table
-	-- E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
-	-- if E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] then
-	-- E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] = nil
-	-- end
+	E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
+	if E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] then
+		E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] = nil
+	end
 
 	-- Create own customTexts
-	-- E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
-	-- ["attachTextTo"] = "Frame",
-	-- ["font"] = "- Expressway",
-	-- ["justifyH"] = "LEFT",
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["xOffset"] = 0,
-	-- ["size"] = 11,
-	-- ["text_format"] = "[name:gradient]",
-	-- ["yOffset"] = 18,
-	-- }
-	-- E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
-	-- ["attachTextTo"] = "Health",
-	-- ["font"] = "- Expressway",
-	-- ["justifyH"] = "LEFT",
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["xOffset"] = 0,
-	-- ["size"] = 14,
-	-- ["text_format"] = "[health:current:shortvalue]",
-	-- ["yOffset"] = 0,
-	-- }
-	-- E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {
-	-- ["attachTextTo"] = "Health",
-	-- ["font"] = "- Expressway",
-	-- ["justifyH"] = "RIGHT",
-	-- ["fontOutline"] = "SHADOWOUTLINE",
-	-- ["xOffset"] = 0,
-	-- ["size"] = 14,
-	-- ["text_format"] = "[perhp<%]",
-	-- ["yOffset"] = 0,
-	-- }
-	-- E.db["unitframe"]["units"]["boss"]["power"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["boss"]["power"]["attachTextTo"] = "Power"
-	-- E.db["unitframe"]["units"]["boss"]["power"]["height"] = 9
-	-- E.db["unitframe"]["units"]["boss"]["power"]["position"] = "CENTER"
-	-- E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[power:current:shortvalue]"
-	-- E.db["unitframe"]["units"]["boss"]["power"]["hideonnpc"] = true
-	-- E.db["unitframe"]["units"]["boss"]["power"]["powerPrediction"] = true
-	-- E.db["unitframe"]["units"]["boss"]["power"]["onlyHealer"] = true
-	-- E.db["unitframe"]["units"]["boss"]["growthDirection"] = "DOWN"
-	-- E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = false
-	-- E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
-	-- E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
-	-- E.db["unitframe"]["units"]["boss"]["width"] = 156
-	-- E.db["unitframe"]["units"]["boss"]["health"]["xOffset"] = 0
-	-- E.db["unitframe"]["units"]["boss"]["health"]["yOffset"] = 13
-	-- E.db["unitframe"]["units"]["boss"]["health"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["boss"]["health"]["position"] = "RIGHT"
-	-- E.db["unitframe"]["units"]["boss"]["health"]["bgUseBarTexture"] = true
-	-- E.db["unitframe"]["units"]["boss"]["spacing"] = 45
-	-- E.db["unitframe"]["units"]["boss"]["height"] = 35
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["enable"] = true
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["attachTo"] = "FRAME"
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["xOffset"] = -2
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["sizeOverride"] = 32
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["anchorPoint"] = "LEFT"
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["countFont"] = "- Expressway"
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 9
-	-- E.db["unitframe"]["units"]["boss"]["buffs"]["perrow"] = 4
-	-- E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "Frame"
-	-- E.db["unitframe"]["units"]["boss"]["name"]["position"] = "RIGHT"
-	-- E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
-	-- E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
-	-- E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
+		["attachTextTo"] = "Frame",
+		["font"] = "- Expressway",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["size"] = 11,
+		["text_format"] = "[name:gradient]",
+		["yOffset"] = 18,
+	}
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
+		["attachTextTo"] = "Health",
+		["font"] = "- Expressway",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["size"] = 14,
+		["text_format"] = "[health:current:shortvalue]",
+		["yOffset"] = 0,
+	}
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {
+		["attachTextTo"] = "Health",
+		["font"] = "- Expressway",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "SHADOWOUTLINE",
+		["xOffset"] = 0,
+		["size"] = 14,
+		["text_format"] = "[perhp<%]",
+		["yOffset"] = 0,
+	}
+	E.db["unitframe"]["units"]["boss"]["power"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["boss"]["power"]["attachTextTo"] = "Power"
+	E.db["unitframe"]["units"]["boss"]["power"]["height"] = 9
+	E.db["unitframe"]["units"]["boss"]["power"]["position"] = "CENTER"
+	E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[power:current:shortvalue]"
+	E.db["unitframe"]["units"]["boss"]["power"]["hideonnpc"] = true
+	E.db["unitframe"]["units"]["boss"]["power"]["powerPrediction"] = true
+	E.db["unitframe"]["units"]["boss"]["power"]["onlyHealer"] = true
+	E.db["unitframe"]["units"]["boss"]["growthDirection"] = "DOWN"
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = false
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
+	E.db["unitframe"]["units"]["boss"]["width"] = 156
+	E.db["unitframe"]["units"]["boss"]["health"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["boss"]["health"]["yOffset"] = 13
+	E.db["unitframe"]["units"]["boss"]["health"]["text_format"] = ""
+	E.db["unitframe"]["units"]["boss"]["health"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["boss"]["health"]["bgUseBarTexture"] = true
+	E.db["unitframe"]["units"]["boss"]["spacing"] = 45
+	E.db["unitframe"]["units"]["boss"]["height"] = 35
+	E.db["unitframe"]["units"]["boss"]["buffs"]["enable"] = true
+	E.db["unitframe"]["units"]["boss"]["buffs"]["attachTo"] = "FRAME"
+	E.db["unitframe"]["units"]["boss"]["buffs"]["xOffset"] = -2
+	E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["boss"]["buffs"]["sizeOverride"] = 32
+	E.db["unitframe"]["units"]["boss"]["buffs"]["anchorPoint"] = "LEFT"
+	E.db["unitframe"]["units"]["boss"]["buffs"]["countFont"] = "- Expressway"
+	E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 9
+	E.db["unitframe"]["units"]["boss"]["buffs"]["perrow"] = 4
+	E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "Frame"
+	E.db["unitframe"]["units"]["boss"]["name"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
+	E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
+	E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
 
 	-- PetTarget
-	-- E.db["unitframe"]["units"]["pettarget"]["enable"] = false
+	E.db["unitframe"]["units"]["pettarget"]["enable"] = false
 
 	-- RaidPet
-	-- E.db["unitframe"]["units"]["raidpet"]["enable"] = false
+	E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 
 	-- Movers
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,209"
@@ -2248,18 +2252,18 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["AdditionalPowerMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,231"
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,209"
 	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,188"
-	-- E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,293"
-	-- E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,273"
-	-- E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,277"
-	-- E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
-	-- E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
-	-- E.db["movers"]["ElvUF_Raid3Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
-	-- E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,268,326"
-	-- E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
-	-- E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
-	-- E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
-	-- E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
-	-- E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
+	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,293"
+	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,273"
+	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,277"
+	E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
+	E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
+	E.db["movers"]["ElvUF_Raid3Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,215"
+	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,268,326"
+	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
+	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
+	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
+	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
+	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 
 	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-510,188"

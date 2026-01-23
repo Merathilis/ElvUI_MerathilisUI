@@ -10,12 +10,11 @@
 	<Include file="ItemLevel\Load_ItemLevel.xml"/>
 	<Include file="Maps\Load_Maps.xml"/>
 	<Include file="Misc\Load_Misc.xml"/>
-	<!-- <Include file="Nameplates\Load_Nameplates.xml"/> -->
+	<Include file="Nameplates\Load_Nameplates.xml"/>
 	<Include file="Notification\Load_Notification.xml"/>
 	<Include file="Panels\Load_Panels.xml"/>
 	<Include file="Profiles\Load_Profiles.xml"/>
 	<Include file="PvP\Load_PvP.xml"/>
-	<Include file="RBReminder\Load_RBReminder.xml"/>
 	<Include file="Tooltip\Load_Tooltip.xml"/>
 	<Include file="Unitframes\Load_Unitframes.xml"/>
 	<Include file="VehicleBar\Load_VehicleBar.xml"/>

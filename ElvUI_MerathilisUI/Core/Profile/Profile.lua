@@ -959,30 +959,6 @@ P.raidBuffs = {
 	customVisibility = "[noexists, nogroup] hide; show",
 }
 
-P.reminder = {
-	enable = true,
-	size = 30,
-}
-
-P.cooldownFlash = {
-	enable = true,
-	fadeInTime = 0.3,
-	fadeOutTime = 0.6,
-	maxAlpha = 0.8,
-	animScale = 1.5,
-	iconSize = 40,
-	holdTime = 0.3,
-	petOverlay = { 1, 1, 1, 1 },
-	ignoredSpells = {},
-	invertIgnored = false,
-	enablePet = false,
-	x = UIParent:GetWidth() * UIParent:GetEffectiveScale() / 2,
-	y = UIParent:GetHeight() * UIParent:GetEffectiveScale() / 2,
-	tts = false,
-	ttsvoice = nil,
-	ttsvolume = 100,
-}
-
 P.elvUIIcons = {
 	roleIcons = {
 		enable = true,

@@ -22,7 +22,7 @@ MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
 
 MER.IsRetail = select(4, GetBuildInfo()) >= 120000
-MER.IsPTR = select(4, GetBuildInfo()) == 102007 -- 10.2.7
+MER.IsPTR = select(4, GetBuildInfo()) == 120000
 
 MER.MaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion()
 

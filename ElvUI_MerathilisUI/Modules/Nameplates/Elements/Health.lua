@@ -30,45 +30,37 @@ function module:Health_UpdateColor(_, unit)
 	local isPlayer = UnitIsPlayer(unit)
 	local reaction = UnitReaction(unit, "player")
 
-	local sf = NP:StyleFilterChanges(unit)
-
 	if element then
-		if sf.HealthColor then
-			return
-		else
-			if reaction and reaction >= 5 then
-				reactionType = "NPCFRIENDLY"
-			elseif reaction and reaction == 4 then
-				reactionType = "NPCNEUTRAL"
-			elseif reaction and reaction == 3 then
-				reactionType = "NPCUNFRIENDLY"
-			elseif reaction and reaction <= 2 then
-				reactionType = "NPCHOSTILE"
-			end
+		if reaction and reaction >= 5 then
+			reactionType = "NPCFRIENDLY"
+		elseif reaction and reaction == 4 then
+			reactionType = "NPCNEUTRAL"
+		elseif reaction and reaction == 3 then
+			reactionType = "NPCUNFRIENDLY"
+		elseif reaction and reaction <= 2 then
+			reactionType = "NPCHOSTILE"
+		end
 
-			if class and isPlayer then
+		if class and isPlayer then
+			if colorDB and colorDB.customColor.enable or colorDB and colorDB.customColor.enableNP then
+				element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom(class))
+			else
+				element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(class))
+			end
+		elseif reaction then
+			if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
 				if colorDB and colorDB.customColor.enable or colorDB and colorDB.customColor.enableNP then
-					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom(class))
+					element
+						:GetStatusBarTexture()
+						:SetGradient("HORIZONTAL", F.GradientColorsCustom("TAPPED", false, false))
 				else
-					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(class))
+					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors("TAPPED", false, false))
 				end
-			elseif reaction then
-				if UnitIsTapDenied(unit) and not UnitPlayerControlled(unit) then
-					if colorDB and colorDB.customColor.enable or colorDB and colorDB.customColor.enableNP then
-						element
-							:GetStatusBarTexture()
-							:SetGradient("HORIZONTAL", F.GradientColorsCustom("TAPPED", false, false))
-					else
-						element
-							:GetStatusBarTexture()
-							:SetGradient("HORIZONTAL", F.GradientColors("TAPPED", false, false))
-					end
+			else
+				if colorDB and colorDB.customColor.enable or colorDB and colorDB.customColor.enableNP then
+					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom(reactionType))
 				else
-					if colorDB and colorDB.customColor.enable or colorDB and colorDB.customColor.enableNP then
-						element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColorsCustom(reactionType))
-					else
-						element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(reactionType))
-					end
+					element:GetStatusBarTexture():SetGradient("HORIZONTAL", F.GradientColors(reactionType))
 				end
 			end
 		end

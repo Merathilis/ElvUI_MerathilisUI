@@ -113,7 +113,6 @@ MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0", "AceTimer-3.
 MER.Modules.PVP = MER:NewModule("MER_PVP", "AceEvent-3.0")
 MER.Modules.RaidBuffs = MER:NewModule("MER_RaidBuffs")
 MER.Modules.RaidInfoFrame = MER:NewModule("MER_RaidInfoFrame")
-MER.Modules.Reminder = MER:NewModule("MER_Reminder", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Skins = MER:NewModule("MER_Skins", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.SplashScreen = MER:NewModule("MER_SplashScreen", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Style = MER:NewModule("MER_Style", "AceHook-3.0")

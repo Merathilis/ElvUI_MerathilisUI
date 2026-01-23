@@ -467,20 +467,6 @@ L["Heal Prediction"] = "Предсказание исцеления"
 L["Add an additional overlay to the absorb bar."] =
 	"Добавьте дополнительное наложение на полосу поглощения."
 
--- Raid Buffs
-L["Raid Buff Reminder"] = "Напоминание о баффе рейда"
-L["Shows a frame with flask/food/rune."] = "Показывает рамку с флягой/едой/руной."
-L["Class Specific Buffs"] = "Классовые баффы"
-L["Shows all the class specific raid buffs."] =
-	"Показывает все рейдовые баффы для каждого класса."
-L["Change the alpha level of the icons."] = "Измените прозрачность значков."
-L["Shows the pixel glow on missing raidbuffs."] =
-	"Пок��������зывает свечение пикселей на отсутствующих рейдбаффах."
-
--- Reminder
-L["Reminder"] = "Напоминание"
-L["Reminds you on self Buffs."] = "Напоминает вам о собственных баффах."
-
 -- Cooldowns
 L["Cooldowns"] = "Перезарядки"
 L["Cooldown Flash"] = "Перезарядка вспышки"

@@ -593,20 +593,6 @@ L["Role Icons"] = "역할 아이콘"
 L["Heal Prediction"] = "치유 예측"
 L["Add an additional overlay to the absorb bar."] = "흡수 바에 추가 오버레이를 적용합니다"
 
--- Raid Buffs
-L["Raid Buff Reminder"] = "공격대 버프 알림"
-L["Visibility State"] = "표시 상태"
-L["Shows a frame with flask/food/rune."] = "영약/음식/룬 버프를 표시하는 프레임을 보여줍니다"
-L["Class Specific Buffs"] = "직업별 버프"
-L["Shows all the class specific raid buffs."] = "모든 직업별 공격대 버프를 표시합니다"
-L["Change the alpha level of the icons."] = "아이콘의 투명도(알파 값)를 변경합니다"
-L["Shows the pixel glow on missing raidbuffs."] =
-	"누락된 공격대 버프에 픽셀 글로우 효과를 표시합니다"
-
--- Reminder
-L["Reminder"] = "버프 알림"
-L["Reminds you on self Buffs."] = "자신에게 적용된 버프를 알림으로 알려줍니다"
-
 -- Cooldowns
 L["Cooldowns"] = "재사용 대기시간"
 L["CooldownFlashMover"] = "쿨다운 플래시 위치 조절"
