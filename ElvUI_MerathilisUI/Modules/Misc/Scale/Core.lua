@@ -30,7 +30,6 @@ function module:Scale()
 	module:AddCallbackOrScale("Blizzard_PlayerSpells", self.ScaleTalents)
 	module:AddCallbackOrScale("Blizzard_AuctionHouseUI", self.ScaleAuctionHouse)
 	module:AddCallbackOrScale("Blizzard_Collections", self.ScaleCollections)
-	module:AddCallbackOrScale("Blizzard_Collections", self.AdjustTransmogFrame)
 	module:AddCallbackOrScale("Blizzard_Professions", self.ScaleProfessions)
 	module:AddCallbackOrScale("Blizzard_EncounterJournal", self.ScaleEncounterJournal)
 end

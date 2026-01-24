@@ -435,10 +435,36 @@ function MER:SetupLayout()
 	E.db["auras"]["debuffs"]["timeFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["debuffs"]["timeFontSize"] = 12
 	E.db["auras"]["debuffs"]["timeFontOutline"] = "SHADOWOUTLINE"
+
+	--[[----------------------------------
+	--	ProfileDB - Cooldowns
+	--]]
+	----------------------------------
 	E.db["cooldown"]["auras"]["colors"]["text"]["r"] = 0
 	E.db["cooldown"]["auras"]["colors"]["text"]["g"] = 0.7529411764705882
 	E.db["cooldown"]["auras"]["colors"]["text"]["b"] = 0.9803921568627451
 	E.db["cooldown"]["auras"]["colors"]["text"]["a"] = 1
+	E.db["cooldown"]["auras"]["fontSize"] = 12
+	E.db["cooldown"]["auras"]["offsetX"] = 1
+	E.db["cooldown"]["auras"]["offsetY"] = -7
+	E.db["cooldown"]["actionbar"]["fontSize"] = 12
+	E.db["cooldown"]["actionbar"]["offsetX"] = 1
+	E.db["cooldown"]["aurabars"]["fontSize"] = 12
+	E.db["cooldown"]["bags"]["fontSize"] = 12
+	E.db["cooldown"]["bags"]["offsetX"] = 1
+	E.db["cooldown"]["bossbutton"]["fontSize"] = 14
+	E.db["cooldown"]["bossbutton"]["offsetX"] = 1
+	E.db["cooldown"]["cdmanager"]["fontSize"] = 14
+	E.db["cooldown"]["cdmanager"]["offsetX"] = 1
+	E.db["cooldown"]["global"]["fontSize"] = 12
+	E.db["cooldown"]["global"]["offsetX"] = 1
+	E.db["cooldown"]["nameplates"]["fontSize"] = 12
+	E.db["cooldown"]["nameplates"]["offsetX"] = 1
+	E.db["cooldown"]["totemtracker"]["fontSize"] = 14
+	E.db["cooldown"]["totemtracker"]["offsetX"] = 1
+	E.db["cooldown"]["unitframe"]["fontSize"] = 12
+	E.db["cooldown"]["unitframe"]["offsetX"] = 1
+	E.db["cooldown"]["zonebutton"]["fontSize"] = 14
 
 	--[[----------------------------------
 	--	ProfileDB - Bags
