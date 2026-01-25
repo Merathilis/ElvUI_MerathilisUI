@@ -514,6 +514,15 @@ function F.Round(n, q)
 	return int * q
 end
 
+function F.RoundNumber(number, decimals)
+	if number then
+		return (("%%.%df"):format(decimals)):format(number)
+	else
+		F.Print(L["!! ERROR - Round:"] .. " " .. number .. " - " .. decimals)
+		return 0
+	end
+end
+
 function F.cOption(name, color)
 	local hex
 	if color == "orange" then
@@ -529,6 +538,18 @@ function F.cOption(name, color)
 	end
 
 	return (hex):format(name)
+end
+
+function F.mColorDatatext()
+	local nhc, hc, myth, mythp, other, title, tip =
+		E.db.mui.datatexts.datatextcolors.colornhc.hex,
+		E.db.mui.datatexts.datatextcolors.colorhc.hex,
+		E.db.mui.datatexts.datatextcolors.colormyth.hex,
+		E.db.mui.datatexts.datatextcolors.colormythplus.hex,
+		E.db.mui.datatexts.datatextcolors.colorother.hex,
+		E.db.mui.datatexts.datatextcolors.colortitle.hex,
+		E.db.mui.datatexts.datatextcolors.colortip.hex
+	return nhc, hc, myth, mythp, other, title, tip
 end
 
 ---Print message with MerathilisUI title prefix
@@ -962,6 +983,12 @@ function F.PixelIcon(self, texture, highlight)
 		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
 		self.HL:SetColorTexture(1, 1, 1, 0.25)
 		self.HL:SetAllPoints(self.Icon)
+	end
+end
+
+function F.Icon(icon, x, y)
+	if icon then
+		return format("|T%s:%s:%s:0:0:64:64:4:60:4:60|t", icon, x or 16, y or 16)
 	end
 end
 

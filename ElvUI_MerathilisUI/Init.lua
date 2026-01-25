@@ -123,6 +123,9 @@ MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
 -- Pre register Portraits
 MER.Portraits = {}
 
+-- Pre register Datatexts
+MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
+
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
 E:AddLib("OpenRaid", "LibOpenRaid-1.0")

@@ -7,6 +7,7 @@
 	<Include file="Bags\Load_Bags.xml"/>
 	<Include file="CombatAlert\Load_CombatAlert.xml"/>
 	<Include file="Cooldowns\Load_Cooldowns.xml"/>
+	<Include file="DataTexts\Load_DataTexts.xml"/>
 	<Include file="ItemLevel\Load_ItemLevel.xml"/>
 	<Include file="Maps\Load_Maps.xml"/>
 	<Include file="Misc\Load_Misc.xml"/>

@@ -6,6 +6,13 @@ local allLocaleBits = LSM.LOCALE_BIT_koKR + LSM.LOCALE_BIT_zhCN + LSM.LOCALE_BIT
 
 MER.CustomPortraits = {}
 
+MER.Media = {}
+MER.Media.Mouse = {
+	LEFT = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\System\\mleft.tga",
+	MIDDLE = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\System\\mmiddle.tga",
+	RIGHT = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\System\\mright.tga",
+}
+
 MER.ClassIcons = {
 	["WARRIOR"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Warrior",
 	["PALADIN"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Paladin",

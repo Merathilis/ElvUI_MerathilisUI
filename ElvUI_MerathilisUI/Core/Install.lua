@@ -2329,7 +2329,7 @@ function MER:SetupDts()
 		border = true,
 		panelTransparency = true,
 		numPoints = 2,
-		"Durability",
+		"DurabilityIlevel",
 		"Gold",
 	}
 

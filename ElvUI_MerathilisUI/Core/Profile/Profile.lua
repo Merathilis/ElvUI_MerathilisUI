@@ -47,6 +47,64 @@ P.gameMenu = {
 	mythicHistoryLimit = 4,
 }
 
+P.datatexts = {
+	durabilityIlevel = {
+		mount = 460,
+		icon = true,
+		whiteText = true,
+		whiteIcon = true,
+		colored = {
+			enable = false,
+			a = { value = 50, color = { r = 0.93, g = 0.61, b = 0.02, hex = "|cffed9c07" } },
+			b = { value = 20, color = { r = 1, g = 0.011, b = 0.24, hex = "|cffff033e" } },
+		},
+	},
+	datatextcolors = {
+		colorhc = {
+			b = 0.86,
+			g = 0.43,
+			hex = "|cff0070dd",
+			r = 0,
+		},
+		colormyth = {
+			b = 0.93,
+			g = 0.20,
+			hex = "|cffa334ee",
+			r = 0.63,
+		},
+		colormythplus = {
+			b = 0.24,
+			hex = "|cffff033e",
+			g = 0.011,
+			r = 1,
+		},
+		colornhc = {
+			b = 0,
+			g = 1,
+			hex = "|cff1eff00",
+			r = 0.11,
+		},
+		colorother = {
+			b = 1,
+			g = 1,
+			hex = "|cffffffff",
+			r = 1,
+		},
+		colortitle = {
+			b = 0,
+			g = 0.78,
+			hex = "|cffffc800",
+			r = 1,
+		},
+		colortip = {
+			b = 0.58,
+			g = 0.58,
+			hex = "|cff969696",
+			r = 0.58,
+		},
+	},
+}
+
 P.themes = {
 	classColorMap = {
 		[I.Enum.GradientMode.Color.NORMAL] = { -- RIGHT
