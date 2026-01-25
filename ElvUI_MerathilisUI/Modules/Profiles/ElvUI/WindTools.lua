@@ -27,10 +27,6 @@ function module:LoadWindToolsProfile()
 	db["announcement"]["taunt"]["player"]["player"]["enable"] = false
 	db["announcement"]["threatTransfer"]["enable"] = false
 	db["announcement"]["threatTransfer"]["onlyNotTank"] = false
-	db["combat"]["classHelper"]["deathStrikeEstimator"]["enable"] = true
-	db["combat"]["classHelper"]["deathStrikeEstimator"]["hideIfTheBarOutside"] = true
-	db["combat"]["classHelper"]["deathStrikeEstimator"]["onlyInCombat"] = true
-	db["combat"]["classHelper"]["deathStrikeEstimator"]["sparkTexture"] = true
 	db["combat"]["combatAlert"]["animation"] = false
 	db["combat"]["combatAlert"]["enable"] = false
 	db["combat"]["combatAlert"]["text"] = false
@@ -58,7 +54,6 @@ function module:LoadWindToolsProfile()
 	db["misc"]["automation"]["enable"] = true
 	db["misc"]["automation"]["hideBagAfterEnteringCombat"] = true
 	db["misc"]["automation"]["hideWorldMapAfterEnteringCombat"] = true
-	db["misc"]["cooldownTextOffset"]["enable"] = true
 	db["misc"]["gameBar"]["enable"] = true
 	-- db["misc"]["gameBar"]["home"]["left"] = "RANDOM"
 	db["misc"]["spellActivationAlert"]["enable"] = true
