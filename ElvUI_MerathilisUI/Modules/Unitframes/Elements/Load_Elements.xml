@@ -1,6 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="CastBar.lua"/>
 	<Script file="Health.lua"/>
+	<Script file="Portraits_TXDB.lua"/>
+	<Script file="Portraits.lua"/>
 	<!-- <Script file="Power.lua"/> -->
 	<Script file="RaidIcon.lua"/>
 	<Script file="RestingIndicator.lua"/>

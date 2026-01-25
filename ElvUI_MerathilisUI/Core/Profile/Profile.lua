@@ -840,6 +840,198 @@ P.gradient = {
 	backdropalpha = 1,
 }
 
+P.portraits = {
+	custom = {
+		border = "",
+		boss = "",
+		bossborder = "",
+		bossshadow = "",
+		elite = "",
+		eliteborder = "",
+		eliteshadow = "",
+		enable = false,
+		extra = "",
+		extraborder = "",
+		extrashadow = "",
+		inner = "",
+		mask = "",
+		maskb = "",
+		shadow = "",
+		texture = "",
+	},
+	extra = {
+		rare = "a",
+		elite = "a",
+		boss = "a",
+	},
+	player = {
+		flipe = false,
+		cast = true,
+		enable = true,
+		texture = "drop",
+		mirror = false,
+		size = 80,
+		point = "RIGHT",
+		relativePoint = "LEFT",
+		x = 12,
+		y = 15,
+		strata = "AUTO",
+		level = 20,
+	},
+	target = {
+		flipe = false,
+		cast = true,
+		enable = true,
+		texture = "drop",
+		extraEnable = true,
+		mirror = true,
+		size = 80,
+		point = "LEFT",
+		relativePoint = "RIGHT",
+		x = -12,
+		y = 15,
+		strata = "AUTO",
+		level = 20,
+	},
+	pet = {
+		flipe = false,
+		enable = false,
+		texture = "drop",
+		mirror = false,
+		size = 90,
+		point = "RIGHT",
+		relativePoint = "LEFT",
+		x = 0,
+		y = 0,
+		strata = "AUTO",
+		level = 20,
+	},
+	general = {
+		enable = false,
+		desaturation = true,
+		bgstyle = 1,
+		classicons = false,
+		classiconstyle = "BLIZZARD",
+		corner = true,
+		default = false,
+		gradient = true,
+		ori = "HORIZONTAL",
+		reaction = false,
+		style = "a",
+		trilinear = true,
+		usetexturecolor = false,
+		deathcolor = false,
+	},
+	zoom = 0,
+	shadow = {
+		enable = true,
+		inner = true,
+		border = true,
+		classBG = true,
+		bgColorShift = 0.25,
+		color = { r = 0.094, g = 0.094, b = 0.094, a = 0.6 },
+		innerColor = { r = 0.094, g = 0.094, b = 0.094, a = 0.75 },
+		background = { r = 0, g = 0, b = 0, a = 1 },
+	},
+	colors = {
+		border = {
+			default = { r = 0, g = 0, b = 0, a = 1 },
+			rare = { r = 1, g = 1, b = 1, a = 1 },
+			elite = { r = 1, g = 1, b = 1, a = 1 },
+			rareelite = { r = 1, g = 1, b = 1, a = 1 },
+			boss = { r = 1, g = 0, b = 0, a = 1 },
+		},
+		death = {
+			a = { r = 0.89, g = 0.61, b = 0.29, a = 1 },
+			b = { r = 0.89, g = 0.42, b = 0.16, a = 1 },
+		},
+		default = {
+			a = { r = 0.89, g = 0.61, b = 0.29, a = 1 },
+			b = { r = 0.89, g = 0.42, b = 0.16, a = 1 },
+		},
+		DEATHKNIGHT = {
+			a = { r = 0.81, g = 0.17, b = 0.17, a = 1 },
+			b = { r = 0.96, g = 0.14, b = 0.31, a = 1 },
+		},
+		DEMONHUNTER = {
+			a = { r = 0.70, g = 0, b = 0.54, a = 1 },
+			b = { r = 0.72, g = 0, b = 0.96, a = 1 },
+		},
+		DRUID = {
+			a = { r = 1.00, g = 0.36, b = 0.04, a = 1 },
+			b = { r = 1, g = 0.50, b = 0.03, a = 1 },
+		},
+		EVOKER = {
+			a = { r = 0.20, g = 0.58, b = 0.50, a = 1 },
+			b = { r = 0.2, g = 1, b = 0.97, a = 1 },
+		},
+		HUNTER = {
+			a = { r = 0.6, g = 0.8, b = 0.32, a = 1 },
+			b = { r = 0.67, g = 0.92, b = 0.3, a = 1 },
+		},
+		MAGE = {
+			a = { r = 0, g = 0.60, b = 0.81, a = 1 },
+			b = { r = 0.2, g = 0.78, b = 0.98, a = 1 },
+		},
+		MONK = {
+			a = { r = 0, g = 0.78, b = 0.53, a = 1 },
+			b = { r = 0, g = 1, b = 0.52, a = 1 },
+		},
+		PALADIN = {
+			a = { r = 1, g = 0.25, b = 0.65, a = 1 },
+			b = { r = 0.96, g = 0.52, b = 0.84, a = 1 },
+		},
+		PRIEST = {
+			a = { r = 0.74, g = 0.74, b = 0.74, a = 1 },
+			b = { r = 1, g = 1, b = 1, a = 1 },
+		},
+		ROGUE = {
+			a = { r = 1, g = 0.74, b = 0.23, a = 1 },
+			b = { r = 1, g = 0.92, b = 0.25, a = 1 },
+		},
+		SHAMAN = {
+			a = { r = 0.00, g = 0.38, b = 0.92, a = 1 },
+			b = { r = 0.03, g = 0.5, b = 0.92, a = 1 },
+		},
+		WARLOCK = {
+			a = { r = 0.38, g = 0.28, b = 0.67, a = 1 },
+			b = { r = 0.52, g = 0.38, b = 0.92, a = 1 },
+		},
+		WARRIOR = {
+			a = { r = 0.78, g = 0.54, b = 0.28, a = 1 },
+			b = { r = 0.87, g = 0.63, b = 0.38, a = 1 },
+		},
+		rare = {
+			a = { r = 0, g = 0.46, b = 1, a = 1 },
+			b = { r = 0, g = 0.27, b = 0.59, a = 1 },
+		},
+		rareelite = {
+			a = { r = 0.63, g = 0, b = 1, a = 1 },
+			b = { r = 0.44, g = 0, b = 0.70, a = 1 },
+		},
+		elite = {
+			a = { r = 1, g = 0, b = 0.90, a = 1 },
+			b = { r = 0.62, g = 0, b = 0.36, a = 1 },
+		},
+		boss = {
+			a = { r = 0.78, g = 0.12, b = 0.12, a = 1 },
+			b = { r = 0.85, g = 0.25, b = 0.25, a = 1 },
+		},
+		enemy = {
+			a = { r = 0.78, g = 0.12, b = 0.12, a = 1 },
+			b = { r = 0.85, g = 0.25, b = 0.25, a = 1 },
+		},
+		neutral = {
+			a = { r = 1.00, g = 0.70, b = 0, a = 1 },
+			b = { r = 0.77, g = 0.45, b = 0, a = 1 },
+		},
+		friendly = {
+			a = { r = 0.17, g = 0.75, b = 0, a = 1 },
+			b = { r = 0, g = 1, b = 0.22, a = 1 },
+		},
+	},
+}
+
 P.unitframes = {
 	power = {
 		texture = E.db.unitframe.statusbar,

@@ -75,6 +75,9 @@ function module:Initialize()
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 
+	-- Portraits
+	module:Portraits(true)
+
 	self:RegisterEvent("ADDON_LOADED")
 end
 

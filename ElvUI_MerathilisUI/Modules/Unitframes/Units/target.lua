@@ -8,6 +8,20 @@ function module:Update_TargetFrame(frame)
 	local db = E.db.mui.unitframes
 
 	module:CreateHighlight(frame)
+
+	if E.db.mui.portraits.general.enable then
+		if E.db.mui.portraits.target.enable then
+			module:CreatePortraits(
+				"Target",
+				"target",
+				_G.ElvUF_Target,
+				E.db.mui.portraits.target,
+				{ "PLAYER_TARGET_CHANGED" }
+			)
+		else
+			module:RemovePortraits(frame)
+		end
+	end
 end
 
 function module:InitTarget()

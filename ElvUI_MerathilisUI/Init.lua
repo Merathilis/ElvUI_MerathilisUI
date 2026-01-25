@@ -120,6 +120,9 @@ MER.Modules.Tooltip = MER:NewModule("MER_Tooltip", "AceHook-3.0", "AceEvent-3.0"
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
 
+-- Pre register Portraits
+MER.Portraits = {}
+
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
 E:AddLib("OpenRaid", "LibOpenRaid-1.0")

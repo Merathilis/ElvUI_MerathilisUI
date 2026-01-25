@@ -559,6 +559,26 @@ function F.PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
+function F.DebugPrintTable(tbl, simple, noFunctions)
+	if type(tbl) == "table" then
+		local tblLength = GetTableLng(tbl)
+		F.Print(
+			": Table Start >>>",
+			tbl,
+			"Entries:",
+			tblLength,
+			"Options:",
+			"Simple:",
+			simple,
+			"Functions:",
+			noFunctions
+		)
+		PrintTable(tbl, "-", (tblLength > 50), noFunctions)
+	else
+		F.Print("Not a Table:", tbl)
+	end
+end
+
 do
 	-- Tooltip Stuff
 	function F:HideTooltip()

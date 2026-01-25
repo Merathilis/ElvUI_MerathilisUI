@@ -570,7 +570,7 @@ function MER:SetupLayout()
 	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-297,45"
 	E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
 	E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-7,-165"
-	E.db["movers"]["HousingControlFrameMover"] = "TOP,ElvUIParent,TOP,0,-70"
+	E.db["movers"]["HousingControlsFrameMover"] = "TOP,ElvUIParent,TOP,0,-70"
 
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
@@ -1585,7 +1585,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["focus"]["disableMouseoverGlow"] = false
 	E.db["unitframe"]["units"]["focus"]["name"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["focus"]["name"]["position"] = "CENTER"
-	E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[namecolor][name:medium]"
+	E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[namecolor][name]"
 	E.db["unitframe"]["units"]["focus"]["health"]["position"] = "LEFT"
 	E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["focus"]["health"]["xOffset"] = 0
@@ -1829,7 +1829,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name]",
 	}
 	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["height"] = 13
@@ -1951,7 +1951,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name]",
 	}
 	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["height"] = 13
@@ -2096,7 +2096,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Frame",
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name]",
 	}
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
 		["font"] = "- GothamNarrow-Black",
@@ -2149,7 +2149,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["pet"]["name"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:short]"
+	E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name]"
 	E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["width"] = 75
@@ -2161,10 +2161,10 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 14
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
-	--
+
 	-- Arena
 	E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
-	--
+
 	-- Boss
 	E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["enable"] = true
@@ -2202,7 +2202,7 @@ function MER:SetupUnitframes(layout)
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 11,
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name]",
 		["yOffset"] = 18,
 	}
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
@@ -2291,7 +2291,7 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 
-	if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+	if E.db.mui.portraits.general.enable then
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-510,188"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,510,188"
 		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,510,177"
@@ -2329,7 +2329,7 @@ function MER:SetupDts()
 		border = true,
 		panelTransparency = true,
 		numPoints = 2,
-		E:IsAddOnEnabled("ElvUI_mMediaTag") and "DurabilityIlevel" or "Durability",
+		"Durability",
 		"Gold",
 	}
 
@@ -2344,29 +2344,6 @@ function MER:DeveloperSettings()
 		return
 	end
 
-	-- CVars
-	SetCVar("taintLog", 1)
-	SetCVar("LowLatencyMode", 2)
-	SetCVar("ffxAntiAliasingMode", 3)
-	SetCVar("maxFPS", 165)
-	SetCVar("maxFPSBk", 60)
-	SetCVar("maxFPSLoading", 30)
-	SetCVar("violenceLevel", 5)
-	SetCVar("blockTrades", 0)
-	SetCVar("blockChannelInvites", 1)
-	SetCVar("RAIDweatherDensity", 0)
-	SetCVar("CameraReduceUnexpectedMovement", 1)
-	SetCVar("DisableAdvancedFlyingVelocityVFX", 1)
-	SetCVar("disableServerNagle", 0)
-	SetCVar("displaySpellActivationOverlays", 0)
-	SetCVar("empowerTapControls", 1)
-	SetCVar("weatherDensity", 0)
-	SetCVar("SpellQueueWindow", 180)
-	SetCVar("floatingCombatTextCombatDamageDirectionalScale", 1)
-	SetCVar("autoOpenLootHistory", 1)
-	SetCVar("showTutorials", 0)
-	SetCVar("showNPETutorials", 0)
-	SetCVar("hideAdventureJournalAlerts", 1)
 	SetCVar("uiScale", E:PixelBestSize())
 
 	-- General
@@ -2385,6 +2362,7 @@ function MER:DeveloperSettings()
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
 	E.db["mui"]["scale"]["auctionHouse"]["scale"] = 1.15
 	E.db["mui"]["armory"]["stats"]["itemLevelFont"]["itemLevelFontColor"] = "GRADIENT"
+	E.db["mui"]["portraits"]["general"]["enable"] = true
 
 	-- Chat
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
@@ -2864,11 +2842,7 @@ MER.installTable = {
 					.. ", "
 					.. "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
 			)
-			if
-				not E:IsAddOnEnabled("ElvUI_mMediaTag")
-				and not E:IsAddOnEnabled("AddonSkins")
-				and not E:IsAddOnEnabled("ElvUI_FCT")
-			then
+			if not E:IsAddOnEnabled("AddonSkins") and not E:IsAddOnEnabled("ElvUI_FCT") then
 				PluginInstallFrame.Desc3:SetText(
 					F.String.Warning("Warning: ")
 						.. "Looks like you don't have any of the extra AddOns installed. Don't worry, you can still fully experience "
@@ -2894,18 +2868,6 @@ MER.installTable = {
 					PluginInstallFrame.Option2:SetScript("OnEnter", nil)
 					PluginInstallFrame.Option2:SetScript("OnLeave", nil)
 					PluginInstallFrame.Option2:SetText(F.String.AS())
-				end
-
-				if E:IsAddOnEnabled("ElvUI_mMediaTag") then
-					PluginInstallFrame.Option3:Show()
-					PluginInstallFrame.Option3:SetScript("OnClick", function()
-						PF:ApplymMediaTagProfile()
-					end)
-					PluginInstallFrame.Option3:SetScript("OnEnter", nil)
-					PluginInstallFrame.Option3:SetScript("OnLeave", nil)
-					PluginInstallFrame.Option3:SetText(
-						"|CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r"
-					)
 				end
 			end
 		end,
