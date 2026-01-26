@@ -65,8 +65,8 @@ function module:Initialize()
 	-- Boss
 	hooksecurefunc(UF, "Update_BossFrames", module.Update_BossFrames)
 	-- Castbar
-	hooksecurefunc(UF, "LoadUnits", module.CastBarHooks)
-	hooksecurefunc(UF, "LoadUnits", module.UpdateAllCastbars)
+	-- hooksecurefunc(UF, "LoadUnits", module.CastBarHooks)
+	-- hooksecurefunc(UF, "LoadUnits", module.UpdateAllCastbars)
 	-- Power Textures
 	-- module:ChangePowerBarTexture()
 	-- hooksecurefunc(UF, "Update_StatusBars", module.ChangePowerBarTexture)

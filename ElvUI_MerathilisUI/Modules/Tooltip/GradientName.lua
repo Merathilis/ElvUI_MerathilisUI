@@ -14,11 +14,12 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitReaction = UnitReaction
 
 local function TooltipGradientName(unit)
-	if not unit then
+	if not unit or not UnitIsPlayer(unit) then
 		return
 	end
 
 	local _, classunit = UnitClass(unit)
+	local classToken = E:NotSecretValue(classunit) and classunit or nil
 	local reaction = UnitReaction(unit, "player")
 
 	local text = _G["GameTooltipTextLeft1"]:GetText()
@@ -26,12 +27,12 @@ local function TooltipGradientName(unit)
 
 	local colorDB = E.db.mui.gradient
 
-	if tooltipName and classunit and reaction then
-		if UnitIsPlayer(unit) and classunit then
+	if tooltipName and classToken and reaction then
+		if UnitIsPlayer(unit) and classToken then
 			if colorDB.enable and colorDB.customColor.enableClass then
-				_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, classunit))
+				_G["GameTooltipTextLeft1"]:SetText(F.GradientNameCustom(tooltipName, classToken))
 			else
-				_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, classunit))
+				_G["GameTooltipTextLeft1"]:SetText(F.GradientName(tooltipName, classToken))
 			end
 		else
 			if reaction and reaction >= 5 then
@@ -125,6 +126,6 @@ function T:ApplyTooltipStyle()
 	end
 end
 
-hooksecurefunc(TT, "AddTargetInfo", T.ApplyTooltipStyle)
-hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", T.ApplyTooltipStyle)
-hooksecurefunc(TT, "MODIFIER_STATE_CHANGED", T.ApplyTooltipStyle)
+-- hooksecurefunc(TT, "AddTargetInfo", T.ApplyTooltipStyle)
+-- hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", T.ApplyTooltipStyle)
+-- hooksecurefunc(TT, "MODIFIER_STATE_CHANGED", T.ApplyTooltipStyle)

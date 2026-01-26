@@ -179,5 +179,5 @@ function module:NameHover()
 	tooltip:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 end
 
--- FIX ME 11.0
-module:AddCallback("NameHover")
+-- FIX ME 12.0
+-- module:AddCallback("NameHover")
