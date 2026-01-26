@@ -13,7 +13,8 @@ local UnitIsUnit = UnitIsUnit
 local UnitReaction = UnitReaction
 
 E:AddTag("name:gradient", "UNIT_NAME_UPDATE", function(unit)
-	local name = UnitName(unit)
+	local unitName = UnitName(unit)
+	local name = E:NotSecretValue(unitName) and unitName
 	local _, unitClass = UnitClass(unit)
 	local isTarget = UnitIsUnit(unit, "target") and not unit:match("nameplate") and not unit:match("party")
 	if name and len(name) > 10 then
