@@ -109,7 +109,20 @@ local function SetupCVars()
 	C_CVar_SetCVar("questTextContrast", 4) -- Black Parchment
 
 	-- Nameplates
-	-- TODO:
+	C_CVar_SetCVar("ShowClassColorInNameplate", 1)
+	C_CVar_SetCVar("nameplateLargerScale", 1)
+	C_CVar_SetCVar("nameplateLargeTopInset", -1)
+	C_CVar_SetCVar("nameplateMinAlpha", 1)
+	C_CVar_SetCVar("nameplateMinScale", 1)
+	C_CVar_SetCVar("nameplateMotion", 1)
+	C_CVar_SetCVar("nameplateOccludedAlphaMult", 1)
+	C_CVar_SetCVar("nameplateOtherBottomInset", -1)
+	C_CVar_SetCVar("nameplateOtherTopInset", -1)
+	C_CVar_SetCVar("nameplateOverlapH", 1.1)
+	C_CVar_SetCVar("nameplateOverlapV", 1.8)
+	C_CVar_SetCVar("nameplateSelectedScale", 1)
+	C_CVar_SetCVar("nameplateSelfAlpha", 1)
+	C_CVar_SetCVar("nameplateSelfTopInset", -1)
 
 	-- CVars General
 	C_CVar_SetCVar("chatStyle", "classic")
@@ -870,7 +883,6 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["smoothbars"] = true
 	E.db["nameplates"]["statusbar"] = "ElvUI Norm1"
-	-- E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
@@ -1402,8 +1414,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["fader"]["minAlpha"] = 0.35
 	E.db["unitframe"]["units"]["player"]["fader"]["maxAlpha"] = 1
 	E.db["unitframe"]["units"]["player"]["fader"]["smooth"] = 0.33
-	-- E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
-	-- E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
 
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 200
@@ -1550,7 +1560,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["CombatIcon"]["anchorPoint"] = "CENTER"
 	E.db["unitframe"]["units"]["target"]["CombatIcon"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["CombatIcon"]["yOffset"] = 0
-	-- E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
 
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["disableMouseoverGlow"] = false
@@ -1577,7 +1586,6 @@ function MER:SetupUnitframes(layout)
 	end
 	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {}
-	-- E.db["unitframe"]["units"]["targettarget"]["cutaway"]["health"]["enabled"] = true
 
 	-- Focus
 	E.db["unitframe"]["units"]["focus"]["width"] = 100
@@ -1607,7 +1615,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
 	E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
-	E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
 
 	-- FocusTarget
 	E.db["unitframe"]["units"]["focustarget"]["enable"] = false
@@ -1732,7 +1739,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["absorbStyle"] = "NORMAL"
 	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid1"]["healPrediction"]["height"] = -1
-	E.db["unitframe"]["units"]["raid1"]["cutaway"]["health"]["enabled"] = true
 
 	-- Raid2
 	E.db["unitframe"]["units"]["raid2"]["enable"] = true
@@ -1854,7 +1860,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["absorbStyle"] = "NORMAL"
 	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid2"]["healPrediction"]["height"] = -1
-	E.db["unitframe"]["units"]["raid2"]["cutaway"]["health"]["enabled"] = true
 
 	-- Raid3
 	E.db["unitframe"]["units"]["raid3"]["enable"] = true
@@ -1976,7 +1981,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["absorbStyle"] = "NORMAL"
 	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid3"]["healPrediction"]["height"] = -1
-	E.db["unitframe"]["units"]["raid3"]["cutaway"]["health"]["enabled"] = true
 
 	-- Party
 	E.db["unitframe"]["units"]["party"]["enable"] = true
@@ -2075,7 +2079,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["healPrediction"]["absorbStyle"] = "NORMAL"
 	E.db["unitframe"]["units"]["party"]["healPrediction"]["anchorPoint"] = "BOTTOM"
 	E.db["unitframe"]["units"]["party"]["healPrediction"]["height"] = -1
-	E.db["unitframe"]["units"]["party"]["cutaway"]["health"]["enabled"] = true
 	E.db["unitframe"]["units"]["party"]["CombatIcon"]["size"] = 12
 	E.db["unitframe"]["units"]["party"]["CombatIcon"]["texture"] = "COMBAT"
 	E.db["unitframe"]["units"]["party"]["CombatIcon"]["customTexture"] = ""
