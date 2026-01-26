@@ -54,17 +54,6 @@ L["Set to 2 if you do not understand the meaning of log level."] =
 L["Open the changelog window."] = true
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
--- Combat Alert
-L["Combat Alert"] = "戰鬥提醒"
-L["Enable/Disable the combat message if you enter/leave the combat."] = true
-L["Enter Combat"] = "進入戰鬥"
-L["Leave Combat"] = "離開戰鬥"
-L["Stay Duration"] = true
-L["Custom Text"] = true
-L["Custom Text (Enter)"] = true
-L["Custom Text (Leave)"] = true
-L["Color"] = "顏色"
-
 -- Information
 L["Information"] = "信息"
 L["Support & Downloads"] = true

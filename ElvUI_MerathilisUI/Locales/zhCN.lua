@@ -54,17 +54,6 @@ L["Set to 2 if you do not understand the meaning of log level."] =
 	"如果你不理解什么是日志级别, 设置为 2 就行."
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
--- Combat Alert
-L["Combat Alert"] = "战斗提示"
-L["Enable/Disable the combat message if you enter/leave the combat."] = "启用/禁用战斗状态提示"
-L["Enter Combat"] = "进入战斗"
-L["Leave Combat"] = "脱离战斗"
-L["Stay Duration"] = "持续时间"
-L["Custom Text"] = "自订文字"
-L["Custom Text (Enter)"] = "自订文字 (进入)"
-L["Custom Text (Leave)"] = "自订文字 (脱离)"
-L["Color"] = "颜色"
-
 -- Information
 L["Information"] = "信息"
 L["Support & Downloads"] = "支持 & 下载"

@@ -2,7 +2,6 @@
 	<Script file='ActionBars.lua'/>
 	<Script file='Armory.lua'/>
 	<Script file='Bags.lua'/>
-	<Script file='CombatAlert.lua'/>
 	<Script file='Cooldowns.lua'/>
 	<Script file='ItemLevel.lua'/>
 	<Script file='Maps.lua'/>

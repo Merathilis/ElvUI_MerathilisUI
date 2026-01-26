@@ -58,18 +58,6 @@ L["Set to 2 if you do not understand the meaning of log level."] =
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] =
 	"Diese Option wird die meisten ElvUI Farboptionen überschreiben, bitte bedenkt das."
 
--- Combat Alert
-L["Combat Alert"] = "Kampfalarmierung"
-L["Enable/Disable the combat message if you enter/leave the combat."] =
-	"Aktiviert/Deaktiviert die Kampf Nachricht, wenn du den Kampf betrittst, oder verlässt."
-L["Enter Combat"] = "Beginne Kampf"
-L["Leave Combat"] = "Verlasse Kampf"
-L["Stay Duration"] = "Anzeigezeit"
-L["Custom Text"] = "Benutzerdefinierter Text"
-L["Custom Text (Enter)"] = "Benutzerdefinierter Text (Beginn)"
-L["Custom Text (Leave)"] = "Benutzerdefinierter Text (Verlassen)"
-L["Color"] = "Farbe"
-
 -- Information
 L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"

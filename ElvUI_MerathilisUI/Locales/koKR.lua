@@ -64,18 +64,6 @@ L["Set to 2 if you do not understand the meaning of log level."] =
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] =
 	"이 설정은 대부분의 ElvUI 색상 옵션을 덮어씁니다. 이 점을 참고해 주세요."
 
--- Combat Alert
-L["Combat Alert"] = "전투 알림"
-L["Enable/Disable the combat message if you enter/leave the combat."] =
-	"전투에 진입하거나 이탈할 때 표시되는 메시지를 켜거나 끕니다"
-L["Enter Combat"] = ">>전투 시작<<"
-L["Leave Combat"] = ">>전투 종료<<"
-L["Stay Duration"] = "표시 시간"
-L["Custom Text"] = "사용자 정의 텍스트"
-L["Custom Text (Enter)"] = "입장 시 사용자 정의 텍스트"
-L["Custom Text (Leave)"] = "퇴장 시 사용자 정의 텍스트"
-L["Color"] = "색상"
-
 -- Information
 L["Information"] = "정보"
 L["Support & Downloads"] = "지원 및 다운로드"

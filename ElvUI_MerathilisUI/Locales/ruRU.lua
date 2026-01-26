@@ -57,18 +57,6 @@ L["Set to 2 if you do not understand the meaning of log level."] =
 	"Установите на 2, если вы не понимаете значение уровня журнала."
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
--- Combat Alert
-L["Combat Alert"] = "Сигнал боя"
-L["Enable/Disable the combat message if you enter/leave the combat."] =
-	"Включить/выключить боевое сообщение, если вы входите/выходите из боя."
-L["Enter Combat"] = "В бою"
-L["Leave Combat"] = "Выход из боя"
-L["Stay Duration"] = "Продолжительность пребывания"
-L["Custom Text"] = "Пользовательский текст"
-L["Custom Text (Enter)"] = "Пользовательский текст (введите)"
-L["Custom Text (Leave)"] = "Пользовательский текст (оставить)"
-L["Color"] = "Цвет"
-
 -- Information
 L["Information"] = "Информация"
 L["Support & Downloads"] = "Поддержка и загрузки"

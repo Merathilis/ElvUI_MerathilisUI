@@ -28,8 +28,8 @@ function module:LoadWindToolsProfile()
 	db["announcement"]["threatTransfer"]["enable"] = false
 	db["announcement"]["threatTransfer"]["onlyNotTank"] = false
 	db["combat"]["combatAlert"]["animation"] = false
-	db["combat"]["combatAlert"]["enable"] = false
-	db["combat"]["combatAlert"]["text"] = false
+	db["combat"]["combatAlert"]["enable"] = true
+	db["combat"]["combatAlert"]["text"] = true
 	db["combat"]["raidMarkers"]["enable"] = false
 	db["item"]["alreadyKnown"]["enable"] = true
 	db["item"]["extraItemsBar"]["bar1"]["backdropSpacing"] = 1
@@ -55,7 +55,7 @@ function module:LoadWindToolsProfile()
 	db["misc"]["automation"]["hideBagAfterEnteringCombat"] = true
 	db["misc"]["automation"]["hideWorldMapAfterEnteringCombat"] = true
 	db["misc"]["gameBar"]["enable"] = true
-	-- db["misc"]["gameBar"]["home"]["left"] = "RANDOM"
+	db["misc"]["gameBar"]["home"]["left"] = "RANDOM"
 	db["misc"]["spellActivationAlert"]["enable"] = true
 	db["quest"]["turnIn"]["enable"] = false
 	db["social"]["chatText"]["removeBrackets"] = true
@@ -84,13 +84,14 @@ function module:LoadWindToolsProfile()
 		E.db.movers = {}
 	end
 
-	E.db.movers["WTExtraItemsBar1Mover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-12,214"
-	E.db.movers["WTExtraItemsBar2Mover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-12,247"
-	E.db.movers["WTExtraItemsBar3Mover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-12,279"
-	E.db.movers["WTExtraItemsBar4Mover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-263,321"
-	E.db.movers["WTExtraItemsBar5Mover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-260,363"
+	E.db.movers["WTExtraItemsBar1Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-12,214"
+	E.db.movers["WTExtraItemsBar2Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-12,247"
+	E.db.movers["WTExtraItemsBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-12,279"
+	E.db.movers["WTExtraItemsBar4Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-263,321"
+	E.db.movers["WTExtraItemsBar5Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-260,363"
 
 	E.db.movers["WTInstanceDifficultyFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-197,-43"
+	E.db.movers["WTCombatAlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-300"
 end
 
 function module:ApplyWindToolsProfile()

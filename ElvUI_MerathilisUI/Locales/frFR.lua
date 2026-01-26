@@ -52,17 +52,6 @@ L["Only display log message that the level is higher than you choose."] = true
 L["Set to 2 if you do not understand the meaning of log level."] = true
 L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
--- Combat Alert
-L["Combat Alert"] = "Alerte de combat"
-L["Enable/Disable the combat message if you enter/leave the combat."] = true
-L["Enter Combat"] = "Début de combat"
-L["Leave Combat"] = "Fin de combat"
-L["Stay Duration"] = true
-L["Custom Text"] = true
-L["Custom Text (Enter)"] = true
-L["Custom Text (Leave)"] = true
-L["Color"] = "Couleur"
-
 -- Information
 L["Information"] = "Information"
 L["Support & Downloads"] = true
