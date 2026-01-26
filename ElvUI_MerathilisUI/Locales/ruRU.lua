@@ -312,27 +312,6 @@ L["Debug Print"] = "Отображение отладки"
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] =
 	"Включите эту опцию, чтобы получить отображение чата с именем и идентификатором из виньеток на мини-карте."
 
--- PVP
-L["Automatically cancel PvP duel requests."] =
-	"Автоматически отменять запросы на PvP-дуэли."
-L["Automatically cancel pet battles duel requests."] =
-	"Автоматически отменять запросы на дуэли в битвах питомцев."
-L["Announce in chat if duel was rejected."] =
-	"Объявляет в чате, если дуэль была отклонена."
-L["MER_DuelCancel_REGULAR"] = "Запрос на дуэль от %s отклонен."
-L["MER_DuelCancel_PET"] = "Запрос на дуэль питомца от %s отклонен."
-L["Show your PvP killing blows as a popup."] =
-	"Покажите свои смертельные удары в PvP во всплывающем окне."
-L["Sound"] = "Звук"
-L["Play sound when killing blows popup is shown."] =
-	"Воспроизвести звук, когда отображается всплывающее окно с убийственными ударами."
-L["PvP Auto Release"] = "Автопокидание в PvP"
-L["Automatically release body when killed inside a battleground."] =
-	"Автоматически покидать тело, если его убивают на поле боя."
-L["Check for rebirth mechanics"] = "Проверить механику возрождения"
-L["Do not release if reincarnation or soulstone is up."] =
-	"Не покидать, если реинкарнация или камень души активны."
-
 -- Actionbars
 L["Specialization Bar"] = "Панель специализации"
 L["EquipSet Bar"] = "Панель экипировки"

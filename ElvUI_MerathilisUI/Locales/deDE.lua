@@ -360,22 +360,6 @@ L["Debug Print"] = "Debuggausgabe"
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] =
 	"Aktiviere diese Option um eine Chatausgabe vom Namen und ID von den Vignetten auf der Minikarte zu erhalten."
 
--- PVP
-L["Automatically cancel PvP duel requests."] = "Lehnt automatisch PVP Duelle ab."
-L["Automatically cancel pet battles duel requests."] = "Lehnt automatisch Haustierkampf Duelle ab."
-L["Announce in chat if duel was rejected."] = "Berichtet im Chat, wenn ein Duell abgelehnt wurde."
-L["MER_DuelCancel_REGULAR"] = "Duell Anfrage von %s abgelehnt."
-L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
-L["Show your PvP killing blows as a popup."] = "Zeigt deine PvP Kills als ein Popup an."
-L["Sound"] = "Sound"
-L["Play sound when killing blows popup is shown."] = "Spielt einen Sound wenn das Popup angezeigt wird."
-L["PvP Auto Release"] = "PVP Auto freilassen"
-L["Automatically release body when killed inside a battleground."] =
-	"Lass den Körper automatisch frei, wenn Du auf einem Schlachtfeld getötet wurdest."
-L["Check for rebirth mechanics"] = "Überprüfe die Wiedergeburtsmechanik"
-L["Do not release if reincarnation or soulstone is up."] =
-	"Nicht freigeben, wenn Reinkarnation oder Seelenstein vorhanden sind."
-
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"

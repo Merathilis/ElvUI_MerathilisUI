@@ -14,7 +14,6 @@
 	<Include file="Notification\Load_Notification.xml"/>
 	<Include file="Panels\Load_Panels.xml"/>
 	<Include file="Profiles\Load_Profiles.xml"/>
-	<Include file="PvP\Load_PvP.xml"/>
 	<Include file="Tooltip\Load_Tooltip.xml"/>
 	<Include file="Unitframes\Load_Unitframes.xml"/>
 	<Include file="VehicleBar\Load_VehicleBar.xml"/>

@@ -1109,20 +1109,6 @@ P.panels = {
 	panelSize = 427,
 }
 
-P.pvp = {
-	duels = {
-		regular = false,
-		pet = false,
-		announce = false,
-	},
-	killingBlow = {
-		enable = true,
-		sound = true,
-	},
-	rebirth = true,
-	autorelease = false,
-}
-
 P.itemLevel = {
 	enable = true,
 	flyout = {

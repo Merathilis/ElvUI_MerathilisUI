@@ -374,17 +374,6 @@ L["Print Message"] = "스샷를 채팅 메시지 출력"
 L["Prints a message in the chat when you take a screenshot."] =
 	"스크린샷을 찍으면 채팅창에 메시지를 출력합니다."
 
--- PVP
-L["Automatically cancel PvP duel requests."] = "PvP 결투 요청을 자동으로 거절합니다"
-L["Automatically cancel pet battles duel requests."] = "애완동물 결투 요청을 자동으로 거절합니다"
-L["Announce in chat if duel was rejected."] = "결투 요청을 거절하면 채팅으로 알립니다"
-L["MER_DuelCancel_REGULAR"] = "%s의 결투 요청을 거절했습니다"
-L["MER_DuelCancel_PET"] = "%s의 애완동물 결투 요청을 거절했습니다"
-L["Show your PvP killing blows as a popup."] = "PvP에서 마지막 일격을 가하면 팝업으로 표시합니다"
-L["Sound"] = "소리"
-L["Play sound when killing blows popup is shown."] =
-	"마지막 일격 팝업이 표시될 때 소리를 재생합니다"
-
 L["Duels"] = "결투"
 L["Credits"] = "제작진"
 L["A simple editor for CVars."] = "CVars를 간단하게 편집할 수 있는 모듈입니다"

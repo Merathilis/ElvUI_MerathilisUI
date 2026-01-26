@@ -323,21 +323,6 @@ L["Text Font"] = true
 L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
--- PVP
-L["Duels"] = "决斗"
-L["Automatically cancel PvP duel requests."] = "自动取消决斗请求"
-L["Automatically cancel pet battles duel requests."] = "自动取消宠物对战请求"
-L["Announce in chat if duel was rejected."] = "当拒绝时在聊天栏通告"
-L["MER_DuelCancel_REGULAR"] = "已拒绝来自 %s 的决斗请求."
-L["MER_DuelCancel_PET"] = "已拒绝来自 %s 的宠物对战请求."
-L["Show your PvP killing blows as a popup."] = "将PvP击杀弹出显示"
-L["Sound"] = "声音"
-L["Play sound when killing blows popup is shown."] = "当PvP击杀时播放音效"
-L["PvP Auto Release"] = true
-L["Automatically release body when killed inside a battleground."] = true
-L["Check for rebirth mechanics"] = true
-L["Do not release if reincarnation or soulstone is up."] = true
-
 -- Actionbars
 L["Specialization Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"

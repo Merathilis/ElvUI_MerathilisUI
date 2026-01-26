@@ -8,7 +8,6 @@
 	<Script file='NamePlates.lua'/>
 	<Script file='Notifications.lua'/>
 	<Script file='Panels.lua'/>
-	<Script file='PvP.lua'/>
 	<Script file='Tooltips.lua'/>
 	<Script file='UnitFrames.lua'/>
 	<Script file='VehicleBar.lua'/>

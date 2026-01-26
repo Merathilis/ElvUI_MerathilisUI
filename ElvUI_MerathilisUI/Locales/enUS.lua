@@ -321,20 +321,6 @@ L["Text Font"] = true
 L["Debug Print"] = true
 L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
--- PVP
-L["Automatically cancel PvP duel requests."] = true
-L["Automatically cancel pet battles duel requests."] = true
-L["Announce in chat if duel was rejected."] = true
-L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
-L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
-L["Show your PvP killing blows as a popup."] = true
-L["Sound"] = true
-L["Play sound when killing blows popup is shown."] = true
-L["PvP Auto Release"] = true
-L["Automatically release body when killed inside a battleground."] = true
-L["Check for rebirth mechanics"] = true
-L["Do not release if reincarnation or soulstone is up."] = true
-
 -- Actionbars
 L["Specialization Bar"] = true
 L["EquipSet Bar"] = true
