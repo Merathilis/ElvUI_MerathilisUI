@@ -891,7 +891,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = "[name:gradient]"
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = "][name:abbrev:medium]"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
@@ -926,7 +926,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = "[name:gradient]"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = "[name:abbrev:medium]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
@@ -972,7 +972,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = "[name:gradient]"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = "[name:abbrev:medium]"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
@@ -1014,7 +1014,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = "[name:gradient]"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = "[name:abbrev:medium]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["yOffset"] = -9
@@ -1076,7 +1076,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = "[namecolor][name:gradient]"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = "[namecolor][name:abbrev:medium]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["yOffset"] = -9
@@ -1285,7 +1285,7 @@ function MER:SetupUnitframes(layout)
 		["xOffset"] = 0,
 		["yOffset"] = 16,
 		["size"] = 11,
-		["text_format"] = "[classicon-flatborder][name:gradient]",
+		["text_format"] = "[classicon-flatborder][name:abbrev:medium]",
 		["attachTextTo"] = "Frame",
 	}
 
@@ -1473,7 +1473,7 @@ function MER:SetupUnitframes(layout)
 		["xOffset"] = 2,
 		["yOffset"] = 16,
 		["size"] = 11,
-		["text_format"] = "[classification:icon][name:gradient]",
+		["text_format"] = "[classification:icon][name:abbrev:medium]",
 		["attachTextTo"] = "Frame",
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
@@ -1570,7 +1570,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["power"]["text_format"] = ""
 	E.db["unitframe"]["units"]["targettarget"]["width"] = 75
 	E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:gradient]"
+	E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:abbrev:medium]"
 	E.db["unitframe"]["units"]["targettarget"]["height"] = 20
 	E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["targettarget"]["health"]["bgUseBarTexture"] = true
@@ -1593,7 +1593,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["focus"]["disableMouseoverGlow"] = false
 	E.db["unitframe"]["units"]["focus"]["name"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["focus"]["name"]["position"] = "CENTER"
-	E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[namecolor][name:gradient]"
+	E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[namecolor][name:abbrev:medium]"
 	E.db["unitframe"]["units"]["focus"]["health"]["position"] = "LEFT"
 	E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["focus"]["health"]["xOffset"] = 0
@@ -1714,7 +1714,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name:abbrev:medium]",
 	}
 	E.db["unitframe"]["units"]["raid1"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid1"]["infoPanel"]["height"] = 13
@@ -1835,7 +1835,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name:abbrev:medium]",
 	}
 	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid2"]["infoPanel"]["height"] = 13
@@ -1956,7 +1956,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name:abbrev:medium]",
 	}
 	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid3"]["infoPanel"]["height"] = 13
@@ -2099,7 +2099,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Frame",
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name:abbrev:medium]",
 	}
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
 		["font"] = "- GothamNarrow-Black",
@@ -2152,7 +2152,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["pet"]["name"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:gradient]"
+	E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:abbrev:medium]"
 	E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["width"] = 75
@@ -2205,7 +2205,7 @@ function MER:SetupUnitframes(layout)
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 11,
-		["text_format"] = "[name:gradient]",
+		["text_format"] = "[name:abbrev:medium]",
 		["yOffset"] = 18,
 	}
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
