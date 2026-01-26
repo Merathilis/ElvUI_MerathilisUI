@@ -15,7 +15,7 @@
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## X-Credits: Simpy, fang2hou, Benik, Azilroka, Darth Predator, fgprodigal, Blinkii, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
-## X-ElvUIVersion: 14.07
+## X-ElvUIVersion: 15.00
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117
