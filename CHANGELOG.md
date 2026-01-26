@@ -1,4 +1,5 @@
 ### Changes ###
 
-  * [Scale]: Added an option to scale the Encounter Journal
-  * [Vehicle Bar]: Bring back the Vigor Bar and Speed Text
+  * [Install]: Remove cutaway settings for UnitFrames
+  * [DataTexts]: Added a mew Durability_iLevel DataText from mMediaTag
+  * [Tag]: Protect the [name:gradient] tag a bit because of secret values
