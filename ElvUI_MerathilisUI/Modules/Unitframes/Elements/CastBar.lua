@@ -63,13 +63,14 @@ function module:PostCast(unit, unitframe)
 	end
 
 	if gradient then
-		if not self.notInterruptible then
+		local notInterruptible = E:NotSecretValue(self.notInterruptible) and self.notInterruptible
+		if not notInterruptible then
 			self:GetStatusBarTexture():SetGradient(
 				"HORIZONTAL",
 				CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
 				CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
 			)
-		elseif self.notInterruptible then
+		elseif notInterruptible then
 			self:GetStatusBarTexture():SetGradient(
 				"HORIZONTAL",
 				CreateColor(
@@ -105,13 +106,14 @@ function module:PostCastInterruptible(unit)
 	end
 
 	if gradient then
-		if not self.notInterruptible then
+		local notInterruptible = E:NotSecretValue(self.notInterruptible) and self.notInterruptible
+		if not notInterruptible then
 			self:GetStatusBarTexture():SetGradient(
 				"HORIZONTAL",
 				CreateColor(F.ClassGradient[class].r2, F.ClassGradient[class].g2, F.ClassGradient[class].b2, 1),
 				CreateColor(F.ClassGradient[class].r1, F.ClassGradient[class].g1, F.ClassGradient[class].b1, 1)
 			)
-		elseif self.notInterruptible then
+		elseif notInterruptible then
 			self:GetStatusBarTexture():SetGradient(
 				"HORIZONTAL",
 				CreateColor(
