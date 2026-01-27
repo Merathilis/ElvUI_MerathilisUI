@@ -586,7 +586,7 @@ options.unitframes = {
 									type = "toggle",
 									name = L["Use Texture Color"],
 									get = function()
-										return E.db.mMT.portraits.general.usetexturecolor
+										return E.db.mui.portraits.general.usetexturecolor
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.usetexturecolor = value
@@ -2758,7 +2758,7 @@ options.unitframes = {
 												return t.r, t.g, t.b, t.a
 											end,
 											set = function(_, r, g, b, a)
-												local t = E.db.mMT.portraits.colors.border.elite
+												local t = E.db.mui.portraits.colors.border.elite
 												t.r, t.g, t.b, t.a = r, g, b, a
 											end,
 										},
@@ -2768,11 +2768,11 @@ options.unitframes = {
 											name = L["Rare Elite"],
 											hasAlpha = true,
 											get = function()
-												local t = E.db.mMT.portraits.colors.border.rareelite
+												local t = E.db.mui.portraits.colors.border.rareelite
 												return t.r, t.g, t.b, t.a
 											end,
 											set = function(_, r, g, b, a)
-												local t = E.db.mMT.portraits.colors.border.rareelite
+												local t = E.db.mui.portraits.colors.border.rareelite
 												t.r, t.g, t.b, t.a = r, g, b, a
 											end,
 										},
