@@ -525,7 +525,7 @@ local function SetScripts(portrait, force)
 				tinsert(portrait.allEvents, event)
 			end
 
-			if E.db.mMT.portraits.general.desaturation then
+			if E.db.mui.portraits.general.desaturation then
 				local healthEvent = "UNIT_HEALTH"
 				portrait:RegisterUnitEvent(healthEvent, portrait.unit)
 				tinsert(portrait.allEvents, healthEvent)
@@ -742,7 +742,7 @@ local function PartyUnitOnEvent(self, event, eventUnit)
 
 	self.unit = self.parent.unit
 
-	if E.db.mMT.portraits.general.desaturation and not self.eventDesaturationIsSet then
+	if E.db.mui.portraits.general.desaturation and not self.eventDesaturationIsSet then
 		self:RegisterUnitEvent("UNIT_HEALTH", self.unit)
 		tinsert(self.allEvents, "UNIT_HEALTH")
 		self.eventDesaturationIsSet = true
