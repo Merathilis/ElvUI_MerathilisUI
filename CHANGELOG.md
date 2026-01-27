@@ -1,5 +1,5 @@
 ### Changes ###
 
-  * [Install]: Remove cutaway settings for UnitFrames
-  * [DataTexts]: Added a mew Durability_iLevel DataText from mMediaTag
-  * [Tag]: Protect the [name:gradient] tag a bit because of secret values
+  * [Portraits]: Fixed some copy-paste errors in the code
+  * [UnitFrames]: Fixed an error with castbars
+  * [UnitFrames]: Remove the Tag [name:gradient] for now and replace it with [name:abbrev:medium]
