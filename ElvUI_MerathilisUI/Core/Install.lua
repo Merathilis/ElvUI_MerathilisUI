@@ -891,7 +891,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = "][name:abbrev:medium]"
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = "[name:abbrev:medium]"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
