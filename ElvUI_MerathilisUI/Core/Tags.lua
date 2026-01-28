@@ -9,14 +9,12 @@ local UnitClass = UnitClass
 local UnitName = UnitName
 local UnitInPartyIsAI = UnitInPartyIsAI
 local UnitIsPlayer = UnitIsPlayer
-local UnitIsUnit = UnitIsUnit
 local UnitReaction = UnitReaction
 
 E:AddTag("name:gradient", "UNIT_NAME_UPDATE", function(unit)
-	local unitName = UnitName(unit)
-	local name = E:NotSecretValue(unitName) and unitName
-	local _, unitClass = UnitClass(unit)
+	local name = UnitName(unit)
 	local isTarget = UnitIsUnit(unit, "target") and not unit:match("nameplate") and not unit:match("party")
+
 	if name and len(name) > 10 then
 		name = name:gsub("(%S+) ", function(t)
 			return t:utf8sub(1, 1) .. ". "
@@ -24,6 +22,11 @@ E:AddTag("name:gradient", "UNIT_NAME_UPDATE", function(unit)
 	end
 
 	if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
+		local _, unitClass = UnitClass(unit)
+		if not unitClass then
+			return
+		end
+
 		return F.GradientName(name, unitClass, isTarget)
 	elseif not UnitIsPlayer(unit) then
 		local reaction = UnitReaction(unit, "player")
