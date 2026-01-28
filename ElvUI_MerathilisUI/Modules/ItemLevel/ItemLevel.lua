@@ -6,8 +6,8 @@ local C = W.Utilities.Color ---@type ColorUtility
 local _G = _G
 local pairs, select = pairs, select
 
-local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
 local GetItemInfo = C_Item.GetItemInfo
+local GetItemQuality = C_Item.GetItemQuality
 local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 local GetContainerItemLink = C_Container.GetContainerItemLink
 local GetInventoryItemLink = GetInventoryItemLink
@@ -85,7 +85,7 @@ function module:ItemLevel_FlyoutSetup()
 		end
 	else
 		local itemLocation = self:GetItemLocation()
-		local quality = itemLocation and C_Item.GetItemQuality(itemLocation)
+		local quality = itemLocation and GetItemQuality(itemLocation)
 		if itemLocation:IsBagAndSlot() then
 			local bag, slot = itemLocation:GetBagAndSlot()
 			module.ItemLevel_FlyoutUpdate(self, bag, slot, quality)
