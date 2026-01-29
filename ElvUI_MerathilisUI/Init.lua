@@ -105,6 +105,7 @@ MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.MiniMapCoords = MER:NewModule("MER_MiniMapCoords", "AceHook-3.0")
 MER.Modules.Misc = MER:NewModule("MER_Misc", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
+MER.Modules.NameHover = MER:NewModule("MER_NameHover")
 MER.Modules.NamePlates = MER:NewModule("MER_NamePlates", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Notification = MER:NewModule("MER_Notification", "AceEvent-3.0")
 MER.Modules.Panels = MER:NewModule("MER_Panels")

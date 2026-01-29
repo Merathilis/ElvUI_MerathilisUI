@@ -1084,6 +1084,18 @@ P.nameplates = {
 	gradient = true,
 }
 
+P.nameHover = {
+	enable = true,
+
+	mainTextSize = 14,
+	mainTextOutline = "SHADOWOUTLINE",
+	headerTextSize = 11,
+	headerTextOutline = "SHADOWOUTLINE",
+	subTextSize = 11,
+	subTextOutline = "SHADOWOUTLINE",
+	targettarget = false,
+}
+
 P.media = {}
 
 P.panels = {
