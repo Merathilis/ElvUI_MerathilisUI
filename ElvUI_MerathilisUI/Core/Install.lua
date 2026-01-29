@@ -1728,7 +1728,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["xOffset"] = 1
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["size"] = 10
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["position"] = "TOPLEFT"
-	--
+
 	if layout == "gradient" then
 		E.db["unitframe"]["units"]["raid1"]["colorOverride"] = "USE_DEFAULT"
 	elseif layout == "dark" then
@@ -2302,6 +2302,12 @@ function MER:SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-540,209"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,540,209"
 		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,540,200"
+	end
+
+	if layout == "gradient" then
+		E.db.mui.gradient.enable = true
+	elseif layout == "dark" then
+		E.db.mui.gradient.enable = false
 	end
 
 	E:StaggeredUpdateAll(nil, true)

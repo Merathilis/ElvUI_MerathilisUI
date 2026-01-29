@@ -23,6 +23,11 @@ options.gradient = {
 			type = "toggle",
 			name = L["Enable"],
 			width = "full",
+			set = function(info, value)
+				E.db.mui.gradient.enable = value
+				F:GradientColorUpdate()
+				E:StaticPopup_Show("CONFIG_RL")
+			end,
 		},
 		desc = {
 			order = 2,
