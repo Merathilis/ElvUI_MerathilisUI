@@ -262,8 +262,8 @@ local function UpdateExtraTexture(portraitFrame, classification)
 end
 
 local function GetNPCID(unit)
-	local guid = UnitGUID(unit)
-	return guid and select(6, strsplit("-", guid))
+	local guid = UnitGUID(unit or "npc")
+	return tonumber(E:NotSecretValue(guid) and guid or "") and select(6, strsplit("-", guid))
 end
 
 local function HideRareElite(frame)
