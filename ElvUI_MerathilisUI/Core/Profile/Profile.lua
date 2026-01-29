@@ -1059,9 +1059,6 @@ P.portraits = {
 }
 
 P.unitframes = {
-	power = {
-		texture = E.db.unitframe.statusbar,
-	},
 	castbar = {
 		enable = true,
 		texture = "ElvUI Blank",

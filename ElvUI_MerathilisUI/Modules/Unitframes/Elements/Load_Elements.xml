@@ -3,7 +3,6 @@
 	<Script file="Health.lua"/>
 	<Script file="Portraits_TXDB.lua"/>
 	<Script file="Portraits.lua"/>
-	<!-- <Script file="Power.lua"/> -->
 	<Script file="RaidIcon.lua"/>
 	<Script file="RestingIndicator.lua"/>
 </Ui>
