@@ -1179,10 +1179,6 @@ P.elvUIIcons = {
 	},
 }
 
-P.tooltip = {
-	gradientName = false,
-}
-
 P.scale = {
 	enable = false,
 

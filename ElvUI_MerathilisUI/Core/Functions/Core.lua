@@ -22,6 +22,7 @@ local GetBuffDataByIndex = C_UnitAuras.GetBuffDataByIndex
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
 local IsEveryoneAssistant = IsEveryoneAssistant
+local IsInInstance = IsInInstance
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
@@ -104,6 +105,15 @@ function F.UpdateDBFromPathRGB(db, path)
 	F.UpdateDBFromPath(db, path, "g")
 	F.UpdateDBFromPath(db, path, "b")
 	F.UpdateDBFromPath(db, path, "a")
+end
+
+function F.CheckInstanceSecret()
+	local _, instanceType = IsInInstance()
+	if instanceType ~= "none" then
+		return true
+	else
+		return false
+	end
 end
 
 function F.CreateStyle(frame, useStripes, useGradient)

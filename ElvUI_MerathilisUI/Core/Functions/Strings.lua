@@ -200,6 +200,31 @@ function F.String.RGB(msg, colors)
 	end
 end
 
+do
+	local shortenReplace = function(t)
+		return t:utf8sub(1, 1) .. ". "
+	end
+	function F.String.ShortenString(text, length, cut, firstname)
+		if text and string.len(text) > length then
+			if cut then
+				text = E:ShortenString(text, length)
+			else
+				if firstname then
+					local first, last = text:match("^(%a*)(.*)$")
+					if first and last then
+						text = first .. " " .. last:gsub("(%S+)", shortenReplace)
+					else
+						text = text:gsub("(%S+) ", shortenReplace)
+					end
+				else
+					text = text:gsub("(%S+) ", shortenReplace)
+				end
+			end
+		end
+		return text
+	end
+end
+
 function F.String.Uppercase(text)
 	if type(text) ~= "string" then
 		return text

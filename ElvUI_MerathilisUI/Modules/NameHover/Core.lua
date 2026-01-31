@@ -28,7 +28,6 @@ local function UpdateFrameContents(f)
 	if unitName == nil then
 		return
 	end
-
 	local unitText = module:GetTextWithColor(unitName, module:GetUnitNameColor("mouseover"))
 	local levelText = module:GetLevelText()
 	local targetText = module:GetTargetText()

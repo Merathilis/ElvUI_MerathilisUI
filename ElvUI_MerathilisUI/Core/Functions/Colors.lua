@@ -361,6 +361,26 @@ function F:GradientColorUpdate()
 	}
 end
 
+local ClassColorReaction = {
+	["WARRIOR"] = { r1 = 0.77646887302399, g1 = 0.60784178972244, b1 = 0.4274500310421 },
+	["PALADIN"] = { r1 = 0.95686066150665, g1 = 0.54901838302612, b1 = 0.72941017150879 },
+	["HUNTER"] = { r1 = 0.66666519641876, g1 = 0.82744914293289, b1 = 0.44705784320831 },
+	["ROGUE"] = { r1 = 0.99999779462814, g1 = 0.95686066150665, b1 = 0.40784224867821 },
+	["PRIEST"] = { r1 = 0.99999779462814, g1 = 0.99999779462814, b1 = 0.99999779462814 },
+	["DEATHKNIGHT"] = { r1 = 0.76862573623657, g1 = 0.11764679849148, b1 = 0.2274504750967 },
+	["SHAMAN"] = { r1 = 0, g1 = 0.4392147064209, b1 = 0.86666476726532 },
+	["MAGE"] = { r1 = 0.24705828726292, g1 = 0.78039044141769, b1 = 0.92156660556793 },
+	["WARLOCK"] = { r1 = 0.52941060066223, g1 = 0.53333216905594, b1 = 0.93333131074905 },
+	["MONK"] = { r1 = 0, g1 = 0.99999779462814, b1 = 0.59607714414597 },
+	["DRUID"] = { r1 = 0.99999779462814, g1 = 0.48627343773842, b1 = 0.039215601980686 },
+	["DEMONHUNTER"] = { r1 = 0.63921427726746, g1 = 0.1882348805666, b1 = 0.78823357820511 },
+	["EVOKER"] = { r1 = 0.19607843137255, g1 = 0.46666666666667, b1 = 0.53725490196078 },
+	["NPCFRIENDLY"] = { r1 = 0.2, g1 = 1, b1 = 0.2 },
+	["NPCNEUTRAL"] = { r1 = 0.89, g1 = 0.89, b1 = 0 },
+	["NPCUNFRIENDLY"] = { r1 = 0.94, g1 = 0.37, b1 = 0 },
+	["NPCHOSTILE"] = { r1 = 0.8, g1 = 0, b1 = 0 },
+}
+
 local colorUpdate = CreateFrame("FRAME")
 colorUpdate:RegisterEvent("PLAYER_ENTERING_WORLD")
 colorUpdate:RegisterEvent("PLAYER_STARTED_MOVING")
@@ -563,16 +583,33 @@ function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha)
 	end
 end
 
-function F.GradientName(name, unitclass, isTarget)
+function F.GetClassColorsRGB(unitclass)
+	if unitclass then
+		return {
+			r = ClassColorReaction[unitclass]["r1"],
+			g = ClassColorReaction[unitclass]["g1"],
+			b = ClassColorReaction[unitclass]["b1"],
+		}
+	else
+		return { r1 = 1, g1 = 0, b1 = 0 } --debug red
+	end
+end
+
+function F.GradientName(name, unitclass, isTarget, isUnit)
 	if not name then
 		return
 	end
 
-	local color = F.ClassGradient[unitclass] or F.ClassGradient.MANA
-	if not isTarget then
-		return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
+	if F.CheckInstanceSecret() and isUnit then
+		local cs = F.GetClassColorsRGB(unitclass)
+		return E:RGBToHex(cs.r, cs.g, cs.b) .. name
 	else
-		return E:TextGradient(name, color.r1, color.g1, color.b1, color.r2, color.g2, color.b2)
+		local color = F.ClassGradient[unitclass] or F.ClassGradient.MANA
+		if not isTarget then
+			return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
+		else
+			return E:TextGradient(name, color.r1, color.g1, color.b1, color.r2, color.g2, color.b2)
+		end
 	end
 end
 
