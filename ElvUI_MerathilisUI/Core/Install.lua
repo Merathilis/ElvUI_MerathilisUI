@@ -883,6 +883,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["smoothbars"] = true
 	E.db["nameplates"]["statusbar"] = "ElvUI Norm1"
+	E.db["nameplates"]["visibility"]["friendly"]["npcs"] = false
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
@@ -2361,11 +2362,7 @@ function MER:DeveloperSettings()
 	E.db["general"]["cropIcon"] = 0
 	E.db["general"]["autoRepair"] = "GUILD"
 	E.db["tooltip"]["showElvUIUsers"] = true
-	E.db["mui"]["pvp"]["duels"]["regular"] = true
-	E.db["mui"]["pvp"]["duels"]["pet"] = true
-	E.db["mui"]["pvp"]["duels"]["announce"] = true
 	E.private["mui"]["skins"]["shadowOverlay"] = true
-	E.db["mui"]["tooltip"]["gradientName"] = true
 	E.db["mui"]["nameHover"]["gradient"] = true
 	E.db["mui"]["scale"]["enable"] = true
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9

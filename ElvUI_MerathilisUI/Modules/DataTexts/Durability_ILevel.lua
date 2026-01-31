@@ -113,6 +113,11 @@ local function OnLeave(self)
 end
 
 local function OnEvent(self)
+	local db = E.db.mui and E.db.mui.datatexts and E.db.mui.datatexts.durabilityIlevel
+	if not db then
+		return
+	end
+
 	totalDurability = 100
 	totalRepairCost = 0
 
@@ -147,24 +152,24 @@ local function OnEvent(self)
 		"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Datatext\\shield.tga:14:14:0:0:64:64:5:59:5:59"
 	local armorIcon =
 		"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Datatext\\armor.tga:14:14:0:0:64:64:5:59:5:59|t"
-	local text = E.db.mui.datatexts.durabilityIlevel.icon and "%s %s  %s %s" or "%s%s | %s%s"
+	local text = db.icon and "%s %s  %s %s" or "%s%s | %s%s"
 	local avgEquippedString = ""
 	local colorDurability = nil
 
-	if E.db.mui.datatexts.durabilityIlevel.colored.enable then
+	if db.colored.enable then
 		if
-			(totalDurability or 0) <= E.db.mui.datatexts.durabilityIlevel.colored.a.value
-			and not ((totalDurability or 0) <= E.db.mui.datatexts.durabilityIlevel.colored.b.value)
+			(totalDurability or 0) <= db.colored.a.value
+			and not ((totalDurability or 0) <= db.durabilityIlevel.colored.b.value)
 		then
-			colorDurability = E.db.mui.datatexts.durabilityIlevel.colored.a.color
-		elseif (totalDurability or 0) <= E.db.mui.datatexts.durabilityIlevel.colored.b.value then
-			colorDurability = E.db.mui.datatexts.durabilityIlevel.colored.b.color
+			colorDurability = db.colored.a.color
+		elseif (totalDurability or 0) <= db.colored.b.value then
+			colorDurability = db.colored.b.color
 		end
 	elseif (totalDurability or 0) <= 15 then
 		colorDurability = { r = 1, g = 0.78, b = 0, hex = "|CFFFFC900" }
 	end
 
-	if not E.db.mui.datatexts.durabilityIlevel.whiteIcon and colorDurability then
+	if not db.whiteIcon and colorDurability then
 		shieldIcon = shieldIcon
 			.. ":"
 			.. tostring(F.RoundNumber(colorDurability.r * 255))
@@ -177,11 +182,11 @@ local function OnEvent(self)
 		shieldIcon = shieldIcon .. "|t"
 	end
 
-	armorIcon = E.db.mui.datatexts.durabilityIlevel.icon and armorIcon or ""
+	armorIcon = db.icon and armorIcon or ""
 	local totalDurabilityString = format("%." .. E.db.general.decimalLength .. "f%%", totalDurability or 0)
 
 	_, avgEquipped = GetAverageItemLevel()
-	shieldIcon = E.db.mui.datatexts.durabilityIlevel.icon and shieldIcon or ""
+	shieldIcon = db.icon and shieldIcon or ""
 	avgEquippedString = format("%." .. E.db.general.decimalLength .. "f", avgEquipped or 0)
 	text = format(
 		text,
@@ -195,13 +200,18 @@ local function OnEvent(self)
 end
 
 local function OnClick(_, button)
+	local db = E.db.mui and E.db.mui.datatexts and E.db.mui.datatexts.durabilityIlevel
+	if not db then
+		return
+	end
+
 	if InCombatLockdown() then
 		_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
 	else
 		if button == "LeftButton" then
 			_G.ToggleCharacter("PaperDollFrame")
 		elseif button == "RightButton" then
-			local mountID = tonumber(E.db.mui.datatexts.durabilityIlevel.mount)
+			local mountID = tonumber(db.mount)
 			if mountID then
 				local isUsable = select(5, GetMountInfoByID(mountID))
 				if isUsable then
