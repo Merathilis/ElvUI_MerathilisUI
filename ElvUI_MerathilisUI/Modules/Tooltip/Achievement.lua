@@ -8,7 +8,7 @@ local GetAchievementInfo = GetAchievementInfo
 local UnitGUID = UnitGUID
 
 local function SetHyperlink(tooltip, refString)
-	if E.db.mui.tooltip.achievement ~= true then
+	if not E.db.mui or not E.db.mui.tooltip or E.db.mui.tooltip.achievement ~= true then
 		return
 	end
 	if tooltip:IsForbidden() then
