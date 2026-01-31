@@ -1,7 +1,7 @@
 ## Interface: 120000
 ## Author: Merathilis
 ## Version: @project-version@
-## X-Version: 7.08
+## X-Version: 7.08-fix1
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## AddonCompartmentFunc: MerathilisUI_OnAddonCompartmentClick
 ## IconTexture: Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\m2
