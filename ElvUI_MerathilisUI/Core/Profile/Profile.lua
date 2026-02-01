@@ -494,6 +494,10 @@ P.armory = {
 	},
 }
 
+P.tooltip = {
+	achievement = true,
+}
+
 P.notification = {
 	enable = true,
 	noSound = false,

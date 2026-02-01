@@ -8,12 +8,10 @@ local GetAchievementInfo = GetAchievementInfo
 local UnitGUID = UnitGUID
 
 local function SetHyperlink(tooltip, refString)
-	if E.db.mui.tooltip.achievement ~= true then
+	if not E.db.mui.tooltip.achievement or tooltip:IsForbidden() then
 		return
 	end
-	if tooltip:IsForbidden() then
-		return
-	end
+
 	if select(3, find(refString, "(%a-):")) ~= "achievement" then
 		return
 	end
@@ -27,8 +25,8 @@ local function SetHyperlink(tooltip, refString)
 	end
 
 	tooltip:AddLine(" ")
-	local _, _, _, completed, _, _, _, _, _, _, _, _, wasEarnedByMe, earnedBy = GetAchievementInfo(achievementID)
 
+	local _, _, _, completed, _, _, _, _, _, _, _, _, wasEarnedByMe, earnedBy = GetAchievementInfo(achievementID)
 	if completed then
 		if earnedBy then
 			if earnedBy ~= "" then
@@ -41,6 +39,7 @@ local function SetHyperlink(tooltip, refString)
 			end
 		end
 	end
+
 	tooltip:Show()
 end
 
