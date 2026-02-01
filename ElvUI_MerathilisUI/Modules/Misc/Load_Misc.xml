@@ -12,7 +12,6 @@
 	<Script file="StatusReport.lua"/>
 	<Script file="SingingSockets.lua"/>
 	<Script file="TradeTabs.lua"/>
-	<Script file="WAAnchor.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
 
 	<Include file="Scale\Load_Scale.xml"/>
