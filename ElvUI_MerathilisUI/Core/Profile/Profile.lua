@@ -589,7 +589,7 @@ P.vehicleBar = {
 P.miniMapCoords = {
 	enable = true,
 	xOffset = 0,
-	yOffset = 75,
+	yOffset = 70,
 	format = "%.0f",
 	mouseOver = false,
 
