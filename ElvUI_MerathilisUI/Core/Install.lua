@@ -2836,50 +2836,6 @@ MER.installTable = {
 		[12] = function()
 			MER:Resize(nil)
 
-			PluginInstallFrame.SubTitle:SetText(L["Plugins"])
-			PluginInstallFrame.Desc1:SetText(
-				L["This part of the installation process will apply changes to ElvUI Plugins"]
-			)
-			PluginInstallFrame.Desc2:SetText(
-				"Currently supported AddOns: "
-					.. F.String.FCT()
-					.. ", "
-					.. F.String.AS()
-					.. ", "
-					.. "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
-			)
-			if not E:IsAddOnEnabled("AddonSkins") and not E:IsAddOnEnabled("ElvUI_FCT") then
-				PluginInstallFrame.Desc3:SetText(
-					F.String.Warning("Warning: ")
-						.. "Looks like you don't have any of the extra AddOns installed. Don't worry, you can still fully experience "
-						.. MER.Title
-						.. "!"
-				)
-			else
-				if E:IsAddOnEnabled("ElvUI_FCT") then
-					PluginInstallFrame.Option1:Show()
-					PluginInstallFrame.Option1:SetScript("OnClick", function()
-						PF:ApplyFCTProfile()
-					end)
-					PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-					PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-					PluginInstallFrame.Option1:SetText(F.String.FCT())
-				end
-
-				if E:IsAddOnEnabled("AddonSkins") then
-					PluginInstallFrame.Option2:Show()
-					PluginInstallFrame.Option2:SetScript("OnClick", function()
-						PF:ApplyAddOnSkinsProfile()
-					end)
-					PluginInstallFrame.Option2:SetScript("OnEnter", nil)
-					PluginInstallFrame.Option2:SetScript("OnLeave", nil)
-					PluginInstallFrame.Option2:SetText(F.String.AS())
-				end
-			end
-		end,
-		[13] = function()
-			MER:Resize(nil)
-
 			if E:IsAddOnEnabled("BigWigs") then
 				PluginInstallFrame.SubTitle:SetText(F.String.BigWigs(L["BigWigs"]))
 				PluginInstallFrame.Desc1:SetText(
@@ -2905,7 +2861,7 @@ MER.installTable = {
 				)
 			end
 		end,
-		[14] = function()
+		[13] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("Details") then
@@ -2932,28 +2888,7 @@ MER.installTable = {
 				PluginInstallFrame.Desc2:SetText("Please install Details and restart the installer!")
 			end
 		end,
-		[15] = function()
-			MER:Resize(nil)
-
-			if E:IsAddOnEnabled("OmniCD") then
-				PluginInstallFrame.SubTitle:SetText(F.String.OmniCD(L["OmniCD"]))
-				PluginInstallFrame.Desc1:SetText("OmnicCD lightweight addon to track party cooldowns.")
-
-				PluginInstallFrame.Option1:Show()
-				PluginInstallFrame.Option1:SetScript("OnClick", function()
-					PF:ApplyOmniCDProfile()
-				end)
-				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option1:SetText(L["OmniCD"])
-			else
-				PluginInstallFrame.Desc1:SetText(
-					F.String.Warning("Oops, looks like you don't have " .. F.String.OmniCD() .. " installed!")
-				)
-				PluginInstallFrame.Desc2:SetText("Please install OmniCD and restart the installer!")
-			end
-		end,
-		[16] = function()
+		[14] = function()
 			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
@@ -2989,7 +2924,7 @@ MER.installTable = {
 			local msg = MER.Title .. L[" install complete."]
 			MER:ShowStepComplete(msg)
 		end,
-		[F.IsDeveloper() and 17] = function()
+		[F.IsDeveloper() and 15] = function()
 			MER:Resize(nil, nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
@@ -3024,12 +2959,10 @@ MER.installTable = {
 		[9] = L["NamePlates"],
 		[10] = L["UnitFrames"],
 		[11] = L["WindTools"],
-		[12] = L["Plugins"],
-		[13] = L["BigWigs"],
-		[14] = L["Details"],
-		[15] = L["OmniCD"],
-		[16] = L["Installation Complete"],
-		[F.IsDeveloper() and 17] = L["Developer Settings"],
+		[12] = L["BigWigs"],
+		[13] = L["Details"],
+		[14] = L["Installation Complete"],
+		[F.IsDeveloper() and 15] = L["Developer Settings"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
