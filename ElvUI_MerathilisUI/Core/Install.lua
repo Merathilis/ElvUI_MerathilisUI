@@ -2872,7 +2872,7 @@ MER.installTable = {
 				PluginInstallFrame.Desc2:SetText(
 					"This is an optional AddOn requirement, but we highly recommend you install it."
 				)
-				PluginInstallFrame.Desc3:SetText("Importance: " .. F.String.Error("High"))
+				PluginInstallFrame.Desc3:SetText("Importance: " .. F.String.Good("Low"))
 
 				PluginInstallFrame.Option1:Show()
 				PluginInstallFrame.Option1:SetScript("OnClick", function()
