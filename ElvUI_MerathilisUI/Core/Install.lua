@@ -120,7 +120,7 @@ local function SetupCVars()
 	C_CVar_SetCVar("nameplateOtherTopInset", -1)
 	C_CVar_SetCVar("nameplateOverlapH", 1.1)
 	C_CVar_SetCVar("nameplateOverlapV", 1.8)
-	C_CVar_SetCVar("nameplateSelectedScale", 1)
+	C_CVar_SetCVar("nameplateSelectedScale", 1.15)
 	C_CVar_SetCVar("nameplateSelfAlpha", 1)
 	C_CVar_SetCVar("nameplateSelfTopInset", -1)
 
