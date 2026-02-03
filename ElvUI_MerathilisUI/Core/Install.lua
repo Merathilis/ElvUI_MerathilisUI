@@ -124,6 +124,12 @@ local function SetupCVars()
 	C_CVar_SetCVar("nameplateSelfAlpha", 1)
 	C_CVar_SetCVar("nameplateSelfTopInset", -1)
 
+	-- Combat Text
+	C_CVar_SetCVar("floatingCombatTextCombatDamage_v2", 1)
+	C_CVar_SetCVar("floatingCombatTextCombatLogPeriodicSpells_v2", 1)
+	C_CVar_SetCVar("floatingCombatTextPetMeleeDamage_v2", 1)
+	C_CVar_SetCVar("floatingCombatTextPetSpellDamage_v2", 1)
+
 	-- CVars General
 	C_CVar_SetCVar("chatStyle", "classic")
 	C_CVar_SetCVar("whisperMode", "inline")
