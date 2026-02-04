@@ -7,7 +7,10 @@ local OF = W.Utilities.ObjectFinder
 
 local _G = _G
 local next, pcall, unpack = next, pcall, unpack
-local format = format
+local format = string.format
+
+local issecretvalue = issecretvalue
+local CreateFrame = CreateFrame
 
 local pool = {
 	spark = {},
@@ -58,25 +61,10 @@ end
 
 local function getPoints(object)
 	local points = {}
-	local success, point, relativeTo, relativePoint, xOfs, yOfs = pcall(function()
-		return object:GetPoint()
-	end)
-	if not success then
-		return points
-	end
-
+	local point, relativeTo, relativePoint, xOfs, yOfs = object:GetPoint()
 	while point do
-		-- Convert potential secret values to numbers or default to 0
-		local safeX = (type(xOfs) == "number") and xOfs or 0
-		local safeY = (type(yOfs) == "number") and yOfs or 0
-		points[#points + 1] = { point, relativeTo, relativePoint, safeX, safeY }
-
-		success, point, relativeTo, relativePoint, xOfs, yOfs = pcall(function()
-			return object:GetPoint(#points + 1)
-		end)
-		if not success then
-			break
-		end
+		points[#points + 1] = { point, relativeTo, relativePoint, xOfs, yOfs }
+		point, relativeTo, relativePoint, xOfs, yOfs = object:GetPoint(#points + 1)
 	end
 	return points
 end
@@ -85,14 +73,22 @@ local function applyPoints(object, points)
 	if not points or #points == 0 then
 		return
 	end
-	pcall(function()
-		object:ClearAllPoints()
-		for i = 1, #points do
-			local point, relativeTo, relativePoint, xOfs, yOfs = unpack(points[i])
-			-- Use SetPoint instead of ElvUI's Point to avoid Scale() issues
-			object:SetPoint(point, relativeTo, relativePoint, xOfs or 0, yOfs or 0)
+
+	object:ClearAllPoints()
+	for i = 1, #points do
+		local point, relativeTo, relativePoint, xOfs, yOfs = unpack(points[i])
+		if type(point) == "string" and not issecretvalue(point) then
+			if relativePoint and (type(relativePoint) ~= "string" or issecretvalue(relativePoint)) then
+				relativePoint = nil
+			end
+
+			if relativeTo and type(relativeTo) ~= "table" then
+				relativeTo = nil
+			end
+
+			object:Point(point, relativeTo, relativePoint, xOfs, yOfs)
 		end
-	end)
+	end
 end
 
 local function modifyStyle(frame)
@@ -125,9 +121,9 @@ local function modifyStyle(frame)
 
 	local spark = frame:Get("bigwigs:merathilisui:spark")
 
-	if spark then
-		spark:SetSize(4, frame.candyBarBar:GetHeight() * 2)
-		spark:SetShown(db.spark)
+	local barHeight = frame.candyBarBar:GetHeight()
+	if not issecretvalue(barHeight) then
+		spark:Size(4, barHeight * 2)
 	end
 end
 
@@ -141,15 +137,8 @@ local function applyStyle(frame)
 		end)
 	end
 
-	local height
-	pcall(function()
-		height = frame:GetHeight()
-	end)
-	-- Fallback if GetHeight returns secret value
-	if not height or type(height) ~= "number" then
-		height = 20
-	end
-	frame:Height(height * 0.618)
+	local height = frame:GetHeight()
+	frame:SetHeight(height / 2)
 	frame:Set("bigwigs:merathilisui:originalheight", height)
 
 	local spark = pool:Get("spark")
@@ -332,18 +321,10 @@ function module:BigWigs_QueueTimer()
 					frame.spark = frame:CreateTexture(nil, "ARTWORK", nil, 1)
 					frame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
 					frame.spark:SetBlendMode("ADD")
-					local sparkHeight = 10
-					pcall(function()
-						sparkHeight = frame:GetHeight() or 10
-					end)
-					frame.spark:Size(4, sparkHeight)
+					frame.spark:SetSize(4, frame:GetHeight())
 				end
 
-				local parentWidth = 200
-				pcall(function()
-					parentWidth = parent:GetWidth() or 200
-				end)
-				frame:Size(parentWidth, 10)
+				frame:SetSize(parent:GetWidth(), 10)
 				frame:ClearAllPoints()
 				frame:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 1, -5)
 				frame:SetPoint("TOPRIGHT", parent, "BOTTOMRIGHT", -1, -5)
@@ -408,13 +389,9 @@ function module:BigWigs_Keystone()
 				self:ReskinTab(tab)
 				tab:SetHeight(32)
 
-				local anchorPoint
-				pcall(function()
-					anchorPoint = tab:GetPoint(1)
-				end)
-				if anchorPoint == "BOTTOMLEFT" then
+				if tab:GetPoint(1) == "BOTTOMLEFT" then
 					tab:ClearAllPoints()
-					tab:SetPoint("BOTTOMLEFT", 10, -31)
+					tab:Point("BOTTOMLEFT", 10, -31)
 				end
 			end
 		end
