@@ -1084,7 +1084,6 @@ P.unitframes = {
 }
 
 P.nameplates = {
-	castbarShield = true,
 	gradient = true,
 }
 
