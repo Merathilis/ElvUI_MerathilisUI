@@ -891,6 +891,11 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["statusbar"] = "ElvUI Norm1"
 	E.db["nameplates"]["visibility"]["friendly"]["npcs"] = false
 
+	-- Color
+	E.db["nameplates"]["colors"]["castColor"]["r"] = 1
+	E.db["nameplates"]["colors"]["castColor"]["g"] = 0.88235300779343
+	E.db["nameplates"]["colors"]["castColor"]["b"] = 0.090196080505848
+
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "- GothamNarrow-Black"
