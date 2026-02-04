@@ -58,10 +58,25 @@ end
 
 local function getPoints(object)
 	local points = {}
-	local point, relativeTo, relativePoint, xOfs, yOfs = object:GetPoint()
+	local success, point, relativeTo, relativePoint, xOfs, yOfs = pcall(function()
+		return object:GetPoint()
+	end)
+	if not success then
+		return points
+	end
+
 	while point do
-		points[#points + 1] = { point, relativeTo, relativePoint, xOfs, yOfs }
-		point, relativeTo, relativePoint, xOfs, yOfs = object:GetPoint(#points + 1)
+		-- Convert potential secret values to numbers or default to 0
+		local safeX = (type(xOfs) == "number") and xOfs or 0
+		local safeY = (type(yOfs) == "number") and yOfs or 0
+		points[#points + 1] = { point, relativeTo, relativePoint, safeX, safeY }
+
+		success, point, relativeTo, relativePoint, xOfs, yOfs = pcall(function()
+			return object:GetPoint(#points + 1)
+		end)
+		if not success then
+			break
+		end
 	end
 	return points
 end
@@ -70,12 +85,14 @@ local function applyPoints(object, points)
 	if not points or #points == 0 then
 		return
 	end
-
-	object:ClearAllPoints()
-	for i = 1, #points do
-		local point, relativeTo, relativePoint, xOfs, yOfs = unpack(points[i])
-		object:SetPoint(point, relativeTo, relativePoint, xOfs, yOfs)
-	end
+	pcall(function()
+		object:ClearAllPoints()
+		for i = 1, #points do
+			local point, relativeTo, relativePoint, xOfs, yOfs = unpack(points[i])
+			-- Use SetPoint instead of ElvUI's Point to avoid Scale() issues
+			object:SetPoint(point, relativeTo, relativePoint, xOfs or 0, yOfs or 0)
+		end
+	end)
 end
 
 local function modifyStyle(frame)
@@ -124,8 +141,15 @@ local function applyStyle(frame)
 		end)
 	end
 
-	local height = frame:GetHeight()
-	frame:SetHeight(height / 2)
+	local height
+	pcall(function()
+		height = frame:GetHeight()
+	end)
+	-- Fallback if GetHeight returns secret value
+	if not height or type(height) ~= "number" then
+		height = 20
+	end
+	frame:Height(height * 0.618)
 	frame:Set("bigwigs:merathilisui:originalheight", height)
 
 	local spark = pool:Get("spark")
@@ -308,10 +332,18 @@ function module:BigWigs_QueueTimer()
 					frame.spark = frame:CreateTexture(nil, "ARTWORK", nil, 1)
 					frame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
 					frame.spark:SetBlendMode("ADD")
-					frame.spark:SetSize(4, frame:GetHeight())
+					local sparkHeight = 10
+					pcall(function()
+						sparkHeight = frame:GetHeight() or 10
+					end)
+					frame.spark:Size(4, sparkHeight)
 				end
 
-				frame:SetSize(parent:GetWidth(), 10)
+				local parentWidth = 200
+				pcall(function()
+					parentWidth = parent:GetWidth() or 200
+				end)
+				frame:Size(parentWidth, 10)
 				frame:ClearAllPoints()
 				frame:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 1, -5)
 				frame:SetPoint("TOPRIGHT", parent, "BOTTOMRIGHT", -1, -5)
@@ -376,9 +408,13 @@ function module:BigWigs_Keystone()
 				self:ReskinTab(tab)
 				tab:SetHeight(32)
 
-				if tab:GetPoint(1) == "BOTTOMLEFT" then
+				local anchorPoint
+				pcall(function()
+					anchorPoint = tab:GetPoint(1)
+				end)
+				if anchorPoint == "BOTTOMLEFT" then
 					tab:ClearAllPoints()
-					tab:Point("BOTTOMLEFT", 10, -31)
+					tab:SetPoint("BOTTOMLEFT", 10, -31)
 				end
 			end
 		end
