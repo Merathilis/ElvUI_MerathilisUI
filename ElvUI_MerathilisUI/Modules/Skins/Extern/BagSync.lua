@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local Skins = MER:GetModule("MER_Skins") ---@type Skins
+local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
 local WS = W:GetModule("Skins")
 
@@ -107,7 +107,7 @@ local function SkinBagSyncFrame(name, module)
 	end
 end
 
-function Skins:BagSync()
+function module:BagSync()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bSync then
 		return
 	end
@@ -147,4 +147,4 @@ function Skins:BagSync()
 	end
 end
 
-Skins:AddCallbackForAddon("BagSync")
+module:AddCallbackForAddon("BagSync")
