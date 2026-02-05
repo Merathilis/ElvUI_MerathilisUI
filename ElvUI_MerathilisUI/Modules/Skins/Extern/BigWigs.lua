@@ -122,7 +122,7 @@ local function modifyStyle(frame)
 	local spark = frame:Get("bigwigs:merathilisui:spark")
 
 	local barHeight = frame.candyBarBar:GetHeight()
-	if not issecretvalue(barHeight) then
+	if not E:IsNotSecretValue(barHeight) then
 		spark:Size(4, barHeight * 2)
 	end
 end
