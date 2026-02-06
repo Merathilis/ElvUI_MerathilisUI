@@ -3,6 +3,7 @@
 
 	<Script file="Misc.lua"/>
 	<Script file="Afk.lua"/>
+	<Script file="CopyMog.lua"/>
 	<Include file="FunStuff.xml"/>
 	<Script file="FunStuff.lua"/>
 	<Script file="GameMenu.lua"/>

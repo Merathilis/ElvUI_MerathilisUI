@@ -173,6 +173,11 @@ P.misc = {
 		roleIconStyle = "MERATHILISUI",
 	},
 	petFilterTab = true,
+	copyMog = {
+		enable = true,
+		ShowHideVisual = true,
+		ShowIllusion = true,
+	},
 }
 
 P.nameHover = {

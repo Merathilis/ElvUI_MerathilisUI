@@ -3,12 +3,10 @@ local options = MER.options.misc.args
 local MI = MER:GetModule("MER_Misc")
 local RIF = MER:GetModule("MER_RaidInfoFrame")
 
-local GetClassColor = GetClassColor
-
 options.general = {
 	order = 1,
 	type = "group",
-	name = L["General"],
+	name = E.NewSign .. L["General"],
 	get = function(info)
 		return E.db.mui.misc[info[#info]]
 	end,
@@ -58,7 +56,7 @@ options.general = {
 			desc = L["|nIf checked, only popout join requests from friends and guild members."],
 		},
 		petFilterTab = {
-			order = 11,
+			order = 9,
 			type = "toggle",
 			name = L["Pet Filter Tab"],
 			desc = L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."],
@@ -69,6 +67,44 @@ options.general = {
 				E.db.mui.misc.petFilterTab = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
+		},
+		copyMog = {
+			order = 10,
+			type = "group",
+			name = E.NewSign .. L["Copy Transmog"],
+			desc = L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."],
+			inline = true,
+			get = function(info)
+				return E.db.mui.misc.copyMog[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.misc.copyMog[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				ShowHideVisual = {
+					order = 2,
+					type = "toggle",
+					name = L["Show/Hide Visual"],
+					disabled = function()
+						return not E.db.mui.misc.copyMog.enable
+					end,
+				},
+				ShowIllusion = {
+					order = 3,
+					type = "toggle",
+					name = L["Show Illusion"],
+					desc = L["Show the illusion of the item in the list."],
+					disabled = function()
+						return not E.db.mui.misc.copyMog.enable
+					end,
+				},
+			},
 		},
 	},
 }
