@@ -384,7 +384,7 @@ function module:BigWigs_Keystone()
 					tex
 					and tex.GetObjectType
 					and tex:GetObjectType() == "Texture"
-					and self:IsTexturePathEqual(tex --[[@as Texture]], [[Interface\AddOns\BigWigs\Media\Icons\draghandle]])
+					and self:IsTexturePathEqual(tex, [[Interface\AddOns\BigWigs\Media\Icons\draghandle]])
 				then
 					tex:SetTexture(E.Media.Textures.ArrowUp)
 					tex:SetVertexColor(C.ExtractRGBAFromTemplate("neutral-50"))

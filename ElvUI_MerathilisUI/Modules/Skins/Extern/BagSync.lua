@@ -1,7 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
-local S = E:GetModule("Skins")
 local WS = W:GetModule("Skins")
+local S = E:GetModule("Skins")
+local TT = E:GetModule("Tooltip")
 
 local _G = _G
 local ipairs, pairs = ipairs, pairs
@@ -123,8 +124,12 @@ function module:BagSync()
 
 	local Tooltip = BagSync:GetModule("Tooltip")
 	if Tooltip then
+		hooksecurefunc(Tooltip, "EnsureExtTip", function(self)
+			TT:SetStyle(self.extTip)
+		end)
+
 		hooksecurefunc(Tooltip, "TallyUnits", function(self, objTooltip)
-			if not self.qTip then
+			if not self.extTip then
 				return
 			end
 
@@ -135,8 +140,8 @@ function module:BagSync()
 				BPBIDTooltip = _G["BPBID_BreedTooltip"]
 			end
 
-			self.qTip:ClearAllPoints()
-			self.qTip:SetPoint(
+			self.extTip:ClearAllPoints()
+			self.extTip:SetPoint(
 				"TOPRIGHT",
 				BPBIDTooltip and BPBIDTooltip:IsVisible() and BPBIDTooltip or objTooltip,
 				"BOTTOMRIGHT",
