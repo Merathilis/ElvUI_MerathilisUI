@@ -466,10 +466,8 @@ local function SetCastEvents(portrait, unregistering)
 			portrait:UnregisterEvent(event)
 		end
 
-		if E.Retail then
-			for _, event in pairs(empowerEvents) do
-				portrait:UnregisterEvent(event)
-			end
+		for _, event in pairs(empowerEvents) do
+			portrait:UnregisterEvent(event)
 		end
 	else
 		for _, event in pairs(castEvents) do
@@ -481,15 +479,13 @@ local function SetCastEvents(portrait, unregistering)
 			tinsert(portrait.allEvents, event)
 		end
 
-		if E.Retail then
-			for _, event in pairs(empowerEvents) do
-				if portrait.isPartyFrame then
-					portrait:RegisterEvent(event)
-				else
-					portrait:RegisterUnitEvent(event, portrait.unit)
-				end
-				tinsert(portrait.allEvents, event)
+		for _, event in pairs(empowerEvents) do
+			if portrait.isPartyFrame then
+				portrait:RegisterEvent(event)
+			else
+				portrait:RegisterUnitEvent(event, portrait.unit)
 			end
+			tinsert(portrait.allEvents, event)
 		end
 	end
 end
@@ -531,20 +527,17 @@ local function SetScripts(portrait, force)
 				tinsert(portrait.allEvents, healthEvent)
 			end
 
-			-- specific events for player and pet if player is in vehicle
-			if E.Retail or E.Mists then
-				if portrait.unit == "player" then
-					portrait:RegisterEvent("VEHICLE_UPDATE")
-					tinsert(portrait.allEvents, "VEHICLE_UPDATE")
-					portrait:RegisterUnitEvent("UNIT_ENTERED_VEHICLE", portrait.unit)
-					tinsert(portrait.allEvents, "UNIT_ENTERED_VEHICLE")
-					portrait:RegisterUnitEvent("UNIT_EXITED_VEHICLE", portrait.unit)
-					tinsert(portrait.allEvents, "UNIT_EXITED_VEHICLE")
-				end
-				if portrait.unit == "pet" then
-					portrait:RegisterEvent("VEHICLE_UPDATE")
-					tinsert(portrait.allEvents, "VEHICLE_UPDATE")
-				end
+			if portrait.unit == "player" then
+				portrait:RegisterEvent("VEHICLE_UPDATE")
+				tinsert(portrait.allEvents, "VEHICLE_UPDATE")
+				portrait:RegisterUnitEvent("UNIT_ENTERED_VEHICLE", portrait.unit)
+				tinsert(portrait.allEvents, "UNIT_ENTERED_VEHICLE")
+				portrait:RegisterUnitEvent("UNIT_EXITED_VEHICLE", portrait.unit)
+				tinsert(portrait.allEvents, "UNIT_EXITED_VEHICLE")
+			end
+			if portrait.unit == "pet" then
+				portrait:RegisterEvent("VEHICLE_UPDATE")
+				tinsert(portrait.allEvents, "VEHICLE_UPDATE")
 			end
 
 			if portrait.events then
