@@ -17,10 +17,7 @@ local SupportedProfiles = {
 	{ "Capping", "Capping" },
 	{ "BigWigs", "BigWigs" },
 	{ "Details", "Details" },
-	{ "ElvUI_FCT", "FCT" },
-	{ "ElvUI_mMediaTag", "mMediaTag & Tools" },
 	{ "ls_Toasts", "ls_Toasts" },
-	{ "OmniCD", "OmniCD" },
 	{ "TomTom", "TomTom" },
 	{ "ElvUI_WindTools", "WindTools" },
 }
@@ -136,17 +133,9 @@ for _, v in ipairs(SupportedProfiles) do
 			elseif addon == "Capping" then
 				module:ApplyCappingProfile()
 			elseif addon == "Details" then
-				module:ApplyDetailsProfile()
-			elseif addon == "AddOnSkins" then
 				module:ApplyAddOnSkinsProfile()
 			elseif addon == "ls_Toasts" then
 				module:ApplyLSProfile()
-			elseif addon == "ElvUI_FCT" then
-				module:ApplyFCTProfile()
-			elseif addon == "ElvUI_mMediaTag" then
-				module:ApplymMediaTagProfile()
-			elseif addon == "OmniCD" then
-				module:ApplyOmniCDProfile()
 			elseif addon == "TomTom" then
 				module:ApplyTomTomProfile()
 			elseif addon == "ElvUI_WindTools" then

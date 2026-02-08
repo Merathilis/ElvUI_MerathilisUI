@@ -2,237 +2,109 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
+local TT = E:GetModule("Tooltip")
 
-function module:BagSyncSearch()
-	local Search = module.AddOn:GetModule("Search")
+local _G = _G
+local ipairs, pairs = ipairs, pairs
 
-	S:HandleFrame(Search.frame, true)
-	WS:CreateBackdropShadow(Search.frame)
+local hooksecurefunc = hooksecurefunc
 
-	S:HandleCloseButton(Search.frame.closeBtn)
-	S:HandleEditBox(Search.frame.SearchBox)
-	S:HandleButton(Search.frame.PlusButton)
-	S:HandleButton(Search.frame.RefreshButton)
-	S:HandleButton(Search.frame.HelpButton)
-	S:HandleButton(Search.frame.advSearchBtn)
-	S:HandleButton(Search.frame.resetButton)
-
-	local header = Search.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
-		end
+local function SkinScrollBar(self)
+	if not self then
+		WF.Developer.ThrowError("scrollbar is nil")
+		return
 	end
 
-	S:HandleFrame(Search.helpFrame, true)
-	WS:CreateBackdropShadow(Search.helpFrame)
-	S:HandleCloseButton(Search.helpFrame.CloseButton)
-	S:HandleScrollBar(Search.helpFrame.ScrollFrame.ScrollBar)
-
-	S:HandleFrame(Search.savedSearch, true)
-	WS:CreateBackdropShadow(Search.savedSearch)
-	S:HandleCloseButton(Search.savedSearch.CloseButton)
-	S:HandleButton(Search.savedSearch.addSavedBtn)
-	S:HandleScrollBar(Search.savedSearch.scrollFrame.scrollBar)
-	S:HandleFrame(Search.savedSearch.scrollFrame.scrollChild)
-	Search.savedSearch.scrollFrame.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-	Search.savedSearch.scrollFrame.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
+	S:HandleScrollBar(self.scrollBar or self.ScrollBar)
 end
 
-function module:BagSyncAdvancedSearch()
-	local adv = module.AddOn:GetModule("AdvancedSearch")
-
-	S:HandleFrame(adv.frame, true)
-	WS:CreateBackdropShadow(adv.frame)
-
-	S:HandleCloseButton(adv.frame.closeBtn)
-	S:HandleEditBox(adv.frame.SearchBox)
-	S:HandleButton(adv.frame.PlusButton)
-	S:HandleButton(adv.frame.RefreshButton)
-
-	S:HandleButton(adv.frame.selectAllButton)
-	S:HandleButton(adv.frame.resetButton)
-
-	local header = adv.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
-		end
-	end
-end
-
-function module:BagSyncCurrency()
-	local Currency = module.AddOn:GetModule("Currency")
-
-	S:HandleFrame(Currency.frame, true)
-	WS:CreateBackdropShadow(Currency.frame)
-	S:HandleCloseButton(Currency.frame.closeBtn)
-
-	local header = Currency.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
-		end
-	end
-end
-
-function module:BagSyncProfessions()
-	local Professions = module.AddOn:GetModule("Professions")
-
-	S:HandleFrame(Professions.frame, true)
-	WS:CreateBackdropShadow(Professions.frame)
-	S:HandleCloseButton(Professions.frame.closeBtn)
-
-	local header = Professions.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
-		end
-	end
-end
-
-function module:BagSyncBlacklist()
-	local Blacklist = module.AddOn:GetModule("Blacklist")
-
-	S:HandleFrame(Blacklist.frame, true)
-	WS:CreateBackdropShadow(Blacklist.frame)
-	S:HandleCloseButton(Blacklist.frame.closeBtn)
-	S:HandleDropDownBox(Blacklist.frame.guildDD)
-	S:HandleButton(Blacklist.frame.addGuildBtn)
-	S:HandleButton(Blacklist.frame.addItemIDBtn)
-	S:HandleEditBox(Blacklist.frame.itemIDBox)
-
-	local header = Blacklist.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
-		end
-	end
-end
-
-function module:BagSyncWhitelist()
-	local Whitelist = module.AddOn:GetModule("Whitelist")
-
-	S:HandleFrame(Whitelist.frame, true)
-	WS:CreateBackdropShadow(Whitelist.frame)
-	S:HandleCloseButton(Whitelist.frame.closeBtn)
-	S:HandleButton(Whitelist.frame.addItemIDBtn)
-	S:HandleEditBox(Whitelist.frame.itemIDBox)
-
-	local header = Whitelist.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
-		end
+local function SkinInfoFrame(self)
+	if not self then
+		WF.Developer.ThrowError("frame is nil")
+		return
 	end
 
-	S:HandleFrame(Whitelist.warningFrame, true)
-	WS:CreateBackdropShadow(Whitelist.warningFrame)
-	S:HandleCloseButton(Whitelist.warningFrame.CloseButton)
+	self:StripTextures()
+	self:CreateBackdrop("Transparent")
+	S:HandleCloseButton(self.CloseButton)
+	WS:CreateShadow(self)
 end
 
-function module:BagSyncGold()
-	local Gold = module.AddOn:GetModule("Gold")
-
-	S:HandleFrame(Gold.frame, true)
-	WS:CreateBackdropShadow(Gold.frame)
-	S:HandleCloseButton(Gold.frame.closeBtn)
-
-	local header = Gold.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
-		end
+local function SkinSortOrder(self)
+	if not self.UpdateList then
+		WF.Developer.ThrowError("func is nil")
+		return
 	end
-end
 
-function module:BagSyncProfiles()
-	local Profiles = module.AddOn:GetModule("Profiles")
-
-	S:HandleFrame(Profiles.frame, true)
-	WS:CreateBackdropShadow(Profiles.frame)
-	S:HandleCloseButton(Profiles.frame.closeBtn)
-
-	local header = Profiles.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b)
-		end
-	end
-end
-
-function module:BagSyncSortOrder()
-	local SortOrder = module.AddOn:GetModule("SortOrder")
-	S:HandleFrame(SortOrder.frame, true)
-	WS:CreateBackdropShadow(SortOrder.frame)
-	S:HandleCloseButton(SortOrder.frame.closeBtn)
-
-	local header = SortOrder.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group then
-			if group.scrollChild then
-				for itemnumber = 1, group.scrollChild:GetNumChildren() do
-					local frame = select(itemnumber, group.scrollChild:GetChildren())
-					if frame.SortBox then
-						S:HandleEditBox(frame.SortBox)
-					end
+	hooksecurefunc(self, "RefreshList", function()
+		local buttons = self.scrollFrame and self.scrollFrame.buttons
+		if buttons then
+			for _, bu in ipairs(buttons) do
+				if not bu.IsSkinned then
+					S:HandleEditBox(bu.SortBox)
+					bu.IsSkinned = true
 				end
 			end
+		end
+	end)
+end
 
-			if group.scrollBar then
-				S:HandleScrollBar(group.scrollBar)
-				group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-				group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b, 1)
-			end
+local function SkinBagSyncFrame(name, module)
+	local frame = module.frame
+	if not frame then
+		return
+	end
+
+	frame:StripTextures()
+	S:HandleFrame(frame)
+	WS:CreateShadow(frame)
+
+	if frame.closeBtn then
+		S:HandleCloseButton(frame.closeBtn)
+	end
+
+	if frame.SearchBox then
+		S:HandleEditBox(frame.SearchBox)
+	end
+
+	if module.scrollFrame then
+		S:HandleScrollBar(module.scrollFrame.scrollBar)
+	end
+
+	if module.warningFrame then
+		SkinInfoFrame(module.warningFrame)
+	end
+
+	for _, key in ipairs({ "PlusButton", "RefreshButton", "HelpButton" }) do
+		local bu = frame[key]
+		if bu then
+			S:HandleButton(bu)
 		end
 	end
 
-	S:HandleFrame(SortOrder.warningFrame, true)
-	WS:CreateBackdropShadow(SortOrder.warningFrame)
-	S:HandleCloseButton(SortOrder.warningFrame.CloseButton)
-end
-
-function module:BagSyncDetails()
-	local Details = module.AddOn:GetModule("Details")
-
-	S:HandleFrame(Details.frame, true)
-	WS:CreateBackdropShadow(Details.frame)
-	S:HandleCloseButton(Details.frame.closeBtn)
-
-	local header = Details.frame
-	for i = 1, header:GetNumChildren() do
-		local group = select(i, header:GetChildren())
-		if group and group.scrollBar then
-			S:HandleScrollBar(group.scrollBar)
-			S:HandleFrame(group)
-			group.scrollBar.thumbTexture:SetTexture(E.media.normTex)
-			group.scrollBar.thumbTexture:SetVertexColor(F.r, F.g, F.b, 1)
-		end
+	if name == "Search" then
+		S:HandleButton(frame.searchFiltersBtn)
+		S:HandleButton(frame.resetButton)
+		SkinInfoFrame(module.helpFrame)
+		SkinScrollBar(module.helpFrame.ScrollFrame)
+		SkinInfoFrame(module.savedSearch)
+		SkinScrollBar(module.savedSearch.scrollFrame)
+		S:HandleButton(module.savedSearch.addSavedBtn)
+	elseif name == "SearchFilters" then
+		SkinScrollBar(module.playerScroll)
+		SkinScrollBar(module.locationScroll)
+		S:HandleButton(frame.selectAllButton)
+		S:HandleButton(frame.resetButton)
+	elseif name == "Blacklist" then
+		S:HandleDropDownBox(frame.guildDD)
+		S:HandleButton(frame.addGuildBtn)
+		S:HandleButton(frame.addItemIDBtn)
+		S:HandleEditBox(frame.itemIDBox)
+	elseif name == "Whitelist" then
+		S:HandleButton(frame.addItemIDBtn)
+		S:HandleEditBox(frame.itemIDBox)
+	elseif name == "SortOrder" then
+		SkinSortOrder(module)
 	end
 end
 
@@ -241,26 +113,43 @@ function module:BagSync()
 		return
 	end
 
-	-- Call the AddOn
-	self.AddOn = E.Libs.AceAddon:GetAddon("BagSync")
+	local BagSync = _G.BagSync
+	if not BagSync then
+		return
+	end
 
-	module:DisableAddOnSkins("BagSync", false)
+	for name, module in pairs(BagSync._modulesByName) do
+		SkinBagSyncFrame(name, module)
+	end
 
-	-- We need to set a delay, cause it loads very early
-	E:Delay(0.1, function()
-		self:BagSyncSearch() -- Main Search
-		self:BagSyncAdvancedSearch() -- Advanced Search
+	local Tooltip = BagSync:GetModule("Tooltip")
+	if Tooltip then
+		hooksecurefunc(Tooltip, "EnsureExtTip", function(self)
+			TT:SetStyle(self.extTip)
+		end)
 
-		--Modules
-		self:BagSyncCurrency()
-		self:BagSyncProfessions()
-		self:BagSyncBlacklist()
-		self:BagSyncWhitelist()
-		self:BagSyncGold()
-		self:BagSyncProfiles()
-		self:BagSyncSortOrder()
-		self:BagSyncDetails()
-	end)
+		hooksecurefunc(Tooltip, "TallyUnits", function(self, objTooltip)
+			if not self.extTip then
+				return
+			end
+
+			local BPBIDTooltip
+			if objTooltip == _G.FloatingBattlePetTooltip then
+				BPBIDTooltip = _G["BPBID_BreedTooltip2"]
+			else
+				BPBIDTooltip = _G["BPBID_BreedTooltip"]
+			end
+
+			self.extTip:ClearAllPoints()
+			self.extTip:SetPoint(
+				"TOPRIGHT",
+				BPBIDTooltip and BPBIDTooltip:IsVisible() and BPBIDTooltip or objTooltip,
+				"BOTTOMRIGHT",
+				0,
+				2 * E.mult
+			)
+		end)
+	end
 end
 
 module:AddCallbackForAddon("BagSync")

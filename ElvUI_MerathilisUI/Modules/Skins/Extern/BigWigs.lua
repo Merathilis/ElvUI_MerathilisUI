@@ -7,7 +7,10 @@ local OF = W.Utilities.ObjectFinder
 
 local _G = _G
 local next, pcall, unpack = next, pcall, unpack
-local format = format
+local math_pi = math.pi
+local format = string.format
+
+local CreateFrame = CreateFrame
 
 local pool = {
 	spark = {},
@@ -74,7 +77,17 @@ local function applyPoints(object, points)
 	object:ClearAllPoints()
 	for i = 1, #points do
 		local point, relativeTo, relativePoint, xOfs, yOfs = unpack(points[i])
-		object:SetPoint(point, relativeTo, relativePoint, xOfs, yOfs)
+		if type(point) == "string" and E:NotSecretValue(point) then
+			if relativePoint and (type(relativePoint) ~= "string" or E:IsNotSecretValue(relativePoint)) then
+				relativePoint = nil
+			end
+
+			if relativeTo and type(relativeTo) ~= "table" then
+				relativeTo = nil
+			end
+
+			object:Point(point, relativeTo, relativePoint, xOfs, yOfs)
+		end
 	end
 end
 
@@ -108,9 +121,9 @@ local function modifyStyle(frame)
 
 	local spark = frame:Get("bigwigs:merathilisui:spark")
 
-	if spark then
-		spark:SetSize(4, frame.candyBarBar:GetHeight() * 2)
-		spark:SetShown(db.spark)
+	local barHeight = frame.candyBarBar:GetHeight()
+	if not E:IsNotSecretValue(barHeight) then
+		spark:Size(4, barHeight * 2)
 	end
 end
 
@@ -359,6 +372,28 @@ function module:BigWigs_Keystone()
 		for _, child in next, { frame:GetChildren() } do
 			if child.ScrollBar then
 				S:HandleTrimScrollBar(child.ScrollBar)
+			elseif
+				child.IsMouseEnabled
+				and child:IsMouseEnabled()
+				and child:GetScript("OnMouseDown")
+				and child:GetNumRegions() == 1
+			then
+				-- Drag
+				local tex = child:GetRegions()
+				if
+					tex
+					and tex.GetObjectType
+					and tex:GetObjectType() == "Texture"
+					and self:IsTexturePathEqual(tex, [[Interface\AddOns\BigWigs\Media\Icons\draghandle]])
+				then
+					tex:SetTexture(E.Media.Textures.ArrowUp)
+					tex:SetVertexColor(C.ExtractRGBAFromTemplate("neutral-50"))
+					tex:SetTexCoord(0, 1, 0, 1)
+					tex:SetRotation(math_pi * 1.25)
+					tex:SetAllPoints()
+				end
+
+				child:NudgePoint(1, -2)
 			end
 		end
 

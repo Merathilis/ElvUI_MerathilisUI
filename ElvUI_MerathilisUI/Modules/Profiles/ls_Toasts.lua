@@ -110,8 +110,12 @@ function module:ApplyLSProfile()
 	end
 
 	module:Wrap("Applying ls_Toasts Profile ...", function()
-		-- Apply Fonts
-		self:LoadLSProfile()
+		local LE, LC = unpack(_G.ls_Toasts)
+		LE:RegisterCallback("ToastCreated", self.LoadLSProfile)
+
+		if LC and LC.db and LC.db.profile then
+			LC.db.profile.skin = "MerathilisUI"
+		end
 
 		E:UpdateMedia()
 		E:UpdateFontTemplates()

@@ -22,14 +22,7 @@ options.nameplates = {
 			order = 2,
 			type = "group",
 			name = L["General"],
-			args = {
-				castbarShield = {
-					order = 1,
-					type = "toggle",
-					name = L["Castbar Shield"],
-					desc = L["Show a shield icon on the castbar for non interruptible spells."],
-				},
-			},
+			args = {},
 		},
 	},
 }

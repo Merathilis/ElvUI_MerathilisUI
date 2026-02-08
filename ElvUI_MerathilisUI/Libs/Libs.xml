@@ -1,6 +1,3 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/'>
 	<Include file="Core\LibDropDown\embed.xml"/>
-	<Script file="Core\LibShowUIPanel-1.0\LibShowUIPanel-1.0.lua"/>
-	<Script file="Core\LibKeystone\LibKeystone.lua"/>
-	<Include file="Core\LibOpenRaid\lib.xml"/>
 </Ui>

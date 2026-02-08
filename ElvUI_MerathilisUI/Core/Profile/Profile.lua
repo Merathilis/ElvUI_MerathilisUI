@@ -173,6 +173,11 @@ P.misc = {
 		roleIconStyle = "MERATHILISUI",
 	},
 	petFilterTab = true,
+	copyMog = {
+		enable = true,
+		ShowHideVisual = true,
+		ShowIllusion = true,
+	},
 }
 
 P.nameHover = {
@@ -589,7 +594,7 @@ P.vehicleBar = {
 P.miniMapCoords = {
 	enable = true,
 	xOffset = 0,
-	yOffset = 75,
+	yOffset = 70,
 	format = "%.0f",
 	mouseOver = false,
 
@@ -1084,7 +1089,6 @@ P.unitframes = {
 }
 
 P.nameplates = {
-	castbarShield = true,
 	gradient = true,
 }
 

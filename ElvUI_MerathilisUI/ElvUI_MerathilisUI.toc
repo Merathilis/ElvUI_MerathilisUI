@@ -1,7 +1,7 @@
 ## Interface: 120000
 ## Author: Merathilis
 ## Version: @project-version@
-## X-Version: 7.09
+## X-Version: 7.10
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
 ## AddonCompartmentFunc: MerathilisUI_OnAddonCompartmentClick
 ## IconTexture: Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\m2
@@ -15,7 +15,7 @@
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## X-Credits: Simpy, fang2hou, Benik, Azilroka, Darth Predator, fgprodigal, Blinkii, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
-## X-ElvUIVersion: 15.02
+## X-ElvUIVersion: 15.03
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-WoWI-ID: 24117
