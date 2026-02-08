@@ -15,18 +15,6 @@ function module:LoadWindToolsProfile()
 		return
 	end
 
-	db["announcement"]["combatResurrection"]["enable"] = false
-	db["announcement"]["dispel"]["onlyInstance"] = false
-	db["announcement"]["dispel"]["player"]["enable"] = false
-	db["announcement"]["interrupt"]["enable"] = false
-	db["announcement"]["interrupt"]["onlyInstance"] = false
-	db["announcement"]["interrupt"]["player"]["enable"] = false
-	db["announcement"]["taunt"]["others"]["pet"]["enable"] = false
-	db["announcement"]["taunt"]["others"]["player"]["enable"] = false
-	db["announcement"]["taunt"]["player"]["pet"]["enable"] = false
-	db["announcement"]["taunt"]["player"]["player"]["enable"] = false
-	db["announcement"]["threatTransfer"]["enable"] = false
-	db["announcement"]["threatTransfer"]["onlyNotTank"] = false
 	db["combat"]["combatAlert"]["animation"] = false
 	db["combat"]["combatAlert"]["enable"] = true
 	db["combat"]["combatAlert"]["text"] = true
