@@ -329,12 +329,6 @@ L["Creates a texture to show the recently pressed buttons."] =
 	"Создает текстуру для отображения недавно нажатых кнопок."
 L["Frame Strata"] = "Слой фрейма"
 L["Frame Level"] = "Уровень фрейма"
-L["KeyFeedback"] = "Кнопка ответа"
-L["Mirror"] = "Зеркало"
-L["Mirror Button Size"] = "Размер зеркальной кнопки"
-L["Mirror Direction"] = "Зеркальное направление"
-L["LEFT"] = "ЛЕВО"
-L["RIGHT"] = "ПРАВО"
 
 -- Armory
 L["Armory"] = true

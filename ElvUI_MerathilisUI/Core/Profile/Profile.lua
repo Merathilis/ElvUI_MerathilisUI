@@ -556,21 +556,6 @@ P.actionbars = {
 		frameLevel = 1,
 		size = 20,
 	},
-	keyfeedback = {
-		enable = false,
-		point = "CENTER",
-		x = 0,
-		y = 0,
-		enableCastLine = true,
-		enableCooldown = true,
-		enablePushEffect = true,
-		enableCast = true,
-		enableCastFlash = true,
-		lineIconSize = 28,
-		mirrorSize = 32,
-		lineDirection = "RIGHT",
-		forceUseActionHook = true, -- Probably ElvUI needs this
-	},
 	colorModifier = {
 		enable = true,
 	},
