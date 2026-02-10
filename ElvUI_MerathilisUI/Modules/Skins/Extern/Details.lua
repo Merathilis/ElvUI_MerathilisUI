@@ -2,27 +2,10 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local WS = W:GetModule("Skins")
 
-local DetailsGradient = {
-	["WARRIOR"] = { r1 = 0.60, g1 = 0.40, b1 = 0.20, r2 = 0.66, g2 = 0.53, b2 = 0.34 },
-	["PALADIN"] = { r1 = 0.9, g1 = 0.47, b1 = 0.64, r2 = 0.96, g2 = 0.65, b2 = 0.83 },
-	["HUNTER"] = { r1 = 0.58, g1 = 0.69, b1 = 0.29, r2 = 0.78, g2 = 1, b2 = 0.38 },
-	["ROGUE"] = { r1 = 1, g1 = 0.68, b1 = 0, r2 = 1, g2 = 0.83, b2 = 0.25 },
-	["PRIEST"] = { r1 = 0.65, g1 = 0.65, b1 = 0.65, r2 = 0.98, g2 = 0.98, b2 = 0.98 },
-	["DEATHKNIGHT"] = { r1 = 0.79, g1 = 0.07, b1 = 0.14, r2 = 1, g2 = 0.18, b2 = 0.23 },
-	["SHAMAN"] = { r1 = 0, g1 = 0.25, b1 = 0.50, r2 = 0, g2 = 0.43, b2 = 0.87 },
-	["MAGE"] = { r1 = 0, g1 = 0.73, b1 = 0.83, r2 = 0.49, g2 = 0.87, b2 = 1 },
-	["WARLOCK"] = { r1 = 0.50, g1 = 0.30, b1 = 0.70, r2 = 0.7, g2 = 0.53, b2 = 0.83 },
-	["MONK"] = { r1 = 0, g1 = 0.77, b1 = 0.45, r2 = 0.22, g2 = 0.90, b2 = 1 },
-	["DRUID"] = { r1 = 1, g1 = 0.23, b1 = 0.0, r2 = 1, g2 = 0.48, b2 = 0.03 },
-	["DEMONHUNTER"] = { r1 = 0.36, g1 = 0.13, b1 = 0.57, r2 = 0.74, g2 = 0.19, b2 = 1 },
-	["EVOKER"] = { r1 = 0.20, g1 = 0.58, b1 = 0.50, r2 = 0, g2 = 1, b2 = 0.60 },
+local _G = _G
+local next = next
 
-	["PET"] = { r1 = 0.97, g1 = 0.55, b1 = 0.73, r2 = 1, g2 = 0, b2 = 0 },
-	["UNKNOW"] = { r1 = 0.97, g1 = 0.55, b1 = 0.73, r2 = 1, g2 = 0, b2 = 0 },
-	["UNGROUPPLAYER "] = { r1 = 0.97, g1 = 0.55, b1 = 0.73, r2 = 1, g2 = 0, b2 = 0 },
-	["ENEMY "] = { r1 = 0.97, g1 = 0.55, b1 = 0.73, r2 = 1, g2 = 0, b2 = 0 },
-	["MONSTER "] = { r1 = 0.97, g1 = 0.55, b1 = 0.73, r2 = 1, g2 = 0, b2 = 0 },
-}
+local Details = _G.Details
 
 local classes = {
 	["WARRIOR"] = true,
@@ -41,7 +24,7 @@ local classes = {
 }
 
 local function GradientBars()
-	hooksecurefunc(_detalhes, "InstanceRefreshRows", function(instancia)
+	hooksecurefunc(Details, "InstanceRefreshRows", function(instancia)
 		if instancia.barras and instancia.barras[1] then
 			for _, row in next, instancia.barras do
 				if row and row.textura and not row.textura.__MERSkin then
@@ -49,21 +32,11 @@ local function GradientBars()
 						if row.minha_tabela and row.minha_tabela.name then
 							local class = row.minha_tabela:class()
 							if classes[class] then
-								row.textura:SetGradient(
-									"Horizontal",
-									CreateColor(
-										DetailsGradient[class].r1 - 0.2,
-										DetailsGradient[class].g1 - 0.2,
-										DetailsGradient[class].b1 - 0.2,
-										0.9
-									),
-									CreateColor(
-										DetailsGradient[class].r2 + 0.2,
-										DetailsGradient[class].g2 + 0.2,
-										DetailsGradient[class].b2 + 0.2,
-										0.9
-									)
-								)
+								if E.db.mui.gradient.customColor.enableClass then
+									row.textura:SetGradient("Horizontal", F.GradientColorsDetailsCustom(class))
+								else
+									row.textura:SetGradient("Horizontal", F.GradientColorsDetails(class))
+								end
 							else
 								row.textura:SetGradient(
 									"Horizontal",
@@ -87,8 +60,6 @@ local function GradientBars()
 end
 
 local function GradientNames()
-	local Details = _G.Details
-
 	hooksecurefunc(Details.atributo_damage, "RefreshLine", function(_, detailsDB, lineContainer, whichRowLine)
 		local thisLine = lineContainer[whichRowLine]
 		if not thisLine then
@@ -184,7 +155,6 @@ local function IsDefaultAnchor(instance)
 end
 
 function module:ResetDetailsAnchor(force)
-	local Details = _G.Details
 	if not Details then
 		return
 	end
@@ -209,7 +179,6 @@ function module:ResetDetailsAnchor(force)
 end
 
 local function ReskinDetails()
-	local Details = _G.Details
 	Details.tabela_instancias = Details.tabela_instancias or {}
 	Details.instances_amount = Details.instances_amount or 5
 
