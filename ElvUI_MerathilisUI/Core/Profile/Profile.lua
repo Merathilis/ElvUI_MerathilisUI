@@ -1094,12 +1094,25 @@ P.nameplates = {
 P.nameHover = {
 	enable = true,
 
+	guildName = false,
+	guildRank = false,
+	race = false,
+	status = true,
+	faction = false,
+	level = true,
+	classification = true,
+
 	mainTextSize = 14,
 	mainTextOutline = "SHADOWOUTLINE",
+	statusTextSize = 11,
+	statusTextOutline = "SHADOWOUTLINE",
 	headerTextSize = 11,
 	headerTextOutline = "SHADOWOUTLINE",
+	guildTextSize = 11,
+	guildTextOutline = "SHADOWOUTLINE",
 	subTextSize = 11,
 	subTextOutline = "SHADOWOUTLINE",
+
 	targettarget = false,
 }
 
