@@ -58,30 +58,60 @@ options.nameHover = {
 					max = 60,
 					step = 1,
 				},
-				headerTextOutline = {
+				statusTextOutline = {
 					order = 5,
+					type = "select",
+					name = L["Status Text Outline"],
+					values = MER.Values.FontFlags,
+					sortByValue = true,
+				},
+				statusTextSize = {
+					order = 6,
+					name = L["Status Text Size"],
+					type = "range",
+					min = 5,
+					max = 60,
+					step = 1,
+				},
+				headerTextOutline = {
+					order = 7,
 					type = "select",
 					name = L["Header Text Outline"],
 					values = MER.Values.FontFlags,
 					sortByValue = true,
 				},
 				headerTextSize = {
-					order = 6,
+					order = 8,
 					name = L["Header Text Size"],
 					type = "range",
 					min = 5,
 					max = 60,
 					step = 1,
 				},
+				guildTextOutline = {
+					order = 9,
+					type = "select",
+					name = L["Guild Text Outline"],
+					values = MER.Values.FontFlags,
+					sortByValue = true,
+				},
+				guildTextSize = {
+					order = 10,
+					name = L["Guild Text Size"],
+					type = "range",
+					min = 5,
+					max = 60,
+					step = 1,
+				},
 				subTextOutline = {
-					order = 7,
+					order = 11,
 					type = "select",
 					name = L["Sub Text Outline"],
 					values = MER.Values.FontFlags,
 					sortByValue = true,
 				},
 				subTextSize = {
-					order = 8,
+					order = 12,
 					name = L["Sub Text Size"],
 					type = "range",
 					min = 5,
@@ -91,16 +121,44 @@ options.nameHover = {
 			},
 		},
 		targettarget = {
-			order = 5,
+			order = 4,
 			type = "toggle",
 			name = L["Show Target of Target"],
-			width = "full",
-			get = function()
-				return E.db.mui.nameHover.targettarget
-			end,
-			set = function(_, value)
-				E.db.mui.nameHover.targettarget = value
-			end,
+		},
+		guildName = {
+			order = 5,
+			type = "toggle",
+			name = L["Guild Name"],
+		},
+		guildRank = {
+			order = 6,
+			type = "toggle",
+			name = L["Guild Rank"],
+		},
+		race = {
+			order = 7,
+			type = "toggle",
+			name = L["Race"],
+		},
+		status = {
+			order = 8,
+			type = "toggle",
+			name = L["Status"],
+		},
+		faction = {
+			order = 9,
+			type = "toggle",
+			name = L["Faction"],
+		},
+		level = {
+			order = 10,
+			type = "toggle",
+			name = L["Level"],
+		},
+		classification = {
+			order = 11,
+			type = "toggle",
+			name = L["Classification"],
 		},
 	},
 }

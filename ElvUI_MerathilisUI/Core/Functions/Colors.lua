@@ -583,6 +583,27 @@ function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha)
 	end
 end
 
+-- Different for details because bars are different
+function F.GradientColorsDetails(unitclass)
+	local color = F.ClassGradient[unitclass] or F.ClassGradient["NPCNEUTRAL"]
+	return { r = color.r1 - 0.2, g = color.g1 - 0.2, b = color.b1 - 0.2, a = 0.9 }, {
+		r = color.r2 + 0.2,
+		g = color.g2 + 0.2,
+		b = color.b2 + 0.2,
+		a = 0.9,
+	}
+end
+
+function F.GradientColorsDetailsCustom(unitclass)
+	local color = customgradientsColor[unitclass] or customgradientsColor["NPCNEUTRAL"]
+	return { r = color.r1, g = color.g1, b = color.b1, a = 0.9 }, {
+		r = color.r2,
+		g = color.g2,
+		b = color.b2,
+		a = 0.9,
+	}
+end
+
 function F.GetClassColorsRGB(unitclass)
 	if unitclass then
 		return {

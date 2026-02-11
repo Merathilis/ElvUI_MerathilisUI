@@ -124,10 +124,6 @@ function module:BagSync()
 
 	local Tooltip = BagSync:GetModule("Tooltip")
 	if Tooltip then
-		hooksecurefunc(Tooltip, "EnsureExtTip", function(self)
-			TT:SetStyle(self.extTip)
-		end)
-
 		hooksecurefunc(Tooltip, "TallyUnits", function(self, objTooltip)
 			if not self.extTip then
 				return
