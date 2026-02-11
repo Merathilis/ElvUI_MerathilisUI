@@ -1,4 +1,4 @@
-## Interface: 120000
+## Interface: 120000, 120001
 ## Author: Merathilis
 ## Version: @project-version@
 ## X-Version: 7.10
