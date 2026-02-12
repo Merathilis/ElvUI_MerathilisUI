@@ -526,11 +526,6 @@ L["Thu"] = "Do"
 L["Fri"] = "Fr"
 L["Sat"] = "Sa"
 
--- Nameplates
-L["Castbar Shield"] = "Zauberleiste Schild"
-L["Show a shield icon on the castbar for non interruptible spells."] =
-	"Zeigt ein Schildsymbol auf der Zauberleiste an, wenn ein Zauber nicht unterbrochen werden kann."
-
 -- Install
 L["Welcome"] = "Willkommen"
 L["|cffff7d0aMerathilisUI|r Installation"] = true -- no need to translate

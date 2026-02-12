@@ -1067,16 +1067,6 @@ P.portraits = {
 }
 
 P.unitframes = {
-	castbar = {
-		enable = true,
-		texture = "ElvUI Blank",
-		spark = {
-			enable = true,
-			texture = "ElvUI Blank",
-			width = 3,
-			color = { r = 0, g = 0.75, b = 0.98, a = 1 },
-		},
-	},
 	style = true,
 	raidIcons = true,
 	highlight = true,

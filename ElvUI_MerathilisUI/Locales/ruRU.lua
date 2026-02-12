@@ -475,11 +475,6 @@ L["Thu"] = "Чт"
 L["Fri"] = "Пт"
 L["Sat"] = "Сб"
 
--- Nameplates
-L["Castbar Shield"] = "Щит на кастбаре"
-L["Show a shield icon on the castbar for non interruptible spells."] =
-	"Показывать значок щита на панели заклинаний для непрерываемых заклинаний."
-
 -- Install
 L["Welcome"] = "Добро пожаловать"
 L["|cffff7d0aMerathilisUI|r Installation"] = "|cffff7d0aMerathilisUI|r Установка"
