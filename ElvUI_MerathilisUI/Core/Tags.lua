@@ -2,7 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ElvUF = E.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 
-local _G = _G
+local tonumber = tonumber
 local len = string.len
 
 local UnitClass = UnitClass
@@ -16,9 +16,11 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit, _, args)
 	if not name then
 		return
 	end
+
 	if not args then
 		args = 16
 	end
+
 	args = tonumber(args)
 	local isTarget
 	if not F.CheckInstanceSecret() then
@@ -32,7 +34,7 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit, _, args)
 	else
 		isTarget = false
 	end
-	if UnitIsPlayer(unit) or (E.Retail and UnitInPartyIsAI(unit)) then
+	if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
 		local _, unitClass = UnitClass(unit)
 		if not unitClass then
 			return
