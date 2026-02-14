@@ -185,7 +185,6 @@ function MER:Initialize()
 
 	self.initialized = true
 
-	self:AddCustomLinkSupport()
 	self:UpdateScripts()
 	self:InitializeModules()
 

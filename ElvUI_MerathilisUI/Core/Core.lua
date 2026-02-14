@@ -11,7 +11,6 @@ local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetBuildInfo = GetBuildInfo
 local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
-local GetMaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion
 local InCombatLockdown = InCombatLockdown
 local InviteUnit = C_PartyInfo.InviteUnit
 local GetCVarBool = C_CVar.GetCVarBool
@@ -23,11 +22,6 @@ MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVe
 
 MER.IsRetail = select(4, GetBuildInfo()) >= 120000
 MER.IsPTR = select(4, GetBuildInfo()) == 120000
-
-MER.MaxLevelForPlayerExpansion = GetMaxLevelForPlayerExpansion()
-
--- Masque support
-MER.MSQ = _G.LibStub("Masque", true)
 
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI1.tga]]
@@ -115,35 +109,6 @@ MER.LinkOperations = {
 		end
 	end,
 }
-
-function MER:ItemRefTooltip_SetHyperlink(_, data)
-	if strsub(data, 1, 6) ~= "wtlink" then
-		return
-	end
-
-	local feature, argsString = strmatch(data, "^merlink:([^:]+)(.*)$")
-	if not feature then
-		return
-	end
-
-	local args = {}
-	if argsString and argsString ~= "" then
-		argsString = strsub(argsString, 2)
-		for arg in gmatch(argsString, "[^:]+") do
-			table.insert(args, arg)
-		end
-	end
-
-	if feature and MER.LinkOperations[feature] then
-		MER.LinkOperations[feature](unpack(args))
-	end
-end
-
-function MER:AddCustomLinkSupport()
-	if not MER:IsHooked(_G.ItemRefTooltip, "SetHyperlink") then
-		MER:Hook(_G.ItemRefTooltip, "SetHyperlink", "ItemRefTooltip_SetHyperlink", true)
-	end
-end
 
 -- Register own Modules
 function MER:RegisterModule(name)

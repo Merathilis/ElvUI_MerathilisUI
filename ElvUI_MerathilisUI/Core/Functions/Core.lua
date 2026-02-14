@@ -566,8 +566,6 @@ end
 function F.Print(...)
 	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
 end
-hooksecurefunc(WF, "Print", F.Print) -- Override WindTools Print
-WF.Print = F.Print
 
 function F.DebugPrint(text, msgtype)
 	if not text then
@@ -1912,4 +1910,28 @@ function F.IsSkyriding()
 	-- Use GetGlidingInfo to check if player is in a Dragonriding zone on an applicable mount
 	local _, canGlide = C_PlayerInfo_GetGlidingInfo()
 	return canGlide == true
+end
+
+function F:SecureHook(object, method, handler)
+	if not handler then
+		method, handler, object = object, method, nil
+	end
+
+	if object and type(object) == "string" then
+		object = _G[object]
+	end
+
+	if object then
+		if object[method] then
+			hooksecurefunc(object, method, handler)
+		else
+			WF.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
+		end
+	else
+		if _G[method] then
+			hooksecurefunc(method, handler)
+		else
+			WF.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
+		end
+	end
 end
