@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
+local CM = MER:GetModule("MER_ColorModifiers")
 local WS = W:GetModule("Skins")
 local LAB = LibStub("LibActionButton-1.0-ElvUI")
 
@@ -125,7 +126,7 @@ function module:UpdateKeybinds()
 			local keybind = GetBindingKey("ACTIONBUTTON" .. buttonIndex)
 			if keybind and self.db.showKeybinds then
 				button.HotKey:SetTextColor(1, 1, 1)
-				button.HotKey:SetText(self:FormatKeybind(keybind))
+				button.HotKey:SetText(CM:FormatKeybind(keybind))
 				button.HotKey:Width(button:GetWidth())
 				button.HotKey:Show()
 			else
@@ -163,27 +164,27 @@ function module:UpdateBar()
 	bar:SetAttribute(
 		"_onstate-page",
 		[[
-          newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar")) and GetTempShapeshiftBarIndex())
-          or (UnitHasVehicleUI("player") and GetVehicleBarIndex())
-          or (HasOverrideActionBar() and GetOverrideBarIndex())
-          or newstate
+		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar")) and GetTempShapeshiftBarIndex())
+		or (UnitHasVehicleUI("player") and GetVehicleBarIndex())
+		or (HasOverrideActionBar() and GetOverrideBarIndex())
+		or newstate
 
-          if not newstate then
-              return
-          end
+		if not newstate then
+			return
+		end
 
-          if newstate ~= 0 then
-              self:SetAttribute("state", newstate)
-              control:ChildUpdate("state", newstate)
-          else
-              local newCondition = self:GetAttribute("newCondition")
-              if newCondition then
-                  newstate = SecureCmdOptionParse(newCondition)
-                  self:SetAttribute("state", newstate)
-                  control:ChildUpdate("state", newstate)
-              end
-          end
-      ]]
+		if newstate ~= 0 then
+			self:SetAttribute("state", newstate)
+			control:ChildUpdate("state", newstate)
+		else
+			local newCondition = self:GetAttribute("newCondition")
+			if newCondition then
+				newstate = SecureCmdOptionParse(newCondition)
+				self:SetAttribute("state", newstate)
+				control:ChildUpdate("state", newstate)
+			end
+		end
+	]]
 	)
 
 	if not bar.buttons then

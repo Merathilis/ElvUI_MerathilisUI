@@ -4,8 +4,6 @@
 
 	<Include file="Actionbars\Load_Actionbars.xml"/>
 	<Include file="Armory\Load_Armory.xml"/>
-	<Include file="Bags\Load_Bags.xml"/>
-	<Include file="Cooldowns\Load_Cooldowns.xml"/>
 	<Include file="DataTexts\Load_DataTexts.xml"/>
 	<Include file="ItemLevel\Load_ItemLevel.xml"/>
 	<Include file="Maps\Load_Maps.xml"/>

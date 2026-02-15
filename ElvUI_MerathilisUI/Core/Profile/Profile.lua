@@ -1081,6 +1081,10 @@ P.nameplates = {
 	gradient = true,
 }
 
+P.colorModifiers = {
+	enable = true,
+}
+
 P.nameHover = {
 	enable = true,
 
