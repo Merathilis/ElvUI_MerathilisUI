@@ -185,7 +185,6 @@ function module:Configure_GradientHealthColor(unit)
 	if UnitExists("pet") then
 		module:ApplyUnitGradient("pet", "Pet")
 	end
-
 	if UnitExists("boss1") then
 		module:ApplyUnitGradient("boss1", "Boss1")
 	end

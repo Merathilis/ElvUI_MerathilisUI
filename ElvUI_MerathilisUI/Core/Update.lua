@@ -14,7 +14,7 @@ local function UpdateMessage(text, from)
 	if isFirstLine then
 		isFirstLine = false
 		WF.PrintGradientLine()
-		WF.Print(L["Update"])
+		F.Print(L["Update"])
 	end
 
 	local versionText = format(

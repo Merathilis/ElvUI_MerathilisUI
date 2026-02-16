@@ -84,7 +84,7 @@ do
 			end
 		else
 			WF.PrintGradientLine()
-			WF.Print(L["Usage"] .. ": /muidebug [on|off]")
+			F.Print(L["Usage"] .. ": /muidebug [on|off]")
 			print("on  ", L["Enable debug mode"])
 			print("      ", format(L["Disable all other addons except ElvUI Core, ElvUI %s and BugSack."], MER.Title))
 			print("off ", L["Disable debug mode"])
@@ -95,7 +95,7 @@ do
 
 	function MER.PrintDebugEnviromentTip()
 		WF.PrintGradientLine()
-		WF.Print(L["Debug Enviroment"])
+		F.Print(L["Debug Enviroment"])
 		print(L["You can use |cff00ff00/muidebug off|r command to exit debug mode."])
 		print(format(L["After you stop debuging, %s will reenable the addons automatically."], MER.Title))
 		WF.PrintGradientLine()
