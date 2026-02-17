@@ -2,7 +2,7 @@
 	<Script file='ActionBars.lua'/>
 	<Script file='Armory.lua'/>
 	<Script file='Bags.lua'/>
-	<Script file='Cooldowns.lua'/>
+	<Script file='Blizzard.lua'/>
 	<Script file='ItemLevel.lua'/>
 	<Script file='Maps.lua'/>
 	<Script file='NameHover.lua'/>
