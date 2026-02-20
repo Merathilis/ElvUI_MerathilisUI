@@ -3,9 +3,6 @@ local module = MER:GetModule("MER_UnitFrames")
 local UF = E:GetModule("UnitFrames")
 local LSM = E.LSM
 
-local _, powertype, unitframe
-local headergroup, group, groupbutton
-
 local powertypes = {
 	["MANA"] = true,
 	["RAGE"] = true,
@@ -43,9 +40,9 @@ function module:ApplyUnitGradientPower(unit, name)
 		forced = false
 	end
 
-	_, powertype = UnitPowerType(unit)
+	local _, powertype = UnitPowerType(unit)
 	if UnitExists(unit) and powertype then
-		unitframe = _G["ElvUF_" .. name]
+		local unitframe = _G["ElvUF_" .. name]
 		if unitframe and unitframe.Power then
 			if powertypes and powertypes[powertype] then
 				if E.db.mui.gradient.customColor.enablePower then
@@ -127,7 +124,7 @@ end
 
 function module:ApplyGroupGradientPower(groupunitframe)
 	if groupunitframe and groupunitframe.unit then
-		_, powertype = UnitPowerType(groupunitframe.unit)
+		local _, powertype = UnitPowerType(groupunitframe.unit)
 		if powertype then
 			if groupunitframe.Power then
 				if E.db.unitframe.colors.transparentPower and E.db.unitframe.colors.custompowerbackdrop then --fix transparent power custom backdrop
@@ -239,8 +236,6 @@ local function GradientClassbar(powerbar, powerType)
 			)
 			if E.db.unitframe.units.player.classbar.fill == "spaced" then
 				bar.bg:SetAlpha(0)
-				--bar.bg:SetAlpha(E.db.general.backdropfadecolor.a)
-				--bar.backdrop.Center:SetAlpha(E.db.general.backdropfadecolor.a)
 				if E.db.unitframe.colors.customclasspowerbackdrop then
 					bar.backdrop.Center:SetVertexColor(
 						E.db.unitframe.colors.classpower_backdrop.r,
@@ -265,12 +260,6 @@ function module:UFClassPower_SetBarColor(frame)
 			hooksecurefunc(frame.ClassPower, "UpdateColor", function(powerbar, powerType)
 				GradientClassbar(powerbar, powerType)
 			end)
-
-			--[[if frame.Runes then
-				hooksecurefunc(frame.Runes, "UpdateColor", function(powerbar, powerType)
-					GradientClassbar(powerbar, powerType)
-				end)
-			end]]
 
 			frame.IsHooked = true
 		end
