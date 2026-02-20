@@ -320,7 +320,7 @@ function module:Configure_GradientPower(unit)
 
 	--group/raid unitframes
 	if IsInGroup() or forced then
-		headergroup = nil
+		local headergroup = nil
 		if
 			_G["ElvUF_Raid1"]
 			and _G["ElvUF_Raid1"]:IsShown()
@@ -348,9 +348,9 @@ function module:Configure_GradientPower(unit)
 		end
 		if headergroup ~= nil then
 			for i = 1, headergroup:GetNumChildren() do
-				group = select(i, headergroup:GetChildren())
+				local group = select(i, headergroup:GetChildren())
 				for j = 1, group:GetNumChildren() do
-					groupbutton = select(j, group:GetChildren())
+					local groupbutton = select(j, group:GetChildren())
 					if groupbutton and groupbutton.Power and groupbutton.Power:IsShown() and groupbutton.unit then
 						module:ApplyGroupGradientPower(groupbutton)
 					end
