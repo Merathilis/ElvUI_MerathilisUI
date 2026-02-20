@@ -3,6 +3,9 @@ local module = MER:GetModule("MER_UnitFrames")
 local UF = E:GetModule("UnitFrames")
 local LSM = E.LSM
 
+local UnitPowerType = UnitPowerType
+local UnitExists = UnitExists
+
 local powertypes = {
 	["MANA"] = true,
 	["RAGE"] = true,
@@ -40,81 +43,76 @@ function module:ApplyUnitGradientPower(unit, name)
 		forced = false
 	end
 
-	local _, powertype = UnitPowerType(unit)
-	if UnitExists(unit) and powertype then
+	if UnitExists(unit) then
+		local _, powertype = UnitPowerType(unit)
 		local unitframe = _G["ElvUF_" .. name]
-		if unitframe and unitframe.Power then
-			if powertypes and powertypes[powertype] then
-				if E.db.mui.gradient.customColor.enablePower then
-					if unit == "target" then
-						if E.db.unitframe.colors.transparentPower then
-							unitframe.Power.backdrop.Center:SetGradient(
-								"HORIZONTAL",
-								F.GradientColorsCustom(powertype, true, true)
-							)
-						else
-							unitframe.Power
-								:GetStatusBarTexture()
-								:SetGradient("HORIZONTAL", F.GradientColorsCustom(powertype, true, false))
-						end
-						if not E.db.unitframe.colors.custompowerbackdrop then
-							if unitframe.Power and unitframe.Power.bg then
-								unitframe.Power.bg:SetGradient(
-									"HORIZONTAL",
-									F.GradientColorsCustom(powertype, true, false, true)
-								)
-							end
-						end
+		if unitframe and unitframe.Power and powertype then
+			if E.db.mui.gradient.customColor.enablePower then
+				if unit == "target" then
+					if E.db.unitframe.colors.transparentPower then
+						unitframe.Power.backdrop.Center:SetGradient(
+							"HORIZONTAL",
+							F.GradientColorsCustom(powertype, true, true)
+						)
 					else
-						if E.db.unitframe.colors.transparentPower then
-							unitframe.Power.backdrop.Center:SetGradient(
-								"HORIZONTAL",
-								F.GradientColorsCustom(powertype, false, true)
-							)
-						else
-							unitframe.Power
-								:GetStatusBarTexture()
-								:SetGradient("HORIZONTAL", F.GradientColorsCustom(powertype, false, false))
-						end
-						if not E.db.unitframe.colors.custompowerbackdrop then
+						unitframe.Power
+							:GetStatusBarTexture()
+							:SetGradient("HORIZONTAL", F.GradientColorsCustom(powertype, true, false))
+					end
+					if not E.db.unitframe.colors.custompowerbackdrop then
+						if unitframe.Power and unitframe.Power.bg then
 							unitframe.Power.bg:SetGradient(
 								"HORIZONTAL",
-								F.GradientColorsCustom(powertype, false, false, true)
+								F.GradientColorsCustom(powertype, true, false, true)
 							)
 						end
 					end
 				else
-					if unit == "target" then
-						if E.db.unitframe.colors.transparentPower then
-							unitframe.Power.backdrop.Center:SetGradient(
-								"HORIZONTAL",
-								F.GradientColors(powertype, true, true)
-							)
-						else
-							unitframe.Power
-								:GetStatusBarTexture()
-								:SetGradient("HORIZONTAL", F.GradientColors(powertype, true, false))
-						end
-						if not E.db.unitframe.colors.custompowerbackdrop then
-							unitframe.Power.bg:SetGradient("HORIZONTAL", F.GradientColors(powertype, true, false, true))
-						end
+					if E.db.unitframe.colors.transparentPower then
+						unitframe.Power.backdrop.Center:SetGradient(
+							"HORIZONTAL",
+							F.GradientColorsCustom(powertype, false, true)
+						)
 					else
-						if E.db.unitframe.colors.transparentPower then
-							unitframe.Power.backdrop.Center:SetGradient(
-								"HORIZONTAL",
-								F.GradientColors(powertype, false, true)
-							)
-						else
-							unitframe.Power
-								:GetStatusBarTexture()
-								:SetGradient("HORIZONTAL", F.GradientColors(powertype, false, false))
-						end
-						if not E.db.unitframe.colors.custompowerbackdrop then
-							unitframe.Power.bg:SetGradient(
-								"HORIZONTAL",
-								F.GradientColors(powertype, false, false, true)
-							)
-						end
+						unitframe.Power
+							:GetStatusBarTexture()
+							:SetGradient("HORIZONTAL", F.GradientColorsCustom(powertype, false, false))
+					end
+					if not E.db.unitframe.colors.custompowerbackdrop then
+						unitframe.Power.bg:SetGradient(
+							"HORIZONTAL",
+							F.GradientColorsCustom(powertype, false, false, true)
+						)
+					end
+				end
+			else
+				if unit == "target" then
+					if E.db.unitframe.colors.transparentPower then
+						unitframe.Power.backdrop.Center:SetGradient(
+							"HORIZONTAL",
+							F.GradientColors(powertype, true, true)
+						)
+					else
+						unitframe.Power
+							:GetStatusBarTexture()
+							:SetGradient("HORIZONTAL", F.GradientColors(powertype, true, false))
+					end
+					if not E.db.unitframe.colors.custompowerbackdrop then
+						unitframe.Power.bg:SetGradient("HORIZONTAL", F.GradientColors(powertype, true, false, true))
+					end
+				else
+					if E.db.unitframe.colors.transparentPower then
+						unitframe.Power.backdrop.Center:SetGradient(
+							"HORIZONTAL",
+							F.GradientColors(powertype, false, true)
+						)
+					else
+						unitframe.Power
+							:GetStatusBarTexture()
+							:SetGradient("HORIZONTAL", F.GradientColors(powertype, false, false))
+					end
+					if not E.db.unitframe.colors.custompowerbackdrop then
+						unitframe.Power.bg:SetGradient("HORIZONTAL", F.GradientColors(powertype, false, false, true))
 					end
 				end
 			end
