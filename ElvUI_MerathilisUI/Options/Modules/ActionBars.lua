@@ -97,17 +97,17 @@ options.actionbars = {
 				},
 			},
 		},
-		colorModifier = {
+		colorModifiers = {
 			order = 4,
 			type = "group",
 			name = L["Color Modifier Keys"],
 			desc = L["Enabling this colors your modifier keys."],
 			guiInline = true,
 			get = function(info)
-				return E.db.mui.actionbars.colorModifier[info[#info]]
+				return E.db.mui.colorModifiers[info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.actionbars.colorModifier[info[#info]] = value
+				E.db.mui.colorModifiers[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
