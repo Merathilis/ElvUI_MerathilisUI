@@ -211,7 +211,7 @@ do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 		if isInitialLogin then
-			E:Delay(6, self.CheckInstalledVersion, self)
+			E:Delay(6, self.ChangelogReadAlert, self)
 			local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(

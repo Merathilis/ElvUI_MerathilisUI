@@ -64,12 +64,6 @@ MER.options = {
 		icon = I.Media.Icons.Save,
 		args = {},
 	},
-	changelog = {
-		order = 113,
-		name = F.cOption(L["Changelog"], "gradient"),
-		icon = I.Media.Icons.Changelog,
-		args = {},
-	},
 }
 
 function MER:OptionsCallback()

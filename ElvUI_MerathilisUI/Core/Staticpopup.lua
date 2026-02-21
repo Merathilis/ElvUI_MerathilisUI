@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local PF = MER:GetModule("MER_Profiles")
+local C = W.Utilities.Color ---@type ColorUtility
 
 local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn
 
@@ -60,6 +60,16 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	whileDead = 1,
 	preferredIndex = 3,
 	hideOnEscape = false,
+}
+
+E.PopupDialogs.WINDTOOLS_OPEN_CHANGELOG = {
+	text = format(L["Welcome to %s %s!"], W.Title, W.DisplayVersion),
+	button1 = L["Open Changelog"],
+	button2 = C.StringByTemplate(L["Next Time"], "gray-300"),
+	OnAccept = function(self)
+		E:ToggleOptions("WindTools,information,changelog")
+	end,
+	hideOnEscape = 1,
 }
 
 -- Compatibility

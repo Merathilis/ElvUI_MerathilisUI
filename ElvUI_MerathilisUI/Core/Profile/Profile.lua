@@ -563,7 +563,7 @@ P.actionbars = {
 }
 
 P.cooldownManager = {
-	enable = true,
+	enable = false,
 	fading = false,
 
 	dynamicBarsWidth = false,
