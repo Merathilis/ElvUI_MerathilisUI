@@ -1092,6 +1092,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["smoothbars"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = "[namecolor][name:MER:gradient]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "- GothamNarrow-Black"
