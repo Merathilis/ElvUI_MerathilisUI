@@ -38,7 +38,6 @@ function module:LoadWindToolsProfile()
 	db["item"]["fastLoot"]["enable"] = false
 	db["maps"]["rectangleMinimap"]["enable"] = true
 	db["maps"]["rectangleMinimap"]["heightPercentage"] = 0.7
-	db["maps"]["whoClicked"]["addRealm"] = true
 	db["misc"]["automation"]["enable"] = true
 	db["misc"]["automation"]["hideBagAfterEnteringCombat"] = true
 	db["misc"]["automation"]["hideWorldMapAfterEnteringCombat"] = true

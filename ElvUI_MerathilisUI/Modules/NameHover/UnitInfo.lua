@@ -74,10 +74,13 @@ function module:GetStatusText(fakeAfk, fakeDnd, fakePvp)
 	local dndText = nil
 	local pvpText = nil
 
-	if UnitIsAFK("mouseover") or fakeAfk then
+	local afk = UnitIsAFK("mouseover")
+	local dnd = UnitIsDND("mouseover")
+
+	if E:NotSecretValue(afk) and afk or fakeAfk then
 		afkText = module:GetTextWithColor("<AFK>", module.COLOR_DEAD)
 	end
-	if UnitIsDND("mouseover") or fakeDnd then
+	if E:NotSecretValue(dnd) and dnd or fakeDnd then
 		dndText = module:GetTextWithColor("<DND>", module.COLOR_HOSTILE)
 	end
 	if (UnitIsPVP("mouseover") and UnitIsPlayer("mouseover")) or fakePvp then

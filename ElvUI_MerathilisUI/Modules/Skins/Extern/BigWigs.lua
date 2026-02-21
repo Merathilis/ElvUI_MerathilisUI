@@ -77,8 +77,8 @@ local function applyPoints(object, points)
 	object:ClearAllPoints()
 	for i = 1, #points do
 		local point, relativeTo, relativePoint, xOfs, yOfs = unpack(points[i])
-		if type(point) == "string" and E:NotSecretValue(point) then
-			if relativePoint and (type(relativePoint) ~= "string" or E:IsNotSecretValue(relativePoint)) then
+		if E:NotSecretValue(point) and type(point) == "string" then
+			if relativePoint and (type(relativePoint) ~= "string" or E:IsSecretValue(relativePoint)) then
 				relativePoint = nil
 			end
 
@@ -122,7 +122,7 @@ local function modifyStyle(frame)
 	local spark = frame:Get("bigwigs:merathilisui:spark")
 
 	local barHeight = frame.candyBarBar:GetHeight()
-	if not E:IsNotSecretValue(barHeight) then
+	if E:NotSecretValue(barHeight) then
 		spark:Size(4, barHeight * 2)
 	end
 end

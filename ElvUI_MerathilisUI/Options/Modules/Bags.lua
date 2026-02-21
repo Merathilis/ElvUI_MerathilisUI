@@ -11,29 +11,5 @@ options.bags = {
 			type = "header",
 			name = F.cOption(L["Bags"], "orange"),
 		},
-		equipManager = {
-			order = 1,
-			type = "group",
-			guiInline = true,
-			name = F.cOption(L["Equip Manager"], "orange"),
-			hidden = function()
-				return not E.private.bags.enable
-			end,
-			args = {
-				equipOverlay = {
-					order = 1,
-					type = "toggle",
-					name = L["Equipment Set Overlay"],
-					desc = L["Show the associated equipment sets for the items in your bags (or bank)."],
-					get = function(_)
-						return E.db.mui.bags.equipOverlay
-					end,
-					set = function(_, value)
-						E.db.mui.bags.equipOverlay = value
-						MERBI:ToggleSettings()
-					end,
-				},
-			},
-		},
 	},
 }

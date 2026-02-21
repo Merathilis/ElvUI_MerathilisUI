@@ -64,14 +64,6 @@ function module:Initialize()
 	hooksecurefunc(UF, "Update_RaidFrames", module.Update_RaidFrames)
 	-- Boss
 	hooksecurefunc(UF, "Update_BossFrames", module.Update_BossFrames)
-	-- Castbar
-	hooksecurefunc(UF, "LoadUnits", module.CastBarHooks)
-	hooksecurefunc(UF, "LoadUnits", module.UpdateAllCastbars)
-	-- Power Textures
-	-- module:ChangePowerBarTexture()
-	-- hooksecurefunc(UF, "Update_StatusBars", module.ChangePowerBarTexture)
-	-- hooksecurefunc(UF, "Update_AllFrames", module.ChangeUnitPowerBarTexture)
-	-- hooksecurefunc(AB, "StyleShapeShift", module.ChangeUnitPowerBarTexture)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 

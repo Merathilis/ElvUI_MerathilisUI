@@ -401,6 +401,20 @@ function F.Position(anchor1, parent, anchor2, x, y)
 	return format("%s,%s,%s,%d,%d", anchor1, parent, anchor2, F.Dpi(x), F.Dpi(y))
 end
 
+function F.Position(anchor1, parent, anchor2, x, y, offset, negative)
+	local offsetX = 0
+
+	if offset then
+		offsetX = F.CalculateUltrawideOffset()
+
+		if negative then
+			offsetX = offsetX * -1
+		end
+	end
+
+	return format("%s,%s,%s,%d,%d", anchor1, parent, anchor2, F.Dpi(x) + offsetX, F.Dpi(y))
+end
+
 function F.Clamp(value, s, b)
 	return min(max(value, s), b)
 end
@@ -566,8 +580,6 @@ end
 function F.Print(...)
 	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
 end
-hooksecurefunc(WF, "Print", F.Print) -- Override WindTools Print
-WF.Print = F.Print
 
 function F.DebugPrint(text, msgtype)
 	if not text then
@@ -1912,4 +1924,48 @@ function F.IsSkyriding()
 	-- Use GetGlidingInfo to check if player is in a Dragonriding zone on an applicable mount
 	local _, canGlide = C_PlayerInfo_GetGlidingInfo()
 	return canGlide == true
+end
+
+function F:SecureHook(object, method, handler)
+	if not handler then
+		method, handler, object = object, method, nil
+	end
+
+	if object and type(object) == "string" then
+		object = _G[object]
+	end
+
+	if object then
+		if object[method] then
+			hooksecurefunc(object, method, handler)
+		else
+			WF.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
+		end
+	else
+		if _G[method] then
+			hooksecurefunc(method, handler)
+		else
+			WF.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
+		end
+	end
+end
+
+function F.IsUltrawide()
+	--HQ Resolution
+	if E.physicalWidth >= 3440 and (E.physicalHeight == 1440 or E.physicalHeight == 1600) then
+		return 2560
+	end --DQHD, DQHD+, WQHD & WQHD+
+
+	--Low resolution
+	if E.physicalWidth >= 2560 and (E.physicalHeight == 1080 or E.physicalHeight == 1200) then
+		return 1920
+	end --WFHD, DFHD & WUXGA
+end
+
+function F.CalculateUltrawideOffset()
+	if F.IsUltrawide() then
+		return ((E.physicalWidth - F.IsUltrawide()) / 2) * F.PixelPerfect()
+	else
+		return 0
+	end
 end

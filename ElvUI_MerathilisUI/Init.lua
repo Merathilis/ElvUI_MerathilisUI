@@ -89,8 +89,6 @@ do
 end
 
 MER.MetaFlavor = GetAddOnMetadata("ElvUI_MerathilisUI", "X-Flavor")
-
-MER.IsMOP = MER.MetaFlavor == "Mists"
 MER.IsRetail = MER.MetaFlavor == "Mainline"
 
 -- Modules
@@ -99,7 +97,9 @@ MER.Modules.ActionBars = MER:NewModule("MER_Actionbars", "AceEvent-3.0", "AceHoo
 MER.Modules.Armory = MER:NewModule("MER_Armory", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.BagInfo = MER:NewModule("MER_BagInfo", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Changelog = MER:NewModule("MER_Changelog", "AceEvent-3.0", "AceTimer-3.0")
+MER.Modules.ColorModifiers = MER:NewModule("MER_ColorModifiers")
 MER.Modules.Cooldown = MER:NewModule("MER_Cooldown", "AceHook-3.0")
+MER.Modules.CooldownManager = MER:NewModule("MER_CooldownManager", "AceHook-3.0")
 MER.Modules.CombatText = MER:NewModule("MER_CombatText", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
@@ -185,7 +185,6 @@ function MER:Initialize()
 
 	self.initialized = true
 
-	self:AddCustomLinkSupport()
 	self:UpdateScripts()
 	self:InitializeModules()
 

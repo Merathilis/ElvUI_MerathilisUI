@@ -605,11 +605,6 @@ L["Thu"] = "목요일"
 L["Fri"] = "금요일"
 L["Sat"] = "토요일"
 
--- Nameplates
-L["Castbar Shield"] = "시전바 보호막 아이콘"
-L["Show a shield icon on the castbar for non interruptible spells."] =
-	"차단 불가능한 주문의 시전바에 보호막 아이콘을 표시합니다"
-
 -- Install
 L["Welcome"] = "환영합니다"
 L["|cffff7d0aMerathilisUI|r Installation"] = "|cffff7d0aMerathilisUI|r 설치"

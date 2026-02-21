@@ -561,6 +561,65 @@ P.actionbars = {
 	},
 }
 
+P.cooldownManager = {
+	enable = true,
+	fading = false,
+
+	dynamicBarsWidth = false,
+	dynamicCastbarWidth = false,
+
+	-- Anchoring
+	anchors = {
+		essential = {
+			enable = false,
+			yOffset = -4,
+		},
+		utility = {
+			enable = false,
+			yOffset = -4,
+		},
+		buff = {
+			enable = false,
+			yOffset = 20,
+		},
+		buffBar = {
+			enable = false,
+			yOffset = 80,
+		},
+	},
+
+	-- Centering
+	centering = {
+		essential = false,
+		utility = false,
+		buff = false,
+	},
+
+	-- Keybind
+	keybinds = {
+		essential = {
+			enable = false,
+			labelFont = I.Fonts.Primary,
+			labelFontSize = 16,
+			labelFontOutline = "OUTLINE",
+			labelFontShadow = false,
+			anchor = "TOPRIGHT",
+			xOffset = -2,
+			yOffset = -2,
+		},
+		utility = {
+			enable = false,
+			labelFont = I.Fonts.Primary,
+			labelFontSize = 12,
+			labelFontOutline = "OUTLINE",
+			labelFontShadow = false,
+			anchor = "TOPRIGHT",
+			xOffset = -1,
+			yOffset = -1,
+		},
+	},
+}
+
 P.vehicleBar = {
 	enable = false,
 	hideElvUIBars = true,
@@ -571,7 +630,7 @@ P.vehicleBar = {
 	showKeybinds = true,
 	showMacro = true,
 
-	position = "BOTTOM,ElvUIParent,BOTTOM,0,150",
+	position = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 90),
 
 	vigorBar = {
 		enable = true,
@@ -1067,16 +1126,6 @@ P.portraits = {
 }
 
 P.unitframes = {
-	castbar = {
-		enable = true,
-		texture = "ElvUI Blank",
-		spark = {
-			enable = true,
-			texture = "ElvUI Blank",
-			width = 3,
-			color = { r = 0, g = 0.75, b = 0.98, a = 1 },
-		},
-	},
 	style = true,
 	raidIcons = true,
 	highlight = true,
@@ -1089,6 +1138,10 @@ P.unitframes = {
 
 P.nameplates = {
 	gradient = true,
+}
+
+P.colorModifiers = {
+	enable = true,
 }
 
 P.nameHover = {

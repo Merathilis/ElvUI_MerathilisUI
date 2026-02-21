@@ -256,7 +256,7 @@ do
 						E.db.mui.notification.vignette.blacklist[tonumber(tempID)] = true
 						tempID = nil
 					else
-						WF.Print(L["Please set the ID first."])
+						F.Print(L["Please set the ID first."])
 					end
 				end,
 			},

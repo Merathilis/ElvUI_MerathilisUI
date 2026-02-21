@@ -265,7 +265,7 @@ end
 
 -- Test function
 local function testCallback()
-	WF.Print("Banner clicked!")
+	F.Print("Banner clicked!")
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)

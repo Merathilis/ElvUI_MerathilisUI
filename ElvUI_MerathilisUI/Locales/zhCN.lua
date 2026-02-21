@@ -495,11 +495,6 @@ L["Thu"] = "星期四"
 L["Fri"] = "星期五"
 L["Sat"] = "星期六"
 
--- Nameplates
-L["Castbar Shield"] = "施法条盾牌"
-L["Show a shield icon on the castbar for non interruptible spells."] =
-	"在不可打断的法术图标上添加盾牌图标"
-
 -- Install
 L["Welcome"] = "欢迎"
 L["|cffff7d0aMerathilisUI|r Installation"] = "|cffff7d0aMerathilisUI|r安装"
