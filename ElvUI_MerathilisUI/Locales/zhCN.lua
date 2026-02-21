@@ -90,6 +90,7 @@ L["Show Mythic+ Infos"] = true
 L["Show Mythic+ Score"] = true
 L["History Limit"] = true
 L["Number of Mythic+ dungeons shown in the latest runs."] = true
+L["Show Random Pets"] = true
 
 -- Misc
 L["Misc"] = "杂项"

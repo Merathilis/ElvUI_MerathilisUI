@@ -102,6 +102,7 @@ L["Show Mythic+ Infos"] = "쐐기 던전 정보 표시"
 L["Show Mythic+ Score"] = "쐐기 점수 표시"
 L["History Limit"] = "기록 제한"
 L["Number of Mythic+ dungeons shown in the latest runs."] = "최근 진행한 쐐기 던전 표시 개수"
+L["Show Random Pets"] = "무작위 애완동물 표시"
 
 -- Misc
 L["Misc"] = "기타"

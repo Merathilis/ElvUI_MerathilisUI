@@ -333,29 +333,31 @@ function module:GameMenu_OnShow()
 	UIFrameFadeIn(playerModel, 1, playerModel:GetAlpha(), 1)
 	playerModel.isIdle = nil
 
-	local npcHolder = CreateFrame("Frame", nil, mainFrame)
-	npcHolder:Size(150)
-	npcHolder:Point("LEFT", GameMenuFrame, "RIGHT", 300, 0)
+	if db.showRandomPets then
+		local npcHolder = CreateFrame("Frame", nil, mainFrame)
+		npcHolder:Size(150)
+		npcHolder:Point("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 
-	local npc = MER.NPCS
-	local mod = random(1, #npc)
-	local npcID = npc[mod]
-	local npcKey = random(1, 5)
-	local npcEmote = Sequences[npcKey]
+		local npc = MER.NPCS
+		local mod = random(1, #npc)
+		local npcID = npc[mod]
+		local npcKey = random(1, 5)
+		local npcEmote = Sequences[npcKey]
 
-	local npcModel = CreateFrame("PlayerModel", nil, npcHolder)
-	npcModel:Point("CENTER", npcHolder, "CENTER")
-	npcModel:Size(256)
-	npcModel:SetScale(0.8)
-	npcModel:SetAlpha(1)
+		local npcModel = CreateFrame("PlayerModel", nil, npcHolder)
+		npcModel:Point("CENTER", npcHolder, "CENTER")
+		npcModel:Size(256)
+		npcModel:SetScale(0.8)
+		npcModel:SetAlpha(1)
 
-	npcModel:ClearModel()
-	npcModel:SetCreature(npcID)
-	npcModel:SetCamDistanceScale(1)
-	npcModel:SetFacing(6)
-	npcModel:SetAnimation(npcEmote)
-	UIFrameFadeIn(self, 1, npcModel:GetAlpha(), 1)
-	npcModel.isIdle = nil
+		npcModel:ClearModel()
+		npcModel:SetCreature(npcID)
+		npcModel:SetCamDistanceScale(1)
+		npcModel:SetFacing(6)
+		npcModel:SetAnimation(npcEmote)
+		UIFrameFadeIn(self, 1, npcModel:GetAlpha(), 1)
+		npcModel.isIdle = nil
+	end
 
 	self.mainFrame = mainFrame
 	self.mainFrame:Show()

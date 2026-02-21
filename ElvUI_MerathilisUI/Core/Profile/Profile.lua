@@ -45,6 +45,7 @@ P.gameMenu = {
 	showMythicKey = true,
 	showMythicScore = true,
 	mythicHistoryLimit = 4,
+	showRandomPets = true,
 }
 
 P.datatexts = {
