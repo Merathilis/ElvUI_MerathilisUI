@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
+local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 -- Credits: Ndui_Plus
@@ -209,6 +210,7 @@ function module:KeystoneLoot()
 	end
 
 	S:HandlePortraitFrame(frame)
+	WS:CreateShadow(frame)
 
 	for _, child in pairs({ frame:GetChildren() }) do
 		local texture = child.GetNormalTexture and child:GetNormalTexture()
