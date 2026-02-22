@@ -397,10 +397,6 @@ function F.GetStyledText(text)
 	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
 end
 
-function F.Position(anchor1, parent, anchor2, x, y)
-	return format("%s,%s,%s,%d,%d", anchor1, parent, anchor2, F.Dpi(x), F.Dpi(y))
-end
-
 function F.Position(anchor1, parent, anchor2, x, y, offset, negative)
 	local offsetX = 0
 
