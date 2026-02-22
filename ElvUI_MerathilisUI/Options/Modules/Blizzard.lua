@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
+local CM = MER:GetModule("MER_CooldownManager")
 
 options.blizzard = {
 	type = "group",
@@ -129,6 +130,27 @@ options.blizzard = {
 								end
 								cmDB.dynamicCastbarWidth = value
 								E:StaticPopup_Show("CONFIG_RL")
+							end,
+						},
+						minDynamicWidth = {
+							order = 3,
+							type = "range",
+							name = L["Minimum Width"],
+							desc = L["Minimum width applied when syncing. Prevents bars from becoming too narrow when few cooldowns are shown."],
+							min = 200,
+							max = 600,
+							step = 1,
+							disabled = function()
+								local cmDB = E.db.mui.cooldownManager
+								return not E.db.mui.cooldownManager.enable
+									or (not cmDB.dynamicBarsWidth and not cmDB.dynamicCastbarWidth)
+							end,
+							get = function(_)
+								return E.db.mui.cooldownManager.minDynamicWidth
+							end,
+							set = function(_, value)
+								E.db.mui.cooldownManager.minDynamicWidth = value
+								CM:OnDynamicWidthChanged()
 							end,
 						},
 					},

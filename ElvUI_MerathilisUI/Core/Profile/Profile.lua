@@ -568,6 +568,7 @@ P.cooldownManager = {
 
 	dynamicBarsWidth = false,
 	dynamicCastbarWidth = false,
+	minDynamicWidth = F.Dpi(250),
 
 	-- Anchoring
 	anchors = {
