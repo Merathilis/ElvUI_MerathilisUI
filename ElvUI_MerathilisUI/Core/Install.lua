@@ -857,19 +857,19 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "- Expressway"
 	E.db["actionbar"]["extraActionButton"]["hotkeyFontOutline"] = "SHADOWOUTLINE"
 
-	E.db["movers"]["ElvAB_1"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 70)
-	E.db["movers"]["ElvAB_2"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 102)
-	E.db["movers"]["ElvAB_3"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 131)
-	E.db["movers"]["ElvAB_4"] = F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", 0, 367)
-	E.db["movers"]["ElvAB_5"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 430, 47)
-	E.db["movers"]["ElvAB_6"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 13)
-	E.db["movers"]["ElvAB_7"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 177)
-	E.db["movers"]["ShiftAB"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 10, 14)
-	E.db["movers"]["PetAB"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", -289, 15)
-	E.db["movers"]["BossButton"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 305, 50)
-	E.db["movers"]["ZoneAbility"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 305, 92)
-	E.db["movers"]["MicrobarMover"] = F.Position("TOPLEFT", "ElvUIParent", "TOPLEFT", 4, -4)
-	E.db["movers"]["VehicleLeaveButton"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 304, 140)
+	E.db["movers"]["ElvAB_1"] = "BOTTOM, ElvUIParent, BOTTOM, 0, 70"
+	E.db["movers"]["ElvAB_2"] = "BOTTOM, ElvUIParent, BOTTOM, 0, 102"
+	E.db["movers"]["ElvAB_3"] = "BOTTOM, ElvUIParent, BOTTOM, 0, 131"
+	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, 0, 367"
+	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 430, 47"
+	E.db["movers"]["ElvAB_6"] = "BOTTOM, ElvUIParent, BOTTOM, 0, 13"
+	E.db["movers"]["ElvAB_7"] = "BOTTOM, ElvUIParent, BOTTOM, 0, 177"
+	E.db["movers"]["ShiftAB"] = "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 10, 14"
+	E.db["movers"]["PetAB"] = "BOTTOM, ElvUIParent, BOTTOM, -289, 15"
+	E.db["movers"]["BossButton"] = "BOTTOM, ElvUIParent, BOTTOM, 305, 50"
+	E.db["movers"]["ZoneAbility"] = "BOTTOM, ElvUIParent, BOTTOM, 305, 92"
+	E.db["movers"]["MicrobarMover"] = "TOPLEFT, ElvUIParent, TOPLEFT, 4, -4"
+	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM, ElvUIParent, BOTTOM, 304, 140"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2288,54 +2288,50 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 
 	-- Movers
-	E.db["movers"]["ElvUF_PlayerMover"] = isCooldownViewerEnabled()
-			and F.Position("BOTTOM", "ElvUIParent", "BOTTOM", -290, 296)
-		or F.Position("BOTTOM", "ElvUIParent", "BOTTOM", -245, 296)
-	E.db["movers"]["ElvUF_PlayerCastbarMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 49)
-	E.db["movers"]["PlayerPowerBarMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 296)
+	E.db["movers"]["ElvUF_PlayerMover"] = isCooldownViewerEnabled() and "BOTTOM, ElvUIParent, BOTTOM, -290, 296"
+		or "BOTTOM, ElvUIParent, BOTTOM, -245, 296"
+	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM", "ElvUIParent", "BOTTOM", 0, 49
+	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM", "ElvUIParent", "BOTTOM", 0, 296
 	if E.myclass == "DRUID" then
-		E.db["movers"]["ClassBarMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 334)
+		E.db["movers"]["ClassBarMover"] = "BOTTOM", "ElvUIParent", "BOTTOM", 0, 334
 	else
-		E.db["movers"]["ClassBarMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 318)
+		E.db["movers"]["ClassBarMover"] = "BOTTOM", "ElvUIParent", "BOTTOM", 0, 318
 	end
-	E.db["movers"]["AdditionalPowerMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 319)
-	E.db["movers"]["ElvUF_TargetMover"] = isCooldownViewerEnabled()
-			and F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 290, 296)
-		or F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 245, 296)
-	E.db["movers"]["ElvUF_TargetCastbarMover"] = isCooldownViewerEnabled()
-			and F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 290, 277)
-		or F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 245, 277)
+	E.db["movers"]["AdditionalPowerMover"] = "BOTTOM", "ElvUIParent", "BOTTOM", 0, 319
+	E.db["movers"]["ElvUF_TargetMover"] = isCooldownViewerEnabled() and "BOTTOM, ElvUIParent, BOTTOM, 290, 296"
+		or "BOTTOM, ElvUIParent, BOTTOM, 245, 296"
+	E.db["movers"]["ElvUF_TargetCastbarMover"] = isCooldownViewerEnabled() and "BOTTOM, ElvUIParent, BOTTOM, 290, 277"
+		or "BOTTOM, ElvUIParent, BOTTOM, 245, 277"
 	E.db["movers"]["ElvUF_FocusMover"] = isCooldownViewerEnabled()
-			and F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -480, 352)
-		or F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 352)
+			and "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, -480, 352"
+		or "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, -531, 352"
 	E.db["movers"]["ElvUF_FocusCastbarMover"] = isCooldownViewerEnabled()
-			and F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -480, 374)
-		or F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 374)
-	E.db["movers"]["ElvUF_FocusTargetMover"] = F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -513, 277)
-	E.db["movers"]["ElvUF_Raid1Mover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 2, 215)
-	E.db["movers"]["ElvUF_Raid2Mover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 2, 215)
-	E.db["movers"]["ElvUF_Raid3Mover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 2, 215)
-	E.db["movers"]["ElvUF_PartyMover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 268, 326)
-	E.db["movers"]["ElvUF_AssistMover"] = F.Position("TOPLEFT", "ElvUIParent", "BOTTOMLEFT", 2, 571)
-	E.db["movers"]["ElvUF_TankMover"] = F.Position("TOPLEFT", "ElvUIParent", "BOTTOMLEFT", 2, 626)
-	E.db["movers"]["ArenaHeaderMover"] = F.Position("TOPRIGHT", "ElvUIParent", "TOPRIGHT", -305, -305)
-	E.db["movers"]["BossHeaderMover"] = F.Position("TOPRIGHT", "ElvUIParent", "TOPRIGHT", -305, -305)
-	E.db["movers"]["ElvUF_RaidpetMover"] = F.Position("TOPLEFT", "ElvUIParent", "BOTTOMLEFT", 0, 808)
+			and "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, -480, 374"
+		or "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, -531, 374"
+	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, -513, 277"
+	E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 2, 215"
+	E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 2, 215"
+	E.db["movers"]["ElvUF_Raid3Mover"] = "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 2, 215"
+	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 268, 326"
+	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT, ElvUIParent, BOTTOMLEFT, 2, 571"
+	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT, ElvUIParent, BOTTOMLEFT, 2, 626"
+	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT, ElvUIParent, TOPRIGHT, -305, -305"
+	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT, ElvUIParent, TOPRIGHT, -305, -305"
+	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT, ElvUIParent, BOTTOMLEFT, 0, 808"
 
 	if E.db.mui.portraits.general.enable then
 		E.db["movers"]["ElvUF_TargetTargetMover"] = isCooldownViewerEnabled()
-				and F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -480, 269)
-			or F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 269)
-		E.db["movers"]["ElvUF_PetMover"] = isCooldownViewerEnabled()
-				and F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 531, 269)
-			or F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 480, 209)
+				and "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, -480, 269"
+			or "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, -531, 269"
+		E.db["movers"]["ElvUF_PetMover"] = isCooldownViewerEnabled() and "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 531, 269"
+			or "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 480, 209"
 		E.db["movers"]["ElvUF_PetCastbarMover"] = isCooldownViewerEnabled()
-				and F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 531, 258)
-			or F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 480, 200)
+				and "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 531, 258"
+			or "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 480, 200"
 	else
-		E.db["movers"]["ElvUF_TargetTargetMover"] = F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -540, 209)
-		E.db["movers"]["ElvUF_PetMover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 540, 209)
-		E.db["movers"]["ElvUF_PetCastbarMover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 540, 200)
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT, ElvUIParent, BOTTOMRIGHT, -540, 209"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 540, 209"
+		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT, ElvUIParent, BOTTOMLEFT, 540, 200"
 	end
 
 	if layout == "gradient" then

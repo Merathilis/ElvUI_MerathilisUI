@@ -608,7 +608,7 @@ P.vehicleBar = {
 	showKeybinds = true,
 	showMacro = true,
 
-	position = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 90),
+	position = "BOTTOM,ElvUIParent,BOTTOM,0,90",
 
 	vigorBar = {
 		enable = true,
