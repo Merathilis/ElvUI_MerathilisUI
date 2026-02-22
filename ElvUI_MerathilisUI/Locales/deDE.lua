@@ -96,6 +96,7 @@ L["Show Mythic+ Score"] = "Zeige M+ Wertung"
 L["History Limit"] = "Historienlimit"
 L["Number of Mythic+ dungeons shown in the latest runs."] =
 	"Anzahl der M+ Dungeons, die in den letzten Runs angezeigt werden."
+L["Show Random Pets"] = "Zufällige Haustiere anzeigen"
 
 -- Misc
 L["Misc"] = "Verschiedenes"

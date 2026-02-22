@@ -1,8 +1,9 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local CM = MER:GetModule("MER_CooldownManager")
+local UF = E:GetModule("UnitFrames")
 
 local InCombatLockdown = InCombatLockdown
-local floor = math.floor
+local floor, max = math.floor, math.max
 
 function CM:SyncBarsWidth()
 	if not self.essentialViewer then
@@ -22,6 +23,12 @@ function CM:SyncBarsWidth()
 	if width <= 100 then
 		width = F.Dpi(292)
 	end -- default width
+
+	-- Apply minimum width if set
+	local minWidth = self.db.minDynamicWidth
+	if minWidth and minWidth > 0 then
+		width = max(width, minWidth)
+	end
 
 	-- Skip if width hasn't changed
 	if self.cachedBarsWidth == width then
@@ -65,6 +72,12 @@ function CM:SyncCastbarWidth()
 		width = F.Dpi(292)
 	end
 
+	-- Apply minimum width if set
+	local minWidth = self.db.minDynamicWidth
+	if minWidth and minWidth > 0 then
+		width = max(width, minWidth)
+	end
+
 	if self.cachedCastbarWidth == width then
 		return
 	end
@@ -75,9 +88,8 @@ function CM:SyncCastbarWidth()
 		playerDB.castbar.width = width
 
 		F.Event.ContinueOutOfCombat(function()
-			local uf = E:GetModule("UnitFrames")
-			if uf and uf.CreateAndUpdateUF then
-				uf:CreateAndUpdateUF("player")
+			if UF and UF.CreateAndUpdateUF then
+				UF:CreateAndUpdateUF("player")
 			end
 		end)
 	end

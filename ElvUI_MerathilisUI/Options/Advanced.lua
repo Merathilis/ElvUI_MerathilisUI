@@ -28,6 +28,18 @@ options.core = {
 				E.global.mui.core.loginMsg = value
 			end,
 		},
+		changlogPopup = {
+			order = 2,
+			type = "toggle",
+			name = L["Changelog Popup"],
+			desc = L["Show the changelog popup rather than chat message after every update."],
+			get = function(info)
+				return E.global.mui.core.changlogPopup
+			end,
+			set = function(info, value)
+				E.global.mui.core.changlogPopup = value
+			end,
+		},
 	},
 }
 

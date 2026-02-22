@@ -6,7 +6,7 @@ local RIF = MER:GetModule("MER_RaidInfoFrame")
 options.general = {
 	order = 1,
 	type = "group",
-	name = E.NewSign .. L["General"],
+	name = L["General"],
 	get = function(info)
 		return E.db.mui.misc[info[#info]]
 	end,
@@ -71,7 +71,7 @@ options.general = {
 		copyMog = {
 			order = 10,
 			type = "group",
-			name = E.NewSign .. L["Copy Transmog"],
+			name = L["Copy Transmog"],
 			desc = L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."],
 			inline = true,
 			get = function(info)
@@ -112,7 +112,7 @@ options.general = {
 options.gameMenu = {
 	order = 2,
 	type = "group",
-	name = L["Game Menu"],
+	name = E.NewSign .. L["Game Menu"],
 	get = function(info)
 		return E.db.mui.gameMenu[info[#info]]
 	end,
@@ -132,8 +132,14 @@ options.gameMenu = {
 			name = L["Enable"],
 			desc = L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"],
 		},
-		bgColor = {
+		showRandomPets = {
 			order = 2,
+			type = "toggle",
+			name = E.NewSign .. L["Show Random Pets"],
+			desc = L["Shows random battle pets"],
+		},
+		bgColor = {
+			order = 3,
 			type = "color",
 			name = L["Background Color"],
 			hasAlpha = true,
@@ -151,7 +157,7 @@ options.gameMenu = {
 			end,
 		},
 		info = {
-			order = 2,
+			order = 4,
 			type = "group",
 			name = L["Info"],
 			guiInline = true,

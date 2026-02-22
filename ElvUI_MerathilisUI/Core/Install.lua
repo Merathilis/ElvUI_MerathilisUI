@@ -23,8 +23,13 @@ local VOICE, LOOT, GENERAL, TRADE = VOICE, LOOT, GENERAL, TRADE
 
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
+local C_CVar_GetCVar = C_CVar.GetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
+
+local function isCooldownViewerEnabled()
+	return C_CVar_GetCVar("cooldownViewerEnabled") == "1"
+end
 
 local IsInstalled = false
 local function InstallComplete(fishished)
@@ -1087,6 +1092,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["smoothbars"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = "[namecolor][name:MER:gradient]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "- GothamNarrow-Black"
@@ -2282,7 +2288,9 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 
 	-- Movers
-	E.db["movers"]["ElvUF_PlayerMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", -245, 296)
+	E.db["movers"]["ElvUF_PlayerMover"] = isCooldownViewerEnabled()
+			and F.Position("BOTTOM", "ElvUIParent", "BOTTOM", -290, 296)
+		or F.Position("BOTTOM", "ElvUIParent", "BOTTOM", -245, 296)
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 49)
 	E.db["movers"]["PlayerPowerBarMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 296)
 	if E.myclass == "DRUID" then
@@ -2291,10 +2299,18 @@ function MER:SetupUnitframes(layout)
 		E.db["movers"]["ClassBarMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 318)
 	end
 	E.db["movers"]["AdditionalPowerMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 0, 319)
-	E.db["movers"]["ElvUF_TargetMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 245, 296)
-	E.db["movers"]["ElvUF_TargetCastbarMover"] = F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 245, 277)
-	E.db["movers"]["ElvUF_FocusMover"] = F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 352)
-	E.db["movers"]["ElvUF_FocusCastbarMover"] = F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 374)
+	E.db["movers"]["ElvUF_TargetMover"] = isCooldownViewerEnabled()
+			and F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 290, 296)
+		or F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 245, 296)
+	E.db["movers"]["ElvUF_TargetCastbarMover"] = isCooldownViewerEnabled()
+			and F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 290, 277)
+		or F.Position("BOTTOM", "ElvUIParent", "BOTTOM", 245, 277)
+	E.db["movers"]["ElvUF_FocusMover"] = isCooldownViewerEnabled()
+			and F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -480, 352)
+		or F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 352)
+	E.db["movers"]["ElvUF_FocusCastbarMover"] = isCooldownViewerEnabled()
+			and F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -480, 374)
+		or F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 374)
 	E.db["movers"]["ElvUF_FocusTargetMover"] = F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -513, 277)
 	E.db["movers"]["ElvUF_Raid1Mover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 2, 215)
 	E.db["movers"]["ElvUF_Raid2Mover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 2, 215)
@@ -2307,9 +2323,15 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_RaidpetMover"] = F.Position("TOPLEFT", "ElvUIParent", "BOTTOMLEFT", 0, 808)
 
 	if E.db.mui.portraits.general.enable then
-		E.db["movers"]["ElvUF_TargetTargetMover"] = F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 269)
-		E.db["movers"]["ElvUF_PetMover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 531, 269)
-		E.db["movers"]["ElvUF_PetCastbarMover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 531, 258)
+		E.db["movers"]["ElvUF_TargetTargetMover"] = isCooldownViewerEnabled()
+				and F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -480, 269)
+			or F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -531, 269)
+		E.db["movers"]["ElvUF_PetMover"] = isCooldownViewerEnabled()
+				and F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 531, 269)
+			or F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 480, 209)
+		E.db["movers"]["ElvUF_PetCastbarMover"] = isCooldownViewerEnabled()
+				and F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 531, 258)
+			or F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 480, 200)
 	else
 		E.db["movers"]["ElvUF_TargetTargetMover"] = F.Position("BOTTOMRIGHT", "ElvUIParent", "BOTTOMRIGHT", -540, 209)
 		E.db["movers"]["ElvUF_PetMover"] = F.Position("BOTTOMLEFT", "ElvUIParent", "BOTTOMLEFT", 540, 209)
@@ -2366,6 +2388,7 @@ function MER:DeveloperSettings()
 	end
 
 	SetCVar("uiScale", E:PixelBestSize())
+	SetCVar("cooldownViewerEnabled", 1)
 
 	-- General
 	E.global["general"]["UIScale"] = E:PixelBestSize()
@@ -2380,6 +2403,16 @@ function MER:DeveloperSettings()
 	E.db["mui"]["scale"]["auctionHouse"]["scale"] = 1.15
 	E.db["mui"]["armory"]["stats"]["itemLevelFont"]["itemLevelFontColor"] = "GRADIENT"
 	E.db["mui"]["portraits"]["general"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["fading"] = true
+	E.db["mui"]["cooldownManager"]["dynamicBarsWidth"] = true
+	E.db["mui"]["cooldownManager"]["anchors"]["essential"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["anchors"]["utility"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["anchors"]["buff"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["anchors"]["buffBar"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["centering"]["essential"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["centering"]["utility"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["centering"]["buff"]["enable"] = true
 
 	-- Chat
 	E.db["chat"]["timeStampFormat"] = "%H:%M "

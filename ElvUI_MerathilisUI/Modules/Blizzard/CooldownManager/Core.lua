@@ -2,6 +2,8 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local CM = MER:GetModule("MER_CooldownManager")
 
 local _G = _G
+local C_CVar_GetCVarBool = C_CVar.GetCVarBool
+local C_CVar_SetCVar = C_CVar.SetCVar
 
 CM.frameNames = {
 	essential = "EssentialCooldownViewer",
@@ -47,6 +49,11 @@ function CM:DatabaseUpdate()
 		-- Check requirements
 		if not self.db or not self.db.enable then
 			return
+		end
+
+		local isCDMEnabled = C_CVar_GetCVarBool("cooldownViewerEnabled")
+		if not isCDMEnabled then
+			C_CVar_SetCVar("cooldownViewerEnabled", "1")
 		end
 
 		-- Enable fading if enabled

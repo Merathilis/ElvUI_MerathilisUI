@@ -9,7 +9,6 @@ function module:Initialize()
 	local db = E.db.mui.actionbars
 
 	self:CreateSpecBar()
-	self:ColorModifiers()
 end
 
 MER:RegisterModule(module:GetName())

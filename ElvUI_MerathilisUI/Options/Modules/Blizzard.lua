@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local options = MER.options.modules.args
+local CM = MER:GetModule("MER_CooldownManager")
 
 options.blizzard = {
 	type = "group",
@@ -51,6 +52,9 @@ options.blizzard = {
 					type = "toggle",
 					name = L["Fading"],
 					desc = L["Enabling this makes the Cooldown Manager bars fade with the Player UnitFrame."],
+					hidden = function()
+						return not E.db.mui.cooldownManager.enable
+					end,
 					get = function(_)
 						return E.db.mui.cooldownManager.fading
 					end,
@@ -69,6 +73,9 @@ options.blizzard = {
 					type = "group",
 					name = L["Dynamic Bars"],
 					inline = true,
+					hidden = function()
+						return not E.db.mui.cooldownManager.enable
+					end,
 					args = {
 						dynamicBarsWidth = {
 							order = 1,
@@ -125,6 +132,27 @@ options.blizzard = {
 								E:StaticPopup_Show("CONFIG_RL")
 							end,
 						},
+						minDynamicWidth = {
+							order = 3,
+							type = "range",
+							name = L["Minimum Width"],
+							desc = L["Minimum width applied when syncing. Prevents bars from becoming too narrow when few cooldowns are shown."],
+							min = 200,
+							max = 600,
+							step = 1,
+							disabled = function()
+								local cmDB = E.db.mui.cooldownManager
+								return not E.db.mui.cooldownManager.enable
+									or (not cmDB.dynamicBarsWidth and not cmDB.dynamicCastbarWidth)
+							end,
+							get = function(_)
+								return E.db.mui.cooldownManager.minDynamicWidth
+							end,
+							set = function(_, value)
+								E.db.mui.cooldownManager.minDynamicWidth = value
+								CM:OnDynamicWidthChanged()
+							end,
+						},
 					},
 				},
 				spacer1 = {
@@ -140,6 +168,9 @@ options.blizzard = {
 						.. F.String.MERATHILISUI("ElvUI")
 						.. " unit frame elements for automatic positioning.\n\n",
 					inline = true,
+					hidden = function()
+						return not E.db.mui.cooldownManager.enable
+					end,
 					args = {
 						anchorEssentialEnabled = {
 							order = 1,
@@ -263,6 +294,9 @@ options.blizzard = {
 					name = L["Centering"],
 					desc = L["Center Cooldown Manager icons within each viewer frame instead of the default left-aligned layout.\n\n"],
 					inline = true,
+					hidden = function()
+						return not E.db.mui.cooldownManager.enable
+					end,
 					args = {
 						centerEssential = {
 							order = 1,

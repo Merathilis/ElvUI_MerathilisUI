@@ -1,7 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
-local WS = W:GetModule("Skins") ---@type Skins
-local S = E:GetModule("Skins")
+local WS = W:GetModule("Skins")
+local S = E:GetModule("Skins") ---@type Skins
 
 ------------------------------------
 -- Credit: Narcissus, by Peterodox

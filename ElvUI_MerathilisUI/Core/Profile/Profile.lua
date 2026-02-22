@@ -45,6 +45,7 @@ P.gameMenu = {
 	showMythicKey = true,
 	showMythicScore = true,
 	mythicHistoryLimit = 4,
+	showRandomPets = true,
 }
 
 P.datatexts = {
@@ -562,11 +563,12 @@ P.actionbars = {
 }
 
 P.cooldownManager = {
-	enable = true,
+	enable = false,
 	fading = false,
 
 	dynamicBarsWidth = false,
 	dynamicCastbarWidth = false,
+	minDynamicWidth = F.Dpi(250),
 
 	-- Anchoring
 	anchors = {
@@ -593,30 +595,6 @@ P.cooldownManager = {
 		essential = false,
 		utility = false,
 		buff = false,
-	},
-
-	-- Keybind
-	keybinds = {
-		essential = {
-			enable = false,
-			labelFont = I.Fonts.Primary,
-			labelFontSize = 16,
-			labelFontOutline = "OUTLINE",
-			labelFontShadow = false,
-			anchor = "TOPRIGHT",
-			xOffset = -2,
-			yOffset = -2,
-		},
-		utility = {
-			enable = false,
-			labelFont = I.Fonts.Primary,
-			labelFontSize = 12,
-			labelFontOutline = "OUTLINE",
-			labelFontShadow = false,
-			anchor = "TOPRIGHT",
-			xOffset = -1,
-			yOffset = -1,
-		},
 	},
 }
 
