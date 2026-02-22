@@ -192,7 +192,7 @@ function MER:CheckElvUIVersion()
 	return true
 end
 
-function MerchantItem12AltCurrencyFrameItem3:ChangelogReadAlert()
+function MER:ChangelogReadAlert()
 	local readVer = E.global.mui and E.global.mui.changelogRead and tonumber(E.global.mui.changelogRead) or 0
 	local currentVer = tonumber(MER.Version)
 	if readVer < currentVer then
@@ -200,7 +200,7 @@ function MerchantItem12AltCurrencyFrameItem3:ChangelogReadAlert()
 			E:StaticPopup_Show("MERATHILIS_OPEN_CHANGELOG")
 		else
 			F.Print(
-				format(L["Welcome to version %s!"], C.StringByTemplate(W.Version, "teal-400")),
+				format(L["Welcome to version %s!"], C.StringByTemplate(MER.Version, "teal-400")),
 				C.StringByTemplate(format("|Hmerlink:changelog::|h[%s]|h", L["Open Changelog"]), "sky-400")
 			)
 		end

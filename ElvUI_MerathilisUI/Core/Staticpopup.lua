@@ -4,7 +4,7 @@ local C = W.Utilities.Color ---@type ColorUtility
 local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn
 
 -- MerathilisUI Credits
-E.PopupDialogs["MERATHILISUI_CREDITS"] = {
+E.PopupDialogs.MERATHILISUI_CREDITS = {
 	text = MER.Title,
 	button1 = OKAY,
 	hasEditBox = 1,
@@ -44,7 +44,7 @@ E.PopupDialogs["MERATHILISUI_CREDITS"] = {
 }
 
 -- ElvUI Versions check
-E.PopupDialogs["VERSION_OUTDATED"] = {
+E.PopupDialogs.VERSION_OUTDATED = {
 	text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIVersion, MER.RequiredVersion),
 	-- button1 = CLOSE,
 	timeout = 0,
@@ -53,7 +53,7 @@ E.PopupDialogs["VERSION_OUTDATED"] = {
 	hideOnEscape = false,
 }
 
-E.PopupDialogs["VERSION_MISMATCH"] = {
+E.PopupDialogs.VERSION_MISMATCH = {
 	text = L["MSG_MER_ELV_MISMATCH"],
 	button1 = CLOSE,
 	timeout = 0,
@@ -62,18 +62,18 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	hideOnEscape = false,
 }
 
-E.PopupDialogs.WINDTOOLS_OPEN_CHANGELOG = {
-	text = format(L["Welcome to %s %s!"], W.Title, W.DisplayVersion),
+E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
+	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),
 	button1 = L["Open Changelog"],
 	button2 = C.StringByTemplate(L["Next Time"], "gray-300"),
 	OnAccept = function(self)
-		E:ToggleOptions("WindTools,information,changelog")
+		E:ToggleOptions("mui,information,changelog")
 	end,
 	hideOnEscape = 1,
 }
 
 -- Compatibility
-E.PopupDialogs["WINDTOOLS_MER_INCOMPATIBLE"] = {
+E.PopupDialogs.MERATHILISUI_INCOMPATIBLE = {
 	text = L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
 	OnAccept = function()
 		DisableAddOn("ElvUI_WindTools")

@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
+local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
@@ -82,7 +83,7 @@ function module:LoadWindToolsProfile()
 end
 
 function module:ApplyWindToolsProfile()
-	module:Wrap("Applying WindTools Profile ...", function()
+	Splash:Wrap("Applying WindTools Profile ...", function()
 		-- Apply Fonts
 		self:LoadWindToolsProfile()
 
