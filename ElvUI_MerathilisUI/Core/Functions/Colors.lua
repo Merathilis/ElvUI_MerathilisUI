@@ -473,52 +473,52 @@ function F.GradientColors(unitclass, invert, alpha, isBG, customalpha)
 	if customalpha then
 		if invert then
 			return {
-				r = color.r2 - bgfade(isBG),
-				g = color.g2 - bgfade(isBG),
-				b = color.b2 - bgfade(isBG),
+				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
 				a = customalpha,
 			}, {
-				r = color.r1 - bgfade(isBG),
-				g = color.g1 - bgfade(isBG),
-				b = color.b1 - bgfade(isBG),
+				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
 				a = customalpha,
 			}
 		else
 			return {
-				r = color.r1 - bgfade(isBG),
-				g = color.g1 - bgfade(isBG),
-				b = color.b1 - bgfade(isBG),
+				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
 				a = customalpha,
 			}, {
-				r = color.r2 - bgfade(isBG),
-				g = color.g2 - bgfade(isBG),
-				b = color.b2 - bgfade(isBG),
+				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
 				a = customalpha,
 			}
 		end
 	else
 		if invert then
 			return {
-				r = color.r2 - bgfade(isBG),
-				g = color.g2 - bgfade(isBG),
-				b = color.b2 - bgfade(isBG),
+				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
 				a = bgalpha(alpha),
 			}, {
-				r = color.r1 - bgfade(isBG),
-				g = color.g1 - bgfade(isBG),
-				b = color.b1 - bgfade(isBG),
+				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
 				a = bgalpha(alpha),
 			}
 		else
 			return {
-				r = color.r1 - bgfade(isBG),
-				g = color.g1 - bgfade(isBG),
-				b = color.b1 - bgfade(isBG),
+				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
 				a = bgalpha(alpha),
 			}, {
-				r = color.r2 - bgfade(isBG),
-				g = color.g2 - bgfade(isBG),
-				b = color.b2 - bgfade(isBG),
+				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
 				a = bgalpha(alpha),
 			}
 		end
@@ -531,52 +531,52 @@ function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha)
 	if customalpha then
 		if invert then
 			return {
-				r = color.r2 - bgfade(isBG),
-				g = color.g2 - bgfade(isBG),
-				b = color.b2 - bgfade(isBG),
+				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
 				a = customalpha,
 			}, {
-				r = color.r1 - bgfade(isBG),
-				g = color.g1 - bgfade(isBG),
-				b = color.b1 - bgfade(isBG),
+				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
 				a = customalpha,
 			}
 		else
 			return {
-				r = color.r1 - bgfade(isBG),
-				g = color.g1 - bgfade(isBG),
-				b = color.b1 - bgfade(isBG),
+				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
 				a = customalpha,
 			}, {
-				r = color.r2 - bgfade(isBG),
-				g = color.g2 - bgfade(isBG),
-				b = color.b2 - bgfade(isBG),
+				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
 				a = customalpha,
 			}
 		end
 	else
 		if invert then
 			return {
-				r = color.r2 - bgfade(isBG),
-				g = color.g2 - bgfade(isBG),
-				b = color.b2 - bgfade(isBG),
+				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
 				a = bgalpha(alpha),
 			}, {
-				r = color.r1 - bgfade(isBG),
-				g = color.g1 - bgfade(isBG),
-				b = color.b1 - bgfade(isBG),
+				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
 				a = bgalpha(alpha),
 			}
 		else
 			return {
-				r = color.r1 - bgfade(isBG),
-				g = color.g1 - bgfade(isBG),
-				b = color.b1 - bgfade(isBG),
+				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
 				a = bgalpha(alpha),
 			}, {
-				r = color.r2 - bgfade(isBG),
-				g = color.g2 - bgfade(isBG),
-				b = color.b2 - bgfade(isBG),
+				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
+				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
+				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
 				a = bgalpha(alpha),
 			}
 		end
