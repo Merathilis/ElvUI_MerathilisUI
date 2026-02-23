@@ -159,20 +159,22 @@ function module:ResetDetailsAnchor(force)
 		return
 	end
 
-	local height = 144
+	local height = E.private.mui.skins.embed.height or 144
+	local width = E.private.mui.skins.embed.width or 340
+
 	local instance1 = Details:GetInstance(1)
 	local instance2 = Details:GetInstance(2)
 	local instance3 = Details:GetInstance(3)
 	if instance1 and (force or IsDefaultAnchor(instance1)) then
 		if instance2 then
 			height = 96
-			EmbedWindow(instance2, -3, 165, 340, height)
+			EmbedWindow(instance2, -3, 165, width, height)
 		end
 		if instance3 then
 			height = 96
-			EmbedWindow(instance3, -3, 284, 340, height)
+			EmbedWindow(instance3, -3, 284, width, height)
 		end
-		EmbedWindow(instance1, -3, 49, 340, height)
+		EmbedWindow(instance1, -3, 49, width, height)
 	end
 
 	return instance1
@@ -181,6 +183,9 @@ end
 local function ReskinDetails()
 	Details.tabela_instancias = Details.tabela_instancias or {}
 	Details.instances_amount = Details.instances_amount or 5
+
+	local height = E.private.mui.skins.embed.height or 144
+	local width = E.private.mui.skins.embed.width or 340
 
 	local index = 1
 	local instance = Details:GetInstance(index)

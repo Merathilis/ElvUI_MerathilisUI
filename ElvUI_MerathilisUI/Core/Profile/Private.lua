@@ -80,6 +80,8 @@ V.skins = {
 		enable = false,
 		toggleDirection = 1,
 		mouseOver = false,
+		width = 340,
+		height = 144,
 	},
 
 	actionStatus = {

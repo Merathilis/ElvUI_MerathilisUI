@@ -262,6 +262,42 @@ options.Embed = {
 			type = "toggle",
 			name = L["Mouse Over"],
 		},
+		width = {
+			order = 7,
+			type = "range",
+			name = L["Width"],
+			min = 100,
+			max = 1000,
+			step = 1,
+			disabled = function()
+				return not E.private.mui.skins.embed.enable
+			end,
+			get = function()
+				return E.private.mui.skins.embed.width
+			end,
+			set = function(_, value)
+				E.private.mui.skins.embed.width = value
+				ResetDetails()
+			end,
+		},
+		height = {
+			order = 8,
+			type = "range",
+			name = L["Height"],
+			min = 100,
+			max = 1000,
+			step = 1,
+			disabled = function()
+				return not E.private.mui.skins.embed.enable
+			end,
+			get = function()
+				return E.private.mui.skins.embed.height
+			end,
+			set = function(_, value)
+				E.private.mui.skins.embed.height = value
+				ResetDetails()
+			end,
+		},
 	},
 }
 
