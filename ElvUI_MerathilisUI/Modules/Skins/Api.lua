@@ -365,6 +365,43 @@ function module:ReskinArrow(self, direction)
 	self:HookScript("OnLeave", F.Texture_OnLeave)
 end
 
+function module:ReskinFilterReset()
+	self:StripTextures()
+	self:ClearAllPoints()
+	self:SetPoint("TOPRIGHT", -5, 10)
+
+	local tex = self:CreateTexture(nil, "ARTWORK")
+	tex:SetInside(nil, 2, 2)
+	tex:SetTexture(E.media.normTex)
+	tex:SetVertexColor(1, 0, 0)
+end
+
+function module:ReskinFilterButton(button)
+	if not button then
+		return
+	end
+
+	button:StripTextures()
+	S:HandleButton(button)
+	if button.Text then
+		button.Text:SetPoint("CENTER")
+	end
+	if button.Icon then
+		module.SetupArrow(button.Icon, "right")
+		button.Icon:SetPoint("RIGHT")
+		button.Icon:SetSize(14, 14)
+	end
+	if button.ResetButton then
+		module.ReskinFilterReset(button.ResetButton)
+	end
+
+	local tex = button:CreateTexture(nil, "ARTWORK")
+	module.SetupArrow(tex, "right")
+	tex:SetSize(16, 16)
+	tex:SetPoint("RIGHT", -2, 0)
+	button.__texture = tex
+end
+
 -- Handle collapse
 local function updateCollapseTexture(texture, collapsed)
 	if collapsed then
@@ -546,174 +583,6 @@ function module:ReskinIconButton(button, icon, size, rotate)
 	button:HookScript("OnLeave", function(self)
 		self.Icon:SetVertexColor(1, 1, 1)
 	end)
-end
-
-function module:ReskinAS(AS)
-	-- Reskin AddOnSkins
-	function AS:SkinFrame(frame, template, override, kill)
-		local name = frame and frame.GetName and frame:GetName()
-		local insetFrame = name and _G[name .. "Inset"] or frame.Inset
-		local closeButton = name and _G[name .. "CloseButton"] or frame.CloseButton
-
-		if not override then
-			AS:StripTextures(frame, kill)
-		end
-
-		AS:SetTemplate(frame, template)
-		WS:CreateShadow(frame)
-
-		if insetFrame then
-			AS:SkinFrame(insetFrame)
-		end
-
-		if closeButton then
-			AS:SkinCloseButton(closeButton)
-		end
-	end
-
-	function AS:SkinBackdropFrame(frame, template, override, kill)
-		local name = frame and frame.GetName and frame:GetName()
-		local insetFrame = name and _G[name .. "Inset"] or frame.Inset
-		local closeButton = name and _G[name .. "CloseButton"] or frame.CloseButton
-
-		if not override then
-			AS:StripTextures(frame, kill)
-		end
-
-		AS:CreateBackdrop(frame, template)
-		AS:SetOutside(frame.Backdrop)
-
-		if insetFrame then
-			AS:SkinFrame(insetFrame)
-		end
-
-		if closeButton then
-			AS:SkinCloseButton(closeButton)
-		end
-
-		if frame.Backdrop then
-			WS:CreateShadow(frame.Backdrop)
-		end
-	end
-
-	function AS:SkinTab(Tab, Strip)
-		if Tab.__MERSkin then
-			return
-		end
-		local TabName = Tab:GetName()
-
-		if TabName then
-			for _, Region in pairs(AS.Blizzard.Regions) do
-				if _G[TabName .. Region] then
-					_G[TabName .. Region]:SetTexture(nil)
-				end
-			end
-		end
-
-		for _, Region in pairs(AS.Blizzard.Regions) do
-			if Tab[Region] then
-				Tab[Region]:SetAlpha(0)
-			end
-		end
-
-		if Tab.GetHighlightTexture and Tab:GetHighlightTexture() then
-			Tab:GetHighlightTexture():SetTexture(nil)
-		else
-			Strip = true
-		end
-
-		if Strip then
-			AS:StripTextures(Tab)
-		end
-
-		AS:CreateBackdrop(Tab, "Transparent")
-
-		if AS:CheckAddOn("ElvUI") and AS:CheckOption("ElvUISkinModule") then
-			-- Check if ElvUI already provides the backdrop. Otherwise we have two backdrops (e.g. Auctionhouse)
-			if Tab.backdrop then
-				Tab.Backdrop:Hide()
-			else
-				AS:SetTemplate(Tab.Backdrop, "Transparent") -- Set it to transparent
-			end
-		end
-
-		Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
-		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
-
-		Tab.__MERSkin = true
-	end
-
-	function AS:SkinButton(Button, Strip)
-		if Button.__MERSkin then
-			return
-		end
-
-		local ButtonName = Button.GetName and Button:GetName()
-		local foundArrow
-
-		if Button.Icon then
-			local Texture = Button.Icon:GetTexture()
-			if
-				Texture
-				and (type(Texture) == "string" and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]))
-			then
-				foundArrow = true
-			end
-		end
-
-		if Strip then
-			AS:StripTextures(Button)
-		end
-
-		for _, Region in pairs(AS.Blizzard.Regions) do
-			Region = ButtonName and _G[ButtonName .. Region] or Button[Region]
-			if Region then
-				Region:SetAlpha(0)
-			end
-		end
-
-		if foundArrow then
-			Button.Icon:SetTexture([[Interface\AddOns\AddOnSkins\Media\Textures\Arrow]])
-			Button.Icon:SetSnapToPixelGrid(false)
-			Button.Icon:SetTexelSnappingBias(0)
-			Button.Icon:SetVertexColor(1, 1, 1, 1)
-			Button.Icon:SetRotation(AS.ArrowRotation["right"])
-		end
-
-		if Button.SetNormalTexture then
-			Button:SetNormalTexture("")
-		end
-		if Button.SetHighlightTexture then
-			Button:SetHighlightTexture("")
-		end
-		if Button.SetPushedTexture then
-			Button:SetPushedTexture("")
-		end
-		if Button.SetDisabledTexture then
-			Button:SetDisabledTexture("")
-		end
-
-		AS:SetTemplate(Button, "Transparent")
-
-		if Button.GetFontString and Button:GetFontString() ~= nil then
-			if Button:IsEnabled() then
-				Button:GetFontString():SetTextColor(1, 1, 1)
-			else
-				Button:GetFontString():SetTextColor(0.5, 0.5, 0.5)
-			end
-		end
-
-		Button:HookScript("OnEnable", function(self)
-			if self.GetFontString and self:GetFontString() ~= nil then
-				self:GetFontString():SetTextColor(1, 1, 1)
-			end
-		end)
-		Button:HookScript("OnDisable", function(self)
-			if self.GetFontString and self:GetFontString() ~= nil then
-				self:GetFontString():SetTextColor(0.5, 0.5, 0.5)
-			end
-		end)
-	end
 end
 
 -- Disable AddOnSkins Skin
