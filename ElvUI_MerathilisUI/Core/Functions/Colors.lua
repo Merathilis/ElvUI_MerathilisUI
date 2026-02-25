@@ -467,9 +467,8 @@ local function bgalpha(alpha)
 	end
 end
 
-function F.GradientColors(unitclass, invert, alpha, isBG, customalpha)
-	local color = F.ClassGradient[unitclass] or F.ClassGradient.MERATHILIS
-
+function F.GradientColors(unitclass, invert, alpha, isBG, customalpha, isHealth)
+	local color = F.ClassGradient[unitclass] or F.ClassGradient["MERATHILIS"]
 	if customalpha then
 		if invert then
 			return {
@@ -502,32 +501,31 @@ function F.GradientColors(unitclass, invert, alpha, isBG, customalpha)
 				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}, {
 				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}
 		else
 			return {
 				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}, {
 				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}
 		end
 	end
 end
 
-function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha)
-	local color = customgradientsColor[unitclass] or customgradientsColor.MERATHILIS
-
+function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha, isHealth)
+	local color = F.ClassGradient[unitclass] or F.ClassGradient["MERATHILIS"]
 	if customalpha then
 		if invert then
 			return {
@@ -560,24 +558,24 @@ function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha)
 				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}, {
 				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}
 		else
 			return {
 				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}, {
 				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}
 		end
 	end
