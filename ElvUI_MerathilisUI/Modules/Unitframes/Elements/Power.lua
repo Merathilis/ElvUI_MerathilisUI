@@ -34,58 +34,16 @@ function module:ChangePowerBarTexture()
 	module:ChangeUnitPowerBarTexture()
 end
 
-local forced = false
 function module:ApplyUnitGradientPower(unit, name)
 	if unit == "testunit" then
-		forced = true
 		unit = "player"
-	else
-		forced = false
 	end
 
-	if UnitExists(unit) then
+	if E.NotSecretUnit(unit) and UnitExists(unit) then
 		local _, powertype = UnitPowerType(unit)
 		local unitframe = _G["ElvUF_" .. name]
 		if unitframe and unitframe.Power and powertype then
-			if E.db.mui.gradient.customColor.enablePower then
-				if unit == "target" then
-					if E.db.unitframe.colors.transparentPower then
-						unitframe.Power.backdrop.Center:SetGradient(
-							"HORIZONTAL",
-							F.GradientColorsCustom(powertype, true, true)
-						)
-					else
-						unitframe.Power
-							:GetStatusBarTexture()
-							:SetGradient("HORIZONTAL", F.GradientColorsCustom(powertype, true, false))
-					end
-					if not E.db.unitframe.colors.custompowerbackdrop then
-						if unitframe.Power and unitframe.Power.bg then
-							unitframe.Power.bg:SetGradient(
-								"HORIZONTAL",
-								F.GradientColorsCustom(powertype, true, false, true)
-							)
-						end
-					end
-				else
-					if E.db.unitframe.colors.transparentPower then
-						unitframe.Power.backdrop.Center:SetGradient(
-							"HORIZONTAL",
-							F.GradientColorsCustom(powertype, false, true)
-						)
-					else
-						unitframe.Power
-							:GetStatusBarTexture()
-							:SetGradient("HORIZONTAL", F.GradientColorsCustom(powertype, false, false))
-					end
-					if not E.db.unitframe.colors.custompowerbackdrop then
-						unitframe.Power.bg:SetGradient(
-							"HORIZONTAL",
-							F.GradientColorsCustom(powertype, false, false, true)
-						)
-					end
-				end
-			else
+			if powertypes[powertype] then
 				if unit == "target" then
 					if E.db.unitframe.colors.transparentPower then
 						unitframe.Power.backdrop.Center:SetGradient(

@@ -16,7 +16,7 @@ local UnitReaction = UnitReaction
 --	Color Functions
 --]]
 ----------------------------------
-F.ClassGradient = {
+local UnitframeGradients = {
 	["WARRIOR"] = { r1 = 0.60, g1 = 0.40, b1 = 0.20, r2 = 0.66, g2 = 0.53, b2 = 0.34 },
 	["PALADIN"] = { r1 = 0.9, g1 = 0.47, b1 = 0.64, r2 = 0.96, g2 = 0.65, b2 = 0.83 },
 	["HUNTER"] = { r1 = 0.58, g1 = 0.69, b1 = 0.29, r2 = 0.78, g2 = 1, b2 = 0.38 },
@@ -89,275 +89,306 @@ F.ClassGradient = {
 	["MERATHILIS"] = { r1 = 0.50, g1 = 0.70, b1 = 1, r2 = 0.67, g2 = 0.95, b2 = 1 },
 }
 
-local customgradientsColor = F.ClassGradient
+local UnitframeCustomGradients = UnitframeGradients
 function F:GradientColorUpdate()
-	local db = E.db.mui.gradient and E.db.mui.gradient.customColor
-
-	customgradientsColor = {
+	UnitframeCustomGradients = {
 		["WARRIOR"] = {
-			r1 = db.warriorcolorR1,
-			g1 = db.warriorcolorG1,
-			b1 = db.warriorcolorB1,
-			r2 = db.warriorcolorR2,
-			g2 = db.warriorcolorG2,
-			b2 = db.warriorcolorB2,
+			r1 = E.db.mui.gradient.warriorcolorR1,
+			g1 = E.db.mui.gradient.warriorcolorG1,
+			b1 = E.db.mui.gradient.warriorcolorB1,
+			r2 = E.db.mui.gradient.warriorcolorR2,
+			g2 = E.db.mui.gradient.warriorcolorG2,
+			b2 = E.db.mui.gradient.warriorcolorB2,
 		},
 		["PALADIN"] = {
-			r1 = db.paladincolorR1,
-			g1 = db.paladincolorG1,
-			b1 = db.paladincolorB1,
-			r2 = db.paladincolorR2,
-			g2 = db.paladincolorG2,
-			b2 = db.paladincolorB2,
+			r1 = E.db.mui.gradient.paladincolorR1,
+			g1 = E.db.mui.gradient.paladincolorG1,
+			b1 = E.db.mui.gradient.paladincolorB1,
+			r2 = E.db.mui.gradient.paladincolorR2,
+			g2 = E.db.mui.gradient.paladincolorG2,
+			b2 = E.db.mui.gradient.paladincolorB2,
 		},
 		["HUNTER"] = {
-			r1 = db.huntercolorR1,
-			g1 = db.huntercolorG1,
-			b1 = db.huntercolorB1,
-			r2 = db.huntercolorR2,
-			g2 = db.huntercolorG2,
-			b2 = db.huntercolorB2,
+			r1 = E.db.mui.gradient.huntercolorR1,
+			g1 = E.db.mui.gradient.huntercolorG1,
+			b1 = E.db.mui.gradient.huntercolorB1,
+			r2 = E.db.mui.gradient.huntercolorR2,
+			g2 = E.db.mui.gradient.huntercolorG2,
+			b2 = E.db.mui.gradient.huntercolorB2,
 		},
 		["ROGUE"] = {
-			r1 = db.roguecolorR1,
-			g1 = db.roguecolorG1,
-			b1 = db.roguecolorB1,
-			r2 = db.roguecolorR2,
-			g2 = db.roguecolorG2,
-			b2 = db.roguecolorB2,
+			r1 = E.db.mui.gradient.roguecolorR1,
+			g1 = E.db.mui.gradient.roguecolorG1,
+			b1 = E.db.mui.gradient.roguecolorB1,
+			r2 = E.db.mui.gradient.roguecolorR2,
+			g2 = E.db.mui.gradient.roguecolorG2,
+			b2 = E.db.mui.gradient.roguecolorB2,
 		},
 		["PRIEST"] = {
-			r1 = db.priestcolorR1,
-			g1 = db.priestcolorG1,
-			b1 = db.priestcolorB1,
-			r2 = db.priestcolorR2,
-			g2 = db.priestcolorG2,
-			b2 = db.priestcolorB2,
+			r1 = E.db.mui.gradient.priestcolorR1,
+			g1 = E.db.mui.gradient.priestcolorG1,
+			b1 = E.db.mui.gradient.priestcolorB1,
+			r2 = E.db.mui.gradient.priestcolorR2,
+			g2 = E.db.mui.gradient.priestcolorG2,
+			b2 = E.db.mui.gradient.priestcolorB2,
 		},
 		["DEATHKNIGHT"] = {
-			r1 = db.deathknightcolorR1,
-			g1 = db.deathknightcolorG1,
-			b1 = db.deathknightcolorB1,
-			r2 = db.deathknightcolorR2,
-			g2 = db.deathknightcolorG2,
-			b2 = db.deathknightcolorB2,
+			r1 = E.db.mui.gradient.deathknightcolorR1,
+			g1 = E.db.mui.gradient.deathknightcolorG1,
+			b1 = E.db.mui.gradient.deathknightcolorB1,
+			r2 = E.db.mui.gradient.deathknightcolorR2,
+			g2 = E.db.mui.gradient.deathknightcolorG2,
+			b2 = E.db.mui.gradient.deathknightcolorB2,
 		},
 		["SHAMAN"] = {
-			r1 = db.shamancolorR1,
-			g1 = db.shamancolorG1,
-			b1 = db.shamancolorB1,
-			r2 = db.shamancolorR2,
-			g2 = db.shamancolorG2,
-			b2 = db.shamancolorB2,
+			r1 = E.db.mui.gradient.shamancolorR1,
+			g1 = E.db.mui.gradient.shamancolorG1,
+			b1 = E.db.mui.gradient.shamancolorB1,
+			r2 = E.db.mui.gradient.shamancolorR2,
+			g2 = E.db.mui.gradient.shamancolorG2,
+			b2 = E.db.mui.gradient.shamancolorB2,
 		},
 		["MAGE"] = {
-			r1 = db.magecolorR1,
-			g1 = db.magecolorG1,
-			b1 = db.magecolorB1,
-			r2 = db.magecolorR2,
-			g2 = db.magecolorG2,
-			b2 = db.magecolorB2,
+			r1 = E.db.mui.gradient.magecolorR1,
+			g1 = E.db.mui.gradient.magecolorG1,
+			b1 = E.db.mui.gradient.magecolorB1,
+			r2 = E.db.mui.gradient.magecolorR2,
+			g2 = E.db.mui.gradient.magecolorG2,
+			b2 = E.db.mui.gradient.magecolorB2,
 		},
 		["WARLOCK"] = {
-			r1 = db.warlockcolorR1,
-			g1 = db.warlockcolorG1,
-			b1 = db.warlockcolorB1,
-			r2 = db.warlockcolorR2,
-			g2 = db.warlockcolorG2,
-			b2 = db.warlockcolorB2,
+			r1 = E.db.mui.gradient.warlockcolorR1,
+			g1 = E.db.mui.gradient.warlockcolorG1,
+			b1 = E.db.mui.gradient.warlockcolorB1,
+			r2 = E.db.mui.gradient.warlockcolorR2,
+			g2 = E.db.mui.gradient.warlockcolorG2,
+			b2 = E.db.mui.gradient.warlockcolorB2,
 		},
 		["MONK"] = {
-			r1 = db.monkcolorR1,
-			g1 = db.monkcolorG1,
-			b1 = db.monkcolorB1,
-			r2 = db.monkcolorR2,
-			g2 = db.monkcolorG2,
-			b2 = db.monkcolorB2,
+			r1 = E.db.mui.gradient.monkcolorR1,
+			g1 = E.db.mui.gradient.monkcolorG1,
+			b1 = E.db.mui.gradient.monkcolorB1,
+			r2 = E.db.mui.gradient.monkcolorR2,
+			g2 = E.db.mui.gradient.monkcolorG2,
+			b2 = E.db.mui.gradient.monkcolorB2,
 		},
 		["DRUID"] = {
-			r1 = db.druidcolorR1,
-			g1 = db.druidcolorG1,
-			b1 = db.druidcolorB1,
-			r2 = db.druidcolorR2,
-			g2 = db.druidcolorG2,
-			b2 = db.druidcolorB2,
+			r1 = E.db.mui.gradient.druidcolorR1,
+			g1 = E.db.mui.gradient.druidcolorG1,
+			b1 = E.db.mui.gradient.druidcolorB1,
+			r2 = E.db.mui.gradient.druidcolorR2,
+			g2 = E.db.mui.gradient.druidcolorG2,
+			b2 = E.db.mui.gradient.druidcolorB2,
 		},
 		["DEMONHUNTER"] = {
-			r1 = db.demonhuntercolorR1,
-			g1 = db.demonhuntercolorG1,
-			b1 = db.demonhuntercolorB1,
-			r2 = db.demonhuntercolorR2,
-			g2 = db.demonhuntercolorG2,
-			b2 = db.demonhuntercolorB2,
+			r1 = E.db.mui.gradient.demonhuntercolorR1,
+			g1 = E.db.mui.gradient.demonhuntercolorG1,
+			b1 = E.db.mui.gradient.demonhuntercolorB1,
+			r2 = E.db.mui.gradient.demonhuntercolorR2,
+			g2 = E.db.mui.gradient.demonhuntercolorG2,
+			b2 = E.db.mui.gradient.demonhuntercolorB2,
 		},
 		["EVOKER"] = {
-			r1 = db.evokercolorR1,
-			g1 = db.evokercolorG1,
-			b1 = db.evokercolorB1,
-			r2 = db.evokercolorR2,
-			g2 = db.evokercolorG2,
-			b2 = db.evokercolorB2,
+			r1 = E.db.mui.gradient.evokercolorR1,
+			g1 = E.db.mui.gradient.evokercolorG1,
+			b1 = E.db.mui.gradient.evokercolorB1,
+			r2 = E.db.mui.gradient.evokercolorR2,
+			g2 = E.db.mui.gradient.evokercolorG2,
+			b2 = E.db.mui.gradient.evokercolorB2,
 		},
-
 		["NPCFRIENDLY"] = {
-			r1 = db.npcfriendlyR1,
-			g1 = db.npcfriendlyG1,
-			b1 = db.npcfriendlyB1,
-			r2 = db.npcfriendlyR2,
-			g2 = db.npcfriendlyG2,
-			b2 = db.npcfriendlyB2,
+			r1 = E.db.mui.gradient.npcfriendlyR1,
+			g1 = E.db.mui.gradient.npcfriendlyG1,
+			b1 = E.db.mui.gradient.npcfriendlyB1,
+			r2 = E.db.mui.gradient.npcfriendlyR2,
+			g2 = E.db.mui.gradient.npcfriendlyG2,
+			b2 = E.db.mui.gradient.npcfriendlyB2,
 		},
 		["NPCNEUTRAL"] = {
-			r1 = db.npcneutralR1,
-			g1 = db.npcneutralG1,
-			b1 = db.npcneutralB1,
-			r2 = db.npcneutralR2,
-			g2 = db.npcneutralG2,
-			b2 = db.npcneutralB2,
+			r1 = E.db.mui.gradient.npcneutralR1,
+			g1 = E.db.mui.gradient.npcneutralG1,
+			b1 = E.db.mui.gradient.npcneutralB1,
+			r2 = E.db.mui.gradient.npcneutralR2,
+			g2 = E.db.mui.gradient.npcneutralG2,
+			b2 = E.db.mui.gradient.npcneutralB2,
 		},
 		["NPCUNFRIENDLY"] = {
-			r1 = db.npcunfriendlyR1,
-			g1 = db.npcunfriendlyG1,
-			b1 = db.npcunfriendlyB1,
-			r2 = db.npcunfriendlyR2,
-			g2 = db.npcunfriendlyG2,
-			b2 = db.npcunfriendlyB2,
+			r1 = E.db.mui.gradient.npcunfriendlyR1,
+			g1 = E.db.mui.gradient.npcunfriendlyG1,
+			b1 = E.db.mui.gradient.npcunfriendlyB1,
+			r2 = E.db.mui.gradient.npcunfriendlyR2,
+			g2 = E.db.mui.gradient.npcunfriendlyG2,
+			b2 = E.db.mui.gradient.npcunfriendlyB2,
 		},
 		["NPCHOSTILE"] = {
-			r1 = db.npchostileR1,
-			g1 = db.npchostileG1,
-			b1 = db.npchostileB1,
-			r2 = db.npchostileR2,
-			g2 = db.npchostileG2,
-			b2 = db.npchostileB2,
+			r1 = E.db.mui.gradient.npchostileR1,
+			g1 = E.db.mui.gradient.npchostileG1,
+			b1 = E.db.mui.gradient.npchostileB1,
+			r2 = E.db.mui.gradient.npchostileR2,
+			g2 = E.db.mui.gradient.npchostileG2,
+			b2 = E.db.mui.gradient.npchostileB2,
 		},
-
 		["TAPPED"] = {
-			r1 = db.tappedR1,
-			g1 = db.tappedG1,
-			b1 = db.tappedB1,
-			r2 = db.tappedR2,
-			g2 = db.tappedG2,
-			b2 = db.tappedB2,
+			r1 = E.db.mui.gradient.tappedR1,
+			g1 = E.db.mui.gradient.tappedG1,
+			b1 = E.db.mui.gradient.tappedB1,
+			r2 = E.db.mui.gradient.tappedR2,
+			g2 = E.db.mui.gradient.tappedG2,
+			b2 = E.db.mui.gradient.tappedB2,
 		},
-
 		["GOODTHREAT"] = {
-			r1 = db.goodthreatR1,
-			g1 = db.goodthreatG1,
-			b1 = db.goodthreatB1,
-			r2 = db.goodthreatR2,
-			g2 = db.goodthreatG2,
-			b2 = db.goodthreatB2,
+			r1 = E.db.mui.gradient.goodthreatR1,
+			g1 = E.db.mui.gradient.goodthreatG1,
+			b1 = E.db.mui.gradient.goodthreatB1,
+			r2 = E.db.mui.gradient.goodthreatR2,
+			g2 = E.db.mui.gradient.goodthreatG2,
+			b2 = E.db.mui.gradient.goodthreatB2,
 		},
 		["BADTHREAT"] = {
-			r1 = db.badthreatR1,
-			g1 = db.badthreatG1,
-			b1 = db.badthreatB1,
-			r2 = db.badthreatR2,
-			g2 = db.badthreatG2,
-			b2 = db.badthreatB2,
+			r1 = E.db.mui.gradient.badthreatR1,
+			g1 = E.db.mui.gradient.badthreatG1,
+			b1 = E.db.mui.gradient.badthreatB1,
+			r2 = E.db.mui.gradient.badthreatR2,
+			g2 = E.db.mui.gradient.badthreatG2,
+			b2 = E.db.mui.gradient.badthreatB2,
 		},
 		["GOODTHREATTRANSITION"] = {
-			r1 = db.goodthreattransitionR1,
-			g1 = db.goodthreattransitionG1,
-			b1 = db.goodthreattransitionB1,
-			r2 = db.goodthreattransitionR2,
-			g2 = db.goodthreattransitionG2,
-			b2 = db.goodthreattransitionB2,
+			r1 = E.db.mui.gradient.goodthreattransitionR1,
+			g1 = E.db.mui.gradient.goodthreattransitionG1,
+			b1 = E.db.mui.gradient.goodthreattransitionB1,
+			r2 = E.db.mui.gradient.goodthreattransitionR2,
+			g2 = E.db.mui.gradient.goodthreattransitionG2,
+			b2 = E.db.mui.gradient.goodthreattransitionB2,
 		},
 		["BADTHREATTRANSITION"] = {
-			r1 = db.badthreattransitionR1,
-			g1 = db.badthreattransitionG1,
-			b1 = db.badthreattransitionB1,
-			r2 = db.badthreattransitionR2,
-			g2 = db.badthreattransitionG2,
-			b2 = db.badthreattransitionB2,
+			r1 = E.db.mui.gradient.badthreattransitionR1,
+			g1 = E.db.mui.gradient.badthreattransitionG1,
+			b1 = E.db.mui.gradient.badthreattransitionB1,
+			r2 = E.db.mui.gradient.badthreattransitionR2,
+			g2 = E.db.mui.gradient.badthreattransitionG2,
+			b2 = E.db.mui.gradient.badthreattransitionB2,
 		},
 		["OFFTANK"] = {
-			r1 = db.offtankR1,
-			g1 = db.offtankG1,
-			b1 = db.offtankB1,
-			r2 = db.offtankR2,
-			g2 = db.offtankG2,
-			b2 = db.offtankB2,
+			r1 = E.db.mui.gradient.offtankR1,
+			g1 = E.db.mui.gradient.offtankG1,
+			b1 = E.db.mui.gradient.offtankB1,
+			r2 = E.db.mui.gradient.offtankR2,
+			g2 = E.db.mui.gradient.offtankG2,
+			b2 = E.db.mui.gradient.offtankB2,
 		},
 		["OFFTANKBADTHREATTRANSITION"] = {
-			r1 = db.badthreattransitionofftankR1,
-			g1 = db.badthreattransitionofftankG1,
-			b1 = db.badthreattransitionofftankB1,
-			r2 = db.badthreattransitionofftankR2,
-			g2 = db.badthreattransitionofftankG2,
-			b2 = db.badthreattransitionofftankB2,
+			r1 = E.db.mui.gradient.badthreattransitionofftankR1,
+			g1 = E.db.mui.gradient.badthreattransitionofftankG1,
+			b1 = E.db.mui.gradient.badthreattransitionofftankB1,
+			r2 = E.db.mui.gradient.badthreattransitionofftankR2,
+			g2 = E.db.mui.gradient.badthreattransitionofftankG2,
+			b2 = E.db.mui.gradient.badthreattransitionofftankB2,
 		},
 		["OFFTANKGOODTHREATTRANSITION"] = {
-			r1 = db.goodthreattransitionofftankR1,
-			g1 = db.goodthreattransitionofftankG1,
-			b1 = db.goodthreattransitionofftankB1,
-			r2 = db.goodthreattransitionofftankR2,
-			g2 = db.goodthreattransitionofftankG2,
-			b2 = db.goodthreattransitionofftankB2,
+			r1 = E.db.mui.gradient.goodthreattransitionofftankR1,
+			g1 = E.db.mui.gradient.goodthreattransitionofftankG1,
+			b1 = E.db.mui.gradient.goodthreattransitionofftankB1,
+			r2 = E.db.mui.gradient.goodthreattransitionofftankR2,
+			g2 = E.db.mui.gradient.goodthreattransitionofftankG2,
+			b2 = E.db.mui.gradient.goodthreattransitionofftankB2,
 		},
-
-		["MANA"] = { r1 = db.manaR1, g1 = db.manaG1, b1 = db.manaB1, r2 = db.manaR2, g2 = db.manaG2, b2 = db.manaB2 },
-		["RAGE"] = { r1 = db.rageR1, g1 = db.rageG1, b1 = db.rageB1, r2 = db.rageR2, g2 = db.rageG2, b2 = db.rageB2 },
+		["MANA"] = {
+			r1 = E.db.mui.gradient.manaR1,
+			g1 = E.db.mui.gradient.manaG1,
+			b1 = E.db.mui.gradient.manaB1,
+			r2 = E.db.mui.gradient.manaR2,
+			g2 = E.db.mui.gradient.manaG2,
+			b2 = E.db.mui.gradient.manaB2,
+		}, --MANA
+		["RAGE"] = {
+			r1 = E.db.mui.gradient.rageR1,
+			g1 = E.db.mui.gradient.rageG1,
+			b1 = E.db.mui.gradient.rageB1,
+			r2 = E.db.mui.gradient.rageR2,
+			g2 = E.db.mui.gradient.rageG2,
+			b2 = E.db.mui.gradient.rageB2,
+		}, --RAGE
 		["FOCUS"] = {
-			r1 = db.focusR1,
-			g1 = db.focusG1,
-			b1 = db.focusB1,
-			r2 = db.focusR2,
-			g2 = db.focusG2,
-			b2 = db.focusB2,
-		},
+			r1 = E.db.mui.gradient.focusR1,
+			g1 = E.db.mui.gradient.focusG1,
+			b1 = E.db.mui.gradient.focusB1,
+			r2 = E.db.mui.gradient.focusR2,
+			g2 = E.db.mui.gradient.focusG2,
+			b2 = E.db.mui.gradient.focusB2,
+		}, --FOCUS
 		["ENERGY"] = {
-			r1 = db.energyR1,
-			g1 = db.energyG1,
-			b1 = db.energyB1,
-			r2 = db.energyR2,
-			g2 = db.energyG2,
-			b2 = db.energyB2,
-		},
+			r1 = E.db.mui.gradient.energyR1,
+			g1 = E.db.mui.gradient.energyG1,
+			b1 = E.db.mui.gradient.energyB1,
+			r2 = E.db.mui.gradient.energyR2,
+			g2 = E.db.mui.gradient.energyG2,
+			b2 = E.db.mui.gradient.energyB2,
+		}, --ENERGY
 		["RUNIC_POWER"] = {
-			r1 = db.runicpowerR1,
-			g1 = db.runicpowerG1,
-			b1 = db.runicpowerB1,
-			r2 = db.runicpowerR2,
-			g2 = db.runicpowerG2,
-			b2 = db.runicpowerB2,
-		},
+			r1 = E.db.mui.gradient.runicpowerR1,
+			g1 = E.db.mui.gradient.runicpowerG1,
+			b1 = E.db.mui.gradient.runicpowerB1,
+			r2 = E.db.mui.gradient.runicpowerR2,
+			g2 = E.db.mui.gradient.runicpowerG2,
+			b2 = E.db.mui.gradient.runicpowerB2,
+		}, --RUNIC POWER
 		["LUNAR_POWER"] = {
-			r1 = db.lunarpowerR1,
-			g1 = db.lunarpowerG1,
-			b1 = db.lunarpowerB1,
-			r2 = db.lunarpowerR2,
-			g2 = db.lunarpowerG2,
-			b2 = db.lunarpowerB2,
-		},
+			r1 = E.db.mui.gradient.lunarpowerR1,
+			g1 = E.db.mui.gradient.lunarpowerG1,
+			b1 = E.db.mui.gradient.lunarpowerB1,
+			r2 = E.db.mui.gradient.lunarpowerR2,
+			g2 = E.db.mui.gradient.lunarpowerG2,
+			b2 = E.db.mui.gradient.lunarpowerB2,
+		}, --LUNAR POWER
 		["ALT_POWER"] = {
-			r1 = db.altpowerR1,
-			g1 = db.altpowerG1,
-			b1 = db.altpowerB1,
-			r2 = db.altpowerR2,
-			g2 = db.altpowerG2,
-			b2 = db.altpowerB2,
-		},
+			r1 = E.db.mui.gradient.altpowerR1,
+			g1 = E.db.mui.gradient.altpowerG1,
+			b1 = E.db.mui.gradient.altpowerB1,
+			r2 = E.db.mui.gradient.altpowerR2,
+			g2 = E.db.mui.gradient.altpowerG2,
+			b2 = E.db.mui.gradient.altpowerB2,
+		}, --ALTERNATE POWER
 		["MAELSTROM"] = {
-			r1 = db.maelstromR1,
-			g1 = db.maelstromG1,
-			b1 = db.maelstromB1,
-			r2 = db.maelstromR2,
-			g2 = db.maelstromG2,
-			b2 = db.maelstromB2,
-		},
+			r1 = E.db.mui.gradient.maelstromR1,
+			g1 = E.db.mui.gradient.maelstromG1,
+			b1 = E.db.mui.gradient.maelstromB1,
+			r2 = E.db.mui.gradient.maelstromR2,
+			g2 = E.db.mui.gradient.maelstromG2,
+			b2 = E.db.mui.gradient.maelstromB2,
+		}, --MAELSTROM
 		["INSANITY"] = {
-			r1 = db.insanityR1,
-			g1 = db.insanityG1,
-			b1 = db.insanityB1,
-			r2 = db.insanityR2,
-			g2 = db.insanityG2,
-			b2 = db.insanityB2,
-		},
-		["FURY"] = { r1 = db.furyR1, g1 = db.furyG1, b1 = db.furyB1, r2 = db.furyR2, g2 = db.furyG2, b2 = db.furyB2 },
-		["PAIN"] = { r1 = db.painR1, g1 = db.painG1, b1 = db.painB1, r2 = db.painR2, g2 = db.painG2, b2 = db.painB2 },
+			r1 = E.db.mui.gradient.insanityR1,
+			g1 = E.db.mui.gradient.insanityG1,
+			b1 = E.db.mui.gradient.insanityB1,
+			r2 = E.db.mui.gradient.insanityR2,
+			g2 = E.db.mui.gradient.insanityG2,
+			b2 = E.db.mui.gradient.insanityB2,
+		}, --INSANITY
+		["FURY"] = {
+			r1 = E.db.mui.gradient.furyR1,
+			g1 = E.db.mui.gradient.furyG1,
+			b1 = E.db.mui.gradient.furyB1,
+			r2 = E.db.mui.gradient.furyR2,
+			g2 = E.db.mui.gradient.furyG2,
+			b2 = E.db.mui.gradient.furyB2,
+		}, --FURY
+		["PAIN"] = {
+			r1 = E.db.mui.gradient.painR1,
+			g1 = E.db.mui.gradient.painG1,
+			b1 = E.db.mui.gradient.painB1,
+			r2 = E.db.mui.gradient.painR2,
+			g2 = E.db.mui.gradient.painG2,
+			b2 = E.db.mui.gradient.painB2,
+		}, --PAIN
+		["MERATHILIS"] = { r1 = 0.50, g1 = 0.70, b1 = 1, r2 = 0.67, g2 = 0.95, b2 = 1 },
+		["BACKDROP"] = {
+			r1 = E.db.mui.gradient.backdropR1,
+			g1 = E.db.mui.gradient.backdropG1,
+			b1 = E.db.mui.gradient.backdropB1,
+			r2 = E.db.mui.gradient.backdropR2,
+			g2 = E.db.mui.gradient.backdropG2,
+			b2 = E.db.mui.gradient.backdropB2,
+		}, --backdrop gradient
 	}
 end
 
@@ -452,23 +483,27 @@ end
 --return the background offset
 local function bgfade(isBG)
 	if isBG then
-		return E.db.mui.gradient.bgfade or 0.6
+		return E.db.mui.gradient.bgfade
 	else
 		return 0
 	end
 end
 
 --return the backdrop alpha
-local function bgalpha(alpha)
+local function bgalpha(alpha, isHealth)
 	if alpha then
-		return E.db.mui.gradient.backdropalpha or 1
+		if isHealth then
+			return E.db.mui.gradient.healthalpha
+		else
+			return E.db.mui.gradient.backdropalpha
+		end
 	else
 		return 1
 	end
 end
 
-function F.GradientColors(unitclass, invert, alpha, isBG, customalpha)
-	local color = F.ClassGradient[unitclass] or F.ClassGradient.MERATHILIS
+function F.GradientColors(unitclass, invert, alpha, isBG, customalpha, isHealth)
+	local color = UnitframeGradients[unitclass] or UnitframeGradients["MERATHILIS"]
 
 	if customalpha then
 		if invert then
@@ -502,31 +537,34 @@ function F.GradientColors(unitclass, invert, alpha, isBG, customalpha)
 				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}, {
 				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}
 		else
 			return {
 				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}, {
 				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}
 		end
 	end
 end
 
-function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha)
-	local color = customgradientsColor[unitclass] or customgradientsColor.MERATHILIS
+function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha, isHealth)
+	local color = UnitframeCustomGradients[unitclass] or UnitframeCustomGradients["MERATHILIS"]
+	if not color then
+		return
+	end
 
 	if customalpha then
 		if invert then
@@ -560,24 +598,24 @@ function F.GradientColorsCustom(unitclass, invert, alpha, isBG, customalpha)
 				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}, {
 				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}
 		else
 			return {
 				r = F:Interval(color.r1 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g1 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b1 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}, {
 				r = F:Interval(color.r2 - bgfade(isBG), 0, 1),
 				g = F:Interval(color.g2 - bgfade(isBG), 0, 1),
 				b = F:Interval(color.b2 - bgfade(isBG), 0, 1),
-				a = bgalpha(alpha),
+				a = bgalpha(alpha, isHealth),
 			}
 		end
 	end
@@ -585,7 +623,7 @@ end
 
 -- Different for details because bars are different
 function F.GradientColorsDetails(unitclass)
-	local color = F.ClassGradient[unitclass] or F.ClassGradient["NPCNEUTRAL"]
+	local color = UnitframeGradients[unitclass] or UnitframeGradients["NPCNEUTRAL"]
 	return { r = color.r1 - 0.2, g = color.g1 - 0.2, b = color.b1 - 0.2, a = 0.9 }, {
 		r = color.r2 + 0.2,
 		g = color.g2 + 0.2,
@@ -595,7 +633,7 @@ function F.GradientColorsDetails(unitclass)
 end
 
 function F.GradientColorsDetailsCustom(unitclass)
-	local color = customgradientsColor[unitclass] or customgradientsColor["NPCNEUTRAL"]
+	local color = UnitframeCustomGradients[unitclass] or UnitframeCustomGradients["NPCNEUTRAL"]
 	return { r = color.r1, g = color.g1, b = color.b1, a = 0.9 }, {
 		r = color.r2,
 		g = color.g2,
@@ -625,7 +663,7 @@ function F.GradientName(name, unitclass, isTarget, isUnit)
 		local cs = F.GetClassColorsRGB(unitclass)
 		return E:RGBToHex(cs.r, cs.g, cs.b) .. name
 	else
-		local color = F.ClassGradient[unitclass] or F.ClassGradient.MANA
+		local color = UnitframeGradients[unitclass] or UnitframeGradients.MANA
 		if not isTarget then
 			return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
 		else

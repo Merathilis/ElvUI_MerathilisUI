@@ -653,7 +653,6 @@ P.gradient = {
 		enableClass = false,
 		enableNP = false,
 		enableUF = false,
-		enablePower = false,
 
 		druidcolorR1 = 1,
 		druidcolorR2 = 1,
@@ -906,9 +905,17 @@ P.gradient = {
 		painR2 = 1,
 		painG2 = 0.30,
 		painB2 = 0,
+
+		backdropR1 = 0,
+		backdropG1 = 0,
+		backdropB1 = 0,
+		backdropR2 = 0.19,
+		backdropG2 = 0.19,
+		backdropB2 = 0.19,
 	},
 	bgfade = 0.6,
 	backdropalpha = 1,
+	healthalpha = 0.7,
 }
 
 P.portraits = {
