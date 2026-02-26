@@ -2406,9 +2406,9 @@ function MER:DeveloperSettings()
 	E.db["mui"]["cooldownManager"]["anchors"]["utility"]["enable"] = true
 	E.db["mui"]["cooldownManager"]["anchors"]["buff"]["enable"] = true
 	E.db["mui"]["cooldownManager"]["anchors"]["buffBar"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["essential"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["utility"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["buff"]["enable"] = true
+	E.db["mui"]["cooldownManager"]["centering"]["essential"] = true
+	E.db["mui"]["cooldownManager"]["centering"]["utility"] = true
+	E.db["mui"]["cooldownManager"]["centering"]["buff"] = true
 
 	-- Chat
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
