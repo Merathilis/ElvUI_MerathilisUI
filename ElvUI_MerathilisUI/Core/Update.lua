@@ -54,6 +54,14 @@ function MER:UpdateScripts()
 
 	isFirstLine = true
 
+	if profileVersion < 7.14 then
+		if E.db.mui and E.db.mui.gradient then
+			E.db.mui.gradient = nil
+		end
+
+		UpdateMessage(L["Gradient"] .. ": " .. L["Update Database"], profileVersion)
+	end
+
 	if not isFirstLine then
 		WF.PrintGradientLine()
 	end
