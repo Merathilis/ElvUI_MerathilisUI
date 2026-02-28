@@ -92,7 +92,7 @@ function module:ApplyWindToolsProfile()
 
 		-- execute elvui update, callback later
 		self:ExecuteElvUIUpdate(function()
-			module:Hide()
+			Splash:Hide()
 
 			F.Event.TriggerEvent("MER.DatabaseUpdate")
 		end, true)

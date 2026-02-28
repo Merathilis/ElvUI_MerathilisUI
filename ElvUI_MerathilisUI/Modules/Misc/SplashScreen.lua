@@ -56,6 +56,7 @@ function module:CreateFrame()
 	module.backgroundFade.text:SetTextColor(1, 1, 1, 1)
 	module.backgroundFade.text:SetText(" ")
 end
+
 function module:Show(text)
 	module.backgroundFade.text:SetText(text)
 	module.backgroundFade:Show()

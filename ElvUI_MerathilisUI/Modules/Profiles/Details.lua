@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
+local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
@@ -33,7 +34,7 @@ function module:ApplyDetailsProfile()
 		return
 	end
 
-	module:Wrap("Applying Details Profile ...", function()
+	Splash:Wrap("Applying Details Profile ...", function()
 		-- Apply Fonts
 		self:LoadDetailsProfile()
 
@@ -42,7 +43,7 @@ function module:ApplyDetailsProfile()
 
 		-- execute elvui update, callback later
 		self:ExecuteElvUIUpdate(function()
-			module:Hide()
+			Splash:Hide()
 
 			F.Event.TriggerEvent("MER.DatabaseUpdate")
 		end, true)

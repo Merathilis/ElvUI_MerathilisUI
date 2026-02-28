@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
+local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 function module:LoadTomTomProfile()
 	local profileName = I.ProfileNames.Default
@@ -42,7 +43,7 @@ function module:ApplyTomTomProfile()
 		return
 	end
 
-	module:Wrap("Applying TomTom Profile ...", function()
+	Splash:Wrap("Applying TomTom Profile ...", function()
 		local db = _G.TomTomDB
 		local profileName = I.ProfileNames.Default
 
@@ -53,7 +54,7 @@ function module:ApplyTomTomProfile()
 
 		-- execute elvui update, callback later
 		self:ExecuteElvUIUpdate(function()
-			module:Hide()
+			Splash:Hide()
 
 			F.Event.TriggerEvent("MER.DatabaseUpdate")
 		end, true)

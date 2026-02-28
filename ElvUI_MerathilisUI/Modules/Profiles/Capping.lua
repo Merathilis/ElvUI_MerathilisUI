@@ -32,7 +32,7 @@ function module:ApplyCappingProfile()
 		return
 	end
 
-	module:Wrap("Applying Capping Profile ...", function()
+	Splash:Wrap("Applying Capping Profile ...", function()
 		local db = _G.CappingSettings
 		local profileName = I.ProfileNames.Default
 
@@ -43,7 +43,7 @@ function module:ApplyCappingProfile()
 
 		-- execute elvui update, callback later
 		self:ExecuteElvUIUpdate(function()
-			module:Hide()
+			Splash:Hide()
 
 			F.Event.TriggerEvent("MER.DatabaseUpdate")
 		end, true)
