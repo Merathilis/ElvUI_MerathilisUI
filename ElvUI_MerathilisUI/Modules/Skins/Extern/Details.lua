@@ -160,6 +160,7 @@ function module:ResetDetailsAnchor(force)
 	end
 
 	local height = 144
+
 	local instance1 = Details:GetInstance(1)
 	local instance2 = Details:GetInstance(2)
 	local instance3 = Details:GetInstance(3)

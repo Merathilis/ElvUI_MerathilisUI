@@ -110,12 +110,12 @@ MER.Modules.NamePlates = MER:NewModule("MER_NamePlates", "AceHook-3.0", "AceEven
 MER.Modules.Notification = MER:NewModule("MER_Notification", "AceEvent-3.0")
 MER.Modules.Panels = MER:NewModule("MER_Panels")
 MER.Modules.PetBattleScripts = MER:NewModule("MER_PetBattleScripts")
-MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0", "AceTimer-3.0")
+MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0")
 MER.Modules.PVP = MER:NewModule("MER_PVP", "AceEvent-3.0")
 MER.Modules.RaidBuffs = MER:NewModule("MER_RaidBuffs")
 MER.Modules.RaidInfoFrame = MER:NewModule("MER_RaidInfoFrame")
 MER.Modules.Skins = MER:NewModule("MER_Skins", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-MER.Modules.SplashScreen = MER:NewModule("MER_SplashScreen", "AceEvent-3.0", "AceTimer-3.0")
+MER.Modules.SplashScreen = MER:NewModule("MER_SplashScreen", "AceTimer-3.0")
 MER.Modules.Style = MER:NewModule("MER_Style", "AceHook-3.0")
 MER.Modules.Tooltip = MER:NewModule("MER_Tooltip", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
@@ -243,8 +243,6 @@ do
 				E:Delay(4, self.PrintDebugEnviromentTip)
 			end
 		end
-
-		Engine[4]:GradientColorUpdate()
 
 		E:Delay(1, collectgarbage, "collect")
 	end
