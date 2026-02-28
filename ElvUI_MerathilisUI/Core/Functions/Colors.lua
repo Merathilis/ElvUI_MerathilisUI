@@ -677,7 +677,7 @@ function F.GradientNameCustom(name, unitclass, isTarget)
 		return
 	end
 
-	local color = customgradientsColor[unitclass] or customgradientsColor.MANA
+	local color = UnitframeCustomGradients[unitclass] or UnitframeCustomGradients.MANA
 	if not isTarget then
 		return E:TextGradient(name, color.r2, color.g2, color.b2, color.r1, color.g1, color.b1)
 	else

@@ -1119,6 +1119,8 @@ P.unitframes = {
 		enable = true,
 		customClassColor = false,
 	},
+	animatedPlayerPower = true,
+	animatedTargetPower = true,
 }
 
 P.nameplates = {
