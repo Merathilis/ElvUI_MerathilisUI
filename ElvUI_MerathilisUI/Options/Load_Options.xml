@@ -4,7 +4,6 @@
 	<!-- Submodule -->
 	<Script file='Advanced.lua'/>
 	<Script file='General.lua'/>
-	<!-- <Script file='Gradient.lua'/> -->
 	<Script file='Informations.lua'/>
 	<Script file='Misc.lua'/>
 	<Script file='Profiles.lua'/>

@@ -244,10 +244,6 @@ do
 			end
 		end
 
-		Engine[4]:GradientColorUpdate()
-		Engine[1].Modules.UnitFrames:AnimatedPlayerPower()
-		Engine[1].Modules.UnitFrames:AnimatedTargetPower()
-
 		E:Delay(1, collectgarbage, "collect")
 	end
 end
