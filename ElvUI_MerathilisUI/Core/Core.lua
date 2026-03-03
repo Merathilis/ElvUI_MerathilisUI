@@ -194,7 +194,8 @@ end
 
 function MER:ChangelogReadAlert()
 	local readVer = E.global.mui and E.global.mui.changelogRead and tonumber(E.global.mui.changelogRead) or 0
-	local currentVer = tonumber(MER.Version)
+	local currentVer = MER.Version and tonumber(MER.Version) or 0
+
 	if readVer < currentVer then
 		if E.global.mui.core.changlogPopup and not InCombatLockdown() then
 			E:StaticPopup_Show("MERATHILIS_OPEN_CHANGELOG")
