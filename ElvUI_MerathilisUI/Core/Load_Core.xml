@@ -4,7 +4,6 @@
 
 	<!-- Settings -->
 	<Include file="InternalData\Load_InternalData.xml"/>
-	<Include file="Profile\Load_Profile.xml"/>
 
 	<Script file="Core.lua"/>
 	<Script file="Constants.lua"/>
