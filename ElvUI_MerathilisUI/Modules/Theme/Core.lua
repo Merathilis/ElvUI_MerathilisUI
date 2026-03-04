@@ -11,12 +11,18 @@ function module:Toggle(theme, value)
 
 	local pf = MER:GetModule("MER_Profiles")
 
-	E.db.mui.themes.gradientMode.enable = value
+	if theme == "gradientMode" then
+		E.db.mui.themes.gradientMode.enable = value
 
-	-- apply texture settings
-	pf:UpdateProfileForGradient()
+		-- apply texture settings
+		pf:UpdateProfileForGradient()
 
-	F.Event.TriggerEvent("MER_Theme.DatabaseUpdate")
+		F.Event.TriggerEvent("MER_Theme.DatabaseUpdate")
+	elseif theme == "darkMode" then
+		E.db.mui.themes.gradientMode.enable = false
+
+		pf:UpdateProfileForTheme()
+	end
 end
 
 local function updateCallbackWrapper(self, func, _, ignoreSettings)

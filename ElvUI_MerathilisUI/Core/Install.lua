@@ -2333,9 +2333,9 @@ function MER:SetupUnitframes(layout)
 	end
 
 	if layout == "gradient" then
-		E.db.mui.gradient.enable = true
+		MER:GetModule("MER_Theme"):Toggle("gradientMode", true)
 	elseif layout == "dark" then
-		E.db.mui.gradient.enable = false
+		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
 
 	E:StaggeredUpdateAll(nil, true)

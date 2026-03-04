@@ -13,6 +13,10 @@ P.core = {
 	lastLayoutVersion = nil,
 }
 
+P.installer = {
+	layout = I.Enum.Layouts.VERTICAL,
+}
+
 P.general = {
 	splashScreen = true,
 	AFK = true,

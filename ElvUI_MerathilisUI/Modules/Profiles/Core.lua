@@ -12,6 +12,22 @@ function module:ExecuteElvUIUpdate(callback)
 	end, 0.2)
 end
 
+function module:UpdateProfileForGradient()
+	-- Set fade directions based on current layout
+	local layouts = I.GradientMode.Layouts[E.db.mui.installer.layout]
+	if layouts then
+		for unitType in pairs(P.themes.gradientMode.fadeDirection) do
+			if layouts.Left[unitType] then
+				E.db.mui.themes.gradientMode.fadeDirection[unitType] = I.Enum.GradientMode.Direction.LEFT
+			else
+				E.db.mui.themes.gradientMode.fadeDirection[unitType] = I.Enum.GradientMode.Direction.RIGHT
+			end
+		end
+	end
+end
+
+function module:UpdateProfileForTheme() end
+
 function module:Initialize()
 	if self.Initialized then
 		return
