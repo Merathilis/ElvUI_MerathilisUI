@@ -62,7 +62,9 @@ function module:UpdateStatusBarFrame(frame)
 	if frame.Health then
 		local healthTexture = LSM:Fetch("statusbar", self.db.textures.health)
 		frame.Health:SetStatusBarTexture(healthTexture)
-		frame.Health.bg:SetTexture(healthTexture)
+		if frame.Health.bg then
+			frame.Health.bg:SetTexture(healthTexture)
+		end
 		self:UpdateFadeDirection(frame.Health)
 
 		-- Hook if needed

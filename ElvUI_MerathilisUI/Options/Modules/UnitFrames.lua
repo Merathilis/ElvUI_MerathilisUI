@@ -72,7 +72,7 @@ local sizeString = ":16:16:0:0:64:64:4:60:4:60"
 
 options.unitframes = {
 	type = "group",
-	name = E.NewSign .. L["UnitFrames"],
+	name = L["UnitFrames"],
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.unitframes[info[#info]]
@@ -184,7 +184,7 @@ options.unitframes = {
 		portraits = {
 			order = 5,
 			type = "group",
-			name = E.NewSign .. L["Portraits"],
+			name = L["Portraits"],
 			disabled = function()
 				return not E.private.unitframe.enable
 			end,

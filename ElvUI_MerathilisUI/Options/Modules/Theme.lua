@@ -12,7 +12,7 @@ local PowerBarColor = _G.PowerBarColor
 
 options.theme = {
 	type = "group",
-	name = L["Theme"],
+	name = E.NewSign .. L["Theme"],
 	get = function(info)
 		return E.db.mui.themes[info[#info]]
 	end,
@@ -57,11 +57,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		local generalGroup = self:AddInlineRequirementsDesc(options, {
 			name = "Description",
 		}, {
-			name = L["We provide different themes for "]
-				.. MER.Title
-				.. L[", you can enable or disable them below."]
-				.. "\n\n"
-				.. "Credits: |cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r"
+			name = "Credits: |cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r"
 				.. "\n\n"
 				.. F.String.Error(
 					L["Warning: Enabling one of these settings may overwrite colors or textures in ElvUI, they also prevent you from changing certain settings in ElvUI!"]
