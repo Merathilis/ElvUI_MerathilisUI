@@ -668,9 +668,9 @@ function module:MerathilisUI_Themes_GradientMode()
 		-- Player & Target
 		do
 			local group = self:AddInlineDesc(tab, {
-				name = "Player & Target",
+				name = L["Player & Target"],
 			}, {
-				name = "Control the gradient fade direction for player and target unitframes.\n\n",
+				name = L["Control the gradient fade direction for player and target unitframes.\n\n"],
 			}).args
 
 			group.player = {
@@ -725,9 +725,9 @@ function module:MerathilisUI_Themes_GradientMode()
 		-- Group Frames
 		do
 			local group = self:AddInlineDesc(tab, {
-				name = "Group Frames",
+				name = L["Group Frames"],
 			}, {
-				name = "Control the gradient fade direction for party and raid unitframes.\n\n",
+				name = L["Control the gradient fade direction for party and raid unitframes.\n\n"],
 			}).args
 
 			group.party = {
