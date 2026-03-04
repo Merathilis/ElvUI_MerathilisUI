@@ -1,7 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 local C = W.Utilities.Color
 
-local options = MER.options.advanced.args
+local options = module.options.advanced.args
 
 local _G = _G
 local format = format

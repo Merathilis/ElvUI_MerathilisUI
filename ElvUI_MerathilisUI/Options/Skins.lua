@@ -1,8 +1,10 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Skins") ---@type Skins
-local options = MER.options.skins.args
+local module = MER:GetModule("MER_Options") ---@class Options
+local Skins = MER:GetModule("MER_Skins") ---@type Skins
 local C = W.Utilities.Color
 local LSM = E.Libs.LSM
+
+local options = module.options.skins.args
 
 local _G = _G
 local ipairs, unpack = ipairs, unpack
@@ -30,7 +32,7 @@ local DecorAddons = {
 }
 
 local function UpdateToggleDirection()
-	module:RefreshToggleDirection()
+	Skins:RefreshToggleDirection()
 end
 
 local function ResetDetails()

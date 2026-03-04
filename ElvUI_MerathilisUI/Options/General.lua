@@ -1,6 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local options = MER.options.general.args
-local theme = MER:GetModule("MER_Style")
+local module = MER:GetModule("MER_Options") ---@class Options
+local options = module.options.general.args
 
 options.name = {
 	order = 1,

@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local async = W.Utilities.Async
+local module = MER:GetModule("MER_Options") ---@class Options
 
 local format = format
 
@@ -9,7 +9,11 @@ local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon
 local logo =
 	CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/Media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
 
-MER.options = {
+module.enabledState = F.Enum({ "YES", "NO", "FORCE_DISABLED" })
+module.orderIndex = 1
+module.callOnInit = {}
+
+module.options = {
 	general = {
 		order = 101,
 		name = F.cOption(L["General"], "gradient"),
@@ -60,7 +64,246 @@ MER.options = {
 	},
 }
 
-function MER:OptionsCallback()
+-- Error handler
+local function errorhandler(err)
+	return _G.geterrorhandler()(err)
+end
+
+function module:GetAllFontsFunc(additional)
+	return function()
+		return F.Table.Join({}, E.LSM:HashTable("font"), additional or {})
+	end
+end
+
+function module:GetAllFontOutlinesFunc(additional)
+	local styleSelection = {
+		NONE = "None",
+		OUTLINE = "Outline",
+		THICKOUTLINE = "Thick",
+		MONOCHROME = "|cffaaaaaaMono|r",
+		MONOCHROMEOUTLINE = "|cffaaaaaaMono|r Outline",
+		MONOCHROMETHICKOUTLINE = "|cffaaaaaaMono|r Thick",
+		SHADOWOUTLINE = "ShadowOutline",
+	}
+
+	return function()
+		return F.Table.Join({}, styleSelection, additional or {})
+	end
+end
+
+function module:GetAllFontColorsFunc(additional)
+	local colorSelection = {
+		NONE = "None",
+		CLASS = F.String.Class("Class Color"),
+		VALUE = F.String.ElvUIValue("ElvUI Color"),
+		TXUI = MER.Title .. F.String.MERATHILIS(" Color"),
+		CUSTOM = "Custom",
+	}
+
+	return function()
+		return F.Table.Join({}, colorSelection, additional or {})
+	end
+end
+
+function module:GetFontColorGetter(profileDB, defaultDB, customKey)
+	return function(info)
+		local key = customKey or info[#info]
+		local profileEntry = F.GetDBFromPath(profileDB)[key]
+		local defaultEntry = defaultDB[key]
+		return profileEntry.r,
+			profileEntry.g,
+			profileEntry.b,
+			profileEntry.a,
+			defaultEntry.r,
+			defaultEntry.g,
+			defaultEntry.b,
+			defaultEntry.a
+	end
+end
+
+function module:GetFontColorSetter(profileDB, callback, customKey)
+	return function(info, r, g, b, a)
+		local key = customKey or info[#info]
+		local profileEntry = F.GetDBFromPath(profileDB)[key]
+		if profileEntry.r ~= r or profileEntry.g ~= g or profileEntry.b ~= b or profileEntry.a ~= a then
+			profileEntry.r, profileEntry.g, profileEntry.b, profileEntry.a = r, g, b, a
+			if callback then
+				callback()
+			end
+		end
+	end
+end
+
+function module:GetEnabledState(check, group)
+	local enabled = (check == true)
+	local forceDisabled = false
+
+	if group and group.disabled then
+		if type(group.disabled) == "boolean" then
+			forceDisabled = group.disabled
+		elseif type(group.disabled) == "function" then
+			forceDisabled = group.disabled()
+		end
+	end
+
+	if (enabled and enabled == true) and not forceDisabled then
+		return self.enabledState.YES
+	elseif not forceDisabled then
+		return self.enabledState.NO
+	end
+
+	return self.enabledState.FORCE_DISABLED
+end
+
+function module:GetEnableName(check, group)
+	local enabled = self:GetEnabledState(check, group)
+
+	if enabled == self.enabledState.YES then
+		return F.String.Good("Enabled")
+	elseif enabled == self.enabledState.NO then
+		return F.String.Error("Disabled")
+	end
+
+	return "Disabled"
+end
+
+function module:AddGroup(options, others)
+	local orderIdx = self:GetOrder()
+	local group = {
+		order = orderIdx,
+		type = "group",
+		args = {},
+	}
+	E:CopyTable(group, others)
+	options["fancyInlineGroup" .. orderIdx] = group
+	return options["fancyInlineGroup" .. orderIdx]
+end
+
+function module:AddInlineGroup(options, others)
+	local orderIdx = self:GetOrder()
+	local group = {
+		order = orderIdx,
+		inline = true,
+		type = "group",
+		args = {},
+	}
+	E:CopyTable(group, others)
+	options["fancyInlineGroup" .. orderIdx] = group
+	return options["fancyInlineGroup" .. orderIdx]
+end
+
+function module:AddDesc(options, othersGroup, othersDesc)
+	local orderIdx = self:GetOrder()
+	local inlineGroup = self:AddGroup(options, othersGroup)
+	local group = {
+		order = orderIdx,
+		type = "description",
+	}
+	E:CopyTable(group, othersDesc)
+	inlineGroup["args"]["fancyInlineDesc" .. orderIdx] = group
+	return inlineGroup
+end
+
+function module:AddInlineDesc(options, othersGroup, othersDesc)
+	local orderIdx = self:GetOrder()
+	local inlineGroup = self:AddInlineGroup(options, othersGroup)
+	local group = {
+		order = orderIdx,
+		type = "description",
+	}
+	E:CopyTable(group, othersDesc)
+	inlineGroup["args"]["fancyInlineDesc" .. orderIdx] = group
+	return inlineGroup
+end
+
+function module:AddInlineSoloDesc(options, othersDesc)
+	local orderIdx = self:GetOrder()
+	local group = {
+		order = orderIdx,
+		type = "description",
+	}
+	E:CopyTable(group, othersDesc)
+	options["fancyInlineDesc" .. orderIdx] = group
+	return group
+end
+
+function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requirements)
+	local orderIdx = self:GetOrder()
+	local inlineGroup = self:AddInlineGroup(options, othersGroup)
+	local group = F.Table.Join({}, {
+		order = orderIdx,
+		type = "description",
+	}, othersDesc)
+
+	inlineGroup.disabled = function()
+		return not MER:HasRequirements(requirements)
+	end
+
+	-- Define if not defined
+	if not group["name"] then
+		group["name"] = ""
+	end
+
+	-- Convert to function
+	if type(group["name"]) == "string" then
+		local originalText = "" .. group["name"]
+
+		group["name"] = function()
+			local description = "" .. originalText
+			local check = MER:CheckRequirements(requirements)
+			if check and check ~= true then
+				local reason = MER:GetRequirementString(check)
+				if reason then
+					description = description .. F.String.Error(reason) .. "\n\n"
+				end
+			end
+			return description
+		end
+	else
+		-- self:LogDebug("GroupName is not a string, cannot convert to requirements check")
+	end
+
+	inlineGroup["args"]["fancyInlineDesc" .. orderIdx] = group
+	return inlineGroup
+end
+
+function module:AddSpacer(options, big)
+	options["fancySpacer" .. self:GetOrder()] = {
+		order = self:GetOrder(),
+		type = "description",
+		name = big and "\n\n" or "\n",
+	}
+	return options["fancySpacer" .. self:GetOrder()]
+end
+
+function module:AddTinySpacer(options)
+	options["fancySpacer" .. self:GetOrder()] = {
+		order = self:GetOrder(),
+		type = "description",
+		name = "",
+	}
+	return options["fancySpacer" .. self:GetOrder()]
+end
+
+function module:GetOrder()
+	self.orderIndex = self.orderIndex + 1
+	return self.orderIndex
+end
+
+function module:ResetOrder()
+	self.orderIndex = 1
+end
+
+function module:AddCallback(name, func)
+	-- Don't load any other settings except general and changelog when MER is not installed
+	if not F.IsMERProfile() and (name ~= "Information" and name ~= "General" and name ~= "Changelog") then
+		return
+	end
+
+	tinsert(self.callOnInit, func or self[name])
+end
+
+function module:OptionsCallback()
 	local icon = F.GetIconString(I.Media.Textures.pepeSmall, 14)
 	E.Options.name = format("%s + %s %s |cFF00c0fa%s|r", E.Options.name, icon, MER.Title, MER.DisplayVersion)
 
@@ -142,7 +385,7 @@ function MER:OptionsCallback()
 		},
 	}
 
-	for category, info in pairs(MER.options) do
+	for category, info in pairs(self.options) do
 		E.Options.args.mui.args[category] = {
 			order = info.order,
 			type = "group",
@@ -151,6 +394,8 @@ function MER:OptionsCallback()
 			desc = info.desc,
 			icon = info.icon,
 			args = info.args,
+			get = info.get,
+			set = info.set,
 			hidden = function() -- Hide the options if not my profile is installed
 				return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE)
 			end,
@@ -158,14 +403,17 @@ function MER:OptionsCallback()
 	end
 end
 
-MER.AnimationEaseTable = {
-	["linear"] = L["Linear Ease"],
-	["quadratic"] = L["Quadratic Ease"],
-	["cubic"] = L["Cubic Ease"],
-	["quartic"] = L["Quartic Ease"],
-	["quintic"] = L["Quintic Ease"],
-	["sinusoidal"] = L["Sinusoidal Ease"],
-	["exponential"] = L["Exponential Ease"],
-	["circular"] = L["Circular Ease"],
-	["bounce"] = L["Bounce Ease"],
-}
+function module:Initialize()
+	if self.Initialized then
+		return
+	end
+
+	for index, func in next, self.callOnInit do
+		xpcall(func, errorhandler, self)
+		self.callOnInit[index] = nil
+	end
+
+	self.Initialized = true
+end
+
+MER:RegisterModule(module:GetName())

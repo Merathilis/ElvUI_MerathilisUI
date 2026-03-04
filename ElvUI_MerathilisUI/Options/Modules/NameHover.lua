@@ -1,6 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 local NH = MER:GetModule("MER_NameHover")
-local options = MER.options.modules.args
+
+local options = module.options.modules.args
 
 options.nameHover = {
 	type = "group",

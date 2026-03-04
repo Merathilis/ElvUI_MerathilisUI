@@ -448,17 +448,13 @@ end
 
 function F.String.GradientClass(text, class, reverse)
 	if not text or text == "" then
-		text = E.myLocalizedClass
+		return
 	end
 
 	local unitClass = class or E.myclass
 
-	local db = E.db and E.db.mui and E.db.mui.themes
-	if not db then
-		db = {}
-	end
-	if db.classColorMap then
-		local colorMap = E.db.mui.themes.classColorMap
+	if E.db and E.db.mui and E.db.mui.themes and E.db.mui.themes.gradientMode.classColorMap then
+		local colorMap = E.db.mui.themes.gradientMode.classColorMap
 
 		-- check if class is an actual valid class that we have gradients for, if not, fallback to player's class
 		if not colorMap[1][unitClass] then

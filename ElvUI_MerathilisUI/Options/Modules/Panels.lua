@@ -1,6 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Panels")
-local options = MER.options.modules.args
+local module = MER:GetModule("MER_Options") ---@class Options
+local Panels = MER:GetModule("MER_Panels")
+
+local options = module.options.modules.args
 
 options.panels = {
 	type = "group",
@@ -32,7 +34,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels[info[#info]] = value
-						module:UpdateColors()
+						Panels:UpdateColors()
 					end,
 					values = {
 						["DEFAULT"] = DEFAULT,
@@ -56,7 +58,7 @@ options.panels = {
 						E.db.mui.panels[info[#info]] = {}
 						local t = E.db.mui.panels[info[#info]]
 						t.r, t.g, t.b = r, g, b
-						module:UpdateColors()
+						Panels:UpdateColors()
 					end,
 				},
 			},
@@ -76,7 +78,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.topPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 				},
 				topPanelHeight = {
@@ -111,7 +113,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.bottomPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 				},
 				bottomPanelHeight = {
@@ -126,7 +128,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.bottomPanelHeight = value
-						module:Resize()
+						Panels:Resize()
 					end,
 					disabled = function()
 						return not E.db.mui.panels.bottomPanel
@@ -152,7 +154,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.panelSize = value
-						module:Resize()
+						Panels:Resize()
 					end,
 				},
 				spacer = {
@@ -170,7 +172,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.stylePanels.topLeftPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 				},
 				topLeftExtraPanel = {
@@ -182,7 +184,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.stylePanels.topLeftExtraPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 					disabled = function()
 						return not E.db.mui.panels.stylePanels.topLeftPanel
@@ -202,7 +204,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.stylePanels.topRightPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 				},
 				topRightExtraPanel = {
@@ -214,7 +216,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.stylePanels.topRightExtraPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 					disabled = function()
 						return not E.db.mui.panels.stylePanels.topRightPanel
@@ -234,7 +236,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.stylePanels.bottomLeftPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 				},
 				bottomLeftExtraPanel = {
@@ -246,7 +248,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.stylePanels.bottomLeftExtraPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 					disabled = function()
 						return not E.db.mui.panels.stylePanels.bottomLeftPanel
@@ -266,7 +268,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.stylePanels.bottomRightPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 				},
 				bottomRightExtraPanel = {
@@ -278,7 +280,7 @@ options.panels = {
 					end,
 					set = function(info, value)
 						E.db.mui.panels.stylePanels.bottomRightExtraPanel = value
-						module:UpdatePanels()
+						Panels:UpdatePanels()
 					end,
 					disabled = function()
 						return not E.db.mui.panels.stylePanels.bottomRightPanel

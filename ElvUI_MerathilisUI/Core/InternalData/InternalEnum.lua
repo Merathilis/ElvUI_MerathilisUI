@@ -2,6 +2,8 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 I.Enum = {}
 
+I.Enum.Layouts = F.Enum({ "VERTICAL", "HORIZONTAL" })
+
 I.Enum.Requirements = F.Enum({
 	"MERUI_PROFILE",
 	"GRADIENT_MODE_ENABLED",

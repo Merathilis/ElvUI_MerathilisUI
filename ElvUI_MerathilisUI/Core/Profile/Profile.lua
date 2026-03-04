@@ -107,36 +107,151 @@ P.datatexts = {
 }
 
 P.themes = {
-	classColorMap = {
-		[I.Enum.GradientMode.Color.NORMAL] = { -- RIGHT
-			DEATHKNIGHT = F.Table.HexToRGB("#f52652"),
-			DEMONHUNTER = F.Table.HexToRGB("#ba00f5"),
-			DRUID = F.Table.HexToRGB("#ff7d0a"),
-			EVOKER = F.Table.HexToRGB("#44c5aa"),
-			HUNTER = F.Table.HexToRGB("#abed4f"),
-			MAGE = F.Table.HexToRGB("#33c7fc"),
-			MONK = F.Table.HexToRGB("#00ff96"),
-			PALADIN = F.Table.HexToRGB("#f58cba"),
-			PRIEST = F.Table.HexToRGB("#ffffff"),
-			ROGUE = F.Table.HexToRGB("#fff368"),
-			SHAMAN = F.Table.HexToRGB("#0a7ded"),
-			WARLOCK = F.Table.HexToRGB("#8561ed"),
-			WARRIOR = F.Table.HexToRGB("#e0a361"),
+	gradientMode = {
+		enable = true, -- Enabled by default
+
+		textures = {
+			health = I.Textures.Primary,
+			power = I.Textures.Primary,
+			cast = I.Textures.Primary,
 		},
-		[I.Enum.GradientMode.Color.SHIFT] = { -- LEFT
-			DEATHKNIGHT = F.Table.HexToRGB("#ba1c2b"),
-			DEMONHUNTER = F.Table.HexToRGB("#b3008a"),
-			DRUID = F.Table.HexToRGB("#ff5e0a"),
-			EVOKER = F.Table.HexToRGB("#2c7e6c"),
-			HUNTER = F.Table.HexToRGB("#99cc54"),
-			MAGE = F.Table.HexToRGB("#0599cf"),
-			MONK = F.Table.HexToRGB("#05bf73"),
-			PALADIN = F.Table.HexToRGB("#d9548f"),
-			PRIEST = F.Table.HexToRGB("#d1d1d1"),
-			ROGUE = F.Table.HexToRGB("#ffb759"),
-			SHAMAN = F.Table.HexToRGB("#0061bf"),
-			WARLOCK = F.Table.HexToRGB("#634aad"),
-			WARRIOR = F.Table.HexToRGB("#c78c4a"),
+
+		backgroundMultiplier = 0.35,
+
+		fadeDirection = {
+			player = I.Enum.GradientMode.Direction.LEFT,
+			pet = I.Enum.GradientMode.Direction.LEFT,
+			party = I.Enum.GradientMode.Direction.LEFT,
+			raid1 = I.Enum.GradientMode.Direction.LEFT,
+			raid2 = I.Enum.GradientMode.Direction.LEFT,
+			raid3 = I.Enum.GradientMode.Direction.LEFT,
+			tank = I.Enum.GradientMode.Direction.LEFT,
+			assist = I.Enum.GradientMode.Direction.LEFT,
+
+			assisttarget = I.Enum.GradientMode.Direction.RIGHT,
+			tanktarget = I.Enum.GradientMode.Direction.RIGHT,
+			target = I.Enum.GradientMode.Direction.RIGHT,
+			targettarget = I.Enum.GradientMode.Direction.RIGHT,
+			arena = I.Enum.GradientMode.Direction.RIGHT,
+			boss = I.Enum.GradientMode.Direction.RIGHT,
+			focus = I.Enum.GradientMode.Direction.RIGHT,
+		},
+
+		interruptCDEnabled = false,
+		interruptSoonEnabled = false,
+
+		saturationBoost = {
+			enable = false,
+			shiftLight = 0.7,
+			shiftSat = 1,
+			normalLight = 1.3,
+			normalSat = 0.9,
+		},
+
+		reactionColorMap = {
+			[I.Enum.GradientMode.Color.NORMAL] = { -- RIGHT
+				BAD = F.Table.HexToRGB("#d94040"), -- enemy
+				NEUTRAL = F.Table.HexToRGB("#dec24a"), -- neutral
+				GOOD = F.Table.HexToRGB("#85d92b"), -- friendly
+			},
+			[I.Enum.GradientMode.Color.SHIFT] = { -- LEFT
+				BAD = F.Table.HexToRGB("#c72121"), -- enemy
+				NEUTRAL = F.Table.HexToRGB("#cf9145"), -- neutral
+				GOOD = F.Table.HexToRGB("#2f9706"), -- friendly
+			},
+		},
+
+		castColorMap = {
+			[I.Enum.GradientMode.Color.NORMAL] = { -- RIGHT
+				DEFAULT = F.Table.HexToRGB("#ffbf00"), -- cast def.
+				NOINTERRUPT = F.Table.HexToRGB("#8f8c8c"), -- cast non.
+				INTERRUPTED = F.Table.HexToRGB("#d94040"), -- cast was stopped
+				INTERRUPTCD = F.Table.HexToRGB("#8591b0"), -- interrupt is on cd, and will not come off cd during cast
+				INTERRUPTSOON = F.Table.HexToRGB("#de7000"), -- interrupt is on cd, but will be ready inside the cast
+			},
+			[I.Enum.GradientMode.Color.SHIFT] = { -- LEFT
+				DEFAULT = F.Table.HexToRGB("#ffad00"), -- cast def.
+				NOINTERRUPT = F.Table.HexToRGB("#737070"), -- cast non.
+				INTERRUPTED = F.Table.HexToRGB("#991f1f"), -- cast was stopped
+				INTERRUPTCD = F.Table.HexToRGB("#4f5c7a"), -- interrupt is on cd, and will not come off cd during cast
+				INTERRUPTSOON = F.Table.HexToRGB("#8f4700"), -- interrupt is on cd, but will be ready inside the cast
+			},
+		},
+
+		powerColorMap = {
+			[I.Enum.GradientMode.Color.SHIFT] = { -- LEFT
+				ALT_POWER = F.Table.HexToRGB("#264ad1"), -- swap alt
+				MANA = F.Table.HexToRGB("#0040b3"), -- mana
+				RAGE = F.Table.HexToRGB("#cf1717"), -- rage
+				FOCUS = F.Table.HexToRGB("#cf591f"), -- focus
+				ENERGY = F.Table.HexToRGB("#d9721a"), -- energy
+				RUNIC_POWER = F.Table.HexToRGB("#009cff"), -- runic
+				PAIN = F.Table.HexToRGB("#cccccc"), -- pain
+				FURY = F.Table.HexToRGB("#c414b5"), -- fury
+				LUNAR_POWER = F.Table.HexToRGB("#9e4fe8"), -- astral
+				INSANITY = F.Table.HexToRGB("#850ab0"), -- insanity
+				MAELSTROM = F.Table.HexToRGB("#0073ff"), -- maelstrom
+			},
+
+			[I.Enum.GradientMode.Color.NORMAL] = { -- RIGHT
+				ALT_POWER = F.Table.HexToRGB("#2175d4"), -- swap alt
+				MANA = F.Table.HexToRGB("#35a4ff"), -- mana
+				RAGE = F.Table.HexToRGB("#ed3333"), -- rage
+				FOCUS = F.Table.HexToRGB("#db753b"), -- focus
+				ENERGY = F.Table.HexToRGB("#ffe169"), -- energy
+				RUNIC_POWER = F.Table.HexToRGB("#1cd6ff"), -- runic
+				PAIN = F.Table.HexToRGB("#f5f5f5"), -- pain
+				FURY = F.Table.HexToRGB("#e81ff5"), -- fury
+				LUNAR_POWER = F.Table.HexToRGB("#9c54ff"), -- astral
+				INSANITY = F.Table.HexToRGB("#9629bd"), -- insanity
+				MAELSTROM = F.Table.HexToRGB("#0096ff"), -- maelstrom
+			},
+		},
+
+		specialColorMap = {
+			[I.Enum.GradientMode.Color.NORMAL] = { -- RIGHT
+				DISCONNECTED = F.Table.HexToRGB("#ff6b59"), -- disconnect
+				TAPPED = F.Table.HexToRGB("#a3a6b0"), -- tapped
+				DEAD = F.Table.HexToRGB("#cd001c"), -- dead
+			},
+			[I.Enum.GradientMode.Color.SHIFT] = { -- LEFT
+				DISCONNECTED = F.Table.HexToRGB("#e85747"), -- disconnect
+				TAPPED = F.Table.HexToRGB("#7d828f"), -- tapped
+				DEAD = F.Table.HexToRGB("#61000e"), -- dead
+			},
+		},
+
+		classColorMap = {
+			[I.Enum.GradientMode.Color.SHIFT] = { -- LEFT
+				DEATHKNIGHT = F.Table.HexToRGB("#ba1c2b"),
+				DEMONHUNTER = F.Table.HexToRGB("#b3008a"),
+				DRUID = F.Table.HexToRGB("#ff5e0a"),
+				EVOKER = F.Table.HexToRGB("#2c7e6c"),
+				HUNTER = F.Table.HexToRGB("#99cc54"),
+				MAGE = F.Table.HexToRGB("#0599cf"),
+				MONK = F.Table.HexToRGB("#05bf73"),
+				PALADIN = F.Table.HexToRGB("#d9548f"),
+				PRIEST = F.Table.HexToRGB("#d1d1d1"),
+				ROGUE = F.Table.HexToRGB("#ffb759"),
+				SHAMAN = F.Table.HexToRGB("#0061bf"),
+				WARLOCK = F.Table.HexToRGB("#634aad"),
+				WARRIOR = F.Table.HexToRGB("#c78c4a"),
+			},
+			[I.Enum.GradientMode.Color.NORMAL] = { -- RIGHT
+				DEATHKNIGHT = F.Table.HexToRGB("#f52652"),
+				DEMONHUNTER = F.Table.HexToRGB("#ba00f5"),
+				DRUID = F.Table.HexToRGB("#ff7d0a"),
+				EVOKER = F.Table.HexToRGB("#44c5aa"),
+				HUNTER = F.Table.HexToRGB("#abed4f"),
+				MAGE = F.Table.HexToRGB("#33c7fc"),
+				MONK = F.Table.HexToRGB("#00ff96"),
+				PALADIN = F.Table.HexToRGB("#f58cba"),
+				PRIEST = F.Table.HexToRGB("#ffffff"),
+				ROGUE = F.Table.HexToRGB("#fff368"),
+				SHAMAN = F.Table.HexToRGB("#0a7ded"),
+				WARLOCK = F.Table.HexToRGB("#8561ed"),
+				WARRIOR = F.Table.HexToRGB("#e0a361"),
+			},
 		},
 	},
 }
@@ -205,7 +320,7 @@ P.armory = {
 		enable = true,
 		alpha = 0.85,
 		height = 1,
-		color = "GRADIENT",
+		color = "CLASS",
 	},
 	stats = {
 		showAvgItemLevel = false,

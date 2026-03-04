@@ -9,7 +9,7 @@
 	<Script file='NamePlates.lua'/>
 	<Script file='Notifications.lua'/>
 	<Script file='Panels.lua'/>
-	<Script file='Tooltips.lua'/>
+	<Script file='Theme.lua'/>
 	<Script file='UnitFrames.lua'/>
 	<Script file='VehicleBar.lua'/>
 </Ui>

@@ -1,6 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<!-- Core -->
 	<Script file='Core.lua'/>
+	<Include file='Widgets\Load_Widgets.xml' />
+
 	<!-- Submodule -->
 	<Script file='Advanced.lua'/>
 	<Script file='General.lua'/>

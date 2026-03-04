@@ -1,8 +1,10 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Armory")
-local options = MER.options.modules.args
+local module = MER:GetModule("MER_Options") ---@class Options
+local Armory = MER:GetModule("MER_Armory")
 local M = E.Misc
 local LSM = E.LSM
+
+local options = module.options.modules.args
 
 local _G = _G
 
@@ -1020,7 +1022,7 @@ options.armory = {
 			end,
 			set = function(info, value)
 				E.db.mui.armory.lines[info[#info]] = value
-				module:UpdateLines()
+				Armory:UpdateLines()
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
@@ -1062,7 +1064,6 @@ options.armory = {
 					name = L["Color"],
 					values = {
 						CLASS = F.String.Class("Class"),
-						GRADIENT = F.String.GradientClass("Gradient Class"),
 					},
 				},
 			},

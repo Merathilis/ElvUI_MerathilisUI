@@ -431,7 +431,7 @@ function module:UpdateTitle()
 		return
 	end
 
-	local classColorNormal = E.db.mui.themes.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
+	local classColorNormal = E.db.mui.themes.gradientMode.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
 
 	if module.db.nameText.fontColor == "GRADIENT" then
 		self.nameText:SetText(F.String.FastGradient(E.myname, 0, 0.6, 1, 0, 0.9, 1))
@@ -798,8 +798,8 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 	end
 
 	local currentClass = E.myclass
-	local classColorNormal = E.db.mui.themes.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
-	local classColorShift = E.db.mui.themes.classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
+	local classColorNormal = E.db.mui.themes.gradientMode.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
+	local classColorShift = E.db.mui.themes.gradientMode.classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
 
 	-- Set custom font
 	WF.SetFontWithDB(frame.Title, module.db.stats.headerFont)
@@ -959,8 +959,8 @@ function module:UpdateCharacterStat(frame, showGradient)
 	end
 
 	local currentClass = E.myclass
-	local classColorNormal = E.db.mui.themes.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
-	local classColorShift = E.db.mui.themes.classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
+	local classColorNormal = E.db.mui.themes.gradientMode.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
+	local classColorShift = E.db.mui.themes.gradientMode.classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
 
 	-- Set custom for value
 	if frame.Value then
@@ -1431,32 +1431,6 @@ function module:UpdateLineColors()
 
 			top:SetColorTexture(r, g, b, alpha)
 			bottom:SetColorTexture(r, g, b, alpha)
-		end
-
-		if module.db.lines.color == "GRADIENT" then
-			if E.db.mui.themes.classColorMap then
-				local colorMap = E.db.mui.themes.classColorMap
-
-				local left = colorMap[1][E.myclass] -- Left (player UF)
-				local right = colorMap[2][E.myclass] -- Right (player UF)
-
-				if left and left.r and right and right.r then
-					top:SetGradient(
-						orientation,
-						{ r = left.r, g = left.g, b = left.b, a = alpha },
-						{ r = right.r, g = right.g, b = right.b, a = alpha }
-					)
-					bottom:SetGradient(
-						orientation,
-						{ r = left.r, g = left.g, b = left.b, a = alpha },
-						{ r = right.r, g = right.g, b = right.b, a = alpha }
-					)
-				else
-					F.DebugPrint("Armory Lines >> Left or Right gradient not found", "error")
-				end
-			else
-				F.DebugPrint("Armory Lines >> Gradient color map not found", "error")
-			end
 		end
 	else
 		top:SetColorTexture(0, 0, 0, 0)

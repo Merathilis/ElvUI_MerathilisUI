@@ -1,6 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local options = MER.options.modules.args
+local module = MER:GetModule("MER_Options") ---@class Options
 local CM = MER:GetModule("MER_CooldownManager")
+
+local options = module.options.modules.args
 
 options.blizzard = {
 	type = "group",
