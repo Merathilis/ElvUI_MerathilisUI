@@ -1,7 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_VehicleBar")
-local options = MER.options.modules.args
+local module = MER:GetModule("MER_Options") ---@class Options
 local LSM = E.Libs.LSM
+
+local options = module.options.modules.args
 
 options.vehicleBar = {
 	type = "group",

@@ -229,6 +229,9 @@ F.AddMedia("texture", "Line4pixel", "4Pixel", "statusbar")
 F.AddMedia("texture", "Asphyxia", "Asphyxia", "statusbar")
 F.AddMedia("texture", "MER_Stripes", "MER_Stripes", "statusbar")
 F.AddMedia("texture", "WorldState-Score", "WorldStateScore", "statusbar")
+F.AddMedia("texture", "MER_Middle", "- MER Mid", "statusbar")
+F.AddMedia("texture", "MER_Left", "- MER Left", "statusbar")
+F.AddMedia("texture", "MER_Right", "- MER Right", "statusbar")
 
 -- Sounds
 LSM:Register("sound", "OnePlus Light", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\OnePlusLight.ogg]])

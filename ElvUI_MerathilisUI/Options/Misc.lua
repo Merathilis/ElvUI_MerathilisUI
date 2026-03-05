@@ -1,7 +1,9 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local options = MER.options.misc.args
+local module = MER:GetModule("MER_Options") ---@class Options
 local MI = MER:GetModule("MER_Misc")
 local RIF = MER:GetModule("MER_RaidInfoFrame")
+
+local options = module.options.misc.args
 
 options.general = {
 	order = 1,

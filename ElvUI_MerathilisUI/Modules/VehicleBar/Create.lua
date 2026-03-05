@@ -95,7 +95,7 @@ function module:CreateVigorSegments()
 		leftColor = CreateColor(customLeft.r, customLeft.g, customLeft.b, 1)
 		rightColor = CreateColor(customRight.r, customRight.g, customRight.b, 1)
 	elseif E.db.mui.gradient.enable then
-		local colorMap = E.db.mui.themes.classColorMap
+		local colorMap = E.db.mui.themes.gradientMode.classColorMap
 
 		local left = colorMap[1][E.myclass]
 		local right = colorMap[2][E.myclass]

@@ -1,6 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Profiles")
-local options = MER.options.profiles.args
+local module = MER:GetModule("MER_Options") ---@class Options
+local Profile = MER:GetModule("MER_Profiles")
+
+local options = module.options.profiles.args
 
 local ipairs, unpack = ipairs, unpack
 
@@ -51,7 +53,7 @@ options.generalGroup = {
 			name = Ok .. F.String.Good(L[" Apply"]),
 			desc = L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."],
 			func = function()
-				module:ApplyFontChange()
+				Profile:ApplyFontChange()
 			end,
 		},
 		resetButton = {
@@ -64,7 +66,7 @@ options.generalGroup = {
 				E:CopyTable(E.db.mui.general.fontStyleOverride, P.general.fontStyleOverride)
 				E:CopyTable(E.db.mui.general.fontShadowOverride, P.general.fontShadowOverride)
 
-				module:ApplyFontChange()
+				Profile:ApplyFontChange()
 			end,
 		},
 		spacer = {
@@ -129,17 +131,17 @@ for _, v in ipairs(SupportedProfiles) do
 		desc = L["This will create and apply profile for "] .. addonName,
 		func = function()
 			if addon == "BigWigs" then
-				module:ApplyBigWigsProfile()
+				Profile:ApplyBigWigsProfile()
 			elseif addon == "Capping" then
-				module:ApplyCappingProfile()
+				Profile:ApplyCappingProfile()
 			elseif addon == "Details" then
-				module:ApplyAddOnSkinsProfile()
+				Profile:ApplyDetailsProfile()
 			elseif addon == "ls_Toasts" then
-				module:ApplyLSProfile()
+				Profile:ApplyLSProfile()
 			elseif addon == "TomTom" then
-				module:ApplyTomTomProfile()
+				Profile:ApplyTomTomProfile()
 			elseif addon == "ElvUI_WindTools" then
-				module:ApplyWindToolsProfile()
+				Profile:ApplyWindToolsProfile()
 			end
 		end,
 		disabled = function()

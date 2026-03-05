@@ -108,6 +108,7 @@ MER.Modules.Misc = MER:NewModule("MER_Misc", "AceEvent-3.0", "AceHook-3.0", "Ace
 MER.Modules.NameHover = MER:NewModule("MER_NameHover")
 MER.Modules.NamePlates = MER:NewModule("MER_NamePlates", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Notification = MER:NewModule("MER_Notification", "AceEvent-3.0")
+MER.Modules.Options = MER:NewModule("MER_Options")
 MER.Modules.Panels = MER:NewModule("MER_Panels")
 MER.Modules.PetBattleScripts = MER:NewModule("MER_PetBattleScripts")
 MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0")
@@ -117,6 +118,7 @@ MER.Modules.RaidInfoFrame = MER:NewModule("MER_RaidInfoFrame")
 MER.Modules.Skins = MER:NewModule("MER_Skins", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.SplashScreen = MER:NewModule("MER_SplashScreen", "AceTimer-3.0")
 MER.Modules.Style = MER:NewModule("MER_Style", "AceHook-3.0")
+MER.Modules.Theme = MER:NewModule("MER_Theme", "AceHook-3.0")
 MER.Modules.Tooltip = MER:NewModule("MER_Tooltip", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
@@ -191,7 +193,9 @@ function MER:Initialize()
 	self:AddMoverCategories()
 
 	-- To avoid the update tips from ElvUI when alpha/beta versions are used
-	EP:RegisterPlugin(addon, MER.OptionsCallback, false, xVersionString)
+	EP:RegisterPlugin(addon, function()
+		return self:GetModule("MER_Options"):OptionsCallback(false, xVersionString)
+	end)
 
 	-- Fix the bug that locale files loaded after option table is created
 	local pluginTitle = L["Plugins"]

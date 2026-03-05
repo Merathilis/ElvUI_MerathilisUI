@@ -1,6 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local options = MER.options.modules.args
-local MERBI = MER:GetModule("MER_BagInfo")
+local module = MER:GetModule("MER_Options") ---@class Options
+
+local options = module.options.modules.args
 
 options.bags = {
 	type = "group",

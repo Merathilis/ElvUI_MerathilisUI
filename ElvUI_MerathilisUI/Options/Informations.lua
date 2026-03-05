@@ -1,7 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 local C = W.Utilities.Color
 
-local options = MER.options.information.args
+local options = module.options.information.args
 
 local unpack = unpack
 local tconcat, tsort = table.concat, table.sort
@@ -285,13 +286,6 @@ do
 	end
 end
 
-local function Color(string)
-	if type(string) ~= "string" then
-		string = tostring(string)
-	end
-	return C.StringWithRGB(string, E.db.general.valuecolor)
-end
-
 options.changelog = {
 	order = 2,
 	type = "group",
@@ -307,15 +301,16 @@ options.changelog = {
 }
 
 local function renderChangeLogLine(line)
-	line = gsub(line, "%[!%]", E.NewSign)
-	line = gsub(line, "%[[^%[]+%]", Color)
+	line = gsub(line, "%[[^%[]+%]", function(text)
+		return C.StringByTemplate(text, "blue-500")
+	end)
 	return line
 end
 
 for version, data in pairs(MER.Changelog) do
 	local versionString = format("%d.%02d", version / 100, mod(version, 100))
 	local changelogVer = tonumber(versionString)
-	local addonVer = tonumber(MER.Version)
+	local addonVer = MER.Version and tonumber(MER.Version) or 0
 	local dateTable = { strsplit("/", data.RELEASE_DATE) }
 	local dateString = data.RELEASE_DATE
 	if #dateTable == 3 then

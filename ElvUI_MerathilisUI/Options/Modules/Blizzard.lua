@@ -1,10 +1,12 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local options = MER.options.modules.args
+local module = MER:GetModule("MER_Options") ---@class Options
 local CM = MER:GetModule("MER_CooldownManager")
+
+local options = module.options.modules.args
 
 options.blizzard = {
 	type = "group",
-	name = E.NewSign .. L["Blizzard"],
+	name = L["Blizzard"],
 	args = {
 		header = {
 			order = 0,
@@ -14,7 +16,7 @@ options.blizzard = {
 		cooldownManager = {
 			order = 1,
 			type = "group",
-			name = E.NewSign .. F.cOption(L["Cooldown Manager"], "orange"),
+			name = F.cOption(L["Cooldown Manager"], "orange"),
 			args = {
 				header = {
 					order = 0,

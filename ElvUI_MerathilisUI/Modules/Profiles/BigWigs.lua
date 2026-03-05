@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
+local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 -- Runs after successful profile import
 local function CallbackFunction(accepted)
@@ -35,7 +36,7 @@ function module:LoadBigWigsProfile()
 end
 
 function module:ApplyBigWigsProfile()
-	module:Wrap("Applying BigWigs Profile ...", function()
+	Splash:Wrap("Applying BigWigs Profile ...", function()
 		-- Apply Fonts
 		self:LoadBigWigsProfile()
 
@@ -44,7 +45,7 @@ function module:ApplyBigWigsProfile()
 
 		-- execute elvui update, callback later
 		self:ExecuteElvUIUpdate(function()
-			module:Hide()
+			Splash:Hide()
 
 			F.Event.TriggerEvent("MER.DatabaseUpdate")
 		end, true)

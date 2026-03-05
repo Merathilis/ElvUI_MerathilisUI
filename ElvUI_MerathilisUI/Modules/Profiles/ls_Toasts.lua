@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
+local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 function module:LoadLSProfile()
 	local profileName = I.ProfileNames.Default
@@ -109,7 +110,7 @@ function module:ApplyLSProfile()
 		return
 	end
 
-	module:Wrap("Applying ls_Toasts Profile ...", function()
+	Splash:Wrap("Applying ls_Toasts Profile ...", function()
 		local LE, LC = unpack(_G.ls_Toasts)
 		LE:RegisterCallback("ToastCreated", self.LoadLSProfile)
 
@@ -122,7 +123,7 @@ function module:ApplyLSProfile()
 
 		-- execute elvui update, callback later
 		self:ExecuteElvUIUpdate(function()
-			module:Hide()
+			Splash:Hide()
 
 			F.Event.TriggerEvent("MER.DatabaseUpdate")
 		end, true)

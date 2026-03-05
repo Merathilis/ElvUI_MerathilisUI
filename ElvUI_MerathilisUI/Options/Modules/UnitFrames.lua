@@ -1,9 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_UnitFrames")
-local options = MER.options.modules.args
-local LSM = E.Libs.LSM
+local module = MER:GetModule("MER_Options") ---@class Options
+local MUF = MER:GetModule("MER_UnitFrames")
 
-local format = string.format
+local options = module.options.modules.args
 
 local form = {
 	SQ = L["Old"] .. " " .. L["Drop"],
@@ -73,7 +72,7 @@ local sizeString = ":16:16:0:0:64:64:4:60:4:60"
 
 options.unitframes = {
 	type = "group",
-	name = E.NewSign .. L["UnitFrames"],
+	name = L["UnitFrames"],
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.unitframes[info[#info]]
@@ -185,7 +184,7 @@ options.unitframes = {
 		portraits = {
 			order = 5,
 			type = "group",
-			name = E.NewSign .. L["Portraits"],
+			name = L["Portraits"],
 			disabled = function()
 				return not E.private.unitframe.enable
 			end,
@@ -219,7 +218,7 @@ options.unitframes = {
 					end,
 					set = function(_, value)
 						E.db.mui.portraits.general.enable = value
-						module:Portraits()
+						MUF:Portraits()
 						E:StaticPopup_Show("CONFIG_RL")
 					end,
 				},
@@ -263,7 +262,7 @@ options.unitframes = {
 								-- end,
 								-- set = function(_, value)
 								-- E.db.mui.portraits.general.classiconstyle = value
-								-- module:Portraits(true)
+								-- MUF:Portraits(true)
 								-- E:StaticPopup_Show("CONFIG_RL")
 								-- end,
 								-- values = ClassIconStyle,
@@ -285,7 +284,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.gradient = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								select_gradient = {
@@ -300,7 +299,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.ori = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = {
 										HORIZONTAL = "HORIZONTAL",
@@ -329,7 +328,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.trilinear = value
-										module:Portraits()
+										MUF:Portraits()
 										E:StaticPopup_Show("CONFIG_RL")
 									end,
 								},
@@ -342,7 +341,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.desaturation = value
-										module:Portraits()
+										MUF:Portraits()
 										E:StaticPopup_Show("CONFIG_RL")
 									end,
 								},
@@ -375,7 +374,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.style = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = style,
 								},
@@ -388,7 +387,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.corner = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -423,7 +422,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.extra.rare = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = extraStyle,
 								},
@@ -436,7 +435,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.extra.elite = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = extraStyle,
 								},
@@ -449,7 +448,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.extra.boss = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = extraStyle,
 								},
@@ -462,7 +461,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.usetexturecolor = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -482,7 +481,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.bgstyle = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = {
 										[1] = L["Style"] .. " 1",
@@ -509,7 +508,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.custom.enable = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								spacer_texture1 = {
@@ -1054,7 +1053,7 @@ options.unitframes = {
 							end,
 							set = function(_, value)
 								E.db.mui.portraits.zoom = value
-								module:Portraits()
+								MUF:Portraits()
 							end,
 						},
 					},
@@ -1074,7 +1073,7 @@ options.unitframes = {
 							end,
 							set = function(_, value)
 								E.db.mui.portraits.player.enable = value
-								module:Portraits()
+								MUF:Portraits()
 							end,
 						},
 						general = {
@@ -1092,7 +1091,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.player.texture = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = form,
 								},
@@ -1110,7 +1109,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.player.size = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								toggle_cast = {
@@ -1123,7 +1122,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.player.cast = value
-										module:Portraits(true)
+										MUF:Portraits(true)
 										E:StaticPopup_Show("CONFIG_RL")
 									end,
 								},
@@ -1154,7 +1153,7 @@ options.unitframes = {
 											E.db.mui.portraits.player.point = value
 											E.db.mui.portraits.player.mirror = false
 										end
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = {
 										LEFT = "LEFT",
@@ -1176,7 +1175,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.player.x = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								range_ofsY = {
@@ -1193,7 +1192,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.player.y = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1213,7 +1212,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.player.strata = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = frameStrata,
 								},
@@ -1231,7 +1230,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.player.level = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1253,7 +1252,7 @@ options.unitframes = {
 							end,
 							set = function(_, value)
 								E.db.mui.portraits.target.enable = value
-								module:Portraits()
+								MUF:Portraits()
 							end,
 						},
 						general = {
@@ -1271,7 +1270,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.target.texture = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = form,
 								},
@@ -1289,7 +1288,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.target.size = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								toggle_extra = {
@@ -1301,7 +1300,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.target.extraEnable = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								toggle_cast = {
@@ -1314,7 +1313,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.target.cast = value
-										module:Portraits(true)
+										MUF:Portraits(true)
 										E:StaticPopup_Show("CONFIG_RL")
 									end,
 								},
@@ -1345,7 +1344,7 @@ options.unitframes = {
 											E.db.mui.portraits.target.point = value
 											E.db.mui.portraits.target.mirror = false
 										end
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = {
 										LEFT = "LEFT",
@@ -1367,7 +1366,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.target.x = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								range_ofsY = {
@@ -1384,7 +1383,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.target.y = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1404,7 +1403,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.target.strata = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = frameStrata,
 								},
@@ -1422,7 +1421,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.target.level = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1444,7 +1443,7 @@ options.unitframes = {
 							end,
 							set = function(_, value)
 								E.db.mui.portraits.pet.enable = value
-								module:Portraits()
+								MUF:Portraits()
 							end,
 						},
 						general = {
@@ -1462,7 +1461,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.pet.texture = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = form,
 								},
@@ -1480,7 +1479,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.pet.size = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1510,7 +1509,7 @@ options.unitframes = {
 											E.db.mui.portraits.pet.point = value
 											E.db.mui.portraits.pet.mirror = false
 										end
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = {
 										LEFT = "LEFT",
@@ -1532,7 +1531,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.pet.x = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								range_ofsY = {
@@ -1549,7 +1548,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.pet.y = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1569,7 +1568,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.pet.strata = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 									values = frameStrata,
 								},
@@ -1587,7 +1586,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.pet.level = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1615,7 +1614,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.shadow.enable = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								color_shadow = {
@@ -1630,7 +1629,7 @@ options.unitframes = {
 									set = function(_, r, g, b, a)
 										local t = E.db.mui.portraits.shadow.color
 										t.r, t.g, t.b, t.a = r, g, b, a
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1651,7 +1650,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.shadow.inner = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								color_inner = {
@@ -1666,7 +1665,7 @@ options.unitframes = {
 									set = function(_, r, g, b, a)
 										local t = E.db.mui.portraits.shadow.innerColor
 										t.r, t.g, t.b, t.a = r, g, b, a
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -1689,7 +1688,7 @@ options.unitframes = {
 									type = "execute",
 									name = L["Apply"],
 									func = function()
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								toggle_default = {
@@ -1702,7 +1701,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.default = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								toggle_reaction = {
@@ -1715,7 +1714,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.reaction = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
@@ -2519,7 +2518,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.general.deathcolor = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								dead_color = {
@@ -2575,7 +2574,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.shadow.border = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								default_color = {
@@ -2683,7 +2682,7 @@ options.unitframes = {
 									set = function(_, r, g, b, a)
 										local t = E.db.mui.portraits.shadow.background
 										t.r, t.g, t.b, t.a = r, g, b, a
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								toggle_classbg = {
@@ -2696,7 +2695,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.shadow.classBG = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 								range_bgColorShift = {
@@ -2713,7 +2712,7 @@ options.unitframes = {
 									end,
 									set = function(_, value)
 										E.db.mui.portraits.shadow.bgColorShift = value
-										module:Portraits()
+										MUF:Portraits()
 									end,
 								},
 							},
