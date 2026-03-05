@@ -1,5 +1,7 @@
 ### Changes ###
 
-  * [Install]: Dont use some weird position code for the position of some elements
-  * [Gradient]: Remove the gradient option and code for now. I don't have the time or energy to deal with it for now
+  * [Install]: Fix some install errors
+  * [Skins]: Fix KeystoneLoot Skin
+  * [Gradient 2.0]: Added a new Gradient Module without headache for me and more options
+  * [Core]: Some internal code restructure
 
