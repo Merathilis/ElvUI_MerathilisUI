@@ -10,7 +10,7 @@ local coroutine = coroutine
 local format, gsub, match = string.format, string.gsub, string.match
 local strfind, strmatch, strsplit, strlen, strsub = strfind, strmatch, strsplit, strlen, strsub
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
-local max, min, modf = math.max, math.min, math.modf
+local abs, max, min, modf = math.abs, math.max, math.min, math.modf
 local len, utf8sub = string.len, string.utf8sub
 local tcontains = tContains
 
@@ -226,12 +226,22 @@ function F.CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
-function F.AlmostEqual(a, b)
-	if not a or not b then
+function F.AlmostEqual(a, b, epsilon)
+	epsilon = epsilon or 0.001
+
+	if type(a) ~= "number" or type(b) ~= "number" then
 		return false
 	end
 
-	return abs(a - b) <= 0.001
+	local success, diff = pcall(function()
+		return abs(a - b)
+	end)
+
+	if success then
+		return diff < epsilon
+	else
+		return false
+	end
 end
 
 function F.PerfectScale(n)

@@ -2,6 +2,7 @@
 	<Script file="Core.lua"/>
 	<Include file="ElvUI\Load_ElvUI.xml"/>
 
+	<Script file="BetterCooldownManager.lua"/>
 	<Script file="BigWigs.lua"/>
 	<Script file="Capping.lua"/>
 	<Script file="Details.lua"/>
