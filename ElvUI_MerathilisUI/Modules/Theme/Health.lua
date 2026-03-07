@@ -11,10 +11,10 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
 local UnitPlayerControlled = UnitPlayerControlled
 local UnitReaction = UnitReaction
-local UnitTreatAsPlayerForDisplay = UnitTreatAsPlayerForDisplay
+local UnitInPartyIsAI = UnitInPartyIsAI
 
 function module:GetHealthColor(frame, unit)
-	local isPlayer = UnitIsPlayer(unit) or UnitTreatAsPlayerForDisplay(unit)
+	local isPlayer = UnitIsPlayer(unit) or UnitInPartyIsAI(unit)
 
 	if isPlayer and not UnitIsConnected(unit) then
 		return "specialColorMap", "DISCONNECTED"
