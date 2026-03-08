@@ -58,10 +58,12 @@ function module:LoadWindToolsProfile()
 	private["maps"]["minimapButtons"]["buttonsPerRow"] = 7
 	private["maps"]["minimapButtons"]["mouseOver"] = true
 	private["maps"]["superTracker"]["enable"] = true
-	private["misc"]["autoToggleChatBubble"] = true
+	private["misc"]["autoToggleChatBubble"] = false
 	private["quest"]["objectiveTracker"]["enable"] = true
+	private["quest"]["objectiveTracker"]["header"]["uppercase"] = true
 	private["quest"]["objectiveTracker"]["info"]["size"] = 11
 	private["quest"]["objectiveTracker"]["info"]["style"] = "SHADOWOUTLINE"
+	private["quest"]["objectiveTracker"]["poiButton"]["enable"] = true
 	private["skins"]["widgets"]["button"]["enable"] = true
 	private["skins"]["widgets"]["checkBox"]["enable"] = true
 	private["skins"]["widgets"]["tab"]["enable"] = true

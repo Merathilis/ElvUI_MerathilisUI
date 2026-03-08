@@ -27,10 +27,6 @@ local C_CVar_GetCVar = C_CVar.GetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
-local function isCooldownViewerEnabled()
-	return C_CVar_GetCVar("cooldownViewerEnabled") == "1"
-end
-
 local IsInstalled = false
 local function InstallComplete(fishished)
 	E.private.install_complete = E.version
@@ -877,6 +873,43 @@ function MER:SetupActionbars()
 	PluginInstallStepComplete:Show()
 end
 
+local NP_Auras = {
+	height = 20,
+	keepSizeRatio = false,
+	size = 30,
+	xOffset = 10,
+}
+
+local NP_Debuffs = {
+	anchorPoint = "TOPLEFT",
+	growthX = "RIGHT",
+	keepSizeRatio = false,
+	size = 30,
+	height = 20,
+	xOffset = 10,
+	yOffset = 33,
+	spacing = 2,
+	numAuras = 8,
+	font = "- Expressway",
+	countFont = "- Expressway",
+	countFontOutline = "SHADOWOUTLINE",
+	countFontSize = 8,
+}
+
+local NP_Buffs = {
+	size = 30,
+	height = 20,
+	keepSizeRatio = false,
+	yOffset = 13,
+	font = "- Expressway",
+	fontSize = 11,
+	countFont = "- Expressway",
+	countFontOutline = "SHADOWOUTLINE",
+	countFontSize = 9,
+	durationPosition = "CENTER",
+	priority = "Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit",
+}
+
 function MER:SetupNamePlates()
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
@@ -911,22 +944,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = "[name:abbrev:medium]"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["yOffset"] = 2
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["font"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFont"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["durationPosition"] = "CENTER"
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["font"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["durationPosition"] = "CENTER"
+	E.db["nameplates"]["units"]["PLAYER"]["auras"] = NP_Auras
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"] = NP_Buffs
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"] = NP_Debuffs
 	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["PLAYER"]["level"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["font"] = "- GothamNarrow-Black"
@@ -948,22 +968,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["yOffset"] = 13
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["font"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFont"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["durationPosition"] = "CENTER"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["durationPosition"] = "CENTER"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["auras"] = NP_Auras
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"] = NP_Buffs
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"] = NP_Debuffs
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["yOffset"] = -9
@@ -994,22 +1001,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["yOffset"] = 2
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["font"] = "- Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["durationPosition"] = "CENTER"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["font"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["durationPosition"] = "CENTER"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["auras"] = NP_Auras
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"] = NP_Buffs
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"] = NP_Debuffs
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "- GothamNarrow-Black"
@@ -1038,22 +1032,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["font"] = "- Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["yOffset"] = 13
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["font"] = "- Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFont"] = "- Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["countFontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["durationPosition"] = "CENTER"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["font"] = "- Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFont"] = "- Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["durationPosition"] = "CENTER"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["auras"] = NP_Auras
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"] = NP_Buffs
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"] = NP_Debuffs
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["yOffset"] = -9
@@ -1101,28 +1082,9 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = "- Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFont"] = "- Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["durationPosition"] = "CENTER"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["priority"] =
-		"Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 26
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 2
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontOutline"] = "OUTLINE"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["durationPosition"] = "CENTER"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["keepSizeRatio"] = false
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["auras"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["auras"] = NP_Auras
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"] = NP_Buffs
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"] = NP_Debuffs
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 10
@@ -1158,7 +1120,9 @@ function MER:SetupNamePlates()
 
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
-	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style1"
+	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style7"
+	E.db["nameplates"]["units"]["TARGET"]["arrowScale"] = 0.35
+	E.db["nameplates"]["units"]["TARGET"]["arrowSpacing"] = 0
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
@@ -2288,8 +2252,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 
 	-- Movers
-	E.db["movers"]["ElvUF_PlayerMover"] = isCooldownViewerEnabled() and "BOTTOM,UIParent,BOTTOM,-290,296"
-		or "BOTTOM,UIParent,BOTTOM,-245,296"
+	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,UIParent,BOTTOM,-248,296"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,UIParent,BOTTOM,0,49"
 	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,UIParent,BOTTOM,0,296"
 	if E.myclass == "DRUID" then
@@ -2298,15 +2261,10 @@ function MER:SetupUnitframes(layout)
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,UIParent,BOTTOM,0,318"
 	end
 	E.db["movers"]["AdditionalPowerMover"] = "BOTTOM,UIParent,BOTTOM,0,319"
-	E.db["movers"]["ElvUF_TargetMover"] = isCooldownViewerEnabled() and "BOTTOM,UIParent,BOTTOM,290,296"
-		or "BOTTOM,UIParent,BOTTOM,245,296"
-	E.db["movers"]["ElvUF_TargetCastbarMover"] = isCooldownViewerEnabled() and "BOTTOM,UIParent,BOTTOM,290,277"
-		or "BOTTOM,UIParent,BOTTOM,245,277"
-	E.db["movers"]["ElvUF_FocusMover"] = isCooldownViewerEnabled() and "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-480,352"
-		or "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-531,352"
-	E.db["movers"]["ElvUF_FocusCastbarMover"] = isCooldownViewerEnabled()
-			and "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-480,374"
-		or "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-531,374"
+	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,UIParent,BOTTOM,248,296"
+	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,UIParent,BOTTOM,248,277"
+	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-5,352"
+	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-531,374"
 	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-513,277"
 	E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,2,215"
 	E.db["movers"]["ElvUF_Raid2Mover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,2,215"
@@ -2317,20 +2275,9 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-305,-305"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,UIParent,BOTTOMLEFT,0,808"
-
-	if E.db.mui.portraits.general.enable then
-		E.db["movers"]["ElvUF_TargetTargetMover"] = isCooldownViewerEnabled()
-				and "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-480,269"
-			or "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-531,269"
-		E.db["movers"]["ElvUF_PetMover"] = isCooldownViewerEnabled() and "BOTTOMLEFT,UIParent,BOTTOMLEFT,531,269"
-			or "BOTTOMLEFT,UIParent,BOTTOMLEFT,480,209"
-		E.db["movers"]["ElvUF_PetCastbarMover"] = isCooldownViewerEnabled() and "BOTTOMLEFT,UIParent,BOTTOMLEFT,531,258"
-			or "BOTTOMLEFT,UIParent,BOTTOMLEFT,480,200"
-	else
-		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-540,209"
-		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,540,209"
-		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,540,200"
-	end
+	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-524,269"
+	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,524,269"
+	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,524,258"
 
 	if layout == "gradient" then
 		MER:GetModule("MER_Theme"):Toggle("gradientMode", true)
