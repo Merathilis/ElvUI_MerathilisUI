@@ -1163,7 +1163,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
 		E.db["unitframe"]["colors"]["classbackdrop"] = false
 	elseif layout == "dark" then
-		E.db["unitframe"]["colors"]["transparentHealth"] = true
+		E.db["unitframe"]["colors"]["transparentHealth"] = false
 		E.db["unitframe"]["colors"]["healthclass"] = false
 		E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
 		E.db["unitframe"]["colors"]["classbackdrop"] = true

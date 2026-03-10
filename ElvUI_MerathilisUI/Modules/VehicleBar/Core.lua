@@ -156,7 +156,7 @@ function module:Enable()
 	RegisterStateDriver(
 		self.bar,
 		"visibility",
-		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]" or "")
+		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]")
 	)
 
 	if self.db.hideElvUIBars then

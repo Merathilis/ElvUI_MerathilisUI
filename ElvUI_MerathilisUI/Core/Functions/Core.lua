@@ -1638,7 +1638,7 @@ function F.CanInterruptEvaluation()
 			if not interruptCD or (tmpInterruptCD < interruptCD) then
 				interruptCD = tmpInterruptCD
 			end
-		elseif FindSpellOverrideByID(119898) then -- Check if WL has the command ability
+		elseif C_SpellBook.FindSpellOverrideByID(119898) then -- Check if WL has the command ability
 			local cdStart, cdDur
 			if TXUI.IsRetail then
 				local cd = GetSpellCooldown(interruptSpellId)

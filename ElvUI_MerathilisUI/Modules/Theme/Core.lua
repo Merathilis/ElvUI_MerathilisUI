@@ -14,12 +14,16 @@ function module:Toggle(theme, value)
 	if theme == "gradientMode" then
 		E.db.mui.themes.gradientMode.enable = value
 
+		E.db.unitframe.colors.healthclass = true
+
 		-- apply texture settings
 		pf:UpdateProfileForGradient()
 
 		F.Event.TriggerEvent("MER_Theme.DatabaseUpdate")
 	elseif theme == "darkMode" then
 		E.db.mui.themes.gradientMode.enable = false
+
+		E.db.unitframe.colors.healthclass = false
 
 		pf:UpdateProfileForTheme()
 	end
@@ -219,7 +223,6 @@ function module:Enable()
 
 	F.EventManagerRegister(self.interruptNamespace, "LEARNED_SPELL_IN_SKILL_LINE", F.CheckInterruptSpells)
 
-	-- Update!
 	self.uf:Update_AllFrames()
 end
 
