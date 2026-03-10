@@ -62,6 +62,13 @@ function MER:UpdateScripts()
 		UpdateMessage(L["Gradient"] .. ": " .. L["Update Database"], profileVersion)
 	end
 
+	if profileVersion < 7.15 then
+		if E.db.mui and E.db.mui.cooldownManager then
+			E.db.mui.cooldownManager = nil
+		end
+		UpdateMessage(L["Cooldown Manager"] .. ": " .. L["Update Database"], profileVersion)
+	end
+
 	if not isFirstLine then
 		WF.PrintGradientLine()
 	end

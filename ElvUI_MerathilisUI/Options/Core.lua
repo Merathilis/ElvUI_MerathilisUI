@@ -159,12 +159,12 @@ function module:GetEnableName(check, group)
 	local enabled = self:GetEnabledState(check, group)
 
 	if enabled == self.enabledState.YES then
-		return F.String.Good("Enabled")
+		return F.String.Good("Enable")
 	elseif enabled == self.enabledState.NO then
-		return F.String.Error("Disabled")
+		return F.String.Error("Disable")
 	end
 
-	return "Disabled"
+	return "Disable"
 end
 
 function module:AddGroup(options, others)
