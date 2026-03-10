@@ -134,11 +134,11 @@ P.themes = {
 
 			assisttarget = I.Enum.GradientMode.Direction.RIGHT,
 			tanktarget = I.Enum.GradientMode.Direction.RIGHT,
-			target = I.Enum.GradientMode.Direction.RIGHT,
-			targettarget = I.Enum.GradientMode.Direction.RIGHT,
+			target = I.Enum.GradientMode.Direction.LEFT,
+			targettarget = I.Enum.GradientMode.Direction.LEFT,
 			arena = I.Enum.GradientMode.Direction.RIGHT,
-			boss = I.Enum.GradientMode.Direction.RIGHT,
-			focus = I.Enum.GradientMode.Direction.RIGHT,
+			boss = I.Enum.GradientMode.Direction.LEFT,
+			focus = I.Enum.GradientMode.Direction.LEFT,
 		},
 
 		interruptCDEnabled = false,
