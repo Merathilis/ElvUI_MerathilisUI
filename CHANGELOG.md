@@ -1,7 +1,7 @@
 ### Changes ###
 
-  * [Install]: Fix some install errors
-  * [Skins]: Fix KeystoneLoot Skin
-  * [Gradient 2.0]: Added a new Gradient Module without headache for me and more options
-  * [Core]: Some internal code restructure
+  * [CDM]: Removed Cooldown Manger Addition
+  * [Skins]: Added a profile for BetterCooldownManager
+  * [Install]: Small install changes
+  * [Gradient]: Change the Direction from the GradientMode for Target, TargetTarget, Focus, Boss Frames
 
