@@ -162,12 +162,29 @@ function module:UpdateStatusBars()
 	end
 end
 
+-- Needed for gradientMode
+function module:ForceSettings()
+	E.db.unitframe.colors.healthclass = true
+	E.db.unitframe.units.player.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.target.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.targettarget.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.focus.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.raid1.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.raid2.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.raid3.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.party.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.pet.colorOverride = "USE_DEFAULT"
+end
+
 function module:SettingsUpdate()
 	-- Clear cache
 	self.updateCache = {}
 
 	-- Regenerate Colors
 	F.Color.GenerateCache()
+
+	-- ForceSettings
+	self:ForceSettings()
 
 	-- Refresh fade directions for all registered frames
 	for frame in pairs(self.settingsEvents) do
