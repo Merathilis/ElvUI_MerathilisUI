@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Core.lua"/>
 	<Script file="API.lua"/>
+	<Include file="Blizzard\Load_Blizzard.xml"/>
 	<Include file="Extern\Load_Extern.xml"/>
 </Ui>

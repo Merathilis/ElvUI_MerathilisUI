@@ -20,6 +20,10 @@ function module:LoadWindToolsProfile()
 	db["combat"]["combatAlert"]["enable"] = true
 	db["combat"]["combatAlert"]["text"] = true
 	db["combat"]["raidMarkers"]["enable"] = false
+	db["combat"]["damageMeterLayout"]["enable"] = true
+	db["combat"]["damageMeterLayout"]["width"] = 338
+	db["combat"]["damageMeterLayout"]["height"] = 160
+	db["combat"]["damageMeterLayout"]["layouts"][1]["outerPadding"] = 1
 	db["item"]["alreadyKnown"]["enable"] = true
 	db["item"]["extraItemsBar"]["bar1"]["backdropSpacing"] = 1
 	db["item"]["extraItemsBar"]["bar1"]["buttonHeight"] = 26
@@ -82,6 +86,8 @@ function module:LoadWindToolsProfile()
 
 	E.db.movers["WTInstanceDifficultyFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-197,-43"
 	E.db.movers["WTCombatAlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-300"
+
+	E.db.movers["WTDamageMeterLayoutMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-4,47"
 end
 
 function module:ApplyWindToolsProfile()

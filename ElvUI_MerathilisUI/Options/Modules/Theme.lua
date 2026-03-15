@@ -12,7 +12,7 @@ local PowerBarColor = _G.PowerBarColor
 
 options.theme = {
 	type = "group",
-	name = E.NewSign .. L["Theme"],
+	name = L["Theme"],
 	get = function(info)
 		return E.db.mui.themes[info[#info]]
 	end,
