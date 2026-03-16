@@ -285,20 +285,6 @@ function MER:CheckCompatibility()
 		"db.sle.unitframes.roleIcons.enable"
 	)
 
-	CheckEltruism(
-		L["Gradient"],
-		L["Enable Gradient Nameplates"],
-		"db.mui.nameplates.gradient",
-		"db.ElvUI_EltreumUI.unitframes.gradientmode.npenable"
-	)
-
-	CheckEltruism(
-		L["Power"],
-		format("%s-%s", L["Models"], L["Enable Models/Effects"]),
-		"db.mui.unitframes.power.enable",
-		"db.ElvUI_EltreumUI.unitframes.models.unitframe"
-	)
-
 	if self.CompatibilityFrame.numModules > 0 then
 		self.CompatibilityFrame:Show()
 	end
