@@ -36,7 +36,8 @@ function module:SpawnToast(toast)
 		return false
 	end
 
-	if UnitIsAFK("player") then
+	local afk = UnitIsAFK("player")
+	if E:NotSecretValue(afk) and afk then
 		tinsert(queuedToasts, toast)
 		self:RegisterEvent("PLAYER_FLAGS_CHANGED")
 
