@@ -142,6 +142,15 @@ options.Notification = {
 					name = F.cOption(L["Debug Print"], "red"),
 					desc = L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"],
 				},
+				timeOut = {
+					order = 4,
+					type = "range",
+					name = L["Time Out"],
+					desc = L["How long a vignette of the same time should not be notified. In seconds"],
+					min = 5,
+					max = 120,
+					step = 1,
+				},
 			},
 		},
 		fontSettings = {
@@ -230,7 +239,7 @@ do
 	local tempID
 
 	options.Notification.args.vignette.args.blacklist = {
-		order = 4,
+		order = 5,
 		type = "group",
 		inline = true,
 		name = L["Blacklist"],
