@@ -2,6 +2,11 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
 
+local _G = _G
+local pairs = pairs
+
+local hooksecurefunc = hooksecurefunc
+
 local function DisableTexture(button)
 	for _, func in pairs({
 		"SetNormalTexture",
@@ -63,7 +68,7 @@ local function HandleChatFrame(frame)
 
 	frame.circle = frame:CreateTexture(nil, "BACKGROUND")
 	frame.circle:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles")
-	frame.circle:SetSize(40, 40)
+	frame.circle:Size(40)
 	frame.circle:Point("TOPLEFT", 2, -2)
 	frame.circle:Hide()
 
@@ -115,6 +120,19 @@ local function HandleWindow()
 	end
 end
 
+local function HandleGroups(frame)
+	if not frame then
+		return
+	end
+
+	for _, group in pairs(frame.groups) do
+		group:SetBackdrop(nil)
+		group.title:SetPoint("TOPLEFT", 10, -8)
+		group.title:SetPoint("TOPRIGHT", -10, -8)
+	end
+	frame:SetTemplate("Transparent")
+end
+
 function module:WIM()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wim then
 		return
@@ -135,6 +153,7 @@ function module:WIM()
 	hooksecurefunc(WIM, "CreateChatWindow", HandleWindow)
 	hooksecurefunc(WIM, "CreateW2WWindow", HandleWindow)
 	hooksecurefunc(WIM, "ShowDemoWindow", HandleWindow)
+	hooksecurefunc(WIM.Menu, "Show", HandleGroups)
 end
 
 module:AddCallbackForAddon("WIM")
