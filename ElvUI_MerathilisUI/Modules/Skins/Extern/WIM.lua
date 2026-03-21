@@ -125,10 +125,10 @@ function module:WIM()
 		return
 	end
 
-	local menu = _G["WIM3Menu"]
-	if menu then
-		menu:StripTextures()
-		menu:CreateBackdrop("Transparent")
+	local minimap = _G.WIM3MinimapButton
+	if minimap then
+		minimap.backGround:SetTexture("")
+		minimap:DisableDrawLayer("OVERLAY")
 	end
 
 	hooksecurefunc(WIM, "CreateWhisperWindow", HandleWindow)

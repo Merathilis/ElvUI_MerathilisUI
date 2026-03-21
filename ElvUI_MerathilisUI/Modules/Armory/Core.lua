@@ -30,14 +30,14 @@ module.colors = {
 module.characterSlots = {
 	["HeadSlot"] = {
 		id = 1,
-		needsEnchant = false,
+		needsEnchant = true,
 		needsSocket = false,
 		direction = module.enumDirection.LEFT,
 	},
 	["NeckSlot"] = {
 		id = 2,
 		needsEnchant = false,
-		needsSocket = true,
+		needsSocket = false,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
@@ -45,13 +45,13 @@ module.characterSlots = {
 	},
 	["ShoulderSlot"] = {
 		id = 3,
-		needsEnchant = false,
+		needsEnchant = true,
 		needsSocket = false,
 		direction = module.enumDirection.LEFT,
 	},
 	["BackSlot"] = {
 		id = 15,
-		needsEnchant = true,
+		needsEnchant = false,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
@@ -81,7 +81,7 @@ module.characterSlots = {
 	},
 	["WristSlot"] = {
 		id = 9,
-		needsEnchant = true,
+		needsEnchant = false,
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
@@ -124,7 +124,7 @@ module.characterSlots = {
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = true,
+		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
 	},
 	["Finger1Slot"] = {
@@ -133,7 +133,7 @@ module.characterSlots = {
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = true,
+		needsSocket = false,
 		direction = module.enumDirection.RIGHT,
 	},
 	["Trinket0Slot"] = {
