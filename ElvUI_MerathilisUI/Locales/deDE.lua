@@ -604,6 +604,13 @@ L["Setup Addons"] = "Addons einstellen"
 L["ElvUI AddOns"] = true -- no need to translate
 L["Finish"] = "Fertig"
 L["Installed"] = "Installiert"
+L["EditMode"] = "Bearbeitungsmodus"
+L["Step 1:"] = "Schritt 1:"
+L["Step 2:"] = "Schritt 2:"
+L["Click the first button for the import.\nUse CTRL+A to select the whole string and then CTRL+C to copy the string from the popup."] =
+	"Klicke auf die erste Schaltfläche, um den Import zu starten.\nWähle mit STRG+A den gesamten Text aus und kopiere ihn dann mit STRG+C aus dem Popup-Fenster."
+L["Enter Edit Mode and select Import on the Dropdown.\nUse CTRL+V to paste string, then pick a name and click import."] =
+	"Wechsel in den Bearbeitungsmodus und wähle im Dropdown-Menü die Option „Importieren“ aus.\nFüge den Text mit STRG+V ein, wähle einen Namen aus und klicke auf „Importieren“."
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =

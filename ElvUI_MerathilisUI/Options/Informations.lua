@@ -69,7 +69,7 @@ options.name = {
 					type = "execute",
 					name = L["Tukui"],
 					func = function()
-						E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://www.tukui.org/addons.php?id=1")
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://www.tukui.org/addons.php?id=1")
 					end,
 				},
 				curse = {
@@ -78,7 +78,7 @@ options.name = {
 					name = L["CurseForge"],
 					func = function()
 						E:StaticPopup_Show(
-							"MERATHILISUI_CREDITS",
+							"MERATHILISUI_EditBox",
 							nil,
 							nil,
 							"https://www.curseforge.com/wow/addons/merathilis-ui"
@@ -92,7 +92,7 @@ options.name = {
 					desc = L["Here you can download the latest development version."],
 					func = function()
 						E:StaticPopup_Show(
-							"MERATHILISUI_CREDITS",
+							"MERATHILISUI_EditBox",
 							nil,
 							nil,
 							"https://github.com/Merathilis/ElvUI_MerathilisUI/archive/refs/heads/development.zip"
@@ -110,7 +110,7 @@ options.name = {
 					name = L["Tukui Discord Server"],
 					image = I.Media.Icons.Discord,
 					func = function()
-						E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/xFWcfgE")
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/xFWcfgE")
 					end,
 				},
 				git = {
@@ -120,7 +120,7 @@ options.name = {
 					image = I.Media.Icons.Github,
 					func = function()
 						E:StaticPopup_Show(
-							"MERATHILISUI_CREDITS",
+							"MERATHILISUI_EditBox",
 							nil,
 							nil,
 							"https://github.com/Merathilis/ElvUI_MerathilisUI/issues"

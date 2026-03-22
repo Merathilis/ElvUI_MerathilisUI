@@ -564,6 +564,13 @@ L["Setup Addons"] = "设置插件"
 L["ElvUI AddOns"] = "ElvUI 插件"
 L["Finish"] = "完成"
 L["Installed"] = "安装"
+L["EditMode"] = true
+L["Step 1:"] = true
+L["Step 2:"] = true
+L["Click the first button for the import.\nUse CTRL+A to select the whole string and then CTRL+C to copy the string from the popup."] =
+	true
+L["Enter Edit Mode and select Import on the Dropdown.\nUse CTRL+V to paste string, then pick a name and click import."] =
+	true
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
