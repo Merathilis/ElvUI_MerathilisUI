@@ -50,6 +50,10 @@ MER.NPCS = {
 	223399, -- Tickler
 	231713, -- Bluedoo
 	237715, -- Swabbie
+	-- Midnight
+	256698, -- Roofus
+	257695, -- Nova
+	257546, -- Voldy
 }
 
 local Sequences = { 26, 52, 69, 111, 225 }
