@@ -704,7 +704,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
 	E.db["actionbar"]["bar1"]["backdrop"] = true
-	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar1"]["counttext"] = true
 	E.db["actionbar"]["bar1"]["countFont"] = "- Expressway"
 	E.db["actionbar"]["bar1"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -730,7 +730,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar2"]["heightMult"] = 1
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
-	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar2"]["counttext"] = true
 	E.db["actionbar"]["bar2"]["countFont"] = "- Expressway"
 	E.db["actionbar"]["bar2"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -759,7 +759,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
-	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar3"]["counttext"] = true
 	E.db["actionbar"]["bar3"]["countFont"] = "- Expressway"
 	E.db["actionbar"]["bar3"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -804,7 +804,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 8
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
-	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar6"]["counttext"] = true
 	E.db["actionbar"]["bar6"]["countFont"] = "- Expressway"
 	E.db["actionbar"]["bar6"]["countFontOutline"] = "SHADOWOUTLINE"
