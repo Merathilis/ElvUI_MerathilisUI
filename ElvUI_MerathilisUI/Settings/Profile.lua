@@ -651,6 +651,7 @@ P.notification = {
 		enable = true,
 		print = true,
 		debugPrint = false,
+		timeOut = 20,
 		blacklist = {
 			[5485] = true,
 			[6149] = true,

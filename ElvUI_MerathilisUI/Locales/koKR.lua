@@ -686,6 +686,14 @@ L["Setup Addons"] = "애드온 설정"
 L["ElvUI AddOns"] = "ElvUI 애드온"
 L["Finish"] = "완료"
 L["Installed"] = "설치됨"
+L["EditMode"] = true
+L["Step 1:"] = true
+L["Step 2:"] = true
+L["Click the first button for the import.\nUse CTRL+A to select the whole string and then CTRL+C to copy the string from the popup."] =
+	true
+L["Enter Edit Mode and select Import on the Dropdown.\nUse CTRL+V to paste string, then pick a name and click import."] =
+	true
+
 L["Durability / ItemLevel"] = "내구도 / 아이템 레벨"
 L["Repair Mount"] = "수리 탑승물"
 L["White Text"] = "흰색 텍스트"

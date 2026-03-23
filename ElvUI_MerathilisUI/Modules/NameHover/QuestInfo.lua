@@ -56,65 +56,63 @@ function module:GetQuestText(unit, tooltipLines)
 	end
 
 	local unitName = UnitName(unit)
-	if not unitName or unitName == "" then
-		return nil
-	end
+	if E:NotSecretValue(unitName) and unitName then
+		local questTexts = {}
+		local targetName = lower(unitName)
+		tooltipLines = tooltipLines or {}
 
-	local questTexts = {}
-	local targetName = lower(unitName)
-	tooltipLines = tooltipLines or {}
+		local weightsTable
+		local npcID = module:GetNpcID(unit)
+		if npcID and module.LOP and module.LOP.GetNPCWeightByCurrentQuests then
+			weightsTable = module.LOP:GetNPCWeightByCurrentQuests(npcID)
+		end
 
-	local weightsTable
-	local npcID = module:GetNpcID(unit)
-	if npcID and module.LOP and module.LOP.GetNPCWeightByCurrentQuests then
-		weightsTable = module.LOP:GetNPCWeightByCurrentQuests(npcID)
-	end
+		for _, info in ipairs(GetActiveQuests()) do
+			if info and not info.isHeader then
+				local objectives = info.objectives
+				if objectives then
+					for _, obj in ipairs(objectives) do
+						if obj.text then
+							if obj.type == "progressbar" and weightsTable then
+								local npcWeight = weightsTable[info.questID]
+								if npcWeight then
+									tinsert(questTexts, {
+										text = obj.text .. string.format(" + %.1f%%", npcWeight),
+										finished = obj.finished,
+									})
+									break
+								end
+							end
 
-	for _, info in ipairs(GetActiveQuests()) do
-		if info and not info.isHeader then
-			local objectives = info.objectives
-			if objectives then
-				for _, obj in ipairs(objectives) do
-					if obj.text then
-						if obj.type == "progressbar" and weightsTable then
-							local npcWeight = weightsTable[info.questID]
-							if npcWeight then
-								tinsert(questTexts, {
-									text = obj.text .. string.format(" + %.1f%%", npcWeight),
-									finished = obj.finished,
-								})
+							if obj.type == "monster" and string.find(string.lower(obj.text), targetName, 1, true) then
+								tinsert(questTexts, { text = obj.text, finished = obj.finished })
 								break
 							end
-						end
 
-						if obj.type == "monster" and string.find(string.lower(obj.text), targetName, 1, true) then
-							tinsert(questTexts, { text = obj.text, finished = obj.finished })
-							break
-						end
-
-						if
-							module:IsInTooltip(tooltipLines, obj.text)
-							or module:IsInTooltip(tooltipLines, StripQuestCount(obj.text))
-						then
-							tinsert(questTexts, { text = obj.text, finished = obj.finished })
-							break
+							if
+								module:IsInTooltip(tooltipLines, obj.text)
+								or module:IsInTooltip(tooltipLines, StripQuestCount(obj.text))
+							then
+								tinsert(questTexts, { text = obj.text, finished = obj.finished })
+								break
+							end
 						end
 					end
 				end
 			end
 		end
+
+		tsort(questTexts, function(a, b)
+			return not a.finished and b.finished
+		end)
+
+		local sortedQuestTexts = {}
+		for _, entry in ipairs(questTexts) do
+			local color = entry.finished and module.COLOR_COMPLETE or module.COLOR_DEFAULT
+			local listIcon = entry.finished and module.ICON_CHECKMARK or module.ICON_LIST
+			tinsert(sortedQuestTexts, module:GetTextWithColor(listIcon .. entry.text, color))
+		end
+
+		return #sortedQuestTexts > 0 and sortedQuestTexts or nil
 	end
-
-	tsort(questTexts, function(a, b)
-		return not a.finished and b.finished
-	end)
-
-	local sortedQuestTexts = {}
-	for _, entry in ipairs(questTexts) do
-		local color = entry.finished and module.COLOR_COMPLETE or module.COLOR_DEFAULT
-		local listIcon = entry.finished and module.ICON_CHECKMARK or module.ICON_LIST
-		tinsert(sortedQuestTexts, module:GetTextWithColor(listIcon .. entry.text, color))
-	end
-
-	return #sortedQuestTexts > 0 and sortedQuestTexts or nil
 end

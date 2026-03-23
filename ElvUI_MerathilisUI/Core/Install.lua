@@ -591,6 +591,7 @@ function MER:SetupLayout()
 	E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
 	E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-7,-165"
 	E.db["movers"]["HousingControlsFrameMover"] = "TOP,ElvUIParent,TOP,0,-70"
+	E.db["movers"]["PowerBarContainerHolder"] = "TOP,ElvUIParent,TOP,0,-110"
 
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
@@ -703,7 +704,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
 	E.db["actionbar"]["bar1"]["backdrop"] = true
-	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar1"]["counttext"] = true
 	E.db["actionbar"]["bar1"]["countFont"] = "- Expressway"
 	E.db["actionbar"]["bar1"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -729,7 +730,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar2"]["heightMult"] = 1
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
-	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar2"]["counttext"] = true
 	E.db["actionbar"]["bar2"]["countFont"] = "- Expressway"
 	E.db["actionbar"]["bar2"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -758,7 +759,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
-	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar3"]["counttext"] = true
 	E.db["actionbar"]["bar3"]["countFont"] = "- Expressway"
 	E.db["actionbar"]["bar3"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -803,7 +804,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 8
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
-	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
+	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = false
 	E.db["actionbar"]["bar6"]["counttext"] = true
 	E.db["actionbar"]["bar6"]["countFont"] = "- Expressway"
 	E.db["actionbar"]["bar6"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -1163,7 +1164,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
 		E.db["unitframe"]["colors"]["classbackdrop"] = false
 	elseif layout == "dark" then
-		E.db["unitframe"]["colors"]["transparentHealth"] = true
+		E.db["unitframe"]["colors"]["transparentHealth"] = false
 		E.db["unitframe"]["colors"]["healthclass"] = false
 		E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
 		E.db["unitframe"]["colors"]["classbackdrop"] = true
@@ -2676,6 +2677,37 @@ MER.installTable = {
 		[5] = function()
 			MER:Resize(nil)
 
+			PluginInstallFrame.SubTitle:SetText(L["EditMode"])
+			PluginInstallFrame.Desc1:SetText(
+				format(
+					"|cFF00c0fa%s|r",
+					L["Step 1:"]
+						.. "\n\n"
+						.. L["Click the first button for the import.\nUse CTRL+A to select the whole string and then CTRL+C to copy the string from the popup."]
+				)
+			)
+			PluginInstallFrame.Desc2:SetText(
+				format(
+					"|cFF00c0fa%s|r",
+					L["Step 2:"]
+						.. "\n\n"
+						.. L["Enter Edit Mode and select Import on the Dropdown.\nUse CTRL+V to paste string, then pick a name and click import."]
+				)
+			)
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript("OnClick", function()
+				PF:EditModeString()
+			end)
+			PluginInstallFrame.Option1:SetText(L["Import String"])
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript("OnClick", function()
+				PF:ToggleEditMode()
+			end)
+			PluginInstallFrame.Option2:SetText(L["Enter Edit Mode"])
+		end,
+		[6] = function()
+			MER:Resize(nil)
+
 			PluginInstallFrame.SubTitle:SetText(L["CVars"])
 			PluginInstallFrame.Desc1:SetFormattedText(
 				L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."],
@@ -2691,7 +2723,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["CVars"])
 		end,
-		[6] = function()
+		[7] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["Chat"])
@@ -2708,7 +2740,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup Chat"])
 		end,
-		[7] = function()
+		[8] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["DataTexts"])
@@ -2725,7 +2757,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup Datatexts"])
 		end,
-		[8] = function()
+		[9] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
@@ -2742,7 +2774,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup ActionBars"])
 		end,
-		[9] = function()
+		[10] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["NamePlates"])
@@ -2757,7 +2789,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup NamePlates"])
 		end,
-		[10] = function()
+		[11] = function()
 			MER:Resize(nil)
 
 			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
@@ -2790,7 +2822,7 @@ MER.installTable = {
 			end)
 			PluginInstallFrame.Option2:SetText(L["Dark Layout"])
 		end,
-		[11] = function()
+		[12] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("ElvUI_WindTools") then
@@ -2818,7 +2850,7 @@ MER.installTable = {
 				)
 			end
 		end,
-		[12] = function()
+		[13] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("BigWigs") then
@@ -2846,7 +2878,7 @@ MER.installTable = {
 				)
 			end
 		end,
-		[13] = function()
+		[14] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("Details") then
@@ -2873,7 +2905,7 @@ MER.installTable = {
 				PluginInstallFrame.Desc2:SetText("Please install Details and restart the installer!")
 			end
 		end,
-		[14] = function()
+		[15] = function()
 			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
@@ -2885,7 +2917,7 @@ MER.installTable = {
 			)
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
-				E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/28We6esE9v")
+				E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/28We6esE9v")
 			end)
 			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
 			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
@@ -2909,7 +2941,7 @@ MER.installTable = {
 			local msg = MER.Title .. L[" install complete."]
 			MER:ShowStepComplete(msg)
 		end,
-		[F.IsDeveloper() and 15] = function()
+		[F.IsDeveloper() and 16] = function()
 			MER:Resize(nil, nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
@@ -2937,17 +2969,18 @@ MER.installTable = {
 		[2] = L["Profile"],
 		[3] = L["UI Scale"],
 		[4] = L["Layout"],
-		[5] = L["CVars"],
-		[6] = L["Chat"],
-		[7] = L["DataTexts"],
-		[8] = L["ActionBars"],
-		[9] = L["NamePlates"],
-		[10] = L["UnitFrames"],
-		[11] = L["WindTools"],
-		[12] = L["BigWigs"],
-		[13] = L["Details"],
-		[14] = L["Installation Complete"],
-		[F.IsDeveloper() and 15] = L["Developer Settings"],
+		[5] = L["EditMode"],
+		[6] = L["CVars"],
+		[7] = L["Chat"],
+		[8] = L["DataTexts"],
+		[9] = L["ActionBars"],
+		[10] = L["NamePlates"],
+		[11] = L["UnitFrames"],
+		[12] = L["WindTools"],
+		[13] = L["BigWigs"],
+		[14] = L["Details"],
+		[15] = L["Installation Complete"],
+		[F.IsDeveloper() and 16] = L["Developer Settings"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],

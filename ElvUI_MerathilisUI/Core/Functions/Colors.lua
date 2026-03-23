@@ -781,7 +781,7 @@ do
 	local colorCacheBackground = {}
 
 	function F.Color.GenerateCache()
-		local db = F.GetDBFromPath("mui.themes.gradientMode")
+		local db = E.db.mui.themes.gradientMode
 		if not db then
 			return
 		end
@@ -792,7 +792,6 @@ do
 			"powerColorMap",
 			"specialColorMap",
 			"classColorMap",
-			"classResourceMap",
 		}) do
 			local colorMap = db[colorKey]
 			if colorMap then

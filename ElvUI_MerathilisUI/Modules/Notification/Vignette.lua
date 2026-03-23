@@ -28,7 +28,6 @@ local VignetteExclusionMapIDs = {
 	[646] = true, -- Scenario: The Broken Shore
 }
 
-local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	local db = E.db.mui.notification
 	if
@@ -65,45 +64,49 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 		end
 
 		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then
-			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:utf8sub(1, 28))
-			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
-			self.lastMinimapRare.id = vignetteGUID
+			local time = GetTime()
+			if time > (self.lastMinimapRare.time + (db.timeOut or 20)) then
+				vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:utf8sub(1, 28))
+				self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 
-			if db.vignette.debugPrint then
-				F.DebugPrint(
-					"Vignette-ID: " .. vignetteInfo.vignetteID .. " Vignette-Name: " .. vignetteInfo.name,
-					"warning"
-				)
-			end
-
-			if db.vignette and db.vignette.enable and db.vignette.print then
-				local currentTime = E.db.chat.timeStampFormat == 1 and "|cff00ff00[" .. date("%H:%M:%S") .. "]|r" or ""
-				local nameString
-				local mapID = GetBestMapForUnit("player")
-				local position = mapID and GetVignettePosition(vignetteInfo.vignetteGUID, mapID)
-				if position then
-					local x, y = position:GetXY()
-					nameString = format(
-						"|Hworldmap:%d+:%d+:%d+|h[%s (%.1f, %.1f)%s]|h|r",
-						mapID,
-						x * 10000,
-						y * 10000,
-						vignetteInfo.name,
-						x * 100,
-						y * 100,
-						""
+				if db.vignette.debugPrint then
+					F.DebugPrint(
+						"Vignette-ID: " .. vignetteInfo.vignetteID .. " Vignette-Name: " .. vignetteInfo.name,
+						"warning"
 					)
 				end
-				F.Print(currentTime .. " -> " .. tex .. F.String.MERATHILISUI(nameString or vignetteInfo.name or ""))
-			end
 
-			local time = GetTime()
-			if time > (self.lastMinimapRare.time + SOUND_TIMEOUT) then
+				if db.vignette and db.vignette.enable and db.vignette.print then
+					local currentTime = E.db.chat.timeStampFormat == 1 and "|cff00ff00[" .. date("%H:%M:%S") .. "]|r"
+						or ""
+					local nameString
+					local mapID = GetBestMapForUnit("player")
+					local position = mapID and GetVignettePosition(vignetteInfo.vignetteGUID, mapID)
+					if position then
+						local x, y = position:GetXY()
+						nameString = format(
+							"|Hworldmap:%d+:%d+:%d+|h[%s (%.1f, %.1f)%s]|h|r",
+							mapID,
+							x * 10000,
+							y * 10000,
+							vignetteInfo.name,
+							x * 100,
+							y * 100,
+							""
+						)
+					end
+					F.Print(
+						currentTime .. " -> " .. tex .. F.String.MERATHILISUI(nameString or vignetteInfo.name or "")
+					)
+				end
+
 				if db.noSound ~= true then
 					PlaySound(_G.SOUNDKIT.RAID_WARNING)
-					self.lastMinimapRare.time = time
 				end
+				self.lastMinimapRare.time = time
 			end
+
+			self.lastMinimapRare.id = vignetteGUID
 		end
 	end
 end

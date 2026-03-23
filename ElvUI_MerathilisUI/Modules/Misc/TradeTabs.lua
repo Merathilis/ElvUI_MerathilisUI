@@ -183,7 +183,7 @@ local function UpdateTab(object, name, texture, spellID)
 		tab:GetCheckedTexture():SetBlendMode("ADD")
 	end
 
-	tab:SetPoint("TOPLEFT", object, "TOPRIGHT", 1, (-44 * index) + 44)
+	tab:SetPoint("TOPLEFT", object, "TOPRIGHT", 3, -index * 42 - 80)
 	tab:SetTemplate()
 	tab:StyleButton()
 	tab.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)

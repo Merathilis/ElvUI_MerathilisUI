@@ -6,6 +6,7 @@
 	<Script file="BigWigs.lua"/>
 	<Script file="Capping.lua"/>
 	<Script file="Details.lua"/>
+	<Script file="EditMode.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="TomTom.lua"/>
 </Ui>

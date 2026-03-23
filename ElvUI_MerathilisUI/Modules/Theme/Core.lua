@@ -14,12 +14,16 @@ function module:Toggle(theme, value)
 	if theme == "gradientMode" then
 		E.db.mui.themes.gradientMode.enable = value
 
+		E.db.unitframe.colors.healthclass = true
+
 		-- apply texture settings
 		pf:UpdateProfileForGradient()
 
 		F.Event.TriggerEvent("MER_Theme.DatabaseUpdate")
 	elseif theme == "darkMode" then
 		E.db.mui.themes.gradientMode.enable = false
+
+		E.db.unitframe.colors.healthclass = false
 
 		pf:UpdateProfileForTheme()
 	end
@@ -158,12 +162,29 @@ function module:UpdateStatusBars()
 	end
 end
 
+-- Needed for gradientMode
+function module:ForceSettings()
+	E.db.unitframe.colors.healthclass = true
+	E.db.unitframe.units.player.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.target.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.targettarget.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.focus.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.raid1.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.raid2.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.raid3.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.party.colorOverride = "USE_DEFAULT"
+	E.db.unitframe.units.pet.colorOverride = "USE_DEFAULT"
+end
+
 function module:SettingsUpdate()
 	-- Clear cache
 	self.updateCache = {}
 
 	-- Regenerate Colors
 	F.Color.GenerateCache()
+
+	-- ForceSettings
+	self:ForceSettings()
 
 	-- Refresh fade directions for all registered frames
 	for frame in pairs(self.settingsEvents) do
@@ -219,7 +240,6 @@ function module:Enable()
 
 	F.EventManagerRegister(self.interruptNamespace, "LEARNED_SPELL_IN_SKILL_LINE", F.CheckInterruptSpells)
 
-	-- Update!
 	self.uf:Update_AllFrames()
 end
 

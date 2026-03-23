@@ -1,7 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Theme") ---@class Theme
 
-local select = select
 local UnitClass = UnitClass
 local UnitIsCharmed = UnitIsCharmed
 local UnitIsConnected = UnitIsConnected
@@ -11,23 +10,34 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
 local UnitPlayerControlled = UnitPlayerControlled
 local UnitReaction = UnitReaction
-local UnitInPartyIsAI = UnitInPartyIsAI
+local UnitTreatAsPlayerForDisplay = UnitTreatAsPlayerForDisplay
 
 function module:GetHealthColor(frame, unit)
-	local isPlayer = UnitIsPlayer(unit) or UnitInPartyIsAI(unit)
+	if not unit then
+		return
+	end
 
-	if isPlayer and not UnitIsConnected(unit) then
+	local isPlayer = UnitIsPlayer(unit) or UnitTreatAsPlayerForDisplay(unit)
+	local isConnected = UnitIsConnected(unit)
+	local isDeadOrGhost = UnitIsDeadOrGhost(unit)
+	local isCharmed = UnitIsCharmed(unit)
+	local isEnemy = UnitIsEnemy(unit, "player")
+	local isPlayerControlled = UnitPlayerControlled(unit)
+	local isTapDenied = UnitIsTapDenied(unit)
+	local reaction = UnitReaction(unit, "player")
+
+	if isPlayer and not isConnected then
 		return "specialColorMap", "DISCONNECTED"
 	elseif frame.unitDead == true then
 		return "specialColorMap", "DEAD"
-	elseif isPlayer and (not UnitIsDeadOrGhost(unit)) and (UnitIsCharmed(unit)) and UnitIsEnemy("player", unit) then
+	elseif isPlayer and not isDeadOrGhost and isCharmed and isEnemy then
 		return "reactionColorMap", "BAD"
-	elseif not UnitPlayerControlled(unit) and UnitIsTapDenied(unit) then
+	elseif not isPlayerControlled and isTapDenied then
 		return "specialColorMap", "TAPPED"
 	elseif isPlayer then
-		return "classColorMap", select(2, UnitClass(unit))
+		local _, classToken = UnitClass(unit)
+		return "classColorMap", classToken or "PRIEST"
 	elseif UnitReaction(unit, "player") then
-		local reaction = UnitReaction(unit, "player")
 		if reaction > 4 then
 			return "reactionColorMap", "GOOD"
 		elseif reaction > 3 then

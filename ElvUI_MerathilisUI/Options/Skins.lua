@@ -2,7 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local Skins = MER:GetModule("MER_Skins") ---@type Skins
 local C = W.Utilities.Color
-local LSM = E.Libs.LSM
+local LSM = E.LSM
 
 local options = module.options.skins.args
 
@@ -306,7 +306,7 @@ options.Embed = {
 options.advancedSettings = {
 	order = 10,
 	type = "group",
-	name = L["Advanced Skin Settings"],
+	name = E.NewSign .. L["Advanced Skin Settings"],
 	disabled = function()
 		return not E.private.mui.skins.enable
 	end,
@@ -326,14 +326,19 @@ options.advancedSettings = {
 				return not DoesAddOnExist("Details")
 			end,
 			args = {
-				enable = {
+				header = {
 					order = 0,
+					type = "header",
+					name = F.cOption(L["Details Skin"], "orange"),
+				},
+				enable = {
+					order = 1,
 					type = "toggle",
 					name = L["Enable"],
 					width = "full",
 				},
 				description = {
-					order = 1,
+					order = 2,
 					type = "description",
 					name = function()
 						if not DoesAddOnExist("Details") then
@@ -348,12 +353,12 @@ options.advancedSettings = {
 					fontSize = "medium",
 				},
 				spacer = {
-					order = 2,
+					order = 3,
 					type = "description",
 					name = " ",
 				},
 				gradientBars = {
-					order = 3,
+					order = 4,
 					type = "toggle",
 					name = L["Gradient Bars"],
 					disabled = function()
@@ -361,7 +366,7 @@ options.advancedSettings = {
 					end,
 				},
 				gradientName = {
-					order = 4,
+					order = 5,
 					type = "toggle",
 					name = L["Gradient Name"],
 					disabled = function()
@@ -369,12 +374,12 @@ options.advancedSettings = {
 					end,
 				},
 				spacer1 = {
-					order = 5,
+					order = 6,
 					type = "description",
 					name = " ",
 				},
 				detailsIcons = {
-					order = 6,
+					order = 7,
 					type = "execute",
 					name = F.cOption(L["Open Details"], "gradient"),
 					disabled = function()
@@ -383,6 +388,75 @@ options.advancedSettings = {
 					func = function()
 						local instance = Details:GetInstance(1)
 						Details:OpenOptionsWindow(instance)
+					end,
+				},
+			},
+		},
+		damageMeter = {
+			order = 2,
+			type = "group",
+			name = E.NewSign .. L["Blizzard DamageMeter"],
+			get = function(info)
+				return E.private.mui.skins.blizzard.damageMeter[info[#info]]
+			end,
+			set = function(info, value)
+				E.private.mui.skins.blizzard.damageMeter[info[#info]] = value
+				E:StaticPopup_Show("CONFIG_RL")
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(L["Blizzard DamageMeter"], "orange"),
+				},
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				description = {
+					order = 2,
+					type = "description",
+					name = function()
+						return format("|cfffff400%s", L["The options below is only for the look, NOT the Embeded."])
+					end,
+					fontSize = "medium",
+				},
+				spacer = {
+					order = 3,
+					type = "description",
+					name = " ",
+					width = "full",
+				},
+				gradientBar = {
+					order = 4,
+					type = "toggle",
+					name = L["Gradient Bars"],
+					disabled = function()
+						return not E.private.mui.skins.blizzard.damageMeter.enable
+					end,
+				},
+				replaceIcon = {
+					order = 5,
+					type = "toggle",
+					name = L["Replace Icon"],
+					disabled = function()
+						return not E.private.mui.skins.blizzard.damageMeter.enable
+					end,
+				},
+				iconPack = {
+					order = 6,
+					type = "select",
+					name = L["Icon Pack"],
+					disabled = function()
+						return not E.private.mui.skins.blizzard.damageMeter.enable
+					end,
+					values = function()
+						local iconPacks = {}
+						for k, v in _G.pairs(Skins.DamageMeterIcons) do
+							iconPacks[k] = "|T" .. v.path .. ":25:25:0:0:512:512:64:128:0:64|t" .. v.DisplayName
+						end
+						return iconPacks
 					end,
 				},
 			},

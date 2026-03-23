@@ -40,9 +40,7 @@ I.FontOrder = {
 }
 
 I.MaxLevelTable = {
-	["Vanilla"] = 60,
-	["Cata"] = 85,
-	["Mainline"] = 80,
+	["Mainline"] = 90,
 }
 
 I.MediaKeys = {

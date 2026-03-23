@@ -5,6 +5,11 @@ local S = E:GetModule("Skins")
 
 -- Credits: Ndui_Plus
 
+local function HandleItemButton(self)
+	S:HandleIcon(self.Icon, true)
+	S:HandleIconBorder(self.IconBorder, self.Icon.backdrop)
+end
+
 local function ReskinTabSystem(self)
 	if not self.TabSystem then
 		return
@@ -16,6 +21,50 @@ local function ReskinTabSystem(self)
 		tab.Text:SetPoint("CENTER")
 		tab.Text.SetPoint = E.noop
 		tab.leftPadding = -16
+	end
+end
+
+local function ReskinIconButton(self)
+	local frame = self.Content
+	if frame and not self.IsSkinned then
+		HandleItemButton(frame)
+		frame.IconEmpty:SetAlpha(0)
+
+		self.IsSkinned = true
+	end
+end
+
+local function ReskinSubFrame(self)
+	self.Inset:StripTextures()
+	self.BorderFrame:StripTextures()
+end
+
+local function ReskinEntryFrame(self)
+	if self.Background then
+		self.Background:SetAlpha(0)
+	end
+
+	local button = self.TeleportButton
+	if button then
+		S:HandleIcon(button.Icon, true)
+		button.IconBorder:SetAlpha(0)
+		button.HL = button:CreateTexture(nil, "HIGHLIGHT")
+		button.HL:SetColorTexture(1, 1, 1, 0.25)
+		button.HL:SetInside(button.backdrop)
+	end
+end
+
+local function ReskinReminderSpec(self)
+	self:StripTextures()
+	self.Bg:CreateBackdrop("Transparent")
+	S:HandleButton(self.LootSpecButton)
+end
+
+local function ReskinReminderIcon(self)
+	if not self.IsSkinned then
+		HandleItemButton(self)
+
+		self.IsSkinned = true
 	end
 end
 
@@ -52,11 +101,19 @@ function module:KeystoneLoot()
 		CatalystFrame.backdrop:SetInside()
 	end
 
+	MER:SecureHook(_G.KeystoneLootLootIconButtonMixin, "Init", ReskinIconButton)
+	MER:SecureHook(_G.KeystoneLootDungeonsFrameMixin, "OnLoad", ReskinSubFrame)
+	MER:SecureHook(_G.KeystoneLootRaidBlockMixin, "OnLoad", ReskinSubFrame)
+	MER:SecureHook(_G.KeystoneLootEntryFrameMixin, "OnLoad", ReskinEntryFrame)
+
 	-- ReminderFrame
 	local ReminderFrame = _G.KeystoneLootReminderFrame
 	if ReminderFrame then
 		S:HandlePortraitFrame(ReminderFrame)
 	end
+
+	MER:SecureHook(_G.KeystoneLootReminderSpecMixin, "OnLoad", ReskinReminderSpec)
+	MER:SecureHook(_G.KeystoneLootReminderIconMixin, "Init", ReskinReminderIcon)
 end
 
 module:AddCallbackForAddon("KeystoneLoot")

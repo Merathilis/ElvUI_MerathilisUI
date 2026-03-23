@@ -4,7 +4,7 @@ local C = W.Utilities.Color ---@type ColorUtility
 local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn
 
 -- MerathilisUI Credits
-E.PopupDialogs.MERATHILISUI_CREDITS = {
+E.PopupDialogs.MERATHILISUI_EditBox = {
 	text = MER.Title,
 	button1 = OKAY,
 	hasEditBox = 1,
