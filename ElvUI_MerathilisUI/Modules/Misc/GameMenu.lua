@@ -454,7 +454,7 @@ function module:GameMenu_OnHide()
 end
 
 function module:GameMenu()
-	module.db = F.GetDBFromPath("mui.gameMenu")
+	module.db = E.db.mui.gameMenu
 
 	if not MER:HasRequirements(I.Requirements.GameMenu) or not module.db or not module.db.enable then
 		return

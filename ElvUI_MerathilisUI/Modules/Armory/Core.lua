@@ -31,7 +31,7 @@ module.characterSlots = {
 	["HeadSlot"] = {
 		id = 1,
 		needsEnchant = true,
-		needsSocket = false,
+		needsSocket = true,
 		direction = module.enumDirection.LEFT,
 	},
 	["NeckSlot"] = {
@@ -85,7 +85,7 @@ module.characterSlots = {
 		warningCondition = {
 			level = I.MaxLevelTable[MER.MetaFlavor],
 		},
-		needsSocket = false,
+		needsSocket = true,
 		direction = module.enumDirection.LEFT,
 	},
 	["HandsSlot"] = {
@@ -97,7 +97,7 @@ module.characterSlots = {
 	["WaistSlot"] = {
 		id = 6,
 		needsEnchant = false,
-		needsSocket = false,
+		needsSocket = true,
 		direction = module.enumDirection.RIGHT,
 	},
 	["LegsSlot"] = {
@@ -583,15 +583,11 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 	if self.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
 		if self.db.pageInfo.missingSocketText and slotOptions.needsSocket and not E.TimerunningID then
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
-				local missingGemSlots = 2 - #slotInfo.gems
+				local missingGemSlots = 1 - #slotInfo.gems
 				if missingGemSlots > 0 then
-					local text = format(L["Add %d sockets"], missingGemSlots)
+					local text = format(L["Add %d socket"], missingGemSlots)
 					local missingColor = {
-						F.String.FastColorGradientHex(
-							missingGemSlots / 2,
-							module.colors.LIGHT_GREEN,
-							module.colors.RED
-						),
+						F.String.FastColorGradientHex(missingGemSlots, module.colors.LIGHT_GREEN, module.colors.RED),
 					}
 					slotItem.enchantText:SetText(F.String.RGB(text, missingColor))
 				end
