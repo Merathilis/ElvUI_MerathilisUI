@@ -724,12 +724,10 @@ function F.Color.UpdateGradient(obj, perc, minColor, maxColor)
 	end
 
 	if perc >= 1 then
-		local r, g, b = maxColor:GetRGBA()
-		obj:SetRGBA(r, g, b, 1)
+		obj:SetRGBA(maxColor.r, maxColor.g, maxColor.b, 1)
 		return
 	elseif perc <= 0 then
-		local r, g, b = minColor:GetRGBA()
-		obj:SetRGBA(r, g, b, 1)
+		obj:SetRGBA(minColor.r, minColor.g, minColor.b, 1)
 		return
 	end
 
