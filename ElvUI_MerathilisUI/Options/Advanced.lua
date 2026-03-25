@@ -207,7 +207,7 @@ do
 						order = 3,
 						type = "execute",
 						name = L["Export All"],
-						desc = format(L["Export all setting of %s."], W.Title),
+						desc = format(L["Export all setting of %s."], MER.Title),
 						func = function()
 							text = F.Profiles.GetOutputString(true, true)
 						end,
@@ -216,7 +216,7 @@ do
 						order = 4,
 						type = "execute",
 						name = L["Export Profile"],
-						desc = format(L["Export the setting of %s that stored in ElvUI Profile database."], W.Title),
+						desc = format(L["Export the setting of %s that stored in ElvUI Profile database."], MER.Title),
 						func = function()
 							text = F.Profiles.GetOutputString(true, false)
 						end,
@@ -225,7 +225,7 @@ do
 						order = 5,
 						type = "execute",
 						name = L["Export Private"],
-						desc = format(L["Export the setting of %s that stored in ElvUI Private database."], W.Title),
+						desc = format(L["Export the setting of %s that stored in ElvUI Private database."], MER.Title),
 						func = function()
 							text = F.Profiles.GetOutputString(false, true)
 						end,
