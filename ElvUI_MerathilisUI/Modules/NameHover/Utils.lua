@@ -97,7 +97,11 @@ function module:IsInTooltip(tooltipLines, query)
 	end
 	local q = string.lower(query)
 	for _, line in ipairs(tooltipLines) do
-		if string.find(string.lower(line or ""), q, 1, true) then
+		local toFind = line
+		if not E:IsSecretValue(line) then
+			toFind = string.lower(line)
+		end
+		if string.find(toFind or "", q, 1, true) then
 			return true
 		end
 	end

@@ -65,7 +65,7 @@ function module:GetTargetText()
 	end
 end
 
-function module:GetStatusText(fakeAfk, fakeDnd, fakePvp)
+function module:GetStatusText()
 	if not IsPlayer() or not E.db.mui.nameHover.status then
 		return nil
 	end
@@ -73,9 +73,9 @@ function module:GetStatusText(fakeAfk, fakeDnd, fakePvp)
 	local afkText = nil
 	local dndText = nil
 	local pvpText = nil
-
 	local afk = UnitIsAFK("mouseover")
 	local dnd = UnitIsDND("mouseover")
+	local isPvp = UnitIsPVP("mouseover")
 
 	if E:NotSecretValue(afk) and afk or fakeAfk then
 		afkText = module:GetTextWithColor("<AFK>", module.COLOR_DEAD)
@@ -83,7 +83,7 @@ function module:GetStatusText(fakeAfk, fakeDnd, fakePvp)
 	if E:NotSecretValue(dnd) and dnd or fakeDnd then
 		dndText = module:GetTextWithColor("<DND>", module.COLOR_HOSTILE)
 	end
-	if (UnitIsPVP("mouseover") and UnitIsPlayer("mouseover")) or fakePvp then
+	if E:NotSecretValue(isPvp) and isPvp and UnitIsPlayer("mouseover") then
 		pvpText = module:GetTextWithColor("<PVP>", module.COLOR_HOSTILE)
 	end
 
