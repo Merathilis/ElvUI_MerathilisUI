@@ -1342,10 +1342,6 @@ P.elvUIIcons = {
 		enable = true,
 		theme = "MERATHILISUI", -- MERATHILISUI, MATERIAL, SUNUI, SVUI, GLOW, CUSTOM, GRAVED, ElvUI
 	},
-
-	classIcons = {
-		theme = "ToxiSpecStylized" or "ToxiClasses",
-	},
 }
 
 P.scale = {
