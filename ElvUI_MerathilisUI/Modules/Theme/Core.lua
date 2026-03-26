@@ -135,6 +135,11 @@ function module:UpdateStatusBarFrame(frame)
 end
 
 function module:ConfigureStatusBarFrame(_, frame)
+	if frame.Health then
+		frame.Health._gradColorFunc = nil
+		frame.Health.unitDead = nil
+	end
+
 	self:UpdateStatusBarFrame(frame)
 end
 

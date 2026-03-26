@@ -778,10 +778,9 @@ options.armory = {
 					desc = function()
 						local socketItem, socketTexture = nil, nil
 						if GetItemInfo then
-							local itemName, _, _, _, _, _, _, _, _, itemTexture = GetItemInfo(213777)
-							if itemName and itemTexture then
+							local itemName = GetItemInfo(263897)
+							if itemName then
 								socketItem = itemName
-								socketTexture = itemTexture
 							end
 						end
 						return L["Shows a warning when you're missing sockets on your necklace."]

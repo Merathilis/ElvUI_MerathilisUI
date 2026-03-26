@@ -21,7 +21,7 @@ function module:GetHealthColor(frame, unit)
 	local isConnected = UnitIsConnected(unit)
 	local isDeadOrGhost = UnitIsDeadOrGhost(unit)
 	local isCharmed = UnitIsCharmed(unit)
-	local isEnemy = UnitIsEnemy(unit, "player")
+	local isEnemy = UnitIsEnemy("player", unit)
 	local isPlayerControlled = UnitPlayerControlled(unit)
 	local isTapDenied = UnitIsTapDenied(unit)
 	local reaction = UnitReaction(unit, "player")
@@ -35,15 +35,16 @@ function module:GetHealthColor(frame, unit)
 	elseif not isPlayerControlled and isTapDenied then
 		return "specialColorMap", "TAPPED"
 	elseif isPlayer then
-		local _, classToken = UnitClass(unit)
-		return "classColorMap", classToken or "PRIEST"
-	elseif UnitReaction(unit, "player") then
-		if reaction > 4 then
-			return "reactionColorMap", "GOOD"
-		elseif reaction > 3 then
-			return "reactionColorMap", "NEUTRAL"
-		else
-			return "reactionColorMap", "BAD"
+		return "classColorMap", select(2, UnitClass(unit))
+	else
+		if reaction then
+			if reaction > 4 then
+				return "reactionColorMap", "GOOD"
+			elseif reaction > 3 then
+				return "reactionColorMap", "NEUTRAL"
+			else
+				return "reactionColorMap", "BAD"
+			end
 		end
 	end
 end
@@ -68,6 +69,8 @@ function module:PostUpdateHealthColor(frame, unit, eR, eG, eB)
 		frame.unitDead = unitDead
 	end
 
-	local colorFunc = F.Event.GenerateClosure(self.GetHealthColor, self, frame, unit)
-	self:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorFunc)
+	if not frame._gradColorFunc then
+		frame._gradColorFunc = F.Event.GenerateClosure(self.GetHealthColor, self, frame, unit)
+	end
+	self:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, frame._gradColorFunc)
 end

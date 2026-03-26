@@ -27,6 +27,8 @@ function module:PostUpdatePowerColor(frame, unit, eR, eG, eB)
 		frame.currentPercent = 1
 	end
 
-	local colorFunc = F.Event.GenerateClosure(self.GetPowerColor, self, frame, unit)
-	self:SetGradientColors(frame, valueChanged, eR, eG, eB, false, colorFunc)
+	if not frame._gradColorFunc then
+		frame._gradColorFunc = F.Event.GenerateClosure(self.GetPowerColor, self, frame, unit)
+	end
+	self:SetGradientColors(frame, valueChanged, eR, eG, eB, false, frame._gradColorFunc)
 end

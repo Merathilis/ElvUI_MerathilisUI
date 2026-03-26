@@ -98,14 +98,17 @@ function module:PostUpdateCastColor(frame, castFailed)
 		frame.currentPercent = 1
 	end
 
-	local colorFunc = F.Event.GenerateClosure(self.GetCastbarColor, self, frame, unit, castFailed, 0, 1)
+	if not frame._gradColorFuncOk then
+		frame._gradColorFuncOk = F.Event.GenerateClosure(self.GetCastbarColor, self, frame, unit, false)
+		frame._gradColorFuncFail = F.Event.GenerateClosure(self.GetCastbarColor, self, frame, unit, true)
+	end
 	self:SetGradientColors(
 		frame,
 		valueChanged,
-		eR,
-		eG,
-		eB,
-		(self.db.interruptCDEnabled or self.db.interruptSoonEnabled),
-		colorFunc
+		nil,
+		nil,
+		nil,
+		true,
+		castFailed and frame._gradColorFuncFail or frame._gradColorFuncOk
 	)
 end

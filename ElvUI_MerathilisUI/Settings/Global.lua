@@ -4,6 +4,11 @@ G.core = {
 	compatibilityCheck = true,
 	changlogPopup = true,
 	loginMsg = true,
+	autoCopyPrivateProfile = {
+		enable = false,
+		copyFrom = nil,
+		initializedCharacters = {},
+	},
 }
 
 G.mail = {

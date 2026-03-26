@@ -204,10 +204,31 @@ function MER:Initialize()
 	E.data.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
 end
 
+function MER:AutoCopyPrivateProfile()
+	if
+		not E.global.mui.core.autoCopyPrivateProfile.enable
+		or E.global.mui.core.autoCopyPrivateProfile.initializedCharacters[E.mynameRealm]
+	then
+		return
+	end
+
+	local copyFrom = E.global.mui.core.autoCopyPrivateProfile.copyFrom
+	if not copyFrom or E.charSettings:GetCurrentProfile() == copyFrom then
+		return
+	end
+
+	local profiles = E.charSettings:GetProfiles()
+	if tContains(profiles, copyFrom) then
+		E.charSettings:CopyProfile(copyFrom)
+		E.global.mui.core.autoCopyPrivateProfile.initializedCharacters[E.mynameRealm] = true
+	end
+end
+
 do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 		if isInitialLogin then
+			self:AutoCopyPrivateProfile()
 			E:Delay(6, self.ChangelogReadAlert, self)
 			local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then

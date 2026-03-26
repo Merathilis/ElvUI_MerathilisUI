@@ -50,6 +50,10 @@ MER.NPCS = {
 	223399, -- Tickler
 	231713, -- Bluedoo
 	237715, -- Swabbie
+	-- Midnight
+	256698, -- Roofus
+	257695, -- Nova
+	257546, -- Voldy
 }
 
 local Sequences = { 26, 52, 69, 111, 225 }
@@ -450,7 +454,7 @@ function module:GameMenu_OnHide()
 end
 
 function module:GameMenu()
-	module.db = F.GetDBFromPath("mui.gameMenu")
+	module.db = E.db.mui.gameMenu
 
 	if not MER:HasRequirements(I.Requirements.GameMenu) or not module.db or not module.db.enable then
 		return
