@@ -1,6 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Core.lua"/>
-	<Script file="Helpers.lua"/>
 
 	<Script file="Misc.lua"/>
 	<Script file="Afk.lua"/>
