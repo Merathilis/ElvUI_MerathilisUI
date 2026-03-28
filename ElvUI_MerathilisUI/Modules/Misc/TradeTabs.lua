@@ -68,6 +68,7 @@ local function FilterIcons()
 		)
 		button:CreateBackdrop()
 		button.Icon = button:CreateTexture(nil, "OVERLAY")
+
 		if index == 1 then
 			button.Icon:SetAtlas(value[1])
 		else
