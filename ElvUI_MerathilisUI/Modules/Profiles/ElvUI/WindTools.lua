@@ -72,6 +72,10 @@ function module:LoadWindToolsProfile()
 	private["skins"]["widgets"]["checkBox"]["enable"] = true
 	private["skins"]["widgets"]["tab"]["enable"] = true
 	private["skins"]["widgets"]["treeGroupButton"]["enable"] = true
+	private["skins"]["lossOfControl"]["backdrop"]["useCustomColor"] = true
+	private["skins"]["lossOfControl"]["backdrop"]["r"] = F.r
+	private["skins"]["lossOfControl"]["backdrop"]["b"] = F.b
+	private["skins"]["lossOfControl"]["backdrop"]["g"] = F.g
 	private["unitFrames"]["roleIcon"]["roleIconStyle"] = "LYNUI"
 
 	if not E.db.movers then

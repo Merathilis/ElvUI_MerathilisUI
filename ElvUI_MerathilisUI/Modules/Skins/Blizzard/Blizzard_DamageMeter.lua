@@ -8,6 +8,8 @@ local module = MER:GetModule("MER_DamageMeter") ---@type DamageMeter
 local _G = _G
 
 local hooksecurefunc = hooksecurefunc
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local C_CVar_GetCVarBool = C_CVar.GetCVarBool
 
 local gradientOrientation
 local fgMapNormal
@@ -178,12 +180,6 @@ function module:Initialize()
 			end)
 
 			_G.DamageMeter:ForEachSessionWindow(HookSessionWindow)
-
-			local isDamageMeterEnabled = C_CVar.GetCVarBool("damageMeterEnabled")
-			if not isDamageMeterEnabled then
-				E:SetCVar("damageMeterEnabled", "1")
-				_G.DamageMeter:Show()
-			end
 		end)
 	end)
 
