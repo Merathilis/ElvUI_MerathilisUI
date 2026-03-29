@@ -20,7 +20,7 @@ function module:LoadWindToolsProfile()
 	db["combat"]["combatAlert"]["enable"] = true
 	db["combat"]["combatAlert"]["text"] = true
 	db["combat"]["raidMarkers"]["enable"] = false
-	db["combat"]["damageMeterLayout"]["enable"] = true
+	db["combat"]["damageMeterLayout"]["enable"] = false
 	db["combat"]["damageMeterLayout"]["width"] = 338
 	db["combat"]["damageMeterLayout"]["height"] = 160
 	db["combat"]["damageMeterLayout"]["layouts"][1]["outerPadding"] = 1

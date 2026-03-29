@@ -24,6 +24,7 @@ I.Strings.Colors = {
 	[I.Enum.Colors.WT] = "54e5ff", -- #54e5ff
 	[I.Enum.Colors.FCT] = "dd2244", -- #dd2244
 	[I.Enum.Colors.AS] = "16C3F2", -- #16C3F2
+	[I.Enum.Colors.MMEDIA] = "FF6600", -- #FF6600
 	[I.Enum.Colors.ELVUI] = "1784d1", -- #1784d1
 	[I.Enum.Colors.ERROR] = "ff2735", -- #ff2735
 	[I.Enum.Colors.GOOD] = "66bb6a", -- #66bb6a

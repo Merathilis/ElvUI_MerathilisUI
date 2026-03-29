@@ -1,4 +1,6 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Fonts.lua"/>
+
+	<Script file="mMediaTag.lua"/>
 	<Script file="WindTools.lua"/>
 </Ui>
