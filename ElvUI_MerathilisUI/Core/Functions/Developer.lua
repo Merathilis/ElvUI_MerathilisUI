@@ -16,6 +16,7 @@ MER.IsDev = {
 	["Mérathilis"] = true,
 	["Merathilîs"] = true,
 	["Róhal"] = true,
+	["Rohala"] = true,
 	["Ronan"] = true,
 	["Brítt"] = true,
 	["Brìtt"] = true,
