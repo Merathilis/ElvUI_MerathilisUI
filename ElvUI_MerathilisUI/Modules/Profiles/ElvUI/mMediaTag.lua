@@ -15,6 +15,7 @@ function module:LoadmMediaTagProfile()
 		return
 	end
 
+	db.general.greeting_message = false
 	db.nameplates.target.changeColor = true
 	db.nameplates.target.changeTexture = true
 	db.nameplates.target.texture = "mMediaTag A4" or "ElvUI Norm1" --fallback
