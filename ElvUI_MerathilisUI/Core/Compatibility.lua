@@ -255,35 +255,7 @@ function MER:CheckCompatibility()
 
 	self:ConstructCompatibilityFrame()
 
-	CheckShadowAndLight(L["Raid Markers"], L["Raid Markers"], "db.mui.raidmarkers.enable", "db.sle.raidmarkers.enable")
-
-	CheckShadowAndLight(
-		format("%s-%s", L["Skins"], L["Key Timers"]),
-		format("%s-%s", L["Skins"], L["Scenario"]),
-		"private.mui.skins.blizzard.objectiveTracker",
-		"private.sle.skins.objectiveTracker.keyTimers.enable"
-	)
-
-	CheckShadowAndLight(
-		format("%s-%s", L["Objective Tracker"], L["Cosmetic Bar"]),
-		format("%s-%s", L["Skins"], L["Underline"]),
-		"private.mui.quest.objectiveTracker.enable",
-		"db.sle.skins.objectiveTracker.underline"
-	)
-
-	CheckShadowAndLight(
-		L["Merchant"],
-		format("%s-%s", L["Item"], L["Extend Merchant Pages"]),
-		"db.mui.merchant.enable",
-		"private.sle.skins.merchant.enable"
-	)
-
-	CheckShadowAndLight(
-		format("%s-%s", L["UnitFrames"], L["Role Icons"]),
-		format("%s-%s", L["UnitFrames"], L["Role Icon"]),
-		"db.mui.unitframes.roleIcons.enable",
-		"db.sle.unitframes.roleIcons.enable"
-	)
+	-- Update me plx
 
 	if self.CompatibilityFrame.numModules > 0 then
 		self.CompatibilityFrame:Show()

@@ -77,10 +77,7 @@ V.skins = {
 	},
 	blizzard = {
 		damageMeter = {
-			enable = false,
-			replaceIcon = true,
-			iconPack = "details_white",
-			gradientBar = true,
+			enable = true,
 		},
 	},
 

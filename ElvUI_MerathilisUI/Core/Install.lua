@@ -929,6 +929,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["smoothbars"] = true
 	E.db["nameplates"]["statusbar"] = "ElvUI Norm1"
 	E.db["nameplates"]["visibility"]["friendly"]["npcs"] = false
+	E.db["nameplates"]["useBlizzardAuras"] = true
 
 	-- Color
 	E.db["nameplates"]["colors"]["castColor"]["r"] = 1

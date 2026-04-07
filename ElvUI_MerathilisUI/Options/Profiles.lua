@@ -22,7 +22,11 @@ local SupportedProfiles = {
 	{ "Details", "Details" },
 	{ "ls_Toasts", "ls_Toasts" },
 	{ "TomTom", "TomTom" },
-	{ "ElvUI_WindTools", "WindTools" },
+	{
+		"ElvUI_WindTools",
+		"|cff1784d1ElvUI|r |cff5385edW|r|cff5094eai|r|cff4da4e7n|r|cff4ab4e4d|r|cff47c0e1T|r|cff44cbdfo|r|cff41d7ddo|r|cff41d7ddl|r|cff41d7dds|r",
+	},
+	{ "ElvUI_mMediaTag", "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r" },
 }
 
 options.generalGroup = {
@@ -145,6 +149,8 @@ for _, v in ipairs(SupportedProfiles) do
 				Profile:ApplyTomTomProfile()
 			elseif addon == "ElvUI_WindTools" then
 				Profile:ApplyWindToolsProfile()
+			elseif addon == "ElvUI_mMediaTag" then
+				Profile:ApplymMediaTagProfile()
 			end
 		end,
 		disabled = function()

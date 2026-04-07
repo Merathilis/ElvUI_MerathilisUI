@@ -20,6 +20,7 @@ I.Enum.Colors = F.Enum({
 	"WT",
 	"AS",
 	"FCT",
+	"MMEDIA",
 	"ELVUI",
 	"ELVUI_VALUE",
 	"CLASS",

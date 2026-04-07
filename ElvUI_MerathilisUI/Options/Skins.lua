@@ -428,37 +428,6 @@ options.advancedSettings = {
 					name = " ",
 					width = "full",
 				},
-				gradientBar = {
-					order = 4,
-					type = "toggle",
-					name = L["Gradient Bars"],
-					disabled = function()
-						return not E.private.mui.skins.blizzard.damageMeter.enable
-					end,
-				},
-				replaceIcon = {
-					order = 5,
-					type = "toggle",
-					name = L["Replace Icon"],
-					disabled = function()
-						return not E.private.mui.skins.blizzard.damageMeter.enable
-					end,
-				},
-				iconPack = {
-					order = 6,
-					type = "select",
-					name = L["Icon Pack"],
-					disabled = function()
-						return not E.private.mui.skins.blizzard.damageMeter.enable
-					end,
-					values = function()
-						local iconPacks = {}
-						for k, v in _G.pairs(Skins.DamageMeterIcons) do
-							iconPacks[k] = "|T" .. v.path .. ":25:25:0:0:512:512:64:128:0:64|t" .. v.DisplayName
-						end
-						return iconPacks
-					end,
-				},
 			},
 		},
 	},

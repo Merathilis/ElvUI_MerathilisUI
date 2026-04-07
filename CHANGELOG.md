@@ -1,6 +1,6 @@
 ### Changes ###
 
-  * [NameHover]: Fixed an issue with the latest API change from Blizzard in Tooltip
-  * [Profile]: Added a copy MerathilisUI Setting feature to copy my settings
-  * [Theme]: Some gradient color function updates
-  * [Armory]: Updated armory settings
+  * [Theme]: Fixed an issue with gradient color functions
+  * [Profile]: Added a profile for ElvUI_mMediaTag & Tools
+  * [Profile]: Updated the profile for WindTools
+  * [Core]: Some code optimizations and improvements
