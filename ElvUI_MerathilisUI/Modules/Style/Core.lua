@@ -27,6 +27,29 @@ function module:UpdateTemplateStrata(frame)
 	end
 end
 
+local function WatchPixelSnap(frame, snap)
+	if E:NotSecretTable(frame) and (frame and not frame:IsForbidden()) and frame.PixelSnapDisabled and snap then
+		frame.PixelSnapDisabled = nil
+	end
+end
+
+local function DisablePixelSnap(frame)
+	if E:NotSecretTable(frame) and (frame and not frame:IsForbidden()) and not frame.PixelSnapDisabled then
+		if frame.SetSnapToPixelGrid then
+			frame:SetSnapToPixelGrid(false)
+			frame:SetTexelSnappingBias(0)
+		elseif frame.GetStatusBarTexture then
+			local texture = frame:GetStatusBarTexture()
+			if type(texture) == "table" and texture.SetSnapToPixelGrid then
+				texture:SetSnapToPixelGrid(false)
+				texture:SetTexelSnappingBias(0)
+			end
+		end
+
+		frame.PixelSnapDisabled = true
+	end
+end
+
 function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitFrameElement, isNamePlateElement)
 	template = template or frame.template or "Default"
 	glossTex = glossTex or frame.glossTex or nil
@@ -75,34 +98,96 @@ function module:SetTemplateAS(_, frame, template, _)
 	self:SetTemplate(frame, template)
 end
 
-function module:API(object)
-	local mt = getmetatable(object).__index
+local API = {
+	Kill = Kill,
+	Size = Size,
+	Point = Point,
+	Width = Width,
+	Height = Height,
+	PointXY = PointXY,
+	GrabPoint = GrabPoint,
+	NudgePoint = NudgePoint,
+	SetOutside = SetOutside,
+	SetInside = SetInside,
+	SetTemplate = SetTemplate,
+	CreateBackdrop = CreateBackdrop,
+	CreateShadow = CreateShadow,
+	FontTemplate = FontTemplate,
+	StripTextures = StripTextures,
+	StripTexts = StripTexts,
+	StyleButton = StyleButton,
+	OffsetFrameLevel = OffsetFrameLevel,
+	CreateCloseButton = CreateCloseButton,
+	SetTexCoords = SetTexCoords,
+	GetChild = GetChild,
+}
 
-	if not mt or type(mt) == "function" then
-		return
+function module:API(object)
+	local mk = getmetatable(object).__index
+	for method, func in next, API do
+		if not object[method] then
+			mk[method] = func
+		end
 	end
 
-	if mt.SetTemplate and not mt.MERSkin then
+	if
+		not object.DisabledPixelSnap
+		and (
+			mk.SetSnapToPixelGrid
+			or mk.SetStatusBarTexture
+			or mk.SetColorTexture
+			or mk.SetVertexColor
+			or mk.CreateTexture
+			or mk.SetTexCoord
+			or mk.SetTexture
+		)
+	then
+		if mk.SetSnapToPixelGrid then
+			hooksecurefunc(mk, "SetSnapToPixelGrid", WatchPixelSnap)
+		end
+		if mk.SetStatusBarTexture then
+			hooksecurefunc(mk, "SetStatusBarTexture", DisablePixelSnap)
+		end
+		if mk.SetColorTexture then
+			hooksecurefunc(mk, "SetColorTexture", DisablePixelSnap)
+		end
+		if mk.SetVertexColor then
+			hooksecurefunc(mk, "SetVertexColor", DisablePixelSnap)
+		end
+		if mk.CreateTexture then
+			hooksecurefunc(mk, "CreateTexture", DisablePixelSnap)
+		end
+		if mk.SetTexCoord then
+			hooksecurefunc(mk, "SetTexCoord", DisablePixelSnap)
+		end
+		if mk.SetTexture then
+			hooksecurefunc(mk, "SetTexture", DisablePixelSnap)
+		end
+
+		mk.DisabledPixelSnap = true
+	end
+
+	if mk.SetTemplate and not mk.MERSkin then
 		if not object.CreateStyle then
-			mt.CreateStyle = F.CreateStyle
+			mk.CreateStyle = F.CreateStyle
 		end
 
 		-- Hook elvui template
-		if not self:IsHooked(mt, "SetTemplate") then
-			self:SecureHook(mt, "SetTemplate", "SetTemplate")
+		if not self:IsHooked(mk, "SetTemplate") then
+			self:SecureHook(mk, "SetTemplate", "SetTemplate")
 		end
 
 		-- Hook FrameLevel
-		if mt.SetFrameLevel and (not self:IsHooked(mt, "SetFrameLevel")) then
-			self:SecureHook(mt, "SetFrameLevel", "UpdateTemplateStrata")
+		if mk.SetFrameLevel and (not self:IsHooked(mk, "SetFrameLevel")) then
+			self:SecureHook(mk, "SetFrameLevel", "UpdateTemplateStrata")
 		end
 
 		-- Hook FrameStrata
-		if mt.SetFrameStrata and (not self:IsHooked(mt, "SetFrameStrata")) then
-			self:SecureHook(mt, "SetFrameStrata", "UpdateTemplateStrata")
+		if mk.SetFrameStrata and (not self:IsHooked(mk, "SetFrameStrata")) then
+			self:SecureHook(mk, "SetFrameStrata", "UpdateTemplateStrata")
 		end
 
-		mt.MERSkin = true
+		mk.MERSkin = true
 	end
 end
 
@@ -124,8 +209,6 @@ function module:MetatableScan()
 	self:API(object:CreateTexture())
 	self:API(object:CreateFontString())
 	self:API(object:CreateMaskTexture())
-	self:API(_G.GameFontNormal)
-	self:API(CreateFrame("ScrollFrame"))
 
 	object = EnumerateFrames()
 	while object do
@@ -161,19 +244,6 @@ function module:Enable()
 	end
 
 	self.isEnabled = true
-
-	-- AddOnSkins Skinning
-	F.Event.ContinueOnAddOnLoaded("AddOnSkins", function()
-		local AS = _G.AddOnSkins and _G.AddOnSkins[1]
-		if not AS then
-			return
-		end
-
-		if not self:IsHooked(AS, "SetTemplate") then
-			self:SecureHook(AS, "SetTemplate", "SetTemplateAS")
-			AS:UpdateSettings()
-		end
-	end)
 
 	self:MetatableScan()
 	self:ForceRefresh()
