@@ -958,6 +958,8 @@ P.portraits = {
 	},
 }
 
+P.nameplates = {}
+
 P.unitframes = {
 	style = true,
 	raidIcons = true,
