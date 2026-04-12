@@ -22,6 +22,8 @@ function module:LoadmMediaTagProfile()
 	db.phase_icon.enable = true
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true
+	db.important_casts.enable = true
+	db.important_casts.anchor = "BOTTOM"
 end
 
 function module:ApplymMediaTagProfile()
