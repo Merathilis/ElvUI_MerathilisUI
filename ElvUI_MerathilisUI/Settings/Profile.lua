@@ -265,7 +265,21 @@ P.style = {
 }
 
 P.bags = {
-	equipOverlay = true,
+	equipmentManager = {
+		enable = true,
+		size = 14,
+		point = "TOPRIGHT",
+		xOffset = -1,
+		yOffset = -1,
+		icon = "EQUIPLOCK",
+		customTexture = "",
+		color = {
+			r = 1,
+			g = 0.82,
+			b = 0,
+			a = 1,
+		},
+	},
 }
 
 P.colors = {

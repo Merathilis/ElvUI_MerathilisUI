@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Profiles")
+local module = MER:GetModule("MER_Profiles") ---@class Profiles : AceModule, AceHook-3.0
 
 local pairs = pairs
 
@@ -15,7 +15,6 @@ function module:ExecuteElvUIUpdate(callback)
 end
 
 function module:UpdateProfileForGradient()
-	-- Set fade directions based on current layout
 	local layouts = I.GradientMode.Layouts[E.db.mui.installer.layout]
 	if layouts then
 		for unitType in pairs(P.themes.gradientMode.fadeDirection) do
