@@ -8,6 +8,7 @@
 	<Include file="FunStuff.xml"/>
 	<Script file="FunStuff.lua"/>
 	<Script file="GameMenu.lua"/>
+	<Script file="IconSearch.lua"/>
 	<Script file="Gmotd.lua"/>
 	<Script file="PetFilterTab.lua"/>
 	<Script file="RaidInfoFrame.lua"/>

@@ -22,7 +22,7 @@ options.bags = {
 			get = function(info)
 				return E.db.mui.bags.equipmentManager[info[#info]]
 			end,
-			-- set = function(info, value) E.db.sle.bags.equipmentmanager[info[#info]] = value; BI:UpdateBagSettings() end,
+			-- set = function(info, value) E.db.mui.bags.equipmentManager[info[#info]] = value; EM:UpdateBagSettings() end,
 			set = function(info, value)
 				E.db.mui.bags.equipmentManager[info[#info]] = value
 				-- B:UpdateLayouts()
