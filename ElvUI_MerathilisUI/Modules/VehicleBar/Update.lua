@@ -117,6 +117,15 @@ function module:UpdateVigorBar()
 	self:UpdateVigorSegments()
 end
 
+function module:UpdateButtonLock()
+	if not self.bar or not self.bar.buttons then
+		return
+	end
+	for _, button in ipairs(self.bar.buttons) do
+		button:SetAttribute("buttonlock", self.ab.db.lockActionBars or nil)
+	end
+end
+
 function module:UpdateKeybinds()
 	for i, button in ipairs(self.bar.buttons) do
 		-- Keybinds handling
@@ -294,4 +303,5 @@ function module:UpdateBar()
 	end
 
 	self:UpdateKeybinds()
+	self:UpdateButtonLock()
 end
