@@ -1,6 +1,6 @@
 ### Changes ###
 
-  * [Theme]: Fixed an issue with gradient color functions
-  * [Profile]: Added a profile for ElvUI_mMediaTag & Tools
-  * [Profile]: Updated the profile for WindTools
-  * [Core]: Some code optimizations and improvements
+  * [Bags]: Added an icon for Items Sets on the items in your inventory
+  * [UnitFrames]: Updated the name length on UnitFrames and NamePlates
+  * [Profile]: Updated mMediaTag Profile
+  * [VehicleBar]: Replace the own animation with Blizzard's API
