@@ -109,7 +109,10 @@ function module:Disable()
 
 		if self.vigorBar then
 			self.vigorBar:Hide()
-			-- Cancel speed text ticker if it exists
+			if self.vigorBar.vigorTicker then
+				self.vigorBar.vigorTicker:Cancel()
+				self.vigorBar.vigorTicker = nil
+			end
 			if self.vigorBar.speedTextTicker then
 				self.vigorBar.speedTextTicker:Cancel()
 				self.vigorBar.speedTextTicker = nil
