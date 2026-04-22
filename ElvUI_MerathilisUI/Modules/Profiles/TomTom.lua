@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Profiles")
+local module = MER:GetModule("MER_Profiles") ---@class Profiles
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 function module:LoadTomTomProfile()

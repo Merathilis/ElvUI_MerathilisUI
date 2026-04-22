@@ -366,3 +366,17 @@ I.InterruptSpellMap = {
 ]]
 
 I.InterruptSpellMap_Empty = {}
+
+I.Values = {
+	positionValues = {
+		TOPLEFT = "TOPLEFT",
+		LEFT = "LEFT",
+		BOTTOMLEFT = "BOTTOMLEFT",
+		RIGHT = "RIGHT",
+		TOPRIGHT = "TOPRIGHT",
+		BOTTOMRIGHT = "BOTTOMRIGHT",
+		CENTER = "CENTER",
+		TOP = "TOP",
+		BOTTOM = "BOTTOM",
+	},
+}

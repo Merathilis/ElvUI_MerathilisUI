@@ -47,10 +47,9 @@ function module:CreateVigorBar()
 		end
 	end)
 
-	-- OnUpdate for smooth recharge animation
-	vigorBar:SetScript("OnUpdate", function()
+	-- Ticker for smooth recharge animation (0.05s = 20fps, visually indistinguishable from per-frame)
+	vigorBar.vigorTicker = C_Timer_NewTicker(0.05, function()
 		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
-			-- Update vigor segments every frame for smooth animation
 			self:UpdateVigorSegments()
 		end
 	end)

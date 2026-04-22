@@ -18,7 +18,7 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit, _, args)
 	end
 
 	if not args then
-		args = 10
+		args = 16
 	end
 
 	args = tonumber(args)

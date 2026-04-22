@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Profiles")
+local module = MER:GetModule("MER_Profiles") ---@class Profiles
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
@@ -22,6 +22,8 @@ function module:LoadmMediaTagProfile()
 	db.phase_icon.enable = true
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true
+	db.important_casts.enable = true
+	db.important_casts.anchor = "BOTTOM"
 end
 
 function module:ApplymMediaTagProfile()
