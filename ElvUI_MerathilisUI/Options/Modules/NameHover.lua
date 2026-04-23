@@ -11,14 +11,22 @@ options.nameHover = {
 		return E.db.mui.nameHover[info[#info]]
 	end,
 	set = function(info, value)
-		E.db.mui.nameHover[info[#info]] = value
+		local key = info[#info]
+
+		E.db.mui.nameHover[key] = value
+
+		-- Skip reload for blizztooltip (applies instantly)
+		if key == "blizztooltip" then
+			return
+		end
+
 		E:StaticPopup_Show("GLOBAL_RL")
 	end,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["ActionBars"], "orange"),
+			name = F.cOption(L["Name Hover"], "orange"),
 		},
 		credits = {
 			order = 2,
@@ -161,6 +169,25 @@ options.nameHover = {
 			order = 11,
 			type = "toggle",
 			name = L["Classification"],
+		},
+		blizztooltip = {
+			order = 12,
+			type = "toggle",
+			name = E.NewSign .. L["Hide Blizzard Tooltip"],
+		},
+		inspectKey = {
+			order = 13,
+			type = "select",
+			name = E.NewSign .. L["Override Key"],
+			disabled = function()
+				return not E.db.mui.nameHover.blizztooltip
+			end,
+			values = {
+				SHIFT = "SHIFT",
+				CTRL = "CTRL",
+				ALT = "ALT",
+				NONE = "NONE",
+			},
 		},
 	},
 }

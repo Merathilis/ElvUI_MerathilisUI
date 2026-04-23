@@ -320,6 +320,8 @@ P.nameHover = {
 	fontOutline = "SHADOWOUTLINE",
 	targettarget = false,
 	gradient = false,
+	blizztooltip = false,
+	inspectKey = "SHIFT", -- SHIFT, CTRL, ALT, NONE
 }
 
 P.armory = {

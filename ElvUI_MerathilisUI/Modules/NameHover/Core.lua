@@ -1,6 +1,22 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_NameHover")
 
+local pcall, type = pcall, type
+local max = math.max
+local tconcat = table.concat
+local issecretvalue = issecretvalue
+
+local GetCursorPosition = GetCursorPosition
+local hooksecurefunc = hooksecurefunc
+local IsShiftKeyDown = IsShiftKeyDown
+local IsControlKeyDown = IsControlKeyDown
+local IsAltKeyDown = IsAltKeyDown
+local UnitName = UnitName
+local UnitIsUnit = UnitIsUnit
+local UnitExists = UnitExists
+
+local C_Timer_After = C_Timer.After
+
 local LOP
 if type(LibStub) == "table" and type(LibStub.GetLibrary) == "function" then
 	LOP = LibStub:GetLibrary("LibObjectiveProgress-1.0", true)
@@ -20,6 +36,72 @@ module.COLOR_HORDE = { r = 1, g = 0, b = 0 }
 module.COLOR_ELITE = { r = 213 / 255, g = 154 / 255, b = 18 / 255 }
 module.ICON_CHECKMARK = "|TInterface\\RaidFrame\\ReadyCheck-Ready:11|t"
 module.ICON_LIST = "- "
+
+module.showingBlizzTooltip = false
+
+local function IsInspectKeyDown()
+	local key = module.db and module.db.inspectKey or "NONE"
+
+	if key == "SHIFT" then
+		return IsShiftKeyDown()
+	elseif key == "CTRL" then
+		return IsControlKeyDown()
+	elseif key == "ALT" then
+		return IsAltKeyDown()
+	elseif key == "NONE" then
+		return false
+	end
+	return false
+end
+
+module.inspectMode = false
+
+local function ApplyBlizzState(self)
+	if not module.db then
+		return
+	end
+
+	local _, unit = self:GetUnit()
+
+	-- INSPECT MODE
+	if IsInspectKeyDown() then
+		module.inspectMode = true
+		module.showingBlizzTooltip = true
+		self:SetAlpha(1)
+		return
+	else
+		module.inspectMode = false
+	end
+
+	-- CONFIG OVERRIDE
+	if module.db.blizztooltip then
+		module.showingBlizzTooltip = true
+		self:SetAlpha(1)
+		return
+	end
+
+	-- NORMAL MODE
+	if unit and UnitIsUnit(unit, "mouseover") then
+		module.showingBlizzTooltip = false
+		self:SetAlpha(0)
+	end
+end
+
+local function ApplyNameHoverAlpha(frame)
+	if not frame then
+		return
+	end
+
+	if module.showingBlizzTooltip then
+		if frame:GetAlpha() ~= 0 then
+			frame:SetAlpha(0)
+		end
+	else
+		if frame:GetAlpha() ~= 1 then
+			frame:SetAlpha(1)
+		end
+	end
+end
 
 local function SetAnchor(element, anchor, position, top)
 	local margin = 13
@@ -62,26 +144,27 @@ local function UpdateFrameContents(f)
 	f.headerText:SetText(headerText)
 	f.guildText:SetText(guildText)
 
-	-- F.Developer.LogDebug(string.format("Unit: %s (%s)", mainText, headerText))
-
 	local offset = 0
 	local subTexts = module:CombineTables(module:GetQuestText("mouseover", tooltips))
+
 	if subTexts and #subTexts > 0 then
 		offset = 12 * #subTexts
-		f.subText:SetText(table.concat(subTexts, "\n"))
+		f.subText:SetText(tconcat(subTexts, "\n"))
 	else
 		f.subText:SetText("")
 	end
 
 	local width, height
-	local mainTextValue = f.mainText:GetText()
-	if mainTextValue and not issecretvalue(mainTextValue) then
+	local text = f.mainText:GetText()
+
+	if text and not issecretvalue(text) then
 		local okW, w = pcall(f.mainText.GetStringWidth, f.mainText)
 		local okH, h = pcall(f.mainText.GetStringHeight, f.mainText)
-		if okW and not issecretvalue(w) and type(w) == "number" then
+
+		if okW and type(w) == "number" then
 			width = w
 		end
-		if okH and not issecretvalue(h) and type(h) == "number" then
+		if okH and type(h) == "number" then
 			height = h
 		end
 	end
@@ -90,8 +173,9 @@ local function UpdateFrameContents(f)
 	height = height or 14
 
 	local subCount = (subTexts and #subTexts) or 0
-	width = math.max(1, width + 16)
-	height = math.max(1, height + (12 * subCount))
+	width = max(1, width + 16)
+	height = max(1, height + (12 * subCount))
+
 	f:SetSize(width, height)
 	f.mainText:SetPoint("TOP", f, "TOP", 0, offset)
 
@@ -105,9 +189,13 @@ local function UpdateFrameContents(f)
 	if module:IsNotEmpty(statusText) then
 		top = SetAnchor(f.statusText, f.mainText, "TOPLEFT", top)
 	end
+
 	f.subText:SetPoint("BOTTOMLEFT", f.mainText, "BOTTOMLEFT", 12, -1 + (-12 * subCount))
 
 	f:Show()
+
+	-- APPLY ALPHA AFTER UPDATE (CRITICAL)
+	ApplyNameHoverAlpha(f)
 end
 
 local function UpdateFramePosition(f)
@@ -118,7 +206,12 @@ local function UpdateFramePosition(f)
 
 	local x, y = GetCursorPosition()
 	local scale = UIParent:GetEffectiveScale()
+
+	f:ClearAllPoints()
 	f:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x / scale, y / scale + 15)
+
+	-- KEEP ENFORCING ALPHA (PREVENT FLICKER)
+	ApplyNameHoverAlpha(f)
 end
 
 function module:Initialize()
@@ -130,6 +223,8 @@ function module:Initialize()
 
 	local frame = CreateFrame("Frame", "MER_NameHoverFrame", E.UIParent)
 	frame:SetFrameStrata("TOOLTIP")
+
+	module.frame = frame -- store reference (important)
 
 	frame.mainText = frame:CreateFontString(nil, "OVERLAY")
 	frame.mainText:FontTemplate(
@@ -165,10 +260,39 @@ function module:Initialize()
 	frame:SetScript("OnUpdate", function(self)
 		UpdateFramePosition(self)
 	end)
+
 	frame:SetScript("OnEvent", function(self)
-		UpdateFrameContents(self)
+		if self.updateQueued then
+			return
+		end
+		self.updateQueued = true
+
+		C_Timer_After(0.01, function()
+			self.updateQueued = false
+
+			if not UnitExists("mouseover") then
+				return
+			end
+
+			UpdateFrameContents(self)
+			self:Show()
+			UpdateFramePosition(self)
+		end)
 	end)
+
 	frame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
+
+	if not module.TooltipHooked then
+		local function Apply(self)
+			ApplyBlizzState(self)
+		end
+
+		hooksecurefunc(GameTooltip, "SetUnit", Apply)
+		GameTooltip:HookScript("OnShow", Apply)
+		GameTooltip:HookScript("OnUpdate", Apply)
+
+		module.TooltipHooked = true
+	end
 
 	module.Initialized = true
 end
