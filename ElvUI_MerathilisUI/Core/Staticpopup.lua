@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local C = W.Utilities.Color ---@type ColorUtility
+local C = W.Utilities.Color
 
 local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn
 

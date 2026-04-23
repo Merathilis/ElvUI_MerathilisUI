@@ -61,7 +61,14 @@ local function ApplyBlizzState(self)
 		return
 	end
 
+	if not self or not self.GetUnit then
+		return
+	end
+
 	local _, unit = self:GetUnit()
+	if not unit then
+		return
+	end
 
 	-- INSPECT MODE
 	if IsInspectKeyDown() then
@@ -283,7 +290,7 @@ function module:Initialize()
 	frame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 
 	if not module.TooltipHooked then
-		local function Apply(self)
+		local function Apply()
 			ApplyBlizzState(self)
 		end
 

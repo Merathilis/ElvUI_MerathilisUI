@@ -1,7 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local C = W.Utilities.Color ---@type ColorUtility
+local C = W.Utilities.Color
 
-local print, tonumber, type = print, tonumber, type
+local print, tonumber = print, tonumber
 local format = string.format
 
 local isFirstLine = true
