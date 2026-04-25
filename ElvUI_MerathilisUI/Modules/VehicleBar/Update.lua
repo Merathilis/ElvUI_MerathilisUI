@@ -67,6 +67,11 @@ function module:UpdateSpeedText()
 	local base = isGliding and forwardSpeed or GetUnitSpeed("player")
 	local movespeed = Round(base / BASE_MOVEMENT_SPEED * 100)
 
+	if not E:NotSecretValue(base) then
+		self.vigorBar.speedText:SetText(F.String.Muted("N/A"))
+		return
+	end
+
 	self.vigorBar.speedText:SetText(self:ColorSpeedText(format("%d%%", movespeed)))
 end
 
