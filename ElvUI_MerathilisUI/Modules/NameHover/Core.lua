@@ -36,9 +36,20 @@ module.COLOR_HORDE = { r = 1, g = 0, b = 0 }
 module.COLOR_ELITE = { r = 213 / 255, g = 154 / 255, b = 18 / 255 }
 module.ICON_CHECKMARK = "|TInterface\\RaidFrame\\ReadyCheck-Ready:11|t"
 module.ICON_LIST = "- "
+module.inspectBindingHeld = false
+module.suppressTooltipFade = false
 
-module.showingBlizzTooltip = false
+_G.BINDING_NAME_MER_NAMEHOVER_INSPECT = _G.BINDING_NAME_MER_NAMEHOVER_INSPECT or "Name Hover: Hold to Show BlizzToolTip"
 
+local INSTANCE_TYPES = {
+	party = true,
+	raid = true,
+	scenario = true,
+}
+
+-- =========================
+-- INSPECT KEY SYSTEM
+-- =========================
 local function IsInspectKeyDown()
 	local key = module.db and module.db.inspectKey or "NONE"
 
@@ -54,6 +65,151 @@ local function IsInspectKeyDown()
 	return false
 end
 
+local function IsInspectOverrideActive()
+	return module.inspectBindingHeld or IsInspectKeyDown()
+end
+
+function module:IsDisabledInCurrentInstance()
+	if not self.db or not self.db.disableInDungeons then
+		return false
+	end
+
+	local inInstance, instanceType = IsInInstance()
+	return inInstance and INSTANCE_TYPES[instanceType] or false
+end
+
+local function IsAllowedMouseFocus()
+	local focus = module:GetTopMouseFocus()
+
+	if not focus then
+		return true
+	end
+
+	local current = focus
+	for _ = 1, 6 do
+		if not current then
+			break
+		end
+
+		if current == WorldFrame then
+			return true
+		end
+
+		local name = current.GetName and current:GetName()
+		if name == "WorldFrame" then
+			return true
+		end
+
+		local unit = current.unit
+		if not unit and type(current.GetAttribute) == "function" then
+			unit = current:GetAttribute("unit")
+		end
+
+		if unit and UnitExists(unit) and UnitIsUnit(unit, "mouseover") then
+			return true
+		end
+
+		if
+			type(name) == "string"
+			and (string.find(name, "NamePlate", 1, true) or string.find(name, "Plater", 1, true))
+		then
+			return true
+		end
+
+		current = current.GetParent and current:GetParent() or nil
+	end
+
+	return false
+end
+
+local function GetTooltipUnit(self)
+	if not self or type(self.GetUnit) ~= "function" then
+		return nil
+	end
+
+	local ok, _, unit = pcall(self.GetUnit, self)
+	if not ok then
+		return nil
+	end
+
+	if unit and UnitExists(unit) then
+		return unit
+	end
+
+	if self == GameTooltip and UnitExists("mouseover") then
+		return "mouseover"
+	end
+
+	return nil
+end
+
+local function HasVisibleMouseoverUnit()
+	return UnitExists("mouseover") and IsAllowedMouseFocus()
+end
+
+local function ShouldForceHideBlizzTooltip()
+	if not module.db then
+		return false
+	end
+
+	if module:IsDisabledInCurrentInstance() or module.db.blizztooltip or IsInspectOverrideActive() then
+		return false
+	end
+
+	return not UnitExists("mouseover")
+end
+
+local function ClearTooltipFadeSuppression()
+	module.suppressTooltipFade = false
+end
+
+local function UpdateBlizzTooltipAlpha()
+	if not GameTooltip or not GameTooltip.SetAlpha or not module.db then
+		return
+	end
+
+	if module:IsDisabledInCurrentInstance() or IsInspectOverrideActive() or module.db.blizztooltip then
+		ClearTooltipFadeSuppression()
+		module.inspectMode = module:IsDisabledInCurrentInstance() and false or IsInspectOverrideActive()
+		GameTooltip:SetAlpha(1)
+		return
+	end
+
+	module.inspectMode = false
+
+	if HasVisibleMouseoverUnit() then
+		module.suppressTooltipFade = true
+		GameTooltip:SetAlpha(0)
+		return
+	end
+
+	if module.suppressTooltipFade and GameTooltip:IsShown() then
+		GameTooltip:SetAlpha(0)
+		return
+	end
+
+	GameTooltip:SetAlpha(1)
+end
+
+local function HideBlizzTooltipIfStale()
+	if not GameTooltip or not GameTooltip.Hide or not GameTooltip:IsShown() then
+		return
+	end
+
+	if not ShouldForceHideBlizzTooltip() then
+		return
+	end
+
+	local unit = GetTooltipUnit(GameTooltip)
+	if unit or module.suppressTooltipFade then
+		ClearTooltipFadeSuppression()
+		GameTooltip:Hide()
+	end
+end
+
+-- =========================
+-- BLIZZARD TOOLTIP CONTROL
+-- =========================
 module.inspectMode = false
 
 local function ApplyBlizzState(self)
@@ -61,45 +217,37 @@ local function ApplyBlizzState(self)
 		return
 	end
 
-	if not self or not self.GetUnit then
-		return
-	end
+	UpdateBlizzTooltipAlpha()
+end
 
-	local _, unit = self:GetUnit()
-	if not unit then
-		return
-	end
+function module:SetInspectBindingState(isDown)
+	self.inspectBindingHeld = isDown == true
+	UpdateBlizzTooltipAlpha()
 
-	-- INSPECT MODE
-	if IsInspectKeyDown() then
-		module.inspectMode = true
-		module.showingBlizzTooltip = true
-		self:SetAlpha(1)
-		return
-	else
-		module.inspectMode = false
-	end
-
-	-- CONFIG OVERRIDE
-	if module.db.blizztooltip then
-		module.showingBlizzTooltip = true
-		self:SetAlpha(1)
-		return
-	end
-
-	-- NORMAL MODE
-	if unit and UnitIsUnit(unit, "mouseover") then
-		module.showingBlizzTooltip = false
-		self:SetAlpha(0)
+	if self.UpdateInstanceState then
+		self:UpdateInstanceState()
 	end
 end
 
+function MER_NameHover_SetInspectBindingState(isDown)
+	module:SetInspectBindingState(isDown)
+end
+
+-- =========================
+-- NAMEHOVER ALPHA CONTROL
+-- =========================
 local function ApplyNameHoverAlpha(frame)
 	if not frame then
 		return
 	end
 
-	if module.showingBlizzTooltip then
+	if module:IsDisabledInCurrentInstance() then
+		frame:Hide()
+		return
+	end
+
+	-- ONLY hide during inspect key usage
+	if module.inspectMode then
 		if frame:GetAlpha() ~= 0 then
 			frame:SetAlpha(0)
 		end
@@ -110,6 +258,9 @@ local function ApplyNameHoverAlpha(frame)
 	end
 end
 
+-- =========================
+-- FRAME HELPERS
+-- =========================
 local function SetAnchor(element, anchor, position, top)
 	local margin = 13
 	margin = (top or 0) + margin
@@ -119,14 +270,23 @@ local function SetAnchor(element, anchor, position, top)
 	return top
 end
 
+-- =========================
+-- CONTENT UPDATE
+-- =========================
 local function UpdateFrameContents(f)
-	local frameName = module:GetTopMouseFocusName()
-	if module:IsNotEmpty(frameName) and frameName ~= "WorldFrame" then
+	if module:IsDisabledInCurrentInstance() then
+		f:Hide()
+		return
+	end
+
+	if not IsAllowedMouseFocus() then
+		f:Hide()
 		return
 	end
 
 	local unitName = UnitName("mouseover")
 	if unitName == nil then
+		f:Hide()
 		return
 	end
 
@@ -145,6 +305,8 @@ local function UpdateFrameContents(f)
 	local statusText = status
 	local headerText = module:CombineText(faction, classification, creatureType, race)
 	local guildText = guild
+
+	f.lastUnitGUID = UnitGUID("mouseover")
 
 	f.mainText:SetText(mainText)
 	f.statusText:SetText(statusText)
@@ -201,12 +363,14 @@ local function UpdateFrameContents(f)
 
 	f:Show()
 
-	-- APPLY ALPHA AFTER UPDATE (CRITICAL)
 	ApplyNameHoverAlpha(f)
 end
 
+-- =========================
+-- POSITION UPDATE
+-- =========================
 local function UpdateFramePosition(f)
-	if not UnitExists("mouseover") then
+	if module:IsDisabledInCurrentInstance() or not UnitExists("mouseover") then
 		f:Hide()
 		return
 	end
@@ -217,10 +381,40 @@ local function UpdateFramePosition(f)
 	f:ClearAllPoints()
 	f:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x / scale, y / scale + 15)
 
-	-- KEEP ENFORCING ALPHA (PREVENT FLICKER)
+	-- FORCE ABOVE BLIZZ TOOLTIP
+	if GameTooltip and GameTooltip:IsShown() then
+		f:SetFrameStrata("TOOLTIP")
+		f:SetFrameLevel(GameTooltip:GetFrameLevel() + 10)
+	end
+
 	ApplyNameHoverAlpha(f)
 end
 
+function module:UpdateInstanceState()
+	if not self.frame then
+		return
+	end
+
+	if self:IsDisabledInCurrentInstance() then
+		self.inspectMode = false
+		self.frame:Hide()
+	else
+		if UnitExists("mouseover") then
+			UpdateFrameContents(self.frame)
+			UpdateFramePosition(self.frame)
+		else
+			self.frame:Hide()
+		end
+	end
+
+	if GameTooltip and GameTooltip:IsShown() then
+		ApplyBlizzState(GameTooltip)
+	end
+end
+
+-- =========================
+-- INIT
+-- =========================
 function module:Initialize()
 	module.db = E.db.mui.nameHover
 
@@ -231,7 +425,7 @@ function module:Initialize()
 	local frame = CreateFrame("Frame", "MER_NameHoverFrame", E.UIParent)
 	frame:SetFrameStrata("TOOLTIP")
 
-	module.frame = frame -- store reference (important)
+	module.frame = frame
 
 	frame.mainText = frame:CreateFontString(nil, "OVERLAY")
 	frame.mainText:FontTemplate(
@@ -264,11 +458,54 @@ function module:Initialize()
 	frame.subText = frame:CreateFontString(nil, "OVERLAY", "GameTooltipText")
 	frame.subText:FontTemplate(nil, module.db.subTextSize or 11, module.db.subTextOutline and "SHADOWOUTLINE" or "NONE")
 
-	frame:SetScript("OnUpdate", function(self)
+	frame:SetScript("OnUpdate", function(self, elapsed)
 		UpdateFramePosition(self)
+		UpdateBlizzTooltipAlpha()
+		HideBlizzTooltipIfStale()
+
+		self.refreshElapsed = (self.refreshElapsed or 0) + (elapsed or 0)
+		if self.refreshElapsed < 0.05 then
+			return
+		end
+
+		self.refreshElapsed = 0
+
+		if module:IsDisabledInCurrentInstance() or self.updateQueued or not UnitExists("mouseover") then
+			return
+		end
+
+		local unitGUID = UnitGUID("mouseover")
+		if not self:IsShown() or unitGUID ~= self.lastUnitGUID then
+			UpdateFrameContents(self)
+			if self:IsShown() then
+				UpdateFramePosition(self)
+			end
+		end
 	end)
 
-	frame:SetScript("OnEvent", function(self)
+	frame:SetScript("OnEvent", function(self, event)
+		if event == "MODIFIER_STATE_CHANGED" then
+			UpdateBlizzTooltipAlpha()
+
+			if module:IsDisabledInCurrentInstance() then
+				self:Hide()
+			elseif UnitExists("mouseover") then
+				UpdateFrameContents(self)
+				if self:IsShown() then
+					UpdateFramePosition(self)
+				end
+			end
+
+			return
+		end
+
+		if event ~= "UPDATE_MOUSEOVER_UNIT" then
+			module:UpdateInstanceState()
+			return
+		end
+
+		UpdateBlizzTooltipAlpha()
+
 		if self.updateQueued then
 			return
 		end
@@ -277,31 +514,51 @@ function module:Initialize()
 		C_Timer_After(0.01, function()
 			self.updateQueued = false
 
-			if not UnitExists("mouseover") then
+			if module:IsDisabledInCurrentInstance() or not UnitExists("mouseover") then
+				UpdateBlizzTooltipAlpha()
+				HideBlizzTooltipIfStale()
+				self:Hide()
 				return
 			end
 
+			UpdateBlizzTooltipAlpha()
+
 			UpdateFrameContents(self)
-			self:Show()
-			UpdateFramePosition(self)
+			if self:IsShown() then
+				UpdateFramePosition(self)
+			end
 		end)
 	end)
 
 	frame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
+	frame:RegisterEvent("MODIFIER_STATE_CHANGED")
+	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 
+	-- BLIZZ TOOLTIP HOOKS
 	if not module.TooltipHooked then
-		local function Apply()
+		local function Apply(self)
+			ApplyBlizzState(self)
+		end
+
+		local function ApplyHyperlink(self)
+			ClearTooltipFadeSuppression()
 			ApplyBlizzState(self)
 		end
 
 		hooksecurefunc(GameTooltip, "SetUnit", Apply)
+		hooksecurefunc(GameTooltip, "SetUnitAura", Apply)
+		hooksecurefunc(GameTooltip, "SetHyperlink", ApplyHyperlink)
+		-- GameTooltip:HookScript("OnTooltipSetUnit", Apply)
 		GameTooltip:HookScript("OnShow", Apply)
+		GameTooltip:HookScript("OnHide", ClearTooltipFadeSuppression)
 		GameTooltip:HookScript("OnUpdate", Apply)
 
 		module.TooltipHooked = true
 	end
 
 	module.Initialized = true
+	module:UpdateInstanceState()
 end
 
 MER:RegisterModule(module:GetName())

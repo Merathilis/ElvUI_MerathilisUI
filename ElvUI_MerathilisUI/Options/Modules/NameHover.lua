@@ -15,11 +15,28 @@ options.nameHover = {
 
 		E.db.mui.nameHover[key] = value
 
-		-- Skip reload for blizztooltip (applies instantly)
-		if key == "blizztooltip" then
-			return
+		-- Instant apply (no reload needed)
+		if key == "blizztooltip" or key == "disableInDungeons" or key == "inspectKey" then
+			if NH and NH.frame then
+				NH.inspectMode = false
+
+				if NH.UpdateInstanceState then
+					NH:UpdateInstanceState()
+				end
+
+				-- Force tooltip refresh
+				if GameTooltip and GameTooltip:IsShown() then
+					GameTooltip:Show()
+				end
+
+				-- Force NameHover refresh
+				NH.frame:Show()
+			end
+
+			return --IMPORTANT: prevents reload popup
 		end
 
+		-- Everything else requires reload
 		E:StaticPopup_Show("GLOBAL_RL")
 	end,
 	args = {
@@ -37,7 +54,7 @@ options.nameHover = {
 				tukui = {
 					order = 1,
 					type = "description",
-					name = "ncHoverName by Nightcracker",
+					name = L["ncHoverName by Nightcracker"],
 				},
 			},
 		},
@@ -170,23 +187,38 @@ options.nameHover = {
 			type = "toggle",
 			name = L["Classification"],
 		},
-		blizztooltip = {
+		BlizzToolTipGroup = {
 			order = 12,
-			type = "toggle",
-			name = E.NewSign .. L["Hide Blizzard Tooltip"],
-		},
-		inspectKey = {
-			order = 13,
-			type = "select",
-			name = E.NewSign .. L["Override Key"],
-			disabled = function()
-				return not E.db.mui.nameHover.blizztooltip
-			end,
-			values = {
-				SHIFT = "SHIFT",
-				CTRL = "CTRL",
-				ALT = "ALT",
-				NONE = "NONE",
+			type = "group",
+			name = E.NewSign .. L["Blizzard ToolTip Options"],
+			guiInline = true,
+			args = {
+				blizztooltip = {
+					order = 12,
+					type = "toggle",
+					name = L["Blizzard Tool Tip"],
+					desc = L["Show Blizzard unit tooltip alongside NameHover. If disabled, you can use keybind to quickly switch between NameHover and Blizzard"],
+				},
+
+				disableInDungeons = {
+					order = 13,
+					type = "toggle",
+					name = L["Disable in Dungeons/Raids"],
+					desc = L["Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHover will replace the Blizzard tooltip instead."],
+				},
+
+				inspectKey = {
+					order = 14,
+					type = "select",
+					name = L["Blizzard Inspect Button Fallback"],
+					desc = L["Use the WoW Key Bindings menu for the custom Hold to show bind. This modifier remains available for these hotkeys"],
+					values = {
+						SHIFT = "SHIFT",
+						CTRL = "CTRL",
+						ALT = "ALT",
+						NONE = "NONE",
+					},
+				},
 			},
 		},
 	},

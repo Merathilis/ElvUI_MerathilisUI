@@ -88,6 +88,16 @@ function module:GetTopMouseFocusName()
 	return nil
 end
 
+function module:GetTopMouseFocus()
+	if type(GetMouseFoci) == "function" then
+		local foci = GetMouseFoci()
+		if foci and foci[1] then
+			return foci[1]
+		end
+	end
+	return nil
+end
+
 function module:IsInTooltip(tooltipLines, query)
 	if not tooltipLines or type(tooltipLines) ~= "table" then
 		return false
