@@ -45,8 +45,10 @@ local function StripQuestCount(text)
 	if not text then
 		return ""
 	end
+
 	local s = lower(text)
 	s = s:gsub("%s*:?%s*%d+/%d+", "") -- remove " : X/Y"
+
 	return (s:gsub("^%s+", ""):gsub("%s+$", ""))
 end
 
