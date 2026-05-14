@@ -475,10 +475,12 @@ function module:Initialize()
 		end
 
 		local unitGUID = UnitGUID("mouseover")
-		if not self:IsShown() or unitGUID ~= self.lastUnitGUID then
-			UpdateFrameContents(self)
-			if self:IsShown() then
-				UpdateFramePosition(self)
+		if E:NotSecretValue(unitGUID) and unitGUID then
+			if not self:IsShown() or unitGUID ~= self.lastUnitGUID then
+				UpdateFrameContents(self)
+				if self:IsShown() then
+					UpdateFramePosition(self)
+				end
 			end
 		end
 	end)
