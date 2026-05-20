@@ -1254,6 +1254,7 @@ function module:SafePaperDollUpdateStats(...)
 	if InCombatLockdown() then
 		return
 	end
+
 	pcall(self.hooks[_G]["PaperDollFrame_UpdateStats"], ...)
 	self:UpdateCharacterStats()
 end
