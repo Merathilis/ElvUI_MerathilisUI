@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles") ---@class Profiles
+local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 function module:LoadCappingProfile()
 	local profileName = I.ProfileNames.Default
