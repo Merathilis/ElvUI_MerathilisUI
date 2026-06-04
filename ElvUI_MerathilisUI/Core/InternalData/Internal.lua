@@ -361,8 +361,8 @@ I.InterruptSpellMap = {
 }
 
 --[[
-  Data for which class or spec has which interrupt spell. This is currently only used in Mists and Vanilla,
-  as the interrupt logic iirc doesn't work properly in Mists and The API doesn't allow us to do it in the same way in Vanilla
+	Data for which class or spec has which interrupt spell. This is currently only used in Mists and Vanilla,
+	as the interrupt logic iirc doesn't work properly in Mists and The API doesn't allow us to do it in the same way in Vanilla
 ]]
 
 I.InterruptSpellMap_Empty = {}

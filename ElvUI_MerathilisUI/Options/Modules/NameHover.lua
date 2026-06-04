@@ -11,14 +11,39 @@ options.nameHover = {
 		return E.db.mui.nameHover[info[#info]]
 	end,
 	set = function(info, value)
-		E.db.mui.nameHover[info[#info]] = value
+		local key = info[#info]
+
+		E.db.mui.nameHover[key] = value
+
+		-- Instant apply (no reload needed)
+		if key == "blizztooltip" or key == "disableInDungeons" or key == "inspectKey" then
+			if NH and NH.frame then
+				NH.inspectMode = false
+
+				if NH.UpdateInstanceState then
+					NH:UpdateInstanceState()
+				end
+
+				-- Force tooltip refresh
+				if GameTooltip and GameTooltip:IsShown() then
+					GameTooltip:Show()
+				end
+
+				-- Force NameHover refresh
+				NH.frame:Show()
+			end
+
+			return --IMPORTANT: prevents reload popup
+		end
+
+		-- Everything else requires reload
 		E:StaticPopup_Show("GLOBAL_RL")
 	end,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["ActionBars"], "orange"),
+			name = F.cOption(L["Name Hover"], "orange"),
 		},
 		credits = {
 			order = 2,
@@ -29,7 +54,7 @@ options.nameHover = {
 				tukui = {
 					order = 1,
 					type = "description",
-					name = "ncHoverName by Nightcracker",
+					name = L["ncHoverName by Nightcracker"],
 				},
 			},
 		},
@@ -161,6 +186,40 @@ options.nameHover = {
 			order = 11,
 			type = "toggle",
 			name = L["Classification"],
+		},
+		BlizzToolTipGroup = {
+			order = 12,
+			type = "group",
+			name = E.NewSign .. L["Blizzard ToolTip Options"],
+			guiInline = true,
+			args = {
+				blizztooltip = {
+					order = 12,
+					type = "toggle",
+					name = L["Blizzard Tool Tip"],
+					desc = L["Show Blizzard unit tooltip alongside NameHover. If disabled, you can use keybind to quickly switch between NameHover and Blizzard"],
+				},
+
+				disableInDungeons = {
+					order = 13,
+					type = "toggle",
+					name = L["Disable in Dungeons/Raids"],
+					desc = L["Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHover will replace the Blizzard tooltip instead."],
+				},
+
+				inspectKey = {
+					order = 14,
+					type = "select",
+					name = L["Blizzard Inspect Button Fallback"],
+					desc = L["Use the WoW Key Bindings menu for the custom Hold to show bind. This modifier remains available for these hotkeys"],
+					values = {
+						SHIFT = "SHIFT",
+						CTRL = "CTRL",
+						ALT = "ALT",
+						NONE = "NONE",
+					},
+				},
+			},
 		},
 	},
 }

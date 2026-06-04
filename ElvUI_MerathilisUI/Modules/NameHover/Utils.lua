@@ -1,6 +1,16 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_NameHover")
 
+local ipairs, select, tonumber, tostring, type = ipairs, select, tonumber, tostring, type
+local strsplit = strsplit
+local find, format, lower = string.find, string.format, string.lower
+local floor = math.floor
+local tinsert = table.insert
+
+local GetMouseFoci = GetMouseFoci
+local UnitIsPlayer = UnitIsPlayer
+local UnitGUID = UnitGUID
+
 local function clamp255(x)
 	if type(x) ~= "number" then
 		return 255
@@ -11,7 +21,7 @@ local function clamp255(x)
 	if x > 1 then
 		x = 1
 	end
-	return math.floor(x * 255 + 0.5)
+	return floor(x * 255 + 0.5)
 end
 
 function module:IsNotEmpty(val)
@@ -52,7 +62,7 @@ function module:CombineTables(table1, table2)
 		return table1
 	end
 	for _, value in ipairs(table2) do
-		table.insert(table1, value)
+		tinsert(table1, value)
 	end
 	return table1
 end
@@ -70,7 +80,7 @@ function module:GetTooltipData()
 			if fs and fs.GetText then
 				local line = fs:GetText()
 				if line then
-					table.insert(tooltipLines, line)
+					tinsert(tooltipLines, line)
 				end
 			end
 		end
@@ -88,6 +98,16 @@ function module:GetTopMouseFocusName()
 	return nil
 end
 
+function module:GetTopMouseFocus()
+	if type(GetMouseFoci) == "function" then
+		local foci = GetMouseFoci()
+		if foci and foci[1] then
+			return foci[1]
+		end
+	end
+	return nil
+end
+
 function module:IsInTooltip(tooltipLines, query)
 	if not tooltipLines or type(tooltipLines) ~= "table" then
 		return false
@@ -95,13 +115,13 @@ function module:IsInTooltip(tooltipLines, query)
 	if not query or type(query) ~= "string" or query == "" then
 		return false
 	end
-	local q = string.lower(query)
+	local q = lower(query)
 	for _, line in ipairs(tooltipLines) do
 		local toFind = line
 		if E:NotSecretValue(line) and line then
-			toFind = string.lower(line)
+			toFind = lower(line)
 		end
-		if string.find(toFind or "", q, 1, true) then
+		if find(toFind or "", q, 1, true) then
 			return true
 		end
 	end

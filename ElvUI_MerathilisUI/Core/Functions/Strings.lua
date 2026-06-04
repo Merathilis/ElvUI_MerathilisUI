@@ -309,6 +309,44 @@ function F.String.Trim(text)
 	return strmatch(text, "^%s*(.*%S)") or ""
 end
 
+function F.String.Silver(msg)
+	return F.String.Color(msg, I.Enum.Colors.SILVER)
+end
+
+function F.String.Muted(msg)
+	return F.String.Color(msg, I.Enum.Colors.MUTED)
+end
+
+function F.String.DiffChanged(msg)
+	return F.String.Color(msg, I.Enum.Colors.DIFF_CHANGED)
+end
+
+function F.String.DiffRemoved(msg)
+	return F.String.Color(msg, I.Enum.Colors.DIFF_REMOVED)
+end
+
+function F.String.DiffAdded(msg)
+	return F.String.Color(msg, I.Enum.Colors.DIFF_ADDED)
+end
+
+function F.String.GoodIcon(size)
+	size = size or 14
+	return format("|TInterface\\RAIDFRAME\\ReadyCheck-Ready:%d:%d:0:-1|t", size, size)
+end
+
+function F.String.GoodIconSpaced(size)
+	return "  " .. F.String.GoodIcon(size) .. "  "
+end
+
+function F.String.ErrorIcon(size)
+	size = size or 14
+	return format("|TInterface\\RAIDFRAME\\ReadyCheck-NotReady:%d:%d:0:-1|t", size, size)
+end
+
+function F.String.ErrorIconSpaced(size)
+	return "  " .. F.String.ErrorIcon(size) .. "  "
+end
+
 function F.String.RemoveRuneOfThePrefix(text)
 	return text:gsub(".* the ", ""):gsub(".* of ", "")
 end

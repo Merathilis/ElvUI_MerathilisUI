@@ -39,6 +39,12 @@ I.Strings.Colors = {
 	[I.Enum.Colors.EPIC] = "a335ee", -- #a335ee
 	[I.Enum.Colors.RARE] = "0070dd", -- #0070dd
 	[I.Enum.Colors.BETA] = "1eff00", -- #1eff00
+
+	[I.Enum.Colors.MUTED] = "888888", -- #888888
+
+	[I.Enum.Colors.DIFF_CHANGED] = "ffd100", -- #ffd100
+	[I.Enum.Colors.DIFF_REMOVED] = "ff8080", -- #ff8080
+	[I.Enum.Colors.DIFF_ADDED] = "88ff88", -- #88ff88
 }
 
 I.Strings.Branding = {

@@ -314,14 +314,6 @@ P.misc = {
 	},
 }
 
-P.nameHover = {
-	enable = true,
-	fontSize = 7,
-	fontOutline = "SHADOWOUTLINE",
-	targettarget = false,
-	gradient = false,
-}
-
 P.armory = {
 	enable = true,
 	animations = true,
@@ -1275,6 +1267,9 @@ P.nameHover = {
 	subTextOutline = "SHADOWOUTLINE",
 
 	targettarget = false,
+	blizztooltip = true,
+	disableInDungeons = false,
+	inspectKey = "SHIFT", -- SHIFT, CTRL, ALT, NONE
 }
 
 P.media = {}

@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Armory")
 local M = E:GetModule("Misc")
 
 local _G = _G
-local gsub, next, pairs, select = gsub, next, pairs, select
+local gsub, next, pairs, pcall, select = gsub, next, pairs, pcall, select
 local utf8sub = string.utf8sub
 local twipe = table.wipe
 
@@ -939,6 +939,9 @@ function module:UpdateCharacterStat(frame, showGradient)
 		WF.SetFontWithDB(frame.Label, module.db.stats.labelFont)
 
 		local labelString = F.String.StripColor(frame.Label:GetText())
+		if not labelString then
+			return
+		end
 
 		if module.db.stats.labelFont.abbreviateLabels then
 			labelString = E:ShortenString(E.TagFunctions.Abbrev(labelString), 12)
@@ -1021,6 +1024,9 @@ end
 
 function module:UpdateCharacterStats()
 	if not module.frame:IsShown() then
+		return
+	end
+	if InCombatLockdown() then
 		return
 	end
 
@@ -1175,7 +1181,13 @@ function module:UpdateCharacterStats()
 				statFrame.onEnterFunc = nil
 				statFrame.UpdateTooltip = nil
 
-				_G.PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, "player")
+				local ok = pcall(_G.PAPERDOLL_STATINFO[stat.stat].updateFunc, statFrame, "player")
+				if not ok then
+					if statFrame.Value then
+						statFrame.Value:SetText(F.String.Muted("N/A"))
+					end
+					statFrame.numericValue = nil
+				end
 
 				-- Mode 1/2 - Validate hideAt value in Smart Mode/Always Show if not empty mode
 				if (hideAt ~= nil) and ((statMode == 1) or (statMode == 2)) then
@@ -1239,6 +1251,15 @@ function module:UpdateAttackSpeed(statFrame, unit)
 	statFrame.tooltip2 = format(_G.STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste))
 
 	statFrame:Show()
+end
+
+function module:SafePaperDollUpdateStats(...)
+	if InCombatLockdown() then
+		return
+	end
+
+	pcall(self.hooks[_G]["PaperDollFrame_UpdateStats"], ...)
+	self:UpdateCharacterStats()
 end
 
 function module:ApplyCustomStatCategories()
@@ -1586,6 +1607,8 @@ function module:HandleEvent(event, unit)
 		self:UpdateTitle()
 	elseif event == "PLAYER_AVG_ITEM_LEVEL_UPDATE" then
 		module:UpdateItemLevel()
+	elseif event == "PLAYER_REGEN_ENABLED" then
+		self:UpdateCharacterStats()
 	end
 end
 
@@ -1604,6 +1627,7 @@ function module:Disable()
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_PVP_RANK_CHANGED", self)
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_AVG_ITEM_LEVEL_UPDATE", self)
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self)
+	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
 end
 
 function module:Enable()
@@ -1623,7 +1647,7 @@ function module:Enable()
 	self:SecureHook(m, "UpdatePageStrings", F.Event.GenerateClosure(self.UpdatePageStrings, self))
 	self:SecureHook(m, "CreateSlotStrings", F.Event.GenerateClosure(self.UpdatePageInfo, self))
 	self:SecureHook(m, "ToggleItemLevelInfo", F.Event.GenerateClosure(self.ElvOptionsCheck, self))
-	self:SecureHook(_G, "PaperDollFrame_UpdateStats", F.Event.GenerateClosure(self.UpdateCharacterStats, self))
+	self:RawHook(_G, "PaperDollFrame_UpdateStats", "SafePaperDollUpdateStats", true)
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
@@ -1635,6 +1659,7 @@ function module:Enable()
 		"PLAYER_AVG_ITEM_LEVEL_UPDATE"
 	)
 	F.Event.RegisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self.HandleEvent, self, "PLAYER_TALENT_UPDATE")
+	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self.HandleEvent, self, "PLAYER_REGEN_ENABLED")
 
 	-- Hook Blizzard OnShow
 	self:SecureHookScript(self.frame, "OnShow", "OpenCharacterArmory")

@@ -1,0 +1,9 @@
+<Bindings>
+	<Binding name="MER_NAMEHOVER_INSPECT" category="MerathilisUI" runOnUp="true">
+		if keystate == "down" then
+			MER_NameHover_SetInspectBindingState(true);
+		else
+			MER_NameHover_SetInspectBindingState(false);
+		end
+	</Binding>
+</Bindings>

@@ -87,5 +87,6 @@
 	<Script file="Previous\7.17.lua"/>
 	<Script file="Previous\7.18.lua"/>
 	<Script file="Previous\7.19.lua"/>
-	<Script file="7.20.lua"/>
+	<Script file="Previous\7.20.lua"/>
+	<Script file="7.21.lua"/>
 </Ui>

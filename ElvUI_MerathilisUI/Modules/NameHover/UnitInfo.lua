@@ -1,6 +1,23 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_NameHover")
 
+local tostring = tostring
+
+local GetQuestDifficultyColor = GetQuestDifficultyColor
+local UnitCanAttack = UnitCanAttack
+local UnitClass = UnitClass
+local UnitClassification = UnitClassification
+local UnitIsDead = UnitIsDead
+local UnitIsPlayer = UnitIsPlayer
+local UnitLevel = UnitLevel
+local UnitReaction = UnitReaction
+local UnitIsAFK = UnitIsAFK
+local UnitIsDND = UnitIsDND
+local UnitIsPVP = UnitIsPVP
+local UnitFactionGroup = UnitFactionGroup
+local UnitRace = UnitRace
+local UnitCreatureType = UnitCreatureType
+
 local function IsPlayer(unittype)
 	return UnitIsPlayer(unittype or "mouseover")
 end
