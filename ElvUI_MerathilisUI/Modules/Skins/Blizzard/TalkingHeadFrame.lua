@@ -11,9 +11,7 @@ function module:TalkingHeadFrame()
 
 	if not frame.MERStyle then
 		F.CreateStyle(frame)
-		print("TalkingHeadFrame styled.")
 	end
 end
 
 module:AddCallback("TalkingHeadFrame")
-print("MER_Skins: TalkingHeadFrame loaded.")
