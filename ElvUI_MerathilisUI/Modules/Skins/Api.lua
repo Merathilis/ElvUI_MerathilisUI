@@ -827,3 +827,92 @@ function module:ReskinWorldMapTab(tab)
 		tab.backdrop:SetTemplate("Transparent")
 	end
 end
+
+local function UpdateTabLine(tab)
+	if not tab or not tab.BottomLine then
+		return
+	end
+
+	-- Check active (Blizzard Tabs use often GetID + SelectedState)
+	local isActive = tab.isActive
+		or tab.selected
+		or (PanelTemplates_GetSelectedTab and PanelTemplates_GetSelectedTab(tab:GetParent()) == tab:GetID())
+
+	if isActive then
+		tab.BottomLine:SetColorTexture(F.r, F.g, F.b)
+		tab.BottomLine:Show()
+		tab.BottomLine:SetAlpha(1)
+	else
+		tab.BottomLine:SetAlpha(0)
+		tab.BottomLine:Hide()
+	end
+end
+
+local function CreateTabLine(tab)
+	if tab.BottomLine then
+		return
+	end
+
+	local line = tab:CreateTexture(nil, "OVERLAY")
+	line:SetHeight(1)
+	line:SetPoint("BOTTOMLEFT", tab, "BOTTOMLEFT", 4, 1)
+	line:SetPoint("BOTTOMRIGHT", tab, "BOTTOMRIGHT", -4, 1)
+	line:SetTexture(E.media.normTex)
+	line:Hide()
+
+	tab.BottomLine = line
+
+	-- Smooth Fade Animation
+	line.fade = line:CreateAnimationGroup()
+
+	local fadeOut = line.fade:CreateAnimation("Alpha")
+	fadeOut:SetFromAlpha(1)
+	fadeOut:SetToAlpha(0)
+	fadeOut:SetDuration(0.30)
+	fadeOut:SetOrder(1)
+
+	local fadeIn = line.fade:CreateAnimation("Alpha")
+	fadeIn:SetFromAlpha(0)
+	fadeIn:SetToAlpha(1)
+	fadeIn:SetDuration(0.30)
+	fadeIn:SetOrder(1)
+
+	tab.UpdateTabLine = function()
+		UpdateTabLine(tab)
+	end
+end
+
+hooksecurefunc(S, "HandleTab", function(_, tab)
+	if not tab then
+		return
+	end
+
+	CreateTabLine(tab)
+
+	-- initial state
+	UpdateTabLine(tab)
+
+	if not tab._MERHook then
+		tab:HookScript("OnClick", function()
+			UpdateTabLine(tab)
+		end)
+
+		hooksecurefunc(tab, "SetID", function()
+			UpdateTabLine(tab)
+		end)
+
+		tab._MERHook = true
+	end
+end)
+
+hooksecurefunc("PanelTemplates_SetTab", function(frame)
+	if not frame then
+		return
+	end
+
+	for _, tab in pairs({ frame:GetChildren() }) do
+		if tab and tab.BottomLine then
+			UpdateTabLine(tab)
+		end
+	end
+end)
