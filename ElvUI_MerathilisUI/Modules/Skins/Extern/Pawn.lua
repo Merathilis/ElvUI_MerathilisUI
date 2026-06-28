@@ -27,7 +27,7 @@ function module:Pawn()
 
 	for i = 1, _G.PawnUIFrame.numTabs do
 		S:HandleTab(_G["PawnUIFrameTab" .. i])
-		module:ReskinTab(_G["PawnUIFrameTab" .. i])
+		WS:ReskinTab(_G["PawnUIFrameTab" .. i])
 	end
 
 	local buttons = {

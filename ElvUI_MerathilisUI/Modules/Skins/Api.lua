@@ -557,15 +557,6 @@ function module:Proxy(method, frame, ...)
 	S[method](S, frame, ...)
 end
 
-function module:ReskinTab(tab)
-	if not tab then
-		return
-	end
-
-	S:HandleTab(tab)
-	WS:CreateBackdropShadow(tab)
-end
-
 function module:ReskinIconButton(button, icon, size, rotate)
 	button:StripTextures()
 	button.Icon = button:CreateTexture(nil, "ARTWORK")
@@ -577,7 +568,7 @@ function module:ReskinIconButton(button, icon, size, rotate)
 	end
 
 	button:HookScript("OnEnter", function(self)
-		self.Icon:SetVertexColor(E.media.rgbvaluecolor.r, E.media.rgbvaluecolor.g, E.media.rgbvaluecolor.b)
+		self.Icon:SetVertexColor(F.r, F.g, F.b)
 	end)
 
 	button:HookScript("OnLeave", function(self)
