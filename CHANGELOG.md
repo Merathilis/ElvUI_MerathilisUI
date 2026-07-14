@@ -1,5 +1,7 @@
 ### Changes ###
 
-  * [VehicleBar]: Fix an secret error in Vehicle Bar
-  * [Armory]: Try to prevent some stats errors if you are in Combat
-  * [NameHover]: Added an option to hide the default Game Tooltip with an override key to show it. Thx @OldDoggy
+  * [Notification]: Fixed an issue with the Mail option
+  * [Profile]: Fixed an whoopsi in the Capping Profile
+  * [Skins]: Added an own Skin for the Cooldown Manager
+  * [Skins]: Some visual improvements for some tabs
+  * [NameHover]: Try to avoid another secret error

@@ -408,7 +408,7 @@ function module:BigWigs_Keystone()
 		if frame.Tabs then
 			for _, tab in next, frame.Tabs do
 				self:Proxy("HandleTab", tab)
-				self:ReskinTab(tab)
+				WS:ReskinTab(tab)
 				tab:SetHeight(32)
 
 				if tab:GetPoint(1) == "BOTTOMLEFT" then

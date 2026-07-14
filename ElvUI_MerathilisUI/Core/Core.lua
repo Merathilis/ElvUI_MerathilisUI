@@ -125,12 +125,13 @@ function MER:RegisterModule(name)
 end
 
 function MER:InitializeModules()
-	-- E:UpdateCooldownSettings("all")
-
 	for _, moduleName in pairs(MER.RegisteredModules) do
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
-			xpcall(module.Initialize, WF.Developer.LogDebug, module)
+			local ok, err = pcall(module.Initialize, module)
+			if not ok then
+				WF.Developer.LogDebug(err)
+			end
 		end
 	end
 

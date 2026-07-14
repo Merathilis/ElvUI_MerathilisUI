@@ -78,6 +78,10 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 		and not isStatusBar
 
 	if (skinForTransparent or skinForUnitFrame or isStatusBar or skinForTexture) and (self.db and self.db.enable) then
+		if frame.IsProtected and frame:IsProtected() then
+			return
+		end
+
 		if frame.Center ~= nil then
 			frame.Center:SetDrawLayer("BACKGROUND", -7)
 		end
@@ -87,6 +91,7 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 		end
 
 		frame:CreateStyle()
+		self.MERStyle[frame] = true
 	else
 		if frame.MERStyle then
 			frame.MERStyle:Hide()
@@ -231,7 +236,7 @@ function module:Disable()
 
 	self.MERStyle = {}
 
-	if self.Initialized and self.db and not self.db.enable then
+	if self.Initialized and not self.db.enable then
 		self:ForceRefresh()
 	end
 
@@ -243,10 +248,10 @@ function module:Enable()
 		return
 	end
 
-	self.isEnabled = true
-
 	self:MetatableScan()
 	self:ForceRefresh()
+
+	self.isEnabled = true
 end
 
 function module:SettingsUpdate()

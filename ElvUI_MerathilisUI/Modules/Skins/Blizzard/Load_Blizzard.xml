@@ -1,3 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Blizzard_CooldownViewer.lua"/>
 	<Script file="Blizzard_DamageMeter.lua"/>
+	<Script file="TalkingHeadFrame.lua"/>
 </Ui>

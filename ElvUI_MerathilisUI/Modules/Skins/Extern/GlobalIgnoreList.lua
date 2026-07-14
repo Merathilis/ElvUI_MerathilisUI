@@ -16,7 +16,7 @@ function module:GlobalIgnoreList()
 			WS:CreateShadow(GIL)
 			for i = 1, 3 do
 				S:HandleTab(_G["GILTab" .. i])
-				module:ReskinTab(_G["GILTab" .. i])
+				WS:ReskinTab(_G["GILTab" .. i])
 				S:HandleFrame(_G["GILFrame" .. i])
 				for j = 1, 6 do
 					if _G["GILFrame" .. i .. "Header" .. j] then

@@ -388,7 +388,7 @@ function MER:SetupLayout()
 	E.db["general"]["topPanel"] = false
 	E.db["general"]["bonusObjectivePosition"] = "AUTO"
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
-	E.db["general"]["talkingHeadFrameScale"] = 0.85
+	E.db["general"]["talkingHeadFrameScale"] = 1
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
 	E.db["general"]["altPowerBar"]["enable"] = true
 	E.db["general"]["altPowerBar"]["font"] = "- Expressway"
@@ -591,7 +591,7 @@ function MER:SetupLayout()
 	E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-213,-17"
 	E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-7,-165"
 	E.db["movers"]["HousingControlsFrameMover"] = "TOP,ElvUIParent,TOP,0,-70"
-	E.db["movers"]["PowerBarContainerHolder"] = "TOP,ElvUIParent,TOP,0,-110"
+	E.db["movers"]["PowerBarContainerMover"] = "TOP,ElvUIParent,TOP,0,-125"
 
 	-- UIWidgets
 	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
