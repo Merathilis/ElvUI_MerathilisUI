@@ -763,7 +763,7 @@ local progressColor = {
 function F.GetProgressColor(progress)
 	local r = (progressColor.complete.r - progressColor.start.r) * progress + progressColor.start.r
 	local g = (progressColor.complete.g - progressColor.start.g) * progress + progressColor.start.g
-	local b = (progressColor.complete.r - progressColor.start.b) * progress + progressColor.start.b
+	local b = (progressColor.complete.b - progressColor.start.b) * progress + progressColor.start.b
 
 	-- algorithm to let the color brighter
 	local addition = 0.35

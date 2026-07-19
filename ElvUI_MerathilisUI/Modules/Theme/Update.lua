@@ -64,7 +64,9 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 		colorChanged = true
 	end
 
-	if colorChanged or valueChanged or frame.normalColorFade == nil then
+	local gradientDirty = colorChanged or valueChanged or frame.normalColorFade == nil
+
+	if gradientDirty then
 		if frame.normalColorFade == nil then
 			frame.normalColorFade = CreateColor(0, 0, 0, 1)
 		end
@@ -94,12 +96,14 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 	local statusBar = frame.textura or frame:GetStatusBarTexture()
 	local statusBarBG = frame.background or frame.bg
 
-	if frame.fadeDirection == I.Enum.GradientMode.Direction.LEFT then
-		F.Color.SetGradient(statusBar, frame.fadeMode, frame.shiftColor, frame.normalColorFade)
-		F.Color.SetGradient(statusBarBG, frame.fadeMode, frame.normalColorFadeBG, frame.normalColorBG)
-	else
-		F.Color.SetGradient(statusBar, frame.fadeMode, frame.normalColor, frame.normalColorFade)
-		F.Color.SetGradient(statusBarBG, frame.fadeMode, frame.normalColorFadeBG, frame.shiftColorBG)
+	if gradientDirty and statusBar and statusBarBG then
+		if frame.fadeDirection == I.Enum.GradientMode.Direction.LEFT then
+			F.Color.SetGradient(statusBar, frame.fadeMode, frame.shiftColor, frame.normalColorFade)
+			F.Color.SetGradient(statusBarBG, frame.fadeMode, frame.normalColorFadeBG, frame.normalColorBG)
+		else
+			F.Color.SetGradient(statusBar, frame.fadeMode, frame.normalColor, frame.normalColorFade)
+			F.Color.SetGradient(statusBarBG, frame.fadeMode, frame.normalColorFadeBG, frame.shiftColorBG)
+		end
 	end
 
 	self.updateCache[frame] = true
