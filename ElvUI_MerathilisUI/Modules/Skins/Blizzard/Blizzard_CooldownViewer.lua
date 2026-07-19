@@ -200,6 +200,7 @@ end
 function module:CooldownManager_SkinItemFrame(frame)
 	if frame.Cooldown then
 		E:RegisterCooldown(frame.Cooldown, "cdmanager")
+		frame.Cooldown:SetReverse(true)
 	end
 
 	if frame.Bar then
