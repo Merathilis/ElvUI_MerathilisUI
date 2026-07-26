@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local S = MER:GetModule("MER_Skins")
+local module = MER:GetModule("MER_Misc")
 local WS = W:GetModule("Skins")
 local AFK = E:GetModule("AFK")
 
@@ -187,7 +187,7 @@ function AFK:SetAFK(status)
 	end
 end
 
-local function Initialize()
+function module:AFK()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then
 		return
 	end
@@ -306,4 +306,4 @@ local function Initialize()
 	end
 end
 
-hooksecurefunc(AFK, "Initialize", Initialize)
+module:AddCallback("AFK")
