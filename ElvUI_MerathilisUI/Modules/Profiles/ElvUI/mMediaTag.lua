@@ -24,6 +24,32 @@ function module:LoadmMediaTagProfile()
 	db.ready_check_icon.enable = true
 	db.important_casts.enable = true
 	db.important_casts.anchor = "BOTTOM"
+
+	db.portraits.enable = true
+	db.portraits.player = {
+		cast = true,
+		point = {
+			point = "RIGHT",
+			relativePoint = "LEFT",
+			x = -5,
+			y = 15,
+		},
+	}
+	db.portraits.target = {
+		cast = true,
+		point = {
+			point = "LEFT",
+			relativePoint = "RIGHT",
+			x = 5,
+			y = 15,
+		},
+	}
+	db.portraits.focus.enable = false
+	db.portraits.targettarget.enable = false
+	db.portraits.pet.enable = false
+	db.portraits.party.enable = false
+	db.portraits.boss.enable = false
+	db.portraits.arena.enable = false
 end
 
 function module:ApplymMediaTagProfile()
