@@ -142,6 +142,13 @@ function MER:Initialize()
 	E.data:RegisterDefaults(E.DF)
 	E.charSettings:RegisterDefaults(E.privateVars)
 
+	-- Safeguard: ensure the mui DB subtree exists at runtime and merge defaults.
+	-- Some edge cases (load-order, LOD) can make defaults not present immediately; copy them explicitly.
+	if P and P.mui and E and E.db then
+		if not E.db.mui then E.db.mui = {} end
+		E:CopyTable(E.db.mui, P.mui)
+	end
+
 	if not self:CheckElvUIVersion() then
 		return
 	end
@@ -226,7 +233,13 @@ end
 do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
+		-- Runtime safeguard: on initial login ensure the mui DB subtree exists and defaults are merged.
+		-- This covers edge cases where load-order caused defaults not to be applied earlier.
 		if isInitialLogin then
+			if P and P.mui and E and E.db then
+				if not E.db.mui then E.db.mui = {} end
+				E:CopyTable(E.db.mui, P.mui)
+			end
 			self:AutoCopyPrivateProfile()
 			E:Delay(6, self.ChangelogReadAlert, self)
 			local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
