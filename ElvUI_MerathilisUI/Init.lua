@@ -136,9 +136,11 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 end
 
 function MER:Initialize()
-	if self.initialized then
-		return
-	end
+	-- ElvUI creates its AceDB during its ADDON_LOADED, before WindTools
+	-- populates E.DF.profile.mui / E.DF.global.mui / E.privateVars.profile.mui.
+	-- Re-register the filled defaults so AceDB merges the mui subtrees in.
+	E.data:RegisterDefaults(E.DF)
+	E.charSettings:RegisterDefaults(E.privateVars)
 
 	if not self:CheckElvUIVersion() then
 		return
@@ -191,12 +193,6 @@ function MER:Initialize()
 	-- To avoid the update tips from ElvUI when alpha/beta versions are used
 	EP:RegisterPlugin(addon, function()
 		return self:GetModule("MER_Options"):OptionsCallback(false, xVersionString)
-	end)
-
-	-- Fix the bug that locale files loaded after option table is created
-	local pluginTitle = L["Plugins"]
-	MER:SecureHook(EP, "GetPluginOptions", function()
-		E.Options.args.plugins.name = pluginTitle
 	end)
 
 	self:SecureHook(E, "UpdateAll", "UpdateModules")
@@ -269,4 +265,7 @@ do
 	end
 end
 
-EP:HookInitialize(MER, MER.Initialize)
+function MER:OnInitialize()
+	-- E:Delay(0.2, self.Initialize, self)
+	MER:Initialize()
+end
