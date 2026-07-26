@@ -142,6 +142,13 @@ function MER:Initialize()
 	E.data:RegisterDefaults(E.DF)
 	E.charSettings:RegisterDefaults(E.privateVars)
 
+	-- Safeguard: ensure the mui DB subtree exists at runtime and merge defaults.
+	-- Some edge cases (load-order, LOD) can make defaults not present immediately; copy them explicitly.
+	if P and P.mui and E and E.db then
+		if not E.db.mui then E.db.mui = {} end
+		E:CopyTable(E.db.mui, P.mui)
+	end
+
 	if not self:CheckElvUIVersion() then
 		return
 	end
