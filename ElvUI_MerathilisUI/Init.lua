@@ -66,6 +66,77 @@ local function getVersion()
 	return version, variant, subversion
 end
 
+local function updateWindToolsReferences()
+	if WindTools and (not W or not WF) then
+		W, WF = unpack(WindTools or {})
+		Engine[2] = W
+		Engine[3] = WF
+	end
+end
+
+local function areWindToolsSettingsAvailable()
+	updateWindToolsReferences()
+	return W and WF
+		and E and E.DF and E.DF.profile and E.DF.profile.mui
+		and E.DF.global and E.DF.global.mui
+		and E.privateVars and E.privateVars.profile and E.privateVars.profile.mui
+end
+
+local function scheduleWindToolsSettingsRetry(self)
+	if self.initialized then
+		return
+	end
+
+	self.WindToolsSettingsRetryCount = (self.WindToolsSettingsRetryCount or 0) + 1
+	if self.WindToolsSettingsRetryCount > 5 then
+		return
+	end
+
+	E:Delay(0.2, function()
+		if self.initialized then
+			return
+		end
+
+		if areWindToolsSettingsAvailable() then
+			self:UnregisterEvent("ADDON_LOADED")
+			self.WindToolsSettingsWaiting = nil
+			self.WindToolsSettingsRetryCount = nil
+			self:Initialize()
+		else
+			scheduleWindToolsSettingsRetry(self)
+		end
+	end)
+end
+
+function MER:EnsureWindToolsSettingsReady()
+	if areWindToolsSettingsAvailable() then
+		return true
+	end
+
+	if not self.WindToolsSettingsWaiting then
+		self:RegisterEvent("ADDON_LOADED", "WindToolsSettingsLoaded")
+		self.WindToolsSettingsWaiting = true
+		scheduleWindToolsSettingsRetry(self)
+	end
+
+	return false
+end
+
+function MER:WindToolsSettingsLoaded(_, addonName)
+	if addonName ~= "ElvUI_WindTools" then
+		return
+	end
+
+	if areWindToolsSettingsAvailable() then
+		self:UnregisterEvent("ADDON_LOADED")
+		self.WindToolsSettingsWaiting = nil
+		self.WindToolsSettingsRetryCount = nil
+		if not self.initialized then
+			self:Initialize()
+		end
+	end
+end
+
 MER.Version, MER.Variant, MER.SubVersion = getVersion()
 
 MER.DisplayVersion = MER.Version
@@ -136,6 +207,10 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 end
 
 function MER:Initialize()
+	if self.initialized then
+		return
+	end
+
 	-- ElvUI creates its AceDB during its ADDON_LOADED, before WindTools
 	-- populates E.DF.profile.mui / E.DF.global.mui / E.privateVars.profile.mui.
 	-- Re-register the filled defaults so AceDB merges the mui subtrees in.
@@ -279,6 +354,7 @@ do
 end
 
 function MER:OnInitialize()
-	-- E:Delay(0.2, self.Initialize, self)
-	MER:Initialize()
+	if self:EnsureWindToolsSettingsReady() then
+		MER:Initialize()
+	end
 end
