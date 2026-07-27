@@ -7,10 +7,9 @@
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
 ## DefaultState: Enabled
-## Dependencies: ElvUI
+## Dependencies: ElvUI, ElvUI_WindTools
 ## Group: ElvUI
-## RequiredDeps: ElvUI_WindTools
-## OptionalDeps: SharedMedia, ElvUI_mMediaTag, Details, WeakAuras, BigWigs, WorldQuestTab, Rematch
+## OptionalDeps: SharedMedia, ElvUI_mMediaTag, Details, BigWigs, WorldQuestTab
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## X-Version: 7.22
