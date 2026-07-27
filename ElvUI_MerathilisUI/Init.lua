@@ -136,7 +136,7 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 end
 
 function MER:Initialize()
-	-- ElvUI creates its AceDB during its ADDON_LOADED, before WindTools
+	-- ElvUI creates its AceDB during its ADDON_LOADED, before MerathilisUI or WindTools
 	-- populates E.DF.profile.mui / E.DF.global.mui / E.privateVars.profile.mui.
 	-- Re-register the filled defaults so AceDB merges the mui subtrees in.
 	E.data:RegisterDefaults(E.DF)
@@ -145,7 +145,9 @@ function MER:Initialize()
 	-- Safeguard: ensure the mui DB subtree exists at runtime and merge defaults.
 	-- Some edge cases (load-order, LOD) can make defaults not present immediately; copy them explicitly.
 	if P and P.mui and E and E.db then
-		if not E.db.mui then E.db.mui = {} end
+		if not E.db.mui then
+			E.db.mui = {}
+		end
 		E:CopyTable(E.db.mui, P.mui)
 	end
 
@@ -197,7 +199,6 @@ function MER:Initialize()
 
 	self:AddMoverCategories()
 
-	-- To avoid the update tips from ElvUI when alpha/beta versions are used
 	EP:RegisterPlugin(addon, function()
 		return self:GetModule("MER_Options"):OptionsCallback(false, xVersionString)
 	end)
@@ -237,11 +238,15 @@ do
 		-- This covers edge cases where load-order caused defaults not to be applied earlier.
 		if isInitialLogin then
 			if P and P.mui and E and E.db then
-				if not E.db.mui then E.db.mui = {} end
+				if not E.db.mui then
+					E.db.mui = {}
+				end
 				E:CopyTable(E.db.mui, P.mui)
 			end
+
 			self:AutoCopyPrivateProfile()
 			E:Delay(6, self.ChangelogReadAlert, self)
+
 			local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(
@@ -279,6 +284,5 @@ do
 end
 
 function MER:OnInitialize()
-	-- E:Delay(0.2, self.Initialize, self)
 	MER:Initialize()
 end
