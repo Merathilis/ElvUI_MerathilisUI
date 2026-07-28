@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_Nameplates")
 local NP = E:GetModule("NamePlates")
 
 local DEFAULT_NP_WIDTH = 0
+local find = string.find
 
 local function ApplyClip(fs, widthPx, nameDb)
 	if not fs or not fs.GetParent or not fs.SetParent then
@@ -20,9 +21,9 @@ local function ApplyClip(fs, widthPx, nameDb)
 
 	if fs.SetJustifyH then
 		local point = nameDb.position or "CENTER"
-		if point:find("RIGHT") then
+		if find(point, "RIGHT") then
 			fs:SetJustifyH("RIGHT")
-		elseif point:find("LEFT") then
+		elseif find(point, "LEFT") then
 			fs:SetJustifyH("LEFT")
 		else
 			fs:SetJustifyH("CENTER")
@@ -57,8 +58,9 @@ end
 
 local function ApplyNameplate(nameplate)
 	if nameplate and nameplate.Name then
+		local nameplatesDB = E.db.nameplates
 		local unitType = nameplate.frameType
-		local unitDb = unitType and E.db.nameplates and E.db.nameplates.units and E.db.nameplates.units[unitType]
+		local unitDb = unitType and nameplatesDB and nameplatesDB.units and nameplatesDB.units[unitType]
 		local width = unitDb and unitDb.name and unitDb.name.clipWidth
 		if width == nil then
 			width = DEFAULT_NP_WIDTH

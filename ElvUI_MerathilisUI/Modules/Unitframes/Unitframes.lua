@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_UnitFrames")
 local UF = E:GetModule("UnitFrames")
 
 local hooksecurefunc = hooksecurefunc
+local find = string.find
 
 local DEFAULT_UF_WIDTH = 0
 
@@ -22,9 +23,9 @@ local function ApplyClip(fs, widthPx, nameDb)
 
 	if fs.SetJustifyH then
 		local point = nameDb.position or "CENTER"
-		if point:find("RIGHT") then
+		if find(point, "RIGHT") then
 			fs:SetJustifyH("RIGHT")
-		elseif point:find("LEFT") then
+		elseif find(point, "LEFT") then
 			fs:SetJustifyH("LEFT")
 		else
 			fs:SetJustifyH("CENTER")
@@ -42,11 +43,12 @@ end
 
 local function ApplyUnitframe(frame)
 	if frame and frame.Name and frame.db and frame.db.name then
-		local width = frame.db.name.clipWidth
+		local nameDb = frame.db.name
+		local width = nameDb.clipWidth
 		if width == nil then
 			width = DEFAULT_UF_WIDTH
 		end
-		ApplyClip(frame.Name, width, frame.db.name)
+		ApplyClip(frame.Name, width, nameDb)
 	end
 end
 
@@ -55,7 +57,8 @@ local function RefreshAll()
 		return
 	end
 
-	for _, frame in ipairs(ElvUF.objects) do
+	local objects = ElvUF.objects
+	for _, frame in ipairs(objects) do
 		ApplyUnitframe(frame)
 	end
 end
