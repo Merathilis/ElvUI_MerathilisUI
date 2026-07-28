@@ -104,6 +104,7 @@ L["Double Click to Undress"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
+L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["GUILD_MOTD_LABEL2"] = "公會今日訊息"
 L["LFG Member Info"] = true
@@ -136,6 +137,8 @@ L["Toys"] = true
 L["Random Toy"] = true
 L["Text Style"] = true
 L["COLOR"] = true
+L["Include Details"] = true -- AUTO-PLACEHOLDER
+L["Announce every time the progress has been changed."] = true -- AUTO-PLACEHOLDER
 L["Hide Boss Banner"] = true
 L["This will hide the popup, that shows loot, after you kill a boss"] = true
 L["In Party"] = true
@@ -294,6 +297,9 @@ L["Quest Progress and Error Text"] = true
 L["To ensure the colorful progress information remains clearly visible across different environments, the 'OUTLINE' font style is recommended."] =
 	true
 L["You can find the setting in 'ElvUI > %s > %s > %s'."] = true
+
+-- Nameplates
+L["NamePlates"] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -568,6 +574,7 @@ L["Creates decorative stripes and a gradient on some frames"] = true
 L["Screen Shadow Overlay"] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Undress Button"] = true
+L["Subpages"] = true
 L["Enable/Disable"] = true
 L["decor."] = true
 L["MerathilisUI Button Style"] = true
@@ -956,12 +963,3 @@ L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Wrist"
 L["[ABBR] Yell"] = "Y"
-
--- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
-L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
-L["Include Details"] = true -- AUTO-PLACEHOLDER
-L["Announce every time the progress has been changed."] = true -- AUTO-PLACEHOLDER
-L["NamePlates"] = true -- AUTO-PLACEHOLDER
-L["Subpages"] = true -- AUTO-PLACEHOLDER
--- AUTO-ADDED PLACEHOLDERS END
-

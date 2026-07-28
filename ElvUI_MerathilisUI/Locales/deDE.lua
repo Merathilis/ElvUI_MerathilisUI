@@ -112,6 +112,7 @@ L["Double Click to Undress"] = "Doppel klicken um Auszuziehen"
 L["Accept Quest"] = "Quest annehmen"
 L["Placed Item"] = "Platzierter Gegenstand"
 L["Stranger"] = "Fremder"
+L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = "Schlüsselsteine"
 L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 L["LFG Member Info"] = "LFG Mitglieder Info"
@@ -1075,14 +1076,9 @@ L["[ABBR] Visions of N'Zoth"] = "Visions"
 L["[ABBR] Waist"] = "Gürtel"
 L["[ABBR] Warfronts"] = "WF"
 L["[ABBR] Whisper"] = "Whispers"
+L["[ABBR] Wind Emote"] = "WE"
 L["[ABBR] MER Emote"] = "ME"
 L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Handgelenk"
 L["[ABBR] Yell"] = "S"
-
--- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
-L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
-L["[ABBR] Wind Emote"] = true -- AUTO-PLACEHOLDER
--- AUTO-ADDED PLACEHOLDERS END
-

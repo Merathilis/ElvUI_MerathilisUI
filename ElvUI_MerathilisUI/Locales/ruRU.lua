@@ -112,6 +112,7 @@ L["Double Click to Undress"] = "Двойной щелчок, чтобы снят
 L["Accept Quest"] = "Принять задание"
 L["Placed Item"] = "Размещенный предмет"
 L["Stranger"] = "Незнакомец"
+L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = "Камень возвращения"
 L["GUILD_MOTD_LABEL2"] = "Сообщение дня для гильдии"
 L["LFG Member Info"] = "Информация об участниках ЛФГ"
@@ -591,6 +592,7 @@ L["Screen Shadow Overlay"] = "Наложение теней экрана"
 L["Enables/Disables a shadow overlay to darken the screen."] =
 	"Включает/отключает наложение теней для затемнения экрана."
 L["Undress Button"] = "Кнопка раздевания"
+L["Subpages"] = true
 L["Enable/Disable"] = "Включить/Выклю��ить"
 L["decor."] = "декор."
 L["MerathilisUI Button Style"] = "Стиль кнопки MerathilisUI"
@@ -1024,9 +1026,3 @@ L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Wrist"
 L["[ABBR] Yell"] = "Y"
-
--- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
-L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
-L["Subpages"] = true -- AUTO-PLACEHOLDER
--- AUTO-ADDED PLACEHOLDERS END
-

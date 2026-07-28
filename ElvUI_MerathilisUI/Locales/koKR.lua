@@ -269,6 +269,7 @@ L["Server List"] = "서버 목록"
 L["Trade Tabs"] = "제작 탭"
 L["Enable Tabs on the Profession Frames"] = "제작 전문 기술 창에 탭을 활성화합니다"
 L["Group Finder"] = "던전 및 공격대"
+L["Chef's Hat"] = true
 L["Equipment Upgrade"] = "장비 강화"
 L["Vendor"] = "상인"
 L["Class Trainer"] = "직업 훈련사"
@@ -729,6 +730,7 @@ L["Screen Shadow Overlay"] = "화면 그림자 오버레이"
 L["Enables/Disables a shadow overlay to darken the screen."] =
 	"화면을 어둡게 만드는 그림자 오버레이를 활성화하거나 비활성화합니다"
 L["Undress Button"] = "장비 제거 버튼"
+L["Subpages"] = true
 L["Enable/Disable"] = "활성화/비활성화"
 L["decor."] = "장식 요소"
 L["MerathilisUI Button Style"] = "MerathilisUI 버튼 스타일"
@@ -1158,6 +1160,5 @@ L["[ABBR] Yell"] = "Y"
 
 -- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
 L["Chef's Hat"] = true -- AUTO-PLACEHOLDER
-L["Subpages"] = true -- AUTO-PLACEHOLDER
+-- AUTO-PLACEHOLDER
 -- AUTO-ADDED PLACEHOLDERS END
-

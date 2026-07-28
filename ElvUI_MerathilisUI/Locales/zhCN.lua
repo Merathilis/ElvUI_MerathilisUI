@@ -106,6 +106,7 @@ L["Double Click to Undress"] = true
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
+L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = "大秘境钥匙"
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 L["LFG Member Info"] = "寻找公会人员信息"
@@ -138,6 +139,8 @@ L["Toys"] = true
 L["Random Toy"] = true
 L["Text Style"] = true
 L["COLOR"] = true
+L["Include Details"] = true
+L["Announce every time the progress has been changed."] = true
 L["In Party"] = true
 L["In Instance"] = true
 L["In Raid"] = true
@@ -295,6 +298,9 @@ L["Quest Progress and Error Text"] = true
 L["To ensure the colorful progress information remains clearly visible across different environments, the 'OUTLINE' font style is recommended."] =
 	true
 L["You can find the setting in 'ElvUI > %s > %s > %s'."] = true
+
+-- Nameplates
+L["NamePlates"] = true
 
 -- Notification
 L["Notification"] = "通知"
@@ -598,6 +604,7 @@ L["Creates decorative stripes and a gradient on some frames"] = "在一些框架
 L["MerathilisUI Style"] = "MerathilisUI 样式"
 L["Screen Shadow Overlay"] = true
 L["Undress Button"] = "解除装备按钮"
+L["Subpages"] = true
 L["Enable/Disable"] = "启用/禁用"
 L["decor."] = "装饰"
 L["Enables/Disables a shadow overlay to darken the screen."] = true
@@ -988,12 +995,3 @@ L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Wrist"
 L["[ABBR] Yell"] = "Y"
-
--- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
-L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
-L["Include Details"] = true -- AUTO-PLACEHOLDER
-L["Announce every time the progress has been changed."] = true -- AUTO-PLACEHOLDER
-L["NamePlates"] = true -- AUTO-PLACEHOLDER
-L["Subpages"] = true -- AUTO-PLACEHOLDER
--- AUTO-ADDED PLACEHOLDERS END
-

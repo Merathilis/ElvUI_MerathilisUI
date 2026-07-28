@@ -103,6 +103,7 @@ L["Double Click to Undress"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
+L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["GUILD_MOTD_LABEL2"] = "Messaggio del giorno di gilda"
 L["LFG Member Info"] = true
@@ -311,7 +312,7 @@ L['Event "%s" will end tomorrow.'] = true
 L["Here you can enable/disable the different notification types."] = true
 L["Enable Mail"] = true
 L["Enable Vignette"] = true
-L["If a Rar Mob or a treasure gets spotted on the minimap."] = true
+L["If a Rare Mob or a treasure gets spotted on the minimap."] = true
 L["Enable Invites"] = true
 L["Enable Guild Events"] = true
 L["No Sounds"] = true
@@ -563,6 +564,7 @@ L["Creates decorative stripes and a gradient on some frames"] = true
 L["Screen Shadow Overlay"] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Undress Button"] = true
+L["Subpages"] = true
 L["Enable/Disable"] = true
 L["decor."] = true
 L["MerathilisUI Button Style"] = true
@@ -940,10 +942,3 @@ L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Wrist"
 L["[ABBR] Yell"] = "Y"
-
--- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
-L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
-L["If a Rare Mob or a treasure gets spotted on the minimap."] = true -- AUTO-PLACEHOLDER
-L["Subpages"] = true -- AUTO-PLACEHOLDER
--- AUTO-ADDED PLACEHOLDERS END
-

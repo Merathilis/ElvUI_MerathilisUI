@@ -102,6 +102,7 @@ L["Double Click to Undress"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
+L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["GUILD_MOTD_LABEL2"] = "Message de guilde du jour"
 L["LFG Member Info"] = true
@@ -561,6 +562,7 @@ L["Creates decorative stripes and a gradient on some frames"] = true
 L["Screen Shadow Overlay"] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Undress Button"] = true
+L["Subpages"] = true
 L["Enable/Disable"] = true
 L["decor."] = true
 L["MerathilisUI Button Style"] = true
@@ -953,9 +955,3 @@ L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Wrist"
 L["[ABBR] Yell"] = "Y"
-
--- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
-L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
-L["Subpages"] = true -- AUTO-PLACEHOLDER
--- AUTO-ADDED PLACEHOLDERS END
-
