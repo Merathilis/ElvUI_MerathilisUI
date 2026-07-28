@@ -2345,7 +2345,6 @@ function MER:DeveloperSettings()
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
 	E.db["mui"]["scale"]["auctionHouse"]["scale"] = 1.15
 	E.db["mui"]["armory"]["stats"]["itemLevelFont"]["itemLevelFontColor"] = "GRADIENT"
-	E.db["mui"]["portraits"]["general"]["enable"] = true
 	E.db["mui"]["cooldownManager"]["enable"] = true
 	E.db["mui"]["cooldownManager"]["fading"] = true
 	E.db["mui"]["cooldownManager"]["dynamicBarsWidth"] = true
