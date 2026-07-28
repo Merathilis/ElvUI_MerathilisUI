@@ -162,6 +162,10 @@ function MER:InitializeModules()
 	F.Event.ContinueAfterAllEvents(onAllEvents, F.Table.SafeUnpack(events))
 end
 
+function MER:PLAYER_LOGIN()
+	self:InitializeModules()
+end
+
 function MER:UpdateModules()
 	self:UpdateScripts()
 

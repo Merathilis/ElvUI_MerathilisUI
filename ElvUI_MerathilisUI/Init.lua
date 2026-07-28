@@ -193,8 +193,6 @@ function MER:Initialize()
 	self.initialized = true
 
 	self:UpdateScripts()
-	self:InitializeModules()
-
 	self:AddMoverCategories()
 
 	EP:RegisterPlugin(addon, function()
@@ -203,6 +201,7 @@ function MER:Initialize()
 
 	self:SecureHook(E, "UpdateAll", "UpdateModules")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent("PLAYER_LOGIN")
 
 	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
 	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
