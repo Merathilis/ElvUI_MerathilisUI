@@ -2,11 +2,15 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.String = {}
 
 local error = error
-local type, unpack = type, unpack
+local floor = math.floor
+local type, unpack, tostring = type, unpack, tostring
 local char = string.char
-local strbyte, strfind, strlen, strsub = strbyte, strfind, strlen, strsub
+local format = string.format
+local gmatch = string.gmatch
+local gsub = string.gsub
+local strbyte, strfind, strmatch, strlen, strsub = string.byte, string.find, string.match, string.len, string.sub
 local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower, string.utf8sub, string.utf8upper
-local tinsert = tinsert
+local tinsert, concat = table.insert, table.concat
 
 function F.String.Color(msg, color)
 	if type(color) == "string" then
@@ -137,7 +141,7 @@ function F.String.Replace(s, mapping)
 	local pos = 1
 	local bytes = strlen(s)
 	local charbytes
-	local newstr = ""
+	local parts = {}
 
 	while pos <= bytes do
 		charbytes = F.String.CharBytes(s, pos)
@@ -147,12 +151,11 @@ function F.String.Replace(s, mapping)
 		end
 		local c = strsub(s, pos, pos + charbytes - 1)
 
-		newstr = newstr .. (mapping[c] or c)
-
+		parts[#parts + 1] = mapping[c] or c
 		pos = pos + charbytes
 	end
 
-	return newstr
+	return concat(parts)
 end
 
 function F.String.Split(subject, delimiter)
@@ -406,7 +409,11 @@ function F.String.Abbreviate(text)
 		text = F.String.RemoveEveryOfTheAndEverythingAfter(text)
 	end
 
-	local letters = ""
+	local removeWhitespace = F.String.RemoveAllWhitespaceCharacters
+	local containsNumerical = F.String.ContainsNumericalCharacters
+	local removeNumeric = F.String.RemoveTheLongestNumericalChain
+
+	local letters = {}
 	local lastWord = F.String.GetTheLastWordOfAString(text)
 	if not lastWord then
 		return text
@@ -417,49 +424,51 @@ function F.String.Abbreviate(text)
 	-- If we have an alphabetical word we check if the first letter is Uppercase, if this is the case add it to the resulting string with a . after it
 	-- Else we ignore the word
 	for word in gmatch(text, ".-%s") do
-		local firstLetter = F.String.RemoveAllWhitespaceCharacters(word)
+		local firstLetter = removeWhitespace(word)
 
-		if not F.String.ContainsNumericalCharacters(firstLetter) then
+		if not containsNumerical(firstLetter) then
 			firstLetter = utf8sub(firstLetter, 1, 1)
 			if firstLetter ~= utf8lower(firstLetter) then
-				-- combine letters value with firstletter value, and then add a . and space
-				letters = format("%s%s. ", letters, firstLetter)
+				letters[#letters + 1] = firstLetter .. ". "
 			end
 		else
-			firstLetter = F.String.RemoveTheLongestNumericalChain(firstLetter)
-			-- combine letters value with firstLetter value and then add a space
-			letters = format("%s%s ", letters, firstLetter)
+			firstLetter = removeNumeric(firstLetter)
+			letters[#letters + 1] = firstLetter .. " "
 		end
 	end
 
 	-- Combine the build string in the loop and the complete last word
-	return format("%s%s", letters, lastWord)
+	return concat(letters) .. lastWord
 end
 
 E.TagFunctions.Abbrev = F.String.Abbreviate
 
 function F.String.FastGradient(text, r1, g1, b1, r2, g2, b2)
-	local msg, len, idx = "", utf8len(text), 0
+	local parts = {}
+	local len = utf8len(text)
+	local idx = 0
+	local fastRGB = F.String.FastRGB
+	local fastColorGradient = F.FastColorGradient
 
 	for i = 1, len do
 		local x = utf8sub(text, i, i)
 		if strmatch(x, "%s") then
-			msg = msg .. x
+			parts[#parts + 1] = x
 			idx = idx + 1
 		else
 			local relperc = (idx / len)
 
 			if not r2 then
-				msg = msg .. "|cff" .. F.String.FastRGB(r1, g1, b1) .. x .. "|r"
+				parts[#parts + 1] = "|cff" .. fastRGB(r1, g1, b1) .. x .. "|r"
 			else
-				local r, g, b = F.FastColorGradient(relperc, r1, g1, b1, r2, g2, b2)
-				msg = msg .. "|cff" .. F.String.FastRGB(r, g, b) .. x .. "|r"
+				local r, g, b = fastColorGradient(relperc, r1, g1, b1, r2, g2, b2)
+				parts[#parts + 1] = "|cff" .. fastRGB(r, g, b) .. x .. "|r"
 				idx = idx + 1
 			end
 		end
 	end
 
-	return msg
+	return concat(parts)
 end
 
 function F.String.FastGradientHex(text, h1, h2)
