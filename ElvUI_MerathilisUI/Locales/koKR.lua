@@ -1155,3 +1155,9 @@ L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Wrist"
 L["[ABBR] Yell"] = "Y"
+
+-- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
+L["Chef's Hat"] = true -- AUTO-PLACEHOLDER
+L["Subpages"] = true -- AUTO-PLACEHOLDER
+-- AUTO-ADDED PLACEHOLDERS END
+

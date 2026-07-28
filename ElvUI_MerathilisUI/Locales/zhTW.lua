@@ -956,3 +956,12 @@ L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Wrist"
 L["[ABBR] Yell"] = "Y"
+
+-- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
+L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
+L["Include Details"] = true -- AUTO-PLACEHOLDER
+L["Announce every time the progress has been changed."] = true -- AUTO-PLACEHOLDER
+L["NamePlates"] = true -- AUTO-PLACEHOLDER
+L["Subpages"] = true -- AUTO-PLACEHOLDER
+-- AUTO-ADDED PLACEHOLDERS END
+
