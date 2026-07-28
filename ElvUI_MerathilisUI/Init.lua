@@ -127,8 +127,6 @@ MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
 
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
-E:AddLib("OpenRaid", "LibOpenRaid-1.0")
-E:AddLib("Keystone", "LibKeystone")
 
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()
@@ -136,8 +134,19 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 end
 
 function MER:Initialize()
-	if self.initialized then
-		return
+	-- ElvUI creates its AceDB during its ADDON_LOADED, before MerathilisUI or WindTools
+	-- populates E.DF.profile.mui / E.DF.global.mui / E.privateVars.profile.mui.
+	-- Re-register the filled defaults so AceDB merges the mui subtrees in.
+	E.data:RegisterDefaults(E.DF)
+	E.charSettings:RegisterDefaults(E.privateVars)
+
+	-- Safeguard: ensure the mui DB subtree exists at runtime and merge defaults.
+	-- Some edge cases (load-order, LOD) can make defaults not present immediately; copy them explicitly.
+	if P and P.mui and E and E.db then
+		if not E.db.mui then
+			E.db.mui = {}
+		end
+		E:CopyTable(E.db.mui, P.mui)
 	end
 
 	if not self:CheckElvUIVersion() then
@@ -184,23 +193,15 @@ function MER:Initialize()
 	self.initialized = true
 
 	self:UpdateScripts()
-	self:InitializeModules()
-
 	self:AddMoverCategories()
 
-	-- To avoid the update tips from ElvUI when alpha/beta versions are used
 	EP:RegisterPlugin(addon, function()
 		return self:GetModule("MER_Options"):OptionsCallback(false, xVersionString)
 	end)
 
-	-- Fix the bug that locale files loaded after option table is created
-	local pluginTitle = L["Plugins"]
-	MER:SecureHook(EP, "GetPluginOptions", function()
-		E.Options.args.plugins.name = pluginTitle
-	end)
-
 	self:SecureHook(E, "UpdateAll", "UpdateModules")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent("PLAYER_LOGIN")
 
 	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
 	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
@@ -230,9 +231,19 @@ end
 do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
+		-- Runtime safeguard: on initial login ensure the mui DB subtree exists and defaults are merged.
+		-- This covers edge cases where load-order caused defaults not to be applied earlier.
 		if isInitialLogin then
+			if P and P.mui and E and E.db then
+				if not E.db.mui then
+					E.db.mui = {}
+				end
+				E:CopyTable(E.db.mui, P.mui)
+			end
+
 			self:AutoCopyPrivateProfile()
 			E:Delay(6, self.ChangelogReadAlert, self)
+
 			local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
 				print(
@@ -269,4 +280,6 @@ do
 	end
 end
 
-EP:HookInitialize(MER, MER.Initialize)
+function MER:OnInitialize()
+	MER:Initialize()
+end

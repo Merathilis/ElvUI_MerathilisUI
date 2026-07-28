@@ -10,16 +10,15 @@ function F.Table.Print(tbl, indent)
 		indent = 0
 	end
 
-	local formatting
 	for k, v in pairs(tbl) do
-		formatting = string.rep("  ", indent) .. k .. ": "
+		local formatting = string.rep("  ", indent) .. tostring(k) .. ": "
 		if type(v) == "table" then
 			print(formatting)
-			F.TablePrint(v, indent + 1)
+			F.Table.Print(v, indent + 1)
 		elseif type(v) == "boolean" then
 			print(formatting .. tostring(v))
 		else
-			print(formatting .. v)
+			print(formatting .. tostring(v))
 		end
 	end
 end

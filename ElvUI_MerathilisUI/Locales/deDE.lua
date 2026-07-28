@@ -1080,3 +1080,9 @@ L["[ABBR] World"] = "W"
 L["[ABBR] World Boss"] = "WB"
 L["[ABBR] Wrist"] = "Handgelenk"
 L["[ABBR] Yell"] = "S"
+
+-- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
+L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
+L["[ABBR] Wind Emote"] = true -- AUTO-PLACEHOLDER
+-- AUTO-ADDED PLACEHOLDERS END
+

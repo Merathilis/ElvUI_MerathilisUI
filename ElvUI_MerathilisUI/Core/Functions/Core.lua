@@ -1790,12 +1790,16 @@ local throttleStates = {}
 ---@param func function The function to throttle
 ---@param ... any Arguments to pass to the function
 function F.Throttle(duration, key, func, ...)
-	if type(duration) ~= "number" or duration <= 0 then
-		WF.Developer.ThrowError("Invalid duration for F.Throttle: must be a positive number")
+	if type(duration) ~= "number" or duration < 0 then
+		WF.Developer.ThrowError("Invalid duration for F.Throttle: must be a non-negative number")
 	end
 
+	-- duration == 0 means immediate execution (no throttling)
 	if duration == 0 then
-		func(...) -- No throttling (only for testing purpose)
+		if type(func) ~= "function" then
+			WF.Developer.ThrowError("Invalid function for F.Throttle: third argument must be a function")
+		end
+		func(...)
 		return
 	end
 

@@ -123,7 +123,9 @@ local function modifyStyle(frame)
 
 	local barHeight = frame.candyBarBar:GetHeight()
 	if E:NotSecretValue(barHeight) then
-		spark:Size(4, barHeight * 2)
+		if spark then
+			spark:Size(4, barHeight * 2)
+		end
 	end
 end
 
