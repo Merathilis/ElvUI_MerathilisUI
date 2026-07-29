@@ -293,7 +293,7 @@ local function SetupChat()
 		E.Chat:PositionChats()
 	end
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["Chat Set"]
 	PluginInstallStepComplete:Show()
@@ -666,7 +666,7 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["Layout Set"]
 	PluginInstallStepComplete:Show()
@@ -868,7 +868,7 @@ function MER:SetupActionbars()
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,UIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,UIParent,BOTTOM,304,140"
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["ActionBars Set"]
 	PluginInstallStepComplete:Show()
@@ -1129,7 +1129,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["NamePlates Set"]
 	PluginInstallStepComplete:Show()
@@ -2287,7 +2287,7 @@ function MER:SetupUnitframes(layout)
 		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
@@ -2319,7 +2319,7 @@ function MER:SetupDts()
 		"Gold",
 	}
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
@@ -2407,7 +2407,7 @@ function MER:DeveloperSettings()
 	PluginInstallStepComplete.message = MER.Title .. L["Developer Settings Done"]
 	PluginInstallStepComplete:Show()
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 end
 
 local function CreateNewProfile(name)

@@ -13,12 +13,18 @@ function module:GetPowerColor(frame, unit)
 	return "powerColorMap", powerKey
 end
 
-function module:PostUpdatePowerColor(frame, unit, eR, eG, eB)
+function module:PostUpdatePowerColor(frame, unit, color, altR, altG, altB)
 	if not self.isEnabled or not self.db or not self.db.enable then
 		return
 	end
 	if not unit then
 		return
+	end
+
+	-- oUF sends (unit, color, altR, altG, altB); color is nil on alternative powers
+	local eR, eG, eB = altR, altG, altB
+	if color then
+		eR, eG, eB = color, nil, nil
 	end
 
 	-- Power values are secret in Midnight, use fixed percentage
