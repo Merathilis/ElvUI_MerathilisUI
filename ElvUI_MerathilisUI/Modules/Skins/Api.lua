@@ -7,6 +7,7 @@ local _G = _G
 local assert, pairs, unpack, type = assert, pairs, unpack, type
 local strfind = strfind
 
+local CreateColor = CreateColor
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local UIFrameFadeIn = UIFrameFadeIn
@@ -461,7 +462,11 @@ function module:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
-	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
+	panel.tex:SetGradient(
+		"VERTICAL",
+		CreateColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 1),
+		CreateColor(0, 0, 0, 1)
+	)
 	WS:CreateShadow(panel)
 end
 

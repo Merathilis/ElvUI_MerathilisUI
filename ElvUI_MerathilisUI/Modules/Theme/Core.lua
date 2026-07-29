@@ -246,6 +246,9 @@ function module:Enable()
 	F.EventManagerRegister(self.interruptNamespace, "LEARNED_SPELL_IN_SKILL_LINE", F.CheckInterruptSpells)
 
 	self.uf:Update_AllFrames()
+
+	-- ElvUI builds the frames before plugins load, the Configure_* pass we hooked is already done
+	self:UpdateStatusBars()
 end
 
 function module:DatabaseUpdate()

@@ -140,13 +140,12 @@ function MER:Initialize()
 	E.data:RegisterDefaults(E.DF)
 	E.charSettings:RegisterDefaults(E.privateVars)
 
-	-- Safeguard: ensure the mui DB subtree exists at runtime and merge defaults.
-	-- Some edge cases (load-order, LOD) can make defaults not present immediately; copy them explicitly.
-	if P and P.mui and E and E.db then
-		if not E.db.mui then
-			E.db.mui = {}
+	-- these are still E:InitDB() copies, ElvUI swaps them for the AceDB tables in E:OnEnable
+	for _, data in next, { { E.db, P.mui }, { E.global, G.mui }, { E.private, V.mui } } do
+		local target, defaults = data[1], data[2]
+		if target and defaults then
+			target.mui = E:CopyTable(target.mui, defaults, true)
 		end
-		E:CopyTable(E.db.mui, P.mui)
 	end
 
 	if not self:CheckElvUIVersion() then
