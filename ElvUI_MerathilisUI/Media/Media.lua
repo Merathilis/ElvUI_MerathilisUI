@@ -194,7 +194,7 @@ F.AddMedia("texture", "ShadowInnerSmall")
 F.AddMedia("font", "Expressway.ttf", I.Fonts.Primary, nil, westAndRUBits)
 F.AddMedia("font", "GothamNarrow-Black.ttf", I.Fonts.GothamRaid, nil, westAndRUBits)
 F.AddMedia("font", "Runescape.ttf", I.Fonts.Runescape, nil, westAndRUBits)
-F.AddMedia("font", "ToxiUIIcons.ttf", I.Fonts.Icons, nil, allLocaleBits)
+F.AddMedia("font", "Armory_Icons.ttf", I.Fonts.Icons, nil, allLocaleBits)
 
 -- Backgrounds
 F.AddMedia("armory", "BG1")

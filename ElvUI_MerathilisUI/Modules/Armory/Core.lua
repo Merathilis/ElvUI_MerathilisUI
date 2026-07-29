@@ -1,6 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory")
 local M = E:GetModule("Misc")
+local LSM = E.Libs.LSM
 
 local _G = _G
 local gsub, next, pairs, pcall, select = gsub, next, pairs, pcall, select
@@ -402,12 +403,36 @@ function module:UpdateItemLevel()
 end
 
 function module:UpdateTitle()
-	WF.SetFontWithDB(self.nameText, module.db.nameText)
-	WF.SetFontWithDB(self.titleText, module.db.titleText)
-	WF.SetFontWithDB(self.levelTitleText, module.db.levelTitleText)
-	WF.SetFontWithDB(self.levelText, module.db.levelText)
-	WF.SetFontWithDB(self.classText, module.db.classText)
-	WF.SetFontWithDB(self.specIcon, module.db.specIcon)
+	self.nameText:SetFont(
+		LSM:Fetch("font", module.db.nameText.name),
+		module.db.nameText.size,
+		module.db.nameText.fontStyle
+	)
+	self.titleText:SetFont(
+		LSM:Fetch("font", module.db.titleText.name),
+		module.db.titleText.size,
+		module.db.titleText.fontStyle
+	)
+	self.levelTitleText:SetFont(
+		LSM:Fetch("font", module.db.levelTitleText.name),
+		module.db.levelTitleText.size,
+		module.db.levelTitleText.fontStyle
+	)
+	self.levelText:SetFont(
+		LSM:Fetch("font", module.db.levelText.name),
+		module.db.levelText.size,
+		module.db.levelText.fontStyle
+	)
+	self.classText:SetFont(
+		LSM:Fetch("font", module.db.classText.name),
+		module.db.classText.size,
+		module.db.classText.fontStyle
+	)
+	self.specIcon:SetFont(
+		LSM:Fetch("font", module.db.specIcon.name),
+		module.db.specIcon.size,
+		module.db.specIcon.fontStyle
+	)
 
 	local titleId = GetCurrentTitle()
 	local titleName = GetTitleName(titleId) or ""
