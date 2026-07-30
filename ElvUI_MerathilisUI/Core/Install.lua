@@ -2825,29 +2825,58 @@ MER.installTable = {
 		[12] = function()
 			MER:Resize(nil)
 
-			if E:IsAddOnEnabled("ElvUI_WindTools") then
-				PluginInstallFrame.SubTitle:SetText(L["ElvUI_WindTools"])
-				PluginInstallFrame.Desc1:SetText("Maybe the BEST ElvUI plugin to enhance your game experience.")
-				PluginInstallFrame.Desc2:SetText("Importance: " .. F.String.Error("HIGH"))
+			PluginInstallFrame.SubTitle:SetText(L["Plugins"])
+			PluginInstallFrame.Desc1:SetText(
+				L["This part of the installation process will apply changes to ElvUI Plugins"]
+			)
+			PluginInstallFrame.Desc2:SetText(
+				"Currently supported AddOns: "
+					.. WF.GetWindStyleText("ElvUI_WindTools")
+					.. ", "
+					.. "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
+			)
+			PluginInstallFrame.Desc3:SetText("Importance: " .. F.String.Error("High"))
 
-				PluginInstallFrame.Option1:Show()
-				PluginInstallFrame.Option1:SetScript("OnClick", function()
-					PF:ApplyWindToolsProfile()
-				end)
-				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option1:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
+			if not E:IsAddOnEnabled("ElvUI_WindTools") and not E:IsAddOnEnabled("ElvUI_mMediaTag") then
+				PluginInstallFrame.Desc3:SetText(
+					F.String.Warning("Warning: ")
+						.. "Looks like you don't have any of the extra AddOns installed. Don't worry, you can still fully experience "
+						.. MER.Title
+						.. "!"
+				)
 			else
-				PluginInstallFrame.SubTitle:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
-
+				PluginInstallFrame.SubTitle:SetText(L["Plugins"])
 				PluginInstallFrame.Desc1:SetText(
-					F.String.Warning(
-						"Oops, looks like you don't have " .. F.String.WindTools("ElvUI_WindTools") .. " installed!"
-					)
+					L["This part of the installation process will apply changes to ElvUI Plugins"]
 				)
 				PluginInstallFrame.Desc2:SetText(
-					"If you're a new player, we recommend installing " .. F.String.WindTools("ElvUI_WindTools") .. "!"
+					"Currently supported AddOns: "
+						.. WF.GetWindStyleText("ElvUI_WindTools")
+						.. ", "
+						.. "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
 				)
+
+				if E:IsAddOnEnabled("ElvUI_WindTools") then
+					PluginInstallFrame.Option1:Show()
+					PluginInstallFrame.Option1:SetScript("OnClick", function()
+						PF:ApplyWindToolsProfile()
+					end)
+					PluginInstallFrame.Option1:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
+					PluginInstallFrame.Option1:SetScript("OnEnter", nil)
+					PluginInstallFrame.Option1:SetScript("OnLeave", nil)
+				end
+
+				if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+					PluginInstallFrame.Option2:Show()
+					PluginInstallFrame.Option2:SetScript("OnClick", function()
+						PF:ApplymMediaTagProfile()
+					end)
+					PluginInstallFrame.Option2:SetText(
+						"|CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r"
+					)
+					PluginInstallFrame.Option2:SetScript("OnEnter", nil)
+					PluginInstallFrame.Option2:SetScript("OnLeave", nil)
+				end
 			end
 		end,
 		[13] = function()
@@ -2976,7 +3005,7 @@ MER.installTable = {
 		[9] = L["ActionBars"],
 		[10] = L["NamePlates"],
 		[11] = L["UnitFrames"],
-		[12] = L["WindTools"],
+		[12] = L["Important Plugins"],
 		[13] = L["BigWigs"],
 		[14] = L["Details"],
 		[15] = L["Installation Complete"],
