@@ -322,6 +322,10 @@ L["Please click the button below to setup your NamePlates."] =
 	"이름표를 설정하려면 아래 버튼을 클릭하세요"
 L["Please click the button below to setup your Unitframes."] =
 	"유닛 프레임을 설정하려면 아래 버튼을 클릭하세요"
+L["Plugins"] = "플러그인"
+L["This part of the installation process will apply changes to ElvUI Plugins"] =
+	"설치 과정의 이 부분은 ElvUI 플러그인에 변경 사항을 적용합니다."
+L["Important Plugins"] = "중요 플러그인"
 
 L["DataTexts"] = "정보문자"
 L["Setup Chat"] = "대화창 설치"

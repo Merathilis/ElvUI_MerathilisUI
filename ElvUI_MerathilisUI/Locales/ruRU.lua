@@ -283,6 +283,10 @@ L["Click the first button for the import.\nUse CTRL+A to select the whole string
 	true
 L["Enter Edit Mode and select Import on the Dropdown.\nUse CTRL+V to paste string, then pick a name and click import."] =
 	true
+L["Plugins"] = "Плагины"
+L["This part of the installation process will apply changes to ElvUI Plugins"] =
+	"Эта часть процесса установки применит изменения к плагинам ElvUI."
+L["Important Plugins"] = "Важные плагины"
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
