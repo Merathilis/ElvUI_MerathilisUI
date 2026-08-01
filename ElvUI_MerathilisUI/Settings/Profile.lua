@@ -643,6 +643,10 @@ P.tooltip = {
 	achievement = true,
 }
 
+P.mail = {
+	enable = true,
+}
+
 P.notification = {
 	enable = true,
 	noSound = false,
