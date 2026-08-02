@@ -6,6 +6,16 @@ local format = format
 local next = next
 local type = type
 
+local SerializeCBOR = C_EncodingUtil.SerializeCBOR
+local DeserializeCBOR = C_EncodingUtil.DeserializeCBOR
+local CompressString = C_EncodingUtil.CompressString
+local DecompressString = C_EncodingUtil.DecompressString
+local EncodeBase64 = C_EncodingUtil.EncodeBase64
+local DecodeBase64 = C_EncodingUtil.DecodeBase64
+
+local COMPRESS = Enum.CompressionMethod.Deflate or 0
+local OPTIMIZE = Enum.CompressionLevel.Default or 0
+
 ---@cast F Functions
 
 F.Profiles = {}
