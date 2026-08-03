@@ -22,7 +22,7 @@ function module:AddCallbackForAddon(addonName, func)
 end
 
 function module:ADDON_LOADED(_, addonName)
-	if not E.initialized or not MER:HasRequirements(I.Requirements.AdditionalScaling) then
+	if not E.Initialized or not MER:HasRequirements(I.Requirements.AdditionalScaling) then
 		return
 	end
 

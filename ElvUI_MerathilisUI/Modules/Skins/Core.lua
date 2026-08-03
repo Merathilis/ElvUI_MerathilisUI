@@ -193,7 +193,7 @@ function module:AddCallbackForEnterWorld(name, func)
 end
 
 function module:PLAYER_ENTERING_WORLD()
-	if not E.initialized or not E.private.mui.skins.enable then
+	if not E.Initialized or not E.private.mui.skins.enable then
 		return
 	end
 
@@ -221,7 +221,7 @@ function module:CallLoadedAddon(addonName, callbacks)
 end
 
 function module:ADDON_LOADED(_, addonName)
-	if not E.initialized or not E.private.mui.skins.enable then
+	if not E.Initialized or not E.private.mui.skins.enable then
 		return
 	end
 
@@ -313,7 +313,6 @@ function module:Initialize()
 
 	self:ShadowOverlay()
 
-	-- Temp moved
 	module:AddCallbackForLibrary("AceGUI-3.0", "AceGUI")
 	module:AddCallbackForLibrary("AceConfigDialog-3.0", "AceConfigDialog")
 	module:AddCallbackForLibrary("AceConfigDialog-3.0-ElvUI", "AceConfigDialog")
