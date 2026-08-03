@@ -42,7 +42,7 @@ end
 options.general = {
 	order = 1,
 	type = "group",
-	name = L["General"],
+	name = module:AddCategorieIcon(L["General"], "OptionsHome"),
 	get = function(info)
 		return E.private.mui.skins[info[#info]]
 	end,

@@ -8,7 +8,7 @@ local options = module.options.misc.args
 options.general = {
 	order = 1,
 	type = "group",
-	name = L["General"],
+	name = module:AddCategorieIcon(L["General"], "OptionsHome"),
 	get = function(info)
 		return E.db.mui.misc[info[#info]]
 	end,

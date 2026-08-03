@@ -96,6 +96,7 @@ F.AddMedia("icon", "Categories/panels")
 F.AddMedia("icon", "Categories/theme")
 F.AddMedia("icon", "Categories/unitframes")
 F.AddMedia("icon", "Categories/vehicle")
+F.AddMedia("icon", "Categories/info")
 
 F.AddMedia("icon", "Lock")
 F.AddMedia("icon", "Unlock")
