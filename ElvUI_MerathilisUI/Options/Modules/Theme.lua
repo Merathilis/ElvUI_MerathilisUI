@@ -12,7 +12,7 @@ local PowerBarColor = _G.PowerBarColor
 
 options.theme = {
 	type = "group",
-	name = L["Theme"],
+	name = module:AddCategorieIcon(L["Theme"], "theme"),
 	get = function(info)
 		return E.db.mui.themes[info[#info]]
 	end,

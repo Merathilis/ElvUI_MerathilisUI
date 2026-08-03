@@ -17,13 +17,13 @@ module.options = {
 	general = {
 		order = 101,
 		name = F.cOption(L["General"], "gradient"),
-		icon = I.Media.Icons.OptionsHome,
+		icon = I.Media.Icons.Categories.OptionsHome,
 		args = {},
 	},
 	modules = {
 		order = 102,
 		name = F.cOption(L["Modules"], "gradient"),
-		icon = I.Media.Icons.Config,
+		icon = I.Media.Icons.Categories.Config,
 		args = {
 			info = {
 				order = 1,
@@ -35,31 +35,31 @@ module.options = {
 	misc = {
 		order = 103,
 		name = F.cOption(L["Misc"], "gradient"),
-		icon = I.Media.Icons.More,
+		icon = I.Media.Icons.Categories.More,
 		args = {},
 	},
 	skins = {
 		order = 104,
 		name = F.cOption(L["Skins/AddOns"], "gradient"),
-		icon = I.Media.Icons.Bill,
+		icon = I.Media.Icons.Categories.Bill,
 		args = {},
 	},
 	profiles = {
 		order = 105,
 		name = F.cOption(L["Profiles"], "gradient"),
-		icon = I.Media.Icons.System,
+		icon = I.Media.Icons.Categories.System,
 		args = {},
 	},
 	advanced = {
 		order = 111,
 		name = F.cOption(L["Advanced Settings"], "gradient"),
-		icon = I.Media.Icons.Tips,
+		icon = I.Media.Icons.Categories.Tips,
 		args = {},
 	},
 	information = {
 		order = 112,
 		name = F.cOption(L["Information"], "gradient"),
-		icon = I.Media.Icons.Save,
+		icon = I.Media.Icons.Categories.Save,
 		args = {},
 	},
 }
@@ -294,6 +294,17 @@ function module:ResetOrder()
 	self.orderIndex = 1
 end
 
+function module:AddCategorieIcon(text, icon)
+	local iconPath = I.Media.Icons.Categories and I.Media.Icons.Categories[icon]
+
+	if not iconPath then
+		F.Developer.LogDebug("Could not find category icon", icon)
+		return text
+	end
+
+	return format("|T%s:16:16|t  %s", iconPath, text)
+end
+
 function module:AddCallback(name, func)
 	-- Don't load any other settings except general and changelog when MER is not installed
 	if not F.IsMERProfile() and (name ~= "Information" and name ~= "General" and name ~= "Changelog") then
@@ -349,7 +360,7 @@ function module:OptionsCallback()
 			install = {
 				order = 3,
 				type = "execute",
-				name = L["Install"],
+				name = L["|T" .. I.General.MediaPath .. "Icons\\Install.tga:18:18:0:0:64:64|t Install"],
 				desc = L["Run the installation process."],
 				customWidth = 140,
 				func = function()

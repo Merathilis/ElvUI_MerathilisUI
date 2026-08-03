@@ -5,7 +5,7 @@ local options = module.options.modules.args
 
 options.maps = {
 	type = "group",
-	name = L["Maps"],
+	name = module:AddCategorieIcon(L["Maps"], "maps"),
 	args = {
 		header = {
 			order = 0,

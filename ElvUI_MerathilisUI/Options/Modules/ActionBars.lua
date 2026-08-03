@@ -4,7 +4,7 @@ local options = module.options.modules.args
 
 options.actionbars = {
 	type = "group",
-	name = L["ActionBars"],
+	name = module:AddCategorieIcon(L["ActionBars"], "actionbars"),
 	get = function(info)
 		return E.db.mui.actionbars[info[#info]]
 	end,

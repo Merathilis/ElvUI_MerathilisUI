@@ -72,7 +72,7 @@ local sizeString = ":16:16:0:0:64:64:4:60:4:60"
 
 options.unitframes = {
 	type = "group",
-	name = L["UnitFrames"],
+	name = module:AddCategorieIcon(L["UnitFrames"], "unitframes"),
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.unitframes[info[#info]]

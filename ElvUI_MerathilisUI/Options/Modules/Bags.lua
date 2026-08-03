@@ -7,7 +7,7 @@ local options = module.options.modules.args
 
 options.bags = {
 	type = "group",
-	name = L["Bags"],
+	name = module:AddCategorieIcon(L["Bags"], "bags"),
 	args = {
 		header = {
 			order = 0,

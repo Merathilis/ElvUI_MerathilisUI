@@ -1121,7 +1121,18 @@ function F.AddMedia(mediaType, mediaFile, lsmName, lsmType, lsmMask)
 
 		local pathKey = I.MediaKeys[mediaType]
 		if pathKey then
-			I.Media[pathKey][key] = file
+			local mediaTable = I.Media[pathKey]
+
+			local subFolder, fileName = key:match("^(.-)/([^/]+)$")
+			if subFolder and fileName then
+				for folder in subFolder:gmatch("[^/]+") do
+					mediaTable[folder] = mediaTable[folder] or {}
+					mediaTable = mediaTable[folder]
+				end
+				mediaTable[fileName] = file
+			else
+				mediaTable[key] = file
+			end
 		else
 			F.Developer.LogDebug("Could not find path key for", mediaType, mediaFile, lsmName, lsmType, lsmMask)
 		end

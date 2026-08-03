@@ -6,7 +6,7 @@ local options = module.options.modules.args
 
 options.panels = {
 	type = "group",
-	name = L["Panels"],
+	name = module:AddCategorieIcon(L["Panels"], "panels"),
 	get = function(info)
 		return E.db.mui.panels[info[#info]]
 	end,

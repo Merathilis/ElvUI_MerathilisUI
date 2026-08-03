@@ -6,7 +6,7 @@ local options = module.options.modules.args
 
 options.mail = {
 	type = "group",
-	name = L["Mail"],
+	name = module:AddCategorieIcon(L["Mail"], "mail"),
 	get = function(info)
 		return E.db.mui.mail[info[#info]]
 	end,

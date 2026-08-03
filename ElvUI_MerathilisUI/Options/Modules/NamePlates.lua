@@ -5,7 +5,7 @@ local options = module.options.modules.args
 
 options.nameplates = {
 	type = "group",
-	name = L["NamePlates"],
+	name = module:AddCategorieIcon(L["NamePlates"], "nameplates"),
 	get = function(info)
 		return E.db.mui.nameplates[info[#info]]
 	end,

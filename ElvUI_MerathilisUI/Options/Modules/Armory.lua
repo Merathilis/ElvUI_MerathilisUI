@@ -12,7 +12,7 @@ local GetItemInfo = C_Item.GetItemInfo
 
 options.armory = {
 	type = "group",
-	name = L["Armory"],
+	name = module:AddCategorieIcon(L["Armory"], "armory"),
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.armory[info[#info]]

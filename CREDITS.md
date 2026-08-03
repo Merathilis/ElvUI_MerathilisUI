@@ -32,13 +32,9 @@
 
     -   Media/Icons/LynUI
 
--   IconPark
+-   IconPark from https://iconpark.oceanengine.com/official
 
     -   Media/Icons/Categories
-
--   ProjectAzilroka (Azilroka)
-
-    -   Media/FriendList
 
 -   Icon made by Freepik from www.flaticon.com
     -   Media/Icons/Warning.tga
@@ -49,3 +45,5 @@
 -   Icon made by kliwir art from www.flaticon.com
     -   Media/Icons/Accept.tga
     -   Media/Icons/Fail.tga
+-   Icon made by juicy_fish art from www.flaticon.com
+    -   Media/Icons/Install.tga

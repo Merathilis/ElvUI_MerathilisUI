@@ -5,7 +5,7 @@ local options = module.options.modules.args
 
 options.Notification = {
 	type = "group",
-	name = L["Notification"],
+	name = module:AddCategorieIcon(L["Notification"], "notifications"),
 	get = function(info)
 		return E.db.mui.notification[info[#info]]
 	end,

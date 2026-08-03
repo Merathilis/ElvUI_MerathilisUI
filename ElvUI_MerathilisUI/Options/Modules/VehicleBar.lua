@@ -6,7 +6,7 @@ local options = module.options.modules.args
 
 options.vehicleBar = {
 	type = "group",
-	name = L["VehicleBar"],
+	name = module:AddCategorieIcon(L["VehicleBar"], "vehicle"),
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.vehicleBar[info[#info]]

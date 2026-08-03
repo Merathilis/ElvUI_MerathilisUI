@@ -6,7 +6,7 @@ local options = module.options.modules.args
 
 options.nameHover = {
 	type = "group",
-	name = L["Name Hover"],
+	name = module:AddCategorieIcon(L["Name Hover"], "name_hover"),
 	get = function(info)
 		return E.db.mui.nameHover[info[#info]]
 	end,
