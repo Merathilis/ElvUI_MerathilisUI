@@ -4,12 +4,14 @@ local M = E:GetModule("Misc")
 local LSM = E.Libs.LSM
 
 local _G = _G
-local gsub, next, pairs, pcall, select = gsub, next, pairs, pcall, select
+local format = string.format
+local gsub, next, ipairs, pairs, pcall, select = gsub, next, ipairs, pairs, pcall, select
 local utf8sub = string.utf8sub
 local twipe = table.wipe
 
 local CreateColor = CreateColor
 local GetInventoryItemID = GetInventoryItemID
+local InCombatLockdown = InCombatLockdown
 local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
 local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local GetSpecializationRole = GetSpecializationRole
@@ -17,6 +19,12 @@ local GetCurrentTitle = GetCurrentTitle
 local GetTitleName = GetTitleName
 local UnitLevel = UnitLevel
 local UnitSex = UnitSex
+
+local GetAverageItemLevel = GetAverageItemLevel
+local GetMeleeHaste = GetMeleeHaste
+local UnitAttackSpeed = UnitAttackSpeed
+local UnitEffectiveLevel = UnitEffectiveLevel
+local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local GetItemInfo = C_Item.GetItemInfo
 local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
@@ -188,12 +196,13 @@ function module:GetPrimaryTalentIndex()
 	return primaryTalentTreeIdx
 end
 
+module.slotIdToName = {}
+for slot, options in pairs(module.characterSlots) do
+	module.slotIdToName[options.id] = slot
+end
+
 function module:GetSlotNameByID(slotId)
-	for slot, options in pairs(module.characterSlots) do
-		if options.id == slotId then
-			return slot
-		end
-	end
+	return module.slotIdToName[slotId]
 end
 
 function module:CheckMessageCondition(slotOptions)
@@ -209,9 +218,9 @@ function module:CheckMessageCondition(slotOptions)
 	if enchantNeeded and conditions.primary then
 		enchantNeeded = false
 		local spec = C_SpecializationInfo_GetSpecialization()
+		local primaryStat
 		if spec then
-			local primaryStat =
-				select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
+			primaryStat = select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
 			enchantNeeded = (conditions.primary == primaryStat)
 		end
 	end
@@ -562,27 +571,29 @@ function module:UpdateTitle()
 	self.classText:SetJustifyV("BOTTOM")
 end
 
-function module:EnchantAbbreviate(str)
-	local abbrevs = {
-		-- Primary
+local ENCHANT_ABBREVS
+local function BuildEnchantAbbrevs()
+	ENCHANT_ABBREVS = {
 		[_G["SPELL_STAT" .. _G.LE_UNIT_STAT_STRENGTH .. "_NAME"]] = "Str.",
 		[_G["SPELL_STAT" .. _G.LE_UNIT_STAT_AGILITY .. "_NAME"]] = "Agi.",
 		[_G["SPELL_STAT" .. _G.LE_UNIT_STAT_INTELLECT .. "_NAME"]] = "Int.",
 		[_G["SPELL_STAT" .. _G.LE_UNIT_STAT_STAMINA .. "_NAME"]] = "Stam.",
-		-- Secondary
 		[_G["STAT_VERSATILITY"]] = "Vers.",
 		[_G["STAT_CRITICAL_STRIKE"]] = "Crit.",
 		[_G["STAT_MASTERY"]] = "Mast.",
-		-- Tertiary
 		[_G["STAT_AVOIDANCE"]] = "Avoid.",
 	}
+end
 
+function module:EnchantAbbreviate(str)
+	if not ENCHANT_ABBREVS then
+		BuildEnchantAbbrevs()
+	end
 	local text = gsub(gsub(str, "%s?|A.-|a", ""), "|cn.-:(.-)|r", "%1")
 	local short = F.String.Abbreviate(text)
-	for stat, abbrev in pairs(abbrevs) do
+	for stat, abbrev in pairs(ENCHANT_ABBREVS) do
 		short = short:gsub(stat, abbrev)
 	end
-
 	return utf8sub(short, 1, 18)
 end
 
