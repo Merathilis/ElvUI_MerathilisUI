@@ -2833,11 +2833,11 @@ MER.installTable = {
 				"Currently supported AddOns: "
 					.. WF.GetWindStyleText("ElvUI_WindTools")
 					.. ", "
-					.. "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
+					.. "|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
 			)
 			PluginInstallFrame.Desc3:SetText("Importance: " .. F.String.Error("High"))
 
-			if not E:IsAddOnEnabled("ElvUI_WindTools") and not E:IsAddOnEnabled("ElvUI_mMediaTag") then
+			if not E:IsAddOnEnabled("ElvUI_WindTools") and not E:IsAddOnEnabled("Blinkiis_Portraits") then
 				PluginInstallFrame.Desc3:SetText(
 					F.String.Warning("Warning: ")
 						.. "Looks like you don't have any of the extra AddOns installed. Don't worry, you can still fully experience "
@@ -2853,7 +2853,7 @@ MER.installTable = {
 					"Currently supported AddOns: "
 						.. WF.GetWindStyleText("ElvUI_WindTools")
 						.. ", "
-						.. "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r - |CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r |CFFFF006C&|r |CFFFF4C00T|r|CFFFF7300o|r|CFFFF9300o|r|CFFFFA800l|r|CFFFFC900s|r"
+						.. "|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
 				)
 
 				if E:IsAddOnEnabled("ElvUI_WindTools") then
@@ -2866,13 +2866,13 @@ MER.installTable = {
 					PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 				end
 
-				if E:IsAddOnEnabled("ElvUI_mMediaTag") then
+				if E:IsAddOnEnabled("Blinkiis_Portraits") then
 					PluginInstallFrame.Option2:Show()
 					PluginInstallFrame.Option2:SetScript("OnClick", function()
-						PF:ApplymMediaTagProfile()
+						PF:ApplyBlinkiisPortraitsProfile()
 					end)
 					PluginInstallFrame.Option2:SetText(
-						"|CFF6559F1m|r|CFF7A4DEFM|r|CFF8845ECe|r|CFFA037E9d|r|CFFA435E8i|r|CFFB32DE6a|r|CFFBC26E5T|r|CFFCB1EE3a|r|CFFDD14E0g|r"
+						"|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
 					)
 					PluginInstallFrame.Option2:SetScript("OnEnter", nil)
 					PluginInstallFrame.Option2:SetScript("OnLeave", nil)

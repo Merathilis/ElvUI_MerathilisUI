@@ -4,6 +4,7 @@
 
 	<Script file="BetterCooldownManager.lua"/>
 	<Script file="BigWigs.lua"/>
+	<Script file="Blinkiis_Portraits.lua"/>
 	<Script file="Capping.lua"/>
 	<Script file="Details.lua"/>
 	<Script file="EditMode.lua"/>

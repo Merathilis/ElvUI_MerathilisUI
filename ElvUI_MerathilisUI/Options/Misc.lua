@@ -25,7 +25,7 @@ options.general = {
 		gmotd = {
 			order = 2,
 			type = "toggle",
-			name = L.GUILD_MOTD_LABEL2,
+			name = GUILD_MOTD_LABEL2,
 			desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 		},
 		funstuff = {
