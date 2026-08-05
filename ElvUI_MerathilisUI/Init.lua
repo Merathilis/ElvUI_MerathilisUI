@@ -135,13 +135,7 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 end
 
 function MER:Initialize()
-	-- ElvUI creates its AceDB during its ADDON_LOADED, before MerathilisUI or WindTools
-	-- populates E.DF.profile.mui / E.DF.global.mui / E.privateVars.profile.mui.
-	-- Re-register the filled defaults so AceDB merges the mui subtrees in.
-	E.data:RegisterDefaults(E.DF)
-	E.charSettings:RegisterDefaults(E.privateVars)
-
-	-- these are still E:InitDB() copies, ElvUI swaps them for the AceDB tables in E:OnEnable
+	-- make sure our DBs are there in E:PrepDB()
 	for _, data in next, { { E.db, P.mui }, { E.global, G.mui }, { E.private, V.mui } } do
 		local target, defaults = data[1], data[2]
 		if target and defaults then
@@ -203,9 +197,9 @@ function MER:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("PLAYER_LOGIN")
 
-	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
-	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
-	E.data.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
+	E.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
+	E.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
+	E.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
 end
 
 function MER:AutoCopyPrivateProfile()
