@@ -252,11 +252,12 @@ function module:UpdateBar()
 	end
 
 	-- Update Paging
+	local vehicleBarIndex = GetVehicleBarIndex()
 	local pageState = format(
 		"[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13; %s",
 		GetOverrideBarIndex(),
-		GetVehicleBarIndex(),
-		GetVehicleBarIndex(),
+		vehicleBarIndex,
+		vehicleBarIndex,
 		"[bonusbar:5] 11;"
 	)
 	local pageAttribute = self.ab:GetPage("bar1", 1, pageState)
