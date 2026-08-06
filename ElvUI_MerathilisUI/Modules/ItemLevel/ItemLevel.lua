@@ -4,47 +4,71 @@ local S = MER:GetModule("MER_Skins")
 local C = W.Utilities.Color ---@type ColorUtility
 
 local _G = _G
-local pairs, select = pairs, select
+local ipairs, select, tonumber = ipairs, select, tonumber
+local strmatch, gsub = strmatch, gsub
 
+local hooksecurefunc = hooksecurefunc
 local GetItemInfo = C_Item.GetItemInfo
 local GetItemQuality = C_Item.GetItemQuality
 local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 local GetContainerItemLink = C_Container.GetContainerItemLink
 local GetInventoryItemLink = GetInventoryItemLink
+local GetTradePlayerItemLink = GetTradePlayerItemLink
+local GetTradeTargetItemLink = GetTradeTargetItemLink
+local EquipmentManager_GetLocationData = EquipmentManager_GetLocationData
+local EquipmentManager_GetItemInfoByLocation = EquipmentManager_GetItemInfoByLocation
+local UnitExists = UnitExists
 
 local EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION = EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION
 
+-- Array: use ipairs. Index 4 = Shirt (skipped for inspect strings).
 local inspectSlots = {
-	"Head",
-	"Neck",
-	"Shoulder",
-	"Shirt",
-	"Chest",
-	"Waist",
-	"Legs",
-	"Feet",
-	"Wrist",
-	"Hands",
-	"Finger0",
-	"Finger1",
-	"Trinket0",
-	"Trinket1",
-	"Back",
-	"MainHand",
-	"SecondaryHand",
+	"Head", -- 1
+	"Neck", -- 2
+	"Shoulder", -- 3
+	"Shirt", -- 4 (skipped)
+	"Chest", -- 5
+	"Waist", -- 6
+	"Legs", -- 7
+	"Feet", -- 8
+	"Wrist", -- 9
+	"Hands", -- 10
+	"Finger0", -- 11
+	"Finger1", -- 12
+	"Trinket0", -- 13
+	"Trinket1", -- 14
+	"Back", -- 15
+	"MainHand", -- 16
+	"SecondaryHand", -- 17
 }
 
-function module:ItemLevel_FlyoutUpdate(bag, slot, quality)
-	if not self.iLvl then
-		self.iLvl = self:CreateFontString(nil, "OVERLAY")
-		self.iLvl:FontTemplate(nil, 11)
-		self.iLvl:ClearAllPoints()
-		self.iLvl:SetPoint("BOTTOMRIGHT", 0, 0)
+local function EnsureItemLevelFont(button, size)
+	if button.iLvl then
+		return button.iLvl
 	end
 
-	if quality and quality <= 1 then
+	local iLvl = button:CreateFontString(nil, "OVERLAY")
+	iLvl:FontTemplate(nil, size or 11)
+	iLvl:ClearAllPoints()
+	iLvl:SetPoint("BOTTOMRIGHT", 0, 0)
+	button.iLvl = iLvl
+	return iLvl
+end
+
+local function ClearItemLevelFont(button)
+	if button.iLvl then
+		button.iLvl:SetText("")
+	end
+end
+
+function module:ItemLevel_FlyoutUpdate(bag, slot, quality)
+	-- Low / missing quality: clear and exit (do not leave stale text)
+	if not quality or quality <= 1 then
+		ClearItemLevelFont(self)
 		return
 	end
+
+	local iLvl = EnsureItemLevelFont(self, 11)
 
 	local link, level
 	if bag then
@@ -56,14 +80,12 @@ function module:ItemLevel_FlyoutUpdate(bag, slot, quality)
 	end
 
 	local color = E:GetQualityColor(quality)
-	self.iLvl:SetText(level)
-	self.iLvl:SetTextColor(color.r, color.g, color.b)
+	iLvl:SetText(level)
+	iLvl:SetTextColor(color.r, color.g, color.b)
 end
 
 function module:ItemLevel_FlyoutSetup()
-	if self.iLvl then
-		self.iLvl:SetText("")
-	end
+	ClearItemLevelFont(self)
 
 	local location = self.location
 	if not location then
@@ -76,16 +98,20 @@ function module:ItemLevel_FlyoutSetup()
 		end
 
 		local locationData = EquipmentManager_GetLocationData(location)
-		local bags, slot, bag = locationData.isBags, locationData.slot, locationData.bag
 		local quality = select(13, EquipmentManager_GetItemInfoByLocation(location))
-		if bags then
-			module.ItemLevel_FlyoutUpdate(self, bag, slot, quality)
+
+		if locationData.isBags then
+			module.ItemLevel_FlyoutUpdate(self, locationData.bag, locationData.slot, quality)
 		else
-			module.ItemLevel_FlyoutUpdate(self, nil, slot, quality)
+			module.ItemLevel_FlyoutUpdate(self, nil, locationData.slot, quality)
 		end
 	else
 		local itemLocation = self:GetItemLocation()
-		local quality = itemLocation and GetItemQuality(itemLocation)
+		if not itemLocation then
+			return
+		end
+
+		local quality = GetItemQuality(itemLocation)
 		if itemLocation:IsBagAndSlot() then
 			local bag, slot = itemLocation:GetBagAndSlot()
 			module.ItemLevel_FlyoutUpdate(self, bag, slot, quality)
@@ -97,30 +123,33 @@ function module:ItemLevel_FlyoutSetup()
 end
 
 function module:ItemLevel_ScrappingUpdate()
-	if not self.iLvl then
-		self.iLvl = self:CreateFontString(nil, "OVERLAY")
-		self.iLvl:FontTemplate(nil, 11)
-		self.iLvl:ClearAllPoints()
-		self.iLvl:SetPoint("BOTTOMRIGHT", 0, 0)
-	end
 	if not self.itemLink then
-		self.iLvl:SetText("")
+		ClearItemLevelFont(self)
 		return
 	end
 
 	local quality = 1
-	if self.itemLocation and not self.item:IsItemEmpty() and self.item:GetItemName() then
+	if self.itemLocation and self.item and not self.item:IsItemEmpty() and self.item:GetItemName() then
 		quality = self.item:GetItemQuality()
 	end
+
+	if quality <= 1 then
+		ClearItemLevelFont(self)
+		return
+	end
+
+	local iLvl = EnsureItemLevelFont(self, 11)
 	local level = F.GetItemLevel(self.itemLink)
 	local r, g, b = E:GetItemQualityColor(quality)
-	self.iLvl:SetText(level)
-	self.iLvl:SetTextColor(r, g, b)
+	iLvl:SetText(level)
+	iLvl:SetTextColor(r, g, b)
 end
 
 function module:ItemLevel_ScrappingSetup()
 	for button in self.ItemSlots.scrapButtons:EnumerateActive() do
-		if button and not button.iLvl then
+		-- Hook once per button (flag, not dependent on iLvl existing)
+		if button and not button._MERIlvlHooked then
+			button._MERIlvlHooked = true
 			hooksecurefunc(button, "RefreshIcon", module.ItemLevel_ScrappingUpdate)
 		end
 	end
@@ -128,8 +157,7 @@ end
 
 function module.ItemLevel_ScrappingShow(event, addon)
 	if addon == "Blizzard_ScrappingMachineUI" then
-		hooksecurefunc(ScrappingMachineFrame, "UpdateScrapButtonState", module.ItemLevel_ScrappingSetup)
-
+		hooksecurefunc(_G.ScrappingMachineFrame, "UpdateScrapButtonState", module.ItemLevel_ScrappingSetup)
 		MER:UnregisterEvent(event, module.ItemLevel_ScrappingShow)
 	end
 end
@@ -151,13 +179,15 @@ function module:CreateItemString(frame, strType)
 		return
 	end
 
-	for index, slot in pairs(inspectSlots) do
-		if index ~= 4 then
+	for index, slot in ipairs(inspectSlots) do
+		if index ~= 4 then -- skip Shirt
 			local slotFrame = _G[strType .. slot .. "Slot"]
-			slotFrame.iLvlText = slotFrame:CreateFontString(nil, "OVERLAY")
-			slotFrame.iLvlText:FontTemplate(nil, 10)
-			slotFrame.iLvlText:ClearAllPoints()
-			slotFrame.iLvlText:SetPoint("BOTTOMRIGHT", slotFrame, "BOTTOMRIGHT", 0, 0)
+			if slotFrame then
+				slotFrame.iLvlText = slotFrame:CreateFontString(nil, "OVERLAY")
+				slotFrame.iLvlText:FontTemplate(nil, 10)
+				slotFrame.iLvlText:ClearAllPoints()
+				slotFrame.iLvlText:SetPoint("BOTTOMRIGHT", slotFrame, "BOTTOMRIGHT", 0, 0)
+			end
 		end
 	end
 
@@ -171,31 +201,43 @@ function module:ItemLevel_SetupLevel(frame, strType, unit)
 
 	module:CreateItemString(frame, strType)
 
-	for index, slot in pairs(inspectSlots) do
+	for index, slot in ipairs(inspectSlots) do
 		if index ~= 4 then
 			local slotFrame = _G[strType .. slot .. "Slot"]
-			slotFrame.iLvlText:SetText("")
+			if slotFrame and slotFrame.iLvlText then
+				slotFrame.iLvlText:SetText("")
+			end
 		end
 	end
 end
 
 function module:ItemLevel_UpdateMerchant(link)
-	if not self.iLvl then
-		self.iLvl = _G[self:GetName() .. "ItemButton"]:CreateFontString(nil, "OVERLAY")
-		self.iLvl:FontTemplate(nil, 11)
-		self.iLvl:ClearAllPoints()
-		self.iLvl:SetPoint("BOTTOMRIGHT", 0, 0)
+	if not link then
+		ClearItemLevelFont(self)
+		return
 	end
 
-	local quality = link and select(3, GetItemInfo(link)) or nil
-	if quality and quality > 1 then
-		local level = F.GetItemLevel(link)
-		local color = E:GetQualityColor(quality)
-		self.iLvl:SetText(level)
-		self.iLvl:SetTextColor(color.r, color.g, color.b)
-	else
-		self.iLvl:SetText("")
+	local quality = select(3, GetItemInfo(link))
+	if not quality or quality <= 1 then
+		ClearItemLevelFont(self)
+		return
 	end
+
+	local iLvl = self.iLvl
+	if not iLvl then
+		local itemButton = _G[self:GetName() .. "ItemButton"]
+		if not itemButton then
+			return
+		end
+		iLvl = EnsureItemLevelFont(itemButton, 11)
+		-- Merchant uses font on ItemButton but stores on row frame for API compat
+		self.iLvl = iLvl
+	end
+
+	local level = F.GetItemLevel(link)
+	local color = E:GetQualityColor(quality)
+	iLvl:SetText(level)
+	iLvl:SetTextColor(color.r, color.g, color.b)
 end
 
 function module.ItemLevel_UpdateTradePlayer(index)
@@ -210,55 +252,67 @@ function module.ItemLevel_UpdateTradeTarget(index)
 	module.ItemLevel_UpdateMerchant(button, link)
 end
 
-local cache = {}
+local guildNewsCache = {}
+
 local function ItemLevel_ReplaceGuildNews(button, _, text, name, link, ...)
-	if not E.db.mui.itemLevel.guildNews.enable then
+	local db = E.db.mui.itemLevel
+	if not db or not db.guildNews or not db.guildNews.enable then
 		return
 	end
 
-	if not _G.CommunitiesFrame or not _G.CommunitiesFrame.IsShown or not _G.CommunitiesFrame:IsShown() then
+	local communities = _G.CommunitiesFrame
+	if not communities or not communities:IsShown() then
 		return
 	end
 
-	if not link or not strmatch(link, "|H(item:%d+:.-)|h.-|h") then
+	if not link or not strmatch(link, "|Hitem:") then
 		return
 	end
 
-	if not cache[link] then
-		cache[link] = C_Item_GetDetailedItemLevelInfo(link)
+	local itemLevel = guildNewsCache[link]
+	if not itemLevel then
+		itemLevel = C_Item_GetDetailedItemLevelInfo(link)
+		if itemLevel then
+			guildNewsCache[link] = itemLevel
+		end
 	end
 
-	if cache[link] then
-		local coloredItemLevel = C.StringByTemplate(cache[link], "yellow-400")
+	if itemLevel then
+		local coloredItemLevel = C.StringByTemplate(itemLevel, "yellow-400")
 		link = gsub(link, "|h%[(.-)%]|h", "|h[" .. coloredItemLevel .. ":%1]|h")
 		button.text:SetFormattedText(text, name, link, ...)
 	end
 end
 
 function module:Initialize()
-	self.db = E.db.mui.itemLevel
+	local db = E.db.mui.itemLevel
+	self.db = db
 
-	if not self.db.enable and not self.initialized then
+	if not db or not db.enable then
+		return
+	end
+
+	if self.initialized then
 		return
 	end
 
 	-- FlyoutButtons
 	hooksecurefunc("EquipmentFlyout_UpdateItems", function()
-		for _, button in pairs(_G.EquipmentFlyoutFrame.buttons) do
+		local buttons = _G.EquipmentFlyoutFrame.buttons
+		for i = 1, #buttons do
+			local button = buttons[i]
 			if button:IsShown() then
 				module.ItemLevel_FlyoutSetup(button)
 			end
 		end
 	end)
 
-	-- ScrappingMachine
+	-- ScrappingMachine (lazy load)
 	MER:RegisterEvent("ADDON_LOADED", module.ItemLevel_ScrappingShow)
 
-	-- MerchantFrame
-	if self.db.merchantFrame.enable then
+	-- MerchantFrame + TradeFrame
+	if db.merchantFrame and db.merchantFrame.enable then
 		hooksecurefunc("MerchantFrameItem_UpdateQuality", module.ItemLevel_UpdateMerchant)
-
-		-- TradeFrame
 		hooksecurefunc("TradeFrame_UpdatePlayerItem", module.ItemLevel_UpdateTradePlayer)
 		hooksecurefunc("TradeFrame_UpdateTargetItem", module.ItemLevel_UpdateTradeTarget)
 	end
