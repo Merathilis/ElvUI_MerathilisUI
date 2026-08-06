@@ -138,11 +138,6 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "mui")
 end
 
-local FLAVOR_MAP = {
-	Mainline = I.Enum.Flavor.RETAIL, -- ohne Anführungszeichen geht auch
-	MOP = I.Enum.Flavor.MOP,
-}
-
 function MER:Initialize()
 	if not self:CheckElvUIVersion() then
 		return
