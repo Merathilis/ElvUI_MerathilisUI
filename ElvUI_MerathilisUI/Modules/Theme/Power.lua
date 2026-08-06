@@ -9,8 +9,7 @@ function module:GetPowerColor(frame, unit)
 	if frame.displayType == ALTERNATE_POWER_INDEX then
 		return "powerColorMap", "ALT_POWER"
 	end
-	local powerKey = select(2, UnitPowerType(unit))
-	return "powerColorMap", powerKey
+	return "powerColorMap", select(2, UnitPowerType(unit))
 end
 
 function module:PostUpdatePowerColor(frame, unit, color, altR, altG, altB)
@@ -33,6 +32,7 @@ function module:PostUpdatePowerColor(frame, unit, color, altR, altG, altB)
 		frame.currentPercent = 1
 	end
 
-	local colorFunc = F.Event.GenerateClosure(self.GetPowerColor, self, frame, unit)
-	self:SetGradientColors(frame, valueChanged, eR, eG, eB, false, colorFunc)
+	self:SetGradientColors(frame, valueChanged, eR, eG, eB, false, function()
+		return module:GetPowerColor(frame, unit)
+	end)
 end

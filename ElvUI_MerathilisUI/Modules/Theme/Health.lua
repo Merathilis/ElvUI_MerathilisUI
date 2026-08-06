@@ -1,6 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Theme") ---@class Theme
 
+local select = select
 local UnitClass = UnitClass
 local UnitIsCharmed = UnitIsCharmed
 local UnitIsConnected = UnitIsConnected
@@ -18,25 +19,19 @@ function module:GetHealthColor(frame, unit)
 	end
 
 	local isPlayer = UnitIsPlayer(unit) or UnitTreatAsPlayerForDisplay(unit)
-	local isConnected = UnitIsConnected(unit)
-	local isDeadOrGhost = UnitIsDeadOrGhost(unit)
-	local isCharmed = UnitIsCharmed(unit)
-	local isEnemy = UnitIsEnemy("player", unit)
-	local isPlayerControlled = UnitPlayerControlled(unit)
-	local isTapDenied = UnitIsTapDenied(unit)
-	local reaction = UnitReaction(unit, "player")
 
-	if isPlayer and not isConnected then
+	if isPlayer and not UnitIsConnected(unit) then
 		return "specialColorMap", "DISCONNECTED"
-	elseif frame.unitDead == true then
+	elseif frame.unitDead then
 		return "specialColorMap", "DEAD"
-	elseif isPlayer and not isDeadOrGhost and isCharmed and isEnemy then
+	elseif isPlayer and not UnitIsDeadOrGhost(unit) and UnitIsCharmed(unit) and UnitIsEnemy("player", unit) then
 		return "reactionColorMap", "BAD"
-	elseif not isPlayerControlled and isTapDenied then
+	elseif not UnitPlayerControlled(unit) and UnitIsTapDenied(unit) then
 		return "specialColorMap", "TAPPED"
 	elseif isPlayer then
 		return "classColorMap", select(2, UnitClass(unit))
 	else
+		local reaction = UnitReaction(unit, "player")
 		if reaction then
 			if reaction > 4 then
 				return "reactionColorMap", "GOOD"
@@ -63,12 +58,14 @@ function module:PostUpdateHealthColor(frame, unit, eR, eG, eB)
 	end
 
 	local colorChanged = false
-	local unitDead = unit and UnitIsDeadOrGhost(unit)
+	local unitDead = UnitIsDeadOrGhost(unit)
 	if unitDead ~= frame.unitDead then
 		colorChanged = true
 		frame.unitDead = unitDead
 	end
 
-	local colorFunc = F.Event.GenerateClosure(self.GetHealthColor, self, frame, unit)
-	self:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorFunc)
+	-- Closure only allocated when SetGradientColors actually needs the getter
+	self:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, function()
+		return module:GetHealthColor(frame, unit)
+	end)
 end
