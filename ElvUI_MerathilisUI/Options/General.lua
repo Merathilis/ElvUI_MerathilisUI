@@ -29,7 +29,7 @@ options.name = {
 			end,
 			set = function(info, value)
 				E.db.mui.style[info[#info]] = value
-				F.Event.TriggerEvent("theme.SettingsUpdate")
+				F.Event.TriggerEvent("module.DatabaseUpdate")
 				E:StaticPopup_Show("CONFIG_RL")
 			end,
 			args = {

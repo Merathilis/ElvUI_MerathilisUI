@@ -1,7 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 
-local format = format
+local format, type, pairs, next, tinsert = format, type, pairs, next, tinsert
+local xpcall = xpcall
 
 local CreateTextureMarkup = CreateTextureMarkup
 
@@ -75,33 +76,52 @@ function module:GetAllFontsFunc(additional)
 	end
 end
 
-function module:GetAllFontOutlinesFunc(additional)
-	local styleSelection = {
-		NONE = "None",
-		OUTLINE = "Outline",
-		THICKOUTLINE = "Thick",
-		MONOCHROME = "|cffaaaaaaMono|r",
-		MONOCHROMEOUTLINE = "|cffaaaaaaMono|r Outline",
-		MONOCHROMETHICKOUTLINE = "|cffaaaaaaMono|r Thick",
-		SHADOWOUTLINE = "ShadowOutline",
-	}
+local FONT_OUTLINE_SELECTION = {
+	NONE = "None",
+	OUTLINE = "Outline",
+	THICKOUTLINE = "Thick",
+	MONOCHROME = "|cffaaaaaaMono|r",
+	MONOCHROMEOUTLINE = "|cffaaaaaaMono|r Outline",
+	MONOCHROMETHICKOUTLINE = "|cffaaaaaaMono|r Thick",
+	SHADOWOUTLINE = "ShadowOutline",
+}
 
+function module:GetAllFontOutlinesFunc(additional)
+	-- AceGUI may call this often; only join when extras are provided
+	if additional then
+		return function()
+			return F.Table.Join({}, FONT_OUTLINE_SELECTION, additional)
+		end
+	end
 	return function()
-		return F.Table.Join({}, styleSelection, additional or {})
+		return FONT_OUTLINE_SELECTION
 	end
 end
 
-function module:GetAllFontColorsFunc(additional)
-	local colorSelection = {
-		NONE = "None",
-		CLASS = F.String.Class("Class Color"),
-		VALUE = F.String.ElvUIValue("ElvUI Color"),
-		TXUI = MER.Title .. F.String.MERATHILIS(" Color"),
-		CUSTOM = "Custom",
-	}
+-- Built lazily: F.String helpers are not ready at file load
+local fontColorSelection
 
+local function GetFontColorSelection()
+	if not fontColorSelection then
+		fontColorSelection = {
+			NONE = "None",
+			CLASS = F.String.Class("Class Color"),
+			VALUE = F.String.ElvUIValue("ElvUI Color"),
+			TXUI = MER.Title .. F.String.MERATHILIS(" Color"),
+			CUSTOM = "Custom",
+		}
+	end
+	return fontColorSelection
+end
+
+function module:GetAllFontColorsFunc(additional)
+	if additional then
+		return function()
+			return F.Table.Join({}, GetFontColorSelection(), additional)
+		end
+	end
 	return function()
-		return F.Table.Join({}, colorSelection, additional or {})
+		return GetFontColorSelection()
 	end
 end
 
@@ -268,21 +288,25 @@ function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requ
 end
 
 function module:AddSpacer(options, big)
-	options["fancySpacer" .. self:GetOrder()] = {
-		order = self:GetOrder(),
+	local orderIdx = self:GetOrder()
+	local key = "fancySpacer" .. orderIdx
+	options[key] = {
+		order = orderIdx,
 		type = "description",
 		name = big and "\n\n" or "\n",
 	}
-	return options["fancySpacer" .. self:GetOrder()]
+	return options[key]
 end
 
 function module:AddTinySpacer(options)
-	options["fancySpacer" .. self:GetOrder()] = {
-		order = self:GetOrder(),
+	local orderIdx = self:GetOrder()
+	local key = "fancySpacer" .. orderIdx
+	options[key] = {
+		order = orderIdx,
 		type = "description",
 		name = "",
 	}
-	return options["fancySpacer" .. self:GetOrder()]
+	return options[key]
 end
 
 function module:GetOrder()
