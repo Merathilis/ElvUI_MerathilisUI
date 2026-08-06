@@ -5,8 +5,6 @@
 	<Script file="Afk.lua"/>
 	<Script file="ColorModifiers.lua"/>
 	<Script file="CopyMog.lua"/>
-	<Include file="FunStuff.xml"/>
-	<Script file="FunStuff.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="IconSearch.lua"/>
 	<Script file="Gmotd.lua"/>
