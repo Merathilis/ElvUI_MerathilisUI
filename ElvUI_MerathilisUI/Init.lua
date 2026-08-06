@@ -42,13 +42,9 @@ local xVersionString = GetAddOnMetadata(addon, "X-Version")
 local metaFlavor = GetAddOnMetadata(addon, "X-Flavor")
 
 MER.MetaFlavor = metaFlavor
-MER.IsRetail = MER.MetaFlavor == "Mainline"
+MER.IsRetail = (metaFlavor == "Mainline") or (build >= 120000)
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata(addon, "X-ElvUIVersion"))
-
-local build = select(4, GetBuildInfo())
-MER.IsRetail = build >= 120000
-MER.IsPTR = build == 120000
 
 local function getVersion()
 	local version, variant, subversion
@@ -142,6 +138,11 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "mui")
 end
 
+local FLAVOR_MAP = {
+	Mainline = I.Enum.Flavor.RETAIL, -- ohne Anführungszeichen geht auch
+	MOP = I.Enum.Flavor.MOP,
+}
+
 function MER:Initialize()
 	if not self:CheckElvUIVersion() then
 		return
@@ -165,7 +166,10 @@ function MER:Initialize()
 	end
 
 	hooksecurefunc(MER, "NewModule", function(_, name)
-		WF.Developer.InjectLogger(name)
+		local module = MER:GetModule(name, true)
+		if module then
+			WF.Developer.InjectLogger(module)
+		end
 	end)
 
 	-- No need to do the ElvUI install, so hide it
@@ -224,7 +228,7 @@ end
 
 do
 	local checked = false
-	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
+	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
 		-- Runtime safeguard: on initial login ensure the mui DB subtree exists and defaults are merged.
 		-- This covers edge cases where load-order caused defaults not to be applied earlier.
 		if isInitialLogin then
