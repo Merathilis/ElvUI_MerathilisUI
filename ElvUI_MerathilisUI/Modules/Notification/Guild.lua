@@ -11,9 +11,12 @@ local GetDayEvent = C_Calendar.GetDayEvent
 local GetNumPendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
 local LoadAddOn = C_AddOns.LoadAddOn
 local After = C_Timer.After
+local GetTime = GetTime
 local ShowUIPanel = ShowUIPanel
 
 local numInvites = 0
+local lastGuildAlert = 0
+
 local function GetGuildInvites()
 	local numGuildInvites = 0
 	local date = GetCurrentCalendarTime()
@@ -41,8 +44,8 @@ local function toggleCalendar()
 end
 
 local function alertEvents()
-	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.invites then
+	local db = E.db.mui.notification
+	if not db or not db.enable or not db.invites then
 		return
 	end
 	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then
@@ -63,8 +66,8 @@ local function alertEvents()
 end
 
 local function alertGuildEvents()
-	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.guildEvents then
+	local db = E.db.mui.notification
+	if not db or not db.enable or not db.guildEvents then
 		return
 	end
 
@@ -72,8 +75,15 @@ local function alertGuildEvents()
 		return
 	end
 
+	-- Debounce: calendar can fire guild events in bursts
+	local now = GetTime and GetTime() or 0
+	if now - lastGuildAlert < 2 then
+		return
+	end
+
 	local num = GetGuildInvites()
 	if num > 0 then
+		lastGuildAlert = now
 		module:DisplayToast(_G.CALENDAR, L["You have %s pending guild |4event:events;."]:format(num), toggleCalendar)
 	end
 end
@@ -87,12 +97,10 @@ function module:CALENDAR_UPDATE_GUILD_EVENTS()
 	alertGuildEvents()
 end
 
-local function LoginCheck()
-	alertEvents()
-	alertGuildEvents()
-end
-
 function module:PLAYER_ENTERING_WORLD()
-	After(7, LoginCheck)
+	After(7, function()
+		alertEvents()
+		alertGuildEvents()
+	end)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end

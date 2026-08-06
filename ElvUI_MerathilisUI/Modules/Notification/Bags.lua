@@ -2,28 +2,21 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Notification")
 
 local _G = _G
-
+local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local C_Container_GetContainerNumFreeSlots = C_Container.GetContainerNumFreeSlots
 
-local alertBagsFull
+local BACKPACK_CONTAINER = _G.BACKPACK_CONTAINER
+local NUM_BAG_SLOTS = _G.NUM_BAG_SLOTS
+
 local shouldAlertBags = false
 local last = 0
+local bagWatcher
 
-local function OnUpdate(self, elapsed)
-	last = last + elapsed
-	if last > 1 then
-		self:SetScript("OnUpdate", nil)
-		last = 0
-		shouldAlertBags = true
-		alertBagsFull(self)
-	end
-end
-
-alertBagsFull = function(self)
-	local totalFree, freeSlots, bagFamily = 0
-	for i = _G.BACKPACK_CONTAINER, _G.NUM_BAG_SLOTS do
-		freeSlots, bagFamily = C_Container_GetContainerNumFreeSlots(i)
+local function alertBagsFull(self)
+	local totalFree = 0
+	for i = BACKPACK_CONTAINER, NUM_BAG_SLOTS do
+		local freeSlots, bagFamily = C_Container_GetContainerNumFreeSlots(i)
 		if bagFamily == 0 then
 			totalFree = totalFree + freeSlots
 		end
@@ -34,7 +27,15 @@ alertBagsFull = function(self)
 			module:DisplayToast(_G.INVTYPE_BAG, _G.TUTORIAL_TITLE58, nil, "Interface\\ICONS\\INV_Misc_Bag_08")
 			shouldAlertBags = false
 		else
-			self:SetScript("OnUpdate", OnUpdate)
+			self:SetScript("OnUpdate", function(frame, elapsed)
+				last = last + elapsed
+				if last > 1 then
+					frame:SetScript("OnUpdate", nil)
+					last = 0
+					shouldAlertBags = true
+					alertBagsFull(frame)
+				end
+			end)
 		end
 	else
 		shouldAlertBags = false
@@ -42,16 +43,18 @@ alertBagsFull = function(self)
 end
 
 function module:AlertFullBags()
-	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.bags or InCombatLockdown() then
+	local db = E.db.mui.notification
+	if not db or not db.enable or not db.bags or InCombatLockdown() then
 		return
 	end
 
-	local f = CreateFrame("Frame")
-	f:RegisterEvent("BAG_UPDATE")
-	f:SetScript("OnEvent", function(self, event)
-		if event == "BAG_UPDATE" then
-			alertBagsFull(self)
-		end
+	if bagWatcher then
+		return
+	end
+
+	bagWatcher = CreateFrame("Frame")
+	bagWatcher:RegisterEvent("BAG_UPDATE")
+	bagWatcher:SetScript("OnEvent", function(self)
+		alertBagsFull(self)
 	end)
 end
