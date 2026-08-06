@@ -4,31 +4,40 @@ local M = E:GetModule("Misc")
 local LSM = E.Libs.LSM
 
 local _G = _G
-local format = string.format
-local gsub, next, ipairs, pairs, pcall, select = gsub, next, ipairs, pairs, pcall, select
-local utf8sub = string.utf8sub
+local format, gsub, utf8sub = string.format, string.gsub, string.utf8sub
+local next, ipairs, pairs, pcall, select, max, unpack = next, ipairs, pairs, pcall, select, max, unpack
 local twipe = table.wipe
 
 local CreateColor = CreateColor
+local CreateFrame = CreateFrame
 local GetInventoryItemID = GetInventoryItemID
 local InCombatLockdown = InCombatLockdown
-local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
-local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local GetSpecializationRole = GetSpecializationRole
 local GetCurrentTitle = GetCurrentTitle
 local GetTitleName = GetTitleName
 local UnitLevel = UnitLevel
 local UnitSex = UnitSex
-
 local GetAverageItemLevel = GetAverageItemLevel
 local GetMeleeHaste = GetMeleeHaste
 local UnitAttackSpeed = UnitAttackSpeed
 local UnitEffectiveLevel = UnitEffectiveLevel
 local BreakUpLargeNumbers = BreakUpLargeNumbers
+local GetAchievementInfo = GetAchievementInfo
 
+local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
+local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local GetItemInfo = C_Item.GetItemInfo
 local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
-local ENUM_ITEM_CLASS_WEAPON = _G.Enum.ItemClass.Weapon
+local OffhandHasShield = C_PaperDollInfo.OffhandHasShield
+
+local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
+local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
+local EFFECTIVE_LEVEL_FORMAT = EFFECTIVE_LEVEL_FORMAT
+local MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY = MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
+local LE_UNIT_STAT_STRENGTH = LE_UNIT_STAT_STRENGTH
+local LE_UNIT_STAT_AGILITY = LE_UNIT_STAT_AGILITY
+local LE_UNIT_STAT_INTELLECT = LE_UNIT_STAT_INTELLECT
+local ENUM_ITEM_CLASS_WEAPON = Enum.ItemClass.Weapon
 
 module.enumDirection = F.Enum({ "LEFT", "RIGHT", "BOTTOM" })
 module.colors = {
@@ -412,36 +421,40 @@ function module:UpdateItemLevel()
 end
 
 function module:UpdateTitle()
-	self.nameText:SetFont(
-		LSM:Fetch("font", module.db.nameText.name),
-		module.db.nameText.size,
-		module.db.nameText.fontStyle
-	)
-	self.titleText:SetFont(
-		LSM:Fetch("font", module.db.titleText.name),
-		module.db.titleText.size,
-		module.db.titleText.fontStyle
-	)
-	self.levelTitleText:SetFont(
-		LSM:Fetch("font", module.db.levelTitleText.name),
-		module.db.levelTitleText.size,
-		module.db.levelTitleText.fontStyle
-	)
-	self.levelText:SetFont(
-		LSM:Fetch("font", module.db.levelText.name),
-		module.db.levelText.size,
-		module.db.levelText.fontStyle
-	)
-	self.classText:SetFont(
-		LSM:Fetch("font", module.db.classText.name),
-		module.db.classText.size,
-		module.db.classText.fontStyle
-	)
-	self.specIcon:SetFont(
-		LSM:Fetch("font", module.db.specIcon.name),
-		module.db.specIcon.size,
-		module.db.specIcon.fontStyle
-	)
+	-- Only re-apply fonts when settings changed (or first run)
+	if self._titleFontDirty ~= false then
+		self.nameText:SetFont(
+			LSM:Fetch("font", module.db.nameText.name),
+			module.db.nameText.size,
+			module.db.nameText.fontStyle
+		)
+		self.titleText:SetFont(
+			LSM:Fetch("font", module.db.titleText.name),
+			module.db.titleText.size,
+			module.db.titleText.fontStyle
+		)
+		self.levelTitleText:SetFont(
+			LSM:Fetch("font", module.db.levelTitleText.name),
+			module.db.levelTitleText.size,
+			module.db.levelTitleText.fontStyle
+		)
+		self.levelText:SetFont(
+			LSM:Fetch("font", module.db.levelText.name),
+			module.db.levelText.size,
+			module.db.levelText.fontStyle
+		)
+		self.classText:SetFont(
+			LSM:Fetch("font", module.db.classText.name),
+			module.db.classText.size,
+			module.db.classText.fontStyle
+		)
+		self.specIcon:SetFont(
+			LSM:Fetch("font", module.db.specIcon.name),
+			module.db.specIcon.size,
+			module.db.specIcon.fontStyle
+		)
+		self._titleFontDirty = false
+	end
 
 	local titleId = GetCurrentTitle()
 	local titleName = GetTitleName(titleId) or ""
@@ -688,17 +701,10 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		self:SetupGrowAnimation(slotItem.MERGradient)
 
 		-- Update Size
-		slotItem.MERGradient:SetSize(
-			self.db.pageInfo.itemQualityGradientWidth,
-			self.db.pageInfo.itemQualityGradientHeight
-		)
-
-		-- Update Size
-		slotItem.MERGradient.GrowIn.Grow:SetChange(E:Scale(self.db.pageInfo.itemQualityGradientWidth))
-		slotItem.MERGradient:SetSize(
-			self.db.pageInfo.itemQualityGradientWidth,
-			self.db.pageInfo.itemQualityGradientHeight
-		)
+		local gradientWidth = self.db.pageInfo.itemQualityGradientWidth
+		local gradientHeight = self.db.pageInfo.itemQualityGradientHeight
+		slotItem.MERGradient:SetSize(gradientWidth, gradientHeight)
+		slotItem.MERGradient.GrowIn.Grow:SetChange(E:Scale(gradientWidth))
 
 		-- Update Colors
 		if slotOptions.direction == module.enumDirection.LEFT then
@@ -741,15 +747,22 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		slotItem.iLvlText:SetText("")
 	end
 
-	-- Icons Handling
+	-- Icons Handling (early-exit when slot textures no longer exist)
 	if not self.db.pageInfo.itemLevelTextEnabled or not self.db.pageInfo.iconsEnabled then
 		for x = 1, 10 do
+			local textureSlot = slotItem["textureSlot" .. x]
+			if not textureSlot then
+				break
+			end
 			local essenceType = slotItem["textureSlotEssenceType" .. x]
 			if essenceType then
 				essenceType:Hide()
 			end
-			slotItem["textureSlot" .. x]:SetTexture()
-			slotItem["textureSlotBackdrop" .. x]:Hide()
+			textureSlot:SetTexture()
+			local backdrop = slotItem["textureSlotBackdrop" .. x]
+			if backdrop then
+				backdrop:Hide()
+			end
 		end
 	end
 end
@@ -890,7 +903,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 	rightDivider:SetHeight(2)
 	rightDivider:SetTexture(E.media.blankTex)
 	rightDivider:SetVertexColor(1, 1, 1, 1)
-	F.Color.SetGradientRGB(rightDivider, "HORIZONTAL", 0, 0.9, 1, 1, 0, 0.6, 1, 0)
+
 	if module.db.stats.headerFont.headerFontColor == "GRADIENT" then
 		F.Color.SetGradientRGB(rightDivider, "HORIZONTAL", 0, 0.9, 1, 1, 0, 0.6, 1, 0)
 	elseif module.db.stats.headerFont.headerFontColor == "CLASS" then
@@ -936,7 +949,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 
 	-- Vars
 	local leftDividerWidth = leftDivider:GetWidth()
-	local rightDividerWidth = leftDivider:GetWidth()
+	local rightDividerWidth = rightDivider:GetWidth()
 
 	-- Update Animations
 	leftDivider.GrowIn.Grow:SetChange(leftDividerWidth)
@@ -1085,12 +1098,14 @@ function module:UpdateCharacterStats()
 	local level = UnitLevel("player")
 	local categoryYOffset = 0
 	local statYOffset = 0
-	local lastAnchor, role
+	local lastAnchor, role, primaryStat
 
 	module:ClearAnimations(true)
 
+	-- Cache role + primaryStat once for the entire stats rebuild
 	if spec then
 		role = GetSpecializationRole(spec)
+		primaryStat = select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
 	end
 
 	if level >= (MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY or 0) then
@@ -1142,24 +1157,15 @@ function module:UpdateCharacterStats()
 				showStat = false
 			end
 
-			-- Mode 1 - Smart
+			-- Mode 1 - Smart (uses cached primaryStat / role)
 			if showStat and (statMode == 1) then
-				if showStat and (stat.primary and spec) then
-					local primaryStat
-
-					primaryStat =
-						select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
+				if showStat and stat.primary and primaryStat then
 					if stat.primary ~= primaryStat then
 						showStat = false
 					end
 				end
 
-				if showStat and (stat.primaries and spec) then
-					local primaryStat
-
-					primaryStat =
-						select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
-
+				if showStat and stat.primaries and primaryStat then
 					local foundPrimary = false
 					for _, primary in pairs(stat.primaries) do
 						if primaryStat == primary then
@@ -1167,33 +1173,28 @@ function module:UpdateCharacterStats()
 							break
 						end
 					end
-
 					showStat = foundPrimary
 				end
 
 				if showStat and stat.roles then
 					local foundRole = false
-
 					for _, statRole in pairs(stat.roles) do
 						if role == statRole then
 							foundRole = true
 							break
 						end
 					end
-
 					showStat = foundRole
 				end
 
 				if showStat and stat.classes then
 					local foundClass = false
-
 					for _, statClass in pairs(stat.classes) do
 						if E.myclass == statClass then
 							foundClass = true
 							break
 						end
 					end
-
 					showStat = foundClass
 				end
 
@@ -1269,10 +1270,7 @@ function module:UpdateAttackSpeed(statFrame, unit)
 
 	local displaySpeed = format("%.2f", speed)
 	if offhandSpeed then
-		offhandSpeed = format("%.2f", offhandSpeed)
-	end
-	if offhandSpeed then
-		displaySpeed = BreakUpLargeNumbers(displaySpeed) .. " / " .. offhandSpeed
+		displaySpeed = BreakUpLargeNumbers(displaySpeed) .. " / " .. format("%.2f", offhandSpeed)
 	else
 		displaySpeed = BreakUpLargeNumbers(displaySpeed)
 	end
@@ -1429,7 +1427,7 @@ function module:ApplyCustomStatCategories()
 				{
 					stat = "BLOCK",
 					hideAt = 0,
-					showFunc = C_PaperDollInfo.OffhandHasShield,
+					showFunc = OffhandHasShield,
 				}, -- 10
 			},
 		},
@@ -1529,6 +1527,9 @@ function module:UpdateCharacterArmory()
 		return
 	end
 
+	-- Font settings may have changed via options
+	self._titleFontDirty = true
+
 	module:KillBlizzard()
 	module:UpdateBackground()
 	module:UpdateLines()
@@ -1562,19 +1563,21 @@ function module:CreateElements()
 	module.animationObjects = {}
 	module.statsObjects = {}
 	module.statsCount = 1
+	module._titleFontDirty = true
 
-	local background = CreateFrame("Frame", nil, self.frameHolder)
-	local nameText = module.frameHolder:CreateFontString(nil, "OVERLAY")
-	local classSymbol = module.frameHolder:CreateTexture()
-	local titleText = module.frameHolder:CreateFontString(nil, "OVERLAY")
-	local levelTitleText = module.frameHolder:CreateFontString(nil, "OVERLAY")
-	local levelText = module.frameHolder:CreateFontString(nil, "OVERLAY")
-	local specIcon = module.frameHolder:CreateFontString(nil, "OVERLAY")
-	local classText = module.frameHolder:CreateFontString(nil, "OVERLAY")
-	local waterMark = module.frameHolder:CreateTexture(nil, "BACKGROUND")
+	local holder = module.frameHolder
+	local background = CreateFrame("Frame", nil, holder)
+	local nameText = holder:CreateFontString(nil, "OVERLAY")
+	local classSymbol = holder:CreateTexture()
+	local titleText = holder:CreateFontString(nil, "OVERLAY")
+	local levelTitleText = holder:CreateFontString(nil, "OVERLAY")
+	local levelText = holder:CreateFontString(nil, "OVERLAY")
+	local specIcon = holder:CreateFontString(nil, "OVERLAY")
+	local classText = holder:CreateFontString(nil, "OVERLAY")
+	local waterMark = holder:CreateTexture(nil, "BACKGROUND")
 
 	local frameHeight, frameWidth = module.frame:GetSize()
-	local cutOffPercentage = (1 - (frameHeight / frameWidth))
+	local cutOffPercentage = 1 - (frameHeight / frameWidth)
 
 	background:SetInside(module.frame)
 	background:OffsetFrameLevel(-1, module.frameModel)
@@ -1592,8 +1595,8 @@ function module:CreateElements()
 	module.waterMark = waterMark
 
 	local lineHeight = 1
-	local topLine = CreateFrame("Frame", nil, module.frameHolder)
-	local bottomLine = CreateFrame("Frame", nil, module.frameHolder)
+	local topLine = CreateFrame("Frame", nil, holder)
+	local bottomLine = CreateFrame("Frame", nil, holder)
 
 	topLine:SetHeight(lineHeight)
 	bottomLine:SetHeight(lineHeight)
@@ -1637,12 +1640,10 @@ function module:HandleEvent(event, unit)
 		if unit == "player" then
 			self:UpdateTitle()
 		end
-	elseif event == "UNIT_LEVEL" then
-		self:UpdateTitle()
-	elseif (event == "PLAYER_PVP_RANK_CHANGED") or (event == "PLAYER_TALENT_UPDATE") then
+	elseif event == "UNIT_LEVEL" or event == "PLAYER_PVP_RANK_CHANGED" or event == "PLAYER_TALENT_UPDATE" then
 		self:UpdateTitle()
 	elseif event == "PLAYER_AVG_ITEM_LEVEL_UPDATE" then
-		module:UpdateItemLevel()
+		self:UpdateItemLevel()
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		self:UpdateCharacterStats()
 	end
@@ -1660,6 +1661,7 @@ function module:Disable()
 	self:UnhookAll()
 
 	F.Event.UnregisterFrameEventAndCallback("UNIT_NAME_UPDATE", self)
+	F.Event.UnregisterFrameEventAndCallback("UNIT_LEVEL", self)
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_PVP_RANK_CHANGED", self)
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_AVG_ITEM_LEVEL_UPDATE", self)
 	F.Event.UnregisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self)
@@ -1676,17 +1678,17 @@ function module:Enable()
 
 	self:CreateElements()
 
-	-- Hook ElvUI Overrides
-	local m = E:GetModule("Misc")
-	self:SecureHook(m, "UpdateCharacterInfo", F.Event.GenerateClosure(self.UpdateItemLevel, self))
-	self:SecureHook(m, "UpdateAverageString", F.Event.GenerateClosure(self.UpdateItemLevel, self))
-	self:SecureHook(m, "UpdatePageStrings", F.Event.GenerateClosure(self.UpdatePageStrings, self))
-	self:SecureHook(m, "CreateSlotStrings", F.Event.GenerateClosure(self.UpdatePageInfo, self))
-	self:SecureHook(m, "ToggleItemLevelInfo", F.Event.GenerateClosure(self.ElvOptionsCheck, self))
+	-- Hook ElvUI Overrides (reuse module-level M reference)
+	self:SecureHook(M, "UpdateCharacterInfo", F.Event.GenerateClosure(self.UpdateItemLevel, self))
+	self:SecureHook(M, "UpdateAverageString", F.Event.GenerateClosure(self.UpdateItemLevel, self))
+	self:SecureHook(M, "UpdatePageStrings", F.Event.GenerateClosure(self.UpdatePageStrings, self))
+	self:SecureHook(M, "CreateSlotStrings", F.Event.GenerateClosure(self.UpdatePageInfo, self))
+	self:SecureHook(M, "ToggleItemLevelInfo", F.Event.GenerateClosure(self.ElvOptionsCheck, self))
 	self:RawHook(_G, "PaperDollFrame_UpdateStats", "SafePaperDollUpdateStats", true)
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
+	F.Event.RegisterFrameEventAndCallback("UNIT_LEVEL", self.HandleEvent, self, "UNIT_LEVEL")
 	F.Event.RegisterFrameEventAndCallback("PLAYER_PVP_RANK_CHANGED", self.HandleEvent, self, "PLAYER_PVP_RANK_CHANGED")
 	F.Event.RegisterFrameEventAndCallback(
 		"PLAYER_AVG_ITEM_LEVEL_UPDATE",
@@ -1718,6 +1720,7 @@ end
 function module:DatabaseUpdate()
 	-- Set db
 	self.db = F.GetDBFromPath("mui.armory")
+	self._titleFontDirty = true
 
 	-- Enable/Disable only out of combat
 	F.Event.ContinueOutOfCombat(function()
