@@ -116,47 +116,81 @@ function F.CheckInstanceSecret()
 	end
 end
 
-function F.CreateStyle(frame, useStripes, useGradient)
-	if not frame or frame.__MERStyle or frame.MERStyle then
+local STYLE_STRIPES = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\stripes]]
+local STYLE_GRADIENT = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]]
+
+---Attach a MER style overlay (stripes + gradient) to a frame.
+---Called as frame:CreateStyle() or F.CreateStyle(frame).
+---@param frame Frame|Texture
+---@param createStripes boolean|nil  default true — set false to skip/hide stripes
+---@param createGradient boolean|nil default true — set false to skip/hide gradient
+function F.CreateStyle(frame, createStripes, createGradient)
+	if not frame then
 		return
 	end
 
-	if frame:GetObjectType() == "Texture" then
+	-- Resolve texture → parent frame
+	if frame.GetObjectType and frame:GetObjectType() == "Texture" then
 		frame = frame:GetParent()
+		if not frame then
+			return
+		end
 	end
 
-	local holder = frame.MERStyle or CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	-- Defaults: both layers on (matches previous nil-arg behaviour where
+	-- inverted "if not useStripes" always created layers)
+	if createStripes == nil then
+		createStripes = true
+	end
+	if createGradient == nil then
+		createGradient = true
+	end
+
+	local holder = frame.MERStyle
+	if not holder then
+		holder = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+		frame.MERStyle = holder
+		frame.__MERStyle = true
+	end
+
 	holder:OffsetFrameLevel(nil, frame)
 	holder:SetFrameStrata(frame:GetFrameStrata())
 	holder:SetOutside(frame)
 	holder:Show()
 
-	if not useStripes then
+	-- Stripes layer
+	if createStripes then
 		local stripes = holder.MERstripes
-			or holder:CreateTexture(holder:GetName() and holder:GetName() .. "Overlay" or nil, "BORDER")
+		if not stripes then
+			stripes = holder:CreateTexture(nil, "BORDER")
+			stripes:SetTexture(STYLE_STRIPES, true, true)
+			stripes:SetHorizTile(true)
+			stripes:SetVertTile(true)
+			stripes:SetBlendMode("ADD")
+			holder.MERstripes = stripes
+		end
 		stripes:ClearAllPoints()
 		stripes:Point("TOPLEFT", 1, -1)
 		stripes:Point("BOTTOMRIGHT", -1, 1)
-		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\stripes]], true, true)
-		stripes:SetHorizTile(true)
-		stripes:SetVertTile(true)
-		stripes:SetBlendMode("ADD")
-
-		holder.MERstripes = stripes
+		stripes:Show()
+	elseif holder.MERstripes then
+		holder.MERstripes:Hide()
 	end
 
-	if not useGradient then
+	-- Gradient layer
+	if createGradient then
 		local tex = holder.MERgradient
-			or holder:CreateTexture(holder:GetName() and holder:GetName() .. "Overlay" or nil, "BORDER")
+		if not tex then
+			tex = holder:CreateTexture(nil, "BORDER")
+			tex:SetTexture(STYLE_GRADIENT)
+			tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)
+			holder.MERgradient = tex
+		end
 		tex:SetInside(holder)
-		tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]])
-		tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)
-
-		holder.MERgradient = tex
+		tex:Show()
+	elseif holder.MERgradient then
+		holder.MERgradient:Hide()
 	end
-
-	frame.MERStyle = holder
-	frame.__MERStyle = 1
 end
 
 function F.CreateOverlay(f)

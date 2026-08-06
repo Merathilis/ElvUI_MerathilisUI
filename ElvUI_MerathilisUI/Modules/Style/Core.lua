@@ -2,107 +2,143 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Style")
 
 local assert = assert
-local EnumerateFrames = EnumerateFrames
+local pairs, next, type = pairs, next, type
 local getmetatable = getmetatable
-
+local EnumerateFrames = EnumerateFrames
 local CreateFrame = CreateFrame
 local CreateColor = CreateColor
+local hooksecurefunc = hooksecurefunc
 
+---Create or update a vertical/horizontal gradient fill on a panel frame.
+---Reuses the existing texture so repeated UpdateColors calls do not leak.
 function module:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	assert(frame, "doesn't exist!")
 
 	frame:Size(w, h)
 	frame:SetFrameStrata("BACKGROUND")
 
-	local gf = frame:CreateTexture(nil, "BACKGROUND")
-	gf:SetAllPoints()
-	gf:SetTexture(E.media.blankTex)
+	local gf = frame.__MERGradient
+	if not gf then
+		gf = frame:CreateTexture(nil, "BACKGROUND")
+		gf:SetAllPoints()
+		gf:SetTexture(E.media.blankTex)
+		frame.__MERGradient = gf
+	end
+
 	gf:SetGradient(o, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
 end
 
 function module:UpdateTemplateStrata(frame)
-	if frame.MERStyle then
-		frame.MERStyle:OffsetFrameLevel(nil, frame)
-		frame.MERStyle:SetFrameStrata(frame:GetFrameStrata())
+	local style = frame.MERStyle
+	if not style then
+		return
 	end
+
+	style:OffsetFrameLevel(nil, frame)
+	style:SetFrameStrata(frame:GetFrameStrata())
 end
 
 local function WatchPixelSnap(frame, snap)
-	if E:NotSecretTable(frame) and (frame and not frame:IsForbidden()) and frame.PixelSnapDisabled and snap then
+	if frame and not frame:IsForbidden() and E:NotSecretTable(frame) and frame.PixelSnapDisabled and snap then
 		frame.PixelSnapDisabled = nil
 	end
 end
 
 local function DisablePixelSnap(frame)
-	if E:NotSecretTable(frame) and (frame and not frame:IsForbidden()) and not frame.PixelSnapDisabled then
-		if frame.SetSnapToPixelGrid then
-			frame:SetSnapToPixelGrid(false)
-			frame:SetTexelSnappingBias(0)
-		elseif frame.GetStatusBarTexture then
-			local texture = frame:GetStatusBarTexture()
-			if type(texture) == "table" and texture.SetSnapToPixelGrid then
-				texture:SetSnapToPixelGrid(false)
-				texture:SetTexelSnappingBias(0)
-			end
-		end
-
-		frame.PixelSnapDisabled = true
+	if not frame or frame:IsForbidden() or frame.PixelSnapDisabled or not E:NotSecretTable(frame) then
+		return
 	end
+
+	if frame.SetSnapToPixelGrid then
+		frame:SetSnapToPixelGrid(false)
+		frame:SetTexelSnappingBias(0)
+	elseif frame.GetStatusBarTexture then
+		local texture = frame:GetStatusBarTexture()
+		if type(texture) == "table" and texture.SetSnapToPixelGrid then
+			texture:SetSnapToPixelGrid(false)
+			texture:SetTexelSnappingBias(0)
+		end
+	end
+
+	frame.PixelSnapDisabled = true
 end
 
+---Hooked after ElvUI's SetTemplate. Adds MER style overlay when applicable.
 function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitFrameElement, isNamePlateElement)
-	template = template or frame.template or "Default"
-	glossTex = glossTex or frame.glossTex or nil
-	ignoreUpdates = ignoreUpdates or frame.ignoreUpdates or false
-
+	-- Frame may carry previous call args
+	ignoreUpdates = ignoreUpdates or frame.ignoreUpdates
 	if ignoreUpdates then
 		return
 	end
 
+	-- Module disabled → nothing to do (hooks are removed on Disable, but guard anyway)
+	local db = self.db
+	if not db or not db.enable then
+		if frame.MERStyle then
+			frame.MERStyle:Hide()
+		end
+		return
+	end
+
+	template = template or frame.template or "Default"
+	glossTex = glossTex or frame.glossTex
+
+	-- Cheap status-bar detection (hash first, then type checks)
 	local isStatusBar = false
 	local parent = frame:GetParent()
-
 	if parent then
-		if parent.IsObjectType and (parent:IsObjectType("Texture") or parent:IsObjectType("Statusbar")) then
+		if E.statusBars[parent] then
 			isStatusBar = true
-		elseif E.statusBars[parent] ~= nil then
+		elseif parent.IsObjectType and (parent:IsObjectType("Texture") or parent:IsObjectType("Statusbar")) then
 			isStatusBar = true
 		end
 	end
 
 	local skinForUnitFrame = isUnitFrameElement and not isNamePlateElement
-	local skinForTransparent = (template == "Transparent") and not isNamePlateElement and not isStatusBar
-	local skinForTexture = (template == "Default" and not glossTex)
+	local skinForTransparent = template == "Transparent" and not isNamePlateElement and not isStatusBar
+	local skinForTexture = template == "Default"
+		and not glossTex
 		and not isUnitFrameElement
 		and not isNamePlateElement
 		and not isStatusBar
 
-	if (skinForTransparent or skinForUnitFrame or isStatusBar or skinForTexture) and (self.db and self.db.enable) then
-		if frame.IsProtected and frame:IsProtected() then
-			return
-		end
-
-		if frame.Center ~= nil then
-			frame.Center:SetDrawLayer("BACKGROUND", -7)
-		end
-
-		if not frame.CreateStyle then
-			return WF.Developer.LogDebug("API functions not found!", "MERCreateStyle", not frame.CreateStyle)
-		end
-
-		frame:CreateStyle()
-		self.MERStyle[frame] = true
-	else
+	if not (skinForTransparent or skinForUnitFrame or isStatusBar or skinForTexture) then
 		if frame.MERStyle then
 			frame.MERStyle:Hide()
 		end
+		return
+	end
+
+	if frame.IsProtected and frame:IsProtected() then
+		return
+	end
+
+	if frame.Center then
+		frame.Center:SetDrawLayer("BACKGROUND", -7)
+	end
+
+	-- Already styled → just ensure visible (CreateStyle is a no-op when MERStyle exists)
+	if frame.MERStyle then
+		frame.MERStyle:Show()
+		self.MERStyle[frame] = true
+		return
+	end
+
+	if not frame.CreateStyle then
+		return WF.Developer.LogDebug("API functions not found!", "MERCreateStyle", true)
+	end
+
+	frame:CreateStyle()
+	if frame.MERStyle then
+		self.MERStyle[frame] = true
 	end
 end
 
-function module:SetTemplateAS(_, frame, template, _)
+function module:SetTemplateAS(_, frame, template)
 	self:SetTemplate(frame, template)
 end
 
+-- ElvUI frame API (resolved at load; only injected if missing on metatable)
 local API = {
 	Kill = Kill,
 	Size = Size,
@@ -128,15 +164,24 @@ local API = {
 }
 
 function module:API(object)
-	local mk = getmetatable(object).__index
+	local mt = getmetatable(object)
+	if not mt then
+		return
+	end
+
+	local mk = mt.__index
+	if type(mk) ~= "table" then
+		return
+	end
+
 	for method, func in next, API do
-		if not object[method] then
+		if func and not object[method] and not mk[method] then
 			mk[method] = func
 		end
 	end
 
 	if
-		not object.DisabledPixelSnap
+		not mk.DisabledPixelSnap
 		and (
 			mk.SetSnapToPixelGrid
 			or mk.SetStatusBarTexture
@@ -173,22 +218,20 @@ function module:API(object)
 	end
 
 	if mk.SetTemplate and not mk.MERSkin then
-		if not object.CreateStyle then
+		if not mk.CreateStyle then
 			mk.CreateStyle = F.CreateStyle
 		end
 
-		-- Hook elvui template
+		-- Hook ElvUI SetTemplate once per metatable
 		if not self:IsHooked(mk, "SetTemplate") then
 			self:SecureHook(mk, "SetTemplate", "SetTemplate")
 		end
 
-		-- Hook FrameLevel
-		if mk.SetFrameLevel and (not self:IsHooked(mk, "SetFrameLevel")) then
+		if mk.SetFrameLevel and not self:IsHooked(mk, "SetFrameLevel") then
 			self:SecureHook(mk, "SetFrameLevel", "UpdateTemplateStrata")
 		end
 
-		-- Hook FrameStrata
-		if mk.SetFrameStrata and (not self:IsHooked(mk, "SetFrameStrata")) then
+		if mk.SetFrameStrata and not self:IsHooked(mk, "SetFrameStrata") then
 			self:SecureHook(mk, "SetFrameStrata", "UpdateTemplateStrata")
 		end
 
@@ -202,7 +245,7 @@ function module:ForceRefresh()
 end
 
 function module:MetatableScan()
-	self.MERStyle = {}
+	self.MERStyle = self.MERStyle or {}
 
 	local handled = {
 		Frame = true,
@@ -217,12 +260,13 @@ function module:MetatableScan()
 
 	object = EnumerateFrames()
 	while object do
-		local objType = object:GetObjectType()
-		if not object:IsForbidden() and not handled[objType] then
-			self:API(object)
-			handled[objType] = true
+		if not object:IsForbidden() then
+			local objType = object:GetObjectType()
+			if not handled[objType] then
+				self:API(object)
+				handled[objType] = true
+			end
 		end
-
 		object = EnumerateFrames(object)
 	end
 end
@@ -234,13 +278,22 @@ function module:Disable()
 
 	self.isEnabled = false
 
+	-- Hide existing style overlays before clearing registry
+	if self.MERStyle then
+		for frame in pairs(self.MERStyle) do
+			if frame.MERStyle then
+				frame.MERStyle:Hide()
+			end
+		end
+	end
 	self.MERStyle = {}
 
-	if self.Initialized and not self.db.enable then
+	self:UnhookAll()
+
+	-- Refresh ElvUI templates so overlays are no longer expected
+	if self.db and not self.db.enable then
 		self:ForceRefresh()
 	end
-
-	self:UnhookAll()
 end
 
 function module:Enable()
@@ -255,26 +308,25 @@ function module:Enable()
 end
 
 function module:SettingsUpdate()
-	if not self.Initialized then
-		return
-	end
-	if not self.isEnabled then
+	if not self.Initialized or not self.isEnabled then
 		return
 	end
 
-	for frame, _ in pairs(self.MERStyle) do
-		if frame.MERStyle then
-			if self.db.enable then
-				frame.MERStyle:Show()
+	local show = self.db and self.db.enable
+	for frame in pairs(self.MERStyle) do
+		local style = frame.MERStyle
+		if style then
+			if show then
+				style:Show()
 			else
-				frame.MERStyle:Hide()
+				style:Hide()
 			end
 		end
 	end
 end
 
 function module:DatabaseUpdate()
-	self.db = F.GetDBFromPath("mui.style")
+	self.db = E.db.mui.style
 
 	local shouldBeEnabled = self.db and self.db.enable
 	if self.isEnabled == shouldBeEnabled then
@@ -296,13 +348,12 @@ function module:Initialize()
 	end
 
 	self.isEnabled = false
+	self.MERStyle = {}
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("module.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("module.SettingsUpdate", self.SettingsUpdate, self)
-
-	self.MERStyle = {}
 
 	self.Initialized = true
 end
