@@ -8,8 +8,9 @@ local L = E.Libs.ACL:GetLocale("ElvUI", E.global.general.locale)
 
 local _G = _G
 local next = next
+local format, gsub = string.format, string.gsub
 local print = print
-local strfind, strmatch = strfind, strmatch
+local strfind, strmatch = string.find, string.match
 local collectgarbage = collectgarbage
 
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
@@ -38,6 +39,16 @@ _G[addon] = Engine
 
 local versionString = GetAddOnMetadata(addon, "Version")
 local xVersionString = GetAddOnMetadata(addon, "X-Version")
+local metaFlavor = GetAddOnMetadata(addon, "X-Flavor")
+
+MER.MetaFlavor = metaFlavor
+MER.IsRetail = MER.MetaFlavor == "Mainline"
+MER.ElvUIVersion = tonumber(E.version)
+MER.RequiredVersion = tonumber(GetAddOnMetadata(addon, "X-ElvUIVersion"))
+
+local build = select(4, GetBuildInfo())
+MER.IsRetail = build >= 120000
+MER.IsPTR = build == 120000
 
 local function getVersion()
 	local version, variant, subversion
@@ -70,9 +81,9 @@ MER.Version, MER.Variant, MER.SubVersion = getVersion()
 
 MER.DisplayVersion = MER.Version
 if MER.Variant then
-	MER.DisplayVersion = format("%s-%s", MER.DisplayVersion, MER.Variant)
+	MER.DisplayVersion = MER.DisplayVersion .. "-" .. MER.Variant
 	if MER.SubVersion then
-		MER.DisplayVersion = format("%s-%s", MER.DisplayVersion, MER.SubVersion)
+		MER.DisplayVersion = MER.DisplayVersion .. "-" .. MER.SubVersion
 	end
 end
 
@@ -87,9 +98,6 @@ do
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 	MER.PlainTitle = gsub(MER.Title, "|c........([^|]+)|r", "%1")
 end
-
-MER.MetaFlavor = GetAddOnMetadata("ElvUI_MerathilisUI", "X-Flavor")
-MER.IsRetail = MER.MetaFlavor == "Mainline"
 
 -- Modules
 MER.Modules = {}
@@ -135,14 +143,6 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 end
 
 function MER:Initialize()
-	-- make sure our DBs are there in E:PrepDB()
-	for _, data in next, { { E.db, P.mui }, { E.global, G.mui }, { E.private, V.mui } } do
-		local target, defaults = data[1], data[2]
-		if target and defaults then
-			target.mui = E:CopyTable(target.mui, defaults, true)
-		end
-	end
-
 	if not self:CheckElvUIVersion() then
 		return
 	end
@@ -270,7 +270,9 @@ do
 			end
 		end
 
-		E:Delay(1, collectgarbage, "collect")
+		if isInitialLogin then
+			E:Delay(1, collectgarbage, "collect")
+		end
 	end
 end
 
