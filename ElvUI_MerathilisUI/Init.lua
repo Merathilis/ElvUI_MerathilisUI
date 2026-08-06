@@ -227,13 +227,6 @@ do
 		-- Runtime safeguard: on initial login ensure the mui DB subtree exists and defaults are merged.
 		-- This covers edge cases where load-order caused defaults not to be applied earlier.
 		if isInitialLogin then
-			if P and P.mui and E and E.db then
-				if not E.db.mui then
-					E.db.mui = {}
-				end
-				E:CopyTable(E.db.mui, P.mui)
-			end
-
 			self:AutoCopyPrivateProfile()
 			E:Delay(6, self.ChangelogReadAlert, self)
 
