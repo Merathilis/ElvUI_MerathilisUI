@@ -2,8 +2,10 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Nameplates")
 local NP = E:GetModule("NamePlates")
 
-local DEFAULT_NP_WIDTH = 0
+local pairs, tonumber = pairs, tonumber
 local find = string.find
+
+local DEFAULT_NP_WIDTH = 0
 
 local function ApplyWidthOnly(fs, widthPx)
 	if not fs or not fs.SetWidth then
