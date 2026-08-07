@@ -145,7 +145,6 @@ function MER:Initialize()
 
 	local flavorMap = {
 		["Mainline"] = I.Enum.Flavor.RETAIL,
-		["MOP"] = I.Enum.Flavor.MOP,
 	}
 	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
 

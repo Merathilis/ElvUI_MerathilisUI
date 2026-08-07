@@ -14,18 +14,13 @@ local DoesAddOnExist = C_AddOns.DoesAddOnExist
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 local DecorAddons = {
-	{ "ACP", L["AddOn Control Panel"], "acp" },
 	{ "BagSync", L["BagSync"], "bSync" },
 	{ "Capping", L["Capping"], "cap" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
-	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "Pawn", L["Pawn"], "pawn" },
-	{ "tdBattlePetScript", L["Pet Battle Scripts"], "pbs" },
 	{ "ParagonReputation", L["Paragon Reputation"], "paragonReputation" },
-	{ "ProjectAzilroka", L["ProjectAzilroka"], "pa" },
-	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "WIM", L["WIM"], "wim" },
 	{ "WowLua", L["WowLua"], "wowLua" },
