@@ -312,6 +312,7 @@ P.misc = {
 		ShowHideVisual = true,
 		ShowIllusion = true,
 	},
+	auctionEnhanced = true,
 }
 
 P.armory = {

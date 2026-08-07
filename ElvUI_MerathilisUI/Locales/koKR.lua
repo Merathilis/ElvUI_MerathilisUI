@@ -133,6 +133,8 @@ L["Adds a Singing sockets selection tool on the Socketing Frame."] =
 L["Pet Filter Tab"] = "애완동물 필터 탭"
 L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."] =
 	"애완동물 일지에 탭을 추가하여 종류별로 필터링할 수 있습니다"
+L["Auction Enhanced"] = true
+L["Show the tertiary stats of equipments in auction house."] = true
 L["Hide In Combat"] = "전투 중 숨기기"
 L["Toggle"] = "표시 전환"
 L["Fonts"] = true

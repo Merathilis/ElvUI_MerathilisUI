@@ -441,6 +441,31 @@ function F.GetStyledText(text)
 	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
 end
 
+function F.SetFontSize(fs, size)
+	fs:SetFont(F.GetFontPath(I.Fonts.Primary), size, "")
+end
+
+function F:CreateFS(size, text, color, anchor, x, y)
+	local fs = self:CreateFontString(nil, "OVERLAY")
+	F.SetFontSize(fs, size)
+	fs:SetText(text)
+	fs:SetWordWrap(false)
+	if color and type(color) == "boolean" then
+		fs:SetTextColor(cr, cg, cb)
+	elseif color == "system" then
+		fs:SetTextColor(1, 0.8, 0)
+	elseif color == "info" then
+		fs:SetTextColor(0.6, 0.8, 1)
+	end
+	if anchor and x and y then
+		fs:SetPoint(anchor, x, y)
+	else
+		fs:SetPoint("CENTER", 1, 0)
+	end
+
+	return fs
+end
+
 function F.Position(anchor1, parent, anchor2, x, y, offset, negative)
 	local offsetX = 0
 

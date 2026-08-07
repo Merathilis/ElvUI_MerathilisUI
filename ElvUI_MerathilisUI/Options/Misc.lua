@@ -70,8 +70,14 @@ options.general = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
-		copyMog = {
+		auctionEnhanced = {
 			order = 10,
+			type = "toggle",
+			name = L["Auction Enhanced"],
+			desc = L["Show the tertiary stats of equipments in auction house."],
+		},
+		copyMog = {
+			order = 50,
 			type = "group",
 			name = L["Copy Transmog"],
 			desc = L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."],

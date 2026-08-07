@@ -116,6 +116,8 @@ L["Singing Sockets"] = true
 L["Adds a Singing sockets selection tool on the Socketing Frame."] = true
 L["Pet Filter Tab"] = true
 L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."] = true
+L["Auction Enhanced"] = true
+L["Show the tertiary stats of equipments in auction house."] = true
 L["Fonts"] = true
 
 -- Nameplates

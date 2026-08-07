@@ -129,6 +129,9 @@ L["Adds a Singing sockets selection tool on the Socketing Frame."] =
 L["Pet Filter Tab"] = "Haustier Filter Tab"
 L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."] =
 	"Fügt dem Haustierführer einen Filter-Tab hinzu, mit dem Du Haustiere nach ihrem Typ filtern kannst."
+L["Auction Enhanced"] = "Erweitertes Auktionshaus"
+L["Show the tertiary stats of equipments in auction house."] =
+	"Zeigt die tertiären Werte von Ausrüstung im Auktionshaus an."
 
 L["Fonts"] = "Schriftarten"
 
