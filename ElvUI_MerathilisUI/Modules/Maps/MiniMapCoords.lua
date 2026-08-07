@@ -28,7 +28,10 @@ function module:UpdateCoords(_, elapsed)
 
 	if mapInfo.x and mapInfo.y then
 		local pcoords = self.coordsHolder and self.coordsHolder.playerCoords
-		if pcoords and ((not F.AlmostEqual(mapInfo.x, self.mapInfoX)) or (not F.AlmostEqual(mapInfo.y, self.mapInfoY))) then
+		if
+			pcoords
+			and ((not F.AlmostEqual(mapInfo.x, self.mapInfoX)) or (not F.AlmostEqual(mapInfo.y, self.mapInfoY)))
+		then
 			self.mapInfoX = mapInfo.x
 			self.mapInfoY = mapInfo.y
 			pcoords:SetText(format(self.displayFormat, mapInfo.xText, mapInfo.yText))

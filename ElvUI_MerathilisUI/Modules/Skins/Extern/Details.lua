@@ -159,22 +159,22 @@ function module:ResetDetailsAnchor(force)
 		return
 	end
 
-	local height = 144
-
 	local instance1 = Details:GetInstance(1)
+	if not instance1 or not (force or IsDefaultAnchor(instance1)) then
+		return instance1
+	end
+
 	local instance2 = Details:GetInstance(2)
 	local instance3 = Details:GetInstance(3)
-	if instance1 and (force or IsDefaultAnchor(instance1)) then
-		if instance2 then
-			height = 96
-			EmbedWindow(instance2, -3, 165, 340, height)
-		end
-		if instance3 then
-			height = 96
-			EmbedWindow(instance3, -3, 284, 340, height)
-		end
-		EmbedWindow(instance1, -3, 49, 340, height)
+	local height = (instance2 or instance3) and 96 or 144
+
+	if instance2 then
+		EmbedWindow(instance2, -3, 165, 340, 96)
 	end
+	if instance3 then
+		EmbedWindow(instance3, -3, 284, 340, 96)
+	end
+	EmbedWindow(instance1, -3, 49, 340, height)
 
 	return instance1
 end
@@ -198,12 +198,14 @@ local function ReskinDetails()
 	listener:RegisterEvent("DETAILS_INSTANCE_OPEN")
 	function listener:OnDetailsEvent(event, instance)
 		if event == "DETAILS_INSTANCE_OPEN" then
-			if not instance.styled and instance:GetId() == 2 then
-				instance1:SetSize(340, 96)
-				EmbedWindow(instance, -3, 165, 340, 96)
-			end
-			if not instance.styled and instance:GetId() == 3 then
-				EmbedWindow(instance, -3, 284, 340, 96)
+			if not instance.skinned then
+				local id = instance:GetId()
+				if id == 2 then
+					instance1:SetSize(340, 96)
+					EmbedWindow(instance, -3, 165, 340, 96)
+				elseif id == 3 then
+					EmbedWindow(instance, -3, 284, 340, 96)
+				end
 			end
 			SetupInstance(instance)
 		end
