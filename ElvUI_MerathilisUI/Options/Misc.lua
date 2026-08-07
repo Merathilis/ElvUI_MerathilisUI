@@ -73,7 +73,7 @@ options.general = {
 		auctionEnhanced = {
 			order = 10,
 			type = "toggle",
-			name = L["Auction Enhanced"],
+			name = E.NewSign .. L["Auction Enhanced"],
 			desc = L["Show the tertiary stats of equipments in auction house."],
 		},
 		copyMog = {

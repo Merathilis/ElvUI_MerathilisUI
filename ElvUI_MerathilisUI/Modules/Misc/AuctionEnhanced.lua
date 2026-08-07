@@ -5,6 +5,7 @@ local _G = _G
 local wipe = wipe
 local tconcat = table.concat
 
+local hooksecurefunc = hooksecurefunc
 local C_Item_GetItemStats = C_Item.GetItemStats
 
 local function CreateStatsText(self)
