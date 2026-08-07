@@ -25,27 +25,7 @@ function module:GlobalIgnoreList()
 				end
 			end
 
-			S:HandleButton(GILFrame1IgnoreButton)
-			S:HandleButton(GILFrame2RemoveButton)
-			S:HandleButton(GILFrame2CreateButton)
-			S:HandleButton(GILFrame2ResetButton)
 			S:HandleFrame(GILFrame2Edit)
-			S:HandleButton(GILFrame2EditSaveButton)
-			S:HandleButton(GILFrame2EditCancelButton)
-			S:HandleCheckBox(GILFrame2Active)
-			S:HandleEditBox(GILFrame2EditDescField)
-
-			GILFrame2EditFilterField:StripTextures()
-			S:HandleEditBox(GILFrame2EditFilterField)
-			S:HandleButton(GILFrame2EditFilterHelp)
-
-			GILFrame2EditTestField:StripTextures()
-			S:HandleEditBox(GILFrame2EditTestField)
-			S:HandleButton(GILFrame2EditTestHelp)
-			S:HandleButton(GILFrame2EditTestTest)
-
-			S:HandleEditBox(GILFrame2EditLinkField)
-			S:HandleButton(GILFrame2EditLinkHelp)
 
 			local checkBoxes = {
 				GILFrame3AskNote,
@@ -62,6 +42,11 @@ function module:GlobalIgnoreList()
 				GILFrame3SkipParty,
 				GILFrame3SkipPrivate,
 				GILFrame3SkipYourself,
+				GILFrame2Active,
+				GILFrame3SameFaction,
+				GILFrame3SyncMsgs,
+				GILFrame3ShowDeclines,
+				GILFrame3IgnoreResponse,
 			}
 			for _, checkbox in next, checkBoxes do
 				if checkbox then
@@ -69,7 +54,49 @@ function module:GlobalIgnoreList()
 				end
 			end
 
-			S:HandleEditBox(GILFrame3Exp)
+			local buttons = {
+				GILFrame1IgnoreButton,
+				GILFrame2RemoveButton,
+				GILFrame2CreateButton,
+				GILFrame2ResetButton,
+				GILFrame2EditSaveButton,
+				GILFrame2EditCancelButton,
+				GILFrame2EditFilterHelp,
+				GILFrame2EditTestHelp,
+				GILFrame2EditTestTest,
+				GILFrame2EditLinkHelp,
+				GILFrame1PruneButton,
+				GILFrame2BlockButton,
+			}
+			for _, button in next, buttons do
+				if button then
+					S:HandleButton(button)
+				end
+			end
+
+			local editBoxes = {
+				GILFrame2EditDescField,
+				GILFrame2EditFilterField,
+				GILFrame2EditTestField,
+				GILFrame2EditLinkField,
+				GILFrame3Exp,
+			}
+			for _, editBox in next, editBoxes do
+				if editBox then
+					editBox:StripTextures()
+					S:HandleEditBox(editBox)
+				end
+			end
+
+			local dropDowns = {
+				GILFrame3FloodMenu,
+				GILFrame3StrataMenu,
+			}
+			for _, dropDown in next, dropDowns do
+				if dropDown then
+					S:HandleDropDownBox(dropDown)
+				end
+			end
 
 			GIL.MERStyle = true
 		end
