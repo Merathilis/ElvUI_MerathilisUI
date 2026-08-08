@@ -11,6 +11,7 @@ end
 function module:LoadWindToolsProfile()
 	local db = E and E.db and E.db.WT
 	local private = E and E.private and E.private.WT
+	local global = E and E.global and E.global.WT
 
 	if not db or not private then
 		return
@@ -77,6 +78,8 @@ function module:LoadWindToolsProfile()
 	private["skins"]["lossOfControl"]["backdrop"]["b"] = F.b
 	private["skins"]["lossOfControl"]["backdrop"]["g"] = F.g
 	private["unitFrames"]["roleIcon"]["roleIconStyle"] = "LYNUI"
+
+	global["core"]["loginMessage"] = false
 
 	if not E.db.movers then
 		E.db.movers = {}

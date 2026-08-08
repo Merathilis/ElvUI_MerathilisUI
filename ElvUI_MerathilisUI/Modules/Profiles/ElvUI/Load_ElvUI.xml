@@ -2,4 +2,5 @@
 	<Script file="Fonts.lua"/>
 
 	<Script file="WindTools.lua"/>
+	<Script file="mMediaTag.lua"/>
 </Ui>
