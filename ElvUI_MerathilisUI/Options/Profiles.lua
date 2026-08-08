@@ -16,11 +16,11 @@ local No = F.GetIconString(I.Media.Icons.No, 14, 14)
 
 local SupportedProfiles = {
 	{ "AddOnSkins", "AddOnSkins" },
-	{ "BetterCooldownManager", "BetterCooldownManager" },
 	{ "Capping", "Capping" },
 	{ "BigWigs", "BigWigs" },
 	{ "Details", "Details" },
 	{ "ls_Toasts", "ls_Toasts" },
+	{ "SkironCooldownManager", "SkironCooldownManager" },
 	{ "TomTom", "TomTom" },
 	{ "ElvUI_mMediaTag", "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r" },
 	{
@@ -139,8 +139,8 @@ for _, v in ipairs(SupportedProfiles) do
 		name = addonName,
 		desc = L["This will create and apply profile for "] .. addonName,
 		func = function()
-			if addon == "BetterCooldownManager" then
-				Profile:ApplyCooldownManagerProfile()
+			if addon == "SkironCooldownManager" then
+				Profile:ApplySkironCooldownManagerProfile()
 			elseif addon == "BigWigs" then
 				Profile:ApplyBigWigsProfile()
 			elseif addon == "Capping" then
