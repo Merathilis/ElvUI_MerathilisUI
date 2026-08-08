@@ -44,9 +44,6 @@ function module:ApplyTomTomProfile()
 	end
 
 	Splash:Wrap("Applying TomTom Profile ...", function()
-		local db = _G.TomTomDB
-		local profileName = I.ProfileNames.Default
-
 		self:LoadTomTomProfile()
 
 		E:UpdateMedia()

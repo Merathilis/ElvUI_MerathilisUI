@@ -19,7 +19,7 @@ function module:LoadmMediaTagProfile()
 	db.important_casts.enable = true
 	db.nameplates.target.changeColor = true
 	db.nameplates.target.changeTexture = true
-	db.nameplates.target.texture = "mMediaTag A4" or "ElvUI Norm1" --fallback
+	db.nameplates.target.texture = "mMediaTag A4"
 	db.phase_icon.enable = true
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true
@@ -29,7 +29,6 @@ end
 
 function module:ApplymMediaTagProfile()
 	Splash:Wrap("Applying mMediaTag Profile ...", function()
-		-- Apply Fonts
 		self:LoadmMediaTagProfile()
 
 		E:UpdateMedia()

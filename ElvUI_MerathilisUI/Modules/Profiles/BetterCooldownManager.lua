@@ -20,8 +20,6 @@ function module:ApplyCooldownManagerProfile()
 	end
 
 	Splash:Wrap("Applying BetterCooldownManager Profile ...", function()
-		local profileName = I.ProfileNames.Default
-
 		self:LoadBetterCooldownManagerProfile()
 
 		E:UpdateMedia()
