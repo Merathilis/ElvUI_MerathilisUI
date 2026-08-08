@@ -16,12 +16,15 @@ function module:LoadmMediaTagProfile()
 	end
 
 	db.general.greeting_message = false
+	db.important_casts.enable = true
 	db.nameplates.target.changeColor = true
 	db.nameplates.target.changeTexture = true
 	db.nameplates.target.texture = "mMediaTag A4" or "ElvUI Norm1" --fallback
 	db.phase_icon.enable = true
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true
+	db.lfg_invite_info.enable = true
+	db.lfg_invite_info.font = F.FontOverride(I.Fonts.Primary)
 end
 
 function module:ApplymMediaTagProfile()
