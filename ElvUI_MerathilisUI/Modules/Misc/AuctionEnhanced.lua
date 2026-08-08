@@ -9,7 +9,7 @@ local hooksecurefunc = hooksecurefunc
 local C_Item_GetItemStats = C_Item.GetItemStats
 
 local function CreateStatsText(self)
-	local fs = F.CreateFS(self, 12, "OUTLINE")
+	local fs = F.CreateFS(self, 12)
 	fs:SetTextColor(0.12, 1, 0)
 	fs:ClearAllPoints()
 

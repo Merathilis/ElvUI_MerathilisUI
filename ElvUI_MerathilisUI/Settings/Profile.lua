@@ -1251,3 +1251,15 @@ P.scale = {
 		scale = 1,
 	},
 }
+
+P.lootSpecManager = {
+	enable = true,
+	Current = "Mythic",
+	MythicPlus = {},
+	Encounters = {
+		Mythic = {},
+		LFR = {},
+		Heroic = {},
+		Normal = {},
+	},
+}

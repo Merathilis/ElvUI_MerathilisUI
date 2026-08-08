@@ -328,6 +328,13 @@ L["Bottom Left Extra Panel"] = "左下额外面板"
 L["Bottom Right Panel"] = "右下面板"
 L["Bottom Right Extra Panel"] = "右下额外面板"
 
+-- LootSpecManager
+L["LootSpecManager"] = "Loot Spec Manager"
+L["LootSpecManagerTip"] = "Auto change your loot spec. Command: /lsm"
+L["LootSpecManagerTips"] = "|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."
+L["LootSpecManagerRaidStart"] = "Boss pulled. Spec changed."
+L["LootSpecManagerM+Start"] = "M+ started, loot spec changed."
+
 -- Vehicle Bar
 L["VehicleBar"] = true
 L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = true

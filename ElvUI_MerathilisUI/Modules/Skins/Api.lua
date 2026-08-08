@@ -554,11 +554,7 @@ end
 ---@param ... any Additional arguments to pass
 function module:Proxy(method, frame, ...)
 	if not frame then
-		F.Developer.ThrowError(
-			"Failed to proxy function: frame is nil.",
-			"\n funcName:",
-			method
-		)
+		F.Developer.ThrowError("Failed to proxy function: frame is nil.", "\n funcName:", method)
 		return
 	end
 
@@ -622,7 +618,7 @@ end
 ----------------------------------
 do
 	function module:CreateButton(width, height, text, fontSize, outline)
-		local bu = CreateFrame("Button", nil, self, "BackdropTemplate")
+		local bu = CreateFrame("Button", nil, self, "UIPanelButtonTemplate")
 		bu:SetSize(width, height)
 		if type(text) == "boolean" then
 			module:PixelIcon(bu, fontSize, true)

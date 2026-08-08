@@ -431,6 +431,14 @@ L["Control the Lightness value of HSL for the Normal color."] = true
 L["Normal Saturation"] = true
 L["Control the Saturation value of HSL for the Normal color."] = true
 
+-- LootSpecManager
+L["LootSpecManager"] = "Loot Spec Manager"
+L["LootSpecManagerTip"] = "Wechsle automatisch deine Beute-Spezialisierung. Befehl: /lsm"
+L["LootSpecManagerTips"] =
+	"|nBasierend auf LootSpecManager: Wechselt automatisch deine Beutespezifikation zwischen den Bossen. Unterstützt Raids und M+."
+L["LootSpecManagerRaidStart"] = "Boss gepullt. Spezialisierung geändert."
+L["LootSpecManagerM+Start"] = "M+ gestartet, Beutespezialisierung geändert."
+
 --Vehicle Bar
 L["VehicleBar"] = "Fahrzeugleiste"
 L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] =

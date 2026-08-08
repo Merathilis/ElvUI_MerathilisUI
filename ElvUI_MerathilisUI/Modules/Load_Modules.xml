@@ -7,6 +7,7 @@
 	<Include file="Bags\Load_Bags.xml"/>
 	<Include file="DataTexts\Load_DataTexts.xml"/>
 	<Include file="ItemLevel\Load_ItemLevel.xml"/>
+	<Include file="Loot\Load_Loot.xml"/>
 	<Include file="Mail\Load_Mail.xml"/>
 	<Include file="Maps\Load_Maps.xml"/>
 	<Include file="Misc\Load_Misc.xml"/>

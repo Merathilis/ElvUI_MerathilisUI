@@ -2,6 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local MI = MER:GetModule("MER_Misc")
 local RIF = MER:GetModule("MER_RaidInfoFrame")
+local LSM = MER:GetModule("MER_Loot")
 
 local options = module.options.misc.args
 
@@ -75,6 +76,19 @@ options.general = {
 			type = "toggle",
 			name = E.NewSign .. L["Auction Enhanced"],
 			desc = L["Show the tertiary stats of equipments in auction house."],
+		},
+		lootSpecManager = {
+			order = 11,
+			type = "toggle",
+			name = E.NewSign .. L["LootSpecManager"],
+			desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
+			get = function()
+				return E.db.mui.lootSpecManager.enable
+			end,
+			set = function(_, value)
+				E.db.mui.lootSpecManager.enable = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
 		},
 		copyMog = {
 			order = 50,

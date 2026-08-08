@@ -7,8 +7,8 @@
 	<Script file="ColorModifiers.lua"/>
 	<Script file="CopyMog.lua"/>
 	<Script file="GameMenu.lua"/>
-	<Script file="IconSearch.lua"/>
 	<Script file="Gmotd.lua"/>
+	<Script file="IconSearch.lua"/>
 	<Script file="PetFilterTab.lua"/>
 	<Script file="RaidInfoFrame.lua"/>
 	<Script file="StatusReport.lua"/>

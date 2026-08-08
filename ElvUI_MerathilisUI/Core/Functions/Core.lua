@@ -768,6 +768,33 @@ do
 		self:HookScript("OnEnter", Tooltip_OnEnter)
 		self:HookScript("OnLeave", F.HideTooltip)
 	end
+
+	function F:CreateGear(name)
+		local bu = CreateFrame("Button", name, self)
+		bu:SetSize(24, 24)
+		bu.Icon = bu:CreateTexture(nil, "ARTWORK")
+		bu.Icon:SetAllPoints()
+		bu.Icon:SetTexture(MER.GearTex)
+		bu.Icon:SetTexCoord(0, 0.5, 0, 0.5)
+		bu:SetHighlightTexture(MER.GearTex)
+		bu:GetHighlightTexture():SetTexCoord(0, 0.5, 0, 0.5)
+
+		return bu
+	end
+
+	function F:CreateHelpInfo(tooltip)
+		local bu = CreateFrame("Button", nil, self)
+		bu:SetSize(40, 40)
+		bu.Icon = bu:CreateTexture(nil, "ARTWORK")
+		bu.Icon:SetAllPoints()
+		bu.Icon:SetTexture(616343)
+		bu:SetHighlightTexture(616343)
+		if tooltip then
+			F.AddTooltip(bu, "ANCHOR_BOTTOMLEFT", tooltip, "info", true)
+		end
+
+		return bu
+	end
 end
 
 -- Glow Parent
@@ -1112,6 +1139,15 @@ end
 
 function F:SetBorderColor()
 	self:SetBackdropBorderColor(0, 0, 0, 1)
+end
+
+function F:CreateCheckBox()
+	local cb = CreateFrame("CheckButton", nil, self, "InterfaceOptionsBaseCheckButtonTemplate")
+	cb:SetScript("OnClick", nil)
+	ES:HandleCheckBox(cb)
+
+	cb.Type = "CheckBox"
+	return cb
 end
 
 -- Role Icons
