@@ -78,17 +78,36 @@ options.general = {
 			desc = L["Show the tertiary stats of equipments in auction house."],
 		},
 		lootSpecManager = {
-			order = 11,
-			type = "toggle",
+			order = 40,
+			type = "group",
 			name = E.NewSign .. L["LootSpecManager"],
 			desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
+			inline = true,
 			get = function()
-				return E.db.mui.lootSpecManager.enable
+				return E.db.mui.lootSpecManager
 			end,
 			set = function(_, value)
-				E.db.mui.lootSpecManager.enable = value
+				E.db.mui.lootSpecManager = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				togglePanel = {
+					order = 2,
+					type = "execute",
+					name = L["Toggle Panel"],
+					func = function()
+						LSM:TogglePanel()
+					end,
+					disabled = function()
+						return not E.db.mui.lootSpecManager.enable
+					end,
+				},
+			},
 		},
 		copyMog = {
 			order = 50,

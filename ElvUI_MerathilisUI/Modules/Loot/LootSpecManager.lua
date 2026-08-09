@@ -233,8 +233,14 @@ function module:CreateGUI()
 	gui:SetPoint("CENTER")
 	gui:SetFrameStrata("HIGH")
 	gui:SetFrameLevel(5)
+	gui:SetMovable(true)
 	gui:SetTemplate("Transparent")
 	WS:CreateShadow(gui)
+
+	local titleDrag = CreateFrame("Frame", nil, gui, "TitleDragAreaTemplate")
+	titleDrag:SetSize(gui:GetWidth(), 25)
+	titleDrag:SetPoint("TOPLEFT")
+	gui.TitleDragArea = titleDrag
 
 	F.CreateFS(gui, 18, "LootSpecManager", "info", "TOP", 0, -10)
 
