@@ -39,24 +39,19 @@ function module:GetTextWithColor(text, color)
 end
 
 function module:CombineText(...)
-	local n = 0
+	local combined = nil
 	for i = 1, select("#", ...) do
 		local v = select(i, ...)
 		if self:IsNotEmpty(v) then
-			n = n + 1
-			_combineBuf[n] = tostring(v)
+			local s = tostring(v)
+			if combined then
+				combined = combined .. " " .. s
+			else
+				combined = s
+			end
 		end
 	end
-
-	if n == 0 then
-		return nil
-	end
-
-	local result = tconcat(_combineBuf, " ", 1, n)
-	for i = 1, n do
-		_combineBuf[i] = nil
-	end
-	return result
+	return combined
 end
 
 function module:CombineTables(table1, table2)
