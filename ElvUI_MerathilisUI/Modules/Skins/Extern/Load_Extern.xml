@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="BagSync.lua"/>
 	<Script file="BigWigs.lua"/>
+	<Script file="BugSack.lua"/>
 	<Script file="Clique.lua"/>
 	<Script file="Capping.lua"/>
 	<Script file="Details.lua"/>

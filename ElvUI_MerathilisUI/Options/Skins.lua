@@ -15,6 +15,7 @@ local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 local DecorAddons = {
 	{ "BagSync", L["BagSync"], "bSync" },
+	{ "BugSack", L["BugSack"], "bugSack" },
 	{ "Capping", L["Capping"], "cap" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
