@@ -95,7 +95,6 @@ function MER:InitializeDatabase()
 end
 
 function MER:MigrateFromElvDB()
-	-- Schon migriert?
 	if self.db.global.muiMigrated then
 		return
 	end
@@ -106,7 +105,6 @@ function MER:MigrateFromElvDB()
 	-- 1. Profile-Data (E.db.mui → MER.db.profile)
 	-------------------------------------------------
 	if E.db and type(E.db.mui) == "table" and next(E.db.mui) then
-		-- Bestehende Werte überschreiben die Defaults
 		E:CopyTable(self.db.profile, E.db.mui)
 		migrated = true
 	end
