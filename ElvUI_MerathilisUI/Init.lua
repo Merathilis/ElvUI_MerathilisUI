@@ -19,9 +19,9 @@ local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local MER = AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local W, WF = unpack(WindTools or {})
 
-V.mui = {}
-P.mui = {}
-G.mui = {}
+V.mui = {} -- MER.db.char
+P.mui = {} -- MER.db.profile
+G.mui = {} -- MER.db.global
 
 local I = {}
 
@@ -89,7 +89,6 @@ do
 	-- which is the latest tag
 	Engine.version = "@project-version@"
 
-	MER.IsDevelop = MER.Version == "development"
 	MER.AddOnName = addon
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 	MER.PlainTitle = gsub(MER.Title, "|c........([^|]+)|r", "%1")
@@ -134,6 +133,15 @@ MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
 
+MER.Libs = {
+	-- Ace
+	ADB = LibStub("AceDB-3.0"),
+	ABH = LibStub("AceDBOptions-3.0"),
+	GUI = LibStub("AceGUI-3.0"),
+	AC = LibStub("AceConfig-3.0"),
+	ACD = LibStub("AceConfigDialog-3.0"),
+}
+
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()
 	E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "mui")
@@ -148,13 +156,6 @@ function MER:Initialize()
 		["Mainline"] = I.Enum.Flavor.RETAIL,
 	}
 	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
-
-	if MER.IsDevelop then
-		Engine[4].DebugPrint(
-			"You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help",
-			"warning"
-		)
-	end
 
 	for _, module in self:IterateModules() do
 		WF.Developer.InjectLogger(module)
@@ -186,6 +187,7 @@ function MER:Initialize()
 	self.initialized = true
 
 	self:UpdateScripts()
+	self:InitializeDatabase() -- New Ace3DB uses SavedVariables MERData
 	self:AddMoverCategories()
 
 	EP:RegisterPlugin(addon, function()

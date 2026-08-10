@@ -3,13 +3,10 @@ local C = W.Utilities.Color
 
 local _G = _G
 local format = string.format
-local select = select
 local pcall = pcall
 local tinsert = table.insert
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
-local GetBuildInfo = GetBuildInfo
 local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
 local InCombatLockdown = InCombatLockdown
 local InviteUnit = C_PartyInfo.InviteUnit
