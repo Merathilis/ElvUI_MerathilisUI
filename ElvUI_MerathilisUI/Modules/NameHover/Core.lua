@@ -2,9 +2,8 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_NameHover")
 
 local pcall, type = pcall, type
-local max = math.max
-local tconcat = table.concat
 local find = string.find
+local max = math.max
 local issecretvalue = issecretvalue
 
 local CreateFrame = CreateFrame
@@ -50,8 +49,22 @@ module.inspectMode = false
 -- Cached instance state (refreshed on zone events)
 module._disabledInInstance = false
 
-_G.BINDING_NAME_MER_NAMEHOVER_INSPECT = _G.BINDING_NAME_MER_NAMEHOVER_INSPECT
-	or "Name Hover: Hold to Show BlizzToolTip"
+local Layout = {
+	LINE_STEP = 13, -- Vertical spacing between stacked top labels (guild/header/status).
+	LINE_OFFSET = 2, -- Small extra offset added after each top label anchor step.
+	MAIN_MIN_HEIGHT = 14, -- Fallback minimum height reserved for mainText line.
+	SUB_BOTTOM_OFFSET = 1, -- Bottom offset used for subText anchoring and height math.
+	SUB_LINE_STEP = 12, -- Per-line vertical step used by the subText block.
+	SUB_LEFT_INSET = 12, -- Horizontal inset of subText relative to mainText.
+	FRAME_MIN_WIDTH = 1, -- Keep >0 to avoid invalid size, but do not add visual padding.
+	FRAME_MIN_HEIGHT = 1, -- Keep >0 to avoid invalid size, but do not add visual padding.
+	CURSOR_OFFSET_VERTICAL_DEFAULT = 4, -- Fallback vertical offset from cursor when setting is unavailable.
+	CURSOR_OFFSET_HORIZONTAL_DEFAULT = 0, -- Fallback horizontal offset from cursor when setting is unavailable.
+	FORCES_GAP_RIGHT = 6, -- Horizontal gap between the name and the Enemy Forces text (right mode).
+	FORCES_GAP_UNDER = 2, -- Vertical gap below the subtext block before the Enemy Forces line (under mode).
+}
+
+_G.BINDING_NAME_MER_NAMEHOVER_INSPECT = _G.BINDING_NAME_MER_NAMEHOVER_INSPECT or "Name Hover: Hold to Show BlizzToolTip"
 
 local INSTANCE_TYPES = {
 	party = true,
@@ -61,6 +74,14 @@ local INSTANCE_TYPES = {
 
 local CONTENT_INTERVAL = 0.05
 local BLIZZ_ALPHA_INTERVAL = 0.1
+
+local function GetBackgroundPadding()
+	local value = tonumber(MER.db.profile.nameHover.display_BackgroundPadding)
+	if value then
+		return max(0, value)
+	end
+	return 0
+end
 
 -- =========================
 -- INSPECT KEY SYSTEM
@@ -299,43 +320,131 @@ local function UpdateFrameContents(f)
 	local subCount = (subTexts and #subTexts) or 0
 
 	if subCount > 0 then
-		f.subText:SetText(tconcat(subTexts, "\n"))
+		local joined = subTexts[1]
+		for i = 2, subCount do
+			joined = joined .. "\n" .. subTexts[i]
+		end
+		f.subText:SetText(joined)
 	else
 		f.subText:SetText("")
 	end
 
-	local width, height
-	local text = f.mainText:GetText()
-
-	if text and not issecretvalue(text) then
-		local okW, w = pcall(f.mainText.GetStringWidth, f.mainText)
-		local okH, h = pcall(f.mainText.GetStringHeight, f.mainText)
-		if okW and type(w) == "number" then
-			width = w
-		end
-		if okH and type(h) == "number" then
-			height = h
-		end
+	local forcesArr = module:GetForcesText("mouseover")
+	local hasForces = forcesArr ~= nil
+	local forcesRight = false
+	if hasForces then
+		forcesRight = E.db.mui.nameHover.mythicPlus_DisplayRight and true or false
 	end
 
-	width = max(1, (width or 100) + 16)
-	height = max(1, (height or 14) + (12 * subCount))
+	local function Measure(fs)
+		local w, h = 0, 0
+		local okW, rw = pcall(fs.GetStringWidth, fs)
+		local okH, rh = pcall(fs.GetStringHeight, fs)
+		if okW and type(rw) == "number" and not issecretvalue(rw) then
+			w = rw
+		end
+		if okH and type(rh) == "number" and not issecretvalue(rh) then
+			h = rh
+		end
+		return w, h
+	end
+
+	local mainW, mainH = Measure(f.mainText)
+	local guildW = Measure(f.guildText)
+	local headerW = Measure(f.headerText)
+	local statusW = Measure(f.statusText)
+	local subW, subH = Measure(f.subText)
+	local fontSize = tonumber(E.db.mui.nameHover.displayFontSize) or Layout.MAIN_MIN_HEIGHT
+	local mpFontSize = tonumber(E.db.mui.nameHover.mythicPlus_FontSize) or fontSize
+
+	local forcesW, forcesH = 0, 0
+	if hasForces then
+		f.forcesText:SetText(module:GetReserveText())
+		forcesW = Measure(f.forcesText)
+		f.forcesText:SetText(forcesArr[1])
+		forcesH = mpFontSize
+	else
+		f.forcesText:SetText("")
+	end
+
+	mainW = max(mainW, 1)
+	mainH = max(mainH, fontSize)
+
+	local topLines = 0
+	if module:IsNotEmpty(guild) then
+		topLines = topLines + 1
+	end
+	if module:IsNotEmpty(headerText) then
+		topLines = topLines + 1
+	end
+	if module:IsNotEmpty(status) then
+		topLines = topLines + 1
+	end
+
+	local padding = GetBackgroundPadding()
+	local topExtra = (topLines * Layout.LINE_STEP) + padding
+
+	local dropY = 0
+	local forcesUnderY, questY
+	local forcesUnder = hasForces and not forcesRight
+
+	if forcesUnder then
+		dropY = dropY + Layout.FORCES_GAP_UNDER
+		forcesUnderY = -dropY
+		dropY = dropY + forcesH
+	end
+
+	if subCount > 0 then
+		dropY = dropY + Layout.SUB_BOTTOM_OFFSET
+		questY = -dropY
+		dropY = dropY + ((subH > 0) and subH or (Layout.SUB_LINE_STEP * subCount))
+	end
+
+	local belowMain = dropY
+	if belowMain > 0 then
+		belowMain = belowMain + Layout.SUB_BOTTOM_OFFSET
+	end
+
+	local rightExtra = 0
+	if hasForces and forcesRight then
+		rightExtra = Layout.FORCES_GAP_RIGHT + forcesW
+		mainH = max(mainH, forcesH)
+	end
+	local forcesUnderWidth = forcesUnder and (forcesW + Layout.SUB_LEFT_INSET) or 0
+
+	local width = max(mainW + rightExtra, guildW, headerW, statusW, subW + Layout.SUB_LEFT_INSET, forcesUnderWidth)
+	width = max(Layout.FRAME_MIN_WIDTH, width + (padding * 2))
+
+	local height = topExtra + mainH + belowMain + padding
+	height = max(Layout.FRAME_MIN_HEIGHT, height)
 
 	f:SetSize(width, height)
+	f.mainText:ClearAllPoints()
 	f.mainText:SetPoint("TOP", f, "TOP", 0, subCount > 0 and (12 * subCount) or 0)
 
 	local top = 0
 	if module:IsNotEmpty(guild) then
 		top = SetAnchor(f.guildText, f.mainText, "TOPLEFT", top)
 	end
-	if module:IsNotEmpty(headerText) then
+	if module:IsNotEmpty(header) then
 		top = SetAnchor(f.headerText, f.mainText, "TOPLEFT", top)
 	end
 	if module:IsNotEmpty(status) then
 		top = SetAnchor(f.statusText, f.mainText, "TOPLEFT", top)
 	end
+	f.subText:ClearAllPoints()
+	if subCount > 0 then
+		f.subText:SetPoint("TOPLEFT", f.mainText, "BOTTOMLEFT", Layout.SUB_LEFT_INSET, questY)
+	end
 
-	f.subText:SetPoint("BOTTOMLEFT", f.mainText, "BOTTOMLEFT", 12, -1 + (-12 * subCount))
+	f.forcesText:ClearAllPoints()
+	if hasForces then
+		if forcesRight then
+			f.forcesText:SetPoint("LEFT", f.mainText, "RIGHT", Layout.FORCES_GAP_RIGHT, 0)
+		else
+			f.forcesText:SetPoint("TOPLEFT", f.mainText, "BOTTOMLEFT", Layout.SUB_LEFT_INSET, forcesUnderY)
+		end
+	end
 
 	f:Show()
 	ApplyNameHoverAlpha(f)
@@ -415,6 +524,9 @@ function module:Initialize()
 
 	frame.subText = frame:CreateFontString(nil, "OVERLAY", "GameTooltipText")
 	frame.subText:FontTemplate(fontOpts("subTextSize", "subTextOutline", 11))
+
+	frame.forcesText = frame:CreateFontString(nil, "OVERLAY", "GameTooltipText")
+	frame.forcesText:FontTemplate(fontOpts("mythicPlusFontSize", "mythicPlusFontOutline", 11))
 
 	frame.refreshElapsed = 0
 	frame.blizzElapsed = 0

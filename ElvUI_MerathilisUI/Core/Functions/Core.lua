@@ -561,6 +561,26 @@ function F.ConvertToHSL(r, g, b)
 	return h * 360, s, l
 end
 
+local function clamp255(x)
+	if type(x) ~= "number" then
+		return 255
+	end
+	if x < 0 then
+		return 0
+	end
+	if x > 1 then
+		x = 1
+	end
+	return math.floor(x * 255 + 0.5)
+end
+
+function F.GetTextWithColor(text, color)
+	local r = clamp255(color and color.r or 1)
+	local g = clamp255(color and color.g or 1)
+	local b = clamp255(color and color.b or 1)
+	return format("|cFF%02x%02x%02x%s|r", r, g, b, text)
+end
+
 function F.GetMERStyleText(text)
 	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
 end
