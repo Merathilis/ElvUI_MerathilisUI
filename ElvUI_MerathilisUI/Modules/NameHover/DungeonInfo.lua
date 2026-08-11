@@ -1,19 +1,28 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_NameHover")
 
+local pcall, tonumber = pcall, tonumber
+
+local UnitIsPlayer = UnitIsPlayer
+
+local C_ScenarioInfo_GetUnitCriteriaProgressValues = C_ScenarioInfo.GetUnitCriteriaProgressValues
+local C_ChallengeMode_IsChallengeModeActive = C_ChallengeMode.IsChallengeModeActive
+local C_Scenario_GetStepInfo = C_Scenario.GetStepInfo
+local C_ScenarioInfo_GetCriteriaInfo = C_ScenarioInfo.GetCriteriaInfo
+
 local CONTRIBUTION_COLOR = { r = 1, g = 1, b = 1 }
 local CONTEXT_COLOR = { r = 0.7, g = 0.7, b = 0.7 } -- light gray: pull progress
 
 local function InMythicPlus()
-	if not (C_ChallengeMode and C_ChallengeMode.IsChallengeModeActive) then
+	if not C_ChallengeMode_IsChallengeModeActive then
 		return false
 	end
-	local ok, active = pcall(C_ChallengeMode.IsChallengeModeActive)
+	local ok, active = pcall(C_ChallengeMode_IsChallengeModeActive)
 	return ok and active == true
 end
 
 local function Present(v)
-	if issecretvalue(v) then
+	if E:IsSecretValue(v) then
 		return true
 	end
 	return v ~= nil and v ~= ""
@@ -39,17 +48,17 @@ local function Compose(mode, numberStr, percentStr)
 end
 
 local function GetForcesCriteria()
-	if not (C_Scenario and C_Scenario.GetStepInfo and C_ScenarioInfo and C_ScenarioInfo.GetCriteriaInfo) then
+	if not (C_Scenario and C_Scenario_GetStepInfo and C_ScenarioInfo and C_ScenarioInfo_GetCriteriaInfo) then
 		return nil
 	end
 
-	local _, _, numCriteria = C_Scenario.GetStepInfo()
-	if not numCriteria or issecretvalue(numCriteria) or numCriteria <= 0 then
+	local _, _, numCriteria = C_Scenario_GetStepInfo()
+	if not numCriteria or E:IsSecretValue(numCriteria) or numCriteria <= 0 then
 		return nil
 	end
 
 	for i = 1, numCriteria do
-		local info = C_ScenarioInfo.GetCriteriaInfo(i)
+		local info = C_ScenarioInfo_GetCriteriaInfo(i)
 		if info and info.isWeightedProgress then
 			return info.quantity, info.totalQuantity
 		end
@@ -68,17 +77,13 @@ local function Build(unit)
 	if not InMythicPlus() then
 		return nil
 	end
-	if not (C_ScenarioInfo and C_ScenarioInfo.GetUnitCriteriaProgressValues) then
+	if not (C_ScenarioInfo and C_ScenarioInfo_GetUnitCriteriaProgressValues) then
 		return nil
 	end
 
-	-- actualValue = raw count (int), percentValueString = preformatted percent.
-	-- percentValue (the float) is intentionally ignored: using it requires math.
-	local actualValue, _, percentValueString = C_ScenarioInfo.GetUnitCriteriaProgressValues(unit)
+	local actualValue, _, percentValueString = C_ScenarioInfo_GetUnitCriteriaProgressValues(unit)
 
-	-- Bail only when we can *safely* prove there is nothing to show. When the
-	-- value is secret it is present by definition, so we display it.
-	if not issecretvalue(actualValue) then
+	if not E:IsSecretValue(actualValue) then
 		local n = tonumber(actualValue)
 		if not n or n <= 0 then
 			return nil
