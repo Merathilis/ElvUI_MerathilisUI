@@ -8,8 +8,9 @@ local L = E.Libs.ACL:GetLocale("ElvUI", E.global.general.locale)
 
 local _G = _G
 local next = next
+local format, gsub = string.format, string.gsub
 local print = print
-local strfind, strmatch = strfind, strmatch
+local strfind, strmatch = string.find, string.match
 local collectgarbage = collectgarbage
 
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
@@ -18,9 +19,9 @@ local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local MER = AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local W, WF = unpack(WindTools or {})
 
-V.mui = {}
-P.mui = {}
-G.mui = {}
+V.mui = {} -- MER.db.char
+P.mui = {} -- MER.db.profile
+G.mui = {} -- MER.db.global
 
 local I = {}
 
@@ -38,6 +39,12 @@ _G[addon] = Engine
 
 local versionString = GetAddOnMetadata(addon, "Version")
 local xVersionString = GetAddOnMetadata(addon, "X-Version")
+local metaFlavor = GetAddOnMetadata(addon, "X-Flavor")
+
+MER.MetaFlavor = metaFlavor
+MER.IsRetail = (metaFlavor == "Mainline") or (build >= 120000)
+MER.ElvUIVersion = tonumber(E.version)
+MER.RequiredVersion = tonumber(GetAddOnMetadata(addon, "X-ElvUIVersion"))
 
 local function getVersion()
 	local version, variant, subversion
@@ -70,9 +77,9 @@ MER.Version, MER.Variant, MER.SubVersion = getVersion()
 
 MER.DisplayVersion = MER.Version
 if MER.Variant then
-	MER.DisplayVersion = format("%s-%s", MER.DisplayVersion, MER.Variant)
+	MER.DisplayVersion = MER.DisplayVersion .. "-" .. MER.Variant
 	if MER.SubVersion then
-		MER.DisplayVersion = format("%s-%s", MER.DisplayVersion, MER.SubVersion)
+		MER.DisplayVersion = MER.DisplayVersion .. "-" .. MER.SubVersion
 	end
 end
 
@@ -82,14 +89,10 @@ do
 	-- which is the latest tag
 	Engine.version = "@project-version@"
 
-	MER.IsDevelop = MER.Version == "development"
 	MER.AddOnName = addon
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 	MER.PlainTitle = gsub(MER.Title, "|c........([^|]+)|r", "%1")
 end
-
-MER.MetaFlavor = GetAddOnMetadata("ElvUI_MerathilisUI", "X-Flavor")
-MER.IsRetail = MER.MetaFlavor == "Mainline"
 
 -- Modules
 MER.Modules = {}
@@ -101,6 +104,8 @@ MER.Modules.DamageMeter = MER:NewModule("MER_DamageMeter")
 MER.Modules.EquipManager = MER:NewModule("MER_EquipManager", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
+MER.Modules.Loot = MER:NewModule("MER_Loot", "AceEvent-3.0")
+MER.Modules.Mail = MER:NewModule("MER_Mail", "AceHook-3.0")
 MER.Modules.MiniMapCoords = MER:NewModule("MER_MiniMapCoords", "AceHook-3.0")
 MER.Modules.Misc = MER:NewModule("MER_Misc", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 MER.Modules.NameHover = MER:NewModule("MER_NameHover")
@@ -127,6 +132,8 @@ MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
 
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
+E:AddLib("OpenRaid", "LibOpenRaid-1.0")
+E:AddLib("Keystone", "LibKeystone")
 
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()
@@ -134,19 +141,8 @@ _G.MerathilisUI_OnAddonCompartmentClick = function()
 end
 
 function MER:Initialize()
-	-- ElvUI creates its AceDB during its ADDON_LOADED, before MerathilisUI or WindTools
-	-- populates E.DF.profile.mui / E.DF.global.mui / E.privateVars.profile.mui.
-	-- Re-register the filled defaults so AceDB merges the mui subtrees in.
-	E.data:RegisterDefaults(E.DF)
-	E.charSettings:RegisterDefaults(E.privateVars)
-
-	-- Safeguard: ensure the mui DB subtree exists at runtime and merge defaults.
-	-- Some edge cases (load-order, LOD) can make defaults not present immediately; copy them explicitly.
-	if P and P.mui and E and E.db then
-		if not E.db.mui then
-			E.db.mui = {}
-		end
-		E:CopyTable(E.db.mui, P.mui)
+	if self.initialized then
+		return
 	end
 
 	if not self:CheckElvUIVersion() then
@@ -155,23 +151,18 @@ function MER:Initialize()
 
 	local flavorMap = {
 		["Mainline"] = I.Enum.Flavor.RETAIL,
-		["MOP"] = I.Enum.Flavor.MOP,
 	}
 	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
-
-	if MER.IsDevelop then
-		Engine[4].DebugPrint(
-			"You are using an alpha build! Expect things not to work correctly or not finished. Do not come into my support and ask for help",
-			"warning"
-		)
-	end
 
 	for _, module in self:IterateModules() do
 		WF.Developer.InjectLogger(module)
 	end
 
 	hooksecurefunc(MER, "NewModule", function(_, name)
-		WF.Developer.InjectLogger(name)
+		local module = MER:GetModule(name, true)
+		if module then
+			WF.Developer.InjectLogger(module)
+		end
 	end)
 
 	-- No need to do the ElvUI install, so hide it
@@ -193,6 +184,8 @@ function MER:Initialize()
 	self.initialized = true
 
 	self:UpdateScripts()
+	self:InitializeModules()
+
 	self:AddMoverCategories()
 
 	EP:RegisterPlugin(addon, function()
@@ -203,9 +196,9 @@ function MER:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("PLAYER_LOGIN")
 
-	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
-	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
-	E.data.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
+	E.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
+	E.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
+	E.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
 end
 
 function MER:AutoCopyPrivateProfile()
@@ -231,8 +224,6 @@ end
 do
 	local checked = false
 	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
-		-- Runtime safeguard: on initial login ensure the mui DB subtree exists and defaults are merged.
-		-- This covers edge cases where load-order caused defaults not to be applied earlier.
 		if isInitialLogin then
 			if P and P.mui and E and E.db then
 				if not E.db.mui then
@@ -276,7 +267,9 @@ do
 			end
 		end
 
-		E:Delay(1, collectgarbage, "collect")
+		if isInitialLogin then
+			E:Delay(1, collectgarbage, "collect")
+		end
 	end
 end
 

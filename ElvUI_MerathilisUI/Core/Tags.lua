@@ -3,12 +3,14 @@ local ElvUF = E.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 
 local tonumber = tonumber
+local find = string.find
 local len = string.len
 
 local UnitClass = UnitClass
 local UnitName = UnitName
 local UnitInPartyIsAI = UnitInPartyIsAI
 local UnitIsPlayer = UnitIsPlayer
+local UnitIsUnit = UnitIsUnit
 local UnitReaction = UnitReaction
 
 E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit, _, args)
@@ -17,41 +19,41 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit, _, args)
 		return
 	end
 
-	if not args then
-		args = 16
+	args = tonumber(args) or 16
+
+	local isTarget = false
+	if not F.CheckInstanceSecret() then
+		isTarget = UnitIsUnit(unit, "target") and not find(unit, "nameplate", 1, true) and not find(unit, "party", 1, true)
+
+		if len(name) > args then
+			name = F.String.ShortenString(name, args)
+		end
+		if len(name) > args then
+			name = E:ShortenString(name, args)
+		end
 	end
 
-	args = tonumber(args)
-	local isTarget
-	if not F.CheckInstanceSecret() then
-		isTarget = UnitIsUnit(unit, "target") and not unit:match("nameplate") and not unit:match("party")
-		if len(name) > tonumber(args) then
-			name = F.String.ShortenString(name, tonumber(args))
-		end
-		if len(name) > tonumber(args) then
-			name = E:ShortenString(name, tonumber(args))
-		end
-	else
-		isTarget = false
-	end
-	if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
+	local isPlayer = UnitIsPlayer(unit)
+	if isPlayer or UnitInPartyIsAI(unit) then
 		local _, unitClass = UnitClass(unit)
 		if not unitClass then
 			return
 		end
 		return F.GradientName(name, unitClass, isTarget, true)
-	elseif not UnitIsPlayer(unit) then
+	elseif not isPlayer then
 		local reaction = UnitReaction(unit, "player")
-		if reaction then
-			if reaction >= 5 then
-				return F.GradientName(name, "NPCFRIENDLY", isTarget, true)
-			elseif reaction == 4 then
-				return F.GradientName(name, "NPCNEUTRAL", isTarget, true)
-			elseif reaction == 3 then
-				return F.GradientName(name, "NPCUNFRIENDLY", isTarget, true)
-			elseif reaction == 2 or reaction == 1 then
-				return F.GradientName(name, "NPCHOSTILE", isTarget, true)
-			end
+		if not reaction then
+			return
+		end
+
+		if reaction >= 5 then
+			return F.GradientName(name, "NPCFRIENDLY", isTarget, true)
+		elseif reaction == 4 then
+			return F.GradientName(name, "NPCNEUTRAL", isTarget, true)
+		elseif reaction == 3 then
+			return F.GradientName(name, "NPCUNFRIENDLY", isTarget, true)
+		elseif reaction == 2 or reaction == 1 then
+			return F.GradientName(name, "NPCHOSTILE", isTarget, true)
 		end
 	end
 end)

@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="ACP.lua"/>
 	<Script file="BagSync.lua"/>
 	<Script file="BigWigs.lua"/>
+	<Script file="BugSack.lua"/>
 	<Script file="Clique.lua"/>
 	<Script file="Capping.lua"/>
 	<Script file="Details.lua"/>
@@ -12,8 +12,6 @@
 	<Script file="MountRoutePlanner.lua"/>
 	<Script file="ParagonReputation.lua"/>
 	<Script file="Pawn.lua"/>
-	<Script file="stAddOnManager.lua"/>
-	<Script file="tdBattlePetScript.lua"/>
 	<Script file="WIM.lua"/>
 	<Script file="WowLua.lua"/>
 </Ui>

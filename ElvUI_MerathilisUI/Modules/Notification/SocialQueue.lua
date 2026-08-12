@@ -19,8 +19,8 @@ local LFG_LIST_AND_MORE = LFG_LIST_AND_MORE
 local SOCIAL_QUEUE_QUEUED_FOR = _G.SOCIAL_QUEUE_QUEUED_FOR:gsub(":%s?$", "") --some language have `:` on end
 
 function module:SocialQueueEvent(_, guid, numAddedItems)
-	module.db = E.db.mui.notification
-	if not module.db.enable or not module.db.quickJoin or InCombatLockdown() then
+	local db = E.db.mui.notification
+	if not db or not db.enable or not db.quickJoin or InCombatLockdown() then
 		return
 	end
 	if numAddedItems == 0 or not guid then

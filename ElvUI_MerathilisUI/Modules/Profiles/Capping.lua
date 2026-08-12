@@ -34,9 +34,6 @@ function module:ApplyCappingProfile()
 	end
 
 	Splash:Wrap("Applying Capping Profile ...", function()
-		local db = _G.CappingSettings
-		local profileName = I.ProfileNames.Default
-
 		self:LoadCappingProfile()
 
 		E:UpdateMedia()

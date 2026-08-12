@@ -232,12 +232,12 @@ local PARAGON_DATA = {
 }
 
 function module:QUEST_ACCEPTED(_, arg1)
-	module.db = E.db.mui.notification
-	if not module.db.enable then
+	local db = E.db.mui.notification
+	if not db or not db.enable then
 		return
 	end
 
-	if module.db.paragon and PARAGON_DATA[arg1] then
+	if db.paragon and PARAGON_DATA[arg1] then
 		local data = GetFactionInfoByID(PARAGON_DATA[arg1].factionID)
 		local text = GetQuestLogCompletionText(GetLogIndexForQuestID(arg1))
 		PlaySound(618, "Master") -- QUEST ADDED

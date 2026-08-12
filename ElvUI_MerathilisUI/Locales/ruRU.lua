@@ -14,8 +14,6 @@ L["Alpha"] = "Прозрачность"
 L["Outline"] = "Контур"
 L["X-Offset"] = "X-смещение"
 L["Y-Offset"] = "Y-смещение"
-L["Icon Size"] = "Размер значка"
-L["Font Outline"] = "Контур шрифта"
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Плагин для |cffff7d0aElvUI|r от\nMerahilis."
@@ -24,16 +22,13 @@ L[" does not support this game version, please uninstall it and don't ask for su
 L["AFK"] = "АФК"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] =
 	"Включить/отключить экран MUI AFK. Отключено, если загружен BenikUI"
-L["Are you still there? ... Hello?"] = "Ты еще там? ... Привет?"
 L["Logout Timer"] = "Таймер выхода"
 L["SplashScreen"] = "Заставка"
 L["Enable/Disable the Splash Screen on Login."] =
 	"Включить/отключить заставку при входе в систему."
-L["Options"] = "Параметры"
 L["Description"] = "Описание"
 L["General"] = "Общий"
 L["Modules"] = "Модули"
-L["Media"] = "Медиа"
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI & ElvUI_WindTools. It adds:
 
 - a lot of new features
@@ -48,14 +43,6 @@ L["Enables the stripes/gradient look on the frames"] = true
 
 -- Core Options
 L["Login Message"] = "Сообщение загрузки"
-L["Enable/Disable the Login Message in Chat"] =
-	"Включить/отключить сообщение о входе в чат"
-L["Log Level"] = "Уровень журнала"
-L["Only display log message that the level is higher than you choose."] =
-	"Отображать только сообщение журнала о том, что уровень выше, чем вы выбрали."
-L["Set to 2 if you do not understand the meaning of log level."] =
-	"Установите на 2, если вы не понимаете значение уровня журнала."
-L["This will overwrite most of the ElvUI Options for the colors, so please keep that in mind."] = true
 
 -- Information
 L["Information"] = "Информация"
@@ -82,7 +69,6 @@ L["Reset all %s modules."] = "Сбросить все %s модули."
 L["Game Menu"] = "Меню игры"
 L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"] =
 	"Включить/отключить стиль MerathilisUI в игровом меню Blizzard. (например, Пепе, Логотип, Бары)"
-L["Achievements: "] = true
 L["Achievement Points: "] = true
 L["Mounts: "] = true
 L["Pets: "] = true
@@ -99,118 +85,18 @@ L["Show Random Pets"] = true
 
 -- Misc
 L["Misc"] = "Разное"
-L["Artifact Power"] = "Мощность артефакта"
 L["has appeared on the MiniMap!"] = "появился на миникарте!"
-L["Alt-click, to buy an stack"] = "Alt-клик, чтобы купить стак"
-L["Announce"] = "Объявить"
-L["Skill gains"] = "Прирост навыков"
-L[" members"] = " участники"
 L["Name Hover"] = "Имя"
-L["Shows the Unit Name on the mouse."] = "Показывает имя юнита на мышке."
-L["Undress"] = "Раздеться"
-L["Double Click to Undress"] = "Двойной щелчок, чтобы снять экипировку"
-L["Accept Quest"] = "Принять задание"
-L["Placed Item"] = "Размещенный предмет"
-L["Stranger"] = "Незнакомец"
-L["Keystones"] = "Камень возвращения"
-L["GUILD_MOTD_LABEL2"] = "Сообщение дня для гильдии"
-L["LFG Member Info"] = "Информация об участниках ЛФГ"
-L["Shows role informations in your tooltip in the lfg frame."] =
-	"Показывает информацию о роли во всплывающей подсказке в рамке ЛФГ."
-L["MISC_REPUTATION"] = "Reputation"
 L["MISC_PARAGON"] = "Paragon"
-L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
-L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
 L["Fun Stuff"] = "Веселье"
 L["Change the NPC Talk Frame."] = "Измените рамку разговора с NPC."
-L["Press CTRL + C to copy."] = "Нажмите CTRL + C, чтобы скопировать."
 L["Wowhead Links"] = "Ссылки на Wowhead"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] =
 	"Добавляет ссылки Wowhead на рамку достижений и карты мира."
-L["Highest Quest Reward"] = "Наивысшая награда за задание"
-L["Item Alerts"] = "Оповещения о предметах"
-L["Announce in chat when someone placed an usefull item."] =
-	"Сообщите в чат, когда кто-то разместил полезный предмет."
-L["Miscellaneous"] = "Разное"
-L["Guild News Item Level"] = "Уведомление гильдии уровень предмета"
-L["Add Item level Infos in Guild News"] =
-	"Добавить информацию об уровне предмета в новости гильдии"
-L["Spell Alert Scale"] = "Шкала предупреждений о заклинаниях"
-L["Add Title"] = "Добавить заголовок"
-L["Display an additional title."] = "Отображение дополнительного заголовка."
-L["Add LFG group info to tooltip."] =
-	"Добавить информацию о группе LFG во всплывающую подсказку."
-L["Reskin Icon"] = "Рескин значка"
-L["Change role icons."] = "Изменить значки ролей."
-L["Line"] = "Линия"
-L["Alerts"] = "Оповещения"
-L["Call to Arms"] = "Призыв к оружию"
-L["Feasts"] = "Пиры"
-L["Toys"] = "Игрушки"
-L["Random Toy"] = "Случайная игрушка"
-L["Text Style"] = "Стиль текста"
-L["COLOR"] = "ЦВЕТ"
-L["Include Details"] = "Включить детали"
-L["Announce every time the progress has been changed."] =
-	"Объявлять каждый раз, когда прогресс был изменен."
-L["In Party"] = "в группе"
-L["In Instance"] = "в подземелье"
-L["In Raid"] = "в рейде"
 L["None"] = "Нет"
-L["Self (Chat Frame)"] = "Себя (фрейм чата)"
-L["Emote"] = "Эмоция"
 L["Party"] = "Группа"
-L["Yell"] = "Крик"
-L["Say"] = "Сказать"
-L["Suggested Group"] = "Предлагаемая группа"
-L["Hide Max Level"] = "Скрыть максимальный уровень"
-L["Hide the level part if the quest level is the same as your character level."] = true
-L["Send the use of portals, ritual of summoning, feasts, etc."] =
-	"Отправить использование порталов, ритуал призыва, пиры и т.д."
-L["Feasts"] = "Праздники"
-L["Bots"] = "Боты"
-L["Toys"] = "Игрушки"
-L["Portals"] = "Порталы"
-L["Include Player"] = "Включить игрока"
-L["Uncheck this box, it will not send message if you cast the spell."] =
-	"Снимите этот флажок, он не будет отправлять сообщение, если вы используете заклинание."
-L["Raid Warning"] = "Предупреждение о рейде"
-L["If you have privilege, it would the message to raid warning(/rw) rather than raid(/r)."] =
-	"Если у вас есть привилегия, это будет сообщение для предупреждения рейда (/ rw), а не рейда (/ r)."
-L["Text"] = "Текст"
-L["Name of the player"] = "Имя игрока"
-L["Target name"] = "Имя цели"
-L["The spell link"] = "Ссылка на заклинание"
-L["Default Text"] = "Текст по умолчанию"
-L["Reset Instance"] = "Сбросить подземелье"
-L["Send a message after instance resetting."] =
-	"Отправить сообщение после сброса подземелья."
-L["Prefix"] = "Префикс"
-L["Channel"] = "Канал"
-L["Keystone"] = "Эпохальный ключ"
-L["Announce the new mythic keystone."] = "Объявите о новом эпохальный ключ."
-L["Heroism/Bloodlust"] = "Героизм / Кровожадность"
-L["Mute"] = "Заглушить"
-L["Disable some annoying sound effects."] =
-	"Отключите некоторые раздражающие звуковые эффекты."
-L["Others"] = "Другие"
-L["Dragonriding"] = "Верховая езда на драконах"
-L["Mute the sound of dragonriding."] = "Приглушите звук езды на драконе."
-L["Jewelcrafting"] = "Ювелирное дело"
-L["Mute the sound of jewelcrafting."] = "Приглушите звук ювелирного дела."
-L["Same Message Interval"] = true
-L["Time interval between sending same messages measured in seconds."] = true
-L["Set to 0 to disable."] = true
-L["Show all stats on the Character Frame"] = true
 L["Block Join Requests"] = true
 L["|nIf checked, only popout join requests from friends and guild members."] = true
-L["Random Toy Macro"] = true
-L["Creates a random toy macro."] = "Создает случайный макрос игрушки."
-L["Spell activation alert frame customizations."] = true
-L["Enable/Disable the spell activation alert frame."] = true
-L["Opacity"] = true
-L["Set the opacity of the spell activation alert frame. (Blizzard CVar)"] = true
-L["Set the scale of the spell activation alert frame."] = true
 L["Dressing Room"] = true
 L["Inspect Frame"] = true
 L["Sync Inspect"] = true
@@ -221,91 +107,37 @@ L["Auction House"] = true
 L["Transmog Frame"] = true
 L["Makes the transmogrification frame bigger. Credits to Kayr for code."] = true
 L["Add more oUF tags. You can use them on UnitFrames configuration."] = true
-L["Already Known"] = true
-L["Puts a overlay on already known learnable items on vendors and AH."] = true
-L["Crying"] = true
-L["Mute crying sounds of all races."] = true
-L["It will affect the cry emote sound."] = true
-L["It will also affect the crying sound of all female Blood Elves."] = true
-L["Class"] = true
-L["The class icon of the player's class"] = true
-L["Context Menu"] = true
-L["Add features to the context menu."] = true
-L["Section Title"] = true
-L["Add a styled section title to the context menu."] = true
-L["Guild Invite"] = true
-L["Who"] = true
-L["Report Stats"] = true
 L["Armory"] = true
-L["Set Region"] = true
-L["If the game language is different from the primary language in this server, you need to specify which area you play on."] =
-	true
-L["Auto-detect"] = true
-L["Taiwan"] = true
-L["Korea"] = true
-L["Americas & Oceania"] = true
-L["Europe"] = true
-L["Server List"] = true
 L["Trade Tabs"] = true
 L["Enable Tabs on the Profession Frames"] = true
-L["Chef's Hat"] = "Поварской колпак"
 L["Group Finder"] = true
 L["Equipment Upgrade"] = true
 L["Vendor"] = true
 L["Class Trainer"] = true
 L["Gossip"] = true
-L["Class Icon"] = true
-L["Deathknight"] = true
-L["Evoker"] = true
 L["Singing Sockets"] = true
 L["Adds a Singing sockets selection tool on the Socketing Frame."] = true
 L["Pet Filter Tab"] = true
 L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."] = true
-L["Print Message"] = true
-L["Prints a message in the chat when you take a screenshot."] = true
-L["You can use ElvUI Mover to reposition it."] =
-	"Вы можете использовать перемещение элементов ElvUI, чтобы изменить его положение."
-L["Due to Blizzard restrictions, the button area cannot be clicked through even when the button is hidden."] = true
-L["Middle click the character back slot to open the Reshii Wraps upgrade menu."] = true
-L["Open Upgrade Menu"] = true
-L["Reshii Wraps Upgrade"] = true
-L["Cannot track more than %d achievements"] = true
-L["Track Achievement"] = true
-L["Untrack Achievement"] = true
-L["Quick Keystone"] = true
-L["Put the keystone from bag automatically."] = true
+L["Auction Enhanced"] = true
+L["Show the tertiary stats of equipments in auction house."] = true
 
 -- Nameplates
 L["NamePlates"] = "Индикаторы здоровья"
 
 -- Notification
 L["Notification"] = "Уведомления"
-L["Display a Toast Frame for different notifications."] =
-	"Отображение всплывающей рамки для различных уведомлений."
 L["This is an example of a notification."] = "Это пример уведомления."
 L["Notification Mover"] = "Перемещение уведомлений"
 L["%s slot needs to repair, current durability is %d."] =
 	"Слот %s нуждается в ремонте, текущая прочность %d."
-L["You have %s pending calendar invite(s)."] =
-	"У вас есть %s ожидающих приглашений в календаре."
-L["You have %s pending guild event(s)."] =
-	"У вас есть %s незавершенных событий гильдии."
-L['Event "%s" will end today.'] = 'Событие "%s" завершится сегодня.'
-L['Event "%s" started today.'] = 'Событие "%s" началось сегодня.'
-L['Event "%s" is ongoing.'] = 'Событие "%s" продолжается.'
-L['Event "%s" will end tomorrow.'] = 'Событие "%s" закончится завтра.'
 L["Here you can enable/disable the different notification types."] =
 	"Здесь вы можете включить/отключить различные типы уведомлений."
 L["Enable Mail"] = "Включить почту"
-L["Enable Vignette"] = "Включить виньетирование"
-L["If a Rare Mob or a treasure gets spotted on the minimap."] =
-	"Если на миникарте будет замечен редкий моб или сокровище."
 L["Enable Invites"] = "Включить приглашения"
 L["Enable Guild Events"] = "Включить события гильдии"
 L["No Sounds"] = "Нет звуков"
 L["Vignette Print"] = "Отображение виньетки"
-L["Prints a clickable Link with Coords in the Chat."] =
-	"Отображает кликабельную ссылку с координатами в чате."
 L["Quick Join"] = "Быстрое присоединение"
 L["Title Font"] = "Шрифт заголовка"
 L["Text Font"] = "Шрифт текста"
@@ -315,19 +147,6 @@ L["Enable this option to get a chat print of the Name and ID from the Vignettes 
 
 -- Actionbars
 L["Specialization Bar"] = "Панель специализации"
-L["EquipSet Bar"] = "Панель экипировки"
-L["Auto Buttons"] = "Автоматические кнопки"
-L["Bind Font Size"] = "Привязать размер шрифта"
-L["Trinket Buttons"] = "Кнопки для аксессуаров"
-L["Color by Quality"] = "Цвет по качеству"
-L["Quest Buttons"] = "Кнопки заданий"
-L["Blacklist Item"] = "Черный список предметов"
-L["Whitelist Item"] = "Белый список предметов"
-L["Add Item ID"] = "Добавить ID предмета"
-L["Delete Item ID"] = "Удалить ID предмета"
-L["Spell Feedback"] = "Обратная связь по заклинаниям"
-L["Creates a texture to show the recently pressed buttons."] =
-	"Создает текстуру для отображения недавно нажатых кнопок."
 L["Frame Strata"] = "Слой фрейма"
 L["Frame Level"] = "Уровень фрейма"
 
@@ -359,7 +178,6 @@ L["Move Sockets"] = true
 L["Crops and moves sockets above enchant text."] = true
 L["Hide Controls"] = true
 L["Hides the camera controls when hovering the character model."] = true
-L["Add %d sockets"] = true
 L["Add enchant"] = true
 L["Attributes"] = true
 L["Background"] = true
@@ -375,44 +193,10 @@ L["Animation Multiplier"] = true
 
 -- Unitframes
 L["UnitFrames"] = "Рамки юнитов"
-L["Adds a shadow to the debuffs that the debuff color is more visible."] =
-	"Добавляет тень к дебаффам, чтобы цвет дебаффа был более заметен."
-L["Swing Bar"] = "Качающееся панель"
-L["Creates a weapon Swing Bar"] = "Создает качающееся панель для оружия."
-L["Main-Hand Color"] = "Цвет основной руки"
-L["Off-Hand Color"] = "Цвет левой руки"
-L["Two-Hand Color"] = "Цвет двуручного"
-L["Creates a Global Cooldown Bar"] = "Создает глобальную полосу перезарядки"
 L["UnitFrame Style"] = "Стиль юнитфреймов"
 L["Adds my styling to the Unitframes if you use transparent health."] =
 	"Добавляет мой стиль в рамки юнитов, если вы используете прозрачное здоровье."
-L["Change the default role icons."] = "Измените значки ролей по умолчанию."
-L["Changes the Heal Prediction texture to the default Blizzard ones."] =
-	"Изменяет текстуру предсказание исцеления на стандартные Blizzard."
-L["Add a glow in the end of health bars to indicate the over absorb."] =
-	"Добавляет свечение в конце полосок здоровья, чтобы указать на чрезмерное поглощение."
-L["Add the Blizzard over absorb glow and overlay to ElvUI unit frames."] =
-	"Добавляет свечение чрезмерного поглощения Blizzard поверх юнит фреймов ElvUI."
-L["Auto Height"] = "Автоматическая высота"
-L["Blizzard Absorb Overlay"] = "Наложение поглощения Blizzard"
-L["Blizzard Over Absorb Glow"] = "Свечение избыточного поглощения"
-L["Blizzard Style"] = "Стиль Blizzard"
-L["Change the color of the absorb bar."] = "Изменить цвет полосы поглощения."
 L["Custom Texture"] = "Пользовательская текстура"
-L["Enable the replacing of ElvUI absorb bar textures."] =
-	"Включить замену ElvUI текстур полос поглощения."
-L["Here are some buttons for helping you change the setting of all absorb bars by one-click."] =
-	"Здесь несколько кнопок, которые помогут вам изменить настройки всех полос поглощения одним щелчком мыши."
-L["Max Overflow"] = "Макс. переполнение"
-L["Modify the texture of the absorb bar."] = "Измените текстуру полосы поглощения."
-L["Overflow"] = "Переполнение"
-L["Set %s to %s"] = "Установить %s на %s"
-L["Set All Absorb Style to %s"] = "Установить весь стиль поглощения на %s"
-L["The absorb style %s and %s is highly recommended with %s tweaks."] =
-	"Стиль поглощения %s и %s настоятельно рекомендуется с настройками %s."
-L["The selected texture will override the ElvUI default absorb bar texture."] =
-	"Выбранная текстура переопределит стандартную текстуру полосы поглощения ElvUI."
-L["Use the texture from Blizzard Raid Frames."] = "Используйте текстуру из Blizzard Raid Frames."
 L["Raid Icon"] = "Значок рейда"
 L["Change the default raid icons."] = "Изменить стандартные значки рейдов."
 L["Highlight"] = "Выделение"
@@ -420,34 +204,9 @@ L["Adds an own highlight to the Unitframes"] =
 	"Добавляет собственную изюминку в рамки юнитов"
 L["Auras"] = "Ауры"
 L["Adds an shadow around the auras"] = "Добавляет тень вокруг ауры"
-L["Power"] = "Ресурс"
-L["Enable the animated Power Bar"] = "Включить анимированную панель ресурса"
-L["Select Model"] = "Выберите модель"
-L["Type the Model ID"] = "Введите ID модели"
-L["Role Icons"] = "Иконки ролей"
-L["Heal Prediction"] = "Предсказание исцеления"
-L["Add an additional overlay to the absorb bar."] =
-	"Добавьте дополнительное наложение на полосу поглощения."
 
 -- Cooldowns
-L["Cooldowns"] = "Перезарядки"
 L["Cooldown Flash"] = "Перезарядка вспышки"
-L["Settings"] = "Настройки"
-L["Fadein duration"] = "Длительность появления"
-L["Fadeout duration"] = "Длительность исчезновения"
-L["Duration time"] = "Продолжительность"
-L["Animation size"] = "Размер анимации"
-L["Watch on pet spell"] = "Наблюдайте за заклинанием питомца"
-L["Transparency"] = "Прозрачность"
-L["Test"] = "Тест"
-L["Sort Upwards"] = "Сортировать по возрастанию"
-L["Sort by Expiration Time"] = "Сортировать по сроку действия"
-L["Show Self Cooldown"] = "Показать самовосстановление"
-L["Show Icons"] = "Отображать значки"
-L["Show In Party"] = "Отображать в групе"
-L["Show In Raid"] = "Отображать в рейде"
-L["Show In Arena"] = "Отображать на арене"
-L["Spell Name"] = "Название заклинания"
 L["Spell List"] = "Список заклинаний"
 
 -- GMOTD
@@ -477,42 +236,16 @@ L["Fri"] = "Пт"
 L["Sat"] = "Сб"
 
 -- Install
-L["Welcome"] = "Добро пожаловать"
 L["|cffff7d0aMerathilisUI|r Installation"] = "|cffff7d0aMerathilisUI|r Установка"
-L["MerathilisUI Set"] = "Пар. MerathilisUI"
-L["MerathilisUI didn't find any supported addons for profile creation"] =
-	"MerathilisUI не нашел поддерживаемых дополнений для создания профиля"
-L["MerathilisUI successfully created and applied profile(s) for:"] =
-	"MerathilisUI успешно создал и применил профили для:"
 L["Chat Set"] = "Пар. чата"
 L["ActionBars"] = "Панели команд"
 L["ActionBars Set"] = "Пар. панелей действий"
 L["DataTexts Set"] = "Пар. инфо-текстов"
-L["Profile Set"] = "Пар. профилей"
-L["ElvUI AddOns settings applied."] = "Применены настройки аддонов ElvUI"
-L["AddOnSkins is not enabled, aborting."] = "AddOnSkins не включен, прерывание."
-L["AddOnSkins settings applied."] = "Применены настройки AddOnSkins."
-L["BigWigs is not enabled, aborting."] = "BigWigs не включен, прерывание."
-L["BigWigs Profile Created"] = "Профиль BigWigs создан"
-L["Skada Profile Created"] = "Профиль Skada создан"
-L["Skada is not enabled, aborting."] = "Skada не включена, прерывание."
 L["UnitFrames Set"] = "Пар. рамок юнитов"
 L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."] =
 	"Добро пожаловать в MerathilisUI |cff00c0faVersion|r %s для ElvUI %s."
 L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] =
 	"Нажав кнопку 'Продолжить', MerathilisUI будет применен к вашей текущей установке ElvUI.\r\r|cffff8000 СОВЕТ: Было бы неплохо применить изменения в новом профиле, на случай, если вам не понравится результат.| р"
-L["Buttons must be clicked twice"] = "Кнопки нужно нажимать дважды"
-L["Importance: |cffff0000Very High|r"] = "Важность: |cffff0000Очень высокая|r"
-L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."] =
-	"Аддон 'AddOnSkins' не включен. Никакие настройки не изменены."
-L["The Addon 'Big Wigs' is not enabled. Profile not created."] =
-	"Аддон 'Big Wigs' не включен. Профиль не создан."
-L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."] =
-	"Аддон 'ElvUI_BenikUI' не включен. Никакие настройки не изменены."
-L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] =
-	"Аддон 'ElvUI_SLE' не включен. Никакие настройки не изменены."
-L["The Addon 'Skada' is not enabled. Profile not created."] =
-	"Аддон 'Skada' не включен. Профиль не создан."
 L["This part of the installation process sets up your chat fonts and colors."] =
 	"Эта часть процесса установки настраивает шрифты и цвета чата."
 L["This part of the installation changes the default ElvUI look."] =
@@ -525,8 +258,6 @@ L["This part of the installation process will change your NamePlates."] =
 	"Эта часть процесса установки изменит ваши индикаторы здоровья."
 L["This part of the installation process will reposition your Unitframes."] =
 	"Эта часть процесса установки изменит положение ваших рамок юнитов"
-L["This part of the installation process will apply changes to ElvUI Plugins"] =
-	"Эта часть процесса установки применит изменения к плагинам ElvUI."
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] =
 	"Этот шаг изменяет несколько параметров World of Warcraft по умолчанию. Эти параметры адаптированы к потребностям автора %s и не являются обязательными для работы этого редактирования."
 L["Please click the button below to apply the new layout."] =
@@ -541,19 +272,12 @@ L["Please click the button below to setup your NamePlates."] =
 	"Нажмите кнопку ниже, чтобы настроить индикаторы здоровья."
 L["Please click the button below to setup your Unitframes."] =
 	"Нажмите кнопку ниже, чтобы настроить рамки юнитов."
-L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] =
-	"Пожалуйста, нажмите кнопку ниже, чтобы настроить модификации ElvUI. Для других профилей аддонов перейдите в 'Мои параметры' - 'Скины/модификации'"
 L["DataTexts"] = "Инфо-тексты"
 L["General Layout"] = "Общий макет"
 L["Setup ActionBars"] = "Настройка панелей действий"
 L["Setup NamePlates"] = "Настройка индикаторов здоровья"
-L["Setup UnitFrames"] = "Настройка рамок юнитов"
 L["Setup Chat"] = "Настроить чат"
 L["Setup Datatexts"] = "Настройка инфо-текстов"
-L["Setup Addons"] = "Настройка модификаций"
-L["ElvUI AddOns"] = "Модификации ElvUI"
-L["Finish"] = "Завершить"
-L["Installed"] = "Установлены"
 L["EditMode"] = true
 L["Step 1:"] = true
 L["Step 2:"] = true
@@ -561,144 +285,37 @@ L["Click the first button for the import.\nUse CTRL+A to select the whole string
 	true
 L["Enter Edit Mode and select Import on the Dropdown.\nUse CTRL+V to paste string, then pick a name and click import."] =
 	true
+L["Plugins"] = "Плагины"
+L["This part of the installation process will apply changes to ElvUI Plugins"] =
+	"Эта часть процесса установки применит изменения к плагинам ElvUI."
+L["Important Plugins"] = "Важные плагины"
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
 	"Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["MSG_MER_ELV_MISMATCH"] =
 	"Your ElvUI version is higher than expected. Please update MerathilisUI or you might run into issues or |cffFF0000having it already|r."
-L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] =
-	"У вас одновременно включены Location Plus и Shadow & Light. Выберите надстройку для отключения."
-L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
-L["MER_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
-L["Name for the new profile"] = "Имя для нового профиля"
-L["Are you sure you want to override the current profile?"] =
-	"Вы уверены, что хотите перезаписать текущий профиль?"
 
 -- Skins
-L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.
-
-Please note that some of these options will not be available if corresponding skin is |cff636363disabled|r in main ElvUI skins section.]]
 L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external addons appearance.
 
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
-L["MerathilisUI Style"] = "Стиль MerathilisUI"
-L["Creates decorative stripes and a gradient on some frames"] =
-	"Создает декоративные полосы и градиент на некоторых фреймах"
 L["Screen Shadow Overlay"] = "Наложение теней экрана"
 L["Enables/Disables a shadow overlay to darken the screen."] =
 	"Включает/отключает наложение теней для затемнения экрана."
-L["Undress Button"] = "Кнопка раздевания"
-L["Enable/Disable"] = "Включить/Выклю��ить"
+L["Enable/Disable"] = "Включить/Выключить"
 L["decor."] = "декор."
-L["MerathilisUI Button Style"] = "Стиль кнопки MerathilisUI"
-L["Creates decorative stripes on Ingame Buttons (only active with MUI Style)"] =
-	"Создает декоративные полосы на внутриигровых кнопках (активно только в MUI Style)"
-L["Additional Backdrop"] = "Дополнительный фон"
-L["Remove Border Effect"] = "Удалить эффект границ"
-L["Animation Type"] = "Тип анимации"
-L["The type of animation activated when a button is hovered."] =
-	"Тип анимации, активируемый при наведении на кнопку."
-L["Animation Duration"] = "Продолжительность анимации"
-L["The duration of the animation in seconds."] =
-	"Продолжительность анимации в секундах."
-L["Backdrop Class Color"] = "Фон цветом класса"
-L["Border Class Color"] = "Окантовки цветом класса"
-L["Border Color"] = "Цвет окантовки"
-L["Normal Class Color"] = "Нормальный цвет класса"
-L["Selected Backdrop & Border"] = "Выбранный фон и окантовка"
-L["Selected Class Color"] = "Выбранный цвет класса"
-L["Selected Color"] = "Выбранный цвет"
-L["Tab"] = "Вкладка"
-L["Tree Group Button"] = "Кнопка древовидной группы"
-L["Shadow Color"] = "Цвет тени"
-L["These skins will affect all widgets handled by ElvUI Skins."] =
-	"Эти скины повлияют на все виджеты, обрабатываемые скинами ElvUI."
-L["Texture"] = "Текстура"
 L["Backdrop Color"] = "Цвет фона"
-L["Check Box"] = "Флажок"
-L["Slider"] = "Слайдер"
-L["Backdrop Alpha"] = "Прозрачность фона"
-L["Enable All"] = "Включить все"
-L["Disable All"] = "Отключить все"
-L["Spellbook"] = "Книга заклинаний"
 L["Character Frame"] = "Рамка персонажа"
-L["Gossip Frame"] = "Рамка для сплетен"
-L["Quest Frames"] = "Рамка заданий"
-L["TALENTS"] = "Таланты"
-L["AUCTIONS"] = "Аукционы"
-L["FRIENDS"] = "Друзья"
-L["GUILD"] = "Гильдия"
-L["Mail Frame"] = "Почтовый фрейм"
-L["WORLD_MAP"] = "Карта мира"
-L["Guild Control Frame"] = "Рамка управления гильдией"
-L["MACROS"] = "Макросы"
-L["GUILD_BANK"] = "Гильдийский банк"
-L["FLIGHT_MAP"] = "Карта полета"
-L["Help Frame"] = "Справочная рамка"
-L["Loot Frames"] = "Рамки добычи"
-L["CHANNELS"] = "Каналы"
-L["Raid Frame"] = "Рейдовая рамка"
-L["Craft"] = "Профессии"
-L["Event Toast Manager"] = "Менеджер тостов событий"
-L["Quest Choice"] = "Выбор заданий"
-L["Orderhall"] = "Зал Ордена"
-L["Contribution"] = "Вклад"
-L["Calendar Frame"] = "Рамка календаря"
 L["Merchant Frame"] = "Рамка торговца"
-L["PvP Frames"] = "PvP-фреймы"
-L["LF Guild Frame"] = "LF рамка гильдии"
-L["TalkingHead"] = "Говорящая голова"
-L["Minimap"] = "Миникарта"
-L["Trainer Frame"] = "Рамка обучения"
-L["Socket Frame"] = "Рамка гнезда"
 L["Item Upgrade"] = "Улучшение предмета"
 L["Trade"] = "Торговля"
-L["Allied Races"] = "Союзные расы"
-L["Archaeology Frame"] = "Рамка археологии"
-L["Azerite Essence"] = "Азерито��ая эссенция"
-L["Item Interaction"] = "Взаимодействие с предметами"
-L["Anima Diversion"] = "Отвод анимы"
-L["Soulbinds"] = "Связи душ"
-L["Covenant Sanctum"] = "Святилище Ковенанта"
-L["Covenant Preview"] = "Предварительный просмотр Ковенанта"
-L["Covenant Renown"] = "Известность Ковенанта"
-L["Player Choice"] = "Выбор игрока"
-L["Chromie Time"] = "Хроми Тайм"
-L["LevelUp Display"] = "Отображение повышения уровня"
-L["Guide Frame"] = "Рамка руководства"
-L["Weekly Rewards"] = "Еженедельные награды"
 L["Misc"] = "Разное"
 L["%s is not loaded."] = "%s не загружен."
-L["BigWigs Bars"] = "Полосы BigWigs"
-L["BigWigs Skin"] = "Скин BigWigs"
-L["Color Override"] = "Переопределение цвета"
-L["Emphasized Bar"] = "Подчеркнутая полоса"
-L["Gradient color of the left part of the bar."] = "Градиентный цвет левой части полосы."
-L["Gradient color of the right part of the bar."] =
-	"Градиентный цвет правой части полосы."
-L["How to change BigWigs bar style:"] = "Как изменить стиль полос BigWigs:"
 L["Left Color"] = "Левый цвет"
-L["Normal Bar"] = "Нормальная полоса"
-L["Open BigWigs Options UI with /bw > Bars > Style."] =
-	"Откройте пользовательский интерфейс параметров BigWigs с помощью /bw > Bars > Style."
-L["Override the bar color."] = "Переопределить цвет полосы."
 L["Right Color"] = "Правый цвет"
-L["Show spark on the bar."] = "Отображать искру на полосе."
-L["Smooth"] = "Плавный"
-L["Smooth the bar animation with ElvUI."] = "Плавная анимация полосы с помощью ElvUI."
-L["Spark"] = "Искра"
-L["The options below are only for BigWigs %s bar style."] =
-	"Приведенные ниже параметры относятся только к стилю полос BigWigs %s."
-L["You need to manually set the bar style to %s in BigWigs first."] =
-	"Сначала вам нужно вручную установить стиль полосы на %s в BigWigs."
 L["The options below is only for the Details look, NOT the Embeded."] = true
 L["Action Status"] = true
-L["Roll Result"] = true
-L["It only works when you enable the skin (%s)."] = true
-L["Loot"] = true
 L["Embed Settings"] = true
 L["With this option you can embed your Details into an own Panel."] = true
 L["Reset Settings"] = true
@@ -706,68 +323,11 @@ L["Toggle Direction"] = true
 L["TOP"] = true
 L["BOTTOM"] = true
 L["Advanced Skin Settings"] = true
-L["Queue Timer"] = "Таймер очереди"
 L["Gradient Bars"] = true
 L["Open Details"] = true
-L["Ease"] = true
-L["Generally, enabling this option makes the value increase faster in the first half of the animation."] = true
-L["Invert Ease"] = true
-L["The easing function used for colorize the button."] = true
-L["UI Widget"] = true
-L["Shop"] = true
-L["Bar Texture"] = true
-L["Buff Bar"] = true
-L["Buff Icon"] = true
-L["Charge Count Text"] = true
-L["Disable ElvUI's LibCustomGlow for fixing cooldown animations."] = true
-L["Essential"] = true
 L["Frame Level"] = true
 L["Frame Strata"] = true
-L["Horizontal Justify"] = true
-L["Icon Height Ratio"] = true
-L["Relative Point"] = true
-L["Set the height ratio of icons inside Cooldown Viewer."] = true
-L["Smooth Bars"] = true
-L["Use Blizzard Glow"] = true
-L["This module will override ElvUI's Cooldown Manager count font settings."] = true
-L["To enable the modifications below, you need to enable [%s] - [%s] skin first."] = true
-L["%s contains the daily quest label."] = true
-L["%s contains the quest level."] = true
-L["%s contains the quest objective progress."] = true
-L["%s contains the quest tag, which is typically the quest series name."] = true
-L["%s contains the quest title."] = true
-L["%s contains the suggested group size for the quest."] = true
-L["%s contains the weekly quest label."] = true
-L["Daily quest label"] = true
-L["Detail Template"] = true
-L["Display colorful quest progress information to replace Blizzard's default."] = true
-L["Hide On Character Level"] = true
-L["Hide the level part if the quest level is the same as your character level."] = true
-L["Message Template"] = true
-L["Objective"] = true
-L["Objective Color"] = true
-L["Quest level"] = true
-L["Quest link"] = true
-L["Quest progress (including objectives)"] = true
-L["Quest tags (Quest series)"] = true
-L["Quest title"] = true
-L["Reset the template to default value."] = true
-L["Status icon (accept/complete)"] = true
-L["Suggested group size"] = true
-L["Template Elements"] = true
-L["Test Quest Name"] = true
-L["Test Series"] = true
-L["Test Target"] = true
-L["The progress details like 10/20."] = true
-L["The template for rendering announcement message."] = true
-L["The template for rendering progress message in UIErrorsFrame."] = true
-L["The template of each element can be customized in %s module."] = true
-L["Weekly quest label"] = true
 L["Fonts"] = true
-L["Quest Progress and Error Text"] = true
-L["To ensure the colorful progress information remains clearly visible across different environments, the 'OUTLINE' font style is recommended."] =
-	true
-L["You can find the setting in 'ElvUI > %s > %s > %s'."] = true
 
 -- Panels
 L["Panels"] = "Панели"
@@ -783,22 +343,19 @@ L["Bottom Left Extra Panel"] = "Нижняя левая доп. панель"
 L["Bottom Right Panel"] = "Нижняя правая панель"
 L["Bottom Right Extra Panel"] = "Нижняя правая доп. панель"
 
--- Filter
-L["Filter"] = "Фильтр"
-L["Unblock the profanity filter."] =
-	"Разблокируйте фильтр ненормативной лексики."
-L["Profanity Filter"] = "Фильтр ненормативной лексики"
-L["Enable this option will unblock the setting of profanity filter. [CN Server]"] =
-	"Включите эту опцию, чтобы разблокировать настройку фильтра ненормативной лексики. [CN сервер]"
+-- LootSpecManager
+L["LootSpecManager"] = "Loot Spec Manager"
+L["LootSpecManagerTip"] = "Auto change your loot spec. Command: /lsm"
+L["LootSpecManagerTips"] = "|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."
+L["LootSpecManagerRaidStart"] = "Boss pulled. Spec changed."
+L["LootSpecManagerM+Start"] = "M+ started, loot spec changed."
 
 -- Vehicle Bar
 L["VehicleBar"] = true
 L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."] = true
 L["Thrill Color"] = true
-L["The color for vigor bar's speed text when you are regaining vigor."] = true
 L["Animations"] = true
 L["Animation Speed"] = true
-L["Skyriding Bar"] = true
 
 -- Raid Info Frame
 L["Raid Info Frame"] = true
@@ -832,19 +389,9 @@ L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 L["Advanced Settings"] = true
 L["Blizzard Fixes"] = true
 L["The message will be shown in chat when you login."] = true
-L["CVar Alert"] = true
-L["It will alert you to reload UI when you change the CVar %s."] = true
-L["Fix LFG Frame error"] = true
-L["Fix a PlayerStyle lua error that can happen on the LFG Frame."] = true
 L["This section will help reset specfic settings back to default."] = true
 
 -- Gradient colors
-L["Custom Gradient Colors"] = true
-L["Custom Nameplates Colors"] = true
-L["Only used if using threat plates from ElvUI"] = true
-L["Custom Unitframes Colors"] = true
-L["Custom Power Colors"] = true
-L["Runic Power"] = true
 L["Theme"] = true
 L["Warning: Enabling one of these settings may overwrite colors or textures in ElvUI, they also prevent you from changing certain settings in ElvUI!"] =
 	true
@@ -900,7 +447,6 @@ L["Control the Saturation value of HSL for the Normal color."] = true
 L["Skins/AddOns"] = "Скины/модификации"
 L["Profiles"] = "Профили"
 L["BigWigs"] = true
-L["MasterPlan"] = true
 L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "Это создаст и применит профиль для"
 
@@ -909,8 +455,6 @@ L["Changelog"] = "Журнал изменений"
 
 -- Compatibility
 L["Compatibility Check"] = "Проверка совместимости"
-L["Help you to enable/disable the modules for a better experience with other plugins."] =
-	"Помогает вам включить / отключить модули для лучшего взаимодействия с другими плагинами."
 L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
 	"Есть много модулей из разных аддонов или плагинов ElvUI, но некоторые из них имеют практически одинаковую функциональность."
 L["Have a good time with %s!"] = "Удачи с %s!"
@@ -941,92 +485,382 @@ L["Error"] = "Ошибка"
 L["Warning"] = "Предупреждение"
 
 -- Abbreviate
-L["[ABBR] Announcement"] = "ANN"
-L["[ABBR] Ara-Kara, City of Echoes"] = "ARAK"
-L["[ABBR] Back"] = "Back"
-L["[ABBR] Challenge Level 1"] = "CL1"
-L["[ABBR] Chest"] = "Chest"
-L["[ABBR] Cinderbrew Meadery"] = "BREW"
-L["[ABBR] City of Threads"] = "COT"
-L["[ABBR] Community"] = "C"
-L["[ABBR] Darkflame Cleft"] = "DFC"
-L["[ABBR] Delves"] = "Delves"
-L["[ABBR] Dragonflight"] = "DF"
-L["[ABBR] Eco-Dome Al'dani"] = "EDA"
-L["[ABBR] Emote"] = "E"
-L["[ABBR] Event Scenario"] = "EScen"
-L["[ABBR] Feet"] = "Feet"
-L["[ABBR] Finger"] = "Finger"
-L["[ABBR] Follower"] = "Follower"
-L["[ABBR] Guild"] = "G"
-L["[ABBR] Halls of Atonement"] = "HoA"
-L["[ABBR] Hands"] = "Hands"
-L["[ABBR] Head"] = "Head"
-L["[ABBR] Held In Off-hand"] = "Off-hand"
 L["[ABBR] Heroic"] = "H"
-L["[ABBR] Instance"] = "I"
-L["[ABBR] Instance Leader"] = "IL"
-L["[ABBR] Legs"] = "Legs"
-L["[ABBR] Liberation of Undermine"] = "LoU"
-L["[ABBR] Looking for raid"] = "LFR"
-L["[ABBR] Lorewalking"] = "LW"
-L["[ABBR] Manaforge Omega"] = "MFO"
 L["[ABBR] Mythic"] = "M"
-L["[ABBR] Mythic Keystone"] = "M+"
-L["[ABBR] Neck"] = "Neck"
-L["[ABBR] Nerub-ar Palace"] = "NP"
 L["[ABBR] Normal"] = "N"
-L["[ABBR] Normal Scaling Party"] = "NSP"
-L["[ABBR] Officer"] = "O"
-L["[ABBR] Operation: Floodgate"] = "FLOOD"
-L["[ABBR] Operation: Mechagon - Workshop"] = "WORK"
-L["[ABBR] Party"] = "P"
-L["[ABBR] Party Leader"] = "PL"
-L["[ABBR] Path of Ascension"] = "PoA"
-L["[ABBR] Priory of the Sacred Flame"] = "PSF"
-L["[ABBR] Quest"] = "Quest"
-L["[ABBR] Raid"] = "R"
-L["[ABBR] Raid Finder"] = "RF"
-L["[ABBR] Raid Leader"] = "RL"
-L["[ABBR] Raid Warning"] = "RW"
-L["[ABBR] Roll"] = "RL"
-L["[ABBR] Say"] = "S"
-L["[ABBR] Scenario"] = "Scen"
-L["[ABBR] Shadowlands"] = "SL"
-L["[ABBR] Shoulders"] = "Shoulders"
-L["[ABBR] Story"] = "Story"
-L["[ABBR] Tazavesh: So'leah's Gambit"] = "GMBT"
-L["[ABBR] Tazavesh: Streets of Wonder"] = "STRT"
-L["[ABBR] Teeming Island"] = "Teeming"
-L["[ABBR] The Dawnbreaker"] = "DAWN"
-L["[ABBR] The MOTHERLODE!!"] = "ML"
-L["[ABBR] The Rookery"] = "ROOK"
-L["[ABBR] The Stonevault"] = "SV"
-L["[ABBR] The War Within"] = "TWW"
-L["[ABBR] The War Within Keystone Hero: Season One"] = "S1 Keystone Hero"
-L["[ABBR] The War Within Keystone Hero: Season Three"] = "S3 Keystone Hero"
-L["[ABBR] The War Within Keystone Hero: Season Two"] = "S2 Keystone Hero"
-L["[ABBR] The War Within Keystone Legend: Season Three"] = "S3 Keystone Legend"
-L["[ABBR] The War Within Keystone Master: Season One"] = "S1 Keystone Master"
-L["[ABBR] The War Within Keystone Master: Season Three"] = "S3 Keystone Master"
-L["[ABBR] The War Within Keystone Master: Season Two"] = "S2 Keystone Master"
-L["[ABBR] Theater of Pain"] = "TOP"
-L["[ABBR] Timewalking"] = "TW"
-L["[ABBR] Torghast"] = "Torghast"
-L["[ABBR] Trinket"] = "Trinket"
-L["[ABBR] Turn In"] = "TURNIN"
-L["[ABBR] Visions of N'Zoth"] = "Visions"
-L["[ABBR] Waist"] = "Waist"
-L["[ABBR] Warfronts"] = "WF"
-L["[ABBR] Whisper"] = "Whispers"
-L["[ABBR] Wind Emote"] = "WE"
-L["[ABBR] World"] = "W"
-L["[ABBR] World Boss"] = "WB"
-L["[ABBR] Wrist"] = "Wrist"
-L["[ABBR] Yell"] = "Y"
 
--- AUTO-ADDED PLACEHOLDERS START (do not remove without review)
-L["Shows a simple frame with Raid Informations."] = true -- AUTO-PLACEHOLDER
-L["Subpages"] = true -- AUTO-PLACEHOLDER
--- AUTO-ADDED PLACEHOLDERS END
+-- Additional locale entries for consistency
+L["Add an extra item level text to some equipment buttons."] = true
+L["AddOnSkins"] = true
+L["AddOns"] = true
+L["Attribute Visibility"] = true
+L["Background Alpha"] = true
+L["Background Bars"] = true
+L["Background Color"] = true
+L["Bags Full"] = true
+L["Class Gradient"] = true
+L["Class Text Font"] = true
+L["Credits"] = true
+L["Custom Color"] = true
+L["Default"] = true
+L["Flyout Button"] = true
+L["Font Color"] = true
+L["Group Units"] = true
+L["Guild News"] = true
+L["Header Font"] = true
+L["Hide ElvUI Bars"] = true
+L["Hide In Combat"] = true
+L["Individual Units"] = true
+L["Info"] = true
+L["Label Font"] = true
+L["Level"] = true
+L["Level Text"] = true
+L["Level Title Text"] = true
+L["Mailbox"] = true
+L["Name Text"] = true
+L["Quality Color"] = true
+L["Resting Indicator"] = true
+L["Scrapping Machine"] = true
+L["Settings for different font strings"] = true
+L["Short Display"] = true
+L["Short Labels"] = true
+L["Square"] = true
+L["Tags"] = true
+L["Title Text"] = true
+L["Toggle"] = true
+L["Use Bags Setting"] = true
+L["Value Font"] = true
 
+-- Automatically added missing keys
+-- L[" Raid Info Frame"] = " Raid Info Frame"
+-- L[" install complete."] = " install complete."
+-- L["!! ERROR - Round:"] = "!! ERROR - Round:"
+-- L["%day%-%month%-%year%"] = "%day%-%month%-%year%"
+-- L["%s detects CVar %s has been changed."] = "%s detects CVar %s has been changed."
+-- L[".\n\n"] = ".\n\n"
+-- L["Abbreviates the enchant strings."] = "Abbreviates the enchant strings."
+-- L["Add"] = "Add"
+-- L["Add %d socket"] = "Add %d socket"
+-- L["Add coords to your Minimap."] = "Add coords to your Minimap."
+-- L["AddOn Control Panel"] = "AddOn Control Panel"
+-- L["Addon Skins"] = "Addon Skins"
+-- L["Addons"] = "Addons"
+-- L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."] = "Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."
+-- L["Adjust the UI Scale to fit your screen."] = "Adjust the UI Scale to fit your screen."
+-- L["Anchor Point"] = "Anchor Point"
+-- L["Are you sure you want to import this string?"] = "Are you sure you want to import this string?"
+-- L["Arena"] = "Arena"
+-- L["Assist"] = "Assist"
+-- L["Assist Target"] = "Assist Target"
+-- L["Auto Copy Private Profile"] = "Auto Copy Private Profile"
+-- L["Auto Scale"] = "Auto Scale"
+-- L["Automatically copy the selected private profile to a new character on first login."] = "Automatically copy the selected private profile to a new character on first login."
+-- L["BACKGROUND"] = "BACKGROUND"
+-- L["BagSync"] = "BagSync"
+-- L["Bags"] = "Bags"
+-- L["Bar Height"] = "Bar Height"
+-- L["Bar Settings"] = "Bar Settings"
+-- L["BenikUI"] = "BenikUI"
+-- L["BigWigs is not installed or enabled."] = "BigWigs is not installed or enabled."
+-- L["Blacklist"] = "Blacklist"
+-- L["Blizzard"] = "Blizzard"
+-- L["Blizzard DamageMeter"] = "Blizzard DamageMeter"
+-- L["Blizzard Inspect Button Fallback"] = "Blizzard Inspect Button Fallback"
+-- L["Blizzard Tool Tip"] = "Blizzard Tool Tip"
+-- L["Blizzard ToolTip Options"] = "Blizzard ToolTip Options"
+-- L["Boss"] = "Boss"
+-- L["Button Size"] = "Button Size"
+-- L["Button Width"] = "Button Width"
+-- L["Buttons"] = "Buttons"
+-- L["CVars"] = "CVars"
+-- L["CVars Set"] = "CVars Set"
+-- L["Capping"] = "Capping"
+-- L["Change the Skyriding Bar's height."] = "Change the Skyriding Bar's height."
+-- L["Changelog Popup"] = "Changelog Popup"
+-- L["Character"] = "Character"
+-- L["Chat"] = "Chat"
+-- L["Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."] = "Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."
+-- L["Circle"] = "Circle"
+-- L["Class Color"] = "Class Color"
+-- L["Classification"] = "Classification"
+-- L["Clear Initialized Characters"] = "Clear Initialized Characters"
+-- L["Clear the record of initialized characters, allowing the profile to be copied again on next login."] = "Clear the record of initialized characters, allowing the profile to be copied again on next login."
+-- L["Clique"] = "Clique"
+-- L["Collections"] = "Collections"
+-- L["Color"] = "Color"
+-- L["Color Modifier Keys"] = "Color Modifier Keys"
+-- L["Color Settings"] = "Color Settings"
+-- L["Cooldown Manager"] = "Cooldown Manager"
+-- L["Copy From"] = "Copy From"
+-- L["Copy Transmog"] = "Copy Transmog"
+-- L["Core"] = "Core"
+-- L["Could not add the texture."] = "Could not add the texture."
+-- L["Could not convert unicode "] = "Could not convert unicode "
+-- L["Credits: ElvUI_ToxiUI"] = "Credits: ElvUI_ToxiUI"
+-- L["Crit"] = "Crit"
+-- L["Custom"] = "Custom"
+-- L["Custom Gradient Color"] = "Custom Gradient Color"
+-- L["Dark Layout"] = "Dark Layout"
+-- L["Dark Texture"] = "Dark Texture"
+-- L["Decorative Lines"] = "Decorative Lines"
+-- L["Delete"] = "Delete"
+-- L["Details"] = "Details"
+-- L["Details Skin"] = "Details Skin"
+-- L["Developer Settings"] = "Developer Settings"
+-- L["Developer Settings Done"] = "Developer Settings Done"
+-- L["Diamond"] = "Diamond"
+-- L["Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHover will replace the Blizzard tooltip instead."] = "Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHover will replace the Blizzard tooltip instead."
+-- L["Disable in Dungeons/Raids"] = "Disable in Dungeons/Raids"
+-- L["Drop"] = "Drop"
+-- L["Drop flipped"] = "Drop flipped"
+-- L["Drop round"] = "Drop round"
+-- L["Drop round flipped"] = "Drop round flipped"
+-- L["Durability/ Ilevel"] = "Durability/ Ilevel"
+-- L["EltreumUI"] = "EltreumUI"
+-- L["ElvUI"] = "ElvUI"
+-- L["ElvUI_WindTools"] = "ElvUI_WindTools"
+-- L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] = "Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."
+-- L["Enabling this colors your modifier keys."] = "Enabling this colors your modifier keys."
+-- L["Encounter Journal"] = "Encounter Journal"
+-- L["Enter Edit Mode"] = "Enter Edit Mode"
+-- L["Equipment Manager"] = "Equipment Manager"
+-- L["Export All"] = "Export All"
+-- L["Export Private"] = "Export Private"
+-- L["Export Profile"] = "Export Profile"
+-- L["Export all setting of %s."] = "Export all setting of %s."
+-- L["Export the setting of %s that stored in ElvUI Private database."] = "Export the setting of %s that stored in ElvUI Private database."
+-- L["Export the setting of %s that stored in ElvUI Profile database."] = "Export the setting of %s that stored in ElvUI Profile database."
+-- L["FCT"] = "FCT"
+-- L["Faction"] = "Faction"
+-- L["Finished"] = "Finished"
+-- L["Fixes"] = "Fixes"
+-- L["Focus"] = "Focus"
+-- L["Friends"] = "Friends"
+-- L["GlobalIgnoreList"] = "GlobalIgnoreList"
+-- L["Gradient"] = "Gradient"
+-- L["Gradient Layout"] = "Gradient Layout"
+-- L["Gradient Name"] = "Gradient Name"
+-- L["Guild Name"] = "Guild Name"
+-- L["Guild Rank"] = "Guild Rank"
+-- L["Guild Text Outline"] = "Guild Text Outline"
+-- L["Guild Text Size"] = "Guild Text Size"
+-- L["HIGH"] = "HIGH"
+-- L["Haste"] = "Haste"
+-- L["Header"] = "Header"
+-- L["Header Text Outline"] = "Header Text Outline"
+-- L["Header Text Size"] = "Header Text Size"
+-- L["Hides the frame while in combat."] = "Hides the frame while in combat."
+-- L["How long a vignette of the same time should not be notified. In seconds"] = "How long a vignette of the same time should not be notified. In seconds"
+-- L["How often the speed text is updated."] = "How often the speed text is updated."
+-- L["I got it!"] = "I got it!"
+-- L["I want to sync setting of MerathilisUI!"] = "I want to sync setting of MerathilisUI!"
+-- L["Icon"] = "Icon"
+-- L["IconSearch"] = "IconSearch"
+-- L["IconSearchTip"] = "IconSearchTip"
+-- L["If you simply want to share the same private settings across all characters, it is recommended to set the same private profile for them in ElvUI > Profiles > Private."] = "If you simply want to share the same private settings across all characters, it is recommended to set the same private profile for them in ElvUI > Profiles > Private."
+-- L["Import"] = "Import"
+-- L["Import String"] = "Import String"
+-- L["Import and export your %s settings."] = "Import and export your %s settings."
+-- L["Importance: |cff07D400High|r"] = "Importance: |cff07D400High|r"
+-- L["Importance: |cffD3CF00Medium|r"] = "Importance: |cffD3CF00Medium|r"
+-- L["Importance: |cffFF0000Low|r"] = "Importance: |cffFF0000Low|r"
+-- L["Improvements"] = "Improvements"
+-- L["Install"] = "Install"
+-- L["Installation Complete"] = "Installation Complete"
+-- L["Invalid Model, you need to add a Model ID/Path"] = "Invalid Model, you need to add a Model ID/Path"
+-- L["It will cause some buttons not work properly before UI reloading."] = "It will cause some buttons not work properly before UI reloading."
+-- L["It will override your %s setting."] = "It will override your %s setting."
+-- L["Item Level Font"] = "Item Level Font"
+-- L["KEY_ALT"] = "KEY_ALT"
+-- L["KEY_CTRL"] = "KEY_CTRL"
+-- L["KEY_DELETE"] = "KEY_DELETE"
+-- L["KEY_HOME"] = "KEY_HOME"
+-- L["KEY_INSERT"] = "KEY_INSERT"
+-- L["KEY_META"] = "KEY_META"
+-- L["KEY_MOUSEBUTTON"] = "KEY_MOUSEBUTTON"
+-- L["KEY_MOUSEWHEELDOWN"] = "KEY_MOUSEWHEELDOWN"
+-- L["KEY_MOUSEWHEELUP"] = "KEY_MOUSEWHEELUP"
+-- L["KEY_NDIVIDE"] = "KEY_NDIVIDE"
+-- L["KEY_NEQUALS"] = "KEY_NEQUALS"
+-- L["KEY_NMINUS"] = "KEY_NMINUS"
+-- L["KEY_NMULTIPLY"] = "KEY_NMULTIPLY"
+-- L["KEY_NPLUS"] = "KEY_NPLUS"
+-- L["KEY_NUMPAD"] = "KEY_NUMPAD"
+-- L["KEY_PAGEDOWN"] = "KEY_PAGEDOWN"
+-- L["KEY_PAGEUP"] = "KEY_PAGEUP"
+-- L["KEY_SHIFT"] = "KEY_SHIFT"
+-- L["KEY_SPACE"] = "KEY_SPACE"
+-- L["Keep Current"] = "Keep Current"
+-- L["KeystoneLoot"] = "KeystoneLoot"
+-- L["LEFT"] = "LEFT"
+-- L["LOW"] = "LOW"
+-- L["Large"] = "Large"
+-- L["Latest runs"] = "Latest runs"
+-- L["Layout"] = "Layout"
+-- L["Layout Set"] = "Layout Set"
+-- L["Left Click:"] = "Left Click:"
+-- L["Localization"] = "Localization"
+-- L["MEDIUM"] = "MEDIUM"
+-- L["MONOCHROME"] = "MONOCHROME"
+-- L["MONOCROMEOUTLINE"] = "MONOCROMEOUTLINE"
+-- L["Main Text Outline"] = "Main Text Outline"
+-- L["Main Text Size"] = "Main Text Size"
+-- L["Many thanks to these wonderful persons for letting me use some of their code: %s."] = "Many thanks to these wonderful persons for letting me use some of their code: %s."
+-- L["Maps"] = "Maps"
+-- L["Mark as read, the changelog message will be hidden when you login next time."] = "Mark as read, the changelog message will be hidden when you login next time."
+-- L["Mastery"] = "Mastery"
+-- L["Medium"] = "Medium"
+-- L["MerathilisUI saves all data in ElvUI Profile and Private database."] = "MerathilisUI saves all data in ElvUI Profile and Private database."
+-- L["Minimap Coordinates"] = "Minimap Coordinates"
+-- L["Moon"] = "Moon"
+-- L["Mount Route Planner"] = "Mount Route Planner"
+-- L["Mouse Over"] = "Mouse Over"
+-- L["Mouseover"] = "Mouseover"
+-- L["N/A"] = "N/A"
+-- L["NamePlates Set"] = "NamePlates Set"
+-- L["New"] = "New"
+-- L["New Profile"] = "New Profile"
+-- L["New Profile will create a fresh profile for this character."] = "New Profile will create a fresh profile for this character."
+-- L["Next Time"] = "Next Time"
+-- L["No Guild"] = "No Guild"
+-- L["Normal Texture"] = "Normal Texture"
+-- L["Not Installed"] = "Not Installed"
+-- L["Not Set"] = "Not Set"
+-- L["Note: This feature only copies the private profile once per character. It does not synchronize settings afterwards."] = "Note: This feature only copies the private profile once per character. It does not synchronize settings afterwards."
+-- L["Octagon"] = "Octagon"
+-- L["Offset Y"] = "Offset Y"
+-- L["Ok"] = "Ok"
+-- L["Old"] = "Old"
+-- L["OmniCD"] = "OmniCD"
+-- L["Open Changelog"] = "Open Changelog"
+-- L["Open Character Frame"] = "Open Character Frame"
+-- L["Other"] = "Other"
+-- L["Pad"] = "Pad"
+-- L["Paragon Reputation"] = "Paragon Reputation"
+-- L["Pawn"] = "Pawn"
+-- L["Pet"] = "Pet"
+-- L["Pet Battle Scripts"] = "Pet Battle Scripts"
+-- L["Player"] = "Player"
+-- L["Please click the button below so you can setup variables and ReloadUI."] = "Please click the button below so you can setup variables and ReloadUI."
+-- L["Please click the button below to apply the UI Scale."] = "Please click the button below to apply the UI Scale."
+-- L["Please click the button below to setup your CVars."] = "Please click the button below to setup your CVars."
+-- L["Please click the button below to setup your Profile Settings."] = "Please click the button below to setup your Profile Settings."
+-- L["Please press the continue button to go onto the next step."] = "Please press the continue button to go onto the next step."
+-- L["Please set the ID first."] = "Please set the ID first."
+-- L["Profession"] = "Profession"
+-- L["Profile"] = "Profile"
+-- L["Profile Created"] = "Profile Created"
+-- L["Profile Settings Setup"] = "Profile Settings Setup"
+-- L["ProjectAzilroka"] = "ProjectAzilroka"
+-- L["Pure"] = "Pure"
+-- L["Pure round"] = "Pure round"
+-- L["Quest"] = "Quest"
+-- L["RIGHT"] = "RIGHT"
+-- L["Race"] = "Race"
+-- L["Raid 1"] = "Raid 1"
+-- L["Raid 2"] = "Raid 2"
+-- L["Raid 3"] = "Raid 3"
+-- L["Raid Marker Bar"] = "Raid Marker Bar"
+-- L["Released"] = "Released"
+-- L["Reload UI"] = "Reload UI"
+-- L["Render the item level text with the setting in ElvUI bags."] = "Render the item level text with the setting in ElvUI bags."
+-- L["Reset"] = "Reset"
+-- L["Reset Details check"] = "Reset Details check"
+-- L["Right Click:"] = "Right Click:"
+-- L["Run the installation process."] = "Run the installation process."
+-- L["Scale"] = "Scale"
+-- L["Scale other frames.\n\n"] = "Scale other frames.\n\n"
+-- L["Settings for the Action Bar Buttons of the Vehicle Bar.\n\n"] = "Settings for the Action Bar Buttons of the Vehicle Bar.\n\n"
+-- L["Setup Developer Settings"] = "Setup Developer Settings"
+-- L["Sharing ElvUI Profile is a very common thing nowadays, but actually ElvUI Private database is also exist for saving configuration of General, Skins, etc."] = "Sharing ElvUI Profile is a very common thing nowadays, but actually ElvUI Private database is also exist for saving configuration of General, Skins, etc."
+-- L["Shield"] = "Shield"
+-- L["Shorten and abbreviate attribute labels."] = "Shorten and abbreviate attribute labels."
+-- L["Show Blizzard unit tooltip alongside NameHover. If disabled, you can use keybind to quickly switch between NameHover and Blizzard"] = "Show Blizzard unit tooltip alongside NameHover. If disabled, you can use keybind to quickly switch between NameHover and Blizzard"
+-- L["Show Collections"] = "Show Collections"
+-- L["Show Illusion"] = "Show Illusion"
+-- L["Show Keybinds"] = "Show Keybinds"
+-- L["Show Macro Text"] = "Show Macro Text"
+-- L["Show Speed Text"] = "Show Speed Text"
+-- L["Show Target of Target"] = "Show Target of Target"
+-- L["Show the changelog popup rather than chat message after every update."] = "Show the changelog popup rather than chat message after every update."
+-- L["Show the illusion of the item in the list."] = "Show the illusion of the item in the list."
+-- L["Show/Hide Visual"] = "Show/Hide Visual"
+-- L["Shows a warning when you're missing an enchant."] = "Shows a warning when you're missing an enchant."
+-- L["Shows a warning when you're missing sockets on your necklace."] = "Shows a warning when you're missing sockets on your necklace."
+-- L["Shows random battle pets"] = "Shows random battle pets"
+-- L["Simple Addon Manager"] = "Simple Addon Manager"
+-- L["Skip Process"] = "Skip Process"
+-- L["Small"] = "Small"
+-- L["So if you set ElvUI Profile and Private these |cffff0000TWO|r databases to the same across multiple character, the setting of MerathilisUI will be synced."] = "So if you set ElvUI Profile and Private these |cffff0000TWO|r databases to the same across multiple character, the setting of MerathilisUI will be synced."
+-- L["Sockets"] = "Sockets"
+-- L["Sockets can be added with "] = "Sockets can be added with "
+-- L["Spacing"] = "Spacing"
+-- L["Spec Icon"] = "Spec Icon"
+-- L["SpecializationBarMover"] = "SpecializationBarMover"
+-- L["Speed Text Settings"] = "Speed Text Settings"
+-- L["Status"] = "Status"
+-- L["Status Text Outline"] = "Status Text Outline"
+-- L["Status Text Size"] = "Status Text Size"
+-- L["String"] = "String"
+-- L["Sub Text Outline"] = "Sub Text Outline"
+-- L["Sub Text Size"] = "Sub Text Size"
+-- L["THICKOUTLINE"] = "THICKOUTLINE"
+-- L["Tank"] = "Tank"
+-- L["Tank Target"] = "Tank Target"
+-- L["Target"] = "Target"
+-- L["Target of Target"] = "Target of Target"
+-- L["Text Options"] = "Text Options"
+-- L["The feature is just a part of that module."] = "The feature is just a part of that module."
+-- L["The options below is only for the look, NOT the Embeded."] = "The options below is only for the look, NOT the Embeded."
+-- L["The profile from which the private settings will be copied."] = "The profile from which the private settings will be copied."
+-- L["The style already exists."] = "The style already exists."
+-- L["The texture coordinates must be passed as a table."] = "The texture coordinates must be passed as a table."
+-- L["Thin"] = "Thin"
+-- L["Thin Circle"] = "Thin Circle"
+-- L["Thin Diamond"] = "Thin Diamond"
+-- L["This is useful when you have multiple characters but want to use a specific private profile as the starting point for new ones."] = "This is useful when you have multiple characters but want to use a specific private profile as the starting point for new ones."
+-- L["Time Out"] = "Time Out"
+-- L["Tips"] = "Tips"
+-- L["Toggle whether to show keybinds of an action bar button on the Vehicle Bar."] = "Toggle whether to show keybinds of an action bar button on the Vehicle Bar."
+-- L["Toggle whether to show macro text of an action bar button on the Vehicle Bar."] = "Toggle whether to show macro text of an action bar button on the Vehicle Bar."
+-- L["Toggles the blue bars behind every second number."] = "Toggles the blue bars behind every second number."
+-- L["Transmog"] = "Transmog"
+-- L["Transmog Text Frame"] = "Transmog Text Frame"
+-- L["Tukui Discord Server"] = "Tukui Discord Server"
+-- L["UI Scale"] = "UI Scale"
+-- L["Unknown"] = "Unknown"
+-- L["Update"] = "Update"
+-- L["Update Database"] = "Update Database"
+-- L["Update Rate"] = "Update Rate"
+-- L["Use Custom Color"] = "Use Custom Color"
+-- L["Use class color for the enchant strings."] = "Use class color for the enchant strings."
+-- L["Use the WoW Key Bindings menu for the custom Hold to show bind. This modifier remains available for these hotkeys"] = "Use the WoW Key Bindings menu for the custom Hold to show bind. This modifier remains available for these hotkeys"
+-- L["Value Color"] = "Value Color"
+-- L["Versa"] = "Versa"
+-- L["Version"] = "Version"
+-- L["Vignette"] = "Vignette"
+-- L["Vignette ID"] = "Vignette ID"
+-- L["Vigor Bar"] = "Vigor Bar"
+-- L["Vigor bar texture for Dark Mode."] = "Vigor bar texture for Dark Mode."
+-- L["Vigor bar texture for Normal and Gradient Mode"] = "Vigor bar texture for Normal and Gradient Mode"
+-- L["WIM"] = "WIM"
+-- L["Weekly Delves Keys"] = "Weekly Delves Keys"
+-- L["Welcome to %s %s!"] = "Welcome to %s %s!"
+-- L["Welcome to version %s!"] = "Welcome to version %s!"
+-- L["WindTools"] = "WindTools"
+-- L["Windtools"] = "Windtools"
+-- L["Work In Progress"] = "Work In Progress"
+-- L["WowLua"] = "WowLua"
+-- L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."] = "You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."
+-- L["You can disable this alert in [%s]-[%s]-[%s]"] = "You can disable this alert in [%s]-[%s]-[%s]"
+-- L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\AddOns\ElvUI_SLE\media\textures\lock"] = "You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\AddOns\ElvUI_SLE\media\textures\lock"
+-- L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."
+-- L["You have %s pending calendar |4invite:invites;."] = "You have %s pending calendar |4invite:invites;."
+-- L["You have %s pending guild |4event:events;."] = "You have %s pending guild |4event:events;."
+-- L["Your current Profile is: "] = "Your current Profile is: "
+-- L["[ABBR] Looking for Raid"] = "[ABBR] Looking for Raid"
+-- L["is looking for members"] = "is looking for members"
+-- L["joined a group"] = "joined a group"
+-- L["ls_Toasts"] = "ls_Toasts"
+-- L["ncHoverName by Nightcracker"] = "ncHoverName by Nightcracker"
+-- L["|TInterface\Addons\ElvUI_MerathilisUI\Media\Icons\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"] = "|TInterface\Addons\ElvUI_MerathilisUI\Media\Icons\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"

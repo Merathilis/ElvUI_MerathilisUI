@@ -357,9 +357,14 @@ do
 			elvUFUpdating = false
 		end)
 
+		-- ElvUIs mass updates are coroutines now, they outlive the calls that queued them
+		local function elvCoroutinesRunning()
+			return E.CoroutineFrame and E.CoroutineFrame:IsShown()
+		end
+
 		function F.Event.ContinueAfterElvUIUpdate(callback)
 			F.Event.ContinueAfter(function()
-				return not (elvUpdating or elvUFUpdating or E.staggerUpdateRunning)
+				return not (elvUpdating or elvUFUpdating or elvCoroutinesRunning())
 			end, callback)
 		end
 	end

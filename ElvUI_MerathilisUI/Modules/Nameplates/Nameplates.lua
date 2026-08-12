@@ -2,8 +2,10 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Nameplates")
 local NP = E:GetModule("NamePlates")
 
-local DEFAULT_NP_WIDTH = 0
+local pairs, tonumber = pairs, tonumber
 local find = string.find
+
+local DEFAULT_NP_WIDTH = 0
 
 local function ApplyClip(fs, widthPx, nameDb)
 	if not fs or not fs.GetParent or not fs.SetParent then
@@ -21,9 +23,9 @@ local function ApplyClip(fs, widthPx, nameDb)
 
 	if fs.SetJustifyH then
 		local point = nameDb.position or "CENTER"
-		if find(point, "RIGHT") then
+		if point:find("RIGHT") then
 			fs:SetJustifyH("RIGHT")
-		elseif find(point, "LEFT") then
+		elseif point:find("LEFT") then
 			fs:SetJustifyH("LEFT")
 		else
 			fs:SetJustifyH("CENTER")
@@ -58,9 +60,8 @@ end
 
 local function ApplyNameplate(nameplate)
 	if nameplate and nameplate.Name then
-		local nameplatesDB = E.db.nameplates
 		local unitType = nameplate.frameType
-		local unitDb = unitType and nameplatesDB and nameplatesDB.units and nameplatesDB.units[unitType]
+		local unitDb = unitType and E.db.nameplates and E.db.nameplates.units and E.db.nameplates.units[unitType]
 		local width = unitDb and unitDb.name and unitDb.name.clipWidth
 		if width == nil then
 			width = DEFAULT_NP_WIDTH
@@ -86,14 +87,6 @@ local function RefreshAll()
 	end
 end
 
-function module:ADDON_LOADED(event, addon)
-	if addon ~= "ElvUI_Options" then
-		return
-	end
-
-	module:UnregisterEvent(event)
-end
-
 function module:Initialize()
 	if not E.private.nameplates.enable then
 		return
@@ -101,7 +94,7 @@ function module:Initialize()
 
 	hooksecurefunc(NP, "Update_TagText", function(_, nameplate, element, dbTag, hide)
 		if element == nameplate.Name and dbTag and dbTag.enable and not hide then
-			ApplyNameplate(nameplate)
+			ApplyNameplateName(nameplate)
 		end
 	end)
 	hooksecurefunc(NP, "Castbar_SetText", function(_, castbar, db)
@@ -109,8 +102,6 @@ function module:Initialize()
 			ApplyWidthOnly(castbar.Text, db.nameLength or 0)
 		end
 	end)
-
-	self:RegisterEvent("ADDON_LOADED")
 
 	RefreshAll()
 end

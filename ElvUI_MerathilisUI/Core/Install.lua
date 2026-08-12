@@ -293,7 +293,7 @@ local function SetupChat()
 		E.Chat:PositionChats()
 	end
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["Chat Set"]
 	PluginInstallStepComplete:Show()
@@ -666,7 +666,7 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["Layout Set"]
 	PluginInstallStepComplete:Show()
@@ -868,7 +868,7 @@ function MER:SetupActionbars()
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,UIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,UIParent,BOTTOM,304,140"
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["ActionBars Set"]
 	PluginInstallStepComplete:Show()
@@ -1129,7 +1129,7 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["NamePlates Set"]
 	PluginInstallStepComplete:Show()
@@ -2287,7 +2287,7 @@ function MER:SetupUnitframes(layout)
 		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
@@ -2319,7 +2319,7 @@ function MER:SetupDts()
 		"Gold",
 	}
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
@@ -2407,7 +2407,7 @@ function MER:DeveloperSettings()
 	PluginInstallStepComplete.message = MER.Title .. L["Developer Settings Done"]
 	PluginInstallStepComplete:Show()
 
-	E:StaggeredUpdateAll(nil, true)
+	E:UpdateAll()
 end
 
 local function CreateNewProfile(name)
@@ -2825,29 +2825,58 @@ MER.installTable = {
 		[12] = function()
 			MER:Resize(nil)
 
-			if E:IsAddOnEnabled("ElvUI_WindTools") then
-				PluginInstallFrame.SubTitle:SetText(L["ElvUI_WindTools"])
-				PluginInstallFrame.Desc1:SetText("Maybe the BEST ElvUI plugin to enhance your game experience.")
-				PluginInstallFrame.Desc2:SetText("Importance: " .. F.String.Error("HIGH"))
+			PluginInstallFrame.SubTitle:SetText(L["Plugins"])
+			PluginInstallFrame.Desc1:SetText(
+				L["This part of the installation process will apply changes to ElvUI Plugins"]
+			)
+			PluginInstallFrame.Desc2:SetText(
+				"Currently supported AddOns: "
+					.. WF.GetWindStyleText("ElvUI_WindTools")
+					.. ", "
+					.. "|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
+			)
+			PluginInstallFrame.Desc3:SetText("Importance: " .. F.String.Error("High"))
 
-				PluginInstallFrame.Option1:Show()
-				PluginInstallFrame.Option1:SetScript("OnClick", function()
-					PF:ApplyWindToolsProfile()
-				end)
-				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option1:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
+			if not E:IsAddOnEnabled("ElvUI_WindTools") and not E:IsAddOnEnabled("Blinkiis_Portraits") then
+				PluginInstallFrame.Desc3:SetText(
+					F.String.Warning("Warning: ")
+						.. "Looks like you don't have any of the extra AddOns installed. Don't worry, you can still fully experience "
+						.. MER.Title
+						.. "!"
+				)
 			else
-				PluginInstallFrame.SubTitle:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
-
+				PluginInstallFrame.SubTitle:SetText(L["Plugins"])
 				PluginInstallFrame.Desc1:SetText(
-					F.String.Warning(
-						"Oops, looks like you don't have " .. F.String.WindTools("ElvUI_WindTools") .. " installed!"
-					)
+					L["This part of the installation process will apply changes to ElvUI Plugins"]
 				)
 				PluginInstallFrame.Desc2:SetText(
-					"If you're a new player, we recommend installing " .. F.String.WindTools("ElvUI_WindTools") .. "!"
+					"Currently supported AddOns: "
+						.. WF.GetWindStyleText("ElvUI_WindTools")
+						.. ", "
+						.. "|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
 				)
+
+				if E:IsAddOnEnabled("ElvUI_WindTools") then
+					PluginInstallFrame.Option1:Show()
+					PluginInstallFrame.Option1:SetScript("OnClick", function()
+						PF:ApplyWindToolsProfile()
+					end)
+					PluginInstallFrame.Option1:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
+					PluginInstallFrame.Option1:SetScript("OnEnter", nil)
+					PluginInstallFrame.Option1:SetScript("OnLeave", nil)
+				end
+
+				if E:IsAddOnEnabled("Blinkiis_Portraits") then
+					PluginInstallFrame.Option2:Show()
+					PluginInstallFrame.Option2:SetScript("OnClick", function()
+						PF:ApplyBlinkiisPortraitsProfile()
+					end)
+					PluginInstallFrame.Option2:SetText(
+						"|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
+					)
+					PluginInstallFrame.Option2:SetScript("OnEnter", nil)
+					PluginInstallFrame.Option2:SetScript("OnLeave", nil)
+				end
 			end
 		end,
 		[13] = function()
@@ -2976,7 +3005,7 @@ MER.installTable = {
 		[9] = L["ActionBars"],
 		[10] = L["NamePlates"],
 		[11] = L["UnitFrames"],
-		[12] = L["WindTools"],
+		[12] = L["Important Plugins"],
 		[13] = L["BigWigs"],
 		[14] = L["Details"],
 		[15] = L["Installation Complete"],

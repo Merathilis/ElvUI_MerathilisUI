@@ -2,13 +2,14 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local MI = MER:GetModule("MER_Misc")
 local RIF = MER:GetModule("MER_RaidInfoFrame")
+local LSM = MER:GetModule("MER_Loot")
 
 local options = module.options.misc.args
 
 options.general = {
 	order = 1,
 	type = "group",
-	name = L["General"],
+	name = module:AddCategorieIcon(L["General"], "OptionsHome"),
 	get = function(info)
 		return E.db.mui.misc[info[#info]]
 	end,
@@ -25,7 +26,7 @@ options.general = {
 		gmotd = {
 			order = 2,
 			type = "toggle",
-			name = L.GUILD_MOTD_LABEL2,
+			name = GUILD_MOTD_LABEL2,
 			desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 		},
 		funstuff = {
@@ -70,8 +71,46 @@ options.general = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 		},
-		copyMog = {
+		auctionEnhanced = {
 			order = 10,
+			type = "toggle",
+			name = E.NewSign .. L["Auction Enhanced"],
+			desc = L["Show the tertiary stats of equipments in auction house."],
+		},
+		lootSpecManager = {
+			order = 40,
+			type = "group",
+			name = E.NewSign .. L["LootSpecManager"],
+			desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
+			inline = true,
+			get = function()
+				return E.db.mui.lootSpecManager
+			end,
+			set = function(_, value)
+				E.db.mui.lootSpecManager = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				togglePanel = {
+					order = 2,
+					type = "execute",
+					name = L["Toggle Panel"],
+					func = function()
+						LSM:TogglePanel()
+					end,
+					disabled = function()
+						return not E.db.mui.lootSpecManager.enable
+					end,
+				},
+			},
+		},
+		copyMog = {
+			order = 50,
 			type = "group",
 			name = L["Copy Transmog"],
 			desc = L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."],

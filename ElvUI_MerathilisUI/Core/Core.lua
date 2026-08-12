@@ -3,25 +3,16 @@ local C = W.Utilities.Color
 
 local _G = _G
 local format = string.format
-local pairs, select = pairs, select
 local pcall = pcall
 local tinsert = table.insert
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
-local GetBuildInfo = GetBuildInfo
 local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
 local InCombatLockdown = InCombatLockdown
 local InviteUnit = C_PartyInfo.InviteUnit
 local GetCVarBool = C_CVar.GetCVarBool
 
 E.myClassColor = E.myClassColor or E:ClassColor(E.myclass, true)
-
-MER.ElvUIVersion = tonumber(E.version)
-MER.RequiredVersion = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvUIVersion"))
-
-MER.IsRetail = select(4, GetBuildInfo()) >= 120000
-MER.IsPTR = select(4, GetBuildInfo()) == 120000
 
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI1.tga]]
@@ -125,7 +116,7 @@ function MER:RegisterModule(name)
 end
 
 function MER:InitializeModules()
-	for _, moduleName in pairs(MER.RegisteredModules) do
+	for _, moduleName in ipairs(MER.RegisteredModules) do
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
 			local ok, err = pcall(module.Initialize, module)
@@ -169,7 +160,7 @@ end
 function MER:UpdateModules()
 	self:UpdateScripts()
 
-	for _, moduleName in pairs(self.RegisteredModules) do
+	for _, moduleName in ipairs(self.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
 			pcall(module.ProfileUpdate, module)

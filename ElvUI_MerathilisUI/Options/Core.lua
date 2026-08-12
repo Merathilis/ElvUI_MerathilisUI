@@ -1,7 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 
-local format = format
+local format, type, pairs, next, tinsert = format, type, pairs, next, tinsert
+local xpcall = xpcall
 
 local CreateTextureMarkup = CreateTextureMarkup
 
@@ -17,13 +18,13 @@ module.options = {
 	general = {
 		order = 101,
 		name = F.cOption(L["General"], "gradient"),
-		icon = I.Media.Icons.OptionsHome,
+		icon = I.Media.Icons.Categories.OptionsHome,
 		args = {},
 	},
 	modules = {
 		order = 102,
 		name = F.cOption(L["Modules"], "gradient"),
-		icon = I.Media.Icons.Config,
+		icon = I.Media.Icons.Categories.Config,
 		args = {
 			info = {
 				order = 1,
@@ -35,31 +36,31 @@ module.options = {
 	misc = {
 		order = 103,
 		name = F.cOption(L["Misc"], "gradient"),
-		icon = I.Media.Icons.More,
+		icon = I.Media.Icons.Categories.More,
 		args = {},
 	},
 	skins = {
 		order = 104,
 		name = F.cOption(L["Skins/AddOns"], "gradient"),
-		icon = I.Media.Icons.Bill,
+		icon = I.Media.Icons.Categories.Bill,
 		args = {},
 	},
 	profiles = {
 		order = 105,
 		name = F.cOption(L["Profiles"], "gradient"),
-		icon = I.Media.Icons.System,
+		icon = I.Media.Icons.Categories.System,
 		args = {},
 	},
 	advanced = {
 		order = 111,
 		name = F.cOption(L["Advanced Settings"], "gradient"),
-		icon = I.Media.Icons.Tips,
+		icon = I.Media.Icons.Categories.Tips,
 		args = {},
 	},
 	information = {
 		order = 112,
 		name = F.cOption(L["Information"], "gradient"),
-		icon = I.Media.Icons.Save,
+		icon = I.Media.Icons.Categories.Save,
 		args = {},
 	},
 }
@@ -75,33 +76,52 @@ function module:GetAllFontsFunc(additional)
 	end
 end
 
-function module:GetAllFontOutlinesFunc(additional)
-	local styleSelection = {
-		NONE = "None",
-		OUTLINE = "Outline",
-		THICKOUTLINE = "Thick",
-		MONOCHROME = "|cffaaaaaaMono|r",
-		MONOCHROMEOUTLINE = "|cffaaaaaaMono|r Outline",
-		MONOCHROMETHICKOUTLINE = "|cffaaaaaaMono|r Thick",
-		SHADOWOUTLINE = "ShadowOutline",
-	}
+local FONT_OUTLINE_SELECTION = {
+	NONE = "None",
+	OUTLINE = "Outline",
+	THICKOUTLINE = "Thick",
+	MONOCHROME = "|cffaaaaaaMono|r",
+	MONOCHROMEOUTLINE = "|cffaaaaaaMono|r Outline",
+	MONOCHROMETHICKOUTLINE = "|cffaaaaaaMono|r Thick",
+	SHADOWOUTLINE = "ShadowOutline",
+}
 
+function module:GetAllFontOutlinesFunc(additional)
+	-- AceGUI may call this often; only join when extras are provided
+	if additional then
+		return function()
+			return F.Table.Join({}, FONT_OUTLINE_SELECTION, additional)
+		end
+	end
 	return function()
-		return F.Table.Join({}, styleSelection, additional or {})
+		return FONT_OUTLINE_SELECTION
 	end
 end
 
-function module:GetAllFontColorsFunc(additional)
-	local colorSelection = {
-		NONE = "None",
-		CLASS = F.String.Class("Class Color"),
-		VALUE = F.String.ElvUIValue("ElvUI Color"),
-		TXUI = MER.Title .. F.String.MERATHILIS(" Color"),
-		CUSTOM = "Custom",
-	}
+-- Built lazily: F.String helpers are not ready at file load
+local fontColorSelection
 
+local function GetFontColorSelection()
+	if not fontColorSelection then
+		fontColorSelection = {
+			NONE = "None",
+			CLASS = F.String.Class("Class Color"),
+			VALUE = F.String.ElvUIValue("ElvUI Color"),
+			TXUI = MER.Title .. F.String.MERATHILIS(" Color"),
+			CUSTOM = "Custom",
+		}
+	end
+	return fontColorSelection
+end
+
+function module:GetAllFontColorsFunc(additional)
+	if additional then
+		return function()
+			return F.Table.Join({}, GetFontColorSelection(), additional)
+		end
+	end
 	return function()
-		return F.Table.Join({}, colorSelection, additional or {})
+		return GetFontColorSelection()
 	end
 end
 
@@ -268,21 +288,25 @@ function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requ
 end
 
 function module:AddSpacer(options, big)
-	options["fancySpacer" .. self:GetOrder()] = {
-		order = self:GetOrder(),
+	local orderIdx = self:GetOrder()
+	local key = "fancySpacer" .. orderIdx
+	options[key] = {
+		order = orderIdx,
 		type = "description",
 		name = big and "\n\n" or "\n",
 	}
-	return options["fancySpacer" .. self:GetOrder()]
+	return options[key]
 end
 
 function module:AddTinySpacer(options)
-	options["fancySpacer" .. self:GetOrder()] = {
-		order = self:GetOrder(),
+	local orderIdx = self:GetOrder()
+	local key = "fancySpacer" .. orderIdx
+	options[key] = {
+		order = orderIdx,
 		type = "description",
 		name = "",
 	}
-	return options["fancySpacer" .. self:GetOrder()]
+	return options[key]
 end
 
 function module:GetOrder()
@@ -292,6 +316,17 @@ end
 
 function module:ResetOrder()
 	self.orderIndex = 1
+end
+
+function module:AddCategorieIcon(text, icon)
+	local iconPath = I.Media.Icons.Categories and I.Media.Icons.Categories[icon]
+
+	if not iconPath then
+		F.Developer.LogDebug("Could not find category icon", icon)
+		return text
+	end
+
+	return format("|T%s:16:16|t  %s", iconPath, text)
 end
 
 function module:AddCallback(name, func)
@@ -349,7 +384,7 @@ function module:OptionsCallback()
 			install = {
 				order = 3,
 				type = "execute",
-				name = L["Install"],
+				name = L["|T" .. I.General.MediaPath .. "Icons\\Install.tga:18:18:0:0:64:64|t Install"],
 				desc = L["Run the installation process."],
 				customWidth = 140,
 				func = function()

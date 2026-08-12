@@ -4,13 +4,18 @@ local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
-local assert, pairs, unpack, type = assert, pairs, unpack, type
-local strfind = strfind
+local assert, pairs, unpack, type, next = assert, pairs, unpack, type, next
+local strfind, strmatch, tinsert, format, tostring = strfind, strmatch, tinsert, format, tostring
+local rad = rad
 
+local CreateColor = CreateColor
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local UIFrameFadeIn = UIFrameFadeIn
 local UIFrameFadeOut = UIFrameFadeOut
+local YES, NO = YES, NO
+local StaticPopupDialogs = StaticPopupDialogs
+local PanelTemplates_GetSelectedTab = PanelTemplates_GetSelectedTab
 
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
@@ -79,7 +84,7 @@ end
 
 -- Backdrop shadow
 local shadowBackdrop = { edgeFile = I.Media.Textures.GlowTex }
-function module:CreateSD(f, size, override)
+function module:CreateSD(f, size)
 	assert(f, "doesn't exist!")
 
 	if f.__SDshadow then
@@ -138,7 +143,10 @@ function module:CreateBackdrop(frame)
 	frame.backdrop = backdrop
 end
 
-function module:CreateBDFrame(f)
+---@param f Frame|Texture The frame or texture to create a backdrop for
+---@param alpha number? Optional alpha for the template (currently unused, reserved for future)
+---@param gradient boolean? Optional gradient flag (currently unused, reserved for future)
+function module:CreateBDFrame(f, alpha, gradient)
 	assert(f, "doesn't exist!")
 
 	local parent = f.IsObjectType and f:IsObjectType("Texture") and f:GetParent() or f
@@ -151,6 +159,11 @@ function module:CreateBDFrame(f)
 		bg:SetFrameLevel(0)
 	end
 	bg:SetTemplate("Transparent")
+
+	-- Reserved for future use of alpha / gradient parameters
+	if alpha then
+		bg:SetBackdropColor(0, 0, 0, alpha)
+	end
 
 	return bg
 end
@@ -175,6 +188,7 @@ local ReplacedRoleTex = {
 	["Adventures-DPS"] = "ui_adv_atk",
 	["Adventures-DPS-Ranged"] = "Soulbinds_Tree_Conduit_Icon_Utility",
 }
+
 local function replaceFollowerRole(roleIcon, atlas)
 	local newAtlas = ReplacedRoleTex[atlas]
 	if newAtlas then
@@ -195,7 +209,7 @@ function module:ReskinGarrisonPortrait()
 		end
 	end
 
-	self.squareBG = module:CreateBDFrame(self.Portrait, 1)
+	self.squareBG = module:CreateBDFrame(self.Portrait)
 
 	if self.PortraitRing then
 		self.PortraitRing:Hide()
@@ -304,29 +318,29 @@ function module:ReskinIcon(icon, backdrop)
 	end
 end
 
-function module:PixelIcon(self, texture, highlight)
-	if not self then
+function module:PixelIcon(frame, texture, highlight)
+	if not frame then
 		return
 	end
 
-	self:CreateBackdrop()
-	self.backdrop:SetAllPoints()
-	self.Icon = self:CreateTexture(nil, "ARTWORK")
-	self.Icon:SetInside(self.backdrop)
-	self.Icon:SetTexCoords()
+	frame:CreateBackdrop()
+	frame.backdrop:SetAllPoints()
+	frame.Icon = frame:CreateTexture(nil, "ARTWORK")
+	frame.Icon:SetInside(frame.backdrop)
+	frame.Icon:SetTexCoords()
 	if texture then
 		local atlas = strmatch(texture, "Atlas:(.+)$")
 		if atlas then
-			self.Icon:SetAtlas(atlas)
+			frame.Icon:SetAtlas(atlas)
 		else
-			self.Icon:SetTexture(texture)
+			frame.Icon:SetTexture(texture)
 		end
 	end
 	if highlight and type(highlight) == "boolean" then
-		self:EnableMouse(true)
-		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
-		self.HL:SetColorTexture(1, 1, 1, 0.25)
-		self.HL:SetInside(self.backdrop)
+		frame:EnableMouse(true)
+		frame.HL = frame:CreateTexture(nil, "HIGHLIGHT")
+		frame.HL:SetColorTexture(1, 1, 1, 0.25)
+		frame.HL:SetInside(frame.backdrop)
 	end
 end
 
@@ -337,6 +351,7 @@ local arrowDegree = {
 	["left"] = 90,
 	["right"] = -90,
 }
+
 function module:SetupArrow(direction)
 	if not self then
 		return
@@ -346,23 +361,23 @@ function module:SetupArrow(direction)
 	self:SetRotation(rad(arrowDegree[direction]))
 end
 
-function module:ReskinArrow(self, direction)
-	self:SetSize(16, 16)
-	S:HandleButton(self, true)
-	self:SetDisabledTexture(E.media.normTex)
+function module:ReskinArrow(button, direction)
+	button:SetSize(16, 16)
+	S:HandleButton(button, true)
+	button:SetDisabledTexture(E.media.normTex)
 
-	local dis = self:GetDisabledTexture()
+	local dis = button:GetDisabledTexture()
 	dis:SetVertexColor(0, 0, 0, 0.3)
 	dis:SetDrawLayer("OVERLAY")
 	dis:SetAllPoints()
 
-	local tex = self:CreateTexture(nil, "ARTWORK")
+	local tex = button:CreateTexture(nil, "ARTWORK")
 	tex:SetAllPoints()
 	module.SetupArrow(tex, direction)
-	self.__texture = tex
+	button.__texture = tex
 
-	self:HookScript("OnEnter", F.Texture_OnEnter)
-	self:HookScript("OnLeave", F.Texture_OnLeave)
+	button:HookScript("OnEnter", F.Texture_OnEnter)
+	button:HookScript("OnLeave", F.Texture_OnLeave)
 end
 
 function module:ReskinFilterReset()
@@ -431,29 +446,29 @@ local function resetCollapseTexture(self, texture)
 	self.settingTexture = nil
 end
 
-function module:ReskinCollapse(self, isAtlas)
-	self:SetHighlightTexture("")
-	self:SetPushedTexture("")
-	self:SetDisabledTexture("")
+function module:ReskinCollapse(button, isAtlas)
+	button:SetHighlightTexture("")
+	button:SetPushedTexture("")
+	button:SetDisabledTexture("")
 
-	local bg = module:CreateBDFrame(self, 0.25, true)
+	local bg = module:CreateBDFrame(button, 0.25)
 	bg:ClearAllPoints()
 	bg:SetSize(13, 13)
-	bg:SetPoint("TOPLEFT", self:GetNormalTexture())
-	self.bg = bg
+	bg:SetPoint("TOPLEFT", button:GetNormalTexture())
+	button.bg = bg
 
-	self.__texture = bg:CreateTexture(nil, "OVERLAY")
-	self.__texture:SetPoint("CENTER")
-	self.__texture:SetSize(7, 7)
-	self.__texture:SetTexture("Interface\\Buttons\\UI-PlusMinus-Buttons")
-	self.__texture.DoCollapse = updateCollapseTexture
+	button.__texture = bg:CreateTexture(nil, "OVERLAY")
+	button.__texture:SetPoint("CENTER")
+	button.__texture:SetSize(7, 7)
+	button.__texture:SetTexture("Interface\\Buttons\\UI-PlusMinus-Buttons")
+	button.__texture.DoCollapse = updateCollapseTexture
 
-	self:HookScript("OnEnter", F.Texture_OnEnter)
-	self:HookScript("OnLeave", F.Texture_OnLeave)
+	button:HookScript("OnEnter", F.Texture_OnEnter)
+	button:HookScript("OnLeave", F.Texture_OnLeave)
 	if isAtlas then
-		hooksecurefunc(self, "SetNormalAtlas", resetCollapseTexture)
+		hooksecurefunc(button, "SetNormalAtlas", resetCollapseTexture)
 	else
-		hooksecurefunc(self, "SetNormalTexture", resetCollapseTexture)
+		hooksecurefunc(button, "SetNormalTexture", resetCollapseTexture)
 	end
 end
 
@@ -461,7 +476,11 @@ function module:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
-	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
+	panel.tex:SetGradient(
+		"VERTICAL",
+		CreateColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 1),
+		CreateColor(0, 0, 0, 1)
+	)
 	WS:CreateShadow(panel)
 end
 
@@ -505,10 +524,10 @@ function module:ApplyConfigArrows()
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(module.ArrowRotation["UP"])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(module.ArrowRotation["DOWN"])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(module.ArrowRotation["LEFT"])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(module.ArrowRotation["RIGHT"])
+	_G.ElvUIMoverNudgeWindowUpButton.img:SetRotation(module.ArrowRotation["UP"])
+	_G.ElvUIMoverNudgeWindowDownButton.img:SetRotation(module.ArrowRotation["DOWN"])
+	_G.ElvUIMoverNudgeWindowLeftButton.img:SetRotation(module.ArrowRotation["LEFT"])
+	_G.ElvUIMoverNudgeWindowRightButton.img:SetRotation(module.ArrowRotation["RIGHT"])
 end
 
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
@@ -529,25 +548,19 @@ function module:Reposition(frame, target, border, top, bottom, left, right)
 	frame:Point("BOTTOMRIGHT", target, "BOTTOMRIGHT", right + border, -bottom - border)
 end
 
---Proxy function to call ElvUI Skins functions
+-- Proxy function to call ElvUI Skins functions
 ---@param method string The function name in ElvUI Skins
 ---@param frame any The frame to pass to the function
 ---@param ... any Additional arguments to pass
 function module:Proxy(method, frame, ...)
 	if not frame then
-		F.Developer.ThrowError(
-			"Failed to proxy function: frame is nil.",
-			"\n funcName:",
-			method,
-			"\n frame:",
-			frame.GetDebugName and frame:GetDebugName() or tostring(frame)
-		)
+		F.Developer.ThrowError("Failed to proxy function: frame is nil.", "\n funcName:", method)
 		return
 	end
 
 	if not S[method] then
 		F.Developer.ThrowError(
-			format("Proxy: %s is not exist in ElvUI Skins", method),
+			format("Proxy: %s does not exist in ElvUI Skins", method),
 			"\n frame:",
 			frame.GetDebugName and frame:GetDebugName() or tostring(frame)
 		)
@@ -567,12 +580,12 @@ function module:ReskinIconButton(button, icon, size, rotate)
 		button.Icon:SetRotation(rotate)
 	end
 
-	button:HookScript("OnEnter", function(self)
-		self.Icon:SetVertexColor(F.r, F.g, F.b)
+	button:HookScript("OnEnter", function(btn)
+		btn.Icon:SetVertexColor(F.r, F.g, F.b)
 	end)
 
-	button:HookScript("OnLeave", function(self)
-		self.Icon:SetVertexColor(1, 1, 1)
+	button:HookScript("OnLeave", function(btn)
+		btn.Icon:SetVertexColor(1, 1, 1)
 	end)
 end
 
@@ -605,7 +618,7 @@ end
 ----------------------------------
 do
 	function module:CreateButton(width, height, text, fontSize, outline)
-		local bu = CreateFrame("Button", nil, self, "BackdropTemplate")
+		local bu = CreateFrame("Button", nil, self, "UIPanelButtonTemplate")
 		bu:SetSize(width, height)
 		if type(text) == "boolean" then
 			module:PixelIcon(bu, fontSize, true)
@@ -833,7 +846,7 @@ local function UpdateTabLine(tab)
 		return
 	end
 
-	-- Check active (Blizzard Tabs use often GetID + SelectedState)
+	-- Check active (Blizzard Tabs often use GetID + SelectedState)
 	local isActive = tab.isActive
 		or tab.selected
 		or (PanelTemplates_GetSelectedTab and PanelTemplates_GetSelectedTab(tab:GetParent()) == tab:GetID())
@@ -861,22 +874,6 @@ local function CreateTabLine(tab)
 	line:Hide()
 
 	tab.BottomLine = line
-
-	-- Smooth Fade Animation
-	line.fade = line:CreateAnimationGroup()
-
-	local fadeOut = line.fade:CreateAnimation("Alpha")
-	fadeOut:SetFromAlpha(1)
-	fadeOut:SetToAlpha(0)
-	fadeOut:SetDuration(0.30)
-	fadeOut:SetOrder(1)
-
-	local fadeIn = line.fade:CreateAnimation("Alpha")
-	fadeIn:SetFromAlpha(0)
-	fadeIn:SetToAlpha(1)
-	fadeIn:SetDuration(0.30)
-	fadeIn:SetOrder(1)
-
 	tab.UpdateTabLine = function()
 		UpdateTabLine(tab)
 	end

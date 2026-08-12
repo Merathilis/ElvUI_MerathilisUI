@@ -6,7 +6,7 @@ local options = module.options.modules.args
 
 options.nameHover = {
 	type = "group",
-	name = L["Name Hover"],
+	name = module:AddCategorieIcon(L["Name Hover"], "name_hover"),
 	get = function(info)
 		return E.db.mui.nameHover[info[#info]]
 	end,
@@ -218,6 +218,71 @@ options.nameHover = {
 						ALT = "ALT",
 						NONE = "NONE",
 					},
+				},
+			},
+		},
+		DungeonGroup = {
+			order = 13,
+			type = "group",
+			name = E.NewSign .. L["Dungeon Info Options"],
+			guiInline = true,
+			args = {
+				mythicPlus_ShowForces = {
+					order = 1,
+					type = "toggle",
+					name = L["Show Enemy Forces"],
+					desc = L["During a Mythic+ keystone run, show how much a hovered enemy contributes to the Enemy Forces requirement, below its name."],
+				},
+				mythicPlus_ContributionFormat = {
+					order = 2,
+					type = "select",
+					name = L["Contribution Format"],
+					desc = L["How the enemy's own contribution is shown."],
+					values = {
+						["PERCENT"] = L["Percent"],
+						["NUMBER"] = L["Number"],
+						["BOTH"] = L["Both"],
+					},
+				},
+				mythicPlus_ShowProgress = {
+					order = 3,
+					type = "toggle",
+					name = L["Show Pull Progress"],
+					desc = L["Also show the overall Enemy Forces progress next to the contribution: current / total"],
+				},
+				mythicPlus_ProgressFormat = {
+					order = 4,
+					type = "select",
+					name = L["Progress Format"],
+					desc = L["How the pull progress (current / total) is shown."],
+					values = {
+						["PERCENT"] = L["Percent"],
+						["NUMBER"] = L["Number"],
+						["BOTH"] = L["Both"],
+					},
+				},
+				mythicPlus_FontSize = {
+					order = 5,
+					name = L["Font Size"],
+					desc = L["Font size of the Enemy Forces text."],
+					type = "range",
+					min = 8,
+					max = 30,
+					step = 1,
+				},
+				mythicPlusFontOutline = {
+					order = 6,
+					type = "select",
+					name = L["Font Outline"],
+					desc = L["Font outline of the Enemy Forces text."],
+					values = MER.Values.FontFlags,
+					sortByValue = true,
+				},
+				mythicPlus_DisplayRight = {
+					order = 7,
+					type = "toggle",
+					name = L["Show Next to Name"],
+					desc = L["Show the Enemy Forces text to the right of the name instead of below it."],
 				},
 			},
 		},

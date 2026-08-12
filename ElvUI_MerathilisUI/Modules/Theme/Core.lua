@@ -9,22 +9,17 @@ function module:Toggle(theme, value)
 		return
 	end
 
-	local pf = MER:GetModule("MER_Profiles")
+	local pf = self.profiles or MER:GetModule("MER_Profiles")
+	self.profiles = pf
 
 	if theme == "gradientMode" then
 		E.db.mui.themes.gradientMode.enable = value
-
 		E.db.unitframe.colors.healthclass = true
-
-		-- apply texture settings
 		pf:UpdateProfileForGradient()
-
 		F.Event.TriggerEvent("MER_Theme.DatabaseUpdate")
 	elseif theme == "darkMode" then
 		E.db.mui.themes.gradientMode.enable = false
-
 		E.db.unitframe.colors.healthclass = false
-
 		pf:UpdateProfileForTheme()
 	end
 end
@@ -50,7 +45,8 @@ function module:AddFrameToSettingsUpdate(category, frame, func)
 end
 
 function module:UpdateFadeDirection(frame)
-	local unitType = frame.unitframeType or frame.__owner.unitframeType
+	local owner = frame.unitframeType and frame or frame.__owner
+	local unitType = frame.unitframeType or (owner and owner.unitframeType)
 	local fadeDirection = unitType and self.db.fadeDirection and self.db.fadeDirection[unitType]
 	if not fadeDirection then
 		fadeDirection = I.Enum.GradientMode.Direction.RIGHT
@@ -58,6 +54,16 @@ function module:UpdateFadeDirection(frame)
 
 	frame.fadeMode = I.Enum.GradientMode.Mode[I.Enum.GradientMode.Mode.HORIZONTAL]
 	frame.fadeDirection = fadeDirection
+end
+
+local function FetchTexture(self, key)
+	local textures = self.textureCache
+	local path = textures[key]
+	if not path then
+		path = LSM:Fetch("statusbar", self.db.textures[key])
+		textures[key] = path
+	end
+	return path
 end
 
 function module:UpdateStatusBarFrame(frame)
@@ -70,14 +76,13 @@ function module:UpdateStatusBarFrame(frame)
 
 	-- Configure Health
 	if frame.Health then
-		local healthTexture = LSM:Fetch("statusbar", self.db.textures.health)
+		local healthTexture = FetchTexture(self, "health")
 		frame.Health:SetStatusBarTexture(healthTexture)
 		if frame.Health.bg then
 			frame.Health.bg:SetTexture(healthTexture)
 		end
 		self:UpdateFadeDirection(frame.Health)
 
-		-- Hook if needed
 		if not self:IsHooked(frame.Health, "PostUpdateColor") then
 			self:RawHook(frame.Health, "PostUpdateColor", F.Event.GenerateClosure(self.PostUpdateHealthColor, self))
 			self:AddFrameToSettingsUpdate(
@@ -90,12 +95,13 @@ function module:UpdateStatusBarFrame(frame)
 
 	-- Configure CastBar
 	if frame.Castbar then
-		local castTexture = LSM:Fetch("statusbar", self.db.textures.cast)
+		local castTexture = FetchTexture(self, "cast")
 		frame.Castbar:SetStatusBarTexture(castTexture)
-		frame.Castbar.bg:SetTexture(castTexture)
+		if frame.Castbar.bg then
+			frame.Castbar.bg:SetTexture(castTexture)
+		end
 		self:UpdateFadeDirection(frame.Castbar)
 
-		-- Hook if needed
 		if not self:IsHooked(frame.Castbar, "PostCastStart") then
 			self:SecureHook(
 				frame.Castbar,
@@ -117,12 +123,13 @@ function module:UpdateStatusBarFrame(frame)
 
 	-- Configure Power Bar
 	if frame.Power then
-		local powerTexture = LSM:Fetch("statusbar", self.db.textures.power)
+		local powerTexture = FetchTexture(self, "power")
 		frame.Power:SetStatusBarTexture(powerTexture)
-		frame.Power.bg:SetTexture(powerTexture)
+		if frame.Power.bg then
+			frame.Power.bg:SetTexture(powerTexture)
+		end
 		self:UpdateFadeDirection(frame.Power)
 
-		-- Hook if needed
 		if not self:IsHooked(frame.Power, "PostUpdateColor") then
 			self:RawHook(frame.Power, "PostUpdateColor", F.Event.GenerateClosure(self.PostUpdatePowerColor, self))
 			self:AddFrameToSettingsUpdate(
@@ -169,21 +176,25 @@ end
 
 -- Needed for gradientMode
 function module:ForceSettings()
-	E.db.unitframe.colors.healthclass = true
-	E.db.unitframe.units.player.colorOverride = "USE_DEFAULT"
-	E.db.unitframe.units.target.colorOverride = "USE_DEFAULT"
-	E.db.unitframe.units.targettarget.colorOverride = "USE_DEFAULT"
-	E.db.unitframe.units.focus.colorOverride = "USE_DEFAULT"
-	E.db.unitframe.units.raid1.colorOverride = "USE_DEFAULT"
-	E.db.unitframe.units.raid2.colorOverride = "USE_DEFAULT"
-	E.db.unitframe.units.raid3.colorOverride = "USE_DEFAULT"
-	E.db.unitframe.units.party.colorOverride = "USE_DEFAULT"
-	E.db.unitframe.units.pet.colorOverride = "USE_DEFAULT"
+	local uf = E.db.unitframe
+	uf.colors.healthclass = true
+
+	local units = uf.units
+	units.player.colorOverride = "USE_DEFAULT"
+	units.target.colorOverride = "USE_DEFAULT"
+	units.targettarget.colorOverride = "USE_DEFAULT"
+	units.focus.colorOverride = "USE_DEFAULT"
+	units.raid1.colorOverride = "USE_DEFAULT"
+	units.raid2.colorOverride = "USE_DEFAULT"
+	units.raid3.colorOverride = "USE_DEFAULT"
+	units.party.colorOverride = "USE_DEFAULT"
+	units.pet.colorOverride = "USE_DEFAULT"
 end
 
 function module:SettingsUpdate()
-	-- Clear cache
+	-- Clear caches
 	self.updateCache = {}
+	self.textureCache = {}
 
 	-- Regenerate Colors
 	F.Color.GenerateCache()
@@ -198,6 +209,7 @@ function module:SettingsUpdate()
 end
 
 function module:TexturesUpdate()
+	self.textureCache = {}
 	self:UpdateStatusBars()
 end
 
@@ -226,33 +238,29 @@ function module:Enable()
 		return
 	end
 
-	-- Apply settings
 	self:SettingsUpdate()
 
-	-- Hook functions for configure functions
 	self:SecureHook(self.uf, "Configure_HealthBar", "ConfigureStatusBarFrame")
 	self:SecureHook(self.uf, "Configure_Castbar", "ConfigureStatusBarFrame")
 	self:SecureHook(self.uf, "Configure_Power", "ConfigureStatusBarFrame")
 
-	-- Hook functions for update functions
 	self:SecureHook(self.uf, "Update_StatusBars", "UpdateStatusBars")
 	self:SecureHook(self.uf, "Update_StatusBar", "UpdateStatusBar")
 
 	F.EventManagerRegister(self.interruptNamespace, "PLAYER_SPECIALIZATION_CHANGED", F.CheckInterruptSpells)
-
 	F.EventManagerRegister(self.interruptNamespace, "PLAYER_ENTERING_WORLD", F.CheckInterruptSpells)
 	F.EventManagerRegister(self.interruptNamespace, "PLAYER_LEVEL_CHANGED", F.CheckInterruptSpells)
-
 	F.EventManagerRegister(self.interruptNamespace, "LEARNED_SPELL_IN_SKILL_LINE", F.CheckInterruptSpells)
 
 	self.uf:Update_AllFrames()
+
+	-- ElvUI builds frames before plugins load; Configure_* already ran
+	self:UpdateStatusBars()
 end
 
 function module:DatabaseUpdate()
-	-- Set db
 	self.db = E.db.mui.themes.gradientMode
 
-	-- Set enable state
 	local isEnabled = self.db and self.db.enable
 	if self.isEnabled == isEnabled then
 		return
@@ -261,10 +269,8 @@ function module:DatabaseUpdate()
 
 	F.Event.ContinueOutOfCombat(function()
 		F.Event.ContinueAfterElvUIUpdate(function()
-			-- Disable only out of combat
 			self:Disable()
 
-			-- Enable only out of combat
 			if self.isEnabled then
 				if self.uf.Initialized then
 					self:Enable()
@@ -284,6 +290,7 @@ function module:Initialize()
 	self.uf = E:GetModule("UnitFrames")
 
 	self.updateCache = {}
+	self.textureCache = {}
 	self.settingsEvents = {}
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))

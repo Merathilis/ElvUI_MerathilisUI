@@ -16,23 +16,27 @@ local No = F.GetIconString(I.Media.Icons.No, 14, 14)
 
 local SupportedProfiles = {
 	{ "AddOnSkins", "AddOnSkins" },
-	{ "BetterCooldownManager", "BetterCooldownManager" },
 	{ "Capping", "Capping" },
 	{ "BigWigs", "BigWigs" },
 	{ "Details", "Details" },
 	{ "ls_Toasts", "ls_Toasts" },
+	{ "SkironCooldownManager", "SkironCooldownManager" },
 	{ "TomTom", "TomTom" },
+	{ "ElvUI_mMediaTag", "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r" },
 	{
 		"ElvUI_WindTools",
 		"|cff1784d1ElvUI|r |cff5385edW|r|cff5094eai|r|cff4da4e7n|r|cff4ab4e4d|r|cff47c0e1T|r|cff44cbdfo|r|cff41d7ddo|r|cff41d7ddl|r|cff41d7dds|r",
 	},
-	{ "ElvUI_mMediaTag", "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r" },
+	{
+		"Blinkiis_Portraits",
+		"|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits",
+	},
 }
 
 options.generalGroup = {
 	order = 1,
 	type = "group",
-	name = L["General"],
+	name = module:AddCategorieIcon(L["General"], "OptionsHome"),
 	args = {
 		desc = {
 			order = 1,
@@ -135,8 +139,8 @@ for _, v in ipairs(SupportedProfiles) do
 		name = addonName,
 		desc = L["This will create and apply profile for "] .. addonName,
 		func = function()
-			if addon == "BetterCooldownManager" then
-				Profile:ApplyCooldownManagerProfile()
+			if addon == "SkironCooldownManager" then
+				Profile:ApplySkironCooldownManagerProfile()
 			elseif addon == "BigWigs" then
 				Profile:ApplyBigWigsProfile()
 			elseif addon == "Capping" then
@@ -147,10 +151,12 @@ for _, v in ipairs(SupportedProfiles) do
 				Profile:ApplyLSProfile()
 			elseif addon == "TomTom" then
 				Profile:ApplyTomTomProfile()
-			elseif addon == "ElvUI_WindTools" then
-				Profile:ApplyWindToolsProfile()
 			elseif addon == "ElvUI_mMediaTag" then
 				Profile:ApplymMediaTagProfile()
+			elseif addon == "ElvUI_WindTools" then
+				Profile:ApplyWindToolsProfile()
+			elseif addon == "Blinkiis_Portraits" then
+				Profile:ApplyBlinkiisPortraitsProfile()
 			end
 		end,
 		disabled = function()

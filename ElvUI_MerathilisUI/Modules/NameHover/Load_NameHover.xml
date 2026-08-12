@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Utils.lua"/>
-	<Script file="UnitInfo.lua"/>
 	<Script file="Core.lua"/>
 	<Script file="QuestInfo.lua"/>
+	<Script file="UnitInfo.lua"/>
+	<Script file="DungeonInfo.lua"/>
 </Ui>

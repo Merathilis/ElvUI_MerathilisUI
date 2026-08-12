@@ -2,15 +2,16 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@class Skins
 
 local _G = _G
-local next = next
-local xpcall = xpcall
-local tonumber = tonumber
-local strmatch = strmatch
+local next, pairs, ipairs = next, pairs, ipairs
+local xpcall, tonumber, strmatch = xpcall, tonumber, strmatch
+local tinsert, format, type, tostring = tinsert, format, type, tostring
+local assert = assert
 
 local CreateFrame = CreateFrame
 local GenerateClosure = GenerateClosure
 local RunNextFrame = RunNextFrame
-local Settings = Settings
+local hooksecurefunc = hooksecurefunc
+local LibStub = LibStub
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
@@ -89,7 +90,6 @@ function module:HandleAceGUIWidget(lib, name, constructor)
 
 	if self.db then
 		if self.db.enable and config.checker(self.db) then
-			config.constructor = constructor
 			lib.WidgetRegistry[name] = function()
 				local widget = config.constructor()
 				config.handler(widget)
@@ -193,7 +193,7 @@ function module:AddCallbackForEnterWorld(name, func)
 end
 
 function module:PLAYER_ENTERING_WORLD()
-	if not E.initialized or not E.private.mui.skins.enable then
+	if not E.Initialized or not E.private.mui.skins.enable then
 		return
 	end
 
@@ -221,7 +221,7 @@ function module:CallLoadedAddon(addonName, callbacks)
 end
 
 function module:ADDON_LOADED(_, addonName)
-	if not E.initialized or not E.private.mui.skins.enable then
+	if not E.Initialized or not E.private.mui.skins.enable then
 		return
 	end
 
@@ -238,7 +238,7 @@ function module:LibStub_NewLibrary(_, major, minor)
 
 	minor = minor and tonumber(strmatch(minor, "%d+"))
 	local handledMinor = self.libraryHandledMinors[major]
-	if not minor or handledMinor and handledMinor >= minor then
+	if not minor or (handledMinor and handledMinor >= minor) then
 		return
 	end
 
@@ -251,7 +251,7 @@ function module:LibStub_NewLibrary(_, major, minor)
 		end
 		for _, func in next, self.libraryHandlers[major] do
 			if not xpcall(func, WF.Developer.ThrowError, self, lib) then
-				self:Log("debug", format("Failed to skin library %s", major, minor))
+				self:Log("debug", format("Failed to skin library %s", major))
 			end
 		end
 	end)
@@ -273,7 +273,7 @@ end
 
 function module:ReskinSettingFrame(name, func)
 	if type(func) == "string" and module[func] then
-		func = GenerateClosure(module[func], S)
+		func = GenerateClosure(module[func], module)
 	end
 
 	if not func then
@@ -313,7 +313,7 @@ function module:Initialize()
 
 	self:ShadowOverlay()
 
-	-- Temp moved
+	-- Library & AceGUI widget callbacks
 	module:AddCallbackForLibrary("AceGUI-3.0", "AceGUI")
 	module:AddCallbackForLibrary("AceConfigDialog-3.0", "AceConfigDialog")
 	module:AddCallbackForLibrary("AceConfigDialog-3.0-ElvUI", "AceConfigDialog")
@@ -324,7 +324,7 @@ function module:Initialize()
 		return db.libraries.ace3 and db.shadow.enable
 	end)
 	module:AddCallbackForAceGUIWidget("Dropdown-Pullout", "Ace3_DropdownPullout", function(db)
-		return db.libraries.ace3 and (db.libraries.ace3Dropdown or db.shadows.enable)
+		return db.libraries.ace3 and (db.libraries.ace3Dropdown or db.shadow.enable)
 	end)
 end
 

@@ -116,47 +116,81 @@ function F.CheckInstanceSecret()
 	end
 end
 
-function F.CreateStyle(frame, useStripes, useGradient)
-	if not frame or frame.__MERStyle or frame.MERStyle then
+local STYLE_STRIPES = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\stripes]]
+local STYLE_GRADIENT = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]]
+
+---Attach a MER style overlay (stripes + gradient) to a frame.
+---Called as frame:CreateStyle() or F.CreateStyle(frame).
+---@param frame Frame|Texture
+---@param createStripes boolean|nil  default true — set false to skip/hide stripes
+---@param createGradient boolean|nil default true — set false to skip/hide gradient
+function F.CreateStyle(frame, createStripes, createGradient)
+	if not frame then
 		return
 	end
 
-	if frame:GetObjectType() == "Texture" then
+	-- Resolve texture → parent frame
+	if frame.GetObjectType and frame:GetObjectType() == "Texture" then
 		frame = frame:GetParent()
+		if not frame then
+			return
+		end
 	end
 
-	local holder = frame.MERStyle or CreateFrame("Frame", nil, frame, "BackdropTemplate")
+	-- Defaults: both layers on (matches previous nil-arg behaviour where
+	-- inverted "if not useStripes" always created layers)
+	if createStripes == nil then
+		createStripes = true
+	end
+	if createGradient == nil then
+		createGradient = true
+	end
+
+	local holder = frame.MERStyle
+	if not holder then
+		holder = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+		frame.MERStyle = holder
+		frame.__MERStyle = true
+	end
+
 	holder:OffsetFrameLevel(nil, frame)
 	holder:SetFrameStrata(frame:GetFrameStrata())
 	holder:SetOutside(frame)
 	holder:Show()
 
-	if not useStripes then
+	-- Stripes layer
+	if createStripes then
 		local stripes = holder.MERstripes
-			or holder:CreateTexture(holder:GetName() and holder:GetName() .. "Overlay" or nil, "BORDER")
+		if not stripes then
+			stripes = holder:CreateTexture(nil, "BORDER")
+			stripes:SetTexture(STYLE_STRIPES, true, true)
+			stripes:SetHorizTile(true)
+			stripes:SetVertTile(true)
+			stripes:SetBlendMode("ADD")
+			holder.MERstripes = stripes
+		end
 		stripes:ClearAllPoints()
 		stripes:Point("TOPLEFT", 1, -1)
 		stripes:Point("BOTTOMRIGHT", -1, 1)
-		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\stripes]], true, true)
-		stripes:SetHorizTile(true)
-		stripes:SetVertTile(true)
-		stripes:SetBlendMode("ADD")
-
-		holder.MERstripes = stripes
+		stripes:Show()
+	elseif holder.MERstripes then
+		holder.MERstripes:Hide()
 	end
 
-	if not useGradient then
+	-- Gradient layer
+	if createGradient then
 		local tex = holder.MERgradient
-			or holder:CreateTexture(holder:GetName() and holder:GetName() .. "Overlay" or nil, "BORDER")
+		if not tex then
+			tex = holder:CreateTexture(nil, "BORDER")
+			tex:SetTexture(STYLE_GRADIENT)
+			tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)
+			holder.MERgradient = tex
+		end
 		tex:SetInside(holder)
-		tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\gradient.tga]])
-		tex:SetVertexColor(0.3, 0.3, 0.3, 0.15)
-
-		holder.MERgradient = tex
+		tex:Show()
+	elseif holder.MERgradient then
+		holder.MERgradient:Hide()
 	end
-
-	frame.MERStyle = holder
-	frame.__MERStyle = 1
 end
 
 function F.CreateOverlay(f)
@@ -407,6 +441,31 @@ function F.GetStyledText(text)
 	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
 end
 
+function F.SetFontSize(fs, size)
+	fs:SetFont(F.GetFontPath(I.Fonts.Primary), size, "")
+end
+
+function F:CreateFS(size, text, color, anchor, x, y)
+	local fs = self:CreateFontString(nil, "OVERLAY")
+	F.SetFontSize(fs, size)
+	fs:SetText(text)
+	fs:SetWordWrap(false)
+	if color and type(color) == "boolean" then
+		fs:SetTextColor(cr, cg, cb)
+	elseif color == "system" then
+		fs:SetTextColor(1, 0.8, 0)
+	elseif color == "info" then
+		fs:SetTextColor(0.6, 0.8, 1)
+	end
+	if anchor and x and y then
+		fs:SetPoint(anchor, x, y)
+	else
+		fs:SetPoint("CENTER", 1, 0)
+	end
+
+	return fs
+end
+
 function F.Position(anchor1, parent, anchor2, x, y, offset, negative)
 	local offsetX = 0
 
@@ -500,6 +559,26 @@ function F.ConvertToHSL(r, g, b)
 	end
 
 	return h * 360, s, l
+end
+
+local function clamp255(x)
+	if type(x) ~= "number" then
+		return 255
+	end
+	if x < 0 then
+		return 0
+	end
+	if x > 1 then
+		x = 1
+	end
+	return math.floor(x * 255 + 0.5)
+end
+
+function F.GetTextWithColor(text, color)
+	local r = clamp255(color and color.r or 1)
+	local g = clamp255(color and color.g or 1)
+	local b = clamp255(color and color.b or 1)
+	return format("|cFF%02x%02x%02x%s|r", r, g, b, text)
 end
 
 function F.GetMERStyleText(text)
@@ -708,6 +787,33 @@ do
 		end
 		self:HookScript("OnEnter", Tooltip_OnEnter)
 		self:HookScript("OnLeave", F.HideTooltip)
+	end
+
+	function F:CreateGear(name)
+		local bu = CreateFrame("Button", name, self)
+		bu:SetSize(24, 24)
+		bu.Icon = bu:CreateTexture(nil, "ARTWORK")
+		bu.Icon:SetAllPoints()
+		bu.Icon:SetTexture(MER.GearTex)
+		bu.Icon:SetTexCoord(0, 0.5, 0, 0.5)
+		bu:SetHighlightTexture(MER.GearTex)
+		bu:GetHighlightTexture():SetTexCoord(0, 0.5, 0, 0.5)
+
+		return bu
+	end
+
+	function F:CreateHelpInfo(tooltip)
+		local bu = CreateFrame("Button", nil, self)
+		bu:SetSize(40, 40)
+		bu.Icon = bu:CreateTexture(nil, "ARTWORK")
+		bu.Icon:SetAllPoints()
+		bu.Icon:SetTexture(616343)
+		bu:SetHighlightTexture(616343)
+		if tooltip then
+			F.AddTooltip(bu, "ANCHOR_BOTTOMLEFT", tooltip, "info", true)
+		end
+
+		return bu
 	end
 end
 
@@ -1055,6 +1161,15 @@ function F:SetBorderColor()
 	self:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
+function F:CreateCheckBox()
+	local cb = CreateFrame("CheckButton", nil, self, "InterfaceOptionsBaseCheckButtonTemplate")
+	cb:SetScript("OnClick", nil)
+	ES:HandleCheckBox(cb)
+
+	cb.Type = "CheckBox"
+	return cb
+end
+
 -- Role Icons
 function F.ReskinRole(self, role)
 	if self.background then
@@ -1121,7 +1236,18 @@ function F.AddMedia(mediaType, mediaFile, lsmName, lsmType, lsmMask)
 
 		local pathKey = I.MediaKeys[mediaType]
 		if pathKey then
-			I.Media[pathKey][key] = file
+			local mediaTable = I.Media[pathKey]
+
+			local subFolder, fileName = key:match("^(.-)/([^/]+)$")
+			if subFolder and fileName then
+				for folder in subFolder:gmatch("[^/]+") do
+					mediaTable[folder] = mediaTable[folder] or {}
+					mediaTable = mediaTable[folder]
+				end
+				mediaTable[fileName] = file
+			else
+				mediaTable[key] = file
+			end
 		else
 			F.Developer.LogDebug("Could not find path key for", mediaType, mediaFile, lsmName, lsmType, lsmMask)
 		end

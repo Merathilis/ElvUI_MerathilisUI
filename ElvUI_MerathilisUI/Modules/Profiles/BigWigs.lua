@@ -9,9 +9,13 @@ local function CallbackFunction(accepted)
 	end
 
 	-- Handle minimap icon
-	local LDBI = LibStub("LibDBIcon-1.0")
-	BigWigsIconDB.hide = true
-	LDBI:Hide("BigWigs")
+	local LDBI = LibStub("LibDBIcon-1.0", true)
+	if BigWigsIconDB then
+		BigWigsIconDB.hide = true
+	end
+	if LDBI then
+		LDBI:Hide("BigWigs")
+	end
 end
 
 function module:LoadBigWigsProfile()
@@ -37,7 +41,6 @@ end
 
 function module:ApplyBigWigsProfile()
 	Splash:Wrap("Applying BigWigs Profile ...", function()
-		-- Apply Fonts
 		self:LoadBigWigsProfile()
 
 		E:UpdateMedia()

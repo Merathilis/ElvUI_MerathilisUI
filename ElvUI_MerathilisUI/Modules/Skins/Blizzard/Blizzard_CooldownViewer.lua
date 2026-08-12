@@ -244,7 +244,7 @@ do
 			if itemPool and not hookedItemPools[itemPool] then
 				hookedItemPools[itemPool] = true
 
-				module:CooldownManager_HandleSettingItemPool(itemPool)
+				module.CooldownManager_HandleSettingItemPool(itemPool)
 
 				hooksecurefunc(itemPool, "Acquire", module.CooldownManager_HandleSettingItemPool)
 			end

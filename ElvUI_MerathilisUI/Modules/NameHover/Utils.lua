@@ -1,15 +1,17 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_NameHover")
 
-local ipairs, select, tonumber, tostring, type = ipairs, select, tonumber, tostring, type
+local select, tonumber, tostring, type = select, tonumber, tostring, type
 local strsplit = strsplit
 local find, format, lower = string.find, string.format, string.lower
 local floor = math.floor
-local tinsert = table.insert
+local tinsert, tconcat = table.insert, table.concat
 
 local GetMouseFoci = GetMouseFoci
 local UnitIsPlayer = UnitIsPlayer
 local UnitGUID = UnitGUID
+
+local _combineBuf = {}
 
 local function clamp255(x)
 	if type(x) ~= "number" then
@@ -38,7 +40,6 @@ end
 
 function module:CombineText(...)
 	local combined = nil
-
 	for i = 1, select("#", ...) do
 		local v = select(i, ...)
 		if self:IsNotEmpty(v) then
@@ -50,7 +51,6 @@ function module:CombineText(...)
 			end
 		end
 	end
-
 	return combined
 end
 
@@ -61,62 +61,66 @@ function module:CombineTables(table1, table2)
 	if not table2 or type(table2) ~= "table" then
 		return table1
 	end
-	for _, value in ipairs(table2) do
-		tinsert(table1, value)
+	for i = 1, #table2 do
+		tinsert(table1, table2[i])
 	end
 	return table1
 end
 
 function module:GetNpcID(unit)
 	local guid = UnitGUID(unit or "npc")
-	return tonumber(E:NotSecretValue(guid) and guid or "") and select(6, strsplit("-", guid))
+	if not (E:NotSecretValue(guid) and guid) then
+		return nil
+	end
+	return tonumber((select(6, strsplit("-", guid))))
 end
 
 function module:GetTooltipData()
 	local tooltipLines = {}
-	if not UnitIsPlayer("mouseover") then
-		for i = 1, GameTooltip:NumLines() do
-			local fs = _G["GameTooltipTextLeft" .. i]
-			if fs and fs.GetText then
-				local line = fs:GetText()
-				if line then
-					tinsert(tooltipLines, line)
-				end
+	if UnitIsPlayer("mouseover") then
+		return tooltipLines
+	end
+
+	local num = GameTooltip:NumLines()
+	for i = 1, num do
+		local fs = _G["GameTooltipTextLeft" .. i]
+		if fs and fs.GetText then
+			local line = fs:GetText()
+			if line then
+				tooltipLines[#tooltipLines + 1] = line
 			end
 		end
 	end
 	return tooltipLines
 end
 
-function module:GetTopMouseFocusName()
-	if type(GetMouseFoci) == "function" then
-		local foci = GetMouseFoci()
-		if foci and foci[1] and foci[1].GetName then
-			return foci[1]:GetName()
-		end
+function module:GetTopMouseFocus()
+	if type(GetMouseFoci) ~= "function" then
+		return nil
 	end
-	return nil
+	local foci = GetMouseFoci()
+	return foci and foci[1] or nil
 end
 
-function module:GetTopMouseFocus()
-	if type(GetMouseFoci) == "function" then
-		local foci = GetMouseFoci()
-		if foci and foci[1] then
-			return foci[1]
-		end
+function module:GetTopMouseFocusName()
+	local focus = self:GetTopMouseFocus()
+	if focus and focus.GetName then
+		return focus:GetName()
 	end
 	return nil
 end
 
 function module:IsInTooltip(tooltipLines, query)
-	if not tooltipLines or type(tooltipLines) ~= "table" then
+	if not tooltipLines or type(tooltipLines) ~= "table" or #tooltipLines == 0 then
 		return false
 	end
 	if not query or type(query) ~= "string" or query == "" then
 		return false
 	end
+
 	local q = lower(query)
-	for _, line in ipairs(tooltipLines) do
+	for i = 1, #tooltipLines do
+		local line = tooltipLines[i]
 		local toFind = line
 		if E:NotSecretValue(line) and line then
 			toFind = lower(line)

@@ -14,18 +14,14 @@ local DoesAddOnExist = C_AddOns.DoesAddOnExist
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 local DecorAddons = {
-	{ "ACP", L["AddOn Control Panel"], "acp" },
 	{ "BagSync", L["BagSync"], "bSync" },
+	{ "BugSack", L["BugSack"], "bugSack" },
 	{ "Capping", L["Capping"], "cap" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
-	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "Pawn", L["Pawn"], "pawn" },
-	{ "tdBattlePetScript", L["Pet Battle Scripts"], "pbs" },
 	{ "ParagonReputation", L["Paragon Reputation"], "paragonReputation" },
-	{ "ProjectAzilroka", L["ProjectAzilroka"], "pa" },
-	{ "SimpleAddonManager", L["Simple Addon Manager"], "sam" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "WIM", L["WIM"], "wim" },
 	{ "WowLua", L["WowLua"], "wowLua" },
@@ -42,7 +38,7 @@ end
 options.general = {
 	order = 1,
 	type = "group",
-	name = L["General"],
+	name = module:AddCategorieIcon(L["General"], "OptionsHome"),
 	get = function(info)
 		return E.private.mui.skins[info[#info]]
 	end,

@@ -3,13 +3,12 @@
 
 	<Script file="Misc.lua"/>
 	<Script file="Afk.lua"/>
+	<Script file="AuctionEnhanced.lua"/>
 	<Script file="ColorModifiers.lua"/>
 	<Script file="CopyMog.lua"/>
-	<Include file="FunStuff.xml"/>
-	<Script file="FunStuff.lua"/>
 	<Script file="GameMenu.lua"/>
-	<Script file="IconSearch.lua"/>
 	<Script file="Gmotd.lua"/>
+	<Script file="IconSearch.lua"/>
 	<Script file="PetFilterTab.lua"/>
 	<Script file="RaidInfoFrame.lua"/>
 	<Script file="StatusReport.lua"/>

@@ -49,6 +49,7 @@ do
 		["ElvUI_CPU"] = true,
 		["ElvUI_MerathilisUI"] = true,
 		["ElvUI_WindTools"] = true,
+		["ElvUI_mMediaTag"] = true,
 		["!BugGrabber"] = true,
 		["BugSack"] = true,
 	}

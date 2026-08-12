@@ -1,13 +1,19 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local D = E:GetModule("Distributor")
-local LibDeflate = E.Libs.Deflate
 
-local format = format
 local next = next
 local type = type
 
----@cast F Functions
+local SerializeCBOR = C_EncodingUtil.SerializeCBOR
+local DeserializeCBOR = C_EncodingUtil.DeserializeCBOR
+local CompressString = C_EncodingUtil.CompressString
+local DecompressString = C_EncodingUtil.DecompressString
+local EncodeBase64 = C_EncodingUtil.EncodeBase64
+local DecodeBase64 = C_EncodingUtil.DecodeBase64
 
+local COMPRESS = Enum.CompressionMethod.Deflate or 0
+local OPTIMIZE = Enum.CompressionLevel.Default or 0
+
+---@cast F Functions
 F.Profiles = {}
 
 ---@type table Generated keys configuration for profile data
@@ -21,9 +27,10 @@ local generatedKeys = {
 ---@param data table The data to serialize and compress
 ---@return string encodedString The compressed and encoded string
 function F.Profiles.GenerateString(data)
-	local exportString = D:Serialize(data)
-	local compressedData = LibDeflate:CompressDeflate(exportString, LibDeflate.compressLevel)
-	local encodedData = LibDeflate:EncodeForPrint(compressedData)
+	local exportString = SerializeCBOR(data)
+	local compressedData = CompressString(exportString, COMPRESS, OPTIMIZE)
+	local encodedData = EncodeBase64(compressedData)
+
 	return encodedData
 end
 
@@ -32,19 +39,21 @@ end
 ---@param dataString string The encoded data string
 ---@return table? data The deserialized data or nil if failed
 function F.Profiles.ExactString(dataString)
-	local decodedData = LibDeflate:DecodeForPrint(dataString)
-	local decompressed = LibDeflate:DecompressDeflate(decodedData)
+	local decodedData = DecodeBase64(dataString)
+	if not decodedData then
+		F.Print("Error decoding data.")
+		return
+	end
 
+	local decompressed = DecompressString(decodedData, COMPRESS)
 	if not decompressed then
 		F.Print("Error decompressing data.")
 		return
 	end
 
-	decompressed = format("%s%s", decompressed, "^^")
-	local success, data = D:Deserialize(decompressed)
-
-	if not success then
-		F.Print("Error deserializing: " .. data)
+	local success, data = pcall(DeserializeCBOR, decompressed)
+	if not success or type(data) ~= "table" then
+		F.Print("Error deserializing: " .. tostring(data))
 		return
 	end
 
@@ -84,12 +93,12 @@ function F.Profiles.ImportByString(importString)
 	local profileData = F.Profiles.ExactString(profileString)
 	local privateData = F.Profiles.ExactString(privateString)
 
-	if type(next(profileData)) ~= "nil" then
+	if profileData and type(next(profileData)) ~= "nil" then
 		E:CopyTable(E.db.mui, P)
 		E:CopyTable(E.db.mui, profileData)
 	end
 
-	if type(next(privateData)) ~= "nil" then
+	if privateData and type(next(privateData)) ~= "nil" then
 		E:CopyTable(E.private.mui, V)
 		E:CopyTable(E.private.mui, privateData)
 	end

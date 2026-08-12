@@ -7,7 +7,7 @@ local options = module.options.modules.args
 
 options.itemLevel = {
 	type = "group",
-	name = L["Item Level"],
+	name = module:AddCategorieIcon(L["Item Level"], "item_level"),
 	get = function(info)
 		return E.db.mui.itemLevel[info[#info]]
 	end,

@@ -30,12 +30,12 @@ function module:LoadDetailsProfile()
 end
 
 function module:ApplyDetailsProfile()
-	if not Details then
+	if not E:IsAddOnEnabled("Details") then
+		WF.Developer.LogWarning("Details is not enabled. Will not apply profile.")
 		return
 	end
 
 	Splash:Wrap("Applying Details Profile ...", function()
-		-- Apply Fonts
 		self:LoadDetailsProfile()
 
 		E:UpdateMedia()

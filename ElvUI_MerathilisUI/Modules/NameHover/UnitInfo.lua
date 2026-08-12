@@ -4,6 +4,7 @@ local module = MER:GetModule("MER_NameHover")
 local tostring = tostring
 
 local GetQuestDifficultyColor = GetQuestDifficultyColor
+local GetGuildInfo = GetGuildInfo
 local UnitCanAttack = UnitCanAttack
 local UnitClass = UnitClass
 local UnitClassification = UnitClassification
@@ -17,9 +18,11 @@ local UnitIsPVP = UnitIsPVP
 local UnitFactionGroup = UnitFactionGroup
 local UnitRace = UnitRace
 local UnitCreatureType = UnitCreatureType
+local UnitName = UnitName
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
-local function IsPlayer(unittype)
-	return UnitIsPlayer(unittype or "mouseover")
+local function IsPlayer(unit)
+	return UnitIsPlayer(unit or "mouseover")
 end
 
 function module:GetUnitNameColor(unittype)
@@ -31,55 +34,44 @@ function module:GetUnitNameColor(unittype)
 	elseif UnitCanAttack("player", unittype) then
 		if UnitIsDead(unittype) then
 			return module.COLOR_DEAD
-		else
-			if reaction < 4 then
-				return module.COLOR_HOSTILE
-			elseif reaction == 4 then
-				return module.COLOR_NEUTRAL
-			end
+		elseif reaction < 4 then
+			return module.COLOR_HOSTILE
+		elseif reaction == 4 then
+			return module.COLOR_NEUTRAL
 		end
 	else
 		if reaction < 4 then
 			return module.COLOR_HOSTILE_UNATTACKABLE
-		else
-			return module.COLOR_DEFAULT
 		end
+		return module.COLOR_DEFAULT
 	end
 end
 
 function module:GetLevelText()
-	local isPlayer = IsPlayer()
-	if isPlayer and not E.db.mui.nameHover.level then
-		return ""
-	end
-	if not isPlayer and not E.db.mui.nameHover.level then
+	local db = E.db.mui.nameHover
+	if not db.level then
 		return ""
 	end
 
 	local level = UnitLevel("mouseover")
 	if level and level > 1 then
-		local levelString = tostring(level)
-		return module:GetTextWithColor(levelString, GetQuestDifficultyColor(level))
-	else
-		return ""
+		return module:GetTextWithColor(tostring(level), GetQuestDifficultyColor(level))
 	end
+	return ""
 end
 
 function module:GetTargetText()
-	local isPlayer = IsPlayer()
-	if isPlayer and not E.db.mui.nameHover.targettarget then
+	if not E.db.mui.nameHover.targettarget then
 		return ""
 	end
-	if not isPlayer and not E.db.mui.nameHover.targettarget then
-		return ""
-	end
+
 	local target = UnitName("mouseovertarget")
-	if target then
-		return module:GetTextWithColor(">", module.COLOR_DEFAULT)
-			.. module:GetTextWithColor(target, module:GetUnitNameColor("mouseovertarget"))
-	else
+	if not target then
 		return ""
 	end
+
+	return module:GetTextWithColor(">", module.COLOR_DEFAULT)
+		.. module:GetTextWithColor(target, module:GetUnitNameColor("mouseovertarget"))
 end
 
 function module:GetStatusText()
@@ -87,20 +79,18 @@ function module:GetStatusText()
 		return nil
 	end
 
-	local afkText = nil
-	local dndText = nil
-	local pvpText = nil
+	local afkText, dndText, pvpText
 	local afk = UnitIsAFK("mouseover")
 	local dnd = UnitIsDND("mouseover")
 	local isPvp = UnitIsPVP("mouseover")
 
-	if E:NotSecretValue(afk) and afk or fakeAfk then
+	if E:NotSecretValue(afk) and afk then
 		afkText = module:GetTextWithColor("<AFK>", module.COLOR_DEAD)
 	end
-	if E:NotSecretValue(dnd) and dnd or fakeDnd then
+	if E:NotSecretValue(dnd) and dnd then
 		dndText = module:GetTextWithColor("<DND>", module.COLOR_HOSTILE)
 	end
-	if E:NotSecretValue(isPvp) and isPvp and UnitIsPlayer("mouseover") then
+	if E:NotSecretValue(isPvp) and isPvp then
 		pvpText = module:GetTextWithColor("<PVP>", module.COLOR_HOSTILE)
 	end
 
@@ -121,16 +111,13 @@ function module:GetClassificationText()
 		return module:GetTextWithColor("Rare Elite", module.COLOR_RARE)
 	elseif classification == "rare" then
 		return module:GetTextWithColor("Rare", module.COLOR_RARE)
-	else
-		return nil
 	end
+	return nil
 end
 
 function module:GetGuildText()
-	if not IsPlayer() then
-		return nil
-	end
-	if not E.db.mui.nameHover.guildName and not E.db.mui.nameHover.guildRank then
+	local db = E.db.mui.nameHover
+	if not IsPlayer() or (not db.guildName and not db.guildRank) then
 		return nil
 	end
 
@@ -140,43 +127,35 @@ function module:GetGuildText()
 	end
 
 	local text = ""
-	if E.db.mui.nameHover.guildName then
+	if db.guildName then
 		text = text .. "<" .. module:GetTextWithColor(guildName, module.COLOR_GUILD) .. ">"
 	end
-	if E.db.mui.nameHover.guildRank and guildRank and guildRank ~= "" then
+	if db.guildRank and guildRank and guildRank ~= "" then
 		if text ~= "" then
 			text = text .. " "
 		end
 		text = text .. "[" .. module:GetTextWithColor(guildRank, module.COLOR_GUILD) .. "]"
 	end
 
-	if text == "" then
-		return nil
-	end
-	return text
+	return text ~= "" and text or nil
 end
 
 function module:GetFactionText()
-	local isPlayer = IsPlayer()
-	if isPlayer and not E.db.mui.nameHover.faction then
-		return nil
-	end
-	if not isPlayer and not E.db.mui.nameHover.faction then
+	if not E.db.mui.nameHover.faction then
 		return nil
 	end
 
 	local factionLabel, faction = UnitFactionGroup("mouseover")
-	if factionLabel then
-		if faction == "Horde" then
-			return module:GetTextWithColor(factionLabel, module.COLOR_HORDE)
-		elseif faction == "Alliance" then
-			return module:GetTextWithColor(factionLabel, module.COLOR_ALLIANCE)
-		else
-			return module:GetTextWithColor(factionLabel, module.COLOR_NEUTRAL)
-		end
-	else
+	if not factionLabel then
 		return nil
 	end
+
+	if faction == "Horde" then
+		return module:GetTextWithColor(factionLabel, module.COLOR_HORDE)
+	elseif faction == "Alliance" then
+		return module:GetTextWithColor(factionLabel, module.COLOR_ALLIANCE)
+	end
+	return module:GetTextWithColor(factionLabel, module.COLOR_NEUTRAL)
 end
 
 function module:GetRaceText()
@@ -187,9 +166,8 @@ function module:GetRaceText()
 	local race = UnitRace("mouseover")
 	if race then
 		return module:GetTextWithColor(race, module.COLOR_DEFAULT)
-	else
-		return nil
 	end
+	return nil
 end
 
 function module:GetCreatureType()
@@ -200,7 +178,6 @@ function module:GetCreatureType()
 	local t = UnitCreatureType("mouseover")
 	if t and not issecretvalue(t) and t ~= "Not specified" then
 		return module:GetTextWithColor(t, module.COLOR_DEFAULT)
-	else
-		return nil
 	end
+	return nil
 end

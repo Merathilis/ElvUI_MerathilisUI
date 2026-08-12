@@ -27,13 +27,20 @@ function module:UpdateCoords(_, elapsed)
 	end
 
 	if mapInfo.x and mapInfo.y then
-		if not F.AlmostEqual(mapInfo.x, self.mapInfoX) and not F.AlmostEqual(mapInfo.y, self.mapInfoY) then
+		local pcoords = self.coordsHolder and self.coordsHolder.playerCoords
+		if
+			pcoords
+			and ((not F.AlmostEqual(mapInfo.x, self.mapInfoX)) or (not F.AlmostEqual(mapInfo.y, self.mapInfoY)))
+		then
 			self.mapInfoX = mapInfo.x
 			self.mapInfoY = mapInfo.y
-			self.coordsHolder.playerCoords:SetText(format(self.displayFormat, mapInfo.xText, mapInfo.yText))
+			pcoords:SetText(format(self.displayFormat, mapInfo.xText, mapInfo.yText))
 		end
 	else
-		self.coordsHolder.playerCoords:SetText("N/A")
+		local pcoords = self.coordsHolder and self.coordsHolder.playerCoords
+		if pcoords then
+			pcoords:SetText("N/A")
+		end
 	end
 
 	self.elapsed = 0
@@ -48,18 +55,17 @@ function module:CreateCoordsFrame()
 	self.coordsHolder = CreateFrame("Frame", "MER_CoordsHolder", Minimap)
 	self.coordsHolder:SetFrameLevel(Minimap:GetFrameLevel() + 10)
 	self.coordsHolder:SetFrameStrata(Minimap:GetFrameStrata())
-	self.coordsHolder:SetScript("OnUpdate", self.updateClosure)
 	E.FrameLocks[self.coordsHolder] = true
 
 	self.coordsHolder.playerCoords = self.coordsHolder:CreateFontString(nil, "OVERLAY")
 
-	_G.Minimap:HookScript("OnEnter", function()
+	Minimap:HookScript("OnEnter", function()
 		if not self.db.mouseOver or not self.db.enable or not E.private.general.minimap.enable then
 			return
 		end
 		self.coordsHolder:Show()
 	end)
-	_G.Minimap:HookScript("OnLeave", function()
+	Minimap:HookScript("OnLeave", function()
 		if not self.db.mouseOver or not self.db.enable or not E.private.general.minimap.enable then
 			return
 		end

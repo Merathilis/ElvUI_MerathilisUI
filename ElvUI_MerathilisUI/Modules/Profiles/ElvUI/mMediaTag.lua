@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Profiles") ---@class Profiles
+local module = MER:GetModule("MER_Profiles")
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
@@ -16,9 +16,10 @@ function module:LoadmMediaTagProfile()
 	end
 
 	db.general.greeting_message = false
+	db.important_casts.enable = true
 	db.nameplates.target.changeColor = true
 	db.nameplates.target.changeTexture = true
-	db.nameplates.target.texture = "mMediaTag A4" or "ElvUI Norm1" --fallback
+	db.nameplates.target.texture = "mMediaTag A4"
 	db.phase_icon.enable = true
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true
@@ -50,11 +51,13 @@ function module:LoadmMediaTagProfile()
 	db.portraits.party.enable = false
 	db.portraits.boss.enable = false
 	db.portraits.arena.enable = false
+
+	db.lfg_invite_info.enable = true
+	db.lfg_invite_info.font = F.FontOverride(I.Fonts.Primary)
 end
 
 function module:ApplymMediaTagProfile()
 	Splash:Wrap("Applying mMediaTag Profile ...", function()
-		-- Apply Fonts
 		self:LoadmMediaTagProfile()
 
 		E:UpdateMedia()

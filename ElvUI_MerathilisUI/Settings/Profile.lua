@@ -312,6 +312,7 @@ P.misc = {
 		ShowHideVisual = true,
 		ShowIllusion = true,
 	},
+	auctionEnhanced = true,
 }
 
 P.armory = {
@@ -641,6 +642,10 @@ P.armory = {
 
 P.tooltip = {
 	achievement = true,
+}
+
+P.mail = {
+	enable = true,
 }
 
 P.notification = {
@@ -1063,6 +1068,9 @@ P.nameHover = {
 	level = true,
 	classification = true,
 
+	display_BackgroundAlpha = 0.5,
+	display_BackgroundPadding = 2,
+
 	mainTextSize = 14,
 	mainTextOutline = "SHADOWOUTLINE",
 	statusTextSize = 11,
@@ -1078,6 +1086,13 @@ P.nameHover = {
 	blizztooltip = true,
 	disableInDungeons = false,
 	inspectKey = "SHIFT", -- SHIFT, CTRL, ALT, NONE
+	mythicPlus_ShowForces = true,
+	mythicPlus_ContributionFormat = "PERCENT",
+	mythicPlus_ShowProgress = true,
+	mythicPlus_ProgressFormat = "PERCENT",
+	mythicPlus_FontSize = 12,
+	mythicPlusFontOutline = "SHADOWOUTLINE",
+	mythicPlus_DisplayRight = false,
 }
 
 P.media = {}
@@ -1244,5 +1259,17 @@ P.scale = {
 
 	encounterjournal = {
 		scale = 1,
+	},
+}
+
+P.lootSpecManager = {
+	enable = true,
+	Current = "Mythic",
+	MythicPlus = {},
+	Encounters = {
+		Mythic = {},
+		LFR = {},
+		Heroic = {},
+		Normal = {},
 	},
 }

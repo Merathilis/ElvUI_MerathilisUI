@@ -8,15 +8,15 @@ local B = E:GetModule("Bags")
 --]]
 
 local _G = _G
-local ipairs = ipairs
 local next = next
 local strmatch = strmatch
 
+local hooksecurefunc = hooksecurefunc
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_TooltipInfo_GetBagItem = C_TooltipInfo.GetBagItem
 
 local CUSTOM = CUSTOM
-local MATCH_EQUIPMENT_SETS = EQUIPMENT_SETS:gsub("%-", "%%-"):gsub("%%s", "(.-)") --* Part of the workaround
+local MATCH_EQUIPMENT_SETS = EQUIPMENT_SETS:gsub("%-", "%%-"):gsub("%%s", "(.-)")
 
 module.equipmentmanager = {
 	icons = {
@@ -42,56 +42,63 @@ function B:HideSet(slot, keep)
 	end
 end
 
+---Tooltip scan — GetContainerItemEquipmentSetInfo is still unreliable
+local function IsSlotInEquipmentSet(slot)
+	local tooltipData = C_TooltipInfo_GetBagItem(slot.BagID, slot.SlotID)
+	if not tooltipData or not tooltipData.lines then
+		return false
+	end
+
+	local lines = tooltipData.lines
+	for i = 1, #lines do
+		local text = lines[i] and lines[i].leftText
+		if text and strmatch(text, MATCH_EQUIPMENT_SETS) then
+			return true
+		end
+	end
+	return false
+end
+
 function B:UpdateSet(slot)
 	slot = slot == "EQUIPMENT_SETS_CHANGED" and self or slot
 	if not slot or not slot.itemID then
 		return
 	end
-	-- local isInSet, setName = C_Container.GetContainerItemEquipmentSetInfo(bagID, slotID)(slot.bagID, slot.slotID) --* API is currently broken
 
-	--* Start - Part of the workaround
-	local isInSet = false
-	local tooltipData = C_TooltipInfo_GetBagItem(slot.BagID, slot.SlotID)
-
-	if slot.isEquipment and tooltipData then
-		for _, line in ipairs(tooltipData.lines) do
-			if (line and line.leftText) and strmatch(line.leftText, MATCH_EQUIPMENT_SETS) then
-				isInSet = true
-				break
-			end
-		end
-	end
-	--* End - Part of the workaround
+	local isInSet = slot.isEquipment and IsSlotInEquipmentSet(slot)
 
 	if isInSet then
-		slot.equipIcon:SetShown(module.db.enable)
+		local db = module.db or E.db.mui.bags.equipmentManager
+		slot.equipIcon:SetShown(db and db.enable)
 	else
 		B:HideSet(slot, true)
 	end
 end
 
 local function updateSettings(slot)
-	local db = E.db.mui.bags.equipmentManager
-	if not db then
+	local db = module.db or E.db.mui.bags.equipmentManager
+	if not db or not slot.equipIcon then
 		return
 	end
 
-	slot.equipIcon:Size(db.size)
-	slot.equipIcon:ClearAllPoints()
-	slot.equipIcon:Point(db.point, db.xOffset, db.yOffset)
+	local icon = slot.equipIcon
+	icon:Size(db.size)
+	icon:ClearAllPoints()
+	icon:Point(db.point, db.xOffset, db.yOffset)
 
 	if db.icon == "EQUIPMGR" then
-		slot.equipIcon:SetTexture([[Interface\PaperDollInfoFrame\PaperDollSidebarTabs]])
-		slot.equipIcon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
+		icon:SetTexture([[Interface\PaperDollInfoFrame\PaperDollSidebarTabs]])
+		icon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
 	elseif db.icon == "CUSTOM" then
-		slot.equipIcon:SetTexture(db.customTexture)
-		slot.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+		icon:SetTexture(db.customTexture)
+		icon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
 	else
-		slot.equipIcon:SetTexture(module.equipmentmanager.iconLocations[db.icon] or db.icon)
-		slot.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+		icon:SetTexture(module.equipmentmanager.iconLocations[db.icon] or db.icon)
+		icon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
 	end
 
-	slot.equipIcon:SetVertexColor(db.color.r, db.color.g, db.color.b, db.color.a)
+	local c = db.color
+	icon:SetVertexColor(c.r, c.g, c.b, c.a)
 end
 
 function module:UpdateItemDisplay()
@@ -101,10 +108,13 @@ function module:UpdateItemDisplay()
 
 	for _, bagFrame in next, B.BagFrames do
 		for _, bagID in next, bagFrame.BagIDs do
-			for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
-				local slot = bagFrame.Bags[bagID][slotID]
-				if slot and slot.equipIcon then
-					updateSettings(slot)
+			local bag = bagFrame.Bags[bagID]
+			if bag then
+				for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
+					local slot = bag[slotID]
+					if slot and slot.equipIcon then
+						updateSettings(slot)
+					end
 				end
 			end
 		end
@@ -118,6 +128,10 @@ function module:ConstructContainerButton(f, bagID, slotID)
 
 	local slotName = B:GetBagSlotInfo(f, bagID, slotID)
 	local slot = _G[slotName]
+	if not slot then
+		return
+	end
+
 	module.db = E.db.mui.bags.equipmentManager
 
 	if not slot.equipIcon then
@@ -126,6 +140,7 @@ function module:ConstructContainerButton(f, bagID, slotID)
 		slot.equipIcon:Hide()
 	end
 end
+-- File-level hooks (must run before/during bag construction, not only in Initialize)
 hooksecurefunc(B, "ConstructContainerButton", module.ConstructContainerButton)
 
 function module:UpdateSlot(frame, bagID, slotID)
@@ -152,6 +167,7 @@ function module:Initialize()
 		return
 	end
 
+	module.db = E.db.mui.bags.equipmentManager
 	self:UpdateItemDisplay()
 end
 
