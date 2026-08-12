@@ -643,7 +643,7 @@ function F.GradientColorsDetailsCustom(unitclass)
 end
 
 function F.GetClassColorsRGB(unitclass)
-	if unitclass then
+	if unitclass and not E:IsSecretValue(unitclass) then
 		return {
 			r = ClassColorReaction[unitclass]["r1"],
 			g = ClassColorReaction[unitclass]["g1"],
