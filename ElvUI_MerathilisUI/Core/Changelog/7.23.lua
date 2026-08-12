@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[723] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "12.08.2026",
 	FIXES = {
 		"[Core]: Take account of recent ElvUI loading changes",
 		"[Core]: Fixed AFK loading changes",
