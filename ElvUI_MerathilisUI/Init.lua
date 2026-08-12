@@ -133,16 +133,21 @@ MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
 
+MER.Libs = {
+	-- Ace
+	ADB = LibStub("AceDB-3.0"),
+	ABH = LibStub("AceDBOptions-3.0"),
+	GUI = LibStub("AceGUI-3.0"),
+	AC = LibStub("AceConfig-3.0"),
+	ACD = LibStub("AceConfigDialog-3.0"),
+}
+
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()
 	E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "mui")
 end
 
 function MER:Initialize()
-	if self.initialized then
-		return
-	end
-
 	if not self:CheckElvUIVersion() then
 		return
 	end
@@ -182,8 +187,7 @@ function MER:Initialize()
 	self.initialized = true
 
 	self:UpdateScripts()
-	self:InitializeModules()
-
+	self:InitializeDatabase() -- New Ace3DB uses SavedVariables MERData
 	self:AddMoverCategories()
 
 	EP:RegisterPlugin(addon, function()
@@ -221,15 +225,10 @@ end
 
 do
 	local checked = false
-	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
+	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
+		-- Runtime safeguard: on initial login ensure the mui DB subtree exists and defaults are merged.
+		-- This covers edge cases where load-order caused defaults not to be applied earlier.
 		if isInitialLogin then
-			if P and P.mui and E and E.db then
-				if not E.db.mui then
-					E.db.mui = {}
-				end
-				E:CopyTable(E.db.mui, P.mui)
-			end
-
 			self:AutoCopyPrivateProfile()
 			E:Delay(6, self.ChangelogReadAlert, self)
 
