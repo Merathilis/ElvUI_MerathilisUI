@@ -35,7 +35,14 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 			colorMap, colorEntry = getter()
 		end
 
-		colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
+		colorChanged = frame.colorEntry
+				and not E:IsSecretValue(frame.colorEntry)
+				and frame.colorEntry ~= colorEntry
+				and not E:IsSecretValue(colorEntry)
+			or frame.colorMap
+				and not E:IsSecretValue(frame.colorMap)
+				and frame.colorMap ~= colorMap
+				and not E:IsSecretValue(colorMap)
 
 		if colorChanged then
 			frame.colorMap = colorMap

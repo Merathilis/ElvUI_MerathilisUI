@@ -107,12 +107,16 @@ function F.UpdateDBFromPathRGB(db, path)
 	F.UpdateDBFromPath(db, path, "a")
 end
 
-function F.CheckInstanceSecret()
-	local _, instanceType = IsInInstance()
-	if instanceType ~= "none" then
-		return true
+function F.IsThisASafeSecret(value, hasValue, isBG)
+	if hasValue then
+		return E:CanAccessValue(value) --new api to check if value is secret
 	else
-		return false
+		local _, instanceType = IsInInstance()
+		if isBG then
+			return instanceType ~= "pvp" and instanceType ~= "arena"
+		else
+			return instanceType == "none"
+		end
 	end
 end
 
