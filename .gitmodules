@@ -1,0 +1,3 @@
+[submodule "ElvUI_MerathilisUI/Libs/Core/Ace3"]
+	path = ElvUI_MerathilisUI/Libs/Core/Ace3
+	url = https://github.com/WoWUIDev/Ace3.git
