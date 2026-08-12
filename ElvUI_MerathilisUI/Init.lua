@@ -132,8 +132,6 @@ MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
 
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
-E:AddLib("OpenRaid", "LibOpenRaid-1.0")
-E:AddLib("Keystone", "LibKeystone")
 
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()
