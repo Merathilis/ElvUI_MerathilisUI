@@ -7,40 +7,6 @@ local find = string.find
 
 local DEFAULT_NP_WIDTH = 0
 
-local function ApplyClip(fs, widthPx, nameDb)
-	if not fs or not fs.GetParent or not fs.SetParent then
-		return
-	end
-
-	widthPx = tonumber(widthPx) or 0
-	nameDb = nameDb or {}
-	if widthPx <= 0 then
-		if fs.SetWidth then
-			fs:SetWidth(0)
-		end
-		return
-	end
-
-	if fs.SetJustifyH then
-		local point = nameDb.position or "CENTER"
-		if point:find("RIGHT") then
-			fs:SetJustifyH("RIGHT")
-		elseif point:find("LEFT") then
-			fs:SetJustifyH("LEFT")
-		else
-			fs:SetJustifyH("CENTER")
-		end
-	end
-
-	if fs.SetWidth then
-		fs:SetWidth(widthPx)
-	end
-	fs:SetWordWrap(false)
-	if fs.SetNonSpaceWrap then
-		fs:SetNonSpaceWrap(false)
-	end
-end
-
 local function ApplyWidthOnly(fs, widthPx)
 	if not fs or not fs.SetWidth then
 		return
@@ -58,21 +24,61 @@ local function ApplyWidthOnly(fs, widthPx)
 	end
 end
 
-local function ApplyNameplate(nameplate)
-	if nameplate and nameplate.Name then
-		local unitType = nameplate.frameType
-		local unitDb = unitType and E.db.nameplates and E.db.nameplates.units and E.db.nameplates.units[unitType]
-		local width = unitDb and unitDb.name and unitDb.name.clipWidth
-		if width == nil then
-			width = DEFAULT_NP_WIDTH
-		end
-		ApplyClip(nameplate.Name, width, unitDb and unitDb.name)
+local function ApplyClip(fs, widthPx, nameDb)
+	if not fs or not fs.GetParent or not fs.SetParent then
+		return
+	end
 
-		local castbar = nameplate.CastBar
-		if castbar and castbar.Text and unitDb and unitDb.castbar then
-			ApplyWidthOnly(castbar.Text, unitDb.castbar.nameLength or 0)
+	widthPx = tonumber(widthPx) or 0
+	if widthPx > 0 and fs.SetJustifyH then
+		nameDb = nameDb or {}
+		local point = nameDb.position or "CENTER"
+		if find(point, "RIGHT") then
+			fs:SetJustifyH("RIGHT")
+		elseif find(point, "LEFT") then
+			fs:SetJustifyH("LEFT")
+		else
+			fs:SetJustifyH("CENTER")
 		end
 	end
+
+	ApplyWidthOnly(fs, widthPx)
+end
+
+local function GetUnitDb(nameplate)
+	local unitType = nameplate.frameType
+	local nameplatesDB = E.db.nameplates
+	return unitType and nameplatesDB and nameplatesDB.units and nameplatesDB.units[unitType]
+end
+
+local function ApplyNameplateName(nameplate)
+	if not (nameplate and nameplate.Name) then
+		return
+	end
+
+	local unitDb = GetUnitDb(nameplate)
+	local width = unitDb and unitDb.name
+	if width == nil then
+		width = DEFAULT_NP_WIDTH
+	end
+	ApplyClip(nameplate.Name, width, unitDb and unitDb.name)
+end
+
+local function ApplyNameplateCastbar(nameplate)
+	local castbar = nameplate and nameplate.CastBar
+	if not (castbar and castbar.Text) then
+		return
+	end
+
+	local unitDb = GetUnitDb(nameplate)
+	if unitDb and unitDb.castbar then
+		ApplyWidthOnly(castbar.Text, unitDb.castbar.nameLength or 0)
+	end
+end
+
+local function ApplyNameplate(nameplate)
+	ApplyNameplateName(nameplate)
+	ApplyNameplateCastbar(nameplate)
 end
 
 local function RefreshAll()
