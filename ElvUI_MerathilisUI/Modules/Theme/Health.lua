@@ -24,7 +24,12 @@ function module:GetHealthColor(frame, unit)
 		return "specialColorMap", "DISCONNECTED"
 	elseif frame.unitDead then
 		return "specialColorMap", "DEAD"
-	elseif isPlayer and not UnitIsDeadOrGhost(unit) and UnitIsCharmed(unit) and UnitIsEnemy("player", unit) then
+	elseif
+		isPlayer
+		and not E:IsSecretValue(UnitIsDeadOrGhost(unit))
+		and E:IsSecretValue(UnitIsCharmed(unit))
+		and E:IsSecretValue(UnitIsEnemy("player", unit))
+	then
 		return "reactionColorMap", "BAD"
 	elseif not UnitPlayerControlled(unit) and UnitIsTapDenied(unit) then
 		return "specialColorMap", "TAPPED"
