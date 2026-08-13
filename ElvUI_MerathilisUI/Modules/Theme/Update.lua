@@ -12,7 +12,7 @@ local type = type
 ---@param eB number|nil
 ---@param colorChanged boolean
 ---@param getter function|nil  -- () -> colorMap, colorEntry  (called only when needed)
-function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, getter)
+function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorEntry)
 	if type(eR) == "table" then
 		eR, eG, eB = eR.r, eR.g, eR.b
 	end
@@ -30,19 +30,7 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 	end
 
 	if colorChanged then
-		local colorMap, colorEntry
-		if getter then
-			colorMap, colorEntry = getter()
-		end
-
-		colorChanged = frame.colorEntry
-				and not E:IsSecretValue(frame.colorEntry)
-				and frame.colorEntry ~= colorEntry
-				and not E:IsSecretValue(colorEntry)
-			or frame.colorMap
-				and not E:IsSecretValue(frame.colorMap)
-				and frame.colorMap ~= colorMap
-				and not E:IsSecretValue(colorMap)
+		colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
 
 		if colorChanged then
 			frame.colorMap = colorMap
