@@ -4,15 +4,7 @@ local module = MER:GetModule("MER_Theme") ---@class Theme
 local CreateColor = CreateColor
 local type = type
 
----Apply gradient colors to a status bar.
----@param frame StatusBar
----@param valueChanged boolean
----@param eR number|table|nil
----@param eG number|nil
----@param eB number|nil
----@param colorChanged boolean
----@param getter function|nil  -- () -> colorMap, colorEntry  (called only when needed)
-function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorEntry)
+function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorFunc)
 	if type(eR) == "table" then
 		eR, eG, eB = eR.r, eR.g, eR.b
 	end
@@ -30,14 +22,13 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 	end
 
 	if colorChanged then
+		local colorMap, colorEntry = colorFunc()
 		colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
 
 		if colorChanged then
 			frame.colorMap = colorMap
 			frame.colorEntry = colorEntry
-			if eB ~= nil then
-				frame.currentColor:SetRGBA(eR, eG, eB, 1)
-			end
+			frame.currentColor:SetRGBA(eR, eG, eB, 1)
 		end
 	end
 

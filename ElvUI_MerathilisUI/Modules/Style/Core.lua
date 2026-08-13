@@ -357,6 +357,4 @@ while object do
 	object = EnumerateFrames(object)
 end
 
-module:API(CreateFrame("ScrollFrame"))
-
 MER:RegisterModule(module:GetName())
