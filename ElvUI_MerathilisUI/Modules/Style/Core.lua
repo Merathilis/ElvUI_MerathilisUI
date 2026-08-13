@@ -246,29 +246,6 @@ end
 
 function module:MetatableScan()
 	self.MERStyle = self.MERStyle or {}
-
-	local handled = {
-		Frame = true,
-		Button = true,
-	}
-
-	local object = CreateFrame("Frame")
-	self:API(object)
-	self:API(object:CreateTexture())
-	self:API(object:CreateFontString())
-	self:API(object:CreateMaskTexture())
-
-	object = EnumerateFrames()
-	while object do
-		if not object:IsForbidden() then
-			local objType = object:GetObjectType()
-			if not handled[objType] then
-				self:API(object)
-				handled[objType] = true
-			end
-		end
-		object = EnumerateFrames(object)
-	end
 end
 
 function module:Disable()
@@ -301,7 +278,7 @@ function module:Enable()
 		return
 	end
 
-	self:MetatableScan()
+	self:MetatableScan() -- monitor this
 	self:ForceRefresh()
 
 	self.isEnabled = true
@@ -357,5 +334,29 @@ function module:Initialize()
 
 	self.Initialized = true
 end
+
+local handled = {
+	Frame = true,
+	Button = true,
+}
+
+local object = CreateFrame("Frame")
+module:API(object)
+module:API(object:CreateTexture())
+module:API(object:CreateFontString())
+module:API(object:CreateMaskTexture())
+
+object = EnumerateFrames()
+while object do
+	local objType = object:GetObjectType()
+	if not object:IsForbidden() and not handled[objType] then
+		module:API(object)
+		handled[objType] = true
+	end
+
+	object = EnumerateFrames(object)
+end
+
+module:API(CreateFrame("ScrollFrame"))
 
 MER:RegisterModule(module:GetName())
