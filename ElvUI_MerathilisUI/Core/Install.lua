@@ -1135,7 +1135,7 @@ function MER:SetupUnitframes(layout)
 	--	UnitFrames - General
 	--]]
 	----------------------------------
-	E.db["unitframe"]["font"] = "- GothamNarrow-Black"
+	E.db["unitframe"]["font"] = "GothamNarrow-Black"
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "SHADOWOUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
@@ -1254,7 +1254,7 @@ function MER:SetupUnitframes(layout)
 	end
 
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "LEFT",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
@@ -1265,7 +1265,7 @@ function MER:SetupUnitframes(layout)
 	}
 
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "LEFT",
@@ -1275,7 +1275,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "RIGHT",
@@ -1285,7 +1285,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["MERPower"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 12,
 		["justifyH"] = "CENTER",
@@ -1295,7 +1295,7 @@ function MER:SetupUnitframes(layout)
 		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 12,
 		["justifyH"] = "CENTER",
@@ -1306,7 +1306,7 @@ function MER:SetupUnitframes(layout)
 	}
 
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
 		["justifyH"] = "LEFT",
@@ -1442,7 +1442,7 @@ function MER:SetupUnitframes(layout)
 	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["target"]["customTexts"] = {}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "RIGHT",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 2,
@@ -1452,7 +1452,7 @@ function MER:SetupUnitframes(layout)
 		["attachTextTo"] = "Frame",
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["size"] = 11,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "RIGHT",
@@ -1462,7 +1462,7 @@ function MER:SetupUnitframes(layout)
 		["xOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["size"] = 11,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "LEFT",
@@ -1472,7 +1472,7 @@ function MER:SetupUnitframes(layout)
 		["xOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["MERPower"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["size"] = 11,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "RIGHT",
@@ -1672,7 +1672,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid1"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["raid1"]["customTexts"]["Status"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
@@ -1682,7 +1682,7 @@ function MER:SetupUnitframes(layout)
 		["text_format"] = "[statustimer]",
 	}
 	E.db["unitframe"]["units"]["raid1"]["customTexts"]["name1"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["size"] = 9,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "CENTER",
@@ -1793,7 +1793,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid2"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["raid2"]["customTexts"]["Status"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
@@ -1803,7 +1803,7 @@ function MER:SetupUnitframes(layout)
 		["text_format"] = "[statustimer]",
 	}
 	E.db["unitframe"]["units"]["raid2"]["customTexts"]["name1"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["size"] = 9,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "CENTER",
@@ -1914,7 +1914,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid3"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["raid3"]["customTexts"]["Status"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
@@ -1924,7 +1924,7 @@ function MER:SetupUnitframes(layout)
 		["text_format"] = "[statustimer]",
 	}
 	E.db["unitframe"]["units"]["raid3"]["customTexts"]["name1"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["size"] = 9,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "CENTER",
@@ -2067,7 +2067,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["size"] = 11,
 		["fontOutline"] = "SHADOWOUTLINE",
 		["justifyH"] = "CENTER",
@@ -2077,7 +2077,7 @@ function MER:SetupUnitframes(layout)
 		["text_format"] = "[name:MER:gradient]",
 	}
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
-		["font"] = "- GothamNarrow-Black",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
@@ -2175,7 +2175,7 @@ function MER:SetupUnitframes(layout)
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
 		["attachTextTo"] = "Frame",
-		["font"] = "Expressway",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "LEFT",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
@@ -2185,7 +2185,7 @@ function MER:SetupUnitframes(layout)
 	}
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
 		["attachTextTo"] = "Health",
-		["font"] = "Expressway",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "LEFT",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
@@ -2195,7 +2195,7 @@ function MER:SetupUnitframes(layout)
 	}
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {
 		["attachTextTo"] = "Health",
-		["font"] = "Expressway",
+		["font"] = "GothamNarrow-Black",
 		["justifyH"] = "RIGHT",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["xOffset"] = 0,
