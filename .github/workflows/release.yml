@@ -4,6 +4,9 @@ on:
     push:
         tags:
             - "**"
+        paths-ignore:
+            - ".github/**"
+            - ".vscode/**"
 
 permissions:
     contents: write
