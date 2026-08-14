@@ -1,48 +1,7 @@
 ### Changes ###
 
-  * [Core]: Take account of recent ElvUI loading changes
-  * [Core]: Fixed AFK loading changes
-  * [Profile]: Updated Profile encoding/decoding to the new Blizzard API
-  * [Core]: Fixed usage of E.Initialized instead of the outdated E.initialized
-  * [Core]: Fixed compatibility with recent ElvUI changes
-  * [Core]: Fixed some settings being overwritten on every login
-  * [NameHover]: Fixed a potential secret value error
-  * [Skins]: Fixed a typo in the CooldownViewer skin
-  * [Notification]: Added a new Mail module and related settings
-  * [Profile]: Added a safeguard merge for your MerathilisUI settings
-  * [Misc]: Added Auction Enhanced, shows the tertiary stats of equipment in the Auction House
-  * [Loot]: Added LootSpecManager, automatically switches your loot specialization between bosses in Raids and Mythic+
-  * [Skins]: Added a BugSack skin with a version info line up top
-  * [CooldownManager]: Switched from BetterCooldownManager to SkironCooldownManager
-  * [BigWigs]: Updated the bundled BigWigs profile
-  * [mMediaTag]: Switched back to mMedia Tag & Tools now that it's available again
-  * [Core]: Removed the LibAnim dependency
-  * [Core]: Modules now register themselves on PLAYER_LOGIN to match ElvUI's new loading process
-  * [Locale]: Updated and cleaned up locale files, aligned with the enUS keys
-  * [Core]: Updated several SetFont calls
-  * [Options]: More icons for several options and general options updates
-  * [Core]: Use the new C_EncodingUtil API globals instead of LibDeflate
-  * [Skins]: Various optimizations
-  * [Armory]: Small improvements
-  * [SpecBar]: Minor updates
-  * [GameMenu]: Various improvements
-  * [Misc]: Removed unused FunStuff module and other unneeded code
-  * [ItemLevel]: Updated module
-  * [Notification]: Updated module
-  * [Panels]: Updated module
-  * [Theme]: Updated theme code
-  * [Style]: Code optimizations
-  * [NameHover]: Updated module
-  * [EquipManager]: Updated module
-  * [Options]: Small options optimizations
-  * [Core]: General performance optimizations
-  * [Maps]: Optimized MiniMapCoords performance and cleaned up formatting
-  * [Skins]: Updated the GlobalIgnoreList skin
-  * [Skins]: General code cleanup
-  * [Nameplates]: Refactored width, clipping and tag handling for better readability and performance
-  * [Profiles]: Cleanup and fixes for the mMediaTag & Tools and BigWigs profile modules
-  * [Loot]: Enhanced the LootSpecManager GUI and options structure
-  * [NameHover]: Various updates and code cleanup
-  * [VehicleBar]: Small code cleanup
-  * [Core]: Changed how the database gets created
-  * [Core]: Added the TWW interface number for compatibility
+  * [Notification]: Fixed an issue with the Mail option
+  * [Profile]: Fixed an whoopsi in the Capping Profile
+  * [NameHover]: Try to avoid another secret error
+  * [Skins]: Added an own Skin for the Cooldown Manager
+  * [Skins]: Some visual improvements for some tabs
