@@ -270,6 +270,4 @@ do
 	end
 end
 
-function MER:OnInitialize()
-	MER:Initialize()
-end
+EP:HookInitialize(MER, MER.Initialize)
