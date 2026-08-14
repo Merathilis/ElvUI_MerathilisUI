@@ -5,16 +5,16 @@ I.General = {
 	MediaPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\",
 	ElvUIMediaPath = "Interface\\Addons\\ElvUI\\Core\\Media\\",
 
-	DefaultFont = "- Expressway",
+	DefaultFont = "Expressway",
 	DefaultFontSize = 10,
 	DefaultFontOutline = "SHADOWOUTLINE",
 }
 
 I.Fonts = {
-	Primary = "- Expressway",
-	GothamRaid = "- GothamNarrow-Black",
-	Runescape = "- Runescape",
-	Icons = "- Icons",
+	Primary = "Expressway",
+	GothamRaid = "GothamNarrow-Black",
+	Runescape = "Runescape",
+	Icons = "Icons",
 }
 
 I.Textures = {
