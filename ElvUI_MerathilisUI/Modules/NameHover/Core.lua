@@ -143,7 +143,7 @@ local function IsAllowedMouseFocus()
 			unit = current:GetAttribute("unit")
 		end
 
-		if unit and UnitExists(unit) and UnitIsUnit(unit, "mouseover") then
+		if unit and not E:IsSecretValue(unit) and UnitExists(unit) and UnitIsUnit(unit, "mouseover") then
 			return true
 		end
 

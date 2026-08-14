@@ -1,3 +1,6 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/'>
 	<Include file="Core\LibDropDown\embed.xml"/>
+	<Include file="Core\Ace3\AceConsole-3.0\AceConsole-3.0.xml"/>
+	<Include file="Core\Ace3\AceGUI-3.0\AceGUI-3.0.xml"/>
+	<Include file="Core\Ace3\AceConfig-3.0\AceConfig-3.0.xml"/>
 </Ui>

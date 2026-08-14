@@ -6,7 +6,7 @@ local UnitCanAttack = UnitCanAttack
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
 
-function module:GetCastbarColor(frame, unit, castFailed, duration, maxDuration)
+function module:GetCastbarColor(frame, unit, castFailed)
 	if not self.isEnabled or not self.db or not self.db.enable then
 		return
 	end
@@ -14,54 +14,33 @@ function module:GetCastbarColor(frame, unit, castFailed, duration, maxDuration)
 		unit = "player"
 	end
 
-	local interruptCD
-	local canInterruptInTime = false
-	local hasInterruptCD = false
-	-- notInterruptible is secret in Midnight, cannot check it at all
-	local canInterrupt = true
-	local channeling = frame.channeling
-	local db = self.db
-
-	if unit and unit ~= "player" and (db.interruptCDEnabled or db.interruptSoonEnabled) then
-		if canInterrupt and UnitCanAttack("player", unit) then
-			interruptCD = F.CanInterrupt()
-			if interruptCD > 0 then
-				hasInterruptCD = true
-			end
-		end
-	end
-
-	if db.interruptSoonEnabled and hasInterruptCD and interruptCD and interruptCD > 0 then
-		if channeling then
-			canInterruptInTime = (interruptCD + 0.3) < duration
-		else
-			canInterruptInTime = (interruptCD + 0.3) < (maxDuration - duration)
-		end
-	end
-
+	local notInterruptible = E:NotSecretValue(frame.notInterruptible) and frame.notInterruptible
+	local isPlayer = unit and UnitIsPlayer(unit)
+	local canAttack = unit and unit ~= "player" and UnitCanAttack("player", unit)
 	local useClassColor, colorEntry
 
 	if castFailed then
 		colorEntry = "INTERRUPTED"
-	elseif hasInterruptCD and canInterruptInTime then
-		colorEntry = "INTERRUPTSOON"
-	elseif hasInterruptCD then
-		colorEntry = "INTERRUPTCD"
 	elseif
-		not canInterrupt
+		notInterruptible
 		and unit
-		and (UnitIsPlayer(unit) or (unit ~= "player" and UnitCanAttack("player", unit)))
+		and ((E:NotSecretValue(isPlayer) and isPlayer) or (E:NotSecretValue(canAttack) and canAttack))
 	then
 		colorEntry = "NOINTERRUPT"
-	elseif frame.classColorFallback and unit and UnitIsPlayer(unit) then
-		colorEntry = select(2, UnitClass(unit))
-		useClassColor = true
+	elseif frame.classColorFallback and unit and E:NotSecretValue(isPlayer) and isPlayer then
+		local classToken = select(2, UnitClass(unit))
+		if E:NotSecretValue(classToken) then
+			colorEntry = classToken
+			useClassColor = true
+		else
+			colorEntry = "DEFAULT"
+		end
 	else
 		colorEntry = "DEFAULT"
 	end
 
 	local colorMap = useClassColor and "classColorMap" or "castColorMap"
-	if useClassColor and db[colorMap][I.Enum.GradientMode.Color.NORMAL][colorEntry] == nil then
+	if useClassColor and self.db[colorMap][I.Enum.GradientMode.Color.NORMAL][colorEntry] == nil then
 		colorEntry = "DEFAULT"
 		colorMap = "castColorMap"
 	end
@@ -93,7 +72,6 @@ function module:PostUpdateCastColor(frame, castFailed)
 		frame.currentPercent = 1
 	end
 
-	self:SetGradientColors(frame, valueChanged, eR, eG, eB, true, function()
-		return module:GetCastbarColor(frame, unit, castFailed)
-	end)
+	local colorFunc = F.Event.GenerateClosure(self.GetCastbarColor, self, frame, unit, castFailed)
+	self:SetGradientColors(frame, valueChanged, nil, nil, nil, true, colorFunc)
 end

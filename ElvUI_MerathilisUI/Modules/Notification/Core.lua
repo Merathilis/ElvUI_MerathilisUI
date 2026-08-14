@@ -4,8 +4,9 @@ local S = MER:GetModule("MER_Skins")
 local WS = W:GetModule("Skins")
 
 -- Credits RealUI
-local unpack, type = unpack, type
-local tinsert, tremove = tinsert, tremove
+local unpack, type, pairs = unpack, type, pairs
+local table = table
+local tinsert, tremove = table.insert, table.remove
 
 local CreateFrame = CreateFrame
 local UnitIsAFK = UnitIsAFK
@@ -13,6 +14,7 @@ local GetAtlasInfo = C_Texture.GetAtlasInfo
 local PlaySound = PlaySound
 local After = C_Timer.After
 local CreateAnimationGroup = CreateAnimationGroup
+local SlashCmdList = SlashCmdList
 
 local bannerWidth = 255
 local bannerHeight = 68
@@ -23,10 +25,6 @@ local activeToasts = {}
 local queuedToasts = {}
 local anchorFrame
 
-local function IsTopAnchor()
-	return E:GetScreenQuadrant(anchorFrame):find("TOP")
-end
-
 function module:SpawnToast(toast)
 	if not toast then
 		return
@@ -34,6 +32,7 @@ function module:SpawnToast(toast)
 
 	if #activeToasts >= max_active_toasts then
 		tinsert(queuedToasts, toast)
+
 		return false
 	end
 
@@ -41,15 +40,20 @@ function module:SpawnToast(toast)
 	if E:NotSecretValue(afk) and afk then
 		tinsert(queuedToasts, toast)
 		self:RegisterEvent("PLAYER_FLAGS_CHANGED")
+
 		return false
 	end
 
-	local isTop = IsTopAnchor()
-	local YOffset = isTop and -54 or 54
+	local YOffset = 0
+	if E:GetScreenQuadrant(anchorFrame):find("TOP") then
+		YOffset = -54
+	else
+		YOffset = 54
+	end
 
 	toast:ClearAllPoints()
 	if #activeToasts > 0 then
-		if isTop then
+		if E:GetScreenQuadrant(anchorFrame):find("TOP") then
 			toast:SetPoint("TOP", activeToasts[#activeToasts], "BOTTOM", 0, -4 - YOffset)
 		else
 			toast:SetPoint("BOTTOM", activeToasts[#activeToasts], "TOP", 0, 4 - YOffset)
@@ -66,59 +70,50 @@ function module:SpawnToast(toast)
 	toast.AnimIn:Play()
 	toast.AnimOut:Play()
 
-	local db = E.db.mui.notification
-	if db and not db.noSound then
+	if module.db.noSound ~= true then
 		PlaySound(18019, "Master")
 	end
 end
 
 function module:RefreshToasts()
-	local isTop = IsTopAnchor()
-
 	for i = 1, #activeToasts do
 		local activeToast = activeToasts[i]
-		local YOffset = 0
-
+		local YOffset, _ = 0
 		if activeToast.AnimIn.AnimMove:IsPlaying() then
-			local _, y = activeToast.AnimIn.AnimMove:GetOffset()
-			YOffset = y
-		elseif activeToast.AnimOut.AnimMove:IsPlaying() then
-			local _, y = activeToast.AnimOut.AnimMove:GetOffset()
-			YOffset = y
+			_, YOffset = activeToast.AnimIn.AnimMove:GetOffset()
+		end
+		if activeToast.AnimOut.AnimMove:IsPlaying() then
+			_, YOffset = activeToast.AnimOut.AnimMove:GetOffset()
 		end
 
 		activeToast:ClearAllPoints()
 
 		if i == 1 then
 			activeToast:SetPoint("TOP", anchorFrame, "TOP", 0, 1 - YOffset)
-		elseif isTop then
-			activeToast:SetPoint("TOP", activeToasts[i - 1], "BOTTOM", 0, -4 - YOffset)
 		else
-			activeToast:SetPoint("BOTTOM", activeToasts[i - 1], "TOP", 0, 4 - YOffset)
+			if E:GetScreenQuadrant(anchorFrame):find("TOP") then
+				activeToast:SetPoint("TOP", activeToasts[i - 1], "BOTTOM", 0, -4 - YOffset)
+			else
+				activeToast:SetPoint("BOTTOM", activeToasts[i - 1], "TOP", 0, 4 - YOffset)
+			end
 		end
 	end
 
 	local queuedToast = tremove(queuedToasts, 1)
+
 	if queuedToast then
 		self:SpawnToast(queuedToast)
 	end
 end
 
 function module:HideToast(toast)
-	for i = #activeToasts, 1, -1 do
-		if activeToasts[i] == toast then
+	for i, activeToast in pairs(activeToasts) do
+		if toast == activeToast then
 			tremove(activeToasts, i)
-			break
 		end
 	end
-
-	-- Reset transient state before pooling
-	toast.clickFunc = nil
-	toast.AnimIn:Stop()
-	toast.AnimOut:Stop()
-	toast:Hide()
 	tinsert(toasts, toast)
-
+	toast:Hide()
 	After(0.1, function()
 		self:RefreshToasts()
 	end)
@@ -129,15 +124,10 @@ local function ToastButtonAnimOut_OnFinished(self)
 end
 
 function module:CreateToast()
-	-- Reuse pooled toast if available
-	local toast = tremove(toasts)
-	if toast then
-		return toast
-	end
-
+	local toast = tremove(toasts, 1)
 	local db = E.db.mui.notification
 
-	toast = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
+	toast = CreateFrame("Frame", MER.Title .. "Toast", E.UIParent, "BackdropTemplate")
 	toast:SetFrameStrata("HIGH")
 	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
@@ -155,8 +145,7 @@ function module:CreateToast()
 	local sep = toast:CreateTexture(nil, "BACKGROUND")
 	sep:SetSize(2, bannerHeight)
 	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
-	sep:SetColorTexture(unpack(E.media.rgbvaluecolor))
-	toast.sep = sep
+	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
 	local title = toast:CreateFontString(nil, "OVERLAY")
 	WF.SetFontWithDB(title, db.titleFont)
@@ -235,13 +224,17 @@ function module:DisplayToast(name, message, clickFunc, texture, ...)
 
 	toast.clickFunc = type(clickFunc) == "function" and clickFunc or nil
 
-	if texture then
-		if GetAtlasInfo(texture) then
-			toast.icon:SetAtlas(texture)
+	local safeTexture = texture and not E:IsSecretValue(texture) and texture or nil
+
+	if safeTexture then
+		local ok, atlas = pcall(GetAtlasInfo, safeTexture)
+		if ok and atlas then
+			toast.icon:SetAtlas(safeTexture)
 		else
-			toast.icon:SetTexture(texture)
-			if ... then
-				toast.icon:SetTexCoord(...)
+			toast.icon:SetTexture(safeTexture)
+			local a, b, c, d = ...
+			if a and not E:IsSecretValue(a) then
+				toast.icon:SetTexCoord(a, b, c, d)
 			else
 				toast.icon:SetTexCoords()
 			end
@@ -254,20 +247,23 @@ function module:DisplayToast(name, message, clickFunc, texture, ...)
 	toast.title:SetText(name)
 	toast.text:SetText(message)
 
-	self:SpawnToast(toast)
+	local ok, err = pcall(function()
+		self:SpawnToast(toast)
+	end)
+	if not ok then
+		print(MER.Title .. "|cffff0000Toast-Fehler:|r", err)
+	end
 end
 
 function module:PLAYER_FLAGS_CHANGED(event)
 	self:UnregisterEvent(event)
-	local slots = max_active_toasts - #activeToasts
-	for _ = 1, slots do
+	for i = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
 end
 
 function module:PLAYER_REGEN_ENABLED()
-	local slots = max_active_toasts - #activeToasts
-	for _ = 1, slots do
+	for i = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
 end
@@ -277,7 +273,7 @@ local function testCallback()
 	F.Print("Banner clicked!")
 end
 
-_G.SlashCmdList.TESTNOTIFICATION = function(b)
+SlashCmdList.TESTNOTIFICATION = function(b)
 	module:DisplayToast(
 		F.cOption("MerathilisUI:", "gradient"),
 		L["This is an example of a notification."],
@@ -289,11 +285,11 @@ _G.SlashCmdList.TESTNOTIFICATION = function(b)
 		0.92
 	)
 end
-_G.SLASH_TESTNOTIFICATION1 = "/testnotification"
+SLASH_TESTNOTIFICATION1 = "/testnotification"
 
 function module:Initialize()
-	local db = E.db.mui.notification
-	if not db or not db.enable then
+	module.db = E.db.mui.notification
+	if not module.db.enable then
 		return
 	end
 

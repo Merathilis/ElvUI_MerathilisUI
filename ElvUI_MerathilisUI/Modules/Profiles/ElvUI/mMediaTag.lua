@@ -16,6 +16,7 @@ function module:LoadmMediaTagProfile()
 	end
 
 	db.general.greeting_message = false
+	db.portraits.enable = false
 	db.important_casts.enable = true
 	db.nameplates.target.changeColor = true
 	db.nameplates.target.changeTexture = true

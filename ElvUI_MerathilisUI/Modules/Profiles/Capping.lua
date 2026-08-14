@@ -7,7 +7,7 @@ function module:LoadCappingProfile()
 
 	_G.CappingSettings.profiles[profileName] = {
 		["outline"] = "OUTLINE",
-		["font"] = "- Expressway",
+		["font"] = "MER_Expressway",
 		["lock"] = true,
 		["spacing"] = 2,
 		["barTexture"] = "ElvUI Norm1",

@@ -12,6 +12,8 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
 local UnitReaction = UnitReaction
 
+local C_ClassColor_GetClassColor = C_ClassColor.GetClassColor
+
 --[[----------------------------------
 --	Color Functions
 --]]
@@ -642,15 +644,34 @@ function F.GradientColorsDetailsCustom(unitclass)
 	}
 end
 
-function F.GetClassColorsRGB(unitclass)
-	if unitclass then
-		return {
-			r = ClassColorReaction[unitclass]["r1"],
-			g = ClassColorReaction[unitclass]["g1"],
-			b = ClassColorReaction[unitclass]["b1"],
-		}
+function F.GetClassColorsRGB(unitclass, tableType)
+	if E:NotSecretValue(unitclass) then
+		if unitclass and ClassColorReaction[unitclass] then
+			return {
+				r = ClassColorReaction[unitclass]["r1"],
+				g = ClassColorReaction[unitclass]["g1"],
+				b = ClassColorReaction[unitclass]["b1"],
+			}
+		else
+			return { r1 = 1, g1 = 0, b1 = 0 }
+		end
 	else
-		return { r1 = 1, g1 = 0, b1 = 0 } --debug red
+		local classColor = C_ClassColor_GetClassColor(unitclass)
+		if tableType then
+			return classColor.r, classColor.g, classColor.b
+		else
+			if tableType == 1 then
+				return { r1 = classColor.r, g1 = classColor.g, b1 = classColor.b }
+			elseif tableType == 2 then
+				return { r = classColor.r, g = classColor.g, b = classColor.b }, {
+					r = classColor.r,
+					g = classColor.g,
+					b = classColor.b,
+				}
+			elseif tableType == 3 then
+				return { r = classColor.r, g = classColor.g, b = classColor.b }
+			end
+		end
 	end
 end
 
@@ -659,8 +680,8 @@ function F.GradientName(name, unitclass, isTarget, isUnit)
 		return
 	end
 
-	if F.CheckInstanceSecret() and isUnit then
-		local cs = F.GetClassColorsRGB(unitclass)
+	if not F.IsThisASafeSecret() and isUnit then
+		local cs = F.GetClassColorsRGB(unitclass, 3)
 		return E:RGBToHex(cs.r, cs.g, cs.b) .. name
 	else
 		local color = UnitframeGradients[unitclass] or UnitframeGradients.MANA
