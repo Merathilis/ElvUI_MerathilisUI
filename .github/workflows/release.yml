@@ -21,7 +21,7 @@ jobs:
             GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         steps:
             - name: Clone Project
-              uses: actions/checkout@v7
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
                   submodules: recursive
@@ -33,11 +33,13 @@ jobs:
             - name: Setup Environment
               run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
-            - name: Release Job
-              uses: BigWigsMods/packager@master
+            - name: BigWigsPackager
+              uses: BigWigsMods/packager@v2
+              with:
+                args: -n "{package-name}-{project-version}"
 
             - name: Upload to Github Actions
-              uses: actions/upload-artifact@v7
+              uses: actions/upload-artifact@v4
               with:
                   name: ElvUI_MerathilisUI
                   path: .release/*.zip
