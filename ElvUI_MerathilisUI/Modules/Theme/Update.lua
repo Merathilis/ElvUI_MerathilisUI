@@ -23,12 +23,14 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 
 	if colorChanged then
 		local colorMap, colorEntry = colorFunc()
-		colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
+		if colorMap and not E:IsSecretValue(colorMap) and colorEntry and not E:IsSecretValue(colorEntry) then
+			colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
 
-		if colorChanged then
-			frame.colorMap = colorMap
-			frame.colorEntry = colorEntry
-			frame.currentColor:SetRGBA(eR, eG, eB, 1)
+			if colorChanged then
+				frame.colorMap = colorMap
+				frame.colorEntry = colorEntry
+				frame.currentColor:SetRGBA(eR, eG, eB, 1)
+			end
 		end
 	end
 

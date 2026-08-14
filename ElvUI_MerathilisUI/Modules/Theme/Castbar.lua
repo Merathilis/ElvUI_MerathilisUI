@@ -6,7 +6,7 @@ local UnitCanAttack = UnitCanAttack
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
 
-function module:GetCastbarColor(frame, unit, castFailed, duration, maxDuration)
+function module:GetCastbarColor(frame, unit, castFailed)
 	if not self.isEnabled or not self.db or not self.db.enable then
 		return
 	end
@@ -14,53 +14,27 @@ function module:GetCastbarColor(frame, unit, castFailed, duration, maxDuration)
 		unit = "player"
 	end
 
-	local interruptCD
-	local canInterruptInTime = false
-	local hasInterruptCD = false
-	-- notInterruptible is secret in Midnight, cannot check it at all
-	local canInterrupt = true
-	local channeling = frame.channeling
-
-	if unit and (self.db.interruptCDEnabled or self.db.interruptSoonEnabled) then
-		hasInterruptCD = false
-
-		if canInterrupt and (unit ~= "player") and (UnitCanAttack("player", unit)) then
-			interruptCD = F.CanInterrupt()
-			if interruptCD > 0 then
-				hasInterruptCD = true
-			end
-		end
-	end
-
-	if self.db.interruptSoonEnabled and hasInterruptCD and unit then
-		interruptCD = interruptCD or F.CanInterrupt()
-
-		if interruptCD > 0 then
-			if channeling then
-				canInterruptInTime = (interruptCD + 0.3) < duration
-			else
-				canInterruptInTime = (interruptCD + 0.3) < (maxDuration - duration)
-			end
-		end
-	end
-
+	local notInterruptible = E:NotSecretValue(frame.notInterruptible) and frame.notInterruptible
+	local isPlayer = unit and UnitIsPlayer(unit)
+	local canAttack = unit and unit ~= "player" and UnitCanAttack("player", unit)
 	local useClassColor, colorEntry
 
 	if castFailed then
 		colorEntry = "INTERRUPTED"
-	elseif hasInterruptCD and canInterruptInTime then
-		colorEntry = "INTERRUPTSOON"
-	elseif hasInterruptCD and not canInterruptInTime then
-		colorEntry = "INTERRUPTCD"
 	elseif
-		not canInterrupt
+		notInterruptible
 		and unit
-		and (UnitIsPlayer(unit) or (unit ~= "player" and UnitCanAttack("player", unit)))
+		and ((E:NotSecretValue(isPlayer) and isPlayer) or (E:NotSecretValue(canAttack) and canAttack))
 	then
 		colorEntry = "NOINTERRUPT"
-	elseif frame.classColorFallback and (unit and UnitIsPlayer(unit)) then
-		colorEntry = select(2, UnitClass(unit))
-		useClassColor = true
+	elseif frame.classColorFallback and unit and E:NotSecretValue(isPlayer) and isPlayer then
+		local classToken = select(2, UnitClass(unit))
+		if E:NotSecretValue(classToken) then
+			colorEntry = classToken
+			useClassColor = true
+		else
+			colorEntry = "DEFAULT"
+		end
 	else
 		colorEntry = "DEFAULT"
 	end
