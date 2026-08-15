@@ -4,9 +4,6 @@ on:
     push:
         tags:
             - "**"
-        paths-ignore:
-            - ".github/**"
-            - ".vscode/**"
 
 permissions:
     contents: write
@@ -19,15 +16,19 @@ jobs:
         env:
             # CurseForge
             CF_API_KEY: ${{ secrets.CF_API_KEY }}
+
             # Wago
             WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+
             # GitHub
             GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
             # Project URLs - used for Discord notification
             CF_URL: https://www.curseforge.com/wow/addons/merathilis-ui
             WAGO_URL: https://addons.wago.io/addons/elvui-merathilisui
 
         steps:
+
             # ---------------------------------------------------------
             # Checkout repository
             # ---------------------------------------------------------
@@ -74,6 +75,7 @@ jobs:
                   path: .release/*.zip
                   if-no-files-found: error
                   retention-days: 30
+                  include-hidden-files: true
 
             # ---------------------------------------------------------
             # Send release notification to Discord
