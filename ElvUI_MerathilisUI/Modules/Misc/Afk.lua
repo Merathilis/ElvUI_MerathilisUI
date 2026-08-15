@@ -193,7 +193,7 @@ function module:AFK()
 	end
 
 	local _, classunit = UnitClass("player")
-	local colorDB = E.db.mui.gradient
+	local colorDB = E and E.db and E.db.mui and E.db.mui.gradient
 
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel
@@ -247,7 +247,7 @@ function module:AFK()
 	AFK.AFKMode.PlayerName:FontTemplate(nil, 24, "SHADOWOUTLINE")
 
 	local coloredClass
-	if colorDB.enable then
+	if colorDB and colorDB.enable then
 		if colorDB.customColor.enableClass then
 			AFK.AFKMode.PlayerName:SetText(F.GradientNameCustom(E.myname, classunit))
 			coloredClass = F.GradientNameCustom(E.myLocalizedClass:gsub("%-.+", "*"), classunit)
