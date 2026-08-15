@@ -20,6 +20,7 @@ local SupportedProfiles = {
 	{ "BigWigs", "BigWigs" },
 	{ "Details", "Details" },
 	{ "ls_Toasts", "ls_Toasts" },
+	{ "PermoksAccountManager", "PermoksAccountManager" },
 	{ "SkironCooldownManager", "SkironCooldownManager" },
 	{ "TomTom", "TomTom" },
 	{ "ElvUI_mMediaTag", "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r" },
@@ -139,7 +140,9 @@ for _, v in ipairs(SupportedProfiles) do
 		name = addonName,
 		desc = L["This will create and apply profile for "] .. addonName,
 		func = function()
-			if addon == "SkironCooldownManager" then
+			if addon == "PermoksAccountManager" then
+				Profile:ApplyPermoksAccountManagerProfile()
+			elseif addon == "SkironCooldownManager" then
 				Profile:ApplySkironCooldownManagerProfile()
 			elseif addon == "BigWigs" then
 				Profile:ApplyBigWigsProfile()

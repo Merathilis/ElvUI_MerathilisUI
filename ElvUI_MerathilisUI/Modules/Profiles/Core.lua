@@ -7,7 +7,7 @@ function module:ExecuteElvUIUpdate(callback)
 	-- Update ElvUI
 	F.Event.RunNextFrame(function()
 		F.Event.ContinueAfterElvUIUpdate(function()
-			E:UpdateAll()
+			E:UpdateStart()
 
 			F.Event.ContinueAfterElvUIUpdate(callback)
 		end)

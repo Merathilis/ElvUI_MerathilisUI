@@ -290,6 +290,8 @@ local function SetupChat()
 
 	if E.Chat then
 		E.Chat:PositionChats()
+
+		E:UpdateChat()
 	end
 
 	PluginInstallStepComplete.message = MER.Title .. L["Chat Set"]
@@ -663,6 +665,8 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
 
+	E:UpdateLayout()
+
 	PluginInstallStepComplete.message = MER.Title .. L["Layout Set"]
 	PluginInstallStepComplete:Show()
 end
@@ -862,6 +866,8 @@ function MER:SetupActionbars()
 	E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,UIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,UIParent,BOTTOM,304,140"
+
+	E:UpdateActionBars()
 
 	PluginInstallStepComplete.message = MER.Title .. L["ActionBars Set"]
 	PluginInstallStepComplete:Show()
@@ -1121,6 +1127,8 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
+
+	E:UpdateNamePlates()
 
 	PluginInstallStepComplete.message = MER.Title .. L["NamePlates Set"]
 	PluginInstallStepComplete:Show()
@@ -2278,6 +2286,8 @@ function MER:SetupUnitframes(layout)
 		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
 
+	E:UpdateUnitFrames()
+
 	PluginInstallStepComplete.message = MER.Title .. L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
 end
@@ -2307,6 +2317,8 @@ function MER:SetupDts()
 		"DurabilityIlevel",
 		"Gold",
 	}
+
+	E:UpdateDataTexts()
 
 	PluginInstallStepComplete.message = MER.Title .. L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
@@ -2390,6 +2402,9 @@ function MER:DeveloperSettings()
 		["attachTextTo"] = "Frame",
 		["text_format"] = "[users:elvui]",
 	}
+
+	E:UpdateMedia()
+	E:UpdateMediaItems()
 
 	PluginInstallStepComplete.message = MER.Title .. L["Developer Settings Done"]
 	PluginInstallStepComplete:Show()

@@ -1,7 +1,5 @@
 ### Changes ###
 
-  * [Notification]: Fixed an issue with the Mail option
-  * [Profile]: Fixed an whoopsi in the Capping Profile
-  * [NameHover]: Try to avoid another secret error
-  * [Skins]: Added an own Skin for the Cooldown Manager
-  * [Skins]: Some visual improvements for some tabs
+  * [Profile]: Added a profile for Permoks Account Manager
+  * [NameHover]: Improved secret value handling to prevent potential errors
+  * [Core]: Bumped the minimum required ElvUI version to 15.22
