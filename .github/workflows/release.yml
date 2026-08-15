@@ -21,14 +21,15 @@ jobs:
             WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
 
             # GitHub
-            GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            # IMPORTANT: The packager expects exactly “GITHUB_OAUTH,” not GITHUB_API_TOKEN,
+            # otherwise, the upload to GitHub Releases won't work.
+            GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
 
             # Project URLs - used for Discord notification
             CF_URL: https://www.curseforge.com/wow/addons/merathilis-ui
             WAGO_URL: https://addons.wago.io/addons/elvui-merathilisui
 
         steps:
-
             # ---------------------------------------------------------
             # Checkout repository
             # ---------------------------------------------------------
@@ -66,7 +67,32 @@ jobs:
                   args: -n "{package-name}-{project-version}"
 
             # ---------------------------------------------------------
+            # Sanity check: Aborts the job immediately with a clear message
+            # if .release/*.zip is missing or empty for any reason,
+            # rather than failing with “no files found”
+            # during the upload artifact step.
+            # ---------------------------------------------------------
+            - name: Verify release artifact exists
+              shell: bash
+              run: |
+                  echo "Contents of .release/:"
+                  ls -la .release/ || true
+                  shopt -s nullglob
+                  files=(.release/*.zip)
+                  if [ ${#files[@]} -eq 0 ]; then
+                      echo "::error::No ZIP file found in .release/!"
+                      exit 1
+                  fi
+                  echo "Found ZIP(s): ${files[*]}"
+
+            # ---------------------------------------------------------
             # Upload generated ZIP as GitHub Actions artifact
+            #
+            # include-hidden-files: true is mandatory because ".release"
+            # is a "hidden" folder (starts with a dot). Since the
+            # breaking change in actions/upload-artifact (Sept. 2024),
+            # files in such folders are otherwise silently skipped
+            # ("No files were found...").
             # ---------------------------------------------------------
             - name: Upload Artifact
               uses: actions/upload-artifact@v6
