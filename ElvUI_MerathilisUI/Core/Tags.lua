@@ -10,7 +10,7 @@ local UnitReaction = UnitReaction
 
 E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit)
 	local name = UnitName(unit)
-	if E:IsSecretValue(name) or not name then
+	if not name then
 		return
 	end
 
@@ -28,7 +28,7 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit)
 		return F.GradientName(name, unitClass, isTarget, true)
 	elseif not UnitIsPlayer(unit) then
 		local reaction = UnitReaction(unit, "player")
-		if reaction and not E:IsSecretValue(reaction) then
+		if reaction then
 			if reaction >= 5 then
 				return F.GradientName(name, "NPCFRIENDLY", isTarget, true)
 			elseif reaction == 4 then
