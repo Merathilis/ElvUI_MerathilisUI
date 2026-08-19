@@ -139,9 +139,10 @@ local function IsAllowedMouseFocus()
 		end
 
 		local unit = current.unit
-		if unit and E:IsSecretValue(unit) then
-			return false
+		if E:IsSecretValue(unit) and unit then
+			return
 		end
+
 		if not unit and type(current.GetAttribute) == "function" then
 			unit = current:GetAttribute("unit")
 		end
