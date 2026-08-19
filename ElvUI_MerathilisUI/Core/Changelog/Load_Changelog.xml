@@ -1,11 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<!--Clean this up from time to time -->
-	<Script file="Previous\7.20.lua"/>
-	<Script file="Previous\7.21.lua"/>
-	<Script file="Previous\7.22.lua"/>
 	<Script file="Previous\7.23.lua"/>
 	<Script file="Previous\7.24.lua"/>
 	<Script file="Previous\7.25.lua"/>
 	<Script file="Previous\7.26.lua"/>
-	<Script file="7.27.lua"/>
+	<Script file="Previous\7.27.lua"/>
+	<Script file="7.28.lua"/>
 </Ui>

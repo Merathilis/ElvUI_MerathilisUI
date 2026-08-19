@@ -117,50 +117,6 @@ function module:IsDisabledInCurrentInstance()
 	return self._disabledInInstance
 end
 
-local function IsAllowedMouseFocus()
-	local focus = module:GetTopMouseFocus()
-	if not focus then
-		return true
-	end
-
-	local current = focus
-	for _ = 1, 6 do
-		if not current then
-			break
-		end
-
-		if current == WorldFrame then
-			return true
-		end
-
-		local name = current.GetName and current:GetName()
-		if name == "WorldFrame" then
-			return true
-		end
-
-		local unit = current.unit
-		if E:IsSecretValue(unit) and unit then
-			return
-		end
-
-		if not unit and type(current.GetAttribute) == "function" then
-			unit = current:GetAttribute("unit")
-		end
-
-		if unit and UnitExists(unit) and UnitIsUnit(unit, "mouseover") then
-			return true
-		end
-
-		if type(name) == "string" and (find(name, "NamePlate", 1, true) or find(name, "Plater", 1, true)) then
-			return true
-		end
-
-		current = current.GetParent and current:GetParent() or nil
-	end
-
-	return false
-end
-
 local function GetTooltipUnit(self)
 	if not self or type(self.GetUnit) ~= "function" then
 		return nil
