@@ -2286,7 +2286,7 @@ function MER:SetupUnitframes(layout)
 		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
 
-	E:UpdateUnitFrames()
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
@@ -2403,8 +2403,7 @@ function MER:DeveloperSettings()
 		["text_format"] = "[users:elvui]",
 	}
 
-	E:UpdateMedia()
-	E:UpdateMediaItems()
+	E:UpdateAll()
 
 	PluginInstallStepComplete.message = MER.Title .. L["Developer Settings Done"]
 	PluginInstallStepComplete:Show()
@@ -2833,11 +2832,11 @@ MER.installTable = {
 				"Currently supported AddOns: "
 					.. WF.GetWindStyleText("ElvUI_WindTools")
 					.. ", "
-					.. "|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
+					.. "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r"
 			)
 			PluginInstallFrame.Desc3:SetText("Importance: " .. F.String.Error("High"))
 
-			if not E:IsAddOnEnabled("ElvUI_WindTools") and not E:IsAddOnEnabled("Blinkiis_Portraits") then
+			if not E:IsAddOnEnabled("ElvUI_WindTools") and not E:IsAddOnEnabled("ElvUI_mMediaTag") then
 				PluginInstallFrame.Desc3:SetText(
 					F.String.Warning("Warning: ")
 						.. "Looks like you don't have any of the extra AddOns installed. Don't worry, you can still fully experience "
@@ -2853,7 +2852,7 @@ MER.installTable = {
 					"Currently supported AddOns: "
 						.. WF.GetWindStyleText("ElvUI_WindTools")
 						.. ", "
-						.. "|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
+						.. "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r"
 				)
 
 				if E:IsAddOnEnabled("ElvUI_WindTools") then
@@ -2866,13 +2865,13 @@ MER.installTable = {
 					PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 				end
 
-				if E:IsAddOnEnabled("Blinkiis_Portraits") then
+				if E:IsAddOnEnabled("ElvUI_mMediaTag") then
 					PluginInstallFrame.Option2:Show()
 					PluginInstallFrame.Option2:SetScript("OnClick", function()
-						PF:ApplyBlinkiisPortraitsProfile()
+						PF:ApplymMediaTagProfile()
 					end)
 					PluginInstallFrame.Option2:SetText(
-						"|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits"
+						"|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r"
 					)
 					PluginInstallFrame.Option2:SetScript("OnEnter", nil)
 					PluginInstallFrame.Option2:SetScript("OnLeave", nil)

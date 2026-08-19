@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[726] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "15.08.2026",
 	FIXES = {},
 	NEW = {
 		"[Profile]: Added a profile for Permoks Account Manager",

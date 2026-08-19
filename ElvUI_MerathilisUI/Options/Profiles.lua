@@ -28,10 +28,6 @@ local SupportedProfiles = {
 		"ElvUI_WindTools",
 		"|cff1784d1ElvUI|r |cff5385edW|r|cff5094eai|r|cff4da4e7n|r|cff4ab4e4d|r|cff47c0e1T|r|cff44cbdfo|r|cff41d7ddo|r|cff41d7ddl|r|cff41d7dds|r",
 	},
-	{
-		"Blinkiis_Portraits",
-		"|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r Portraits",
-	},
 }
 
 options.generalGroup = {
