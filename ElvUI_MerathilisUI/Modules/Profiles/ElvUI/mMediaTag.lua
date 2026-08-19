@@ -54,7 +54,7 @@ function module:LoadmMediaTagProfile()
 	db.portraits.arena.enable = false
 
 	db.lfg_invite_info.enable = true
-	db.lfg_invite_info.font.font = F.FontOverride(I.Fonts.Primary)
+	db.lfg_invite_info.text.font = F.FontOverride(I.Fonts.Primary)
 end
 
 function module:ApplymMediaTagProfile()
