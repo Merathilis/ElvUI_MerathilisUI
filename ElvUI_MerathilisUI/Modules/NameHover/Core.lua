@@ -312,7 +312,7 @@ local function UpdateFrameContents(f)
 	local mainText = module:CombineText(level, unitText, targetName)
 	local headerText = module:CombineText(faction, classification, creatureType, race)
 
-	f.lastUnitGUID = UnitGUID("mouseover")
+	f.lastUnitGUID = not E:IsSecretValue(UnitGUID("mouseover"))
 
 	f.mainText:SetText(mainText)
 	f.statusText:SetText(status)
@@ -343,10 +343,10 @@ local function UpdateFrameContents(f)
 		local w, h = 0, 0
 		local okW, rw = pcall(fs.GetStringWidth, fs)
 		local okH, rh = pcall(fs.GetStringHeight, fs)
-		if okW and type(rw) == "number" and not issecretvalue(rw) then
+		if okW and type(rw) == "number" and not E:IsSecretValue(rw) then
 			w = rw
 		end
-		if okH and type(rh) == "number" and not issecretvalue(rh) then
+		if okH and type(rh) == "number" and not E:IsSecretValue(rh) then
 			h = rh
 		end
 		return w, h
