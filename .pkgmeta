@@ -8,6 +8,8 @@ move-folders:
     ElvUI_MerathilisUI/ElvUI_MerathilisUI: ElvUI_MerathilisUI
 
 ignore:
+    - Libs/Core/Ace3/tests
+    - "**/tests"
     - .gitattributes
     - .gitignore
     - .github/*
