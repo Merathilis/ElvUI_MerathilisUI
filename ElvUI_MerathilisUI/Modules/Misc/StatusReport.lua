@@ -351,7 +351,7 @@ function module:StatusReportUpdate()
 			if requirements ~= true then
 				text = F.String.Error(format("No (%s)", I.Strings.RequirementsDebug[requirements]))
 			else
-				text = E.db.mui.gradient.enable and F.String.Good("On") or F.String.Error("Off")
+				text = E.db.mui.themes.gradientMode.enable and F.String.Good("On") or F.String.Error("Off")
 			end
 
 			Section2.Content.Line2.Text:SetFormattedText("Gradient Mode: %s", text)
