@@ -285,7 +285,7 @@ local function ItemLevel_ReplaceGuildNews(button, _, text, name, link, ...)
 end
 
 function module:Initialize()
-	local db = E.db.mui.itemLevel
+	local db = F.GetDBFromPath("mui.itemLevel") or E.db.mui.itemLevel
 	self.db = db
 
 	if not db or not db.enable then

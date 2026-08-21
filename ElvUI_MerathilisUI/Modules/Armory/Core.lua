@@ -1719,7 +1719,7 @@ end
 
 function module:DatabaseUpdate()
 	-- Set db
-	self.db = F.GetDBFromPath("mui.armory")
+	self.db = F.GetDBFromPath("mui.armory") or E.db.mui.armory
 	self._titleFontDirty = true
 
 	-- Enable/Disable only out of combat

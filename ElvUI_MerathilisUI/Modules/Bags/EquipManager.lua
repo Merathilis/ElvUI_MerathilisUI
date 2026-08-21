@@ -132,7 +132,7 @@ function module:ConstructContainerButton(f, bagID, slotID)
 		return
 	end
 
-	module.db = E.db.mui.bags.equipmentManager
+	module.db = F.GetDBFromPath("mui.bags.equipmentManager") or E.db.mui.bags.equipmentManager
 
 	if not slot.equipIcon then
 		slot.equipIcon = slot:CreateTexture(nil, "OVERLAY")
@@ -167,7 +167,7 @@ function module:Initialize()
 		return
 	end
 
-	module.db = E.db.mui.bags.equipmentManager
+	module.db = F.GetDBFromPath("mui.bags.equipmentManager") or E.db.mui.bags.equipmentManager
 	self:UpdateItemDisplay()
 end
 

@@ -194,8 +194,8 @@ function module:DatabaseUpdate()
 	self:Disable()
 
 	-- Set db
-	self.db = E.db.mui.vehicleBar
-	self.vdb = E.db.mui.vehicleBar.vigorBar
+	self.db = F.GetDBFromPath("mui.vehicleBar") or E.db.mui.vehicleBar
+	self.vdb = F.GetDBFromPath("mui.vehicleBar.vigorBar") or E.db.mui.vehicleBar.vigorBar
 
 	-- Enable only out of combat
 	F.Event.ContinueOutOfCombat(function()

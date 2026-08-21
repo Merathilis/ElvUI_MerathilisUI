@@ -459,7 +459,7 @@ function module:UpdateInstanceState()
 end
 
 function module:Initialize()
-	local db = E.db.mui.nameHover
+	local db = F.GetDBFromPath("mui.nameHover") or E.db.mui.nameHover
 	module.db = db
 
 	if not db.enable or module.Initialized then

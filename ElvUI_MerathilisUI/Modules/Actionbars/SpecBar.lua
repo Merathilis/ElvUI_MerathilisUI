@@ -85,7 +85,7 @@ local function SpecBar_OnEvent(self)
 end
 
 function module:CreateSpecBar()
-	local db = E.db.mui.actionbars.specBar
+	local db = F.GetDBFromPath("mui.actionbars.specBar") or E.db.mui.actionbars.specBar
 	if not db.enable then
 		return
 	end
