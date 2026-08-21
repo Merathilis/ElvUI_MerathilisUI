@@ -9,6 +9,11 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 		eR, eG, eB = eR.r, eR.g, eR.b
 	end
 
+	-- Secret value check, if any of the values are secret, we will set them to nil to avoid using them
+	if eR ~= nil and (E:IsSecretValue(eR) or E:IsSecretValue(eG) or E:IsSecretValue(eB)) then
+		eR, eG, eB = nil, nil, nil
+	end
+
 	if frame.currentColor == nil then
 		frame.currentColor = eB ~= nil and CreateColor(eR, eG, eB, 1) or CreateColor(0, 0, 0, 1)
 		colorChanged = true
@@ -23,7 +28,7 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 
 	if colorChanged then
 		local colorMap, colorEntry = colorFunc()
-		if colorMap and not E:IsSecretValue(colorMap) and colorEntry and not E:IsSecretValue(colorEntry) then
+		if colorMap and colorEntry then
 			colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
 
 			if colorChanged then
