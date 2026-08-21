@@ -76,7 +76,7 @@ local CONTENT_INTERVAL = 0.05
 local BLIZZ_ALPHA_INTERVAL = 0.1
 
 local function GetBackgroundPadding()
-	local value = tonumber(MER.db.profile.nameHover.display_BackgroundPadding)
+	local value = tonumber(module.db and module.db.display_BackgroundPadding)
 	if value then
 		return max(0, value)
 	end
