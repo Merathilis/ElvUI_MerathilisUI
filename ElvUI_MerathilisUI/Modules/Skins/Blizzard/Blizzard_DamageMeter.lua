@@ -8,8 +8,6 @@ local module = MER:GetModule("MER_DamageMeter") ---@type DamageMeter
 local _G = _G
 
 local hooksecurefunc = hooksecurefunc
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_CVar_GetCVarBool = C_CVar.GetCVarBool
 
 local gradientOrientation
 local fgMapNormal
