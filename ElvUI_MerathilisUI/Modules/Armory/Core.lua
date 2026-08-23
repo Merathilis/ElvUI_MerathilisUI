@@ -987,12 +987,9 @@ function module:UpdateCharacterStat(frame, showGradient)
 	if frame.Label then
 		WF.SetFontWithDB(frame.Label, module.db.stats.labelFont)
 
-		local labelString = F.String.StripColor(frame.Label:GetText())
-		if not labelString then
-			return
-		end
+		local labelString = F.String.StripColor(frame.Label:GetText()) or ""
 
-		if module.db.stats.labelFont.abbreviateLabels then
+		if module.db.stats.labelFont.abbreviateLabels and labelString ~= "" then
 			labelString = E:ShortenString(E.TagFunctions.Abbrev(labelString), 12)
 		end
 
