@@ -68,6 +68,40 @@ local function ReskinReminderIcon(self)
 	end
 end
 
+local function rowOnEnter(self)
+	self.backdrop:SetBackdropBorderColor(F.r, F.g, F.b)
+end
+
+local function rowOnLeave(self)
+	self.backdrop:SetBackdropBorderColor(0, 0, 0)
+end
+
+local function ReskinNotificationRow(self)
+	if not self.rowPool then
+		return
+	end
+
+	for row in self.rowPool:EnumerateActive() do
+		if not row.styled then
+			row:StripTextures()
+			row:CreateBackdrop("Transparent")
+			row:HookScript("OnEnter", rowOnEnter)
+			row:HookScript("OnLeave", rowOnLeave)
+			HandleItemButton(row.IconFrame)
+
+			local button = row.WhisperButton
+			S:HandleButton(button)
+			button.backdrop:SetInside(nil, 2, 2)
+			button.Icon = button:CreateTexture(nil, "ARTWORK")
+			button.Icon:SetTexture([[Interface\CHATFRAME\UI-ChatWhisperIcon]])
+			button.Icon:SetPoint("CENTER")
+			button.Icon:SetSize(24, 24)
+
+			row.styled = true
+		end
+	end
+end
+
 function module:KeystoneLoot()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.klf then
 		return
@@ -114,6 +148,70 @@ function module:KeystoneLoot()
 
 	MER:SecureHook(_G.KeystoneLootReminderSpecMixin, "OnLoad", ReskinReminderSpec)
 	MER:SecureHook(_G.KeystoneLootReminderIconMixin, "Init", ReskinReminderIcon)
+
+	-- NotificationFrame
+	local NotificationFrame = _G.KeystoneLootDropNotificationFrame
+	if NotificationFrame then
+		S:HandlePortraitFrame(NotificationFrame)
+		MER:SecureHook(NotificationFrame, "Refresh", ReskinNotificationRow)
+	end
+
+	-- KSLMenu
+	local KSLMenu = _G.KSLMenu
+	if not KSLMenu then
+		return
+	end
+
+	-- from NDui
+	local menuManagerProxy = KSLMenu.GetManager()
+
+	local backdrops = {}
+
+	local function skinMenu(menuFrame)
+		menuFrame:StripTextures()
+
+		if backdrops[menuFrame] then
+			menuFrame.backdrop = backdrops[menuFrame]
+		else
+			menuFrame:CreateBackdrop("Transparent")
+			backdrops[menuFrame] = menuFrame.backdrop
+		end
+
+		local framelevel = menuFrame:GetFrameLevel() - 1
+		menuFrame.backdrop:SetFrameLevel(framelevel < 0 and 0 or framelevel)
+
+		if not menuFrame.ScrollBar.styled then
+			S:HandleTrimScrollBar(menuFrame.ScrollBar)
+			menuFrame.ScrollBar.styled = true
+		end
+
+		for i = 1, menuFrame:GetNumChildren() do
+			local child = select(i, menuFrame:GetChildren())
+
+			local minLevel = child.MinLevel
+			if minLevel and not minLevel.styled then
+				S:HandleEditBox(minLevel)
+				minLevel.styled = true
+			end
+
+			local maxLevel = child.MaxLevel
+			if maxLevel and not maxLevel.styled then
+				S:HandleEditBox(maxLevel)
+				maxLevel.styled = true
+			end
+		end
+	end
+
+	local function setupMenu(manager, _, menuDescription)
+		local menuFrame = manager:GetOpenMenu()
+		if menuFrame then
+			skinMenu(menuFrame)
+			menuDescription:AddMenuAcquiredCallback(skinMenu)
+		end
+	end
+
+	hooksecurefunc(menuManagerProxy, "OpenMenu", setupMenu)
+	hooksecurefunc(menuManagerProxy, "OpenContextMenu", setupMenu)
 end
 
 module:AddCallbackForAddon("KeystoneLoot")

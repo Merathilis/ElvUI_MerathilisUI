@@ -9,6 +9,7 @@ function module:TalkingHeadFrame()
 		return
 	end
 
+	-- For some reason the style needs to applied later
 	if not frame.MERStyle then
 		F.CreateStyle(frame)
 	end
