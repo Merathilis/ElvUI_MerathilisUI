@@ -4,12 +4,11 @@ local module = MER:GetModule("MER_Theme") ---@class Theme
 local CreateColor = CreateColor
 local type = type
 
-function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorFunc)
+function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorMap, colorEntry)
 	if type(eR) == "table" then
 		eR, eG, eB = eR.r, eR.g, eR.b
 	end
 
-	-- Secret value check, if any of the values are secret, we will set them to nil to avoid using them
 	if eR ~= nil and (E:IsSecretValue(eR) or E:IsSecretValue(eG) or E:IsSecretValue(eB)) then
 		eR, eG, eB = nil, nil, nil
 	end
@@ -27,13 +26,12 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 	end
 
 	if colorChanged then
-		local colorMap, colorEntry = colorFunc()
-		if colorMap and colorEntry then
-			colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
+		colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
 
-			if colorChanged then
-				frame.colorMap = colorMap
-				frame.colorEntry = colorEntry
+		if colorChanged then
+			frame.colorMap = colorMap
+			frame.colorEntry = colorEntry
+			if eB ~= nil then
 				frame.currentColor:SetRGBA(eR, eG, eB, 1)
 			end
 		end

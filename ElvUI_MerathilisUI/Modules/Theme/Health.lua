@@ -74,20 +74,19 @@ function module:PostUpdateHealthColor(frame, unit, eR, eG, eB)
 		return
 	end
 
+	-- Health values are secret in Midnight, use fixed percentage
 	local valueChanged = frame.currentPercent == nil
 	if valueChanged then
 		frame.currentPercent = 1
 	end
 
 	local colorChanged = false
-	local unitDead = UnitIsDeadOrGhost(unit)
+	local unitDead = unit and UnitIsDeadOrGhost(unit)
 	if unitDead ~= frame.unitDead then
 		colorChanged = true
 		frame.unitDead = unitDead
 	end
 
-	-- Closure only allocated when SetGradientColors actually needs the getter
-	self:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, function()
-		return module:GetHealthColor(frame, unit)
-	end)
+	local colorMap, colorEntry = self:GetHealthColor(frame, unit)
+	self:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorMap, colorEntry)
 end
