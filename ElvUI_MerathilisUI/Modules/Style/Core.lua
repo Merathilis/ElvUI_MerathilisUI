@@ -349,7 +349,7 @@ module:API(object:CreateMaskTexture())
 object = EnumerateFrames()
 while object do
 	local objType = object:GetObjectType()
-	if not object:IsForbidden() and not handled[objType] then
+	if E:NotSecretValue(object) and not object:IsForbidden() and not handled[objType] then
 		module:API(object)
 		handled[objType] = true
 	end
