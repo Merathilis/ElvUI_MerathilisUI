@@ -68,7 +68,9 @@ function module:ls_Toasts()
 
 	LST.RegisterCallback({}, "SetSkin", function(_, toast)
 		if toast and not toast.__MERSkin then
+			F.CreateStyle(toast)
 			WS:CreateShadow(toast)
+
 			toast.__MERSkin = true
 		end
 	end)
