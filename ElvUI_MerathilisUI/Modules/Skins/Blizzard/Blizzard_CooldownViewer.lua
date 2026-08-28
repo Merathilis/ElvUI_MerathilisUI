@@ -11,13 +11,6 @@ local next = next
 
 local hooksecurefunc = hooksecurefunc
 
-function module:CooldownManager_PositionViewerTab(_, _, _, x, y)
-	if x ~= 1 or y ~= -10 then
-		self:ClearAllPoints()
-		self:SetPoint("TOPLEFT", _G.CooldownViewerSettings, "TOPRIGHT", 1, -10)
-	end
-end
-
 function module:CooldownManager_PositionTabIcons(point)
 	if point == "CENTER" then
 		return
@@ -253,16 +246,9 @@ do
 end
 
 function module:CooldownManager_HandleAbilityTabs(viewer)
-	for i, tab in next, { viewer.SpellsTab, viewer.AurasTab } do
+	for _, tab in next, { viewer.SpellsTab, viewer.AurasTab } do
 		tab:CreateBackdrop()
 		tab:Size(30, 40)
-
-		if i == 1 then
-			tab:ClearAllPoints()
-			tab:SetPoint("TOPLEFT", viewer, "TOPRIGHT", 1, -10)
-
-			hooksecurefunc(tab, "SetPoint", module.CooldownManager_PositionViewerTab)
-		end
 
 		if tab.Icon then
 			tab.Icon:ClearAllPoints()
