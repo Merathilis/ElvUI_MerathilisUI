@@ -45,6 +45,18 @@ function module:BlockRequest()
 	end
 end
 
+-- Display the Item Sets tab in the Adventure Guide
+do
+	function module:DisplayItemSetsTab()
+		EncounterJournal:HookScript("OnShow", function(self)
+			PanelTemplates_SetAllTabsShown(self, true)
+			PanelTemplates_SetNumTabs(self, #self.Tabs)
+		end)
+	end
+
+	module:AddCallbackForAddon("Blizzard_EncounterJournal", module.DisplayItemSetsTab)
+end
+
 function module:Misc()
 	self.db = E.db.mui.misc
 

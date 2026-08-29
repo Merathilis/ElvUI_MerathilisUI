@@ -76,7 +76,7 @@ local CONTENT_INTERVAL = 0.05
 local BLIZZ_ALPHA_INTERVAL = 0.1
 
 local function GetBackgroundPadding()
-	local value = tonumber(MER.db.profile.nameHover.display_BackgroundPadding)
+	local value = tonumber(module.db and module.db.display_BackgroundPadding)
 	if value then
 		return max(0, value)
 	end
@@ -459,7 +459,7 @@ function module:UpdateInstanceState()
 end
 
 function module:Initialize()
-	local db = E.db.mui.nameHover
+	local db = F.GetDBFromPath("mui.nameHover") or E.db.mui.nameHover
 	module.db = db
 
 	if not db.enable or module.Initialized then

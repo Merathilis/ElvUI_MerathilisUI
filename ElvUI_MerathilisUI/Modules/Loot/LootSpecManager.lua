@@ -43,6 +43,7 @@ module.DiffNames = {
 	[15] = "Heroic",
 	[16] = "Mythic",
 	[17] = "LFR",
+	[250] = "LFR",
 }
 
 local SPACING = 24
@@ -292,7 +293,7 @@ function module:CreateGUI()
 	gui.help = helpInfo
 
 	local current = CreateFrame("Frame", "MER_LootSpecCurrentDropdown", gui, "UIDropDownMenuTemplate")
-	current:SetPoint("TOPLEFT", _G.MER_LSMFrame, "TOPLEFT", 2, -30)
+	current:SetPoint("TOPLEFT", gui, "TOPLEFT", 2, -30)
 	S:HandleDropDownBox(_G.MER_LootSpecCurrentDropdown, 150)
 	UIDropDownMenu_Initialize(current, function()
 		local function callback(self)
@@ -356,11 +357,7 @@ function module:MythicPlusStart()
 end
 
 function module:UpdateData()
-	if
-		module.Data.Raid[1]
-		and next(module.Data.Raid[1].encounters)
-		and next(module.Data.MythicPlus)
-	then
+	if module.Data.Raid[1] and next(module.Data.Raid[1].encounters) and next(module.Data.MythicPlus) then
 		module:UnregisterEvent("UPDATE_INSTANCE_INFO", module.UpdateData)
 
 		if module.CurrentTier then

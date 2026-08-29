@@ -6,7 +6,7 @@ function module:Initialize()
 		return
 	end
 
-	local db = E.db.mui.actionbars
+	local db = F.GetDBFromPath("mui.actionbars") or E.db.mui.actionbars
 
 	self:CreateSpecBar()
 end

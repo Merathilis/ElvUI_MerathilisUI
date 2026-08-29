@@ -1,6 +1,20 @@
 ### Changes ###
 
-  * [Install]: Restored E:UpdateAll() calls for some install steps and switched the plugin install screen from Blinkii's Portraits to mMedia Tag & Tools
-  * [Profile]: Removed support for the Blinkii's Portraits profile in favor of mMedia Tag & Tools
-  * [Profile]: Fixed an error in the mMedia Tag & Tools profile caused by a wrong table path for the LFG invite font setting
-  * [Core]: Cleaned up unused local references in the name gradient tag
+  * [Misc]: Fixed an issue with a database change in the Status Report
+  * [Misc]: Fixed a potential error in the CopyMog frame
+  * [Theme]: Fixed a reference to frame.__unit in the Castbar
+  * [Skins]: Fixed a C Stack Overflow caused by a conflict between the Cooldown Viewer skin and WindTools
+  * [Skins]: Added an own Skin for the Weekly Rewards frame
+  * [NameHover]: Try to avoid a possible database error
+  * [Core]: Added some additional secret value checks
+  * [Core]: Several modules now use the shared function to grab the database
+  * [Theme]: Added an extra safety check for gradient colors
+  * [Loot]: Display the Item Sets tab again in the Adventure Guide
+  * [Skins]: Updated the KeystoneLoot skin
+  * [Armory]: Different solution to prevent a nil error
+  * [Core]: Updated and protected some gradient functions. Thx to Co2Noss from Discord for pointing it out <3
+  * [Theme]: Updated the gradient handling for Castbar, Health, Power and Update
+  * [Core]: Added a safeguard against a possible MawBuffs taint
+  * [Skins]: Manually applied the MerathilisUI style to ls_Toasts
+  * [NameHover]: A few more secret checks
+  * [Core]: General cleanup

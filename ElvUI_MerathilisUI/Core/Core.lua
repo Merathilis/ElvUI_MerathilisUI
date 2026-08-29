@@ -237,3 +237,13 @@ function MER:ADDON_LOADED(_, addOnName)
 		self:TryReplaceEventTraceLogEvent()
 	end
 end
+
+--	Fix ShouldShowMawBuffs taint
+local orig = ShouldShowMawBuffs
+ShouldShowMawBuffs = function()
+	if C_Secrets.ShouldAurasBeSecret() then
+		return false
+	end
+
+	return orig()
+end

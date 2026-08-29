@@ -30,7 +30,9 @@ function module:GetUnitNameColor(unittype)
 
 	if UnitIsPlayer(unittype) then
 		local _, class = UnitClass(unittype)
-		return RAID_CLASS_COLORS[class]
+		if E:NotSecretValue(class) and class then
+			return RAID_CLASS_COLORS[class]
+		end
 	elseif UnitCanAttack("player", unittype) then
 		if UnitIsDead(unittype) then
 			return module.COLOR_DEAD

@@ -731,14 +731,26 @@ function F.Color.SetGradient(obj, orientation, minColor, maxColor)
 		return
 	end
 
-	obj:SetGradient(orientation, minColor, maxColor)
+	obj:SetGradient(
+		orientation,
+		CreateColor(minColor.r, minColor.g, minColor.b, minColor.a or 1),
+		CreateColor(maxColor.r, maxColor.g, maxColor.b, maxColor.a or 1)
+	)
 end
 
 function F.Color.SetGradientRGB(obj, orientation, r1, g1, b1, a1, r2, g2, b2, a2)
+	if not obj then
+		return
+	end
+
 	F.Color.SetGradient(obj, orientation, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
 end
 
 function F.Color.UpdateGradient(obj, perc, minColor, maxColor)
+	if not obj then
+		return
+	end
+
 	if not minColor.r or not minColor.g or not minColor.b then
 		return
 	end

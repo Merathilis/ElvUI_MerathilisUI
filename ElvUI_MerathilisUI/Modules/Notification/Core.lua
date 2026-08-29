@@ -288,7 +288,7 @@ end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
 function module:Initialize()
-	module.db = E.db.mui.notification
+	module.db = F.GetDBFromPath("mui.notification") or E.db.mui.notification
 	if not module.db.enable then
 		return
 	end
