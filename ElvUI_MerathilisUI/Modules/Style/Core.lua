@@ -9,8 +9,6 @@ local CreateFrame = CreateFrame
 local CreateColor = CreateColor
 local hooksecurefunc = hooksecurefunc
 
----Create or update a vertical/horizontal gradient fill on a panel frame.
----Reuses the existing texture so repeated UpdateColors calls do not leak.
 function module:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	assert(frame, "doesn't exist!")
 
