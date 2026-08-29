@@ -1533,6 +1533,7 @@ function module:UpdateCharacterArmory()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
 	module:UpdateCharacterStats()
+	module:CreateTitleSearchBox()
 
 	if module.frame:IsShown() then
 		M:UpdateCharacterInfo()
@@ -1618,6 +1619,121 @@ function module:CreateElements()
 	module.levelText = levelText
 	module.specIcon = specIcon
 	module.classText = classText
+end
+
+local function FilterTitlesScrollBox(searchText)
+	local pane = _G.PaperDollFrame and _G.PaperDollFrame.TitleManagerPane
+	if not pane or not pane.titles or not pane.ScrollBox then
+		return
+	end
+
+	searchText = (searchText or ""):lower()
+
+	local dataProvider = CreateDataProvider()
+	for index, playerTitle in ipairs(pane.titles) do
+		local visible = (searchText == "")
+			or (playerTitle.id == -1)
+			or playerTitle.name:lower():find(searchText, 1, true)
+
+		if visible then
+			dataProvider:Insert({ index = index, playerTitle = playerTitle })
+		end
+	end
+
+	pane.ScrollBox:SetDataProvider(dataProvider, ScrollBoxConstants.RetainScrollPosition)
+end
+
+function module:CreateTitleSearchBox()
+	if module.titleSearchBox then
+		return
+	end
+
+	local pane = _G.PaperDollFrame and _G.PaperDollFrame.TitleManagerPane
+	if not pane or not pane.ScrollBox then
+		return
+	end
+
+	local scrollBox = pane.ScrollBox
+	local originalWidth, originalHeight = scrollBox:GetSize()
+
+	local searchBox = CreateFrame("EditBox", "MER_ArmoryTitleSearchBox", pane)
+	searchBox:SetHeight(20)
+	searchBox:SetPoint("TOPLEFT", pane, "TOPLEFT", 4, -4)
+	searchBox:SetPoint("TOPRIGHT", pane, "TOPRIGHT", -4, -4)
+	searchBox:SetAutoFocus(false)
+	searchBox:SetMaxLetters(30)
+	searchBox:SetFontObject(GameFontHighlightSmall)
+	searchBox:SetTextColor(1, 1, 1, 1)
+	searchBox:SetTextInsets(6, 20, 0, 0)
+	searchBox:CreateBackdrop("Transparent")
+	module.titleSearchBox = searchBox
+
+	local hintText = searchBox:CreateFontString(nil, "OVERLAY")
+	hintText:FontTemplate(E.media.normFont, 11, "NONE")
+	hintText:SetPoint("LEFT", searchBox, "LEFT", 6, 0)
+	hintText:SetTextColor(0.6, 0.6, 0.6, 0.8)
+	hintText:SetText(L["Search titles..."] or "Search titles...")
+
+	local clearBtn = CreateFrame("Button", nil, searchBox)
+	clearBtn:SetSize(16, 16)
+	clearBtn:SetPoint("RIGHT", searchBox, "RIGHT", -4, 0)
+	clearBtn:Hide()
+
+	local clearText = clearBtn:CreateFontString(nil, "OVERLAY")
+	clearText:FontTemplate(E.media.normFont, 12, "NONE")
+	clearText:SetPoint("CENTER")
+	clearText:SetText("x")
+	clearText:SetTextColor(0.7, 0.7, 0.7, 1)
+
+	clearBtn:SetScript("OnClick", function()
+		searchBox:SetText("")
+		searchBox:ClearFocus()
+	end)
+
+	searchBox:SetScript("OnTextChanged", function(self)
+		local text = self:GetText() or ""
+		hintText:SetShown(text == "")
+		clearBtn:SetShown(text ~= "")
+		FilterTitlesScrollBox(text)
+	end)
+
+	searchBox:SetScript("OnEditFocusGained", function(self)
+		if (self:GetText() or "") == "" then
+			hintText:Hide()
+		end
+	end)
+
+	searchBox:SetScript("OnEditFocusLost", function(self)
+		if (self:GetText() or "") == "" then
+			hintText:Show()
+		end
+	end)
+
+	searchBox:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
+	end)
+
+	local reserved = searchBox:GetHeight() + 6
+	scrollBox:ClearAllPoints()
+	scrollBox:SetPoint("TOPLEFT", searchBox, "BOTTOMLEFT", 0, -6)
+	scrollBox:SetSize(originalWidth, originalHeight - reserved)
+
+	if pane.ScrollBar then
+		pane.ScrollBar:ClearAllPoints()
+		pane.ScrollBar:SetPoint("TOPLEFT", scrollBox, "TOPRIGHT", 8, -5)
+		pane.ScrollBar:SetPoint("BOTTOMLEFT", scrollBox, "BOTTOMRIGHT", 8, 4)
+	end
+
+	if PaperDollTitlesPane_Update then
+		hooksecurefunc("PaperDollTitlesPane_Update", function()
+			FilterTitlesScrollBox(searchBox:GetText())
+		end)
+	end
+
+	pane:HookScript("OnShow", function()
+		searchBox:SetText("")
+		FilterTitlesScrollBox("")
+	end)
 end
 
 function module:ElvOptionsCheck()
