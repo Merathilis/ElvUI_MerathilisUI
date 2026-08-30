@@ -265,7 +265,7 @@ end
 function module:StartSocketSlotGlow(slotID)
 	local db = GetDB()
 
-	if not db then
+	if not db or not db.showSlotGlow then
 		return
 	end
 
@@ -655,12 +655,10 @@ function module:RebuildSocketPanel()
 
 		button:ClearAllPoints()
 		button:SetPoint("LEFT", self.socketPanel, "LEFT", (index - 1) * (iconSize + spacing), 0)
-
 		button:Show()
 	end
 
 	self.socketPanel:SetSize(max(iconSize, count * (iconSize + spacing) - spacing), iconSize)
-
 	self.socketPanel:Show()
 end
 
@@ -721,17 +719,14 @@ function module:HandleSocketInfoUpdate()
 
 	if pending.acted then
 		local retries = pending.retries or 0
-
 		if retries < 3 and AcceptSockets then
 			pending.retries = retries + 1
 			AcceptSockets()
 		end
-
 		return
 	end
 
 	local socketCount = GetNumSockets and GetNumSockets()
-
 	if not socketCount or pending.socketIndex > socketCount then
 		return
 	end
@@ -739,7 +734,6 @@ function module:HandleSocketInfoUpdate()
 	pending.acted = true
 
 	local bag, slot = FindBagSlot(pending.gemItemID)
-
 	if not bag then
 		self.socketPending = nil
 		self:CloseSocketSession()
@@ -782,7 +776,6 @@ function module:BuildSocketFlyout()
 	end)
 
 	local flyout = CreateFrame("Frame", "MER_ArmorySocketFlyout", E.UIParent)
-
 	flyout:SetFrameStrata("FULLSCREEN_DIALOG")
 	flyout:SetWidth(Scale(db.flyoutWidth))
 	flyout:SetHeight(Scale(db.rowHeight + 8))
@@ -1130,8 +1123,8 @@ function module:BuildSocketPanel()
 		return
 	end
 
-	self.socketPanel = CreateFrame("Frame", "MER_ArmorySocketPanel", self.frame)
-	self.socketPanel:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", Scale(db.anchorX), Scale(db.anchorY))
+	self.socketPanel = CreateFrame("Frame", "MER_ArmorySocketPanel", _G.CharacterStatsPane)
+	self.socketPanel:SetPoint("BOTTOMRIGHT", _G.CharacterStatsPane, "BOTTOMRIGHT", Scale(db.anchorX), Scale(db.anchorY))
 	self.socketPanel:SetSize(Scale(db.iconSize), Scale(db.iconSize))
 	self.socketPanel:SetFrameLevel(55)
 	self.socketPanel:Hide()
@@ -1211,7 +1204,7 @@ function module:SocketPanelOnShow()
 	end
 
 	self.socketPanel:ClearAllPoints()
-	self.socketPanel:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", Scale(db.anchorX), Scale(db.anchorY))
+	self.socketPanel:SetPoint("BOTTOMRIGHT", _G.CharacterStatsPane, "BOTTOMRIGHT", Scale(db.anchorX), Scale(db.anchorY))
 	self:RegisterSocketEvents()
 	self.socketGemDirty = true
 
@@ -1275,7 +1268,7 @@ function module:UpdateSocketPanel()
 	end
 
 	self.socketPanel:ClearAllPoints()
-	self.socketPanel:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", Scale(db.anchorX), Scale(db.anchorY))
+	self.socketPanel:SetPoint("BOTTOMRIGHT", _G.CharacterStatsPane, "BOTTOMRIGHT", Scale(db.anchorX), Scale(db.anchorY))
 
 	self:RebuildSocketPanel()
 
