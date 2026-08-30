@@ -1289,6 +1289,165 @@ options.armory = {
 				},
 			},
 		},
+		socketPanel = {
+			order = 17,
+			type = "group",
+			name = E.NewSign .. L["Socket Panel"],
+			get = function(info)
+				return E.db.mui.armory.socketPanel[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.armory.socketPanel[info[#info]] = value
+				F.Event.TriggerEvent("Armory.SettingsUpdate")
+			end,
+			disabled = function()
+				return not E.db.mui.armory.enable
+			end,
+			hidden = function()
+				return not E.db.general.itemLevel.displayCharacterInfo
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Show the socket panel at the bottom of the character sheet."],
+				},
+				appearance = {
+					order = 2,
+					type = "group",
+					name = L["Appearance"],
+					inline = true,
+					get = function(info)
+						return E.db.mui.armory.socketPanel[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.socketPanel[info[#info]] = value
+						F.Event.TriggerEvent("Armory.SettingsUpdate")
+					end,
+					args = {
+						iconSize = {
+							order = 1,
+							type = "range",
+							name = L["Icon Size"],
+							min = 16,
+							max = 40,
+							step = 1,
+						},
+						spacing = {
+							order = 2,
+							type = "range",
+							name = L["Spacing"],
+							min = 0,
+							max = 12,
+							step = 1,
+						},
+						anchorX = {
+							order = 3,
+							type = "range",
+							name = L["Horizontal Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						anchorY = {
+							order = 4,
+							type = "range",
+							name = L["Vertical Offset"],
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						openOnHover = {
+							order = 5,
+							type = "toggle",
+							name = L["Open on Empty Socket Hover"],
+						},
+						showSlotGlow = {
+							order = 6,
+							type = "toggle",
+							name = L["Highlight Equipment Slot"],
+						},
+					},
+				},
+				flyout = {
+					order = 3,
+					type = "group",
+					name = L["Gem Flyout"],
+					inline = true,
+					get = function(info)
+						return E.db.mui.armory.socketPanel[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.socketPanel[info[#info]] = value
+						F.Event.TriggerEvent("Armory.SettingsUpdate")
+					end,
+					args = {
+						flyoutWidth = {
+							order = 1,
+							type = "range",
+							name = L["Width"],
+							min = 160,
+							max = 360,
+							step = 1,
+						},
+						rowHeight = {
+							order = 2,
+							type = "range",
+							name = L["Row Height"],
+							min = 16,
+							max = 28,
+							step = 1,
+						},
+						maxRows = {
+							order = 3,
+							type = "range",
+							name = L["Maximum Visible Rows"],
+							min = 4,
+							max = 20,
+							step = 1,
+						},
+					},
+				},
+				font = {
+					order = 4,
+					type = "group",
+					name = L["Font"],
+					inline = true,
+					get = function(info)
+						return E.db.mui.armory.socketPanel.font[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.armory.socketPanel.font[info[#info]] = value
+						F.Event.TriggerEvent("Armory.SettingsUpdate")
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = LSM:HashTable("font"),
+						},
+						size = {
+							order = 2,
+							type = "range",
+							name = L["Size"],
+							min = 7,
+							max = 24,
+							step = 1,
+						},
+						style = {
+							order = 3,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+					},
+				},
+			},
+		},
 	},
 }
 

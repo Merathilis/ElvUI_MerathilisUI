@@ -1534,6 +1534,7 @@ function module:UpdateCharacterArmory()
 	module:UpdatePageInfo()
 	module:UpdateCharacterStats()
 	module:CreateTitleSearchBox()
+	module:UpdateSocketPanel()
 
 	if module.frame:IsShown() then
 		M:UpdateCharacterInfo()
@@ -1585,7 +1586,7 @@ function module:CreateElements()
 
 	module.frame.MERBackground = background
 
-	waterMark:SetPoint("BOTTOMRIGHT", module.frame, "BOTTOMRIGHT", 0, 0)
+	waterMark:SetPoint("BOTTOMLEFT", module.frame, "BOTTOMLEFT", 0, 0)
 	waterMark:Size(72)
 	waterMark:SetTexture(I.Media.Logos.Logo)
 	waterMark:SetAlpha(0.35)
@@ -1772,6 +1773,7 @@ function module:Disable()
 
 	self:CancelAllTimers()
 	self:UnhookAll()
+	self:DisableSocketPanel()
 
 	F.Event.UnregisterFrameEventAndCallback("UNIT_NAME_UPDATE", self)
 	F.Event.UnregisterFrameEventAndCallback("UNIT_LEVEL", self)
@@ -1790,6 +1792,7 @@ function module:Enable()
 	end
 
 	self:CreateElements()
+	self:EnableSocketPanel()
 
 	-- Hook ElvUI Overrides (reuse module-level M reference)
 	self:SecureHook(M, "UpdateCharacterInfo", F.Event.GenerateClosure(self.UpdateItemLevel, self))

@@ -638,6 +638,24 @@ P.armory = {
 		[I.Specs.Warrior.Fury] = F.String.ConvertGlyph(59682),
 		[I.Specs.Warrior.Protection] = F.String.ConvertGlyph(59683),
 	},
+
+	socketPanel = {
+		enable = true,
+		iconSize = 28,
+		spacing = 4,
+		anchorX = -10,
+		anchorY = 6,
+		flyoutWidth = 240,
+		rowHeight = 20,
+		maxRows = 12,
+		openOnHover = true,
+		showSlotGlow = true,
+		font = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+		},
+	},
 }
 
 P.tooltip = {
