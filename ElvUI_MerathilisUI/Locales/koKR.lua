@@ -240,6 +240,23 @@ L["Hides the camera controls when hovering the character model."] =
 L["Animation"] = "애니메이션"
 L["Animation Multiplier"] = "애니메이션 배율"
 
+L["Socket Panel"] = "소켓 패널"
+L["Show the socket panel at the bottom of the character sheet."] =
+	"캐릭터 정보창 하단에 소켓 패널을 표시합니다."
+L["Appearance"] = "모양"
+L["Icon Size"] = "아이콘 크기"
+L["Horizontal Offset"] = "가로 위치 이동"
+L["Vertical Offset"] = "세로 위치 이동"
+L["Open on Empty Socket Hover"] = "빈 소켓에 마우스를 올리면 열기"
+L["Highlight Equipment Slot"] = "장비 슬롯 하이라이트"
+L["Gem Flyout"] = "보석 펼침 창"
+L["Row Height"] = "행 높이"
+L["Maximum Visible Rows"] = "최대 표시 행 수"
+L["Empty Socket"] = "빈 소켓"
+L["Pick a gem from the list to socket it."] = "목록에서 보석을 선택하여 장착하세요."
+L["No gems in bags."] = "가방에 보석이 없습니다."
+L["Loading..."] = "불러오는 중..."
+
 -- Unitframes
 L["UnitFrames"] = "유닛프레임"
 L["Individual Units"] = "개별 유닛"

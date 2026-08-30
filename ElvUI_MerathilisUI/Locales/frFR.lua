@@ -181,6 +181,21 @@ L["Hide Controls"] = true
 L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
+L["Socket Panel"] = true
+L["Show the socket panel at the bottom of the character sheet."] = true
+L["Appearance"] = true
+L["Icon Size"] = true
+L["Horizontal Offset"] = true
+L["Vertical Offset"] = true
+L["Open on Empty Socket Hover"] = true
+L["Highlight Equipment Slot"] = true
+L["Gem Flyout"] = true
+L["Row Height"] = true
+L["Maximum Visible Rows"] = true
+L["Empty Socket"] = true
+L["Pick a gem from the list to socket it."] = true
+L["No gems in bags."] = true
+L["Loading..."] = true
 
 -- Unitframes
 L["UnitFrames"] = "Cadre d'unité"

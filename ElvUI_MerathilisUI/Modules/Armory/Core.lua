@@ -1536,7 +1536,7 @@ function module:UpdateCharacterArmory()
 	module:CreateTitleSearchBox()
 	module:UpdateSocketPanel()
 
-	if module.frame:IsShown() then
+	if module.frame and module.frame:IsShown() then
 		M:UpdateCharacterInfo()
 	end
 end

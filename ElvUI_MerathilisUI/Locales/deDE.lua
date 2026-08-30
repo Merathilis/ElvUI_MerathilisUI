@@ -210,6 +210,22 @@ L["Hides the camera controls when hovering the character model."] =
 	"Versteckt die Kamera Steuerungstasten, wenn Du mit der Maus über das Charaktermodell fährst."
 L["Animation"] = true
 L["Animation Multiplier"] = "Animationsmultiplikator"
+L["Socket Panel"] = "Sockelleiste"
+L["Show the socket panel at the bottom of the character sheet."] =
+	"Zeigt die Sockelleiste am unteren Rand des Charakterfensters an."
+L["Appearance"] = "Erscheinungsbild"
+L["Icon Size"] = "Symbolgröße"
+L["Horizontal Offset"] = "Horizontaler Versatz"
+L["Vertical Offset"] = "Vertikaler Versatz"
+L["Open on Empty Socket Hover"] = "Bei leerem Sockel per Mouseover öffnen"
+L["Highlight Equipment Slot"] = "Ausrüstungsplatz hervorheben"
+L["Gem Flyout"] = "Edelstein-Flyout"
+L["Row Height"] = "Zeilenhöhe"
+L["Maximum Visible Rows"] = "Maximale sichtbare Zeilen"
+L["Empty Socket"] = "Leerer Sockel"
+L["Pick a gem from the list to socket it."] = "Wähle einen Edelstein aus der Liste aus, um ihn einzusetzen."
+L["No gems in bags."] = "Keine Edelsteine in den Taschen."
+L["Loading..."] = "Lädt..."
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
