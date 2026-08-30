@@ -126,6 +126,19 @@ local function HookScrollBox(scrollBox)
 	end
 end
 
+local function GetSessionBackground(sessionWindow)
+	if not sessionWindow then
+		return nil
+	end
+
+	if sessionWindow.GetBackground then
+		return sessionWindow:GetBackground()
+	end
+
+	local minimizeContainer = sessionWindow.MinimizeContainer
+	return minimizeContainer and minimizeContainer.Background
+end
+
 local function HookSessionWindow(window)
 	local ScrollBox = window.GetScrollBox and window:GetScrollBox()
 	if ScrollBox then
@@ -137,6 +150,11 @@ local function HookSessionWindow(window)
 		if sourceScrollBox then
 			HookScrollBox(sourceScrollBox)
 		end
+	end
+
+	local Background = GetSessionBackground(window)
+	if Background then
+		F.CreateStyle(Background)
 	end
 end
 
