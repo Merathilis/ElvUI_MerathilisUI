@@ -1,14 +1,14 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Theme") ---@class Theme
 
-local select = select
-local UnitClass = UnitClass
+local UnitClassFromGUID = UnitClassFromGUID
 local UnitIsCharmed = UnitIsCharmed
 local UnitIsConnected = UnitIsConnected
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local UnitIsEnemy = UnitIsEnemy
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
+local UnitGUID = UnitGUID
 local UnitPlayerControlled = UnitPlayerControlled
 local UnitReaction = UnitReaction
 local UnitTreatAsPlayerForDisplay = UnitTreatAsPlayerForDisplay
@@ -48,11 +48,12 @@ function module:GetHealthColor(frame, unit)
 	then
 		return "specialColorMap", "TAPPED"
 	elseif isPlayer then
-		local classToken = select(2, UnitClass(unit))
-		if E:NotSecretValue(classToken) and classToken then
-			return "classColorMap", classToken
-		elseif frame.colorMap == "classColorMap" and frame.colorEntry then
-			return frame.colorMap, frame.colorEntry
+		local unitGUID = UnitGUID(unit)
+		if E:NotSecretValue(unitGUID) then
+			local classToken = select(2, UnitClassFromGUID(unitGUID))
+			if E:NotSecretValue(classToken) and classToken then
+				return "classColorMap", classToken
+			end
 		end
 	end
 
@@ -84,11 +85,11 @@ function module:PostUpdateHealthColor(frame, unit, eR, eG, eB)
 
 	local colorChanged = false
 	local unitDead = unit and UnitIsDeadOrGhost(unit)
-	if unitDead ~= frame.unitDead then
+	if E:NotSecretValue(unitDead) and unitDead ~= frame.unitDead then
 		colorChanged = true
 		frame.unitDead = unitDead
 	end
 
 	local colorMap, colorEntry = self:GetHealthColor(frame, unit)
-	self:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged, colorMap, colorEntry)
+	self:SetGradientColors(frame, valueChanged, eR, eG, eB, true, colorMap, colorEntry)
 end
