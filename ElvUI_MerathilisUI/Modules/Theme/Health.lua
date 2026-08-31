@@ -49,19 +49,21 @@ function module:GetHealthColor(frame, unit)
 		return "specialColorMap", "TAPPED"
 	elseif isPlayer then
 		local classToken = select(2, UnitClass(unit))
-		if E:NotSecretValue(classToken) then
+		if E:NotSecretValue(classToken) and classToken then
 			return "classColorMap", classToken
+		elseif frame.colorMap == "classColorMap" and frame.colorEntry then
+			return frame.colorMap, frame.colorEntry
 		end
-	else
-		local reaction = UnitReaction(unit, "player")
-		if E:NotSecretValue(reaction) and reaction then
-			if reaction > 4 then
-				return "reactionColorMap", "GOOD"
-			elseif reaction > 3 then
-				return "reactionColorMap", "NEUTRAL"
-			else
-				return "reactionColorMap", "BAD"
-			end
+	end
+
+	local reaction = UnitReaction(unit, "player")
+	if E:NotSecretValue(reaction) and reaction then
+		if reaction > 4 then
+			return "reactionColorMap", "GOOD"
+		elseif reaction > 3 then
+			return "reactionColorMap", "NEUTRAL"
+		else
+			return "reactionColorMap", "BAD"
 		end
 	end
 end
