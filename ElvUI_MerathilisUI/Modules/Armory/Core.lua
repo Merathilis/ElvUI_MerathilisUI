@@ -1586,7 +1586,7 @@ function module:CreateElements()
 
 	module.frame.MERBackground = background
 
-	waterMark:SetPoint("BOTTOMLEFT", module.frame, "BOTTOMLEFT", 0, 0)
+	waterMark:SetPoint("BOTTOMRIGHT", module.frame, "BOTTOMRIGHT", -10, 15)
 	waterMark:Size(72)
 	waterMark:SetTexture(I.Media.Logos.Logo)
 	waterMark:SetAlpha(0.35)
