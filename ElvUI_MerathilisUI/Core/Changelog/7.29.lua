@@ -5,6 +5,7 @@ MER.Changelog[729] = {
 	FIXES = {
 		"[Armory]: Fixed a dead option in the Socket Panel",
 		"[Theme]: Fixed the Target of Target frame showing the wrong (non-class) color in instanced content",
+		"[Armory]: Fixed the Socket Panel not updating until the character frame was closed and reopened after a gear swap",
 	},
 	NEW = {
 		"[Armory]: Added a search box to the Titles panel on the Character Frame",

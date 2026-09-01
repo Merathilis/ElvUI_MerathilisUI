@@ -585,15 +585,25 @@ function module:RebuildSocketPanel()
 		for _, slotID in ipairs(SOCKET_SLOTS) do
 			local link = GetInventoryItemLink("player", slotID)
 			if link then
+				-- Track every equipped item (not just ones that already report sockets):
+				-- a freshly-swapped item's socket count can be unavailable until its data
+				-- finishes loading, so we request it and re-scan once ITEM_DATA_LOAD_RESULT
+				-- fires for it (see OnSocketEvent) instead of waiting for the next full reopen.
+				if GetItemInfoInstant then
+					local itemID = GetItemInfoInstant(link)
+					if itemID then
+						self.socketRelevantItems[itemID] = true
+
+						if not self.socketRequestedItemLoads[itemID] and RequestLoadItemDataByID then
+							self.socketRequestedItemLoads[itemID] = true
+							RequestLoadItemDataByID(itemID)
+						end
+					end
+				end
+
 				local numSockets = GetItemNumSockets(link) or 0
 				if numSockets > 0 then
 					local emptyName = GetEmptySocketName(link)
-					if GetItemInfoInstant then
-						local itemID = GetItemInfoInstant(link)
-						if itemID then
-							self.socketRelevantItems[itemID] = true
-						end
-					end
 
 					for socketIndex = 1, numSockets do
 						local _, gemLink = GetItemGem(link, socketIndex)
@@ -1136,6 +1146,7 @@ function module:BuildSocketPanel()
 	self.socketRelevantItems = {}
 	self.socketPendingGemLoads = {}
 	self.socketRequestedGemLoads = {}
+	self.socketRequestedItemLoads = {}
 
 	self.socketEvents = CreateFrame("Frame")
 
@@ -1269,6 +1280,12 @@ function module:UpdateSocketPanel()
 
 	self.socketPanel:ClearAllPoints()
 	self.socketPanel:SetPoint("BOTTOMRIGHT", _G.CharacterStatsPane, "BOTTOMRIGHT", Scale(db.anchorX), Scale(db.anchorY))
+
+	-- This is the only reliable place that reaches every "character frame is now
+	-- showing the socket panel" case (EnableSocketPanel only covers the addon-load
+	-- edge case). Without this, PLAYER_EQUIPMENT_CHANGED etc. never get registered
+	-- and the panel only ever reflects reality again after a full frame close/reopen.
+	self:RegisterSocketEvents()
 
 	self:RebuildSocketPanel()
 
