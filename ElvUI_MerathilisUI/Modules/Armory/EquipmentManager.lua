@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Armory") ---@class Armory
+local module = MER:GetModule("MER_Armory")
 
 local _G = _G
 local ipairs, pairs, select = ipairs, pairs, select
@@ -13,7 +13,6 @@ local C_EquipmentSet = C_EquipmentSet
 local C_Item = C_Item
 local C_SpecializationInfo = C_SpecializationInfo
 
--- Matches module.colors.LIGHT_GREEN (#12E626) / RED (#F0544F) from Core.lua; SetVertexColor/SetTextColor need 0-1 RGB
 local INCOMPLETE_R, INCOMPLETE_G, INCOMPLETE_B = 0.94, 0.33, 0.31
 local ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B = 0.071, 0.902, 0.149
 
@@ -21,7 +20,6 @@ local TILE_HEIGHT = 24
 local TILE_GAP = 2
 local TILE_STEP = TILE_HEIGHT + TILE_GAP
 
--- Inventory-slot names for the missing-items tooltip; index matches C_EquipmentSet.GetItemIDs()
 local SLOT_NAMES = {
 	"Head", "Neck", "Shoulder", "Cloak",
 	"Chest", "Waist", "Legs", "Feet",
@@ -96,10 +94,6 @@ local function OpenIconPopup(mode, setID, origName)
 	popup:Show()
 end
 
---------------------------------------------------------------------------
--- Panel construction (built once, lazily, the first time the Equipment tab is shown)
---------------------------------------------------------------------------
-
 local function MakeTextLink(parent, label, onClick)
 	local btn = CreateFrame("Button", nil, parent)
 	local fs = btn:CreateFontString(nil, "OVERLAY")
@@ -126,45 +120,40 @@ function module:BuildEquipmentManagerPanel(pane)
 
 	local panel = CreateFrame("Frame", "MER_ArmoryEquipmentPanel", pane)
 	panel:SetAllPoints(pane)
-	-- Match the pane's own (elevated) strata/level so nothing behind it (e.g. the
-	-- tracked-achievement header) bleeds through.
 	panel:SetFrameStrata(pane:GetFrameStrata())
 	panel:SetFrameLevel(pane:GetFrameLevel() + 1)
 	self.equipmentPanel = panel
 
-	-- Optional opaque backdrop (off by default); toggled in RefreshEquipmentManagerPanel
 	local bg = panel:CreateTexture(nil, "BACKGROUND")
 	bg:SetAllPoints()
 	bg:SetColorTexture(0, 0, 0, 0.6)
 	bg:Hide()
 	panel.bg = bg
 
-	-- "Gear Sets" header with left/right divider lines
 	local header = CreateFrame("Frame", nil, panel)
 	header:SetHeight(14)
 	header:SetPoint("TOPLEFT", panel, "TOPLEFT", 4, -4)
 	header:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -4, -4)
 
 	local headerText = header:CreateFontString(nil, "OVERLAY")
-	WF.SetFontWithDB(headerText, GetDB().font)
+	WF.SetFontWithDB(headerText, module.db.stats.headerFont)
 	headerText:SetText(L["Gear Sets"] or "Gear Sets")
 	headerText:SetPoint("CENTER", header, "CENTER", 0, 0)
 	panel.headerText = headerText
 
 	local leftLine = header:CreateTexture(nil, "ARTWORK")
 	leftLine:SetTexture(E.media.blankTex)
-	leftLine:SetHeight(1)
-	leftLine:SetPoint("LEFT", header, "LEFT", 0, 0)
-	leftLine:SetPoint("RIGHT", headerText, "LEFT", -6, 0)
+	leftLine:SetHeight(2)
+	leftLine:SetPoint("LEFT", header, "LEFT", 3, 0)
+	leftLine:SetPoint("RIGHT", headerText, "LEFT", -3, 0)
 
 	local rightLine = header:CreateTexture(nil, "ARTWORK")
 	rightLine:SetTexture(E.media.blankTex)
-	rightLine:SetHeight(1)
-	rightLine:SetPoint("LEFT", headerText, "RIGHT", 6, 0)
-	rightLine:SetPoint("RIGHT", header, "RIGHT", 0, 0)
+	rightLine:SetHeight(2)
+	rightLine:SetPoint("LEFT", headerText, "RIGHT", 3, 0)
+	rightLine:SetPoint("RIGHT", header, "RIGHT", -3, 0)
 	panel.headerLeftLine, panel.headerRightLine = leftLine, rightLine
 
-	-- New | Equip | Save text-link row
 	local linksRow = CreateFrame("Frame", nil, panel)
 	linksRow:SetHeight(14)
 	linksRow:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -8)
@@ -215,7 +204,6 @@ function module:BuildEquipmentManagerPanel(pane)
 	saveBtn:SetPoint("RIGHT", linksRow, "RIGHT", 0, 0)
 	panel.saveBtn = saveBtn
 
-	-- Scrollable tile list; no scrollbar widget (mouse-wheel only), so it can use the full width
 	local scrollFrame = CreateFrame("ScrollFrame", nil, panel)
 	scrollFrame:SetPoint("TOPLEFT", linksRow, "BOTTOMLEFT", 0, -6)
 	scrollFrame:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -2, 0)
@@ -239,10 +227,6 @@ function module:BuildEquipmentManagerPanel(pane)
 
 	return panel
 end
-
---------------------------------------------------------------------------
--- Tile pool
---------------------------------------------------------------------------
 
 local function ShowTileControls(tile, show)
 	if show then
@@ -308,11 +292,6 @@ function module:AcquireEquipmentTile(index)
 	del:Hide()
 	tile._del = del
 
-	-- tile/_cog/_del overlap: hovering _cog or _del steals mouse focus from tile,
-	-- which fires tile's OnLeave and hides them again, which then fires tile's OnEnter
-	-- again -> infinite flicker (and clicks never land because the button keeps vanishing
-	-- mid-click). IsMouseOver() checks actual screen bounds instead of "topmost frame
-	-- under cursor", so treating the three as one hover-island fixes both bugs at once.
 	local function IsTileHovered()
 		return tile:IsMouseOver() or cog:IsMouseOver() or del:IsMouseOver()
 	end
@@ -421,7 +400,6 @@ function module:AcquireEquipmentTile(index)
 		local setID = tile._setID
 		local panel = module.equipmentPanel
 		if not setID then
-			-- "+ New Set" tile
 			OpenIconPopup(_G.IconSelectorPopupFrameModes.New, nil, "")
 			return
 		end
@@ -460,10 +438,6 @@ function module:AcquireEquipmentTile(index)
 	return tile
 end
 
---------------------------------------------------------------------------
--- Refresh
---------------------------------------------------------------------------
-
 function module:RefreshEquipmentManagerPanel()
 	local db = GetDB()
 	local panel = self.equipmentPanel
@@ -473,17 +447,85 @@ function module:RefreshEquipmentManagerPanel()
 
 	panel.bg:SetShown(db.showBackdrop)
 
-	WF.SetFontWithDB(panel.headerText, db.font)
-	local r, g, b = GetAccentColor(db)
-	panel.headerText:SetTextColor(r, g, b)
-	panel.headerLeftLine:SetVertexColor(r, g, b)
-	panel.headerRightLine:SetVertexColor(r, g, b)
+	do
+		local statsHeaderFont = module.db.stats.headerFont
+		local headerLabel = L["Gear Sets"] or "Gear Sets"
 
-	-- Keep the tile list at the scroll frame's actual (fully available) width
+		WF.SetFontWithDB(panel.headerText, statsHeaderFont)
+
+		if statsHeaderFont.headerFontColor == "GRADIENT" then
+			panel.headerText:SetText(F.String.FastGradient(headerLabel, 0, 0.9, 1, 0, 0.6, 1))
+			F.Color.SetGradientRGB(panel.headerLeftLine, "HORIZONTAL", 0, 0.6, 1, 0, 0, 0.9, 1, 1)
+			F.Color.SetGradientRGB(panel.headerRightLine, "HORIZONTAL", 0, 0.9, 1, 1, 0, 0.6, 1, 0)
+		elseif statsHeaderFont.headerFontColor == "CLASS" then
+			local currentClass = E.myclass
+			local classColorMap = E.db.mui.themes.gradientMode.classColorMap
+			local classColorNormal = classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
+			local classColorShift = classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
+
+			panel.headerText:SetText(F.String.GradientClass(headerLabel))
+			F.Color.SetGradientRGB(
+				panel.headerLeftLine,
+				"HORIZONTAL",
+				classColorNormal.r,
+				classColorNormal.g,
+				classColorNormal.b,
+				0,
+				classColorShift.r,
+				classColorShift.g,
+				classColorShift.b,
+				1
+			)
+			F.Color.SetGradientRGB(
+				panel.headerRightLine,
+				"HORIZONTAL",
+				classColorShift.r,
+				classColorShift.g,
+				classColorShift.b,
+				1,
+				classColorNormal.r,
+				classColorNormal.g,
+				classColorNormal.b,
+				0
+			)
+		else
+			panel.headerText:SetText(headerLabel)
+			WF.SetFontColorWithDB(panel.headerText, statsHeaderFont.color)
+
+			local fontColor = F.GetFontColorFromDB(module.db.stats, "header")
+			F.Color.SetGradientRGB(
+				panel.headerLeftLine,
+				"HORIZONTAL",
+				fontColor.r,
+				fontColor.g,
+				fontColor.b,
+				0,
+				fontColor.r,
+				fontColor.g,
+				fontColor.b,
+				fontColor.a
+			)
+			F.Color.SetGradientRGB(
+				panel.headerRightLine,
+				"HORIZONTAL",
+				fontColor.r,
+				fontColor.g,
+				fontColor.b,
+				fontColor.a,
+				fontColor.r,
+				fontColor.g,
+				fontColor.b,
+				0
+			)
+		end
+	end
+
 	local scrollWidth = panel.scrollFrame:GetWidth()
 	if scrollWidth and scrollWidth > 0 then
 		panel.scrollChild:SetWidth(scrollWidth)
 	end
+
+	local r, g, b = GetAccentColor(db)
 
 	local setIDs = C_EquipmentSet.GetEquipmentSetIDs() or {}
 	local activeSetID = nil
@@ -551,7 +593,6 @@ function module:RefreshEquipmentManagerPanel()
 		yOffset = yOffset + TILE_STEP
 	end
 
-	-- "+ New Set" tile
 	local newTile = self:AcquireEquipmentTile(#sets + 1)
 	newTile._setID = nil
 	newTile._setName = nil
@@ -582,10 +623,6 @@ function module:RefreshEquipmentManagerPanel()
 	end
 end
 
---------------------------------------------------------------------------
--- Lifecycle
---------------------------------------------------------------------------
-
 function module:EnableEquipmentManagerSkin()
 	if self.equipmentManagerSkinned then
 		return
@@ -602,7 +639,6 @@ function module:EnableEquipmentManagerSkin()
 
 	self.equipmentManagerSkinned = true
 
-	-- Blizzard's native list/buttons are replaced by our own panel below
 	pane.ScrollBox:Hide()
 	if pane.ScrollBar then
 		pane.ScrollBar:Hide()
