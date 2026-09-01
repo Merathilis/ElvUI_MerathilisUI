@@ -200,6 +200,24 @@ L["Empty Socket"] = true
 L["Pick a gem from the list to socket it."] = true
 L["No gems in bags."] = true
 L["Loading..."] = true
+L["Total: %d"] = true
+L["Replace Blizzard's native Equipment Manager pane with a custom MerathilisUI gear-set panel."] = true
+L["Use your class color for the selected/equipped set accents instead of the accent color below."] = true
+L["Accent Color"] = true
+L["Accent color used for the selected/equipped set highlight, unless Class Color is enabled."] = true
+L["Show Backdrop"] = true
+L["Show an opaque dark backdrop behind the gear-set panel."] = true
+L["Gear Sets"] = true
+L["Equip"] = true
+L["Save"] = true
+L["Saved!"] = true
+L["Cancel"] = true
+L["Delete equipment set '%s'?"] = true
+L["Change Icon"] = true
+L["Assign to Spec"] = true
+L["Unassigned"] = true
+L["Missing Items:"] = true
+L["+ New Set"] = true
 
 -- Unitframes
 L["UnitFrames"] = "单位框体"
