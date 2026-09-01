@@ -1,5 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local module = MER:GetModule("MER_Armory")
+local module = MER:GetModule("MER_Armory") ---@class Armory
 
 local _G = _G
 local ipairs, pairs, select = ipairs, pairs, select
@@ -21,11 +21,25 @@ local TILE_GAP = 2
 local TILE_STEP = TILE_HEIGHT + TILE_GAP
 
 local SLOT_NAMES = {
-	"Head", "Neck", "Shoulder", "Cloak",
-	"Chest", "Waist", "Legs", "Feet",
-	"Wrist", "Hands", "Finger 1", "Finger 2",
-	"Trinket 1", "Trinket 2", "Main Hand", "Off Hand",
-	"Tabard", "Chest (Relic)", "Back (Relic)",
+	"Head",
+	"Neck",
+	"Shoulder",
+	"Cloak",
+	"Chest",
+	"Waist",
+	"Legs",
+	"Feet",
+	"Wrist",
+	"Hands",
+	"Finger 1",
+	"Finger 2",
+	"Trinket 1",
+	"Trinket 2",
+	"Main Hand",
+	"Off Hand",
+	"Tabard",
+	"Chest (Relic)",
+	"Back (Relic)",
 }
 
 local function GetDB()
