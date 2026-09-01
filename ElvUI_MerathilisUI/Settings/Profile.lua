@@ -656,6 +656,22 @@ P.armory = {
 			style = "SHADOWOUTLINE",
 		},
 	},
+	equipmentManager = {
+		enable = true,
+		useClassColor = true,
+		showBackdrop = false,
+		-- Fallback accent when useClassColor is off
+		accentColor = {
+			r = 0.047,
+			g = 0.824,
+			b = 0.616,
+		},
+		font = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+		},
+	},
 }
 
 P.tooltip = {

@@ -226,6 +226,32 @@ L["Empty Socket"] = "Leerer Sockel"
 L["Pick a gem from the list to socket it."] = "Wähle einen Edelstein aus der Liste aus, um ihn einzusetzen."
 L["No gems in bags."] = "Keine Edelsteine in den Taschen."
 L["Loading..."] = "Lädt..."
+L["Total: %d"] = "Gesamt: %d"
+L["Equipment Manager"] = "Ausrüstungsverwaltung"
+L["Replace Blizzard's native Equipment Manager pane with a custom MerathilisUI gear-set panel."] =
+	"Ersetzt Blizzards native Ausrüstungsverwaltung durch ein eigenes MerathilisUI-Set-Panel."
+L["Class Color"] = "Klassenfarbe"
+L["Use your class color for the selected/equipped set accents instead of the accent color below."] =
+	"Verwendet Deine Klassenfarbe für die Akzente des ausgewählten/ausgerüsteten Sets anstelle der Akzentfarbe unten."
+L["Accent Color"] = "Akzentfarbe"
+L["Accent color used for the selected/equipped set highlight, unless Class Color is enabled."] =
+	"Akzentfarbe für die Hervorhebung des ausgewählten/ausgerüsteten Sets, sofern Klassenfarbe nicht aktiviert ist."
+L["Show Backdrop"] = "Hintergrund anzeigen"
+L["Show an opaque dark backdrop behind the gear-set panel."] =
+	"Zeigt einen blickdichten, dunklen Hintergrund hinter dem Set-Panel an."
+L["Gear Sets"] = "Ausrüstungssets"
+L["New"] = "Neu"
+L["Equip"] = "Anlegen"
+L["Save"] = "Speichern"
+L["Saved!"] = "Gespeichert!"
+L["Cancel"] = "Abbrechen"
+L["Delete"] = "Löschen"
+L["Delete equipment set '%s'?"] = "Ausrüstungsset '%s' löschen?"
+L["Change Icon"] = "Symbol ändern"
+L["Assign to Spec"] = "Spezialisierung zuweisen"
+L["Unassigned"] = "Nicht zugewiesen"
+L["Missing Items:"] = "Fehlende Gegenstände:"
+L["+ New Set"] = "+ Neues Set"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"

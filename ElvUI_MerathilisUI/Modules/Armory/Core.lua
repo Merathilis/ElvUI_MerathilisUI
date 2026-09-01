@@ -1534,6 +1534,10 @@ function module:UpdateCharacterArmory()
 	module:UpdatePageInfo()
 	module:UpdateCharacterStats()
 	module:CreateTitleSearchBox()
+	module:EnableEquipmentManagerSkin()
+	if module.equipmentPanel then
+		module:RefreshEquipmentManagerPanel()
+	end
 	module:UpdateSocketPanel()
 
 	if module.frame and module.frame:IsShown() then
@@ -1631,6 +1635,7 @@ local function FilterTitlesScrollBox(searchText)
 	searchText = (searchText or ""):lower()
 
 	local dataProvider = CreateDataProvider()
+	local count = 0
 	for index, playerTitle in ipairs(pane.titles) do
 		local visible = (searchText == "")
 			or (playerTitle.id == -1)
@@ -1638,10 +1643,18 @@ local function FilterTitlesScrollBox(searchText)
 
 		if visible then
 			dataProvider:Insert({ index = index, playerTitle = playerTitle })
+			-- "No Title" is a UI-only entry, not a real known title; excluded from the count
+			if playerTitle.id ~= -1 then
+				count = count + 1
+			end
 		end
 	end
 
 	pane.ScrollBox:SetDataProvider(dataProvider, ScrollBoxConstants.RetainScrollPosition)
+
+	if module.titleCountText then
+		module.titleCountText:SetFormattedText(L["Total: %d"] or "Total: %d", count)
+	end
 end
 
 function module:CreateTitleSearchBox()
@@ -1665,15 +1678,29 @@ function module:CreateTitleSearchBox()
 	searchBox:SetMaxLetters(30)
 	searchBox:SetFontObject(GameFontHighlightSmall)
 	searchBox:SetTextColor(1, 1, 1, 1)
-	searchBox:SetTextInsets(6, 20, 0, 0)
+	searchBox:SetTextInsets(20, 20, 0, 0)
 	searchBox:CreateBackdrop("Transparent")
 	module.titleSearchBox = searchBox
 
+	-- Magnifying glass icon; SetAtlas silently no-ops on an unknown atlas name, so this can't error
+	local searchIcon = searchBox:CreateTexture(nil, "OVERLAY")
+	searchIcon:SetSize(12, 12)
+	searchIcon:SetPoint("LEFT", searchBox, "LEFT", 6, 0)
+	searchIcon:SetAtlas("common-search-magnifyingglass", false)
+	searchIcon:SetVertexColor(0.6, 0.6, 0.6, 0.8)
+
 	local hintText = searchBox:CreateFontString(nil, "OVERLAY")
 	hintText:FontTemplate(E.media.normFont, 11, "NONE")
-	hintText:SetPoint("LEFT", searchBox, "LEFT", 6, 0)
+	hintText:SetPoint("LEFT", searchBox, "LEFT", 20, 0)
 	hintText:SetTextColor(0.6, 0.6, 0.6, 0.8)
 	hintText:SetText(L["Search titles..."] or "Search titles...")
+
+	local countText = pane:CreateFontString(nil, "OVERLAY")
+	countText:FontTemplate(E.media.normFont, 10, "NONE")
+	countText:SetPoint("TOPRIGHT", searchBox, "BOTTOMRIGHT", -2, -4)
+	countText:SetJustifyH("RIGHT")
+	countText:SetTextColor(0.6, 0.6, 0.6, 0.8)
+	module.titleCountText = countText
 
 	local clearBtn = CreateFrame("Button", nil, searchBox)
 	clearBtn:SetSize(16, 16)
@@ -1714,9 +1741,9 @@ function module:CreateTitleSearchBox()
 		self:ClearFocus()
 	end)
 
-	local reserved = searchBox:GetHeight() + 6
+	local reserved = searchBox:GetHeight() + 20
 	scrollBox:ClearAllPoints()
-	scrollBox:SetPoint("TOPLEFT", searchBox, "BOTTOMLEFT", 0, -6)
+	scrollBox:SetPoint("TOPLEFT", searchBox, "BOTTOMLEFT", 0, -20)
 	scrollBox:SetSize(originalWidth, originalHeight - reserved)
 
 	if pane.ScrollBar then
@@ -1774,6 +1801,7 @@ function module:Disable()
 	self:CancelAllTimers()
 	self:UnhookAll()
 	self:DisableSocketPanel()
+	self:DisableEquipmentManagerSkin()
 
 	F.Event.UnregisterFrameEventAndCallback("UNIT_NAME_UPDATE", self)
 	F.Event.UnregisterFrameEventAndCallback("UNIT_LEVEL", self)
