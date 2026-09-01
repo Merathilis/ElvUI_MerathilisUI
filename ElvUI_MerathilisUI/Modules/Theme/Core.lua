@@ -84,7 +84,7 @@ function module:UpdateStatusBarFrame(frame)
 		self:UpdateFadeDirection(frame.Health)
 
 		if not self:IsHooked(frame.Health, "PostUpdateColor") then
-			self:SecureHook(frame.Health, "PostUpdateColor", F.Event.GenerateClosure(self.PostUpdateHealthColor, self))
+			self:RawHook(frame.Health, "PostUpdateColor", F.Event.GenerateClosure(self.PostUpdateHealthColor, self))
 			self:AddFrameToSettingsUpdate(
 				"Health",
 				frame.Health,

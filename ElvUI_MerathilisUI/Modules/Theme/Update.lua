@@ -16,21 +16,24 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 	if frame.currentColor == nil then
 		frame.currentColor = eB ~= nil and CreateColor(eR, eG, eB, 1) or CreateColor(0, 0, 0, 1)
 		colorChanged = true
-	elseif eB ~= nil and not F.Color.EqualToRGB(frame.currentColor, eR, eG, eB) then
-		frame.currentColor:SetRGBA(eR, eG, eB, 1)
-		colorChanged = true
 	end
 
-	if
-		colorChanged
-		and colorMap
-		and not E:IsSecretValue(colorMap)
-		and colorEntry
-		and not E:IsSecretValue(colorEntry)
-	then
-		if frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap then
+	if not colorChanged then
+		colorChanged = eB ~= nil and not F.Color.EqualToRGB(frame.currentColor, eR, eG, eB)
+		if colorChanged then
+			frame.currentColor:SetRGBA(eR, eG, eB, 1)
+		end
+	end
+
+	if colorChanged then
+		colorChanged = frame.colorEntry ~= colorEntry or frame.colorMap ~= colorMap
+
+		if colorChanged then
 			frame.colorMap = colorMap
 			frame.colorEntry = colorEntry
+			if eB ~= nil then
+				frame.currentColor:SetRGBA(eR, eG, eB, 1)
+			end
 		end
 	end
 
