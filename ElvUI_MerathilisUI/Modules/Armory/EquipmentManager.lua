@@ -10,7 +10,6 @@ local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
 local C_EquipmentSet = C_EquipmentSet
-local C_Item = C_Item
 local C_SpecializationInfo = C_SpecializationInfo
 
 local INCOMPLETE_R, INCOMPLETE_G, INCOMPLETE_B = 0.94, 0.33, 0.31
@@ -19,28 +18,6 @@ local ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B = 0.071, 0.902, 0.149
 local TILE_HEIGHT = 24
 local TILE_GAP = 2
 local TILE_STEP = TILE_HEIGHT + TILE_GAP
-
-local SLOT_NAMES = {
-	"Head",
-	"Neck",
-	"Shoulder",
-	"Cloak",
-	"Chest",
-	"Waist",
-	"Legs",
-	"Feet",
-	"Wrist",
-	"Hands",
-	"Finger 1",
-	"Finger 2",
-	"Trinket 1",
-	"Trinket 2",
-	"Main Hand",
-	"Off Hand",
-	"Tabard",
-	"Chest (Relic)",
-	"Back (Relic)",
-}
 
 local function GetDB()
 	return module.db and module.db.equipmentManager
@@ -57,33 +34,6 @@ local function GetAccentColor(db)
 
 	local accent = db.accentColor
 	return accent.r, accent.g, accent.b
-end
-
-local function GetMissingSetItems(setID)
-	local setItems = C_EquipmentSet.GetItemIDs(setID)
-	if not setItems then
-		return {}
-	end
-
-	local missing = {}
-	for slot, setItemID in pairs(setItems) do
-		if setItemID and setItemID ~= 0 then
-			local equippedID = GetInventoryItemID("player", slot)
-			if equippedID ~= setItemID then
-				local count = C_Item.GetItemCount(setItemID, true, true) or 0
-				if count == 0 then
-					local itemName = (C_Item.GetItemInfo and C_Item.GetItemInfo(setItemID)) or "Unknown Item"
-					missing[#missing + 1] = {
-						slot = SLOT_NAMES[slot] or "Unknown",
-						itemID = setItemID,
-						itemName = itemName,
-					}
-				end
-			end
-		end
-	end
-
-	return missing
 end
 
 local function EquipSet(setID)
@@ -315,14 +265,30 @@ function module:AcquireEquipmentTile(index)
 			tile._hover:Show()
 			if tile._setID then
 				ShowTileControls(tile, true)
+				if GameTooltip:GetOwner() ~= tile or not GameTooltip:IsShown() then
+					GameTooltip:Hide()
+					GameTooltip:SetOwner(tile, "ANCHOR_RIGHT")
+					GameTooltip:SetEquipmentSet(tile._setID)
+				end
 			end
 		else
 			tile._hover:Hide()
 			ShowTileControls(tile, false)
-			GameTooltip:Hide()
+			if GameTooltip:GetOwner() == tile then
+				GameTooltip:Hide()
+			end
 		end
 	end
 	tile._updateHoverState = UpdateHoverState
+
+	tile:SetScript("OnUpdate", function(self, elapsed)
+		self._hoverPoll = (self._hoverPoll or 0) + elapsed
+		if self._hoverPoll < 0.05 then
+			return
+		end
+		self._hoverPoll = 0
+		UpdateHoverState()
+	end)
 
 	cog:SetScript("OnEnter", function(self)
 		self:SetAlpha(1)
@@ -430,20 +396,7 @@ function module:AcquireEquipmentTile(index)
 		module:RefreshEquipmentManagerPanel()
 	end)
 
-	tile:SetScript("OnEnter", function()
-		tile._updateHoverState()
-		if tile._setID and tile._incomplete then
-			local missing = GetMissingSetItems(tile._setID)
-			if #missing > 0 then
-				GameTooltip:SetOwner(tile, "ANCHOR_RIGHT")
-				GameTooltip:AddLine(L["Missing Items:"] or "Missing Items:", 1, 0.3, 0.3)
-				for _, item in ipairs(missing) do
-					GameTooltip:AddLine(format("%s: %s", item.slot, item.itemName), 1, 1, 1, true)
-				end
-				GameTooltip:Show()
-			end
-		end
-	end)
+	tile:SetScript("OnEnter", tile._updateHoverState)
 	tile:SetScript("OnLeave", function()
 		C_Timer.After(0, tile._updateHoverState)
 	end)
