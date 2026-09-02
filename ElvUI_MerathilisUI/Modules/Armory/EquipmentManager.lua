@@ -520,10 +520,16 @@ function module:RefreshEquipmentManagerPanel()
 
 		WF.SetFontWithDB(tile._text, db.font)
 		tile._text:SetText(setData.name)
-		if tile._incomplete then
+		if setData.id == activeSetID then
+			tile._text:SetTextColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B)
+			tile._text:SetShadowColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B, 1)
+			tile._text:SetShadowOffset(0, 0)
+		elseif tile._incomplete then
 			tile._text:SetTextColor(INCOMPLETE_R, INCOMPLETE_G, INCOMPLETE_B)
+			tile._text:SetShadowColor(0, 0, 0, 0)
 		else
 			tile._text:SetTextColor(1, 1, 1, 1)
+			tile._text:SetShadowColor(0, 0, 0, 0)
 		end
 
 		if setData.id == activeSetID then
@@ -567,6 +573,7 @@ function module:RefreshEquipmentManagerPanel()
 	WF.SetFontWithDB(newTile._text, db.font)
 	newTile._text:SetText(L["+ New Set"] or "+ New Set")
 	newTile._text:SetTextColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B)
+	newTile._text:SetShadowColor(0, 0, 0, 0)
 	newTile._bg:SetColorTexture(1, 1, 1, 0.05)
 	newTile._selection:Hide()
 	newTile._specIcon:Hide()
