@@ -227,6 +227,9 @@ L["Pick a gem from the list to socket it."] = "Wähle einen Edelstein aus der Li
 L["No gems in bags."] = "Keine Edelsteine in den Taschen."
 L["Loading..."] = "Lädt..."
 L["Total: %d"] = "Gesamt: %d"
+L["Search titles..."] = "Titel suchen..."
+L["Earned"] = "Erhalten"
+L["Unearned"] = "Nicht erhalten"
 L["Equipment Manager"] = "Ausrüstungsverwaltung"
 L["Replace Blizzard's native Equipment Manager pane with a custom MerathilisUI gear-set panel."] =
 	"Ersetzt Blizzards native Ausrüstungsverwaltung durch ein eigenes MerathilisUI-Set-Panel."
