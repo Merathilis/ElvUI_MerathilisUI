@@ -270,6 +270,39 @@ do
 			Thumb.backdrop:SetBackdropColor(r, g, b)
 		end
 	end
+
+	-- The modern "trim" ScrollBar (used by e.g. ReputationFrame) leaves its thumb at 25%
+	-- alpha while idle (only ElvUI's own OnEnter/OnLeave hooks toggle it to 75%/25%), which
+	-- reads as near-black against dark panel backgrounds. Re-hook OnLeave so the idle state
+	-- also shows the full class color, matching the classic ScrollBar's always-on coloring.
+	local function TrimThumbOnLeave(thumb)
+		if thumb.backdrop and not thumb.__isActive then
+			local r, g, b = unpack(E.media.rgbvaluecolor)
+			thumb.backdrop:SetBackdropColor(r, g, b, 1)
+		end
+	end
+
+	-- ElvUI's SetTemplate resets a backdrop to the plain template color on every re-template
+	-- (e.g. our own E:UpdateFrameTemplates() refresh) unless the frame defines this callback,
+	-- which SetTemplate calls instead of the default coloring - without it, the thumb loses
+	-- its class color and goes back to black the next time templates get refreshed.
+	local function TrimThumbBackdropColor(backdrop)
+		local r, g, b = unpack(E.media.rgbvaluecolor)
+		backdrop:SetBackdropColor(r, g, b, 1)
+	end
+
+	function module:HandleTrimScrollBar(_, frame)
+		local thumb = frame.GetThumb and frame:GetThumb()
+		if thumb and thumb.backdrop then
+			thumb.backdrop.callbackBackdropColor = TrimThumbBackdropColor
+			TrimThumbBackdropColor(thumb.backdrop)
+
+			if not thumb.__MERTrimHooked then
+				thumb:HookScript("OnLeave", TrimThumbOnLeave)
+				thumb.__MERTrimHooked = true
+			end
+		end
+	end
 end
 
 -- ClassColored Sliders
@@ -672,6 +705,7 @@ hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")
+module:SecureHook(S, "HandleTrimScrollBar")
 
 local function Menu_OnEnter(self)
 	self.backdrop:SetBackdropBorderColor(F.r, F.g, F.b)
