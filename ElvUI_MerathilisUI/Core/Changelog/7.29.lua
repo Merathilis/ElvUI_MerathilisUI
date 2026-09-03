@@ -20,5 +20,6 @@ MER.Changelog[729] = {
 		"[Armory]: Small position update for the Watermark on the Character Frame",
 		"[Theme]: Some more secret protections",
 		"[Armory]: Matched the Equipment Manager's \"Gear Sets\" header style to the Stats panel category headers",
+		"[BuffReminder]: Added a Test button to preview the reminder layout, and a Hide in Combat option",
 	},
 }
