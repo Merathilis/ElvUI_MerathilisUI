@@ -90,7 +90,7 @@ local CONSUMABLE_TOGGLES = {
 
 options.buffReminder = {
 	type = "group",
-	name = module:AddCategorieIcon(L["Buff Reminder"], "buff_reminder"),
+	name = E.NewSign .. module:AddCategorieIcon(L["Buff Reminder"], "buff_reminder"),
 	get = Get,
 	set = Set,
 	args = {
@@ -104,6 +104,21 @@ options.buffReminder = {
 			type = "toggle",
 			name = L["Enable"],
 			width = "full",
+		},
+		test = {
+			order = 2.5,
+			type = "execute",
+			name = function()
+				return BR.testMode and L["Stop Test"] or L["Test"]
+			end,
+			desc = L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."],
+			width = "full",
+			disabled = function()
+				return not E.db.mui.buffReminder.enable
+			end,
+			func = function()
+				BR:ToggleTestMode()
+			end,
 		},
 		general = {
 			order = 3,
@@ -121,6 +136,12 @@ options.buffReminder = {
 					order = 2,
 					type = "toggle",
 					name = L["Hide while Mounted/Flying"],
+				},
+				hideInCombat = {
+					order = 2.5,
+					type = "toggle",
+					name = L["Hide in Combat"],
+					desc = L["When disabled, reminders freeze in place during combat instead of disappearing."],
 				},
 				showUnder = {
 					order = 3,
@@ -217,29 +238,45 @@ options.buffReminder = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					get = function() return E.db.mui.buffReminder.sound.enable end,
-					set = function(_, value) E.db.mui.buffReminder.sound.enable = value end,
+					get = function()
+						return E.db.mui.buffReminder.sound.enable
+					end,
+					set = function(_, value)
+						E.db.mui.buffReminder.sound.enable = value
+					end,
 				},
 				raidBuffs = {
 					order = 2,
 					type = "toggle",
 					name = L["Raid Buffs"],
-					get = function() return E.db.mui.buffReminder.sound.raidBuffs end,
-					set = function(_, value) E.db.mui.buffReminder.sound.raidBuffs = value end,
+					get = function()
+						return E.db.mui.buffReminder.sound.raidBuffs
+					end,
+					set = function(_, value)
+						E.db.mui.buffReminder.sound.raidBuffs = value
+					end,
 				},
 				auras = {
 					order = 3,
 					type = "toggle",
 					name = L["Auras"],
-					get = function() return E.db.mui.buffReminder.sound.auras end,
-					set = function(_, value) E.db.mui.buffReminder.sound.auras = value end,
+					get = function()
+						return E.db.mui.buffReminder.sound.auras
+					end,
+					set = function(_, value)
+						E.db.mui.buffReminder.sound.auras = value
+					end,
 				},
 				consumables = {
 					order = 4,
 					type = "toggle",
 					name = L["Consumables"],
-					get = function() return E.db.mui.buffReminder.sound.consumables end,
-					set = function(_, value) E.db.mui.buffReminder.sound.consumables = value end,
+					get = function()
+						return E.db.mui.buffReminder.sound.consumables
+					end,
+					set = function(_, value)
+						E.db.mui.buffReminder.sound.consumables = value
+					end,
 				},
 			},
 		},
@@ -255,7 +292,9 @@ options.buffReminder = {
 					type = "toggle",
 					name = L["Enable"],
 					width = "full",
-					get = function() return E.db.mui.buffReminder.raidBuffs.enable end,
+					get = function()
+						return E.db.mui.buffReminder.raidBuffs.enable
+					end,
 					set = function(_, value)
 						E.db.mui.buffReminder.raidBuffs.enable = value
 						BR:RequestRefresh()
@@ -276,7 +315,9 @@ options.buffReminder = {
 					type = "toggle",
 					name = L["Enable"],
 					width = "full",
-					get = function() return E.db.mui.buffReminder.auras.enable end,
+					get = function()
+						return E.db.mui.buffReminder.auras.enable
+					end,
 					set = function(_, value)
 						E.db.mui.buffReminder.auras.enable = value
 						BR:RequestRefresh()
@@ -297,7 +338,9 @@ options.buffReminder = {
 					type = "toggle",
 					name = L["Enable"],
 					width = "full",
-					get = function() return E.db.mui.buffReminder.consumables.enable end,
+					get = function()
+						return E.db.mui.buffReminder.consumables.enable
+					end,
 					set = function(_, value)
 						E.db.mui.buffReminder.consumables.enable = value
 						BR:RequestRefresh()
@@ -309,7 +352,9 @@ options.buffReminder = {
 					name = L["Show Without Item"],
 					desc = L["Keep showing a desaturated reminder icon even when you have none of the item left in your bags."],
 					width = "full",
-					get = function() return E.db.mui.buffReminder.consumables.showWithoutItem end,
+					get = function()
+						return E.db.mui.buffReminder.consumables.showWithoutItem
+					end,
 					set = function(_, value)
 						E.db.mui.buffReminder.consumables.showWithoutItem = value
 						BR:RequestRefresh()

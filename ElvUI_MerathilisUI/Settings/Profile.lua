@@ -1143,6 +1143,7 @@ P.buffReminder = {
 	showUnder = 5, -- minutes before expiration to start reminding
 	hideInOpenWorld = true,
 	hideWhileMounted = true,
+	hideInCombat = true,
 	sound = {
 		enable = false,
 		raidBuffs = true,
@@ -1156,7 +1157,14 @@ P.buffReminder = {
 	},
 	auras = {
 		enable = true,
-		enabled = { symbiotic = true, battle_stance = true, berserk_stance = true, def_stance = true, shadowform = true, devo_aura = true },
+		enabled = {
+			symbiotic = true,
+			battle_stance = true,
+			berserk_stance = true,
+			def_stance = true,
+			shadowform = true,
+			devo_aura = true,
+		},
 	},
 	consumables = {
 		enable = true,

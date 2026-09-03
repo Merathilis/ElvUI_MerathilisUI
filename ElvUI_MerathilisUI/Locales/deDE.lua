@@ -624,6 +624,10 @@ L["[ABBR] Yell"] = "S"
 
 -- Buff Reminder
 L["Buff Reminder"] = "Buff-Erinnerung"
+L["Test"] = "Test"
+L["Stop Test"] = "Test beenden"
+L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."] =
+	"Zeigt für 20 Sekunden eine Reihe Beispiel-Symbole an, damit du Skalierung, Leuchten, Text und Position prüfen kannst, ohne dass dir im Raid tatsächlich etwas fehlen muss."
 L["Raid Buffs"] = "Raid-Buffs"
 L["Consumables"] = "Verbrauchsgegenstände"
 L["Flask"] = "Flasche"
@@ -663,6 +667,9 @@ L["Hide in Open World"] = "In offener Welt ausblenden"
 L["Only show reminders inside dungeons, raids and scenarios."] =
 	"Erinnerungen nur in Dungeons, Schlachtzügen und Szenarien anzeigen."
 L["Hide while Mounted/Flying"] = "Beim Reiten/Fliegen ausblenden"
+L["Hide in Combat"] = "Im Kampf ausblenden"
+L["When disabled, reminders freeze in place during combat instead of disappearing."] =
+	"Wenn deaktiviert, bleiben Erinnerungen im Kampf eingefroren an ihrer Position, anstatt zu verschwinden."
 L["Remind Under (minutes)"] = "Erinnern unter (Minuten)"
 L["Also remind when a tracked consumable buff is about to expire within this many minutes."] =
 	"Erinnert auch, wenn ein überwachter Verbrauchsgegenstand-Buff innerhalb dieser Minutenzahl abläuft."

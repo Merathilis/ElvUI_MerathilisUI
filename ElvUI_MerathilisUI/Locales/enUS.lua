@@ -891,6 +891,9 @@ L["|TInterfaceAddonsElvUI_MerathilisUIMediaIconsDiscord.tga:18:18:0:0:64:64|t |c
 
 -- Buff Reminder
 L["Buff Reminder"] = true
+L["Test"] = true
+L["Stop Test"] = true
+L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."] = true
 L["Raid Buffs"] = true
 L["Consumables"] = true
 L["Flask"] = true
@@ -929,6 +932,8 @@ L["Thunderstrike Ward"] = true
 L["Hide in Open World"] = true
 L["Only show reminders inside dungeons, raids and scenarios."] = true
 L["Hide while Mounted/Flying"] = true
+L["Hide in Combat"] = true
+L["When disabled, reminders freeze in place during combat instead of disappearing."] = true
 L["Remind Under (minutes)"] = true
 L["Also remind when a tracked consumable buff is about to expire within this many minutes."] = true
 L["Icon Spacing"] = true

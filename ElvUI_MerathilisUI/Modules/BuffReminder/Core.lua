@@ -51,18 +51,26 @@ end
 local texCache = {}
 local function Tex(id)
 	local c = texCache[id]
-	if c then return c end
+	if c then
+		return c
+	end
 	local t = C_Spell_GetSpellTexture and C_Spell_GetSpellTexture(id)
-	if t then texCache[id] = t end
+	if t then
+		texCache[id] = t
+	end
 	return t
 end
 
 local nameCache = {}
 local function SpellName(id, fallback)
 	local c = nameCache[id]
-	if c then return c end
+	if c then
+		return c
+	end
 	local n = C_Spell_GetSpellName and C_Spell_GetSpellName(id)
-	if n then nameCache[id] = n end
+	if n then
+		nameCache[id] = n
+	end
 	return n or fallback
 end
 
@@ -81,7 +89,9 @@ end
 
 local function GetSpecID()
 	local s = GetSpecialization and GetSpecialization()
-	if not s then return nil end
+	if not s then
+		return nil
+	end
 	return GetSpecializationInfo(s)
 end
 
@@ -96,7 +106,9 @@ local function InPvPInstance()
 end
 
 local function IsUnderDuration(duration, expirationTime, showUnder)
-	if not duration or duration == 0 or not expirationTime then return false end
+	if not duration or duration == 0 or not expirationTime then
+		return false
+	end
 	local remaining = expirationTime - GetTime()
 	return remaining <= ((showUnder or 5) * 60)
 end
@@ -106,22 +118,69 @@ end
 -------------------------------------------------------------------------------
 local BUFF_BENEFICIARIES = {
 	intellect = {
-		MAGE = true, WARLOCK = true, PRIEST = true, DRUID = true,
-		SHAMAN = true, MONK = true, EVOKER = true, PALADIN = true, DEMONHUNTER = true,
+		MAGE = true,
+		WARLOCK = true,
+		PRIEST = true,
+		DRUID = true,
+		SHAMAN = true,
+		MONK = true,
+		EVOKER = true,
+		PALADIN = true,
+		DEMONHUNTER = true,
 	},
 	attackPower = {
-		WARRIOR = true, ROGUE = true, HUNTER = true, DEATHKNIGHT = true,
-		PALADIN = true, MONK = true, DRUID = true, DEMONHUNTER = true, SHAMAN = true,
+		WARRIOR = true,
+		ROGUE = true,
+		HUNTER = true,
+		DEATHKNIGHT = true,
+		PALADIN = true,
+		MONK = true,
+		DRUID = true,
+		DEMONHUNTER = true,
+		SHAMAN = true,
 	},
 }
 
 local RAID_BUFFS = {
 	{ key = "motw", class = "DRUID", name = "Mark of the Wild", castSpell = 1126, buffIDs = { 1126, 432661 } },
-	{ key = "bshout", class = "WARRIOR", name = "Battle Shout", castSpell = 6673, buffIDs = { 6673 }, benefit = "attackPower" },
+	{
+		key = "bshout",
+		class = "WARRIOR",
+		name = "Battle Shout",
+		castSpell = 6673,
+		buffIDs = { 6673 },
+		benefit = "attackPower",
+	},
 	{ key = "fort", class = "PRIEST", name = "Power Word: Fortitude", castSpell = 21562, buffIDs = { 21562 } },
-	{ key = "ai", class = "MAGE", name = "Arcane Intellect", castSpell = 1459, buffIDs = { 1459, 432778 }, benefit = "intellect" },
-	{ key = "bronze", class = "EVOKER", name = "Blessing of the Bronze", castSpell = 364342,
-		buffIDs = { 381732, 381741, 381746, 381748, 381749, 381750, 381751, 381752, 381753, 381754, 381756, 381757, 381758 } },
+	{
+		key = "ai",
+		class = "MAGE",
+		name = "Arcane Intellect",
+		castSpell = 1459,
+		buffIDs = { 1459, 432778 },
+		benefit = "intellect",
+	},
+	{
+		key = "bronze",
+		class = "EVOKER",
+		name = "Blessing of the Bronze",
+		castSpell = 364342,
+		buffIDs = {
+			381732,
+			381741,
+			381746,
+			381748,
+			381749,
+			381750,
+			381751,
+			381752,
+			381753,
+			381754,
+			381756,
+			381757,
+			381758,
+		},
+	},
 	{ key = "sky", class = "SHAMAN", name = "Skyfury", castSpell = 462854, buffIDs = { 462854 } },
 }
 
@@ -129,12 +188,54 @@ local RAID_BUFFS = {
 --  SPELL DATA -- Self Auras (stances / forms / self-buffs)
 -------------------------------------------------------------------------------
 local AURAS = {
-	{ key = "symbiotic", class = "DRUID", name = "Symbiotic Relationship", castSpell = 474750, buffIDs = { 474754 }, requireGroup = true },
-	{ key = "battle_stance", class = "WARRIOR", name = "Battle Stance", castSpell = 386164, buffIDs = { 386164 }, specs = { 71 } },
-	{ key = "berserk_stance", class = "WARRIOR", name = "Berserker Stance", castSpell = 386196, buffIDs = { 386196 }, specs = { 72 } },
-	{ key = "def_stance", class = "WARRIOR", name = "Defensive Stance", castSpell = 386208, buffIDs = { 386208 }, specs = { 73 } },
-	{ key = "shadowform", class = "PRIEST", name = "Shadowform", castSpell = 232698, buffIDs = { 232698, 194249 }, specs = { 258 } },
-	{ key = "devo_aura", class = "PALADIN", name = "Devotion Aura", castSpell = 465, buffIDs = { 465, 32223, 317920 }, noPvP = true },
+	{
+		key = "symbiotic",
+		class = "DRUID",
+		name = "Symbiotic Relationship",
+		castSpell = 474750,
+		buffIDs = { 474754 },
+		requireGroup = true,
+	},
+	{
+		key = "battle_stance",
+		class = "WARRIOR",
+		name = "Battle Stance",
+		castSpell = 386164,
+		buffIDs = { 386164 },
+		specs = { 71 },
+	},
+	{
+		key = "berserk_stance",
+		class = "WARRIOR",
+		name = "Berserker Stance",
+		castSpell = 386196,
+		buffIDs = { 386196 },
+		specs = { 72 },
+	},
+	{
+		key = "def_stance",
+		class = "WARRIOR",
+		name = "Defensive Stance",
+		castSpell = 386208,
+		buffIDs = { 386208 },
+		specs = { 73 },
+	},
+	{
+		key = "shadowform",
+		class = "PRIEST",
+		name = "Shadowform",
+		castSpell = 232698,
+		buffIDs = { 232698, 194249 },
+		specs = { 258 },
+	},
+	{
+		key = "devo_aura",
+		class = "PALADIN",
+		name = "Devotion Aura",
+		castSpell = 465,
+		buffIDs = { 465, 32223, 317920 },
+		noPvP = true,
+	},
 }
 
 -------------------------------------------------------------------------------
@@ -159,8 +260,20 @@ local SHAMAN_IMBUES = {
 	{ key = "flametongue", name = "Flametongue Weapon", castSpell = 318038, buffIDs = { 319778 } },
 	{ key = "windfury", name = "Windfury Weapon", castSpell = 33757, buffIDs = { 319773 } },
 	{ key = "earthliving", name = "Earthliving Weapon", castSpell = 382021, buffIDs = { 382021, 382022 } },
-	{ key = "tidecaller", name = "Tidecaller's Guard", castSpell = 457481, buffIDs = { 457496, 457481 }, requireShield = true },
-	{ key = "tstrike", name = "Thunderstrike Ward", castSpell = 462757, buffIDs = { 462757, 462742 }, requireShield = true },
+	{
+		key = "tidecaller",
+		name = "Tidecaller's Guard",
+		castSpell = 457481,
+		buffIDs = { 457496, 457481 },
+		requireShield = true,
+	},
+	{
+		key = "tstrike",
+		name = "Thunderstrike Ward",
+		castSpell = 462757,
+		buffIDs = { 462757, 462742 },
+		requireShield = true,
+	},
 }
 
 local function ShamanShieldCastSpell()
@@ -169,7 +282,12 @@ local function ShamanShieldCastSpell()
 end
 
 local SHAMAN_SHIELDS = {
-	{ key = "shield_basic", name = "Shield", castSpellFn = ShamanShieldCastSpell, buffIDs = { 974, 192106, 52127, 383648 } },
+	{
+		key = "shield_basic",
+		name = "Shield",
+		castSpellFn = ShamanShieldCastSpell,
+		buffIDs = { 974, 192106, 52127, 383648 },
+	},
 }
 
 -------------------------------------------------------------------------------
@@ -193,10 +311,30 @@ local WEAPON_ENCHANT_ITEMS = {
 }
 
 local FLASK_ITEMS = {
-	{ key = "blood_knights", buffID = 1235110, name = "Flask of the Blood Knights", items = { 241324, 241325, 245931, 245930 } },
-	{ key = "magisters", buffID = 1235108, name = "Flask of the Magisters", items = { 241322, 241323, 245933, 245932 } },
-	{ key = "shattered_sun", buffID = 1235111, name = "Flask of the Shattered Sun", items = { 241326, 241327, 245929, 245928 } },
-	{ key = "thalassian_resistance", buffID = 1235057, name = "Flask of Thalassian Resistance", items = { 241320, 241321, 245926, 245927 } },
+	{
+		key = "blood_knights",
+		buffID = 1235110,
+		name = "Flask of the Blood Knights",
+		items = { 241324, 241325, 245931, 245930 },
+	},
+	{
+		key = "magisters",
+		buffID = 1235108,
+		name = "Flask of the Magisters",
+		items = { 241322, 241323, 245933, 245932 },
+	},
+	{
+		key = "shattered_sun",
+		buffID = 1235111,
+		name = "Flask of the Shattered Sun",
+		items = { 241326, 241327, 245929, 245928 },
+	},
+	{
+		key = "thalassian_resistance",
+		buffID = 1235057,
+		name = "Flask of Thalassian Resistance",
+		items = { 241320, 241321, 245926, 245927 },
+	},
 	{ key = "thalassian_horror", buffID = 1239355, name = "Vicious Thalassian Flask of Honor", items = { 241334 } },
 }
 local FLASK_BUFF_ID_SET = {}
@@ -264,7 +402,9 @@ local WEAPON_ENCHANT_SLOTS = {
 local function PlayerHasAuraByID(ids)
 	for _, id in ipairs(ids) do
 		local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
-		if ok and result ~= nil then return true end
+		if ok and result ~= nil then
+			return true
+		end
 	end
 	return false
 end
@@ -274,8 +414,13 @@ local function PlayerHasAuraByIDWithDuration(ids, showUnder)
 		local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
 		if ok and result ~= nil then
 			local dur, exp = result.duration, result.expirationTime
-			if dur and exp and not E:IsSecretValue(dur) and not E:IsSecretValue(exp)
-				and IsUnderDuration(dur, exp, showUnder) then
+			if
+				dur
+				and exp
+				and not E:IsSecretValue(dur)
+				and not E:IsSecretValue(exp)
+				and IsUnderDuration(dur, exp, showUnder)
+			then
 				return false
 			end
 			return true
@@ -287,11 +432,15 @@ end
 local function UnitHasAuraByID(unit, ids)
 	for i = 1, 40 do
 		local ok, aura = pcall(C_UnitAuras_GetAuraDataByIndex, unit, i, "HELPFUL")
-		if not ok or not aura then break end
+		if not ok or not aura then
+			break
+		end
 		local spellId = aura.spellId
 		if spellId and not E:IsSecretValue(spellId) then
 			for _, id in ipairs(ids) do
-				if spellId == id then return true end
+				if spellId == id then
+					return true
+				end
 			end
 		end
 	end
@@ -301,13 +450,22 @@ end
 local function PlayerHasBuffByIcon(iconID, showUnder)
 	for i = 1, 40 do
 		local ok, aura = pcall(C_UnitAuras_GetAuraDataByIndex, "player", i, "HELPFUL")
-		if not ok then return true end
-		if not aura then break end
+		if not ok then
+			return true
+		end
+		if not aura then
+			break
+		end
 		local ic = aura.icon
 		if ic and not E:IsSecretValue(ic) and ic == iconID then
 			local dur, exp = aura.duration, aura.expirationTime
-			if dur and exp and not E:IsSecretValue(dur) and not E:IsSecretValue(exp)
-				and IsUnderDuration(dur, exp, showUnder) then
+			if
+				dur
+				and exp
+				and not E:IsSecretValue(dur)
+				and not E:IsSecretValue(exp)
+				and IsUnderDuration(dur, exp, showUnder)
+			then
 				return false
 			end
 			return true
@@ -317,11 +475,17 @@ local function PlayerHasBuffByIcon(iconID, showUnder)
 end
 
 local function UnitBenefits(unit, benefit)
-	if not benefit then return true end
+	if not benefit then
+		return true
+	end
 	local classSet = BUFF_BENEFICIARIES[benefit]
-	if not classSet then return true end
+	if not classSet then
+		return true
+	end
 	local _, class = UnitClass(unit)
-	if not class or E:IsSecretValue(class) then return false end
+	if not class or E:IsSecretValue(class) then
+		return false
+	end
 	return classSet[class] == true
 end
 
@@ -330,26 +494,44 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 	if IsInRaid() then
 		for i = 1, GetNumGroupMembers() do
 			local unit = "raid" .. i
-			if UnitExists(unit) and not UnitIsDeadOrGhost(unit) and UnitInRange(unit) and UnitBenefits(unit, benefit) then
+			if
+				UnitExists(unit)
+				and not UnitIsDeadOrGhost(unit)
+				and UnitInRange(unit)
+				and UnitBenefits(unit, benefit)
+			then
 				total = total + 1
-				if UnitHasAuraByID(unit, buffIDs) then have = have + 1 end
+				if UnitHasAuraByID(unit, buffIDs) then
+					have = have + 1
+				end
 			end
 		end
 	elseif IsInGroup() then
 		for i = 1, GetNumSubgroupMembers() do
 			local unit = "party" .. i
-			if UnitExists(unit) and not UnitIsDeadOrGhost(unit) and UnitInRange(unit) and UnitBenefits(unit, benefit) then
+			if
+				UnitExists(unit)
+				and not UnitIsDeadOrGhost(unit)
+				and UnitInRange(unit)
+				and UnitBenefits(unit, benefit)
+			then
 				total = total + 1
-				if UnitHasAuraByID(unit, buffIDs) then have = have + 1 end
+				if UnitHasAuraByID(unit, buffIDs) then
+					have = have + 1
+				end
 			end
 		end
 		if UnitBenefits("player", benefit) then
 			total = total + 1
-			if PlayerHasAuraByID(buffIDs) then have = have + 1 end
+			if PlayerHasAuraByID(buffIDs) then
+				have = have + 1
+			end
 		end
 	else
 		total = 1
-		if PlayerHasAuraByID(buffIDs) then have = 1 end
+		if PlayerHasAuraByID(buffIDs) then
+			have = 1
+		end
 	end
 	return have, total
 end
@@ -372,14 +554,18 @@ local ENCHANTABLE_EQUIP_LOCS = {
 
 local function GetWeaponCategory(slotID)
 	local link = GetInventoryItemLink("player", slotID)
-	if not link then return nil end
+	if not link then
+		return nil
+	end
 	local equipLoc = select(4, GetItemInfoInstant(link))
 	return ENCHANTABLE_EQUIP_LOCS[equipLoc]
 end
 
 local function HasShieldEquipped()
 	local link = GetInventoryItemLink("player", 17)
-	if not link then return false end
+	if not link then
+		return false
+	end
 	return select(4, GetItemInfoInstant(link)) == "INVTYPE_SHIELD"
 end
 
@@ -402,16 +588,22 @@ local function RebuildBagCounts()
 	end
 end
 local function BagCount(itemID)
-	if _bagCountsDirty then RebuildBagCounts() end
+	if _bagCountsDirty then
+		RebuildBagCounts()
+	end
 	return _bagCounts[itemID] or 0
 end
 
 local function FindFlaskItem(preferredKey, lastUsedItemID)
 	if preferredKey == "last_used" then
-		if lastUsedItemID and BagCount(lastUsedItemID) > 0 then return lastUsedItemID end
+		if lastUsedItemID and BagCount(lastUsedItemID) > 0 then
+			return lastUsedItemID
+		end
 		for _, f in ipairs(FLASK_ITEMS) do
 			for _, id in ipairs(f.items) do
-				if BagCount(id) > 0 then return id end
+				if BagCount(id) > 0 then
+					return id
+				end
 			end
 		end
 		return nil
@@ -419,7 +611,9 @@ local function FindFlaskItem(preferredKey, lastUsedItemID)
 	for _, f in ipairs(FLASK_ITEMS) do
 		if f.key == preferredKey then
 			for _, id in ipairs(f.items) do
-				if BagCount(id) > 0 then return id end
+				if BagCount(id) > 0 then
+					return id
+				end
 			end
 		end
 	end
@@ -429,20 +623,26 @@ end
 local function FindFoodItem(preferredKey, lastUsedItemID)
 	if preferredKey ~= "last_used" then
 		for _, f in ipairs(FOOD_ITEMS) do
-			if f.key == preferredKey and BagCount(f.itemID) > 0 then return f.itemID end
+			if f.key == preferredKey and BagCount(f.itemID) > 0 then
+				return f.itemID
+			end
 		end
 	elseif lastUsedItemID and BagCount(lastUsedItemID) > 0 then
 		return lastUsedItemID
 	end
 	for _, f in ipairs(FOOD_ITEMS) do
-		if BagCount(f.itemID) > 0 then return f.itemID end
+		if BagCount(f.itemID) > 0 then
+			return f.itemID
+		end
 	end
 	return nil
 end
 
 local function FindWeaponEnchantItem(preferredKey, lastUsedItemID, targetCat)
 	if preferredKey == "last_used" then
-		if lastUsedItemID and BagCount(lastUsedItemID) > 0 then return lastUsedItemID end
+		if lastUsedItemID and BagCount(lastUsedItemID) > 0 then
+			return lastUsedItemID
+		end
 		for _, we in ipairs(WEAPON_ENCHANT_ITEMS) do
 			if (we.weaponType == "NEUTRAL" or we.weaponType == targetCat) and BagCount(we.itemID) > 0 then
 				return we.itemID
@@ -453,7 +653,9 @@ local function FindWeaponEnchantItem(preferredKey, lastUsedItemID, targetCat)
 	for _, choice in ipairs(WEAPON_ENCHANT_CHOICES) do
 		if choice.key == preferredKey then
 			for _, we in ipairs(WEAPON_ENCHANT_ITEMS) do
-				if we.name == choice.name and BagCount(we.itemID) > 0 then return we.itemID end
+				if we.name == choice.name and BagCount(we.itemID) > 0 then
+					return we.itemID
+				end
 			end
 			break
 		end
@@ -511,7 +713,9 @@ end
 local function ApplyGlow(btn)
 	local db = module.db
 	if not db.glowEnable then
-		if btn.glow then btn.glow:Hide() end
+		if btn.glow then
+			btn.glow:Hide()
+		end
 		return
 	end
 
@@ -521,7 +725,9 @@ local function ApplyGlow(btn)
 		tex:SetVertexColor(c.r, c.g, c.b, 1)
 	end
 	glow:Show()
-	if not glow.anim:IsPlaying() then glow.anim:Play() end
+	if not glow.anim:IsPlaying() then
+		glow.anim:Play()
+	end
 end
 
 local function RemoveGlow(btn)
@@ -540,7 +746,9 @@ local iconPool = {}
 local activeIcons = {}
 
 local function GetOrCreateIcon(index)
-	if iconPool[index] then return iconPool[index] end
+	if iconPool[index] then
+		return iconPool[index]
+	end
 
 	local btn = CreateFrame("Button", "MER_BuffReminderIcon" .. index, iconAnchor, "SecureActionButtonTemplate")
 	btn:SetSize(ICON_SIZE, ICON_SIZE)
@@ -575,7 +783,9 @@ local function GetOrCreateIcon(index)
 		end
 		GameTooltip:Show()
 	end)
-	btn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+	btn:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
 
 	btn:HookScript("PostClick", function(self, button)
 		if button == "MiddleButton" and self._dismissKey then
@@ -624,6 +834,20 @@ local function SetIconMacro(btn, macrotext, texture)
 	btn._tooltipItem = nil
 end
 
+-- Display-only: no click action. Used for the test-preview row so it can
+-- never accidentally cast a spell or consume a real item.
+local function SetIconTexture(btn, texture)
+	if not InCombat() then
+		btn:SetAttribute("type", nil)
+		btn:SetAttribute("spell", nil)
+		btn:SetAttribute("item", nil)
+		btn:SetAttribute("macrotext", nil)
+	end
+	btn._icon:SetTexture(texture or 134400)
+	btn._tooltipSpell = nil
+	btn._tooltipItem = nil
+end
+
 -------------------------------------------------------------------------------
 --  Missing-entry collection
 -------------------------------------------------------------------------------
@@ -643,7 +867,9 @@ end
 
 local function CollectRaidBuffs(missing, playerClass, db)
 	local rb = db.raidBuffs
-	if not rb.enable then return end
+	if not rb.enable then
+		return
+	end
 	local inPvP = InPvPInstance()
 	for _, buff in ipairs(RAID_BUFFS) do
 		if rb.enabled[buff.key] and buff.class == playerClass and Known(buff.castSpell) and not inPvP then
@@ -662,15 +888,24 @@ end
 
 local function CollectAuras(missing, playerClass, specID, db)
 	local au = db.auras
-	if not au.enable then return end
+	if not au.enable then
+		return
+	end
 	for _, aura in ipairs(AURAS) do
-		if au.enabled[aura.key] and aura.class == playerClass and Known(aura.castSpell)
-			and not (aura.noPvP and InPvPInstance()) then
+		if
+			au.enabled[aura.key]
+			and aura.class == playerClass
+			and Known(aura.castSpell)
+			and not (aura.noPvP and InPvPInstance())
+		then
 			local specOk = true
 			if aura.specs then
 				specOk = false
 				for _, s in ipairs(aura.specs) do
-					if s == specID then specOk = true; break end
+					if s == specID then
+						specOk = true
+						break
+					end
 				end
 			end
 			if specOk and aura.requireGroup and not (IsInGroup() or IsInRaid()) then
@@ -693,14 +928,19 @@ local function CollectClassSpecials(missing, playerClass, co)
 		local haveLethal, haveNonLethal = false, false
 		for _, p in ipairs(ROGUE_POISONS) do
 			if PlayerHasAuraByID({ p.castSpell }) then
-				if p.cat == "lethal" then haveLethal = true else haveNonLethal = true end
+				if p.cat == "lethal" then
+					haveLethal = true
+				else
+					haveNonLethal = true
+				end
 			end
 		end
 		for _, p in ipairs(ROGUE_POISONS) do
 			local already = (p.cat == "lethal" and haveLethal) or (p.cat == "nonlethal" and haveNonLethal)
 			if co.enabled[p.key] and Known(p.castSpell) and not already and not PlayerHasAuraByID({ p.castSpell }) then
 				local e = AcquireEntry()
-				e.mode = "spell"; e.spellID = p.castSpell
+				e.mode = "spell"
+				e.spellID = p.castSpell
 				e.label = ShortLabel(SpellName(p.castSpell, p.name))
 				e.dismissKey = "consumable:" .. p.key
 				missing[#missing + 1] = e
@@ -710,7 +950,8 @@ local function CollectClassSpecials(missing, playerClass, co)
 		for _, r in ipairs(PALADIN_RITES) do
 			if co.enabled[r.key] and Known(r.castSpell) and not PlayerHasAuraByID(r.buffIDs) then
 				local e = AcquireEntry()
-				e.mode = "spell"; e.spellID = r.castSpell
+				e.mode = "spell"
+				e.spellID = r.castSpell
 				e.label = ShortLabel(SpellName(r.castSpell, r.name))
 				e.dismissKey = "consumable:" .. r.key
 				missing[#missing + 1] = e
@@ -718,10 +959,15 @@ local function CollectClassSpecials(missing, playerClass, co)
 		end
 	elseif playerClass == "SHAMAN" then
 		for _, im in ipairs(SHAMAN_IMBUES) do
-			if co.enabled[im.key] and Known(im.castSpell) and (not im.requireShield or HasShieldEquipped())
-				and not PlayerHasAuraByID(im.buffIDs) then
+			if
+				co.enabled[im.key]
+				and Known(im.castSpell)
+				and (not im.requireShield or HasShieldEquipped())
+				and not PlayerHasAuraByID(im.buffIDs)
+			then
 				local e = AcquireEntry()
-				e.mode = "spell"; e.spellID = im.castSpell
+				e.mode = "spell"
+				e.spellID = im.castSpell
 				e.label = ShortLabel(SpellName(im.castSpell, im.name))
 				e.dismissKey = "consumable:" .. im.key
 				missing[#missing + 1] = e
@@ -732,7 +978,8 @@ local function CollectClassSpecials(missing, playerClass, co)
 				local spellID = sh.castSpellFn and sh.castSpellFn() or sh.castSpell
 				if spellID and Known(spellID) then
 					local e = AcquireEntry()
-					e.mode = "spell"; e.spellID = spellID
+					e.mode = "spell"
+					e.spellID = spellID
 					e.label = ShortLabel(SpellName(spellID, sh.name))
 					e.dismissKey = "consumable:" .. sh.key
 					missing[#missing + 1] = e
@@ -744,18 +991,24 @@ local function CollectClassSpecials(missing, playerClass, co)
 end
 
 local function CollectConsumables(missing, playerClass, co)
-	if not co.enable then return end
+	if not co.enable then
+		return
+	end
 
 	if co.enabled.flask then
 		local missingFlask = true
 		for id in pairs(FLASK_BUFF_ID_SET) do
-			if PlayerHasAuraByIDWithDuration({ id }, module.db.showUnder) then missingFlask = false; break end
+			if PlayerHasAuraByIDWithDuration({ id }, module.db.showUnder) then
+				missingFlask = false
+				break
+			end
 		end
 		if missingFlask then
 			local itemID = FindFlaskItem(co.preferredFlask, module.db.lastUsedFlask)
 			if itemID and (co.showWithoutItem ~= false or BagCount(itemID) > 0) then
 				local e = AcquireEntry()
-				e.mode = "item"; e.itemID = itemID
+				e.mode = "item"
+				e.itemID = itemID
 				e.label = L["Flask"]
 				e.bagCount = BagCount(itemID)
 				e.desaturated = BagCount(itemID) == 0
@@ -769,7 +1022,8 @@ local function CollectConsumables(missing, playerClass, co)
 		local itemID = FindFoodItem(co.preferredFood, module.db.lastUsedFood)
 		if itemID and (co.showWithoutItem ~= false or BagCount(itemID) > 0) then
 			local e = AcquireEntry()
-			e.mode = "item"; e.itemID = itemID
+			e.mode = "item"
+			e.itemID = itemID
 			e.label = L["Food"]
 			e.bagCount = BagCount(itemID)
 			e.desaturated = BagCount(itemID) == 0
@@ -781,12 +1035,16 @@ local function CollectConsumables(missing, playerClass, co)
 	if co.enabled.augment_rune and not PlayerHasAuraByIDWithDuration(RUNE_BUFF_IDS, module.db.showUnder) then
 		local itemID
 		for _, id in ipairs(RUNE_ITEMS) do
-			if BagCount(id) > 0 then itemID = id; break end
+			if BagCount(id) > 0 then
+				itemID = id
+				break
+			end
 		end
 		itemID = itemID or RUNE_ITEMS[1]
 		if co.showWithoutItem ~= false or BagCount(itemID) > 0 then
 			local e = AcquireEntry()
-			e.mode = "item"; e.itemID = itemID
+			e.mode = "item"
+			e.itemID = itemID
 			e.label = L["Rune"]
 			e.bagCount = BagCount(itemID)
 			e.desaturated = BagCount(itemID) == 0
@@ -808,7 +1066,8 @@ local function CollectConsumables(missing, playerClass, co)
 			if cat then
 				local has = (slotInfo.slot == 16) and hasMH or hasOH
 				if not has then
-					local itemID = FindWeaponEnchantItem(co.preferredWeaponEnchant, module.db.lastUsedWeaponEnchant, cat)
+					local itemID =
+						FindWeaponEnchantItem(co.preferredWeaponEnchant, module.db.lastUsedWeaponEnchant, cat)
 					if itemID and (co.showWithoutItem ~= false or BagCount(itemID) > 0) then
 						local e = AcquireEntry()
 						e.mode = "macro"
@@ -867,7 +1126,9 @@ end
 
 local function LayoutIcons()
 	local count = #activeIcons
-	if count == 0 then return end
+	if count == 0 then
+		return
+	end
 	local db = module.db
 	local spacing = db.iconSpacing or 6
 	local sz = floor(ICON_SIZE * (db.scale or 1) + 0.5)
@@ -890,6 +1151,8 @@ local function ApplyEntry(btn, e)
 		SetIconItem(btn, e.itemID, e.texture)
 	elseif e.mode == "macro" then
 		SetIconMacro(btn, e.macro, e.texture)
+	else
+		SetIconTexture(btn, e.texture)
 	end
 
 	btn._label = e.label
@@ -915,14 +1178,87 @@ local function ApplyEntry(btn, e)
 	btn:Show()
 end
 
+-------------------------------------------------------------------------------
+--  Test preview: a fixed, class-independent row of display-only icons (never
+--  bound to a real spell/item, so clicking one can never cast or consume
+--  anything) to let the user preview scale/glow/text/layout settings without
+--  needing to actually be missing anything in a raid.
+-------------------------------------------------------------------------------
+local TEST_PREVIEW = {
+	{ spellID = 1126, label = "Mark of the Wild" },
+	{ spellID = 6673, label = "Battle Shout" },
+	{ spellID = 21562, label = "Fortitude" },
+	{ spellID = 1459, label = "Intellect" },
+	{ spellID = 364342, label = "Bronze" },
+	{ spellID = 462854, label = "Skyfury" },
+	{ spellID = 2823, label = "Poison" },
+	{ itemID = 241324, label = L["Flask"], bagCount = 3 },
+	{ itemID = 242275, label = L["Food"], bagCount = 12 },
+	{ itemID = 259085, label = L["Rune"], bagCount = 0, desaturated = true },
+}
+
+local function BuildTestMissing(missing)
+	for _, t in ipairs(TEST_PREVIEW) do
+		local e = AcquireEntry()
+		e.mode = "texture"
+		e.texture = t.spellID and Tex(t.spellID) or GetItemIcon(t.itemID)
+		e.label = t.label
+		e.bagCount = t.bagCount
+		e.desaturated = t.desaturated or false
+		missing[#missing + 1] = e
+	end
+end
+
+function module:ToggleTestMode()
+	self.testMode = not self.testMode
+	if self._testModeTimer then
+		self._testModeTimer:Cancel()
+		self._testModeTimer = nil
+	end
+	if self.testMode then
+		self._testModeTimer = C_Timer.NewTimer(20, function()
+			self.testMode = false
+			self._testModeTimer = nil
+			self:RequestRefresh()
+		end)
+	end
+	self:RequestRefresh()
+end
+
 local _refreshMissing = {}
 function module:Refresh()
 	local db = self.db
-	if not db or not db.enable or not iconAnchor then return end
-	if InCombatLockdown() then return end
+	if not db or not db.enable or not iconAnchor then
+		return
+	end
+	if InCombatLockdown() then
+		return
+	end
 
-	if UnitInVehicle("player") or (IsMounted() and IsFlying() and db.hideWhileMounted)
-		or UnitIsDeadOrGhost("player") or IsResting() then
+	if self.testMode then
+		entriesInUse = 0
+		local missing = _refreshMissing
+		wipe(missing)
+		BuildTestMissing(missing)
+		HideAllIcons()
+		for i, e in ipairs(missing) do
+			local btn = GetOrCreateIcon(i)
+			ApplyEntry(btn, e)
+			activeIcons[#activeIcons + 1] = btn
+		end
+		if #activeIcons > 0 then
+			LayoutIcons()
+			iconAnchor:Show()
+		end
+		return
+	end
+
+	if
+		UnitInVehicle("player")
+		or (IsMounted() and IsFlying() and db.hideWhileMounted)
+		or UnitIsDeadOrGhost("player")
+		or IsResting()
+	then
 		HideAllIcons()
 		return
 	end
@@ -976,7 +1312,9 @@ end
 
 local _refreshQueued = false
 function module:RequestRefresh()
-	if _refreshQueued or InCombatLockdown() then return end
+	if _refreshQueued or InCombatLockdown() then
+		return
+	end
 	_refreshQueued = true
 	E:Delay(0.2, function()
 		_refreshQueued = false
@@ -990,13 +1328,22 @@ end
 module._dismissedUntilLoad = {}
 
 local EVENTS = {
-	"UNIT_AURA", "PLAYER_EQUIPMENT_CHANGED", "BAG_UPDATE", "PLAYER_REGEN_ENABLED",
-	"PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA", "GROUP_ROSTER_UPDATE",
-	"PLAYER_TALENT_UPDATE", "SPELLS_CHANGED",
+	"UNIT_AURA",
+	"PLAYER_EQUIPMENT_CHANGED",
+	"BAG_UPDATE",
+	"PLAYER_REGEN_ENABLED",
+	"PLAYER_REGEN_DISABLED",
+	"PLAYER_ENTERING_WORLD",
+	"ZONE_CHANGED_NEW_AREA",
+	"GROUP_ROSTER_UPDATE",
+	"PLAYER_TALENT_UPDATE",
+	"SPELLS_CHANGED",
 }
 
 function module:UNIT_AURA(_, unit)
-	if unit == "player" then InvalidateBagCounts() end
+	if unit == "player" then
+		InvalidateBagCounts()
+	end
 	self:RequestRefresh()
 end
 
@@ -1012,6 +1359,15 @@ end
 
 function module:PLAYER_REGEN_ENABLED()
 	self:RequestRefresh()
+end
+
+-- Show/Hide of our own frames is not combat-protected -- only SetAttribute/
+-- SetPoint/SetSize on the SecureActionButtons are, and Refresh() already
+-- skips those while InCombatLockdown() is true.
+function module:PLAYER_REGEN_DISABLED()
+	if self.db and self.db.hideInCombat then
+		HideAllIcons()
+	end
 end
 
 function module:GROUP_ROSTER_UPDATE()
@@ -1032,18 +1388,22 @@ function module:Initialize()
 	local db = F.GetDBFromPath("mui.buffReminder") or E.db.mui.buffReminder
 	module.db = db
 
-	if not db.enable then return end
+	if not db.enable then
+		return
+	end
 
 	iconAnchor = CreateFrame("Frame", "MER_BuffReminderAnchor", E.UIParent)
 	iconAnchor:SetSize(ICON_SIZE, ICON_SIZE)
-	iconAnchor:Point("CENTER", E.UIParent, "CENTER", 0, 200)
+	iconAnchor:Point("CENTER", E.UIParent, "CENTER", 0, -135)
 	iconAnchor:Hide()
 
 	E:CreateMover(
 		iconAnchor,
 		"MER_BuffReminderMover",
 		MER.Title .. L["Buff Reminder"],
-		nil, nil, nil,
+		nil,
+		nil,
+		nil,
 		"ALL,SOLO,MERATHILISUI",
 		nil,
 		"mui,modules,buffReminder"
