@@ -296,6 +296,24 @@ options.Embed = {
 				ResetDetails()
 			end,
 		},
+		windows = {
+			order = 9,
+			type = "range",
+			name = L["Number of Windows"],
+			min = 1,
+			max = 5,
+			step = 1,
+			disabled = function()
+				return not E.private.mui.skins.embed.enable
+			end,
+			get = function()
+				return E.private.mui.skins.embed.windows
+			end,
+			set = function(_, value)
+				E.private.mui.skins.embed.windows = value
+				ResetDetails()
+			end,
+		},
 	},
 }
 

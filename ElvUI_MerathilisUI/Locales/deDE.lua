@@ -388,6 +388,7 @@ L["Action Status"] = "Aktionsstatus"
 L["Embed Settings"] = "Einbettungseinstellungen"
 L["With this option you can embed your Details into an own Panel."] =
 	"Mit dieser Option kannst Du Dein Details in ein eigenes Panel einbetten."
+L["Number of Windows"] = "Anzahl der Fenster"
 L["Reset Settings"] = "Zurücksetzen"
 L["Toggle Direction"] = "Richtung umschalten"
 L["TOP"] = "OBEN"
