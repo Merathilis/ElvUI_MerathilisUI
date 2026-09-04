@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[729] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "04.09.2026",
 	FIXES = {
 		"[Armory]: Fixed a dead option in the Socket Panel",
 		"[Theme]: Fixed the Target of Target frame showing the wrong (non-class) color in instanced content",
@@ -19,7 +19,7 @@ MER.Changelog[729] = {
 		"[Armory]: Adjusted some Socket Panel defaults",
 		"[Armory]: Small position update for the Watermark on the Character Frame",
 		"[Theme]: Some more secret protections",
-		"[Armory]: Matched the Equipment Manager's \"Gear Sets\" header style to the Stats panel category headers",
+		'[Armory]: Matched the Equipment Manager\'s "Gear Sets" header style to the Stats panel category headers',
 		"[BuffReminder]: Added a Test button to preview the reminder layout, and a Hide in Combat option",
 	},
 }
