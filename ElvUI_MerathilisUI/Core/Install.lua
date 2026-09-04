@@ -277,7 +277,6 @@ local function SetupChat()
 	E.db["chat"]["font"] = "Expressway"
 	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["tabFont"] = "Expressway"
-	E.db["chat"]["tabFont"] = "Expressway"
 	E.db["chat"]["tabFontOutline"] = "SHADOWOUTLINE"
 	E.db["chat"]["tabFontSize"] = 10
 
@@ -327,12 +326,8 @@ function MER:SetupLayout()
 	--	GlobalDB - General
 	--]]
 	----------------------------------
-	E.global["general"]["autoScale"] = true
-	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
 	E.global["general"]["WorldMapCoordinates"]["position"] = "BOTTOMRIGHT"
-	E.global["general"]["commandBarSetting"] = "ENABLED"
-	E.global["general"]["showMissingTalentAlert"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - General
@@ -610,7 +605,6 @@ function MER:SetupLayout()
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
 	E.db["databars"]["experience"]["hideInCombat"] = true
 	E.db["databars"]["experience"]["showBubbles"] = true
-	E.db["databars"]["experience"]["hideInVehicle"] = true
 
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
@@ -622,7 +616,6 @@ function MER:SetupLayout()
 	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInCombat"] = true
 	E.db["databars"]["reputation"]["showBubbles"] = true
-	E.db["databars"]["reputation"]["hideInVehicle"] = true
 
 	E.db["databars"]["threat"]["enable"] = true
 	E.db["databars"]["threat"]["width"] = 283
@@ -638,7 +631,6 @@ function MER:SetupLayout()
 	E.db["databars"]["honor"]["hideBelowMaxLevel"] = true
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
 	E.db["databars"]["honor"]["hideInCombat"] = true
-	E.db["databars"]["honor"]["hideInVehicle"] = true
 	E.db["databars"]["honor"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["honor"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["honor"]["showBubbles"] = true
@@ -648,7 +640,6 @@ function MER:SetupLayout()
 	E.db["databars"]["azerite"]["font"] = "Expressway"
 	E.db["databars"]["azerite"]["fontSize"] = 9
 	E.db["databars"]["azerite"]["width"] = 283
-	E.db["databars"]["azerite"]["hideInVehicle"] = true
 	E.db["databars"]["azerite"]["hideInCombat"] = true
 	E.db["databars"]["azerite"]["mouseover"] = false
 	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
@@ -687,7 +678,6 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["lockActionBars"] = true
 	E.db["actionbar"]["transparent"] = true
 	E.db["actionbar"]["globalFadeAlpha"] = 0.75
-	E.db["actionbar"]["hideCooldownBling"] = false
 	E.db["actionbar"]["equippedItem"] = true
 
 	E.db["actionbar"]["microbar"]["enabled"] = false
@@ -698,7 +688,6 @@ function MER:SetupActionbars()
 	----------------------------------
 	E.db["actionbar"]["font"] = "Expressway"
 
-	E.db["actionbar"]["bar1"]["buttonSpacing"] = 2
 	E.db["actionbar"]["bar1"]["heightMult"] = 3
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
@@ -923,12 +912,8 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["colors"]["glowColor"] = { r = 0, g = 191 / 255, b = 250 / 255, a = 1 }
 	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["fontSize"] = 12
-	E.db["nameplates"]["stackFont"] = "Expressway"
-	E.db["nameplates"]["stackFontSize"] = 9
-	E.db["nameplates"]["smoothbars"] = true
 	E.db["nameplates"]["statusbar"] = "ElvUI Norm1"
 	E.db["nameplates"]["visibility"]["friendly"]["npcs"] = false
-	E.db["nameplates"]["useBlizzardAuras"] = true
 
 	-- Color
 	E.db["nameplates"]["colors"]["castColor"]["r"] = 1
@@ -1236,7 +1221,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 15
 	E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = false
 	E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "filled"
-	E.db["unitframe"]["units"]["player"]["classbar"]["additionalPowerText"] = true
 	E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 	E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 	E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
@@ -1328,7 +1312,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
-	E.db["unitframe"]["units"]["player"]["health"]["bgUseBarTexture"] = true
 
 	if layout == "gradient" then
 		E.db["unitframe"]["units"]["player"]["colorOverride"] = "USE_DEFAULT"
@@ -1427,7 +1410,6 @@ function MER:SetupUnitframes(layout)
 		"Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable"
 	E.db["unitframe"]["units"]["target"]["debuffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["target"]["debuffs"]["countFontSize"] = 9
-	E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 3
 	E.db["unitframe"]["units"]["target"]["debuffs"]["durationPosition"] = "TOP"
 	E.db["unitframe"]["units"]["target"]["debuffs"]["keepSizeRatio"] = false
 	E.db["unitframe"]["units"]["target"]["debuffs"]["height"] = 20
@@ -1494,7 +1476,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = "Frame"
 	E.db["unitframe"]["units"]["target"]["health"]["position"] = "RIGHT"
-	E.db["unitframe"]["units"]["target"]["health"]["bgUseBarTexture"] = true
 
 	if layout == "gradient" then
 		E.db["unitframe"]["units"]["target"]["colorOverride"] = "USE_DEFAULT"
@@ -1505,7 +1486,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["buffs"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["buffs"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 15
-	E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "Health"
 	E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 26
 	E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 7
 	E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 10
@@ -1556,7 +1536,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:MER:gradient]"
 	E.db["unitframe"]["units"]["targettarget"]["height"] = 20
 	E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
-	E.db["unitframe"]["units"]["targettarget"]["health"]["bgUseBarTexture"] = true
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["enable"] = true
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["position"] = "TOP"
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["size"] = 18
@@ -1582,7 +1561,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["focus"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["focus"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["focus"]["health"]["attachTextTo"] = "InfoPanel"
-	E.db["unitframe"]["units"]["focus"]["health"]["bgUseBarTexture"] = true
 	E.db["unitframe"]["units"]["focus"]["power"]["position"] = "RIGHT"
 	E.db["unitframe"]["units"]["focus"]["power"]["height"] = 6
 	E.db["unitframe"]["units"]["focus"]["power"]["text_format"] = ""
@@ -1611,7 +1589,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid1"]["horizontalSpacing"] = 3
 	E.db["unitframe"]["units"]["raid1"]["verticalSpacing"] = 2
 	E.db["unitframe"]["units"]["raid1"]["disableMouseoverGlow"] = false
-	E.db["unitframe"]["units"]["raid1"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["enable"] = true
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["clickThrough"] = true
 	E.db["unitframe"]["units"]["raid1"]["debuffs"]["xOffset"] = 0
@@ -1635,42 +1612,27 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid1"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["raid1"]["buffIndicator"]["fontSize"] = 11
 	E.db["unitframe"]["units"]["raid1"]["buffIndicator"]["size"] = 10
-	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["size"] = 10
-	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["position"] = "TOPLEFT"
-	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["xOffset"] = 1
-	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid1"]["power"]["enable"] = true
 	E.db["unitframe"]["units"]["raid1"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["raid1"]["power"]["hideonnpc"] = true
 	E.db["unitframe"]["units"]["raid1"]["power"]["powerPrediction"] = true
 	E.db["unitframe"]["units"]["raid1"]["power"]["onlyHealer"] = true
 	E.db["unitframe"]["units"]["raid1"]["groupBy"] = "ROLE"
-	E.db["unitframe"]["units"]["raid1"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["raid1"]["health"]["position"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid1"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["raid1"]["health"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["raid1"]["health"]["bgUseBarTexture"] = true
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["enable"] = true
-	E.db["unitframe"]["units"]["raid1"]["buffs"]["yOffset"] = 5
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["anchorPoint"] = "CENTER"
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["clickThrough"] = true
-	E.db["unitframe"]["units"]["raid1"]["buffs"]["useBlacklist"] = false
-	E.db["unitframe"]["units"]["raid1"]["buffs"]["useWhitelist"] = true
-	E.db["unitframe"]["units"]["raid1"]["buffs"]["noDuration"] = false
-	E.db["unitframe"]["units"]["raid1"]["buffs"]["playerOnly"] = false
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["perrow"] = 1
-	E.db["unitframe"]["units"]["raid1"]["buffs"]["useFilter"] = "TurtleBuffs"
-	E.db["unitframe"]["units"]["raid1"]["buffs"]["noConsolidated"] = false
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["sizeOverride"] = 20
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["countFontSize"] = 9
-	E.db["unitframe"]["units"]["raid1"]["buffs"]["useFilter"] = "TurtleBuffs"
 	E.db["unitframe"]["units"]["raid1"]["buffs"]["priority"] = "TurtleBuffs"
 	E.db["unitframe"]["units"]["raid1"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["raid1"]["raidicon"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["raid1"]["raidicon"]["yOffset"] = 5
 	E.db["unitframe"]["units"]["raid1"]["raidicon"]["size"] = 15
 	E.db["unitframe"]["units"]["raid1"]["raidicon"]["yOffset"] = 0
 	if not E.db["unitframe"]["units"]["raid1"]["customTexts"] then
@@ -1705,7 +1667,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["enable"] = true
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["damager"] = true
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["tank"] = true
-	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["heal"] = true
+	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["healer"] = true
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["attachTo"] = "Health"
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid1"]["roleIcon"]["xOffset"] = 1
@@ -1732,7 +1694,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid2"]["horizontalSpacing"] = 3
 	E.db["unitframe"]["units"]["raid2"]["verticalSpacing"] = 2
 	E.db["unitframe"]["units"]["raid2"]["disableMouseoverGlow"] = false
-	E.db["unitframe"]["units"]["raid2"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["enable"] = true
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["clickThrough"] = true
 	E.db["unitframe"]["units"]["raid2"]["debuffs"]["xOffset"] = 0
@@ -1756,42 +1717,27 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid2"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["raid2"]["buffIndicator"]["fontSize"] = 11
 	E.db["unitframe"]["units"]["raid2"]["buffIndicator"]["size"] = 10
-	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["size"] = 10
-	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["position"] = "TOPLEFT"
-	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["xOffset"] = 1
-	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid2"]["power"]["enable"] = true
 	E.db["unitframe"]["units"]["raid2"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["raid2"]["power"]["hideonnpc"] = true
 	E.db["unitframe"]["units"]["raid2"]["power"]["powerPrediction"] = true
 	E.db["unitframe"]["units"]["raid2"]["power"]["onlyHealer"] = true
 	E.db["unitframe"]["units"]["raid2"]["groupBy"] = "ROLE"
-	E.db["unitframe"]["units"]["raid2"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["raid2"]["health"]["position"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid2"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["raid2"]["health"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["raid2"]["health"]["bgUseBarTexture"] = true
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["enable"] = true
-	E.db["unitframe"]["units"]["raid2"]["buffs"]["yOffset"] = 5
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["anchorPoint"] = "CENTER"
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["clickThrough"] = true
-	E.db["unitframe"]["units"]["raid2"]["buffs"]["useBlacklist"] = false
-	E.db["unitframe"]["units"]["raid2"]["buffs"]["useWhitelist"] = true
-	E.db["unitframe"]["units"]["raid2"]["buffs"]["noDuration"] = false
-	E.db["unitframe"]["units"]["raid2"]["buffs"]["playerOnly"] = false
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["perrow"] = 1
-	E.db["unitframe"]["units"]["raid2"]["buffs"]["useFilter"] = "TurtleBuffs"
-	E.db["unitframe"]["units"]["raid2"]["buffs"]["noConsolidated"] = false
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["sizeOverride"] = 20
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["countFontSize"] = 9
-	E.db["unitframe"]["units"]["raid2"]["buffs"]["useFilter"] = "TurtleBuffs"
 	E.db["unitframe"]["units"]["raid2"]["buffs"]["priority"] = "TurtleBuffs"
 	E.db["unitframe"]["units"]["raid2"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["raid2"]["raidicon"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["raid2"]["raidicon"]["yOffset"] = 5
 	E.db["unitframe"]["units"]["raid2"]["raidicon"]["size"] = 15
 	E.db["unitframe"]["units"]["raid2"]["raidicon"]["yOffset"] = 0
 	if not E.db["unitframe"]["units"]["raid2"]["customTexts"] then
@@ -1826,7 +1772,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["enable"] = true
 	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["damager"] = true
 	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["tank"] = true
-	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["heal"] = true
+	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["healer"] = true
 	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["attachTo"] = "Health"
 	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid2"]["roleIcon"]["xOffset"] = 1
@@ -1853,7 +1799,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid3"]["horizontalSpacing"] = 3
 	E.db["unitframe"]["units"]["raid3"]["verticalSpacing"] = 2
 	E.db["unitframe"]["units"]["raid3"]["disableMouseoverGlow"] = false
-	E.db["unitframe"]["units"]["raid3"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["enable"] = true
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["clickThrough"] = true
 	E.db["unitframe"]["units"]["raid3"]["debuffs"]["xOffset"] = 0
@@ -1877,42 +1822,27 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid3"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["raid3"]["buffIndicator"]["fontSize"] = 11
 	E.db["unitframe"]["units"]["raid3"]["buffIndicator"]["size"] = 10
-	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["size"] = 10
-	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["position"] = "TOPLEFT"
-	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["xOffset"] = 1
-	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid3"]["power"]["enable"] = true
 	E.db["unitframe"]["units"]["raid3"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["raid3"]["power"]["hideonnpc"] = true
 	E.db["unitframe"]["units"]["raid3"]["power"]["powerPrediction"] = true
 	E.db["unitframe"]["units"]["raid3"]["power"]["onlyHealer"] = true
 	E.db["unitframe"]["units"]["raid3"]["groupBy"] = "ROLE"
-	E.db["unitframe"]["units"]["raid3"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["raid3"]["health"]["position"] = "BOTTOM"
 	E.db["unitframe"]["units"]["raid3"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["raid3"]["health"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["raid3"]["health"]["bgUseBarTexture"] = true
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["enable"] = true
-	E.db["unitframe"]["units"]["raid3"]["buffs"]["yOffset"] = 5
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["anchorPoint"] = "CENTER"
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["clickThrough"] = true
-	E.db["unitframe"]["units"]["raid3"]["buffs"]["useBlacklist"] = false
-	E.db["unitframe"]["units"]["raid3"]["buffs"]["useWhitelist"] = true
-	E.db["unitframe"]["units"]["raid3"]["buffs"]["noDuration"] = false
-	E.db["unitframe"]["units"]["raid3"]["buffs"]["playerOnly"] = false
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["perrow"] = 1
-	E.db["unitframe"]["units"]["raid3"]["buffs"]["useFilter"] = "TurtleBuffs"
-	E.db["unitframe"]["units"]["raid3"]["buffs"]["noConsolidated"] = false
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["sizeOverride"] = 20
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["countFont"] = "Expressway"
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["countFontSize"] = 9
-	E.db["unitframe"]["units"]["raid3"]["buffs"]["useFilter"] = "TurtleBuffs"
 	E.db["unitframe"]["units"]["raid3"]["buffs"]["priority"] = "TurtleBuffs"
 	E.db["unitframe"]["units"]["raid3"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["raid3"]["raidicon"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["raid3"]["raidicon"]["yOffset"] = 5
 	E.db["unitframe"]["units"]["raid3"]["raidicon"]["size"] = 15
 	E.db["unitframe"]["units"]["raid3"]["raidicon"]["yOffset"] = 0
 	if not E.db["unitframe"]["units"]["raid3"]["customTexts"] then
@@ -1947,7 +1877,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["enable"] = true
 	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["damager"] = true
 	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["tank"] = true
-	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["heal"] = true
+	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["healer"] = true
 	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["attachTo"] = "Health"
 	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["raid3"]["roleIcon"]["xOffset"] = 1
@@ -1971,7 +1901,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 	E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
 	E.db["unitframe"]["units"]["party"]["showPlayer"] = false
-	E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 32
 	E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = -2
@@ -2017,33 +1946,24 @@ function MER:SetupUnitframes(layout)
 	if layout == "gradient" then
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
 	elseif layout == "dark" then
-		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FOCE_OFF"
+		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_OFF"
 	end
 	E.db["unitframe"]["units"]["party"]["width"] = 160
-	E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["party"]["health"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["party"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["party"]["health"]["yOffset"] = 2
-	E.db["unitframe"]["units"]["party"]["health"]["bgUseBarTexture"] = true
 	E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "Frame"
 	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["party"]["name"]["position"] = "BOTTOMLEFT"
 	E.db["unitframe"]["units"]["party"]["groupBy"] = "ROLE"
 	E.db["unitframe"]["units"]["party"]["height"] = 36
-	E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 20
-	E.db["unitframe"]["units"]["party"]["buffs"]["useBlacklist"] = false
-	E.db["unitframe"]["units"]["party"]["buffs"]["useWhitelist"] = true
 	E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
-	E.db["unitframe"]["units"]["party"]["buffs"]["playerOnly"] = false
 	E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 3
 	E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "TOPLEFT"
 	E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
-	E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "TurtleBuffs"
 	E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "TurtleBuffs"
-	E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
-	E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
 	E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -15
 	E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
 	E.db["unitframe"]["units"]["party"]["buffs"]["countFont"] = "Expressway"
@@ -2127,7 +2047,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["pet"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["health"]["attachTextTo"] = "InfoPanel"
-	E.db["unitframe"]["units"]["pet"]["health"]["bgUseBarTexture"] = true
 	E.db["unitframe"]["units"]["pet"]["power"]["position"] = "RIGHT"
 	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["pet"]["power"]["text_format"] = ""
@@ -2168,9 +2087,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
 	E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
 	E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.8
-	E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
-	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
-	E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
 	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then
 		E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
 	end
@@ -2228,7 +2144,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["health"]["yOffset"] = 13
 	E.db["unitframe"]["units"]["boss"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["health"]["position"] = "RIGHT"
-	E.db["unitframe"]["units"]["boss"]["health"]["bgUseBarTexture"] = true
 	E.db["unitframe"]["units"]["boss"]["spacing"] = 45
 	E.db["unitframe"]["units"]["boss"]["height"] = 35
 	E.db["unitframe"]["units"]["boss"]["buffs"]["enable"] = true
