@@ -436,7 +436,7 @@ local function UnitHasAuraByID(unit, ids)
 			break
 		end
 		local spellId = aura.spellId
-		if spellId and not E:IsSecretValue(spellId) then
+		if spellId ~= nil and not E:IsSecretValue(spellId) then
 			for _, id in ipairs(ids) do
 				if spellId == id then
 					return true
@@ -457,7 +457,7 @@ local function PlayerHasBuffByIcon(iconID, showUnder)
 			break
 		end
 		local ic = aura.icon
-		if ic and not E:IsSecretValue(ic) and ic == iconID then
+		if ic ~= nil and not E:IsSecretValue(ic) and ic == iconID then
 			local dur, exp = aura.duration, aura.expirationTime
 			if
 				dur
@@ -483,10 +483,18 @@ local function UnitBenefits(unit, benefit)
 		return true
 	end
 	local _, class = UnitClass(unit)
-	if not class or E:IsSecretValue(class) then
+	if class == nil or E:IsSecretValue(class) then
 		return false
 	end
 	return classSet[class] == true
+end
+
+local function SafeUnitInRange(unit)
+	local inRange = UnitInRange(unit)
+	if E:IsSecretValue(inRange) then
+		return true
+	end
+	return inRange == true
 end
 
 local function CountGroupBuffCoverage(buffIDs, benefit)
@@ -497,7 +505,7 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 			if
 				UnitExists(unit)
 				and not UnitIsDeadOrGhost(unit)
-				and UnitInRange(unit)
+				and SafeUnitInRange(unit)
 				and UnitBenefits(unit, benefit)
 			then
 				total = total + 1
@@ -512,7 +520,7 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 			if
 				UnitExists(unit)
 				and not UnitIsDeadOrGhost(unit)
-				and UnitInRange(unit)
+				and SafeUnitInRange(unit)
 				and UnitBenefits(unit, benefit)
 			then
 				total = total + 1
