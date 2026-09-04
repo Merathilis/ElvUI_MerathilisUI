@@ -207,7 +207,7 @@ local function GetGemIDFromLink(link, socketIndex)
 		return nil
 	end
 
-	local gemID = tonumber(select(socketIndex + 2, strsplit(":", itemString)))
+	local gemID = tonumber((select(socketIndex + 2, strsplit(":", itemString))))
 	return gemID and gemID > 0 and gemID or nil
 end
 
