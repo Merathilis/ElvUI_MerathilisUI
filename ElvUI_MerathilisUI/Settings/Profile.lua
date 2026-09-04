@@ -638,6 +638,40 @@ P.armory = {
 		[I.Specs.Warrior.Fury] = F.String.ConvertGlyph(59682),
 		[I.Specs.Warrior.Protection] = F.String.ConvertGlyph(59683),
 	},
+
+	socketPanel = {
+		enable = true,
+		iconSize = 28,
+		spacing = 4,
+		anchorX = 3,
+		anchorY = 0,
+		flyoutWidth = 240,
+		rowHeight = 20,
+		maxRows = 12,
+		openOnHover = true,
+		showSlotGlow = true,
+		font = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+		},
+	},
+	equipmentManager = {
+		enable = true,
+		useClassColor = true,
+		showBackdrop = false,
+		-- Fallback accent when useClassColor is off
+		accentColor = {
+			r = 0.047,
+			g = 0.824,
+			b = 0.616,
+		},
+		font = {
+			name = I.Fonts.Primary,
+			size = 11,
+			style = "SHADOWOUTLINE",
+		},
+	},
 }
 
 P.tooltip = {
@@ -1093,6 +1127,73 @@ P.nameHover = {
 	mythicPlus_FontSize = 12,
 	mythicPlusFontOutline = "SHADOWOUTLINE",
 	mythicPlus_DisplayRight = false,
+}
+
+P.buffReminder = {
+	enable = true,
+	scale = 1,
+	iconSpacing = 6,
+	frameStrata = "MEDIUM",
+	showText = true,
+	textSize = 11,
+	textOutline = "SHADOWOUTLINE",
+	showBagCount = true,
+	glowEnable = true,
+	glowColor = { r = 1, g = 0.82, b = 0 },
+	showUnder = 5, -- minutes before expiration to start reminding
+	hideInOpenWorld = true,
+	hideWhileMounted = true,
+	hideInCombat = true,
+	sound = {
+		enable = false,
+		raidBuffs = true,
+		auras = true,
+		consumables = true,
+		soundKitID = _G.SOUNDKIT and _G.SOUNDKIT.READY_CHECK or 8960,
+	},
+	raidBuffs = {
+		enable = true,
+		enabled = { motw = true, bshout = true, fort = true, ai = true, bronze = true, sky = true },
+	},
+	auras = {
+		enable = true,
+		enabled = {
+			symbiotic = true,
+			battle_stance = true,
+			berserk_stance = true,
+			def_stance = true,
+			shadowform = true,
+			devo_aura = true,
+		},
+	},
+	consumables = {
+		enable = true,
+		enabled = {
+			flask = true,
+			food = true,
+			weapon_enchant = true,
+			augment_rune = true,
+			deadly = true,
+			instant = true,
+			wound = true,
+			amplifying = true,
+			crippling = true,
+			numbing = true,
+			atrophic = true,
+			rite_adj = true,
+			rite_sanc = true,
+			flametongue = true,
+			windfury = true,
+			earthliving = true,
+			tidecaller = true,
+			tstrike = true,
+			shield_basic = true,
+		},
+		showWithoutItem = true,
+		preferredFlask = "last_used",
+		preferredFood = "last_used",
+		preferredWeaponEnchant = "last_used",
+	},
 }
 
 P.media = {}

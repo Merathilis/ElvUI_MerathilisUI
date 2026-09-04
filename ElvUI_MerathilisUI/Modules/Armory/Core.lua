@@ -1,12 +1,13 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory") ---@class Armory
 local M = E:GetModule("Misc")
+local S = E:GetModule("Skins")
 local LSM = E.Libs.LSM
 
 local _G = _G
 local format, gsub, utf8sub = string.format, string.gsub, string.utf8sub
 local next, ipairs, pairs, pcall, select, max, unpack = next, ipairs, pairs, pcall, select, max, unpack
-local twipe = table.wipe
+local twipe, tsort = table.wipe, table.sort
 
 local CreateColor = CreateColor
 local CreateFrame = CreateFrame
@@ -15,6 +16,8 @@ local InCombatLockdown = InCombatLockdown
 local GetSpecializationRole = GetSpecializationRole
 local GetCurrentTitle = GetCurrentTitle
 local GetTitleName = GetTitleName
+local GetNumTitles = GetNumTitles
+local IsTitleKnown = IsTitleKnown
 local UnitLevel = UnitLevel
 local UnitSex = UnitSex
 local GetAverageItemLevel = GetAverageItemLevel
@@ -1533,8 +1536,14 @@ function module:UpdateCharacterArmory()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
 	module:UpdateCharacterStats()
+	module:CreateTitleSearchBox()
+	module:EnableEquipmentManagerSkin()
+	if module.equipmentPanel then
+		module:RefreshEquipmentManagerPanel()
+	end
+	module:UpdateSocketPanel()
 
-	if module.frame:IsShown() then
+	if module.frame and module.frame:IsShown() then
 		M:UpdateCharacterInfo()
 	end
 end
@@ -1584,7 +1593,7 @@ function module:CreateElements()
 
 	module.frame.MERBackground = background
 
-	waterMark:SetPoint("BOTTOMRIGHT", module.frame, "BOTTOMRIGHT", 0, 0)
+	waterMark:SetPoint("BOTTOMRIGHT", module.frame, "BOTTOMRIGHT", -10, 15)
 	waterMark:Size(72)
 	waterMark:SetTexture(I.Media.Logos.Logo)
 	waterMark:SetAlpha(0.35)
@@ -1618,6 +1627,237 @@ function module:CreateElements()
 	module.levelText = levelText
 	module.specIcon = specIcon
 	module.classText = classText
+end
+
+local function FilterTitlesScrollBox(searchText)
+	local pane = _G.PaperDollFrame and _G.PaperDollFrame.TitleManagerPane
+	if not pane or not pane.titles or not pane.ScrollBox then
+		return
+	end
+
+	searchText = (searchText or ""):lower()
+
+	local dataProvider = CreateDataProvider()
+	local count = 0
+	for index, playerTitle in ipairs(pane.titles) do
+		local visible = (searchText == "")
+			or (playerTitle.id == -1)
+			or playerTitle.name:lower():find(searchText, 1, true)
+
+		if visible then
+			dataProvider:Insert({ index = index, playerTitle = playerTitle })
+			-- "No Title" is a UI-only entry, not a real known title; excluded from the count
+			if playerTitle.id ~= -1 then
+				count = count + 1
+			end
+		end
+	end
+
+	pane.ScrollBox:SetDataProvider(dataProvider, ScrollBoxConstants.RetainScrollPosition)
+
+	if module.titleCountText then
+		module.titleCountText:SetFormattedText(L["Total: %d"] or "Total: %d", count)
+	end
+end
+
+local function BuildTitleList(showEarned, showUnearned)
+	local list = {}
+
+	if showEarned then
+		list[#list + 1] = { name = PLAYER_TITLE_NONE, id = -1, earned = true }
+	end
+
+	for i = 1, GetNumTitles() do
+		local earned = IsTitleKnown(i)
+		if (earned and showEarned) or ((not earned) and showUnearned) then
+			local name = GetTitleName(i)
+			if name and name ~= "" then
+				list[#list + 1] = { name = name, id = i, earned = earned }
+			end
+		end
+	end
+
+	tsort(list, function(a, b)
+		if a.id == -1 or b.id == -1 then
+			return a.id == -1
+		end
+		return a.name < b.name
+	end)
+
+	return list
+end
+
+local function UpdateTitlesPane()
+	local pane = _G.PaperDollFrame and _G.PaperDollFrame.TitleManagerPane
+	if not pane or not module.titleFilter then
+		return
+	end
+
+	local currentTitle = GetCurrentTitle()
+	pane.selected = (currentTitle > 0 and IsTitleKnown(currentTitle)) and currentTitle or -1
+
+	pane.titles = BuildTitleList(module.titleFilter.showEarned, module.titleFilter.showUnearned)
+
+	FilterTitlesScrollBox(module.titleSearchBox and module.titleSearchBox:GetText())
+end
+
+local function UpdateFilterButtonVisual()
+	local btn = module.titleFilterButton
+	if not btn then
+		return
+	end
+
+	-- Same texture/coords as Plumber's PlayerTitleUI filter button: hollow grey when
+	-- showing the default (earned-only), solid gold whenever the filter is narrowed/widened
+	if module.titleFilter.showEarned and not module.titleFilter.showUnearned then
+		btn.Icon:SetTexCoord(0.5, 0.75, 0, 0.25)
+	else
+		btn.Icon:SetTexCoord(0, 0.25, 0, 0.25)
+	end
+end
+
+local function ToggleTitleFilter(key)
+	module.titleFilter[key] = not module.titleFilter[key]
+
+	-- Never allow both filters to end up off; fall back to showing earned titles
+	if not module.titleFilter.showEarned and not module.titleFilter.showUnearned then
+		module.titleFilter.showEarned = true
+	end
+
+	UpdateFilterButtonVisual()
+	UpdateTitlesPane()
+end
+
+function module:CreateTitleSearchBox()
+	if module.titleSearchBox then
+		return
+	end
+
+	local pane = _G.PaperDollFrame and _G.PaperDollFrame.TitleManagerPane
+	if not pane or not pane.ScrollBox then
+		return
+	end
+
+	module.titleFilter = { showEarned = true, showUnearned = false }
+
+	local scrollBox = pane.ScrollBox
+	local originalWidth, originalHeight = scrollBox:GetSize()
+
+	-- Match the scrollbox's real horizontal span so the header row (search box + filter
+	-- button) and the count text line up exactly with the title list beneath them
+	local headerLeftOffset = (scrollBox:GetLeft() or (pane:GetLeft() + 4)) - pane:GetLeft()
+	local headerRightOffset = (scrollBox:GetRight() or (pane:GetRight() - 4)) - pane:GetRight()
+
+	-- Filter button (Earned/Unearned), placed to the right of the search box
+	local filterBtn = CreateFrame("Button", nil, pane)
+	filterBtn:SetSize(20, 20)
+	filterBtn:SetPoint("TOPRIGHT", pane, "TOPRIGHT", headerRightOffset, -4)
+	-- filterBtn:CreateBackdrop("Transparent")
+	module.titleFilterButton = filterBtn
+
+	-- Same filter icon Plumber's PlayerTitleUI uses (GPLv3), bundled locally
+	local filterIcon = filterBtn:CreateTexture(nil, "OVERLAY")
+	filterIcon:SetSize(16, 16)
+	filterIcon:SetPoint("CENTER")
+	filterIcon:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\FilterButton")
+	filterIcon:SetTexCoord(0.5, 0.75, 0, 0.25)
+	filterIcon:SetVertexColor(0.8, 0.8, 0.8, 1)
+	filterBtn.Icon = filterIcon
+
+	filterBtn:SetScript("OnEnter", function(self)
+		self.Icon:SetVertexColor(1, 1, 1, 1)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+		_G.GameTooltip:SetText(_G.FILTER, 1, 1, 1)
+		_G.GameTooltip:Show()
+	end)
+
+	filterBtn:SetScript("OnLeave", function(self)
+		self.Icon:SetVertexColor(0.8, 0.8, 0.8, 1)
+		_G.GameTooltip:Hide()
+	end)
+
+	filterBtn:SetScript("OnClick", function(self)
+		_G.MenuUtil.CreateContextMenu(self, function(_, rootDescription)
+			rootDescription:CreateTitle(_G.FILTER)
+			rootDescription:CreateCheckbox(L["Earned"] or "Earned", function()
+				return module.titleFilter.showEarned
+			end, function()
+				ToggleTitleFilter("showEarned")
+			end)
+			rootDescription:CreateCheckbox(L["Unearned"] or "Unearned", function()
+				return module.titleFilter.showUnearned
+			end, function()
+				ToggleTitleFilter("showUnearned")
+			end)
+		end)
+	end)
+
+	local searchBox = CreateFrame("EditBox", "MER_ArmoryTitleSearchBox", pane, "SearchBoxTemplate")
+	S:HandleEditBox(searchBox)
+	searchBox:SetHeight(20)
+	searchBox:SetPoint("TOPLEFT", pane, "TOPLEFT", headerLeftOffset, -4)
+	searchBox:SetPoint("RIGHT", filterBtn, "LEFT", -4, 0)
+	searchBox:SetAutoFocus(false)
+	searchBox:SetMaxLetters(30)
+	searchBox:SetFontObject(GameFontHighlightSmall)
+	searchBox:SetTextColor(1, 1, 1, 1)
+	searchBox.Instructions:SetText(L["Search titles..."] or "Search titles...")
+	module.titleSearchBox = searchBox
+
+	local countText = pane:CreateFontString(nil, "OVERLAY")
+	countText:FontTemplate(E.media.normFont, 10, "NONE")
+	countText:SetPoint("TOPRIGHT", filterBtn, "BOTTOMRIGHT", 0, -4)
+	countText:SetJustifyH("RIGHT")
+	countText:SetTextColor(0.6, 0.6, 0.6, 0.8)
+	module.titleCountText = countText
+
+	UpdateFilterButtonVisual()
+
+	searchBox:SetScript("OnTextChanged", function(self)
+		SearchBoxTemplate_OnTextChanged(self)
+		FilterTitlesScrollBox(self:GetText())
+	end)
+
+	searchBox:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
+	end)
+
+	local reserved = searchBox:GetHeight() + 20
+	scrollBox:ClearAllPoints()
+	scrollBox:SetPoint("TOPLEFT", searchBox, "BOTTOMLEFT", 0, -20)
+	scrollBox:SetSize(originalWidth, originalHeight - reserved)
+
+	if pane.ScrollBar then
+		pane.ScrollBar:ClearAllPoints()
+		pane.ScrollBar:SetPoint("TOPLEFT", scrollBox, "TOPRIGHT", 8, -5)
+		pane.ScrollBar:SetPoint("BOTTOMLEFT", scrollBox, "BOTTOMRIGHT", 8, 4)
+	end
+
+	-- Grey out and disable buttons for titles that haven't been earned yet. The scroll box
+	-- pools/reuses these buttons, so both branches must be handled explicitly - otherwise a
+	-- button that was greyed out for an unearned title stays greyed out once it's recycled
+	-- for an earned one.
+	hooksecurefunc("PaperDollTitlesPane_InitButton", function(button, elementData)
+		local info = elementData and elementData.playerTitle
+		local earned = not info or info.earned ~= false
+
+		button:SetEnabled(earned)
+
+		if button.text then
+			button.text:SetFontObject(earned and GameFontNormalSmallLeft or GameFontDisableSmallLeft)
+		end
+	end)
+
+	if PaperDollTitlesPane_Update then
+		hooksecurefunc("PaperDollTitlesPane_Update", UpdateTitlesPane)
+	else
+		UpdateTitlesPane()
+	end
+
+	pane:HookScript("OnShow", function()
+		searchBox:SetText("")
+		UpdateTitlesPane()
+	end)
 end
 
 function module:ElvOptionsCheck()
@@ -1656,6 +1896,8 @@ function module:Disable()
 
 	self:CancelAllTimers()
 	self:UnhookAll()
+	self:DisableSocketPanel()
+	self:DisableEquipmentManagerSkin()
 
 	F.Event.UnregisterFrameEventAndCallback("UNIT_NAME_UPDATE", self)
 	F.Event.UnregisterFrameEventAndCallback("UNIT_LEVEL", self)
@@ -1674,6 +1916,7 @@ function module:Enable()
 	end
 
 	self:CreateElements()
+	self:EnableSocketPanel()
 
 	-- Hook ElvUI Overrides (reuse module-level M reference)
 	self:SecureHook(M, "UpdateCharacterInfo", F.Event.GenerateClosure(self.UpdateItemLevel, self))
