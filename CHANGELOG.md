@@ -11,3 +11,4 @@
 -   [BuffReminder]: Match weapon enchants by key instead of name
 -   [Core]: Removed the unfinished module compatibility-check popup
 -   [Core]: Cleaned up dead and unused code across Skins, Options, and Core modules
+-   [Armory]: Skip the title search box when Plumber's PlayerTitleUI search is enabled
