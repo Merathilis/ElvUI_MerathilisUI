@@ -182,6 +182,21 @@ local function MERConfigWindowStyle(frame, template, glossTex, ignoreUpdates, _,
 		return
 	end
 
+	-- Buttons (the left-nav category list, tab buttons, etc.) manage their own selected/hover
+	-- backdrop color via E:Config_SetButtonColor() and friends, set directly on their own
+	-- backdrop outside of SetTemplate. Any later E:UpdateFrameTemplates() sweep (ours or any
+	-- other addon's) re-templates them and resets that color back to ElvUI's plain default,
+	-- with nothing to reliably restore the correct highlight afterward - so keep the sweep
+	-- from ever touching them again, rather than trying to repaint them after the fact.
+	if frame.GetObjectType and frame:GetObjectType() == "Button" then
+		frame.ignoreFrameTemplates = true
+
+		if frame.MERStyle then
+			frame.MERStyle:Hide()
+		end
+		return
+	end
+
 	ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNamePlateElement)
 end
 
@@ -289,7 +304,33 @@ function module:API(object)
 	end
 end
 
+-- Marks every frame inside the options window so ElvUI's template sweep leaves its backdrop
+-- color alone. Turns out there isn't just one place that needs this: ElvUI's own left-category
+-- buttons (E:Config_SetButtonColor) AND WindTools' AceGUI TreeGroup selected-highlight overlay
+-- (its own button.backdrop, created via CreateBackdrop without ignoreUpdates) both paint custom
+-- colors directly with SetBackdropColor, outside of SetTemplate - and the sweep resets both back
+-- to ElvUI's plain default with nothing to restore them afterward. Rather than chase every skin
+-- that might do this to some frame buried in the window, protect the whole tree unconditionally,
+-- right before every sweep (not just once via the SetTemplate hook): a frame's one-and-only
+-- SetTemplate call can happen before E:Config_GetWindow() is able to identify the window at all
+-- (during construction, before ACD.OpenFrames.ElvUI is populated), so hooking SetTemplate alone
+-- can permanently miss frames created early.
+local function IgnoreConfigWindowTemplates(frame)
+	frame.ignoreFrameTemplates = true
+
+	if frame.GetChildren then
+		for _, child in next, { frame:GetChildren() } do
+			IgnoreConfigWindowTemplates(child)
+		end
+	end
+end
+
 function module:ForceRefresh()
+	local win = E.Config_GetWindow and E:Config_GetWindow()
+	if win then
+		IgnoreConfigWindowTemplates(win)
+	end
+
 	E:UpdateFrameTemplates()
 	E:UpdateMediaItems(true)
 end
