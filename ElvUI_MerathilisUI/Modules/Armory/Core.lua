@@ -279,23 +279,26 @@ function module:AddAnimation(anim, stats, slot)
 	end
 end
 
+function module:PlayAnimation(anim)
+	if not anim then
+		return
+	end
+
+	if anim:IsPlaying() then
+		anim:Stop()
+	end
+	if self:AnimationsAllowed() then
+		anim:Play()
+	end
+end
+
 function module:PlayAnimations()
 	for anim, _ in pairs(self.statsObjects) do
-		if anim:IsPlaying() then
-			anim:Stop()
-		end
-		if self:AnimationsAllowed() then
-			anim:Play()
-		end
+		self:PlayAnimation(anim)
 	end
 
 	for anim, _ in pairs(self.animationObjects) do
-		if anim:IsPlaying() then
-			anim:Stop()
-		end
-		if self:AnimationsAllowed() then
-			anim:Play()
-		end
+		self:PlayAnimation(anim)
 	end
 end
 
@@ -675,17 +678,37 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		slotItem.enchantText:SetText("")
 	end
 
-	-- Hide Gradient
-	if slotItem.MERGradient then
+	-- Hide Gradient (no item color to show it for)
+	if slotItem.MERGradient and not (slotInfo.itemLevelColors and next(slotInfo.itemLevelColors)) then
 		slotItem.MERGradient:Hide()
 	end
 
 	-- If we got an item color, show gradient and set color
 	if slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
 		local r, g, b = unpack(slotInfo.itemLevelColors)
+		local gradientWidth = self.db.pageInfo.itemQualityGradientWidth
+		local gradientHeight = self.db.pageInfo.itemQualityGradientHeight
+		local gradientEnabled = self.db.pageInfo.itemQualityGradientEnabled
+
+		-- ElvUI's tooltip-derived item level color keeps shifting by a hair for
+		-- a couple seconds after login/open while the average item level
+		-- settles (PLAYER_AVG_ITEM_LEVEL_UPDATE), firing UpdatePageStrings for
+		-- every slot again with a marginally different color. That alone must
+		-- NOT replay the grow-in animation, or every gradient restarts
+		-- mid-flight in lockstep and never visibly finishes until the color
+		-- stops drifting. Only structural changes (size, direction, enabled
+		-- state) or the bar (re-)appearing should do that; color is refreshed
+		-- unconditionally below since re-tinting is instant and has no
+		-- animation to interrupt.
+		local isNew = not slotItem.MERGradient
+		local structuralSignature =
+			strjoin(":", slotOptions.direction, gradientWidth, gradientHeight, tostring(gradientEnabled))
+		local needsReveal = isNew
+			or slotItem.MERGradient.lastStructuralSignature ~= structuralSignature
+			or not slotItem.MERGradient:IsShown()
 
 		-- Create Gradient if it doesen't exist
-		if not slotItem.MERGradient then
+		if isNew then
 			slotItem.MERGradient = CreateFrame("Frame", nil, slotItem)
 			slotItem.MERGradient:OffsetFrameLevel(-1, module.frameModel)
 
@@ -701,16 +724,16 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 			end
 		end
 
-		-- Setup Animations
-		self:SetupGrowAnimation(slotItem.MERGradient)
+		if needsReveal then
+			-- Setup Animations
+			self:SetupGrowAnimation(slotItem.MERGradient)
 
-		-- Update Size
-		local gradientWidth = self.db.pageInfo.itemQualityGradientWidth
-		local gradientHeight = self.db.pageInfo.itemQualityGradientHeight
-		slotItem.MERGradient:SetSize(gradientWidth, gradientHeight)
-		slotItem.MERGradient.GrowIn.Grow:SetChange(E:Scale(gradientWidth))
+			-- Update Size
+			slotItem.MERGradient:SetSize(gradientWidth, gradientHeight)
+			slotItem.MERGradient.GrowIn.Grow:SetChange(E:Scale(gradientWidth))
+		end
 
-		-- Update Colors
+		-- Update Colors (always, independent of the reveal animation)
 		if slotOptions.direction == module.enumDirection.LEFT then
 			F.Color.SetGradientRGB(
 				slotItem.MERGradient.Texture,
@@ -739,11 +762,16 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 			)
 		end
 
-		if self.db.pageInfo.itemQualityGradientEnabled then
+		if gradientEnabled then
 			slotItem.MERGradient:Show()
+			if needsReveal then
+				self:PlayAnimation(slotItem.MERGradient.GrowIn)
+			end
 		else
 			slotItem.MERGradient:Hide()
 		end
+
+		slotItem.MERGradient.lastStructuralSignature = structuralSignature
 	end
 
 	-- iLvL Text Handling

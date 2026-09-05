@@ -13,3 +13,4 @@
 -   [Core]: Cleaned up dead and unused code across Skins, Options, and Core modules
 -   [Armory]: Skip the title search box when Plumber's PlayerTitleUI search is enabled
 -   [Skins]: Restored the category dividers on the Weekly Rewards frame
+-   [Armory]: Fixed the equipped item quality gradient restarting mid-animation (and often not visibly growing in) when the average item level recalculates after opening the character frame
