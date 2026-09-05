@@ -207,7 +207,7 @@ local function GetGemIDFromLink(link, socketIndex)
 		return nil
 	end
 
-	local gemID = tonumber(select(socketIndex + 2, strsplit(":", itemString)))
+	local gemID = tonumber((select(socketIndex + 2, strsplit(":", itemString))))
 	return gemID and gemID > 0 and gemID or nil
 end
 
@@ -240,10 +240,6 @@ end
 
 local function IsValidEvent(event)
 	return not (C_EventUtils and C_EventUtils.IsEventValid) or C_EventUtils.IsEventValid(event)
-end
-
-function module:CreateSocketPanelBorder(frame, r, g, b, a)
-	SetBorderColor(frame, r, g, b, a)
 end
 
 function module:StopSocketSlotGlow()

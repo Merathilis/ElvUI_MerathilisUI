@@ -294,20 +294,20 @@ local SHAMAN_SHIELDS = {
 --  SPELL DATA -- Bag/Equip Consumables (Midnight)
 -------------------------------------------------------------------------------
 local WEAPON_ENCHANT_ITEMS = {
-	{ itemID = 237367, name = "Refulgent Weightstone", weaponType = "MELEE" },
-	{ itemID = 237369, name = "Refulgent Weightstone", weaponType = "MELEE" },
-	{ itemID = 237370, name = "Refulgent Whetstone", weaponType = "MELEE" },
-	{ itemID = 237371, name = "Refulgent Whetstone", weaponType = "MELEE" },
-	{ itemID = 257749, name = "Laced Zoomshots", weaponType = "RANGED" },
-	{ itemID = 257750, name = "Laced Zoomshots", weaponType = "RANGED" },
-	{ itemID = 257751, name = "Weighted Boomshots", weaponType = "RANGED" },
-	{ itemID = 257752, name = "Weighted Boomshots", weaponType = "RANGED" },
-	{ itemID = 243733, name = "Thalassian Phoenix Oil", weaponType = "NEUTRAL" },
-	{ itemID = 243734, name = "Thalassian Phoenix Oil", weaponType = "NEUTRAL" },
-	{ itemID = 243735, name = "Oil of Dawn", weaponType = "NEUTRAL" },
-	{ itemID = 243736, name = "Oil of Dawn", weaponType = "NEUTRAL" },
-	{ itemID = 243737, name = "Smuggler's Enchanted Edge", weaponType = "NEUTRAL" },
-	{ itemID = 243738, name = "Smuggler's Enchanted Edge", weaponType = "NEUTRAL" },
+	{ itemID = 237367, key = "refulgent_weightstone", weaponType = "MELEE" },
+	{ itemID = 237369, key = "refulgent_weightstone", weaponType = "MELEE" },
+	{ itemID = 237370, key = "refulgent_whetstone", weaponType = "MELEE" },
+	{ itemID = 237371, key = "refulgent_whetstone", weaponType = "MELEE" },
+	{ itemID = 257749, key = "laced_zoomshots", weaponType = "RANGED" },
+	{ itemID = 257750, key = "laced_zoomshots", weaponType = "RANGED" },
+	{ itemID = 257751, key = "weighted_boomshots", weaponType = "RANGED" },
+	{ itemID = 257752, key = "weighted_boomshots", weaponType = "RANGED" },
+	{ itemID = 243733, key = "thalassian_phoenix_oil", weaponType = "NEUTRAL" },
+	{ itemID = 243734, key = "thalassian_phoenix_oil", weaponType = "NEUTRAL" },
+	{ itemID = 243735, key = "oil_of_dawn", weaponType = "NEUTRAL" },
+	{ itemID = 243736, key = "oil_of_dawn", weaponType = "NEUTRAL" },
+	{ itemID = 243737, key = "smugglers_enchanted_edge", weaponType = "NEUTRAL" },
+	{ itemID = 243738, key = "smugglers_enchanted_edge", weaponType = "NEUTRAL" },
 }
 
 local FLASK_ITEMS = {
@@ -378,16 +378,6 @@ local FOOD_ITEMS = {
 	{ key = "bloom_skewers", itemID = 242302, name = "Bloom Skewers" },
 }
 
-local WEAPON_ENCHANT_CHOICES = {
-	{ key = "thalassian_phoenix_oil", name = "Thalassian Phoenix Oil" },
-	{ key = "smugglers_enchanted_edge", name = "Smuggler's Enchanted Edge" },
-	{ key = "oil_of_dawn", name = "Oil of Dawn" },
-	{ key = "refulgent_weightstone", name = "Refulgent Weightstone" },
-	{ key = "refulgent_whetstone", name = "Refulgent Whetstone" },
-	{ key = "laced_zoomshots", name = "Laced Zoomshots" },
-	{ key = "weighted_boomshots", name = "Weighted Boomshots" },
-}
-
 local RUNE_BUFF_IDS = { 1264426, 453250, 1234969, 1242347, 393438, 347901 }
 local RUNE_ITEMS = { 259085, 243191 }
 
@@ -436,7 +426,7 @@ local function UnitHasAuraByID(unit, ids)
 			break
 		end
 		local spellId = aura.spellId
-		if spellId and not E:IsSecretValue(spellId) then
+		if spellId ~= nil and not E:IsSecretValue(spellId) then
 			for _, id in ipairs(ids) do
 				if spellId == id then
 					return true
@@ -457,7 +447,7 @@ local function PlayerHasBuffByIcon(iconID, showUnder)
 			break
 		end
 		local ic = aura.icon
-		if ic and not E:IsSecretValue(ic) and ic == iconID then
+		if ic ~= nil and not E:IsSecretValue(ic) and ic == iconID then
 			local dur, exp = aura.duration, aura.expirationTime
 			if
 				dur
@@ -483,10 +473,18 @@ local function UnitBenefits(unit, benefit)
 		return true
 	end
 	local _, class = UnitClass(unit)
-	if not class or E:IsSecretValue(class) then
+	if class == nil or E:IsSecretValue(class) then
 		return false
 	end
 	return classSet[class] == true
+end
+
+local function SafeUnitInRange(unit)
+	local inRange = UnitInRange(unit)
+	if E:IsSecretValue(inRange) then
+		return true
+	end
+	return inRange == true
 end
 
 local function CountGroupBuffCoverage(buffIDs, benefit)
@@ -497,7 +495,7 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 			if
 				UnitExists(unit)
 				and not UnitIsDeadOrGhost(unit)
-				and UnitInRange(unit)
+				and SafeUnitInRange(unit)
 				and UnitBenefits(unit, benefit)
 			then
 				total = total + 1
@@ -512,7 +510,7 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 			if
 				UnitExists(unit)
 				and not UnitIsDeadOrGhost(unit)
-				and UnitInRange(unit)
+				and SafeUnitInRange(unit)
 				and UnitBenefits(unit, benefit)
 			then
 				total = total + 1
@@ -650,14 +648,9 @@ local function FindWeaponEnchantItem(preferredKey, lastUsedItemID, targetCat)
 		end
 		return nil
 	end
-	for _, choice in ipairs(WEAPON_ENCHANT_CHOICES) do
-		if choice.key == preferredKey then
-			for _, we in ipairs(WEAPON_ENCHANT_ITEMS) do
-				if we.name == choice.name and BagCount(we.itemID) > 0 then
-					return we.itemID
-				end
-			end
-			break
+	for _, we in ipairs(WEAPON_ENCHANT_ITEMS) do
+		if we.key == preferredKey and BagCount(we.itemID) > 0 then
+			return we.itemID
 		end
 	end
 	return nil

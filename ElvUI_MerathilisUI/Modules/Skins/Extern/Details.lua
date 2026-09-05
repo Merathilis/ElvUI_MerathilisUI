@@ -97,6 +97,23 @@ local function GradientNames()
 	end)
 end
 
+local WINDOW_BASE_Y = 49
+local WINDOW_GAP = 20
+
+local function GetEmbedConfig()
+	local db = E.private.mui.skins.embed
+	return db.width or 340, db.height or 96, db.windows or 3
+end
+
+local function GetEmbedWindowCount()
+	local _, _, windows = GetEmbedConfig()
+	return windows
+end
+
+local function GetWindowOffset(index, height)
+	return WINDOW_BASE_Y + (index - 1) * (height + WINDOW_GAP)
+end
+
 local function SetupInstance(instance)
 	if instance.skinned then
 		return
@@ -111,7 +128,7 @@ local function SetupInstance(instance)
 	instance.baseframe.backdrop:SetPoint("TOPLEFT", -1, 18)
 	WS:CreateBackdropShadow(instance.baseframe)
 
-	if instance:GetId() < 4 then
+	if instance:GetId() <= GetEmbedWindowCount() then
 		local open, close = module:CreateToggle(instance.baseframe)
 		open:HookScript("OnClick", function()
 			instance:ShowWindow()
@@ -164,24 +181,23 @@ function module:ResetDetailsAnchor(force)
 		return instance1
 	end
 
-	local instance2 = Details:GetInstance(2)
-	local instance3 = Details:GetInstance(3)
-	local height = (instance2 or instance3) and 96 or 144
+	local width, height, windows = GetEmbedConfig()
 
-	if instance2 then
-		EmbedWindow(instance2, -3, 165, 340, 96)
+	for index = 1, windows do
+		local instance = Details:GetInstance(index)
+		if instance then
+			EmbedWindow(instance, -3, GetWindowOffset(index, height), width, height)
+		end
 	end
-	if instance3 then
-		EmbedWindow(instance3, -3, 284, 340, 96)
-	end
-	EmbedWindow(instance1, -3, 49, 340, height)
 
 	return instance1
 end
 
 local function ReskinDetails()
+	local windows = GetEmbedWindowCount()
+
 	Details.tabela_instancias = Details.tabela_instancias or {}
-	Details.instances_amount = Details.instances_amount or 5
+	Details.instances_amount = max(Details.instances_amount or 5, windows)
 
 	local index = 1
 	local instance = Details:GetInstance(index)
@@ -200,11 +216,9 @@ local function ReskinDetails()
 		if event == "DETAILS_INSTANCE_OPEN" then
 			if not instance.skinned then
 				local id = instance:GetId()
-				if id == 2 then
-					instance1:SetSize(340, 96)
-					EmbedWindow(instance, -3, 165, 340, 96)
-				elseif id == 3 then
-					EmbedWindow(instance, -3, 284, 340, 96)
+				if id > 1 and id <= GetEmbedWindowCount() then
+					local width, height = GetEmbedConfig()
+					EmbedWindow(instance, -3, GetWindowOffset(id, height), width, height)
 				end
 			end
 			SetupInstance(instance)
@@ -214,7 +228,8 @@ local function ReskinDetails()
 	-- Reset to one window
 	Details.OpenWelcomeWindow = function()
 		if instance1 then
-			EmbedWindow(instance1, -3, 24, 340, 96)
+			local width, height = GetEmbedConfig()
+			EmbedWindow(instance1, -3, 24, width, height)
 		end
 	end
 end

@@ -411,6 +411,7 @@ L["Action Status"] = "행동 상태"
 L["Embed Settings"] = "내장 설정"
 L["With this option you can embed your Details into an own Panel."] =
 	"이 옵션으로 'Details' 애드온을 별도 패널에 내장할 수 있습니다"
+L["Number of Windows"] = "창 개수"
 L["Reset Settings"] = "설정 초기화"
 L["Toggle Direction"] = "방향 전환"
 L["TOP"] = "상단"
@@ -667,6 +668,7 @@ L["Chat"] = "Chat"
 L["Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."] =
 	"Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."
 L["Circle"] = "Circle"
+L["Class Codex"] = true
 L["Class Color"] = "Class Color"
 L["Classification"] = "Classification"
 L["Clear Initialized Characters"] = "Clear Initialized Characters"

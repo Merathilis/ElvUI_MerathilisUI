@@ -2,10 +2,6 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
 
---[[
-	Inspiration: EllesmereUI
---]]
-
 local _G = _G
 local ipairs, unpack = ipairs, unpack
 
@@ -47,6 +43,7 @@ local STYLE = {
 		locked = { r = 0.80, g = 0.60, b = 0.20 },
 		inactive = { r = 0.55, g = 0.55, b = 0.55 },
 		defaultBorder = { r = 0.35, g = 0.35, b = 0.35 },
+		header = { r = 1, g = 0.82, b = 0 },
 	},
 }
 
@@ -414,6 +411,25 @@ local function RefreshWarningDialog()
 	end
 end
 
+local function RefreshTypeFrameState(frame)
+	if not frame then
+		return
+	end
+	if frame.Name then
+		local col = STYLE.colors.header
+		frame.Name:SetTextColor(col.r, col.g, col.b, 1)
+
+		local d = GetData(frame)
+		if not d.nameRaised then
+			d.nameRaised = true
+			local raiseFrame = CreateFrame("Frame", nil, frame)
+			raiseFrame:SetAllPoints()
+			raiseFrame:SetFrameLevel(frame:GetFrameLevel() + 20)
+			frame.Name:SetParent(raiseFrame)
+		end
+	end
+end
+
 local function RefreshWindow(frame)
 	if not frame or frame:IsForbidden() then
 		return
@@ -431,6 +447,18 @@ local function RefreshWindow(frame)
 		if frame.SelectRewardButton then
 			S:HandleButton(frame.SelectRewardButton)
 		end
+
+		local headerCol = STYLE.colors.header
+		if frame.Divider1 then
+			frame.Divider1:SetAtlas("evergreen-weeklyrewards-divider", true)
+			frame.Divider1:SetVertexColor(headerCol.r, headerCol.g, headerCol.b)
+			frame.Divider1:SetBlendMode("ADD")
+		end
+		if frame.Divider2 then
+			frame.Divider2:SetAtlas("evergreen-weeklyrewards-divider", true)
+			frame.Divider2:SetVertexColor(headerCol.r, headerCol.g, headerCol.b)
+			frame.Divider2:SetBlendMode("ADD")
+		end
 	end
 
 	if frame.HeaderFrame and frame.HeaderFrame.Text then
@@ -440,8 +468,7 @@ local function RefreshWindow(frame)
 	for _, typeFrame in ipairs({ frame.RaidFrame, frame.MythicFrame, frame.PVPFrame, frame.WorldFrame }) do
 		if typeFrame and typeFrame:IsShown() then
 			if typeFrame.Name then
-				local ar, ag, ab = unpack(E.media.rgbvaluecolor or { 1, 0.82, 0 })
-				typeFrame.Name:SetTextColor(ar, ag, ab, 1)
+				RefreshTypeFrameState(typeFrame)
 			end
 		end
 	end

@@ -29,6 +29,7 @@ V.skins = {
 		klf = true,
 		paragonReputation = true,
 		manuscriptsJournal = true,
+		classCodex = true,
 		bw = {
 			enable = true,
 			queueTimer = {
@@ -78,6 +79,7 @@ V.skins = {
 		mouseOver = false,
 		width = 340,
 		height = 144,
+		windows = 1,
 	},
 
 	actionStatus = {

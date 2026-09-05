@@ -113,10 +113,6 @@ function module:RefreshInstanceState()
 	self._disabledInInstance = inInstance and INSTANCE_TYPES[instanceType] or false
 end
 
-function module:IsDisabledInCurrentInstance()
-	return self._disabledInInstance
-end
-
 local function GetTooltipUnit(self)
 	if not self or type(self.GetUnit) ~= "function" then
 		return nil

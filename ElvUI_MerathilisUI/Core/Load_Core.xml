@@ -8,7 +8,6 @@
 	<Script file="Core.lua"/>
 	<Script file="Constants.lua"/>
 	<Script file="Commands.lua"/>
-	<Script file="Compatibility.lua"/>
 	<Script file="Install.lua"/>
 	<Script file="Layout.lua"/>
 	<Script file="SplashScreen.lua"/>

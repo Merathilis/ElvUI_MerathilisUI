@@ -70,61 +70,6 @@ local function errorhandler(err)
 	return _G.geterrorhandler()(err)
 end
 
-function module:GetAllFontsFunc(additional)
-	return function()
-		return F.Table.Join({}, E.LSM:HashTable("font"), additional or {})
-	end
-end
-
-local FONT_OUTLINE_SELECTION = {
-	NONE = "None",
-	OUTLINE = "Outline",
-	THICKOUTLINE = "Thick",
-	MONOCHROME = "|cffaaaaaaMono|r",
-	MONOCHROMEOUTLINE = "|cffaaaaaaMono|r Outline",
-	MONOCHROMETHICKOUTLINE = "|cffaaaaaaMono|r Thick",
-	SHADOWOUTLINE = "ShadowOutline",
-}
-
-function module:GetAllFontOutlinesFunc(additional)
-	-- AceGUI may call this often; only join when extras are provided
-	if additional then
-		return function()
-			return F.Table.Join({}, FONT_OUTLINE_SELECTION, additional)
-		end
-	end
-	return function()
-		return FONT_OUTLINE_SELECTION
-	end
-end
-
--- Built lazily: F.String helpers are not ready at file load
-local fontColorSelection
-
-local function GetFontColorSelection()
-	if not fontColorSelection then
-		fontColorSelection = {
-			NONE = "None",
-			CLASS = F.String.Class("Class Color"),
-			VALUE = F.String.ElvUIValue("ElvUI Color"),
-			TXUI = MER.Title .. F.String.MERATHILIS(" Color"),
-			CUSTOM = "Custom",
-		}
-	end
-	return fontColorSelection
-end
-
-function module:GetAllFontColorsFunc(additional)
-	if additional then
-		return function()
-			return F.Table.Join({}, GetFontColorSelection(), additional)
-		end
-	end
-	return function()
-		return GetFontColorSelection()
-	end
-end
-
 function module:GetFontColorGetter(profileDB, defaultDB, customKey)
 	return function(info)
 		local key = customKey or info[#info]
@@ -210,18 +155,6 @@ function module:AddInlineGroup(options, others)
 	E:CopyTable(group, others)
 	options["fancyInlineGroup" .. orderIdx] = group
 	return options["fancyInlineGroup" .. orderIdx]
-end
-
-function module:AddDesc(options, othersGroup, othersDesc)
-	local orderIdx = self:GetOrder()
-	local inlineGroup = self:AddGroup(options, othersGroup)
-	local group = {
-		order = orderIdx,
-		type = "description",
-	}
-	E:CopyTable(group, othersDesc)
-	inlineGroup["args"]["fancyInlineDesc" .. orderIdx] = group
-	return inlineGroup
 end
 
 function module:AddInlineDesc(options, othersGroup, othersDesc)
@@ -356,11 +289,6 @@ function module:OptionsCallback()
 			E:StaticPopup_Show("PRIVATE_RL")
 		end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER.Title .. F.cOption(MER.Version, "blue") .. L["by Merathilis (|cFF00c0faEU-Shattrath|r)"],
-			},
 			logo = {
 				order = 2,
 				type = "description",
@@ -435,6 +363,27 @@ function module:OptionsCallback()
 				return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE)
 			end,
 		}
+	end
+
+	self:ApplyCustomWidgets(E.Options.args.mui.args)
+end
+
+-- Redirects MER's own toggle/header args to custom one
+-- AceGUI widgets (MERToggleSwitch / MERSectionHeader) without touching ElvUI's
+-- shared global AceGUI skin, so only the MerathilisUI options tab is affected.
+function module:ApplyCustomWidgets(argsTable)
+	for _, entry in pairs(argsTable) do
+		if type(entry) == "table" then
+			if entry.type == "toggle" and not entry.dialogControl and not entry.control then
+				entry.dialogControl = "MERToggleSwitch"
+			elseif entry.type == "header" and not entry.dialogControl and not entry.control then
+				entry.dialogControl = "MERSectionHeader"
+			end
+
+			if type(entry.args) == "table" then
+				self:ApplyCustomWidgets(entry.args)
+			end
+		end
 	end
 end
 

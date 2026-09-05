@@ -660,6 +660,8 @@ function F.cOption(name, color)
 		hex = "|cFF00c0fa%s |r"
 	elseif color == "red" then
 		hex = "|cFFFF0000%s |r"
+	elseif color == "teal" then
+		hex = "|cFF00c0fa%s |r"
 	elseif color == "gradient" then
 		hex = E:TextGradient(name, 1, 0.65, 0, 1, 0.65, 0, 1, 1, 1)
 	else

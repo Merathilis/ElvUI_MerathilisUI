@@ -125,9 +125,6 @@ MER.Modules.Tooltip = MER:NewModule("MER_Tooltip", "AceHook-3.0", "AceEvent-3.0"
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
 
--- Pre register Portraits
-MER.Portraits = {}
-
 -- Pre register Datatexts
 MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
 
@@ -137,10 +134,6 @@ E:AddLib("LDD", "LibDropDown")
 MER.Libs = {
 	-- Ace
 	ADB = LibStub("AceDB-3.0"),
-	ABH = LibStub("AceDBOptions-3.0"),
-	GUI = LibStub("AceGUI-3.0"),
-	AC = LibStub("AceConfig-3.0"),
-	ACD = LibStub("AceConfigDialog-3.0"),
 }
 
 _G.MerathilisUI_OnAddonCompartmentClick = function()
@@ -224,50 +217,42 @@ function MER:AutoCopyPrivateProfile()
 	end
 end
 
-do
-	local checked = false
-	function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
-		-- Runtime safeguard: on initial login ensure the mui DB subtree exists and defaults are merged.
-		-- This covers edge cases where load-order caused defaults not to be applied earlier.
-		if isInitialLogin then
-			self:AutoCopyPrivateProfile()
-			E:Delay(6, self.ChangelogReadAlert, self)
+function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
+	-- Runtime safeguard: on initial login ensure the mui DB subtree exists and defaults are merged.
+	-- This covers edge cases where load-order caused defaults not to be applied earlier.
+	if isInitialLogin then
+		self:AutoCopyPrivateProfile()
+		E:Delay(6, self.ChangelogReadAlert, self)
 
-			local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
-			if E.db.mui.core.installed and E.global.mui.core.loginMsg then
-				print(
-					icon
-						.. ""
-						.. self.Title
-						.. format("|cff00c0fa%s|r", self.Version)
-						.. L[" is loaded. For any issues or suggestions join my discord: "]
-						.. Engine[4].PrintURL("https://discord.gg/28We6esE9v")
-				)
-			end
-
-			self:SplashScreen()
+		local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
+		if E.db.mui.core.installed and E.global.mui.core.loginMsg then
+			print(
+				icon
+					.. ""
+					.. self.Title
+					.. format("|cff00c0fa%s|r", self.Version)
+					.. L[" is loaded. For any issues or suggestions join my discord: "]
+					.. Engine[4].PrintURL("https://discord.gg/28We6esE9v")
+			)
 		end
 
-		if not (checked or _G.ElvUIInstallFrame) then
-			self:CheckCompatibility()
-			checked = true
+		self:SplashScreen()
+	end
+
+	if _G.ElvDB then
+		if isInitialLogin or not _G.ElvDB.MER then
+			_G.ElvDB.MER = {
+				DisabledAddOns = {},
+			}
 		end
 
-		if _G.ElvDB then
-			if isInitialLogin or not _G.ElvDB.MER then
-				_G.ElvDB.MER = {
-					DisabledAddOns = {},
-				}
-			end
-
-			if next(_G.ElvDB.MER.DisabledAddOns) then
-				E:Delay(4, self.PrintDebugEnviromentTip)
-			end
+		if next(_G.ElvDB.MER.DisabledAddOns) then
+			E:Delay(4, self.PrintDebugEnviromentTip)
 		end
+	end
 
-		if isInitialLogin then
-			E:Delay(1, collectgarbage, "collect")
-		end
+	if isInitialLogin then
+		E:Delay(1, collectgarbage, "collect")
 	end
 end
 

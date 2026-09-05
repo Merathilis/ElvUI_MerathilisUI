@@ -17,6 +17,7 @@ local DecorAddons = {
 	{ "BagSync", L["BagSync"], "bSync" },
 	{ "BugSack", L["BugSack"], "bugSack" },
 	{ "Capping", L["Capping"], "cap" },
+	{ "ClassCodex", L["Class Codex"], "classCodex" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
@@ -293,6 +294,24 @@ options.Embed = {
 			end,
 			set = function(_, value)
 				E.private.mui.skins.embed.height = value
+				ResetDetails()
+			end,
+		},
+		windows = {
+			order = 9,
+			type = "range",
+			name = L["Number of Windows"],
+			min = 1,
+			max = 5,
+			step = 1,
+			disabled = function()
+				return not E.private.mui.skins.embed.enable
+			end,
+			get = function()
+				return E.private.mui.skins.embed.windows
+			end,
+			set = function(_, value)
+				E.private.mui.skins.embed.windows = value
 				ResetDetails()
 			end,
 		},

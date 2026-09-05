@@ -233,6 +233,7 @@ L["Unearned"] = "Nicht erhalten"
 L["Equipment Manager"] = "Ausrüstungsverwaltung"
 L["Replace Blizzard's native Equipment Manager pane with a custom MerathilisUI gear-set panel."] =
 	"Ersetzt Blizzards native Ausrüstungsverwaltung durch ein eigenes MerathilisUI-Set-Panel."
+L["Class Codex"] = true
 L["Class Color"] = "Klassenfarbe"
 L["Use your class color for the selected/equipped set accents instead of the accent color below."] =
 	"Verwendet Deine Klassenfarbe für die Akzente des ausgewählten/ausgerüsteten Sets anstelle der Akzentfarbe unten."
@@ -388,6 +389,7 @@ L["Action Status"] = "Aktionsstatus"
 L["Embed Settings"] = "Einbettungseinstellungen"
 L["With this option you can embed your Details into an own Panel."] =
 	"Mit dieser Option kannst Du Dein Details in ein eigenes Panel einbetten."
+L["Number of Windows"] = "Anzahl der Fenster"
 L["Reset Settings"] = "Zurücksetzen"
 L["Toggle Direction"] = "Richtung umschalten"
 L["TOP"] = "OBEN"

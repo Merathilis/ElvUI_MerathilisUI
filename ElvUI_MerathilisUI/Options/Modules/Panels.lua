@@ -20,7 +20,7 @@ options.panels = {
 			name = F.cOption(L["Panels"], "orange"),
 		},
 		color = {
-			order = 1,
+			order = 2,
 			type = "group",
 			name = F.cOption(L["Color"], "orange"),
 			guiInline = true,
@@ -64,7 +64,7 @@ options.panels = {
 			},
 		},
 		panels = {
-			order = 2,
+			order = 3,
 			type = "group",
 			name = F.cOption(L["Panels"], "orange"),
 			guiInline = true,
@@ -137,7 +137,7 @@ options.panels = {
 			},
 		},
 		stylepanels = {
-			order = 3,
+			order = 4,
 			type = "group",
 			name = F.cOption(L["Style Panels"], "orange"),
 			guiInline = true,

@@ -12,7 +12,7 @@
 ## OptionalDeps: SharedMedia, ElvUI_mMediaTag, Details, BigWigs, WorldQuestTab
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
-## X-Version: 7.29
+## X-Version: 7.30
 ## X-Credits: Simpy, fang2hou, Benik, Azilroka, Darth Predator, fgprodigal, Blinkii, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
 ## X-ElvUIVersion: 15.26
 ## X-Curse-Project-Name: MerathilisUI
