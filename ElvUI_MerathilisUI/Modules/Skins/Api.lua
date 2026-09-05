@@ -4,7 +4,7 @@ local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
-local assert, pairs, unpack, type, next = assert, pairs, unpack, type, next
+local assert, pairs, unpack, type = assert, pairs, unpack, type
 local strfind, strmatch, tinsert, format, tostring = strfind, strmatch, tinsert, format, tostring
 local rad = rad
 
@@ -33,32 +33,6 @@ module.ArrowRotation = {
 	["LEFT"] = -1.57,
 	["RIGHT"] = 1.57,
 }
-
-do
-	local regions = {
-		"Center",
-		"BottomEdge",
-		"LeftEdge",
-		"RightEdge",
-		"TopEdge",
-		"BottomLeftCorner",
-		"BottomRightCorner",
-		"TopLeftCorner",
-		"TopRightCorner",
-	}
-
-	--[[
-		Strip edge textures
-		@param {frame} frame
-	]]
-	function module:StripEdgeTextures(frame)
-		for _, regionKey in pairs(regions) do
-			if frame[regionKey] then
-				frame[regionKey]:Kill()
-			end
-		end
-	end
-end
 
 function module:CreateTex(f)
 	assert(f, "doesn't exist!")
@@ -182,77 +156,6 @@ function module:SetBD(f, x, y, x2, y2)
 	return bg
 end
 
-local ReplacedRoleTex = {
-	["Adventures-Tank"] = "Soulbinds_Tree_Conduit_Icon_Protect",
-	["Adventures-Healer"] = "ui_adv_health",
-	["Adventures-DPS"] = "ui_adv_atk",
-	["Adventures-DPS-Ranged"] = "Soulbinds_Tree_Conduit_Icon_Utility",
-}
-
-local function replaceFollowerRole(roleIcon, atlas)
-	local newAtlas = ReplacedRoleTex[atlas]
-	if newAtlas then
-		roleIcon:SetAtlas(newAtlas)
-	end
-end
-
-function module:ReskinGarrisonPortrait()
-	local level = self.Level or self.LevelText
-	if level then
-		level:ClearAllPoints()
-		level:SetPoint("BOTTOM", self, 0, 15)
-		if self.LevelCircle then
-			self.LevelCircle:Hide()
-		end
-		if self.LevelBorder then
-			self.LevelBorder:SetScale(0.0001)
-		end
-	end
-
-	self.squareBG = module:CreateBDFrame(self.Portrait)
-
-	if self.PortraitRing then
-		self.PortraitRing:Hide()
-		self.PortraitRingQuality:SetTexture("")
-		self.PortraitRingCover:SetColorTexture(0, 0, 0)
-		self.PortraitRingCover:SetAllPoints(self.squareBG)
-	end
-
-	if self.Empty then
-		self.Empty:SetColorTexture(0, 0, 0)
-		self.Empty:SetAllPoints(self.Portrait)
-	end
-	if self.Highlight then
-		self.Highlight:Hide()
-	end
-	if self.PuckBorder then
-		self.PuckBorder:SetAlpha(0)
-	end
-	if self.TroopStackBorder1 then
-		self.TroopStackBorder1:SetAlpha(0)
-	end
-	if self.TroopStackBorder2 then
-		self.TroopStackBorder2:SetAlpha(0)
-	end
-
-	if self.HealthBar then
-		self.HealthBar.Border:Hide()
-
-		local roleIcon = self.HealthBar.RoleIcon
-		roleIcon:ClearAllPoints()
-		roleIcon:SetPoint("CENTER", self.squareBG, "TOPRIGHT", -2, -2)
-		replaceFollowerRole(roleIcon, roleIcon:GetAtlas())
-		hooksecurefunc(roleIcon, "SetAtlas", replaceFollowerRole)
-
-		local background = self.HealthBar.Background
-		background:SetAlpha(0)
-		background:ClearAllPoints()
-		background:SetPoint("TOPLEFT", self.squareBG, "BOTTOMLEFT", E.mult, 6)
-		background:SetPoint("BOTTOMRIGHT", self.squareBG, "BOTTOMRIGHT", -E.mult, E.mult)
-		self.HealthBar.Health:SetTexture(E.media.normTex)
-	end
-end
-
 -- ClassColored ScrollBars
 do
 	local function GrabScrollBarElement(frame, element)
@@ -305,15 +208,6 @@ do
 	end
 end
 
--- ClassColored Sliders
-function module:HandleSliderFrame(_, frame)
-	local thumb = frame:GetThumbTexture()
-	if thumb then
-		local r, g, b = unpack(E.media.rgbvaluecolor)
-		thumb:SetVertexColor(r, g, b, 1)
-	end
-end
-
 function module:ColorButton()
 	if self.backdrop then
 		self = self.backdrop
@@ -334,20 +228,6 @@ function module:ClearButton()
 		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
 	else
 		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	end
-end
-
-function module:ReskinIcon(icon, backdrop)
-	assert(icon, "doesn't exist!")
-
-	icon:SetTexCoords()
-
-	if icon:GetDrawLayer() ~= "ARTWORK" then
-		icon:SetDrawLayer("ARTWORK")
-	end
-
-	if backdrop then
-		icon:CreateBackdrop()
 	end
 end
 
@@ -565,22 +445,6 @@ end
 
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
 
----Reposition frame with parameters
----@param frame any The frame to reposition
----@param target any The frame relative to
----@param border number Border size
----@param top number Top offset
----@param bottom number Bottom offset
----@param left number Left offset
----@param right number Right offset
-function module:Reposition(frame, target, border, top, bottom, left, right)
-	frame:ClearAllPoints()
-	frame:Point("TOPLEFT", target, "TOPLEFT", -left - border, top + border)
-	frame:Point("TOPRIGHT", target, "TOPRIGHT", right + border, top + border)
-	frame:Point("BOTTOMLEFT", target, "BOTTOMLEFT", -left - border, -bottom - border)
-	frame:Point("BOTTOMRIGHT", target, "BOTTOMRIGHT", right + border, -bottom - border)
-end
-
 -- Proxy function to call ElvUI Skins functions
 ---@param method string The function name in ElvUI Skins
 ---@param frame any The frame to pass to the function
@@ -603,25 +467,6 @@ function module:Proxy(method, frame, ...)
 	S[method](S, frame, ...)
 end
 
-function module:ReskinIconButton(button, icon, size, rotate)
-	button:StripTextures()
-	button.Icon = button:CreateTexture(nil, "ARTWORK")
-	button.Icon:SetTexture(icon)
-	button.Icon:Size(size, size)
-	button.Icon:Point("CENTER")
-	if rotate then
-		button.Icon:SetRotation(rotate)
-	end
-
-	button:HookScript("OnEnter", function(btn)
-		btn.Icon:SetVertexColor(F.r, F.g, F.b)
-	end)
-
-	button:HookScript("OnLeave", function(btn)
-		btn.Icon:SetVertexColor(1, 1, 1)
-	end)
-end
-
 -- Disable AddOnSkins Skin
 function module:DisableAddOnSkins(optionName, value)
 	if _G.AddOnSkins then
@@ -639,10 +484,6 @@ function S:UpdateRecapButton()
 		self.button4:SetScript("OnEnter", module.ColorButton)
 		self.button4:SetScript("OnLeave", module.ClearButton)
 	end
-end
-
-function module:SetBorderColor()
-	self:SetBackdropBorderColor(0, 0, 0, 1)
 end
 
 --[[----------------------------------
@@ -665,33 +506,6 @@ do
 		return bu
 	end
 
-	function module:CreateCheckBox()
-		local cb = CreateFrame("CheckButton", nil, self, "InterfaceOptionsBaseCheckButtonTemplate")
-		cb:SetScript("OnClick", nil) -- reset onclick handler
-		S:HandleCheckBox(cb)
-
-		cb.Type = "CheckBox"
-		return cb
-	end
-
-	local function editBoxClearFocus(self)
-		self:ClearFocus()
-	end
-
-	function module:CreateEditBox(width, height)
-		local eb = CreateFrame("EditBox", nil, self)
-		eb:SetSize(width, height)
-		eb:SetAutoFocus(false)
-		eb:SetTextInsets(5, 5, 0, 0)
-		eb:FontTemplate(nil, E.db.general.fontSize + 2)
-		eb:CreateBackdrop("Transparent")
-		eb.backdrop:SetAllPoints()
-		eb:SetScript("OnEscapePressed", editBoxClearFocus)
-		eb:SetScript("OnEnterPressed", editBoxClearFocus)
-
-		eb.Type = "EditBox"
-		return eb
-	end
 end
 
 -- keep the colors updated
@@ -837,41 +651,6 @@ end
 function module:RefreshToggleDirection()
 	for _, frame in pairs(toggleFrames) do
 		module:SetToggleDirection(frame)
-	end
-end
-
--- Modified from ElvUI WorldMap skin
-function module:ReskinWorldMapTab(tab)
-	tab:CreateBackdrop()
-	tab:Size(30, 40)
-
-	if tab.Icon then
-		F.InternalizeMethod(tab.Icon, "SetPoint", true)
-		F.InternalizeMethod(tab.Icon, "ClearAllPoints", true)
-		F.CallMethod(tab.Icon, "ClearAllPoints")
-		F.CallMethod(tab.Icon, "SetPoint", "CENTER")
-	end
-
-	if tab.Background then
-		tab.Background:SetAlpha(0)
-	end
-
-	if tab.SelectedTexture then
-		tab.SelectedTexture:SetDrawLayer("ARTWORK")
-		tab.SelectedTexture:SetColorTexture(1, 0.82, 0, 0.3)
-		tab.SelectedTexture:SetAllPoints()
-	end
-
-	for _, region in next, { tab:GetRegions() } do
-		if region:IsObjectType("Texture") and region:GetAtlas() == "QuestLog-Tab-side-Glow-hover" then
-			region:SetColorTexture(1, 1, 1, 0.3)
-			region:SetAllPoints()
-		end
-	end
-
-	if tab.backdrop then
-		WS:CreateBackdropShadow(tab)
-		tab.backdrop:SetTemplate("Transparent")
 	end
 end
 

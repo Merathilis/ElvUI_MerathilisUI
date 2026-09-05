@@ -1,10 +1,9 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_ItemLevel")
-local S = MER:GetModule("MER_Skins")
 local C = W.Utilities.Color ---@type ColorUtility
 
 local _G = _G
-local ipairs, select, tonumber = ipairs, select, tonumber
+local select, tonumber = select, tonumber
 local strmatch, gsub = strmatch, gsub
 
 local hooksecurefunc = hooksecurefunc
@@ -20,27 +19,6 @@ local EquipmentManager_GetItemInfoByLocation = EquipmentManager_GetItemInfoByLoc
 local UnitExists = UnitExists
 
 local EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION = EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION
-
--- Array: use ipairs. Index 4 = Shirt (skipped for inspect strings).
-local inspectSlots = {
-	"Head", -- 1
-	"Neck", -- 2
-	"Shoulder", -- 3
-	"Shirt", -- 4 (skipped)
-	"Chest", -- 5
-	"Waist", -- 6
-	"Legs", -- 7
-	"Feet", -- 8
-	"Wrist", -- 9
-	"Hands", -- 10
-	"Finger0", -- 11
-	"Finger1", -- 12
-	"Trinket0", -- 13
-	"Trinket1", -- 14
-	"Back", -- 15
-	"MainHand", -- 16
-	"SecondaryHand", -- 17
-}
 
 local function EnsureItemLevelFont(button, size)
 	if button.iLvl then
@@ -159,55 +137,6 @@ function module.ItemLevel_ScrappingShow(event, addon)
 	if addon == "Blizzard_ScrappingMachineUI" then
 		hooksecurefunc(_G.ScrappingMachineFrame, "UpdateScrapButtonState", module.ItemLevel_ScrappingSetup)
 		MER:UnregisterEvent(event, module.ItemLevel_ScrappingShow)
-	end
-end
-
-function module:CreateItemTexture(slot, relF, x, y)
-	local icon = slot:CreateTexture()
-	icon:SetPoint(relF, x, y)
-	icon:SetSize(14, 14)
-	icon:SetTexCoords()
-
-	icon.bg = S:CreateBDFrame(icon, 25)
-	icon.bg:SetFrameLevel(3)
-	icon.bg:Hide()
-	return icon
-end
-
-function module:CreateItemString(frame, strType)
-	if frame.fontCreated then
-		return
-	end
-
-	for index, slot in ipairs(inspectSlots) do
-		if index ~= 4 then -- skip Shirt
-			local slotFrame = _G[strType .. slot .. "Slot"]
-			if slotFrame then
-				slotFrame.iLvlText = slotFrame:CreateFontString(nil, "OVERLAY")
-				slotFrame.iLvlText:FontTemplate(nil, 10)
-				slotFrame.iLvlText:ClearAllPoints()
-				slotFrame.iLvlText:SetPoint("BOTTOMRIGHT", slotFrame, "BOTTOMRIGHT", 0, 0)
-			end
-		end
-	end
-
-	frame.fontCreated = true
-end
-
-function module:ItemLevel_SetupLevel(frame, strType, unit)
-	if not UnitExists(unit) then
-		return
-	end
-
-	module:CreateItemString(frame, strType)
-
-	for index, slot in ipairs(inspectSlots) do
-		if index ~= 4 then
-			local slotFrame = _G[strType .. slot .. "Slot"]
-			if slotFrame and slotFrame.iLvlText then
-				slotFrame.iLvlText:SetText("")
-			end
-		end
 	end
 end
 

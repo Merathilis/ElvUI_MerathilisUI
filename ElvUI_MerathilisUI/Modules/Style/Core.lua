@@ -132,10 +132,6 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 	end
 end
 
-function module:SetTemplateAS(_, frame, template)
-	self:SetTemplate(frame, template)
-end
-
 -- ElvUI frame API (resolved at load; only injected if missing on metatable)
 local API = {
 	Kill = Kill,

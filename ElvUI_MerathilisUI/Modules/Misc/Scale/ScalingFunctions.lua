@@ -18,16 +18,6 @@ function module:ScaleCollections()
 	module:SetElementScale("collections", "CollectionsJournal")
 end
 
-function module:ScaleItemUpgrade()
-	module:SetElementScale("itemUpgrade", "ItemUpgradeFrame")
-	module:SetElementScale("equipmentFlyout", "EquipmentFlyoutFrameButtons")
-end
-
-function module:ScaleCatalyst()
-	module:SetElementScale("itemUpgrade", "ItemInteractionFrame")
-	module:SetElementScale("equipmentFlyout", "EquipmentFlyoutFrameButtons")
-end
-
 function module:ScaleInspectUI()
 	local dbName = E.db.mui.scale.syncInspect.enable and "characterFrame" or "inspectFrame"
 	module:SetElementScale(dbName, "InspectFrame")

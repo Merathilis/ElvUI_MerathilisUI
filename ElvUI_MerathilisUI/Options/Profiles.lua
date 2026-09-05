@@ -154,8 +154,6 @@ for _, v in ipairs(SupportedProfiles) do
 				Profile:ApplymMediaTagProfile()
 			elseif addon == "ElvUI_WindTools" then
 				Profile:ApplyWindToolsProfile()
-			elseif addon == "Blinkiis_Portraits" then
-				Profile:ApplyBlinkiisPortraitsProfile()
 			end
 		end,
 		disabled = function()

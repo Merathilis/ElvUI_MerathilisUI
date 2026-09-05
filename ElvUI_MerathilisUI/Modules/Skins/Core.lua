@@ -4,13 +4,12 @@ local module = MER:GetModule("MER_Skins") ---@class Skins
 local _G = _G
 local next, pairs, ipairs = next, pairs, ipairs
 local xpcall, tonumber, strmatch = xpcall, tonumber, strmatch
-local tinsert, format, type, tostring = tinsert, format, type, tostring
+local tinsert, format, type = tinsert, format, type
 local assert = assert
 
 local CreateFrame = CreateFrame
 local GenerateClosure = GenerateClosure
 local RunNextFrame = RunNextFrame
-local hooksecurefunc = hooksecurefunc
 local LibStub = LibStub
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
@@ -21,7 +20,6 @@ module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
 module.libraryHandlers = {}
 module.libraryHandledMinors = {}
-module.updateProfile = {}
 module.aceWidgetConfigs = {}
 module.aceWidgetWaitingList = {}
 module.enteredLoad = {}
@@ -55,64 +53,6 @@ function module:IsTexturePathEqual(texture, path)
 
 	self.texturePathFetcher:SetTexture(path)
 	return got == self.texturePathFetcher:GetTextureFilePath()
-end
-
-function module:CheckDB(elvuiKey, MERKey)
-	if elvuiKey then
-		MERKey = MERKey or elvuiKey
-		if not (E.private.skins.blizzard.enable and E.private.skins.blizzard[elvuiKey]) then
-			return false
-		end
-
-		if not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard[MERKey]) then
-			return false
-		end
-	else
-		if not (E.private.mui.skins.blizzard.enable and E.private.mui.skins.blizzard[MERKey]) then
-			return false
-		end
-	end
-
-	return true
-end
-
----Handle AceGUI widget styling
----@param lib table The AceGUI library
----@param name string The widget name
----@param constructor function The widget constructor
-function module:HandleAceGUIWidget(lib, name, constructor)
-	local config = self.aceWidgetConfigs[name]
-	if not config then
-		return
-	end
-
-	config.constructor = constructor
-
-	if self.db then
-		if self.db.enable and config.checker(self.db) then
-			lib.WidgetRegistry[name] = function()
-				local widget = config.constructor()
-				config.handler(widget)
-				return widget
-			end
-		end
-		return
-	end
-
-	if not self.aceWidgetWaitingList[name] then
-		self.aceWidgetWaitingList[name] = {}
-		lib.WidgetRegistry[name] = function()
-			local widget = config.constructor()
-			if self.db then
-				if self.db.enable and config.checker(self.db) then
-					config.handler(widget)
-				end
-			else
-				tinsert(self.aceWidgetWaitingList[name], widget)
-			end
-			return widget
-		end
-	end
 end
 
 function module:ProcessWaitingAceGUIWidgets()
@@ -203,10 +143,6 @@ function module:PLAYER_ENTERING_WORLD()
 	end
 end
 
-function module:AddCallbackForUpdate(name, func)
-	tinsert(self.updateProfile, func or self[name])
-end
-
 ---Call all loaded addon callbacks
 ---@param addonName string The name of the addon
 ---@param callbacks table The callback functions table
@@ -255,20 +191,6 @@ function module:LibStub_NewLibrary(_, major, minor)
 			end
 		end
 	end)
-end
-
-function module:TryPostHook(...)
-	local frame, method, hookFunc = ...
-	if frame and method and _G[frame] and _G[frame][method] then
-		hooksecurefunc(_G[frame], method, function(f, ...)
-			if not f.__MERSkin then
-				hookFunc(f, ...)
-				f.__MERSkin = true
-			end
-		end)
-	else
-		self:Log("debug", "Failed to hook: " .. tostring(frame) .. " " .. tostring(method))
-	end
 end
 
 function module:ReskinSettingFrame(name, func)

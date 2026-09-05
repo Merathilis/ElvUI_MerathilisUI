@@ -242,10 +242,6 @@ local function IsValidEvent(event)
 	return not (C_EventUtils and C_EventUtils.IsEventValid) or C_EventUtils.IsEventValid(event)
 end
 
-function module:CreateSocketPanelBorder(frame, r, g, b, a)
-	SetBorderColor(frame, r, g, b, a)
-end
-
 function module:StopSocketSlotGlow()
 	local glow = self.socketSlotGlow
 

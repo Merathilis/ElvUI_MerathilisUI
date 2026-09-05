@@ -6,7 +6,7 @@ local WS = W:GetModule("Skins")
 local _G = _G
 local pairs = pairs
 
-function module:WorldQuestTab()
+function module:WowLua()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wowLua then
 		return
 	end
@@ -68,4 +68,4 @@ function module:WorldQuestTab()
 	end
 end
 
-module:AddCallbackForAddon("WorldQuestTab")
+module:AddCallbackForAddon("WowLua")

@@ -46,8 +46,6 @@ local extraStyle = {
 	e = L["Style"] .. " E",
 }
 
-local ClassIconStyle = {}
-
 local frameStrata = {
 	BACKGROUND = "BACKGROUND",
 	LOW = "LOW",
@@ -57,16 +55,6 @@ local frameStrata = {
 	TOOLTIP = "TOOLTIP",
 	AUTO = "Auto",
 }
-
-function BuildIconStylesTable()
-	for iconStyle, value in pairs(MER.ClassIcons.mMT) do
-		ClassIconStyle[iconStyle] = value.name
-	end
-
-	for iconStyle, value in pairs(MER.ClassIcons.Custom) do
-		ClassIconStyle[iconStyle] = value.name
-	end
-end
 
 local sizeString = ":16:16:0:0:64:64:4:60:4:60"
 

@@ -10,31 +10,15 @@ local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
 local InCombatLockdown = InCombatLockdown
 local InviteUnit = C_PartyInfo.InviteUnit
-local GetCVarBool = C_CVar.GetCVarBool
+local strsplit = strsplit
+local hooksecurefunc = hooksecurefunc
 
 E.myClassColor = E.myClassColor or E:ClassColor(E.myclass, true)
 
-MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI.tga]]
-MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\mUI1.tga]]
-MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
-MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
-MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
-MER.MailTex = "Interface\\Minimap\\Tracking\\Mailbox"
 MER.GearTex = "Interface\\WorldMap\\Gear_64"
-MER.EyeTex = "Interface\\Minimap\\Raid_Icon"
-MER.GarrTex = "Interface\\HelpFrame\\HelpIcon-ReportLag"
-MER.CopyTex = "Interface\\Buttons\\UI-GuildButton-PublicNote-Up"
-MER.BinTex = "Interface\\HelpFrame\\ReportLagIcon-Loot"
-MER.QuestTex = "adventureguide-microbutton-alert"
-MER.ObjectTex = "Warfronts-BaseMapIcons-Horde-Barracks-Minimap"
-MER.CreditTex = "Interface\\HelpFrame\\HelpIcon-KnowledgeBase"
-
-MER.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
 
 MER.RegisteredModules = {}
 MER.Changelog = {}
-
-MER.UseKeyDown = GetCVarBool("ActionButtonUseKeyDown")
 
 -- Config Helper
 MER.Values = {
@@ -91,7 +75,7 @@ E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
 -- ElvUI_MerathilisUI Link Operations
 -- 1. Print "|Hmerlink:feature:arg1:arg2:arg3:..." in the chat
 -- 2. Click the link, it will trigger the corresponding function with the provided arguments
--- => W.LinkOperations[feature](arg1, arg2, arg3, ...)
+-- => MER.LinkOperations[feature](arg1, arg2, arg3, ...)
 MER.LinkOperations = {
 	["changelog"] = E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG.OnAccept,
 	["invite"] = function(name)
@@ -100,6 +84,14 @@ MER.LinkOperations = {
 		end
 	end,
 }
+
+-- Dispatches clicked "|Hmerlink:feature:arg1:arg2:arg3|h" chat links to MER.LinkOperations
+hooksecurefunc("SetItemRef", function(link, ...)
+	local linkType, feature, arg1, arg2, arg3 = strsplit(":", link)
+	if linkType == "merlink" and feature and MER.LinkOperations[feature] then
+		MER.LinkOperations[feature](arg1, arg2, arg3)
+	end
+end)
 
 -- Register own Modules
 function MER:RegisterModule(name)

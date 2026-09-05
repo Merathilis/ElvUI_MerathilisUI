@@ -1,7 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 G.core = {
-	compatibilityCheck = true,
 	changlogPopup = true,
 	loginMsg = true,
 	autoCopyPrivateProfile = {
