@@ -9,6 +9,27 @@ local CreateFrame = CreateFrame
 local CreateColor = CreateColor
 local hooksecurefunc = hooksecurefunc
 
+---Is this frame the ElvUI options window (or something inside it)?
+---E:Config_GetWindow() is called fresh each time (cheap: it's just a table lookup) rather than
+---cached, since the window frame only exists once it's actually been opened.
+---The gradient/stripe look is meant for game frames, not ElvUI's own settings UI.
+local function IsElvUIConfigFrame(frame)
+	local configFrame = E.Config_GetWindow and E:Config_GetWindow()
+	if not configFrame then
+		return false
+	end
+
+	local parent = frame
+	while parent do
+		if parent == configFrame then
+			return true
+		end
+		parent = parent.GetParent and parent:GetParent()
+	end
+
+	return false
+end
+
 function module:CreateGradientFrame(frame, w, h, o, r1, g1, b1, a1, r2, g2, b2, a2)
 	assert(frame, "doesn't exist!")
 
@@ -61,22 +82,10 @@ local function DisablePixelSnap(frame)
 	frame.PixelSnapDisabled = true
 end
 
----Hooked after ElvUI's SetTemplate. Adds MER style overlay when applicable.
-function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitFrameElement, isNamePlateElement)
-	-- Frame may carry previous call args
-	ignoreUpdates = ignoreUpdates or frame.ignoreUpdates
-	if ignoreUpdates then
-		return
-	end
-
-	-- Module disabled → nothing to do (hooks are removed on Disable, but guard anyway)
-	local db = self.db
-	if not db or not db.enable then
-		if frame.MERStyle then
-			frame.MERStyle:Hide()
-		end
-		return
-	end
+---Applies (or ensures visible) the MERStyle gradient overlay on a qualifying frame.
+---Shared by the normal Enable-gated path and the always-on config-window path below.
+local function ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNamePlateElement)
+	module.MERStyle = module.MERStyle or {}
 
 	template = template or frame.template or "Default"
 	glossTex = glossTex or frame.glossTex
@@ -118,18 +127,62 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 	-- Already styled → just ensure visible (CreateStyle is a no-op when MERStyle exists)
 	if frame.MERStyle then
 		frame.MERStyle:Show()
-		self.MERStyle[frame] = true
+		module.MERStyle[frame] = true
 		return
 	end
 
 	if not frame.CreateStyle then
-		return WF.Developer.LogDebug("API functions not found!", "MERCreateStyle", true)
+		WF.Developer.LogDebug("API functions not found!", "MERCreateStyle", true)
+		return
 	end
 
 	frame:CreateStyle()
 	if frame.MERStyle then
-		self.MERStyle[frame] = true
+		module.MERStyle[frame] = true
 	end
+end
+
+---Hooked after ElvUI's SetTemplate. Adds MER style overlay when applicable.
+function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitFrameElement, isNamePlateElement)
+	-- Frame may carry previous call args
+	ignoreUpdates = ignoreUpdates or frame.ignoreUpdates
+	if ignoreUpdates then
+		return
+	end
+
+	-- The ElvUI options window is handled unconditionally by MERConfigWindowStyle below,
+	-- regardless of the Enable setting - leave it alone here either way.
+	if IsElvUIConfigFrame(frame) then
+		return
+	end
+
+	-- Module disabled → nothing to do (hooks are removed on Disable, but guard anyway)
+	local db = self.db
+	if not db or not db.enable then
+		if frame.MERStyle then
+			frame.MERStyle:Hide()
+		end
+		return
+	end
+
+	ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNamePlateElement)
+end
+
+---Plain (non-AceHook) hook: always keeps the ElvUI options window styled/opaque, independent of
+---the addon's own Enable toggle - ElvUI's "Transparent" template (which the window uses) is very
+---see-through on its own, and the gradient overlay is what makes it look solid. Registered outside
+---AceHook so module:Disable()'s UnhookAll() never removes it (see module:API below).
+local function MERConfigWindowStyle(frame, template, glossTex, ignoreUpdates, _, isUnitFrameElement, isNamePlateElement)
+	ignoreUpdates = ignoreUpdates or frame.ignoreUpdates
+	if ignoreUpdates then
+		return
+	end
+
+	if not IsElvUIConfigFrame(frame) then
+		return
+	end
+
+	ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNamePlateElement)
 end
 
 -- ElvUI frame API (resolved at load; only injected if missing on metatable)
@@ -221,6 +274,9 @@ function module:API(object)
 			self:SecureHook(mk, "SetTemplate", "SetTemplate")
 		end
 
+		-- Plain hook (not via AceHook) so it survives module:Disable()'s UnhookAll()
+		hooksecurefunc(mk, "SetTemplate", MERConfigWindowStyle)
+
 		if mk.SetFrameLevel and not self:IsHooked(mk, "SetFrameLevel") then
 			self:SecureHook(mk, "SetFrameLevel", "UpdateTemplateStrata")
 		end
@@ -249,10 +305,11 @@ function module:Disable()
 
 	self.isEnabled = false
 
-	-- Hide existing style overlays before clearing registry
+	-- Hide existing style overlays before clearing registry (the ElvUI options window is
+	-- always kept styled by MERConfigWindowStyle, regardless of Enable, so leave it alone)
 	if self.MERStyle then
 		for frame in pairs(self.MERStyle) do
-			if frame.MERStyle then
+			if frame.MERStyle and not IsElvUIConfigFrame(frame) then
 				frame.MERStyle:Hide()
 			end
 		end

@@ -194,14 +194,19 @@ local function Constructor()
 	frame:SetScript("OnLeave", Control_OnLeave)
 	frame:SetScript("OnMouseUp", ToggleSwitch_OnMouseUp)
 
+	-- ignoreUpdates=true keeps these out of E.frames, otherwise ElvUI's async
+	-- E:UpdateFrameTemplates() coroutine (triggered by any "requires reload" option,
+	-- e.g. Style's ForceRefresh) re-templates them a few frames later and wipes the
+	-- on/off/disabled color UpdateVisual() just set, leaving the switch blank until
+	-- something happens to call SetValue/SetDisabled again.
 	local track = CreateFrame("Frame", nil, frame)
 	track:SetSize(TRACK_WIDTH, TRACK_HEIGHT)
 	track:SetPoint("LEFT", 0, 0)
-	track:CreateBackdrop("Transparent")
+	track:CreateBackdrop("Transparent", nil, true)
 
 	local knob = CreateFrame("Frame", nil, track)
 	knob:SetSize(KNOB_SIZE, KNOB_SIZE)
-	knob:CreateBackdrop("Transparent")
+	knob:CreateBackdrop("Transparent", nil, true)
 
 	local text = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	text:SetJustifyH("LEFT")
