@@ -18,6 +18,11 @@ local COLOR_TRACK_ON = { I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b
 local COLOR_KNOB = { 0.92, 0.92, 0.92, 1 }
 local COLOR_KNOB_DISABLED = { 0.55, 0.55, 0.55, 1 }
 
+local COLOR_TEXT_NORMAL = { 1, 1, 1 }
+local COLOR_TEXT_DISABLED = { 0.5, 0.5, 0.5 }
+local COLOR_TEXT_ENABLE_ON = { 0.1, 0.9, 0.1 }
+local COLOR_TEXT_ENABLE_OFF = { 0.9, 0.15, 0.15 }
+
 local function AlignImage(self)
 	local img = self.image:GetTexture()
 	self.text:ClearAllPoints()
@@ -27,6 +32,20 @@ local function AlignImage(self)
 	else
 		self.text:SetPoint("LEFT", self.image, "RIGHT", 1, 0)
 		self.text:SetPoint("RIGHT")
+	end
+end
+
+local function UpdateTextColor(self)
+	if self.disabled then
+		self.text:SetTextColor(unpack(COLOR_TEXT_DISABLED))
+	elseif self.isEnableToggle then
+		self.text:SetTextColor(unpack(self.checked and COLOR_TEXT_ENABLE_ON or COLOR_TEXT_ENABLE_OFF))
+	else
+		self.text:SetTextColor(unpack(COLOR_TEXT_NORMAL))
+	end
+
+	if self.desc then
+		self.desc:SetTextColor(unpack(self.disabled and COLOR_TEXT_DISABLED or COLOR_TEXT_NORMAL))
 	end
 end
 
@@ -45,6 +64,7 @@ local function UpdateVisual(self)
 	end
 
 	knob.backdrop:SetBackdropColor(unpack(self.disabled and COLOR_KNOB_DISABLED or COLOR_KNOB))
+	UpdateTextColor(self)
 end
 
 local function Control_OnEnter(frame)
@@ -74,6 +94,7 @@ end
 local methods = {
 	["OnAcquire"] = function(self)
 		self:SetType()
+		self.isEnableToggle = nil
 		self:SetValue(false)
 		self:SetTriState(nil)
 		self:SetWidth(200)
@@ -95,16 +116,8 @@ local methods = {
 		self.disabled = disabled
 		if disabled then
 			self.frame:Disable()
-			self.text:SetTextColor(0.5, 0.5, 0.5)
-			if self.desc then
-				self.desc:SetTextColor(0.5, 0.5, 0.5)
-			end
 		else
 			self.frame:Enable()
-			self.text:SetTextColor(1, 1, 1)
-			if self.desc then
-				self.desc:SetTextColor(1, 1, 1)
-			end
 		end
 		UpdateVisual(self)
 	end,
@@ -143,6 +156,8 @@ local methods = {
 
 	["SetLabel"] = function(self, label)
 		self.text:SetText(label)
+		self.isEnableToggle = label == L["Enable"]
+		UpdateTextColor(self)
 	end,
 
 	["SetDescription"] = function(self, desc)
