@@ -289,11 +289,6 @@ function module:OptionsCallback()
 			E:StaticPopup_Show("PRIVATE_RL")
 		end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER.Title .. F.cOption(MER.Version, "blue") .. L["by Merathilis (|cFF00c0faEU-Shattrath|r)"],
-			},
 			logo = {
 				order = 2,
 				type = "description",
@@ -368,6 +363,27 @@ function module:OptionsCallback()
 				return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE)
 			end,
 		}
+	end
+
+	self:ApplyCustomWidgets(E.Options.args.mui.args)
+end
+
+-- Redirects MER's own toggle/header args to custom one
+-- AceGUI widgets (MERToggleSwitch / MERSectionHeader) without touching ElvUI's
+-- shared global AceGUI skin, so only the MerathilisUI options tab is affected.
+function module:ApplyCustomWidgets(argsTable)
+	for _, entry in pairs(argsTable) do
+		if type(entry) == "table" then
+			if entry.type == "toggle" and not entry.dialogControl and not entry.control then
+				entry.dialogControl = "MERToggleSwitch"
+			elseif entry.type == "header" and not entry.dialogControl and not entry.control then
+				entry.dialogControl = "MERSectionHeader"
+			end
+
+			if type(entry.args) == "table" then
+				self:ApplyCustomWidgets(entry.args)
+			end
+		end
 	end
 end
 

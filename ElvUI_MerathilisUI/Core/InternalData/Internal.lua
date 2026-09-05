@@ -21,6 +21,11 @@ I.Textures = {
 	Primary = "ElvUI Norm1",
 }
 
+I.Colors = {
+	-- Shared accent color for MerathilisUI-only option widgets (keep in sync with F.cOption's "teal" hex: #00c0fa)
+	Accent = { r = 0x00 / 255, g = 0xc0 / 255, b = 0xfa / 255 },
+}
+
 I.FontNames = {
 	[I.Fonts.Primary] = "Primary",
 	[I.Fonts.GothamRaid] = "Gotham Raid",

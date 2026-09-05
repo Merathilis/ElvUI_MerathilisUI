@@ -12,6 +12,7 @@ MER.Changelog[730] = {
 	NEW = {
 		"[Skins]: Added a Number of Windows option to the Details Embed system",
 		"[Skins]: Added a Class Codex skin",
+		"[Options]: Added sliding toggle switches and restyled section headers to the options window",
 	},
 	IMPROVEMENTS = {
 		"[Skins]: Updated the Weekly Rewards skin",
@@ -19,5 +20,6 @@ MER.Changelog[730] = {
 		"[Core]: Removed the unfinished module compatibility-check popup",
 		"[Core]: Cleaned up dead and unused code across Skins, Options, and Core modules",
 		"[Armory]: Skip the title search box when Plumber's PlayerTitleUI search is enabled",
+		"[Options]: Removed the redundant title header from the options window",
 	},
 }
