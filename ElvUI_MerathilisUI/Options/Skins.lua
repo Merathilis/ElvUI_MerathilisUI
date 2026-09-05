@@ -17,6 +17,7 @@ local DecorAddons = {
 	{ "BagSync", L["BagSync"], "bSync" },
 	{ "BugSack", L["BugSack"], "bugSack" },
 	{ "Capping", L["Capping"], "cap" },
+	{ "ClassCodex", L["Class Codex"], "classCodex" },
 	{ "Clique", L["Clique"], "cl" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },

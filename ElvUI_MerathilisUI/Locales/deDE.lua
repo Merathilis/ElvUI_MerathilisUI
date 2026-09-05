@@ -233,6 +233,7 @@ L["Unearned"] = "Nicht erhalten"
 L["Equipment Manager"] = "Ausrüstungsverwaltung"
 L["Replace Blizzard's native Equipment Manager pane with a custom MerathilisUI gear-set panel."] =
 	"Ersetzt Blizzards native Ausrüstungsverwaltung durch ein eigenes MerathilisUI-Set-Panel."
+L["Class Codex"] = true
 L["Class Color"] = "Klassenfarbe"
 L["Use your class color for the selected/equipped set accents instead of the accent color below."] =
 	"Verwendet Deine Klassenfarbe für die Akzente des ausgewählten/ausgerüsteten Sets anstelle der Akzentfarbe unten."
