@@ -9,8 +9,10 @@ MER.Changelog[730] = {
 	},
 	NEW = {
 		"[Skins]: Added a Number of Windows option to the Details Embed system",
+		"[Skins]: Added a Class Codex skin",
 	},
 	IMPROVEMENTS = {
 		"[Skins]: Updated the Weekly Rewards skin",
+		"[BuffReminder]: Match weapon enchants by key instead of name",
 	},
 }
