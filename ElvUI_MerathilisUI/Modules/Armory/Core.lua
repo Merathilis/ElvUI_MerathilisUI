@@ -32,6 +32,7 @@ local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpeci
 local GetItemInfo = C_Item.GetItemInfo
 local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
 local OffhandHasShield = C_PaperDollInfo.OffhandHasShield
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
@@ -1707,8 +1708,6 @@ local function UpdateFilterButtonVisual()
 		return
 	end
 
-	-- Same texture/coords as Plumber's PlayerTitleUI filter button: hollow grey when
-	-- showing the default (earned-only), solid gold whenever the filter is narrowed/widened
 	if module.titleFilter.showEarned and not module.titleFilter.showUnearned then
 		btn.Icon:SetTexCoord(0.5, 0.75, 0, 0.25)
 	else
@@ -1728,8 +1727,16 @@ local function ToggleTitleFilter(key)
 	UpdateTitlesPane()
 end
 
+local function IsPlumberTitleSearchActive()
+	return IsAddOnLoaded("Plumber") and _G.PlumberDB and _G.PlumberDB.PlayerTitleUI == true
+end
+
 function module:CreateTitleSearchBox()
 	if module.titleSearchBox then
+		return
+	end
+
+	if IsPlumberTitleSearchActive() then
 		return
 	end
 
@@ -1755,7 +1762,6 @@ function module:CreateTitleSearchBox()
 	-- filterBtn:CreateBackdrop("Transparent")
 	module.titleFilterButton = filterBtn
 
-	-- Same filter icon Plumber's PlayerTitleUI uses (GPLv3), bundled locally
 	local filterIcon = filterBtn:CreateTexture(nil, "OVERLAY")
 	filterIcon:SetSize(16, 16)
 	filterIcon:SetPoint("CENTER")
