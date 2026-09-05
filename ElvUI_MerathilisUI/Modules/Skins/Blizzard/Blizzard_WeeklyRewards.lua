@@ -447,6 +447,18 @@ local function RefreshWindow(frame)
 		if frame.SelectRewardButton then
 			S:HandleButton(frame.SelectRewardButton)
 		end
+
+		local headerCol = STYLE.colors.header
+		if frame.Divider1 then
+			frame.Divider1:SetAtlas("evergreen-weeklyrewards-divider", true)
+			frame.Divider1:SetVertexColor(headerCol.r, headerCol.g, headerCol.b)
+			frame.Divider1:SetBlendMode("ADD")
+		end
+		if frame.Divider2 then
+			frame.Divider2:SetAtlas("evergreen-weeklyrewards-divider", true)
+			frame.Divider2:SetVertexColor(headerCol.r, headerCol.g, headerCol.b)
+			frame.Divider2:SetBlendMode("ADD")
+		end
 	end
 
 	if frame.HeaderFrame and frame.HeaderFrame.Text then
@@ -455,9 +467,6 @@ local function RefreshWindow(frame)
 
 	for _, typeFrame in ipairs({ frame.RaidFrame, frame.MythicFrame, frame.PVPFrame, frame.WorldFrame }) do
 		if typeFrame and typeFrame:IsShown() then
-			if typeFrame.Background then
-				typeFrame.Background.backdrop:SetAlpha(0)
-			end
 			if typeFrame.Name then
 				RefreshTypeFrameState(typeFrame)
 			end
