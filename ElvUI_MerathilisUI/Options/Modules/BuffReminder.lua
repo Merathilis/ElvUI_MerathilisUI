@@ -90,7 +90,7 @@ local CONSUMABLE_TOGGLES = {
 
 options.buffReminder = {
 	type = "group",
-	name = E.NewSign .. module:AddCategorieIcon(L["Buff Reminder"], "buff_reminder"),
+	name = module:AddCategorieIcon(L["Buff Reminder"], "buff_reminder"),
 	get = Get,
 	set = Set,
 	args = {
