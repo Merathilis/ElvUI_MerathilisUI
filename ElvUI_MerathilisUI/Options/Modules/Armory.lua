@@ -1292,7 +1292,7 @@ options.armory = {
 		socketPanel = {
 			order = 17,
 			type = "group",
-			name = E.NewSign .. L["Socket Panel"],
+			name = L["Socket Panel"],
 			get = function(info)
 				return E.db.mui.armory.socketPanel[info[#info]]
 			end,
@@ -1451,7 +1451,7 @@ options.armory = {
 		equipmentManager = {
 			order = 18,
 			type = "group",
-			name = E.NewSign .. L["Equipment Manager"],
+			name = L["Equipment Manager"],
 			get = function(info)
 				return E.db.mui.armory.equipmentManager[info[#info]]
 			end,
