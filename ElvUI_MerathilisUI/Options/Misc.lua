@@ -83,11 +83,11 @@ options.general = {
 			name = E.NewSign .. L["LootSpecManager"],
 			desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
 			inline = true,
-			get = function()
-				return E.db.mui.lootSpecManager
+			get = function(info)
+				return E.db.mui.lootSpecManager[info[#info]]
 			end,
-			set = function(_, value)
-				E.db.mui.lootSpecManager = value
+			set = function(info, value)
+				E.db.mui.lootSpecManager[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
