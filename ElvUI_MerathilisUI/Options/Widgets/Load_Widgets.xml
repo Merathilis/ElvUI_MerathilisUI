@@ -3,5 +3,6 @@
 	<Script file='ToggleSwitch.lua' />
 	<Script file='Slider.lua' />
 	<Script file='Dropdown.lua' />
+	<Script file='EditBox.lua' />
 	<Script file='SectionHeader.lua' />
 </Ui>
