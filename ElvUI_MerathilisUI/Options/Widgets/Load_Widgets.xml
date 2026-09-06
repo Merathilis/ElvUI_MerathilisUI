@@ -4,5 +4,6 @@
 	<Script file='Slider.lua' />
 	<Script file='Dropdown.lua' />
 	<Script file='EditBox.lua' />
+	<Script file='ColorPicker.lua' />
 	<Script file='SectionHeader.lua' />
 </Ui>
