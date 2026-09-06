@@ -7,4 +7,5 @@
 	<Script file='ColorPicker.lua' />
 	<Script file='Button.lua' />
 	<Script file='SectionHeader.lua' />
+	<Script file='TabGroupSkin.lua' />
 </Ui>

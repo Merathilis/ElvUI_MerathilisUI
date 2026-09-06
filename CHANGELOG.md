@@ -11,3 +11,4 @@
 -   [Options]: Added a custom edit box widget matching the toggle-switch/slider/dropdown style for text input options
 -   [Options]: Added a custom color picker widget matching the toggle-switch/slider/dropdown/edit box style for color options
 -   [Options]: Added a custom button widget matching the toggle-switch/slider/dropdown/edit box/color picker style for execute options
+-   [Options]: Restyled the tab strip on MerathilisUI's own tabbed category pages (e.g. Modules) to match the flat toggle-switch/slider/dropdown style
