@@ -1,6 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
+local LSM = E.LSM
 
 local Type = "MERDropdown"
 local Version = 1
@@ -9,6 +10,7 @@ local pairs, ipairs, select, type, tostring, tonumber = pairs, ipairs, select, t
 local tsort = table.sort
 local CreateFrame, UIParent = CreateFrame, UIParent
 local error, unpack = error, unpack
+local PlaySound = PlaySound
 
 -- Same box thickness/offset as MERSlider's track (18px from the frame's top,
 -- 16px tall, 40px total frame height) so a select option sitting in the same
@@ -381,3 +383,74 @@ local function Constructor()
 end
 
 AceGUI:RegisterWidgetType(Type, Constructor, Version)
+
+-- Font-preview list item for LSM30_Font selects redirected to MERDropdown (see
+-- Options/Core.lua ApplyCustomWidgets): renders each row in its own font, the
+-- one bit of LSM30_Font's behavior worth keeping instead of the plain-text row
+-- MERDropdown's default item type would otherwise show.
+do
+	local ItemBaseLib = LibStub("AceGUI-3.0-DropDown-ItemBase", true)
+	local ItemBase = ItemBaseLib and ItemBaseLib:GetItemBase()
+
+	if ItemBase then
+		local FontItemType = "MERDropdownItemFont"
+		local FontItemVersion = 1
+
+		local function UpdateCheck(self)
+			if self.value then
+				self.check:Show()
+			else
+				self.check:Hide()
+			end
+		end
+
+		local function SetText(self, text)
+			ItemBase.SetText(self, text)
+			local path = text and text ~= "" and LSM:Fetch("font", text)
+			if path then
+				self.text:SetFont(path, 14)
+			end
+		end
+
+		local function SetValue(self, value)
+			self.value = value
+			UpdateCheck(self)
+		end
+
+		local function GetValue(self)
+			return self.value
+		end
+
+		local function OnRelease(self)
+			ItemBase.OnRelease(self)
+			self:SetValue(nil)
+		end
+
+		local function Frame_OnClick(this)
+			local self = this.obj
+			if self.disabled then
+				return
+			end
+			self.value = not self.value
+			PlaySound(self.value and 856 or 857) -- SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON / _OFF
+			UpdateCheck(self)
+			self:Fire("OnValueChanged", self.value)
+		end
+
+		local function Constructor()
+			local self = ItemBase.Create(FontItemType)
+
+			self.frame:SetScript("OnClick", Frame_OnClick)
+
+			self.SetText = SetText
+			self.SetValue = SetValue
+			self.GetValue = GetValue
+			self.OnRelease = OnRelease
+
+			AceGUI:RegisterAsWidget(self)
+			return self
+		end
+
+		AceGUI:RegisterWidgetType(FontItemType, Constructor, FontItemVersion + ItemBase.version)
+	end
+end

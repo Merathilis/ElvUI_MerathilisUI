@@ -380,6 +380,22 @@ function module:ApplyCustomWidgets(argsTable)
 				entry.dialogControl = "MERSlider"
 			elseif entry.type == "select" and entry.style ~= "radio" and not entry.dialogControl and not entry.control then
 				entry.dialogControl = "MERDropdown"
+			elseif entry.type == "select" and entry.dialogControl == "LSM30_Font" then
+				-- LSM30_Font's "values" maps font name -> file path (that's what
+				-- LSM:HashTable("font") returns), which the stock widget ignores
+				-- in favor of the font-name keys themselves. A plain select would
+				-- show those paths as the option text, so remap to name -> name
+				-- before handing it to MERDropdown, and use the font-preview item
+				-- type so the list still renders each entry in its own font.
+				if type(entry.values) == "table" then
+					local names = {}
+					for name in pairs(entry.values) do
+						names[name] = name
+					end
+					entry.values = names
+				end
+				entry.itemControl = entry.itemControl or "MERDropdownItemFont"
+				entry.dialogControl = "MERDropdown"
 			elseif entry.type == "header" and not entry.dialogControl and not entry.control then
 				entry.dialogControl = "MERSectionHeader"
 			end

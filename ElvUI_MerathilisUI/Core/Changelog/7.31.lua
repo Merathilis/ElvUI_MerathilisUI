@@ -13,7 +13,7 @@ MER.Changelog[731] = {
 		"[Options]: Module \"Enable\" toggle switches now color their label green/red to reflect the on/off state",
 		"[Skins]: Added font size/outline options for the Weekly Rewards (Great Vault) skin (#124)",
 		"[Options]: Added a custom slider widget matching the toggle-switch style for range options",
-		"[Options]: Added a custom dropdown widget matching the toggle-switch/slider style for select options",
+		"[Options]: Added a custom dropdown widget matching the toggle-switch/slider style for select options, including LibSharedMedia font pickers (with font-preview list rows)",
 	},
 	IMPROVEMENTS = {},
 }
