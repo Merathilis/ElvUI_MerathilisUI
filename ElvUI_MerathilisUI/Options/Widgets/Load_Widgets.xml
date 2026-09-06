@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='GradientPreview.lua' />
 	<Script file='ToggleSwitch.lua' />
+	<Script file='Slider.lua' />
 	<Script file='SectionHeader.lua' />
 </Ui>
