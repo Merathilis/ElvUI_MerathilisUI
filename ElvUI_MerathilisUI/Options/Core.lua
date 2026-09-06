@@ -368,9 +368,9 @@ function module:OptionsCallback()
 	self:ApplyCustomWidgets(E.Options.args.mui.args)
 end
 
--- Redirects MER's own toggle/range/header args to custom one
--- AceGUI widgets (MERToggleSwitch / MERSlider / MERSectionHeader) without touching
--- ElvUI's shared global AceGUI skin, so only the MerathilisUI options tab is affected.
+-- Redirects MER's own toggle/range/select/header args to custom one
+-- AceGUI widgets (MERToggleSwitch / MERSlider / MERDropdown / MERSectionHeader) without
+-- touching ElvUI's shared global AceGUI skin, so only the MerathilisUI options tab is affected.
 function module:ApplyCustomWidgets(argsTable)
 	for _, entry in pairs(argsTable) do
 		if type(entry) == "table" then
@@ -378,6 +378,8 @@ function module:ApplyCustomWidgets(argsTable)
 				entry.dialogControl = "MERToggleSwitch"
 			elseif entry.type == "range" and not entry.dialogControl and not entry.control then
 				entry.dialogControl = "MERSlider"
+			elseif entry.type == "select" and entry.style ~= "radio" and not entry.dialogControl and not entry.control then
+				entry.dialogControl = "MERDropdown"
 			elseif entry.type == "header" and not entry.dialogControl and not entry.control then
 				entry.dialogControl = "MERSectionHeader"
 			end

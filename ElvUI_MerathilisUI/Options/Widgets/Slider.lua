@@ -11,14 +11,19 @@ local CreateFrame, UIParent = CreateFrame, UIParent
 local GetCursorPosition = GetCursorPosition
 local IsMouseButtonDown = IsMouseButtonDown
 
--- Same track/knob metrics and colors as MERToggleSwitch so both controls read
--- as one family - only the knob's travel becomes continuous instead of binary.
+-- Same colors as MERToggleSwitch so both controls read as one family, but a
+-- thicker track/knob than the toggle's small checkbox-sized switch - the
+-- slider stretches across the full column width, and at the toggle's 16px
+-- thickness it reads as a squeezed sliver next to a dropdown in the same row.
 local TRACK_HEIGHT = 16
 local KNOB_SIZE = 12
 local KNOB_INSET = 2
 local LABEL_HEIGHT = 16
-local TRACK_TOP_OFFSET = LABEL_HEIGHT + 4
-local FRAME_HEIGHT = TRACK_TOP_OFFSET + TRACK_HEIGHT + 8
+-- MERDropdown (Dropdown.lua) uses these same two numbers for its own box, so
+-- a select option sitting in the same AceConfig row as a range option lines
+-- up automatically - see its alignoffset for the row-alignment mechanism.
+local TRACK_TOP_OFFSET = 18
+local FRAME_HEIGHT = 40
 
 local COLOR_TRACK_OFF = { 0.16, 0.16, 0.16, 1 }
 local COLOR_TRACK_ON = { I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b, 1 }
@@ -256,6 +261,14 @@ local function Constructor()
 		fill = fill,
 		knob = knob,
 		type = Type,
+		-- AceGUI's Flow layout aligns same-row controls by this offset (distance
+		-- from the frame's top to its visual center-line) instead of by frame
+		-- top, falling back to frameheight/2 when unset - that fallback (20) is
+		-- off from Dropdown-ElvUI's own alignoffset (26, the center of its box),
+		-- which is what pushed the dropdown down relative to the slider. This
+		-- is the center of our track (TRACK_TOP_OFFSET + TRACK_HEIGHT / 2 = 26),
+		-- matching it exactly.
+		alignoffset = TRACK_TOP_OFFSET + (TRACK_HEIGHT / 2),
 	}
 	for method, func in pairs(methods) do
 		widget[method] = func

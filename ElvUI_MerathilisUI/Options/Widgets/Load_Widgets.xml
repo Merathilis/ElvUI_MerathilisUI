@@ -2,5 +2,6 @@
 	<Script file='GradientPreview.lua' />
 	<Script file='ToggleSwitch.lua' />
 	<Script file='Slider.lua' />
+	<Script file='Dropdown.lua' />
 	<Script file='SectionHeader.lua' />
 </Ui>
