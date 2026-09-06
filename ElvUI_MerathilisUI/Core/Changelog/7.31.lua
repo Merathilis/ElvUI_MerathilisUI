@@ -16,6 +16,7 @@ MER.Changelog[731] = {
 		"[Options]: Added a custom dropdown widget matching the toggle-switch/slider style for select options, including LibSharedMedia font pickers (with font-preview list rows)",
 		"[Options]: Added a custom edit box widget matching the toggle-switch/slider/dropdown style for text input options",
 		"[Options]: Added a custom color picker widget matching the toggle-switch/slider/dropdown/edit box style for color options",
+		"[Options]: Added a custom button widget matching the toggle-switch/slider/dropdown/edit box/color picker style for execute options",
 	},
 	IMPROVEMENTS = {},
 }
