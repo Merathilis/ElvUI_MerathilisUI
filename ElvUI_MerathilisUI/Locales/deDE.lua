@@ -399,6 +399,7 @@ L["Gradient Bars"] = "Farbverlaufsleisten"
 L["Open Details"] = "Öffne Details"
 L["Frame Level"] = "Fensterebene"
 L["Frame Strata"] = "Fensterschicht"
+L["Weekly Rewards"] = "Wöchentliche Belohnungen"
 
 -- Panels
 L["Panels"] = "Leisten"

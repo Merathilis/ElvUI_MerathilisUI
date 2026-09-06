@@ -71,6 +71,12 @@ V.skins = {
 		damageMeter = {
 			enable = true,
 		},
+		weeklyRewards = {
+			font = {
+				size = 10,
+				style = "SHADOWOUTLINE",
+			},
+		},
 	},
 
 	embed = {

@@ -410,7 +410,7 @@ options.advancedSettings = {
 		damageMeter = {
 			order = 2,
 			type = "group",
-			name = E.NewSign .. L["Blizzard DamageMeter"],
+			name = L["Blizzard DamageMeter"],
 			get = function(info)
 				return E.private.mui.skins.blizzard.damageMeter[info[#info]]
 			end,
@@ -442,6 +442,40 @@ options.advancedSettings = {
 					type = "description",
 					name = " ",
 					width = "full",
+				},
+			},
+		},
+		weeklyRewards = {
+			order = 3,
+			type = "group",
+			name = E.NewSign .. L["Weekly Rewards"],
+			get = function(info)
+				return E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]]
+			end,
+			set = function(info, value)
+				E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]] = value
+				E:StaticPopup_Show("CONFIG_RL")
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(L["Weekly Rewards"], "orange"),
+				},
+				size = {
+					order = 1,
+					type = "range",
+					name = L["Size"],
+					min = 6,
+					max = 24,
+					step = 1,
+				},
+				style = {
+					order = 2,
+					type = "select",
+					name = L["Outline"],
+					values = MER.Values.FontFlags,
+					sortByValue = true,
 				},
 			},
 		},

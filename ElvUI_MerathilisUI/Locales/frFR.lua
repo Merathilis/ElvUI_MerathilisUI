@@ -864,6 +864,7 @@ L["Vigor bar texture for Dark Mode."] = "Vigor bar texture for Dark Mode."
 L["Vigor bar texture for Normal and Gradient Mode"] = "Vigor bar texture for Normal and Gradient Mode"
 L["WIM"] = "WIM"
 L["Weekly Delves Keys"] = "Weekly Delves Keys"
+L["Weekly Rewards"] = true
 L["Welcome to %s %s!"] = "Welcome to %s %s!"
 L["Welcome to version %s!"] = "Welcome to version %s!"
 L["WindTools"] = "WindTools"
