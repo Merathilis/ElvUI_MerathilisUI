@@ -126,7 +126,7 @@ options.unitframes = {
 						restingIndicator = {
 							order = 1,
 							type = "group",
-							name = F.cOption(L["Resting Indicator"], "orange"),
+							name = L["Resting Indicator"],
 							guiInline = true,
 							get = function(info)
 								return E.db.mui.unitframes.restingIndicator[info[#info]]

@@ -16,7 +16,7 @@ options.maps = {
 			order = 1,
 			type = "group",
 			guiInline = true,
-			name = F.cOption(L["Minimap Coordinates"], "orange"),
+			name = L["Minimap Coordinates"],
 			get = function(info)
 				return E.db.mui.miniMapCoords[info[#info]]
 			end,

@@ -13,3 +13,4 @@
 -   [Options]: Added a custom button widget matching the toggle-switch/slider/dropdown/edit box/color picker style for execute options
 -   [Options]: Restyled the tab strip on MerathilisUI's own tabbed category pages (e.g. Modules) to match the flat toggle-switch/slider/dropdown style
 -   [Options]: Restyled section headers to match the toggle-switch/tab accent style (solid underline, plain white text with a shadow instead of the orange gradient)
+-   [Options]: Inline group boxes on MerathilisUI's own options pages now default to plain white titles instead of Blizzard's yellow
