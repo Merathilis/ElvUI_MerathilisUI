@@ -33,13 +33,54 @@ local function SkinSideTab(tab)
 	end
 
 	tab:CreateBackdrop("Transparent")
-	tab.backdrop:SetAllPoints(tab)
+	tab.backdrop:SetInside(tab)
+end
+
+-- Side tabs dock against the panel's TOPRIGHT/BOTTOMRIGHT with a hardcoded
+-- SIDE_TAB_ANCHOR_X = -3 (Core/ClassCodex.lua, UI/AnchorPane.lua), slightly
+-- overlapping the panel edge by design. ElvUI's border/shadow around the
+-- panel eats into that 3px, so the tabs read as touching/overlapping it.
+-- ClassCodex re-applies that same hardcoded SetPoint on every relayout (tab
+-- switch, drag reorder, visibility update), which wipes a one-off correction,
+-- so hook SetPoint itself and re-add the extra gap on every call instead.
+local SIDE_TAB_FRAME_GAP = 4
+
+local function ApplySideTabFrameGap(tab, frame, point, relativeTo, relativePoint, xOfs, yOfs)
+	if relativeTo ~= frame or not relativePoint then
+		return
+	end
+
+	local direction = relativePoint:find("RIGHT") and 1 or (relativePoint:find("LEFT") and -1)
+	if not direction then
+		return
+	end
+
+	tab.MERGapAdjusting = true
+	tab:SetPoint(point, relativeTo, relativePoint, (xOfs or 0) + direction * SIDE_TAB_FRAME_GAP, yOfs or 0)
+	tab.MERGapAdjusting = false
+end
+
+local function HookSideTabGap(tab, frame)
+	if tab.MERGapHooked then
+		return
+	end
+	tab.MERGapHooked = true
+
+	ApplySideTabFrameGap(tab, frame, tab:GetPoint(1))
+
+	hooksecurefunc(tab, "SetPoint", function(self, point, relativeTo, relativePoint, xOfs, yOfs)
+		if self.MERGapAdjusting then
+			return
+		end
+		ApplySideTabFrameGap(self, frame, point, relativeTo, relativePoint, xOfs, yOfs)
+	end)
 end
 
 local function SkinSideTabs(parent)
 	for _, child in next, { parent:GetChildren() } do
 		if child.tabKey and child.bg then
 			SkinSideTab(child)
+			HookSideTabGap(child, parent)
 		end
 	end
 end
@@ -49,6 +90,13 @@ local function SkinFrame(frame)
 	WS:CreateShadow(frame)
 
 	SkinSideTabs(frame)
+
+	if not frame.MEROnShowHooked then
+		frame.MEROnShowHooked = true
+		-- Catches any side tab created/added after this initial pass (both
+		-- SkinSideTab and HookSideTabGap no-op on ones already handled).
+		frame:HookScript("OnShow", SkinSideTabs)
+	end
 end
 
 -- Several ClassCodex frames are only created on demand (Compendium on first
