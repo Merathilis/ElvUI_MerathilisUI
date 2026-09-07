@@ -38,31 +38,30 @@ end
 local pairs, unpack = pairs, unpack
 local hooksecurefunc = hooksecurefunc
 
-local COLOR_TAB = { 0.16, 0.16, 0.16, 1 }
-local COLOR_TAB_HOVER = { 0.22, 0.22, 0.22, 1 }
-
 local COLOR_TEXT_NORMAL = { 1, 1, 1 }
 local COLOR_TEXT_SELECTED = { I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b }
 local COLOR_TEXT_DISABLED = { 0.5, 0.5, 0.5 }
 
--- Stock tabs anchor 10px into each other on purpose (BuildTabs in
--- AceGUIContainer-TabGroup.lua: `tab:SetPoint("LEFT", tabs[tabno-1], "RIGHT",
--- -10, 0)`) - the curved Left/Right edge art was designed to interlock there
--- with no visible seam. Our flat rectangular fill has no such curve, so it's
--- inset BOX_INSET_X from the tab frame's own left/right edge instead of
--- covering it edge-to-edge - with 6px inset on both sides that leaves a small
--- gap (2 * inset - the 10px overlap) between neighboring tabs instead of them
--- visibly overlapping.
-local BOX_INSET_X = 6
-local BOX_INSET_Y = 2
+-- Tab frames get stretched to fill their row (BuildTabs in
+-- AceGUIContainer-TabGroup.lua distributes leftover row width as padding
+-- across the row's tabs - a lone tab in its own row, e.g. "Panels", ends up
+-- far wider than its label), so the underline can't just span the tab frame
+-- edge-to-edge like it used to. Sizing it off tab.Text's actual rendered
+-- width instead keeps it matched to the visible label regardless of how much
+-- the tab button itself got stretched.
+local UNDERLINE_PADDING = 8
 
 local function UpdateTabVisual(tab)
 	if not tab.merActive then
 		return
 	end
 
-	local hover = tab.merHover and not tab.disabled
-	tab.merFill:SetVertexColor(unpack(hover and COLOR_TAB_HOVER or COLOR_TAB))
+	if tab.Text then
+		tab.merUnderline:ClearAllPoints()
+		tab.merUnderline:SetPoint("BOTTOM", tab, "BOTTOM", 0, 0)
+		tab.merUnderline:SetWidth(tab.Text:GetStringWidth() + UNDERLINE_PADDING)
+	end
+
 	tab.merUnderline:SetShown(tab.selected and true or false)
 
 	if tab.disabled then
@@ -111,23 +110,10 @@ local function PrepareTab(tab)
 		Highlight = tab.HighlightTexture and tab.HighlightTexture:GetTexture(),
 	}
 
-	-- Textures directly on `tab` itself (not a separate child frame) at
-	-- "BACKGROUND"/"ARTWORK" draw layer - a *child frame*'s own regions always
-	-- render above its parent's regions regardless of draw layer (frame level
-	-- beats layer across frames), which is what made an earlier attempt with a
-	-- child "box" frame opaquely cover tab.Text. Same-frame draw layers don't
-	-- have that problem: BACKGROUND always renders below tab.Text's own layer.
-	local fill = tab:CreateTexture(nil, "BACKGROUND")
-	fill:SetPoint("TOPLEFT", tab, "TOPLEFT", BOX_INSET_X, -BOX_INSET_Y)
-	fill:SetPoint("BOTTOMRIGHT", tab, "BOTTOMRIGHT", -BOX_INSET_X, BOX_INSET_Y)
-	fill:SetColorTexture(1, 1, 1, 1)
-	fill:Hide()
-	tab.merFill = fill
-
 	local underline = tab:CreateTexture(nil, "ARTWORK")
 	underline:SetHeight(2)
-	underline:SetPoint("BOTTOMLEFT", fill, "BOTTOMLEFT", 2, 1)
-	underline:SetPoint("BOTTOMRIGHT", fill, "BOTTOMRIGHT", -2, 1)
+	underline:SetPoint("BOTTOMLEFT", tab, "BOTTOMLEFT", 0, 0)
+	underline:SetPoint("BOTTOMRIGHT", tab, "BOTTOMRIGHT", 0, 0)
 	underline:SetColorTexture(I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b, 1)
 	underline:Hide()
 	tab.merUnderline = underline
@@ -165,7 +151,6 @@ local function ApplyMerLook(tab)
 		tab.HighlightTexture:SetTexture(nil)
 	end
 
-	tab.merFill:Show()
 	UpdateTabVisual(tab)
 end
 
@@ -188,7 +173,6 @@ local function RestoreStockLook(tab)
 		end
 	end
 
-	tab.merFill:Hide()
 	tab.merUnderline:Hide()
 
 	-- tab.Text's color was set explicitly by our UpdateTabVisual and won't
