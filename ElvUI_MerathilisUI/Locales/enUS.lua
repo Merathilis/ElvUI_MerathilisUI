@@ -948,4 +948,20 @@ L["Enable Glow"] = true
 L["Glow Color"] = true
 L["Sounds"] = true
 L["Show Without Item"] = true
+
+-- Minimap Buttons
+L["Minimap Buttons"] = true
+L["Add Great Vault and M+ Portals buttons next to your Minimap."] = true
+L["Great Vault"] = true
+L["M+ Portals"] = true
+L["Raids"] = true
+L["World"] = true
+L["Top Left"] = true
+L["Top"] = true
+L["Top Right"] = true
+L["Left"] = true
+L["Right"] = true
+L["Bottom Left"] = true
+L["Bottom"] = true
+L["Bottom Right"] = true
 L["Keep showing a desaturated reminder icon even when you have none of the item left in your bags."] = true

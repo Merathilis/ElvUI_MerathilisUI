@@ -689,3 +689,20 @@ L["Keep showing a desaturated reminder icon even when you have none of the item 
 	"Zeigt weiterhin ein entsättigtes Erinnerungssymbol, auch wenn du keinen Gegenstand mehr in deinen Taschen hast."
 L["Scale"] = "Skalierung"
 L["Shield"] = "Schild"
+
+-- Minimap Buttons
+L["Minimap Buttons"] = "Minimap-Buttons"
+L["Add Great Vault and M+ Portals buttons next to your Minimap."] =
+	"Fügt Buttons für das Große Gewölbe und M+ Portale neben deiner Minimap hinzu."
+L["Great Vault"] = "Großes Gewölbe"
+L["M+ Portals"] = "M+ Portale"
+L["Raids"] = "Schlachtzüge"
+L["World"] = "Welt"
+L["Top Left"] = "Oben Links"
+L["Top"] = "Oben"
+L["Top Right"] = "Oben Rechts"
+L["Left"] = "Links"
+L["Right"] = "Rechts"
+L["Bottom Left"] = "Unten Links"
+L["Bottom"] = "Unten"
+L["Bottom Right"] = "Unten Rechts"

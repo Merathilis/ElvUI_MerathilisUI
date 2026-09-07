@@ -961,3 +961,19 @@ L["Stop Test"] = true
 L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."] = true
 L["Hide in Combat"] = true
 L["When disabled, reminders freeze in place during combat instead of disappearing."] = true
+
+-- Minimap Buttons
+L["Minimap Buttons"] = true
+L["Add Great Vault and M+ Portals buttons next to your Minimap."] = true
+L["Great Vault"] = true
+L["M+ Portals"] = true
+L["Raids"] = true
+L["World"] = true
+L["Top Left"] = true
+L["Top"] = true
+L["Top Right"] = true
+L["Left"] = true
+L["Right"] = true
+L["Bottom Left"] = true
+L["Bottom"] = true
+L["Bottom Right"] = true

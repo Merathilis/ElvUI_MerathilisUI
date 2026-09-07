@@ -811,6 +811,22 @@ P.miniMapCoords = {
 	},
 }
 
+P.minimapButtons = {
+	enable = true,
+	point = "BOTTOMLEFT",
+	xOffset = 51,
+	yOffset = -13,
+	size = 20,
+	spacing = 2,
+
+	greatVault = {
+		enable = true,
+	},
+	mplusPortals = {
+		enable = true,
+	},
+}
+
 P.nameplates = {}
 
 P.unitframes = {
