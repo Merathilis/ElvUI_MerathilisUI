@@ -6,7 +6,7 @@ local Type = "MERSlider"
 local Version = 1
 
 local floor, max = math.floor, math.max
-local tonumber, pairs, unpack = tonumber, pairs, unpack
+local tonumber, tostring, pairs, unpack = tonumber, tostring, pairs, unpack
 local CreateFrame, UIParent = CreateFrame, UIParent
 local GetCursorPosition = GetCursorPosition
 local IsMouseButtonDown = IsMouseButtonDown
@@ -25,6 +25,14 @@ local LABEL_HEIGHT = 16
 local TRACK_TOP_OFFSET = 18
 local FRAME_HEIGHT = 40
 
+-- Value readout, inline with the name label. Boxed like MEREditBox's input
+-- (same idle/hover backdrop treatment) but with no border drawn until the
+-- reader hovers/focuses it, so the row still reads as plain text at rest and
+-- only reveals itself as an editable field on interaction.
+local VALUE_GAP = 6
+local VALUE_BOX_WIDTH = 44
+local VALUE_TEXT_INSET = 3
+
 local COLOR_TRACK_OFF = { 0.16, 0.16, 0.16, 1 }
 local COLOR_TRACK_ON = { I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b, 1 }
 local COLOR_KNOB = { 0.92, 0.92, 0.92, 1 }
@@ -33,11 +41,11 @@ local COLOR_KNOB_DISABLED = { 0.55, 0.55, 0.55, 1 }
 local COLOR_TEXT_NORMAL = { 1, 1, 1 }
 local COLOR_TEXT_DISABLED = { 0.5, 0.5, 0.5 }
 
--- The value is rendered inline as part of the label string (see UpdateLabel)
--- instead of a separately-anchored FontString, so it always travels glued to
--- its own slider's name no matter how AceConfig sizes the surrounding column.
-local VALUE_HEX = E:RGBToHex(I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b)
-local VALUE_HEX_DISABLED = E:RGBToHex(unpack(COLOR_TEXT_DISABLED))
+local COLOR_VALUE_NORMAL = { I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b }
+local COLOR_VALUE_DISABLED = COLOR_TEXT_DISABLED
+
+local COLOR_VALUE_BOX_IDLE = { 0, 0, 0, 0 }
+local COLOR_VALUE_BOX_ACTIVE = { 0.16, 0.16, 0.16, 1 }
 
 local function Clamp(value, lo, hi)
 	if value < lo then
@@ -63,9 +71,29 @@ local function FormatValue(self)
 	return tostring(floor(value * 100 + 0.5) / 100)
 end
 
-local function UpdateLabel(self)
-	local hex = self.disabled and VALUE_HEX_DISABLED or VALUE_HEX
-	self.label:SetFormattedText("%s  %s%s|r", self.labelName or "", hex, FormatValue(self))
+-- Reverses FormatValue: turns whatever the reader typed back into the same
+-- units self.value is stored in (a 0-1 fraction for ispercent sliders, the
+-- literal number otherwise). Returns nil for anything that doesn't parse.
+local function ParseValue(self, text)
+	local num = tonumber((text or ""):match("^%s*(-?[%d%.]+)"))
+	if not num then
+		return nil
+	end
+	return self.ispercent and (num / 100) or num
+end
+
+local function UpdateValueBox(self)
+	if self.valueEditing then
+		return
+	end
+	self.valueEdit:SetTextColor(unpack(self.disabled and COLOR_VALUE_DISABLED or COLOR_VALUE_NORMAL))
+	self.valueEdit:SetText(FormatValue(self))
+	self.valueEdit:SetCursorPosition(0)
+end
+
+local function UpdateValueBoxVisual(self)
+	local highlighted = (self.valueHover or self.valueEditing) and not self.disabled
+	self.valueBox.backdrop:SetBackdropColor(unpack(highlighted and COLOR_VALUE_BOX_ACTIVE or COLOR_VALUE_BOX_IDLE))
 end
 
 -- Mirrors the on/off fill + knob styling from MERToggleSwitch so range options
@@ -95,7 +123,7 @@ local function UpdateVisual(self)
 	fill:SetVertexColor(unpack(COLOR_TRACK_ON))
 	knob.backdrop:SetBackdropColor(unpack(self.disabled and COLOR_KNOB_DISABLED or COLOR_KNOB))
 
-	UpdateLabel(self)
+	UpdateValueBox(self)
 end
 
 local function CommitValue(self, value, fireChanged)
@@ -173,8 +201,56 @@ local function Track_OnMouseWheel(track, delta)
 	CommitValue(self, (self.value or minValue) + (delta > 0 and step or -step), true)
 end
 
+local function ValueEdit_OnEnter(box)
+	local self = box.obj
+	self.valueHover = true
+	UpdateValueBoxVisual(self)
+end
+
+local function ValueEdit_OnLeave(box)
+	local self = box.obj
+	self.valueHover = nil
+	UpdateValueBoxVisual(self)
+end
+
+local function ValueEdit_OnEditFocusGained(box)
+	local self = box.obj
+	if self.disabled then
+		box:ClearFocus()
+		return
+	end
+
+	self.valueEditing = true
+	UpdateValueBoxVisual(self)
+	box:HighlightText()
+end
+
+local function ValueEdit_OnEditFocusLost(box)
+	local self = box.obj
+	self.valueEditing = nil
+	UpdateValueBoxVisual(self)
+
+	local value = ParseValue(self, box:GetText())
+	if value then
+		CommitValue(self, value, true)
+	else
+		UpdateValueBox(self)
+	end
+end
+
+local function ValueEdit_OnEnterPressed(box)
+	box:ClearFocus()
+end
+
+local function ValueEdit_OnEscapePressed(box)
+	box:SetText(FormatValue(box.obj))
+	box:ClearFocus()
+end
+
 local methods = {
 	["OnAcquire"] = function(self)
+		self.valueHover = nil
+		self.valueEditing = nil
 		self:SetLabel("")
 		self:SetDisabled(false)
 		self:SetIsPercent(nil)
@@ -182,11 +258,20 @@ local methods = {
 		self:SetValue(0)
 		self:SetWidth(200)
 		self:SetHeight(FRAME_HEIGHT)
+		UpdateValueBoxVisual(self)
+	end,
+
+	["OnRelease"] = function(self)
+		self.valueEdit:ClearFocus()
 	end,
 
 	["SetDisabled"] = function(self, disabled)
 		self.disabled = disabled
 		self.track:EnableMouse(not disabled)
+		self.valueEdit:EnableMouse(not disabled)
+		if disabled then
+			self.valueEdit:ClearFocus()
+		end
 		self.label:SetTextColor(unpack(disabled and COLOR_TEXT_DISABLED or COLOR_TEXT_NORMAL))
 		UpdateVisual(self)
 	end,
@@ -203,8 +288,7 @@ local methods = {
 	end,
 
 	["SetLabel"] = function(self, text)
-		self.labelName = text or ""
-		UpdateLabel(self)
+		self.label:SetText(text or "")
 	end,
 
 	["SetSliderValues"] = function(self, minValue, maxValue, step)
@@ -216,7 +300,7 @@ local methods = {
 
 	["SetIsPercent"] = function(self, flag)
 		self.ispercent = flag
-		UpdateLabel(self)
+		UpdateValueBox(self)
 	end,
 }
 
@@ -229,7 +313,6 @@ local function Constructor()
 	label:SetJustifyH("LEFT")
 	label:SetWordWrap(false)
 	label:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
-	label:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
 
 	local track = CreateFrame("Frame", nil, frame)
 	track:SetHeight(TRACK_HEIGHT)
@@ -254,12 +337,39 @@ local function Constructor()
 	knob:SetSize(KNOB_SIZE, KNOB_SIZE)
 	knob:CreateBackdrop("Transparent", nil, true)
 
+	-- Value readout sits inline right after the name label and doubles as an
+	-- editable field - click it (or tab into it) to type an exact value
+	-- instead of only dragging the track. Boxed the same way as MEREditBox's
+	-- input, but transparent until hovered/focused so it still reads as plain
+	-- text at rest.
+	local valueBox = CreateFrame("Frame", nil, frame)
+	valueBox:SetSize(VALUE_BOX_WIDTH, LABEL_HEIGHT)
+	valueBox:SetPoint("TOPLEFT", label, "TOPRIGHT", VALUE_GAP, 0)
+	valueBox:CreateBackdrop("Transparent", nil, true)
+
+	local valueEdit = CreateFrame("EditBox", nil, valueBox)
+	valueEdit:SetAutoFocus(false)
+	valueEdit:SetFontObject(GameFontHighlight)
+	valueEdit:SetJustifyH("LEFT")
+	valueEdit:SetTextInsets(0, 0, 0, 0)
+	valueEdit:SetMaxLetters(10)
+	valueEdit:SetPoint("TOPLEFT", valueBox, "TOPLEFT", VALUE_TEXT_INSET, 0)
+	valueEdit:SetPoint("BOTTOMRIGHT", valueBox, "BOTTOMRIGHT", -VALUE_TEXT_INSET, 0)
+	valueEdit:SetScript("OnEnter", ValueEdit_OnEnter)
+	valueEdit:SetScript("OnLeave", ValueEdit_OnLeave)
+	valueEdit:SetScript("OnEditFocusGained", ValueEdit_OnEditFocusGained)
+	valueEdit:SetScript("OnEditFocusLost", ValueEdit_OnEditFocusLost)
+	valueEdit:SetScript("OnEnterPressed", ValueEdit_OnEnterPressed)
+	valueEdit:SetScript("OnEscapePressed", ValueEdit_OnEscapePressed)
+
 	local widget = {
 		frame = frame,
 		label = label,
 		track = track,
 		fill = fill,
 		knob = knob,
+		valueBox = valueBox,
+		valueEdit = valueEdit,
 		type = Type,
 		-- AceGUI's Flow layout aligns same-row controls by this offset (distance
 		-- from the frame's top to its visual center-line) instead of by frame
@@ -275,6 +385,7 @@ local function Constructor()
 	end
 
 	track.obj = widget
+	valueEdit.obj = widget
 
 	track:EnableMouse(true)
 	track:EnableMouseWheel(true)
