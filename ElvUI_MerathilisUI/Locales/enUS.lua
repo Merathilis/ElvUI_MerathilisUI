@@ -964,4 +964,5 @@ L["Right"] = true
 L["Bottom Left"] = true
 L["Bottom"] = true
 L["Bottom Right"] = true
+L["Housing Dashboard"] = true
 L["Keep showing a desaturated reminder icon even when you have none of the item left in your bags."] = true

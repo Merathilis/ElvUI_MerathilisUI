@@ -977,3 +977,4 @@ L["Right"] = true
 L["Bottom Left"] = true
 L["Bottom"] = true
 L["Bottom Right"] = true
+L["Housing Dashboard"] = true
