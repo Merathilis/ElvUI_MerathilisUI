@@ -153,7 +153,7 @@ options.general = {
 options.gameMenu = {
 	order = 2,
 	type = "group",
-	name = E.NewSign .. L["Game Menu"],
+	name = L["Game Menu"],
 	get = function(info)
 		return E.db.mui.gameMenu[info[#info]]
 	end,
@@ -176,7 +176,7 @@ options.gameMenu = {
 		showRandomPets = {
 			order = 2,
 			type = "toggle",
-			name = E.NewSign .. L["Show Random Pets"],
+			name = L["Show Random Pets"],
 			desc = L["Shows random battle pets"],
 		},
 		bgColor = {
