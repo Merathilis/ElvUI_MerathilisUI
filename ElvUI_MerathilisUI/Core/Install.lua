@@ -32,8 +32,6 @@ local function InstallComplete(fishished)
 	E.db.mui.core.installed = true
 	E.private.mui.general.install_complete = MER.Version
 
-	MERDataPerChar = MER.Version
-
 	if fishished then
 		E.db.mui.core.lastLayoutVersion = MER.DisplayVersion
 		IsInstalled = true

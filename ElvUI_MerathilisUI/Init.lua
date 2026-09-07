@@ -131,11 +131,6 @@ MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
 
-MER.Libs = {
-	-- Ace
-	ADB = LibStub("AceDB-3.0"),
-}
-
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()
 	E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "mui")
@@ -181,7 +176,6 @@ function MER:Initialize()
 	self.initialized = true
 
 	self:UpdateScripts()
-	self:InitializeDatabase() -- New Ace3DB uses SavedVariables MERData
 	self:AddMoverCategories()
 
 	EP:RegisterPlugin(addon, function()
