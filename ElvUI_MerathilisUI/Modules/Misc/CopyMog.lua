@@ -112,9 +112,16 @@ local function GetTransmogInfo(slotID, sourceID)
 		return
 	end
 
+	local itemLink = sourceInfo.itemID and select(2, GetItemInfo(sourceInfo.itemID))
+	if not itemLink then
+		local r, g, b = E:GetItemQualityColor(sourceInfo.quality)
+		itemLink = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, sourceInfo.name)
+	end
+
 	return {
 		["SlotID"] = slotID,
 		["Name"] = sourceInfo.name,
+		["Link"] = itemLink,
 		["Source"] = GenerateSource(sourceID, sourceInfo.sourceType, sourceInfo.itemModID, sourceInfo.quality),
 	}
 end
@@ -172,7 +179,7 @@ function module:CopyMog_UpdateItemText(transmogInfoList)
 	local texts = ""
 	for _, info in ipairs(textFrame.itemList) do
 		if info.Name and info.Name ~= "" then
-			texts = texts .. "|cFFFFD100" .. SlotIDtoName[info.SlotID] .. ":|r " .. info.Name
+			texts = texts .. "|cFFFFD100" .. SlotIDtoName[info.SlotID] .. ":|r " .. (info.Link or info.Name)
 			if info.Source and info.Source ~= "" then
 				texts = texts .. " |cFF40C7EB(" .. info.Source .. ")|r|r"
 			end
@@ -249,8 +256,20 @@ function module:CopyMog_CreateTextFrame()
 	editBox:FontTemplate(nil, 14, "OUTLINE")
 	editBox:SetWidth(scrollArea:GetWidth())
 	editBox:SetHeight(scrollArea:GetHeight())
+	editBox:SetHyperlinksEnabled(true)
 	editBox:SetScript("OnEscapePressed", function()
 		textFrame:Hide()
+	end)
+	editBox:SetScript("OnHyperlinkClick", function(self, link, text, button)
+		SetItemRef(link, text, button, self)
+	end)
+	editBox:SetScript("OnHyperlinkEnter", function(self, link)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+		_G.GameTooltip:SetHyperlink(link)
+		_G.GameTooltip:Show()
+	end)
+	editBox:SetScript("OnHyperlinkLeave", function()
+		_G.GameTooltip:Hide()
 	end)
 	scrollArea:SetScrollChild(editBox)
 	textFrame.EditBox = editBox
@@ -259,12 +278,24 @@ function module:CopyMog_CreateTextFrame()
 end
 
 local function CreateCopyButton(parent)
-	local button = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-	button:SetSize(50, 20)
-	button:SetText(L["Transmog"])
-	button.Text:FontTemplate(nil, 12, "OUTLINE")
-	button.Text:SetTextColor(F.r, F.g, F.b)
-	S:HandleButton(button)
+	local button = CreateFrame("Button", nil, parent)
+	button:SetSize(20, 20)
+
+	button.Icon = button:CreateTexture(nil, "ARTWORK")
+	button.Icon:SetAllPoints()
+	button.Icon:SetTexture([[Interface\Buttons\UI-GuildButton-PublicNote-Up]])
+	button.Icon:SetDesaturated(true)
+	button.Icon:SetVertexColor(1, 1, 1)
+	S:HandleIcon(button.Icon)
+
+	button:SetHighlightTexture(0)
+	local highlight = button:GetHighlightTexture()
+	highlight:SetColorTexture(1, 1, 1, 0.25)
+	highlight:SetAllPoints(button.Icon)
+
+	button.title = MER.Title
+	F.AddTooltip(button, "ANCHOR_RIGHT", L["Copy Transmog"], "info")
+
 	parent.CopyButton = button
 
 	return button
