@@ -46,7 +46,7 @@ end
 
 options.cursor = {
 	type = "group",
-	name = module:AddCategorieIcon(L["Cursor"], "Tool"),
+	name = module:AddCategorieIcon(E.NewSign .. L["Cursor"], "Tool"),
 	args = {
 		header = {
 			order = 0,
