@@ -19,6 +19,7 @@ local C_ChallengeMode = C_ChallengeMode
 local C_Container = C_Container
 local C_Item = C_Item
 local C_ToyBox = C_ToyBox
+local C_Timer = C_Timer
 local Enum = Enum
 
 local Minimap = _G.Minimap
@@ -110,19 +111,54 @@ local function ToggleGreatVault()
 	end
 end
 
--- Pulses the icon's alpha while at least one weekly reward is ready to claim.
+-- Pulses the icon's alpha and grows the whole button while at least one weekly reward is ready to claim.
 local function UpdateGreatVaultPulse(btn)
-	local hasRewards = C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards and C_WeeklyRewards.HasAvailableRewards()
+	local hasRewards = btn.testPulse or (C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards and C_WeeklyRewards.HasAvailableRewards())
 
 	if hasRewards then
 		if not btn.PulseGroup:IsPlaying() then
 			btn.PulseGroup:Play()
 		end
-	elseif btn.PulseGroup:IsPlaying() then
-		btn.PulseGroup:Stop()
-		btn.Icon:SetAlpha(1)
+		if not btn.ScaleGroup:IsPlaying() then
+			btn.ScaleGroup:Play()
+		end
+	else
+		if btn.PulseGroup:IsPlaying() then
+			btn.PulseGroup:Stop()
+			btn.Icon:SetAlpha(1)
+		end
+		if btn.ScaleGroup:IsPlaying() then
+			btn.ScaleGroup:Stop()
+			btn:SetScale(1)
+		end
 	end
 end
+
+local TEST_PULSE_DURATION = 5
+
+-- Lets users preview the pulse animation from the options without waiting for an actual reward.
+function module:TestGreatVaultPulse()
+	local btn = self.greatVaultButton
+	if not btn then
+		return
+	end
+
+	if self.testPulseTimer then
+		self.testPulseTimer:Cancel()
+	end
+
+	btn.testPulse = true
+	UpdateGreatVaultPulse(btn)
+
+	self.testPulseTimer = C_Timer.NewTimer(TEST_PULSE_DURATION, function()
+		btn.testPulse = nil
+		self.testPulseTimer = nil
+		UpdateGreatVaultPulse(btn)
+	end)
+end
+
+local PULSE_DURATION = 0.8
+local PULSE_MAX_SCALE = 1.35
 
 local function CreateGreatVaultButton(parent)
 	local btn = CreateFrame("Button", "MER_MinimapGreatVaultButton", parent)
@@ -140,9 +176,20 @@ local function CreateGreatVaultButton(parent)
 	local pulseAlpha = pulse:CreateAnimation("Alpha")
 	pulseAlpha:SetFromAlpha(1)
 	pulseAlpha:SetToAlpha(0.35)
-	pulseAlpha:SetDuration(0.8)
+	pulseAlpha:SetDuration(PULSE_DURATION)
 	pulseAlpha:SetSmoothing("IN_OUT")
 	btn.PulseGroup = pulse
+
+	-- Grows the whole button so the pulse reads at a glance.
+	local scaleGroup = btn:CreateAnimationGroup()
+	scaleGroup:SetLooping("BOUNCE")
+	local scaleAnim = scaleGroup:CreateAnimation("Scale")
+	scaleAnim:SetOrigin("CENTER", 0, 0)
+	scaleAnim:SetScaleFrom(1, 1)
+	scaleAnim:SetScaleTo(PULSE_MAX_SCALE, PULSE_MAX_SCALE)
+	scaleAnim:SetDuration(PULSE_DURATION)
+	scaleAnim:SetSmoothing("IN_OUT")
+	btn.ScaleGroup = scaleGroup
 
 	btn:SetScript("OnEnter", function(self)
 		self.Icon:SetVertexColor(1, 1, 1)

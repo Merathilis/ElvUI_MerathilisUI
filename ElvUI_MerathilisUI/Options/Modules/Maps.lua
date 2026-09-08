@@ -5,7 +5,7 @@ local options = module.options.modules.args
 
 options.maps = {
 	type = "group",
-	name = module:AddCategorieIcon(L["Maps"], "maps"),
+	name = module:AddCategorieIcon(E.NewSign .. L["Maps"], "maps"),
 	args = {
 		header = {
 			order = 0,
@@ -129,7 +129,7 @@ options.maps = {
 			order = 2,
 			type = "group",
 			guiInline = true,
-			name = L["Minimap Buttons"],
+			name = E.NewSign .. L["Minimap Buttons"],
 			get = function(info)
 				return E.db.mui.minimapButtons[info[#info]]
 			end,
@@ -186,13 +186,25 @@ options.maps = {
 						F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
 					end,
 				},
-				spacer2 = {
+				testGreatVaultPulse = {
 					order = 5,
+					type = "execute",
+					name = L["Test Pulse"],
+					desc = L["Briefly plays the Great Vault button's pulse animation, even without any unclaimed rewards."],
+					func = function()
+						MER:GetModule("MER_MinimapButtons"):TestGreatVaultPulse()
+					end,
+					disabled = function()
+						return not E.db.mui.minimapButtons.greatVault.enable
+					end,
+				},
+				spacer2 = {
+					order = 6,
 					type = "description",
 					name = "",
 				},
 				point = {
-					order = 6,
+					order = 7,
 					type = "select",
 					name = L["Anchor Point"],
 					values = {
@@ -207,7 +219,7 @@ options.maps = {
 					},
 				},
 				size = {
-					order = 7,
+					order = 8,
 					type = "range",
 					name = L["Size"],
 					min = 14,
@@ -215,7 +227,7 @@ options.maps = {
 					step = 1,
 				},
 				spacing = {
-					order = 8,
+					order = 9,
 					type = "range",
 					name = L["Spacing"],
 					min = 0,
@@ -223,7 +235,7 @@ options.maps = {
 					step = 1,
 				},
 				xOffset = {
-					order = 9,
+					order = 10,
 					type = "range",
 					name = L["X-Offset"],
 					min = -100,
@@ -231,7 +243,7 @@ options.maps = {
 					step = 1,
 				},
 				yOffset = {
-					order = 10,
+					order = 11,
 					type = "range",
 					name = L["Y-Offset"],
 					min = -100,
