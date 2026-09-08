@@ -560,7 +560,7 @@ StaticPopupDialogs["RESET_DETAILS"] = {
 	button1 = YES,
 	button2 = NO,
 	OnAccept = function()
-		module:ResetDetailsAnchor(true)
+		module:ResetEmbedDefaults()
 	end,
 	whileDead = 1,
 }

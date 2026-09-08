@@ -1,18 +1,20 @@
 ### Changes
 
--   [Skins]: Fixed the Details Embed Width and Height options doing nothing
--   [BuffReminder]: Fixed group buff coverage checks failing when aura data was masked as a secret value
--   [Armory]: Fixed a tonumber error when looking up gem IDs in the Socket Panel
--   [Skins]: Fixed the WowLua skin never applying due to a wrong addon-load callback name
--   [Core]: Fixed clicking the changelog chat link doing nothing
--   [Skins]: Added a Number of Windows option to the Details Embed system
--   [Skins]: Added a Class Codex skin
--   [Skins]: Updated the Weekly Rewards skin
--   [BuffReminder]: Match weapon enchants by key instead of name
--   [Core]: Removed the unfinished module compatibility-check popup
--   [Core]: Cleaned up dead and unused code across Skins, Options, and Core modules
--   [Armory]: Skip the title search box when Plumber's PlayerTitleUI search is enabled
--   [Skins]: Restored the category dividers on the Weekly Rewards frame
--   [Armory]: Fixed the equipped item quality gradient restarting mid-animation (and often not visibly growing in) when the average item level recalculates after opening the character frame
--   [Options]: Added sliding toggle switches and restyled section headers to the options window
--   [Options]: Removed the redundant title header from the options window
+-   [Options]: Fixed toggle switches going blank and staying that way after changing an option that requires a UI reload
+-   [Options]: Fixed the options window losing its styled/opaque background when MerathilisUI Style is disabled
+-   [Options]: Fixed the selected-category highlight (ElvUI's own and skin overlays like WindTools') losing its color in the options window after toggling MerathilisUI Style
+-   [Skins]: Fixed ClassCodex's side tabs overlapping/touching the panel border
+-   [Options]: Module "Enable" toggle switches now color their label green/red to reflect the on/off state
+-   [Skins]: Added font size/outline options for the Weekly Rewards (Great Vault) skin (#124)
+-   [Options]: Added a custom slider widget matching the toggle-switch style for range options
+-   [Options]: Added a custom dropdown widget matching the toggle-switch/slider style for select options, including LibSharedMedia font pickers (with font-preview list rows)
+-   [Options]: Added a custom edit box widget matching the toggle-switch/slider/dropdown style for text input options
+-   [Options]: Added a custom color picker widget matching the toggle-switch/slider/dropdown/edit box style for color options
+-   [Options]: Added a custom button widget matching the toggle-switch/slider/dropdown/edit box/color picker style for execute options
+-   [Options]: Restyled the tab strip on MerathilisUI's own tabbed category pages (e.g. Modules) to match the flat toggle-switch/slider/dropdown style
+-   [Options]: Restyled section headers to match the toggle-switch/tab accent style (solid underline, plain white text with a shadow instead of the orange gradient)
+-   [Options]: Inline group boxes on MerathilisUI's own options pages now default to plain white titles instead of Blizzard's yellow
+-   [Maps]: Added Great Vault and M+ Portals minimap buttons, ported from EllesmereUI (M+ Portals flyout includes the Hearthstone/Dalaran Hearthstone/Housing Dashboard row)
+-   [Install]: Moved the default Debuffs mover further left so it no longer overlaps the new minimap buttons
+-   [Cursor]: Added a new Cursor module - a colored ring around your mouse cursor with an optional trail, GCD ring and cast-time ring (with spark), each with class-color/custom-color, instance-only, combat-only and camera-steering-only options
+-   [Skins]: Details Embed Settings now let you set width/height per window instead of one size for all of them

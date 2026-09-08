@@ -5,10 +5,12 @@ local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 local Type = "MERSectionHeader"
 local Version = 1
 
-local pairs = pairs
+local pairs, unpack = pairs, unpack
 local CreateFrame, UIParent = CreateFrame, UIParent
 
 local ACCENT_WIDTH = 340
+
+local COLOR_TEXT = { 1, 1, 1 }
 
 --[[-----------------------------------------------------------------------------
 Methods
@@ -21,9 +23,15 @@ local methods = {
 	end,
 
 	["SetText"] = function(self, text)
-		-- Visual restyle only - text is passed through unmodified so any embedded
-		-- WoW color escape codes (e.g. from F.cOption) keep working.
-		self.label:SetText(text or "")
+		-- Callers mostly pass headers through F.cOption(..., "gradient") for an
+		-- orange-to-white gradient, which is embedded as |c...|r escape codes
+		-- and would otherwise override SetTextColor - clashing with the rest
+		-- of the widget family, which never colors label text, only accents
+		-- (knob/arrow/fill/underline). Strip those codes so headers read in
+		-- the same plain white as everything else.
+		text = text or ""
+		text = text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+		self.label:SetText(text)
 	end,
 }
 
@@ -40,15 +48,16 @@ local function Constructor()
 	label:SetHeight(20)
 	label:SetJustifyH("LEFT")
 	label:SetFont(F.GetFontPath(), 15, "")
-	label:SetTextColor(0.62, 0.62, 0.65)
+	label:SetTextColor(unpack(COLOR_TEXT))
+	label:SetShadowColor(0, 0, 0, 1)
+	label:SetShadowOffset(2, -2)
 
-	-- Short, subtle accent underline below the label - not a full-width bar
+	-- Short, solid accent underline below the label - flat like the rest of
+	-- the widget family (MERToggleSwitch/MERSlider/etc.), not a fading glow.
 	local underline = frame:CreateTexture(nil, "ARTWORK")
 	underline:SetSize(ACCENT_WIDTH, 2)
 	underline:SetPoint("TOPLEFT", label, "BOTTOMLEFT", 0, -5)
-	underline:SetBlendMode("ADD")
-	underline:SetColorTexture(1, 1, 1, 1)
-	F.Color.SetGradientRGB(underline, "HORIZONTAL", I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b, 0.5, I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b, 0)
+	underline:SetColorTexture(I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b, 1)
 
 	local widget = {
 		label = label,

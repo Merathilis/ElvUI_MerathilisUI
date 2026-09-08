@@ -811,6 +811,22 @@ P.miniMapCoords = {
 	},
 }
 
+P.minimapButtons = {
+	enable = true,
+	point = "BOTTOMLEFT",
+	xOffset = 52,
+	yOffset = -13,
+	size = 20,
+	spacing = 2,
+
+	greatVault = {
+		enable = true,
+	},
+	mplusPortals = {
+		enable = true,
+	},
+}
+
 P.nameplates = {}
 
 P.unitframes = {
@@ -1372,5 +1388,48 @@ P.lootSpecManager = {
 		LFR = {},
 		Heroic = {},
 		Normal = {},
+	},
+}
+
+P.cursor = {
+	enable = false, -- master switch for the whole module
+
+	ring = {
+		enable = true,
+		useClassColor = true,
+		color = { r = 0.047, g = 0.824, b = 0.616 },
+		radius = 14,
+		alpha = 1,
+		reticle = false,
+		instanceOnly = false,
+		combatOnly = false,
+		onlyWhenHidden = false,
+	},
+
+	trail = {
+		enable = false,
+	},
+
+	gcd = {
+		enable = false,
+		attached = true,
+		radius = 21,
+		alpha = 0.8,
+		useClassColor = false,
+		color = { r = 1, g = 1, b = 1 },
+		instanceOnly = false,
+		combatOnly = false,
+	},
+
+	castCircle = {
+		enable = false,
+		attached = true,
+		radius = 30,
+		alpha = 0.8,
+		useClassColor = true,
+		color = { r = 0.247, g = 0.655, b = 1 },
+		sparkEnable = true,
+		instanceOnly = false,
+		combatOnly = false,
 	},
 }

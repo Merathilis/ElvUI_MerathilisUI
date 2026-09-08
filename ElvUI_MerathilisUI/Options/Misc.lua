@@ -74,20 +74,20 @@ options.general = {
 		auctionEnhanced = {
 			order = 10,
 			type = "toggle",
-			name = E.NewSign .. L["Auction Enhanced"],
+			name = L["Auction Enhanced"],
 			desc = L["Show the tertiary stats of equipments in auction house."],
 		},
 		lootSpecManager = {
 			order = 40,
 			type = "group",
-			name = E.NewSign .. L["LootSpecManager"],
+			name = L["LootSpecManager"],
 			desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
 			inline = true,
-			get = function()
-				return E.db.mui.lootSpecManager
+			get = function(info)
+				return E.db.mui.lootSpecManager[info[#info]]
 			end,
-			set = function(_, value)
-				E.db.mui.lootSpecManager = value
+			set = function(info, value)
+				E.db.mui.lootSpecManager[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
@@ -153,7 +153,7 @@ options.general = {
 options.gameMenu = {
 	order = 2,
 	type = "group",
-	name = E.NewSign .. L["Game Menu"],
+	name = L["Game Menu"],
 	get = function(info)
 		return E.db.mui.gameMenu[info[#info]]
 	end,
@@ -176,7 +176,7 @@ options.gameMenu = {
 		showRandomPets = {
 			order = 2,
 			type = "toggle",
-			name = E.NewSign .. L["Show Random Pets"],
+			name = L["Show Random Pets"],
 			desc = L["Shows random battle pets"],
 		},
 		bgColor = {
@@ -296,7 +296,7 @@ options.scale = {
 		characterGroup = {
 			order = 3,
 			type = "group",
-			name = F.cOption(L["Character"], "orange"),
+			name = L["Character"],
 			guiInline = true,
 			hidden = function()
 				return not E.db.mui.scale.enable
@@ -373,7 +373,7 @@ options.scale = {
 		otherGroup = {
 			order = 5,
 			type = "group",
-			name = F.cOption(L["Other"], "orange"),
+			name = L["Other"],
 			desc = L["Scale other frames.\n\n"],
 			guiInline = true,
 			hidden = function()
@@ -705,7 +705,7 @@ options.raidInfo = {
 		credits = {
 			order = 1,
 			type = "group",
-			name = F.cOption(L["Credits"], "orange"),
+			name = L["Credits"],
 			guiInline = true,
 			args = {
 				toxiui = {
@@ -736,7 +736,7 @@ options.raidInfo = {
 		customization = {
 			order = 4,
 			type = "group",
-			name = F.cOption(L["Customization"], "orange"),
+			name = L["Customization"],
 			guiInline = true,
 			disabled = function()
 				return not E.db.mui.misc.raidInfo.enable

@@ -5,7 +5,7 @@ local options = module.options.modules.args
 
 options.maps = {
 	type = "group",
-	name = module:AddCategorieIcon(L["Maps"], "maps"),
+	name = module:AddCategorieIcon(E.NewSign .. L["Maps"], "maps"),
 	args = {
 		header = {
 			order = 0,
@@ -16,7 +16,7 @@ options.maps = {
 			order = 1,
 			type = "group",
 			guiInline = true,
-			name = F.cOption(L["Minimap Coordinates"], "orange"),
+			name = L["Minimap Coordinates"],
 			get = function(info)
 				return E.db.mui.miniMapCoords[info[#info]]
 			end,
@@ -122,6 +122,133 @@ options.maps = {
 							end,
 						},
 					},
+				},
+			},
+		},
+		minimapButtons = {
+			order = 2,
+			type = "group",
+			guiInline = true,
+			name = E.NewSign .. L["Minimap Buttons"],
+			get = function(info)
+				return E.db.mui.minimapButtons[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.minimapButtons[info[#info]] = value
+				F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
+			end,
+			args = {
+				desc = {
+					order = 0,
+					type = "group",
+					inline = true,
+					name = L["Description"],
+					args = {
+						feature = {
+							order = 1,
+							type = "description",
+							name = L["Add Great Vault and M+ Portals buttons next to your Minimap."],
+							fontSize = "medium",
+						},
+					},
+				},
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				spacer = {
+					order = 2,
+					type = "description",
+					name = "",
+				},
+				greatVaultEnable = {
+					order = 3,
+					type = "toggle",
+					name = L["Great Vault"],
+					get = function()
+						return E.db.mui.minimapButtons.greatVault.enable
+					end,
+					set = function(_, value)
+						E.db.mui.minimapButtons.greatVault.enable = value
+						F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
+					end,
+				},
+				mplusPortalsEnable = {
+					order = 4,
+					type = "toggle",
+					name = L["M+ Portals"],
+					get = function()
+						return E.db.mui.minimapButtons.mplusPortals.enable
+					end,
+					set = function(_, value)
+						E.db.mui.minimapButtons.mplusPortals.enable = value
+						F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
+					end,
+				},
+				testGreatVaultPulse = {
+					order = 5,
+					type = "execute",
+					name = L["Test Pulse"],
+					desc = L["Briefly plays the Great Vault button's pulse animation, even without any unclaimed rewards."],
+					func = function()
+						MER:GetModule("MER_MinimapButtons"):TestGreatVaultPulse()
+					end,
+					disabled = function()
+						return not E.db.mui.minimapButtons.greatVault.enable
+					end,
+				},
+				spacer2 = {
+					order = 6,
+					type = "description",
+					name = "",
+				},
+				point = {
+					order = 7,
+					type = "select",
+					name = L["Anchor Point"],
+					values = {
+						TOPLEFT = L["Top Left"],
+						TOP = L["Top"],
+						TOPRIGHT = L["Top Right"],
+						LEFT = L["Left"],
+						RIGHT = L["Right"],
+						BOTTOMLEFT = L["Bottom Left"],
+						BOTTOM = L["Bottom"],
+						BOTTOMRIGHT = L["Bottom Right"],
+					},
+				},
+				size = {
+					order = 8,
+					type = "range",
+					name = L["Size"],
+					min = 14,
+					max = 40,
+					step = 1,
+				},
+				spacing = {
+					order = 9,
+					type = "range",
+					name = L["Spacing"],
+					min = 0,
+					max = 20,
+					step = 1,
+				},
+				xOffset = {
+					order = 10,
+					type = "range",
+					name = L["X-Offset"],
+					min = -100,
+					max = 100,
+					step = 1,
+				},
+				yOffset = {
+					order = 11,
+					type = "range",
+					name = L["Y-Offset"],
+					min = -100,
+					max = 100,
+					step = 1,
 				},
 			},
 		},

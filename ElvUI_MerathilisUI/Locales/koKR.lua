@@ -412,6 +412,7 @@ L["Embed Settings"] = "내장 설정"
 L["With this option you can embed your Details into an own Panel."] =
 	"이 옵션으로 'Details' 애드온을 별도 패널에 내장할 수 있습니다"
 L["Number of Windows"] = "창 개수"
+L["Window %d"] = true
 L["Reset Settings"] = "설정 초기화"
 L["Toggle Direction"] = "방향 전환"
 L["TOP"] = "상단"
@@ -943,6 +944,7 @@ L["Vigor bar texture for Dark Mode."] = "Vigor bar texture for Dark Mode."
 L["Vigor bar texture for Normal and Gradient Mode"] = "Vigor bar texture for Normal and Gradient Mode"
 L["WIM"] = "WIM"
 L["Weekly Delves Keys"] = "Weekly Delves Keys"
+L["Weekly Rewards"] = true
 L["Welcome to %s %s!"] = "Welcome to %s %s!"
 L["Welcome to version %s!"] = "Welcome to version %s!"
 L["WindTools"] = "WindTools"
@@ -1025,3 +1027,41 @@ L["Stop Test"] = true
 L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."] = true
 L["Hide in Combat"] = true
 L["When disabled, reminders freeze in place during combat instead of disappearing."] = true
+
+-- Minimap Buttons
+L["Minimap Buttons"] = true
+L["Add Great Vault and M+ Portals buttons next to your Minimap."] = true
+L["Great Vault"] = true
+L["M+ Portals"] = true
+L["Raids"] = true
+L["World"] = true
+L["Test Pulse"] = true
+L["Briefly plays the Great Vault button's pulse animation, even without any unclaimed rewards."] = true
+L["Top Left"] = true
+L["Top"] = true
+L["Top Right"] = true
+L["Left"] = true
+L["Right"] = true
+L["Bottom Left"] = true
+L["Bottom"] = true
+L["Bottom Right"] = true
+L["Housing Dashboard"] = true
+
+-- Cursor
+L["Cursor"] = true
+L["Cursor Ring"] = true
+L["Cursor Trail"] = true
+L["GCD Ring"] = true
+L["Cast Ring"] = true
+L["Cursor GCD Ring"] = true
+L["Cursor Cast Ring"] = true
+L["Show a colored ring around your mouse cursor, with an optional trail, GCD ring and cast-time ring."] = true
+L["Use Class Color"] = true
+L["Radius"] = true
+L["Show Center Dot"] = true
+L["Show Spark"] = true
+L["Attach to Cursor"] = true
+L["Only In Instances"] = true
+L["Only In Combat"] = true
+L["Only While Steering Camera"] = true
+L["Only show the ring while you're holding a mouse button to turn or move the camera (the hardware cursor is hidden)."] = true

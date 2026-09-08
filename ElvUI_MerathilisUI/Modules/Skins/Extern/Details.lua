@@ -99,19 +99,44 @@ end
 
 local WINDOW_BASE_Y = 49
 local WINDOW_GAP = 20
+local MAX_WINDOWS = 5
+local DEFAULT_WIDTH = 340
+local DEFAULT_HEIGHT = 144
 
-local function GetEmbedConfig()
+local function MigrateEmbedSizes()
 	local db = E.private.mui.skins.embed
-	return db.width or 340, db.height or 96, db.windows or 3
+	if not (db.width or db.height) then
+		return
+	end
+
+	local width, height = db.width or DEFAULT_WIDTH, db.height or DEFAULT_HEIGHT
+	db.sizes = db.sizes or {}
+	for index = 1, MAX_WINDOWS do
+		db.sizes[index] = db.sizes[index] or {}
+		db.sizes[index].width = db.sizes[index].width or width
+		db.sizes[index].height = db.sizes[index].height or height
+	end
+
+	db.width = nil
+	db.height = nil
 end
 
 local function GetEmbedWindowCount()
-	local _, _, windows = GetEmbedConfig()
-	return windows
+	return E.private.mui.skins.embed.windows or 1
 end
 
-local function GetWindowOffset(index, height)
-	return WINDOW_BASE_Y + (index - 1) * (height + WINDOW_GAP)
+local function GetEmbedWindowSize(index)
+	local size = E.private.mui.skins.embed.sizes and E.private.mui.skins.embed.sizes[index]
+	return (size and size.width) or DEFAULT_WIDTH, (size and size.height) or DEFAULT_HEIGHT
+end
+
+local function GetWindowOffset(index)
+	local offset = WINDOW_BASE_Y
+	for i = 1, index - 1 do
+		local _, height = GetEmbedWindowSize(i)
+		offset = offset + height + WINDOW_GAP
+	end
+	return offset
 end
 
 local function SetupInstance(instance)
@@ -181,19 +206,33 @@ function module:ResetDetailsAnchor(force)
 		return instance1
 	end
 
-	local width, height, windows = GetEmbedConfig()
+	local windows = GetEmbedWindowCount()
 
 	for index = 1, windows do
 		local instance = Details:GetInstance(index)
 		if instance then
-			EmbedWindow(instance, -3, GetWindowOffset(index, height), width, height)
+			local width, height = GetEmbedWindowSize(index)
+			EmbedWindow(instance, -3, GetWindowOffset(index), width, height)
 		end
 	end
 
 	return instance1
 end
 
+function module:ResetEmbedDefaults()
+	local db = E.private.mui.skins.embed
+	db.windows = 1
+	db.sizes = {}
+	for index = 1, MAX_WINDOWS do
+		db.sizes[index] = { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT }
+	end
+
+	self:ResetDetailsAnchor(true)
+end
+
 local function ReskinDetails()
+	MigrateEmbedSizes()
+
 	local windows = GetEmbedWindowCount()
 
 	Details.tabela_instancias = Details.tabela_instancias or {}
@@ -217,8 +256,8 @@ local function ReskinDetails()
 			if not instance.skinned then
 				local id = instance:GetId()
 				if id > 1 and id <= GetEmbedWindowCount() then
-					local width, height = GetEmbedConfig()
-					EmbedWindow(instance, -3, GetWindowOffset(id, height), width, height)
+					local width, height = GetEmbedWindowSize(id)
+					EmbedWindow(instance, -3, GetWindowOffset(id), width, height)
 				end
 			end
 			SetupInstance(instance)
@@ -228,7 +267,7 @@ local function ReskinDetails()
 	-- Reset to one window
 	Details.OpenWelcomeWindow = function()
 		if instance1 then
-			local width, height = GetEmbedConfig()
+			local width, height = GetEmbedWindowSize(1)
 			EmbedWindow(instance1, -3, 24, width, height)
 		end
 	end

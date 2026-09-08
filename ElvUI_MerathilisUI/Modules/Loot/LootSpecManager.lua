@@ -408,6 +408,10 @@ function module:CreateEJButton()
 end
 
 function module:Initialize()
+	if type(E.db.mui.lootSpecManager) ~= "table" then
+		E.db.mui.lootSpecManager = CopyTable(P.lootSpecManager)
+	end
+
 	module.db = E.db.mui.lootSpecManager
 
 	RequestRaidInfo()

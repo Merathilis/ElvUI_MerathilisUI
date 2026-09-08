@@ -1,0 +1,30 @@
+local MER = unpack(ElvUI_MerathilisUI)
+
+MER.Changelog[731] = {
+	RELEASE_DATE = "08.09.2026",
+	FIXES = {
+		"[Options]: Fixed toggle switches going blank and staying that way after changing an option that requires a UI reload",
+		"[Options]: Fixed the options window losing its styled/opaque background when MerathilisUI Style is disabled",
+		"[Options]: Fixed the selected-category highlight (ElvUI's own and skin overlays like WindTools') losing its color in the options window after toggling MerathilisUI Style",
+		"[Skins]: Fixed ClassCodex's side tabs overlapping/touching the panel border",
+		"[Options]: Fixed a Lua error opening the options after toggling LootSpecManager's Enable switch, which corrupted its saved settings",
+	},
+	NEW = {
+		'[Options]: Module "Enable" toggle switches now color their label green/red to reflect the on/off state',
+		"[Skins]: Added font size/outline options for the Weekly Rewards (Great Vault) skin (#124)",
+		"[Options]: Added a custom slider widget matching the toggle-switch style for range options",
+		"[Options]: Added a custom dropdown widget matching the toggle-switch/slider style for select options, including LibSharedMedia font pickers (with font-preview list rows)",
+		"[Options]: Added a custom edit box widget matching the toggle-switch/slider/dropdown style for text input options",
+		"[Options]: Added a custom color picker widget matching the toggle-switch/slider/dropdown/edit box style for color options",
+		"[Options]: Added a custom button widget matching the toggle-switch/slider/dropdown/edit box/color picker style for execute options",
+		"[Options]: Restyled the tab strip on MerathilisUI's own tabbed category pages (e.g. Modules) to match the flat toggle-switch/slider/dropdown style",
+		"[Options]: Restyled section headers to match the toggle-switch/tab accent style (solid underline, plain white text with a shadow instead of the orange gradient)",
+		"[Options]: Inline group boxes on MerathilisUI's own options pages now default to plain white titles instead of Blizzard's yellow",
+		"[Maps]: Added Great Vault and M+ Portals minimap buttons, ported from EllesmereUI (M+ Portals flyout includes the Hearthstone/Dalaran Hearthstone/Housing Dashboard row)",
+		"[Cursor]: Added a new Cursor module - a colored ring around your mouse cursor with an optional trail, GCD ring and cast-time ring (with spark), each with class-color/custom-color, instance-only, combat-only and camera-steering-only options",
+		"[Skins]: Details Embed Settings now let you set width/height per window instead of one size for all of them",
+	},
+	IMPROVEMENTS = {
+		"[Install]: Moved the default Debuffs mover further left so it no longer overlaps the new minimap buttons",
+	},
+}

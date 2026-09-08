@@ -32,8 +32,6 @@ local function InstallComplete(fishished)
 	E.db.mui.core.installed = true
 	E.private.mui.general.install_complete = MER.Version
 
-	MERDataPerChar = MER.Version
-
 	if fishished then
 		E.db.mui.core.lastLayoutVersion = MER.DisplayVersion
 		IsInstalled = true
@@ -442,7 +440,7 @@ function MER:SetupLayout()
 	E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 	E.db["auras"]["debuffs"]["height"] = 30
 	E.db["auras"]["debuffs"]["size"] = 34
-	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-234,-189"
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-255,-189"
 	E.db["auras"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
 	E.db["auras"]["debuffs"]["countFontOutline"] = "SHADOWOUTLINE"

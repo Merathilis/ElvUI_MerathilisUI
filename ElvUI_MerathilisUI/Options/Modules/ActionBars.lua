@@ -30,7 +30,7 @@ options.actionbars = {
 		specBar = {
 			order = 3,
 			type = "group",
-			name = F.cOption(L["Specialization Bar"], "orange"),
+			name = L["Specialization Bar"],
 			guiInline = true,
 			disabled = function()
 				return not E.private.actionbar.enable

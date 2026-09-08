@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
+local MISC = MER:GetModule("MER_Misc")
 
 local format, type, pairs, next, tinsert = format, type, pairs, next, tinsert
 local xpcall = xpcall
@@ -331,6 +332,7 @@ function module:OptionsCallback()
 				func = function()
 					MER:GetModule("MER_Misc"):StatusReportShow()
 					E:ToggleOptions()
+					MISC.StatusReportToggled = true
 				end,
 				disabled = function()
 					return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE) and not F.IsMERProfile()
@@ -368,14 +370,49 @@ function module:OptionsCallback()
 	self:ApplyCustomWidgets(E.Options.args.mui.args)
 end
 
--- Redirects MER's own toggle/header args to custom one
--- AceGUI widgets (MERToggleSwitch / MERSectionHeader) without touching ElvUI's
--- shared global AceGUI skin, so only the MerathilisUI options tab is affected.
+-- Redirects MER's own toggle/range/select/input/color/execute/header args to custom
+-- one AceGUI widgets (MERToggleSwitch / MERSlider / MERDropdown / MEREditBox /
+-- MERColorPicker / MERButton / MERSectionHeader) without touching ElvUI's shared
+-- global AceGUI skin, so only the MerathilisUI options tab is affected.
 function module:ApplyCustomWidgets(argsTable)
 	for _, entry in pairs(argsTable) do
 		if type(entry) == "table" then
 			if entry.type == "toggle" and not entry.dialogControl and not entry.control then
 				entry.dialogControl = "MERToggleSwitch"
+			elseif entry.type == "range" and not entry.dialogControl and not entry.control then
+				entry.dialogControl = "MERSlider"
+			elseif
+				entry.type == "select"
+				and entry.style ~= "radio"
+				and not entry.dialogControl
+				and not entry.control
+			then
+				entry.dialogControl = "MERDropdown"
+			elseif entry.type == "input" and not entry.multiline and not entry.dialogControl and not entry.control then
+				entry.dialogControl = "MEREditBox"
+			elseif entry.type == "color" and not entry.dialogControl and not entry.control then
+				entry.dialogControl = "MERColorPicker"
+			elseif entry.type == "execute" and not entry.image and not entry.dialogControl and not entry.control then
+				-- Options with an "image" get AceConfigDialog's icon-button treatment
+				-- (dialogControl "Icon", not "Button") - leave those on the stock
+				-- widget instead of redirecting them into a plain text button.
+				entry.dialogControl = "MERButton"
+			elseif entry.type == "select" and entry.dialogControl == "LSM30_Font" then
+				-- LSM30_Font's "values" maps font name -> file path (that's what
+				-- LSM:HashTable("font") returns), which the stock widget ignores
+				-- in favor of the font-name keys themselves. A plain select would
+				-- show those paths as the option text, so remap to name -> name
+				-- before handing it to MERDropdown, and use the font-preview item
+				-- type so the list still renders each entry in its own font.
+				if type(entry.values) == "table" then
+					local names = {}
+					for name in pairs(entry.values) do
+						names[name] = name
+					end
+					entry.values = names
+				end
+				entry.itemControl = entry.itemControl or "MERDropdownItemFont"
+				entry.dialogControl = "MERDropdown"
 			elseif entry.type == "header" and not entry.dialogControl and not entry.control then
 				entry.dialogControl = "MERSectionHeader"
 			end

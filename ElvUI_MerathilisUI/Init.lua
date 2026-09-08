@@ -101,6 +101,7 @@ MER.Modules.Armory = MER:NewModule("MER_Armory", "AceHook-3.0", "AceEvent-3.0", 
 MER.Modules.BuffReminder = MER:NewModule("MER_BuffReminder", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Changelog = MER:NewModule("MER_Changelog", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.ColorModifiers = MER:NewModule("MER_ColorModifiers")
+MER.Modules.Cursor = MER:NewModule("MER_Cursor", "AceEvent-3.0")
 MER.Modules.DamageMeter = MER:NewModule("MER_DamageMeter")
 MER.Modules.EquipManager = MER:NewModule("MER_EquipManager", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
@@ -108,6 +109,7 @@ MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Loot = MER:NewModule("MER_Loot", "AceEvent-3.0")
 MER.Modules.Mail = MER:NewModule("MER_Mail", "AceHook-3.0")
 MER.Modules.MiniMapCoords = MER:NewModule("MER_MiniMapCoords", "AceHook-3.0")
+MER.Modules.MinimapButtons = MER:NewModule("MER_MinimapButtons")
 MER.Modules.Misc = MER:NewModule("MER_Misc", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 MER.Modules.NameHover = MER:NewModule("MER_NameHover")
 MER.Modules.Nameplates = MER:NewModule("MER_Nameplates", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
@@ -130,11 +132,6 @@ MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
 
 -- Pre-register libs into ElvUI
 E:AddLib("LDD", "LibDropDown")
-
-MER.Libs = {
-	-- Ace
-	ADB = LibStub("AceDB-3.0"),
-}
 
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()
@@ -181,7 +178,6 @@ function MER:Initialize()
 	self.initialized = true
 
 	self:UpdateScripts()
-	self:InitializeDatabase() -- New Ace3DB uses SavedVariables MERData
 	self:AddMoverCategories()
 
 	EP:RegisterPlugin(addon, function()

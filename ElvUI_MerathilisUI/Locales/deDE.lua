@@ -390,6 +390,7 @@ L["Embed Settings"] = "Einbettungseinstellungen"
 L["With this option you can embed your Details into an own Panel."] =
 	"Mit dieser Option kannst Du Dein Details in ein eigenes Panel einbetten."
 L["Number of Windows"] = "Anzahl der Fenster"
+L["Window %d"] = "Fenster %d"
 L["Reset Settings"] = "Zurücksetzen"
 L["Toggle Direction"] = "Richtung umschalten"
 L["TOP"] = "OBEN"
@@ -399,6 +400,7 @@ L["Gradient Bars"] = "Farbverlaufsleisten"
 L["Open Details"] = "Öffne Details"
 L["Frame Level"] = "Fensterebene"
 L["Frame Strata"] = "Fensterschicht"
+L["Weekly Rewards"] = "Wöchentliche Belohnungen"
 
 -- Panels
 L["Panels"] = "Leisten"
@@ -688,3 +690,45 @@ L["Keep showing a desaturated reminder icon even when you have none of the item 
 	"Zeigt weiterhin ein entsättigtes Erinnerungssymbol, auch wenn du keinen Gegenstand mehr in deinen Taschen hast."
 L["Scale"] = "Skalierung"
 L["Shield"] = "Schild"
+
+-- Minimap Buttons
+L["Minimap Buttons"] = "Minimap-Buttons"
+L["Add Great Vault and M+ Portals buttons next to your Minimap."] =
+	"Fügt Buttons für das Große Gewölbe und M+ Portale neben deiner Minimap hinzu."
+L["Great Vault"] = "Großes Gewölbe"
+L["M+ Portals"] = "M+ Portale"
+L["Raids"] = "Schlachtzüge"
+L["World"] = "Welt"
+L["Test Pulse"] = "Pulsieren testen"
+L["Briefly plays the Great Vault button's pulse animation, even without any unclaimed rewards."] =
+	"Spielt kurz die Pulsieren-Animation des Großes-Gewölbe-Buttons ab, auch ohne unabgeholte Belohnungen."
+L["Top Left"] = "Oben Links"
+L["Top"] = "Oben"
+L["Top Right"] = "Oben Rechts"
+L["Left"] = "Links"
+L["Right"] = "Rechts"
+L["Bottom Left"] = "Unten Links"
+L["Bottom"] = "Unten"
+L["Bottom Right"] = "Unten Rechts"
+L["Housing Dashboard"] = "Haus-Übersicht"
+
+-- Cursor
+L["Cursor"] = "Cursor"
+L["Cursor Ring"] = "Cursor-Ring"
+L["Cursor Trail"] = "Cursor-Spur"
+L["GCD Ring"] = "GCD-Ring"
+L["Cast Ring"] = "Zauber-Ring"
+L["Cursor GCD Ring"] = "Cursor GCD-Ring"
+L["Cursor Cast Ring"] = "Cursor Zauber-Ring"
+L["Show a colored ring around your mouse cursor, with an optional trail, GCD ring and cast-time ring."] =
+	"Zeigt einen farbigen Ring um deinen Mauszeiger, mit optionaler Spur, GCD-Ring und Zauber-Ring."
+L["Use Class Color"] = "Klassenfarbe verwenden"
+L["Radius"] = "Radius"
+L["Show Center Dot"] = "Mittelpunkt anzeigen"
+L["Show Spark"] = "Funke anzeigen"
+L["Attach to Cursor"] = "Am Cursor befestigen"
+L["Only In Instances"] = "Nur in Instanzen"
+L["Only In Combat"] = "Nur im Kampf"
+L["Only While Steering Camera"] = "Nur beim Kamera-Steuern"
+L["Only show the ring while you're holding a mouse button to turn or move the camera (the hardware cursor is hidden)."] =
+	"Zeigt den Ring nur, während du mit gedrückter Maustaste die Kamera drehst oder dich bewegst (der Mauszeiger ist dabei ausgeblendet)."

@@ -32,7 +32,11 @@ local function UpdateToggleDirection()
 	Skins:RefreshToggleDirection()
 end
 
-local function ResetDetails()
+local function ApplyEmbedLayout()
+	Skins:ResetDetailsAnchor(true)
+end
+
+local function ResetEmbedDefaults()
 	StaticPopup_Show("RESET_DETAILS")
 end
 
@@ -234,7 +238,7 @@ options.Embed = {
 			type = "execute",
 			name = L["Reset Settings"],
 			func = function()
-				ResetDetails()
+				ResetEmbedDefaults()
 			end,
 			disabled = function()
 				return not E.private.mui.skins.embed.enable
@@ -261,44 +265,8 @@ options.Embed = {
 			type = "toggle",
 			name = L["Mouse Over"],
 		},
-		width = {
-			order = 7,
-			type = "range",
-			name = L["Width"],
-			min = 100,
-			max = 1000,
-			step = 1,
-			disabled = function()
-				return not E.private.mui.skins.embed.enable
-			end,
-			get = function()
-				return E.private.mui.skins.embed.width
-			end,
-			set = function(_, value)
-				E.private.mui.skins.embed.width = value
-				ResetDetails()
-			end,
-		},
-		height = {
-			order = 8,
-			type = "range",
-			name = L["Height"],
-			min = 100,
-			max = 1000,
-			step = 1,
-			disabled = function()
-				return not E.private.mui.skins.embed.enable
-			end,
-			get = function()
-				return E.private.mui.skins.embed.height
-			end,
-			set = function(_, value)
-				E.private.mui.skins.embed.height = value
-				ResetDetails()
-			end,
-		},
 		windows = {
-			order = 9,
+			order = 7,
 			type = "range",
 			name = L["Number of Windows"],
 			min = 1,
@@ -312,11 +280,63 @@ options.Embed = {
 			end,
 			set = function(_, value)
 				E.private.mui.skins.embed.windows = value
-				ResetDetails()
+				ApplyEmbedLayout()
 			end,
+		},
+		spacer2 = {
+			order = 8,
+			type = "description",
+			name = " ",
 		},
 	},
 }
+
+for winIndex = 1, 5 do
+	options.Embed.args["windowSize" .. winIndex] = {
+		order = 8 + winIndex,
+		type = "group",
+		inline = true,
+		name = format(L["Window %d"], winIndex),
+		hidden = function()
+			return winIndex > E.private.mui.skins.embed.windows
+		end,
+		disabled = function()
+			return not E.private.mui.skins.embed.enable
+		end,
+		args = {
+			width = {
+				order = 1,
+				type = "range",
+				name = L["Width"],
+				min = 100,
+				max = 1000,
+				step = 1,
+				get = function()
+					return E.private.mui.skins.embed.sizes[winIndex].width
+				end,
+				set = function(_, value)
+					E.private.mui.skins.embed.sizes[winIndex].width = value
+					ApplyEmbedLayout()
+				end,
+			},
+			height = {
+				order = 2,
+				type = "range",
+				name = L["Height"],
+				min = 100,
+				max = 1000,
+				step = 1,
+				get = function()
+					return E.private.mui.skins.embed.sizes[winIndex].height
+				end,
+				set = function(_, value)
+					E.private.mui.skins.embed.sizes[winIndex].height = value
+					ApplyEmbedLayout()
+				end,
+			},
+		},
+	}
+end
 
 options.advancedSettings = {
 	order = 10,
@@ -410,7 +430,7 @@ options.advancedSettings = {
 		damageMeter = {
 			order = 2,
 			type = "group",
-			name = E.NewSign .. L["Blizzard DamageMeter"],
+			name = L["Blizzard DamageMeter"],
 			get = function(info)
 				return E.private.mui.skins.blizzard.damageMeter[info[#info]]
 			end,
@@ -442,6 +462,40 @@ options.advancedSettings = {
 					type = "description",
 					name = " ",
 					width = "full",
+				},
+			},
+		},
+		weeklyRewards = {
+			order = 3,
+			type = "group",
+			name = E.NewSign .. L["Weekly Rewards"],
+			get = function(info)
+				return E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]]
+			end,
+			set = function(info, value)
+				E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]] = value
+				E:StaticPopup_Show("CONFIG_RL")
+			end,
+			args = {
+				header = {
+					order = 0,
+					type = "header",
+					name = F.cOption(L["Weekly Rewards"], "orange"),
+				},
+				size = {
+					order = 1,
+					type = "range",
+					name = L["Size"],
+					min = 6,
+					max = 24,
+					step = 1,
+				},
+				style = {
+					order = 2,
+					type = "select",
+					name = L["Outline"],
+					values = MER.Values.FontFlags,
+					sortByValue = true,
 				},
 			},
 		},

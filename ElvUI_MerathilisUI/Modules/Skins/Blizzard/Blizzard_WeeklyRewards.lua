@@ -47,6 +47,19 @@ local STYLE = {
 	},
 }
 
+-- Font size/outline are user-configurable (Skins > AddOn - Advanced Skin
+-- Settings > Weekly Rewards). The configured size shifts every role by the
+-- same delta from its STYLE.fontSizes baseline, so the header/overlay/item
+-- text keep their relative size hierarchy instead of all becoming identical.
+local function GetFontSize(role)
+	local cfg = E.private.mui.skins.blizzard.weeklyRewards.font
+	return STYLE.fontSizes[role] + ((cfg.size or STYLE.fontSizes.itemName) - STYLE.fontSizes.itemName)
+end
+
+local function GetFontStyle()
+	return E.private.mui.skins.blizzard.weeklyRewards.font.style
+end
+
 local function Strip(region)
 	if not region or region._MEROwned then
 		return
@@ -263,7 +276,7 @@ local function RefreshItemFrame(itemFrame, activityFrame)
 	end
 
 	if itemFrame.Name then
-		itemFrame.Name:FontTemplate(nil, STYLE.fontSizes.itemName, nil)
+		itemFrame.Name:FontTemplate(nil, GetFontSize("itemName"), GetFontStyle())
 		itemFrame.Name:SetTextColor(1, 1, 1, 0.95)
 	end
 end
@@ -317,12 +330,12 @@ local function RefreshActivityCard(frame, selectedActivity)
 	lock:SetShown(not complete)
 
 	if frame.Threshold then
-		frame.Threshold:FontTemplate(nil, STYLE.fontSizes.threshold, nil)
+		frame.Threshold:FontTemplate(nil, GetFontSize("threshold"), GetFontStyle())
 		frame.Threshold:SetTextColor(1, 1, 1, complete and 0.95 or 0.65)
 	end
 
 	if frame.Progress then
-		frame.Progress:FontTemplate(nil, STYLE.fontSizes.progress, nil)
+		frame.Progress:FontTemplate(nil, GetFontSize("progress"), GetFontStyle())
 		frame.Progress:SetTextColor(col.r, col.g, col.b, 1)
 	end
 
@@ -354,12 +367,12 @@ local function RefreshConcessionCard(frame, selectedActivity)
 
 	if frame.RewardsFrame then
 		if frame.RewardsFrame.Label then
-			frame.RewardsFrame.Label:FontTemplate(nil, STYLE.fontSizes.itemName, nil)
+			frame.RewardsFrame.Label:FontTemplate(nil, GetFontSize("itemName"), GetFontStyle())
 			frame.RewardsFrame.Label:SetTextColor(1, 1, 1, 0.75)
 		end
 		if frame.RewardsFrame.Text then
 			local ar, ag, ab = unpack(E.media.rgbvaluecolor or { 1, 0.82, 0 })
-			frame.RewardsFrame.Text:FontTemplate(nil, STYLE.fontSizes.itemName, nil)
+			frame.RewardsFrame.Text:FontTemplate(nil, GetFontSize("itemName"), GetFontStyle())
 			frame.RewardsFrame.Text:SetTextColor(ar, ag, ab, 1)
 		end
 	end
@@ -376,11 +389,11 @@ local function RefreshOverlay(overlay)
 	end
 	if overlay.Title then
 		local ar, ag, ab = unpack(E.media.rgbvaluecolor or { 1, 0.82, 0 })
-		overlay.Title:FontTemplate(nil, STYLE.fontSizes.overlayTitle, nil)
+		overlay.Title:FontTemplate(nil, GetFontSize("overlayTitle"), GetFontStyle())
 		overlay.Title:SetTextColor(ar, ag, ab, 1)
 	end
 	if overlay.Text then
-		overlay.Text:FontTemplate(nil, STYLE.fontSizes.overlayText, nil)
+		overlay.Text:FontTemplate(nil, GetFontSize("overlayText"), GetFontStyle())
 		overlay.Text:SetTextColor(1, 1, 1, 0.9)
 	end
 end
@@ -396,7 +409,7 @@ local function RefreshWarningDialog()
 	dialog.MERSkinned = true
 
 	if dialog.Description then
-		dialog.Description:FontTemplate(nil, STYLE.fontSizes.itemName, nil)
+		dialog.Description:FontTemplate(nil, GetFontSize("itemName"), GetFontStyle())
 		dialog.Description:SetTextColor(1, 1, 1, 0.85)
 	end
 
@@ -462,7 +475,7 @@ local function RefreshWindow(frame)
 	end
 
 	if frame.HeaderFrame and frame.HeaderFrame.Text then
-		frame.HeaderFrame.Text:FontTemplate(nil, STYLE.fontSizes.headerTitle, nil)
+		frame.HeaderFrame.Text:FontTemplate(nil, GetFontSize("headerTitle"), GetFontStyle())
 	end
 
 	for _, typeFrame in ipairs({ frame.RaidFrame, frame.MythicFrame, frame.PVPFrame, frame.WorldFrame }) do
