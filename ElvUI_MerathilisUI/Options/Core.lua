@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
+local MISC = MER:GetModule("MER_Misc")
 
 local format, type, pairs, next, tinsert = format, type, pairs, next, tinsert
 local xpcall = xpcall
@@ -331,6 +332,7 @@ function module:OptionsCallback()
 				func = function()
 					MER:GetModule("MER_Misc"):StatusReportShow()
 					E:ToggleOptions()
+					MISC.StatusReportToggled = true
 				end,
 				disabled = function()
 					return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE) and not F.IsMERProfile()
@@ -379,7 +381,12 @@ function module:ApplyCustomWidgets(argsTable)
 				entry.dialogControl = "MERToggleSwitch"
 			elseif entry.type == "range" and not entry.dialogControl and not entry.control then
 				entry.dialogControl = "MERSlider"
-			elseif entry.type == "select" and entry.style ~= "radio" and not entry.dialogControl and not entry.control then
+			elseif
+				entry.type == "select"
+				and entry.style ~= "radio"
+				and not entry.dialogControl
+				and not entry.control
+			then
 				entry.dialogControl = "MERDropdown"
 			elseif entry.type == "input" and not entry.multiline and not entry.dialogControl and not entry.control then
 				entry.dialogControl = "MEREditBox"

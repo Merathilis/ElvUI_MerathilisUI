@@ -145,6 +145,13 @@ function module:StatusReportCreateSection(
 	return section
 end
 
+local function CloseClicked()
+	if module.StatusReportToggled then
+		module.StatusReportToggled = nil
+		E:ToggleOptions()
+	end
+end
+
 function module:StatusReportCreate()
 	-- Main frame
 	local statusFrame = CreateFrame("Frame", "MER_StatusReport", E.UIParent)
@@ -153,6 +160,7 @@ function module:StatusReportCreate()
 	statusFrame:CreateBackdrop("Transparent")
 	WS:CreateBackdropShadow(statusFrame)
 	statusFrame:CreateCloseButton()
+	statusFrame.CloseButton:HookScript("OnClick", CloseClicked)
 	statusFrame:SetMovable(true)
 	statusFrame:Size(0, 100)
 	statusFrame:Hide()
