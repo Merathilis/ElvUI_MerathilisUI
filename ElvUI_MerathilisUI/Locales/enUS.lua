@@ -966,3 +966,23 @@ L["Bottom"] = true
 L["Bottom Right"] = true
 L["Housing Dashboard"] = true
 L["Keep showing a desaturated reminder icon even when you have none of the item left in your bags."] = true
+
+-- Cursor
+L["Cursor"] = true
+L["Cursor Ring"] = true
+L["Cursor Trail"] = true
+L["GCD Ring"] = true
+L["Cast Ring"] = true
+L["Cursor GCD Ring"] = true
+L["Cursor Cast Ring"] = true
+L["Show a colored ring around your mouse cursor, with an optional trail, GCD ring and cast-time ring."] = true
+L["Use Class Color"] = true
+L["Radius"] = true
+L["Show Center Dot"] = true
+L["Show Spark"] = true
+L["Attach to Cursor"] = true
+L["Only In Instances"] = true
+L["Only In Combat"] = true
+L["Only While Steering Camera"] = true
+L["Only show the ring while you're holding a mouse button to turn or move the camera (the hardware cursor is hidden)."] =
+	true
