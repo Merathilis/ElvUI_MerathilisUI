@@ -66,18 +66,216 @@ options.reset = {
 			type = "description",
 			name = " ",
 		},
-		cooldownFlash = {
+		general = {
 			order = 5,
 			type = "execute",
-			name = L["Cooldown Flash"],
+			name = L["General"],
 			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Cooldown Flash"], nil, function()
-					E:CopyTable(E.db.mui.cooldownFlash, P.cooldownFlash)
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["General"], nil, function()
+					E:CopyTable(E.db.mui.general, P.general)
+					E:CopyTable(E.db.mui.style, P.style)
 				end)
 			end,
 		},
-		blizzard = {
+		gameMenu = {
+			order = 6,
+			type = "execute",
+			name = L["Game Menu"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Game Menu"], nil, function()
+					E:CopyTable(E.db.mui.gameMenu, P.gameMenu)
+				end)
+			end,
+		},
+		scale = {
+			order = 7,
+			type = "execute",
+			name = L["Scale"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Scale"], nil, function()
+					E:CopyTable(E.db.mui.scale, P.scale)
+				end)
+			end,
+		},
+		misc = {
+			order = 8,
+			type = "execute",
+			name = L["Misc"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Misc"], nil, function()
+					E:CopyTable(E.db.mui.misc, P.misc)
+					E:CopyTable(E.db.mui.lootSpecManager, P.lootSpecManager)
+					E:CopyTable(E.db.mui.elvUIIcons, P.elvUIIcons)
+				end)
+			end,
+		},
+		actionbars = {
+			order = 9,
+			type = "execute",
+			name = L["ActionBars"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["ActionBars"], nil, function()
+					E:CopyTable(E.db.mui.actionbars, P.actionbars)
+				end)
+			end,
+		},
+		colorModifiers = {
+			order = 10,
+			type = "execute",
+			name = L["Color Modifier Keys"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Color Modifier Keys"], nil, function()
+					E:CopyTable(E.db.mui.colorModifiers, P.colorModifiers)
+				end)
+			end,
+		},
+		armory = {
+			order = 11,
+			type = "execute",
+			name = L["Armory"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Armory"], nil, function()
+					E:CopyTable(E.db.mui.armory, P.armory)
+				end)
+			end,
+		},
+		bags = {
 			order = 12,
+			type = "execute",
+			name = L["Bags"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Bags"], nil, function()
+					E:CopyTable(E.db.mui.bags, P.bags)
+				end)
+			end,
+		},
+		buffReminder = {
+			order = 13,
+			type = "execute",
+			name = L["Buff Reminder"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Buff Reminder"], nil, function()
+					E:CopyTable(E.db.mui.buffReminder, P.buffReminder)
+				end)
+			end,
+		},
+		cursor = {
+			order = 14,
+			type = "execute",
+			name = L["Cursor"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Cursor"], nil, function()
+					E:CopyTable(E.db.mui.cursor, P.cursor)
+				end)
+			end,
+		},
+		itemLevel = {
+			order = 15,
+			type = "execute",
+			name = L["Item Level"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Item Level"], nil, function()
+					E:CopyTable(E.db.mui.itemLevel, P.itemLevel)
+				end)
+			end,
+		},
+		mail = {
+			order = 16,
+			type = "execute",
+			name = L["Mail"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Mail"], nil, function()
+					E:CopyTable(E.db.mui.mail, P.mail)
+				end)
+			end,
+		},
+		miniMapCoords = {
+			order = 17,
+			type = "execute",
+			name = L["Minimap Coordinates"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Coordinates"], nil, function()
+					E:CopyTable(E.db.mui.miniMapCoords, P.miniMapCoords)
+				end)
+			end,
+		},
+		minimapButtons = {
+			order = 18,
+			type = "execute",
+			name = L["Minimap Buttons"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Buttons"], nil, function()
+					E:CopyTable(E.db.mui.minimapButtons, P.minimapButtons)
+				end)
+			end,
+		},
+		nameHover = {
+			order = 19,
+			type = "execute",
+			name = L["Name Hover"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Name Hover"], nil, function()
+					E:CopyTable(E.db.mui.nameHover, P.nameHover)
+				end)
+			end,
+		},
+		notification = {
+			order = 20,
+			type = "execute",
+			name = L["Notification"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Notification"], nil, function()
+					E:CopyTable(E.db.mui.notification, P.notification)
+				end)
+			end,
+		},
+		panels = {
+			order = 21,
+			type = "execute",
+			name = L["Panels"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Panels"], nil, function()
+					E:CopyTable(E.db.mui.panels, P.panels)
+				end)
+			end,
+		},
+		theme = {
+			order = 22,
+			type = "execute",
+			name = L["Theme"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Theme"], nil, function()
+					E:CopyTable(E.db.mui.themes, P.themes)
+				end)
+			end,
+		},
+		unitframes = {
+			order = 23,
+			type = "execute",
+			name = L["UnitFrames"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["UnitFrames"], nil, function()
+					E:CopyTable(E.db.mui.unitframes, P.unitframes)
+				end)
+			end,
+		},
+		vehicleBar = {
+			order = 24,
+			type = "execute",
+			name = L["VehicleBar"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["VehicleBar"], nil, function()
+					E:CopyTable(E.db.mui.vehicleBar, P.vehicleBar)
+				end)
+			end,
+		},
+		spacer1 = {
+			order = 30,
+			type = "description",
+			name = " ",
+		},
+		blizzard = {
+			order = 31,
 			type = "execute",
 			name = L["Blizzard"],
 			func = function()
@@ -87,7 +285,7 @@ options.reset = {
 			end,
 		},
 		addonSkins = {
-			order = 6,
+			order = 32,
 			type = "execute",
 			name = L["Addons"],
 			func = function()
@@ -96,28 +294,15 @@ options.reset = {
 				end)
 			end,
 		},
-		spacer1 = {
-			order = 15,
-			type = "description",
-			name = " ",
-		},
-		misc = {
-			order = 16,
-			type = "group",
-			inline = true,
-			name = L["Misc"],
-			args = {
-				general = {
-					order = 1,
-					type = "execute",
-					name = L["General"],
-					func = function()
-						E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["General"], nil, function()
-							E.db.mui.misc.betterGuildMemberStatus = P.misc.betterGuildMemberStatus
-						end)
-					end,
-				},
-			},
+		embed = {
+			order = 33,
+			type = "execute",
+			name = L["Embed Settings"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Embed Settings"], nil, function()
+					E.private.mui.skins.embed = V.skins.embed
+				end)
+			end,
 		},
 		spacer2 = {
 			order = 50,
