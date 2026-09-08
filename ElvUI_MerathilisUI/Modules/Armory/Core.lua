@@ -543,7 +543,7 @@ function module:UpdateTitle()
 	self.titleText:SetJustifyV("BOTTOM")
 
 	local iconPadding = 10
-	local textPadding = 2
+	local textPadding = 4
 
 	local leftWidth = self.levelText:GetStringWidth() + self.levelTitleText:GetStringWidth() + textPadding
 	local rightWidth = self.classText:GetStringWidth()
@@ -559,9 +559,9 @@ function module:UpdateTitle()
 
 	self.levelText:ClearAllPoints()
 	self.levelText:Point(
-		"RIGHT",
+		"BOTTOMRIGHT",
 		self.specIcon,
-		"LEFT",
+		"BOTTOMLEFT",
 		(-iconPadding + module.db.levelText.offsetX),
 		module.db.levelText.offsetY
 	)
@@ -570,9 +570,9 @@ function module:UpdateTitle()
 
 	self.levelTitleText:ClearAllPoints()
 	self.levelTitleText:Point(
-		"RIGHT",
+		"BOTTOMRIGHT",
 		self.levelText,
-		"LEFT",
+		"BOTTOMLEFT",
 		(-textPadding + module.db.levelTitleText.offsetX),
 		module.db.levelTitleText.offsetY
 	)
@@ -581,9 +581,9 @@ function module:UpdateTitle()
 
 	self.classText:ClearAllPoints()
 	self.classText:Point(
-		"LEFT",
+		"BOTTOMLEFT",
 		self.specIcon,
-		"RIGHT",
+		"BOTTOMRIGHT",
 		(iconPadding + module.db.classText.offsetX),
 		module.db.classText.offsetY
 	)
