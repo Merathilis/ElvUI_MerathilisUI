@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[731] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "08.09.2026",
 	FIXES = {
 		"[Options]: Fixed toggle switches going blank and staying that way after changing an option that requires a UI reload",
 		"[Options]: Fixed the options window losing its styled/opaque background when MerathilisUI Style is disabled",
@@ -10,7 +10,7 @@ MER.Changelog[731] = {
 		"[Options]: Fixed a Lua error opening the options after toggling LootSpecManager's Enable switch, which corrupted its saved settings",
 	},
 	NEW = {
-		"[Options]: Module \"Enable\" toggle switches now color their label green/red to reflect the on/off state",
+		'[Options]: Module "Enable" toggle switches now color their label green/red to reflect the on/off state',
 		"[Skins]: Added font size/outline options for the Weekly Rewards (Great Vault) skin (#124)",
 		"[Options]: Added a custom slider widget matching the toggle-switch style for range options",
 		"[Options]: Added a custom dropdown widget matching the toggle-switch/slider style for select options, including LibSharedMedia font pickers (with font-preview list rows)",

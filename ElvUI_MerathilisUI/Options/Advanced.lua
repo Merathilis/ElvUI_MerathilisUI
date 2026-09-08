@@ -343,7 +343,7 @@ do
 	options.profiles = {
 		order = 5,
 		type = "group",
-		name = E.NewSign .. L["Profiles"],
+		name = L["Profiles"],
 		args = {
 			desc = {
 				order = 1,

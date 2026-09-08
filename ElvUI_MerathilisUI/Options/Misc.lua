@@ -74,13 +74,13 @@ options.general = {
 		auctionEnhanced = {
 			order = 10,
 			type = "toggle",
-			name = E.NewSign .. L["Auction Enhanced"],
+			name = L["Auction Enhanced"],
 			desc = L["Show the tertiary stats of equipments in auction house."],
 		},
 		lootSpecManager = {
 			order = 40,
 			type = "group",
-			name = E.NewSign .. L["LootSpecManager"],
+			name = L["LootSpecManager"],
 			desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
 			inline = true,
 			get = function(info)
