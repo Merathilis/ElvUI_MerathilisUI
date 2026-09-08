@@ -17,3 +17,4 @@
 -   [Maps]: Added Great Vault and M+ Portals minimap buttons, ported from EllesmereUI (M+ Portals flyout includes the Hearthstone/Dalaran Hearthstone/Housing Dashboard row)
 -   [Install]: Moved the default Debuffs mover further left so it no longer overlaps the new minimap buttons
 -   [Cursor]: Added a new Cursor module - a colored ring around your mouse cursor with an optional trail, GCD ring and cast-time ring (with spark), each with class-color/custom-color, instance-only, combat-only and camera-steering-only options
+-   [Skins]: Details Embed Settings now let you set width/height per window instead of one size for all of them

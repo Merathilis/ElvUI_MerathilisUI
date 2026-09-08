@@ -83,9 +83,14 @@ V.skins = {
 		enable = false,
 		toggleDirection = 1,
 		mouseOver = false,
-		width = 340,
-		height = 144,
 		windows = 1,
+		sizes = {
+			[1] = { width = 340, height = 144 },
+			[2] = { width = 340, height = 144 },
+			[3] = { width = 340, height = 144 },
+			[4] = { width = 340, height = 144 },
+			[5] = { width = 340, height = 144 },
+		},
 	},
 
 	actionStatus = {
