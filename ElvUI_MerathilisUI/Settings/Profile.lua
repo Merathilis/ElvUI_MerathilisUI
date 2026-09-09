@@ -814,8 +814,8 @@ P.miniMapCoords = {
 P.minimapButtons = {
 	enable = true,
 	point = "BOTTOMLEFT",
-	xOffset = 52,
-	yOffset = -13,
+	xOffset = -13,
+	yOffset = 52,
 	size = 20,
 	spacing = 2,
 
