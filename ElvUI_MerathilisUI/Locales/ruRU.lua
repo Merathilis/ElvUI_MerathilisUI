@@ -128,6 +128,8 @@ L["NamePlates"] = "Индикаторы здоровья"
 -- Notification
 L["Notification"] = "Уведомления"
 L["This is an example of a notification."] = "Это пример уведомления."
+L["Test Notification"] = true
+L["Sends an example toast notification."] = true
 L["Notification Mover"] = "Перемещение уведомлений"
 L["%s slot needs to repair, current durability is %d."] =
 	"Слот %s нуждается в ремонте, текущая прочность %d."
@@ -139,6 +141,16 @@ L["Enable Guild Events"] = "Включить события гильдии"
 L["No Sounds"] = "Нет звуков"
 L["Vignette Print"] = "Отображение виньетки"
 L["Quick Join"] = "Быстрое присоединение"
+L["Your Great Vault has rewards ready to claim!"] = true
+L["Currency Cap Warning"] = true
+L["Track any currency by ID and get a toast once it nears its weekly or total cap."] = true
+L["Warn at (%)"] = true
+L["Currency ID"] = true
+L["Enter a currency ID and press Enter to add it."] = true
+L["Currency List"] = true
+L["Tracked Currencies"] = true
+L["Unknown or undiscovered currency ID."] = true
+L["You are close to the cap: %d / %d"] = true
 L["Title Font"] = "Шрифт заголовка"
 L["Text Font"] = "Шрифт текста"
 L["Debug Print"] = "Отображение отладки"

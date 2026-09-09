@@ -692,6 +692,12 @@ P.notification = {
 	quickJoin = true,
 	callToArms = false,
 	bags = true,
+	greatVault = true,
+	currencyWarning = {
+		enable = true,
+		threshold = 90,
+		list = {},
+	},
 	vignette = {
 		enable = true,
 		print = true,

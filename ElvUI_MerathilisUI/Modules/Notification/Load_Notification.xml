@@ -3,7 +3,9 @@
 
 	<Script file="Bags.lua"/>
 	<Script file="CallToArms.lua"/>
+	<Script file="Currency.lua"/>
 	<Script file="Durability.lua"/>
+	<Script file="GreatVault.lua"/>
 	<Script file="Guild.lua"/>
 	<Script file="Mail.lua"/>
 	<Script file="Quest.lua"/>

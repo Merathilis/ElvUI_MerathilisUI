@@ -239,6 +239,10 @@ function module:QUEST_ACCEPTED(_, arg1)
 
 	if db.paragon and PARAGON_DATA[arg1] then
 		local data = GetFactionInfoByID(PARAGON_DATA[arg1].factionID)
+		if not data then
+			return
+		end
+
 		local text = GetQuestLogCompletionText(GetLogIndexForQuestID(arg1))
 		PlaySound(618, "Master") -- QUEST ADDED
 		self:DisplayToast(

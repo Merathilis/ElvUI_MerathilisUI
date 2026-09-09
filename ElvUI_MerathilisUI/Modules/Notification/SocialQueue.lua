@@ -27,6 +27,10 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 		return
 	end
 
+	if E.db.chat.socialQueueMessages then
+		return
+	end
+
 	local players = GetGroupMembers(guid)
 	if not players then
 		return
@@ -47,6 +51,8 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 	local firstQueue = queues and queues[1]
 	local isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == "lfglist"
 
+	local message
+
 	if isLFGList and firstQueue and firstQueue.eligible then
 		local activityID, activityInfo, name, leaderName, isLeader
 
@@ -63,41 +69,13 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 			activityInfo = GetActivityInfoTable(activityID or firstQueue.queueData.activityID)
 		end
 
+		local verb = (isLeader and L["is looking for members"]) or L["joined a group"]
+		local activityName = activityInfo and activityInfo.fullName or UNKNOWN
+
 		if name then
-			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(
-					coloredName,
-					format(
-						"%s: [%s] |cff00CCFF%s|r",
-						(isLeader and L["is looking for members"]) or L["joined a group"],
-						activityInfo and activityInfo.fullName or UNKNOWN,
-						name
-					),
-					_G.ToggleQuickJoinPanel,
-					"Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend",
-					0.08,
-					0.92,
-					0.08,
-					0.92
-				)
-			end
+			message = format("%s: [%s] |cff00CCFF%s|r", verb, activityName, name)
 		else
-			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(
-					coloredName,
-					format(
-						"%s: |cff00CCFF%s|r",
-						(isLeader and L["is looking for members"]) or L["joined a group"],
-						activityInfo and activityInfo.fullName or UNKNOWN
-					),
-					_G.ToggleQuickJoinPanel,
-					"Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend",
-					0.08,
-					0.92,
-					0.08,
-					0.92
-				)
-			end
+			message = format("%s: |cff00CCFF%s|r", verb, activityName)
 		end
 	elseif firstQueue then
 		local output, outputCount, queueCount, queueName = "", "", 0
@@ -119,18 +97,22 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 			if queueCount > 0 then
 				outputCount = format(LFG_LIST_AND_MORE, queueCount)
 			end
-			if not E.db.chat.socialQueueMessages then
-				self:DisplayToast(
-					coloredName,
-					format("%s: |cff00CCFF%s|r %s", SOCIAL_QUEUE_QUEUED_FOR, output, outputCount),
-					_G.ToggleQuickJoinPanel,
-					"Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend",
-					0.08,
-					0.92,
-					0.08,
-					0.92
-				)
-			end
+			message = format("%s: |cff00CCFF%s|r %s", SOCIAL_QUEUE_QUEUED_FOR, output, outputCount)
 		end
 	end
+
+	if not message then
+		return
+	end
+
+	self:DisplayToast(
+		coloredName,
+		message,
+		_G.ToggleQuickJoinPanel,
+		"Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend",
+		0.08,
+		0.92,
+		0.08,
+		0.92
+	)
 end

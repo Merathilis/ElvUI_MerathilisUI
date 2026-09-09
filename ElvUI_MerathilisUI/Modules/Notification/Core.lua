@@ -125,6 +125,10 @@ end
 
 function module:CreateToast()
 	local toast = tremove(toasts, 1)
+	if toast then
+		return toast
+	end
+
 	local db = E.db.mui.notification
 
 	toast = CreateFrame("Frame", MER.Title .. "Toast", E.UIParent, "BackdropTemplate")
@@ -318,6 +322,8 @@ function module:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("QUEST_ACCEPTED")
+	self:RegisterEvent("WEEKLY_REWARDS_UPDATE")
+	self:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 
 	self:AlertFullBags()
 

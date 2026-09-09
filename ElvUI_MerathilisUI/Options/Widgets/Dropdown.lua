@@ -456,3 +456,90 @@ do
 		AceGUI:RegisterWidgetType(FontItemType, Constructor, FontItemVersion + ItemBase.version)
 	end
 end
+
+-- Currency-icon list item: renders each row with the currency's icon in front of
+-- its name, for selects whose values are "Name (currencyID)" strings (see the
+-- Notification module's currency-cap-warning tracker). The currencyID is parsed
+-- back out of the trailing "(id)" since itemType.SetText only gets the display
+-- text, not the raw value (userdata.value is assigned after SetText runs).
+do
+	local ItemBaseLib = LibStub("AceGUI-3.0-DropDown-ItemBase", true)
+	local ItemBase = ItemBaseLib and ItemBaseLib:GetItemBase()
+
+	if ItemBase then
+		local IconItemType = "MERDropdownItemIcon"
+		local IconItemVersion = 1
+
+		local function UpdateCheck(self)
+			if self.value then
+				self.check:Show()
+			else
+				self.check:Hide()
+			end
+		end
+
+		local function SetText(self, text)
+			ItemBase.SetText(self, text)
+			local id = text and tonumber(text:match("%((%d+)%)%s*$"))
+			local currencyInfo = id and C_CurrencyInfo.GetCurrencyInfo(id)
+			local icon = currencyInfo and currencyInfo.iconFileID
+			if icon then
+				self.icon:SetTexture(icon)
+				self.icon:Show()
+			else
+				self.icon:Hide()
+			end
+		end
+
+		local function SetValue(self, value)
+			self.value = value
+			UpdateCheck(self)
+		end
+
+		local function GetValue(self)
+			return self.value
+		end
+
+		local function OnRelease(self)
+			ItemBase.OnRelease(self)
+			self:SetValue(nil)
+		end
+
+		local function Frame_OnClick(this)
+			local self = this.obj
+			if self.disabled then
+				return
+			end
+			self.value = not self.value
+			PlaySound(self.value and 856 or 857) -- SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON / _OFF
+			UpdateCheck(self)
+			self:Fire("OnValueChanged", self.value)
+		end
+
+		local function Constructor()
+			local self = ItemBase.Create(IconItemType)
+
+			local icon = self.frame:CreateTexture(nil, "OVERLAY")
+			icon:SetSize(14, 14)
+			icon:SetPoint("LEFT", self.frame, "LEFT", 20, 0)
+			icon:Hide()
+			self.icon = icon
+
+			self.text:ClearAllPoints()
+			self.text:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 38, 0)
+			self.text:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", -8, 0)
+
+			self.frame:SetScript("OnClick", Frame_OnClick)
+
+			self.SetText = SetText
+			self.SetValue = SetValue
+			self.GetValue = GetValue
+			self.OnRelease = OnRelease
+
+			AceGUI:RegisterAsWidget(self)
+			return self
+		end
+
+		AceGUI:RegisterWidgetType(IconItemType, Constructor, IconItemVersion + ItemBase.version)
+	end
+end
