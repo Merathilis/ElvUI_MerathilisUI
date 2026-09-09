@@ -54,15 +54,16 @@ end
 
 local function ApplyMerLook(group)
 	PrepareGroup(group)
-	if not group.titletext or group.merActive then
+	if not group.titletext then
 		return
 	end
 	group.merActive = true
 
+	-- Re-applied on every FeedGroup call, not just the first time this group
+	-- goes active - AceGUI recycles InlineGroup widgets and can reset
+	-- titletext's color on reacquire, so merActive alone doesn't guarantee
+	-- the color set below is still in effect.
 	group.titletext:SetTextColor(unpack(COLOR_TITLE))
-	-- SetTitle was already called (by FeedOptions, before we ever attached our
-	-- hook the first time this group was prepared) - strip whatever it's
-	-- already carrying instead of waiting for the next title change.
 	Group_OnSetTitle(group, group.titletext:GetText())
 end
 
@@ -105,5 +106,16 @@ local function WalkForInlineGroups(container, isMUI, depth)
 end
 
 hooksecurefunc(ACD, "FeedGroup", function(_, _, _, container, _, path)
-	WalkForInlineGroups(container, path and path[1] == "mui", 0)
+	-- AceConfigDialog feeds every ancestor level of the currently open path,
+	-- deepest first, ending with a final call for the dialog's own synthetic
+	-- root group whose path is always empty - regardless of which page is
+	-- actually open. That root call's container still structurally reaches
+	-- (via AceGUI's widget pooling/recycling) the same InlineGroups the
+	-- deeper, correctly-pathed calls in the same cascade just fed, so acting
+	-- on it here would unconditionally restore stock color right after every
+	-- single refresh. It carries no real page information, so skip it.
+	if not path or #path == 0 then
+		return
+	end
+	WalkForInlineGroups(container, path[1] == "mui", 0)
 end)
