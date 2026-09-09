@@ -23,7 +23,9 @@ local SWATCH_SIZE = 12
 local SWATCH_INSET = 2
 
 local COLOR_BOX = { 0.16, 0.16, 0.16, 1 }
-local COLOR_BOX_HOVER = { 0.22, 0.22, 0.22, 1 }
+-- Muted Accent tint instead of a flat gray, so hover reads as the same
+-- bläulich highlight as the TabGroup's selected-tab color/underline.
+local COLOR_BOX_HOVER = { I.Colors.Accent.r * 0.3, I.Colors.Accent.g * 0.3, I.Colors.Accent.b * 0.3, 1 }
 
 local COLOR_TEXT_NORMAL = { 1, 1, 1 }
 local COLOR_TEXT_DISABLED = { 0.5, 0.5, 0.5 }

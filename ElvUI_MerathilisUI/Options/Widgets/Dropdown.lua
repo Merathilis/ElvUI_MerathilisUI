@@ -22,7 +22,9 @@ local LABEL_HEIGHT = 16
 local FRAME_HEIGHT = 40
 
 local COLOR_BOX = { 0.16, 0.16, 0.16, 1 }
-local COLOR_BOX_HOVER = { 0.22, 0.22, 0.22, 1 }
+-- Muted Accent tint instead of a flat gray, so hover reads as the same
+-- bläulich highlight as the TabGroup's selected-tab color/underline.
+local COLOR_BOX_HOVER = { I.Colors.Accent.r * 0.3, I.Colors.Accent.g * 0.3, I.Colors.Accent.b * 0.3, 1 }
 local COLOR_ARROW = { I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b, 1 }
 local COLOR_ARROW_DISABLED = { 0.55, 0.55, 0.55, 1 }
 
