@@ -2,21 +2,23 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Actionbars")
 
 local _G = _G
+local unpack = unpack
 
 local CreateFrame = CreateFrame
 local GameTooltip_Hide = GameTooltip_Hide
 local GetLootSpecialization = GetLootSpecialization
 local GetNumSpecializations = GetNumSpecializations
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 local SetLootSpecialization = SetLootSpecialization
+local GetSpecialization = C_SpecializationInfo.GetSpecialization
+local GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local SetSpecialization = C_SpecializationInfo.SetSpecialization
-local unpack = unpack
 
 -- Border colors (module-level constants)
 local COLOR_ACTIVE_R, COLOR_ACTIVE_G, COLOR_ACTIVE_B = 0, 0.44, 0.87
 local COLOR_LOOT_R, COLOR_LOOT_G, COLOR_LOOT_B = 1, 0.44, 0.4
+-- Shown when the active spec is also the loot spec (explicitly, or via "Current Specialization")
+local COLOR_ACTIVE_LOOT_R, COLOR_ACTIVE_LOOT_G, COLOR_ACTIVE_LOOT_B = 0.6, 0.44, 0.75
 
 local function SpecBar_OnEnter(self)
 	UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
@@ -70,9 +72,16 @@ local function SpecBar_UpdateButtons(bar)
 		btn.Spec = currentSpec
 		btn.LootID = lootID
 
-		if currentSpec == btn:GetID() then
+		local isActive = currentSpec == btn:GetID()
+		-- lootID is 0 when Loot Specialization is set to "Current Specialization",
+		-- which always resolves to whichever spec is currently active
+		local isLootSpec = lootID == btn.SpecID or (lootID == 0 and isActive)
+
+		if isActive and isLootSpec then
+			btn.backdrop:SetBackdropBorderColor(COLOR_ACTIVE_LOOT_R, COLOR_ACTIVE_LOOT_G, COLOR_ACTIVE_LOOT_B)
+		elseif isActive then
 			btn.backdrop:SetBackdropBorderColor(COLOR_ACTIVE_R, COLOR_ACTIVE_G, COLOR_ACTIVE_B)
-		elseif lootID == btn.SpecID then
+		elseif isLootSpec then
 			btn.backdrop:SetBackdropBorderColor(COLOR_LOOT_R, COLOR_LOOT_G, COLOR_LOOT_B)
 		else
 			btn.backdrop:SetBackdropBorderColor(borderR, borderG, borderB)
@@ -134,7 +143,10 @@ function module:CreateSpecBar()
 		Button.SpecID = SpecID
 		Button.SpecName = SpecName
 		Button.SpecDescription = Description
-		Button:CreateBackdrop()
+		-- ignoreUpdates: keep this backdrop out of E.frames so ElvUI's async
+		-- template sweep (E:UpdateFrameTemplates) can't silently reset our
+		-- manually-painted border color (e.g. right after login)
+		Button:CreateBackdrop(nil, nil, true)
 		Button:OffsetFrameLevel(1, specBar)
 		Button:StyleButton()
 		Button:SetNormalTexture(Icon)
