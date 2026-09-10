@@ -7,7 +7,6 @@ local xpcall = xpcall
 
 local CreateTextureMarkup = CreateTextureMarkup
 
-local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 local logo =
 	CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/Media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
 
@@ -296,11 +295,11 @@ function module:OptionsCallback()
 				name = function()
 					local text
 					if not F.IsMERProfile() then
-						text = newSignIgnored
+						text = F.NewSign
 							.. L["Please run through the installation process to set up the plugin.\n\n |cffff7d0aThis step is needed to ensure that all features are configured correctly for your profile. You don't have to apply every step.|r"]
-							.. newSignIgnored
+							.. F.NewSign
 					else
-						text = L["MER_DESC"] .. newSignIgnored
+						text = L["MER_DESC"] .. F.NewSign
 					end
 
 					return text

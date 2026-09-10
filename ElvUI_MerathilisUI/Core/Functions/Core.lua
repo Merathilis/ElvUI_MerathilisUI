@@ -974,6 +974,21 @@ function F.NewFeatureText(text)
 	return F.NewFeatureMarker .. (text or "")
 end
 
+-- MerathilisUI's own equivalent of ElvUI's E.NewSign: a plain, static inline
+-- text snippet, not a real widget, so it can be concatenated into literally
+-- any string - a `description`/`desc`/tooltip, not just a header or tab name
+-- (those go through F.NewFeatureText/F.MarkTabAsNew instead, which need an
+-- actual widget to attach a real animated F.CreateNewFeatureBadge to). No
+-- animation - leading with the same "collections-newglow" atlas F.
+-- CreateNewFeatureBadge uses was tried first, but that atlas is built for
+-- additive blending on a real Frame ("ADD" blend); plain inline `|A:...|a`
+-- markup has no blend-mode control, so it just rendered as an ugly solid
+-- blob instead of a glow. E.NewSign's own small icon renders fine inline at
+-- this size (it's what E.NewSign already is), so keep that for the
+-- Blizzard-ish look and add our own NEW text next to it - drop-in
+-- replacement for `E.NewSign .. text`.
+F.NewSign = E.NewSign .. format("|cffffd200%s|r ", _G.NEW_CAPS or _G.NEW or "NEW")
+
 -- Tabs marked "new" via F.MarkTabAsNew, read by Options/Widgets/TabGroup.lua
 -- to show a pulsing NEW badge. Kept as a side table keyed by the option's
 -- args-table key (tab.value) rather than embedding a marker in `name` like
