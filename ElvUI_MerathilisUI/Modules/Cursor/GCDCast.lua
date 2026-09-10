@@ -11,6 +11,8 @@ local UnitCastingInfo = UnitCastingInfo or CastingInfo
 local UnitChannelInfo = UnitChannelInfo or ChannelInfo
 local GetUnitEmpowerHoldAtMaxTime = GetUnitEmpowerHoldAtMaxTime
 
+local Enum_OnUpdateMode_RunWhenVisible = Enum.OnUpdateMode and Enum.OnUpdateMode.RunWhenVisible
+
 -- Reference spell used purely to read the shared (global) cooldown timing;
 -- any instant ability works, this one is always known.
 local GCD_REFERENCE_SPELL = 61304
@@ -174,6 +176,11 @@ function module:CreateCastRing()
 	root.spark:SetBlendMode("ADD")
 	root.spark:SetSize(radius * 0.6, radius * 0.6)
 	root.spark:Hide()
+
+	if sparkLayer.SetOnUpdateMode and Enum_OnUpdateMode_RunWhenVisible then
+		-- Skip the spark sweep tick while the cast ring root is hidden
+		sparkLayer:SetOnUpdateMode(Enum_OnUpdateMode_RunWhenVisible)
+	end
 
 	sparkLayer:SetScript("OnUpdate", function()
 		local spark = root.spark

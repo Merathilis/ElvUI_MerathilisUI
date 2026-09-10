@@ -13,6 +13,8 @@ local IsInInstance = IsInInstance
 local UIParent = UIParent
 local hooksecurefunc = hooksecurefunc
 
+local Enum_OnUpdateMode_RunWhenVisible = Enum.OnUpdateMode and Enum.OnUpdateMode.RunWhenVisible
+
 local RING_TEX = I.General.MediaPath .. "Textures\\Cursor\\Ring.tga"
 local DOT_TEX = I.General.MediaPath .. "Textures\\Cursor\\Dot.tga"
 
@@ -110,6 +112,11 @@ function module:CreateRing(parent, radius)
 			self.fg:Show()
 		end
 		self.duration, self.maxDuration = 0, 0
+	end
+
+	if ring.SetOnUpdateMode and Enum_OnUpdateMode_RunWhenVisible then
+		-- Skip the sweep tick while the ring's root (GCD/cast) is hidden
+		ring:SetOnUpdateMode(Enum_OnUpdateMode_RunWhenVisible)
 	end
 
 	ring:SetScript("OnUpdate", function(self, elapsed)
