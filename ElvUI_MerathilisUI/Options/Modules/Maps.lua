@@ -5,7 +5,7 @@ local options = module.options.modules.args
 
 options.maps = {
 	type = "group",
-	name = module:AddCategorieIcon(E.NewSign .. L["Maps"], "maps"),
+	name = module:AddCategorieIcon(L["Maps"], "maps"),
 	args = {
 		header = {
 			order = 0,
@@ -129,7 +129,7 @@ options.maps = {
 			order = 2,
 			type = "group",
 			guiInline = true,
-			name = E.NewSign .. L["Minimap Buttons"],
+			name = L["Minimap Buttons"],
 			get = function(info)
 				return E.db.mui.minimapButtons[info[#info]]
 			end,
