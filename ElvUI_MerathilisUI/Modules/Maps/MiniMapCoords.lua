@@ -4,6 +4,8 @@ local module = MER:GetModule("MER_MiniMapCoords")
 local _G = _G
 local format = string.format
 
+local Enum_OnUpdateMode_RunWhenVisible = Enum.OnUpdateMode and Enum.OnUpdateMode.RunWhenVisible
+
 local mapInfo = E.MapInfo
 local Minimap = _G.Minimap
 
@@ -56,6 +58,11 @@ function module:CreateCoordsFrame()
 	self.coordsHolder:SetFrameLevel(Minimap:GetFrameLevel() + 10)
 	self.coordsHolder:SetFrameStrata(Minimap:GetFrameStrata())
 	E.FrameLocks[self.coordsHolder] = true
+
+	if self.coordsHolder.SetOnUpdateMode and Enum_OnUpdateMode_RunWhenVisible then
+		-- Skip OnUpdate ticks while hidden (mouseOver mode toggles Show/Hide without touching the script)
+		self.coordsHolder:SetOnUpdateMode(Enum_OnUpdateMode_RunWhenVisible)
+	end
 
 	self.coordsHolder.playerCoords = self.coordsHolder:CreateFontString(nil, "OVERLAY")
 
