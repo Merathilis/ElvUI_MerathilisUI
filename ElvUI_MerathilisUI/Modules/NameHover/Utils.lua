@@ -10,6 +10,7 @@ local tinsert, tconcat = table.insert, table.concat
 local GetMouseFoci = GetMouseFoci
 local UnitIsPlayer = UnitIsPlayer
 local UnitGUID = UnitGUID
+local C_StringUtil_WrapString = C_StringUtil.WrapString
 
 local _combineBuf = {}
 
@@ -34,6 +35,12 @@ function module:GetTextWithColor(text, color)
 	local r = clamp255(color and color.r or 1)
 	local g = clamp255(color and color.g or 1)
 	local b = clamp255(color and color.b or 1)
+
+	if E:IsSecretValue(text) then
+		-- text can't be read/formatted (e.g. anonymized in Mythic+); wrap it with the
+		-- color codes via the secret-safe string API instead of string.format
+		return C_StringUtil_WrapString(text, format("|cFF%02x%02x%02x", r, g, b), " |r")
+	end
 
 	return format("|cFF%02x%02x%02x%s |r", r, g, b, text)
 end

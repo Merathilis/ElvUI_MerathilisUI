@@ -5,7 +5,9 @@
 -   [Notification]: Fixed toast notifications never reusing pooled frames, creating a new frame for every notification instead
 -   [Notification]: Fixed a potential error when a Paragon reputation toast fired for a faction with no cached data
 -   [Core]: Fixed potential Lua errors and incorrect unit checks (name coloring, unit color, class/reaction) when a unit's identity is protected by Blizzard's secret-value API
+-   [Core]: Fixed nameplate/unit frame names going blank instead of falling back to a (flat-colored) name when a unit's name is protected by Blizzard's secret-value API
 -   [NameHover]: Fixed potential Lua errors and incorrect player/reaction detection for mouseover units protected by Blizzard's secret-value API
+-   [NameHover]: Fixed the mouseover name display hiding entirely instead of falling back to a plain name when the unit's name is protected by Blizzard's secret-value API
 -   [Misc]: Fixed the raid role counter miscounting when a raid member's role is protected by Blizzard's secret-value API
 -   [Theme]: Fixed a potential Lua error in the health color update when a unit's dead/ghost state is protected by Blizzard's secret-value API
 -   [BuffReminder]: Fixed group buff coverage skipping a raid/party member whose dead/ghost state is protected by Blizzard's secret-value API

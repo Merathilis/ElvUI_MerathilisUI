@@ -10,7 +10,7 @@ local UnitReaction = UnitReaction
 
 E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit)
 	local name = UnitName(unit)
-	if not (E:NotSecretValue(name) and name) then
+	if not name then
 		return
 	end
 
@@ -42,6 +42,9 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit)
 				return F.GradientName(name, "NPCHOSTILE", isTarget, true)
 			end
 		end
+
+		-- reaction unknown/secret - fall back to the plain (possibly secret) name
+		return name
 	end
 end)
 E:AddTagInfo("name:MER:gradient", MER.Title, "Displays a shorten name in gradient classcolor")
