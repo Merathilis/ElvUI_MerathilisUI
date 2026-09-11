@@ -989,6 +989,27 @@ end
 -- replacement for `E.NewSign .. text`.
 F.NewSign = E.NewSign .. format("|cffffd200%s|r ", _G.NEW_CAPS or _G.NEW or "NEW")
 
+-- Marker appended to the *end* of a `type = "description"` option's `name`
+-- text to flag it for a real pulsing "NEW" badge (F.CreateNewFeatureBadge -
+-- the same one used on tabs), picked up by Options/Widgets/
+-- NewFeatureLabel.lua's "MERNewFeatureLabel" dialogControl. Distinct from
+-- F.NewFeatureMarker (which SectionHeader.lua strips from the *start* of a
+-- header's name) because a Label's text can be long and word-wrapped, so the
+-- badge has to be anchored after the last rendered line rather than the
+-- start - NewFeatureLabel measures that line's width instead of assuming it.
+F.NewFeatureTrailingMarker = "\002MER_NEW_END\002"
+
+---Suffix a `type = "description"` option's `name` with the marker
+---Options/Widgets/NewFeatureLabel.lua looks for and strips back out, turning
+---it into a pulsing NEW badge right after the text. Also requires
+---`dialogControl = "MERNewFeatureLabel"` on the same option. Remove both
+---again once that text isn't new anymore.
+---@param text string
+---@return string
+function F.NewFeatureTrailingText(text)
+	return (text or "") .. F.NewFeatureTrailingMarker
+end
+
 -- Tabs marked "new" via F.MarkTabAsNew, read by Options/Widgets/TabGroup.lua
 -- to show a pulsing NEW badge. Kept as a side table keyed by the option's
 -- args-table key (tab.value) rather than embedding a marker in `name` like
