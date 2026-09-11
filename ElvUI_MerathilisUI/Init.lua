@@ -107,6 +107,7 @@ MER.Modules.EquipManager = MER:NewModule("MER_EquipManager", "AceHook-3.0", "Ace
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Loot = MER:NewModule("MER_Loot", "AceEvent-3.0")
+MER.Modules.LootRoll = MER:NewModule("MER_LootRoll", "AceEvent-3.0")
 MER.Modules.Mail = MER:NewModule("MER_Mail", "AceHook-3.0")
 MER.Modules.MiniMapCoords = MER:NewModule("MER_MiniMapCoords", "AceHook-3.0")
 MER.Modules.MinimapButtons = MER:NewModule("MER_MinimapButtons")

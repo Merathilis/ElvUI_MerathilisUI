@@ -745,3 +745,35 @@ L["Only In Combat"] = "Nur im Kampf"
 L["Only While Steering Camera"] = "Nur beim Kamera-Steuern"
 L["Only show the ring while you're holding a mouse button to turn or move the camera (the hardware cursor is hidden)."] =
 	"Zeigt den Ring nur, während du mit gedrückter Maustaste die Kamera drehst oder dich bewegst (der Mauszeiger ist dabei ausgeblendet)."
+
+-- Loot Roll
+L["Loot Roll"] = true
+L["Can't Roll"] = "Kann nicht würfeln"
+L["Example"] = "Beispiel"
+L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] =
+	"Ersetzt ElvUIs Bedarf/Gier/Passen-Loot-Roll-Fenster durch eine eigene, verschiebbare Leiste."
+L["Show/hide a fake roll bar to preview your settings."] = "Zeigt/versteckt eine Test-Leiste, um deine Einstellungen zu testen."
+L["Layout"] = true
+L["Grow Direction"] = "Wachstumsrichtung"
+L["Down"] = "Unten"
+L["Up"] = "Oben"
+L["Max Bars"] = "Max. Leisten"
+L["Spacing"] = "Abstand"
+L["Button Size"] = "Button-Größe"
+L["Colors"] = "Farben"
+L["Color Border by Quality"] = "Rahmen nach Qualität einfärben"
+L["Color Name by Quality"] = "Namen nach Qualität einfärben"
+L["Show Item Level"] = "Gegenstandsstufe anzeigen"
+L["Color Status Bar by Quality"] = "Statusleiste nach Qualität einfärben"
+L["Custom Status Bar Color"] = "Eigene Statusleistenfarbe"
+L["Status Bar Texture"] = "Statusleisten-Textur"
+L["Font Size"] = "Schriftgröße"
+L["Font Outline"] = "Schriftumrandung"
+L["Rollers"] = "Würfler"
+L["Show Rollers Inline"] = "Würfler direkt anzeigen"
+L["Show who rolled Need/Greed/Disenchant/Pass directly under the bar instead of only in a tooltip.\n\nNote: on modern retail WoW this can currently only be populated for boss/encounter loot - it stays empty for regular group loot (e.g. trash mobs, world content)."] =
+	"Zeigt direkt unter der Leiste an, wer auf Bedarf/Gier/Entzaubern/Passen gewürfelt hat, statt nur im Tooltip.\n\nHinweis: Im aktuellen Retail-WoW kann dies derzeit nur bei Boss-/Encounter-Loot befüllt werden - bei normalem Gruppen-Loot (z. B. Trash-Mobs, Open-World-Content) bleibt es leer."
+L["Uncommon Test Item"] = "Ungewöhnliches Test-Item"
+L["Rare Test Item"] = "Seltenes Test-Item"
+L["Epic Test Item"] = "Episches Test-Item"
+L["Legendary Test Item"] = "Legendäres Test-Item"

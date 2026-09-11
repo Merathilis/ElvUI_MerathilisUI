@@ -17,6 +17,7 @@ MER.Changelog[732] = {
 		"[Notification]: Added a Great Vault notification when new weekly rewards become available to claim",
 		"[Notification]: Added a Currency Cap Warning that tracks any currency by ID and warns when it nears its weekly or total cap",
 		"[Notification]: Added a Test Notification button to preview the toast style directly from the options",
+		"[Loot]: Added a standalone Loot Roll module that replaces ElvUI's Need/Greed/Pass bars with a bigger, movable, quality-colored bar with an inline roller list and a Test button in the options",
 	},
 	IMPROVEMENTS = {
 		"[Options]: Changed the button/edit box/dropdown/color picker widgets' mouseover backdrop from a flat gray to a blue-tinted Accent color matching the tab strip's selected-tab color",

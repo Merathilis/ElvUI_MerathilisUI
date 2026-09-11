@@ -1397,6 +1397,29 @@ P.lootSpecManager = {
 	},
 }
 
+P.lootRoll = {
+	enable = true,
+	growDirection = "DOWN", -- DOWN or UP
+	width = 280,
+	height = 56,
+	spacing = 4,
+	maxBars = 4,
+	buttonSize = 24,
+
+	qualityBorder = true,
+	qualityStatusBar = true,
+	qualityName = true,
+	qualityItemLevel = true,
+	statusBarTexture = "ElvUI Norm",
+	statusBarColor = { r = 1, g = 1, b = 1 },
+
+	showRollers = true,
+
+	font = nil,
+	fontSize = 13,
+	fontOutline = "THICKOUTLINE",
+}
+
 P.cursor = {
 	enable = false, -- master switch for the whole module
 
