@@ -27,7 +27,7 @@ local function clamp255(x)
 end
 
 function module:IsNotEmpty(val)
-	return val ~= nil and (issecretvalue(val) or val ~= "")
+	return val ~= nil and E:NotSecretValue(val) and val ~= ""
 end
 
 function module:GetTextWithColor(text, color)
@@ -77,7 +77,8 @@ end
 
 function module:GetTooltipData()
 	local tooltipLines = {}
-	if UnitIsPlayer("mouseover") then
+	local isPlayer = UnitIsPlayer("mouseover")
+	if E:NotSecretValue(isPlayer) and isPlayer then
 		return tooltipLines
 	end
 

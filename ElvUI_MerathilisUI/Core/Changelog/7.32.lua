@@ -7,6 +7,9 @@ MER.Changelog[732] = {
 		"[Actionbars]: Fixed SpecBar's border color reverting to the default color shortly after login/reload",
 		"[Notification]: Fixed toast notifications never reusing pooled frames, creating a new frame for every notification instead",
 		"[Notification]: Fixed a potential error when a Paragon reputation toast fired for a faction with no cached data",
+		"[Core]: Fixed potential Lua errors and incorrect unit checks (name coloring, unit color, class/reaction) when a unit's identity is protected by Blizzard's secret-value API",
+		"[NameHover]: Fixed potential Lua errors and incorrect player/reaction detection for mouseover units protected by Blizzard's secret-value API",
+		"[Misc]: Fixed the raid role counter miscounting when a raid member's role is protected by Blizzard's secret-value API",
 	},
 	NEW = {
 		"[Notification]: Added a Great Vault notification when new weekly rewards become available to claim",

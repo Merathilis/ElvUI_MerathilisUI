@@ -65,7 +65,9 @@ local function StripQuestCount(text)
 end
 
 function module:GetQuestText(unit, tooltipLines)
-	if UnitIsPlayer(unit) or not C_QuestLog_UnitIsRelatedToActiveQuest(unit) then
+	local isPlayer = UnitIsPlayer(unit)
+	isPlayer = E:NotSecretValue(isPlayer) and isPlayer
+	if isPlayer or not C_QuestLog_UnitIsRelatedToActiveQuest(unit) then
 		return nil
 	end
 

@@ -455,12 +455,17 @@ end
 function F.UnitColor(unit)
 	local r, g, b = 1, 1, 1
 
-	if UnitIsPlayer(unit) then
+	local isPlayer = UnitIsPlayer(unit)
+	isPlayer = E:NotSecretValue(isPlayer) and isPlayer
+	local tapDenied = UnitIsTapDenied(unit)
+	tapDenied = E:NotSecretValue(tapDenied) and tapDenied
+
+	if isPlayer then
 		local class = select(2, UnitClass(unit))
 		if class then
 			r, g, b = F.ClassColor(class)
 		end
-	elseif UnitIsTapDenied(unit) then
+	elseif tapDenied then
 		r, g, b = 0.6, 0.6, 0.6
 	else
 		local reaction = UnitReaction(unit, "player")

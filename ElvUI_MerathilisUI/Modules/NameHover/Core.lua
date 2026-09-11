@@ -252,7 +252,7 @@ local function UpdateFrameContents(f)
 	end
 
 	local unitName = UnitName("mouseover")
-	if unitName == nil then
+	if not (E:NotSecretValue(unitName) and unitName) then
 		f:Hide()
 		return
 	end
