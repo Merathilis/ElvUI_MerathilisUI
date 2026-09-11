@@ -88,8 +88,6 @@ local CONSUMABLE_TOGGLES = {
 	{ key = "shield_basic", name = L["Shield"] },
 }
 
-F.MarkTabAsNew("buffReminder") -- shows a pulsing "NEW" badge on this tab (see Options/Widgets/TabGroup.lua) - remove once no longer new
-
 options.buffReminder = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Buff Reminder"], "buff_reminder"),
@@ -99,7 +97,7 @@ options.buffReminder = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.NewFeatureText(L["Buff Reminder"]), -- pulsing NEW badge - remove wrap once no longer new
+			name = L["Buff Reminder"],
 		},
 		enable = {
 			order = 2,
