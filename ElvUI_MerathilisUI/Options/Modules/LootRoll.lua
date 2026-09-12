@@ -311,8 +311,8 @@ options.lootRoll = {
 				showRollers = {
 					order = 1,
 					type = "toggle",
-					name = L["Show Rollers Inline"],
-					desc = L["Show who rolled Need/Greed/Disenchant/Pass directly under the bar instead of only in a tooltip.\n\nNote: on modern retail WoW this can currently only be populated for boss/encounter loot - it stays empty for regular group loot (e.g. trash mobs, world content)."],
+					name = L["Show Rollers in Tooltip"],
+					desc = L["Show who rolled Need/Greed/Disenchant/Pass in the item's tooltip.\n\nNote: on modern retail WoW this can currently only be populated for boss/encounter loot - it stays empty for regular group loot (e.g. trash mobs, world content)."],
 					get = function()
 						return E.db.mui.lootRoll.showRollers
 					end,

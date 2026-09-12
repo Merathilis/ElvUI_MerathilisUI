@@ -47,12 +47,12 @@ local rollTextures = {
 }
 
 local rollStateToType = Enum.EncounterLootDropRollState
-	and {
-		[Enum.EncounterLootDropRollState.NeedMainSpec] = 1,
-		[Enum.EncounterLootDropRollState.Transmog] = 4,
-		[Enum.EncounterLootDropRollState.Greed] = 2,
-		[Enum.EncounterLootDropRollState.Pass] = 0,
-	}
+		and {
+			[Enum.EncounterLootDropRollState.NeedMainSpec] = 1,
+			[Enum.EncounterLootDropRollState.Transmog] = 4,
+			[Enum.EncounterLootDropRollState.Greed] = 2,
+			[Enum.EncounterLootDropRollState.Pass] = 0,
+		}
 	or {}
 
 --------------------------------------------------------------------
@@ -136,6 +136,34 @@ end
 --------------------------------------------------------------------
 -- Item icon button
 --------------------------------------------------------------------
+local rollTypeLabel = { [1] = NEED, [2] = GREED, [3] = ROLL_DISENCHANT, [4] = TRANSMOGRIFY, [0] = PASS }
+local rollTypeOrder = { 1, 4, 2, 3, 0 }
+
+local function AddRollersToTooltip(rollID)
+	local info = rollID and cachedRolls[rollID]
+	if not info or not next(info) then
+		return
+	end
+
+	local added = false
+	for _, rolltype in ipairs(rollTypeOrder) do
+		local rolls = info[rolltype]
+		if rolls and next(rolls) then
+			if not added then
+				GameTooltip:AddLine(" ")
+				added = true
+			end
+
+			GameTooltip:AddLine(rollTypeLabel[rolltype] .. ":")
+			for _, rollerInfo in next, rolls do
+				local name, class = unpack(rollerInfo)
+				local r, g, b = F.ClassColor(class)
+				GameTooltip:AddLine("  " .. name, r, g, b)
+			end
+		end
+	end
+end
+
 local function ItemButton_OnEnter(self)
 	if not self.link then
 		return
@@ -147,6 +175,12 @@ local function ItemButton_OnEnter(self)
 	if IsShiftKeyDown() then
 		GameTooltip_ShowCompareItem()
 	end
+
+	if module.db.showRollers then
+		AddRollersToTooltip(self.parent.rollID)
+	end
+
+	GameTooltip:Show()
 end
 
 local function ItemButton_OnEvent(self, event)
@@ -211,9 +245,9 @@ function module:CreateBar(index)
 	bar:SetFrameStrata("HIGH")
 	bar:Hide()
 
-	-- Neutral dark panel behind name/buttons, sized to just the main row (not
-	-- the rollers line below it) - the quality color only lives in the icon
-	-- border + the slim timer strip, so it never fights with text/icon contrast.
+	-- Neutral dark panel behind name/buttons - the quality color only lives in
+	-- the icon border + the slim timer strip, so it never fights with
+	-- text/icon contrast.
 	local panel = CreateFrame("Frame", nil, bar)
 	panel:CreateBackdrop("Default")
 	bar.panel = panel
@@ -277,12 +311,6 @@ function module:CreateBar(index)
 	bind:FontTemplate(nil, nil, "OUTLINE")
 	bar.bind = bind
 
-	local rollers = bar:CreateFontString(nil, "OVERLAY")
-	rollers:FontTemplate(nil, nil, "OUTLINE")
-	rollers:SetJustifyH("LEFT")
-	rollers:SetWordWrap(false)
-	bar.rollers = rollers
-
 	bar.rolls = {}
 
 	tinsert(module.RollBars, bar)
@@ -312,10 +340,9 @@ end
 --------------------------------------------------------------------
 function module:LayoutBar(bar)
 	local db = module.db
-	local rollersHeight = db.showRollers and (F.FontSize(db.fontSize) + 4) or 0
 	local texture = LSM:Fetch("statusbar", db.statusBarTexture)
 
-	bar:Size(db.width, db.height + rollersHeight)
+	bar:Size(db.width, db.height)
 
 	bar.panel:ClearAllPoints()
 	bar.panel:Point("TOPLEFT", bar, "TOPLEFT")
@@ -360,14 +387,6 @@ function module:LayoutBar(bar)
 		bu.count:FontTemplate(F.GetFontPath(db.font), db.fontSize - 3, db.fontOutline)
 		last = bu
 	end
-
-	bar.rollers:ClearAllPoints()
-	bar.rollers:SetShown(db.showRollers)
-	if db.showRollers then
-		bar.rollers:FontTemplate(F.GetFontPath(db.font), db.fontSize - 2, db.fontOutline)
-		bar.rollers:Point("TOPLEFT", bar.button, "BOTTOMLEFT", 0, -2)
-		bar.rollers:Point("RIGHT", bar, "RIGHT", 0, 0)
-	end
 end
 
 function module:Layout()
@@ -382,7 +401,7 @@ function module:Layout()
 	end
 
 	if anchor then
-		anchor:Size(module.db.width, module.db.height + (module.db.showRollers and (F.FontSize(module.db.fontSize) + 4) or 0))
+		anchor:Size(module.db.width, module.db.height)
 	end
 end
 
@@ -394,7 +413,11 @@ function module:StackBars(list)
 		bar:ClearAllPoints()
 
 		if i == 1 then
-			bar:Point(db.growDirection == "UP" and "BOTTOM" or "TOP", anchor, db.growDirection == "UP" and "BOTTOM" or "TOP")
+			bar:Point(
+				db.growDirection == "UP" and "BOTTOM" or "TOP",
+				anchor,
+				db.growDirection == "UP" and "BOTTOM" or "TOP"
+			)
 		elseif db.growDirection == "UP" then
 			bar:Point("BOTTOM", lastFrame, "TOP", 0, db.spacing)
 		else
@@ -428,28 +451,6 @@ local function RefreshRollCounts(bar)
 		local rolls = info and info[rolltype]
 		bu.count:SetText(rolls and next(rolls) and #rolls or "")
 	end
-
-	if not module.db.showRollers then
-		return
-	end
-
-	if not info or not next(info) then
-		bar.rollers:SetText("")
-		return
-	end
-
-	local parts = {}
-	for rolltype, rolls in pairs(info) do
-		if next(rolls) then
-			for _, rollerInfo in next, rolls do
-				local name, class = unpack(rollerInfo)
-				local r, g, b = F.ClassColor(class)
-				tinsert(parts, format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, name))
-			end
-		end
-	end
-
-	bar.rollers:SetText(table.concat(parts, "  "))
 end
 
 function module:LootRoll_GetRollID(encounterID, lootListID)
@@ -495,7 +496,8 @@ end
 -- Core loot roll events
 --------------------------------------------------------------------
 function module:START_LOOT_ROLL(_, rollID, rollTime)
-	local texture, name, count, quality, _, canNeed, canGreed, canDisenchant, _, _, _, _, canTransmog = GetLootRollItemInfo(rollID)
+	local texture, name, count, quality, _, canNeed, canGreed, canDisenchant, _, _, _, _, canTransmog =
+		GetLootRollItemInfo(rollID)
 	if not name then
 		local bar = GetRollBarByID(rollID)
 		if bar then
@@ -514,7 +516,8 @@ function module:START_LOOT_ROLL(_, rollID, rollTime)
 	end
 
 	local itemLink = GetLootRollItemLink(rollID)
-	local _, _, _, itemLevel, _, _, _, _, itemEquipLoc, _, _, itemClassID, itemSubClassID, bindType = GetItemInfo(itemLink)
+	local _, _, _, itemLevel, _, _, _, _, itemEquipLoc, _, _, itemClassID, itemSubClassID, bindType =
+		GetItemInfo(itemLink)
 
 	local db = module.db
 	local r, g, b = E:GetItemQualityColor(quality)
@@ -630,10 +633,54 @@ end
 -- text contrast can be checked against every quality color at once.
 local TEST_ICON = [[Interface\Icons\INV_Misc_QuestionMark]]
 local testItems = {
-	{ name = L["Uncommon Test Item"], quality = 2, itemLevel = 45, bop = false, canNeed = true, canGreed = true, canTransmog = false, canDisenchant = false, needCount = 1, greedCount = 4 },
-	{ name = L["Rare Test Item"], quality = 3, itemLevel = 190, bop = true, canNeed = true, canGreed = true, canTransmog = false, canDisenchant = true, needCount = 3, greedCount = 0 },
-	{ name = L["Epic Test Item"], quality = 4, itemLevel = 415, bop = true, canNeed = true, canGreed = false, canTransmog = true, canDisenchant = true, needCount = 2, greedCount = 0 },
-	{ name = L["Legendary Test Item"], quality = 5, itemLevel = 450, bop = true, canNeed = true, canGreed = false, canTransmog = false, canDisenchant = false, needCount = 1, greedCount = 0 },
+	{
+		name = L["Uncommon Test Item"],
+		quality = 2,
+		itemLevel = 45,
+		bop = false,
+		canNeed = true,
+		canGreed = true,
+		canTransmog = false,
+		canDisenchant = false,
+		needCount = 1,
+		greedCount = 4,
+	},
+	{
+		name = L["Rare Test Item"],
+		quality = 3,
+		itemLevel = 190,
+		bop = true,
+		canNeed = true,
+		canGreed = true,
+		canTransmog = false,
+		canDisenchant = true,
+		needCount = 3,
+		greedCount = 0,
+	},
+	{
+		name = L["Epic Test Item"],
+		quality = 4,
+		itemLevel = 415,
+		bop = true,
+		canNeed = true,
+		canGreed = false,
+		canTransmog = true,
+		canDisenchant = true,
+		needCount = 2,
+		greedCount = 0,
+	},
+	{
+		name = L["Legendary Test Item"],
+		quality = 5,
+		itemLevel = 450,
+		bop = true,
+		canNeed = true,
+		canGreed = false,
+		canTransmog = false,
+		canDisenchant = false,
+		needCount = 1,
+		greedCount = 0,
+	},
 }
 
 local function PopulateTestBar(bar, item)
@@ -682,8 +729,6 @@ local function PopulateTestBar(bar, item)
 		local c = db.statusBarColor
 		bar.status:SetStatusBarColor(c.r, c.g, c.b, 0.9)
 	end
-
-	bar.rollers:SetText(db.showRollers and format("|cffff8000%s|r  |cffffffff%s|r", L["Example"], UnitName("player")) or "")
 
 	bar.status.elapsed = 0
 	bar.status:SetMinMaxValues(0, 60)
@@ -779,9 +824,19 @@ function module:Initialize()
 
 	anchor = CreateFrame("Frame", "MERLootRollAnchor", E.UIParent)
 	anchor:Size(module.db.width, module.db.height)
-	anchor:Point("CENTER", E.UIParent, "CENTER", 0, 220)
+	anchor:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -356, -432)
 
-	E:CreateMover(anchor, "MERLootRollMover", MER.Title .. L["Loot Roll"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, "mui,modules,lootRoll")
+	E:CreateMover(
+		anchor,
+		"MERLootRollMover",
+		MER.Title .. L["Loot Roll"],
+		nil,
+		nil,
+		nil,
+		"ALL,SOLO,MERATHILISUI",
+		nil,
+		"mui,modules,lootRoll"
+	)
 
 	module:CreateBar(1)
 	module:Layout()

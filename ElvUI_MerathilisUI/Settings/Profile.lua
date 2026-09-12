@@ -1400,11 +1400,11 @@ P.lootSpecManager = {
 P.lootRoll = {
 	enable = true,
 	growDirection = "DOWN", -- DOWN or UP
-	width = 280,
+	width = 270,
 	height = 56,
-	spacing = 4,
-	maxBars = 4,
-	buttonSize = 24,
+	spacing = 8,
+	maxBars = 5,
+	buttonSize = 22,
 
 	qualityBorder = true,
 	qualityStatusBar = true,

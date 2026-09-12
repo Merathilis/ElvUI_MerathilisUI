@@ -770,9 +770,9 @@ L["Status Bar Texture"] = "Statusleisten-Textur"
 L["Font Size"] = "Schriftgröße"
 L["Font Outline"] = "Schriftumrandung"
 L["Rollers"] = "Würfler"
-L["Show Rollers Inline"] = "Würfler direkt anzeigen"
-L["Show who rolled Need/Greed/Disenchant/Pass directly under the bar instead of only in a tooltip.\n\nNote: on modern retail WoW this can currently only be populated for boss/encounter loot - it stays empty for regular group loot (e.g. trash mobs, world content)."] =
-	"Zeigt direkt unter der Leiste an, wer auf Bedarf/Gier/Entzaubern/Passen gewürfelt hat, statt nur im Tooltip.\n\nHinweis: Im aktuellen Retail-WoW kann dies derzeit nur bei Boss-/Encounter-Loot befüllt werden - bei normalem Gruppen-Loot (z. B. Trash-Mobs, Open-World-Content) bleibt es leer."
+L["Show Rollers in Tooltip"] = "Würfler im Tooltip anzeigen"
+L["Show who rolled Need/Greed/Disenchant/Pass in the item's tooltip.\n\nNote: on modern retail WoW this can currently only be populated for boss/encounter loot - it stays empty for regular group loot (e.g. trash mobs, world content)."] =
+	"Zeigt im Tooltip des Items an, wer auf Bedarf/Gier/Entzaubern/Passen gewürfelt hat.\n\nHinweis: Im aktuellen Retail-WoW kann dies derzeit nur bei Boss-/Encounter-Loot befüllt werden - bei normalem Gruppen-Loot (z. B. Trash-Mobs, Open-World-Content) bleibt es leer."
 L["Uncommon Test Item"] = "Ungewöhnliches Test-Item"
 L["Rare Test Item"] = "Seltenes Test-Item"
 L["Epic Test Item"] = "Episches Test-Item"
