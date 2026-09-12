@@ -167,6 +167,14 @@ function module:CheckOverflow()
 		return
 	end
 
+	-- Runs on its own repeating timer, independent of Refresh() - without this check, disabling
+	-- the feature (Refresh Hides the button once) gets undone by the next tick re-showing it,
+	-- since this had no idea the feature was just turned off.
+	if not GetDB().enable then
+		btn:Hide()
+		return
+	end
+
 	UpdateButtonLayout(header)
 
 	if header.forceShowAuras then
@@ -194,8 +202,15 @@ local function CreateCollapseButton(header)
 	-- everyday calls like GameTooltip:SetOwner() get blocked/tainted on such a child. Parenting
 	-- to E.UIParent instead and only using SetPoint to follow header sidesteps that entirely.
 	local btn = CreateFrame("Button", "ElvUIPlayerBuffsCollapseAndExpandButton", E.UIParent)
-	btn:SetFrameStrata(header:GetFrameStrata())
-	btn:SetFrameLevel(header:GetFrameLevel() + 5)
+
+	-- header:GetFrameStrata()/GetFrameLevel() can come back as a secret value (Blizzard's
+	-- opaque-value protection) depending on context, which SetFrameStrata/SetFrameLevel then
+	-- reject outright - fall back to sane defaults instead of erroring when that happens.
+	local strata = header:GetFrameStrata()
+	btn:SetFrameStrata(E:NotSecretValue(strata) and strata or "MEDIUM")
+
+	local level = header:GetFrameLevel()
+	btn:SetFrameLevel((E:NotSecretValue(level) and level or 1) + 5)
 
 	local tex = btn:CreateTexture(nil, "ARTWORK")
 	tex:SetTexture(E.Media.Textures.ArrowRight)

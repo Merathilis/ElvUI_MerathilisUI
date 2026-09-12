@@ -13,16 +13,18 @@ local function Set(info, value)
 	AU:Refresh()
 end
 
+F.MarkTabAsNew("auras")
+
 options.auras = {
 	type = "group",
-	name = L["Player Buffs"],
+	name = module:AddCategorieIcon(L["BUFFOPTIONS_LABEL"], "auras"),
 	get = Get,
 	set = Set,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = L["Player Buffs"],
+			name = F.NewFeatureText(L["BUFFOPTIONS_LABEL"]),
 		},
 		enable = {
 			order = 2,

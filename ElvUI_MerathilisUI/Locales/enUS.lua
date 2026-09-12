@@ -64,6 +64,9 @@ L["Are you sure you want to reset %s module?"] = true
 L["Reset All Modules"] = true
 L["Reset all %s modules."] = true
 
+-- Auras
+L["BUFFOPTIONS_LABEL"] = "Buffs & Debuffs"
+
 -- GameMenu
 L["Game Menu"] = true
 L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"] = true
@@ -909,7 +912,8 @@ L["|TInterfaceAddonsElvUI_MerathilisUIMediaIconsDiscord.tga:18:18:0:0:64:64|t |c
 L["Buff Reminder"] = true
 L["Test"] = true
 L["Stop Test"] = true
-L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."] = true
+L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."] =
+	true
 L["Raid Buffs"] = true
 L["Consumables"] = true
 L["Flask"] = true
