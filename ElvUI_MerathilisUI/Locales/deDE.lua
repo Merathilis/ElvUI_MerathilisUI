@@ -790,3 +790,41 @@ L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Co
 	"Fügt Blizzards Einklapp-/Ausklapp-Pfeil-Button wieder zu ElvUIs Spieler-Buffs hinzu. Beim Einklappen werden die Buffs auf eine Zeile reduziert - nur bald auslaufende Buffs bleiben sichtbar, langanhaltende werden ausgeblendet."
 L["Expand Buffs"] = "Buffs ausklappen"
 L["Collapse Buffs"] = "Buffs einklappen"
+
+-- Mail
+L["Open"] = "Öffnen"
+L["Open Selected"] = "Auswahl öffnen"
+L["Delete Selected"] = "Auswahl löschen"
+L["Selection"] = "Auswahl"
+L["Send Templates"] = "Sendevorlagen"
+L["Continue"] = "Weiter"
+L["No templates saved."] = "Keine Vorlagen gespeichert."
+L["Template Name"] = "Vorlagenname"
+L["Recipients (one per line, or comma separated)"] = "Empfänger (eine Zeile oder komma-getrennt)"
+L["Subject"] = "Betreff"
+L["Body"] = "Nachricht"
+L["New Template"] = "Neue Vorlage"
+L["Clear the fields above to create a new template."] = "Leert die obigen Felder, um eine neue Vorlage zu erstellen."
+L["Add / Update"] = "Hinzufügen / Aktualisieren"
+L["Saved Templates"] = "Gespeicherte Vorlagen"
+L["Pick a saved template to load it into the fields above for editing."] =
+	"Wähle eine gespeicherte Vorlage, um sie zum Bearbeiten in die obigen Felder zu laden."
+L["Please set a template name first."] = "Bitte zuerst einen Vorlagennamen festlegen."
+L["Please add at least one recipient."] = "Bitte mindestens einen Empfänger hinzufügen."
+L["This template has no recipients."] = "Diese Vorlage hat keine Empfänger."
+L["Delete %d selected mails?"] = "%d ausgewählte Briefe löschen?"
+L["No mail selected."] = "Keine Post ausgewählt."
+L["Select all mail on this page"] = "Alle Briefe dieser Seite auswählen"
+L["Adds checkboxes to the inbox to open or delete multiple mails at once."] =
+	"Fügt dem Posteingang Kontrollkästchen hinzu, um mehrere Briefe auf einmal zu öffnen oder zu löschen."
+L["Save recipient lists to send the same mail to multiple people at once from the mailbox."] =
+	"Speichere Empfängerlisten, um dieselbe Post im Briefkasten an mehrere Personen gleichzeitig zu senden."
+L["Item cleared - re-drag it into the attachment slot, then click Continue."] =
+	"Gegenstand wurde entfernt - bitte erneut in den Anhang-Slot ziehen und dann Weiter senden klicken."
+L["Mass send complete."] = "Massenversand abgeschlossen."
+L["Sending %d/%d to %s..."] = "Sende %d/%d an %s..."
+L["Send failed for %s."] = "Senden fehlgeschlagen für %s."
+L["Example: Send to Alts"] = "Beispiel: An Twinks senden"
+L["Gold from Main"] = "Gold vom Main"
+L["This is an example template - edit the recipients/subject/body or delete it in Options > Mail > Send Templates."] =
+	"Das ist eine Beispiel-Vorlage - Empfänger/Betreff/Text anpassen oder unter Optionen > Mail > Sendevorlagen löschen."

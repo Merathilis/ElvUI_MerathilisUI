@@ -680,6 +680,9 @@ P.tooltip = {
 
 P.mail = {
 	enable = true,
+	selection = {
+		enable = true,
+	},
 }
 
 P.notification = {

@@ -897,6 +897,39 @@ L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n
 	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] =
 	"You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."
+
+-- Mail
+L["Open"] = true
+L["Open Selected"] = true
+L["Delete Selected"] = true
+L["Selection"] = true
+L["Send Templates"] = true
+L["Continue"] = true
+L["No templates saved."] = true
+L["Template Name"] = true
+L["Recipients (one per line, or comma separated)"] = true
+L["Subject"] = true
+L["Body"] = true
+L["New Template"] = true
+L["Clear the fields above to create a new template."] = true
+L["Add / Update"] = true
+L["Saved Templates"] = true
+L["Pick a saved template to load it into the fields above for editing."] = true
+L["Please set a template name first."] = true
+L["Please add at least one recipient."] = true
+L["This template has no recipients."] = true
+L["Delete %d selected mails?"] = true
+L["No mail selected."] = true
+L["Select all mail on this page"] = true
+L["Adds checkboxes to the inbox to open or delete multiple mails at once."] = true
+L["Save recipient lists to send the same mail to multiple people at once from the mailbox."] = true
+L["Item cleared - re-drag it into the attachment slot, then click Continue."] = true
+L["Mass send complete."] = true
+L["Sending %d/%d to %s..."] = true
+L["Send failed for %s."] = true
+L["Example: Send to Alts"] = true
+L["Gold from Main"] = true
+L["This is an example template - edit the recipients/subject/body or delete it in Options > Mail > Send Templates."] = true
 L["You have %s pending calendar |4invite:invites;."] = "You have %s pending calendar |4invite:invites;."
 L["You have %s pending guild |4event:events;."] = "You have %s pending guild |4event:events;."
 L["Your current Profile is: "] = "Your current Profile is: "
