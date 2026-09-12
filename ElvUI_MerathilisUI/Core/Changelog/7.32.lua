@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[732] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "12.09.2026",
 	FIXES = {
 		'[Actionbars]: Fixed SpecBar not showing a distinct border color when Loot Specialization is set to "Current Specialization"',
 		"[Actionbars]: Fixed SpecBar's border color reverting to the default color shortly after login/reload",
