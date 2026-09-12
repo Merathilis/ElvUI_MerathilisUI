@@ -179,6 +179,16 @@ options.reset = {
 				end)
 			end,
 		},
+		lootRoll = {
+			order = 15.5,
+			type = "execute",
+			name = L["Loot Roll"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Loot Roll"], nil, function()
+					E:CopyTable(E.db.mui.lootRoll, P.lootRoll)
+				end)
+			end,
+		},
 		mail = {
 			order = 16,
 			type = "execute",

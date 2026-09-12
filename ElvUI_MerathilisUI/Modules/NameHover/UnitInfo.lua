@@ -22,19 +22,28 @@ local UnitName = UnitName
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 local function IsPlayer(unit)
-	return UnitIsPlayer(unit or "mouseover")
+	local isPlayer = UnitIsPlayer(unit or "mouseover")
+	return E:NotSecretValue(isPlayer) and isPlayer
 end
 
 function module:GetUnitNameColor(unittype)
-	local reaction = UnitReaction(unittype, "player") or 5
+	local reaction = UnitReaction(unittype, "player")
+	reaction = (E:NotSecretValue(reaction) and reaction) or 5
 
-	if UnitIsPlayer(unittype) then
+	local isPlayer = UnitIsPlayer(unittype)
+	isPlayer = E:NotSecretValue(isPlayer) and isPlayer
+	local canAttack = UnitCanAttack("player", unittype)
+	canAttack = E:NotSecretValue(canAttack) and canAttack
+
+	if isPlayer then
 		local _, class = UnitClass(unittype)
 		if E:NotSecretValue(class) and class then
 			return RAID_CLASS_COLORS[class]
 		end
-	elseif UnitCanAttack("player", unittype) then
-		if UnitIsDead(unittype) then
+	elseif canAttack then
+		local isDead = UnitIsDead(unittype)
+		isDead = E:NotSecretValue(isDead) and isDead
+		if isDead then
 			return module.COLOR_DEAD
 		elseif reaction < 4 then
 			return module.COLOR_HOSTILE
@@ -56,7 +65,7 @@ function module:GetLevelText()
 	end
 
 	local level = UnitLevel("mouseover")
-	if level and level > 1 then
+	if E:NotSecretValue(level) and level and level > 1 then
 		return module:GetTextWithColor(tostring(level), GetQuestDifficultyColor(level))
 	end
 	return ""
@@ -68,7 +77,7 @@ function module:GetTargetText()
 	end
 
 	local target = UnitName("mouseovertarget")
-	if not target then
+	if not (E:NotSecretValue(target) and target) then
 		return ""
 	end
 
@@ -105,7 +114,9 @@ function module:GetClassificationText()
 	end
 
 	local classification = UnitClassification("mouseover")
-	if classification == "worldboss" then
+	if E:IsSecretValue(classification) then
+		return nil
+	elseif classification == "worldboss" then
 		return module:GetTextWithColor("World Boss", module.COLOR_ELITE)
 	elseif classification == "elite" then
 		return module:GetTextWithColor("Elite", module.COLOR_ELITE)
@@ -124,8 +135,11 @@ function module:GetGuildText()
 	end
 
 	local guildName, guildRank = GetGuildInfo("mouseover")
-	if not guildName then
+	if not (E:NotSecretValue(guildName) and guildName) then
 		return nil
+	end
+	if not (E:NotSecretValue(guildRank) and guildRank) then
+		guildRank = nil
 	end
 
 	local text = ""
@@ -148,8 +162,11 @@ function module:GetFactionText()
 	end
 
 	local factionLabel, faction = UnitFactionGroup("mouseover")
-	if not factionLabel then
+	if not (E:NotSecretValue(factionLabel) and factionLabel) then
 		return nil
+	end
+	if not E:NotSecretValue(faction) then
+		faction = nil
 	end
 
 	if faction == "Horde" then
@@ -166,7 +183,7 @@ function module:GetRaceText()
 	end
 
 	local race = UnitRace("mouseover")
-	if race then
+	if E:NotSecretValue(race) and race then
 		return module:GetTextWithColor(race, module.COLOR_DEFAULT)
 	end
 	return nil
@@ -178,7 +195,7 @@ function module:GetCreatureType()
 	end
 
 	local t = UnitCreatureType("mouseover")
-	if t and not issecretvalue(t) and t ~= "Not specified" then
+	if t and E:NotSecretValue(t) and t ~= "Not specified" then
 		return module:GetTextWithColor(t, module.COLOR_DEFAULT)
 	end
 	return nil

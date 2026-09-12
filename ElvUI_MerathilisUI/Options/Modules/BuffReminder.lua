@@ -97,7 +97,7 @@ options.buffReminder = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Buff Reminder"], "orange"),
+			name = L["Buff Reminder"],
 		},
 		enable = {
 			order = 2,

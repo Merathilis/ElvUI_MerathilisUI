@@ -30,8 +30,28 @@ local methods = {
 		-- (knob/arrow/fill/underline). Strip those codes so headers read in
 		-- the same plain white as everything else.
 		text = text or ""
+
+		local isNew = text:find(F.NewFeatureMarker, 1, true) ~= nil
+		if isNew then
+			text = text:gsub(F.NewFeatureMarker, "")
+		end
+
 		text = text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 		self.label:SetText(text)
+
+		-- Anchored off the label's own rendered text width (not the label
+		-- region, which spans the header's full width - the header's own
+		-- TOPRIGHT is way out past the visible text, near the panel edge)
+		-- so the badge sits right after the visible words. Repositioned on
+		-- every SetText, not just on first creation, since the text (and so
+		-- its width) can change on a later dialog refresh.
+		local badge = F.SyncNewFeatureBadge(self, "newBadge", isNew, function()
+			return F.CreateNewFeatureBadge(self.frame, "LEFT", self.label, "TOPLEFT", 0, -10, 0.7)
+		end)
+		if badge then
+			badge:ClearAllPoints()
+			badge:SetPoint("LEFT", self.label, "TOPLEFT", self.label:GetStringWidth() + 10, -10)
+		end
 	end,
 }
 

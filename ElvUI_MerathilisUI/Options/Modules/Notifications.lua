@@ -46,6 +46,29 @@ options.Notification = {
 			type = "toggle",
 			name = L["Enable"],
 		},
+		testNotification = {
+			order = 3.5,
+			type = "execute",
+			name = L["Test Notification"],
+			desc = L["Sends an example toast notification."],
+			func = function()
+				MER:GetModule("MER_Notification"):DisplayToast(
+					F.cOption("MerathilisUI:", "gradient"),
+					L["This is an example of a notification."],
+					function()
+						F.Print("Banner clicked!")
+					end,
+					"INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS",
+					0.08,
+					0.92,
+					0.08,
+					0.92
+				)
+			end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
+		},
 		noSound = {
 			order = 4,
 			type = "toggle",
@@ -109,6 +132,51 @@ options.Notification = {
 			disabled = function()
 				return not E.db.mui.notification.enable
 			end,
+		},
+		greatVault = {
+			order = 12,
+			type = "toggle",
+			name = L["Great Vault"],
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
+		},
+		currencyWarning = {
+			order = 15,
+			type = "group",
+			name = L["Currency Cap Warning"],
+			guiInline = true,
+			get = function(info)
+				return E.db.mui.notification.currencyWarning[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.notification.currencyWarning[info[#info]] = value
+				E:StaticPopup_Show("PRIVATE_RL")
+			end,
+			disabled = function()
+				return not E.db.mui.notification.enable
+			end,
+			args = {
+				desc = {
+					order = 0,
+					type = "description",
+					fontSize = "small",
+					name = L["Track any currency by ID and get a toast once it nears its weekly or total cap."],
+				},
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+				},
+				threshold = {
+					order = 2,
+					type = "range",
+					name = L["Warn at (%)"],
+					min = 50,
+					max = 99,
+					step = 1,
+				},
+			},
 		},
 		vignette = {
 			order = 20,
@@ -302,6 +370,78 @@ do
 				func = function()
 					if selectedKey then
 						E.db.mui.notification.vignette.blacklist[selectedKey] = nil
+					end
+				end,
+			},
+		},
+	}
+end
+
+do
+	local selectedKey
+
+	options.Notification.args.currencyWarning.args.list = {
+		order = 3,
+		type = "group",
+		inline = true,
+		name = L["Tracked Currencies"],
+		disabled = function()
+			return not E.db.mui.notification.enable
+		end,
+		args = {
+			name = {
+				order = 1,
+				type = "input",
+				name = L["Currency ID"],
+				desc = L["Enter a currency ID and press Enter to add it."],
+				get = function()
+					return ""
+				end,
+				set = function(_, value)
+					local id = tonumber(value)
+					local currencyInfo = id and C_CurrencyInfo.GetCurrencyInfo(id)
+					if currencyInfo and currencyInfo.name and currencyInfo.name ~= "" then
+						E.db.mui.notification.currencyWarning.list[id] = true
+					else
+						F.Print(L["Unknown or undiscovered currency ID."])
+					end
+				end,
+			},
+			spacer = {
+				order = 4,
+				type = "description",
+				name = " ",
+				width = "full",
+			},
+			listTable = {
+				order = 5,
+				type = "select",
+				name = L["Currency List"],
+				width = 1.3,
+				itemControl = "MERDropdownItemIcon",
+				get = function()
+					return selectedKey
+				end,
+				set = function(_, value)
+					selectedKey = value
+				end,
+				values = function()
+					local result = {}
+					for currencyID in pairs(E.db.mui.notification.currencyWarning.list) do
+						local currencyInfo = C_CurrencyInfo.GetCurrencyInfo(currencyID)
+						result[currencyID] = currencyInfo and currencyInfo.name and format("%s (%d)", currencyInfo.name, currencyID) or currencyID
+					end
+					return result
+				end,
+			},
+			deleteButton = {
+				order = 6,
+				type = "execute",
+				name = L["Delete"],
+				func = function()
+					if selectedKey then
+						E.db.mui.notification.currencyWarning.list[selectedKey] = nil
+						selectedKey = nil
 					end
 				end,
 			},

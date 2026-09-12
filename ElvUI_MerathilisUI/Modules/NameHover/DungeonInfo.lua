@@ -71,7 +71,8 @@ local function Build(unit)
 	if not E.db.mui.nameHover.mythicPlus_ShowForces then
 		return nil
 	end
-	if UnitIsPlayer(unit) then
+	local isPlayer = UnitIsPlayer(unit)
+	if E:NotSecretValue(isPlayer) and isPlayer then
 		return nil
 	end
 	if not InMythicPlus() then

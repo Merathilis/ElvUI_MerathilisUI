@@ -98,6 +98,7 @@ end
 MER.Modules = {}
 MER.Modules.ActionBars = MER:NewModule("MER_Actionbars", "AceEvent-3.0", "AceHook-3.0")
 MER.Modules.Armory = MER:NewModule("MER_Armory", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+MER.Modules.Auras = MER:NewModule("MER_Auras", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.BuffReminder = MER:NewModule("MER_BuffReminder", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Changelog = MER:NewModule("MER_Changelog", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.ColorModifiers = MER:NewModule("MER_ColorModifiers")
@@ -107,6 +108,7 @@ MER.Modules.EquipManager = MER:NewModule("MER_EquipManager", "AceHook-3.0", "Ace
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Layout = MER:NewModule("MER_Layout", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Loot = MER:NewModule("MER_Loot", "AceEvent-3.0")
+MER.Modules.LootRoll = MER:NewModule("MER_LootRoll", "AceEvent-3.0")
 MER.Modules.Mail = MER:NewModule("MER_Mail", "AceHook-3.0")
 MER.Modules.MiniMapCoords = MER:NewModule("MER_MiniMapCoords", "AceHook-3.0")
 MER.Modules.MinimapButtons = MER:NewModule("MER_MinimapButtons")

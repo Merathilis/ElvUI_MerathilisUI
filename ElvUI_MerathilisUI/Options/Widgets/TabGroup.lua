@@ -184,6 +184,32 @@ local function RestoreStockLook(tab)
 	tab:SetDisabled(tab.disabled)
 end
 
+-- Pulsing "NEW" badge (F.CreateNewFeatureBadge) for tab-style groups. Call
+-- F.MarkTabAsNew("<argsKey>") next to an option's own definition (e.g.
+-- Options/Modules/BuffReminder.lua's `options.buffReminder`) to call it out -
+-- keyed by tab.value (the args table key) rather than a marker embedded in
+-- `name` like headers use, because a tab's `name` also doubles as
+-- AceConfigDialog's alphabetical sort key (a marker there silently reorders
+-- the tab strip) and AceConfigDialog rebuilds a tab group's buttons more
+-- than once per page load (a text-based flag read back on the second
+-- rebuild would already be stripped from the first, and get misread as "not
+-- new" again) - confirmed live 2026-09-10. Remove the F.MarkTabAsNew call
+-- again once that module isn't "new" anymore.
+--
+-- Re-decided on every StyleTabGroup pass (not just when a tab first turns
+-- merActive) because AceGUI recycles tab button frames across different tab
+-- groups - a button previously showing our badge for one option can get
+-- handed back out for an unrelated tab, so the badge has to be actively
+-- shown/hidden based on the tab's *current* value every time, never just
+-- created once and left alone.
+local function UpdateNewBadge(tab)
+	local shouldShow = tab.merActive and tab.value and F.NewFeatureTabs[tab.value]
+
+	F.SyncNewFeatureBadge(tab, "merNewBadge", shouldShow, function()
+		return F.CreateNewFeatureBadge(tab, nil, nil, nil, -18, -3, 0.75)
+	end)
+end
+
 local function StyleTabGroup(tabGroup, isMUI)
 	if not tabGroup or not tabGroup.tabs then
 		return
@@ -194,6 +220,8 @@ local function StyleTabGroup(tabGroup, isMUI)
 		else
 			RestoreStockLook(tab)
 		end
+
+		UpdateNewBadge(tab)
 	end
 end
 

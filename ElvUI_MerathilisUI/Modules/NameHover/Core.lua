@@ -252,11 +252,12 @@ local function UpdateFrameContents(f)
 	end
 
 	local unitName = UnitName("mouseover")
-	if unitName == nil then
+	if not unitName then
 		f:Hide()
 		return
 	end
 
+	local nameIsSecret = E:IsSecretValue(unitName)
 	local unitText = module:GetTextWithColor(unitName, module:GetUnitNameColor("mouseover"))
 	local level = module:GetLevelText()
 	local targetName = module:GetTargetText()
@@ -268,12 +269,27 @@ local function UpdateFrameContents(f)
 	local creatureType = module:GetCreatureType()
 	local tooltips = module:GetTooltipData()
 
-	local mainText = module:CombineText(level, unitText, targetName)
 	local headerText = module:CombineText(faction, classification, creatureType, race)
 
 	f.lastUnitGUID = not E:IsSecretValue(UnitGUID("mouseover"))
 
-	f.mainText:SetText(mainText)
+	if nameIsSecret then
+		-- unitText carries a secret (anonymized) name and can't be joined via
+		-- plain concatenation; hand the pieces to SetFormattedText instead
+		local hasLevel, hasTarget = module:IsNotEmpty(level), module:IsNotEmpty(targetName)
+		if hasLevel and hasTarget then
+			f.mainText:SetFormattedText("%s %s %s", level, unitText, targetName)
+		elseif hasLevel then
+			f.mainText:SetFormattedText("%s %s", level, unitText)
+		elseif hasTarget then
+			f.mainText:SetFormattedText("%s %s", unitText, targetName)
+		else
+			f.mainText:SetText(unitText)
+		end
+	else
+		local mainText = module:CombineText(level, unitText, targetName)
+		f.mainText:SetText(mainText)
+	end
 	f.statusText:SetText(status)
 	f.headerText:SetText(headerText)
 	f.guildText:SetText(guild)

@@ -1,10 +1,12 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='ActionBars.lua'/>
 	<Script file='Armory.lua'/>
+	<Script file='Auras.lua'/>
 	<Script file='Bags.lua'/>
 	<Script file='BuffReminder.lua'/>
 	<Script file='Cursor.lua'/>
 	<Script file='ItemLevel.lua'/>
+	<Script file='LootRoll.lua'/>
 	<Script file='Mail.lua'/>
 	<Script file='Maps.lua'/>
 	<Script file='NameHover.lua'/>

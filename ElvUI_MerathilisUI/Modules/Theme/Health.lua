@@ -117,6 +117,7 @@ function module:PostUpdateHealthColor(frame, unit, eR, eG, eB)
 
 	local colorChanged = unitChanged
 	local unitDead = unit and UnitIsDeadOrGhost(unit)
+	unitDead = E:NotSecretValue(unitDead) and unitDead
 	if unitDead ~= frame.unitDead then
 		colorChanged = true
 		frame.unitDead = unitDead

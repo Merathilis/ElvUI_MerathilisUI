@@ -60,6 +60,9 @@ L["Are you sure you want to reset %s module?"] = "你確定要重置 %s 模組�
 L["Reset All Modules"] = "重置全部模組"
 L["Reset all %s modules."] = "重置全部 %s 模組."
 
+-- Auras
+L["BUFFOPTIONS_LABEL"] = "增益與減益效果"
+
 -- GameMenu
 L["Game Menu"] = true
 L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"] = true
@@ -122,6 +125,8 @@ L["NamePlates"] = true
 -- Notification
 L["Notification"] = "通知"
 L["This is an example of a notification."] = true
+L["Test Notification"] = true
+L["Sends an example toast notification."] = true
 L["Notification Mover"] = true
 L["%s slot needs to repair, current durability is %d."] = true
 L["Here you can enable/disable the different notification types."] = true
@@ -131,6 +136,16 @@ L["Enable Guild Events"] = true
 L["No Sounds"] = true
 L["Vignette Print"] = true
 L["Quick Join"] = true
+L["Your Great Vault has rewards ready to claim!"] = true
+L["Currency Cap Warning"] = true
+L["Track any currency by ID and get a toast once it nears its weekly or total cap."] = true
+L["Warn at (%)"] = true
+L["Currency ID"] = true
+L["Enter a currency ID and press Enter to add it."] = true
+L["Currency List"] = true
+L["Tracked Currencies"] = true
+L["Unknown or undiscovered currency ID."] = true
+L["You are close to the cap: %d / %d"] = true
 L["Title Font"] = true
 L["Text Font"] = true
 L["Debug Print"] = true
@@ -949,7 +964,8 @@ L["Show Without Item"] = true
 L["Keep showing a desaturated reminder icon even when you have none of the item left in your bags."] = true
 L["Test"] = true
 L["Stop Test"] = true
-L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."] = true
+L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."] =
+	true
 L["Hide in Combat"] = true
 L["When disabled, reminders freeze in place during combat instead of disappearing."] = true
 
@@ -989,4 +1005,43 @@ L["Attach to Cursor"] = true
 L["Only In Instances"] = true
 L["Only In Combat"] = true
 L["Only While Steering Camera"] = true
-L["Only show the ring while you're holding a mouse button to turn or move the camera (the hardware cursor is hidden)."] = true
+L["Only show the ring while you're holding a mouse button to turn or move the camera (the hardware cursor is hidden)."] =
+	true
+
+-- Loot Roll
+L["Loot Roll"] = true
+L["Can't Roll"] = true
+L["Example"] = true
+L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] = true
+L["Show/hide a fake roll bar to preview your settings."] = true
+L["Layout"] = true
+L["Grow Direction"] = true
+L["Down"] = true
+L["Up"] = true
+L["Max Bars"] = true
+L["Spacing"] = true
+L["Button Size"] = true
+L["Colors"] = true
+L["Color Border by Quality"] = true
+L["Color Name by Quality"] = true
+L["Show Item Level"] = true
+L["Color Status Bar by Quality"] = true
+L["Custom Status Bar Color"] = true
+L["Status Bar Texture"] = true
+L["Font Size"] = true
+L["Font Outline"] = true
+L["Rollers"] = true
+L["Show Rollers in Tooltip"] = true
+L["Show who rolled Need/Greed/Disenchant/Pass in the item's tooltip.\n\nNote: on modern retail WoW this can currently only be populated for boss/encounter loot - it stays empty for regular group loot (e.g. trash mobs, world content)."] =
+	true
+L["Uncommon Test Item"] = true
+L["Rare Test Item"] = true
+L["Epic Test Item"] = true
+L["Legendary Test Item"] = true
+
+-- Auras
+L["Collapse & Expand Button"] = true
+L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Collapsing shrinks the buffs down to a single row, keeping only the ones about to expire visible while long-lasting buffs are hidden."] =
+	true
+L["Expand Buffs"] = true
+L["Collapse Buffs"] = true

@@ -487,6 +487,14 @@ local function SafeUnitInRange(unit)
 	return inRange == true
 end
 
+local function SafeUnitIsNotDead(unit)
+	local dead = UnitIsDeadOrGhost(unit)
+	if E:IsSecretValue(dead) then
+		return true
+	end
+	return dead ~= true
+end
+
 local function CountGroupBuffCoverage(buffIDs, benefit)
 	local have, total = 0, 0
 	if IsInRaid() then
@@ -494,7 +502,7 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 			local unit = "raid" .. i
 			if
 				UnitExists(unit)
-				and not UnitIsDeadOrGhost(unit)
+				and SafeUnitIsNotDead(unit)
 				and SafeUnitInRange(unit)
 				and UnitBenefits(unit, benefit)
 			then
@@ -509,7 +517,7 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 			local unit = "party" .. i
 			if
 				UnitExists(unit)
-				and not UnitIsDeadOrGhost(unit)
+				and SafeUnitIsNotDead(unit)
 				and SafeUnitInRange(unit)
 				and UnitBenefits(unit, benefit)
 			then

@@ -12,6 +12,8 @@ local hooksecurefunc = hooksecurefunc
 local C_EquipmentSet = C_EquipmentSet
 local C_SpecializationInfo = C_SpecializationInfo
 
+local Enum_OnUpdateMode_RunWhenVisible = Enum.OnUpdateMode and Enum.OnUpdateMode.RunWhenVisible
+
 local INCOMPLETE_R, INCOMPLETE_G, INCOMPLETE_B = 0.94, 0.33, 0.31
 local ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B = 0.071, 0.902, 0.149
 
@@ -280,6 +282,11 @@ function module:AcquireEquipmentTile(index)
 		end
 	end
 	tile._updateHoverState = UpdateHoverState
+
+	if tile.SetOnUpdateMode and Enum_OnUpdateMode_RunWhenVisible then
+		-- Skip hover polling while the tile is hidden (pooled/recycled tiles)
+		tile:SetOnUpdateMode(Enum_OnUpdateMode_RunWhenVisible)
+	end
 
 	tile:SetScript("OnUpdate", function(self, elapsed)
 		self._hoverPoll = (self._hoverPoll or 0) + elapsed

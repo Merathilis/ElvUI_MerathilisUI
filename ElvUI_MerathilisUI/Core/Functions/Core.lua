@@ -832,6 +832,200 @@ function F:CreateGlowFrame(size)
 	return frame
 end
 
+---Attach a Blizzard-style pulsing "NEW" badge (as seen on the Game Menu's Options button) to
+---call out new features. Anchors like a plain `:SetPoint()` call - defaults to CENTER-ing on
+---self's own TOPRIGHT corner when the anchor args are omitted.
+---@param a1 string|nil the badge's own anchor point (default "CENTER")
+---@param relativeTo Frame|nil frame/region to anchor to (default self)
+---@param a2 string|nil relativeTo's anchor point (default "TOPRIGHT")
+---@param x number|nil x offset (default 0)
+---@param y number|nil y offset (default 0)
+---@param scale number|nil badge scale, matches Blizzard's own Game Menu usage (default 0.8)
+---@param noAnimate boolean|nil set true to skip the pulsing glow animation
+---@return Frame badge
+function F:CreateNewFeatureBadge(a1, relativeTo, a2, x, y, scale, noAnimate)
+	local shadowColor = _G.NEW_FEATURE_SHADOW_COLOR
+	local text = _G.NEW_CAPS or _G.NEW or "NEW"
+	scale = scale or 0.8
+
+	-- `badge` is the anchor frame callers position/reposition via SetPoint -
+	-- it stays unscaled (sized directly to the final on-screen size) so its
+	-- own x/y offsets always mean real screen pixels, matching whatever a
+	-- caller measured with GetStringWidth() etc. All the actual visuals live
+	-- on `content`, a child scaled down to the requested size instead -
+	-- scaling `badge` itself would otherwise scale the offsets passed to its
+	-- own SetPoint too, throwing off any caller doing its own math on top.
+	local badge = CreateFrame("Frame", nil, self)
+	badge:SetSize(40 * scale, 20 * scale)
+	badge:SetPoint(a1 or "CENTER", relativeTo or self, a2 or "TOPRIGHT", x or 0, y or 0)
+	badge:SetFrameLevel(self:GetFrameLevel() + 5)
+
+	local content = CreateFrame("Frame", nil, badge)
+	content:SetSize(40, 20)
+	content:SetScale(scale)
+	content:SetPoint("CENTER")
+
+	local shadow = content:CreateFontString(nil, "OVERLAY", "GameFontNormal_NoShadow")
+	shadow:SetPoint("CENTER", 0.5, -0.5)
+	shadow:SetText(text)
+	if shadowColor then
+		shadow:SetTextColor(shadowColor:GetRGBA())
+	else
+		shadow:SetTextColor(0, 0, 0, 1)
+	end
+
+	local label = content:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	label:SetPoint("CENTER")
+	label:SetText(text)
+	if shadowColor then
+		label:SetShadowColor(shadowColor:GetRGBA())
+	end
+	label:SetShadowOffset(1, -1)
+
+	local glow = content:CreateTexture(nil, "OVERLAY")
+	glow:SetAtlas("collections-newglow", true)
+	glow:SetPoint("TOPLEFT", label, "TOPLEFT", -20, 10)
+	glow:SetPoint("BOTTOMRIGHT", label, "BOTTOMRIGHT", 20, -10)
+
+	if not noAnimate then
+		local anim = glow:CreateAnimationGroup()
+		anim:SetLooping("REPEAT")
+
+		local fadeOut = anim:CreateAnimation("Alpha")
+		fadeOut:SetFromAlpha(1)
+		fadeOut:SetToAlpha(0.5)
+		fadeOut:SetDuration(1)
+		fadeOut:SetOrder(1)
+
+		local fadeIn = anim:CreateAnimation("Alpha")
+		fadeIn:SetFromAlpha(0.5)
+		fadeIn:SetToAlpha(1)
+		fadeIn:SetDuration(1)
+		fadeIn:SetOrder(2)
+
+		badge:SetScript("OnShow", function()
+			anim:Play()
+		end)
+		badge:SetScript("OnHide", function()
+			anim:Stop()
+		end)
+		anim:Play()
+
+		badge.Anim = anim
+	end
+
+	badge.Glow = glow
+	badge.Label = label
+	badge.Shadow = shadow
+
+	return badge
+end
+
+---Show or hide a lazily-created F.CreateNewFeatureBadge cached on `holder[cacheKey]` - the
+---common "create once, then just toggle" bookkeeping shared by every place that shows one
+---(Options/Widgets/TabGroup.lua's tabs, Options/Widgets/SectionHeader.lua's headers), so
+---each of those only has to supply its own shouldShow check and anchor.
+---@param holder table frame/widget table to cache the badge on
+---@param cacheKey string field name to cache the badge under (e.g. "merNewBadge")
+---@param shouldShow boolean|nil whether the badge should currently be shown
+---@param createBadge fun():Frame called once, lazily, the first time it's needed
+---@return Frame|nil badge the cached badge, if `shouldShow` (nil otherwise)
+function F.SyncNewFeatureBadge(holder, cacheKey, shouldShow, createBadge)
+	if shouldShow then
+		local badge = holder[cacheKey]
+		if not badge then
+			badge = createBadge()
+			holder[cacheKey] = badge
+		end
+		badge:Show()
+		return badge
+	elseif holder[cacheKey] then
+		holder[cacheKey]:Hide()
+	end
+end
+
+-- Marker prepended to a `type = "header"` option's `name` text to flag it
+-- for a pulsing NEW badge once rendered by Options/Widgets/SectionHeader.lua
+-- - the text is the only thing that reliably reaches the widget
+-- AceConfigDialog builds for a header, unlike a stable per-instance key.
+-- AceConfigRegistry also strictly validates option tables against a fixed
+-- key whitelist, so this couldn't be a plain extra field on the option
+-- either way. Control chars, not real text, so it can't collide with real
+-- header names and needs no pattern-escaping for plain string:find/gsub.
+--
+-- NOT used for tabs (Options/Widgets/TabGroup.lua) even though `name` reaches
+-- those too - confirmed live (2026-09-10) to cause two real bugs there: a
+-- tab's `name` also doubles as AceConfigDialog's alphabetical sort key, so
+-- the marker (sorting before any real letter) silently reordered the tab
+-- strip; and AceConfigDialog rebuilds a tab group's buttons more than once
+-- per page load, so by the second rebuild the marker was already stripped
+-- from the *previous* pass and got read back as "not new", flipping the
+-- badge off again. Tabs use the identity-based F.MarkTabAsNew/
+-- F.NewFeatureTabs below instead, which never touches `name` at all.
+F.NewFeatureMarker = "\002MER_NEW\002"
+
+---Prefix a header option's `name` with the marker Options/Widgets/
+---SectionHeader.lua looks for and strips back out, turning it into a pulsing
+---NEW badge next to the header text. Remove the wrapping again once that
+---section isn't new anymore. Headers only - see F.MarkTabAsNew for tabs.
+---@param text string
+---@return string
+function F.NewFeatureText(text)
+	return F.NewFeatureMarker .. (text or "")
+end
+
+-- MerathilisUI's own equivalent of ElvUI's E.NewSign: a plain, static inline
+-- text snippet, not a real widget, so it can be concatenated into literally
+-- any string - a `description`/`desc`/tooltip, not just a header or tab name
+-- (those go through F.NewFeatureText/F.MarkTabAsNew instead, which need an
+-- actual widget to attach a real animated F.CreateNewFeatureBadge to). No
+-- animation - leading with the same "collections-newglow" atlas F.
+-- CreateNewFeatureBadge uses was tried first, but that atlas is built for
+-- additive blending on a real Frame ("ADD" blend); plain inline `|A:...|a`
+-- markup has no blend-mode control, so it just rendered as an ugly solid
+-- blob instead of a glow. E.NewSign's own small icon renders fine inline at
+-- this size (it's what E.NewSign already is), so keep that for the
+-- Blizzard-ish look and add our own NEW text next to it - drop-in
+-- replacement for `E.NewSign .. text`.
+F.NewSign = E.NewSign .. format("|cffffd200%s|r ", _G.NEW_CAPS or _G.NEW or "NEW")
+
+-- Marker appended to the *end* of a `type = "description"` option's `name`
+-- text to flag it for a real pulsing "NEW" badge (F.CreateNewFeatureBadge -
+-- the same one used on tabs), picked up by Options/Widgets/
+-- NewFeatureLabel.lua's "MERNewFeatureLabel" dialogControl. Distinct from
+-- F.NewFeatureMarker (which SectionHeader.lua strips from the *start* of a
+-- header's name) because a Label's text can be long and word-wrapped, so the
+-- badge has to be anchored after the last rendered line rather than the
+-- start - NewFeatureLabel measures that line's width instead of assuming it.
+F.NewFeatureTrailingMarker = "\002MER_NEW_END\002"
+
+---Suffix a `type = "description"` option's `name` with the marker
+---Options/Widgets/NewFeatureLabel.lua looks for and strips back out, turning
+---it into a pulsing NEW badge right after the text. Also requires
+---`dialogControl = "MERNewFeatureLabel"` on the same option. Remove both
+---again once that text isn't new anymore.
+---@param text string
+---@return string
+function F.NewFeatureTrailingText(text)
+	return (text or "") .. F.NewFeatureTrailingMarker
+end
+
+-- Tabs marked "new" via F.MarkTabAsNew, read by Options/Widgets/TabGroup.lua
+-- to show a pulsing NEW badge. Kept as a side table keyed by the option's
+-- args-table key (tab.value) rather than embedding a marker in `name` like
+-- F.NewFeatureText does for headers - see the comment on F.NewFeatureMarker
+-- above for why that approach doesn't work for tabs specifically.
+F.NewFeatureTabs = {}
+
+---Mark an option-tree tab (a `type = "group"` entry that renders as a tab,
+---keyed by its args table key, e.g. "buffReminder") as "new" so it gets a
+---pulsing NEW badge (Options/Widgets/TabGroup.lua). Call this next to the
+---option's own definition; remove the call again once it isn't new anymore.
+---@param key string
+function F.MarkTabAsNew(key)
+	F.NewFeatureTabs[key] = true
+end
+
 function F.SplitList(list, variable, cleanup)
 	if cleanup then
 		twipe(list)

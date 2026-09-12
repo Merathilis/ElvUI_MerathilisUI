@@ -13,6 +13,7 @@ local UnitIsTapDenied = UnitIsTapDenied
 local UnitReaction = UnitReaction
 
 local C_ClassColor_GetClassColor = C_ClassColor.GetClassColor
+local C_StringUtil_WrapString = C_StringUtil.WrapString
 
 --[[----------------------------------
 --	Color Functions
@@ -457,12 +458,17 @@ end
 function F.UnitColor(unit)
 	local r, g, b = 1, 1, 1
 
-	if UnitIsPlayer(unit) then
+	local isPlayer = UnitIsPlayer(unit)
+	isPlayer = E:NotSecretValue(isPlayer) and isPlayer
+	local tapDenied = UnitIsTapDenied(unit)
+	tapDenied = E:NotSecretValue(tapDenied) and tapDenied
+
+	if isPlayer then
 		local class = select(2, UnitClass(unit))
 		if class then
 			r, g, b = F.ClassColor(class)
 		end
-	elseif UnitIsTapDenied(unit) then
+	elseif tapDenied then
 		r, g, b = 0.6, 0.6, 0.6
 	else
 		local reaction = UnitReaction(unit, "player")
@@ -680,6 +686,16 @@ end
 function F.GradientName(name, unitclass, isTarget, isUnit)
 	if not name then
 		return
+	end
+
+	if E:IsSecretValue(name) then
+		-- name can't be read/concatenated (e.g. anonymized in Mythic+), so fall back to
+		-- a flat class/reaction color wrapped around it via the secret-safe string API
+		local cs = F.GetClassColorsRGB(unitclass, 3)
+		if cs and cs.r then
+			return C_StringUtil_WrapString(name, E:RGBToHex(cs.r, cs.g, cs.b), "|r")
+		end
+		return name
 	end
 
 	if not F.IsThisASafeSecret() and isUnit then

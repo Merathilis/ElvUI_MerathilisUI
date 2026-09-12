@@ -65,6 +65,9 @@ L["Are you sure you want to reset %s module?"] = "Bist Du sicher, dass Du das %s
 L["Reset All Modules"] = "Alle Module zurücksetzen"
 L["Reset all %s modules."] = "Setze alle %s Module zurück."
 
+-- Auras
+L["BUFFOPTIONS_LABEL"] = "Stärkungs-/Schwächungszauber"
+
 -- GameMenu
 L["Game Menu"] = "Spielmenü"
 L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"] =
@@ -141,6 +144,8 @@ L["NamePlates"] = "Namensplaketten"
 -- Notification
 L["Notification"] = "Benachrichtigungen"
 L["This is an example of a notification."] = "Beispiel Benachrichtigung."
+L["Test Notification"] = "Testbenachrichtigung"
+L["Sends an example toast notification."] = "Sendet eine Beispiel-Benachrichtigung."
 L["Notification Mover"] = "Benachrichtigungs Mover"
 L["%s slot needs to repair, current durability is %d."] = "%s braucht eine Reparatur, aktuelle Haltbarkeit ist %d."
 L["Here you can enable/disable the different notification types."] =
@@ -152,6 +157,19 @@ L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["No Sounds"] = "Keine Töne"
 L["Vignette Print"] = "Vignettenlink"
 L["Quick Join"] = "Schnellbeitritt"
+L["Your Great Vault has rewards ready to claim!"] =
+	"Dein Großes Gewölbe hat Belohnungen bereit, die du abholen kannst!"
+L["Currency Cap Warning"] = "Währungs-Kappen-Warnung"
+L["Track any currency by ID and get a toast once it nears its weekly or total cap."] =
+	"Verfolge eine beliebige Währung per ID und erhalte eine Benachrichtigung, sobald sie sich ihrer wöchentlichen oder gesamten Kappe nähert."
+L["Warn at (%)"] = "Warnen bei (%)"
+L["Currency ID"] = "Währungs-ID"
+L["Enter a currency ID and press Enter to add it."] =
+	"Gib eine Währungs-ID ein und drücke Enter, um sie hinzuzufügen."
+L["Currency List"] = "Währungsliste"
+L["Tracked Currencies"] = "Verfolgte Währungen"
+L["Unknown or undiscovered currency ID."] = "Unbekannte oder noch nicht entdeckte Währungs-ID."
+L["You are close to the cap: %d / %d"] = "Du näherst dich der Kappe: %d / %d"
 L["Title Font"] = "Titel Schriftart"
 L["Text Font"] = "Text Schriftart"
 L["Debug Print"] = "Debuggausgabe"
@@ -732,3 +750,43 @@ L["Only In Combat"] = "Nur im Kampf"
 L["Only While Steering Camera"] = "Nur beim Kamera-Steuern"
 L["Only show the ring while you're holding a mouse button to turn or move the camera (the hardware cursor is hidden)."] =
 	"Zeigt den Ring nur, während du mit gedrückter Maustaste die Kamera drehst oder dich bewegst (der Mauszeiger ist dabei ausgeblendet)."
+
+-- Loot Roll
+L["Loot Roll"] = true
+L["Can't Roll"] = "Kann nicht würfeln"
+L["Example"] = "Beispiel"
+L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] =
+	"Ersetzt ElvUIs Bedarf/Gier/Passen-Loot-Roll-Fenster durch eine eigene, verschiebbare Leiste."
+L["Show/hide a fake roll bar to preview your settings."] =
+	"Zeigt/versteckt eine Test-Leiste, um deine Einstellungen zu testen."
+L["Layout"] = true
+L["Grow Direction"] = "Wachstumsrichtung"
+L["Down"] = "Unten"
+L["Up"] = "Oben"
+L["Max Bars"] = "Max. Leisten"
+L["Spacing"] = "Abstand"
+L["Button Size"] = "Button-Größe"
+L["Colors"] = "Farben"
+L["Color Border by Quality"] = "Rahmen nach Qualität einfärben"
+L["Color Name by Quality"] = "Namen nach Qualität einfärben"
+L["Show Item Level"] = "Gegenstandsstufe anzeigen"
+L["Color Status Bar by Quality"] = "Statusleiste nach Qualität einfärben"
+L["Custom Status Bar Color"] = "Eigene Statusleistenfarbe"
+L["Status Bar Texture"] = "Statusleisten-Textur"
+L["Font Size"] = "Schriftgröße"
+L["Font Outline"] = "Schriftumrandung"
+L["Rollers"] = "Würfler"
+L["Show Rollers in Tooltip"] = "Würfler im Tooltip anzeigen"
+L["Show who rolled Need/Greed/Disenchant/Pass in the item's tooltip.\n\nNote: on modern retail WoW this can currently only be populated for boss/encounter loot - it stays empty for regular group loot (e.g. trash mobs, world content)."] =
+	"Zeigt im Tooltip des Items an, wer auf Bedarf/Gier/Entzaubern/Passen gewürfelt hat.\n\nHinweis: Im aktuellen Retail-WoW kann dies derzeit nur bei Boss-/Encounter-Loot befüllt werden - bei normalem Gruppen-Loot (z. B. Trash-Mobs, Open-World-Content) bleibt es leer."
+L["Uncommon Test Item"] = "Ungewöhnliches Test-Item"
+L["Rare Test Item"] = "Seltenes Test-Item"
+L["Epic Test Item"] = "Episches Test-Item"
+L["Legendary Test Item"] = "Legendäres Test-Item"
+
+-- Auras
+L["Collapse & Expand Button"] = "Einklapp-/Ausklapp-Button"
+L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Collapsing shrinks the buffs down to a single row, keeping only the ones about to expire visible while long-lasting buffs are hidden."] =
+	"Fügt Blizzards Einklapp-/Ausklapp-Pfeil-Button wieder zu ElvUIs Spieler-Buffs hinzu. Beim Einklappen werden die Buffs auf eine Zeile reduziert - nur bald auslaufende Buffs bleiben sichtbar, langanhaltende werden ausgeblendet."
+L["Expand Buffs"] = "Buffs ausklappen"
+L["Collapse Buffs"] = "Buffs einklappen"

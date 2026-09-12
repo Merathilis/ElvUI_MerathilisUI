@@ -692,6 +692,12 @@ P.notification = {
 	quickJoin = true,
 	callToArms = false,
 	bags = true,
+	greatVault = true,
+	currencyWarning = {
+		enable = true,
+		threshold = 90,
+		list = {},
+	},
 	vignette = {
 		enable = true,
 		print = true,
@@ -814,8 +820,8 @@ P.miniMapCoords = {
 P.minimapButtons = {
 	enable = true,
 	point = "BOTTOMLEFT",
-	xOffset = 52,
-	yOffset = -13,
+	xOffset = -13,
+	yOffset = 52,
 	size = 20,
 	spacing = 2,
 
@@ -1391,6 +1397,29 @@ P.lootSpecManager = {
 	},
 }
 
+P.lootRoll = {
+	enable = true,
+	growDirection = "DOWN", -- DOWN or UP
+	width = 270,
+	height = 50,
+	spacing = 8,
+	maxBars = 5,
+	buttonSize = 22,
+
+	qualityBorder = true,
+	qualityStatusBar = true,
+	qualityName = true,
+	qualityItemLevel = true,
+	statusBarTexture = "ElvUI Norm",
+	statusBarColor = { r = 1, g = 1, b = 1 },
+
+	showRollers = true,
+
+	font = nil,
+	fontSize = 13,
+	fontOutline = "THICKOUTLINE",
+}
+
 P.cursor = {
 	enable = false, -- master switch for the whole module
 
@@ -1431,5 +1460,12 @@ P.cursor = {
 		sparkEnable = true,
 		instanceOnly = false,
 		combatOnly = false,
+	},
+}
+
+P.auras = {
+	buffsCollapse = {
+		enable = true,
+		expanded = true,
 	},
 }

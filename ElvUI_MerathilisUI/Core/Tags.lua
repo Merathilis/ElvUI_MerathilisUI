@@ -15,7 +15,10 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit)
 	end
 
 	local isTarget = false
-	if UnitIsPlayer(unit) or UnitInPartyIsAI(unit) then
+	local isPlayerUnit = UnitIsPlayer(unit)
+	isPlayerUnit = E:NotSecretValue(isPlayerUnit) and isPlayerUnit
+
+	if isPlayerUnit or UnitInPartyIsAI(unit) then
 		local _, unitClass = UnitClass(unit)
 		if not unitClass then
 			return
@@ -26,9 +29,9 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit)
 		end
 
 		return F.GradientName(name, unitClass, isTarget, true)
-	elseif not UnitIsPlayer(unit) then
+	elseif not isPlayerUnit then
 		local reaction = UnitReaction(unit, "player")
-		if reaction then
+		if E:NotSecretValue(reaction) and reaction then
 			if reaction >= 5 then
 				return F.GradientName(name, "NPCFRIENDLY", isTarget, true)
 			elseif reaction == 4 then
@@ -39,6 +42,9 @@ E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit)
 				return F.GradientName(name, "NPCHOSTILE", isTarget, true)
 			end
 		end
+
+		-- reaction unknown/secret - fall back to the plain (possibly secret) name
+		return name
 	end
 end)
 E:AddTagInfo("name:MER:gradient", MER.Title, "Displays a shorten name in gradient classcolor")

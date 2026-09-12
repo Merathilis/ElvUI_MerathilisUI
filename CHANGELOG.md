@@ -1,20 +1,19 @@
 ### Changes
 
--   [Options]: Fixed toggle switches going blank and staying that way after changing an option that requires a UI reload
--   [Options]: Fixed the options window losing its styled/opaque background when MerathilisUI Style is disabled
--   [Options]: Fixed the selected-category highlight (ElvUI's own and skin overlays like WindTools') losing its color in the options window after toggling MerathilisUI Style
--   [Skins]: Fixed ClassCodex's side tabs overlapping/touching the panel border
--   [Options]: Module "Enable" toggle switches now color their label green/red to reflect the on/off state
--   [Skins]: Added font size/outline options for the Weekly Rewards (Great Vault) skin (#124)
--   [Options]: Added a custom slider widget matching the toggle-switch style for range options
--   [Options]: Added a custom dropdown widget matching the toggle-switch/slider style for select options, including LibSharedMedia font pickers (with font-preview list rows)
--   [Options]: Added a custom edit box widget matching the toggle-switch/slider/dropdown style for text input options
--   [Options]: Added a custom color picker widget matching the toggle-switch/slider/dropdown/edit box style for color options
--   [Options]: Added a custom button widget matching the toggle-switch/slider/dropdown/edit box/color picker style for execute options
--   [Options]: Restyled the tab strip on MerathilisUI's own tabbed category pages (e.g. Modules) to match the flat toggle-switch/slider/dropdown style
--   [Options]: Restyled section headers to match the toggle-switch/tab accent style (solid underline, plain white text with a shadow instead of the orange gradient)
--   [Options]: Inline group boxes on MerathilisUI's own options pages now default to plain white titles instead of Blizzard's yellow
--   [Maps]: Added Great Vault and M+ Portals minimap buttons, ported from EllesmereUI (M+ Portals flyout includes the Hearthstone/Dalaran Hearthstone/Housing Dashboard row)
--   [Install]: Moved the default Debuffs mover further left so it no longer overlaps the new minimap buttons
--   [Cursor]: Added a new Cursor module - a colored ring around your mouse cursor with an optional trail, GCD ring and cast-time ring (with spark), each with class-color/custom-color, instance-only, combat-only and camera-steering-only options
--   [Skins]: Details Embed Settings now let you set width/height per window instead of one size for all of them
+-   [Actionbars]: Fixed SpecBar not showing a distinct border color when Loot Specialization is set to "Current Specialization"
+-   [Actionbars]: Fixed SpecBar's border color reverting to the default color shortly after login/reload
+-   [Notification]: Fixed toast notifications never reusing pooled frames, creating a new frame for every notification instead
+-   [Notification]: Fixed a potential error when a Paragon reputation toast fired for a faction with no cached data
+-   [Core]: Fixed potential Lua errors and incorrect unit checks (name coloring, unit color, class/reaction) when a unit's identity is protected by Blizzard's secret-value API
+-   [Core]: Fixed nameplate/unit frame names going blank instead of falling back to a (flat-colored) name when a unit's name is protected by Blizzard's secret-value API
+-   [NameHover]: Fixed potential Lua errors and incorrect player/reaction detection for mouseover units protected by Blizzard's secret-value API
+-   [NameHover]: Fixed the mouseover name display hiding entirely instead of falling back to a plain name when the unit's name is protected by Blizzard's secret-value API
+-   [Misc]: Fixed the raid role counter miscounting when a raid member's role is protected by Blizzard's secret-value API
+-   [Theme]: Fixed a potential Lua error in the health color update when a unit's dead/ghost state is protected by Blizzard's secret-value API
+-   [BuffReminder]: Fixed group buff coverage skipping a raid/party member whose dead/ghost state is protected by Blizzard's secret-value API
+-   [Notification]: Added a Great Vault notification when new weekly rewards become available to claim
+-   [Notification]: Added a Currency Cap Warning that tracks any currency by ID and warns when it nears its weekly or total cap
+-   [Notification]: Added a Test Notification button to preview the toast style directly from the options
+-   [Loot]: Added a standalone Loot Roll module that replaces ElvUI's Need/Greed/Pass bars with a bigger, movable, quality-colored bar with a roller list in the item tooltip and a Test button in the options
+-   [Auras]: Added Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs frame
+-   [Options]: Changed the button/edit box/dropdown/color picker widgets' mouseover backdrop from a flat gray to a blue-tinted Accent color matching the tab strip's selected-tab color
