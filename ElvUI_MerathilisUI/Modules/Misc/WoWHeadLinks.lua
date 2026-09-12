@@ -50,7 +50,7 @@ elseif E.locale == "zhTW" then
 	linkAchievement = "http://cn.wowhead.com/achievement=%d#english-comments"
 	linkMonthlyActivities = "http://cn.wowhead.com/trading-post-activity/%d#english-comments"
 else
-	linkQuest = "http://www.wowhead.com/quest=%d#english-commentss"
+	linkQuest = "http://www.wowhead.com/quest=%d#english-comments"
 	linkAchievement = "http://www.wowhead.com/achievement=%d#english-comments"
 	linkMonthlyActivities = "http://wowhead.com/trading-post-activity/%d#english-comments"
 end
