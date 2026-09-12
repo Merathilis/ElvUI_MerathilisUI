@@ -1462,3 +1462,10 @@ P.cursor = {
 		combatOnly = false,
 	},
 }
+
+P.auras = {
+	buffsCollapse = {
+		enable = true,
+		expanded = true,
+	},
+}

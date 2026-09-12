@@ -1060,3 +1060,10 @@ L["Uncommon Test Item"] = true
 L["Rare Test Item"] = true
 L["Epic Test Item"] = true
 L["Legendary Test Item"] = true
+
+-- Auras
+L["Collapse & Expand Button"] = true
+L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Collapsing shrinks the buffs down to a single row, keeping only the ones about to expire visible while long-lasting buffs are hidden."] =
+	true
+L["Expand Buffs"] = true
+L["Collapse Buffs"] = true

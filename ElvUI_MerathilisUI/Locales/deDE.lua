@@ -777,3 +777,10 @@ L["Uncommon Test Item"] = "Ungewöhnliches Test-Item"
 L["Rare Test Item"] = "Seltenes Test-Item"
 L["Epic Test Item"] = "Episches Test-Item"
 L["Legendary Test Item"] = "Legendäres Test-Item"
+
+-- Auras
+L["Collapse & Expand Button"] = "Einklapp-/Ausklapp-Button"
+L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Collapsing shrinks the buffs down to a single row, keeping only the ones about to expire visible while long-lasting buffs are hidden."] =
+	"Fügt Blizzards Einklapp-/Ausklapp-Pfeil-Button wieder zu ElvUIs Spieler-Buffs hinzu. Beim Einklappen werden die Buffs auf eine Zeile reduziert - nur bald auslaufende Buffs bleiben sichtbar, langanhaltende werden ausgeblendet."
+L["Expand Buffs"] = "Buffs ausklappen"
+L["Collapse Buffs"] = "Buffs einklappen"

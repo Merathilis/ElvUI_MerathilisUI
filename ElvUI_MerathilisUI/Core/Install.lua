@@ -430,7 +430,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["keepSizeRatio"] = false
 	E.db["auras"]["buffs"]["height"] = 28
 	E.db["auras"]["buffs"]["size"] = 36
-	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-235,-17"
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-253,-17"
 	E.db["auras"]["buffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
 	E.db["auras"]["buffs"]["countFontOutline"] = "SHADOWOUTLINE"

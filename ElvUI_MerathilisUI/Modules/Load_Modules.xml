@@ -4,6 +4,7 @@
 
 	<Include file="Actionbars\Load_Actionbars.xml"/>
 	<Include file="Armory\Load_Armory.xml"/>
+	<Include file="Auras\Load_Auras.xml"/>
 	<Include file="Bags\Load_Bags.xml"/>
 	<Include file="BuffReminder\Load_BuffReminder.xml"/>
 	<Include file="Cursor\Load_Cursor.xml"/>
