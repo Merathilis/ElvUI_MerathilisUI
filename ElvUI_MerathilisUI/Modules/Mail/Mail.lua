@@ -463,6 +463,9 @@ function module:OnEnable()
 
 	module:CreateSendTemplatesUI()
 	module:ShowSendTemplatesUI()
+
+	module:CreateQuickAttachUI()
+	module:ShowQuickAttachUI()
 end
 
 function module:OnDisable()
@@ -505,6 +508,7 @@ function module:OnDisable()
 	end
 
 	module:HideSendTemplatesUI()
+	module:HideQuickAttachUI()
 end
 
 function module:Initialize()
@@ -515,6 +519,9 @@ function module:Initialize()
 		end
 		if type(E.global.mui.mail.templates) ~= "table" then
 			E.global.mui.mail.templates = {}
+		end
+		if type(E.global.mui.mail.quickAttachRecipients) ~= "table" then
+			E.global.mui.mail.quickAttachRecipients = {}
 		end
 
 		if not E.global.mui.mail.exampleTemplateSeeded then
