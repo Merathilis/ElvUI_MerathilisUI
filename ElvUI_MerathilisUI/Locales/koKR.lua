@@ -1120,3 +1120,57 @@ L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Co
 	true
 L["Expand Buffs"] = true
 L["Collapse Buffs"] = true
+
+-- Mail
+L["Open"] = "열기"
+L["Open Selected"] = "선택 열기"
+L["Delete Selected"] = "선택 삭제"
+L["Selection"] = "선택"
+L["Send Templates"] = "발송 템플릿"
+L["Continue"] = "계속"
+L["No templates saved."] = "저장된 템플릿이 없습니다."
+L["Template Name"] = "템플릿 이름"
+L["Recipients (one per line, or comma separated)"] = "받는 사람 (한 줄에 하나씩, 또는 쉼표로 구분)"
+L["Subject"] = "제목"
+L["Body"] = "내용"
+L["New Template"] = "새 템플릿"
+L["Clear the fields above to create a new template."] = "새 템플릿을 만들려면 위 입력란을 비웁니다."
+L["Add / Update"] = "추가 / 업데이트"
+L["Saved Templates"] = "저장된 템플릿"
+L["Pick a saved template to load it into the fields above for editing."] =
+	"저장된 템플릿을 선택하면 위 입력란에 불러와 수정할 수 있습니다."
+L["Please set a template name first."] = "먼저 템플릿 이름을 입력하세요."
+L["Please add at least one recipient."] = "받는 사람을 한 명 이상 추가하세요."
+L["This template has no recipients."] = "이 템플릿에는 받는 사람이 없습니다."
+L["Delete %d selected mails?"] = "선택한 우편 %d개를 삭제하시겠습니까?"
+L["No mail selected."] = "선택된 우편이 없습니다."
+L["Select all mail on this page"] = "이 페이지의 모든 우편 선택"
+L["Adds checkboxes to the inbox to open or delete multiple mails at once."] =
+	"받은 편지함에 체크박스를 추가하여 여러 우편을 한 번에 열거나 삭제할 수 있습니다."
+L["Save recipient lists to send the same mail to multiple people at once from the mailbox."] =
+	"받는 사람 목록을 저장하여 우체통에서 같은 우편을 여러 사람에게 한 번에 보낼 수 있습니다."
+L["Item cleared - re-drag it into the attachment slot, then click Continue."] =
+	"아이템이 비워졌습니다 - 첨부 칸에 다시 끌어놓은 다음 계속을 클릭하세요."
+L["Mass send complete."] = "대량 발송이 완료되었습니다."
+L["Sending %d/%d to %s..."] = "%s에게 발송 중 (%d/%d)..."
+L["Send failed for %s."] = "%s에게 발송하지 못했습니다."
+L["Example: Send to Alts"] = "예시: 부캐에게 보내기"
+L["Gold from Main"] = "본캐로부터의 골드"
+L["This is an example template - edit the recipients/subject/body or delete it in Options > Mail > Send Templates."] =
+	"이것은 예시 템플릿입니다 - 옵션 > 우편 > 발송 템플릿에서 받는 사람/제목/내용을 수정하거나 삭제하세요."
+L["Cloth"] = "천"
+L["Leather"] = "가죽"
+L["Metal & Stone"] = "금속 및 석재"
+L["Cooking"] = "요리"
+L["Herb"] = "약초"
+L["Enchanting"] = "마법부여"
+L["Inscription"] = "명문학"
+L["Jewelcrafting"] = "보석세공"
+L["Elemental"] = "정령"
+L["Optional Reagents"] = "추가 재료"
+L["Parts"] = "부품"
+L["All Trade Goods"] = "모든 무역 물품"
+L["Set a default recipient for %s (leave empty to clear):"] = "%s의 기본 받는 사람을 설정하세요 (비워두면 삭제):"
+L["Default recipient: %s"] = "기본 받는 사람: %s"
+L["Left-click to attach all - right-click to set a default recipient."] =
+	"왼쪽 클릭으로 모두 첨부 - 오른쪽 클릭으로 기본 받는 사람 설정."

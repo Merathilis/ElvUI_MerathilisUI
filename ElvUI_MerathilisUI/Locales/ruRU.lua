@@ -1073,3 +1073,57 @@ L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Co
 	true
 L["Expand Buffs"] = true
 L["Collapse Buffs"] = true
+
+-- Mail
+L["Open"] = "Открыть"
+L["Open Selected"] = "Открыть выбранные"
+L["Delete Selected"] = "Удалить выбранные"
+L["Selection"] = "Выбор"
+L["Send Templates"] = "Шаблоны отправки"
+L["Continue"] = "Продолжить"
+L["No templates saved."] = "Нет сохранённых шаблонов."
+L["Template Name"] = "Название шаблона"
+L["Recipients (one per line, or comma separated)"] = "Получатели (по одному на строку или через запятую)"
+L["Subject"] = "Тема"
+L["Body"] = "Текст"
+L["New Template"] = "Новый шаблон"
+L["Clear the fields above to create a new template."] = "Очищает поля выше для создания нового шаблона."
+L["Add / Update"] = "Добавить / Обновить"
+L["Saved Templates"] = "Сохранённые шаблоны"
+L["Pick a saved template to load it into the fields above for editing."] =
+	"Выберите сохранённый шаблон, чтобы загрузить его в поля выше для редактирования."
+L["Please set a template name first."] = "Сначала укажите название шаблона."
+L["Please add at least one recipient."] = "Добавьте хотя бы одного получателя."
+L["This template has no recipients."] = "У этого шаблона нет получателей."
+L["Delete %d selected mails?"] = "Удалить %d выбранных писем?"
+L["No mail selected."] = "Письма не выбраны."
+L["Select all mail on this page"] = "Выбрать всю почту на этой странице"
+L["Adds checkboxes to the inbox to open or delete multiple mails at once."] =
+	"Добавляет флажки во входящие для одновременного открытия или удаления нескольких писем."
+L["Save recipient lists to send the same mail to multiple people at once from the mailbox."] =
+	"Сохраняет списки получателей для одновременной отправки одного письма нескольким людям из почтового ящика."
+L["Item cleared - re-drag it into the attachment slot, then click Continue."] =
+	"Предмет убран - перетащите его снова в слот вложения, затем нажмите «Продолжить»."
+L["Mass send complete."] = "Массовая отправка завершена."
+L["Sending %d/%d to %s..."] = "Отправка %d/%d получателю %s..."
+L["Send failed for %s."] = "Не удалось отправить для %s."
+L["Example: Send to Alts"] = "Пример: отправка на твинков"
+L["Gold from Main"] = "Золото с основного персонажа"
+L["This is an example template - edit the recipients/subject/body or delete it in Options > Mail > Send Templates."] =
+	"Это пример шаблона - измените получателей/тему/текст или удалите его в Настройки > Почта > Шаблоны отправки."
+L["Cloth"] = "Ткань"
+L["Leather"] = "Кожа"
+L["Metal & Stone"] = "Металл и камень"
+L["Cooking"] = "Кулинария"
+L["Herb"] = "Трава"
+L["Enchanting"] = "Наложение чар"
+L["Inscription"] = "Начертание"
+L["Jewelcrafting"] = "Ювелирное дело"
+L["Elemental"] = "Элементаль"
+L["Optional Reagents"] = "Дополнительные реагенты"
+L["Parts"] = "Детали"
+L["All Trade Goods"] = "Все ремесленные товары"
+L["Set a default recipient for %s (leave empty to clear):"] = "Укажите получателя по умолчанию для «%s» (оставьте пустым для очистки):"
+L["Default recipient: %s"] = "Получатель по умолчанию: %s"
+L["Left-click to attach all - right-click to set a default recipient."] =
+	"ЛКМ - прикрепить всё, ПКМ - указать получателя по умолчанию."

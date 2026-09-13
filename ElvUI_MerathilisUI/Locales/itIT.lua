@@ -1038,3 +1038,57 @@ L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Co
 	true
 L["Expand Buffs"] = true
 L["Collapse Buffs"] = true
+
+-- Mail
+L["Open"] = "Apri"
+L["Open Selected"] = "Apri selezionate"
+L["Delete Selected"] = "Elimina selezionate"
+L["Selection"] = "Selezione"
+L["Send Templates"] = "Modelli di invio"
+L["Continue"] = "Continua"
+L["No templates saved."] = "Nessun modello salvato."
+L["Template Name"] = "Nome modello"
+L["Recipients (one per line, or comma separated)"] = "Destinatari (uno per riga, o separati da virgola)"
+L["Subject"] = "Oggetto"
+L["Body"] = "Testo"
+L["New Template"] = "Nuovo modello"
+L["Clear the fields above to create a new template."] = "Svuota i campi sopra per creare un nuovo modello."
+L["Add / Update"] = "Aggiungi / Aggiorna"
+L["Saved Templates"] = "Modelli salvati"
+L["Pick a saved template to load it into the fields above for editing."] =
+	"Scegli un modello salvato per caricarlo nei campi sopra e modificarlo."
+L["Please set a template name first."] = "Imposta prima un nome per il modello."
+L["Please add at least one recipient."] = "Aggiungi almeno un destinatario."
+L["This template has no recipients."] = "Questo modello non ha destinatari."
+L["Delete %d selected mails?"] = "Eliminare %d lettere selezionate?"
+L["No mail selected."] = "Nessuna lettera selezionata."
+L["Select all mail on this page"] = "Seleziona tutta la posta in questa pagina"
+L["Adds checkboxes to the inbox to open or delete multiple mails at once."] =
+	"Aggiunge caselle di controllo alla posta in arrivo per aprire o eliminare più lettere contemporaneamente."
+L["Save recipient lists to send the same mail to multiple people at once from the mailbox."] =
+	"Salva liste di destinatari per inviare la stessa lettera a più persone contemporaneamente dalla cassetta postale."
+L["Item cleared - re-drag it into the attachment slot, then click Continue."] =
+	"Oggetto rimosso - trascinalo di nuovo nello slot allegato, poi clicca Continua."
+L["Mass send complete."] = "Invio di massa completato."
+L["Sending %d/%d to %s..."] = "Invio %d/%d a %s..."
+L["Send failed for %s."] = "Invio fallito per %s."
+L["Example: Send to Alts"] = "Esempio: Invia ai personaggi secondari"
+L["Gold from Main"] = "Oro dal personaggio principale"
+L["This is an example template - edit the recipients/subject/body or delete it in Options > Mail > Send Templates."] =
+	"Questo è un modello di esempio - modifica destinatari/oggetto/testo oppure eliminalo in Opzioni > Posta > Modelli di invio."
+L["Cloth"] = "Stoffa"
+L["Leather"] = "Pelle"
+L["Metal & Stone"] = "Metallo e pietra"
+L["Cooking"] = "Cucina"
+L["Herb"] = "Erba"
+L["Enchanting"] = "Incantesimi"
+L["Inscription"] = "Iscrizione"
+L["Jewelcrafting"] = "Gioielleria"
+L["Elemental"] = "Elementale"
+L["Optional Reagents"] = "Reagenti opzionali"
+L["Parts"] = "Componenti"
+L["All Trade Goods"] = "Tutti i beni commerciabili"
+L["Set a default recipient for %s (leave empty to clear):"] = "Imposta un destinatario predefinito per %s (lascia vuoto per rimuovere):"
+L["Default recipient: %s"] = "Destinatario predefinito: %s"
+L["Left-click to attach all - right-click to set a default recipient."] =
+	"Clic sinistro per allegare tutto - clic destro per impostare un destinatario predefinito."
