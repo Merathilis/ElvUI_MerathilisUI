@@ -288,10 +288,16 @@ function module:CreateSelectionCheckboxes()
 		local row = _G["MailItem" .. i]
 		if row and not row.merSelectBox then
 			local cb = F.CreateCheckBox(row)
-			cb:SetSize(14, 14)
-			cb:SetPoint("TOPLEFT", row, "TOPLEFT", -2, 2)
+			cb:SetSize(18, 18)
+			cb:SetPoint("RIGHT", row, "LEFT", 4, 0)
 			cb:SetFrameLevel(row:GetFrameLevel() + 5)
 			cb.rowIndex = i
+
+			local number = cb:CreateFontString(nil, "OVERLAY")
+			F.SetFontSize(number, 10)
+			number:SetTextColor(1, 0.82, 0)
+			number:SetPoint("BOTTOM", cb, "TOP", 0, 0)
+			number:SetText(i)
 			cb:SetScript("OnClick", function(self)
 				local index = self.rowIndex + (InboxFrame.pageNum - 1) * 7
 				if self:GetChecked() then
