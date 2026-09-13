@@ -208,7 +208,9 @@ function module:GetSelectedIndices(descending)
 	for index in pairs(selectedIndices) do
 		list[#list + 1] = index
 	end
-	tsort(list, descending and function(a, b) return a > b end or nil)
+	tsort(list, descending and function(a, b)
+		return a > b
+	end or nil)
 	return list
 end
 
@@ -310,11 +312,19 @@ function module:CreateSelectionCheckboxes()
 		end
 	end
 
-	-- Select-all sits just above the first row, aligned with the per-row
-	-- checkboxes - anchored to MailItem1 itself, not a guessed pixel offset.
-	local selectAll = F.CreateCheckBox(InboxFrame)
-	selectAll:SetSize(22, 22)
-	selectAll:SetPoint("BOTTOMLEFT", _G.MailItem1, "TOPLEFT", -2, 2)
+	-- Postal-style full-width button bar in the gap between the title and the
+	-- mail list, anchored to the real "Inset" content frame (shared by both
+	-- the Inbox and Send Mail tabs) instead of a guessed pixel offset.
+	local topBar = CreateFrame("Frame", nil, InboxFrame)
+	topBar:SetHeight(20)
+	topBar:SetPoint("BOTTOMLEFT", _G.MailFrameInset, "TOPLEFT", 5, 6)
+	topBar:SetPoint("BOTTOMRIGHT", _G.MailFrameInset, "TOPRIGHT", -5, 6)
+	self.selectionTopBar = topBar
+
+	-- Select-all sits at the left edge of the bar, in front of Open/Delete.
+	local selectAll = F.CreateCheckBox(topBar)
+	selectAll:SetSize(18, 18)
+	selectAll:SetPoint("LEFT", topBar, "LEFT", 2, 0)
 	selectAll:SetScript("OnClick", function(self)
 		local checked = self:GetChecked()
 		for i = 1, 7 do
@@ -338,11 +348,12 @@ function module:CreateSelectionCheckboxes()
 	end)
 	self.selectAllCheckbox = selectAll
 
-	-- Open/Delete Selected flank Blizzard's own "Open All" button with an equal
-	-- gap on each side, anchored to that real button instead of a guessed offset.
-	local openSelected = MS.CreateButton(InboxFrame, 42, 20)
+	-- Width argument below is irrelevant once both anchor points are set -
+	-- the button's actual size is fully driven by the anchors around it.
+	local openSelected = MS.CreateButton(topBar, 1, 20)
 	openSelected:SetText(L["Open"])
-	openSelected:SetPoint("RIGHT", _G.OpenAllMail, "LEFT", -5, 0)
+	openSelected:SetPoint("TOPLEFT", selectAll, "TOPRIGHT", 4, 0)
+	openSelected:SetPoint("BOTTOMRIGHT", topBar, "BOTTOM", -3, 0)
 	openSelected:SetScript("OnClick", function()
 		module:OpenSelectedMail()
 	end)
@@ -356,9 +367,10 @@ function module:CreateSelectionCheckboxes()
 	end)
 	self.openSelectedButton = openSelected
 
-	local deleteSelected = MS.CreateButton(InboxFrame, 42, 20)
+	local deleteSelected = MS.CreateButton(topBar, 1, 20)
 	deleteSelected:SetText(L["Delete"])
-	deleteSelected:SetPoint("LEFT", _G.OpenAllMail, "RIGHT", 5, 0)
+	deleteSelected:SetPoint("TOPRIGHT", topBar, "TOPRIGHT", 0, 0)
+	deleteSelected:SetPoint("BOTTOMLEFT", topBar, "BOTTOM", 3, 0)
 	deleteSelected:SetScript("OnClick", function()
 		module:DeleteSelected()
 	end)
@@ -395,18 +407,11 @@ function module:UpdateSelectionCheckboxes()
 			self.selectAllCheckbox:Hide()
 		end
 	end
-	if self.openSelectedButton then
+	if self.selectionTopBar then
 		if show then
-			self.openSelectedButton:Show()
+			self.selectionTopBar:Show()
 		else
-			self.openSelectedButton:Hide()
-		end
-	end
-	if self.deleteSelectedButton then
-		if show then
-			self.deleteSelectedButton:Show()
-		else
-			self.deleteSelectedButton:Hide()
+			self.selectionTopBar:Hide()
 		end
 	end
 
@@ -495,11 +500,8 @@ function module:OnDisable()
 	if self.selectAllCheckbox then
 		self.selectAllCheckbox:Hide()
 	end
-	if self.openSelectedButton then
-		self.openSelectedButton:Hide()
-	end
-	if self.deleteSelectedButton then
-		self.deleteSelectedButton:Hide()
+	if self.selectionTopBar then
+		self.selectionTopBar:Hide()
 	end
 
 	module:HideSendTemplatesUI()
