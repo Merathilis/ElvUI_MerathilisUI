@@ -37,6 +37,17 @@ local slotPool = {}
 local headerPool = {}
 local sidebarPool = {}
 
+-- Reskins a scrollbar to a thin, track-less thumb: HandleScrollBar's own
+-- thumbX narrows the thumb via an inset (same technique as the options-page
+-- scrollbar, Options/Widgets/ScrollBar.lua), and the separate track backdrop
+-- it creates behind the thumb gets hidden outright instead of just inset.
+local function SkinScrollBar(scrollbar)
+	local ok = pcall(S.HandleScrollBar, S, scrollbar, nil, 4)
+	if ok and scrollbar.backdrop then
+		scrollbar.backdrop:Hide()
+	end
+end
+
 local function SetCategoryIcon(tex, cat)
 	if not tex or not cat then
 		return
@@ -411,7 +422,7 @@ function module:ConstructFrame()
 	f.sidebarScroll = CreateFrame("ScrollFrame", FRAME_NAME .. "SidebarScroll", f.sidebar, "UIPanelScrollFrameTemplate")
 	f.sidebarScroll:Point("TOPLEFT", 4, -4)
 	f.sidebarScroll:Point("BOTTOMRIGHT", -24, 4)
-	pcall(S.HandleScrollBar, S, f.sidebarScroll)
+	SkinScrollBar(f.sidebarScroll.ScrollBar)
 
 	f.sidebarChild = CreateFrame("Frame", nil, f.sidebarScroll)
 	f.sidebarChild:Point("TOPLEFT")
@@ -432,7 +443,7 @@ function module:ConstructFrame()
 	f.mainScroll = CreateFrame("ScrollFrame", FRAME_NAME .. "MainScroll", f, "UIPanelScrollFrameTemplate")
 	f.mainScroll:Point("TOPLEFT", f.sidebar, "TOPRIGHT", 8, 0)
 	f.mainScroll:Point("BOTTOMRIGHT", f, "BOTTOMRIGHT", -28, 36)
-	pcall(S.HandleScrollBar, S, f.mainScroll)
+	SkinScrollBar(f.mainScroll.ScrollBar)
 
 	f.contentChild = CreateFrame("Frame", nil, f.mainScroll)
 	f.contentChild:Point("TOPLEFT")
