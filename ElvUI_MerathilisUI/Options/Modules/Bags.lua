@@ -1,6 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local EM = MER:GetModule("MER_EquipManager") ---@class EquipmentManager
+local BC = MER:GetModule("MER_BagCategories") ---@class BagCategories
 local B = E:GetModule("Bags")
 
 local options = module.options.modules.args
@@ -107,6 +108,90 @@ options.bags = {
 						-- B:UpdateAllBagSlots()
 						EM:UpdateItemDisplay()
 					end,
+				},
+			},
+		},
+		categorizedBags = {
+			order = 2,
+			type = "group",
+			name = L["Categorized Bags"],
+			guiInline = true,
+			get = function(info)
+				return E.db.mui.bags.categorizedBags[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.bags.categorizedBags[info[#info]] = value
+
+				if BC.frame then
+					BC.frame:Size(E.db.mui.bags.categorizedBags.width, E.db.mui.bags.categorizedBags.height)
+					BC:RefreshCategoryFrame()
+				end
+			end,
+			args = {
+				enable = {
+					order = 1,
+					type = "toggle",
+					name = L["Enable"],
+					desc = L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."],
+					set = function(info, value)
+						E.db.mui.bags.categorizedBags[info[#info]] = value
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+				},
+				hideEmptyCategories = {
+					order = 2,
+					type = "toggle",
+					name = L["Hide Empty Categories"],
+				},
+				showPinned = {
+					order = 3,
+					type = "toggle",
+					name = L["Show Pinned Items"],
+				},
+				showRecent = {
+					order = 4,
+					type = "toggle",
+					name = L["Show Recent Items"],
+				},
+				itemSize = {
+					order = 5,
+					type = "range",
+					name = L["Item Size"],
+					min = 24,
+					max = 48,
+					step = 1,
+				},
+				itemSpacing = {
+					order = 6,
+					type = "range",
+					name = L["Item Spacing"],
+					min = 0,
+					max = 10,
+					step = 1,
+				},
+				sidebarWidth = {
+					order = 7,
+					type = "range",
+					name = L["Sidebar Width"],
+					min = 100,
+					max = 220,
+					step = 1,
+				},
+				width = {
+					order = 8,
+					type = "range",
+					name = L["Width"],
+					min = 380,
+					max = 900,
+					step = 1,
+				},
+				height = {
+					order = 9,
+					type = "range",
+					name = L["Height"],
+					min = 300,
+					max = 800,
+					step = 1,
 				},
 			},
 		},

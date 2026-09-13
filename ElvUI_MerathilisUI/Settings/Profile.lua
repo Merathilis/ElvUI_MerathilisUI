@@ -280,6 +280,21 @@ P.bags = {
 			a = 1,
 		},
 	},
+	categorizedBags = {
+		enable = false,
+		itemSize = 36,
+		itemSpacing = 4,
+		sidebarWidth = 150,
+		width = 480,
+		height = 520,
+		showPinned = true,
+		showRecent = true,
+		hideEmptyCategories = true,
+		disabledCategories = {},
+		userCategories = {},
+		itemAssignments = {},
+		pinnedItemsByChar = {},
+	},
 }
 
 P.colors = {
