@@ -1054,6 +1054,7 @@ L["Body"] = "Mensaje"
 L["New Template"] = "Nueva plantilla"
 L["Clear the fields above to create a new template."] = "Vacía los campos de arriba para crear una nueva plantilla."
 L["Add / Update"] = "Añadir / Actualizar"
+L["Confirm each field above first (Enter, or the checkmark under multiline boxes) - this button re-saves whatever is currently confirmed."] = "Confirma primero cada campo de arriba (Enter, o la marca de verificación debajo de los cuadros multilínea) - este botón vuelve a guardar lo que esté confirmado actualmente."
 L["Saved Templates"] = "Plantillas guardadas"
 L["Pick a saved template to load it into the fields above for editing."] =
 	"Elige una plantilla guardada para cargarla en los campos de arriba y editarla."

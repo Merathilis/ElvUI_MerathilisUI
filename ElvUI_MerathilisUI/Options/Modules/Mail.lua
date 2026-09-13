@@ -76,6 +76,40 @@ do
 	local tempSubject
 	local tempBody
 
+	-- AceConfig "input" widgets only commit their text (call this file's set()
+	-- functions) on Enter - or, for multiline fields, on the small checkmark
+	-- button below the box - never on merely clicking away to another widget.
+	-- A separate "Add / Update" button relying solely on those cached locals
+	-- silently saved nothing (or a stale/incomplete entry) whenever a field
+	-- was typed but never explicitly committed before clicking it. Saving
+	-- straight from each field's own set() means the template is already
+	-- persisted the moment any field is committed, regardless of whether the
+	-- button is ever clicked. showErrors is only true for the explicit button
+	-- click, so typing progressively doesn't spam chat with "no name yet".
+	local function SaveTemplate(showErrors)
+		if not tempName or tempName == "" then
+			if showErrors then
+				F.Print(L["Please set a template name first."])
+			end
+			return
+		end
+
+		local recipients = Mail.ParseRecipients(tempRecipients or "")
+		if #recipients == 0 then
+			if showErrors then
+				F.Print(L["Please add at least one recipient."])
+			end
+			return
+		end
+
+		E.global.mui.mail.templates[tempName] = {
+			recipients = recipients,
+			subject = tempSubject or "",
+			body = tempBody or "",
+		}
+		E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
+	end
+
 	options.mail.args.templates = {
 		order = 5,
 		type = "group",
@@ -100,6 +134,7 @@ do
 				end,
 				set = function(_, value)
 					tempName = value
+					SaveTemplate(false)
 				end,
 			},
 			recipients = {
@@ -113,6 +148,7 @@ do
 				end,
 				set = function(_, value)
 					tempRecipients = value
+					SaveTemplate(false)
 				end,
 			},
 			subject = {
@@ -125,6 +161,7 @@ do
 				end,
 				set = function(_, value)
 					tempSubject = value
+					SaveTemplate(false)
 				end,
 			},
 			body = {
@@ -138,6 +175,7 @@ do
 				end,
 				set = function(_, value)
 					tempBody = value
+					SaveTemplate(false)
 				end,
 			},
 			newButton = {
@@ -147,26 +185,16 @@ do
 				desc = L["Clear the fields above to create a new template."],
 				func = function()
 					selectedKey, tempName, tempRecipients, tempSubject, tempBody = nil, nil, nil, nil, nil
+					E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
 				end,
 			},
 			addButton = {
 				order = 7,
 				type = "execute",
 				name = L["Add / Update"],
+				desc = L["Confirm each field above first (Enter, or the checkmark under multiline boxes) - this button re-saves whatever is currently confirmed."],
 				func = function()
-					local recipients = Mail.ParseRecipients(tempRecipients or "")
-					if not tempName or tempName == "" then
-						F.Print(L["Please set a template name first."])
-					elseif #recipients == 0 then
-						F.Print(L["Please add at least one recipient."])
-					else
-						E.global.mui.mail.templates[tempName] = {
-							recipients = recipients,
-							subject = tempSubject or "",
-							body = tempBody or "",
-						}
-						selectedKey, tempName, tempRecipients, tempSubject, tempBody = nil, nil, nil, nil, nil
-					end
+					SaveTemplate(true)
 				end,
 			},
 			spacer = {
@@ -209,6 +237,7 @@ do
 					if selectedKey then
 						E.global.mui.mail.templates[selectedKey] = nil
 						selectedKey, tempName, tempRecipients, tempSubject, tempBody = nil, nil, nil, nil, nil
+						E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
 					end
 				end,
 			},

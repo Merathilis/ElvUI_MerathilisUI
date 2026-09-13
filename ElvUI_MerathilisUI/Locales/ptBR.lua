@@ -1058,6 +1058,7 @@ L["Body"] = "Mensagem"
 L["New Template"] = "Novo modelo"
 L["Clear the fields above to create a new template."] = "Limpa os campos acima para criar um novo modelo."
 L["Add / Update"] = "Adicionar / Atualizar"
+L["Confirm each field above first (Enter, or the checkmark under multiline boxes) - this button re-saves whatever is currently confirmed."] = "Confirme primeiro cada campo acima (Enter, ou a marca de seleção abaixo das caixas multilinha) - este botão salva novamente o que estiver confirmado no momento."
 L["Saved Templates"] = "Modelos salvos"
 L["Pick a saved template to load it into the fields above for editing."] =
 	"Escolha um modelo salvo para carregá-lo nos campos acima e editá-lo."

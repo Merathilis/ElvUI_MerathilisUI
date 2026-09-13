@@ -913,6 +913,7 @@ L["Body"] = true
 L["New Template"] = true
 L["Clear the fields above to create a new template."] = true
 L["Add / Update"] = true
+L["Confirm each field above first (Enter, or the checkmark under multiline boxes) - this button re-saves whatever is currently confirmed."] = true
 L["Saved Templates"] = true
 L["Pick a saved template to load it into the fields above for editing."] = true
 L["Please set a template name first."] = true

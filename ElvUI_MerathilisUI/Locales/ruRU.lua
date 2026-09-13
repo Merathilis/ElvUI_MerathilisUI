@@ -1089,6 +1089,7 @@ L["Body"] = "Текст"
 L["New Template"] = "Новый шаблон"
 L["Clear the fields above to create a new template."] = "Очищает поля выше для создания нового шаблона."
 L["Add / Update"] = "Добавить / Обновить"
+L["Confirm each field above first (Enter, or the checkmark under multiline boxes) - this button re-saves whatever is currently confirmed."] = "Сначала подтвердите каждое поле выше (Enter или галочка под многострочными полями) - эта кнопка повторно сохраняет то, что подтверждено в данный момент."
 L["Saved Templates"] = "Сохранённые шаблоны"
 L["Pick a saved template to load it into the fields above for editing."] =
 	"Выберите сохранённый шаблон, чтобы загрузить его в поля выше для редактирования."

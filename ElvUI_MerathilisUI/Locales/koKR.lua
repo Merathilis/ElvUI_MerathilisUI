@@ -1136,6 +1136,7 @@ L["Body"] = "내용"
 L["New Template"] = "새 템플릿"
 L["Clear the fields above to create a new template."] = "새 템플릿을 만들려면 위 입력란을 비웁니다."
 L["Add / Update"] = "추가 / 업데이트"
+L["Confirm each field above first (Enter, or the checkmark under multiline boxes) - this button re-saves whatever is currently confirmed."] = "먼저 위의 각 필드를 확인하세요 (Enter 키 또는 여러 줄 상자 아래의 체크 표시) - 이 버튼은 현재 확인된 내용을 다시 저장합니다."
 L["Saved Templates"] = "저장된 템플릿"
 L["Pick a saved template to load it into the fields above for editing."] =
 	"저장된 템플릿을 선택하면 위 입력란에 불러와 수정할 수 있습니다."

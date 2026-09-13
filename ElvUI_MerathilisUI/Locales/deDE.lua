@@ -806,6 +806,7 @@ L["Body"] = "Nachricht"
 L["New Template"] = "Neue Vorlage"
 L["Clear the fields above to create a new template."] = "Leert die obigen Felder, um eine neue Vorlage zu erstellen."
 L["Add / Update"] = "Hinzufügen / Aktualisieren"
+L["Confirm each field above first (Enter, or the checkmark under multiline boxes) - this button re-saves whatever is currently confirmed."] = "Bestätige zuerst jedes Feld oben (Enter, oder das Häkchen unter mehrzeiligen Feldern) - dieser Button speichert erneut, was aktuell bestätigt ist."
 L["Saved Templates"] = "Gespeicherte Vorlagen"
 L["Pick a saved template to load it into the fields above for editing."] =
 	"Wähle eine gespeicherte Vorlage, um sie zum Bearbeiten in die obigen Felder zu laden."
