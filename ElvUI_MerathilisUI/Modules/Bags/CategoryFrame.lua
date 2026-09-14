@@ -163,6 +163,24 @@ local function Slot_OnClick(self, mouseButton)
 			module:TogglePinned(self.itemID)
 			module:RefreshCategoryFrame()
 		end
+	elseif mouseButton == "RightButton" then
+		-- The native type/item dispatch below is equivalent to "/use [item
+		-- link]", which doesn't route through a sell even with a merchant
+		-- open (that vendor-aware branching lives inside Blizzard's own
+		-- UseContainerItem). Calling UseContainerItem directly from here
+		-- throws ADDON_ACTION_FORBIDDEN since this runs inside a secure
+		-- (SecureActionButtonTemplate) frame's click handler; deferring it
+		-- one tick via C_Timer.After escapes that tainted call stack (same
+		-- reason ElvUI's own vendor-junk-seller calls it from a plain
+		-- OnUpdate rather than from a secure frame's script). Away from a
+		-- merchant, right-click still falls through to the native use/equip
+		-- dispatch untouched.
+		if not InCombatLockdown() and _G.MerchantFrame and _G.MerchantFrame:IsShown() and self.BagID and self.SlotID then
+			local bagID, slotID = self.BagID, self.SlotID
+			C_Timer.After(0, function()
+				C_Container.UseContainerItem(bagID, slotID)
+			end)
+		end
 	end
 end
 
