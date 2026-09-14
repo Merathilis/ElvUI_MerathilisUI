@@ -225,6 +225,194 @@ options.bags = {
 					max = 800,
 					step = 1,
 				},
+				itemCountFont = {
+					order = 14,
+					type = "group",
+					inline = true,
+					name = L["Item Count"],
+					get = function(info)
+						return E.db.mui.bags.categorizedBags.itemCountFont[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.bags.categorizedBags.itemCountFont[info[#info]] = value
+						if BC.frame then
+							BC:RefreshCategoryFrame()
+						end
+					end,
+					args = {
+						name = {
+							order = 1,
+							type = "select",
+							dialogControl = "LSM30_Font",
+							name = L["Font"],
+							values = E.LSM:HashTable("font"),
+						},
+						style = {
+							order = 2,
+							type = "select",
+							name = L["Outline"],
+							values = MER.Values.FontFlags,
+							sortByValue = true,
+						},
+						size = {
+							order = 3,
+							type = "range",
+							name = L["Size"],
+							min = 6,
+							max = 24,
+							step = 1,
+						},
+						position = {
+							order = 4,
+							type = "select",
+							name = L["Position"],
+							values = I.Values.positionValues,
+						},
+					},
+				},
+				itemLevel = {
+					order = 15,
+					type = "group",
+					inline = true,
+					name = L["Item Level"],
+					get = function(info)
+						return E.db.mui.bags.categorizedBags.itemLevel[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.bags.categorizedBags.itemLevel[info[#info]] = value
+						if BC.frame then
+							BC:RefreshCategoryFrame()
+						end
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							width = "full",
+						},
+						font = {
+							order = 2,
+							type = "group",
+							inline = true,
+							name = L["Font"],
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.itemLevel.enable
+							end,
+							get = function(info)
+								return E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]] = value
+								if BC.frame then
+									BC:RefreshCategoryFrame()
+								end
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = E.LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = MER.Values.FontFlags,
+									sortByValue = true,
+								},
+								size = {
+									order = 3,
+									type = "range",
+									name = L["Size"],
+									min = 6,
+									max = 24,
+									step = 1,
+								},
+								position = {
+									order = 4,
+									type = "select",
+									name = L["Position"],
+									values = I.Values.positionValues,
+								},
+							},
+						},
+					},
+				},
+				itemInfo = {
+					order = 16,
+					type = "group",
+					inline = true,
+					name = L["Item Info"],
+					get = function(info)
+						return E.db.mui.bags.categorizedBags.itemInfo[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.bags.categorizedBags.itemInfo[info[#info]] = value
+						if BC.frame then
+							BC:RefreshCategoryFrame()
+						end
+					end,
+					args = {
+						enable = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Shows a bind-type indicator (BoE, BoU, ...) on items that aren't bound yet."],
+							width = "full",
+						},
+						font = {
+							order = 2,
+							type = "group",
+							inline = true,
+							name = L["Font"],
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.itemInfo.enable
+							end,
+							get = function(info)
+								return E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]] = value
+								if BC.frame then
+									BC:RefreshCategoryFrame()
+								end
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = E.LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = MER.Values.FontFlags,
+									sortByValue = true,
+								},
+								size = {
+									order = 3,
+									type = "range",
+									name = L["Size"],
+									min = 6,
+									max = 24,
+									step = 1,
+								},
+								position = {
+									order = 4,
+									type = "select",
+									name = L["Position"],
+									values = I.Values.positionValues,
+								},
+							},
+						},
+					},
+				},
 			},
 		},
 	},

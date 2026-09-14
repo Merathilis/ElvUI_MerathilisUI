@@ -23,6 +23,9 @@ local C_Container_SetItemSearch = C_Container.SetItemSearch
 local C_Container_PickupContainerItem = C_Container.PickupContainerItem
 local C_NewItems_IsNewItem = C_NewItems.IsNewItem
 local C_NewItems_RemoveNewItem = C_NewItems.RemoveNewItem
+local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
+local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 
 local BAG_IDS = { 0, 1, 2, 3, 4 }
 if module.ReagentContainer and module.ReagentContainer < math.huge then
@@ -32,6 +35,39 @@ end
 local FRAME_NAME = "MER_BagCategoriesFrame"
 local SLOT_NAME_PREFIX = "MER_BagCategoriesSlot"
 local HEADER_PADDING = 6
+
+-- Same restriction ElvUI's own item level display uses: only equippable gear
+-- (Armor covers trinkets/rings/necks too) above Common quality.
+local ITEMCLASS_ARMOR = Enum.ItemClass.Armor
+local ITEMCLASS_WEAPON = Enum.ItemClass.Weapon
+local ITEMQUALITY_COMMON = Enum.ItemQuality.Common
+
+local BIND_TEXT = {
+	[Enum.ItemBind.OnAcquire or 1] = L["BoP"],
+	[Enum.ItemBind.OnEquip or 2] = L["BoE"],
+	[Enum.ItemBind.OnUse or 3] = L["BoU"],
+	[Enum.ItemBind.ToBnetAccount or 8] = L["BoA"],
+}
+
+-- Small inward nudge so slot-overlay text (Count/ItemLevel/BindType) doesn't
+-- sit flush against the icon border, keyed by the anchor point it's set to.
+local ANCHOR_OFFSETS = {
+	TOPLEFT = { 2, -2 },
+	TOP = { 0, -2 },
+	TOPRIGHT = { -2, -2 },
+	LEFT = { 2, 0 },
+	CENTER = { 0, 0 },
+	RIGHT = { -2, 0 },
+	BOTTOMLEFT = { 2, 2 },
+	BOTTOM = { 0, 2 },
+	BOTTOMRIGHT = { -2, 2 },
+}
+
+local function PositionSlotText(fs, point)
+	local offset = ANCHOR_OFFSETS[point] or ANCHOR_OFFSETS.BOTTOMRIGHT
+	fs:ClearAllPoints()
+	fs:Point(point, offset[1], offset[2])
+end
 
 local slotPool = {}
 local headerPool = {}
@@ -188,6 +224,9 @@ local function CreateSlotButton(index)
 		btn.searchOverlay:Hide()
 	end
 
+	btn.itemLevel = btn:CreateFontString(nil, "OVERLAY")
+	btn.bindType = btn:CreateFontString(nil, "OVERLAY")
+
 	if btn.BattlepayItemTexture then
 		btn.BattlepayItemTexture:Hide()
 	end
@@ -262,6 +301,12 @@ local function UpdateSlotVisual(btn, entry)
 	SetItemButtonCount(btn, entry.count)
 	SetItemButtonDesaturated(btn, entry.isLocked)
 
+	local countFont = module.db.itemCountFont
+	if btn.Count then
+		btn.Count:FontTemplate(countFont.name, countFont.size, countFont.style)
+		PositionSlotText(btn.Count, countFont.position)
+	end
+
 	-- Right-click "use/equip" via the secure type/item attributes instead of
 	-- calling UseContainerItem from Lua (protected, throws
 	-- ADDON_ACTION_FORBIDDEN). SetAttribute itself is combat-protected on
@@ -279,6 +324,26 @@ local function UpdateSlotVisual(btn, entry)
 	btn:SetBackdropBorderColor(r, g, b)
 	if E.ForceBorderColor then
 		E:ForceBorderColor(btn, r, g, b)
+	end
+
+	local levelFont = module.db.itemLevel.font
+	btn.itemLevel:FontTemplate(levelFont.name, levelFont.size, levelFont.style)
+	PositionSlotText(btn.itemLevel, levelFont.position)
+	if entry.itemLevel then
+		btn.itemLevel:SetText(entry.itemLevel)
+		btn.itemLevel:SetTextColor(r, g, b)
+	else
+		btn.itemLevel:SetText("")
+	end
+
+	local infoFont = module.db.itemInfo.font
+	btn.bindType:FontTemplate(infoFont.name, infoFont.size, infoFont.style)
+	PositionSlotText(btn.bindType, infoFont.position)
+	if entry.bindText then
+		btn.bindType:SetText(entry.bindText)
+		btn.bindType:SetTextColor(r, g, b)
+	else
+		btn.bindType:SetText("")
 	end
 
 	-- Blizzard's own highlighting for Scrap, Rune Carving, Upgrade Items, etc.
@@ -574,6 +639,35 @@ end
 -------------------------------------------------------------------------------
 local categoryItemsScratch = {}
 
+-- Same restriction ElvUI's own item level display uses: only equippable gear
+-- (Armor covers trinkets/rings/necks too) above Common quality, and only
+-- items that don't have a level yet resolved (avoids the extra tooltip-scan
+-- work GetDetailedItemLevelInfo does for everything else in the bags).
+local function GetDisplayItemLevel(itemLink, quality)
+	if not itemLink or not quality or quality <= ITEMQUALITY_COMMON then
+		return nil
+	end
+
+	local _, _, _, _, _, classID = C_Item_GetItemInfoInstant(itemLink)
+	if classID ~= ITEMCLASS_ARMOR and classID ~= ITEMCLASS_WEAPON then
+		return nil
+	end
+
+	local iLvl = C_Item_GetDetailedItemLevelInfo(itemLink)
+	return iLvl and iLvl > 0 and iLvl or nil
+end
+
+-- Only informative for items that aren't bound yet (BoP items are already
+-- bound the instant they're looted, so there's nothing left to show).
+local function GetBindText(itemLink, isBound)
+	if not itemLink or isBound then
+		return nil
+	end
+
+	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = C_Item_GetItemInfo(itemLink)
+	return bindType and BIND_TEXT[bindType]
+end
+
 local function CollectItems()
 	for k in pairs(categoryItemsScratch) do
 		wipe(categoryItemsScratch[k])
@@ -604,6 +698,9 @@ local function CollectItems()
 						quality = info.quality,
 						isLocked = info.isLocked,
 						isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
+						itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
+							or nil,
+						bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound) or nil,
 					})
 				end
 			end

@@ -298,6 +298,30 @@ P.bags = {
 		userCategories = {},
 		itemAssignments = {},
 		pinnedItemsByChar = {},
+		itemCountFont = {
+			name = I.Fonts.Primary,
+			size = 12,
+			style = "OUTLINE",
+			position = "BOTTOMRIGHT",
+		},
+		itemLevel = {
+			enable = true,
+			font = {
+				name = I.Fonts.Primary,
+				size = 10,
+				style = "OUTLINE",
+				position = "TOPLEFT",
+			},
+		},
+		itemInfo = {
+			enable = true,
+			font = {
+				name = I.Fonts.Primary,
+				size = 10,
+				style = "OUTLINE",
+				position = "BOTTOM",
+			},
+		},
 	},
 }
 
