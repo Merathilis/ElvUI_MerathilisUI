@@ -32,7 +32,6 @@ end
 local FRAME_NAME = "MER_BagCategoriesFrame"
 local SLOT_NAME_PREFIX = "MER_BagCategoriesSlot"
 local HEADER_PADDING = 6
-local SECTION_GAP = 14
 
 local slotPool = {}
 local headerPool = {}
@@ -402,7 +401,7 @@ function module:ConstructFrame()
 	f:SetFrameStrata("HIGH")
 	f:SetClampedToScreen(true)
 	f:Size(db.width, db.height)
-	f:Point("CENTER")
+	f:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -4, 48)
 	pcall(f.SetTemplate, f, "Transparent")
 	WS:CreateShadow(f)
 	f:Hide()
@@ -691,7 +690,7 @@ function module:RefreshCategoryFrame()
 	module.categoryOffsets = {}
 
 	local contentWidth = db.width - db.sidebarWidth - 44
-	local columns = floor((contentWidth + db.itemSpacing) / (db.itemSize + db.itemSpacing))
+	local columns = floor((contentWidth + db.itemSpacingH) / (db.itemSize + db.itemSpacingH))
 	if columns < 1 then
 		columns = 1
 	end
@@ -706,6 +705,7 @@ function module:RefreshCategoryFrame()
 
 		headerIndex = headerIndex + 1
 		local header = AcquireHeader(headerIndex)
+		header:SetHeight(db.headerHeight)
 		header:ClearAllPoints()
 		header:Point("TOPLEFT", module.contentChild, "TOPLEFT", 0, -y)
 		header:Point("TOPRIGHT", module.contentChild, "TOPRIGHT", 0, -y)
@@ -728,9 +728,10 @@ function module:RefreshCategoryFrame()
 
 		sidebarIndex = sidebarIndex + 1
 		local row = AcquireSidebarRow(sidebarIndex)
+		row:SetHeight(db.sidebarRowHeight)
 		row:ClearAllPoints()
-		row:Point("TOPLEFT", module.sidebarChild, "TOPLEFT", 0, -(sidebarIndex - 1) * 24)
-		row:Point("TOPRIGHT", module.sidebarChild, "TOPRIGHT", 0, -(sidebarIndex - 1) * 24)
+		row:Point("TOPLEFT", module.sidebarChild, "TOPLEFT", 0, -(sidebarIndex - 1) * db.sidebarRowHeight)
+		row:Point("TOPRIGHT", module.sidebarChild, "TOPRIGHT", 0, -(sidebarIndex - 1) * db.sidebarRowHeight)
 		row.catKey = section.key
 		row.isUser = section.key:find("^USER_") and true or false
 		row.text:SetText(section.name)
@@ -748,27 +749,27 @@ function module:RefreshCategoryFrame()
 
 				btn:ClearAllPoints()
 				btn:Size(db.itemSize)
-				btn:Point("TOPLEFT", module.contentChild, "TOPLEFT", col * (db.itemSize + db.itemSpacing), -rowStartY)
+				btn:Point("TOPLEFT", module.contentChild, "TOPLEFT", col * (db.itemSize + db.itemSpacingH), -rowStartY)
 
 				col = col + 1
 				if col >= columns then
 					col = 0
-					rowStartY = rowStartY + db.itemSize + db.itemSpacing
+					rowStartY = rowStartY + db.itemSize + db.itemSpacingV
 				end
 			end
 
 			local rows = ceil(#section.items / columns)
-			y = y + rows * (db.itemSize + db.itemSpacing)
+			y = y + rows * (db.itemSize + db.itemSpacingV)
 		end
 
-		y = y + SECTION_GAP
+		y = y + db.sectionSpacing
 	end
 
 	ReleaseSlotsFrom(slotIndex + 1)
 	ReleaseHeadersFrom(headerIndex + 1)
 	ReleaseSidebarRowsFrom(sidebarIndex + 1)
 
-	module.sidebarChild:Height(math.max(1, sidebarIndex * 24))
+	module.sidebarChild:Height(math.max(1, sidebarIndex * db.sidebarRowHeight))
 	module.contentChild:Height(math.max(1, y))
 
 	module:UpdateFooter()
