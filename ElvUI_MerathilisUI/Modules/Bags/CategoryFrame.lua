@@ -431,10 +431,13 @@ function module:ConstructFrame()
 	pcall(S.HandleCloseButton, S, f.closeButton)
 
 	-- Small ElvUI-style icon buttons (same textures/skinning as ElvUI's own
-	-- bag frame title row), anchored leftward from the close button.
+	-- bag frame title row). Anchored TOP-to-TOP directly off `f` and each
+	-- other (not off the close button, which sits in its own corner at a
+	-- different size/height) so this whole row shares one exact y with the
+	-- search box below.
 	local function CreateTitleButton(name, texture, tooltipText, onClick)
 		local btn = CreateFrame("Button", FRAME_NAME .. name, f)
-		btn:Size(18)
+		btn:Size(20)
 		pcall(btn.SetTemplate, btn)
 		pcall(btn.StyleButton, btn, nil, true)
 
@@ -469,12 +472,12 @@ function module:ConstructFrame()
 	f.sortButton = CreateTitleButton("SortButton", E.Media.Textures.PetBroom, L["Sort Bags"], function()
 		C_Container.SortBags()
 	end)
-	f.sortButton:Point("RIGHT", f.closeButton, "LEFT", -4, 0)
+	f.sortButton:Point("TOPRIGHT", f, "TOPRIGHT", -40, -8)
 
 	f.stackButton = CreateTitleButton("StackButton", E.Media.Textures.Planks, L["Stack Items In Bags"], function()
 		C_Container.SortBags()
 	end)
-	f.stackButton:Point("RIGHT", f.sortButton, "LEFT", -2, 0)
+	f.stackButton:Point("TOPRIGHT", f.sortButton, "TOPLEFT", -2, 0)
 
 	f.helpButton = CreateTitleButton("HelpButton", E.Media.Textures.Help, function()
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
@@ -482,11 +485,11 @@ function module:ConstructFrame()
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
 	end)
-	f.helpButton:Point("RIGHT", f.stackButton, "LEFT", -2, 0)
+	f.helpButton:Point("TOPRIGHT", f.stackButton, "TOPLEFT", -2, 0)
 
 	f.searchBox = CreateFrame("EditBox", FRAME_NAME .. "SearchBox", f, "SearchBoxTemplate")
 	f.searchBox:Point("TOPLEFT", 10, -8)
-	f.searchBox:Point("TOPRIGHT", f.helpButton, "LEFT", -6, 0)
+	f.searchBox:Point("TOPRIGHT", f.helpButton, "TOPLEFT", -6, 0)
 	f.searchBox:Height(20)
 	f.searchBox:HookScript("OnTextChanged", function(self)
 		module.searchText = self:GetText() or ""
@@ -662,7 +665,7 @@ local function BuildSections()
 
 	for _, cat in ipairs(categories) do
 		local items = itemsByCategory[cat.key] or {}
-		if #items > 0 or not db.hideEmptyCategories then
+		if #items > 0 or not db.hideEmptyCategories or cat.isUser then
 			tinsert(sections, { key = cat.key, name = cat.name, icon = cat.icon, isAtlas = cat.isAtlas, items = items })
 		end
 	end
@@ -841,7 +844,7 @@ function module:OpenCategoryContextMenu(row)
 	end
 
 	local key = row.catKey
-	_G.MenuUtil.CreateContextMenu(row, function(rootDescription)
+	_G.MenuUtil.CreateContextMenu(row, function(_, rootDescription)
 		rootDescription:CreateButton(L["Rename"], function()
 			StaticPopup_Show("MER_BAGCATEGORIES_RENAME", nil, nil, { key = key })
 		end)
@@ -862,7 +865,7 @@ function module:OpenAssignMenu(slot)
 	end
 
 	local itemID = slot.itemID
-	_G.MenuUtil.CreateContextMenu(slot, function(rootDescription)
+	_G.MenuUtil.CreateContextMenu(slot, function(_, rootDescription)
 		rootDescription:CreateTitle(L["Assign to Category"])
 
 		for _, cat in ipairs(module:GetCategories()) do
