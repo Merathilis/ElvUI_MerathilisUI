@@ -21,6 +21,8 @@ local CLASS_RECIPE = IC.Recipe
 local CLASS_QUEST = IC.Questitem
 local CLASS_MISC = IC.Miscellaneous
 
+local ITEMQUALITY_POOR = Enum.ItemQuality.Poor
+
 local BagIndex = Enum.BagIndex
 module.ReagentContainer = (E.Retail and BagIndex and BagIndex.ReagentBag) or math.huge
 
@@ -69,6 +71,12 @@ local DEFAULT_CATEGORIES = {
 		types = { CLASS_QUEST },
 		isQuest = true,
 		icon = E.Media.Textures.Scroll,
+	},
+	{
+		key = "JUNK",
+		name = L["Junk"],
+		isJunk = true,
+		icon = E.Media.Textures.GoldCoins,
 	},
 	{
 		key = "MISC",
@@ -150,7 +158,7 @@ function module:InvalidateCategoryCache()
 	module._categoriesCache = nil
 end
 
-function module:ClassifyItem(bagID, slotID, itemID, itemLink)
+function module:ClassifyItem(bagID, slotID, itemID, itemLink, quality, hasNoValue)
 	if not itemLink then
 		return nil
 	end
@@ -176,6 +184,16 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink)
 				if cat.isQuest then
 					return cat.key
 				end
+			end
+		end
+	end
+
+	-- Same definition ElvUI's own bags use: grey/Poor quality with an actual
+	-- sell value (excludes quest-bound poor items and other unsellable junk).
+	if quality == ITEMQUALITY_POOR and not hasNoValue then
+		for _, cat in ipairs(module:GetCategories()) do
+			if cat.isJunk then
+				return cat.key
 			end
 		end
 	end

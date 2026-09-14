@@ -2,6 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_BagCategories") ---@class BagCategories
 local B = E:GetModule("Bags")
 local S = E:GetModule("Skins")
+local WS = W:GetModule("Skins")
 
 local _G = _G
 local ipairs, pairs = ipairs, pairs
@@ -36,6 +37,33 @@ local SECTION_GAP = 14
 local slotPool = {}
 local headerPool = {}
 local sidebarPool = {}
+
+-- ElvUI's own Container_OnHide -> BagFrameHidden clears every item's "new"
+-- flag (NewItemGlowSlotSwitch -> C_NewItems.RemoveNewItem) whenever
+-- B.BagFrame hides - which we do on every single open of our own frame, so
+-- Recent Items would always come up empty. Snapshot which items are new
+-- right before that happens and fall back to it in CollectItems.
+local newItemSnapshot = {}
+
+local function SnapshotNewItems()
+	wipe(newItemSnapshot)
+
+	for _, bagID in ipairs(BAG_IDS) do
+		local numSlots = C_Container_GetContainerNumSlots(bagID)
+		for slotID = 1, numSlots do
+			if C_NewItems_IsNewItem(bagID, slotID) then
+				newItemSnapshot[bagID * 1000 + slotID] = true
+			end
+		end
+	end
+end
+
+local function HideElvUIBagFrame()
+	if B.BagFrame and B.BagFrame:IsShown() then
+		SnapshotNewItems()
+		B.BagFrame:Hide()
+	end
+end
 
 -- Reskins a scrollbar to a thin, track-less thumb: HandleScrollBar's own
 -- thumbX narrows the thumb via an inset (same technique as the options-page
@@ -126,13 +154,12 @@ local function Slot_OnLeave()
 end
 
 local function CreateSlotButton(index)
-	local btn =
-		CreateFrame(
-			"ItemButton",
-			SLOT_NAME_PREFIX .. index,
-			module.contentChild,
-			"ContainerFrameItemButtonTemplate,SecureActionButtonTemplate"
-		)
+	local btn = CreateFrame(
+		"ItemButton",
+		SLOT_NAME_PREFIX .. index,
+		module.contentChild,
+		"ContainerFrameItemButtonTemplate,SecureActionButtonTemplate"
+	)
 
 	local ok = pcall(btn.SetTemplate, btn, nil, true)
 	if not ok then
@@ -377,6 +404,7 @@ function module:ConstructFrame()
 	f:Size(db.width, db.height)
 	f:Point("CENTER")
 	pcall(f.SetTemplate, f, "Transparent")
+	WS:CreateShadow(f)
 	f:Hide()
 	f:SetScript("OnHide", function()
 		module:OnFrameHidden()
@@ -402,9 +430,63 @@ function module:ConstructFrame()
 	end)
 	pcall(S.HandleCloseButton, S, f.closeButton)
 
+	-- Small ElvUI-style icon buttons (same textures/skinning as ElvUI's own
+	-- bag frame title row), anchored leftward from the close button.
+	local function CreateTitleButton(name, texture, tooltipText, onClick)
+		local btn = CreateFrame("Button", FRAME_NAME .. name, f)
+		btn:Size(18)
+		pcall(btn.SetTemplate, btn)
+		pcall(btn.StyleButton, btn, nil, true)
+
+		btn.tex = btn:CreateTexture(nil, "OVERLAY")
+		btn.tex:SetInside()
+		btn.tex:SetTexture(texture)
+
+		if onClick then
+			btn:SetScript("OnClick", onClick)
+		end
+
+		btn:SetScript("OnEnter", function(self)
+			if GameTooltip:IsForbidden() then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+			if type(tooltipText) == "function" then
+				tooltipText()
+			else
+				GameTooltip:AddLine(tooltipText, 1, 1, 1)
+			end
+			GameTooltip:Show()
+		end)
+		btn:SetScript("OnLeave", GameTooltip_Hide)
+
+		return btn
+	end
+
+	-- Blizzard's SortBags() already merges partial stacks as part of sorting;
+	-- we don't have ElvUI's own separate animated Stack/Compress algorithm,
+	-- so both buttons call the same native sort for now.
+	f.sortButton = CreateTitleButton("SortButton", E.Media.Textures.PetBroom, L["Sort Bags"], function()
+		C_Container.SortBags()
+	end)
+	f.sortButton:Point("RIGHT", f.closeButton, "LEFT", -4, 0)
+
+	f.stackButton = CreateTitleButton("StackButton", E.Media.Textures.Planks, L["Stack Items In Bags"], function()
+		C_Container.SortBags()
+	end)
+	f.stackButton:Point("RIGHT", f.sortButton, "LEFT", -2, 0)
+
+	f.helpButton = CreateTitleButton("HelpButton", E.Media.Textures.Help, function()
+		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Right Click:"], L["Use / equip item"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
+	end)
+	f.helpButton:Point("RIGHT", f.stackButton, "LEFT", -2, 0)
+
 	f.searchBox = CreateFrame("EditBox", FRAME_NAME .. "SearchBox", f, "SearchBoxTemplate")
 	f.searchBox:Point("TOPLEFT", 10, -8)
-	f.searchBox:Point("TOPRIGHT", -30, -8)
+	f.searchBox:Point("TOPRIGHT", f.helpButton, "LEFT", -6, 0)
 	f.searchBox:Height(20)
 	f.searchBox:HookScript("OnTextChanged", function(self)
 		module.searchText = self:GetText() or ""
@@ -438,6 +520,7 @@ function module:ConstructFrame()
 	f.addCategoryButton:SetScript("OnClick", function()
 		module:PromptAddCategory()
 	end)
+	pcall(S.HandleButton, S, f.addCategoryButton)
 
 	-- Main content
 	f.mainScroll = CreateFrame("ScrollFrame", FRAME_NAME .. "MainScroll", f, "UIPanelScrollFrameTemplate")
@@ -461,6 +544,9 @@ function module:ConstructFrame()
 	f.footer.goldText = f.footer:CreateFontString(nil, "OVERLAY")
 	f.footer.goldText:FontTemplate()
 	f.footer.goldText:Point("LEFT", 4, 0)
+
+	-- Manually apply Style
+	F.CreateStyle(f)
 
 	f:RegisterEvent("PLAYER_MONEY")
 	f:SetScript("OnEvent", function(_, event)
@@ -501,7 +587,8 @@ local function CollectItems()
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 
 			if info and info.iconFileID and not (searching and info.isFiltered) then
-				local key = module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink)
+				local key =
+					module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink, info.quality, info.hasNoValue)
 				if key then
 					categoryItemsScratch[key] = categoryItemsScratch[key] or {}
 
@@ -514,7 +601,7 @@ local function CollectItems()
 						count = info.stackCount,
 						quality = info.quality,
 						isLocked = info.isLocked,
-						isNew = C_NewItems_IsNewItem(bagID, slotID) and true or false,
+						isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
 					})
 				end
 			end
@@ -812,10 +899,7 @@ function module:ShowCategoryFrame()
 	end
 
 	module:ConstructFrame()
-
-	if B.BagFrame and B.BagFrame:IsShown() then
-		B.BagFrame:Hide()
-	end
+	HideElvUIBagFrame()
 
 	module.frame:Show()
 	module:RegisterBagEvents()
@@ -861,9 +945,7 @@ function module:ToggleAllBags()
 		return
 	end
 
-	if B.BagFrame and B.BagFrame:IsShown() then
-		B.BagFrame:Hide()
-	end
+	HideElvUIBagFrame()
 	module:ToggleCategoryFrame()
 end
 
@@ -879,7 +961,7 @@ function module:OpenAllBags(frame)
 		return
 	end
 
-	B.BagFrame:Hide()
+	HideElvUIBagFrame()
 	module:ShowCategoryFrame()
 end
 
