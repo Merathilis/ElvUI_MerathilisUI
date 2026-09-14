@@ -28,6 +28,8 @@ local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 local C_Item_GetItemInfo = C_Item.GetItemInfo
 local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
 local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
+local C_MerchantFrame_SellAllJunkItems = C_MerchantFrame.SellAllJunkItems
+local ITEMQUALITY_POOR = Enum.ItemQuality.Poor
 
 local BAG_IDS = { 0, 1, 2, 3, 4 }
 if module.ReagentContainer and module.ReagentContainer < math.huge then
@@ -614,13 +616,30 @@ function module:ConstructFrame()
 	end)
 	f.stackButton:Point("TOPRIGHT", f.sortButton, "TOPLEFT", -2, 0)
 
+	f.vendorGraysButton = CreateTitleButton("VendorGraysButton", 133784, function()
+		local value = module:GetJunkValue()
+		if value > 0 then
+			GameTooltip:AddDoubleLine(L["Vendor Grays"], E:FormatMoney(value, "SMART"), 1, 1, 1, 1, 1, 1)
+		else
+			GameTooltip:AddLine(L["Vendor Grays"], 1, 1, 1)
+			GameTooltip:AddLine(L["No gray items to sell."], 0.6, 0.6, 0.6)
+		end
+	end, function()
+		module:VendorGrays()
+	end)
+	f.vendorGraysButton:Point("TOPRIGHT", f.stackButton, "TOPLEFT", -2, 0)
+	-- Raw Blizzard icon (same one ElvUI's own Vendor Grays button uses) has
+	-- its border baked into the UV, unlike the flat ElvUI media textures the
+	-- sibling buttons use - crop it the same way slot/category icons are.
+	f.vendorGraysButton.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+
 	f.helpButton = CreateTitleButton("HelpButton", E.Media.Textures.Help, function()
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Use / equip item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
 	end)
-	f.helpButton:Point("TOPRIGHT", f.stackButton, "TOPLEFT", -2, 0)
+	f.helpButton:Point("TOPRIGHT", f.vendorGraysButton, "TOPLEFT", -2, 0)
 
 	f.searchBox = CreateFrame("EditBox", FRAME_NAME .. "SearchBox", f, "SearchBoxTemplate")
 	f.searchBox:Point("TOPLEFT", 10, -8)
@@ -781,6 +800,60 @@ function module:UpdateFooter()
 			btn:Hide()
 		end
 	end
+end
+
+-------------------------------------------------------------------------------
+--  Vendor Grays
+-------------------------------------------------------------------------------
+-- Same "sellable grey/Poor quality item" definition used for the Junk
+-- category (CategoryClassifier.lua): excludes unsellable poor items (e.g.
+-- quest-bound ones with no vendor price).
+function module:GetJunkValue()
+	local value = 0
+
+	for _, bagID in ipairs(BAG_IDS) do
+		local numSlots = C_Container_GetContainerNumSlots(bagID)
+		for slotID = 1, numSlots do
+			local info = C_Container_GetContainerItemInfo(bagID, slotID)
+			if info and info.hyperlink and not info.hasNoValue and info.quality == ITEMQUALITY_POOR then
+				local sellPrice = select(11, C_Item_GetItemInfo(info.hyperlink))
+				if sellPrice and sellPrice > 0 then
+					value = value + sellPrice * (info.stackCount or 1)
+				end
+			end
+		end
+	end
+
+	return value
+end
+
+-- Blizzard's own bulk-sell action (same one ElvUI's own bags default to,
+-- see B.db.useBlizzardJunk) - a single server round-trip instead of
+-- iterating/selling items one at a time ourselves.
+function module:VendorGrays()
+	if not _G.MerchantFrame or not _G.MerchantFrame:IsShown() then
+		E:Print(L["You must be at a vendor."])
+		return
+	end
+
+	if not C_MerchantFrame_SellAllJunkItems then
+		return
+	end
+
+	if module:GetJunkValue() == 0 then
+		E:Print(L["No gray items to sell."])
+		return
+	end
+
+	local goldBefore = GetMoney()
+	C_MerchantFrame_SellAllJunkItems()
+
+	C_Timer.After(0.5, function()
+		local gained = GetMoney() - goldBefore
+		if gained > 0 then
+			E:Print(format(L["Vendored gray items for: %s"], E:FormatMoney(gained, "SMART")))
+		end
+	end)
 end
 
 -------------------------------------------------------------------------------
