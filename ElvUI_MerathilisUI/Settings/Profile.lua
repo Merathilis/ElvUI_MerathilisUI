@@ -310,7 +310,7 @@ P.bags = {
 			font = {
 				name = I.Fonts.Primary,
 				size = 10,
-				style = "OUTLINE",
+				style = "SHADOWOUTLINE",
 				position = "TOPLEFT",
 			},
 		},

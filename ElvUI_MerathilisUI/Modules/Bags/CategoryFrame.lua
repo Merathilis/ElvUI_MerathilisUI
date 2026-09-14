@@ -26,6 +26,8 @@ local C_NewItems_RemoveNewItem = C_NewItems.RemoveNewItem
 local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
 local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 local C_Item_GetItemInfo = C_Item.GetItemInfo
+local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
+local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
 
 local BAG_IDS = { 0, 1, 2, 3, 4 }
 if module.ReagentContainer and module.ReagentContainer < math.huge then
@@ -621,15 +623,68 @@ function module:ConstructFrame()
 	f.footer.goldText:FontTemplate()
 	f.footer.goldText:Point("LEFT", 4, 0)
 
+	-- Tracked currencies (same source as ElvUI's own bags: whatever the
+	-- player enabled "Show on Backpack" for via the default Currency tab),
+	-- shown icon + amount next to gold.
+	f.footer.currencyButtons = {}
+	for i = 1, MAX_WATCHED_TOKENS do
+		local btn = CreateFrame("Button", FRAME_NAME .. "Currency" .. i, f.footer, "BackpackTokenTemplate")
+		btn:Size(20)
+		pcall(btn.SetTemplate, btn)
+
+		-- The template's own OnEnter reads this index to show the matching
+		-- currency's tooltip (GetBackpackCurrencyInfo(id) below uses the same
+		-- index), same as ElvUI's own currency buttons.
+		btn:SetID(i)
+
+		local icon = btn.icon or btn.Icon
+		icon:SetInside()
+		icon:SetTexCoords()
+
+		btn.text = btn:CreateFontString(nil, "OVERLAY")
+		btn.text:FontTemplate()
+		btn:Hide()
+
+		-- Layered on top of (not replacing) whatever OnEnter/OnLeave the
+		-- template itself already wires up, so the tooltip works even if
+		-- that default behavior isn't hooked up outside its usual parent.
+		btn:HookScript("OnEnter", function(self)
+			if GameTooltip:IsForbidden() then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetBackpackToken(self:GetID())
+			GameTooltip:Show()
+		end)
+		btn:HookScript("OnLeave", GameTooltip_Hide)
+
+		f.footer.currencyButtons[i] = btn
+	end
+
 	-- Manually apply Style
 	F.CreateStyle(f)
 
 	f:RegisterEvent("PLAYER_MONEY")
+	-- Fires both for currency amount changes and for toggling a currency's
+	-- "Show on Backpack" watch state, so the footer updates immediately
+	-- either way instead of only after a reload.
+	f:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 	f:SetScript("OnEvent", function(_, event)
-		if event == "PLAYER_MONEY" then
+		if event == "PLAYER_MONEY" or event == "CURRENCY_DISPLAY_UPDATE" then
 			module:UpdateFooter()
 		end
 	end)
+
+	-- CURRENCY_DISPLAY_UPDATE only covers amount changes, not toggling a
+	-- currency's "Show on Backpack" watch state (same reason ElvUI's own
+	-- bags hook this directly instead of relying on that event alone).
+	if _G.TokenFrame then
+		hooksecurefunc(_G.TokenFrame, "SetTokenWatched", function()
+			if f:IsShown() then
+				module:UpdateFooter()
+			end
+		end)
+	end
 
 	return f
 end
@@ -641,6 +696,31 @@ function module:UpdateFooter()
 	end
 
 	f.footer.goldText:SetText(E:FormatMoney(GetMoney(), "SMART"))
+
+	-- Chained right-to-left off the footer's own right edge (independent of
+	-- goldText's width), so the whole currency cluster stays flush to the
+	-- right instead of trailing right after the gold amount.
+	local rightAnchor, rightAnchorPoint, rightPadding = f.footer, "RIGHT", -6
+	for i = 1, MAX_WATCHED_TOKENS do
+		local btn = f.footer.currencyButtons[i]
+		local info = C_CurrencyInfo_GetBackpackCurrencyInfo(i)
+
+		if info and info.name then
+			local icon = btn.icon or btn.Icon
+			icon:SetTexture(info.iconFileID)
+			btn.text:SetText(info.quantity)
+
+			btn:ClearAllPoints()
+			btn.text:ClearAllPoints()
+			btn.text:Point("RIGHT", rightAnchor, rightAnchorPoint, rightPadding, 0)
+			btn:Point("RIGHT", btn.text, "LEFT", -2, 0)
+			btn:Show()
+
+			rightAnchor, rightAnchorPoint, rightPadding = btn, "LEFT", -14
+		else
+			btn:Hide()
+		end
+	end
 end
 
 -------------------------------------------------------------------------------
