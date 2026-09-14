@@ -418,6 +418,15 @@ local function CreateSidebarRow(index)
 	row:SetScript("OnClick", Sidebar_OnClick)
 	row:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
 
+	-- Alternating-row background, same technique/look as the Armory panel's
+	-- alternating stat rows (Core.lua:UpdateCharacterStat): a class-colored
+	-- horizontal gradient fading from transparent to a low alpha.
+	row.gradient = row:CreateTexture(nil, "BACKGROUND")
+	row.gradient:SetAllPoints()
+	row.gradient:SetTexture(E.media.blankTex)
+	local cc = E.myClassColor
+	F.Color.SetGradientRGB(row.gradient, "HORIZONTAL", cc.r, cc.g, cc.b, 0, cc.r, cc.g, cc.b, 0.32)
+
 	row.icon = row:CreateTexture(nil, "ARTWORK")
 	row.icon:SetSize(16, 16)
 	row.icon:Point("LEFT", 4, 0)
@@ -834,6 +843,7 @@ function module:RefreshCategoryFrame()
 		row.text:SetText(section.name)
 		row.count:SetText(#section.items)
 		SetCategoryIcon(row.icon, section)
+		row.gradient:SetShown(db.alternatingRowBackground and sidebarIndex % 2 == 0)
 
 		if #section.items > 0 then
 			local col = 0

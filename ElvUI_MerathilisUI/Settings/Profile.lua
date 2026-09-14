@@ -294,6 +294,7 @@ P.bags = {
 		showPinned = true,
 		showRecent = true,
 		hideEmptyCategories = true,
+		alternatingRowBackground = true,
 		disabledCategories = {},
 		userCategories = {},
 		itemAssignments = {},

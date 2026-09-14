@@ -153,6 +153,12 @@ options.bags = {
 					type = "toggle",
 					name = L["Show Recent Items"],
 				},
+				alternatingRowBackground = {
+					order = 4.5,
+					type = "toggle",
+					name = L["Alternating Row Background"],
+					desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
+				},
 				itemSize = {
 					order = 5,
 					type = "range",
