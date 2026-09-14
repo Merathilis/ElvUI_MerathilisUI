@@ -899,6 +899,82 @@ _G.StaticPopupDialogs["MER_BAGCATEGORIES_ADD"] = {
 	hideOnEscape = true,
 }
 
+-- Lets a plain spell/item/currency/achievement ID resolve to that thing's
+-- icon (same lookup order as Modules/Misc/IconSearch.lua), so users can set a
+-- category icon without knowing a raw texture fileID; anything else is taken
+-- as a literal texture path/fileID.
+local function ResolveIconInput(input)
+	if not input or input == "" then
+		return nil
+	end
+
+	local id = tonumber(input)
+	if not id then
+		return input
+	end
+
+	local spell = C_Spell.GetSpellTexture(id)
+	if spell then
+		return spell
+	end
+
+	local item = C_Item.GetItemIconByID(id)
+	if item then
+		return item
+	end
+
+	local currencyInfo = C_CurrencyInfo.GetCurrencyInfo(id)
+	if currencyInfo and currencyInfo.iconFileID then
+		return currencyInfo.iconFileID
+	end
+
+	local achievementIcon = select(10, GetAchievementInfo(id))
+	if achievementIcon then
+		return achievementIcon
+	end
+
+	return id
+end
+
+_G.StaticPopupDialogs["MER_BAGCATEGORIES_ICON"] = {
+	text = L["Enter a spell/item/currency ID, or a texture path/ID, for the category icon:"],
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	hasEditBox = true,
+	maxLetters = 256,
+	OnShow = function(self, data)
+		if data and data.key then
+			local cat = module:FindCategory(data.key)
+			if cat and self.EditBox then
+				self.EditBox:SetText(tostring(cat.icon or ""))
+			end
+		end
+	end,
+	OnAccept = function(self, data)
+		if data and data.key and self.EditBox then
+			local icon = ResolveIconInput(self.EditBox:GetText())
+			if icon then
+				module:SetUserCategoryIcon(data.key, icon)
+				module:RefreshCategoryFrame()
+			end
+		end
+	end,
+	EditBoxOnEnterPressed = function(self)
+		local parent = self:GetParent()
+		if parent.data and parent.data.key then
+			local icon = ResolveIconInput(parent.EditBox:GetText())
+			if icon then
+				module:SetUserCategoryIcon(parent.data.key, icon)
+				module:RefreshCategoryFrame()
+			end
+		end
+		parent:Hide()
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
 _G.StaticPopupDialogs["MER_BAGCATEGORIES_RENAME"] = {
 	text = L["Enter a new name:"],
 	button1 = ACCEPT,
@@ -945,6 +1021,10 @@ function module:OpenCategoryContextMenu(row)
 	_G.MenuUtil.CreateContextMenu(row, function(_, rootDescription)
 		rootDescription:CreateButton(L["Rename"], function()
 			StaticPopup_Show("MER_BAGCATEGORIES_RENAME", nil, nil, { key = key })
+		end)
+
+		rootDescription:CreateButton(L["Change Icon"], function()
+			StaticPopup_Show("MER_BAGCATEGORIES_ICON", nil, nil, { key = key })
 		end)
 
 		rootDescription:CreateButton(L["Delete"], function()

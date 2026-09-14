@@ -663,6 +663,8 @@ L["Categorized Bags"] = "Categorized Bags"
 L["Category Header Height"] = "Category Header Height"
 L["Clear Assignment"] = "Clear Assignment"
 L["Enter a name for the new category:"] = "Enter a name for the new category:"
+L["Enter a spell/item/currency ID, or a texture path/ID, for the category icon:"] =
+	"Enter a spell/item/currency ID, or a texture path/ID, for the category icon:"
 L["Enter a new name:"] = "Enter a new name:"
 L["Hide Empty Categories"] = "Hide Empty Categories"
 L["Item Count"] = "Item Count"

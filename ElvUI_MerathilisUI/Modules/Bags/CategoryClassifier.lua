@@ -32,7 +32,7 @@ local DEFAULT_CATEGORIES = {
 		name = L["Weapons & Trinkets"],
 		types = { CLASS_WEAPON },
 		equipSlots = { INVTYPE_TRINKET = true },
-		icon = [[Interface\Icons\INV_Sword_04]],
+		icon = E.Media.Textures.Combat,
 	},
 	{
 		key = "ARMOR",
@@ -57,7 +57,7 @@ local DEFAULT_CATEGORIES = {
 		key = "RECIPES",
 		name = L["Recipes"],
 		types = { CLASS_RECIPE },
-		icon = [[Interface\Icons\INV_Misc_Book_09]],
+		icon = E.Media.Textures.Catalog,
 	},
 	{
 		key = "REAGENTBAG",
@@ -292,6 +292,23 @@ function module:RenameCategory(key, newName)
 		for _, uc in ipairs(db.userCategories) do
 			if uc.key == key then
 				uc.name = newName
+				module:InvalidateCategoryCache()
+				return true
+			end
+		end
+	end
+end
+
+function module:SetUserCategoryIcon(key, icon)
+	if not key or not icon then
+		return
+	end
+
+	local db = module.db
+	if db.userCategories then
+		for _, uc in ipairs(db.userCategories) do
+			if uc.key == key then
+				uc.icon = icon
 				module:InvalidateCategoryCache()
 				return true
 			end

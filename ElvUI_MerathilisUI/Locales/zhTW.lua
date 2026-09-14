@@ -669,6 +669,7 @@ L["Categorized Bags"] = true
 L["Category Header Height"] = true
 L["Clear Assignment"] = true
 L["Enter a name for the new category:"] = true
+L["Enter a spell/item/currency ID, or a texture path/ID, for the category icon:"] = true
 L["Enter a new name:"] = true
 L["Hide Empty Categories"] = true
 L["Item Count"] = true

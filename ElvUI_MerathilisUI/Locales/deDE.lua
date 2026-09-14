@@ -256,6 +256,8 @@ L["Categorized Bags"] = "Kategorisierte Taschen"
 L["Category Header Height"] = "Höhe der Kategorie-Überschrift"
 L["Clear Assignment"] = "Zuweisung entfernen"
 L["Enter a name for the new category:"] = "Gib einen Namen für die neue Kategorie ein:"
+L["Enter a spell/item/currency ID, or a texture path/ID, for the category icon:"] =
+	"Gib eine Zauber-/Item-/Währungs-ID oder einen Texturpfad/-ID für das Kategorie-Icon ein:"
 L["Enter a new name:"] = "Gib einen neuen Namen ein:"
 L["Hide Empty Categories"] = "Leere Kategorien ausblenden"
 L["Item Count"] = "Anzahl"
