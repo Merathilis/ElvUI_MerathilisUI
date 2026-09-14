@@ -406,10 +406,47 @@ end
 --  Sidebar rows
 -------------------------------------------------------------------------------
 local function Sidebar_OnClick(self, mouseButton)
+	if self.wasDragged then
+		self.wasDragged = nil
+		return
+	end
+
 	if mouseButton == "LeftButton" then
 		module:ScrollToCategory(self.catKey)
 	elseif mouseButton == "RightButton" and self.isUser then
 		module:OpenCategoryContextMenu(self)
+	end
+end
+
+-- Pinned/Recent stay fixed at the top always, so they're excluded from both
+-- ends of a drag (can't be picked up, and dropping onto one is a no-op).
+local function Sidebar_OnDragStart(self)
+	if InCombatLockdown() or self.isPinnedOrRecent then
+		return
+	end
+
+	self.wasDragged = true
+	module.draggingCategoryKey = self.catKey
+	self:SetAlpha(0.4)
+end
+
+local function Sidebar_OnDragStop(self)
+	self:SetAlpha(1)
+
+	local draggedKey = module.draggingCategoryKey
+	local targetKey = module.dragHoverCategoryKey
+	module.draggingCategoryKey = nil
+	module.dragHoverCategoryKey = nil
+
+	if draggedKey and targetKey and draggedKey ~= targetKey then
+		module:ReorderCategory(draggedKey, targetKey)
+		module:RefreshCategoryFrame()
+	end
+end
+
+local function Sidebar_OnEnter(self)
+	if module.draggingCategoryKey and not self.isPinnedOrRecent then
+		module.dragHoverCategoryKey = self.catKey
 	end
 end
 
@@ -418,6 +455,10 @@ local function CreateSidebarRow(index)
 	row:SetHeight(24)
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", Sidebar_OnClick)
+	row:RegisterForDrag("LeftButton")
+	row:SetScript("OnDragStart", Sidebar_OnDragStart)
+	row:SetScript("OnDragStop", Sidebar_OnDragStop)
+	row:SetScript("OnEnter", Sidebar_OnEnter)
 	row:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
 
 	-- Alternating-row background, same technique/look as the Armory panel's
@@ -453,6 +494,7 @@ local function AcquireSidebarRow(index)
 		row = CreateSidebarRow(index)
 	end
 
+	row:SetAlpha(1)
 	row:Show()
 	return row
 end
@@ -920,6 +962,7 @@ function module:RefreshCategoryFrame()
 		row:Point("TOPRIGHT", module.sidebarChild, "TOPRIGHT", 0, -(sidebarIndex - 1) * db.sidebarRowHeight)
 		row.catKey = section.key
 		row.isUser = section.key:find("^USER_") and true or false
+		row.isPinnedOrRecent = section.key == module.PinnedCategory.key or section.key == module.RecentCategory.key
 		row.text:SetText(section.name)
 		row.count:SetText(#section.items)
 		SetCategoryIcon(row.icon, section)

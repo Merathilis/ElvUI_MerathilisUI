@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_BagCategories") ---@class BagCategories
 
 local ipairs, pairs = ipairs, pairs
 local tinsert, tremove = tinsert, tremove
+local tsort = table.sort
 local format, floor = format, math.floor
 
 local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
@@ -138,8 +139,79 @@ function module:GetCategories()
 		end
 	end
 
+	module:ApplyCategoryOrder(cats)
+
 	module._categoriesCache = cats
 	return cats
+end
+
+-- Sorts by the user's saved sidebar order (from dragging), if any. A key
+-- that isn't in the saved order yet (new categories, or before anything's
+-- ever been reordered) keeps its existing relative position, appended after
+-- every key that IS in the saved order.
+function module:ApplyCategoryOrder(cats)
+	local order = module.db and module.db.categoryOrder
+	if not order or #order == 0 then
+		return
+	end
+
+	local rank = {}
+	for i, key in ipairs(order) do
+		rank[key] = i
+	end
+
+	local fallbackRank = {}
+	local maxRank = #order
+	for i, cat in ipairs(cats) do
+		fallbackRank[cat] = maxRank + i
+	end
+
+	tsort(cats, function(a, b)
+		return (rank[a.key] or fallbackRank[a]) < (rank[b.key] or fallbackRank[b])
+	end)
+end
+
+-- Moves draggedKey to sit right before targetKey in the saved sidebar order,
+-- seeding that order from the current (still-default, if untouched) category
+-- sequence the first time anything gets dragged.
+function module:ReorderCategory(draggedKey, targetKey)
+	if not draggedKey or not targetKey or draggedKey == targetKey then
+		return
+	end
+
+	local db = module.db
+	db.categoryOrder = db.categoryOrder or {}
+	local order = db.categoryOrder
+
+	if #order == 0 then
+		for _, cat in ipairs(module:GetCategories()) do
+			tinsert(order, cat.key)
+		end
+	end
+
+	local fromIndex
+	for i, key in ipairs(order) do
+		if key == draggedKey then
+			fromIndex = i
+			break
+		end
+	end
+
+	if fromIndex then
+		tremove(order, fromIndex)
+	end
+
+	local toIndex
+	for i, key in ipairs(order) do
+		if key == targetKey then
+			toIndex = i
+			break
+		end
+	end
+
+	tinsert(order, toIndex or (#order + 1), draggedKey)
+
+	module:InvalidateCategoryCache()
 end
 
 function module:FindCategory(key)
