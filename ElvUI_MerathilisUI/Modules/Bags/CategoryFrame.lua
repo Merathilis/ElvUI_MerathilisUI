@@ -23,7 +23,13 @@ local GetMoney = GetMoney
 local CloseBankFrame = (C_Bank and C_Bank.CloseBankFrame) or CloseBankFrame
 local FetchPurchasedBankTabData = C_Bank and C_Bank.FetchPurchasedBankTabData
 local AutoDepositItemsIntoBank = C_Bank and C_Bank.AutoDepositItemsIntoBank
+local CanViewBank = C_Bank and C_Bank.CanViewBank
+local FetchNumPurchasedBankTabs = C_Bank and C_Bank.FetchNumPurchasedBankTabs
+local FetchNextPurchasableBankTabData = C_Bank and C_Bank.FetchNextPurchasableBankTabData
+local PurchaseBankTab = C_Bank and C_Bank.PurchaseBankTab
+local CanPurchaseBankTab = C_Bank and C_Bank.CanPurchaseBankTab
 local CHARACTER_BANK_TYPE = (Enum.BankType and Enum.BankType.Character) or 0
+local WARBAND_BANK_TYPE = (Enum.BankType and Enum.BankType.Account) or 2
 
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
@@ -153,6 +159,7 @@ end
 
 local function SnapshotBankNewItems()
 	SnapshotNewItemsForBags(module.BankBagIDs)
+	SnapshotNewItemsForBags(module.WarbandBagIDs)
 end
 
 local function HideElvUIBagFrame()
@@ -1096,7 +1103,15 @@ function module:ConstructFrame()
 	f.bagBarButton:Point("TOPRIGHT", f.vendorGraysButton, "TOPLEFT", -2, 0)
 	module.bagBarButton = f.bagBarButton
 
-	f.autoDepositButton = CreateTitleButton("AutoDepositButton", 450905, L["Auto Deposit"], function()
+	f.autoDepositButton = CreateTitleButton("AutoDepositButton", 450905, function()
+		GameTooltip:AddLine(L["Auto Deposit"], 1, 1, 1)
+		GameTooltip:AddLine(
+			module.db.viewMode == "WARBAND" and L["Warband Bank"] or L["Bank"],
+			0.6,
+			0.6,
+			0.6
+		)
+	end, function()
 		module:AutoDepositToBank()
 	end)
 	f.autoDepositButton:Point("TOPRIGHT", f.bagBarButton, "TOPLEFT", -2, 0)
@@ -1117,7 +1132,7 @@ function module:ConstructFrame()
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
 
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(L["Bank (while open)"], 1, 0.82, 0)
+		GameTooltip:AddLine(L["Bank / Warband Bank (while open)"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Deposit / withdraw item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Ctrl + Right Click:"], L["Move to Bank Tab / Bag"], 1, 1, 1)
 
@@ -1179,12 +1194,15 @@ function module:ConstructFrame()
 		{ key = "CATEGORY", label = L["OneBag"] },
 		{ key = "BAG", label = L["MultiBag"] },
 	}
-	-- Bank row must stay last in this list: it's only ever shown/hidden, never
-	-- repositioned, so anything after it (Pinned row/separator/scroll frame)
-	-- can reposition off a simple visible-row count without needing to know
-	-- this row's index specifically (see RefreshCategoryFrame).
+	-- Bank/Warband rows are only ever conditionally shown (module.isBankOpen
+	-- plus a CanViewBank check) - RefreshCategoryFrame repositions every row
+	-- dynamically based on however many are actually visible, so their
+	-- position here doesn't matter beyond keeping them grouped at the end.
 	if #module.BankBagIDs > 0 then
 		tinsert(viewModeDefs, { key = "BANK", label = L["Bank"] })
+	end
+	if #module.WarbandBagIDs > 0 then
+		tinsert(viewModeDefs, { key = "WARBAND", label = L["Warband Bank"] })
 	end
 	for i, def in ipairs(viewModeDefs) do
 		local row = CreateFrame("Button", nil, f.sidebar)
@@ -1217,8 +1235,16 @@ function module:ConstructFrame()
 
 		row.viewModeKey = def.key
 		row:SetScript("OnClick", function()
+			-- The Bag Bar tab filter is keyed by a raw bagID shared between
+			-- BANK and WARBAND - switching either away from or between the
+			-- two would otherwise carry over a filter bagID that belongs to
+			-- the wrong bank and silently empties the view.
+			if def.key ~= module.db.viewMode then
+				module.bankTabFilter = nil
+			end
 			module.db.viewMode = def.key
 			module:RefreshCategoryFrame()
+			module:RefreshBagBarPopout()
 		end)
 
 		f.viewModeRows[i] = row
@@ -1542,17 +1568,44 @@ function module:VendorGrays()
 end
 
 -- Blizzard's own "Deposit" button action (same one on ElvUI's Bank frame,
--- B:BankTabs_DepositCharacter) - sorts bag items straight into whichever
--- bank tab the player configured them for via each tab's "Assign to Tab"
--- rules (the same edit panel our Ctrl+Right-click "Move to Bank Tab" opens),
--- in one call instead of moving items one at a time.
+-- B:BankTabs_DepositCharacter/DepositWarband) - sorts bag items straight into
+-- whichever bank tab the player configured them for via each tab's "Assign to
+-- Tab" rules (the same edit panel our Ctrl+Right-click "Move to Bank Tab"
+-- opens), in one call instead of moving items one at a time. Targets whichever
+-- of the two banks the sidebar is currently showing.
 function module:AutoDepositToBank()
 	if not module.isBankOpen or not AutoDepositItemsIntoBank then
 		E:Print(L["You must be at the bank."])
 		return
 	end
 
-	AutoDepositItemsIntoBank(CHARACTER_BANK_TYPE)
+	local bankType = module.db.viewMode == "WARBAND" and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
+	AutoDepositItemsIntoBank(bankType)
+end
+
+-- Confirmation prompt for buying the next bank tab (mirrors Blizzard's own
+-- purchase flow, which also confirms before spending gold) - PurchaseBankTab
+-- always targets "the next" tab, there's no per-tab selection, so this is
+-- only ever offered for the one tab slot right after your last purchased one.
+local function ShowPurchaseBankTabPrompt(bankType)
+	if not FetchNextPurchasableBankTabData or not PurchaseBankTab then
+		return
+	end
+
+	local tabData = FetchNextPurchasableBankTabData(bankType)
+	if not tabData then
+		return
+	end
+
+	local message = format(
+		"%s\n\n%s\n\n%s: %s",
+		tabData.purchasePromptTitle or "",
+		tabData.purchasePromptBody or "",
+		L["Cost"],
+		E:FormatMoney(tabData.tabCost, "SMART")
+	)
+
+	StaticPopup_Show("MER_BAGCATEGORIES_PURCHASE_BANK_TAB", message, nil, { bankType = bankType })
 end
 
 -------------------------------------------------------------------------------
@@ -1780,6 +1833,18 @@ local function CollectBankItems()
 	return CollectItemsFromBags(bagIDList, bankCategoryItemsScratch)
 end
 
+local warbandCategoryItemsScratch = {}
+-- Same tab-filter field as the character bank above - only one of the two
+-- bank-like view modes is ever active at once, so it's cleared on every
+-- view-mode switch away from BANK/WARBAND (see the view-mode row OnClick).
+local function CollectWarbandItems()
+	local bagIDList = module.WarbandBagIDs
+	if module.bankTabFilter then
+		bagIDList = { module.bankTabFilter }
+	end
+	return CollectItemsFromBags(bagIDList, warbandCategoryItemsScratch)
+end
+
 local function BuildCategorySectionsFrom(itemsByCategory)
 	local db = module.db
 	local categories = module:GetCategories()
@@ -1917,6 +1982,10 @@ local function BuildBankCategorySections()
 	return BuildCategorySectionsFrom(CollectBankItems())
 end
 
+local function BuildWarbandCategorySections()
+	return BuildCategorySectionsFrom(CollectWarbandItems())
+end
+
 -------------------------------------------------------------------------------
 --  Bag view (group by physical bag instead of category)
 -------------------------------------------------------------------------------
@@ -1976,18 +2045,28 @@ local function CollectItemsByBag()
 	return bagItemsScratch
 end
 
--- Character bank tabs can have a custom icon/name set by the player (via
--- right-click "Edit Tab" on the real Blizzard bank frame) - C_Bank.FetchPurchasedBankTabData
--- returns that per-tab data (field .ID is the bagID), same source ElvUI itself
--- reads for its own bank tab buttons (Bags.lua, B:BankTab_PurchasedData).
+-- Character/Warband bank tabs can have a custom icon/name set by the player
+-- (via right-click "Edit Tab" on the real Blizzard bank frame) -
+-- C_Bank.FetchPurchasedBankTabData returns that per-tab data (field .ID is
+-- the bagID), same source ElvUI itself reads for its own bank tab buttons
+-- (Bags.lua, B:BankTab_PurchasedData).
 local bankTabDataScratch = {}
 local function GetBankTabInfo(bagID)
-	if not FetchPurchasedBankTabData or not module.BankBagIDSet[bagID] then
+	if not FetchPurchasedBankTabData then
+		return nil
+	end
+
+	local bankType
+	if module.BankBagIDSet[bagID] then
+		bankType = CHARACTER_BANK_TYPE
+	elseif module.WarbandBagIDSet[bagID] then
+		bankType = WARBAND_BANK_TYPE
+	else
 		return nil
 	end
 
 	wipe(bankTabDataScratch)
-	local tabs = FetchPurchasedBankTabData(CHARACTER_BANK_TYPE)
+	local tabs = FetchPurchasedBankTabData(bankType)
 	if tabs then
 		for _, data in ipairs(tabs) do
 			bankTabDataScratch[data.ID] = data
@@ -2042,6 +2121,10 @@ end
 -------------------------------------------------------------------------------
 local BAG_BAR_BUTTON_SIZE, BAG_BAR_SPACING = 30, 4
 
+local function IsBankViewMode(viewMode)
+	return viewMode == "BANK" or viewMode == "WARBAND"
+end
+
 function module:ConstructBagBarPopout()
 	if module.bagBarPopout then
 		return module.bagBarPopout
@@ -2050,7 +2133,7 @@ function module:ConstructBagBarPopout()
 	-- Sized for whichever bag-ID list is longer (regular bags vs. bank tabs) -
 	-- RefreshBagBarPopout shows/hides buttons and resizes the frame per the
 	-- list actually needed for the current view mode.
-	local maxCount = math.max(#BAG_IDS, #module.BankBagIDs)
+	local maxCount = math.max(#BAG_IDS, #module.BankBagIDs, #module.WarbandBagIDs)
 
 	local f = CreateFrame("Frame", "MER_BagCategoriesBagBar", E.UIParent)
 	f:SetFrameStrata("DIALOG")
@@ -2085,20 +2168,35 @@ function module:ConstructBagBarPopout()
 		btn:RegisterForClicks("AnyUp")
 
 		btn:SetScript("OnClick", function(self, mouseButton)
+			-- A not-yet-purchased tab slot (see RefreshBagBarPopout) has no
+			-- bagID at all, just this - clicking it prompts to buy the next
+			-- tab instead of trying to filter/open settings on a container
+			-- that doesn't exist yet.
+			if self.purchaseBankType then
+				if mouseButton ~= "RightButton" then
+					ShowPurchaseBankTabPrompt(self.purchaseBankType)
+				end
+				return
+			end
+
 			if not self.bagID then
 				return
 			end
 
 			-- Right-click opens the same tab-edit panel (name/icon/deposit rules)
-			-- as right-clicking a tab on the real Blizzard bank frame.
+			-- as right-clicking a tab on the real Blizzard bank frame -
+			-- B:BankTabs_ShowSettings resolves Character vs. Warband itself.
 			if mouseButton == "RightButton" then
-				if module.db.viewMode == "BANK" and module.BankBagIDSet[self.bagID] then
+				if
+					IsBankViewMode(module.db.viewMode)
+					and (module.BankBagIDSet[self.bagID] or module.WarbandBagIDSet[self.bagID])
+				then
 					B:BankTabs_ShowSettings(self.bagID)
 				end
 				return
 			end
 
-			if module.db.viewMode == "BANK" then
+			if IsBankViewMode(module.db.viewMode) then
 				module.bankTabFilter = (module.bankTabFilter ~= self.bagID) and self.bagID or nil
 				module:RefreshCategoryFrame()
 				module:RefreshBagBarPopout()
@@ -2110,7 +2208,31 @@ function module:ConstructBagBarPopout()
 		end)
 
 		btn:SetScript("OnEnter", function(self)
-			if GameTooltip:IsForbidden() or not self.bagID then
+			if GameTooltip:IsForbidden() then
+				return
+			end
+
+			if self.purchaseBankType then
+				GameTooltip:SetOwner(self, "ANCHOR_TOP")
+				GameTooltip:AddLine(L["Purchase Bank Tab"], 1, 1, 1)
+				local tabData = FetchNextPurchasableBankTabData and FetchNextPurchasableBankTabData(self.purchaseBankType)
+				if tabData then
+					GameTooltip:AddDoubleLine(L["Cost"], E:FormatMoney(tabData.tabCost, "SMART"), 1, 1, 1, 1, 1, 1)
+				end
+				GameTooltip:AddLine(L["Click to purchase"], 0.6, 0.6, 0.6)
+				GameTooltip:Show()
+				return
+			end
+
+			if self.locked then
+				GameTooltip:SetOwner(self, "ANCHOR_TOP")
+				GameTooltip:AddLine(L["Locked"], 1, 1, 1)
+				GameTooltip:AddLine(L["Purchase the previous tab first."], 0.6, 0.6, 0.6)
+				GameTooltip:Show()
+				return
+			end
+
+			if not self.bagID then
 				return
 			end
 
@@ -2120,7 +2242,7 @@ function module:ConstructBagBarPopout()
 
 			GameTooltip:SetOwner(self, "ANCHOR_TOP")
 			GameTooltip:AddLine(format("%s (%d/%d)", GetBagDisplayName(self.bagID), numSlots - freeSlots, numSlots), 1, 1, 1)
-			if module.db.viewMode == "BANK" then
+			if IsBankViewMode(module.db.viewMode) then
 				GameTooltip:AddLine(
 					module.bankTabFilter == self.bagID and L["Click to clear the filter"]
 						or L["Click to filter by this tab"],
@@ -2149,20 +2271,53 @@ function module:RefreshBagBarPopout()
 		return
 	end
 
-	local bagIDList = module.db.viewMode == "BANK" and module.BankBagIDs or BAG_IDS
+	local viewMode = module.db.viewMode
+	local bagIDList = viewMode == "WARBAND" and module.WarbandBagIDs
+		or viewMode == "BANK" and module.BankBagIDs
+		or BAG_IDS
+	local bankType = viewMode == "WARBAND" and WARBAND_BANK_TYPE or viewMode == "BANK" and CHARACTER_BANK_TYPE or nil
+
+	-- PurchaseBankTab always buys "the next" tab - there's no way to target a
+	-- specific one - so only the slot right after your last purchased tab can
+	-- ever show a buy prompt. Slots further out than that still show (so the
+	-- full 5/6 possible tabs are visible at a glance), just locked/greyed out
+	-- and non-interactive until that next one is bought.
+	local purchasedCount = (bankType and FetchNumPurchasedBankTabs) and FetchNumPurchasedBankTabs(bankType)
+		or #bagIDList
 
 	for i, btn in ipairs(f.buttons) do
 		local bagID = bagIDList[i]
-		btn.bagID = bagID
+		btn.bagID = nil
+		btn.purchaseBankType = nil
+		btn.locked = nil
 
-		if bagID then
+		if not bagID then
+			btn:Hide()
+		elseif not bankType or i <= purchasedCount then
+			btn.bagID = bagID
+			btn.tex:SetDesaturated(false)
+			btn.tex:SetAlpha(1)
 			btn.tex:SetTexture(GetBagIcon(bagID))
 			local freeSlots = C_Container.GetContainerNumFreeSlots and C_Container.GetContainerNumFreeSlots(bagID)
 			btn.count:SetText(freeSlots or "")
 			btn.selectedTex:SetShown(module.bankTabFilter == bagID)
 			btn:Show()
+		elseif i == purchasedCount + 1 and CanPurchaseBankTab and CanPurchaseBankTab(bankType) then
+			btn.purchaseBankType = bankType
+			btn.tex:SetDesaturated(false)
+			btn.tex:SetAlpha(1)
+			btn.tex:SetTexture(133784) -- Interface\ICONS\INV_Misc_Coin_02, same raw icon Vendor Grays uses
+			btn.count:SetText("")
+			btn.selectedTex:Hide()
+			btn:Show()
 		else
-			btn:Hide()
+			btn.locked = true
+			btn.tex:SetDesaturated(true)
+			btn.tex:SetAlpha(0.4)
+			btn.tex:SetTexture(E.Media.Textures.Backpack)
+			btn.count:SetText("")
+			btn.selectedTex:Hide()
+			btn:Show()
 		end
 	end
 
@@ -2346,6 +2501,8 @@ local function BuildSections()
 		return BuildFlatSections()
 	elseif viewMode == "BANK" then
 		return BuildBankCategorySections()
+	elseif viewMode == "WARBAND" then
+		return BuildWarbandCategorySections()
 	end
 
 	return BuildCategorySections()
@@ -2378,16 +2535,28 @@ function module:RefreshCategoryFrame()
 	f.sidebar:Width(sidebarWidth)
 	f.addCategoryButton:SetShown(not db.sidebarCollapsed)
 
-	-- The Bank row (when the feature exists at all) only counts as visible
-	-- while module.isBankOpen - everything below it (Pinned row, separator,
-	-- scroll frame) has to reposition off however many rows are ACTUALLY
-	-- shown right now, not the fixed table length, or hiding it leaves a
-	-- permanent gap/overlap in the sidebar.
+	-- The Bank/Warband rows (when those features exist at all) only count as
+	-- visible while module.isBankOpen AND the player can actually view that
+	-- particular bank right now (CanViewBank - e.g. the Warband Bank Distance
+	-- Inhibitor lets you reach the Warband Bank remotely without personal
+	-- bank access at that spot, and vice versa a low-level character may not
+	-- have Warband access unlocked at all). Every row is repositioned here
+	-- (not just what comes after the list) so any combination of hidden rows
+	-- - not only a single trailing one - closes gaps correctly.
 	local visibleViewModeRows = 0
 	for _, row in ipairs(f.viewModeRows) do
-		local rowVisible = row.viewModeKey ~= "BANK" or module.isBankOpen
+		local rowVisible = true
+		if row.viewModeKey == "BANK" then
+			rowVisible = module.isBankOpen and (not CanViewBank or CanViewBank(CHARACTER_BANK_TYPE))
+		elseif row.viewModeKey == "WARBAND" then
+			rowVisible = module.isBankOpen and (not CanViewBank or CanViewBank(WARBAND_BANK_TYPE))
+		end
+
 		row:SetShown(rowVisible)
 		if rowVisible then
+			row:ClearAllPoints()
+			row:Point("TOPLEFT", f.sidebar, "TOPLEFT", 4, -18 - visibleViewModeRows * VIEW_MODE_ROW_HEIGHT)
+			row:Point("TOPRIGHT", f.sidebar, "TOPRIGHT", -4, -18 - visibleViewModeRows * VIEW_MODE_ROW_HEIGHT)
 			visibleViewModeRows = visibleViewModeRows + 1
 		end
 	end
@@ -2582,7 +2751,8 @@ function module:RefreshCategoryFrame()
 	module.contentChild:Height(math.max(1, y))
 
 	local countingBank = db.viewMode == "BANK"
-	local countBagIDs = countingBank and module.BankBagIDs or BAG_IDS
+	local countingWarband = db.viewMode == "WARBAND"
+	local countBagIDs = countingWarband and module.WarbandBagIDs or countingBank and module.BankBagIDs or BAG_IDS
 
 	local totalSlots, usedSlots = 0, 0
 	for _, bagID in ipairs(countBagIDs) do
@@ -2595,7 +2765,7 @@ function module:RefreshCategoryFrame()
 			end
 		end
 	end
-	f.titleText:SetText(countingBank and L["Bank"] or L["Inventory"])
+	f.titleText:SetText(countingWarband and L["Warband Bank"] or countingBank and L["Bank"] or L["Inventory"])
 	f.titleCountText:SetText(format("%d / %d %s", usedSlots, totalSlots, L["Items"]))
 
 	module:UpdateFooter()
@@ -2728,6 +2898,21 @@ _G.StaticPopupDialogs["MER_BAGCATEGORIES_RENAME"] = {
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
+}
+
+_G.StaticPopupDialogs["MER_BAGCATEGORIES_PURCHASE_BANK_TAB"] = {
+	text = "%s",
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = function(_, data)
+		if data and data.bankType and PurchaseBankTab then
+			PurchaseBankTab(data.bankType)
+		end
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	showAlert = true,
 }
 
 -- A modest, curated palette of long-stable, generic item-style icons for the
@@ -3059,23 +3244,35 @@ function module:OpenMoveMenu(slot)
 	end
 
 	local sourceBagID, sourceSlotID = slot.BagID, slot.SlotID
-	local movingFromBank = module.BankBagIDSet[sourceBagID]
-	local targetBagIDs = movingFromBank and BAG_IDS or module.BankBagIDs
+	local movingFromBank = module.BankBagIDSet[sourceBagID] or module.WarbandBagIDSet[sourceBagID]
 
 	_G.MenuUtil.CreateContextMenu(slot, function(_, rootDescription)
-		rootDescription:CreateTitle(movingFromBank and L["Move to Bag"] or L["Move to Bank Tab"])
+		local function AddTargets(title, bagIDList)
+			local titleAdded = false
+			for _, bagID in ipairs(bagIDList) do
+				-- Skip the slot's own bag and any tab/bag with zero slots (an
+				-- unpurchased bank tab, or an inventory bag slot with no bag
+				-- equipped in it).
+				if bagID ~= sourceBagID and C_Container_GetContainerNumSlots(bagID) > 0 then
+					if not titleAdded then
+						rootDescription:CreateTitle(title)
+						titleAdded = true
+					end
 
-		for _, bagID in ipairs(targetBagIDs) do
-			-- Skip the slot's own bag and any tab/bag with zero slots (an
-			-- unpurchased bank tab, or an inventory bag slot with no bag
-			-- equipped in it).
-			if bagID ~= sourceBagID and C_Container_GetContainerNumSlots(bagID) > 0 then
-				rootDescription:CreateButton(GetBagDisplayName(bagID), function()
-					MoveItemToBag(sourceBagID, sourceSlotID, bagID)
-					module:RefreshCategoryFrame()
-					module:RefreshBagBarPopout()
-				end)
+					rootDescription:CreateButton(GetBagDisplayName(bagID), function()
+						MoveItemToBag(sourceBagID, sourceSlotID, bagID)
+						module:RefreshCategoryFrame()
+						module:RefreshBagBarPopout()
+					end)
+				end
 			end
+		end
+
+		if movingFromBank then
+			AddTargets(L["Move to Bag"], BAG_IDS)
+		else
+			AddTargets(L["Move to Bank Tab"], module.BankBagIDs)
+			AddTargets(L["Move to Warband Tab"], module.WarbandBagIDs)
 		end
 	end)
 end
@@ -3191,13 +3388,19 @@ end
 -- ElvUI's own Bags.lua) even though the bank itself is now tab-based rather
 -- than a single container.
 function module:OnBankOpened()
-	if InCombatLockdown() or #module.BankBagIDs == 0 then
+	if InCombatLockdown() or (#module.BankBagIDs == 0 and #module.WarbandBagIDs == 0) then
 		return
 	end
 
 	module.isBankOpen = true
 	HideElvUIBankFrame()
-	module.db.viewMode = "BANK"
+
+	-- Mirrors ElvUI's own OpenBank landing logic - the Warband Bank Distance
+	-- Inhibitor grants remote Warband access without personal bank access at
+	-- that spot, so land on whichever bank the player can actually view.
+	local canViewCharacter = not CanViewBank or CanViewBank(CHARACTER_BANK_TYPE)
+	module.db.viewMode = (not canViewCharacter and #module.WarbandBagIDs > 0) and "WARBAND" or "BANK"
+
 	module:ShowCategoryFrame()
 end
 
@@ -3214,7 +3417,7 @@ function module:OnBankClosed()
 		return
 	end
 
-	if module.db.viewMode == "BANK" then
+	if IsBankViewMode(module.db.viewMode) then
 		module.db.viewMode = "CATEGORY"
 	end
 
@@ -3264,7 +3467,7 @@ function module:Initialize()
 	module:SecureHook("OpenAllBags")
 	module:SecureHook("CloseAllBags")
 
-	if #module.BankBagIDs > 0 then
+	if #module.BankBagIDs > 0 or #module.WarbandBagIDs > 0 then
 		module:RegisterEvent("BANKFRAME_OPENED", "OnBankOpened")
 		module:RegisterEvent("BANKFRAME_CLOSED", "OnBankClosed")
 		module:RegisterEvent("BANK_TABS_CHANGED", "OnBankTabsChanged")

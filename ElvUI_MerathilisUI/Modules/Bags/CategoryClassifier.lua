@@ -43,6 +43,21 @@ if E.Retail and BagIndex then
 	end
 end
 
+-- Warband/Account Bank tabs - same unified Container API, separate bagID
+-- range (12-16) from the character bank tabs above, reached through the same
+-- bank interaction session (there's no separate open/close event for it).
+module.WarbandBagIDs = {}
+module.WarbandBagIDSet = {}
+if E.Retail and BagIndex then
+	for i = 1, 5 do
+		local id = BagIndex["AccountBankTab_" .. i]
+		if id then
+			tinsert(module.WarbandBagIDs, id)
+			module.WarbandBagIDSet[id] = true
+		end
+	end
+end
+
 local DEFAULT_CATEGORIES = {
 	{
 		key = "WEAPONS",
