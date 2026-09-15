@@ -13,12 +13,17 @@ local floor, ceil = math.floor, math.ceil
 local format = format
 local strmatch = strmatch
 local IsShiftKeyDown = IsShiftKeyDown
+local IsControlKeyDown = IsControlKeyDown
 local IsModifiedClick = IsModifiedClick
 local HandleModifiedItemClick = HandleModifiedItemClick
 local CursorHasItem = CursorHasItem
 
 local CreateFrame = CreateFrame
 local GetMoney = GetMoney
+local CloseBankFrame = (C_Bank and C_Bank.CloseBankFrame) or CloseBankFrame
+local FetchPurchasedBankTabData = C_Bank and C_Bank.FetchPurchasedBankTabData
+local AutoDepositItemsIntoBank = C_Bank and C_Bank.AutoDepositItemsIntoBank
+local CHARACTER_BANK_TYPE = (Enum.BankType and Enum.BankType.Character) or 0
 
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
@@ -127,23 +132,47 @@ local sidebarPool = {}
 -- right before that happens and fall back to it in CollectItems.
 local newItemSnapshot = {}
 
-local function SnapshotNewItems()
-	wipe(newItemSnapshot)
-
-	for _, bagID in ipairs(BAG_IDS) do
+-- Clears/resets only the keys for this bagIDList (bagID*1000+slotID keys
+-- never collide between the 0-5 bag range and the 6-11 bank range), instead
+-- of wiping the whole table - bag and bank snapshots happen independently
+-- (leaving the bank, then later closing bags, shouldn't erase each other's
+-- Recent Items data).
+local function SnapshotNewItemsForBags(bagIDList)
+	for _, bagID in ipairs(bagIDList) do
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
 		for slotID = 1, numSlots do
-			if C_NewItems_IsNewItem(bagID, slotID) then
-				newItemSnapshot[bagID * 1000 + slotID] = true
-			end
+			local key = bagID * 1000 + slotID
+			newItemSnapshot[key] = C_NewItems_IsNewItem(bagID, slotID) or nil
 		end
 	end
+end
+
+local function SnapshotNewItems()
+	SnapshotNewItemsForBags(BAG_IDS)
+end
+
+local function SnapshotBankNewItems()
+	SnapshotNewItemsForBags(module.BankBagIDs)
 end
 
 local function HideElvUIBagFrame()
 	if B.BagFrame and B.BagFrame:IsShown() then
 		SnapshotNewItems()
 		B.BagFrame:Hide()
+	end
+end
+
+-- Unlike HideElvUIBagFrame, this must NOT call B.BankFrame:Hide() - ElvUI's
+-- shared Container_OnHide handler calls CloseBankFrame() as a side effect
+-- for any frame with isBank=true, which would immediately end the real
+-- server-side bank interaction. Just make it invisible/non-interactive
+-- instead; module:OnFrameHidden() is responsible for actually closing the
+-- bank via CloseBankFrame() when appropriate.
+local function HideElvUIBankFrame()
+	if B.BankFrame and B.BankFrame:IsShown() then
+		SnapshotBankNewItems()
+		B.BankFrame:SetAlpha(0)
+		B.BankFrame:EnableMouse(false)
 	end
 end
 
@@ -257,19 +286,54 @@ local function Slot_OnClick(self, mouseButton)
 			module:RefreshCategoryFrame()
 		end
 	elseif mouseButton == "RightButton" then
+		-- Ctrl+Right-click while the bank is open offers a "move to a specific
+		-- tab/bag" picker (plain right-click below also deposits/withdraws,
+		-- but always into the first free slot - this is for when the
+		-- destination matters). Cursor must be empty (nothing to pick a
+		-- destination for otherwise); same attribute suppression as the Split
+		-- Stack/vendor-sell cases so the native dispatch doesn't equip/use the
+		-- item instead of just opening the menu.
+		if
+			IsControlKeyDown()
+			and not CursorHasItem()
+			and module.isBankOpen
+			and self.BagID
+			and self.SlotID
+		then
+			if not InCombatLockdown() then
+				self:SetAttribute("type", nil)
+				self:SetAttribute("item", nil)
+
+				local itemLink = self.itemLink
+				C_Timer.After(0, function()
+					if not InCombatLockdown() then
+						self:SetAttribute("type", "item")
+						self:SetAttribute("item", itemLink)
+					end
+				end)
+			end
+
+			module:OpenMoveMenu(self)
+			return
+		end
+
 		-- The native type/item dispatch (fires on RightButtonDown, see
 		-- CreateSlotButton) is equivalent to "/use [item link]", which is
-		-- just a plain use/equip with no vendor-sell awareness at all (that
-		-- vendor-aware branching lives only inside Blizzard's own
-		-- UseContainerItem) - and it fires synchronously, BEFORE our deferred
-		-- UseContainerItem call below runs on the next frame. Left alone, it
-		-- equips the item first (swapping the previously worn item into this
-		-- same bag slot), and our deferred sell then acts on that swapped-in
-		-- item instead of the one the user actually clicked. Suppressing the
-		-- attributes here (same technique as the Split Stack click above)
-		-- stops that dispatch from firing for this click at all, so only our
-		-- own vendor-aware call decides what happens.
-		if not InCombatLockdown() and _G.MerchantFrame and _G.MerchantFrame:IsShown() and self.BagID and self.SlotID then
+		-- just a plain use/equip with no context awareness at all - both the
+		-- vendor-sell AND the bank-deposit/withdraw special-casing live only
+		-- inside Blizzard's own C_Container.UseContainerItem, never in the
+		-- generic secure item click. Confirmed live: left as the native
+		-- dispatch, right-click at an open bank equips gear instead of
+		-- depositing it (and does nothing at all for non-equippable items,
+		-- since a plain "/use" has no effect on those). The native dispatch
+		-- also fires synchronously, BEFORE our deferred UseContainerItem call
+		-- below runs on the next frame - left alone it would equip/use first
+		-- and our deferred call would then act on the wrong (swapped-in)
+		-- item. Suppressing the attributes here (same technique as the Split
+		-- Stack click above) stops that dispatch from firing for this click
+		-- at all, so only our own context-aware call decides what happens.
+		local atMerchant = _G.MerchantFrame and _G.MerchantFrame:IsShown()
+		if not InCombatLockdown() and (atMerchant or module.isBankOpen) and self.BagID and self.SlotID then
 			local bagID, slotID = self.BagID, self.SlotID
 			local itemLink = self.itemLink
 
@@ -319,6 +383,9 @@ local function Slot_OnEnter(self)
 	if self.BagID and self.SlotID and not GameTooltip:IsForbidden() then
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 		GameTooltip:SetBagItem(self.BagID, self.SlotID)
+		if module.isBankOpen then
+			GameTooltip:AddLine(L["Ctrl+Right-click to move to a specific tab/bag"], 0.6, 0.6, 0.6)
+		end
 		GameTooltip:Show()
 	end
 
@@ -1029,16 +1096,36 @@ function module:ConstructFrame()
 	f.bagBarButton:Point("TOPRIGHT", f.vendorGraysButton, "TOPLEFT", -2, 0)
 	module.bagBarButton = f.bagBarButton
 
+	f.autoDepositButton = CreateTitleButton("AutoDepositButton", 450905, L["Auto Deposit"], function()
+		module:AutoDepositToBank()
+	end)
+	f.autoDepositButton:Point("TOPRIGHT", f.bagBarButton, "TOPLEFT", -2, 0)
+	-- Raw Blizzard icon (Interface\ICONS\misc_arrowdown, same one ElvUI's own
+	-- Bank deposit button uses) has its border baked into the UV.
+	f.autoDepositButton.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+
 	-- Help always stays the leftmost title-bar icon button (right next to the
-	-- search box) - anchor any future button off bagBarButton (or whichever
-	-- button ends up rightmost of it) instead of inserting after this one.
+	-- search box) - anchor any future button off autoDepositButton (or
+	-- whichever button ends up rightmost of it) instead of inserting after
+	-- this one.
 	f.helpButton = CreateTitleButton("HelpButton", E.Media.Textures.Help, function()
+		GameTooltip:AddLine(L["Bag"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Use / equip item"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Shift + Right Click:"], L["Split Stack"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
+
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(L["Bank (while open)"], 1, 0.82, 0)
+		GameTooltip:AddDoubleLine(L["Right Click:"], L["Deposit / withdraw item"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Ctrl + Right Click:"], L["Move to Bank Tab / Bag"], 1, 1, 1)
+
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(L["Vendor (while open)"], 1, 0.82, 0)
+		GameTooltip:AddDoubleLine(L["Right Click:"], L["Sell item"], 1, 1, 1)
 	end)
-	f.helpButton:Point("TOPRIGHT", f.bagBarButton, "TOPLEFT", -2, 0)
+	f.helpButton:Point("TOPRIGHT", f.autoDepositButton, "TOPLEFT", -2, 0)
 
 	-- Fixed width (not stretched to fill the row) so it sits directly next to
 	-- the buttons/close button, matching the reference layout instead of
@@ -1092,6 +1179,13 @@ function module:ConstructFrame()
 		{ key = "CATEGORY", label = L["OneBag"] },
 		{ key = "BAG", label = L["MultiBag"] },
 	}
+	-- Bank row must stay last in this list: it's only ever shown/hidden, never
+	-- repositioned, so anything after it (Pinned row/separator/scroll frame)
+	-- can reposition off a simple visible-row count without needing to know
+	-- this row's index specifically (see RefreshCategoryFrame).
+	if #module.BankBagIDs > 0 then
+		tinsert(viewModeDefs, { key = "BANK", label = L["Bank"] })
+	end
 	for i, def in ipairs(viewModeDefs) do
 		local row = CreateFrame("Button", nil, f.sidebar)
 		row:SetHeight(VIEW_MODE_ROW_HEIGHT)
@@ -1447,6 +1541,20 @@ function module:VendorGrays()
 	end)
 end
 
+-- Blizzard's own "Deposit" button action (same one on ElvUI's Bank frame,
+-- B:BankTabs_DepositCharacter) - sorts bag items straight into whichever
+-- bank tab the player configured them for via each tab's "Assign to Tab"
+-- rules (the same edit panel our Ctrl+Right-click "Move to Bank Tab" opens),
+-- in one call instead of moving items one at a time.
+function module:AutoDepositToBank()
+	if not module.isBankOpen or not AutoDepositItemsIntoBank then
+		E:Print(L["You must be at the bank."])
+		return
+	end
+
+	AutoDepositItemsIntoBank(CHARACTER_BANK_TYPE)
+end
+
 -------------------------------------------------------------------------------
 --  Data collection + render
 -------------------------------------------------------------------------------
@@ -1593,9 +1701,9 @@ local function GroupBySubgroup(items, nestByExpansion)
 	return result, subHeaders
 end
 
-local function CollectItems()
-	for k in pairs(categoryItemsScratch) do
-		wipe(categoryItemsScratch[k])
+local function CollectItemsFromBags(bagIDList, scratch)
+	for k in pairs(scratch) do
+		wipe(scratch[k])
 	end
 
 	local searching = module.searchText and module.searchText ~= ""
@@ -1607,7 +1715,7 @@ local function CollectItems()
 	end
 	RebuildEquipmentSetItemMap()
 
-	for _, bagID in ipairs(BAG_IDS) do
+	for _, bagID in ipairs(bagIDList) do
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
 
 		for slotID = 1, numSlots do
@@ -1617,7 +1725,7 @@ local function CollectItems()
 				local key =
 					module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink, info.quality, info.hasNoValue)
 				if key then
-					categoryItemsScratch[key] = categoryItemsScratch[key] or {}
+					scratch[key] = scratch[key] or {}
 
 					local cat = catByKey[key]
 					local subgroupName, subgroupOrder
@@ -1630,7 +1738,7 @@ local function CollectItems()
 					local questID, isActiveQuest, isJunk =
 						GetQuestAndJunkInfo(bagID, slotID, info.quality, info.hasNoValue)
 
-					tinsert(categoryItemsScratch[key], {
+					tinsert(scratch[key], {
 						bagID = bagID,
 						slotID = slotID,
 						itemID = info.itemID,
@@ -1654,12 +1762,26 @@ local function CollectItems()
 		end
 	end
 
-	return categoryItemsScratch
+	return scratch
 end
 
-local function BuildCategorySections()
+local function CollectItems()
+	return CollectItemsFromBags(BAG_IDS, categoryItemsScratch)
+end
+
+local bankCategoryItemsScratch = {}
+-- Set via the Bag Bar popout while in Bank mode (click a tab to filter the
+-- category view down to just that tab's items, click again to clear).
+local function CollectBankItems()
+	local bagIDList = module.BankBagIDs
+	if module.bankTabFilter then
+		bagIDList = { module.bankTabFilter }
+	end
+	return CollectItemsFromBags(bagIDList, bankCategoryItemsScratch)
+end
+
+local function BuildCategorySectionsFrom(itemsByCategory)
 	local db = module.db
-	local itemsByCategory = CollectItems()
 	local categories = module:GetCategories()
 	local sections = {}
 
@@ -1787,6 +1909,14 @@ local function BuildCategorySections()
 	return sections
 end
 
+local function BuildCategorySections()
+	return BuildCategorySectionsFrom(CollectItems())
+end
+
+local function BuildBankCategorySections()
+	return BuildCategorySectionsFrom(CollectBankItems())
+end
+
 -------------------------------------------------------------------------------
 --  Bag view (group by physical bag instead of category)
 -------------------------------------------------------------------------------
@@ -1846,9 +1976,31 @@ local function CollectItemsByBag()
 	return bagItemsScratch
 end
 
+-- Character bank tabs can have a custom icon/name set by the player (via
+-- right-click "Edit Tab" on the real Blizzard bank frame) - C_Bank.FetchPurchasedBankTabData
+-- returns that per-tab data (field .ID is the bagID), same source ElvUI itself
+-- reads for its own bank tab buttons (Bags.lua, B:BankTab_PurchasedData).
+local bankTabDataScratch = {}
+local function GetBankTabInfo(bagID)
+	if not FetchPurchasedBankTabData or not module.BankBagIDSet[bagID] then
+		return nil
+	end
+
+	wipe(bankTabDataScratch)
+	local tabs = FetchPurchasedBankTabData(CHARACTER_BANK_TYPE)
+	if tabs then
+		for _, data in ipairs(tabs) do
+			bankTabDataScratch[data.ID] = data
+		end
+	end
+
+	return bankTabDataScratch[bagID]
+end
+
 -- Reagent bag keeps its own dedicated icon (matches the Reagent Bag category);
--- the backpack gets ElvUI's flat backpack icon; every other bag shows the
--- actual equipped bag's own icon, same as looking at your character panel.
+-- the backpack gets ElvUI's flat backpack icon; a bank tab uses its own
+-- (possibly player-customized) icon; every other bag shows the actual equipped
+-- bag's own icon, same as looking at your character panel.
 local function GetBagIcon(bagID)
 	if bagID == 0 then
 		return E.Media.Textures.Backpack
@@ -1856,6 +2008,11 @@ local function GetBagIcon(bagID)
 
 	if bagID == module.ReagentContainer then
 		return 132854
+	end
+
+	local bankInfo = GetBankTabInfo(bagID)
+	if bankInfo and bankInfo.icon then
+		return bankInfo.icon
 	end
 
 	local invID = C_Container.ContainerIDToInventoryID and C_Container.ContainerIDToInventoryID(bagID)
@@ -1872,32 +2029,40 @@ local function GetBagDisplayName(bagID)
 		return L["Reagent Bag"]
 	end
 
+	local bankInfo = GetBankTabInfo(bagID)
+	if bankInfo and bankInfo.name then
+		return bankInfo.name
+	end
+
 	return C_Container.GetBagName(bagID) or format(L["Bag %d"], bagID)
 end
 
 -------------------------------------------------------------------------------
 --  Bag Bar popout (quick glance at equipped bags, toggled from the title bar)
 -------------------------------------------------------------------------------
+local BAG_BAR_BUTTON_SIZE, BAG_BAR_SPACING = 30, 4
+
 function module:ConstructBagBarPopout()
 	if module.bagBarPopout then
 		return module.bagBarPopout
 	end
 
-	local buttonSize, spacing = 30, 4
-	local count = #BAG_IDS
+	-- Sized for whichever bag-ID list is longer (regular bags vs. bank tabs) -
+	-- RefreshBagBarPopout shows/hides buttons and resizes the frame per the
+	-- list actually needed for the current view mode.
+	local maxCount = math.max(#BAG_IDS, #module.BankBagIDs)
 
 	local f = CreateFrame("Frame", "MER_BagCategoriesBagBar", E.UIParent)
-	f:Size(count * (buttonSize + spacing) + spacing, buttonSize + spacing * 2)
 	f:SetFrameStrata("DIALOG")
 	pcall(f.SetTemplate, f, "Transparent")
 	WS:CreateShadow(f)
 	f:Hide()
 
 	f.buttons = {}
-	for i, bagID in ipairs(BAG_IDS) do
+	for i = 1, maxCount do
 		local btn = CreateFrame("Button", nil, f)
-		btn:Size(buttonSize, buttonSize)
-		btn:Point("LEFT", spacing + (i - 1) * (buttonSize + spacing), 0)
+		btn:Size(BAG_BAR_BUTTON_SIZE, BAG_BAR_BUTTON_SIZE)
+		btn:Point("LEFT", BAG_BAR_SPACING + (i - 1) * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING), 0)
 		pcall(btn.SetTemplate, btn)
 
 		btn.tex = btn:CreateTexture(nil, "ARTWORK")
@@ -1908,17 +2073,44 @@ function module:ConstructBagBarPopout()
 		btn.count:FontTemplate(nil, 10, "OUTLINE")
 		btn.count:Point("BOTTOMRIGHT", -1, 1)
 
-		btn:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
+		-- Active-filter marker (Bank mode only) - a bank tab clicked to filter
+		-- the category view down to just that tab's items.
+		local cc = E.myClassColor
+		btn.selectedTex = btn:CreateTexture(nil, "OVERLAY")
+		btn.selectedTex:SetAllPoints()
+		btn.selectedTex:SetColorTexture(cc.r, cc.g, cc.b, 0.35)
+		btn.selectedTex:Hide()
 
-		btn.bagID = bagID
-		btn:SetScript("OnClick", function(self)
-			module.db.viewMode = "BAG"
-			module:RefreshCategoryFrame()
-			module:ScrollToCategory("BAG_" .. self.bagID)
+		btn:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
+		btn:RegisterForClicks("AnyUp")
+
+		btn:SetScript("OnClick", function(self, mouseButton)
+			if not self.bagID then
+				return
+			end
+
+			-- Right-click opens the same tab-edit panel (name/icon/deposit rules)
+			-- as right-clicking a tab on the real Blizzard bank frame.
+			if mouseButton == "RightButton" then
+				if module.db.viewMode == "BANK" and module.BankBagIDSet[self.bagID] then
+					B:BankTabs_ShowSettings(self.bagID)
+				end
+				return
+			end
+
+			if module.db.viewMode == "BANK" then
+				module.bankTabFilter = (module.bankTabFilter ~= self.bagID) and self.bagID or nil
+				module:RefreshCategoryFrame()
+				module:RefreshBagBarPopout()
+			else
+				module.db.viewMode = "BAG"
+				module:RefreshCategoryFrame()
+				module:ScrollToCategory("BAG_" .. self.bagID)
+			end
 		end)
 
 		btn:SetScript("OnEnter", function(self)
-			if GameTooltip:IsForbidden() then
+			if GameTooltip:IsForbidden() or not self.bagID then
 				return
 			end
 
@@ -1928,6 +2120,18 @@ function module:ConstructBagBarPopout()
 
 			GameTooltip:SetOwner(self, "ANCHOR_TOP")
 			GameTooltip:AddLine(format("%s (%d/%d)", GetBagDisplayName(self.bagID), numSlots - freeSlots, numSlots), 1, 1, 1)
+			if module.db.viewMode == "BANK" then
+				GameTooltip:AddLine(
+					module.bankTabFilter == self.bagID and L["Click to clear the filter"]
+						or L["Click to filter by this tab"],
+					0.6,
+					0.6,
+					0.6
+				)
+				if _G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION then
+					GameTooltip:AddLine(_G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION, 0.6, 0.6, 0.6)
+				end
+			end
 			GameTooltip:Show()
 		end)
 		btn:SetScript("OnLeave", GameTooltip_Hide)
@@ -1945,11 +2149,24 @@ function module:RefreshBagBarPopout()
 		return
 	end
 
-	for _, btn in ipairs(f.buttons) do
-		btn.tex:SetTexture(GetBagIcon(btn.bagID))
-		local freeSlots = C_Container.GetContainerNumFreeSlots and C_Container.GetContainerNumFreeSlots(btn.bagID)
-		btn.count:SetText(freeSlots or "")
+	local bagIDList = module.db.viewMode == "BANK" and module.BankBagIDs or BAG_IDS
+
+	for i, btn in ipairs(f.buttons) do
+		local bagID = bagIDList[i]
+		btn.bagID = bagID
+
+		if bagID then
+			btn.tex:SetTexture(GetBagIcon(bagID))
+			local freeSlots = C_Container.GetContainerNumFreeSlots and C_Container.GetContainerNumFreeSlots(bagID)
+			btn.count:SetText(freeSlots or "")
+			btn.selectedTex:SetShown(module.bankTabFilter == bagID)
+			btn:Show()
+		else
+			btn:Hide()
+		end
 	end
+
+	f:Size(#bagIDList * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING) + BAG_BAR_SPACING, BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING * 2)
 end
 
 function module:ToggleBagBarPopout()
@@ -2127,6 +2344,8 @@ local function BuildSections()
 		return BuildBagSections()
 	elseif viewMode == "ALL" then
 		return BuildFlatSections()
+	elseif viewMode == "BANK" then
+		return BuildBankCategorySections()
 	end
 
 	return BuildCategorySections()
@@ -2159,6 +2378,28 @@ function module:RefreshCategoryFrame()
 	f.sidebar:Width(sidebarWidth)
 	f.addCategoryButton:SetShown(not db.sidebarCollapsed)
 
+	-- The Bank row (when the feature exists at all) only counts as visible
+	-- while module.isBankOpen - everything below it (Pinned row, separator,
+	-- scroll frame) has to reposition off however many rows are ACTUALLY
+	-- shown right now, not the fixed table length, or hiding it leaves a
+	-- permanent gap/overlap in the sidebar.
+	local visibleViewModeRows = 0
+	for _, row in ipairs(f.viewModeRows) do
+		local rowVisible = row.viewModeKey ~= "BANK" or module.isBankOpen
+		row:SetShown(rowVisible)
+		if rowVisible then
+			visibleViewModeRows = visibleViewModeRows + 1
+		end
+	end
+
+	f.pinnedRow:ClearAllPoints()
+	f.pinnedRow:Point("TOPLEFT", f.sidebar, "TOPLEFT", 4, -18 - visibleViewModeRows * VIEW_MODE_ROW_HEIGHT)
+	f.pinnedRow:Point("TOPRIGHT", f.sidebar, "TOPRIGHT", -4, -18 - visibleViewModeRows * VIEW_MODE_ROW_HEIGHT)
+
+	f.sidebarSeparator:ClearAllPoints()
+	f.sidebarSeparator:Point("TOPLEFT", f.pinnedRow, "BOTTOMLEFT", 2, -3)
+	f.sidebarSeparator:Point("TOPRIGHT", f.pinnedRow, "BOTTOMRIGHT", -2, -3)
+
 	-- The scrollbar reserve (sidebarScroll's right inset) is sized for the
 	-- full-width sidebar; a fixed -30 on top of a collapsed ~40px sidebar
 	-- left almost nothing for the icon column and clipped it. Both the
@@ -2166,7 +2407,7 @@ function module:RefreshCategoryFrame()
 	-- collapsed-appropriate reserve instead.
 	local scrollbarReserve = db.sidebarCollapsed and 16 or 30
 	f.sidebarScroll:ClearAllPoints()
-	f.sidebarScroll:Point("TOPLEFT", 4, -18 - (#f.viewModeRows + 1) * VIEW_MODE_ROW_HEIGHT - 10)
+	f.sidebarScroll:Point("TOPLEFT", 4, -18 - (visibleViewModeRows + 1) * VIEW_MODE_ROW_HEIGHT - 10)
 	f.sidebarScroll:Point("BOTTOMRIGHT", -(scrollbarReserve - 6), 4)
 	f.sidebarChild:Width(sidebarWidth - scrollbarReserve)
 
@@ -2186,10 +2427,12 @@ function module:RefreshCategoryFrame()
 	f.sidebarHeaderText:SetShown(not db.sidebarCollapsed)
 
 	for _, row in ipairs(f.viewModeRows) do
-		row.text:SetShown(not db.sidebarCollapsed)
-		local isSelected = row.viewModeKey == db.viewMode
-		row.selectedTex:SetShown(isSelected)
-		row.selectedBar:SetShown(isSelected)
+		if row:IsShown() then
+			row.text:SetShown(not db.sidebarCollapsed)
+			local isSelected = row.viewModeKey == db.viewMode
+			row.selectedTex:SetShown(isSelected)
+			row.selectedBar:SetShown(isSelected)
+		end
 	end
 
 	local contentWidth = db.width - sidebarWidth - 44
@@ -2338,8 +2581,11 @@ function module:RefreshCategoryFrame()
 	module.sidebarChild:Height(math.max(1, sidebarIndex * db.sidebarRowHeight))
 	module.contentChild:Height(math.max(1, y))
 
+	local countingBank = db.viewMode == "BANK"
+	local countBagIDs = countingBank and module.BankBagIDs or BAG_IDS
+
 	local totalSlots, usedSlots = 0, 0
-	for _, bagID in ipairs(BAG_IDS) do
+	for _, bagID in ipairs(countBagIDs) do
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
 		totalSlots = totalSlots + numSlots
 		for slotID = 1, numSlots do
@@ -2349,7 +2595,7 @@ function module:RefreshCategoryFrame()
 			end
 		end
 	end
-	f.titleText:SetText(L["Inventory"])
+	f.titleText:SetText(countingBank and L["Bank"] or L["Inventory"])
 	f.titleCountText:SetText(format("%d / %d %s", usedSlots, totalSlots, L["Items"]))
 
 	module:UpdateFooter()
@@ -2774,6 +3020,67 @@ function module:OpenAssignMenu(slot)
 end
 
 -------------------------------------------------------------------------------
+--  Move to Bank Tab / Move to Bag (Ctrl+Right-click while the bank is open)
+-------------------------------------------------------------------------------
+local function FindFreeSlot(bagID)
+	local numSlots = C_Container_GetContainerNumSlots(bagID)
+	for slotID = 1, numSlots do
+		if not C_Container_GetContainerItemInfo(bagID, slotID) then
+			return slotID
+		end
+	end
+	return nil
+end
+
+local function MoveItemToBag(sourceBagID, sourceSlotID, destBagID)
+	if InCombatLockdown() or CursorHasItem() then
+		return
+	end
+
+	-- Check for a free slot BEFORE touching the cursor - if the destination
+	-- is full we want to bail out cleanly instead of leaving the item stuck
+	-- on the cursor with nowhere for it to go back to.
+	local freeSlot = FindFreeSlot(destBagID)
+	if not freeSlot then
+		_G.UIErrorsFrame:AddMessage(L["No free slot available."], 1, 0.1, 0.1)
+		return
+	end
+
+	C_Container_PickupContainerItem(sourceBagID, sourceSlotID)
+	C_Container_PickupContainerItem(destBagID, freeSlot)
+end
+
+function module:OpenMoveMenu(slot)
+	if not _G.MenuUtil or not _G.MenuUtil.CreateContextMenu then
+		return
+	end
+	if not slot.BagID or not slot.SlotID then
+		return
+	end
+
+	local sourceBagID, sourceSlotID = slot.BagID, slot.SlotID
+	local movingFromBank = module.BankBagIDSet[sourceBagID]
+	local targetBagIDs = movingFromBank and BAG_IDS or module.BankBagIDs
+
+	_G.MenuUtil.CreateContextMenu(slot, function(_, rootDescription)
+		rootDescription:CreateTitle(movingFromBank and L["Move to Bag"] or L["Move to Bank Tab"])
+
+		for _, bagID in ipairs(targetBagIDs) do
+			-- Skip the slot's own bag and any tab/bag with zero slots (an
+			-- unpurchased bank tab, or an inventory bag slot with no bag
+			-- equipped in it).
+			if bagID ~= sourceBagID and C_Container_GetContainerNumSlots(bagID) > 0 then
+				rootDescription:CreateButton(GetBagDisplayName(bagID), function()
+					MoveItemToBag(sourceBagID, sourceSlotID, bagID)
+					module:RefreshCategoryFrame()
+					module:RefreshBagBarPopout()
+				end)
+			end
+		end
+	end)
+end
+
+-------------------------------------------------------------------------------
 --  Show / hide / toggle + bag toggle hooks
 -------------------------------------------------------------------------------
 -- Our slot buttons are SecureActionButtonTemplate (needed for right-click
@@ -2823,6 +3130,15 @@ function module:OnFrameHidden()
 	end
 	CloseBackpack()
 
+	-- HideElvUIBankFrame() deliberately never calls B.BankFrame:Hide() (that
+	-- would end the real bank session as a side effect of ElvUI's own
+	-- Container_OnHide) - so closing our own frame while the bank is open has
+	-- to explicitly end that session itself instead of relying on Blizzard's
+	-- normal close-the-frame flow.
+	if module.isBankOpen and CloseBankFrame then
+		CloseBankFrame()
+	end
+
 	PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE or 863)
 end
 
@@ -2870,6 +3186,49 @@ function module:CloseAllBags()
 	module:HideCategoryFrame()
 end
 
+-- Mirrors ToggleAllBags/OpenAllBags for the bank: BANKFRAME_OPENED/CLOSED are
+-- still the correct events for the current retail bank (confirmed against
+-- ElvUI's own Bags.lua) even though the bank itself is now tab-based rather
+-- than a single container.
+function module:OnBankOpened()
+	if InCombatLockdown() or #module.BankBagIDs == 0 then
+		return
+	end
+
+	module.isBankOpen = true
+	HideElvUIBankFrame()
+	module.db.viewMode = "BANK"
+	module:ShowCategoryFrame()
+end
+
+function module:OnBankClosed()
+	module.isBankOpen = false
+	module.bankTabFilter = nil
+
+	if B.BankFrame then
+		B.BankFrame:SetAlpha(1)
+		B.BankFrame:EnableMouse(true)
+	end
+
+	if InCombatLockdown() then
+		return
+	end
+
+	if module.db.viewMode == "BANK" then
+		module.db.viewMode = "CATEGORY"
+	end
+
+	module:RefreshCategoryFrame()
+end
+
+-- Fires when a bank tab's name/icon/deposit rules are changed via the edit
+-- panel (B:BankTabs_ShowSettings) - refresh the Bag Bar popout so the new
+-- icon/name show up immediately instead of only after closing and reopening
+-- the bank.
+function module:OnBankTabsChanged()
+	module:RefreshBagBarPopout()
+end
+
 local eventFrame = CreateFrame("Frame")
 local BAG_REFRESH_EVENTS = { "BAG_UPDATE", "BAG_UPDATE_DELAYED", "ITEM_LOCK_CHANGED", "EQUIPMENT_SETS_CHANGED" }
 
@@ -2904,6 +3263,13 @@ function module:Initialize()
 	module:SecureHook("ToggleBackpack")
 	module:SecureHook("OpenAllBags")
 	module:SecureHook("CloseAllBags")
+
+	if #module.BankBagIDs > 0 then
+		module:RegisterEvent("BANKFRAME_OPENED", "OnBankOpened")
+		module:RegisterEvent("BANKFRAME_CLOSED", "OnBankClosed")
+		module:RegisterEvent("BANK_TABS_CHANGED", "OnBankTabsChanged")
+		module:RegisterEvent("BANK_TAB_SETTINGS_UPDATED", "OnBankTabsChanged")
+	end
 end
 
 function module:ProfileUpdate()

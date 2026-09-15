@@ -27,6 +27,22 @@ local ITEMQUALITY_POOR = Enum.ItemQuality.Poor
 local BagIndex = Enum.BagIndex
 module.ReagentContainer = (E.Retail and BagIndex and BagIndex.ReagentBag) or math.huge
 
+-- Character bank tabs (retail only - the bank is no longer a single flat
+-- container, it's 6 tab-bags, same unified Container API as regular bags
+-- just with different bagIDs). Empty on non-retail clients; the whole Bank
+-- view feature gates off #module.BankBagIDs > 0.
+module.BankBagIDs = {}
+module.BankBagIDSet = {}
+if E.Retail and BagIndex then
+	for i = 1, 6 do
+		local id = BagIndex["CharacterBankTab_" .. i]
+		if id then
+			tinsert(module.BankBagIDs, id)
+			module.BankBagIDSet[id] = true
+		end
+	end
+end
+
 local DEFAULT_CATEGORIES = {
 	{
 		key = "WEAPONS",
