@@ -41,18 +41,21 @@ local DEFAULT_CATEGORIES = {
 		types = { CLASS_ARMOR },
 		excludeEquipSlots = { INVTYPE_TRINKET = true },
 		icon = E.Media.Textures.ChestPlate,
+		nestByEquipmentSet = true,
 	},
 	{
 		key = "CONSUMABLES",
 		name = L["Consumables"],
 		types = { CLASS_CONSUMABLE },
 		icon = E.Media.Textures.GreenPotion,
+		nestByExpansion = true,
 	},
 	{
 		key = "TRADEGOODS",
 		name = L["Trade Goods"],
 		types = { CLASS_TRADEGOODS, CLASS_REAGENT, CLASS_GEM, CLASS_ITEMENHANCEMENT },
 		icon = E.Media.Textures.FabricSilk,
+		nestByExpansion = true,
 	},
 	{
 		key = "RECIPES",
@@ -72,6 +75,7 @@ local DEFAULT_CATEGORIES = {
 		types = { CLASS_QUEST },
 		isQuest = true,
 		icon = E.Media.Textures.Scroll,
+		nestByExpansion = true,
 	},
 	{
 		key = "JUNK",
@@ -87,6 +91,82 @@ local DEFAULT_CATEGORIES = {
 		icon = E.Media.Textures.Backpack,
 	},
 }
+
+-- Fixed default category groups: several sidebar categories collapse into
+-- one combined content section, with their own indented rows underneath the
+-- group's row for navigation/counts. No user-defined groups yet, no
+-- collapse/expand toggle - always shown expanded, matching the reference.
+module.CategoryGroups = {
+	{
+		key = "GROUP_ARMORY",
+		name = L["The Armory"],
+		icon = E.Media.Textures.ChestPlate,
+		members = { "WEAPONS", "ARMOR" },
+	},
+}
+
+function module:GetCategoryGroupForKey(catKey)
+	local db = module.db
+	if db and db.ungroupedCategories and db.ungroupedCategories[catKey] then
+		return nil
+	end
+
+	for _, group in ipairs(module.CategoryGroups) do
+		if not (db and db.disbandedGroups and db.disbandedGroups[group.key]) then
+			for _, memberKey in ipairs(group.members) do
+				if memberKey == catKey then
+					return group
+				end
+			end
+		end
+	end
+end
+
+function module:FindCategoryGroup(groupKey)
+	for _, group in ipairs(module.CategoryGroups) do
+		if group.key == groupKey then
+			return group
+		end
+	end
+end
+
+function module:GetGroupName(group)
+	local db = module.db
+	return (db and db.groupNameOverrides and db.groupNameOverrides[group.key]) or group.name
+end
+
+function module:RenameGroup(groupKey, newName)
+	if not groupKey or not newName or newName == "" then
+		return
+	end
+
+	local db = module.db
+	db.groupNameOverrides = db.groupNameOverrides or {}
+	db.groupNameOverrides[groupKey] = newName
+end
+
+function module:DisbandGroup(groupKey)
+	local db = module.db
+	db.disbandedGroups = db.disbandedGroups or {}
+	db.disbandedGroups[groupKey] = true
+end
+
+function module:UngroupCategory(catKey)
+	local db = module.db
+	db.ungroupedCategories = db.ungroupedCategories or {}
+	db.ungroupedCategories[catKey] = true
+end
+
+function module:IsHiddenFromAllItems(key)
+	local db = module.db
+	return (db and db.hiddenFromAllItems and db.hiddenFromAllItems[key]) or false
+end
+
+function module:SetHiddenFromAllItems(key, hidden)
+	local db = module.db
+	db.hiddenFromAllItems = db.hiddenFromAllItems or {}
+	db.hiddenFromAllItems[key] = hidden or nil
+end
 
 module.PinnedCategory = {
 	key = "PINNED",
@@ -115,9 +195,22 @@ function module:GetCategories()
 	local disabled = (db and db.disabledCategories) or {}
 	local cats = {}
 
+	local nameOverrides = db and db.categoryNameOverrides
 	for _, cat in ipairs(DEFAULT_CATEGORIES) do
 		if not disabled[cat.key] then
-			tinsert(cats, cat)
+			local override = nameOverrides and nameOverrides[cat.key]
+			if override then
+				-- Shallow copy so the rename doesn't mutate the shared
+				-- DEFAULT_CATEGORIES table itself.
+				local copy = {}
+				for k, v in pairs(cat) do
+					copy[k] = v
+				end
+				copy.name = override
+				tinsert(cats, copy)
+			else
+				tinsert(cats, cat)
+			end
 		end
 	end
 
@@ -369,6 +462,13 @@ function module:RenameCategory(key, newName)
 			end
 		end
 	end
+
+	-- Default (non-user) category: persisted as a name override instead of
+	-- mutating the shared DEFAULT_CATEGORIES table.
+	db.categoryNameOverrides = db.categoryNameOverrides or {}
+	db.categoryNameOverrides[key] = newName
+	module:InvalidateCategoryCache()
+	return true
 end
 
 function module:SetUserCategoryIcon(key, icon)

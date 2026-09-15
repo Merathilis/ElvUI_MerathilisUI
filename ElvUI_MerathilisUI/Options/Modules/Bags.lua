@@ -159,6 +159,23 @@ options.bags = {
 					name = L["Alternating Row Background"],
 					desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
 				},
+				resetCategoryGroups = {
+					order = 4.6,
+					type = "execute",
+					name = L["Reset Category Groups"],
+					desc = L["Restores any category group (e.g. \"The Armory\") you disbanded or removed a category from, and clears any group renames."],
+					func = function()
+						local db = BC.db
+						db.ungroupedCategories = nil
+						db.disbandedGroups = nil
+						db.groupNameOverrides = nil
+
+						BC:InvalidateCategoryCache()
+						if BC.frame then
+							BC:RefreshCategoryFrame()
+						end
+					end,
+				},
 				itemSize = {
 					order = 5,
 					type = "range",
