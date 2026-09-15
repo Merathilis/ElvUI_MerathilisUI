@@ -693,6 +693,7 @@ L["Show in All Items"] = true
 L["Reset Category Groups"] = true
 L["Restores any category group (e.g. \"The Armory\") you disbanded or removed a category from, and clears any group renames."] = true
 L["Toggle Bag Bar"] = true
+L["Warband Bank"] = true
 L["Items"] = true
 L["Collapse Sidebar"] = true
 L["Expand Sidebar"] = true

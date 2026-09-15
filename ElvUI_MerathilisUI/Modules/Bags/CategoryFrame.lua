@@ -1210,6 +1210,15 @@ function module:ConstructFrame()
 	f.footer.goldText:FontTemplate()
 	f.footer.goldText:Point("LEFT", 4, 0)
 
+	-- Invisible hit-box over the gold text for the cross-character/Warband
+	-- tooltip - a FontString can't itself take mouse input.
+	f.footer.goldButton = CreateFrame("Button", nil, f.footer)
+	f.footer.goldButton:SetAllPoints(f.footer.goldText)
+	f.footer.goldButton:SetScript("OnEnter", function(self)
+		module:ShowGoldTooltip(self)
+	end)
+	f.footer.goldButton:SetScript("OnLeave", GameTooltip_Hide)
+
 	-- Tracked currencies (same source as ElvUI's own bags: whatever the
 	-- player enabled "Show on Backpack" for via the default Currency tab),
 	-- shown icon + amount next to gold.
@@ -1276,12 +1285,86 @@ function module:ConstructFrame()
 	return f
 end
 
+-- Same raw ElvDB.gold/class table ElvUI's own Gold DataText maintains (and
+-- e.g. WindTools' GameBar reads) - one shared source of cross-character
+-- data instead of a second, redundant MerathilisUI-only copy. We write to it
+-- ourselves too (not just read), so this stays accurate even if the user
+-- doesn't have the Gold DataText assigned to any panel.
+function module:UpdateGoldTracking()
+	local db = _G.ElvDB
+	if not db then
+		return
+	end
+
+	db.gold = db.gold or {}
+	db.gold[E.myrealm] = db.gold[E.myrealm] or {}
+	db.gold[E.myrealm][E.myname] = GetMoney()
+
+	db.class = db.class or {}
+	db.class[E.myrealm] = db.class[E.myrealm] or {}
+	db.class[E.myrealm][E.myname] = E.myclass
+end
+
+local function SortGoldDescending(a, b)
+	return a.amount > b.amount
+end
+
+function module:ShowGoldTooltip(anchor)
+	if GameTooltip:IsForbidden() then
+		return
+	end
+
+	module:UpdateGoldTracking()
+
+	local goldDB = _G.ElvDB and _G.ElvDB.gold or {}
+	local classDB = _G.ElvDB and _G.ElvDB.class or {}
+
+	local characters = {}
+	local total = 0
+	for realm, chars in pairs(goldDB) do
+		for name, amount in pairs(chars) do
+			tinsert(characters, {
+				name = name,
+				realm = realm,
+				amount = amount,
+				class = classDB[realm] and classDB[realm][name],
+			})
+			total = total + (amount or 0)
+		end
+	end
+	tsort(characters, SortGoldDescending)
+
+	GameTooltip:SetOwner(anchor, "ANCHOR_TOPLEFT")
+	GameTooltip:AddLine(_G.GOLD or L["Gold"])
+	GameTooltip:AddLine(" ")
+
+	for _, data in ipairs(characters) do
+		local color = (data.class and E:ClassColor(data.class)) or _G.HIGHLIGHT_FONT_COLOR
+		local nameLine = data.realm ~= E.myrealm and format("%s - %s", data.name, data.realm) or data.name
+		GameTooltip:AddDoubleLine(nameLine, E:FormatMoney(data.amount, "SMART"), color.r, color.g, color.b, 1, 1, 1)
+	end
+
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddDoubleLine(_G.TOTAL or L["Total"], E:FormatMoney(total, "SMART"), 1, 1, 1, 1, 1, 1)
+
+	if E.Retail and _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
+		local warbandBankType = (Enum.BankType and Enum.BankType.Account) or 2
+		local ok, warbandGold = pcall(_G.C_Bank.FetchDepositedMoney, warbandBankType)
+		if ok and warbandGold then
+			GameTooltip:AddDoubleLine(L["Warband Bank"], E:FormatMoney(warbandGold, "SMART"), 1, 1, 1, 1, 1, 1)
+		end
+	end
+
+	GameTooltip:Show()
+end
+
 function module:UpdateFooter()
 	local f = module.frame
 	if not f then
 		return
 	end
 
+	module:UpdateGoldTracking()
 	f.footer.goldText:SetText(E:FormatMoney(GetMoney(), "SMART"))
 
 	-- Chained right-to-left off the footer's own right edge (independent of
