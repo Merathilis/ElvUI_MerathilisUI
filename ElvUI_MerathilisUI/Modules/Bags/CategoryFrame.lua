@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_BagCategories") ---@class BagCategories
 local B = E:GetModule("Bags")
 local S = E:GetModule("Skins")
 local WS = W:GetModule("Skins")
+local EM = MER:GetModule("MER_EquipManager") ---@class EquipmentManager
 
 local _G = _G
 local ipairs, pairs = ipairs, pairs
@@ -10,6 +11,7 @@ local tinsert, wipe = tinsert, wipe
 local tsort = table.sort
 local floor, ceil = math.floor, math.ceil
 local format = format
+local strmatch = strmatch
 local IsShiftKeyDown = IsShiftKeyDown
 local IsModifiedClick = IsModifiedClick
 local HandleModifiedItemClick = HandleModifiedItemClick
@@ -30,6 +32,7 @@ local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
 local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 local C_Item_GetItemInfo = C_Item.GetItemInfo
 local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
+local C_TooltipInfo_GetBagItem = C_TooltipInfo.GetBagItem
 local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
 local C_MerchantFrame_SellAllJunkItems = C_MerchantFrame.SellAllJunkItems
 local ITEMQUALITY_POOR = Enum.ItemQuality.Poor
@@ -86,6 +89,11 @@ local IS_EQUIPMENT_SLOT = {
 	INVTYPE_THROWN = true,
 	INVTYPE_RANGEDRIGHT = true,
 }
+
+-- Same tooltip-scan approach EquipManager.lua uses for ElvUI's own bags
+-- (GetContainerItemEquipmentSetInfo is still unreliable) - matches a
+-- localized "Equipment Set: <name>" tooltip line.
+local MATCH_EQUIPMENT_SETS = EQUIPMENT_SETS:gsub("%-", "%%-"):gsub("%%s", "(.-)")
 
 -- Small inward nudge so slot-overlay text (Count/ItemLevel/BindType) doesn't
 -- sit flush against the icon border, keyed by the anchor point it's set to.
@@ -413,6 +421,12 @@ local function CreateSlotButton(index)
 	btn.UpgradeIcon:Point("CENTER")
 	btn.UpgradeIcon:Hide()
 
+	-- Equipment Manager set marker (parity with EquipManager.lua's own icon
+	-- on ElvUI's native bags) - texture/size/position/color applied fresh in
+	-- UpdateEquipSetIcon from the same E.db.mui.bags.equipmentManager options.
+	btn.equipIcon = btn:CreateTexture(nil, "OVERLAY")
+	btn.equipIcon:Hide()
+
 	-- The mixin resolves bag/slot from a one-frame-per-bag hierarchy we don't
 	-- have (all pooled buttons share one parent), so its own OnUpdate and
 	-- event handling end up working from wrong data; strip those. OnEnter/
@@ -499,6 +513,61 @@ function UpdateUpgradeIcon(btn)
 		btn.UpgradeIcon:SetShown(isUpgrade)
 		btn:SetScript("OnUpdate", nil)
 	end
+end
+
+-- Same tooltip-scan EquipManager.lua uses for ElvUI's native bags
+-- (GetContainerItemEquipmentSetInfo is still unreliable).
+local function IsItemInEquipmentSet(bagID, slotID)
+	local tooltipData = C_TooltipInfo_GetBagItem(bagID, slotID)
+	if not tooltipData or not tooltipData.lines then
+		return false
+	end
+
+	local lines = tooltipData.lines
+	for i = 1, #lines do
+		local text = lines[i] and lines[i].leftText
+		if text and strmatch(text, MATCH_EQUIPMENT_SETS) then
+			return true
+		end
+	end
+
+	return false
+end
+
+-- Parity with EquipManager.lua's own icon on ElvUI's native bags - reuses
+-- that module's icon/size/position/color options (E.db.mui.bags.equipmentManager)
+-- instead of duplicating a second set of settings for the same feature.
+local function UpdateEquipSetIcon(btn, entry)
+	local db = (EM and (EM.db or F.GetDBFromPath("mui.bags.equipmentManager"))) or E.db.mui.bags.equipmentManager
+	if not db or not db.enable then
+		btn.equipIcon:Hide()
+		return
+	end
+
+	local _, _, _, equipLoc = C_Item_GetItemInfoInstant(entry.itemLink)
+	if not equipLoc or not IS_EQUIPMENT_SLOT[equipLoc] or not IsItemInEquipmentSet(entry.bagID, entry.slotID) then
+		btn.equipIcon:Hide()
+		return
+	end
+
+	btn.equipIcon:Size(db.size)
+	btn.equipIcon:ClearAllPoints()
+	btn.equipIcon:Point(db.point, db.xOffset, db.yOffset)
+
+	if db.icon == "EQUIPMGR" then
+		btn.equipIcon:SetTexture([[Interface\PaperDollInfoFrame\PaperDollSidebarTabs]])
+		btn.equipIcon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
+	elseif db.icon == "CUSTOM" then
+		btn.equipIcon:SetTexture(db.customTexture)
+		btn.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+	else
+		btn.equipIcon:SetTexture((EM and EM.equipmentmanager.iconLocations[db.icon]) or db.icon)
+		btn.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+	end
+
+	local c = db.color
+	btn.equipIcon:SetVertexColor(c.r, c.g, c.b, c.a)
+	btn.equipIcon:Show()
 end
 
 local function UpdateSlotCooldown(btn, bagID, slotID)
@@ -590,6 +659,7 @@ local function UpdateSlotVisual(btn, entry)
 	btn.JunkIcon:SetShown(entry.isJunk and true or false)
 
 	UpdateUpgradeIcon(btn)
+	UpdateEquipSetIcon(btn, entry)
 
 	-- Blizzard's own highlighting for Scrap, Rune Carving, Upgrade Items, etc.
 	-- (ContainerFrameItemButtonMixin); never gets called on its own since this
@@ -650,12 +720,21 @@ end
 -------------------------------------------------------------------------------
 local function CreateSubHeader(index)
 	local header = CreateFrame("Frame", nil, module.contentChild)
-	header:SetHeight(14)
+	header:SetHeight(16)
+
+	-- Plain light-grey text on the frame's own semi-transparent background
+	-- was functionally showing (confirmed via debug print - correct text,
+	-- correct position, shown=true) but visually unreadable against
+	-- whatever bled through behind it. A background bar fixes that
+	-- regardless of what's behind, same reasoning as the category headers.
+	header.bg = header:CreateTexture(nil, "BACKGROUND")
+	header.bg:SetAllPoints()
+	header.bg:SetColorTexture(0, 0, 0, 0.35)
 
 	header.text = header:CreateFontString(nil, "OVERLAY")
-	header.text:FontTemplate(nil, 10)
-	header.text:SetTextColor(0.7, 0.7, 0.7)
-	header.text:Point("LEFT", 0, 0)
+	header.text:FontTemplate(nil, 11)
+	header.text:SetTextColor(0.9, 0.9, 0.9)
+	header.text:Point("LEFT", 4, 0)
 
 	subHeaderPool[index] = header
 	return header
@@ -2135,7 +2214,8 @@ function module:RefreshCategoryFrame()
 					subHeaderIndex = subHeaderIndex + 1
 					local subHeader = AcquireSubHeader(subHeaderIndex)
 					subHeader:ClearAllPoints()
-					subHeader:Point("TOPLEFT", module.contentChild, "TOPLEFT", 10, -rowStartY)
+					subHeader:Point("TOPLEFT", module.contentChild, "TOPLEFT", 6, -rowStartY)
+					subHeader:Point("TOPRIGHT", module.contentChild, "TOPRIGHT", -6, -rowStartY)
 					subHeader.text:SetText(format("%s (%d)", nextSubHeader.name, nextSubHeader.count))
 					rowStartY = rowStartY + subHeader:GetHeight() + 2
 
@@ -2708,7 +2788,7 @@ function module:CloseAllBags()
 end
 
 local eventFrame = CreateFrame("Frame")
-local BAG_REFRESH_EVENTS = { "BAG_UPDATE", "BAG_UPDATE_DELAYED", "ITEM_LOCK_CHANGED" }
+local BAG_REFRESH_EVENTS = { "BAG_UPDATE", "BAG_UPDATE_DELAYED", "ITEM_LOCK_CHANGED", "EQUIPMENT_SETS_CHANGED" }
 
 eventFrame:SetScript("OnEvent", function()
 	module:RefreshCategoryFrame()
