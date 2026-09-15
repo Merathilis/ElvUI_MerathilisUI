@@ -295,6 +295,7 @@ P.bags = {
 		showRecent = true,
 		hideEmptyCategories = true,
 		alternatingRowBackground = true,
+		viewMode = "CATEGORY",
 		disabledCategories = {},
 		categoryOrder = {},
 		userCategories = {},

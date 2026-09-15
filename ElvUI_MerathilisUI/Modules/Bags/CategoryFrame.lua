@@ -633,13 +633,27 @@ function module:ConstructFrame()
 	-- sibling buttons use - crop it the same way slot/category icons are.
 	f.vendorGraysButton.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 
+	f.viewModeButton = CreateTitleButton("ViewModeButton", E.Media.Textures.Backpack, function()
+		if module.db.viewMode == "BAG" then
+			GameTooltip:AddLine(L["View: By Bag"], 1, 1, 1)
+			GameTooltip:AddLine(L["Click to switch to category view."], 0.6, 0.6, 0.6)
+		else
+			GameTooltip:AddLine(L["View: By Category"], 1, 1, 1)
+			GameTooltip:AddLine(L["Click to switch to bag view."], 0.6, 0.6, 0.6)
+		end
+	end, function()
+		module.db.viewMode = module.db.viewMode == "BAG" and "CATEGORY" or "BAG"
+		module:RefreshCategoryFrame()
+	end)
+	f.viewModeButton:Point("TOPRIGHT", f.vendorGraysButton, "TOPLEFT", -2, 0)
+
 	f.helpButton = CreateTitleButton("HelpButton", E.Media.Textures.Help, function()
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Use / equip item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
 	end)
-	f.helpButton:Point("TOPRIGHT", f.vendorGraysButton, "TOPLEFT", -2, 0)
+	f.helpButton:Point("TOPRIGHT", f.viewModeButton, "TOPLEFT", -2, 0)
 
 	f.searchBox = CreateFrame("EditBox", FRAME_NAME .. "SearchBox", f, "SearchBoxTemplate")
 	f.searchBox:Point("TOPLEFT", 10, -8)
@@ -932,7 +946,7 @@ local function CollectItems()
 	return categoryItemsScratch
 end
 
-local function BuildSections()
+local function BuildCategorySections()
 	local db = module.db
 	local itemsByCategory = CollectItems()
 	local categories = module:GetCategories()
@@ -989,6 +1003,151 @@ local function BuildSections()
 	end
 
 	return sections
+end
+
+-------------------------------------------------------------------------------
+--  Bag view (group by physical bag instead of category)
+-------------------------------------------------------------------------------
+local bagItemsScratch = {}
+
+local function CollectItemsByBag()
+	for k in pairs(bagItemsScratch) do
+		wipe(bagItemsScratch[k])
+	end
+
+	local searching = module.searchText and module.searchText ~= ""
+	C_Container_SetItemSearch(searching and module.searchText or "")
+
+	for _, bagID in ipairs(BAG_IDS) do
+		local numSlots = C_Container_GetContainerNumSlots(bagID)
+
+		for slotID = 1, numSlots do
+			local info = C_Container_GetContainerItemInfo(bagID, slotID)
+
+			if info and info.iconFileID and not (searching and info.isFiltered) then
+				bagItemsScratch[bagID] = bagItemsScratch[bagID] or {}
+
+				tinsert(bagItemsScratch[bagID], {
+					bagID = bagID,
+					slotID = slotID,
+					itemID = info.itemID,
+					itemLink = info.hyperlink,
+					icon = info.iconFileID,
+					count = info.stackCount,
+					quality = info.quality,
+					isLocked = info.isLocked,
+					isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
+					itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
+						or nil,
+					bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound) or nil,
+				})
+			end
+		end
+	end
+
+	return bagItemsScratch
+end
+
+-- Reagent bag keeps its own dedicated icon (matches the Reagent Bag category);
+-- the backpack gets ElvUI's flat backpack icon; every other bag shows the
+-- actual equipped bag's own icon, same as looking at your character panel.
+local function GetBagIcon(bagID)
+	if bagID == 0 then
+		return E.Media.Textures.Backpack
+	end
+
+	if bagID == module.ReagentContainer then
+		return 132854
+	end
+
+	local invID = C_Container.ContainerIDToInventoryID and C_Container.ContainerIDToInventoryID(bagID)
+	local texture = invID and GetInventoryItemTexture("player", invID)
+	return texture or E.Media.Textures.Backpack
+end
+
+local function GetBagDisplayName(bagID)
+	if bagID == 0 then
+		return _G.BACKPACK_TOOLTIP or L["Backpack"]
+	end
+
+	if bagID == module.ReagentContainer then
+		return L["Reagent Bag"]
+	end
+
+	return C_Container.GetBagName(bagID) or format(L["Bag %d"], bagID)
+end
+
+local function BuildBagSections()
+	local db = module.db
+	local itemsByBag = CollectItemsByBag()
+	local sections = {}
+
+	-- Pinned/Recent stay useful (and stay at the top) regardless of grouping.
+	if db.showPinned then
+		local pinned = {}
+		for _, bagID in ipairs(BAG_IDS) do
+			for _, entry in ipairs(itemsByBag[bagID] or {}) do
+				if module:IsItemPinned(entry.itemID) then
+					tinsert(pinned, entry)
+				end
+			end
+		end
+
+		if #pinned > 0 or not db.hideEmptyCategories then
+			tinsert(sections, {
+				key = module.PinnedCategory.key,
+				name = module.PinnedCategory.name,
+				icon = module.PinnedCategory.icon,
+				isAtlas = true,
+				items = pinned,
+			})
+		end
+	end
+
+	if db.showRecent then
+		local recent = {}
+		for _, bagID in ipairs(BAG_IDS) do
+			for _, entry in ipairs(itemsByBag[bagID] or {}) do
+				if entry.isNew then
+					tinsert(recent, entry)
+				end
+			end
+		end
+
+		if #recent > 0 or not db.hideEmptyCategories then
+			tinsert(sections, {
+				key = module.RecentCategory.key,
+				name = module.RecentCategory.name,
+				icon = module.RecentCategory.icon,
+				isAtlas = true,
+				items = recent,
+				showClear = #recent > 0,
+			})
+		end
+	end
+
+	for _, bagID in ipairs(BAG_IDS) do
+		local items = itemsByBag[bagID] or {}
+		if #items > 0 or not db.hideEmptyCategories then
+			tinsert(sections, {
+				key = "BAG_" .. bagID,
+				name = GetBagDisplayName(bagID),
+				icon = GetBagIcon(bagID),
+				isBagSection = true,
+				items = items,
+			})
+		end
+	end
+
+	return sections
+end
+
+local function BuildSections()
+	if module.db.viewMode == "BAG" then
+		return BuildBagSections()
+	end
+
+	return BuildCategorySections()
 end
 
 function module:ScrollToCategory(key)
@@ -1053,7 +1212,11 @@ function module:RefreshCategoryFrame()
 		row:Point("TOPRIGHT", module.sidebarChild, "TOPRIGHT", 0, -(sidebarIndex - 1) * db.sidebarRowHeight)
 		row.catKey = section.key
 		row.isUser = section.key:find("^USER_") and true or false
-		row.isPinnedOrRecent = section.key == module.PinnedCategory.key or section.key == module.RecentCategory.key
+		-- Bag sections aren't reorderable either (no persisted "bag order"
+		-- concept, and physical bags aren't user-defined categories).
+		row.isPinnedOrRecent = section.key == module.PinnedCategory.key
+			or section.key == module.RecentCategory.key
+			or section.isBagSection == true
 		row.text:SetText(section.name)
 		row.count:SetText(#section.items)
 		SetCategoryIcon(row.icon, section)
