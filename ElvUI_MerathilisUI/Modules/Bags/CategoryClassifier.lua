@@ -21,8 +21,12 @@ local CLASS_ITEMENHANCEMENT = IC.ItemEnhancement
 local CLASS_RECIPE = IC.Recipe
 local CLASS_QUEST = IC.Questitem
 local CLASS_MISC = IC.Miscellaneous
-
-local ITEMQUALITY_POOR = Enum.ItemQuality.Poor
+-- Not yet named Enum.ItemClass members on live retail - numeric IDs reserved
+-- for a future expansion's profession/housing item types. Harmless to match
+-- against now: no current item has either classID, so both categories just
+-- stay empty until Blizzard ships items that use them.
+local CLASS_PROFESSION = 19
+local CLASS_HOUSING = 20
 
 local BagIndex = Enum.BagIndex
 module.ReagentContainer = (E.Retail and BagIndex and BagIndex.ReagentBag) or math.huge
@@ -58,47 +62,28 @@ if E.Retail and BagIndex then
 	end
 end
 
+-- Category list/order/matching rules kept 1:1 with the reference addon's own
+-- hardcoded defaults (types = Enum.ItemClass numeric IDs, same precedence:
+-- Reagent Bag > Item Set Gear > Quest > general type walk > catch-all). Icons
+-- stay our own ElvUI-media choices where we already had a fitting one; the
+-- three categories new to this pass (Item Set Gear/Gear Enhancements/Housing)
+-- use plain Blizzard icon texture IDs since there's no existing ElvUI atlas
+-- equivalent picked for them yet.
 local DEFAULT_CATEGORIES = {
-	{
-		key = "WEAPONS",
-		name = L["Weapons & Trinkets"],
-		types = { CLASS_WEAPON },
-		equipSlots = { INVTYPE_TRINKET = true },
-		icon = E.Media.Textures.Combat,
-	},
-	{
-		key = "ARMOR",
-		name = L["Armor"],
-		types = { CLASS_ARMOR },
-		excludeEquipSlots = { INVTYPE_TRINKET = true },
-		icon = E.Media.Textures.ChestPlate,
-		nestByEquipmentSet = true,
-	},
-	{
-		key = "CONSUMABLES",
-		name = L["Consumables"],
-		types = { CLASS_CONSUMABLE },
-		icon = E.Media.Textures.GreenPotion,
-		nestByExpansion = true,
-	},
-	{
-		key = "TRADEGOODS",
-		name = L["Trade Goods"],
-		types = { CLASS_TRADEGOODS, CLASS_REAGENT, CLASS_GEM, CLASS_ITEMENHANCEMENT },
-		icon = E.Media.Textures.FabricSilk,
-		nestByExpansion = true,
-	},
-	{
-		key = "RECIPES",
-		name = L["Recipes"],
-		types = { CLASS_RECIPE },
-		icon = E.Media.Textures.Catalog,
-	},
 	{
 		key = "REAGENTBAG",
 		name = L["Reagent Bag"],
 		isReagentBag = true,
 		icon = 132854,
+	},
+	{
+		key = "SETGEAR",
+		name = L["Item Set Gear"],
+		types = { CLASS_ARMOR, CLASS_WEAPON },
+		isSetGear = true,
+		icon = 4871338,
+		nestByEquipmentSet = true,
+		hiddenInBank = true,
 	},
 	{
 		key = "QUEST",
@@ -107,12 +92,60 @@ local DEFAULT_CATEGORIES = {
 		isQuest = true,
 		icon = E.Media.Textures.Scroll,
 		nestByExpansion = true,
+		hiddenInBank = true,
 	},
 	{
-		key = "JUNK",
-		name = L["Junk"],
-		isJunk = true,
-		icon = E.Media.Textures.GoldCoins,
+		key = "WEAPONS",
+		name = L["Weapons & Trinkets"],
+		types = { CLASS_WEAPON },
+		equipSlots = { INVTYPE_TRINKET = true },
+		icon = E.Media.Textures.Combat,
+		hiddenInBank = true,
+	},
+	{
+		key = "ARMOR",
+		name = L["Armor"],
+		types = { CLASS_ARMOR },
+		excludeEquipSlots = { INVTYPE_TRINKET = true },
+		icon = E.Media.Textures.ChestPlate,
+		hiddenInBank = true,
+	},
+	{
+		key = "CONSUMABLES",
+		name = L["Consumables"],
+		types = { CLASS_CONSUMABLE },
+		icon = E.Media.Textures.GreenPotion,
+		nestByExpansion = true,
+		hiddenInBank = true,
+	},
+	{
+		key = "TRADEGOODS",
+		name = L["Trade Goods"],
+		types = { CLASS_TRADEGOODS, CLASS_REAGENT },
+		icon = E.Media.Textures.FabricSilk,
+		nestByExpansion = true,
+		hiddenInBank = true,
+	},
+	{
+		key = "GEARENHANCEMENT",
+		name = L["Gear Enhancements"],
+		types = { CLASS_GEM, CLASS_ITEMENHANCEMENT },
+		icon = 7549094,
+		hiddenInBank = true,
+	},
+	{
+		key = "PROFESSIONS",
+		name = L["Professions"],
+		types = { CLASS_PROFESSION, CLASS_RECIPE },
+		icon = E.Media.Textures.Catalog,
+		hiddenInBank = true,
+	},
+	{
+		key = "HOUSING",
+		name = L["Housing"],
+		types = { CLASS_HOUSING },
+		icon = 7726459,
+		hiddenInBank = true,
 	},
 	{
 		key = "MISC",
@@ -132,7 +165,7 @@ module.CategoryGroups = {
 		key = "GROUP_ARMORY",
 		name = L["The Armory"],
 		icon = E.Media.Textures.ChestPlate,
-		members = { "WEAPONS", "ARMOR" },
+		members = { "WEAPONS", "ARMOR", "SETGEAR" },
 	},
 }
 
@@ -217,9 +250,16 @@ function module:GetCatchAllKey()
 	end
 end
 
-function module:GetCategories()
-	if module._categoriesCache then
-		return module._categoriesCache
+-- context == "bank": the user asked for the character Bank's own category
+-- list to be reduced to just Reagent Bag + Miscellaneous (everything else -
+-- The Armory and every classification category after it - hidden there
+-- specifically). Warband Bank and the regular bag frame both call this with
+-- no context and keep the full list; cached separately from the unfiltered
+-- list since both are read constantly during a collection pass.
+function module:GetCategories(context)
+	local cacheField = context == "bank" and "_bankCategoriesCache" or "_categoriesCache"
+	if module[cacheField] then
+		return module[cacheField]
 	end
 
 	local db = module.db
@@ -228,7 +268,7 @@ function module:GetCategories()
 
 	local nameOverrides = db and db.categoryNameOverrides
 	for _, cat in ipairs(DEFAULT_CATEGORIES) do
-		if not disabled[cat.key] then
+		if not disabled[cat.key] and not (context == "bank" and cat.hiddenInBank) then
 			local override = nameOverrides and nameOverrides[cat.key]
 			if override then
 				-- Shallow copy so the rename doesn't mutate the shared
@@ -265,7 +305,7 @@ function module:GetCategories()
 
 	module:ApplyCategoryOrder(cats)
 
-	module._categoriesCache = cats
+	module[cacheField] = cats
 	return cats
 end
 
@@ -338,12 +378,12 @@ function module:ReorderCategory(draggedKey, targetKey)
 	module:InvalidateCategoryCache()
 end
 
-function module:FindCategory(key)
+function module:FindCategory(key, context)
 	if not key then
 		return nil
 	end
 
-	for _, cat in ipairs(module:GetCategories()) do
+	for _, cat in ipairs(module:GetCategories(context)) do
 		if cat.key == key then
 			return cat
 		end
@@ -352,15 +392,57 @@ end
 
 function module:InvalidateCategoryCache()
 	module._categoriesCache = nil
+	module._bankCategoriesCache = nil
 end
 
-function module:ClassifyItem(bagID, slotID, itemID, itemLink, quality, hasNoValue)
+-- itemID -> equipment-set name, rebuilt once per collection pass
+-- (CollectItemsFromBags in CategoryFrame.lua) and consulted twice: once here
+-- to route a set member into the Item Set Gear category ahead of the normal
+-- Weapons/Armor type walk, and again by CategoryFrame.lua to label the
+-- sub-header an item's row nests under inside that category.
+local equipmentSetItemMap = {}
+local function RebuildEquipmentSetItemMap()
+	wipe(equipmentSetItemMap)
+
+	if not C_EquipmentSet or not C_EquipmentSet.GetEquipmentSetIDs or not C_EquipmentSet.GetItemIDs then
+		return
+	end
+
+	-- Defensive: guards against any signature mismatch on this API across
+	-- client versions - worst case, equipment-set nesting silently no-ops.
+	pcall(function()
+		local setIDs = C_EquipmentSet.GetEquipmentSetIDs()
+		for _, setID in ipairs(setIDs or {}) do
+			local name = C_EquipmentSet.GetEquipmentSetInfo(setID)
+			local itemIDs = C_EquipmentSet.GetItemIDs(setID)
+			if name and itemIDs then
+				for _, memberItemID in pairs(itemIDs) do
+					if memberItemID and memberItemID ~= 0 then
+						equipmentSetItemMap[memberItemID] = name
+					end
+				end
+			end
+		end
+	end)
+end
+module.RebuildEquipmentSetItemMap = RebuildEquipmentSetItemMap
+
+function module:GetEquipmentSetName(itemID)
+	return itemID and equipmentSetItemMap[itemID]
+end
+
+function module:ClassifyItem(bagID, slotID, itemID, itemLink)
 	if not itemLink then
 		return nil
 	end
 
+	-- Character Bank items get a reduced category list (Reagent Bag +
+	-- Miscellaneous only - see the `hiddenInBank` categories above); Warband
+	-- Bank and regular bags always classify against the full list.
+	local context = module.BankBagIDSet[bagID] and "bank" or nil
+
 	if bagID == module.ReagentContainer then
-		for _, cat in ipairs(module:GetCategories()) do
+		for _, cat in ipairs(module:GetCategories(context)) do
 			if cat.isReagentBag then
 				return cat.key
 			end
@@ -369,27 +451,17 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink, quality, hasNoValu
 
 	local db = module.db
 	local assignedKey = itemID and db and db.itemAssignments and db.itemAssignments[itemID]
-	if assignedKey and module:FindCategory(assignedKey) then
+	if assignedKey and module:FindCategory(assignedKey, context) then
 		return assignedKey
 	end
 
 	if bagID and slotID and C_Container_GetContainerItemQuestInfo then
 		local questInfo = C_Container_GetContainerItemQuestInfo(bagID, slotID)
 		if questInfo and (questInfo.isQuestItem or questInfo.questID) then
-			for _, cat in ipairs(module:GetCategories()) do
+			for _, cat in ipairs(module:GetCategories(context)) do
 				if cat.isQuest then
 					return cat.key
 				end
-			end
-		end
-	end
-
-	-- Same definition ElvUI's own bags use: grey/Poor quality with an actual
-	-- sell value (excludes quest-bound poor items and other unsellable junk).
-	if quality == ITEMQUALITY_POOR and not hasNoValue then
-		for _, cat in ipairs(module:GetCategories()) do
-			if cat.isJunk then
-				return cat.key
 			end
 		end
 	end
@@ -399,8 +471,20 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink, quality, hasNoValu
 		return module:GetCatchAllKey()
 	end
 
-	for _, cat in ipairs(module:GetCategories()) do
-		if cat.types and not cat.isReagentBag then
+	-- Equipment-set membership takes priority over the normal Weapons/Armor
+	-- type walk below (matches the reference's own precedence) - a trinket,
+	-- weapon or armor piece that's part of any saved set lands in Item Set
+	-- Gear instead of its usual category.
+	if (classID == CLASS_ARMOR or classID == CLASS_WEAPON) and module:GetEquipmentSetName(itemID) then
+		for _, cat in ipairs(module:GetCategories(context)) do
+			if cat.isSetGear then
+				return cat.key
+			end
+		end
+	end
+
+	for _, cat in ipairs(module:GetCategories(context)) do
+		if cat.types and not cat.isReagentBag and not cat.isSetGear then
 			local matched = false
 
 			for _, t in ipairs(cat.types) do

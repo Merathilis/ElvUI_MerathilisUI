@@ -55,9 +55,14 @@ end
 
 local FRAME_NAME = "MER_BagCategoriesFrame"
 local SLOT_NAME_PREFIX = "MER_BagCategoriesSlot"
+local BANK_FRAME_NAME = "MER_BankCategoriesFrame"
+local BANK_SLOT_NAME_PREFIX = "MER_BankCategoriesSlot"
 local HEADER_PADDING = 6
 local COLLAPSED_SIDEBAR_WIDTH = 40
 local VIEW_MODE_ROW_HEIGHT = 24
+
+-- Exposed so BankFrame.lua can build its own frame/slot names consistently.
+module.BANK_FRAME_NAME = BANK_FRAME_NAME
 
 -- Same restriction ElvUI's own item level display uses: only equippable gear
 -- (Armor covers trinkets/rings/necks too) above Common quality.
@@ -125,11 +130,6 @@ local function PositionSlotText(fs, point)
 	fs:ClearAllPoints()
 	fs:Point(point, offset[1], offset[2])
 end
-
-local slotPool = {}
-local headerPool = {}
-local subHeaderPool = {}
-local sidebarPool = {}
 
 -- ElvUI's own Container_OnHide -> BagFrameHidden clears every item's "new"
 -- flag (NewItemGlowSlotSwitch -> C_NewItems.RemoveNewItem) whenever
@@ -383,8 +383,8 @@ local function Slot_UpdateCursor(self)
 end
 
 local function Slot_OnEnter(self)
-	if module.frame then
-		module.frame:SetFrameLevel(module.frame:GetFrameLevel())
+	if self.ownerFrame then
+		self.ownerFrame:SetFrameLevel(self.ownerFrame:GetFrameLevel())
 	end
 
 	if self.BagID and self.SlotID and not GameTooltip:IsForbidden() then
@@ -409,15 +409,26 @@ local function Slot_OnLeave()
 	end
 end
 
-local function CreateSlotButton(index)
-	local btn = CreateFrame(
-		"ItemButton",
-		SLOT_NAME_PREFIX .. index,
-		module.contentChild,
-		"ContainerFrameItemButtonTemplate,SecureActionButtonTemplate"
-	)
+-- Bag and Bank/Warband are two independent top-level frames that can both be
+-- shown at once (opening the bank auto-shows the bags too, see OnBankOpened),
+-- so their pooled slot/header/sub-header/sidebar-row objects can't share one
+-- set of tables - two refreshes on the same event tick would otherwise fight
+-- over (and visually corrupt) the same recycled buttons. CreateSlotPoolFor
+-- (and its Header/SubHeader/Sidebar counterparts below) each produce one
+-- independent, closure-owned pool instead, parented/named per the frame that
+-- owns them (see CreatePoolSet's bagPools/bankPools instantiation).
+local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
+	local slotPool = {}
 
-	local ok = pcall(btn.SetTemplate, btn, nil, true)
+	local function CreateSlotButton(index)
+		local btn = CreateFrame(
+			"ItemButton",
+			namePrefix .. index,
+			getContentChild(),
+			"ContainerFrameItemButtonTemplate,SecureActionButtonTemplate"
+		)
+
+		local ok = pcall(btn.SetTemplate, btn, nil, true)
 	if not ok then
 		pcall(btn.SetTemplate, btn)
 	end
@@ -526,24 +537,31 @@ local function CreateSlotButton(index)
 	btn:SetScript("OnLeave", Slot_OnLeave)
 	btn.UpdateTooltip = Slot_OnEnter
 
-	return btn
-end
+	-- Slot_OnEnter needs to bump the frame level of whichever top-level frame
+	-- (bags or bank) this particular button actually belongs to.
+	btn.ownerFrame = getOwnerFrame()
 
-local function AcquireSlot(index)
-	local btn = slotPool[index]
-	if not btn then
-		btn = CreateSlotButton(index)
-		slotPool[index] = btn
+		return btn
 	end
 
-	btn:Show()
-	return btn
-end
+	local function AcquireSlot(index)
+		local btn = slotPool[index]
+		if not btn then
+			btn = CreateSlotButton(index)
+			slotPool[index] = btn
+		end
 
-local function ReleaseSlotsFrom(startIndex)
-	for i = startIndex, #slotPool do
-		slotPool[i]:Hide()
+		btn:Show()
+		return btn
 	end
+
+	local function ReleaseSlotsFrom(startIndex)
+		for i = startIndex, #slotPool do
+			slotPool[i]:Hide()
+		end
+	end
+
+	return { Acquire = AcquireSlot, Release = ReleaseSlotsFrom }
 end
 
 -- Pawn's own upgrade check can return nil ("not enough data yet", e.g. right
@@ -748,86 +766,98 @@ end
 -------------------------------------------------------------------------------
 --  Category headers
 -------------------------------------------------------------------------------
-local function CreateHeader(index)
-	local header = CreateFrame("Frame", nil, module.contentChild)
-	header:SetHeight(22)
+local function CreateHeaderPoolFor(getContentChild)
+	local headerPool = {}
 
-	header.icon = header:CreateTexture(nil, "ARTWORK")
-	header.icon:SetSize(16, 16)
-	header.icon:Point("LEFT", 2, 0)
+	local function CreateHeader(index)
+		local header = CreateFrame("Frame", nil, getContentChild())
+		header:SetHeight(22)
 
-	header.text = header:CreateFontString(nil, "OVERLAY")
-	header.text:FontTemplate()
-	header.text:Point("LEFT", header.icon, "RIGHT", 6, 0)
+		header.icon = header:CreateTexture(nil, "ARTWORK")
+		header.icon:SetSize(16, 16)
+		header.icon:Point("LEFT", 2, 0)
 
-	header.clearButton = CreateFrame("Button", nil, header)
-	header.clearButton:Size(14)
-	header.clearButton:Point("RIGHT", -2, 0)
-	pcall(header.clearButton.SetTemplate, header.clearButton)
-	header.clearButton.tex = header.clearButton:CreateTexture(nil, "OVERLAY")
-	header.clearButton.tex:SetAllPoints()
-	header.clearButton.tex:SetTexture(E.Media.Textures.Close)
-	header.clearButton:Hide()
+		header.text = header:CreateFontString(nil, "OVERLAY")
+		header.text:FontTemplate()
+		header.text:Point("LEFT", header.icon, "RIGHT", 6, 0)
 
-	headerPool[index] = header
-	return header
-end
+		header.clearButton = CreateFrame("Button", nil, header)
+		header.clearButton:Size(14)
+		header.clearButton:Point("RIGHT", -2, 0)
+		pcall(header.clearButton.SetTemplate, header.clearButton)
+		header.clearButton.tex = header.clearButton:CreateTexture(nil, "OVERLAY")
+		header.clearButton.tex:SetAllPoints()
+		header.clearButton.tex:SetTexture(E.Media.Textures.Close)
+		header.clearButton:Hide()
 
-local function AcquireHeader(index)
-	local header = headerPool[index]
-	if not header then
-		header = CreateHeader(index)
+		headerPool[index] = header
+		return header
 	end
 
-	header:Show()
-	return header
-end
+	local function AcquireHeader(index)
+		local header = headerPool[index]
+		if not header then
+			header = CreateHeader(index)
+		end
 
-local function ReleaseHeadersFrom(startIndex)
-	for i = startIndex, #headerPool do
-		headerPool[i]:Hide()
+		header:Show()
+		return header
 	end
+
+	local function ReleaseHeadersFrom(startIndex)
+		for i = startIndex, #headerPool do
+			headerPool[i]:Hide()
+		end
+	end
+
+	return { Acquire = AcquireHeader, Release = ReleaseHeadersFrom }
 end
 
 -------------------------------------------------------------------------------
 --  Category sub-headers (expansion / equipment-set nesting within a category)
 -------------------------------------------------------------------------------
-local function CreateSubHeader(index)
-	local header = CreateFrame("Frame", nil, module.contentChild)
-	header:SetHeight(16)
+local function CreateSubHeaderPoolFor(getContentChild)
+	local subHeaderPool = {}
 
-	-- Plain light-grey text on the frame's own semi-transparent background
-	-- was functionally showing (confirmed via debug print - correct text,
-	-- correct position, shown=true) but visually unreadable against
-	-- whatever bled through behind it. A background bar fixes that
-	-- regardless of what's behind, same reasoning as the category headers.
-	header.bg = header:CreateTexture(nil, "BACKGROUND")
-	header.bg:SetAllPoints()
-	header.bg:SetColorTexture(0, 0, 0, 0.35)
+	local function CreateSubHeader(index)
+		local header = CreateFrame("Frame", nil, getContentChild())
+		header:SetHeight(16)
 
-	header.text = header:CreateFontString(nil, "OVERLAY")
-	header.text:FontTemplate(nil, 11)
-	header.text:SetTextColor(0.9, 0.9, 0.9)
-	header.text:Point("LEFT", 4, 0)
+		-- Plain light-grey text on the frame's own semi-transparent background
+		-- was functionally showing (confirmed via debug print - correct text,
+		-- correct position, shown=true) but visually unreadable against
+		-- whatever bled through behind it. A background bar fixes that
+		-- regardless of what's behind, same reasoning as the category headers.
+		header.bg = header:CreateTexture(nil, "BACKGROUND")
+		header.bg:SetAllPoints()
+		header.bg:SetColorTexture(0, 0, 0, 0.35)
 
-	subHeaderPool[index] = header
-	return header
-end
+		header.text = header:CreateFontString(nil, "OVERLAY")
+		header.text:FontTemplate(nil, 11)
+		header.text:SetTextColor(0.9, 0.9, 0.9)
+		header.text:Point("LEFT", 4, 0)
 
-local function AcquireSubHeader(index)
-	local header = subHeaderPool[index]
-	if not header then
-		header = CreateSubHeader(index)
+		subHeaderPool[index] = header
+		return header
 	end
 
-	header:Show()
-	return header
-end
+	local function AcquireSubHeader(index)
+		local header = subHeaderPool[index]
+		if not header then
+			header = CreateSubHeader(index)
+		end
 
-local function ReleaseSubHeadersFrom(startIndex)
-	for i = startIndex, #subHeaderPool do
-		subHeaderPool[i]:Hide()
+		header:Show()
+		return header
 	end
+
+	local function ReleaseSubHeadersFrom(startIndex)
+		for i = startIndex, #subHeaderPool do
+			subHeaderPool[i]:Hide()
+		end
+	end
+
+	return { Acquire = AcquireSubHeader, Release = ReleaseSubHeadersFrom }
 end
 
 -------------------------------------------------------------------------------
@@ -840,7 +870,7 @@ local function Sidebar_OnClick(self, mouseButton)
 	end
 
 	if mouseButton == "LeftButton" then
-		module:ScrollToCategory(self.catKey)
+		module:ScrollToCategory(self.catKey, self.ownerFrame, self.getOffsets and self.getOffsets())
 	elseif mouseButton == "RightButton" and (self.isUser or self.isGroup or self.isGroupMember) then
 		module:OpenCategoryContextMenu(self)
 	end
@@ -876,100 +906,188 @@ local function Sidebar_OnEnter(self)
 	if module.draggingCategoryKey and not self.isPinnedOrRecent then
 		module.dragHoverCategoryKey = self.catKey
 	end
-end
 
-local function CreateSidebarRow(index)
-	local row = CreateFrame("Button", nil, module.sidebarChild)
-	row:SetHeight(24)
-	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	row:SetScript("OnClick", Sidebar_OnClick)
-	row:RegisterForDrag("LeftButton")
-	row:SetScript("OnDragStart", Sidebar_OnDragStart)
-	row:SetScript("OnDragStop", Sidebar_OnDragStop)
-	row:SetScript("OnEnter", Sidebar_OnEnter)
-	row:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
-
-	-- Alternating-row background, same technique/look as the Armory panel's
-	-- alternating stat rows (Core.lua:UpdateCharacterStat): a class-colored
-	-- horizontal gradient fading from transparent to a low alpha.
-	row.gradient = row:CreateTexture(nil, "BACKGROUND")
-	row.gradient:SetAllPoints()
-	row.gradient:SetTexture(E.media.blankTex)
-	local cc = E.myClassColor
-	F.Color.SetGradientRGB(row.gradient, "HORIZONTAL", cc.r, cc.g, cc.b, 0, cc.r, cc.g, cc.b, 0.32)
-
-	row.icon = row:CreateTexture(nil, "ARTWORK")
-	row.icon:SetSize(16, 16)
-	row.icon:Point("LEFT", 4, 0)
-
-	row.text = row:CreateFontString(nil, "OVERLAY")
-	row.text:FontTemplate()
-	row.text:Point("LEFT", row.icon, "RIGHT", 6, 0)
-	row.text:Point("RIGHT", -26, 0)
-	row.text:SetJustifyH("LEFT")
-
-	row.count = row:CreateFontString(nil, "OVERLAY")
-	row.count:FontTemplate()
-	row.count:Point("RIGHT", -4, 0)
-
-	sidebarPool[index] = row
-	return row
-end
-
-local function AcquireSidebarRow(index)
-	local row = sidebarPool[index]
-	if not row then
-		row = CreateSidebarRow(index)
+	if GameTooltip:IsForbidden() then
+		return
 	end
 
-	row:SetAlpha(1)
-	row:Show()
-	return row
-end
-
-local function ReleaseSidebarRowsFrom(startIndex)
-	for i = startIndex, #sidebarPool do
-		sidebarPool[i]:Hide()
+	-- Row text/count stay set even while hidden (collapsed sidebar), so this
+	-- doubles as the only way to see a category's name/count when collapsed.
+	local name = self.text and self.text:GetText()
+	if not name or name == "" then
+		return
 	end
+
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+	GameTooltip:AddLine(name, 1, 1, 1)
+	local count = self.count and self.count:GetText()
+	if count and count ~= "" then
+		GameTooltip:AddLine(count, 0.6, 0.6, 0.6)
+	end
+	GameTooltip:Show()
 end
 
--- Shared setup for both a normal/group-parent sidebar row and an indented
--- group-child row (see BuildCategorySections' isGroup handling) - `indent`
--- shifts the row's own left edge, so a child row's whole clickable area
--- (icon/text/highlight/gradient) visually nests under its group parent.
-local function SetupSidebarCategoryRow(
-	index,
-	indent,
-	catKey,
-	name,
-	icon,
-	isAtlas,
-	count,
-	isUser,
-	isPinnedOrRecent,
-	isGroup,
-	memberKey
+local function Sidebar_OnLeave()
+	GameTooltip_Hide()
+end
+
+local function CreateSidebarPoolFor(getSidebarChild, getOwnerFrame, getOffsets)
+	local sidebarPool = {}
+
+	local function CreateSidebarRow(index)
+		local row = CreateFrame("Button", nil, getSidebarChild())
+		row:SetHeight(24)
+		row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		row:SetScript("OnClick", Sidebar_OnClick)
+		row:RegisterForDrag("LeftButton")
+		row:SetScript("OnDragStart", Sidebar_OnDragStart)
+		row:SetScript("OnDragStop", Sidebar_OnDragStop)
+		row:SetScript("OnEnter", Sidebar_OnEnter)
+		row:SetScript("OnLeave", Sidebar_OnLeave)
+		row:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
+
+		-- Alternating-row background, same technique/look as the Armory panel's
+		-- alternating stat rows (Core.lua:UpdateCharacterStat): a class-colored
+		-- horizontal gradient fading from transparent to a low alpha.
+		row.gradient = row:CreateTexture(nil, "BACKGROUND")
+		row.gradient:SetAllPoints()
+		row.gradient:SetTexture(E.media.blankTex)
+		local cc = E.myClassColor
+		F.Color.SetGradientRGB(row.gradient, "HORIZONTAL", cc.r, cc.g, cc.b, 0, cc.r, cc.g, cc.b, 0.32)
+
+		row.icon = row:CreateTexture(nil, "ARTWORK")
+		row.icon:SetSize(16, 16)
+		row.icon:Point("LEFT", 4, 0)
+
+		row.text = row:CreateFontString(nil, "OVERLAY")
+		row.text:FontTemplate()
+		row.text:Point("LEFT", row.icon, "RIGHT", 6, 0)
+		row.text:Point("RIGHT", -26, 0)
+		row.text:SetJustifyH("LEFT")
+
+		row.count = row:CreateFontString(nil, "OVERLAY")
+		row.count:FontTemplate()
+		row.count:Point("RIGHT", -4, 0)
+
+		-- Sidebar_OnClick needs to know which top-level frame's mainScroll to
+		-- scroll and which category-offsets table to look the target up in.
+		-- getOffsets is stored (not called once here) because the pooled row
+		-- outlives any single refresh - module.categoryOffsets/
+		-- bankCategoryOffsets is a brand new table every RefreshCategoryFrame/
+		-- RefreshBankCategoryFrame call, so a snapshotted table reference
+		-- taken at row-creation time would go stale the moment content
+		-- reflows; calling the getter live at click time always resolves to
+		-- whichever offsets table the most recent refresh actually built.
+		row.ownerFrame = getOwnerFrame()
+		row.getOffsets = getOffsets
+
+		sidebarPool[index] = row
+		return row
+	end
+
+	local function AcquireSidebarRow(index)
+		local row = sidebarPool[index]
+		if not row then
+			row = CreateSidebarRow(index)
+		end
+
+		row:SetAlpha(1)
+		row:Show()
+		return row
+	end
+
+	local function ReleaseSidebarRowsFrom(startIndex)
+		for i = startIndex, #sidebarPool do
+			sidebarPool[i]:Hide()
+		end
+	end
+
+	-- Shared setup for both a normal/group-parent sidebar row and an indented
+	-- group-child row (see BuildCategorySectionsFrom's isGroup handling) -
+	-- `indent` shifts the row's own left edge, so a child row's whole
+	-- clickable area (icon/text/highlight/gradient) visually nests under its
+	-- group parent.
+	local function SetupSidebarCategoryRow(
+		index,
+		indent,
+		catKey,
+		name,
+		icon,
+		isAtlas,
+		count,
+		isUser,
+		isPinnedOrRecent,
+		isGroup,
+		memberKey,
+		baseY
+	)
+		local db = module.db
+		local row = AcquireSidebarRow(index)
+		local sidebarChild = getSidebarChild()
+		local y = (baseY or 0) + (index - 1) * db.sidebarRowHeight
+		row:SetHeight(db.sidebarRowHeight)
+		row:ClearAllPoints()
+		row:Point("TOPLEFT", sidebarChild, "TOPLEFT", indent, -y)
+		row:Point("TOPRIGHT", sidebarChild, "TOPRIGHT", 0, -y)
+		row.catKey = catKey
+		row.isUser = isUser
+		row.isPinnedOrRecent = isPinnedOrRecent
+		row.isGroup = isGroup or false
+		row.isGroupMember = memberKey and true or false
+		row.memberKey = memberKey
+		row.text:SetText(name)
+		row.count:SetText(count)
+		row.text:SetShown(not db.sidebarCollapsed)
+		row.count:SetShown(not db.sidebarCollapsed)
+		SetCategoryIcon(row.icon, { icon = icon, isAtlas = isAtlas })
+		row.gradient:SetShown(db.alternatingRowBackground and index % 2 == 0)
+		return row
+	end
+
+	return { Acquire = AcquireSidebarRow, Release = ReleaseSidebarRowsFrom, SetupSidebarCategoryRow = SetupSidebarCategoryRow }
+end
+
+-- Bundles one independent set of the four pools above for a single owning
+-- frame (bag or bank) - see the comment on CreateSlotPoolFor for why they
+-- can't be shared between the two.
+local function CreatePoolSet(namePrefix, getContentChild, getSidebarChild, getOwnerFrame, getOffsets)
+	local slot = CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
+	local header = CreateHeaderPoolFor(getContentChild)
+	local subHeader = CreateSubHeaderPoolFor(getContentChild)
+	local sidebar = CreateSidebarPoolFor(getSidebarChild, getOwnerFrame, getOffsets)
+
+	return {
+		AcquireSlot = slot.Acquire,
+		ReleaseSlotsFrom = slot.Release,
+		AcquireHeader = header.Acquire,
+		ReleaseHeadersFrom = header.Release,
+		AcquireSubHeader = subHeader.Acquire,
+		ReleaseSubHeadersFrom = subHeader.Release,
+		AcquireSidebarRow = sidebar.Acquire,
+		ReleaseSidebarRowsFrom = sidebar.Release,
+		SetupSidebarCategoryRow = sidebar.SetupSidebarCategoryRow,
+	}
+end
+
+local bagPools = CreatePoolSet(
+	SLOT_NAME_PREFIX,
+	function()
+		return module.contentChild
+	end,
+	function()
+		return module.sidebarChild
+	end,
+	function()
+		return module.frame
+	end,
+	function()
+		return module.categoryOffsets
+	end
 )
-	local db = module.db
-	local row = AcquireSidebarRow(index)
-	row:SetHeight(db.sidebarRowHeight)
-	row:ClearAllPoints()
-	row:Point("TOPLEFT", module.sidebarChild, "TOPLEFT", indent, -(index - 1) * db.sidebarRowHeight)
-	row:Point("TOPRIGHT", module.sidebarChild, "TOPRIGHT", 0, -(index - 1) * db.sidebarRowHeight)
-	row.catKey = catKey
-	row.isUser = isUser
-	row.isPinnedOrRecent = isPinnedOrRecent
-	row.isGroup = isGroup or false
-	row.isGroupMember = memberKey and true or false
-	row.memberKey = memberKey
-	row.text:SetText(name)
-	row.count:SetText(count)
-	row.text:SetShown(not db.sidebarCollapsed)
-	row.count:SetShown(not db.sidebarCollapsed)
-	SetCategoryIcon(row.icon, { icon = icon, isAtlas = isAtlas })
-	row.gradient:SetShown(db.alternatingRowBackground and index % 2 == 0)
-	return row
-end
+
+-- BankFrame.lua builds its own pool set the same way, once its own frame's
+-- contentChild/sidebarChild/frame/offsets exist.
+module.CreatePoolSet = CreatePoolSet
 
 -------------------------------------------------------------------------------
 --  Frame construction
@@ -1103,26 +1221,12 @@ function module:ConstructFrame()
 	f.bagBarButton:Point("TOPRIGHT", f.vendorGraysButton, "TOPLEFT", -2, 0)
 	module.bagBarButton = f.bagBarButton
 
-	f.autoDepositButton = CreateTitleButton("AutoDepositButton", 450905, function()
-		GameTooltip:AddLine(L["Auto Deposit"], 1, 1, 1)
-		GameTooltip:AddLine(
-			module.db.viewMode == "WARBAND" and L["Warband Bank"] or L["Bank"],
-			0.6,
-			0.6,
-			0.6
-		)
-	end, function()
-		module:AutoDepositToBank()
-	end)
-	f.autoDepositButton:Point("TOPRIGHT", f.bagBarButton, "TOPLEFT", -2, 0)
-	-- Raw Blizzard icon (Interface\ICONS\misc_arrowdown, same one ElvUI's own
-	-- Bank deposit button uses) has its border baked into the UV.
-	f.autoDepositButton.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-
 	-- Help always stays the leftmost title-bar icon button (right next to the
-	-- search box) - anchor any future button off autoDepositButton (or
-	-- whichever button ends up rightmost of it) instead of inserting after
-	-- this one.
+	-- search box) - anchor any future button off bagBarButton (or whichever
+	-- button ends up rightmost of it) instead of inserting after this one.
+	-- Auto Deposit lives on the Bank frame's own footer now (BankFrame.lua) -
+	-- this frame never shows a bank view any more, so it has nothing to
+	-- deposit into.
 	f.helpButton = CreateTitleButton("HelpButton", E.Media.Textures.Help, function()
 		GameTooltip:AddLine(L["Bag"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
@@ -1140,7 +1244,7 @@ function module:ConstructFrame()
 		GameTooltip:AddLine(L["Vendor (while open)"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Sell item"], 1, 1, 1)
 	end)
-	f.helpButton:Point("TOPRIGHT", f.autoDepositButton, "TOPLEFT", -2, 0)
+	f.helpButton:Point("TOPRIGHT", f.bagBarButton, "TOPLEFT", -2, 0)
 
 	-- Fixed width (not stretched to fill the row) so it sits directly next to
 	-- the buttons/close button, matching the reference layout instead of
@@ -1194,16 +1298,6 @@ function module:ConstructFrame()
 		{ key = "CATEGORY", label = L["OneBag"] },
 		{ key = "BAG", label = L["MultiBag"] },
 	}
-	-- Bank/Warband rows are only ever conditionally shown (module.isBankOpen
-	-- plus a CanViewBank check) - RefreshCategoryFrame repositions every row
-	-- dynamically based on however many are actually visible, so their
-	-- position here doesn't matter beyond keeping them grouped at the end.
-	if #module.BankBagIDs > 0 then
-		tinsert(viewModeDefs, { key = "BANK", label = L["Bank"] })
-	end
-	if #module.WarbandBagIDs > 0 then
-		tinsert(viewModeDefs, { key = "WARBAND", label = L["Warband Bank"] })
-	end
 	for i, def in ipairs(viewModeDefs) do
 		local row = CreateFrame("Button", nil, f.sidebar)
 		row:SetHeight(VIEW_MODE_ROW_HEIGHT)
@@ -1235,13 +1329,6 @@ function module:ConstructFrame()
 
 		row.viewModeKey = def.key
 		row:SetScript("OnClick", function()
-			-- The Bag Bar tab filter is keyed by a raw bagID shared between
-			-- BANK and WARBAND - switching either away from or between the
-			-- two would otherwise carry over a filter bagID that belongs to
-			-- the wrong bank and silently empties the view.
-			if def.key ~= module.db.viewMode then
-				module.bankTabFilter = nil
-			end
 			module.db.viewMode = def.key
 			module:RefreshCategoryFrame()
 			module:RefreshBagBarPopout()
@@ -1279,6 +1366,8 @@ function module:ConstructFrame()
 	f.pinnedRow:SetScript("OnClick", function()
 		module:ScrollToCategory(module.PinnedCategory.key)
 	end)
+	f.pinnedRow:SetScript("OnEnter", Sidebar_OnEnter)
+	f.pinnedRow:SetScript("OnLeave", Sidebar_OnLeave)
 
 	f.sidebarSeparator = f.sidebar:CreateTexture(nil, "ARTWORK")
 	f.sidebarSeparator:SetColorTexture(1, 1, 1, 0.15)
@@ -1579,7 +1668,8 @@ function module:AutoDepositToBank()
 		return
 	end
 
-	local bankType = module.db.viewMode == "WARBAND" and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
+	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
+	local bankType = isWarbandView and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
 	AutoDepositItemsIntoBank(bankType)
 end
 
@@ -1660,31 +1750,10 @@ end
 -------------------------------------------------------------------------------
 --  Category sub-grouping (expansion / equipment-set nesting within a category)
 -------------------------------------------------------------------------------
-local equipmentSetItemMap = {}
-local function RebuildEquipmentSetItemMap()
-	wipe(equipmentSetItemMap)
-
-	if not C_EquipmentSet or not C_EquipmentSet.GetEquipmentSetIDs or not C_EquipmentSet.GetItemIDs then
-		return
-	end
-
-	-- Defensive: guards against any signature mismatch on this API across
-	-- client versions - worst case, equipment-set nesting silently no-ops.
-	pcall(function()
-		local setIDs = C_EquipmentSet.GetEquipmentSetIDs()
-		for _, setID in ipairs(setIDs or {}) do
-			local name = C_EquipmentSet.GetEquipmentSetInfo(setID)
-			local itemIDs = C_EquipmentSet.GetItemIDs(setID)
-			if name and itemIDs then
-				for _, itemID in pairs(itemIDs) do
-					if itemID and itemID ~= 0 then
-						equipmentSetItemMap[itemID] = name
-					end
-				end
-			end
-		end
-	end)
-end
+-- The itemID -> set-name map itself now lives in CategoryClassifier.lua
+-- (module.RebuildEquipmentSetItemMap/module:GetEquipmentSetName) since
+-- ClassifyItem needs it too (Item Set Gear routing), not just this file's own
+-- sub-header labeling.
 
 -- expacID (15th return of GetItemInfo) maps to Blizzard's own localized
 -- EXPANSION_NAME0.."11" globals, the same constants used by e.g. the class
@@ -1766,7 +1835,7 @@ local function CollectItemsFromBags(bagIDList, scratch)
 	for _, cat in ipairs(module:GetCategories()) do
 		catByKey[cat.key] = cat
 	end
-	RebuildEquipmentSetItemMap()
+	module:RebuildEquipmentSetItemMap()
 
 	for _, bagID in ipairs(bagIDList) do
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
@@ -1775,8 +1844,7 @@ local function CollectItemsFromBags(bagIDList, scratch)
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 
 			if info and info.iconFileID and not (searching and info.isFiltered) then
-				local key =
-					module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink, info.quality, info.hasNoValue)
+				local key = module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink)
 				if key then
 					scratch[key] = scratch[key] or {}
 
@@ -1785,7 +1853,7 @@ local function CollectItemsFromBags(bagIDList, scratch)
 					if cat and cat.nestByExpansion then
 						subgroupName, subgroupOrder = GetItemExpansionInfo(info.itemID)
 					elseif cat and cat.nestByEquipmentSet then
-						subgroupName = equipmentSetItemMap[info.itemID]
+						subgroupName = module:GetEquipmentSetName(info.itemID)
 					end
 
 					local questID, isActiveQuest, isJunk =
@@ -1845,9 +1913,9 @@ local function CollectWarbandItems()
 	return CollectItemsFromBags(bagIDList, warbandCategoryItemsScratch)
 end
 
-local function BuildCategorySectionsFrom(itemsByCategory)
+local function BuildCategorySectionsFrom(itemsByCategory, context)
 	local db = module.db
-	local categories = module:GetCategories()
+	local categories = module:GetCategories(context)
 	local sections = {}
 
 	if db.showPinned then
@@ -1979,7 +2047,7 @@ local function BuildCategorySections()
 end
 
 local function BuildBankCategorySections()
-	return BuildCategorySectionsFrom(CollectBankItems())
+	return BuildCategorySectionsFrom(CollectBankItems(), "bank")
 end
 
 local function BuildWarbandCategorySections()
@@ -1991,27 +2059,27 @@ end
 -------------------------------------------------------------------------------
 local bagItemsScratch = {}
 
-local function CollectItemsByBag()
-	for k in pairs(bagItemsScratch) do
-		wipe(bagItemsScratch[k])
+local function CollectItemsByBagFrom(bagIDList, scratch)
+	for k in pairs(scratch) do
+		wipe(scratch[k])
 	end
 
 	local searching = module.searchText and module.searchText ~= ""
 	C_Container_SetItemSearch(searching and module.searchText or "")
 
-	for _, bagID in ipairs(BAG_IDS) do
+	for _, bagID in ipairs(bagIDList) do
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
 
 		for slotID = 1, numSlots do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 
 			if info and info.iconFileID and not (searching and info.isFiltered) then
-				bagItemsScratch[bagID] = bagItemsScratch[bagID] or {}
+				scratch[bagID] = scratch[bagID] or {}
 
 				local questID, isActiveQuest, isJunk =
 					GetQuestAndJunkInfo(bagID, slotID, info.quality, info.hasNoValue)
 
-				tinsert(bagItemsScratch[bagID], {
+				tinsert(scratch[bagID], {
 					bagID = bagID,
 					slotID = slotID,
 					itemID = info.itemID,
@@ -2029,20 +2097,17 @@ local function CollectItemsByBag()
 					isJunk = isJunk,
 					-- Only used to check the "Hide in All Items" flag below,
 					-- not shown/used anywhere in the bag-grouped view itself.
-					categoryKey = module:ClassifyItem(
-						bagID,
-						slotID,
-						info.itemID,
-						info.hyperlink,
-						info.quality,
-						info.hasNoValue
-					),
+					categoryKey = module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink),
 				})
 			end
 		end
 	end
 
-	return bagItemsScratch
+	return scratch
+end
+
+local function CollectItemsByBag()
+	return CollectItemsByBagFrom(BAG_IDS, bagItemsScratch)
 end
 
 -- Character/Warband bank tabs can have a custom icon/name set by the player
@@ -2120,20 +2185,40 @@ end
 --  Bag Bar popout (quick glance at equipped bags, toggled from the title bar)
 -------------------------------------------------------------------------------
 local BAG_BAR_BUTTON_SIZE, BAG_BAR_SPACING = 30, 4
+module.BAG_BAR_BUTTON_SIZE, module.BAG_BAR_SPACING = BAG_BAR_BUTTON_SIZE, BAG_BAR_SPACING
 
-local function IsBankViewMode(viewMode)
-	return viewMode == "BANK" or viewMode == "WARBAND"
+-- Tri-state helper for a fixed-length bank/warband tab list (purchased / next
+-- purchasable / locked) - shared by the Bank frame's own sidebar tab rows
+-- (BankFrame.lua). PurchaseBankTab always buys "the next" tab, there's no
+-- per-tab selection, so only the slot right after the last purchased one can
+-- ever be "purchasable"; anything further out stays "locked" until that one
+-- is bought (same one-step-at-a-time reveal Blizzard's own tab bar uses).
+local function GetBankTabSlotState(bagIDList, bankType, index)
+	local bagID = bagIDList[index]
+	if not bagID then
+		return nil
+	end
+
+	local purchasedCount = (bankType and FetchNumPurchasedBankTabs) and FetchNumPurchasedBankTabs(bankType)
+		or #bagIDList
+
+	if index <= purchasedCount then
+		return "purchased", bagID
+	elseif index == purchasedCount + 1 and bankType and CanPurchaseBankTab and CanPurchaseBankTab(bankType) then
+		return "purchasable", bankType
+	end
+
+	return "locked"
 end
 
+module.GetBankTabSlotState = GetBankTabSlotState
+
+-- Bank/Warband tabs now live in the Bank frame's own sidebar (BankFrame.lua),
+-- so this popout only ever needs to show the player's regular equipped bags.
 function module:ConstructBagBarPopout()
 	if module.bagBarPopout then
 		return module.bagBarPopout
 	end
-
-	-- Sized for whichever bag-ID list is longer (regular bags vs. bank tabs) -
-	-- RefreshBagBarPopout shows/hides buttons and resizes the frame per the
-	-- list actually needed for the current view mode.
-	local maxCount = math.max(#BAG_IDS, #module.BankBagIDs, #module.WarbandBagIDs)
 
 	local f = CreateFrame("Frame", "MER_BagCategoriesBagBar", E.UIParent)
 	f:SetFrameStrata("DIALOG")
@@ -2142,7 +2227,7 @@ function module:ConstructBagBarPopout()
 	f:Hide()
 
 	f.buttons = {}
-	for i = 1, maxCount do
+	for i = 1, #BAG_IDS do
 		local btn = CreateFrame("Button", nil, f)
 		btn:Size(BAG_BAR_BUTTON_SIZE, BAG_BAR_BUTTON_SIZE)
 		btn:Point("LEFT", BAG_BAR_SPACING + (i - 1) * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING), 0)
@@ -2156,83 +2241,20 @@ function module:ConstructBagBarPopout()
 		btn.count:FontTemplate(nil, 10, "OUTLINE")
 		btn.count:Point("BOTTOMRIGHT", -1, 1)
 
-		-- Active-filter marker (Bank mode only) - a bank tab clicked to filter
-		-- the category view down to just that tab's items.
-		local cc = E.myClassColor
-		btn.selectedTex = btn:CreateTexture(nil, "OVERLAY")
-		btn.selectedTex:SetAllPoints()
-		btn.selectedTex:SetColorTexture(cc.r, cc.g, cc.b, 0.35)
-		btn.selectedTex:Hide()
-
 		btn:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
-		btn:RegisterForClicks("AnyUp")
 
-		btn:SetScript("OnClick", function(self, mouseButton)
-			-- A not-yet-purchased tab slot (see RefreshBagBarPopout) has no
-			-- bagID at all, just this - clicking it prompts to buy the next
-			-- tab instead of trying to filter/open settings on a container
-			-- that doesn't exist yet.
-			if self.purchaseBankType then
-				if mouseButton ~= "RightButton" then
-					ShowPurchaseBankTabPrompt(self.purchaseBankType)
-				end
-				return
-			end
-
+		btn:SetScript("OnClick", function(self)
 			if not self.bagID then
 				return
 			end
 
-			-- Right-click opens the same tab-edit panel (name/icon/deposit rules)
-			-- as right-clicking a tab on the real Blizzard bank frame -
-			-- B:BankTabs_ShowSettings resolves Character vs. Warband itself.
-			if mouseButton == "RightButton" then
-				if
-					IsBankViewMode(module.db.viewMode)
-					and (module.BankBagIDSet[self.bagID] or module.WarbandBagIDSet[self.bagID])
-				then
-					B:BankTabs_ShowSettings(self.bagID)
-				end
-				return
-			end
-
-			if IsBankViewMode(module.db.viewMode) then
-				module.bankTabFilter = (module.bankTabFilter ~= self.bagID) and self.bagID or nil
-				module:RefreshCategoryFrame()
-				module:RefreshBagBarPopout()
-			else
-				module.db.viewMode = "BAG"
-				module:RefreshCategoryFrame()
-				module:ScrollToCategory("BAG_" .. self.bagID)
-			end
+			module.db.viewMode = "BAG"
+			module:RefreshCategoryFrame()
+			module:ScrollToCategory("BAG_" .. self.bagID)
 		end)
 
 		btn:SetScript("OnEnter", function(self)
-			if GameTooltip:IsForbidden() then
-				return
-			end
-
-			if self.purchaseBankType then
-				GameTooltip:SetOwner(self, "ANCHOR_TOP")
-				GameTooltip:AddLine(L["Purchase Bank Tab"], 1, 1, 1)
-				local tabData = FetchNextPurchasableBankTabData and FetchNextPurchasableBankTabData(self.purchaseBankType)
-				if tabData then
-					GameTooltip:AddDoubleLine(L["Cost"], E:FormatMoney(tabData.tabCost, "SMART"), 1, 1, 1, 1, 1, 1)
-				end
-				GameTooltip:AddLine(L["Click to purchase"], 0.6, 0.6, 0.6)
-				GameTooltip:Show()
-				return
-			end
-
-			if self.locked then
-				GameTooltip:SetOwner(self, "ANCHOR_TOP")
-				GameTooltip:AddLine(L["Locked"], 1, 1, 1)
-				GameTooltip:AddLine(L["Purchase the previous tab first."], 0.6, 0.6, 0.6)
-				GameTooltip:Show()
-				return
-			end
-
-			if not self.bagID then
+			if GameTooltip:IsForbidden() or not self.bagID then
 				return
 			end
 
@@ -2242,18 +2264,6 @@ function module:ConstructBagBarPopout()
 
 			GameTooltip:SetOwner(self, "ANCHOR_TOP")
 			GameTooltip:AddLine(format("%s (%d/%d)", GetBagDisplayName(self.bagID), numSlots - freeSlots, numSlots), 1, 1, 1)
-			if IsBankViewMode(module.db.viewMode) then
-				GameTooltip:AddLine(
-					module.bankTabFilter == self.bagID and L["Click to clear the filter"]
-						or L["Click to filter by this tab"],
-					0.6,
-					0.6,
-					0.6
-				)
-				if _G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION then
-					GameTooltip:AddLine(_G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION, 0.6, 0.6, 0.6)
-				end
-			end
 			GameTooltip:Show()
 		end)
 		btn:SetScript("OnLeave", GameTooltip_Hide)
@@ -2271,57 +2281,21 @@ function module:RefreshBagBarPopout()
 		return
 	end
 
-	local viewMode = module.db.viewMode
-	local bagIDList = viewMode == "WARBAND" and module.WarbandBagIDs
-		or viewMode == "BANK" and module.BankBagIDs
-		or BAG_IDS
-	local bankType = viewMode == "WARBAND" and WARBAND_BANK_TYPE or viewMode == "BANK" and CHARACTER_BANK_TYPE or nil
-
-	-- PurchaseBankTab always buys "the next" tab - there's no way to target a
-	-- specific one - so only the slot right after your last purchased tab can
-	-- ever show a buy prompt. Slots further out than that still show (so the
-	-- full 5/6 possible tabs are visible at a glance), just locked/greyed out
-	-- and non-interactive until that next one is bought.
-	local purchasedCount = (bankType and FetchNumPurchasedBankTabs) and FetchNumPurchasedBankTabs(bankType)
-		or #bagIDList
-
 	for i, btn in ipairs(f.buttons) do
-		local bagID = bagIDList[i]
-		btn.bagID = nil
-		btn.purchaseBankType = nil
-		btn.locked = nil
+		local bagID = BAG_IDS[i]
+		btn.bagID = bagID
 
-		if not bagID then
-			btn:Hide()
-		elseif not bankType or i <= purchasedCount then
-			btn.bagID = bagID
-			btn.tex:SetDesaturated(false)
-			btn.tex:SetAlpha(1)
+		if bagID then
 			btn.tex:SetTexture(GetBagIcon(bagID))
 			local freeSlots = C_Container.GetContainerNumFreeSlots and C_Container.GetContainerNumFreeSlots(bagID)
 			btn.count:SetText(freeSlots or "")
-			btn.selectedTex:SetShown(module.bankTabFilter == bagID)
-			btn:Show()
-		elseif i == purchasedCount + 1 and CanPurchaseBankTab and CanPurchaseBankTab(bankType) then
-			btn.purchaseBankType = bankType
-			btn.tex:SetDesaturated(false)
-			btn.tex:SetAlpha(1)
-			btn.tex:SetTexture(133784) -- Interface\ICONS\INV_Misc_Coin_02, same raw icon Vendor Grays uses
-			btn.count:SetText("")
-			btn.selectedTex:Hide()
 			btn:Show()
 		else
-			btn.locked = true
-			btn.tex:SetDesaturated(true)
-			btn.tex:SetAlpha(0.4)
-			btn.tex:SetTexture(E.Media.Textures.Backpack)
-			btn.count:SetText("")
-			btn.selectedTex:Hide()
-			btn:Show()
+			btn:Hide()
 		end
 	end
 
-	f:Size(#bagIDList * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING) + BAG_BAR_SPACING, BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING * 2)
+	f:Size(#BAG_IDS * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING) + BAG_BAR_SPACING, BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING * 2)
 end
 
 function module:ToggleBagBarPopout()
@@ -2423,14 +2397,13 @@ local function IsCategoryHiddenFromAllItems(categoryKey)
 	return group and module:IsHiddenFromAllItems(group.key) or false
 end
 
-local function BuildFlatSections()
+local function BuildFlatSectionsFrom(bagIDList, itemsByBag)
 	local db = module.db
-	local itemsByBag = CollectItemsByBag()
 	local sections = {}
 
 	if db.showPinned then
 		local pinned = {}
-		for _, bagID in ipairs(BAG_IDS) do
+		for _, bagID in ipairs(bagIDList) do
 			for _, entry in ipairs(itemsByBag[bagID] or {}) do
 				if module:IsItemPinned(entry.itemID) then
 					tinsert(pinned, entry)
@@ -2451,7 +2424,7 @@ local function BuildFlatSections()
 
 	if db.showRecent then
 		local recent = {}
-		for _, bagID in ipairs(BAG_IDS) do
+		for _, bagID in ipairs(bagIDList) do
 			for _, entry in ipairs(itemsByBag[bagID] or {}) do
 				if entry.isNew then
 					tinsert(recent, entry)
@@ -2472,7 +2445,7 @@ local function BuildFlatSections()
 	end
 
 	local allItems = {}
-	for _, bagID in ipairs(BAG_IDS) do
+	for _, bagID in ipairs(bagIDList) do
 		for _, entry in ipairs(itemsByBag[bagID] or {}) do
 			-- "Hide in All Items" (category/group context menu) only affects
 			-- this flat view - OneBag/MultiBag still show everything.
@@ -2492,6 +2465,10 @@ local function BuildFlatSections()
 	return sections
 end
 
+local function BuildFlatSections()
+	return BuildFlatSectionsFrom(BAG_IDS, CollectItemsByBag())
+end
+
 local function BuildSections()
 	local viewMode = module.db.viewMode
 
@@ -2499,10 +2476,6 @@ local function BuildSections()
 		return BuildBagSections()
 	elseif viewMode == "ALL" then
 		return BuildFlatSections()
-	elseif viewMode == "BANK" then
-		return BuildBankCategorySections()
-	elseif viewMode == "WARBAND" then
-		return BuildWarbandCategorySections()
 	end
 
 	return BuildCategorySections()
@@ -2513,117 +2486,60 @@ function module:SetSidebarCollapsed(collapsed)
 	module:RefreshCategoryFrame()
 end
 
-function module:ScrollToCategory(key)
-	local offset = module.categoryOffsets and module.categoryOffsets[key]
-	if offset and module.frame then
-		module.frame.mainScroll:SetVerticalScroll(offset)
+-- Shared by both the bag and bank frames' sidebar category rows
+-- (Sidebar_OnClick passes the clicked row's own ownerFrame/offsets); the two
+-- positional defaults keep every other existing call site (the bag frame's
+-- own Pinned-row shortcut, the Bag Bar's "jump to this bag" click) working
+-- unchanged.
+function module:ScrollToCategory(key, frame, offsets)
+	frame = frame or module.frame
+	offsets = offsets or module.categoryOffsets
+	local offset = offsets and offsets[key]
+	if offset and frame then
+		frame.mainScroll:SetVerticalScroll(offset)
 	end
 end
 
-function module:RefreshCategoryFrame()
-	if not module.frame or not module.frame:IsShown() then
-		return
-	end
-
+-- Shared layout core for the scrollable "category sections" part of a
+-- sidebar+content pair (headers, sub-headers, item slots, sidebar category
+-- rows) - used by both the bag frame's RefreshCategoryFrame and the bank
+-- frame's own RefreshBankCategoryFrame (BankFrame.lua). Everything about
+-- WHICH fixed rows sit above this (bag's ALL/CATEGORY/BAG switcher vs the
+-- bank's tab list) stays specific to each frame and lives outside this
+-- function; this only ever draws sections already built by BuildSections()/
+-- BuildBankCategorySections()/etc into ctx.contentChild/ctx.sidebarChild.
+--
+-- ctx fields: contentChild, sidebarChild, pools (from CreatePoolSet),
+-- pinnedRow, offsets (the table to record each section's scroll offset
+-- into), width, sidebarWidth, refresh (the frame's own Refresh*Frame to
+-- re-invoke from a Recent-items Clear button), sidebarBaseY (optional pixel
+-- offset to start category rows below - the bank frame renders its own
+-- tab-selector rows into the same scrollable sidebarChild ahead of these,
+-- see BankFrame.lua's RefreshBankCategoryFrame).
+local function RenderCategorySections(ctx, sections)
 	local db = module.db
-	local sections = BuildSections()
+	local pools = ctx.pools
 
-	module.categoryOffsets = {}
-
-	local f = module.frame
-	local sidebarWidth = db.sidebarCollapsed and COLLAPSED_SIDEBAR_WIDTH or db.sidebarWidth
-	f.sidebar:Width(sidebarWidth)
-	f.addCategoryButton:SetShown(not db.sidebarCollapsed)
-
-	-- The Bank/Warband rows (when those features exist at all) only count as
-	-- visible while module.isBankOpen AND the player can actually view that
-	-- particular bank right now (CanViewBank - e.g. the Warband Bank Distance
-	-- Inhibitor lets you reach the Warband Bank remotely without personal
-	-- bank access at that spot, and vice versa a low-level character may not
-	-- have Warband access unlocked at all). Every row is repositioned here
-	-- (not just what comes after the list) so any combination of hidden rows
-	-- - not only a single trailing one - closes gaps correctly.
-	local visibleViewModeRows = 0
-	for _, row in ipairs(f.viewModeRows) do
-		local rowVisible = true
-		if row.viewModeKey == "BANK" then
-			rowVisible = module.isBankOpen and (not CanViewBank or CanViewBank(CHARACTER_BANK_TYPE))
-		elseif row.viewModeKey == "WARBAND" then
-			rowVisible = module.isBankOpen and (not CanViewBank or CanViewBank(WARBAND_BANK_TYPE))
-		end
-
-		row:SetShown(rowVisible)
-		if rowVisible then
-			row:ClearAllPoints()
-			row:Point("TOPLEFT", f.sidebar, "TOPLEFT", 4, -18 - visibleViewModeRows * VIEW_MODE_ROW_HEIGHT)
-			row:Point("TOPRIGHT", f.sidebar, "TOPRIGHT", -4, -18 - visibleViewModeRows * VIEW_MODE_ROW_HEIGHT)
-			visibleViewModeRows = visibleViewModeRows + 1
-		end
-	end
-
-	f.pinnedRow:ClearAllPoints()
-	f.pinnedRow:Point("TOPLEFT", f.sidebar, "TOPLEFT", 4, -18 - visibleViewModeRows * VIEW_MODE_ROW_HEIGHT)
-	f.pinnedRow:Point("TOPRIGHT", f.sidebar, "TOPRIGHT", -4, -18 - visibleViewModeRows * VIEW_MODE_ROW_HEIGHT)
-
-	f.sidebarSeparator:ClearAllPoints()
-	f.sidebarSeparator:Point("TOPLEFT", f.pinnedRow, "BOTTOMLEFT", 2, -3)
-	f.sidebarSeparator:Point("TOPRIGHT", f.pinnedRow, "BOTTOMRIGHT", -2, -3)
-
-	-- The scrollbar reserve (sidebarScroll's right inset) is sized for the
-	-- full-width sidebar; a fixed -30 on top of a collapsed ~40px sidebar
-	-- left almost nothing for the icon column and clipped it. Both the
-	-- scroll frame's own inset and the child width it scrolls need a
-	-- collapsed-appropriate reserve instead.
-	local scrollbarReserve = db.sidebarCollapsed and 16 or 30
-	f.sidebarScroll:ClearAllPoints()
-	f.sidebarScroll:Point("TOPLEFT", 4, -18 - (visibleViewModeRows + 1) * VIEW_MODE_ROW_HEIGHT - 10)
-	f.sidebarScroll:Point("BOTTOMRIGHT", -(scrollbarReserve - 6), 4)
-	f.sidebarChild:Width(sidebarWidth - scrollbarReserve)
-
-	f.pinnedRow.text:SetShown(not db.sidebarCollapsed)
-	f.pinnedRow.count:SetShown(not db.sidebarCollapsed)
-	SetCategoryIcon(f.pinnedRow.icon, module.PinnedCategory)
-
-	local collapseArrowRotation = S.ArrowRotation and S.ArrowRotation[db.sidebarCollapsed and "right" or "left"]
-	if collapseArrowRotation then
-		for _, tex in ipairs({ f.collapseButton:GetNormalTexture(), f.collapseButton:GetPushedTexture() }) do
-			if tex then
-				tex:SetRotation(collapseArrowRotation)
-			end
-		end
-	end
-
-	f.sidebarHeaderText:SetShown(not db.sidebarCollapsed)
-
-	for _, row in ipairs(f.viewModeRows) do
-		if row:IsShown() then
-			row.text:SetShown(not db.sidebarCollapsed)
-			local isSelected = row.viewModeKey == db.viewMode
-			row.selectedTex:SetShown(isSelected)
-			row.selectedBar:SetShown(isSelected)
-		end
-	end
-
-	local contentWidth = db.width - sidebarWidth - 44
+	local contentWidth = ctx.width - ctx.sidebarWidth - 44
 	local columns = floor((contentWidth + db.itemSpacingH) / (db.itemSize + db.itemSpacingH))
 	if columns < 1 then
 		columns = 1
 	end
 
-	module.contentChild:Width(contentWidth)
+	ctx.contentChild:Width(contentWidth)
 
 	local slotIndex, headerIndex, subHeaderIndex, sidebarIndex = 0, 0, 0, 0
 	local y = 0
 
 	for _, section in ipairs(sections) do
-		module.categoryOffsets[section.key] = y
+		ctx.offsets[section.key] = y
 
 		headerIndex = headerIndex + 1
-		local header = AcquireHeader(headerIndex)
+		local header = pools.AcquireHeader(headerIndex)
 		header:SetHeight(db.headerHeight)
 		header:ClearAllPoints()
-		header:Point("TOPLEFT", module.contentChild, "TOPLEFT", 0, -y)
-		header:Point("TOPRIGHT", module.contentChild, "TOPRIGHT", 0, -y)
+		header:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 0, -y)
+		header:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", 0, -y)
 		header.text:SetText(format("%s (%d)", section.name, #section.items))
 		SetCategoryIcon(header.icon, section)
 
@@ -2633,7 +2549,7 @@ function module:RefreshCategoryFrame()
 				for _, entry in ipairs(section.items) do
 					C_NewItems_RemoveNewItem(entry.bagID, entry.slotID)
 				end
-				module:RefreshCategoryFrame()
+				ctx.refresh()
 			end)
 		else
 			header.clearButton:Hide()
@@ -2642,15 +2558,16 @@ function module:RefreshCategoryFrame()
 		y = y + header:GetHeight() + HEADER_PADDING
 
 		-- Pinned Items has its own fixed shortcut row above the scrollable
-		-- list now (see ConstructFrame), so it's excluded from the scrollable
-		-- sidebar rows here - only its content header/items still render.
+		-- list (see ConstructFrame/ConstructBankFrame), so it's excluded from
+		-- the scrollable sidebar rows here - only its content header/items
+		-- still render.
 		if section.key == module.PinnedCategory.key then
-			f.pinnedRow.count:SetText(#section.items)
+			ctx.pinnedRow.count:SetText(#section.items)
 		else
 			sidebarIndex = sidebarIndex + 1
 			-- Bag sections aren't reorderable either (no persisted "bag order"
 			-- concept, and physical bags aren't user-defined categories).
-			SetupSidebarCategoryRow(
+			pools.SetupSidebarCategoryRow(
 				sidebarIndex,
 				0,
 				section.key,
@@ -2663,17 +2580,24 @@ function module:RefreshCategoryFrame()
 					or section.key == module.AllItemsCategory.key
 					or section.isBagSection == true
 					or section.isGroup == true,
-				section.isGroup
+				section.isGroup,
+				nil,
+				ctx.sidebarBaseY
 			)
 
 			-- A category group ("The Armory") shows its member categories as
 			-- indented rows right underneath, always expanded - clicking one
 			-- jumps to the same merged content section as the parent, just
-			-- with that member's own item count/icon for orientation.
-			if section.isGroup and section.groupMembers then
+			-- with that member's own item count/icon for orientation. Skipped
+			-- entirely while collapsed rather than hidden after the fact - a
+			-- collapsed member row's icon would sit partly outside the narrow
+			-- icon-only column (or overlap its parent's), and merely hiding it
+			-- still reserves its row slot, leaving a visible gap in the icon
+			-- strip below the parent.
+			if section.isGroup and section.groupMembers and not db.sidebarCollapsed then
 				for _, member in ipairs(section.groupMembers) do
 					sidebarIndex = sidebarIndex + 1
-					SetupSidebarCategoryRow(
+					pools.SetupSidebarCategoryRow(
 						sidebarIndex,
 						14,
 						section.key,
@@ -2684,7 +2608,8 @@ function module:RefreshCategoryFrame()
 						false,
 						true,
 						false,
-						member.key
+						member.key,
+						ctx.sidebarBaseY
 					)
 				end
 			end
@@ -2707,10 +2632,10 @@ function module:RefreshCategoryFrame()
 					end
 
 					subHeaderIndex = subHeaderIndex + 1
-					local subHeader = AcquireSubHeader(subHeaderIndex)
+					local subHeader = pools.AcquireSubHeader(subHeaderIndex)
 					subHeader:ClearAllPoints()
-					subHeader:Point("TOPLEFT", module.contentChild, "TOPLEFT", 6, -rowStartY)
-					subHeader:Point("TOPRIGHT", module.contentChild, "TOPRIGHT", -6, -rowStartY)
+					subHeader:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 6, -rowStartY)
+					subHeader:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", -6, -rowStartY)
 					subHeader.text:SetText(format("%s (%d)", nextSubHeader.name, nextSubHeader.count))
 					rowStartY = rowStartY + subHeader:GetHeight() + 2
 
@@ -2719,12 +2644,12 @@ function module:RefreshCategoryFrame()
 				end
 
 				slotIndex = slotIndex + 1
-				local btn = AcquireSlot(slotIndex)
+				local btn = pools.AcquireSlot(slotIndex)
 				UpdateSlotVisual(btn, entry)
 
 				btn:ClearAllPoints()
 				btn:Size(db.itemSize)
-				btn:Point("TOPLEFT", module.contentChild, "TOPLEFT", col * (db.itemSize + db.itemSpacingH), -rowStartY)
+				btn:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", col * (db.itemSize + db.itemSpacingH), -rowStartY)
 
 				col = col + 1
 				if col >= columns then
@@ -2742,20 +2667,83 @@ function module:RefreshCategoryFrame()
 		y = y + db.sectionSpacing
 	end
 
-	ReleaseSlotsFrom(slotIndex + 1)
-	ReleaseHeadersFrom(headerIndex + 1)
-	ReleaseSubHeadersFrom(subHeaderIndex + 1)
-	ReleaseSidebarRowsFrom(sidebarIndex + 1)
+	pools.ReleaseSlotsFrom(slotIndex + 1)
+	pools.ReleaseHeadersFrom(headerIndex + 1)
+	pools.ReleaseSubHeadersFrom(subHeaderIndex + 1)
+	pools.ReleaseSidebarRowsFrom(sidebarIndex + 1)
 
-	module.sidebarChild:Height(math.max(1, sidebarIndex * db.sidebarRowHeight))
-	module.contentChild:Height(math.max(1, y))
+	ctx.sidebarChild:Height(math.max(1, (ctx.sidebarBaseY or 0) + sidebarIndex * db.sidebarRowHeight))
+	ctx.contentChild:Height(math.max(1, y))
+end
 
-	local countingBank = db.viewMode == "BANK"
-	local countingWarband = db.viewMode == "WARBAND"
-	local countBagIDs = countingWarband and module.WarbandBagIDs or countingBank and module.BankBagIDs or BAG_IDS
+module.RenderCategorySections = RenderCategorySections
+
+function module:RefreshCategoryFrame()
+	if not module.frame or not module.frame:IsShown() then
+		return
+	end
+
+	local db = module.db
+	local sections = BuildSections()
+
+	module.categoryOffsets = {}
+
+	local f = module.frame
+	local sidebarWidth = db.sidebarCollapsed and COLLAPSED_SIDEBAR_WIDTH or db.sidebarWidth
+	f.sidebar:Width(sidebarWidth)
+	f.addCategoryButton:SetShown(not db.sidebarCollapsed)
+
+	-- Fixed 3-row ALL/CATEGORY/BAG switcher - always all visible now that
+	-- Bank/Warband moved to their own separate frame, so (unlike before) this
+	-- never needs to reposition rows around a variable visible-row count.
+	for _, row in ipairs(f.viewModeRows) do
+		row.text:SetShown(not db.sidebarCollapsed)
+		local isSelected = row.viewModeKey == db.viewMode
+		row.selectedTex:SetShown(isSelected)
+		row.selectedBar:SetShown(isSelected)
+	end
+
+	-- The scrollbar reserve (sidebarScroll's right inset) is sized for the
+	-- full-width sidebar; a fixed -30 on top of a collapsed ~40px sidebar
+	-- left almost nothing for the icon column and clipped it. Both the
+	-- scroll frame's own inset and the child width it scrolls need a
+	-- collapsed-appropriate reserve instead.
+	local scrollbarReserve = db.sidebarCollapsed and 16 or 30
+	f.sidebarScroll:ClearAllPoints()
+	f.sidebarScroll:Point("TOPLEFT", 4, -18 - (#f.viewModeRows + 1) * VIEW_MODE_ROW_HEIGHT - 10)
+	f.sidebarScroll:Point("BOTTOMRIGHT", -(scrollbarReserve - 6), 4)
+	f.sidebarChild:Width(sidebarWidth - scrollbarReserve)
+
+	f.pinnedRow.text:SetShown(not db.sidebarCollapsed)
+	f.pinnedRow.count:SetShown(not db.sidebarCollapsed)
+	SetCategoryIcon(f.pinnedRow.icon, module.PinnedCategory)
+
+	local collapseArrowRotation = S.ArrowRotation and S.ArrowRotation[db.sidebarCollapsed and "right" or "left"]
+	if collapseArrowRotation then
+		for _, tex in ipairs({ f.collapseButton:GetNormalTexture(), f.collapseButton:GetPushedTexture() }) do
+			if tex then
+				tex:SetRotation(collapseArrowRotation)
+			end
+		end
+	end
+
+	f.sidebarHeaderText:SetShown(not db.sidebarCollapsed)
+
+	RenderCategorySections({
+		contentChild = module.contentChild,
+		sidebarChild = module.sidebarChild,
+		pools = bagPools,
+		pinnedRow = f.pinnedRow,
+		offsets = module.categoryOffsets,
+		width = db.width,
+		sidebarWidth = sidebarWidth,
+		refresh = function()
+			module:RefreshCategoryFrame()
+		end,
+	}, sections)
 
 	local totalSlots, usedSlots = 0, 0
-	for _, bagID in ipairs(countBagIDs) do
+	for _, bagID in ipairs(BAG_IDS) do
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
 		totalSlots = totalSlots + numSlots
 		for slotID = 1, numSlots do
@@ -2765,7 +2753,7 @@ function module:RefreshCategoryFrame()
 			end
 		end
 	end
-	f.titleText:SetText(countingWarband and L["Warband Bank"] or countingBank and L["Bank"] or L["Inventory"])
+	f.titleText:SetText(L["Inventory"])
 	f.titleCountText:SetText(format("%d / %d %s", usedSlots, totalSlots, L["Items"]))
 
 	module:UpdateFooter()
@@ -3295,7 +3283,7 @@ function module:ShowCategoryFrame()
 	HideElvUIBagFrame()
 
 	module.frame:Show()
-	module:RegisterBagEvents()
+	module:RegisterBagEventsFor("bag")
 	module:RefreshCategoryFrame()
 	PlaySound(SOUNDKIT.IG_BACKPACK_OPEN or 862)
 end
@@ -3311,8 +3299,15 @@ function module:HideCategoryFrame()
 end
 
 function module:OnFrameHidden()
-	module:UnregisterBagEvents()
-	C_Container_SetItemSearch("")
+	module:UnregisterBagEventsFor("bag")
+
+	-- The native item-search filter is shared, global Blizzard state (see
+	-- module.searchText) - only clear it once neither of our frames still
+	-- wants it, so closing the bag frame doesn't wipe a search the still-open
+	-- Bank frame is using.
+	if not (module.bankFrame and module.bankFrame:IsShown()) then
+		C_Container_SetItemSearch("")
+	end
 
 	if module.addCategoryFrame and module.addCategoryFrame:IsShown() then
 		module.addCategoryFrame:Hide()
@@ -3327,14 +3322,11 @@ function module:OnFrameHidden()
 	end
 	CloseBackpack()
 
-	-- HideElvUIBankFrame() deliberately never calls B.BankFrame:Hide() (that
-	-- would end the real bank session as a side effect of ElvUI's own
-	-- Container_OnHide) - so closing our own frame while the bank is open has
-	-- to explicitly end that session itself instead of relying on Blizzard's
-	-- normal close-the-frame flow.
-	if module.isBankOpen and CloseBankFrame then
-		CloseBankFrame()
-	end
+	-- Clear any pending "the bank opened this bag frame automatically" state
+	-- on every hide path (manual close button, /reload, etc.) so a later,
+	-- unrelated bank open/close never misfires an auto-close of a bag frame
+	-- the user has since reopened themselves.
+	module.frame_openedByBank = nil
 
 	PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE or 863)
 end
@@ -3386,7 +3378,10 @@ end
 -- Mirrors ToggleAllBags/OpenAllBags for the bank: BANKFRAME_OPENED/CLOSED are
 -- still the correct events for the current retail bank (confirmed against
 -- ElvUI's own Bags.lua) even though the bank itself is now tab-based rather
--- than a single container.
+-- than a single container. The Bank/Warband frame is a fully separate window
+-- (BankFrame.lua) now, so this only ever shows/hides module.bankFrame - the
+-- bag frame is a related but independent concern (see the auto-open note
+-- below).
 function module:OnBankOpened()
 	if InCombatLockdown() or (#module.BankBagIDs == 0 and #module.WarbandBagIDs == 0) then
 		return
@@ -3399,9 +3394,19 @@ function module:OnBankOpened()
 	-- Inhibitor grants remote Warband access without personal bank access at
 	-- that spot, so land on whichever bank the player can actually view.
 	local canViewCharacter = not CanViewBank or CanViewBank(CHARACTER_BANK_TYPE)
-	module.db.viewMode = (not canViewCharacter and #module.WarbandBagIDs > 0) and "WARBAND" or "BANK"
+	module.bankViewMode = (not canViewCharacter and #module.WarbandBagIDs > 0) and "WARBAND_ALL" or "BANK_ALL"
 
-	module:ShowCategoryFrame()
+	module:ShowBankFrame()
+
+	-- Opening the bank also shows the bag frame, if it isn't already up (so
+	-- items can be dragged between the two) - but only auto-close it again
+	-- later if it was actually us that opened it (module.frame_openedByBank,
+	-- cleared on every bag-frame hide path in OnFrameHidden), so a bag frame
+	-- the player already had open manually is left alone either way.
+	if not InCombatLockdown() and not (module.frame and module.frame:IsShown()) then
+		module.frame_openedByBank = true
+		module:ShowCategoryFrame()
+	end
 end
 
 function module:OnBankClosed()
@@ -3413,40 +3418,61 @@ function module:OnBankClosed()
 		B.BankFrame:EnableMouse(true)
 	end
 
-	if InCombatLockdown() then
-		return
-	end
+	if not InCombatLockdown() then
+		module:HideBankFrame()
 
-	if IsBankViewMode(module.db.viewMode) then
-		module.db.viewMode = "CATEGORY"
+		if module.frame_openedByBank then
+			module:HideCategoryFrame()
+		end
 	end
-
-	module:RefreshCategoryFrame()
 end
 
 -- Fires when a bank tab's name/icon/deposit rules are changed via the edit
--- panel (B:BankTabs_ShowSettings) - refresh the Bag Bar popout so the new
--- icon/name show up immediately instead of only after closing and reopening
--- the bank.
+-- panel (B:BankTabs_ShowSettings) - refresh the Bank frame's own sidebar tab
+-- rows so the new icon/name show up immediately instead of only after
+-- closing and reopening the bank.
 function module:OnBankTabsChanged()
-	module:RefreshBagBarPopout()
+	if module.RefreshBankCategoryFrame then
+		module:RefreshBankCategoryFrame()
+	end
 end
 
 local eventFrame = CreateFrame("Frame")
 local BAG_REFRESH_EVENTS = { "BAG_UPDATE", "BAG_UPDATE_DELAYED", "ITEM_LOCK_CHANGED", "EQUIPMENT_SETS_CHANGED" }
 
+-- Bag and Bank/Warband are two independent frames that can both be open at
+-- once (see OnBankOpened's auto-open), each refreshed off the same handful
+-- of events - route to whichever ones are actually shown right now instead
+-- of assuming there's only ever one.
 eventFrame:SetScript("OnEvent", function()
-	module:RefreshCategoryFrame()
+	if module.frame and module.frame:IsShown() then
+		module:RefreshCategoryFrame()
+	end
+
+	if module.bankFrame and module.bankFrame:IsShown() and module.RefreshBankCategoryFrame then
+		module:RefreshBankCategoryFrame()
+	end
 end)
 
-function module:RegisterBagEvents()
+-- `owner` is "bag" or "bank" - a plain RegisterEvent/UnregisterAllEvents per
+-- frame would have one frame's close kill live refresh for the other, still-
+-- open one, since they'd share this single event frame. RegisterEvent itself
+-- is idempotent (safe to call again while already registered), so only the
+-- unregister side actually needs the reference count.
+local bagEventOwners = {}
+
+function module:RegisterBagEventsFor(owner)
+	bagEventOwners[owner] = true
 	for _, event in ipairs(BAG_REFRESH_EVENTS) do
 		eventFrame:RegisterEvent(event)
 	end
 end
 
-function module:UnregisterBagEvents()
-	eventFrame:UnregisterAllEvents()
+function module:UnregisterBagEventsFor(owner)
+	bagEventOwners[owner] = nil
+	if not next(bagEventOwners) then
+		eventFrame:UnregisterAllEvents()
+	end
 end
 
 -------------------------------------------------------------------------------
@@ -3460,7 +3486,17 @@ function module:Initialize()
 		return
 	end
 
+	-- One-time cleanup for a profile saved before Bank/Warband got their own
+	-- frame: db.viewMode ("CATEGORY"/"ALL"/"BAG" now) could still hold a
+	-- leftover "BANK"/"WARBAND" from back when this field also drove the bag
+	-- frame's own view - neither is a bag-frame view any more, and leaving
+	-- one in place would mean no sidebar row ever shows as selected.
+	if db.viewMode == "BANK" or db.viewMode == "WARBAND" then
+		db.viewMode = "CATEGORY"
+	end
+
 	module.searchText = ""
+	module.bankViewMode = module.bankViewMode or "BANK_ALL"
 
 	module:SecureHook("ToggleAllBags")
 	module:SecureHook("ToggleBackpack")
@@ -3483,6 +3519,33 @@ function module:ProfileUpdate()
 	if module.frame and module.frame:IsShown() then
 		module:RefreshCategoryFrame()
 	end
+
+	if module.bankFrame and module.bankFrame:IsShown() and module.RefreshBankCategoryFrame then
+		module:RefreshBankCategoryFrame()
+	end
 end
+
+-------------------------------------------------------------------------------
+--  Exposed to BankFrame.lua
+-------------------------------------------------------------------------------
+-- Load_Bags.xml loads each Modules/Bags/*.lua file as its own separate Lua
+-- chunk, so file-local `local function`s here aren't visible there - anything
+-- BankFrame.lua needs to call has to be published onto the shared `module`
+-- table instead (already true of CreatePoolSet/RenderCategorySections/
+-- GetBankTabSlotState/BANK_FRAME_NAME above; simple upvalues like
+-- CHARACTER_BANK_TYPE or the C_Bank.* functions aren't real logic, so
+-- BankFrame.lua just redeclares those itself rather than routing them
+-- through here too).
+module.BuildBankCategorySections = BuildBankCategorySections
+module.BuildWarbandCategorySections = BuildWarbandCategorySections
+module.CollectItemsByBagFrom = CollectItemsByBagFrom
+module.BuildFlatSectionsFrom = BuildFlatSectionsFrom
+module.GetBagIcon = GetBagIcon
+module.GetBagDisplayName = GetBagDisplayName
+module.ShowPurchaseBankTabPrompt = ShowPurchaseBankTabPrompt
+module.SetCategoryIcon = SetCategoryIcon
+module.VIEW_MODE_ROW_HEIGHT = VIEW_MODE_ROW_HEIGHT
+module.COLLAPSED_SIDEBAR_WIDTH = COLLAPSED_SIDEBAR_WIDTH
+module.SkinScrollBar = SkinScrollBar
 
 MER:RegisterModule(module:GetName())

@@ -248,6 +248,52 @@ options.bags = {
 					max = 800,
 					step = 1,
 				},
+				bankWindow = {
+					order = 13.5,
+					type = "group",
+					inline = true,
+					name = L["Bank Window"],
+					get = function(info)
+						return E.db.mui.bags.categorizedBags[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.bags.categorizedBags[info[#info]] = value
+
+						if BC.bankFrame then
+							BC.bankFrame:Size(
+								E.db.mui.bags.categorizedBags.bankWidth,
+								E.db.mui.bags.categorizedBags.bankHeight
+							)
+							BC:RefreshBankCategoryFrame()
+						end
+					end,
+					args = {
+						bankSidebarWidth = {
+							order = 1,
+							type = "range",
+							name = L["Sidebar Width"],
+							min = 100,
+							max = 220,
+							step = 1,
+						},
+						bankWidth = {
+							order = 2,
+							type = "range",
+							name = L["Width"],
+							min = 380,
+							max = 900,
+							step = 1,
+						},
+						bankHeight = {
+							order = 3,
+							type = "range",
+							name = L["Height"],
+							min = 300,
+							max = 800,
+							step = 1,
+						},
+					},
+				},
 				itemCountFont = {
 					order = 14,
 					type = "group",

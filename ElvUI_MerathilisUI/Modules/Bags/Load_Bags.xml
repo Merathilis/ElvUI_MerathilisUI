@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Script file="CategoryClassifier.lua"/>
     <Script file="CategoryFrame.lua"/>
+    <Script file="BankFrame.lua"/>
     <Script file="EquipManager.lua"/>
 </Ui>
