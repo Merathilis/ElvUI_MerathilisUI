@@ -1,4 +1,32 @@
 ### Changes
 
+-   [Fix]: Bags: Categorized Bags - fixed right-click equipping an item instead of selling it while a merchant was open.
+-   [Fix]: Bags: Categorized Bags - fixed expansion/equipment-set sub-headers within a category being nearly invisible.
+-   [Fix]: Bags: Categorized Bags - fixed the Bag Bar popout only showing 3 of 5 possible Warband Bank tabs instead of all 5 (purchased, next purchasable, or locked).
+-   [Fix]: Bags: Categorized Bags - fixed Bank category rows sometimes not responding to clicks when many bank/Warband tabs were listed.
+-   [New]: Mail: added a Postal-style selection bar to the inbox with numbered checkboxes to open or delete multiple mails at once.
+-   [New]: Mail: added send templates (recipients/subject/body) with a quick "Send Templates" button on the send-mail frame.
+-   [New]: Mail: added a quick-attach bar for trade goods (Cloth, Leather, Herb, ...) on the send-mail frame, with a per-category default recipient.
 -   [New]: Bags: added an optional Categorized Bags view (sidebar with default/custom categories, Pinned/Recent items, search) as an alternative to ElvUI's default bag frame. Disabled by default, requires a UI reload after enabling.
+-   [New]: Bags: Categorized Bags - added item level and bind-status indicators on slots, each with its own font/size/outline/position options.
+-   [New]: Bags: Categorized Bags - added custom icons for user-defined categories (right-click a category and choose Change Icon).
+-   [New]: Bags: Categorized Bags - added drag & drop reordering of sidebar categories.
+-   [New]: Bags: Categorized Bags - added tracked currencies to the footer, next to gold.
+-   [New]: Bags: Categorized Bags - added a Vendor Grays button that sells all grey items at once while at a merchant.
+-   [New]: Bags: Categorized Bags - added a Bag view mode that groups items by physical bag instead of category.
+-   [New]: Bags: Categorized Bags - added category groups (e.g. "The Armory" merges Weapons & Trinkets, Armor and Item Set Gear into one section), with a right-click Rename/Disband Group/Ungroup/Hide-in-All-Items menu.
+-   [New]: Bags: Categorized Bags - added quest, crafted-item quality, and Pawn upgrade-arrow icons on item slots, plus a vendor sell-cursor when hovering an item at a merchant.
+-   [New]: Bags: Categorized Bags - added Shift+Right-click Split Stack support on item slots.
+-   [New]: Bags: Categorized Bags - item slots now show the same Equipment Manager set icon as ElvUI's own bag slots.
+-   [New]: Bags: Categorized Bags - added a cross-character gold tooltip on the footer's gold display (every known character's gold, account total, and Warband Bank balance).
+-   [New]: Bags: Categorized Bags - added a Bank category view that opens automatically with the bank, including Warband Bank, per-tab filtering, right-click tab settings, and a buy-next-tab prompt.
+-   [New]: Bags: Categorized Bags - the Bank and Warband Bank now open in their own dedicated window with a tab-based sidebar, a footer showing player and Warband gold with Withdraw/Deposit buttons, and a relabeling Auto Deposit button; opening it also opens the bag window alongside it.
+-   [New]: Bags: Categorized Bags - added a tooltip on hover for sidebar categories, showing the name and item count (most useful with a collapsed sidebar).
+-   [New]: Bags: Categorized Bags - added Item Set Gear, Gear Enhancements, Professions, and Housing categories, and merged Recipes into Professions.
 -   [Improvement]: Options: scrollbars on MerathilisUI's own options pages now use a slimmer, accent-colored thumb instead of ElvUI's general value color.
+-   [Improvement]: Bags: Categorized Bags - added ElvUI-style Sort/Stack/Help buttons to the title bar.
+-   [Improvement]: Bags: Categorized Bags - added more layout options (item spacing, header height, sidebar row height, spacing between categories).
+-   [Improvement]: Bags: Categorized Bags - added an alternating sidebar row background, matching the Armory panel's stat rows.
+-   [Improvement]: Bags: Categorized Bags - right-clicking an item while a merchant is open now sells it (including equipment) instead of using/equipping it.
+-   [Improvement]: Bags: Categorized Bags - the character Bank's category list is now reduced to just Reagent Bag and Miscellaneous, since most other categories rarely apply there (Warband Bank keeps the full category list).
+-   [Improvement]: Bags: Categorized Bags - removed the separate Junk category; grey/sellable items now sort into their normal category instead.
