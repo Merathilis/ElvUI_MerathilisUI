@@ -1235,14 +1235,27 @@ function module:ConstructFrame()
 	-- we don't have ElvUI's own separate animated Stack/Compress algorithm,
 	-- so both buttons call the same native sort for now.
 	f.sortButton = CreateTitleButton("SortButton", E.Media.Textures.PetBroom, L["Sort Bags"], function()
+		module:StartSortSpinner()
 		C_Container.SortBags()
 	end)
 	f.sortButton:Point("TOPRIGHT", f, "TOPRIGHT", -40, -8)
 
 	f.stackButton = CreateTitleButton("StackButton", E.Media.Textures.Planks, L["Stack Items In Bags"], function()
+		module:StartSortSpinner()
 		C_Container.SortBags()
 	end)
 	f.stackButton:Point("TOPRIGHT", f.sortButton, "TOPLEFT", -2, 0)
+
+	-- Same spinner ElvUI's own bag frame shows while its custom sort
+	-- algorithm is moving items - we don't have that algorithm (SortBags()
+	-- above is Blizzard's native, near-instant one), but showing this while
+	-- waiting for the resulting BAG_UPDATE burst to settle gives the same
+	-- "something is happening" feedback instead of items just silently
+	-- rearranging. Sized/colored per module.db.spinner in StartSortSpinner.
+	f.spinnerIcon = CreateFrame("Frame", nil, f)
+	f.spinnerIcon:Size(80, 80)
+	f.spinnerIcon:Point("CENTER")
+	f.spinnerIcon:Hide()
 
 	f.vendorGraysButton = CreateTitleButton("VendorGraysButton", 133784, function()
 		local value = module:GetJunkValue()
@@ -3478,20 +3491,83 @@ function module:OnBankTabsChanged()
 	end
 end
 
+-- Sort/Stack call Blizzard's native SortBags() (see ConstructFrame), which
+-- has no "finished" signal of its own - just a burst of BAG_UPDATE/
+-- BAG_UPDATE_DELAYED events as items settle. Generation counter debounce:
+-- every refresh received while sortingBags is set reschedules the stop:
+-- StopSortSpinner only actually stops it once 0.4s pass with no further
+-- refresh, so the spinner spans the whole burst instead of blinking off
+-- after the first event in it.
+local sortSpinnerGeneration = 0
+
+local function StopSortSpinner(generation)
+	if generation ~= sortSpinnerGeneration then
+		return
+	end
+
+	module.sortingBags = nil
+	if module.frame and module.frame.spinnerIcon then
+		E:StopSpinner(module.frame.spinnerIcon)
+	end
+end
+
+function module:PokeSortSpinner()
+	sortSpinnerGeneration = sortSpinnerGeneration + 1
+	E:Delay(0.4, StopSortSpinner, sortSpinnerGeneration)
+end
+
+function module:StartSortSpinner()
+	local db = module.db.spinner
+	if not (db and db.enable and module.frame and module.frame.spinnerIcon) then
+		return
+	end
+
+	module.sortingBags = true
+	E:StartSpinner(module.frame.spinnerIcon, nil, nil, nil, nil, db.size, db.color.r, db.color.g, db.color.b)
+	module:PokeSortSpinner()
+end
+
 local eventFrame = CreateFrame("Frame")
 local BAG_REFRESH_EVENTS = { "BAG_UPDATE", "BAG_UPDATE_DELAYED", "ITEM_LOCK_CHANGED", "EQUIPMENT_SETS_CHANGED" }
+
+-- RefreshCategoryFrame()/RefreshBankCategoryFrame() are full rebuilds (every
+-- item re-classified into its category, every pooled header/sub-header/slot/
+-- sidebar-row re-laid-out) - fine at the cost of one of those per discrete
+-- pickup/drop, but ITEM_LOCK_CHANGED and BAG_UPDATE both fire once per slot
+-- touched, not once per user action. A native SortBags() on a fuller
+-- inventory moves dozens of slots, so this handler used to run a full
+-- rebuild for each one of those, back to back, in the same burst of events -
+-- reported as the whole game freezing for several seconds after clicking
+-- Sort. Throttled to at most one rebuild per 0.15s (imperceptible for the
+-- single-item case, but collapses a same-frame burst of N events into 1
+-- rebuild instead of N) via a pending-flag + E:Delay, the same debounce
+-- technique StartSortSpinner/PokeSortSpinner already use above.
+local refreshPending = false
 
 -- Bag and Bank/Warband are two independent frames that can both be open at
 -- once (see OnBankOpened's auto-open), each refreshed off the same handful
 -- of events - route to whichever ones are actually shown right now instead
 -- of assuming there's only ever one.
-eventFrame:SetScript("OnEvent", function()
+local function DoThrottledRefresh()
+	refreshPending = false
+
 	if module.frame and module.frame:IsShown() then
 		module:RefreshCategoryFrame()
 	end
 
 	if module.bankFrame and module.bankFrame:IsShown() and module.RefreshBankCategoryFrame then
 		module:RefreshBankCategoryFrame()
+	end
+end
+
+eventFrame:SetScript("OnEvent", function()
+	if module.sortingBags then
+		module:PokeSortSpinner()
+	end
+
+	if not refreshPending then
+		refreshPending = true
+		E:Delay(0.15, DoThrottledRefresh)
 	end
 end)
 

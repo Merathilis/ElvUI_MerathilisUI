@@ -183,6 +183,48 @@ options.bags = {
 								end
 							end,
 						},
+						spinnerGroup = {
+							order = 7,
+							type = "group",
+							inline = true,
+							name = L["Sort Spinner"],
+							desc = L["Same spinner ElvUI's own bag frame shows while sorting."],
+							get = function(info)
+								return E.db.mui.bags.categorizedBags.spinner[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.bags.categorizedBags.spinner[info[#info]] = value
+							end,
+							args = {
+								enable = {
+									order = 1,
+									type = "toggle",
+									name = L["Enable"],
+								},
+								size = {
+									order = 2,
+									type = "range",
+									name = L["Size"],
+									min = 20,
+									max = 80,
+									step = 1,
+								},
+								color = {
+									order = 3,
+									type = "color",
+									name = COLOR,
+									get = function(info)
+										local t = E.db.mui.bags.categorizedBags.spinner[info[#info]]
+										local d = P.bags.categorizedBags.spinner[info[#info]]
+										return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+									end,
+									set = function(info, r, g, b)
+										local t = E.db.mui.bags.categorizedBags.spinner[info[#info]]
+										t.r, t.g, t.b = r, g, b
+									end,
+								},
+							},
+						},
 					},
 				},
 				sizes = {
