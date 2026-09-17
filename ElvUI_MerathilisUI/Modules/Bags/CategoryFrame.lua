@@ -579,6 +579,14 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	-- (bags or bank) this particular button actually belongs to.
 	btn.ownerFrame = getOwnerFrame()
 
+	-- Same numeric cooldown-text/swipe-color treatment ElvUI's own bag slots
+	-- get, driven by the user's existing ElvUI > Cooldown > Bags settings.
+	-- RegisterCooldown is required, not automatic - ElvUI only applies its
+	-- cooldown text to frames it knows about.
+	if btn.Cooldown then
+		E:RegisterCooldown(btn.Cooldown, "bags")
+	end
+
 		return btn
 	end
 
