@@ -167,27 +167,44 @@ end
 -- native "bags are open" state ElvUI's own toggle handlers read on the next
 -- press of the bag keybind. Since our frame is what's actually open at that
 -- point, that reset made every subsequent press decide to "open" again
--- instead of alternating - the keybind stopped closing anything. Just make
--- it invisible/non-interactive instead, mirroring HideElvUIBankFrame below.
+-- instead of alternating - the keybind stopped closing anything.
+--
+-- SetAlpha(0)/EnableMouse(false) on the frame itself (an earlier attempt)
+-- isn't enough either: neither is inherited by children, so every child
+-- button - item slots, sort/stack/close buttons, the bags/key buttons, ...
+-- stayed fully clickable, invisible but sitting right on top of our own
+-- frame's controls at the same screen position (reported as the sidebar's
+-- collapse arrow not reacting at all - an invisible ElvUI bag-frame child
+-- was eating the click before it ever reached our button). Moving the whole
+-- frame off-screen instead makes its entire subtree unreachable to the
+-- mouse, regardless of how many children ElvUI's bag frame has. Safe to
+-- never restore the position afterwards: B:OpenBags() never re-anchors the
+-- frame itself (only Shows it), so we just push it off-screen again every
+-- time we take over - and this feature requires a /reload to toggle off,
+-- which rebuilds the frame with its default anchor anyway.
 local function HideElvUIBagFrame()
 	if B.BagFrame and B.BagFrame:IsShown() then
 		SnapshotNewItems()
-		B.BagFrame:SetAlpha(0)
 		B.BagFrame:EnableMouse(false)
+		B.BagFrame:ClearAllPoints()
+		B.BagFrame:SetPoint("CENTER", E.UIParent, "CENTER", -10000, -10000)
 	end
 end
 
 -- Unlike HideElvUIBagFrame, this must NOT call B.BankFrame:Hide() - ElvUI's
 -- shared Container_OnHide handler calls CloseBankFrame() as a side effect
 -- for any frame with isBank=true, which would immediately end the real
--- server-side bank interaction. Just make it invisible/non-interactive
--- instead; module:OnFrameHidden() is responsible for actually closing the
--- bank via CloseBankFrame() when appropriate.
+-- server-side bank interaction. Moved off-screen for the same reason as
+-- HideElvUIBagFrame above (EnableMouse(false)/SetAlpha(0) on the frame
+-- alone doesn't stop its children from still being clickable);
+-- module:OnFrameHidden() is responsible for actually closing the bank via
+-- CloseBankFrame() when appropriate.
 local function HideElvUIBankFrame()
 	if B.BankFrame and B.BankFrame:IsShown() then
 		SnapshotBankNewItems()
-		B.BankFrame:SetAlpha(0)
 		B.BankFrame:EnableMouse(false)
+		B.BankFrame:ClearAllPoints()
+		B.BankFrame:SetPoint("CENTER", E.UIParent, "CENTER", -10000, -10000)
 	end
 end
 
