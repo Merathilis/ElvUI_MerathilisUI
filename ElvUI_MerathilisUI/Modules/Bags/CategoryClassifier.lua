@@ -83,7 +83,6 @@ local DEFAULT_CATEGORIES = {
 		isSetGear = true,
 		icon = 4871338,
 		nestByEquipmentSet = true,
-		hiddenInBank = true,
 	},
 	{
 		key = "QUEST",
@@ -92,7 +91,6 @@ local DEFAULT_CATEGORIES = {
 		isQuest = true,
 		icon = E.Media.Textures.Scroll,
 		nestByExpansion = true,
-		hiddenInBank = true,
 	},
 	{
 		key = "WEAPONS",
@@ -100,7 +98,6 @@ local DEFAULT_CATEGORIES = {
 		types = { CLASS_WEAPON },
 		equipSlots = { INVTYPE_TRINKET = true },
 		icon = E.Media.Textures.Combat,
-		hiddenInBank = true,
 	},
 	{
 		key = "ARMOR",
@@ -108,7 +105,6 @@ local DEFAULT_CATEGORIES = {
 		types = { CLASS_ARMOR },
 		excludeEquipSlots = { INVTYPE_TRINKET = true },
 		icon = E.Media.Textures.ChestPlate,
-		hiddenInBank = true,
 	},
 	{
 		key = "CONSUMABLES",
@@ -116,7 +112,6 @@ local DEFAULT_CATEGORIES = {
 		types = { CLASS_CONSUMABLE },
 		icon = E.Media.Textures.GreenPotion,
 		nestByExpansion = true,
-		hiddenInBank = true,
 	},
 	{
 		key = "TRADEGOODS",
@@ -124,28 +119,24 @@ local DEFAULT_CATEGORIES = {
 		types = { CLASS_TRADEGOODS, CLASS_REAGENT },
 		icon = E.Media.Textures.FabricSilk,
 		nestByExpansion = true,
-		hiddenInBank = true,
 	},
 	{
 		key = "GEARENHANCEMENT",
 		name = L["Gear Enhancements"],
 		types = { CLASS_GEM, CLASS_ITEMENHANCEMENT },
 		icon = 7549094,
-		hiddenInBank = true,
 	},
 	{
 		key = "PROFESSIONS",
 		name = L["Professions"],
 		types = { CLASS_PROFESSION, CLASS_RECIPE },
 		icon = E.Media.Textures.Catalog,
-		hiddenInBank = true,
 	},
 	{
 		key = "HOUSING",
 		name = L["Housing"],
 		types = { CLASS_HOUSING },
 		icon = 7726459,
-		hiddenInBank = true,
 	},
 	{
 		key = "MISC",
@@ -250,16 +241,9 @@ function module:GetCatchAllKey()
 	end
 end
 
--- context == "bank": the user asked for both the character Bank's and the
--- Warband Bank's category list to be reduced to just Reagent Bag +
--- Miscellaneous (everything else - Equipment and every classification
--- category after it - hidden there). The regular bag frame calls this with
--- no context and keeps the full list; cached separately from the unfiltered
--- list since both are read constantly during a collection pass.
-function module:GetCategories(context)
-	local cacheField = context == "bank" and "_bankCategoriesCache" or "_categoriesCache"
-	if module[cacheField] then
-		return module[cacheField]
+function module:GetCategories()
+	if module._categoriesCache then
+		return module._categoriesCache
 	end
 
 	local db = module.db
@@ -268,7 +252,7 @@ function module:GetCategories(context)
 
 	local nameOverrides = db and db.categoryNameOverrides
 	for _, cat in ipairs(DEFAULT_CATEGORIES) do
-		if not disabled[cat.key] and not (context == "bank" and cat.hiddenInBank) then
+		if not disabled[cat.key] then
 			local override = nameOverrides and nameOverrides[cat.key]
 			if override then
 				-- Shallow copy so the rename doesn't mutate the shared
@@ -305,7 +289,7 @@ function module:GetCategories(context)
 
 	module:ApplyCategoryOrder(cats)
 
-	module[cacheField] = cats
+	module._categoriesCache = cats
 	return cats
 end
 
@@ -378,12 +362,12 @@ function module:ReorderCategory(draggedKey, targetKey)
 	module:InvalidateCategoryCache()
 end
 
-function module:FindCategory(key, context)
+function module:FindCategory(key)
 	if not key then
 		return nil
 	end
 
-	for _, cat in ipairs(module:GetCategories(context)) do
+	for _, cat in ipairs(module:GetCategories()) do
 		if cat.key == key then
 			return cat
 		end
@@ -392,7 +376,6 @@ end
 
 function module:InvalidateCategoryCache()
 	module._categoriesCache = nil
-	module._bankCategoriesCache = nil
 end
 
 -- itemID -> equipment-set name, rebuilt once per collection pass
@@ -436,13 +419,8 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink)
 		return nil
 	end
 
-	-- Both Character Bank and Warband Bank items get a reduced category list
-	-- (Reagent Bag + Miscellaneous only - see the `hiddenInBank` categories
-	-- above); the regular bag frame always classifies against the full list.
-	local context = (module.BankBagIDSet[bagID] or module.WarbandBagIDSet[bagID]) and "bank" or nil
-
 	if bagID == module.ReagentContainer then
-		for _, cat in ipairs(module:GetCategories(context)) do
+		for _, cat in ipairs(module:GetCategories()) do
 			if cat.isReagentBag then
 				return cat.key
 			end
@@ -451,14 +429,14 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink)
 
 	local db = module.db
 	local assignedKey = itemID and db and db.itemAssignments and db.itemAssignments[itemID]
-	if assignedKey and module:FindCategory(assignedKey, context) then
+	if assignedKey and module:FindCategory(assignedKey) then
 		return assignedKey
 	end
 
 	if bagID and slotID and C_Container_GetContainerItemQuestInfo then
 		local questInfo = C_Container_GetContainerItemQuestInfo(bagID, slotID)
 		if questInfo and (questInfo.isQuestItem or questInfo.questID) then
-			for _, cat in ipairs(module:GetCategories(context)) do
+			for _, cat in ipairs(module:GetCategories()) do
 				if cat.isQuest then
 					return cat.key
 				end
@@ -476,14 +454,14 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink)
 	-- weapon or armor piece that's part of any saved set lands in Item Set
 	-- Gear instead of its usual category.
 	if (classID == CLASS_ARMOR or classID == CLASS_WEAPON) and module:GetEquipmentSetName(itemID) then
-		for _, cat in ipairs(module:GetCategories(context)) do
+		for _, cat in ipairs(module:GetCategories()) do
 			if cat.isSetGear then
 				return cat.key
 			end
 		end
 	end
 
-	for _, cat in ipairs(module:GetCategories(context)) do
+	for _, cat in ipairs(module:GetCategories()) do
 		if cat.types and not cat.isReagentBag and not cat.isSetGear then
 			local matched = false
 

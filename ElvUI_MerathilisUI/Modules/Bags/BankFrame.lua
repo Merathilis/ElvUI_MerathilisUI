@@ -27,8 +27,9 @@ local C_Container_SetItemSearch = C_Container.SetItemSearch
 local CreatePoolSet = module.CreatePoolSet
 local RenderCategorySections = module.RenderCategorySections
 local GetBankTabSlotState = module.GetBankTabSlotState
-local BuildBankCategorySections = module.BuildBankCategorySections
-local BuildWarbandCategorySections = module.BuildWarbandCategorySections
+local CollectItemsByBagFrom = module.CollectItemsByBagFrom
+local BuildBagSectionsFrom = module.BuildBagSectionsFrom
+local BuildFlatSectionsFrom = module.BuildFlatSectionsFrom
 local GetBagIcon = module.GetBagIcon
 local GetBagDisplayName = module.GetBagDisplayName
 local ShowPurchaseBankTabPrompt = module.ShowPurchaseBankTabPrompt
@@ -81,18 +82,22 @@ end
 
 -- The mode-selector rows - genuinely fixed at the top of the sidebar, above
 -- the scrollable list (mirrors the bag frame's own ALL/CATEGORY/BAG
--- switcher rows). No "OneBank"/"OneWarband" flat-view counterparts: both
--- Bank category lists are reduced to just Reagent Bag + Miscellaneous (see
--- `hiddenInBank` in CategoryClassifier.lua), so a flat view would show the
--- exact same single list as "All Bank/Warband Tabs" already does.
+-- switcher rows). "All ... Tabs" groups content by physical tab (one header
+-- per tab, see BuildBankSections); "OneBank"/"OneWarband" is the flat,
+-- ungrouped counterpart (one continuous list, no per-tab headers) - same
+-- relationship as the bag frame's own MultiBag/"All Items" pair. Labels stay
+-- untranslated, matching the reference addon's own OneBag/MultiBag naming
+-- already used elsewhere in this file.
 local function BuildBankModeDefs()
 	local defs = {}
 
 	if #module.BankBagIDs > 0 then
 		tinsert(defs, { kind = "mode", bankViewMode = "BANK_ALL", label = L["All Bank Tabs"] })
+		tinsert(defs, { kind = "mode", bankViewMode = "ONEBANK", label = L["OneBank"] })
 	end
 	if #module.WarbandBagIDs > 0 then
 		tinsert(defs, { kind = "mode", bankViewMode = "WARBAND_ALL", label = L["All Warband Tabs"] })
+		tinsert(defs, { kind = "mode", bankViewMode = "ONEWARBAND", label = L["OneWarband"] })
 	end
 
 	return defs
@@ -229,8 +234,12 @@ local function CreateBankSidebarRowButton(parent)
 	row.text = row:CreateFontString(nil, "OVERLAY")
 	row.text:FontTemplate()
 	row.text:Point("LEFT", row.icon, "RIGHT", 6, 0)
-	row.text:Point("RIGHT", -4, 0)
+	row.text:Point("RIGHT", -26, 0)
 	row.text:SetJustifyH("LEFT")
+
+	row.count = row:CreateFontString(nil, "OVERLAY")
+	row.count:FontTemplate()
+	row.count:Point("RIGHT", -4, 0)
 
 	row:SetScript("OnClick", BankTabRow_OnClick)
 	row:SetScript("OnEnter", BankTabRow_OnEnter)
@@ -551,7 +560,8 @@ function module:UpdateBankDepositButtonLabel()
 		return
 	end
 
-	local label = module.bankViewMode == "WARBAND_ALL" and L["Deposit Warbound Items"] or L["Deposit Reagents"]
+	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
+	local label = isWarbandView and L["Deposit Warbound Items"] or L["Deposit Reagents"]
 	f.footer.depositButton:SetText(label)
 end
 
@@ -604,12 +614,83 @@ local function AcquireBankTabDivider(index)
 	return divider
 end
 
+local bankItemsByBagScratch = {}
+local warbandItemsByBagScratch = {}
+
+-- Only "purchased" tabs get a content section - an unpurchased tab has 0
+-- slots and nothing meaningful to group; it's still listed as locked/
+-- purchasable in the sidebar's own tab rows.
+local function GetPurchasedBagIDs(bagIDList, bankType)
+	local purchased = {}
+	for i, bagID in ipairs(bagIDList) do
+		if GetBankTabSlotState(bagIDList, bankType, i) == "purchased" then
+			tinsert(purchased, bagID)
+		end
+	end
+	return purchased
+end
+
+-- "All ... Tabs" groups content by physical tab instead of category -
+-- classification categories don't map well onto a bank's own organization,
+-- tabs do. `true` (alwaysShow) keeps every purchased tab's section visible
+-- even when empty, matching the always-listed physical tabs in the
+-- reference layout - unlike a category, an empty tab is still a real,
+-- addressable place to put things. "OneBank"/"OneWarband" instead flattens
+-- the same items into one continuous list, no per-tab headers.
 local function BuildBankSections()
-	if module.bankViewMode == "WARBAND_ALL" then
-		return BuildWarbandCategorySections()
+	local isWarband = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
+	local bagIDList, bankType, scratch
+	if isWarband then
+		bagIDList, bankType, scratch = module.WarbandBagIDs, WARBAND_BANK_TYPE, warbandItemsByBagScratch
+	else
+		bagIDList, bankType, scratch = module.BankBagIDs, CHARACTER_BANK_TYPE, bankItemsByBagScratch
 	end
 
-	return BuildBankCategorySections()
+	local purchasedBagIDs = GetPurchasedBagIDs(bagIDList, bankType)
+
+	-- Clicking a tab row (module.bankTabFilter) narrows the content down to
+	-- just that one tab, same as before, in either mode.
+	if module.bankTabFilter then
+		local filtered = {}
+		for _, bagID in ipairs(purchasedBagIDs) do
+			if bagID == module.bankTabFilter then
+				tinsert(filtered, bagID)
+			end
+		end
+		purchasedBagIDs = filtered
+	end
+
+	local itemsByBag = CollectItemsByBagFrom(purchasedBagIDs, scratch)
+
+	if module.bankViewMode == "ONEBANK" or module.bankViewMode == "ONEWARBAND" then
+		return BuildFlatSectionsFrom(purchasedBagIDs, itemsByBag)
+	end
+
+	return BuildBagSectionsFrom(purchasedBagIDs, itemsByBag, true, true)
+end
+
+-- Used-item count for one bag (an unpurchased tab's bagID just reports 0
+-- slots, so summing every def in BankBagIDs/WarbandBagIDs regardless of
+-- purchase state is already correct - no separate purchased-only filtering
+-- needed).
+local function CountBagItems(bagID)
+	local numSlots = C_Container_GetContainerNumSlots(bagID)
+	local used = 0
+	for slotID = 1, numSlots do
+		local info = C_Container_GetContainerItemInfo(bagID, slotID)
+		if info and info.iconFileID then
+			used = used + 1
+		end
+	end
+	return used
+end
+
+local function SumBagItems(bagIDList)
+	local total = 0
+	for _, bagID in ipairs(bagIDList) do
+		total = total + CountBagItems(bagID)
+	end
+	return total
 end
 
 function module:RefreshBankCategoryFrame()
@@ -626,11 +707,19 @@ function module:RefreshBankCategoryFrame()
 	local sidebarWidth = db.bankSidebarCollapsed and COLLAPSED_SIDEBAR_WIDTH or db.bankSidebarWidth
 	f.sidebar:Width(sidebarWidth)
 
+	local bankItemCount = SumBagItems(module.BankBagIDs)
+	local warbandItemCount = SumBagItems(module.WarbandBagIDs)
+
 	for _, entry in ipairs(f.bankModeRows) do
 		local row, def = entry.frame, entry.def
 		row.text:SetShown(not db.bankSidebarCollapsed)
 		row.text:SetText(def.label)
 		row.icon:SetTexture(E.Media.Textures.Backpack)
+		row.count:SetShown(not db.bankSidebarCollapsed)
+		row.count:SetText(
+			(def.bankViewMode == "WARBAND_ALL" or def.bankViewMode == "ONEWARBAND") and warbandItemCount
+				or bankItemCount
+		)
 		local isSelected = module.bankViewMode == def.bankViewMode
 		row.selectedTex:SetShown(isSelected)
 		row.selectedBar:SetShown(isSelected)
@@ -691,6 +780,8 @@ function module:RefreshBankCategoryFrame()
 				row.icon:SetTexture(GetBagIcon(value))
 				row.icon:SetDesaturated(false)
 				row.icon:SetAlpha(1)
+				row.count:SetShown(not db.bankSidebarCollapsed)
+				row.count:SetText(CountBagItems(value))
 				local isSelected = module.bankTabFilter == value
 				row.selectedTex:SetShown(isSelected)
 				row.selectedBar:SetShown(isSelected)
@@ -700,6 +791,7 @@ function module:RefreshBankCategoryFrame()
 				row.icon:SetTexture(133784) -- Interface\ICONS\INV_Misc_Coin_02
 				row.icon:SetDesaturated(false)
 				row.icon:SetAlpha(1)
+				row.count:SetText("")
 				row.selectedTex:Hide()
 				row.selectedBar:Hide()
 			else
@@ -708,6 +800,7 @@ function module:RefreshBankCategoryFrame()
 				row.icon:SetTexture(E.Media.Textures.Backpack)
 				row.icon:SetDesaturated(true)
 				row.icon:SetAlpha(0.4)
+				row.count:SetText("")
 				row.selectedTex:Hide()
 				row.selectedBar:Hide()
 			end
@@ -730,18 +823,12 @@ function module:RefreshBankCategoryFrame()
 		end,
 	}, sections)
 
-	local isWarbandView = module.bankViewMode == "WARBAND_ALL"
+	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
 	local countBagIDs = isWarbandView and module.WarbandBagIDs or module.BankBagIDs
-	local totalSlots, usedSlots = 0, 0
+	local usedSlots = isWarbandView and warbandItemCount or bankItemCount
+	local totalSlots = 0
 	for _, bagID in ipairs(countBagIDs) do
-		local numSlots = C_Container_GetContainerNumSlots(bagID)
-		totalSlots = totalSlots + numSlots
-		for slotID = 1, numSlots do
-			local info = C_Container_GetContainerItemInfo(bagID, slotID)
-			if info and info.iconFileID then
-				usedSlots = usedSlots + 1
-			end
-		end
+		totalSlots = totalSlots + C_Container_GetContainerNumSlots(bagID)
 	end
 	f.titleText:SetText(isWarbandView and L["Warband Bank"] or L["Bank"])
 	f.titleCountText:SetText(format("%d / %d %s", usedSlots, totalSlots, L["Items"]))

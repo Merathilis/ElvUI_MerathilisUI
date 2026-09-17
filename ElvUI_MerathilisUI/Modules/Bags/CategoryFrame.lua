@@ -1337,8 +1337,13 @@ function module:ConstructFrame()
 		row.text = row:CreateFontString(nil, "OVERLAY")
 		row.text:FontTemplate()
 		row.text:Point("LEFT", row.icon, "RIGHT", 6, 0)
+		row.text:Point("RIGHT", -26, 0)
 		row.text:SetJustifyH("LEFT")
 		row.text:SetText(def.label)
+
+		row.count = row:CreateFontString(nil, "OVERLAY")
+		row.count:FontTemplate()
+		row.count:Point("RIGHT", -4, 0)
 
 		row.viewModeKey = def.key
 		row:SetScript("OnClick", function()
@@ -1346,6 +1351,8 @@ function module:ConstructFrame()
 			module:RefreshCategoryFrame()
 			module:RefreshBagBarPopout()
 		end)
+		row:SetScript("OnEnter", Sidebar_OnEnter)
+		row:SetScript("OnLeave", Sidebar_OnLeave)
 
 		f.viewModeRows[i] = row
 	end
@@ -1681,7 +1688,8 @@ function module:AutoDepositToBank()
 		return
 	end
 
-	local bankType = module.bankViewMode == "WARBAND_ALL" and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
+	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
+	local bankType = isWarbandView and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
 	AutoDepositItemsIntoBank(bankType)
 end
 
@@ -1902,32 +1910,9 @@ local function CollectItems()
 	return CollectItemsFromBags(BAG_IDS, categoryItemsScratch)
 end
 
-local bankCategoryItemsScratch = {}
--- Set via the Bag Bar popout while in Bank mode (click a tab to filter the
--- category view down to just that tab's items, click again to clear).
-local function CollectBankItems()
-	local bagIDList = module.BankBagIDs
-	if module.bankTabFilter then
-		bagIDList = { module.bankTabFilter }
-	end
-	return CollectItemsFromBags(bagIDList, bankCategoryItemsScratch)
-end
-
-local warbandCategoryItemsScratch = {}
--- Same tab-filter field as the character bank above - only one of the two
--- bank-like view modes is ever active at once, so it's cleared on every
--- view-mode switch away from BANK/WARBAND (see the view-mode row OnClick).
-local function CollectWarbandItems()
-	local bagIDList = module.WarbandBagIDs
-	if module.bankTabFilter then
-		bagIDList = { module.bankTabFilter }
-	end
-	return CollectItemsFromBags(bagIDList, warbandCategoryItemsScratch)
-end
-
-local function BuildCategorySectionsFrom(itemsByCategory, context)
+local function BuildCategorySectionsFrom(itemsByCategory)
 	local db = module.db
-	local categories = module:GetCategories(context)
+	local categories = module:GetCategories()
 	local sections = {}
 
 	if db.showPinned then
@@ -2056,14 +2041,6 @@ end
 
 local function BuildCategorySections()
 	return BuildCategorySectionsFrom(CollectItems())
-end
-
-local function BuildBankCategorySections()
-	return BuildCategorySectionsFrom(CollectBankItems(), "bank")
-end
-
-local function BuildWarbandCategorySections()
-	return BuildCategorySectionsFrom(CollectWarbandItems(), "bank")
 end
 
 -------------------------------------------------------------------------------
@@ -2323,15 +2300,24 @@ function module:ToggleBagBarPopout()
 	f:Show()
 end
 
-local function BuildBagSections()
+-- alwaysShow bypasses hideEmptyCategories for the per-bag sections only
+-- (Pinned/Recent still respect it) - the bank frame's tab view wants every
+-- purchased tab listed even when empty, since a physical tab's identity
+-- doesn't depend on its current contents the way a soft category's does.
+-- skipSidebarRows marks each bag section so RenderCategorySections doesn't
+-- also give it a row in the scrollable sidebar - the bank frame already has
+-- its own fixed per-tab rows for that (see BankFrame.lua), so a second,
+-- scroll-to-section row per tab would just be a confusing duplicate; the
+-- regular bag frame's own MultiBag mode has no such fixed rows and still
+-- wants them, so it's an opt-in flag rather than the default.
+local function BuildBagSectionsFrom(bagIDList, itemsByBag, alwaysShow, skipSidebarRows)
 	local db = module.db
-	local itemsByBag = CollectItemsByBag()
 	local sections = {}
 
 	-- Pinned/Recent stay useful (and stay at the top) regardless of grouping.
 	if db.showPinned then
 		local pinned = {}
-		for _, bagID in ipairs(BAG_IDS) do
+		for _, bagID in ipairs(bagIDList) do
 			for _, entry in ipairs(itemsByBag[bagID] or {}) do
 				if module:IsItemPinned(entry.itemID) then
 					tinsert(pinned, entry)
@@ -2352,7 +2338,7 @@ local function BuildBagSections()
 
 	if db.showRecent then
 		local recent = {}
-		for _, bagID in ipairs(BAG_IDS) do
+		for _, bagID in ipairs(bagIDList) do
 			for _, entry in ipairs(itemsByBag[bagID] or {}) do
 				if entry.isNew then
 					tinsert(recent, entry)
@@ -2372,20 +2358,25 @@ local function BuildBagSections()
 		end
 	end
 
-	for _, bagID in ipairs(BAG_IDS) do
+	for _, bagID in ipairs(bagIDList) do
 		local items = itemsByBag[bagID] or {}
-		if #items > 0 or not db.hideEmptyCategories then
+		if alwaysShow or #items > 0 or not db.hideEmptyCategories then
 			tinsert(sections, {
 				key = "BAG_" .. bagID,
 				name = GetBagDisplayName(bagID),
 				icon = GetBagIcon(bagID),
 				isBagSection = true,
+				skipSidebarRow = skipSidebarRows or nil,
 				items = items,
 			})
 		end
 	end
 
 	return sections
+end
+
+local function BuildBagSections()
+	return BuildBagSectionsFrom(BAG_IDS, CollectItemsByBag())
 end
 
 -------------------------------------------------------------------------------
@@ -2519,7 +2510,7 @@ end
 -- WHICH fixed rows sit above this (bag's ALL/CATEGORY/BAG switcher vs the
 -- bank's tab list) stays specific to each frame and lives outside this
 -- function; this only ever draws sections already built by BuildSections()/
--- BuildBankCategorySections()/etc into ctx.contentChild/ctx.sidebarChild.
+-- the bank frame's own tab-section builder into ctx.contentChild/ctx.sidebarChild.
 --
 -- ctx fields: contentChild, sidebarChild, pools (from CreatePoolSet),
 -- pinnedRow, offsets (the table to record each section's scroll offset
@@ -2579,10 +2570,11 @@ local function RenderCategorySections(ctx, sections)
 		-- Pinned Items has its own fixed shortcut row above the scrollable
 		-- list (see ConstructFrame/ConstructBankFrame), so it's excluded from
 		-- the scrollable sidebar rows here - only its content header/items
-		-- still render.
+		-- still render. skipSidebarRow (bank tab sections) is the same idea:
+		-- a fixed row already exists elsewhere for it.
 		if section.key == module.PinnedCategory.key then
 			ctx.pinnedRow.count:SetText(#section.items)
-		else
+		elseif not section.skipSidebarRow then
 			sidebarIndex = sidebarIndex + 1
 			-- Bag sections aren't reorderable either (no persisted "bag order"
 			-- concept, and physical bags aren't user-defined categories).
@@ -2712,11 +2704,27 @@ function module:RefreshCategoryFrame()
 	f.sidebar:Width(sidebarWidth)
 	f.addCategoryButton:SetShown(not db.sidebarCollapsed)
 
+	local totalSlots, usedSlots = 0, 0
+	for _, bagID in ipairs(BAG_IDS) do
+		local numSlots = C_Container_GetContainerNumSlots(bagID)
+		totalSlots = totalSlots + numSlots
+		for slotID = 1, numSlots do
+			local info = C_Container_GetContainerItemInfo(bagID, slotID)
+			if info and info.iconFileID then
+				usedSlots = usedSlots + 1
+			end
+		end
+	end
+
 	-- Fixed 3-row ALL/CATEGORY/BAG switcher - always all visible now that
 	-- Bank/Warband moved to their own separate frame, so (unlike before) this
 	-- never needs to reposition rows around a variable visible-row count.
+	-- All three modes just rearrange the SAME items, so they all show the
+	-- same total item count next to them.
 	for _, row in ipairs(f.viewModeRows) do
 		row.text:SetShown(not db.sidebarCollapsed)
+		row.count:SetShown(not db.sidebarCollapsed)
+		row.count:SetText(usedSlots)
 		local isSelected = row.viewModeKey == db.viewMode
 		row.selectedTex:SetShown(isSelected)
 		row.selectedBar:SetShown(isSelected)
@@ -2761,17 +2769,6 @@ function module:RefreshCategoryFrame()
 		end,
 	}, sections)
 
-	local totalSlots, usedSlots = 0, 0
-	for _, bagID in ipairs(BAG_IDS) do
-		local numSlots = C_Container_GetContainerNumSlots(bagID)
-		totalSlots = totalSlots + numSlots
-		for slotID = 1, numSlots do
-			local info = C_Container_GetContainerItemInfo(bagID, slotID)
-			if info and info.iconFileID then
-				usedSlots = usedSlots + 1
-			end
-		end
-	end
 	f.titleText:SetText(L["Inventory"])
 	f.titleCountText:SetText(format("%d / %d %s", usedSlots, totalSlots, L["Items"]))
 
@@ -3190,11 +3187,10 @@ function module:OpenAssignMenu(slot)
 
 	local itemID = slot.itemID
 	local ownerFrame = slot.ownerFrame
-	local context = ownerFrame == module.bankFrame and "bank" or nil
 	_G.MenuUtil.CreateContextMenu(slot, function(_, rootDescription)
 		rootDescription:CreateTitle(L["Assign to Category"])
 
-		for _, cat in ipairs(module:GetCategories(context)) do
+		for _, cat in ipairs(module:GetCategories()) do
 			if not cat.isReagentBag then
 				rootDescription:CreateButton(cat.name, function()
 					module:AssignItemToCategory(itemID, cat.key)
@@ -3557,8 +3553,9 @@ end
 -- CHARACTER_BANK_TYPE or the C_Bank.* functions aren't real logic, so
 -- BankFrame.lua just redeclares those itself rather than routing them
 -- through here too).
-module.BuildBankCategorySections = BuildBankCategorySections
-module.BuildWarbandCategorySections = BuildWarbandCategorySections
+module.CollectItemsByBagFrom = CollectItemsByBagFrom
+module.BuildFlatSectionsFrom = BuildFlatSectionsFrom
+module.BuildBagSectionsFrom = BuildBagSectionsFrom
 module.GetBagIcon = GetBagIcon
 module.GetBagDisplayName = GetBagDisplayName
 module.ShowPurchaseBankTabPrompt = ShowPurchaseBankTabPrompt
