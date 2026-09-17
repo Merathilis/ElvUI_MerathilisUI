@@ -162,10 +162,18 @@ local function SnapshotBankNewItems()
 	SnapshotNewItemsForBags(module.WarbandBagIDs)
 end
 
+-- Must NOT call B.BagFrame:Hide() - its OnHide handler (Container_OnHide)
+-- calls CloseBackpack()/CloseBag() as a side effect, which resets the
+-- native "bags are open" state ElvUI's own toggle handlers read on the next
+-- press of the bag keybind. Since our frame is what's actually open at that
+-- point, that reset made every subsequent press decide to "open" again
+-- instead of alternating - the keybind stopped closing anything. Just make
+-- it invisible/non-interactive instead, mirroring HideElvUIBankFrame below.
 local function HideElvUIBagFrame()
 	if B.BagFrame and B.BagFrame:IsShown() then
 		SnapshotNewItems()
-		B.BagFrame:Hide()
+		B.BagFrame:SetAlpha(0)
+		B.BagFrame:EnableMouse(false)
 	end
 end
 
@@ -3348,35 +3356,26 @@ function module:OnFrameHidden()
 	PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE or 863)
 end
 
-function module:ToggleCategoryFrame()
-	if module.frame and module.frame:IsShown() then
-		module:HideCategoryFrame()
-	else
-		module:ShowCategoryFrame()
-	end
-end
-
--- Combat-guarded here too (see ShowCategoryFrame): without it we'd still
--- hide B.BagFrame below and then no-op on our own frame, leaving no bag
--- frame visible at all until combat ends.
-function module:ToggleAllBags()
+-- Every ElvUI bag-opening path - the plain keybind (ToggleBackpack/
+-- ToggleAllBags/ToggleBag), the mail/vendor auto-open (OpenAllBags(frame)),
+-- its "Auto Toggle" option (auction house/trade/professions/soulbind forge,
+-- B:AutoToggleFunction) and its guild bank auto-open (B:GuildBankShow) - all
+-- funnel through B:OpenBags()/B:CloseAllBags() to actually show/hide
+-- B.BagFrame (see ElvUI's Bags.lua). Hooking those two directly, instead of
+-- every individual entry point above them, covers all of those contexts from
+-- one place with no risk of firing twice for the same user action.
+--
+-- (Two earlier attempts got this wrong: hooking the native global
+-- ToggleAllBags/ToggleBackpack/OpenAllBags/CloseAllBags in addition to
+-- B:OpenBags()/B:CloseAllBags() double-fired on a plain keybind press - the
+-- native hook and the nested B:OpenBags() call it triggers both ran - and
+-- toggled our frame shut again right after opening it. Hooking
+-- B:AutoToggleFunction directly instead didn't fire at all: AceEvent
+-- captures that function by value when registering its triggering events,
+-- before our hook wraps it, so the wrapped version is never what actually
+-- gets called.)
+function module:OnElvUIBagsOpened()
 	if InCombatLockdown() then
-		return
-	end
-
-	HideElvUIBagFrame()
-	module:ToggleCategoryFrame()
-end
-
-function module:ToggleBackpack()
-	module:ToggleAllBags()
-end
-
-function module:OpenAllBags(frame)
-	-- Only take over if ElvUI's own auto-toggle logic actually decided to open
-	-- (it already ran by the time this hook fires); this keeps its per-context
-	-- (mail/vendor) auto-open settings authoritative instead of duplicating them.
-	if InCombatLockdown() or not frame or not (B.BagFrame and B.BagFrame:IsShown()) then
 		return
 	end
 
@@ -3384,33 +3383,7 @@ function module:OpenAllBags(frame)
 	module:ShowCategoryFrame()
 end
 
-function module:CloseAllBags()
-	if InCombatLockdown() then
-		return
-	end
-
-	module:HideCategoryFrame()
-end
-
--- ElvUI's own "Auto Toggle" option (Options > ElvUI > Bags > Auto Toggle -
--- auction house/trade/professions/soulbind forge) doesn't go through any of
--- the native global functions hooked above at all: B:AutoToggleFunction
--- calls B:OpenBags()/B:CloseAllBags() directly, which just show/hide
--- B.BagFrame itself (see ElvUI's Bags.lua) - so entering, say, the auction
--- house with that option enabled popped ElvUI's own bag frame open
--- alongside ours, unaffected by every hook above. Hooked as its own pair
--- (not reusing OpenAllBags/CloseAllBags) since B:OpenBags() takes no
--- meaningful argument, unlike the native OpenAllBags(frame) hook's `frame`.
-function module:ElvUIAutoToggleOpen()
-	if InCombatLockdown() or not (B.BagFrame and B.BagFrame:IsShown()) then
-		return
-	end
-
-	HideElvUIBagFrame()
-	module:ShowCategoryFrame()
-end
-
-function module:ElvUIAutoToggleClose()
+function module:OnElvUIBagsClosed()
 	if InCombatLockdown() then
 		return
 	end
@@ -3541,12 +3514,8 @@ function module:Initialize()
 	module.searchText = ""
 	module.bankViewMode = module.bankViewMode or "BANK_ALL"
 
-	module:SecureHook("ToggleAllBags")
-	module:SecureHook("ToggleBackpack")
-	module:SecureHook("OpenAllBags")
-	module:SecureHook("CloseAllBags")
-	module:SecureHook(B, "OpenBags", "ElvUIAutoToggleOpen")
-	module:SecureHook(B, "CloseAllBags", "ElvUIAutoToggleClose")
+	module:SecureHook(B, "OpenBags", "OnElvUIBagsOpened")
+	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
 
 	if #module.BankBagIDs > 0 or #module.WarbandBagIDs > 0 then
 		module:RegisterEvent("BANKFRAME_OPENED", "OnBankOpened")
