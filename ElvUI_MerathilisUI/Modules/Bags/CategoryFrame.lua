@@ -3392,6 +3392,32 @@ function module:CloseAllBags()
 	module:HideCategoryFrame()
 end
 
+-- ElvUI's own "Auto Toggle" option (Options > ElvUI > Bags > Auto Toggle -
+-- auction house/trade/professions/soulbind forge) doesn't go through any of
+-- the native global functions hooked above at all: B:AutoToggleFunction
+-- calls B:OpenBags()/B:CloseAllBags() directly, which just show/hide
+-- B.BagFrame itself (see ElvUI's Bags.lua) - so entering, say, the auction
+-- house with that option enabled popped ElvUI's own bag frame open
+-- alongside ours, unaffected by every hook above. Hooked as its own pair
+-- (not reusing OpenAllBags/CloseAllBags) since B:OpenBags() takes no
+-- meaningful argument, unlike the native OpenAllBags(frame) hook's `frame`.
+function module:ElvUIAutoToggleOpen()
+	if InCombatLockdown() or not (B.BagFrame and B.BagFrame:IsShown()) then
+		return
+	end
+
+	HideElvUIBagFrame()
+	module:ShowCategoryFrame()
+end
+
+function module:ElvUIAutoToggleClose()
+	if InCombatLockdown() then
+		return
+	end
+
+	module:HideCategoryFrame()
+end
+
 -- Mirrors ToggleAllBags/OpenAllBags for the bank: BANKFRAME_OPENED/CLOSED are
 -- still the correct events for the current retail bank (confirmed against
 -- ElvUI's own Bags.lua) even though the bank itself is now tab-based rather
@@ -3519,6 +3545,8 @@ function module:Initialize()
 	module:SecureHook("ToggleBackpack")
 	module:SecureHook("OpenAllBags")
 	module:SecureHook("CloseAllBags")
+	module:SecureHook(B, "OpenBags", "ElvUIAutoToggleOpen")
+	module:SecureHook(B, "CloseAllBags", "ElvUIAutoToggleClose")
 
 	if #module.BankBagIDs > 0 or #module.WarbandBagIDs > 0 then
 		module:RegisterEvent("BANKFRAME_OPENED", "OnBankOpened")
