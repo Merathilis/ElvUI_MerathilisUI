@@ -6,6 +6,8 @@ local B = E:GetModule("Bags")
 
 local options = module.options.modules.args
 
+F.MarkTabAsNew("bags")
+
 options.bags = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Bags"], "bags"),
@@ -13,7 +15,7 @@ options.bags = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Bags"], "orange"),
+			name = F.NewFeatureText(F.cOption(L["Bags"], "orange")),
 		},
 		equipmentManager = {
 			order = 1,
@@ -115,7 +117,7 @@ options.bags = {
 			order = 2,
 			type = "group",
 			name = L["Categorized Bags"],
-			guiInline = true,
+			childGroups = "tab",
 			get = function(info)
 				return E.db.mui.bags.categorizedBags[info[#info]]
 			end,
@@ -128,251 +130,209 @@ options.bags = {
 				end
 			end,
 			args = {
-				enable = {
+				general = {
 					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."],
-					set = function(info, value)
-						E.db.mui.bags.categorizedBags[info[#info]] = value
-						E:StaticPopup_Show("PRIVATE_RL")
-					end,
-				},
-				hideEmptyCategories = {
-					order = 2,
-					type = "toggle",
-					name = L["Hide Empty Categories"],
-				},
-				showPinned = {
-					order = 3,
-					type = "toggle",
-					name = L["Show Pinned Items"],
-				},
-				showRecent = {
-					order = 4,
-					type = "toggle",
-					name = L["Show Recent Items"],
-				},
-				alternatingRowBackground = {
-					order = 4.5,
-					type = "toggle",
-					name = L["Alternating Row Background"],
-					desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
-				},
-				resetCategoryGroups = {
-					order = 4.6,
-					type = "execute",
-					name = L["Reset Category Groups"],
-					desc = L["Restores any category group (e.g. \"Equipment\") you disbanded or removed a category from, and clears any group renames."],
-					func = function()
-						local db = BC.db
-						db.ungroupedCategories = nil
-						db.disbandedGroups = nil
-						db.groupNameOverrides = nil
-
-						BC:InvalidateCategoryCache()
-						if BC.frame then
-							BC:RefreshCategoryFrame()
-						end
-					end,
-				},
-				itemSize = {
-					order = 5,
-					type = "range",
-					name = L["Item Size"],
-					min = 24,
-					max = 48,
-					step = 1,
-				},
-				itemSpacingH = {
-					order = 6,
-					type = "range",
-					name = L["Item Spacing (Horizontal)"],
-					min = 0,
-					max = 10,
-					step = 1,
-				},
-				itemSpacingV = {
-					order = 7,
-					type = "range",
-					name = L["Item Spacing (Vertical)"],
-					min = 0,
-					max = 10,
-					step = 1,
-				},
-				sidebarWidth = {
-					order = 8,
-					type = "range",
-					name = L["Sidebar Width"],
-					min = 100,
-					max = 220,
-					step = 1,
-				},
-				sidebarRowHeight = {
-					order = 9,
-					type = "range",
-					name = L["Sidebar Row Height"],
-					min = 18,
-					max = 36,
-					step = 1,
-				},
-				headerHeight = {
-					order = 10,
-					type = "range",
-					name = L["Category Header Height"],
-					min = 16,
-					max = 32,
-					step = 1,
-				},
-				sectionSpacing = {
-					order = 11,
-					type = "range",
-					name = L["Spacing Between Categories"],
-					min = 0,
-					max = 32,
-					step = 1,
-				},
-				width = {
-					order = 12,
-					type = "range",
-					name = L["Width"],
-					min = 380,
-					max = 900,
-					step = 1,
-				},
-				height = {
-					order = 13,
-					type = "range",
-					name = L["Height"],
-					min = 300,
-					max = 800,
-					step = 1,
-				},
-				bankWindow = {
-					order = 13.5,
 					type = "group",
-					inline = true,
-					name = L["Bank Window"],
-					get = function(info)
-						return E.db.mui.bags.categorizedBags[info[#info]]
-					end,
-					set = function(info, value)
-						E.db.mui.bags.categorizedBags[info[#info]] = value
-
-						if BC.bankFrame then
-							BC.bankFrame:Size(
-								E.db.mui.bags.categorizedBags.bankWidth,
-								E.db.mui.bags.categorizedBags.bankHeight
-							)
-							BC:RefreshBankCategoryFrame()
-						end
-					end,
-					args = {
-						bankSidebarWidth = {
-							order = 1,
-							type = "range",
-							name = L["Sidebar Width"],
-							min = 100,
-							max = 220,
-							step = 1,
-						},
-						bankWidth = {
-							order = 2,
-							type = "range",
-							name = L["Width"],
-							min = 380,
-							max = 900,
-							step = 1,
-						},
-						bankHeight = {
-							order = 3,
-							type = "range",
-							name = L["Height"],
-							min = 300,
-							max = 800,
-							step = 1,
-						},
-					},
-				},
-				itemCountFont = {
-					order = 14,
-					type = "group",
-					inline = true,
-					name = L["Item Count"],
-					get = function(info)
-						return E.db.mui.bags.categorizedBags.itemCountFont[info[#info]]
-					end,
-					set = function(info, value)
-						E.db.mui.bags.categorizedBags.itemCountFont[info[#info]] = value
-						if BC.frame then
-							BC:RefreshCategoryFrame()
-						end
-					end,
-					args = {
-						name = {
-							order = 1,
-							type = "select",
-							dialogControl = "LSM30_Font",
-							name = L["Font"],
-							values = E.LSM:HashTable("font"),
-						},
-						style = {
-							order = 2,
-							type = "select",
-							name = L["Outline"],
-							values = MER.Values.FontFlags,
-							sortByValue = true,
-						},
-						size = {
-							order = 3,
-							type = "range",
-							name = L["Size"],
-							min = 6,
-							max = 24,
-							step = 1,
-						},
-						position = {
-							order = 4,
-							type = "select",
-							name = L["Position"],
-							values = I.Values.positionValues,
-						},
-					},
-				},
-				itemLevel = {
-					order = 15,
-					type = "group",
-					inline = true,
-					name = L["Item Level"],
-					get = function(info)
-						return E.db.mui.bags.categorizedBags.itemLevel[info[#info]]
-					end,
-					set = function(info, value)
-						E.db.mui.bags.categorizedBags.itemLevel[info[#info]] = value
-						if BC.frame then
-							BC:RefreshCategoryFrame()
-						end
-					end,
+					name = L["General"],
 					args = {
 						enable = {
 							order = 1,
 							type = "toggle",
 							name = L["Enable"],
-							width = "full",
+							desc = L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."],
+							set = function(info, value)
+								E.db.mui.bags.categorizedBags[info[#info]] = value
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
 						},
-						font = {
+						hideEmptyCategories = {
+							order = 2,
+							type = "toggle",
+							name = L["Hide Empty Categories"],
+						},
+						showPinned = {
+							order = 3,
+							type = "toggle",
+							name = L["Show Pinned Items"],
+						},
+						showRecent = {
+							order = 4,
+							type = "toggle",
+							name = L["Show Recent Items"],
+						},
+						alternatingRowBackground = {
+							order = 5,
+							type = "toggle",
+							name = L["Alternating Row Background"],
+							desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
+						},
+						resetCategoryGroups = {
+							order = 6,
+							type = "execute",
+							name = L["Reset Category Groups"],
+							desc = L["Restores any category group (e.g. \"Equipment\") you disbanded or removed a category from, and clears any group renames."],
+							func = function()
+								local db = BC.db
+								db.ungroupedCategories = nil
+								db.disbandedGroups = nil
+								db.groupNameOverrides = nil
+
+								BC:InvalidateCategoryCache()
+								if BC.frame then
+									BC:RefreshCategoryFrame()
+								end
+							end,
+						},
+					},
+				},
+				sizes = {
+					order = 2,
+					type = "group",
+					name = L["Sizes"],
+					args = {
+						bagWindow = {
+							order = 1,
+							type = "group",
+							inline = true,
+							name = L["Bag Window"],
+							args = {
+								itemSize = {
+									order = 1,
+									type = "range",
+									name = L["Item Size"],
+									min = 24,
+									max = 48,
+									step = 1,
+								},
+								itemSpacingH = {
+									order = 2,
+									type = "range",
+									name = L["Item Spacing (Horizontal)"],
+									min = 0,
+									max = 10,
+									step = 1,
+								},
+								itemSpacingV = {
+									order = 3,
+									type = "range",
+									name = L["Item Spacing (Vertical)"],
+									min = 0,
+									max = 10,
+									step = 1,
+								},
+								sidebarWidth = {
+									order = 4,
+									type = "range",
+									name = L["Sidebar Width"],
+									min = 100,
+									max = 220,
+									step = 1,
+								},
+								sidebarRowHeight = {
+									order = 5,
+									type = "range",
+									name = L["Sidebar Row Height"],
+									min = 18,
+									max = 36,
+									step = 1,
+								},
+								headerHeight = {
+									order = 6,
+									type = "range",
+									name = L["Category Header Height"],
+									min = 16,
+									max = 32,
+									step = 1,
+								},
+								sectionSpacing = {
+									order = 7,
+									type = "range",
+									name = L["Spacing Between Categories"],
+									min = 0,
+									max = 32,
+									step = 1,
+								},
+								width = {
+									order = 8,
+									type = "range",
+									name = L["Width"],
+									min = 380,
+									max = 900,
+									step = 1,
+								},
+								height = {
+									order = 9,
+									type = "range",
+									name = L["Height"],
+									min = 300,
+									max = 800,
+									step = 1,
+								},
+							},
+						},
+						bankWindow = {
 							order = 2,
 							type = "group",
 							inline = true,
-							name = L["Font"],
-							disabled = function()
-								return not E.db.mui.bags.categorizedBags.itemLevel.enable
-							end,
+							name = L["Bank Window"],
 							get = function(info)
-								return E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]]
+								return E.db.mui.bags.categorizedBags[info[#info]]
 							end,
 							set = function(info, value)
-								E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]] = value
+								E.db.mui.bags.categorizedBags[info[#info]] = value
+
+								if BC.bankFrame then
+									BC.bankFrame:Size(
+										E.db.mui.bags.categorizedBags.bankWidth,
+										E.db.mui.bags.categorizedBags.bankHeight
+									)
+									BC:RefreshBankCategoryFrame()
+								end
+							end,
+							args = {
+								bankSidebarWidth = {
+									order = 1,
+									type = "range",
+									name = L["Sidebar Width"],
+									min = 100,
+									max = 220,
+									step = 1,
+								},
+								bankWidth = {
+									order = 2,
+									type = "range",
+									name = L["Width"],
+									min = 380,
+									max = 900,
+									step = 1,
+								},
+								bankHeight = {
+									order = 3,
+									type = "range",
+									name = L["Height"],
+									min = 300,
+									max = 800,
+									step = 1,
+								},
+							},
+						},
+					},
+				},
+				fonts = {
+					order = 3,
+					type = "group",
+					name = L["Fonts"],
+					args = {
+						itemCountFont = {
+							order = 1,
+							type = "group",
+							inline = true,
+							name = L["Item Count"],
+							get = function(info)
+								return E.db.mui.bags.categorizedBags.itemCountFont[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.bags.categorizedBags.itemCountFont[info[#info]] = value
 								if BC.frame then
 									BC:RefreshCategoryFrame()
 								end
@@ -408,75 +368,146 @@ options.bags = {
 								},
 							},
 						},
-					},
-				},
-				itemInfo = {
-					order = 16,
-					type = "group",
-					inline = true,
-					name = L["Item Info"],
-					get = function(info)
-						return E.db.mui.bags.categorizedBags.itemInfo[info[#info]]
-					end,
-					set = function(info, value)
-						E.db.mui.bags.categorizedBags.itemInfo[info[#info]] = value
-						if BC.frame then
-							BC:RefreshCategoryFrame()
-						end
-					end,
-					args = {
-						enable = {
-							order = 1,
-							type = "toggle",
-							name = L["Enable"],
-							desc = L["Shows a bind-type indicator (BoE, BoU, ...) on items that aren't bound yet."],
-							width = "full",
-						},
-						font = {
+						itemLevel = {
 							order = 2,
 							type = "group",
 							inline = true,
-							name = L["Font"],
-							disabled = function()
-								return not E.db.mui.bags.categorizedBags.itemInfo.enable
-							end,
+							name = L["Item Level"],
 							get = function(info)
-								return E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]]
+								return E.db.mui.bags.categorizedBags.itemLevel[info[#info]]
 							end,
 							set = function(info, value)
-								E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]] = value
+								E.db.mui.bags.categorizedBags.itemLevel[info[#info]] = value
 								if BC.frame then
 									BC:RefreshCategoryFrame()
 								end
 							end,
 							args = {
-								name = {
+								enable = {
 									order = 1,
-									type = "select",
-									dialogControl = "LSM30_Font",
-									name = L["Font"],
-									values = E.LSM:HashTable("font"),
+									type = "toggle",
+									name = L["Enable"],
+									width = "full",
 								},
-								style = {
+								font = {
 									order = 2,
-									type = "select",
-									name = L["Outline"],
-									values = MER.Values.FontFlags,
-									sortByValue = true,
+									type = "group",
+									inline = true,
+									name = L["Font"],
+									disabled = function()
+										return not E.db.mui.bags.categorizedBags.itemLevel.enable
+									end,
+									get = function(info)
+										return E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]]
+									end,
+									set = function(info, value)
+										E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]] = value
+										if BC.frame then
+											BC:RefreshCategoryFrame()
+										end
+									end,
+									args = {
+										name = {
+											order = 1,
+											type = "select",
+											dialogControl = "LSM30_Font",
+											name = L["Font"],
+											values = E.LSM:HashTable("font"),
+										},
+										style = {
+											order = 2,
+											type = "select",
+											name = L["Outline"],
+											values = MER.Values.FontFlags,
+											sortByValue = true,
+										},
+										size = {
+											order = 3,
+											type = "range",
+											name = L["Size"],
+											min = 6,
+											max = 24,
+											step = 1,
+										},
+										position = {
+											order = 4,
+											type = "select",
+											name = L["Position"],
+											values = I.Values.positionValues,
+										},
+									},
 								},
-								size = {
-									order = 3,
-									type = "range",
-									name = L["Size"],
-									min = 6,
-									max = 24,
-									step = 1,
+							},
+						},
+						itemInfo = {
+							order = 3,
+							type = "group",
+							inline = true,
+							name = L["Item Info"],
+							get = function(info)
+								return E.db.mui.bags.categorizedBags.itemInfo[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.bags.categorizedBags.itemInfo[info[#info]] = value
+								if BC.frame then
+									BC:RefreshCategoryFrame()
+								end
+							end,
+							args = {
+								enable = {
+									order = 1,
+									type = "toggle",
+									name = L["Enable"],
+									desc = L["Shows a bind-type indicator (BoE, BoU, ...) on items that aren't bound yet."],
+									width = "full",
 								},
-								position = {
-									order = 4,
-									type = "select",
-									name = L["Position"],
-									values = I.Values.positionValues,
+								font = {
+									order = 2,
+									type = "group",
+									inline = true,
+									name = L["Font"],
+									disabled = function()
+										return not E.db.mui.bags.categorizedBags.itemInfo.enable
+									end,
+									get = function(info)
+										return E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]]
+									end,
+									set = function(info, value)
+										E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]] = value
+										if BC.frame then
+											BC:RefreshCategoryFrame()
+										end
+									end,
+									args = {
+										name = {
+											order = 1,
+											type = "select",
+											dialogControl = "LSM30_Font",
+											name = L["Font"],
+											values = E.LSM:HashTable("font"),
+										},
+										style = {
+											order = 2,
+											type = "select",
+											name = L["Outline"],
+											values = MER.Values.FontFlags,
+											sortByValue = true,
+										},
+										size = {
+											order = 3,
+											type = "range",
+											name = L["Size"],
+											min = 6,
+											max = 24,
+											step = 1,
+										},
+										position = {
+											order = 4,
+											type = "select",
+											name = L["Position"],
+											values = I.Values.positionValues,
+										},
+									},
 								},
 							},
 						},

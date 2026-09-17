@@ -4,8 +4,6 @@ local Mail = MER:GetModule("MER_Mail")
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("mail")
-
 options.mail = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Mail"], "mail"),
@@ -20,7 +18,7 @@ options.mail = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.NewFeatureText(F.cOption(L["Mail"], "orange")),
+			name = F.cOption(L["Mail"], "orange"),
 		},
 		desc = {
 			order = 1,

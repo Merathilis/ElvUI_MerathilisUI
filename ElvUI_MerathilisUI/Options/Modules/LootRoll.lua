@@ -12,8 +12,6 @@ local function RequestRefresh()
 	end
 end
 
-F.MarkTabAsNew("lootRoll")
-
 options.lootRoll = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Loot Roll"], "bags"),
@@ -21,7 +19,7 @@ options.lootRoll = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.NewFeatureText(F.cOption(L["Loot Roll"], "orange")),
+			name = F.cOption(L["Loot Roll"], "orange"),
 		},
 		desc = {
 			order = 1,
