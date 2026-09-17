@@ -65,10 +65,16 @@ end
 -- Category list/order/matching rules kept 1:1 with the reference addon's own
 -- hardcoded defaults (types = Enum.ItemClass numeric IDs, same precedence:
 -- Reagent Bag > Item Set Gear > Quest > general type walk > catch-all). Icons
--- stay our own ElvUI-media choices where we already had a fitting one; the
--- three categories new to this pass (Item Set Gear/Gear Enhancements/Housing)
--- use plain Blizzard icon texture IDs since there's no existing ElvUI atlas
--- equivalent picked for them yet.
+-- stay our own ElvUI-media choices where we already had a fitting one;
+-- ElvUI's texture set has nothing for Item Set Gear/Gear Enhancements/Housing
+-- (checked E.Media.Textures - it's UI chrome, not thematic icons), so those
+-- use Blizzard icons instead. Item Set Gear uses the flat "bags-icon-
+-- equipment" atlas - the same icon family already used for JunkIcon below,
+-- and Blizzard's own default bag frame uses it for exactly this "equippable
+-- gear" grouping. Gear Enhancements/Housing use raw item-icon fileIDs
+-- instead (a jewelcrafting cut gem, and Blizzard's own "spell_housing" icon
+-- for the upcoming Housing feature) - both already fit their category well
+-- and no equivalent flat atlas icon exists for either concept.
 local DEFAULT_CATEGORIES = {
 	{
 		key = "REAGENTBAG",
@@ -81,7 +87,8 @@ local DEFAULT_CATEGORIES = {
 		name = L["Item Set Gear"],
 		types = { CLASS_ARMOR, CLASS_WEAPON },
 		isSetGear = true,
-		icon = 4871338,
+		icon = "bags-icon-equipment",
+		isAtlas = true,
 		nestByEquipmentSet = true,
 	},
 	{
