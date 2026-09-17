@@ -234,6 +234,19 @@ local function Slot_SplitStack(self, split)
 	end
 end
 
+-- Pin/Recent/category-assignment actions on a slot need to refresh whichever
+-- top-level frame actually owns that slot (module.frame vs module.bankFrame)
+-- - always refreshing the bag frame left the Bank frame's own Pinned count
+-- stale until some unrelated BAG_UPDATE happened to catch it up, since a
+-- bank item never appears in the bag frame's own Pinned section at all.
+local function RefreshOwnerFrame(ownerFrame)
+	if ownerFrame == module.bankFrame then
+		module:RefreshBankCategoryFrame()
+	else
+		module:RefreshCategoryFrame()
+	end
+end
+
 -- Right-click "use" needs real secure type/item attributes on a
 -- SecureActionButtonTemplate button to avoid ADDON_ACTION_FORBIDDEN (see
 -- UpdateSlotVisual); a plain overlay on top to carry Left/Middle separately
@@ -290,7 +303,7 @@ local function Slot_OnClick(self, mouseButton)
 			module:OpenAssignMenu(self)
 		else
 			module:TogglePinned(self.itemID)
-			module:RefreshCategoryFrame()
+			RefreshOwnerFrame(self.ownerFrame)
 		end
 	elseif mouseButton == "RightButton" then
 		-- Ctrl+Right-click while the bank is open offers a "move to a specific
@@ -1668,8 +1681,7 @@ function module:AutoDepositToBank()
 		return
 	end
 
-	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
-	local bankType = isWarbandView and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
+	local bankType = module.bankViewMode == "WARBAND_ALL" and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
 	AutoDepositItemsIntoBank(bankType)
 end
 
@@ -1961,7 +1973,7 @@ local function BuildCategorySectionsFrom(itemsByCategory, context)
 		end
 	end
 
-	-- Category groups (e.g. "The Armory") merge several categories' items
+	-- Category groups (e.g. "Equipment") merge several categories' items
 	-- into one combined content section; the sidebar still lists each member
 	-- underneath the group as its own indented, clickable row (see the
 	-- isGroup handling in RefreshCategoryFrame).
@@ -2051,7 +2063,7 @@ local function BuildBankCategorySections()
 end
 
 local function BuildWarbandCategorySections()
-	return BuildCategorySectionsFrom(CollectWarbandItems())
+	return BuildCategorySectionsFrom(CollectWarbandItems(), "bank")
 end
 
 -------------------------------------------------------------------------------
@@ -2381,7 +2393,7 @@ end
 -------------------------------------------------------------------------------
 module.AllItemsCategory = { key = "ALL_ITEMS", name = L["All Items"], icon = E.Media.Textures.Backpack }
 
--- A category (or the group it belongs to, e.g. "The Armory") can be flagged
+-- A category (or the group it belongs to, e.g. "Equipment") can be flagged
 -- via its context menu to not show up in the flat "All Items" view, while
 -- still appearing normally in OneBag/MultiBag.
 local function IsCategoryHiddenFromAllItems(categoryKey)
@@ -2528,6 +2540,13 @@ local function RenderCategorySections(ctx, sections)
 
 	ctx.contentChild:Width(contentWidth)
 
+	-- Default to 0 up front: with hideEmptyCategories on, an empty Pinned
+	-- section is omitted from `sections` entirely (see the builders), so the
+	-- loop below never reaches the `ctx.pinnedRow.count:SetText(...)` branch
+	-- for it - unpinning the last item would otherwise leave the sidebar
+	-- shortcut's count stuck at its previous, now-stale value.
+	ctx.pinnedRow.count:SetText(0)
+
 	local slotIndex, headerIndex, subHeaderIndex, sidebarIndex = 0, 0, 0, 0
 	local y = 0
 
@@ -2585,7 +2604,7 @@ local function RenderCategorySections(ctx, sections)
 				ctx.sidebarBaseY
 			)
 
-			-- A category group ("The Armory") shows its member categories as
+			-- A category group ("Equipment") shows its member categories as
 			-- indented rows right underneath, always expanded - clicking one
 			-- jumps to the same merged content section as the parent, just
 			-- with that member's own item count/icon for orientation. Skipped
@@ -3170,14 +3189,16 @@ function module:OpenAssignMenu(slot)
 	end
 
 	local itemID = slot.itemID
+	local ownerFrame = slot.ownerFrame
+	local context = ownerFrame == module.bankFrame and "bank" or nil
 	_G.MenuUtil.CreateContextMenu(slot, function(_, rootDescription)
 		rootDescription:CreateTitle(L["Assign to Category"])
 
-		for _, cat in ipairs(module:GetCategories()) do
+		for _, cat in ipairs(module:GetCategories(context)) do
 			if not cat.isReagentBag then
 				rootDescription:CreateButton(cat.name, function()
 					module:AssignItemToCategory(itemID, cat.key)
-					module:RefreshCategoryFrame()
+					RefreshOwnerFrame(ownerFrame)
 				end)
 			end
 		end
@@ -3186,7 +3207,7 @@ function module:OpenAssignMenu(slot)
 		if db.itemAssignments and db.itemAssignments[itemID] then
 			rootDescription:CreateButton(L["Clear Assignment"], function()
 				module:ClearItemAssignment(itemID)
-				module:RefreshCategoryFrame()
+				RefreshOwnerFrame(ownerFrame)
 			end)
 		end
 	end)
@@ -3538,8 +3559,6 @@ end
 -- through here too).
 module.BuildBankCategorySections = BuildBankCategorySections
 module.BuildWarbandCategorySections = BuildWarbandCategorySections
-module.CollectItemsByBagFrom = CollectItemsByBagFrom
-module.BuildFlatSectionsFrom = BuildFlatSectionsFrom
 module.GetBagIcon = GetBagIcon
 module.GetBagDisplayName = GetBagDisplayName
 module.ShowPurchaseBankTabPrompt = ShowPurchaseBankTabPrompt

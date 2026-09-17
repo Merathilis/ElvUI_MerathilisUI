@@ -19,7 +19,7 @@ MER.Changelog[733] = {
 		"Bags: Categorized Bags - added tracked currencies to the footer, next to gold.",
 		"Bags: Categorized Bags - added a Vendor Grays button that sells all grey items at once while at a merchant.",
 		"Bags: Categorized Bags - added a Bag view mode that groups items by physical bag instead of category.",
-		"Bags: Categorized Bags - added category groups (e.g. \"The Armory\" merges Weapons & Trinkets, Armor and Item Set Gear into one section), with a right-click Rename/Disband Group/Ungroup/Hide-in-All-Items menu.",
+		"Bags: Categorized Bags - added category groups (e.g. \"Equipment\" merges Weapons & Trinkets, Armor and Item Set Gear into one section), with a right-click Rename/Disband Group/Ungroup/Hide-in-All-Items menu.",
 		"Bags: Categorized Bags - added quest, crafted-item quality, and Pawn upgrade-arrow icons on item slots, plus a vendor sell-cursor when hovering an item at a merchant.",
 		"Bags: Categorized Bags - added Shift+Right-click Split Stack support on item slots.",
 		"Bags: Categorized Bags - item slots now show the same Equipment Manager set icon as ElvUI's own bag slots.",

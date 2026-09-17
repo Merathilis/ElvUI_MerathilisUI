@@ -29,8 +29,6 @@ local RenderCategorySections = module.RenderCategorySections
 local GetBankTabSlotState = module.GetBankTabSlotState
 local BuildBankCategorySections = module.BuildBankCategorySections
 local BuildWarbandCategorySections = module.BuildWarbandCategorySections
-local CollectItemsByBagFrom = module.CollectItemsByBagFrom
-local BuildFlatSectionsFrom = module.BuildFlatSectionsFrom
 local GetBagIcon = module.GetBagIcon
 local GetBagDisplayName = module.GetBagDisplayName
 local ShowPurchaseBankTabPrompt = module.ShowPurchaseBankTabPrompt
@@ -83,16 +81,10 @@ end
 
 -- The mode-selector rows - genuinely fixed at the top of the sidebar, above
 -- the scrollable list (mirrors the bag frame's own ALL/CATEGORY/BAG
--- switcher rows). "All ... Tabs" is the existing category-grouped view;
--- "OneWarband" is a flat, ungrouped view across every purchased Warband tab
--- (same relationship as the bag frame's own OneBag/flat "All Items" view) -
--- untranslated label, matching the reference addon's own OneBag/MultiBag
--- naming already used elsewhere in this file. No "OneBank" counterpart: the
--- character Bank's own category list is already reduced to just Reagent Bag
--- + Miscellaneous (see `hiddenInBank` in CategoryClassifier.lua), so a flat
--- view there would show the exact same single list as "All Bank Tabs" -
--- Warband keeps its full category list, so its flat view stays meaningfully
--- different from "All Warband Tabs".
+-- switcher rows). No "OneBank"/"OneWarband" flat-view counterparts: both
+-- Bank category lists are reduced to just Reagent Bag + Miscellaneous (see
+-- `hiddenInBank` in CategoryClassifier.lua), so a flat view would show the
+-- exact same single list as "All Bank/Warband Tabs" already does.
 local function BuildBankModeDefs()
 	local defs = {}
 
@@ -101,7 +93,6 @@ local function BuildBankModeDefs()
 	end
 	if #module.WarbandBagIDs > 0 then
 		tinsert(defs, { kind = "mode", bankViewMode = "WARBAND_ALL", label = L["All Warband Tabs"] })
-		tinsert(defs, { kind = "mode", bankViewMode = "ONEWARBAND", label = L["OneWarband"] })
 	end
 
 	return defs
@@ -560,8 +551,7 @@ function module:UpdateBankDepositButtonLabel()
 		return
 	end
 
-	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
-	local label = isWarbandView and L["Deposit Warbound Items"] or L["Deposit Reagents"]
+	local label = module.bankViewMode == "WARBAND_ALL" and L["Deposit Warbound Items"] or L["Deposit Reagents"]
 	f.footer.depositButton:SetText(label)
 end
 
@@ -614,26 +604,9 @@ local function AcquireBankTabDivider(index)
 	return divider
 end
 
--- Own scratch table, same reasoning as bankCategoryItemsScratch/
--- warbandCategoryItemsScratch in CategoryFrame.lua's category-view
--- collectors - keeps the flat view's per-bagID cache independent of theirs.
--- No character-Bank counterpart: see the note on BuildBankModeDefs above.
-local warbandItemsByBagScratch = {}
-
-local function CollectWarbandItemsByBag()
-	local bagIDList = module.WarbandBagIDs
-	if module.bankTabFilter then
-		bagIDList = { module.bankTabFilter }
-	end
-	return CollectItemsByBagFrom(bagIDList, warbandItemsByBagScratch)
-end
-
 local function BuildBankSections()
 	if module.bankViewMode == "WARBAND_ALL" then
 		return BuildWarbandCategorySections()
-	elseif module.bankViewMode == "ONEWARBAND" then
-		local bagIDList = module.bankTabFilter and { module.bankTabFilter } or module.WarbandBagIDs
-		return BuildFlatSectionsFrom(bagIDList, CollectWarbandItemsByBag())
 	end
 
 	return BuildBankCategorySections()
@@ -757,7 +730,7 @@ function module:RefreshBankCategoryFrame()
 		end,
 	}, sections)
 
-	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
+	local isWarbandView = module.bankViewMode == "WARBAND_ALL"
 	local countBagIDs = isWarbandView and module.WarbandBagIDs or module.BankBagIDs
 	local totalSlots, usedSlots = 0, 0
 	for _, bagID in ipairs(countBagIDs) do

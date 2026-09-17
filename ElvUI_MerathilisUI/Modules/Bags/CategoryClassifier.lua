@@ -163,7 +163,7 @@ local DEFAULT_CATEGORIES = {
 module.CategoryGroups = {
 	{
 		key = "GROUP_ARMORY",
-		name = L["The Armory"],
+		name = L["Equipment"],
 		icon = E.Media.Textures.ChestPlate,
 		members = { "WEAPONS", "ARMOR", "SETGEAR" },
 	},
@@ -250,11 +250,11 @@ function module:GetCatchAllKey()
 	end
 end
 
--- context == "bank": the user asked for the character Bank's own category
--- list to be reduced to just Reagent Bag + Miscellaneous (everything else -
--- The Armory and every classification category after it - hidden there
--- specifically). Warband Bank and the regular bag frame both call this with
--- no context and keep the full list; cached separately from the unfiltered
+-- context == "bank": the user asked for both the character Bank's and the
+-- Warband Bank's category list to be reduced to just Reagent Bag +
+-- Miscellaneous (everything else - Equipment and every classification
+-- category after it - hidden there). The regular bag frame calls this with
+-- no context and keeps the full list; cached separately from the unfiltered
 -- list since both are read constantly during a collection pass.
 function module:GetCategories(context)
 	local cacheField = context == "bank" and "_bankCategoriesCache" or "_categoriesCache"
@@ -436,10 +436,10 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink)
 		return nil
 	end
 
-	-- Character Bank items get a reduced category list (Reagent Bag +
-	-- Miscellaneous only - see the `hiddenInBank` categories above); Warband
-	-- Bank and regular bags always classify against the full list.
-	local context = module.BankBagIDSet[bagID] and "bank" or nil
+	-- Both Character Bank and Warband Bank items get a reduced category list
+	-- (Reagent Bag + Miscellaneous only - see the `hiddenInBank` categories
+	-- above); the regular bag frame always classifies against the full list.
+	local context = (module.BankBagIDSet[bagID] or module.WarbandBagIDSet[bagID]) and "bank" or nil
 
 	if bagID == module.ReagentContainer then
 		for _, cat in ipairs(module:GetCategories(context)) do
