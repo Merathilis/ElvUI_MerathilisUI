@@ -122,14 +122,17 @@ local function BuildBankTabDefs()
 	local defs = {}
 
 	if #module.BankBagIDs > 0 then
-		tinsert(defs, { kind = "divider" })
 		for i = 1, #module.BankBagIDs do
 			tinsert(defs, { kind = "tab", bagIDList = module.BankBagIDs, bankType = CHARACTER_BANK_TYPE, index = i })
 		end
 	end
 
 	if #module.WarbandBagIDs > 0 then
-		tinsert(defs, { kind = "divider" })
+		-- Only between the two tab blocks - the first block already sits
+		-- right under the fixed separator below the Pinned Items row.
+		if #defs > 0 then
+			tinsert(defs, { kind = "divider" })
+		end
 		for i = 1, #module.WarbandBagIDs do
 			tinsert(defs, { kind = "tab", bagIDList = module.WarbandBagIDs, bankType = WARBAND_BANK_TYPE, index = i })
 		end

@@ -46,6 +46,7 @@ local C_NewItems_RemoveNewItem = C_NewItems.RemoveNewItem
 local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
 local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 local C_Item_GetItemInfo = C_Item.GetItemInfo
+local C_Item_IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip
 local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
 local C_TooltipInfo_GetBagItem = C_TooltipInfo.GetBagItem
 local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
@@ -73,6 +74,10 @@ module.BANK_FRAME_NAME = BANK_FRAME_NAME
 local ITEMCLASS_ARMOR = Enum.ItemClass.Armor
 local ITEMCLASS_WEAPON = Enum.ItemClass.Weapon
 local ITEMQUALITY_COMMON = Enum.ItemQuality.Common
+
+local ITEMBIND_ON_EQUIP = Enum.ItemBind.OnEquip or 2
+local ITEMBIND_TO_BNET_ACCOUNT = Enum.ItemBind.ToBnetAccount or 8
+local ITEMBIND_TO_BNET_ACCOUNT_UNTIL_EQUIPPED = Enum.ItemBind.ToBnetAccountUntilEquipped or 9
 
 local BIND_TEXT = {
 	[Enum.ItemBind.OnAcquire or 1] = L["BoP"],
@@ -722,6 +727,13 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	btn.JunkIcon:Point("TOPRIGHT", -1, -1)
 	btn.JunkIcon:Hide()
 
+	-- Warband marker for Warbound / Warbound-until-equipped items (same atlas
+	-- Blizzard's own currency UI uses for account-wide things).
+	btn.warboundIcon = btn:CreateTexture(nil, "OVERLAY", nil, 3)
+	btn.warboundIcon:SetAtlas("warbands-icon")
+	btn.warboundIcon:Point("TOPRIGHT", -1, -1)
+	btn.warboundIcon:Hide()
+
 	-- Pawn upgrade-arrow overlay (same as ElvUI's own bags) - Blizzard has no
 	-- reliable native API for this, so it's driven entirely by the Pawn
 	-- addon's own PawnShouldItemLinkHaveUpgradeArrowUnbudgeted, if installed.
@@ -1101,6 +1113,9 @@ local function UpdateSlotVisual(btn, entry)
 	btn.JunkIcon:SetSize(module.db.itemSize * 0.5, module.db.itemSize * 0.5)
 	btn.JunkIcon:SetShown(entry.isJunk and true or false)
 
+	btn.warboundIcon:SetSize(module.db.itemSize * 0.4, module.db.itemSize * 0.4)
+	btn.warboundIcon:SetShown(entry.isWarbound and module.db.effects.warboundMarker and true or false)
+
 	local fx = module.db.effects
 	local showGlow = entry.isNew and fx.newItemGlow
 	btn.newItemGlow:SetShown(showGlow and true or false)
@@ -1257,10 +1272,19 @@ local function CreateSubHeaderPoolFor(getContentChild)
 		header.bg:SetAllPoints()
 		header.bg:SetColorTexture(0, 0, 0, 0.35)
 
+		-- Class-colored accent stripe on the left edge, echoing the selected
+		-- sidebar row bar and the category header divider.
+		local cc = E.myClassColor
+		header.accent = header:CreateTexture(nil, "ARTWORK")
+		header.accent:SetColorTexture(cc.r, cc.g, cc.b, 0.8)
+		header.accent:Width(2)
+		header.accent:Point("TOPLEFT", 0, 0)
+		header.accent:Point("BOTTOMLEFT", 0, 0)
+
 		header.text = header:CreateFontString(nil, "OVERLAY")
 		header.text:FontTemplate(nil, 11)
 		header.text:SetTextColor(0.9, 0.9, 0.9)
-		header.text:Point("LEFT", 4, 0)
+		header.text:Point("LEFT", 8, 0)
 
 		subHeaderPool[index] = header
 		return header
@@ -2196,9 +2220,36 @@ end
 
 -- Only informative for items that aren't bound yet (BoP items are already
 -- bound the instant they're looted, so there's nothing left to show).
-local function GetBindText(itemLink, isBound)
+-- Returns (isWarbound, isUntilEquipped). Warbound items are Warband-account
+-- bound outright, or "Warbound until equipped" - which GetItemInfo reports as
+-- a plain BoE, so that variant needs the ItemLocation-based check (same
+-- approach ElvUI's own bags use).
+local function GetWarboundInfo(itemLink, bagID, slotID)
+	if not itemLink then
+		return false, false
+	end
+
+	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = C_Item_GetItemInfo(itemLink)
+	if bindType == ITEMBIND_TO_BNET_ACCOUNT then
+		return true, false
+	elseif bindType == ITEMBIND_TO_BNET_ACCOUNT_UNTIL_EQUIPPED then
+		return true, true
+	elseif bindType == ITEMBIND_ON_EQUIP and C_Item_IsBoundToAccountUntilEquip then
+		if C_Item_IsBoundToAccountUntilEquip(ItemLocation:CreateFromBagAndSlot(bagID, slotID)) then
+			return true, true
+		end
+	end
+
+	return false, false
+end
+
+local function GetBindText(itemLink, isBound, isUntilEquipped)
 	if not itemLink or isBound then
 		return nil
+	end
+
+	if isUntilEquipped then
+		return L["WuE"]
 	end
 
 	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = C_Item_GetItemInfo(itemLink)
@@ -2332,6 +2383,8 @@ local function CollectItemsFromBags(bagIDList, scratch)
 					local questID, isActiveQuest, isJunk =
 						GetQuestAndJunkInfo(bagID, slotID, info.quality, info.hasNoValue)
 
+					local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
+
 					tinsert(scratch[key], {
 						bagID = bagID,
 						slotID = slotID,
@@ -2344,7 +2397,8 @@ local function CollectItemsFromBags(bagIDList, scratch)
 						isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
 						itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
 							or nil,
-						bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound) or nil,
+						bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped) or nil,
+						isWarbound = isWarbound,
 						subgroupName = subgroupName,
 						subgroupOrder = subgroupOrder,
 						questID = questID,
@@ -2521,6 +2575,8 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 				local questID, isActiveQuest, isJunk =
 					GetQuestAndJunkInfo(bagID, slotID, info.quality, info.hasNoValue)
 
+				local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
+
 				tinsert(scratch[bagID], {
 					bagID = bagID,
 					slotID = slotID,
@@ -2533,7 +2589,8 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 					isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
 					itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
 						or nil,
-					bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound) or nil,
+					bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped) or nil,
+					isWarbound = isWarbound,
 					questID = questID,
 					isActiveQuest = isActiveQuest,
 					isJunk = isJunk,

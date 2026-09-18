@@ -606,6 +606,12 @@ options.bags = {
 							step = 0.05,
 							isPercent = true,
 						},
+						warboundMarker = {
+							order = 7,
+							type = "toggle",
+							name = L["Warbound Marker"],
+							desc = L["Shows a small Warband icon on items that are Warbound or Warbound until equipped."],
+						},
 						hoverClassColor = {
 							order = 5,
 							type = "toggle",
