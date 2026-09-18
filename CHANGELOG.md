@@ -4,6 +4,7 @@
 -   [Fix]: Bags: Categorized Bags - fixed expansion/equipment-set sub-headers within a category being nearly invisible.
 -   [Fix]: Bags: Categorized Bags - fixed the Bag Bar popout only showing 3 of 5 possible Warband Bank tabs instead of all 5 (purchased, next purchasable, or locked).
 -   [Fix]: Bags: Categorized Bags - fixed Bank category rows sometimes not responding to clicks when many bank/Warband tabs were listed.
+-   [Fix]: Loot Roll: fixed disabling the Loot Roll module also suppressing ElvUI's own default loot roll frame, leaving no loot roll UI visible at all.
 -   [New]: Mail: added a Postal-style selection bar to the inbox with numbered checkboxes to open or delete multiple mails at once.
 -   [New]: Mail: added send templates (recipients/subject/body) with a quick "Send Templates" button on the send-mail frame.
 -   [New]: Mail: added a quick-attach bar for trade goods (Cloth, Leather, Herb, ...) on the send-mail frame, with a per-category default recipient.
