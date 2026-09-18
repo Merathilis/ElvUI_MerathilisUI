@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[733] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "18.09.2026",
 	FIXES = {
 		"Bags: Categorized Bags - fixed right-click equipping an item instead of selling it while a merchant was open.",
 		"Bags: Categorized Bags - fixed expansion/equipment-set sub-headers within a category being nearly invisible.",
@@ -13,7 +13,7 @@ MER.Changelog[733] = {
 	},
 	NEW = {
 		"Mail: added a Postal-style selection bar to the inbox with numbered checkboxes to open or delete multiple mails at once.",
-		"Mail: added send templates (recipients/subject/body) with a quick \"Send Templates\" button on the send-mail frame.",
+		'Mail: added send templates (recipients/subject/body) with a quick "Send Templates" button on the send-mail frame.',
 		"Mail: added a quick-attach bar for trade goods (Cloth, Leather, Herb, ...) on the send-mail frame, with a per-category default recipient.",
 		"Bags: added a Categorized Bags view (sidebar with default/custom categories, Pinned/Recent items, search) as an alternative to ElvUI's default bag frame. Enabled by default for new profiles; existing profiles keep it off unless enabled manually. Requires a UI reload after enabling/disabling.",
 		"Bags: Categorized Bags - added item level and bind-status indicators on slots, each with its own font/size/outline/position options.",
@@ -22,7 +22,7 @@ MER.Changelog[733] = {
 		"Bags: Categorized Bags - added tracked currencies to the footer, next to gold.",
 		"Bags: Categorized Bags - added a Vendor Grays button that sells all grey items at once while at a merchant.",
 		"Bags: Categorized Bags - added a Bag view mode that groups items by physical bag instead of category.",
-		"Bags: Categorized Bags - added category groups (e.g. \"Equipment\" merges Weapons & Trinkets, Armor and Item Set Gear into one section), with a right-click Rename/Disband Group/Ungroup/Hide-in-All-Items menu.",
+		'Bags: Categorized Bags - added category groups (e.g. "Equipment" merges Weapons & Trinkets, Armor and Item Set Gear into one section), with a right-click Rename/Disband Group/Ungroup/Hide-in-All-Items menu.',
 		"Bags: Categorized Bags - added quest, crafted-item quality, and Pawn upgrade-arrow icons on item slots, plus a vendor sell-cursor when hovering an item at a merchant.",
 		"Bags: Categorized Bags - added Shift+Right-click Split Stack support on item slots.",
 		"Bags: Categorized Bags - item slots now show the same Equipment Manager set icon as ElvUI's own bag slots.",
@@ -31,10 +31,10 @@ MER.Changelog[733] = {
 		"Bags: Categorized Bags - the Bank and Warband Bank now open in their own dedicated window with a tab-based sidebar, a footer showing player and Warband gold with Withdraw/Deposit buttons, and a relabeling Auto Deposit button; opening it also opens the bag window alongside it.",
 		"Bags: Categorized Bags - added a tooltip on hover for sidebar categories, showing the name and item count (most useful with a collapsed sidebar).",
 		"Bags: Categorized Bags - added Item Set Gear, Gear Enhancements, Professions, and Housing categories, and merged Recipes into Professions.",
-		"Bags: Categorized Bags - added drag-to-assign \"+\" slots at the end of every category: drag an item onto one to assign it to that category (or pin it, for Pinned Items).",
+		'Bags: Categorized Bags - added drag-to-assign "+" slots at the end of every category: drag an item onto one to assign it to that category (or pin it, for Pinned Items).',
 		"Bags: Categorized Bags - section headers can now be collapsed by clicking them (remembered per category); clicking a collapsed category in the sidebar unfolds it.",
 		"Bags: Categorized Bags - added a right-click menu for default categories (Rename, Reset Name, Hide/Show in All Items).",
-		"Bags: Categorized Bags - added a pulsing new-item glow, a Warbound/Warbound-until-equipped marker (plus \"WuE\" bind text), and a Sort spinner matching ElvUI's own bags.",
+		'Bags: Categorized Bags - added a pulsing new-item glow, a Warbound/Warbound-until-equipped marker (plus "WuE" bind text), and a Sort spinner matching ElvUI\'s own bags.',
 		"Bags: Categorized Bags - added an Effects options tab (window fade, new-item glow, slot hover color, empty-slot opacity, Warbound marker, custom window opacity).",
 	},
 	IMPROVEMENTS = {
