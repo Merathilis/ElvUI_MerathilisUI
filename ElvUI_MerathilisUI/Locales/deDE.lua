@@ -341,6 +341,7 @@ L["Gear Enhancements"] = "Ausrüstungsverbesserungen"
 L["Professions"] = "Berufe"
 L["Housing"] = "Häuser"
 L["Rename"] = "Umbenennen"
+L["Reset Name"] = "Name zurücksetzen"
 L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."] =
 	"Ersetzt ElvUIs Taschenfenster durch eine Ansicht mit Kategorie-Seitenleiste (angeheftete/kürzliche Gegenstände, eigene Kategorien). Erfordert einen UI-Reload."
 L["Shift + Middle Click:"] = "Umschalt + Mittelklick:"

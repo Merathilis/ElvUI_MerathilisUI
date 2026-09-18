@@ -1077,7 +1077,10 @@ local function Sidebar_OnClick(self, mouseButton)
 
 	if mouseButton == "LeftButton" then
 		module:ScrollToCategory(self.catKey, self.ownerFrame, self.getOffsets and self.getOffsets())
-	elseif mouseButton == "RightButton" and (self.isUser or self.isGroup or self.isGroupMember) then
+	elseif
+		mouseButton == "RightButton"
+		and (self.isUser or self.isGroup or self.isGroupMember or not self.isPinnedOrRecent)
+	then
 		module:OpenCategoryContextMenu(self)
 	end
 end
@@ -3439,19 +3442,50 @@ function module:OpenCategoryContextMenu(row)
 		return
 	end
 
+	if row.isUser then
+		_G.MenuUtil.CreateContextMenu(row, function(_, rootDescription)
+			rootDescription:CreateButton(L["Rename"], function()
+				StaticPopup_Show("MER_BAGCATEGORIES_RENAME", nil, nil, { key = key })
+			end)
+
+			rootDescription:CreateButton(L["Change Icon"], function()
+				StaticPopup_Show("MER_BAGCATEGORIES_ICON", nil, nil, { key = key })
+			end)
+
+			rootDescription:CreateButton(L["Delete"], function()
+				module:RemoveUserCategory(key)
+				module:RefreshCategoryFrame()
+			end)
+		end)
+
+		return
+	end
+
+	-- A default (built-in) category: no Change Icon/Delete (nothing to
+	-- delete, and default categories don't support a custom icon the way
+	-- user categories do), but Rename/Hide-in-All-Items are exactly as
+	-- meaningful here as they already are for a group - both are stored
+	-- generically by category key, not specially for groups.
+	local db = module.db
 	_G.MenuUtil.CreateContextMenu(row, function(_, rootDescription)
 		rootDescription:CreateButton(L["Rename"], function()
 			StaticPopup_Show("MER_BAGCATEGORIES_RENAME", nil, nil, { key = key })
 		end)
 
-		rootDescription:CreateButton(L["Change Icon"], function()
-			StaticPopup_Show("MER_BAGCATEGORIES_ICON", nil, nil, { key = key })
-		end)
+		if db.categoryNameOverrides and db.categoryNameOverrides[key] then
+			rootDescription:CreateButton(L["Reset Name"], function()
+				module:ResetCategoryName(key)
+				module:RefreshCategoryFrame()
+			end)
+		end
 
-		rootDescription:CreateButton(L["Delete"], function()
-			module:RemoveUserCategory(key)
-			module:RefreshCategoryFrame()
-		end)
+		rootDescription:CreateButton(
+			module:IsHiddenFromAllItems(key) and L["Show in All Items"] or L["Hide in All Items"],
+			function()
+				module:SetHiddenFromAllItems(key, not module:IsHiddenFromAllItems(key))
+				module:RefreshCategoryFrame()
+			end
+		)
 	end)
 end
 

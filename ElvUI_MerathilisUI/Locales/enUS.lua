@@ -748,6 +748,7 @@ L["Gear Enhancements"] = "Gear Enhancements"
 L["Professions"] = "Professions"
 L["Housing"] = "Housing"
 L["Rename"] = "Rename"
+L["Reset Name"] = "Reset Name"
 L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."] =
 	"Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."
 L["Shift + Middle Click:"] = "Shift + Middle Click:"

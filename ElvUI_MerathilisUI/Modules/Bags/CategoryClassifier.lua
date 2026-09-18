@@ -571,6 +571,18 @@ function module:RenameCategory(key, newName)
 	return true
 end
 
+-- Only meaningful for a default (non-user) category - a user category's own
+-- name isn't an "override" of anything, it's just deleted along with the
+-- category via RemoveUserCategory.
+function module:ResetCategoryName(key)
+	local db = module.db
+	if db.categoryNameOverrides and db.categoryNameOverrides[key] then
+		db.categoryNameOverrides[key] = nil
+		module:InvalidateCategoryCache()
+		return true
+	end
+end
+
 function module:SetUserCategoryIcon(key, icon)
 	if not key or not icon then
 		return

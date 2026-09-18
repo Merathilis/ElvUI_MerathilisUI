@@ -754,6 +754,7 @@ L["Gear Enhancements"] = true
 L["Professions"] = true
 L["Housing"] = true
 L["Rename"] = true
+L["Reset Name"] = true
 L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."] = true
 L["Show Pinned Items"] = true
 L["Show Recent Items"] = true
