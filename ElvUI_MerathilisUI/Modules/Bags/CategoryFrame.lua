@@ -994,6 +994,13 @@ local function CreateHeaderPoolFor(getContentChild)
 		header.clearButton.tex = header.clearButton:CreateTexture(nil, "OVERLAY")
 		header.clearButton.tex:SetAllPoints()
 		header.clearButton.tex:SetTexture(E.Media.Textures.Close)
+		header.clearButton:SetScript("OnEnter", function(self)
+			local cc = E.myClassColor
+			self.tex:SetVertexColor(cc.r, cc.g, cc.b)
+		end)
+		header.clearButton:SetScript("OnLeave", function(self)
+			self.tex:SetVertexColor(1, 1, 1)
+		end)
 		header.clearButton:Hide()
 
 		headerPool[index] = header
