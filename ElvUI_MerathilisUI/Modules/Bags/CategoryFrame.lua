@@ -2885,6 +2885,22 @@ end
 function module:ScrollToCategory(key, frame, offsets)
 	frame = frame or module.frame
 	offsets = offsets or module.categoryOffsets
+
+	-- Jumping to a folded section unfolds it first (no point scrolling to a
+	-- bare header). The refresh replaces the offsets table, so re-resolve it.
+	local collapsed = module.db.collapsedSections
+	local searching = module.searchText and module.searchText ~= ""
+	if collapsed[key] and not searching then
+		collapsed[key] = nil
+		if frame == module.bankFrame then
+			module:RefreshBankCategoryFrame()
+			offsets = module.bankCategoryOffsets
+		else
+			module:RefreshCategoryFrame()
+			offsets = module.categoryOffsets
+		end
+	end
+
 	local offset = offsets and offsets[key]
 	if offset and frame then
 		frame.mainScroll:SetVerticalScroll(offset)
