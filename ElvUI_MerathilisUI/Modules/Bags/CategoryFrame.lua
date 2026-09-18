@@ -3981,12 +3981,33 @@ function module:FadeOutHide(f)
 	end
 end
 
+-- Optional override of ElvUI's shared "Transparent" backdrop alpha for the
+-- window panels (frame, title bar, sidebar) - customBackdropAlpha is honored
+-- by both SetTemplate and ElvUI's media-update sweep, so it sticks.
+function module:ApplyBackgroundOpacity()
+	local fx = module.db.effects
+	local fadeColor = E.media.backdropfadecolor
+	local alpha = fx.customBackground and fx.backgroundAlpha or nil
+
+	for _, f in ipairs({ module.frame or false, module.bankFrame or false }) do
+		if f then
+			for _, panel in ipairs({ f, f.titleBar, f.sidebar }) do
+				if panel and panel.SetBackdropColor then
+					panel.customBackdropAlpha = alpha
+					panel:SetBackdropColor(fadeColor[1], fadeColor[2], fadeColor[3], alpha or fadeColor[4])
+				end
+			end
+		end
+	end
+end
+
 function module:ShowCategoryFrame()
 	if InCombatLockdown() then
 		return
 	end
 
 	module:ConstructFrame()
+	module:ApplyBackgroundOpacity()
 	HideElvUIBagFrame()
 
 	module.frame:Show()

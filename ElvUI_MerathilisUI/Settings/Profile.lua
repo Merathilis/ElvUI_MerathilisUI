@@ -344,6 +344,8 @@ P.bags = {
 			hoverColor = { r = 1, g = 1, b = 1 },
 			placeholderAlpha = 0.4,
 			warboundMarker = true,
+			customBackground = false,
+			backgroundAlpha = 0.8,
 		},
 		collapsedSections = {},
 	},

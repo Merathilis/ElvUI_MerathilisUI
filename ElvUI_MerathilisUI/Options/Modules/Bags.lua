@@ -564,6 +564,7 @@ options.bags = {
 					end,
 					set = function(info, value)
 						E.db.mui.bags.categorizedBags.effects[info[#info]] = value
+						BC:ApplyBackgroundOpacity()
 
 						if BC.frame then
 							BC:RefreshCategoryFrame()
@@ -605,6 +606,24 @@ options.bags = {
 							max = 1,
 							step = 0.05,
 							isPercent = true,
+						},
+						customBackground = {
+							order = 8,
+							type = "toggle",
+							name = L["Custom Window Opacity"],
+							desc = L["Overrides ElvUI's transparent backdrop opacity for the bag and bank windows."],
+						},
+						backgroundAlpha = {
+							order = 9,
+							type = "range",
+							name = L["Window Opacity"],
+							min = 0,
+							max = 1,
+							step = 0.05,
+							isPercent = true,
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.effects.customBackground
+							end,
 						},
 						warboundMarker = {
 							order = 7,

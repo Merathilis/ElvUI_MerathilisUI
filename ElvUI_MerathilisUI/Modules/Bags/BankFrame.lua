@@ -885,6 +885,7 @@ function module:ShowBankFrame()
 	end
 
 	module:ConstructBankFrame()
+	module:ApplyBackgroundOpacity()
 
 	module.bankFrame:Show()
 	if module.bankFrame.fadingOut then
