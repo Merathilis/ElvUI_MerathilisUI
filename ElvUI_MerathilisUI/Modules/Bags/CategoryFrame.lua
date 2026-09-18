@@ -18,6 +18,8 @@ local IsControlKeyDown = IsControlKeyDown
 local IsModifiedClick = IsModifiedClick
 local HandleModifiedItemClick = HandleModifiedItemClick
 local CursorHasItem = CursorHasItem
+local GetCursorInfo = GetCursorInfo
+local ClearCursor = ClearCursor
 
 local CreateFrame = CreateFrame
 local GetMoney = GetMoney
@@ -666,6 +668,73 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	return { Acquire = AcquireSlot, Release = ReleaseSlotsFrom }
 end
 
+-------------------------------------------------------------------------------
+--  Category placeholder slots ("+"/empty slots after a category's real
+--  items - drag an item onto one to assign it to that category, or pin it
+--  for the Pinned section, without physically moving it in the bag)
+-------------------------------------------------------------------------------
+local function CreatePlaceholderPoolFor(getContentChild)
+	local placeholderPool = {}
+
+	local function OnPlaceholderDrop(self)
+		if not (CursorHasItem() and self.onAssign) then
+			return
+		end
+
+		local kind, itemID = GetCursorInfo()
+		if kind == "item" and itemID then
+			ClearCursor()
+			self.onAssign(itemID)
+		end
+	end
+
+	local function CreatePlaceholder(index)
+		local btn = CreateFrame("Button", nil, getContentChild())
+		-- Same look as a real item slot (border/backdrop created once here);
+		-- "transparent" for the filler slots is done via plain frame alpha
+		-- below instead of ElvUI's "Transparent" template - that template's
+		-- fill color comes from the user's own configurable ElvUI backdrop
+		-- fade color, which can end up looking just as opaque as normal
+		-- depending on their settings. Alpha is ours to control outright.
+		local ok = pcall(btn.SetTemplate, btn, nil, true)
+		if not ok then
+			pcall(btn.SetTemplate, btn)
+		end
+		btn:EnableMouse(true)
+
+		btn.plusIcon = btn:CreateTexture(nil, "OVERLAY")
+		btn.plusIcon:SetPoint("CENTER")
+		btn.plusIcon:SetSize(14, 14)
+		btn.plusIcon:SetTexture(E.Media.Textures.Plus)
+		btn.plusIcon:Hide()
+
+		btn:SetScript("OnReceiveDrag", OnPlaceholderDrop)
+		btn:SetScript("OnMouseUp", OnPlaceholderDrop)
+
+		placeholderPool[index] = btn
+		return btn
+	end
+
+	local function AcquirePlaceholder(index)
+		local btn = placeholderPool[index]
+		if not btn then
+			btn = CreatePlaceholder(index)
+			placeholderPool[index] = btn
+		end
+
+		btn:Show()
+		return btn
+	end
+
+	local function ReleasePlaceholdersFrom(startIndex)
+		for i = startIndex, #placeholderPool do
+			placeholderPool[i]:Hide()
+		end
+	end
+
+	return { Acquire = AcquirePlaceholder, Release = ReleasePlaceholdersFrom }
+end
+
 -- Pawn's own upgrade check can return nil ("not enough data yet", e.g. right
 -- after login/reload before Pawn has scanned the player's equipped gear) -
 -- ElvUI's own bags handle this the same way, by polling every 0.5s via
@@ -882,6 +951,15 @@ local function CreateHeaderPoolFor(getContentChild)
 		header.text = header:CreateFontString(nil, "OVERLAY")
 		header.text:FontTemplate()
 		header.text:Point("LEFT", header.icon, "RIGHT", 6, 0)
+
+		-- Divider filling the rest of the header row after the name/count, so
+		-- the header reads as a full-width rule instead of stopping short
+		-- wherever the text happens to end.
+		header.line = header:CreateTexture(nil, "ARTWORK")
+		header.line:SetColorTexture(1, 1, 1, 0.15)
+		header.line:Height(1)
+		header.line:Point("LEFT", header.text, "RIGHT", 8, 0)
+		header.line:Point("RIGHT", -2, 0)
 
 		header.clearButton = CreateFrame("Button", nil, header)
 		header.clearButton:Size(14)
@@ -1154,6 +1232,7 @@ end
 -- can't be shared between the two.
 local function CreatePoolSet(namePrefix, getContentChild, getSidebarChild, getOwnerFrame, getOffsets)
 	local slot = CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
+	local placeholder = CreatePlaceholderPoolFor(getContentChild)
 	local header = CreateHeaderPoolFor(getContentChild)
 	local subHeader = CreateSubHeaderPoolFor(getContentChild)
 	local sidebar = CreateSidebarPoolFor(getSidebarChild, getOwnerFrame, getOffsets)
@@ -1161,6 +1240,8 @@ local function CreatePoolSet(namePrefix, getContentChild, getSidebarChild, getOw
 	return {
 		AcquireSlot = slot.Acquire,
 		ReleaseSlotsFrom = slot.Release,
+		AcquirePlaceholder = placeholder.Acquire,
+		ReleasePlaceholdersFrom = placeholder.Release,
 		AcquireHeader = header.Acquire,
 		ReleaseHeadersFrom = header.Release,
 		AcquireSubHeader = subHeader.Acquire,
@@ -2640,7 +2721,7 @@ local function RenderCategorySections(ctx, sections)
 	-- shortcut's count stuck at its previous, now-stale value.
 	ctx.pinnedRow.count:SetText(0)
 
-	local slotIndex, headerIndex, subHeaderIndex, sidebarIndex = 0, 0, 0, 0
+	local slotIndex, headerIndex, subHeaderIndex, sidebarIndex, placeholderIndex = 0, 0, 0, 0, 0
 	local y = 0
 
 	for _, section in ipairs(sections) do
@@ -2728,17 +2809,78 @@ local function RenderCategorySections(ctx, sections)
 			end
 		end
 
+		local col = 0
+		local rowStartY = y
+
+		-- "+"/empty slots after a group of real items - drag an item onto
+		-- one to assign it to this category (or pin it, for Pinned), without
+		-- physically moving it in the bag. Only sections where "assign" has
+		-- an unambiguous target get these: not Recent (auto-computed from
+		-- new-item detection, nothing to assign to), not a group (which
+		-- member would it even go to?), not a physical-bag/flat-All-Items
+		-- view section (those are just alternate arrangements of the same
+		-- items, not classification targets). Computed up front so it can
+		-- also close out each expansion/equipment-set sub-header's own row
+		-- below, not just the section's very last one.
+		local assignHandler
+		if section.isPinned then
+			assignHandler = function(itemID)
+				if not module:IsItemPinned(itemID) then
+					module:TogglePinned(itemID)
+				end
+				ctx.refresh()
+			end
+		elseif not (section.isRecent or section.isGroup or section.isBagSection or section.key == module.AllItemsCategory.key) then
+			local categoryKey = section.key
+			assignHandler = function(itemID)
+				module:AssignItemToCategory(itemID, categoryKey)
+				ctx.refresh()
+			end
+		end
+
+		local function PadRowWithPlaceholders()
+			if not assignHandler then
+				return
+			end
+
+			local placeholderCount = (col == 0) and columns or (columns - col)
+			for i = 1, placeholderCount do
+				placeholderIndex = placeholderIndex + 1
+				local ph = pools.AcquirePlaceholder(placeholderIndex)
+				ph:ClearAllPoints()
+				ph:Size(db.itemSize)
+				ph:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", col * (db.itemSize + db.itemSpacingH), -rowStartY)
+				ph.onAssign = assignHandler
+				local isAddSlot = i == 1
+				ph.plusIcon:SetShown(isAddSlot)
+				-- All of these accept a drop, but only the "+" one should
+				-- visually read as an actual button - the rest stay
+				-- transparent, purely there to fill the row out to full width.
+				ph:SetAlpha(isAddSlot and 1 or 0.4)
+
+				col = col + 1
+				if col >= columns then
+					col = 0
+					rowStartY = rowStartY + db.itemSize + db.itemSpacingV
+				end
+			end
+		end
+
 		if #section.items > 0 then
-			local col = 0
-			local rowStartY = y
 			local subHeaders = section.subHeaders
 			local nextSubHeader = subHeaders and subHeaders[1]
 			local nextSubHeaderPos = 2
 
 			for itemIndex, entry in ipairs(section.items) do
 				-- A subgroup (expansion/equipment-set name) always starts its
-				-- own row, with a small indented header above its items.
+				-- own row, with a small indented header above its items -
+				-- close out the previous group's row with placeholders first
+				-- (a no-op the very first time, since col is still 0 then).
 				if nextSubHeader and nextSubHeader.index == itemIndex then
+					if itemIndex > 1 then
+						PadRowWithPlaceholders()
+					end
+
 					if col > 0 then
 						col = 0
 						rowStartY = rowStartY + db.itemSize + db.itemSpacingV
@@ -2770,17 +2912,22 @@ local function RenderCategorySections(ctx, sections)
 					rowStartY = rowStartY + db.itemSize + db.itemSpacingV
 				end
 			end
-
-			if col > 0 then
-				rowStartY = rowStartY + db.itemSize + db.itemSpacingV
-			end
-			y = rowStartY
 		end
+
+		-- Closes out either the section's only group (no sub-headers) or the
+		-- last sub-header group (earlier ones were already closed above).
+		PadRowWithPlaceholders()
+
+		if col > 0 then
+			rowStartY = rowStartY + db.itemSize + db.itemSpacingV
+		end
+		y = rowStartY
 
 		y = y + db.sectionSpacing
 	end
 
 	pools.ReleaseSlotsFrom(slotIndex + 1)
+	pools.ReleasePlaceholdersFrom(placeholderIndex + 1)
 	pools.ReleaseHeadersFrom(headerIndex + 1)
 	pools.ReleaseSubHeadersFrom(subHeaderIndex + 1)
 	pools.ReleaseSidebarRowsFrom(sidebarIndex + 1)
