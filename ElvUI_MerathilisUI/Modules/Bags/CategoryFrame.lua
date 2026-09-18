@@ -1253,6 +1253,7 @@ local function CreateSidebarPoolFor(getSidebarChild, getOwnerFrame, getOffsets)
 
 		row.count = row:CreateFontString(nil, "OVERLAY")
 		row.count:FontTemplate()
+		row.count:SetTextColor(0.6, 0.6, 0.6)
 		row.count:Point("RIGHT", -4, 0)
 
 		-- Sidebar_OnClick needs to know which top-level frame's mainScroll to
@@ -1635,6 +1636,7 @@ function module:ConstructFrame()
 
 		row.count = row:CreateFontString(nil, "OVERLAY")
 		row.count:FontTemplate()
+		row.count:SetTextColor(0.6, 0.6, 0.6)
 		row.count:Point("RIGHT", -4, 0)
 
 		row.viewModeKey = def.key
@@ -1673,6 +1675,7 @@ function module:ConstructFrame()
 
 	f.pinnedRow.count = f.pinnedRow:CreateFontString(nil, "OVERLAY")
 	f.pinnedRow.count:FontTemplate()
+	f.pinnedRow.count:SetTextColor(0.6, 0.6, 0.6)
 	f.pinnedRow.count:Point("RIGHT", -4, 0)
 
 	f.pinnedRow:SetScript("OnClick", function()
@@ -2852,7 +2855,7 @@ local function RenderCategorySections(ctx, sections)
 		header:ClearAllPoints()
 		header:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 0, -y)
 		header:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", 0, -y)
-		header.text:SetText(format("%s (%d)", section.name, #section.items))
+		header.text:SetText(format("%s |cff999999(%d)|r", section.name, #section.items))
 		SetCategoryIcon(header.icon, section)
 
 		if section.showClear then
@@ -3013,7 +3016,7 @@ local function RenderCategorySections(ctx, sections)
 					subHeader:ClearAllPoints()
 					subHeader:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 6, -rowStartY)
 					subHeader:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", -6, -rowStartY)
-					subHeader.text:SetText(format("%s (%d)", nextSubHeader.name, nextSubHeader.count))
+					subHeader.text:SetText(format("%s |cff999999(%d)|r", nextSubHeader.name, nextSubHeader.count))
 					rowStartY = rowStartY + subHeader:GetHeight() + 2
 
 					nextSubHeader = subHeaders[nextSubHeaderPos]

@@ -240,6 +240,7 @@ local function CreateBankSidebarRowButton(parent)
 
 	row.count = row:CreateFontString(nil, "OVERLAY")
 	row.count:FontTemplate()
+	row.count:SetTextColor(0.6, 0.6, 0.6)
 	row.count:Point("RIGHT", -4, 0)
 
 	row:SetScript("OnClick", BankTabRow_OnClick)
@@ -401,6 +402,7 @@ function module:ConstructBankFrame()
 
 	f.pinnedRow.count = f.pinnedRow:CreateFontString(nil, "OVERLAY")
 	f.pinnedRow.count:FontTemplate()
+	f.pinnedRow.count:SetTextColor(0.6, 0.6, 0.6)
 	f.pinnedRow.count:Point("RIGHT", -4, 0)
 
 	f.pinnedRow:SetScript("OnClick", function()
