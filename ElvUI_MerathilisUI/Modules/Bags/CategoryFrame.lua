@@ -4129,7 +4129,7 @@ function module:OnBankOpened()
 	-- later if it was actually us that opened it (module.frame_openedByBank,
 	-- cleared on every bag-frame hide path in OnFrameHidden), so a bag frame
 	-- the player already had open manually is left alone either way.
-	if not InCombatLockdown() and not (module.frame and module.frame:IsShown()) then
+	if not InCombatLockdown() and not (module.frame and module.frame:IsShown() and not module.frame.fadingOut) then
 		module.frame_openedByBank = true
 		module:ShowCategoryFrame()
 	end
