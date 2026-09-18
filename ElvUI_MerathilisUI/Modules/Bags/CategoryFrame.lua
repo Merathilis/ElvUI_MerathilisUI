@@ -688,6 +688,24 @@ local function CreatePlaceholderPoolFor(getContentChild)
 		end
 	end
 
+	-- Every placeholder in a row accepts a drop (not just the visible "+"
+	-- one), so all of them get the same hover feedback - a highlight plus a
+	-- tooltip explaining what dropping an item here actually does, set fresh
+	-- per-render in RenderCategorySections alongside onAssign.
+	local function OnPlaceholderEnter(self)
+		if GameTooltip:IsForbidden() or not self.tooltipText then
+			return
+		end
+
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:AddLine(self.tooltipText, 1, 1, 1, true)
+		GameTooltip:Show()
+	end
+
+	local function OnPlaceholderLeave()
+		GameTooltip_Hide()
+	end
+
 	local function CreatePlaceholder(index)
 		local btn = CreateFrame("Button", nil, getContentChild())
 		-- Same look as a real item slot (border/backdrop created once here);
@@ -701,15 +719,20 @@ local function CreatePlaceholderPoolFor(getContentChild)
 			pcall(btn.SetTemplate, btn)
 		end
 		btn:EnableMouse(true)
+		btn:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
 
 		btn.plusIcon = btn:CreateTexture(nil, "OVERLAY")
 		btn.plusIcon:SetPoint("CENTER")
 		btn.plusIcon:SetSize(14, 14)
 		btn.plusIcon:SetTexture(E.Media.Textures.Plus)
+		local cc = E.myClassColor
+		btn.plusIcon:SetVertexColor(cc.r, cc.g, cc.b)
 		btn.plusIcon:Hide()
 
 		btn:SetScript("OnReceiveDrag", OnPlaceholderDrop)
 		btn:SetScript("OnMouseUp", OnPlaceholderDrop)
+		btn:SetScript("OnEnter", OnPlaceholderEnter)
+		btn:SetScript("OnLeave", OnPlaceholderLeave)
 
 		placeholderPool[index] = btn
 		return btn
@@ -954,9 +977,12 @@ local function CreateHeaderPoolFor(getContentChild)
 
 		-- Divider filling the rest of the header row after the name/count, so
 		-- the header reads as a full-width rule instead of stopping short
-		-- wherever the text happens to end.
+		-- wherever the text happens to end. Class-colored to match the other
+		-- accent bits (selected sidebar row, view-mode bar) instead of a
+		-- flat white line.
+		local cc = E.myClassColor
 		header.line = header:CreateTexture(nil, "ARTWORK")
-		header.line:SetColorTexture(1, 1, 1, 0.15)
+		header.line:SetColorTexture(cc.r, cc.g, cc.b, 0.35)
 		header.line:Height(1)
 		header.line:Point("LEFT", header.text, "RIGHT", 8, 0)
 		header.line:Point("RIGHT", -2, 0)
@@ -2822,7 +2848,7 @@ local function RenderCategorySections(ctx, sections)
 		-- items, not classification targets). Computed up front so it can
 		-- also close out each expansion/equipment-set sub-header's own row
 		-- below, not just the section's very last one.
-		local assignHandler
+		local assignHandler, placeholderTooltip
 		if section.isPinned then
 			assignHandler = function(itemID)
 				if not module:IsItemPinned(itemID) then
@@ -2830,12 +2856,14 @@ local function RenderCategorySections(ctx, sections)
 				end
 				ctx.refresh()
 			end
+			placeholderTooltip = L["Drag an item here to pin it."]
 		elseif not (section.isRecent or section.isGroup or section.isBagSection or section.key == module.AllItemsCategory.key) then
 			local categoryKey = section.key
 			assignHandler = function(itemID)
 				module:AssignItemToCategory(itemID, categoryKey)
 				ctx.refresh()
 			end
+			placeholderTooltip = format(L["Drag an item here to assign it to %s."], section.name)
 		end
 
 		local function PadRowWithPlaceholders()
@@ -2851,6 +2879,7 @@ local function RenderCategorySections(ctx, sections)
 				ph:Size(db.itemSize)
 				ph:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", col * (db.itemSize + db.itemSpacingH), -rowStartY)
 				ph.onAssign = assignHandler
+				ph.tooltipText = placeholderTooltip
 				local isAddSlot = i == 1
 				ph.plusIcon:SetShown(isAddSlot)
 				-- All of these accept a drop, but only the "+" one should
