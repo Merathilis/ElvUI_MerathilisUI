@@ -313,6 +313,16 @@ P.bags = {
 			style = "OUTLINE",
 			position = "BOTTOMRIGHT",
 		},
+		headerFont = {
+			name = I.Fonts.Primary,
+			size = 12,
+			style = "OUTLINE",
+		},
+		subHeaderFont = {
+			name = I.Fonts.Primary,
+			size = 10,
+			style = "OUTLINE",
+		},
 		itemLevel = {
 			enable = true,
 			font = {

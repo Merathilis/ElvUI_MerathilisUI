@@ -553,6 +553,90 @@ options.bags = {
 								},
 							},
 						},
+						headerFont = {
+							order = 4,
+							type = "group",
+							inline = true,
+							name = L["Category Headers"],
+							get = function(info)
+								return E.db.mui.bags.categorizedBags.headerFont[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.bags.categorizedBags.headerFont[info[#info]] = value
+								if BC.frame then
+									BC:RefreshCategoryFrame()
+								end
+								if BC.bankFrame and BC.RefreshBankCategoryFrame then
+									BC:RefreshBankCategoryFrame()
+								end
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = E.LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = MER.Values.FontFlags,
+									sortByValue = true,
+								},
+								size = {
+									order = 3,
+									type = "range",
+									name = L["Size"],
+									min = 8,
+									max = 24,
+									step = 1,
+								},
+							},
+						},
+						subHeaderFont = {
+							order = 5,
+							type = "group",
+							inline = true,
+							name = L["Sub-Headers"],
+							get = function(info)
+								return E.db.mui.bags.categorizedBags.subHeaderFont[info[#info]]
+							end,
+							set = function(info, value)
+								E.db.mui.bags.categorizedBags.subHeaderFont[info[#info]] = value
+								if BC.frame then
+									BC:RefreshCategoryFrame()
+								end
+								if BC.bankFrame and BC.RefreshBankCategoryFrame then
+									BC:RefreshBankCategoryFrame()
+								end
+							end,
+							args = {
+								name = {
+									order = 1,
+									type = "select",
+									dialogControl = "LSM30_Font",
+									name = L["Font"],
+									values = E.LSM:HashTable("font"),
+								},
+								style = {
+									order = 2,
+									type = "select",
+									name = L["Outline"],
+									values = MER.Values.FontFlags,
+									sortByValue = true,
+								},
+								size = {
+									order = 3,
+									type = "range",
+									name = L["Size"],
+									min = 8,
+									max = 24,
+									step = 1,
+								},
+							},
+						},
 					},
 				},
 				effects = {

@@ -3073,7 +3073,9 @@ local function RenderCategorySections(ctx, sections)
 
 		headerIndex = headerIndex + 1
 		local header = pools.AcquireHeader(headerIndex)
-		header:SetHeight(db.headerHeight)
+		local headerFont = db.headerFont
+		header.text:FontTemplate(headerFont.name, headerFont.size, headerFont.style)
+		header:SetHeight(math.max(db.headerHeight, headerFont.size + 8))
 		header:ClearAllPoints()
 		header:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 0, -y)
 		header:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", 0, -y)
@@ -3242,6 +3244,9 @@ local function RenderCategorySections(ctx, sections)
 
 					subHeaderIndex = subHeaderIndex + 1
 					local subHeader = pools.AcquireSubHeader(subHeaderIndex)
+					local subHeaderFont = db.subHeaderFont
+					subHeader.text:FontTemplate(subHeaderFont.name, subHeaderFont.size, subHeaderFont.style)
+					subHeader:SetHeight(math.max(16, subHeaderFont.size + 5))
 					subHeader:ClearAllPoints()
 					subHeader:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 6, -rowStartY)
 					subHeader:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", -6, -rowStartY)

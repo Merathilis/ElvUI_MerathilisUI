@@ -380,6 +380,8 @@ L["Shows a small Warband icon on items that are Warbound or Warbound until equip
 L["Custom Window Opacity"] = "Eigene Fenster-Deckkraft"
 L["Overrides ElvUI's transparent backdrop opacity for the bag and bank windows."] = "Überschreibt die Deckkraft des transparenten ElvUI-Hintergrunds für Taschen- und Bankfenster."
 L["Window Opacity"] = "Fenster-Deckkraft"
+L["Category Headers"] = "Kategorie-Header"
+L["Sub-Headers"] = "Unter-Header"
 L["%d results"] = "%d Treffer"
 L["Fill Level"] = "Füllstand"
 L["%d of %d slots used (%d%%)"] = "%d von %d Plätzen belegt (%d%%)"

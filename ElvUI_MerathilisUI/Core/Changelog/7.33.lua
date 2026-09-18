@@ -46,5 +46,6 @@ MER.Changelog[733] = {
 		"Bags: Categorized Bags - the Bank's content is now grouped by physical tab (with flat OneBank/OneWarband views) instead of by category.",
 		"Bags: Categorized Bags - removed the separate Junk category; grey/sellable items now sort into their normal category instead.",
 		"Bags: Categorized Bags - polished visuals: header divider lines, class-colored accents (scrollbar, hover overlays, selected rows, sub-headers), dimmed counts, window fade-in/out, a fill-level bar with a colored item counter (yellow from 80%, red from 95%), a search result count, and an empty-state message.",
+		"Bags: Categorized Bags - added font options (font, outline, size) for category headers and sub-headers.",
 	},
 }

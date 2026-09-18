@@ -779,6 +779,8 @@ L["Shows a small Warband icon on items that are Warbound or Warbound until equip
 L["Custom Window Opacity"] = true
 L["Overrides ElvUI's transparent backdrop opacity for the bag and bank windows."] = true
 L["Window Opacity"] = true
+L["Category Headers"] = true
+L["Sub-Headers"] = true
 L["%d results"] = true
 L["Fill Level"] = true
 L["%d of %d slots used (%d%%)"] = true
