@@ -555,6 +555,89 @@ options.bags = {
 						},
 					},
 				},
+				effects = {
+					order = 4,
+					type = "group",
+					name = L["Effects"],
+					get = function(info)
+						return E.db.mui.bags.categorizedBags.effects[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.bags.categorizedBags.effects[info[#info]] = value
+
+						if BC.frame then
+							BC:RefreshCategoryFrame()
+						end
+						if BC.bankFrame and BC.RefreshBankCategoryFrame then
+							BC:RefreshBankCategoryFrame()
+						end
+					end,
+					args = {
+						fade = {
+							order = 1,
+							type = "toggle",
+							name = L["Fade Windows"],
+							desc = L["Fades the bag and bank windows in when opened and out when closed."],
+						},
+						fadeDuration = {
+							order = 2,
+							type = "range",
+							name = L["Fade Duration"],
+							min = 0.05,
+							max = 0.5,
+							step = 0.01,
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.effects.fade
+							end,
+						},
+						newItemGlow = {
+							order = 3,
+							type = "toggle",
+							name = L["New Item Glow"],
+							desc = L["Pulsing glow on newly picked-up items."],
+						},
+						placeholderAlpha = {
+							order = 4,
+							type = "range",
+							name = L["Empty Slot Opacity"],
+							desc = L["Opacity of the empty drop-target slots at the end of each category (the first \"+\" slot always stays fully visible)."],
+							min = 0,
+							max = 1,
+							step = 0.05,
+							isPercent = true,
+						},
+						hoverClassColor = {
+							order = 5,
+							type = "toggle",
+							name = L["Use Class Color"],
+							desc = L["Tints the item slot hover highlight in your class color."],
+						},
+						hoverColor = {
+							order = 6,
+							type = "color",
+							name = L["Hover Color"],
+							disabled = function()
+								return E.db.mui.bags.categorizedBags.effects.hoverClassColor
+							end,
+							get = function(info)
+								local t = E.db.mui.bags.categorizedBags.effects[info[#info]]
+								local d = P.bags.categorizedBags.effects[info[#info]]
+								return t.r, t.g, t.b, 1, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								local t = E.db.mui.bags.categorizedBags.effects[info[#info]]
+								t.r, t.g, t.b = r, g, b
+
+								if BC.frame then
+									BC:RefreshCategoryFrame()
+								end
+								if BC.bankFrame and BC.RefreshBankCategoryFrame then
+									BC:RefreshBankCategoryFrame()
+								end
+							end,
+						},
+					},
+				},
 			},
 		},
 	},

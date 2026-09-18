@@ -296,7 +296,15 @@ end
 
 -- Tints the title's "used / total" counter as the container fills up, so a
 -- nearly-full bag is noticeable at a glance instead of only by reading numbers.
-local function SetTitleCount(fontString, used, total)
+local function SetTitleCount(fontString, used, total, searchHits)
+	-- While a search is active the counter reports the matches instead.
+	if searchHits then
+		local cc = E.myClassColor
+		fontString:SetText(format(L["%d results"], searchHits))
+		fontString:SetTextColor(cc.r, cc.g, cc.b)
+		return
+	end
+
 	fontString:SetText(format("%d / %d %s", used, total, L["Items"]))
 
 	local ratio = total > 0 and used / total or 0
@@ -307,6 +315,25 @@ local function SetTitleCount(fontString, used, total)
 	else
 		fontString:SetTextColor(1, 1, 1)
 	end
+end
+
+-- nil when no search is active. Relies on the native item-search filter
+-- having just been applied by this refresh's item collection pass.
+local function CountSearchHits(bagIDList)
+	if not (module.searchText and module.searchText ~= "") then
+		return nil
+	end
+
+	local hits = 0
+	for _, bagID in ipairs(bagIDList) do
+		for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
+			local info = C_Container_GetContainerItemInfo(bagID, slotID)
+			if info and info.iconFileID and not info.isFiltered then
+				hits = hits + 1
+			end
+		end
+	end
+	return hits
 end
 
 local function SetCategoryIcon(tex, cat)
@@ -572,13 +599,10 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	-- we draw our own flat border via SetTemplate instead, same as ElvUI.
 	btn:SetNormalTexture(E.ClearTexture)
 
-	-- Same flat hover/pressed overlay ElvUI's own bag slots get, with the
-	-- hover tint switched to class color like our other accents.
+	-- Same flat hover/pressed overlay ElvUI's own bag slots get; the hover
+	-- tint is applied per refresh in UpdateSlotVisual so option changes take
+	-- effect on already-pooled buttons.
 	pcall(btn.StyleButton, btn)
-	if btn.hover then
-		local cc = E.myClassColor
-		btn.hover:SetColorTexture(cc.r, cc.g, cc.b, 0.3)
-	end
 
 	-- Blizzard's own native border square; we draw quality color via
 	-- SetTemplate/SetItemButtonQuality ourselves, same as ElvUI's own bags.
@@ -1014,11 +1038,23 @@ local function UpdateSlotVisual(btn, entry)
 	btn.JunkIcon:SetSize(module.db.itemSize * 0.5, module.db.itemSize * 0.5)
 	btn.JunkIcon:SetShown(entry.isJunk and true or false)
 
-	btn.newItemGlow:SetShown(entry.isNew)
-	if entry.isNew then
+	local fx = module.db.effects
+	local showGlow = entry.isNew and fx.newItemGlow
+	btn.newItemGlow:SetShown(showGlow and true or false)
+	if showGlow then
 		btn.newItemGlow:SetVertexColor(r, g, b)
 		if not btn.ownerFrame.NewItemGlow:IsPlaying() then
 			btn.ownerFrame.NewItemGlow:Play()
+		end
+	end
+
+	if btn.hover then
+		if fx.hoverClassColor then
+			local cc = E.myClassColor
+			btn.hover:SetColorTexture(cc.r, cc.g, cc.b, 0.3)
+		else
+			local hc = fx.hoverColor
+			btn.hover:SetColorTexture(hc.r, hc.g, hc.b, 0.3)
 		end
 	end
 
@@ -1038,12 +1074,47 @@ end
 -------------------------------------------------------------------------------
 --  Category headers
 -------------------------------------------------------------------------------
+-- Clicking a section header folds/unfolds that section's items (state is
+-- per section key, saved in db.collapsedSections, shared by both frames).
+-- Ignored while a search is active - matches must always be visible.
+local function Header_OnClick(self)
+	if self.sectionKey == nil or self.searching then
+		return
+	end
+
+	local collapsed = module.db.collapsedSections
+	collapsed[self.sectionKey] = (not collapsed[self.sectionKey]) or nil
+
+	if self.refresh then
+		self.refresh()
+	end
+end
+
+local function Header_OnEnter(self)
+	local cc = E.myClassColor
+	self.arrow:SetVertexColor(cc.r, cc.g, cc.b)
+end
+
+local function Header_OnLeave(self)
+	self.arrow:SetVertexColor(0.6, 0.6, 0.6)
+end
+
 local function CreateHeaderPoolFor(getContentChild)
 	local headerPool = {}
 
 	local function CreateHeader(index)
-		local header = CreateFrame("Frame", nil, getContentChild())
+		local header = CreateFrame("Button", nil, getContentChild())
 		header:SetHeight(22)
+		header:RegisterForClicks("LeftButtonUp")
+		header:SetScript("OnClick", Header_OnClick)
+		header:SetScript("OnEnter", Header_OnEnter)
+		header:SetScript("OnLeave", Header_OnLeave)
+
+		header.arrow = header:CreateTexture(nil, "OVERLAY")
+		header.arrow:SetSize(12, 12)
+		header.arrow:Point("RIGHT", -2, 0)
+		header.arrow:SetTexture(E.Media.Textures.ArrowUp)
+		header.arrow:SetVertexColor(0.6, 0.6, 0.6)
 
 		header.icon = header:CreateTexture(nil, "ARTWORK")
 		header.icon:SetSize(16, 16)
@@ -1063,11 +1134,11 @@ local function CreateHeaderPoolFor(getContentChild)
 		header.line:SetColorTexture(cc.r, cc.g, cc.b, 0.35)
 		header.line:Height(1)
 		header.line:Point("LEFT", header.text, "RIGHT", 8, 0)
-		header.line:Point("RIGHT", -2, 0)
+		header.line:Point("RIGHT", header.arrow, "LEFT", -6, 0)
 
 		header.clearButton = CreateFrame("Button", nil, header)
 		header.clearButton:Size(14)
-		header.clearButton:Point("RIGHT", -2, 0)
+		header.clearButton:Point("RIGHT", header.arrow, "LEFT", -6, 0)
 		pcall(header.clearButton.SetTemplate, header.clearButton)
 		header.clearButton.tex = header.clearButton:CreateTexture(nil, "OVERLAY")
 		header.clearButton.tex:SetAllPoints()
@@ -1406,7 +1477,7 @@ function module:ConstructFrame()
 	WS:CreateShadow(f)
 	f:Hide()
 	f:SetScript("OnShow", function(self)
-		E:UIFrameFadeIn(self, 0.15, 0, 1)
+		module:FadeInFrame(self)
 	end)
 	f:SetScript("OnHide", function()
 		module:OnFrameHidden()
@@ -1460,6 +1531,10 @@ function module:ConstructFrame()
 		btn:Size(20)
 		pcall(btn.SetTemplate, btn)
 		pcall(btn.StyleButton, btn, nil, true)
+		if btn.hover then
+			local cc = E.myClassColor
+			btn.hover:SetColorTexture(cc.r, cc.g, cc.b, 0.3)
+		end
 
 		btn.tex = btn:CreateTexture(nil, "OVERLAY")
 		btn.tex:SetInside()
@@ -2853,6 +2928,7 @@ local function RenderCategorySections(ctx, sections)
 
 	local slotIndex, headerIndex, subHeaderIndex, sidebarIndex, placeholderIndex = 0, 0, 0, 0, 0
 	local y = 0
+	local searching = module.searchText and module.searchText ~= ""
 
 	for _, section in ipairs(sections) do
 		ctx.offsets[section.key] = y
@@ -2865,6 +2941,13 @@ local function RenderCategorySections(ctx, sections)
 		header:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", 0, -y)
 		header.text:SetText(format("%s |cff999999(%d)|r", section.name, #section.items))
 		SetCategoryIcon(header.icon, section)
+
+		local collapsed = not searching and db.collapsedSections[section.key] and true or false
+		header.sectionKey = section.key
+		header.refresh = ctx.refresh
+		header.searching = searching
+		header.arrow:SetShown(not searching)
+		header.arrow:SetRotation(collapsed and S.ArrowRotation.right or S.ArrowRotation.down)
 
 		if section.showClear then
 			header.clearButton:Show()
@@ -2989,7 +3072,7 @@ local function RenderCategorySections(ctx, sections)
 				-- All of these accept a drop, but only the "+" one should
 				-- visually read as an actual button - the rest stay
 				-- transparent, purely there to fill the row out to full width.
-				ph:SetAlpha(isAddSlot and 1 or 0.4)
+				ph:SetAlpha(isAddSlot and 1 or db.effects.placeholderAlpha)
 
 				col = col + 1
 				if col >= columns then
@@ -2999,7 +3082,7 @@ local function RenderCategorySections(ctx, sections)
 			end
 		end
 
-		if #section.items > 0 then
+		if not collapsed and #section.items > 0 then
 			local subHeaders = section.subHeaders
 			local nextSubHeader = subHeaders and subHeaders[1]
 			local nextSubHeaderPos = 2
@@ -3049,7 +3132,9 @@ local function RenderCategorySections(ctx, sections)
 
 		-- Closes out either the section's only group (no sub-headers) or the
 		-- last sub-header group (earlier ones were already closed above).
-		PadRowWithPlaceholders()
+		if not collapsed then
+			PadRowWithPlaceholders()
+		end
 
 		if col > 0 then
 			rowStartY = rowStartY + db.itemSize + db.itemSpacingV
@@ -3157,7 +3242,7 @@ function module:RefreshCategoryFrame()
 	}, sections)
 
 	f.titleText:SetText(L["Inventory"])
-	SetTitleCount(f.titleCountText, usedSlots, totalSlots)
+	SetTitleCount(f.titleCountText, usedSlots, totalSlots, CountSearchHits(BAG_IDS))
 
 	module:UpdateFooter()
 end
@@ -3709,6 +3794,53 @@ end
 -- either from insecure code throws ADDON_ACTION_BLOCKED. Guarded here so
 -- every caller (hooks, the close button, the mover) is covered; whatever
 -- shown/hidden state we're in when combat starts just stays frozen.
+-- Shared by both top-level frames (bag + bank). Fade-in runs from OnShow; the
+-- fade-out has to defer the real Hide() until the fade finishes, so every
+-- hide path goes through FadeOutHide instead of calling :Hide() directly.
+function module:FadeInFrame(f)
+	local fx = module.db.effects
+	local startAlpha = f.fadingOut and f:GetAlpha() or 0
+
+	-- A fade-out cut short by a re-open must not fire its stale Hide callback
+	-- when the new fade-in finishes.
+	f.fadingOut = nil
+	if f.FadeObject then
+		f.FadeObject.finishedFunc = nil
+	end
+
+	if fx.fade then
+		E:UIFrameFadeIn(f, fx.fadeDuration, startAlpha, 1)
+	else
+		E:UIFrameFadeRemoveFrame(f)
+		f:SetAlpha(1)
+	end
+end
+
+function module:FadeOutHide(f)
+	local fx = module.db.effects
+	if not fx.fade then
+		f:Hide()
+		return
+	end
+
+	if f.fadingOut then
+		return
+	end
+
+	f.fadingOut = true
+	E:UIFrameFadeOut(f, fx.fadeDuration, f:GetAlpha(), 0)
+	f.FadeObject.finishedFunc = function()
+		f.fadingOut = nil
+		-- Hide() on these frames is combat-protected (secure slot buttons), so
+		-- if combat started mid-fade just restore the frame instead.
+		if InCombatLockdown() then
+			f:SetAlpha(1)
+			return
+		end
+		f:Hide()
+	end
+end
+
 function module:ShowCategoryFrame()
 	if InCombatLockdown() then
 		return
@@ -3718,6 +3850,9 @@ function module:ShowCategoryFrame()
 	HideElvUIBagFrame()
 
 	module.frame:Show()
+	if module.frame.fadingOut then
+		module:FadeInFrame(module.frame)
+	end
 	module:RegisterBagEventsFor("bag")
 	module:RefreshCategoryFrame()
 	PlaySound(SOUNDKIT.IG_BACKPACK_OPEN or 862)
@@ -3729,7 +3864,7 @@ function module:HideCategoryFrame()
 	end
 
 	if module.frame and module.frame:IsShown() then
-		module.frame:Hide()
+		module:FadeOutHide(module.frame)
 	end
 end
 
@@ -4039,5 +4174,6 @@ module.VIEW_MODE_ROW_HEIGHT = VIEW_MODE_ROW_HEIGHT
 module.COLLAPSED_SIDEBAR_WIDTH = COLLAPSED_SIDEBAR_WIDTH
 module.SkinScrollBar = SkinScrollBar
 module.SetTitleCount = SetTitleCount
+module.CountSearchHits = CountSearchHits
 
 MER:RegisterModule(module:GetName())

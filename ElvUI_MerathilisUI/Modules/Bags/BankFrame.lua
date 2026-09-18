@@ -35,6 +35,7 @@ local GetBagDisplayName = module.GetBagDisplayName
 local ShowPurchaseBankTabPrompt = module.ShowPurchaseBankTabPrompt
 local SetCategoryIcon = module.SetCategoryIcon
 local SetTitleCount = module.SetTitleCount
+local CountSearchHits = module.CountSearchHits
 local SkinScrollBar = module.SkinScrollBar
 local VIEW_MODE_ROW_HEIGHT = module.VIEW_MODE_ROW_HEIGHT
 local COLLAPSED_SIDEBAR_WIDTH = module.COLLAPSED_SIDEBAR_WIDTH
@@ -55,6 +56,10 @@ local function CreateTitleButton(f, name, texture, tooltipText, onClick)
 	btn:Size(20)
 	pcall(btn.SetTemplate, btn)
 	pcall(btn.StyleButton, btn, nil, true)
+	if btn.hover then
+		local cc = E.myClassColor
+		btn.hover:SetColorTexture(cc.r, cc.g, cc.b, 0.3)
+	end
 
 	btn.tex = btn:CreateTexture(nil, "OVERLAY")
 	btn.tex:SetInside()
@@ -266,7 +271,7 @@ function module:ConstructBankFrame()
 	WS:CreateShadow(f)
 	f:Hide()
 	f:SetScript("OnShow", function(self)
-		E:UIFrameFadeIn(self, 0.15, 0, 1)
+		module:FadeInFrame(self)
 	end)
 	f:SetScript("OnHide", function()
 		module:OnBankFrameHidden()
@@ -847,7 +852,12 @@ function module:RefreshBankCategoryFrame()
 		totalSlots = totalSlots + C_Container_GetContainerNumSlots(bagID)
 	end
 	f.titleText:SetText(isWarbandView and L["Warband Bank"] or L["Bank"])
-	SetTitleCount(f.titleCountText, usedSlots, totalSlots)
+	SetTitleCount(
+		f.titleCountText,
+		usedSlots,
+		totalSlots,
+		CountSearchHits(module.bankTabFilter and { module.bankTabFilter } or countBagIDs)
+	)
 
 	module:UpdateBankFooter()
 end
@@ -866,6 +876,9 @@ function module:ShowBankFrame()
 	module:ConstructBankFrame()
 
 	module.bankFrame:Show()
+	if module.bankFrame.fadingOut then
+		module:FadeInFrame(module.bankFrame)
+	end
 	module:RegisterBagEventsFor("bank")
 	module:RefreshBankCategoryFrame()
 end
@@ -876,7 +889,7 @@ function module:HideBankFrame()
 	end
 
 	if module.bankFrame and module.bankFrame:IsShown() then
-		module.bankFrame:Hide()
+		module:FadeOutHide(module.bankFrame)
 	end
 end
 

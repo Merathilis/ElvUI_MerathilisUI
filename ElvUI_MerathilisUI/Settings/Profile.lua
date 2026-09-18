@@ -336,6 +336,15 @@ P.bags = {
 			size = 48,
 			color = { r = 1, g = 0.82, b = 0, a = 1 },
 		},
+		effects = {
+			fade = true,
+			fadeDuration = 0.15,
+			newItemGlow = true,
+			hoverClassColor = true,
+			hoverColor = { r = 1, g = 1, b = 1 },
+			placeholderAlpha = 0.4,
+		},
+		collapsedSections = {},
 	},
 }
 
