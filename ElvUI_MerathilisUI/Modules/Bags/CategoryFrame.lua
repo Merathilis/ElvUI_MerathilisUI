@@ -572,6 +572,14 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	-- we draw our own flat border via SetTemplate instead, same as ElvUI.
 	btn:SetNormalTexture(E.ClearTexture)
 
+	-- Same flat hover/pressed overlay ElvUI's own bag slots get, with the
+	-- hover tint switched to class color like our other accents.
+	pcall(btn.StyleButton, btn)
+	if btn.hover then
+		local cc = E.myClassColor
+		btn.hover:SetColorTexture(cc.r, cc.g, cc.b, 0.3)
+	end
+
 	-- Blizzard's own native border square; we draw quality color via
 	-- SetTemplate/SetItemButtonQuality ourselves, same as ElvUI's own bags.
 	if btn.IconBorder then
