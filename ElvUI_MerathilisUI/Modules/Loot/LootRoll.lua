@@ -816,11 +816,11 @@ function module:Initialize()
 	end
 	module.db = E.db.mui.lootRoll
 
-	DisableElvUILootRoll()
-
 	if not module.db.enable then
 		return
 	end
+
+	DisableElvUILootRoll()
 
 	anchor = CreateFrame("Frame", "MERLootRollAnchor", E.UIParent)
 	anchor:Size(module.db.width, module.db.height)

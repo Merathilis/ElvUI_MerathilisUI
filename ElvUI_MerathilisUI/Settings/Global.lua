@@ -16,6 +16,8 @@ G.mail = {
 		favorites = {},
 		updateAlts = true,
 	},
+	templates = {},
+	quickAttachRecipients = {},
 }
 
 G.bags = {

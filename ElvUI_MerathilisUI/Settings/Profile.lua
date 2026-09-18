@@ -280,6 +280,85 @@ P.bags = {
 			a = 1,
 		},
 	},
+	categorizedBags = {
+		enable = true,
+		itemSize = 36,
+		itemSpacingH = 4,
+		itemSpacingV = 4,
+		headerHeight = 22,
+		sidebarRowHeight = 24,
+		sectionSpacing = 14,
+		sidebarWidth = 170,
+		width = 600,
+		height = 600,
+		showPinned = true,
+		showRecent = true,
+		hideEmptyCategories = true,
+		alternatingRowBackground = true,
+		viewMode = "CATEGORY",
+		sidebarCollapsed = false,
+		bankViewMode = "BANK_ALL",
+		bankSidebarWidth = 170,
+		bankSidebarCollapsed = false,
+		bankWidth = 600,
+		bankHeight = 600,
+		disabledCategories = {},
+		categoryOrder = {},
+		userCategories = {},
+		itemAssignments = {},
+		pinnedItemsByChar = {},
+		itemCountFont = {
+			name = I.Fonts.Primary,
+			size = 12,
+			style = "OUTLINE",
+			position = "BOTTOMRIGHT",
+		},
+		headerFont = {
+			name = I.Fonts.Primary,
+			size = 12,
+			style = "OUTLINE",
+		},
+		subHeaderFont = {
+			name = I.Fonts.Primary,
+			size = 10,
+			style = "OUTLINE",
+		},
+		itemLevel = {
+			enable = true,
+			font = {
+				name = I.Fonts.Primary,
+				size = 10,
+				style = "SHADOWOUTLINE",
+				position = "TOPLEFT",
+			},
+		},
+		itemInfo = {
+			enable = true,
+			font = {
+				name = I.Fonts.Primary,
+				size = 10,
+				style = "OUTLINE",
+				position = "BOTTOM",
+			},
+		},
+		spinner = {
+			enable = true,
+			size = 48,
+			color = { r = 1, g = 0.82, b = 0, a = 1 },
+		},
+		effects = {
+			fade = true,
+			fadeDuration = 0.15,
+			newItemGlow = true,
+			hoverClassColor = true,
+			hoverColor = { r = 1, g = 1, b = 1 },
+			placeholderAlpha = 0.4,
+			warboundMarker = true,
+			customBackground = false,
+			backgroundAlpha = 0.8,
+		},
+		collapsedSections = {},
+	},
 }
 
 P.colors = {
@@ -680,6 +759,9 @@ P.tooltip = {
 
 P.mail = {
 	enable = true,
+	selection = {
+		enable = true,
+	},
 }
 
 P.notification = {

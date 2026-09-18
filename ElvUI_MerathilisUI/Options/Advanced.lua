@@ -279,6 +279,56 @@ options.reset = {
 				end)
 			end,
 		},
+		auras = {
+			order = 25,
+			type = "execute",
+			name = L["Auras"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Auras"], nil, function()
+					E:CopyTable(E.db.mui.auras, P.auras)
+				end)
+			end,
+		},
+		cooldownManager = {
+			order = 26,
+			type = "execute",
+			name = L["Cooldown Manager"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Cooldown Manager"], nil, function()
+					E:CopyTable(E.db.mui.cooldownManager, P.cooldownManager)
+				end)
+			end,
+		},
+		datatexts = {
+			order = 27,
+			type = "execute",
+			name = L["DataTexts"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["DataTexts"], nil, function()
+					E:CopyTable(E.db.mui.datatexts, P.datatexts)
+				end)
+			end,
+		},
+		raidBuffs = {
+			order = 28,
+			type = "execute",
+			name = L["Raid Buffs"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Raid Buffs"], nil, function()
+					E:CopyTable(E.db.mui.raidBuffs, P.raidBuffs)
+				end)
+			end,
+		},
+		tooltip = {
+			order = 29,
+			type = "execute",
+			name = L["Tooltip"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Tooltip"], nil, function()
+					E:CopyTable(E.db.mui.tooltip, P.tooltip)
+				end)
+			end,
+		},
 		spacer1 = {
 			order = 30,
 			type = "description",

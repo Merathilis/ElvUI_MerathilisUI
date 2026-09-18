@@ -10,4 +10,5 @@
 	<Script file='NewFeatureLabel.lua' />
 	<Script file='TabGroup.lua' />
 	<Script file='GroupTitle.lua' />
+	<Script file='ScrollBar.lua' />
 </Ui>

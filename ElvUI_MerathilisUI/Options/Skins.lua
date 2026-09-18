@@ -341,7 +341,7 @@ end
 options.advancedSettings = {
 	order = 10,
 	type = "group",
-	name = E.NewSign .. L["Advanced Skin Settings"],
+	name = L["Advanced Skin Settings"],
 	disabled = function()
 		return not E.private.mui.skins.enable
 	end,
@@ -468,7 +468,7 @@ options.advancedSettings = {
 		weeklyRewards = {
 			order = 3,
 			type = "group",
-			name = E.NewSign .. L["Weekly Rewards"],
+			name = L["Weekly Rewards"],
 			get = function(info)
 				return E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]]
 			end,
