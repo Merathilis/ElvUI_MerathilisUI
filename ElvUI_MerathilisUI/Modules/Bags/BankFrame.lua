@@ -34,6 +34,7 @@ local GetBagIcon = module.GetBagIcon
 local GetBagDisplayName = module.GetBagDisplayName
 local ShowPurchaseBankTabPrompt = module.ShowPurchaseBankTabPrompt
 local SetCategoryIcon = module.SetCategoryIcon
+local SetTitleCount = module.SetTitleCount
 local SkinScrollBar = module.SkinScrollBar
 local VIEW_MODE_ROW_HEIGHT = module.VIEW_MODE_ROW_HEIGHT
 local COLLAPSED_SIDEBAR_WIDTH = module.COLLAPSED_SIDEBAR_WIDTH
@@ -263,6 +264,9 @@ function module:ConstructBankFrame()
 	pcall(f.SetTemplate, f, "Transparent")
 	WS:CreateShadow(f)
 	f:Hide()
+	f:SetScript("OnShow", function(self)
+		E:UIFrameFadeIn(self, 0.15, 0, 1)
+	end)
 	f:SetScript("OnHide", function()
 		module:OnBankFrameHidden()
 	end)
@@ -841,7 +845,7 @@ function module:RefreshBankCategoryFrame()
 		totalSlots = totalSlots + C_Container_GetContainerNumSlots(bagID)
 	end
 	f.titleText:SetText(isWarbandView and L["Warband Bank"] or L["Bank"])
-	f.titleCountText:SetText(format("%d / %d %s", usedSlots, totalSlots, L["Items"]))
+	SetTitleCount(f.titleCountText, usedSlots, totalSlots)
 
 	module:UpdateBankFooter()
 end

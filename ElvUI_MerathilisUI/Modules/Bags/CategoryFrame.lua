@@ -294,6 +294,21 @@ local function SkinScrollBar(scrollbar)
 	TintScrollThumb(scrollbar)
 end
 
+-- Tints the title's "used / total" counter as the container fills up, so a
+-- nearly-full bag is noticeable at a glance instead of only by reading numbers.
+local function SetTitleCount(fontString, used, total)
+	fontString:SetText(format("%d / %d %s", used, total, L["Items"]))
+
+	local ratio = total > 0 and used / total or 0
+	if ratio >= 0.95 then
+		fontString:SetTextColor(1, 0.25, 0.25)
+	elseif ratio >= 0.8 then
+		fontString:SetTextColor(1, 0.82, 0.2)
+	else
+		fontString:SetTextColor(1, 1, 1)
+	end
+end
+
 local function SetCategoryIcon(tex, cat)
 	if not tex or not cat then
 		return
@@ -1381,6 +1396,9 @@ function module:ConstructFrame()
 	pcall(f.SetTemplate, f, "Transparent")
 	WS:CreateShadow(f)
 	f:Hide()
+	f:SetScript("OnShow", function(self)
+		E:UIFrameFadeIn(self, 0.15, 0, 1)
+	end)
 	f:SetScript("OnHide", function()
 		module:OnFrameHidden()
 	end)
@@ -3128,7 +3146,7 @@ function module:RefreshCategoryFrame()
 	}, sections)
 
 	f.titleText:SetText(L["Inventory"])
-	f.titleCountText:SetText(format("%d / %d %s", usedSlots, totalSlots, L["Items"]))
+	SetTitleCount(f.titleCountText, usedSlots, totalSlots)
 
 	module:UpdateFooter()
 end
@@ -4009,5 +4027,6 @@ module.SetCategoryIcon = SetCategoryIcon
 module.VIEW_MODE_ROW_HEIGHT = VIEW_MODE_ROW_HEIGHT
 module.COLLAPSED_SIDEBAR_WIDTH = COLLAPSED_SIDEBAR_WIDTH
 module.SkinScrollBar = SkinScrollBar
+module.SetTitleCount = SetTitleCount
 
 MER:RegisterModule(module:GetName())
