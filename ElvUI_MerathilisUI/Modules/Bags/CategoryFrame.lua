@@ -1,6 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_BagCategories") ---@class BagCategories
 local B = E:GetModule("Bags")
+local TT = E:GetModule("Tooltip")
 local S = E:GetModule("Skins")
 local WS = W:GetModule("Skins")
 local EM = MER:GetModule("MER_EquipManager") ---@class EquipmentManager
@@ -162,50 +163,105 @@ local function SnapshotBankNewItems()
 	SnapshotNewItemsForBags(module.WarbandBagIDs)
 end
 
--- Must NOT call B.BagFrame:Hide() - its OnHide handler (Container_OnHide)
--- calls CloseBackpack()/CloseBag() as a side effect, which resets the
--- native "bags are open" state ElvUI's own toggle handlers read on the next
--- press of the bag keybind. Since our frame is what's actually open at that
--- point, that reset made every subsequent press decide to "open" again
--- instead of alternating - the keybind stopped closing anything.
+-- B.BagFrame:Hide() for real is exactly what we want here - it makes the
+-- whole subtree (every child button/slot) unreachable and invisible in one
+-- step, and correctly flips IsShown() to false for anything elsewhere that
+-- checks "is the bag frame actually open" (see below for why that matters).
+-- The one thing we must avoid is its OnHide handler (Container_OnHide)
+-- actually running: it calls CloseBackpack()/CloseBag() as a side effect,
+-- which resets the native "bags are open" state ElvUI's own toggle handlers
+-- read on the next press of the bag keybind - since our frame is what's
+-- actually open at that point, that reset made every subsequent press
+-- decide to "open" again instead of alternating (the keybind stopped
+-- closing anything). Fix: clear the OnHide script right before :Hide(),
+-- restore it right after - a real close (B:CloseAllBags(), never routed
+-- through this function) still runs Container_OnHide normally.
 --
--- SetAlpha(0)/EnableMouse(false) on the frame itself (an earlier attempt)
--- isn't enough either: neither is inherited by children, so every child
--- button - item slots, sort/stack/close buttons, the bags/key buttons, ...
--- stayed fully clickable, invisible but sitting right on top of our own
--- frame's controls at the same screen position (reported as the sidebar's
--- collapse arrow not reacting at all - an invisible ElvUI bag-frame child
--- was eating the click before it ever reached our button). Moving the whole
--- frame off-screen instead makes its entire subtree unreachable to the
--- mouse, regardless of how many children ElvUI's bag frame has. Safe to
--- never restore the position afterwards: B:OpenBags() never re-anchors the
--- frame itself (only Shows it), so we just push it off-screen again every
--- time we take over - and this feature requires a /reload to toggle off,
--- which rebuilds the frame with its default anchor anyway.
+-- Two earlier attempts got this wrong by never actually calling :Hide():
+-- SetAlpha(0)/EnableMouse(false) on the frame itself doesn't stop its
+-- children from staying clickable (an invisible child button was eating
+-- clicks meant for our own sidebar's collapse arrow), and moving the frame
+-- off-screen instead fixed clicks but left IsShown() reporting true - which
+-- broke anything that anchors itself to B.BagFrame while it's "open":
+-- reported as tooltips (and apparently the Plumber addon's own frame)
+-- pinning to the screen's left edge, traced to ElvUI's own "anchor tooltip
+-- to bags" option (Tooltip.lua's GameTooltip_SetDefaultAnchor) anchoring
+-- the global GameTooltip to B.BagFrame's position - which was real, just
+-- sitting off-screen - once it saw IsShown() == true.
 local function HideElvUIBagFrame()
 	if B.BagFrame and B.BagFrame:IsShown() then
 		SnapshotNewItems()
-		B.BagFrame:EnableMouse(false)
-		B.BagFrame:ClearAllPoints()
-		B.BagFrame:SetPoint("CENTER", E.UIParent, "CENTER", -10000, -10000)
+
+		local onHide = B.BagFrame:GetScript("OnHide")
+		B.BagFrame:SetScript("OnHide", nil)
+		B.BagFrame:Hide()
+		B.BagFrame:SetScript("OnHide", onHide)
 	end
 end
 
--- Unlike HideElvUIBagFrame, this must NOT call B.BankFrame:Hide() - ElvUI's
+-- Same technique as HideElvUIBagFrame above, doubly important here: ElvUI's
 -- shared Container_OnHide handler calls CloseBankFrame() as a side effect
 -- for any frame with isBank=true, which would immediately end the real
--- server-side bank interaction. Moved off-screen for the same reason as
--- HideElvUIBagFrame above (EnableMouse(false)/SetAlpha(0) on the frame
--- alone doesn't stop its children from still being clickable);
--- module:OnFrameHidden() is responsible for actually closing the bank via
--- CloseBankFrame() when appropriate.
+-- server-side bank interaction if it ran for real - suppressing OnHide
+-- around the :Hide() call avoids that while still getting a real, correct
+-- IsShown() == false. module:OnFrameHidden() is responsible for actually
+-- closing the bank via CloseBankFrame() when appropriate.
 local function HideElvUIBankFrame()
 	if B.BankFrame and B.BankFrame:IsShown() then
 		SnapshotBankNewItems()
-		B.BankFrame:EnableMouse(false)
-		B.BankFrame:ClearAllPoints()
-		B.BankFrame:SetPoint("CENTER", E.UIParent, "CENTER", -10000, -10000)
+
+		local onHide = B.BankFrame:GetScript("OnHide")
+		B.BankFrame:SetScript("OnHide", nil)
+		B.BankFrame:Hide()
+		B.BankFrame:SetScript("OnHide", onHide)
 	end
+end
+
+-- ElvUI's "Anchor Tooltip to Bags" option (Options > ElvUI > Tooltip) only
+-- knows about B.BagFrame - since that's now always hidden while our frame is
+-- up (see HideElvUIBagFrame above), ElvUI's own default-anchor logic falls
+-- through to its generic screen-quadrant fallback instead, which is what
+-- was reported as tooltips popping up in the middle of the screen instead
+-- of tucked above the bag window like ElvUI users are used to. Blizzard's
+-- GameTooltip_SetDefaultAnchor is a plain global function called from all
+-- over the place (unit frames, action bars, ElvUI's own bag frame, ...)
+-- whenever something wants a tooltip positioned "wherever the user's
+-- default is" rather than somewhere explicit - ElvUI itself hooks this same
+-- global (see its Tooltip.lua) to layer its own anchor-to-bags/quadrant
+-- logic on top of Blizzard's plain default. Hooking it here too (after
+-- ElvUI's own hook already ran) lets us override its result with our own
+-- frame as the anchor target, using the exact same math and the user's own
+-- ElvUI tooltip settings, instead of duplicating that whole system.
+--
+-- Doesn't affect our own item-slot tooltips (Slot_OnEnter) - those call
+-- GameTooltip:SetOwner(self, "ANCHOR_RIGHT") directly and never go through
+-- this function at all.
+function module:OnGameTooltipDefaultAnchor(tt)
+	local db = TT.db
+	if not tt or tt:IsForbidden() or not E.private.tooltip.enable or not db or db.cursorAnchor then
+		return
+	end
+
+	-- Anchor wasn't left at the default by ElvUI's own hook (e.g. combat/
+	-- action-bar visibility rules hid it, or something set an explicit
+	-- anchor of its own) - leave it alone rather than second-guessing that.
+	if tt:GetAnchorType() ~= "ANCHOR_NONE" then
+		return
+	end
+
+	local anchorBags = db.anchorToBags
+	if not anchorBags or anchorBags == "DISABLED" then
+		return
+	end
+
+	local anchorFrame = (module.frame and module.frame:IsShown() and module.frame)
+		or (module.bankFrame and module.bankFrame:IsShown() and module.bankFrame)
+	if not anchorFrame then
+		return
+	end
+
+	tt:ClearAllPoints()
+	tt:Point(E.InversePoints[anchorBags], anchorFrame, anchorBags, db.xOffset, db.yOffset)
 end
 
 -- Reskins a scrollbar to a thin, track-less thumb: HandleScrollBar's own
@@ -3617,6 +3673,7 @@ function module:Initialize()
 
 	module:SecureHook(B, "OpenBags", "OnElvUIBagsOpened")
 	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
+	module:SecureHook("GameTooltip_SetDefaultAnchor", "OnGameTooltipDefaultAnchor")
 
 	if #module.BankBagIDs > 0 or #module.WarbandBagIDs > 0 then
 		module:RegisterEvent("BANKFRAME_OPENED", "OnBankOpened")
