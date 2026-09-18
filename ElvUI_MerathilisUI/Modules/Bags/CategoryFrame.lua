@@ -22,6 +22,7 @@ local GetCursorInfo = GetCursorInfo
 local ClearCursor = ClearCursor
 
 local CreateFrame = CreateFrame
+local CreateAnimationGroup = CreateAnimationGroup
 local GetMoney = GetMoney
 local CloseBankFrame = (C_Bank and C_Bank.CloseBankFrame) or CloseBankFrame
 local FetchPurchasedBankTabData = C_Bank and C_Bank.FetchPurchasedBankTabData
@@ -270,11 +271,27 @@ end
 -- thumbX narrows the thumb via an inset (same technique as the options-page
 -- scrollbar, Options/Widgets/ScrollBar.lua), and the separate track backdrop
 -- it creates behind the thumb gets hidden outright instead of just inset.
+-- ElvUI's own scrollbar skin re-applies its generic accent color
+-- (E.media.rgbvaluecolor) on every SetMinMaxValues call (i.e. on every
+-- content refresh) via its own ThumbStatus watcher - hook the same event
+-- ourselves, after it runs, to recolor the thumb class-colored instead,
+-- matching the rest of our class-colored accents (header divider,
+-- placeholder "+", selected/pinned sidebar rows).
+local function TintScrollThumb(scrollbar)
+	if scrollbar.Thumb and scrollbar.Thumb.backdrop and scrollbar:IsEnabled() and select(2, scrollbar:GetMinMaxValues()) ~= 0 then
+		local cc = E.myClassColor
+		scrollbar.Thumb.backdrop:SetBackdropColor(cc.r, cc.g, cc.b)
+	end
+end
+
 local function SkinScrollBar(scrollbar)
 	local ok = pcall(S.HandleScrollBar, S, scrollbar, nil, 4)
 	if ok and scrollbar.backdrop then
 		scrollbar.backdrop:Hide()
 	end
+
+	hooksecurefunc(scrollbar, "SetMinMaxValues", TintScrollThumb)
+	TintScrollThumb(scrollbar)
 end
 
 local function SetCategoryIcon(tex, cat)
@@ -505,6 +522,13 @@ local function Slot_OnLeave()
 	end
 end
 
+-- Drives the pulsing "new item" glow, same technique as ElvUI's own bags
+-- (one shared fade animation per top-level frame, alternating its target
+-- alpha between 0 and 1 on every finish instead of a one-shot fade).
+local function NewItemGlowOnFinished(self)
+	self:SetChange(self:GetChange() == 1 and 0 or 1)
+end
+
 -- Bag and Bank/Warband are two independent top-level frames that can both be
 -- shown at once (opening the bank auto-shows the bags too, see OnBankOpened),
 -- so their pooled slot/header/sub-header/sidebar-row objects can't share one
@@ -636,6 +660,29 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	-- Slot_OnEnter needs to bump the frame level of whichever top-level frame
 	-- (bags or bank) this particular button actually belongs to.
 	btn.ownerFrame = getOwnerFrame()
+
+	-- Pulsing glow for newly picked-up items (entry.isNew - the same flag
+	-- Recent Items uses), shown/colored in UpdateSlotVisual. Reuses ElvUI's
+	-- own bag glow texture and its one-shared-animation-per-frame technique
+	-- (cheaper than animating every slot individually, and keeps every glow
+	-- on the same frame pulsing in sync).
+	btn.newItemGlow = btn:CreateTexture(nil, "OVERLAY", nil, 1)
+	btn.newItemGlow:SetTexture(E.Media.Textures.BagNewItemGlow)
+	btn.newItemGlow:SetInside()
+	btn.newItemGlow:Hide()
+
+	local ownerFrame = btn.ownerFrame
+	if not ownerFrame.NewItemGlow then
+		ownerFrame.NewItemGlow = CreateAnimationGroup(ownerFrame)
+		ownerFrame.NewItemGlow:SetLooping(true)
+
+		ownerFrame.NewItemGlow.Fade = ownerFrame.NewItemGlow:CreateAnimation("fade")
+		ownerFrame.NewItemGlow.Fade:SetDuration(0.7)
+		ownerFrame.NewItemGlow.Fade:SetChange(0)
+		ownerFrame.NewItemGlow.Fade:SetEasing("in")
+		ownerFrame.NewItemGlow.Fade:SetScript("OnFinished", NewItemGlowOnFinished)
+	end
+	ownerFrame.NewItemGlow.Fade:AddChild(btn.newItemGlow)
 
 	-- Same numeric cooldown-text/swipe-color treatment ElvUI's own bag slots
 	-- get, driven by the user's existing ElvUI > Cooldown > Bags settings.
@@ -943,6 +990,14 @@ local function UpdateSlotVisual(btn, entry)
 
 	btn.JunkIcon:SetSize(module.db.itemSize * 0.5, module.db.itemSize * 0.5)
 	btn.JunkIcon:SetShown(entry.isJunk and true or false)
+
+	btn.newItemGlow:SetShown(entry.isNew)
+	if entry.isNew then
+		btn.newItemGlow:SetVertexColor(r, g, b)
+		if not btn.ownerFrame.NewItemGlow:IsPlaying() then
+			btn.ownerFrame.NewItemGlow:Play()
+		end
+	end
 
 	UpdateUpgradeIcon(btn)
 	UpdateEquipSetIcon(btn, entry)
@@ -1647,6 +1702,16 @@ function module:ConstructFrame()
 	f.contentChild:Height(1)
 	f.mainScroll:SetScrollChild(f.contentChild)
 	module.contentChild = f.contentChild
+
+	-- Shown when a search/category filter leaves nothing to display - parented
+	-- to the scroll frame itself (not the content child, which shrinks to a
+	-- 1px height when empty) so it stays centered in the visible viewport.
+	f.emptyText = f.mainScroll:CreateFontString(nil, "OVERLAY")
+	f.emptyText:FontTemplate(nil, 14)
+	f.emptyText:SetTextColor(0.6, 0.6, 0.6)
+	f.emptyText:Point("CENTER")
+	f.emptyText:SetText(L["No items found."])
+	f.emptyText:Hide()
 
 	-- Footer
 	f.footer = CreateFrame("Frame", nil, f)
@@ -2973,6 +3038,10 @@ local function RenderCategorySections(ctx, sections)
 
 	ctx.sidebarChild:Height(math.max(1, (ctx.sidebarBaseY or 0) + sidebarIndex * db.sidebarRowHeight))
 	ctx.contentChild:Height(math.max(1, y))
+
+	if ctx.emptyText then
+		ctx.emptyText:SetShown(#sections == 0)
+	end
 end
 
 module.RenderCategorySections = RenderCategorySections
@@ -3052,6 +3121,7 @@ function module:RefreshCategoryFrame()
 		offsets = module.categoryOffsets,
 		width = db.width,
 		sidebarWidth = sidebarWidth,
+		emptyText = f.emptyText,
 		refresh = function()
 			module:RefreshCategoryFrame()
 		end,
@@ -3657,6 +3727,10 @@ function module:OnFrameHidden()
 		CloseBag(i)
 	end
 	CloseBackpack()
+
+	if module.frame.NewItemGlow then
+		module.frame.NewItemGlow:Stop()
+	end
 
 	-- Clear any pending "the bank opened this bag frame automatically" state
 	-- on every hide path (manual close button, /reload, etc.) so a later,

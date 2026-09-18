@@ -448,6 +448,15 @@ function module:ConstructBankFrame()
 	f.mainScroll:SetScrollChild(f.contentChild)
 	module.bankContentChild = f.contentChild
 
+	-- Shown when a search/tab filter leaves nothing to display - see the bag
+	-- frame's own f.emptyText for why this is parented to the scroll frame.
+	f.emptyText = f.mainScroll:CreateFontString(nil, "OVERLAY")
+	f.emptyText:FontTemplate(nil, 14)
+	f.emptyText:SetTextColor(0.6, 0.6, 0.6)
+	f.emptyText:Point("CENTER")
+	f.emptyText:SetText(L["No items found."])
+	f.emptyText:Hide()
+
 	-- Footer: player gold (left) / Warband gold (right), Withdraw/Deposit
 	-- buttons for Warband gold transfer, and a center Auto Deposit button
 	-- that relabels itself for whichever bank the sidebar is currently
@@ -818,6 +827,7 @@ function module:RefreshBankCategoryFrame()
 		width = db.bankWidth,
 		sidebarWidth = sidebarWidth,
 		sidebarBaseY = tabY,
+		emptyText = f.emptyText,
 		refresh = function()
 			module:RefreshBankCategoryFrame()
 		end,
@@ -881,5 +891,9 @@ function module:OnBankFrameHidden()
 	-- hidden while a bank interaction might still be open.
 	if module.isBankOpen and CloseBankFrame then
 		CloseBankFrame()
+	end
+
+	if module.bankFrame.NewItemGlow then
+		module.bankFrame.NewItemGlow:Stop()
 	end
 end

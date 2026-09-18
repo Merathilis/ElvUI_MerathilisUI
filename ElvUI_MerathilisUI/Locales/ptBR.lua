@@ -767,6 +767,7 @@ L["Sort Spinner"] = true
 L["Same spinner ElvUI's own bag frame shows while sorting."] = true
 L["Drag an item here to pin it."] = true
 L["Drag an item here to assign it to %s."] = true
+L["No items found."] = true
 L["Spacing Between Categories"] = true
 L["Stack Items In Bags"] = true
 L["Trade Goods"] = true
