@@ -317,6 +317,58 @@ local function SetTitleCount(fontString, used, total, searchHits)
 	end
 end
 
+-- Thin fill-level bar just above the footer row, same warning thresholds as
+-- the counter above (class color while there's room). Its own thin texture
+-- can't take mouse input, so a slightly taller invisible frame over it carries
+-- the explanatory tooltip.
+local function FillBar_OnEnter(self)
+	if GameTooltip:IsForbidden() then
+		return
+	end
+
+	local used, total = self.used or 0, self.total or 0
+	local percent = total > 0 and floor(used / total * 100 + 0.5) or 0
+
+	GameTooltip:SetOwner(self, "ANCHOR_TOP")
+	GameTooltip:AddLine(L["Fill Level"], 1, 1, 1)
+	GameTooltip:AddLine(format(L["%d of %d slots used (%d%%)"], used, total, percent), 0.8, 0.8, 0.8)
+	GameTooltip:AddLine(format(L["%d free"], total - used), 0.6, 0.6, 0.6)
+	GameTooltip:AddLine(L["Class color; turns yellow at 80% and red at 95%."], 0.6, 0.6, 0.6)
+	GameTooltip:Show()
+end
+
+local function CreateFillBar(f)
+	f.fillBar = f.footer:CreateTexture(nil, "OVERLAY")
+	f.fillBar:Height(2)
+	f.fillBar:Point("TOPLEFT", f.footer, "TOPLEFT", 0, 3)
+
+	f.fillBarHit = CreateFrame("Frame", nil, f.footer)
+	f.fillBarHit:Height(6)
+	f.fillBarHit:Point("TOPLEFT", f.footer, "TOPLEFT", 0, 5)
+	f.fillBarHit:Point("TOPRIGHT", f.footer, "TOPRIGHT", 0, 5)
+	f.fillBarHit:EnableMouse(true)
+	f.fillBarHit:SetScript("OnEnter", FillBar_OnEnter)
+	f.fillBarHit:SetScript("OnLeave", GameTooltip_Hide)
+end
+
+local function SetFillBar(f, used, total)
+	f.fillBarHit.used, f.fillBarHit.total = used, total
+
+	local ratio = total > 0 and used / total or 0
+	local r, g, b
+	if ratio >= 0.95 then
+		r, g, b = 1, 0.25, 0.25
+	elseif ratio >= 0.8 then
+		r, g, b = 1, 0.82, 0.2
+	else
+		local cc = E.myClassColor
+		r, g, b = cc.r, cc.g, cc.b
+	end
+
+	f.fillBar:SetColorTexture(r, g, b, 0.9)
+	f.fillBar:SetWidth(math.max(1, f.footer:GetWidth() * ratio))
+end
+
 -- nil when no search is active. Relies on the native item-search filter
 -- having just been applied by this refresh's item collection pass.
 local function CountSearchHits(bagIDList)
@@ -334,6 +386,17 @@ local function CountSearchHits(bagIDList)
 		end
 	end
 	return hits
+end
+
+-- Selected fixed sidebar rows (view-mode / bank tab rows) tint their label in
+-- class color on top of the existing highlight bar.
+function module.SetSelectedRowTextColor(row, isSelected)
+	if isSelected then
+		local cc = E.myClassColor
+		row.text:SetTextColor(cc.r, cc.g, cc.b)
+	else
+		row.text:SetTextColor(1, 1, 1)
+	end
 end
 
 local function SetCategoryIcon(tex, cat)
@@ -1823,6 +1886,8 @@ function module:ConstructFrame()
 	f.footer:Point("BOTTOMRIGHT", -8, 8)
 	f.footer:Height(20)
 
+	module.CreateFillBar(f)
+
 	f.footer.goldText = f.footer:CreateFontString(nil, "OVERLAY")
 	f.footer.goldText:FontTemplate()
 	f.footer.goldText:Point("LEFT", 4, 0)
@@ -3215,6 +3280,7 @@ function module:RefreshCategoryFrame()
 		local isSelected = row.viewModeKey == db.viewMode
 		row.selectedTex:SetShown(isSelected)
 		row.selectedBar:SetShown(isSelected)
+		module.SetSelectedRowTextColor(row, isSelected)
 	end
 
 	-- The scrollbar reserve (sidebarScroll's right inset) is sized for the
@@ -3259,6 +3325,7 @@ function module:RefreshCategoryFrame()
 
 	f.titleText:SetText(L["Inventory"])
 	SetTitleCount(f.titleCountText, usedSlots, totalSlots, CountSearchHits(BAG_IDS))
+	SetFillBar(f, usedSlots, totalSlots)
 
 	module:UpdateFooter()
 end
@@ -4190,6 +4257,8 @@ module.VIEW_MODE_ROW_HEIGHT = VIEW_MODE_ROW_HEIGHT
 module.COLLAPSED_SIDEBAR_WIDTH = COLLAPSED_SIDEBAR_WIDTH
 module.SkinScrollBar = SkinScrollBar
 module.SetTitleCount = SetTitleCount
+module.SetFillBar = SetFillBar
+module.CreateFillBar = CreateFillBar
 module.CountSearchHits = CountSearchHits
 
 MER:RegisterModule(module:GetName())

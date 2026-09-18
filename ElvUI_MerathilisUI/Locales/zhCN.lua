@@ -792,6 +792,10 @@ L["Opacity of the empty drop-target slots at the end of each category (the first
 L["Tints the item slot hover highlight in your class color."] = true
 L["Hover Color"] = true
 L["%d results"] = true
+L["Fill Level"] = true
+L["%d of %d slots used (%d%%)"] = true
+L["%d free"] = true
+L["Class color; turns yellow at 80% and red at 95%."] = true
 L["Spacing Between Categories"] = true
 L["Stack Items In Bags"] = true
 L["Trade Goods"] = true

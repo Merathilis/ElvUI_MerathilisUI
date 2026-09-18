@@ -35,6 +35,7 @@ local GetBagDisplayName = module.GetBagDisplayName
 local ShowPurchaseBankTabPrompt = module.ShowPurchaseBankTabPrompt
 local SetCategoryIcon = module.SetCategoryIcon
 local SetTitleCount = module.SetTitleCount
+local SetFillBar = module.SetFillBar
 local CountSearchHits = module.CountSearchHits
 local SkinScrollBar = module.SkinScrollBar
 local VIEW_MODE_ROW_HEIGHT = module.VIEW_MODE_ROW_HEIGHT
@@ -477,6 +478,8 @@ function module:ConstructBankFrame()
 	f.footer:Point("BOTTOMRIGHT", -8, 8)
 	f.footer:Height(20)
 
+	module.CreateFillBar(f)
+
 	f.footer.goldText = f.footer:CreateFontString(nil, "OVERLAY")
 	f.footer.goldText:FontTemplate()
 	f.footer.goldText:Point("LEFT", 4, 0)
@@ -743,6 +746,7 @@ function module:RefreshBankCategoryFrame()
 		local isSelected = module.bankViewMode == def.bankViewMode
 		row.selectedTex:SetShown(isSelected)
 		row.selectedBar:SetShown(isSelected)
+		module.SetSelectedRowTextColor(row, isSelected)
 	end
 
 	f.pinnedRow.text:SetShown(not db.bankSidebarCollapsed)
@@ -805,6 +809,7 @@ function module:RefreshBankCategoryFrame()
 				local isSelected = module.bankTabFilter == value
 				row.selectedTex:SetShown(isSelected)
 				row.selectedBar:SetShown(isSelected)
+				module.SetSelectedRowTextColor(row, isSelected)
 			elseif state == "purchasable" then
 				row.text:SetShown(not db.bankSidebarCollapsed)
 				row.text:SetText(L["Purchase Bank Tab"])
@@ -814,6 +819,7 @@ function module:RefreshBankCategoryFrame()
 				row.count:SetText("")
 				row.selectedTex:Hide()
 				row.selectedBar:Hide()
+				module.SetSelectedRowTextColor(row, false)
 			else
 				row.text:SetShown(not db.bankSidebarCollapsed)
 				row.text:SetText(L["Locked"])
@@ -823,6 +829,7 @@ function module:RefreshBankCategoryFrame()
 				row.count:SetText("")
 				row.selectedTex:Hide()
 				row.selectedBar:Hide()
+				module.SetSelectedRowTextColor(row, false)
 			end
 
 			tabY = tabY + db.sidebarRowHeight
@@ -858,6 +865,7 @@ function module:RefreshBankCategoryFrame()
 		totalSlots,
 		CountSearchHits(module.bankTabFilter and { module.bankTabFilter } or countBagIDs)
 	)
+	SetFillBar(f, usedSlots, totalSlots)
 
 	module:UpdateBankFooter()
 end
