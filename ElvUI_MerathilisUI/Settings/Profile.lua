@@ -281,7 +281,7 @@ P.bags = {
 		},
 	},
 	categorizedBags = {
-		enable = false,
+		enable = true,
 		itemSize = 36,
 		itemSpacingH = 4,
 		itemSpacingV = 4,

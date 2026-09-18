@@ -12,7 +12,7 @@ MER.Changelog[733] = {
 		"Mail: added a Postal-style selection bar to the inbox with numbered checkboxes to open or delete multiple mails at once.",
 		"Mail: added send templates (recipients/subject/body) with a quick \"Send Templates\" button on the send-mail frame.",
 		"Mail: added a quick-attach bar for trade goods (Cloth, Leather, Herb, ...) on the send-mail frame, with a per-category default recipient.",
-		"Bags: added an optional Categorized Bags view (sidebar with default/custom categories, Pinned/Recent items, search) as an alternative to ElvUI's default bag frame. Disabled by default, requires a UI reload after enabling.",
+		"Bags: added a Categorized Bags view (sidebar with default/custom categories, Pinned/Recent items, search) as an alternative to ElvUI's default bag frame. Enabled by default for new profiles; existing profiles keep it off unless enabled manually. Requires a UI reload after enabling/disabling.",
 		"Bags: Categorized Bags - added item level and bind-status indicators on slots, each with its own font/size/outline/position options.",
 		"Bags: Categorized Bags - added custom icons for user-defined categories (right-click a category and choose Change Icon).",
 		"Bags: Categorized Bags - added drag & drop reordering of sidebar categories.",
