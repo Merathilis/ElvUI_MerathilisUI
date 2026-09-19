@@ -15,5 +15,6 @@ MER.Changelog[735] = {
 		"Bags: Categorized Bags - the sidebar edge got a soft class-colored line and a subtle shadow towards the items.",
 		"Bags: Categorized Bags - the gold tooltip now shows class icons for your characters plus icons for the total and the Warband Bank.",
 		"Bags: Categorized Bags - \"Assign to Category\" opened from a bank slot now notes that the assignment takes effect once the item is in your bags.",
+		"Bags: Categorized Bags - the collapsed sidebar is a bit wider, its collapse arrow sits centered over the icons and its scrollbar stays inside the sidebar instead of hanging over the edge.",
 	},
 }
