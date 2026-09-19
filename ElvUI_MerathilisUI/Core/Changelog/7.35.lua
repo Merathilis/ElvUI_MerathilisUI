@@ -1,15 +1,15 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
-MER.Changelog[734] = {
-	RELEASE_DATE = "19.09.2026",
+MER.Changelog[735] = {
+	RELEASE_DATE = "TBD",
 	FIXES = {
-		'Armory: fixed the character sheet tainting Blizzard\'s paperdoll code, which could cause "Interface action failed because of an AddOn" when opening the character frame in combat.',
-		"Misc: fixed the Guild MOTD popup not closing on Escape.",
-		"Bags: Categorized Bags - fixed a taint error (\"tried to call the protected function 'UpgradeItem()'\") when upgrading an item at an upgrade NPC.",
+		"Bags: Categorized Bags - fixed the Recent Items clear button sometimes not removing the items until the bags were reopened.",
+		"Bags: Categorized Bags - the sort spinner now shows on top of the items instead of behind them.",
 	},
 	NEW = {},
 	IMPROVEMENTS = {
-		"Mail/Loot: replaced the deprecated dropdown API in the send-mail template list and the Loot Spec Manager with Blizzard's current menu system, avoiding a known source of taint.",
-		"General: removed leftover code paths for Classic clients, since MerathilisUI is Retail only.",
+		"Bags: Categorized Bags - items now dim while sorting, and hovering a bag in the bag bar dims everything outside that bag, like ElvUI's own bags.",
+		"Bags: Categorized Bags - while an item is on the cursor, the empty slots at the end of each category light up to show where it can be dropped to assign it.",
+		"Bags: Categorized Bags - pinned items show a pin marker in their normal category too, and newly picked-up items get a NEW badge in addition to the glow (all three toggleable under Effects).",
 	},
 }
