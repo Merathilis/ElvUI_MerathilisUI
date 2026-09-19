@@ -106,7 +106,9 @@ function module:GMOTD()
 	end
 
 	self:CreateGMOTD()
-	tinsert(UISpecialFrames, "module.CreateGMOTD")
+	-- Must be the frame's global name (see CreateGMOTD), since Blizzard's
+	-- CloseSpecialWindows resolves each entry via _G[name] to close it on Escape.
+	tinsert(UISpecialFrames, "MER.GMOTD")
 end
 
 module:AddCallback("GMOTD")

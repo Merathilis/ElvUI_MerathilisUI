@@ -29,21 +29,18 @@ local CLASS_PROFESSION = 19
 local CLASS_HOUSING = 20
 
 local BagIndex = Enum.BagIndex
-module.ReagentContainer = (E.Retail and BagIndex and BagIndex.ReagentBag) or math.huge
+module.ReagentContainer = BagIndex.ReagentBag or math.huge
 
--- Character bank tabs (retail only - the bank is no longer a single flat
--- container, it's 6 tab-bags, same unified Container API as regular bags
--- just with different bagIDs). Empty on non-retail clients; the whole Bank
--- view feature gates off #module.BankBagIDs > 0.
+-- Character bank tabs - the bank is no longer a single flat container, it's
+-- 6 tab-bags, same unified Container API as regular bags just with different
+-- bagIDs.
 module.BankBagIDs = {}
 module.BankBagIDSet = {}
-if E.Retail and BagIndex then
-	for i = 1, 6 do
-		local id = BagIndex["CharacterBankTab_" .. i]
-		if id then
-			tinsert(module.BankBagIDs, id)
-			module.BankBagIDSet[id] = true
-		end
+for i = 1, 6 do
+	local id = BagIndex["CharacterBankTab_" .. i]
+	if id then
+		tinsert(module.BankBagIDs, id)
+		module.BankBagIDSet[id] = true
 	end
 end
 
@@ -52,13 +49,11 @@ end
 -- bank interaction session (there's no separate open/close event for it).
 module.WarbandBagIDs = {}
 module.WarbandBagIDSet = {}
-if E.Retail and BagIndex then
-	for i = 1, 5 do
-		local id = BagIndex["AccountBankTab_" .. i]
-		if id then
-			tinsert(module.WarbandBagIDs, id)
-			module.WarbandBagIDSet[id] = true
-		end
+for i = 1, 5 do
+	local id = BagIndex["AccountBankTab_" .. i]
+	if id then
+		tinsert(module.WarbandBagIDs, id)
+		module.WarbandBagIDSet[id] = true
 	end
 end
 

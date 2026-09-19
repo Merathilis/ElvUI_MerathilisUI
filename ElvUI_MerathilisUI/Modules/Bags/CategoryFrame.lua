@@ -2053,7 +2053,7 @@ function module:ShowGoldTooltip(anchor)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(_G.TOTAL or L["Total"], E:FormatMoney(total, "SMART"), 1, 1, 1, 1, 1, 1)
 
-	if E.Retail and _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
+	if _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
 		local warbandBankType = (Enum.BankType and Enum.BankType.Account) or 2
 		local ok, warbandGold = pcall(_G.C_Bank.FetchDepositedMoney, warbandBankType)
 		if ok and warbandGold then
@@ -3395,7 +3395,10 @@ end
 -------------------------------------------------------------------------------
 --  Add / rename / delete categories
 -------------------------------------------------------------------------------
-_G.StaticPopupDialogs = _G.StaticPopupDialogs or {}
+-- Only ever add our own keys to StaticPopupDialogs below; never assign the
+-- global itself (even as `x = x or {}`) - writing the global from insecure code
+-- taints it for every Blizzard popup, breaking protected calls in their
+-- OnAccept handlers (e.g. UpgradeItem in the item upgrade confirmation).
 
 -- Lets a plain spell/item/currency/achievement ID resolve to that thing's
 -- icon (same lookup order as Modules/Misc/IconSearch.lua), so users can set a

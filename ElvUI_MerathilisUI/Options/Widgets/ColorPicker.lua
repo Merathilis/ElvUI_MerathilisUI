@@ -30,11 +30,6 @@ local COLOR_BOX_HOVER = { I.Colors.Accent.r * 0.3, I.Colors.Accent.g * 0.3, I.Co
 local COLOR_TEXT_NORMAL = { 1, 1, 1 }
 local COLOR_TEXT_DISABLED = { 0.5, 0.5, 0.5 }
 
--- Unfortunately we have no way to realistically detect if a client uses inverted
--- alpha as no API will tell you. Wrath uses the old colorpicker, era uses the new
--- one, both are inverted. Mirrors the stock AceGUI ColorPicker widget.
-local INVERTED_ALPHA = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
-
 local function FormatHex(self)
 	local r = floor((self.r or 0) * 255 + 0.5)
 	local g = floor((self.g or 0) * 255 + 0.5)
@@ -64,9 +59,6 @@ end
 -- alpha callback is always the final call after it closes, whether by
 -- confirming or cancelling, so that one commits (OnValueConfirmed).
 local function ColorCallback(self, r, g, b, a, isAlpha)
-	if INVERTED_ALPHA and a then
-		a = 1 - a
-	end
 	if not self.hasAlpha then
 		a = 1
 	end
@@ -109,9 +101,6 @@ local function Box_OnClick(frame)
 
 	if ColorPickerFrame.SetupColorPickerAndShow then -- 10.2.5 color picker overhaul
 		local r2, g2, b2, a2 = self.r, self.g, self.b, (self.a or 1)
-		if INVERTED_ALPHA then
-			a2 = 1 - a2
-		end
 
 		ColorPickerFrame:SetupColorPickerAndShow({
 			swatchFunc = function()

@@ -1160,7 +1160,7 @@ function module:UpdateCharacterStats()
 
 	characterStatsPane.statsFramePool:ReleaseAll()
 	local statFrame = characterStatsPane.statsFramePool:Acquire()
-	local categories = _G.PAPERDOLL_STATCATEGORIES
+	local categories = module.StatCategories
 
 	for catIndex = 1, #categories do
 		local catFrame = characterStatsPane[categories[catIndex].categoryFrame]
@@ -1247,7 +1247,9 @@ function module:UpdateCharacterStats()
 				statFrame.onEnterFunc = nil
 				statFrame.UpdateTooltip = nil
 
-				local ok = pcall(_G.PAPERDOLL_STATINFO[stat.stat].updateFunc, statFrame, "player")
+				local updateFunc = module.StatUpdateOverrides[stat.stat]
+					or _G.PAPERDOLL_STATINFO[stat.stat].updateFunc
+				local ok = pcall(updateFunc, statFrame, "player")
 				if not ok then
 					if statFrame.Value then
 						statFrame.Value:SetText(F.String.Muted("N/A"))
@@ -1316,17 +1318,33 @@ function module:UpdateAttackSpeed(statFrame, unit)
 	statFrame:Show()
 end
 
-function module:SafePaperDollUpdateStats(...)
-	if InCombatLockdown() then
-		return
-	end
+-- Per-stat replacements for Blizzard's own PAPERDOLL_STATINFO update
+-- functions, applied only while rendering our own pane. Overriding the
+-- dispatch here rather than replacing Blizzard's global function keeps that
+-- global untainted for Blizzard's own code paths.
+module.StatUpdateOverrides = {
+	-- Blizzard's version doesn't run the speed through BreakUpLargeNumbers,
+	-- so it shows the wrong decimal separator in some locales.
+	ATTACK_ATTACKSPEED = function(statFrame, unit)
+		module:UpdateAttackSpeed(statFrame, unit)
+	end,
+}
 
-	pcall(self.hooks[_G]["PaperDollFrame_UpdateStats"], ...)
+-- Runs after Blizzard's own pass (secure hook, so the global stays untainted).
+-- Blizzard's output is discarded by UpdateCharacterStats, which also carries
+-- its own combat guard.
+function module:OnPaperDollUpdateStats()
 	self:UpdateCharacterStats()
 end
 
-function module:ApplyCustomStatCategories()
-	_G.PAPERDOLL_STATCATEGORIES = {
+-- Deliberately our own module table rather than an override of Blizzard's
+-- PAPERDOLL_STATCATEGORIES global: UpdateCharacterStats releases everything
+-- Blizzard's own pass rendered and draws the pane from this list itself, so
+-- Blizzard never needs to see it - and writing that global would taint it for
+-- the session, which then taints PaperDollFrame_OnShow (it reads the global,
+-- then resizes the panel-managed CharacterFrame).
+function module:BuildStatCategories()
+	module.StatCategories = {
 		[1] = {
 			categoryFrame = "AttributesCategory",
 			stats = {
@@ -1952,13 +1970,17 @@ function module:Enable()
 	self:CreateElements()
 	self:EnableSocketPanel()
 
+	-- Our own stat list (see StatUpdateOverrides for the per-stat display
+	-- fixes) - must exist before the stats hook below can fire.
+	self:BuildStatCategories()
+
 	-- Hook ElvUI Overrides (reuse module-level M reference)
 	self:SecureHook(M, "UpdateCharacterInfo", F.Event.GenerateClosure(self.UpdateItemLevel, self))
 	self:SecureHook(M, "UpdateAverageString", F.Event.GenerateClosure(self.UpdateItemLevel, self))
 	self:SecureHook(M, "UpdatePageStrings", F.Event.GenerateClosure(self.UpdatePageStrings, self))
 	self:SecureHook(M, "CreateSlotStrings", F.Event.GenerateClosure(self.UpdatePageInfo, self))
 	self:SecureHook(M, "ToggleItemLevelInfo", F.Event.GenerateClosure(self.ElvOptionsCheck, self))
-	self:RawHook(_G, "PaperDollFrame_UpdateStats", "SafePaperDollUpdateStats", true)
+	self:SecureHook(_G, "PaperDollFrame_UpdateStats", "OnPaperDollUpdateStats")
 
 	-- Register Events
 	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
@@ -1975,12 +1997,6 @@ function module:Enable()
 
 	-- Hook Blizzard OnShow
 	self:SecureHookScript(self.frame, "OnShow", "OpenCharacterArmory")
-
-	-- Hook broken blizzard function
-	self:RawHook(_G, "PaperDollFrame_SetAttackSpeed", "UpdateAttackSpeed", true)
-
-	-- Apply our custom stat categories
-	self:ApplyCustomStatCategories()
 
 	-- Check ElvUI Options
 	self:ElvOptionsCheck()

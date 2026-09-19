@@ -292,32 +292,26 @@ function module:CreateGUI()
 	F.AddTooltip(helpInfo, "ANCHOR_RIGHT", L["LootSpecManagerTips"], "info")
 	gui.help = helpInfo
 
-	local current = CreateFrame("Frame", "MER_LootSpecCurrentDropdown", gui, "UIDropDownMenuTemplate")
+	-- The button's own text follows the selected radio automatically, so no
+	-- separate "set selected value" call is needed.
+	local current = CreateFrame("DropdownButton", "MER_LootSpecCurrentDropdown", gui, "WowStyle1DropdownTemplate")
 	current:SetPoint("TOPLEFT", gui, "TOPLEFT", 2, -30)
-	S:HandleDropDownBox(_G.MER_LootSpecCurrentDropdown, 150)
-	UIDropDownMenu_Initialize(current, function()
-		local function callback(self)
-			E.db.mui.lootSpecManager.Current = self.value
+	S:HandleDropDownBox(current, 150)
+	current:SetupMenu(function(_, rootDescription)
+		local function IsSelected(value)
+			return E.db.mui.lootSpecManager.Current == value
+		end
+
+		local function SetSelected(value)
+			E.db.mui.lootSpecManager.Current = value
 			module:RefreshGUI()
-			UIDropDownMenu_SetSelectedValue(current, self.value)
 		end
 
-		local function make_button(info, value, text)
-			info.text = text
-			info.value = value
-			info.func = callback
-			info.checked = false
-			info.isNotRadio = false
-			UIDropDownMenu_AddButton(info)
-		end
-
-		local info = UIDropDownMenu_CreateInfo()
-		make_button(info, "Mythic", PLAYER_DIFFICULTY6)
-		make_button(info, "Heroic", PLAYER_DIFFICULTY2)
-		make_button(info, "Normal", PLAYER_DIFFICULTY1)
-		make_button(info, "LFR", PLAYER_DIFFICULTY3)
+		rootDescription:CreateRadio(PLAYER_DIFFICULTY6, IsSelected, SetSelected, "Mythic")
+		rootDescription:CreateRadio(PLAYER_DIFFICULTY2, IsSelected, SetSelected, "Heroic")
+		rootDescription:CreateRadio(PLAYER_DIFFICULTY1, IsSelected, SetSelected, "Normal")
+		rootDescription:CreateRadio(PLAYER_DIFFICULTY3, IsSelected, SetSelected, "LFR")
 	end)
-	UIDropDownMenu_SetSelectedValue(current, E.db.mui.lootSpecManager.Current)
 	gui.current = current
 
 	module.GUI = gui
