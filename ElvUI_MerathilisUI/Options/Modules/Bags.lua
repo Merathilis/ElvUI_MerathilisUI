@@ -703,6 +703,12 @@ options.bags = {
 							name = L["Pinned Marker"],
 							desc = L["Shows a small pin icon on pinned items, also in their normal category."],
 						},
+						subHeaderIcons = {
+							order = 7.6,
+							type = "toggle",
+							name = L["Sub-Header Icons"],
+							desc = L["Shows the expansion logo or equipment set icon in front of the sub-headers."],
+						},
 						customBackground = {
 							order = 8,
 							type = "toggle",

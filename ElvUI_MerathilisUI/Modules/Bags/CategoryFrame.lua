@@ -12,7 +12,7 @@ local tinsert, wipe = tinsert, wipe
 local tsort = table.sort
 local floor, ceil = math.floor, math.ceil
 local format = format
-local strmatch = strmatch
+local strmatch, strlower = strmatch, strlower
 local IsShiftKeyDown = IsShiftKeyDown
 local IsControlKeyDown = IsControlKeyDown
 local IsModifiedClick = IsModifiedClick
@@ -23,6 +23,8 @@ local ClearCursor = ClearCursor
 
 local CreateFrame = CreateFrame
 local CreateAnimationGroup = CreateAnimationGroup
+local CreateAtlasMarkup = CreateAtlasMarkup
+local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 local GetMoney = GetMoney
 local CloseBankFrame = (C_Bank and C_Bank.CloseBankFrame) or CloseBankFrame
 local FetchPurchasedBankTabData = C_Bank and C_Bank.FetchPurchasedBankTabData
@@ -282,6 +284,33 @@ end
 -- ourselves, after it runs, to recolor the thumb class-colored instead,
 -- matching the rest of our class-colored accents (header divider,
 -- placeholder "+", selected/pinned sidebar rows).
+-- Softens the sidebar's right edge: a class-colored line that fades out
+-- towards the top and bottom, plus a short shadow falling into the gap
+-- towards the items. Shared by the bag and bank windows.
+function module.AddSidebarEdge(sidebar)
+	local cc = E.myClassColor
+
+	local function Half(point, relPoint, fromAlpha, toAlpha)
+		local tex = sidebar:CreateTexture(nil, "OVERLAY")
+		tex:SetTexture(E.media.blankTex)
+		tex:Width(1)
+		tex:Point(point, sidebar, point, -1, point == "TOPRIGHT" and -1 or 1)
+		tex:Point(relPoint, sidebar, "RIGHT", -1, 0)
+		tex:SetGradient("VERTICAL", CreateColor(cc.r, cc.g, cc.b, fromAlpha), CreateColor(cc.r, cc.g, cc.b, toAlpha))
+		return tex
+	end
+	-- VERTICAL gradients run bottom (first color) to top (second color).
+	sidebar.edgeTop = Half("TOPRIGHT", "BOTTOMRIGHT", 0.6, 0)
+	sidebar.edgeBottom = Half("BOTTOMRIGHT", "TOPRIGHT", 0, 0.6)
+
+	sidebar.edgeShadow = sidebar:CreateTexture(nil, "BACKGROUND")
+	sidebar.edgeShadow:SetTexture(E.media.blankTex)
+	sidebar.edgeShadow:Width(6)
+	sidebar.edgeShadow:Point("TOPLEFT", sidebar, "TOPRIGHT", 0, 0)
+	sidebar.edgeShadow:Point("BOTTOMLEFT", sidebar, "BOTTOMRIGHT", 0, 0)
+	sidebar.edgeShadow:SetGradient("HORIZONTAL", CreateColor(0, 0, 0, 0.35), CreateColor(0, 0, 0, 0))
+end
+
 local function TintScrollThumb(scrollbar)
 	if scrollbar.Thumb and scrollbar.Thumb.backdrop and scrollbar:IsEnabled() and select(2, scrollbar:GetMinMaxValues()) ~= 0 then
 		local cc = E.myClassColor
@@ -1330,6 +1359,31 @@ end
 -------------------------------------------------------------------------------
 --  Category sub-headers (expansion / equipment-set nesting within a category)
 -------------------------------------------------------------------------------
+-- Logos are wide 2:1 artwork, set icons are square item-style icons with
+-- the usual trimmed border.
+local function SetSubHeaderIcon(header, icon, isLogo)
+	local text = header.text
+	text:ClearAllPoints()
+
+	if not icon then
+		header.icon:Hide()
+		text:Point("LEFT", header, "LEFT", 8, 0)
+		return
+	end
+
+	local height = header:GetHeight()
+	header.icon:SetTexture(icon)
+	if isLogo then
+		header.icon:SetTexCoord(0, 1, 0, 1)
+		header.icon:Size(height * 2, height)
+	else
+		header.icon:SetTexCoord(unpack(E.TexCoords))
+		header.icon:Size(height - 2, height - 2)
+	end
+	header.icon:Show()
+	text:Point("LEFT", header.icon, "RIGHT", 4, 0)
+end
+
 local function CreateSubHeaderPoolFor(getContentChild)
 	local subHeaderPool = {}
 
@@ -1342,9 +1396,15 @@ local function CreateSubHeaderPoolFor(getContentChild)
 		-- correct position, shown=true) but visually unreadable against
 		-- whatever bled through behind it. A background bar fixes that
 		-- regardless of what's behind, same reasoning as the category headers.
+		-- The bar spans about half the content width (sized at render time,
+		-- never narrower than the label) and fades out
+		-- to the right, so it doesn't compete with the full-width category
+		-- header above it.
 		header.bg = header:CreateTexture(nil, "BACKGROUND")
-		header.bg:SetAllPoints()
-		header.bg:SetColorTexture(0, 0, 0, 0.35)
+		header.bg:SetTexture(E.media.blankTex)
+		header.bg:Point("TOPLEFT", 0, 0)
+		header.bg:Point("BOTTOMLEFT", 0, 0)
+		header.bg:SetGradient("HORIZONTAL", CreateColor(0, 0, 0, 0.45), CreateColor(0, 0, 0, 0))
 
 		-- Class-colored accent stripe on the left edge, echoing the selected
 		-- sidebar row bar and the category header divider.
@@ -1354,6 +1414,12 @@ local function CreateSubHeaderPoolFor(getContentChild)
 		header.accent:Width(2)
 		header.accent:Point("TOPLEFT", 0, 0)
 		header.accent:Point("BOTTOMLEFT", 0, 0)
+
+		-- Expansion logo or equipment set icon in front of the label, set
+		-- per render by SetSubHeaderIcon.
+		header.icon = header:CreateTexture(nil, "ARTWORK")
+		header.icon:Point("LEFT", 8, 0)
+		header.icon:Hide()
 
 		header.text = header:CreateFontString(nil, "OVERLAY")
 		header.text:FontTemplate(nil, 11)
@@ -1814,6 +1880,7 @@ function module:ConstructFrame()
 	f.sidebar:Point("BOTTOMLEFT", f, "BOTTOMLEFT", 8, 60)
 	f.sidebar:Width(db.sidebarCollapsed and COLLAPSED_SIDEBAR_WIDTH or db.sidebarWidth)
 	pcall(f.sidebar.SetTemplate, f.sidebar, "Transparent")
+	module.AddSidebarEdge(f.sidebar)
 
 	f.sidebarHeaderText = f.sidebar:CreateFontString(nil, "OVERLAY")
 	f.sidebarHeaderText:FontTemplate()
@@ -2089,6 +2156,13 @@ local function SortGoldDescending(a, b)
 	return a.amount > b.amount
 end
 
+-- Small inline icons so characters, the account total and the warband bank
+-- are told apart at a glance instead of by reading every label.
+local function TooltipIcon(atlas)
+	return CreateAtlasMarkup(atlas, 14, 14) .. " "
+end
+module.TooltipIcon = TooltipIcon
+
 function module:ShowGoldTooltip(anchor)
 	if GameTooltip:IsForbidden() then
 		return
@@ -2121,17 +2195,20 @@ function module:ShowGoldTooltip(anchor)
 	for _, data in ipairs(characters) do
 		local color = (data.class and E:ClassColor(data.class)) or _G.HIGHLIGHT_FONT_COLOR
 		local nameLine = data.realm ~= E.myrealm and format("%s - %s", data.name, data.realm) or data.name
+		if data.class then
+			nameLine = TooltipIcon("classicon-" .. strlower(data.class)) .. nameLine
+		end
 		GameTooltip:AddDoubleLine(nameLine, E:FormatMoney(data.amount, "SMART"), color.r, color.g, color.b, 1, 1, 1)
 	end
 
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine(_G.TOTAL or L["Total"], E:FormatMoney(total, "SMART"), 1, 1, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(TooltipIcon("coin-gold") .. (_G.TOTAL or L["Total"]), E:FormatMoney(total, "SMART"), 1, 1, 1, 1, 1, 1)
 
 	if _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
 		local warbandBankType = (Enum.BankType and Enum.BankType.Account) or 2
 		local ok, warbandGold = pcall(_G.C_Bank.FetchDepositedMoney, warbandBankType)
 		if ok and warbandGold then
-			GameTooltip:AddDoubleLine(L["Warband Bank"], E:FormatMoney(warbandGold, "SMART"), 1, 1, 1, 1, 1, 1)
+			GameTooltip:AddDoubleLine(TooltipIcon("warbands-icon") .. L["Warband Bank"], E:FormatMoney(warbandGold, "SMART"), 1, 1, 1, 1, 1, 1)
 		end
 	end
 
@@ -2369,18 +2446,39 @@ local function GetItemExpansionInfo(itemID)
 	return _G["EXPANSION_NAME" .. expacID], expacID
 end
 
+-- Expansion logos (the wide 2:1 artwork from the login screen) used as the
+-- sub-header icon; cached since the lookup runs for every nested item.
+local expansionLogoCache = {}
+local function GetExpansionLogo(expacID)
+	if not expacID or not GetExpansionDisplayInfo then
+		return nil
+	end
+
+	local logo = expansionLogoCache[expacID]
+	if logo == nil then
+		local info = GetExpansionDisplayInfo(expacID)
+		logo = info and info.logo or false
+		expansionLogoCache[expacID] = logo
+	end
+
+	return logo or nil
+end
+
 -- Groups items sharing the same subgroupName (expansion name, or equipment
 -- set name) into contiguous runs, items without one first/unsorted. Returns
 -- the reordered items plus a list of { name, index } marking where a small
 -- sub-header should be inserted before rendering that item.
 local function GroupBySubgroup(items, nestByExpansion)
 	local seen, nameOrder, orderedNames = {}, {}, {}
+	local nameIcon, nameIsLogo = {}, {}
 
 	for _, entry in ipairs(items) do
 		local name = entry.subgroupName
 		if name and not seen[name] then
 			seen[name] = true
 			nameOrder[name] = entry.subgroupOrder or 0
+			nameIcon[name] = entry.subgroupIcon
+			nameIsLogo[name] = entry.subgroupIconIsLogo
 			tinsert(orderedNames, name)
 		end
 	end
@@ -2411,7 +2509,13 @@ local function GroupBySubgroup(items, nestByExpansion)
 	for _, name in ipairs(orderedNames) do
 		local bucket = buckets[name]
 		if bucket and #bucket > 0 then
-			tinsert(subHeaders, { name = name, index = #result + 1, count = #bucket })
+			tinsert(subHeaders, {
+				name = name,
+				index = #result + 1,
+				count = #bucket,
+				icon = nameIcon[name],
+				isLogo = nameIsLogo[name],
+			})
 			for _, entry in ipairs(bucket) do
 				tinsert(result, entry)
 			end
@@ -2447,11 +2551,14 @@ local function CollectItemsFromBags(bagIDList, scratch)
 					scratch[key] = scratch[key] or {}
 
 					local cat = catByKey[key]
-					local subgroupName, subgroupOrder
+					local subgroupName, subgroupOrder, subgroupIcon, subgroupIconIsLogo
 					if cat and cat.nestByExpansion then
 						subgroupName, subgroupOrder = GetItemExpansionInfo(info.itemID)
+						subgroupIcon = GetExpansionLogo(subgroupOrder)
+						subgroupIconIsLogo = true
 					elseif cat and cat.nestByEquipmentSet then
 						subgroupName = module:GetEquipmentSetName(info.itemID)
+						subgroupIcon = module:GetEquipmentSetIcon(subgroupName)
 					end
 
 					local questID, isActiveQuest, isJunk =
@@ -2475,6 +2582,8 @@ local function CollectItemsFromBags(bagIDList, scratch)
 						isWarbound = isWarbound,
 						subgroupName = subgroupName,
 						subgroupOrder = subgroupOrder,
+						subgroupIcon = subgroupIcon,
+						subgroupIconIsLogo = subgroupIconIsLogo,
 						questID = questID,
 						isActiveQuest = isActiveQuest,
 						isJunk = isJunk,
@@ -3338,6 +3447,9 @@ local function RenderCategorySections(ctx, sections)
 					subHeader:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 6, -rowStartY)
 					subHeader:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", -6, -rowStartY)
 					subHeader.text:SetText(format("%s |cff999999(%d)|r", nextSubHeader.name, nextSubHeader.count))
+					SetSubHeaderIcon(subHeader, module.db.effects.subHeaderIcons and nextSubHeader.icon, nextSubHeader.isLogo)
+					local iconWidth = subHeader.icon:IsShown() and (subHeader.icon:GetWidth() + 4) or 0
+					subHeader.bg:Width(math.max(subHeader.text:GetStringWidth() + iconWidth + 48, (ctx.contentChild:GetWidth() - 12) * 0.5))
 					rowStartY = rowStartY + subHeader:GetHeight() + 2
 
 					nextSubHeader = subHeaders[nextSubHeaderPos]
@@ -3927,6 +4039,11 @@ function module:OpenAssignMenu(slot)
 	local ownerFrame = slot.ownerFrame
 	_G.MenuUtil.CreateContextMenu(slot, function(_, rootDescription)
 		rootDescription:CreateTitle(L["Assign to Category"])
+		-- The bank groups by tab, not by category, so an assignment made
+		-- here only shows once the item is back in the bags.
+		if ownerFrame and ownerFrame == module.bankFrame then
+			rootDescription:CreateTitle("|cff999999" .. L["Takes effect once the item is in your bags."] .. "|r")
+		end
 
 		for _, cat in ipairs(module:GetCategories()) do
 			if not cat.isReagentBag then

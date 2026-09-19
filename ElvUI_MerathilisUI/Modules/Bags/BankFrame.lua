@@ -344,6 +344,7 @@ function module:ConstructBankFrame()
 	f.sidebar:Point("BOTTOMLEFT", f, "BOTTOMLEFT", 8, 60)
 	f.sidebar:Width(db.bankSidebarCollapsed and COLLAPSED_SIDEBAR_WIDTH or db.bankSidebarWidth)
 	pcall(f.sidebar.SetTemplate, f.sidebar, "Transparent")
+	module.AddSidebarEdge(f.sidebar)
 
 	f.sidebarHeaderText = f.sidebar:CreateFontString(nil, "OVERLAY")
 	f.sidebarHeaderText:FontTemplate()
@@ -506,7 +507,7 @@ function module:ConstructBankFrame()
 				return
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
-			GameTooltip:AddLine(L["Warband Bank"], 1, 1, 1)
+			GameTooltip:AddLine(module.TooltipIcon("warbands-icon") .. L["Warband Bank"], 1, 1, 1)
 			GameTooltip:Show()
 		end)
 		f.footer.warbandGoldButton:SetScript("OnLeave", GameTooltip_Hide)

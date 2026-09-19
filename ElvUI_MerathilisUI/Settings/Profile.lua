@@ -355,6 +355,7 @@ P.bags = {
 			placeholderAlpha = 0.4,
 			warboundMarker = true,
 			pinMarker = true,
+			subHeaderIcons = true,
 			newItemBadge = true,
 			dropTargetHighlight = true,
 			customBackground = false,

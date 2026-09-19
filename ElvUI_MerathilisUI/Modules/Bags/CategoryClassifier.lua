@@ -386,8 +386,10 @@ end
 -- Weapons/Armor type walk, and again by CategoryFrame.lua to label the
 -- sub-header an item's row nests under inside that category.
 local equipmentSetItemMap = {}
+local equipmentSetIconMap = {}
 local function RebuildEquipmentSetItemMap()
 	wipe(equipmentSetItemMap)
+	wipe(equipmentSetIconMap)
 
 	if not C_EquipmentSet or not C_EquipmentSet.GetEquipmentSetIDs or not C_EquipmentSet.GetItemIDs then
 		return
@@ -398,8 +400,11 @@ local function RebuildEquipmentSetItemMap()
 	pcall(function()
 		local setIDs = C_EquipmentSet.GetEquipmentSetIDs()
 		for _, setID in ipairs(setIDs or {}) do
-			local name = C_EquipmentSet.GetEquipmentSetInfo(setID)
+			local name, iconFileID = C_EquipmentSet.GetEquipmentSetInfo(setID)
 			local itemIDs = C_EquipmentSet.GetItemIDs(setID)
+			if name and iconFileID then
+				equipmentSetIconMap[name] = iconFileID
+			end
 			if name and itemIDs then
 				for _, memberItemID in pairs(itemIDs) do
 					if memberItemID and memberItemID ~= 0 then
@@ -414,6 +419,10 @@ module.RebuildEquipmentSetItemMap = RebuildEquipmentSetItemMap
 
 function module:GetEquipmentSetName(itemID)
 	return itemID and equipmentSetItemMap[itemID]
+end
+
+function module:GetEquipmentSetIcon(name)
+	return name and equipmentSetIconMap[name]
 end
 
 function module:ClassifyItem(bagID, slotID, itemID, itemLink)
