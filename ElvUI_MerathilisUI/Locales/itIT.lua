@@ -782,6 +782,12 @@ L["Overrides ElvUI's transparent backdrop opacity for the bag and bank windows."
 L["Window Opacity"] = true
 L["Category Headers"] = true
 L["Sub-Headers"] = true
+L["New Item Badge"] = true
+L["Shows a small NEW badge on newly picked-up items, in addition to the glow."] = true
+L["Highlight Drop Targets"] = true
+L["Lights up the empty slots at the end of each category while an item is on the cursor, so it's clear where it can be dropped to assign it."] = true
+L["Pinned Marker"] = true
+L["Shows a small pin icon on pinned items, also in their normal category."] = true
 L["%d results"] = true
 L["Fill Level"] = true
 L["%d of %d slots used (%d%%)"] = true

@@ -647,8 +647,38 @@ end
 -- (and its Header/SubHeader/Sidebar counterparts below) each produce one
 -- independent, closure-owned pool instead, parented/named per the frame that
 -- owns them (see CreatePoolSet's bagPools/bankPools instantiation).
+-- Darkens item slots with the button's own search overlay (the same dark
+-- tint ElvUI's bags use): all of them while a sort settles, and everything
+-- outside the hovered bag while hovering the bag bar. SetAlpha isn't an
+-- option here - ItemButtonMixin overrides it and would re-show the Blizzard
+-- IconBorder we hide. Bag frame only, since both triggers are bag-only.
+local slotPools = {}
+
+local function ApplySlotDim(btn)
+	if not btn.searchOverlay then
+		return
+	end
+
+	local dim = false
+	if btn.ownerFrame == module.frame then
+		dim = module.sortingBags or (module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID)
+	end
+	btn.searchOverlay:SetShown(dim and true or false)
+end
+
+local function RefreshSlotDim()
+	for _, pool in ipairs(slotPools) do
+		for _, btn in ipairs(pool) do
+			if btn:IsShown() then
+				ApplySlotDim(btn)
+			end
+		end
+	end
+end
+
 local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	local slotPool = {}
+	tinsert(slotPools, slotPool)
 
 	local function CreateSlotButton(index)
 		local btn = CreateFrame(
@@ -696,9 +726,11 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 		btn.IconOverlay2:SetInside()
 	end
 
-	-- Defaults to shown until something hides it; we filter non-matching
-	-- items out of the list entirely instead of dimming them in place.
+	-- Defaults to shown until something hides it. Search doesn't use it (we
+	-- filter non-matching items out of the list entirely); it's the sort and
+	-- bag-hover dimming instead (ApplySlotDim), tinted like ElvUI's own bags.
 	if btn.searchOverlay then
+		btn.searchOverlay:SetColorTexture(0, 0, 0, 0.6)
 		btn.searchOverlay:Hide()
 	end
 
@@ -733,6 +765,13 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	btn.warboundIcon:SetAtlas("warbands-icon")
 	btn.warboundIcon:Point("TOPRIGHT", -1, -1)
 	btn.warboundIcon:Hide()
+
+	-- Pinned marker, so a pinned item is recognizable in its normal category
+	-- too (same atlas as the Pinned Items category icon).
+	btn.pinIcon = btn:CreateTexture(nil, "OVERLAY", nil, 3)
+	btn.pinIcon:SetAtlas(module.PinnedCategory.icon)
+	btn.pinIcon:Point("BOTTOMLEFT", 1, 1)
+	btn.pinIcon:Hide()
 
 	-- Pawn upgrade-arrow overlay (same as ElvUI's own bags) - Blizzard has no
 	-- reliable native API for this, so it's driven entirely by the Pawn
@@ -842,6 +881,18 @@ end
 --  items - drag an item onto one to assign it to that category, or pin it
 --  for the Pinned section, without physically moving it in the bag)
 -------------------------------------------------------------------------------
+-- While an item is on the cursor, every drop-target placeholder lights up at
+-- full opacity so it's obvious where it can be dropped to assign it; otherwise
+-- they sit at their normal resting alpha. One entry per frame's pool (bag and
+-- bank), so a cursor change can update both.
+local placeholderPools = {}
+
+local function ApplyDropHighlight(ph)
+	local active = module.cursorHasItem and ph.onAssign and module.db.effects.dropTargetHighlight
+	ph.dropHighlight:SetShown(active and true or false)
+	ph:SetAlpha(active and 1 or ph.restAlpha or 1)
+end
+
 local function CreatePlaceholderPoolFor(getContentChild)
 	local placeholderPool = {}
 
@@ -898,6 +949,11 @@ local function CreatePlaceholderPoolFor(getContentChild)
 		btn.plusIcon:SetVertexColor(cc.r, cc.g, cc.b)
 		btn.plusIcon:Hide()
 
+		btn.dropHighlight = btn:CreateTexture(nil, "ARTWORK")
+		btn.dropHighlight:SetInside()
+		btn.dropHighlight:SetColorTexture(cc.r, cc.g, cc.b, 0.25)
+		btn.dropHighlight:Hide()
+
 		btn:SetScript("OnReceiveDrag", OnPlaceholderDrop)
 		btn:SetScript("OnMouseUp", OnPlaceholderDrop)
 		btn:SetScript("OnEnter", OnPlaceholderEnter)
@@ -923,6 +979,14 @@ local function CreatePlaceholderPoolFor(getContentChild)
 			placeholderPool[i]:Hide()
 		end
 	end
+
+	tinsert(placeholderPools, function()
+		for _, ph in ipairs(placeholderPool) do
+			if ph:IsShown() then
+				ApplyDropHighlight(ph)
+			end
+		end
+	end)
 
 	return { Acquire = AcquirePlaceholder, Release = ReleasePlaceholdersFrom }
 end
@@ -1116,6 +1180,15 @@ local function UpdateSlotVisual(btn, entry)
 	btn.warboundIcon:SetSize(module.db.itemSize * 0.4, module.db.itemSize * 0.4)
 	btn.warboundIcon:SetShown(entry.isWarbound and module.db.effects.warboundMarker and true or false)
 
+	btn.pinIcon:SetSize(module.db.itemSize * 0.4, module.db.itemSize * 0.4)
+	btn.pinIcon:SetShown(module.db.effects.pinMarker and module:IsItemPinned(entry.itemID) or false)
+
+	-- Straddles the slot's top edge like a tab badge, so it doesn't cover
+	-- the icon or the item level. Static: the slot glow already pulses.
+	F.SyncNewFeatureBadge(btn, "newBadge", entry.isNew and module.db.effects.newItemBadge, function()
+		return F.CreateNewFeatureBadge(btn, "CENTER", btn, "TOP", 0, 0, 0.6, true)
+	end)
+
 	local fx = module.db.effects
 	local showGlow = entry.isNew and fx.newItemGlow
 	btn.newItemGlow:SetShown(showGlow and true or false)
@@ -1147,6 +1220,7 @@ local function UpdateSlotVisual(btn, entry)
 	end
 
 	UpdateSlotCooldown(btn, entry.bagID, entry.slotID)
+	ApplySlotDim(btn)
 end
 
 -------------------------------------------------------------------------------
@@ -2764,8 +2838,15 @@ function module:ConstructBagBarPopout()
 			GameTooltip:SetOwner(self, "ANCHOR_TOP")
 			GameTooltip:AddLine(format("%s (%d/%d)", GetBagDisplayName(self.bagID), numSlots - freeSlots, numSlots), 1, 1, 1)
 			GameTooltip:Show()
+
+			module.hoveredBagID = self.bagID
+			RefreshSlotDim()
 		end)
-		btn:SetScript("OnLeave", GameTooltip_Hide)
+		btn:SetScript("OnLeave", function()
+			GameTooltip_Hide()
+			module.hoveredBagID = nil
+			RefreshSlotDim()
+		end)
 
 		f.buttons[i] = btn
 	end
@@ -3092,8 +3173,13 @@ local function RenderCategorySections(ctx, sections)
 		if section.showClear then
 			header.clearButton:Show()
 			header.clearButton:SetScript("OnClick", function()
+				-- "New" is the native flag OR our open-time snapshot (see
+				-- SnapshotNewItemsForBags) - clear both, or items that were
+				-- already new when the bags opened stay listed until the next
+				-- open re-takes the snapshot.
 				for _, entry in ipairs(section.items) do
 					C_NewItems_RemoveNewItem(entry.bagID, entry.slotID)
+					newItemSnapshot[entry.bagID * 1000 + entry.slotID] = nil
 				end
 				ctx.refresh()
 			end)
@@ -3212,7 +3298,8 @@ local function RenderCategorySections(ctx, sections)
 				-- All of these accept a drop, but only the "+" one should
 				-- visually read as an actual button - the rest stay
 				-- transparent, purely there to fill the row out to full width.
-				ph:SetAlpha(isAddSlot and 1 or db.effects.placeholderAlpha)
+				ph.restAlpha = isAddSlot and 1 or db.effects.placeholderAlpha
+				ApplyDropHighlight(ph)
 
 				col = col + 1
 				if col >= columns then
@@ -4186,6 +4273,7 @@ local function StopSortSpinner(generation)
 	end
 
 	module.sortingBags = nil
+	RefreshSlotDim()
 	if module.frame and module.frame.spinnerIcon then
 		E:StopSpinner(module.frame.spinnerIcon)
 	end
@@ -4196,14 +4284,27 @@ function module:PokeSortSpinner()
 	E:Delay(0.4, StopSortSpinner, sortSpinnerGeneration)
 end
 
+-- Items are dimmed while sorting even with the spinner itself turned off,
+-- same as ElvUI's own bags.
 function module:StartSortSpinner()
-	local db = module.db.spinner
-	if not (db and db.enable and module.frame and module.frame.spinnerIcon) then
+	if not module.frame then
 		return
 	end
 
 	module.sortingBags = true
-	E:StartSpinner(module.frame.spinnerIcon, nil, nil, nil, nil, db.size, db.color.r, db.color.g, db.color.b)
+	RefreshSlotDim()
+
+	local db = module.db.spinner
+	if db and db.enable and module.frame.spinnerIcon then
+		-- Item slots sit several levels below the frame (scroll frame ->
+		-- content child -> slot, plus badges on top), so a plain child of the
+		-- frame ends up behind them. Set per start, since the frame's own
+		-- level moves when it's raised.
+		local spinner = module.frame.spinnerIcon
+		spinner:SetFrameLevel(module.frame:GetFrameLevel() + 30)
+		E:StartSpinner(spinner, nil, nil, nil, nil, db.size, db.color.r, db.color.g, db.color.b)
+	end
+
 	module:PokeSortSpinner()
 end
 
@@ -4272,6 +4373,20 @@ function module:UnregisterBagEventsFor(owner)
 	end
 end
 
+-- CURSOR_CHANGED also fires for plain cursor-icon changes while hovering, so
+-- only touch the placeholders when "an item is on the cursor" actually flips.
+function module:OnCursorChanged()
+	local hasItem = CursorHasItem() and true or false
+	if hasItem == module.cursorHasItem then
+		return
+	end
+
+	module.cursorHasItem = hasItem
+	for _, refresh in ipairs(placeholderPools) do
+		refresh()
+	end
+end
+
 -------------------------------------------------------------------------------
 --  Lifecycle
 -------------------------------------------------------------------------------
@@ -4298,6 +4413,7 @@ function module:Initialize()
 	module:SecureHook(B, "OpenBags", "OnElvUIBagsOpened")
 	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
 	module:SecureHook("GameTooltip_SetDefaultAnchor", "OnGameTooltipDefaultAnchor")
+	module:RegisterEvent("CURSOR_CHANGED", "OnCursorChanged")
 
 	if #module.BankBagIDs > 0 or #module.WarbandBagIDs > 0 then
 		module:RegisterEvent("BANKFRAME_OPENED", "OnBankOpened")

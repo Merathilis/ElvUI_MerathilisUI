@@ -681,6 +681,12 @@ options.bags = {
 							name = L["New Item Glow"],
 							desc = L["Pulsing glow on newly picked-up items."],
 						},
+						newItemBadge = {
+							order = 3.5,
+							type = "toggle",
+							name = L["New Item Badge"],
+							desc = L["Shows a small NEW badge on newly picked-up items, in addition to the glow."],
+						},
 						placeholderAlpha = {
 							order = 4,
 							type = "range",
@@ -690,6 +696,12 @@ options.bags = {
 							max = 1,
 							step = 0.05,
 							isPercent = true,
+						},
+						pinMarker = {
+							order = 7.5,
+							type = "toggle",
+							name = L["Pinned Marker"],
+							desc = L["Shows a small pin icon on pinned items, also in their normal category."],
 						},
 						customBackground = {
 							order = 8,
@@ -714,6 +726,12 @@ options.bags = {
 							type = "toggle",
 							name = L["Warbound Marker"],
 							desc = L["Shows a small Warband icon on items that are Warbound or Warbound until equipped."],
+						},
+						dropTargetHighlight = {
+							order = 4.5,
+							type = "toggle",
+							name = L["Highlight Drop Targets"],
+							desc = L["Lights up the empty slots at the end of each category while an item is on the cursor, so it's clear where it can be dropped to assign it."],
 						},
 						hoverClassColor = {
 							order = 5,
