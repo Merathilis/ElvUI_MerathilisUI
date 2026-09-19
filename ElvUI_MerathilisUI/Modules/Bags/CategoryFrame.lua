@@ -65,8 +65,19 @@ local SLOT_NAME_PREFIX = "MER_BagCategoriesSlot"
 local BANK_FRAME_NAME = "MER_BankCategoriesFrame"
 local BANK_SLOT_NAME_PREFIX = "MER_BankCategoriesSlot"
 local HEADER_PADDING = 6
-local COLLAPSED_SIDEBAR_WIDTH = 40
+local COLLAPSED_SIDEBAR_WIDTH = 50
 local VIEW_MODE_ROW_HEIGHT = 24
+
+-- The sidebar scrollbar sits in the same spot collapsed or expanded, inside
+-- the sidebar's right border. The collapsed width is sized so the icon
+-- column (4 + 4 + 16px) still fits left of it; a smaller inset while
+-- collapsed pushed the bar half across the sidebar edge.
+local SIDEBAR_SCROLLBAR_INSET = 24
+local function GetSidebarChildWidth(sidebarWidth)
+	return sidebarWidth - SIDEBAR_SCROLLBAR_INSET - 6
+end
+module.SIDEBAR_SCROLLBAR_INSET = SIDEBAR_SCROLLBAR_INSET
+module.GetSidebarChildWidth = GetSidebarChildWidth
 
 -- Exposed so BankFrame.lua can build its own frame/slot names consistently.
 module.BANK_FRAME_NAME = BANK_FRAME_NAME
@@ -274,16 +285,19 @@ function module:OnGameTooltipDefaultAnchor(tt)
 	tt:Point(E.InversePoints[anchorBags], anchorFrame, anchorBags, db.xOffset, db.yOffset)
 end
 
--- Reskins a scrollbar to a thin, track-less thumb: HandleScrollBar's own
--- thumbX narrows the thumb via an inset (same technique as the options-page
--- scrollbar, Options/Widgets/ScrollBar.lua), and the separate track backdrop
--- it creates behind the thumb gets hidden outright instead of just inset.
--- ElvUI's own scrollbar skin re-applies its generic accent color
--- (E.media.rgbvaluecolor) on every SetMinMaxValues call (i.e. on every
--- content refresh) via its own ThumbStatus watcher - hook the same event
--- ourselves, after it runs, to recolor the thumb class-colored instead,
--- matching the rest of our class-colored accents (header divider,
--- placeholder "+", selected/pinned sidebar rows).
+-- Expanded: top-right corner next to the "Categories" title. Collapsed: the
+-- title is gone and the corner would leave the arrow dangling off to the
+-- side, so it sits centered over the icon column (row inset 4 + icon inset
+-- 4 + half the 16px icon) instead.
+function module.PositionCollapseButton(f, collapsed)
+	f.collapseButton:ClearAllPoints()
+	if collapsed then
+		f.collapseButton:Point("TOP", f.sidebar, "TOPLEFT", 16, -4)
+	else
+		f.collapseButton:Point("TOPRIGHT", f.sidebar, "TOPRIGHT", -2, -4)
+	end
+end
+
 -- Softens the sidebar's right edge: a class-colored line that fades out
 -- towards the top and bottom, plus a short shadow falling into the gap
 -- towards the items. Shared by the bag and bank windows.
@@ -311,6 +325,16 @@ function module.AddSidebarEdge(sidebar)
 	sidebar.edgeShadow:SetGradient("HORIZONTAL", CreateColor(0, 0, 0, 0.35), CreateColor(0, 0, 0, 0))
 end
 
+-- Reskins a scrollbar to a thin, track-less thumb: HandleScrollBar's own
+-- thumbX narrows the thumb via an inset (same technique as the options-page
+-- scrollbar, Options/Widgets/ScrollBar.lua), and the separate track backdrop
+-- it creates behind the thumb gets hidden outright instead of just inset.
+-- ElvUI's own scrollbar skin re-applies its generic accent color
+-- (E.media.rgbvaluecolor) on every SetMinMaxValues call (i.e. on every
+-- content refresh) via its own ThumbStatus watcher - hook the same event
+-- ourselves, after it runs, to recolor the thumb class-colored instead,
+-- matching the rest of our class-colored accents (header divider,
+-- placeholder "+", selected/pinned sidebar rows).
 local function TintScrollThumb(scrollbar)
 	if scrollbar.Thumb and scrollbar.Thumb.backdrop and scrollbar:IsEnabled() and select(2, scrollbar:GetMinMaxValues()) ~= 0 then
 		local cc = E.myClassColor
@@ -3544,20 +3568,16 @@ function module:RefreshCategoryFrame()
 		module.SetSelectedRowTextColor(row, isSelected)
 	end
 
-	-- The scrollbar reserve (sidebarScroll's right inset) is sized for the
-	-- full-width sidebar; a fixed -30 on top of a collapsed ~40px sidebar
-	-- left almost nothing for the icon column and clipped it. Both the
-	-- scroll frame's own inset and the child width it scrolls need a
-	-- collapsed-appropriate reserve instead.
-	local scrollbarReserve = db.sidebarCollapsed and 16 or 30
 	f.sidebarScroll:ClearAllPoints()
 	f.sidebarScroll:Point("TOPLEFT", 4, -18 - (#f.viewModeRows + 1) * VIEW_MODE_ROW_HEIGHT - 10)
-	f.sidebarScroll:Point("BOTTOMRIGHT", -(scrollbarReserve - 6), 4)
-	f.sidebarChild:Width(sidebarWidth - scrollbarReserve)
+	f.sidebarScroll:Point("BOTTOMRIGHT", -SIDEBAR_SCROLLBAR_INSET, 4)
+	f.sidebarChild:Width(GetSidebarChildWidth(sidebarWidth))
 
 	f.pinnedRow.text:SetShown(not db.sidebarCollapsed)
 	f.pinnedRow.count:SetShown(not db.sidebarCollapsed)
 	SetCategoryIcon(f.pinnedRow.icon, module.PinnedCategory)
+
+	module.PositionCollapseButton(f, db.sidebarCollapsed)
 
 	local collapseArrowRotation = S.ArrowRotation and S.ArrowRotation[db.sidebarCollapsed and "right" or "left"]
 	if collapseArrowRotation then

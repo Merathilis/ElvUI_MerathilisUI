@@ -757,6 +757,8 @@ function module:RefreshBankCategoryFrame()
 	f.pinnedRow.count:SetShown(not db.bankSidebarCollapsed)
 	SetCategoryIcon(f.pinnedRow.icon, module.PinnedCategory)
 
+	module.PositionCollapseButton(f, db.bankSidebarCollapsed)
+
 	local collapseArrowRotation = S.ArrowRotation and S.ArrowRotation[db.bankSidebarCollapsed and "right" or "left"]
 	if collapseArrowRotation then
 		for _, tex in ipairs({ f.collapseButton:GetNormalTexture(), f.collapseButton:GetPushedTexture() }) do
@@ -768,13 +770,12 @@ function module:RefreshBankCategoryFrame()
 
 	f.sidebarHeaderText:SetShown(not db.bankSidebarCollapsed)
 
-	local scrollbarReserve = db.bankSidebarCollapsed and 16 or 30
-	f.sidebarChild:Width(sidebarWidth - scrollbarReserve)
+	f.sidebarChild:Width(module.GetSidebarChildWidth(sidebarWidth))
 	-- Only the right inset moves with the collapsed state - TOPLEFT is fixed
 	-- forever after construction (the tab-list block above it never changes
 	-- row count), so this must NOT ClearAllPoints() first or it'd drop that
 	-- anchor entirely.
-	f.sidebarScroll:SetPoint("BOTTOMRIGHT", -(scrollbarReserve - 6), 4)
+	f.sidebarScroll:SetPoint("BOTTOMRIGHT", -module.SIDEBAR_SCROLLBAR_INSET, 4)
 
 	-- Tab rows render into the same scrollable sidebarChild as the category
 	-- rows below them (RenderCategorySections continues right after, via
