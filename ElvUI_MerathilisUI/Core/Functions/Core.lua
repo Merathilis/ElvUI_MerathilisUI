@@ -1307,7 +1307,6 @@ end
 
 -- Inform us of the patch info we play on.
 MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
-MER.WoWBuild = select(2, GetBuildInfo())
 MER.WoWBuild = tonumber(MER.WoWBuild)
 
 _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
