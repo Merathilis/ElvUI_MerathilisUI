@@ -11,15 +11,11 @@ local strtrim = strtrim
 local strsplit = strsplit
 local tinsert = tinsert
 
-local CreateFrame = CreateFrame
 local GetSendMailMoney = GetSendMailMoney
 local SetSendMailMoney = SetSendMailMoney
 local GetSendMailItem = GetSendMailItem
 local SendMailFrame_SendMail = SendMailFrame_SendMail
-local UIDropDownMenu_Initialize = UIDropDownMenu_Initialize
-local UIDropDownMenu_AddButton = UIDropDownMenu_AddButton
-local UIDropDownMenu_CreateInfo = UIDropDownMenu_CreateInfo
-local ToggleDropDownMenu = ToggleDropDownMenu
+local MenuUtil = MenuUtil
 local GameTooltip = GameTooltip
 local C_Timer_After = C_Timer.After
 
@@ -55,7 +51,7 @@ function module:CreateSendTemplatesUI()
 	local btn = MS.CreateButton(SendMailFrame, 20, 20, true, "Interface\\Icons\\INV_Letter_15")
 	btn:SetPoint("RIGHT", _G.SendMailMoneyFrame, "LEFT", -6, 0)
 	btn:SetScript("OnClick", function(self)
-		ToggleDropDownMenu(1, nil, module.templateMenu, self, 0, 0)
+		module:ShowTemplateMenu(self)
 	end)
 	btn:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -85,31 +81,21 @@ function module:CreateSendTemplatesUI()
 		GameTooltip:Hide()
 	end)
 	self.sendContinueButton = continueButton
+end
 
-	local menu = CreateFrame("Frame", "MER_SendMailTemplateMenu", SendMailFrame, "UIDropDownMenuTemplate")
-	menu:Hide()
-	UIDropDownMenu_Initialize(menu, function()
-		local hasTemplates = next(E.global.mui.mail.templates) ~= nil
-		if not hasTemplates then
-			local info = UIDropDownMenu_CreateInfo()
-			info.text = L["No templates saved."]
-			info.isTitle = true
-			info.notCheckable = true
-			UIDropDownMenu_AddButton(info)
+function module:ShowTemplateMenu(owner)
+	MenuUtil.CreateContextMenu(owner, function(_, rootDescription)
+		if next(E.global.mui.mail.templates) == nil then
+			rootDescription:CreateTitle(L["No templates saved."])
 			return
 		end
 
 		for name in pairs(E.global.mui.mail.templates) do
-			local info = UIDropDownMenu_CreateInfo()
-			info.text = name
-			info.notCheckable = true
-			info.func = function()
+			rootDescription:CreateButton(name, function()
 				module:SendToAll(name)
-			end
-			UIDropDownMenu_AddButton(info)
+			end)
 		end
-	end, "MENU")
-	self.templateMenu = menu
+	end)
 end
 
 function module:ShowSendTemplatesUI()
