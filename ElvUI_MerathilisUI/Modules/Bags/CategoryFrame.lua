@@ -2053,7 +2053,7 @@ function module:ShowGoldTooltip(anchor)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(_G.TOTAL or L["Total"], E:FormatMoney(total, "SMART"), 1, 1, 1, 1, 1, 1)
 
-	if E.Retail and _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
+	if _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
 		local warbandBankType = (Enum.BankType and Enum.BankType.Account) or 2
 		local ok, warbandGold = pcall(_G.C_Bank.FetchDepositedMoney, warbandBankType)
 		if ok and warbandGold then

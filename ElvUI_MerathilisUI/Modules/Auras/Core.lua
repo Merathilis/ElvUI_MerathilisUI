@@ -277,10 +277,6 @@ function module:Refresh()
 end
 
 function module:Initialize()
-	if not E.Retail then
-		return
-	end
-
 	hooksecurefunc(A, "UpdateHeader", function(_, header)
 		if header == A.BuffFrame then
 			module:Refresh()
