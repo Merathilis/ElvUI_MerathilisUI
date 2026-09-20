@@ -10,3 +10,4 @@
 -   [Improvement]: Bags: Categorized Bags - the gold tooltip now shows class icons for your characters plus icons for the total and the Warband Bank.
 -   [Improvement]: Bags: Categorized Bags - "Assign to Category" opened from a bank slot now notes that the assignment takes effect once the item is in your bags.
 -   [Improvement]: Bags: Categorized Bags - the collapsed sidebar is a bit wider, its collapse arrow sits centered over the icons and its scrollbar stays inside the sidebar instead of hanging over the edge.
+-   [Improvement]: Bags: Categorized Bags - right-clicking a category now offers "Create Group With" and "Add to Group", so category groups are no longer limited to the built-in "Equipment" one.
