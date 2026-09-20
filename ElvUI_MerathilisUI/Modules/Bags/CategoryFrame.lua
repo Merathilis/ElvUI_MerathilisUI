@@ -587,12 +587,13 @@ end
 -- attributes (needs the RightButtonDown click phase registered too, see
 -- CreateSlotButton).
 local function Slot_OnClick(self, mouseButton)
-	-- Excludes MiddleButton: that's already our own Pin/Assign-to-Category
-	-- click, and IsModifiedClick("SPLITSTACK") only checks the held modifier
-	-- key, not which mouse button - without this exclusion, a Shift+Middle
-	-- click would get hijacked by split-stack instead of opening the assign
-	-- menu whenever Split Stack happens to be bound to Shift too.
-	if mouseButton ~= "MiddleButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
+	-- Right button only: IsModifiedClick("SPLITSTACK") just checks the held
+	-- modifier key, not which mouse button, and that key is Shift by
+	-- default - so matching any button swallowed Shift+Left-click (chat
+	-- link) and Shift+Middle-click (assign to category) as split-stack
+	-- attempts. Split Stack is documented as Shift+Right-click in the help
+	-- tooltip, so bind it to that button alone.
+	if mouseButton == "RightButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
 		if not InCombatLockdown() then
 			self:SetAttribute("type", nil)
 			self:SetAttribute("item", nil)
