@@ -26,3 +26,4 @@
 -   [Improvement]: Bags: Categorized Bags - new "Auto Height" option shrinks the bag and bank windows to fit their contents, using the configured height as the maximum.
 -   [Improvement]: Bags: Categorized Bags - the sidebar collapse arrow turns class-colored on hover, like the other buttons.
 -   [Improvement]: Bags: Categorized Bags - alt-dragging a slot onto another one reorders items inside a category, group or Pinned Items without moving them in your bags; right-click the sidebar entry for "Reset Item Order".
+-   [Fix]: Bags: Categorized Bags - shift-clicking an item links it in chat again; the split-stack handler swallowed every shift-click instead of only shift-right-click.

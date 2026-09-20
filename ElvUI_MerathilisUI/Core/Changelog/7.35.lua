@@ -3,6 +3,7 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[735] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"Bags: Categorized Bags - shift-clicking an item links it in chat again; the split-stack handler swallowed every shift-click instead of only shift-right-click.",
 		"Bags: Categorized Bags - General options (merging, nesting, empty categories, pinned/recent) now also repaint an open Bank window.",
 		"Bags: Categorized Bags - fixed the category group list being rebuilt once per item in the All Items view, which slowed down refreshes with full bags.",
 		"Bags: Categorized Bags - disbanding a group no longer leaves its \"Hide in All Items\"/collapsed state behind, and a group left with a single category is removed instead of lingering unusable.",
