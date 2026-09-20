@@ -367,6 +367,7 @@ function module:ConstructBankFrame()
 		GameTooltip:Show()
 	end)
 	f.collapseButton:SetScript("OnLeave", GameTooltip_Hide)
+	module.AddCollapseButtonHover(f.collapseButton)
 
 	-- Fixed rows: only the two "All ... Tabs" mode-selector rows sit above
 	-- the scrollable list (mirrors the bag frame's own ALL/CATEGORY/BAG

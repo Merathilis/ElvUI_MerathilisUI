@@ -330,6 +330,27 @@ function module:OnGameTooltipDefaultAnchor(tt)
 	tt:Point(E.InversePoints[anchorBags], anchorFrame, anchorBags, db.xOffset, db.yOffset)
 end
 
+-- Class-colored arrow on hover, the same treatment the title bar buttons,
+-- the Recent Items "X" and the placeholder slots already get. Hooked, so
+-- the tooltip scripts set up by the caller keep running.
+function module.AddCollapseButtonHover(btn)
+	local function Tint(r, g, b)
+		for _, tex in ipairs({ btn:GetNormalTexture(), btn:GetPushedTexture() }) do
+			if tex then
+				tex:SetVertexColor(r, g, b)
+			end
+		end
+	end
+
+	btn:HookScript("OnEnter", function()
+		local cc = E.myClassColor
+		Tint(cc.r, cc.g, cc.b)
+	end)
+	btn:HookScript("OnLeave", function()
+		Tint(1, 1, 1)
+	end)
+end
+
 -- Expanded: top-right corner next to the "Categories" title. Collapsed: the
 -- title is gone and the corner would leave the arrow dangling off to the
 -- side, so it sits centered over the icon column (row inset 4 + icon inset
@@ -2089,6 +2110,7 @@ function module:ConstructFrame()
 		GameTooltip:Show()
 	end)
 	f.collapseButton:SetScript("OnLeave", GameTooltip_Hide)
+	module.AddCollapseButtonHover(f.collapseButton)
 
 	-- Fixed (non-scrolling) view-mode switcher, always pinned above the
 	-- scrollable category/bag list - "All Items" is a flat, ungrouped list;
