@@ -887,10 +887,26 @@ L["Shield"] = "Schild"
 
 -- Minimap Buttons
 L["Minimap Buttons"] = "Minimap-Buttons"
-L["Add Great Vault and M+ Portals buttons next to your Minimap."] =
-	"Fügt Buttons für das Große Gewölbe und M+ Portale neben deiner Minimap hinzu."
+L["Add a bar of extra buttons next to your Minimap."] =
+	"Fügt eine Leiste mit zusätzlichen Buttons neben deiner Minimap hinzu."
 L["Great Vault"] = "Großes Gewölbe"
 L["M+ Portals"] = "M+ Portale"
+L["Tracking"] = "Aufspüren"
+L["Calendar"] = "Kalender"
+L["Mail"] = "Post"
+L["Crafting Orders"] = "Handwerksaufträge"
+L["Elements"] = "Elemente"
+L["A second bar for the Blizzard indicators, anchored on its own."] =
+	"Eine zweite Leiste für die Blizzard-Anzeigen, mit eigenem Anker."
+L["Replaces the Blizzard icon on your Minimap with one in this bar."] =
+	"Ersetzt das Blizzard-Symbol auf deiner Minimap durch eines in dieser Leiste."
+L["The tooltip lists your raid lockouts, the realm time and the weekly reset."] =
+	"Der Tooltip zeigt deine Schlachtzugssperren, die Serverzeit und den wöchentlichen Reset."
+L["Only shown while there is something to report."] = "Wird nur angezeigt, wenn es etwas zu melden gibt."
+L["Weekly Reset"] = "Wöchentlicher Reset"
+L["Growth Direction"] = "Wachstumsrichtung"
+L["Which way the bar extends as buttons are added."] =
+	"In welche Richtung sich die Leiste erweitert, wenn Buttons hinzukommen."
 L["Raids"] = "Schlachtzüge"
 L["World"] = "Welt"
 L["Test Pulse"] = "Pulsieren testen"

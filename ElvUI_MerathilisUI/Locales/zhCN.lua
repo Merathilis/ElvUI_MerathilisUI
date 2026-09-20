@@ -1153,9 +1153,21 @@ L["When disabled, reminders freeze in place during combat instead of disappearin
 
 -- Minimap Buttons
 L["Minimap Buttons"] = true
-L["Add Great Vault and M+ Portals buttons next to your Minimap."] = true
+L["Add a bar of extra buttons next to your Minimap."] = true
 L["Great Vault"] = true
 L["M+ Portals"] = true
+L["Tracking"] = true
+L["Calendar"] = true
+L["Mail"] = true
+L["Crafting Orders"] = true
+L["Elements"] = true
+L["A second bar for the Blizzard indicators, anchored on its own."] = true
+L["Replaces the Blizzard icon on your Minimap with one in this bar."] = true
+L["The tooltip lists your raid lockouts, the realm time and the weekly reset."] = true
+L["Only shown while there is something to report."] = true
+L["Weekly Reset"] = true
+L["Growth Direction"] = true
+L["Which way the bar extends as buttons are added."] = true
 L["Raids"] = true
 L["World"] = true
 L["Test Pulse"] = true
