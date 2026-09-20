@@ -15,6 +15,7 @@ MER.Changelog[735] = {
 		"Maps: Minimap Buttons - the Calendar button's tooltip lists your raid lockouts with boss progress and difficulty, plus the realm time and the weekly reset countdown.",
 	},
 	IMPROVEMENTS = {
+		"Bags: Categorized Bags - item tooltips in reorderable categories now explain the alt-drag ordering, and the help tooltip notes that it only changes the display order.",
 		"Bags: Categorized Bags - alt-dragging a slot onto another one reorders items inside a category, group or Pinned Items without moving them in your bags; right-click the sidebar entry for \"Reset Item Order\".",
 		"Bags: Categorized Bags - the sidebar collapse arrow turns class-colored on hover, like the other buttons.",
 		"Bags: Categorized Bags - the tracked currencies in the footer can be reordered by dragging one onto another, with a \"Reset Currency Order\" button in the options.",
