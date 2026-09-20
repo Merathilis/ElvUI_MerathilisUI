@@ -131,8 +131,13 @@ options.bags = {
 
 				-- Most of these settings (empty categories, pinned/recent,
 				-- merging, nesting) drive both windows, so an open Bank has
-				-- to be repainted as well.
+				-- to be repainted as well. Resizing first also restores the
+				-- configured height after Auto Height is switched back off.
 				if BC.bankFrame and BC.RefreshBankCategoryFrame then
+					BC.bankFrame:Size(
+						E.db.mui.bags.categorizedBags.bankWidth,
+						E.db.mui.bags.categorizedBags.bankHeight
+					)
 					BC:RefreshBankCategoryFrame()
 				end
 			end,
@@ -173,6 +178,12 @@ options.bags = {
 							name = L["Alternating Row Background"],
 							desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
 						},
+						autoSize = {
+							order = 5.01,
+							type = "toggle",
+							name = L["Auto Height"],
+							desc = L["Shrinks the bag and bank windows to fit their contents. The configured height becomes the maximum instead of a fixed size."],
+						},
 						nestByExpansion = {
 							order = 5.02,
 							type = "toggle",
@@ -210,6 +221,19 @@ options.bags = {
 							step = 1,
 							disabled = function()
 								return not E.db.mui.bags.categorizedBags.showRecent
+							end,
+						},
+						resetCurrencyOrder = {
+							order = 5.9,
+							type = "execute",
+							name = L["Reset Currency Order"],
+							desc = L["Puts the tracked currencies in the footer back into Blizzard's own order. Drag one currency onto another in the footer to reorder them."],
+							func = function()
+								BC.db.currencyOrder = {}
+
+								if BC.frame then
+									BC:UpdateFooter()
+								end
 							end,
 						},
 						resetCategoryGroups = {

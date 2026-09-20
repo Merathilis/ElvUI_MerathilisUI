@@ -26,14 +26,19 @@ local CreateAnimationGroup = CreateAnimationGroup
 local CreateAtlasMarkup = CreateAtlasMarkup
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 local GetMoney = GetMoney
-local CloseBankFrame = (C_Bank and C_Bank.CloseBankFrame) or CloseBankFrame
-local FetchPurchasedBankTabData = C_Bank and C_Bank.FetchPurchasedBankTabData
-local AutoDepositItemsIntoBank = C_Bank and C_Bank.AutoDepositItemsIntoBank
-local CanViewBank = C_Bank and C_Bank.CanViewBank
-local FetchNumPurchasedBankTabs = C_Bank and C_Bank.FetchNumPurchasedBankTabs
-local FetchNextPurchasableBankTabData = C_Bank and C_Bank.FetchNextPurchasableBankTabData
-local PurchaseBankTab = C_Bank and C_Bank.PurchaseBankTab
-local CanPurchaseBankTab = C_Bank and C_Bank.CanPurchaseBankTab
+-- Bundled instead of one upvalue each: this file's main chunk is close to
+-- Lua's hard limit of 200 locals per function, and going over it makes the
+-- whole file fail to compile.
+local BankAPI = {
+	Close = (C_Bank and C_Bank.CloseBankFrame) or CloseBankFrame,
+	FetchPurchasedTabData = C_Bank and C_Bank.FetchPurchasedBankTabData,
+	AutoDeposit = C_Bank and C_Bank.AutoDepositItemsIntoBank,
+	CanView = C_Bank and C_Bank.CanViewBank,
+	FetchNumPurchasedTabs = C_Bank and C_Bank.FetchNumPurchasedBankTabs,
+	FetchNextPurchasableTabData = C_Bank and C_Bank.FetchNextPurchasableBankTabData,
+	PurchaseTab = C_Bank and C_Bank.PurchaseBankTab,
+	CanPurchaseTab = C_Bank and C_Bank.CanPurchaseBankTab,
+}
 local CHARACTER_BANK_TYPE = (Enum.BankType and Enum.BankType.Character) or 0
 local WARBAND_BANK_TYPE = (Enum.BankType and Enum.BankType.Account) or 2
 
@@ -43,15 +48,19 @@ local C_Container_GetContainerItemCooldown = C_Container.GetContainerItemCooldow
 local C_Container_GetContainerItemQuestInfo = C_Container.GetContainerItemQuestInfo
 local C_Container_SetItemSearch = C_Container.SetItemSearch
 local C_Container_PickupContainerItem = C_Container.PickupContainerItem
-local C_NewItems_IsNewItem = C_NewItems.IsNewItem
-local C_NewItems_RemoveNewItem = C_NewItems.RemoveNewItem
-local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
-local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
-local C_Item_GetItemInfo = C_Item.GetItemInfo
-local C_Item_IsEquippableItem = C_Item.IsEquippableItem
-local C_Item_IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip
-local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
-local C_TooltipInfo_GetBagItem = C_TooltipInfo.GetBagItem
+-- Same reason as BankAPI above: bundled to stay clear of the 200-local
+-- limit. The per-item C_Container calls below stay plain upvalues.
+local API = {
+	IsNewItem = C_NewItems.IsNewItem,
+	RemoveNewItem = C_NewItems.RemoveNewItem,
+	GetItemInfoInstant = C_Item.GetItemInfoInstant,
+	GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo,
+	GetItemInfo = C_Item.GetItemInfo,
+	IsEquippableItem = C_Item.IsEquippableItem,
+	IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip,
+	GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo,
+	GetBagItemTooltip = C_TooltipInfo.GetBagItem,
+}
 local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
 local C_MerchantFrame_SellAllJunkItems = C_MerchantFrame.SellAllJunkItems
 local ITEMQUALITY_POOR = Enum.ItemQuality.Poor
@@ -171,7 +180,7 @@ local function SnapshotNewItemsForBags(bagIDList)
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
 		for slotID = 1, numSlots do
 			local key = bagID * 1000 + slotID
-			newItemSnapshot[key] = C_NewItems_IsNewItem(bagID, slotID) or nil
+			newItemSnapshot[key] = API.IsNewItem(bagID, slotID) or nil
 		end
 	end
 end
@@ -257,12 +266,12 @@ local function HideElvUIBagFrame()
 end
 
 -- Same technique as HideElvUIBagFrame above, doubly important here: ElvUI's
--- shared Container_OnHide handler calls CloseBankFrame() as a side effect
+-- shared Container_OnHide handler calls BankAPI.Close() as a side effect
 -- for any frame with isBank=true, which would immediately end the real
 -- server-side bank interaction if it ran for real - suppressing OnHide
 -- around the :Hide() call avoids that while still getting a real, correct
 -- IsShown() == false. module:OnFrameHidden() is responsible for actually
--- closing the bank via CloseBankFrame() when appropriate.
+-- closing the bank via BankAPI.Close() when appropriate.
 local function HideElvUIBankFrame()
 	if B.BankFrame and B.BankFrame:IsShown() then
 		SnapshotBankNewItems()
@@ -715,7 +724,7 @@ local function Slot_OnEnter(self)
 	-- glow and badge only mark what you haven't looked at yet. The Recent
 	-- Items list is tracked separately by item ID and stays put.
 	if self.BagID and self.SlotID and self.newItemGlow and self.newItemGlow:IsShown() then
-		C_NewItems_RemoveNewItem(self.BagID, self.SlotID)
+		API.RemoveNewItem(self.BagID, self.SlotID)
 		newItemSnapshot[self.BagID * 1000 + self.SlotID] = nil
 		self.newItemGlow:Hide()
 		if self.newBadge then
@@ -1118,7 +1127,7 @@ function UpdateUpgradeIcon(btn)
 		return
 	end
 
-	local _, _, _, equipLoc = C_Item_GetItemInfoInstant(itemLink)
+	local _, _, _, equipLoc = API.GetItemInfoInstant(itemLink)
 	if not equipLoc or not IS_EQUIPMENT_SLOT[equipLoc] then
 		btn.UpgradeIcon:Hide()
 		btn:SetScript("OnUpdate", nil)
@@ -1139,7 +1148,7 @@ end
 -- Same tooltip-scan EquipManager.lua uses for ElvUI's native bags
 -- (GetContainerItemEquipmentSetInfo is still unreliable).
 local function IsItemInEquipmentSet(bagID, slotID)
-	local tooltipData = C_TooltipInfo_GetBagItem(bagID, slotID)
+	local tooltipData = API.GetBagItemTooltip(bagID, slotID)
 	if not tooltipData or not tooltipData.lines then
 		return false
 	end
@@ -1165,7 +1174,7 @@ local function UpdateEquipSetIcon(btn, entry)
 		return
 	end
 
-	local _, _, _, equipLoc = C_Item_GetItemInfoInstant(entry.itemLink)
+	local _, _, _, equipLoc = API.GetItemInfoInstant(entry.itemLink)
 	if not equipLoc or not IS_EQUIPMENT_SLOT[equipLoc] or not IsItemInEquipmentSet(entry.bagID, entry.slotID) then
 		btn.equipIcon:Hide()
 		return
@@ -1765,6 +1774,102 @@ local bagPools = CreatePoolSet(
 -- contentChild/sidebarChild/frame/offsets exist.
 module.CreatePoolSet = CreatePoolSet
 
+-- Footer currency order: a list of currencyTypesIDs kept in db.currencyOrder.
+-- Currencies the player starts watching later aren't in it yet and simply
+-- follow in Blizzard's own order.
+local function GetOrderedCurrencies()
+	local order = module.db.currencyOrder or {}
+	local position = {}
+	for index, currencyID in ipairs(order) do
+		position[currencyID] = index
+	end
+
+	local watched = {}
+	for index = 1, MAX_WATCHED_TOKENS do
+		local info = API.GetBackpackCurrencyInfo(index)
+		if info and info.name then
+			tinsert(watched, {
+				index = index,
+				info = info,
+				position = position[info.currencyTypesID] or (#order + index),
+			})
+		end
+	end
+
+	tsort(watched, function(a, b)
+		return a.position < b.position
+	end)
+
+	return watched
+end
+
+local function MoveCurrency(draggedID, targetID)
+	if not draggedID or not targetID or draggedID == targetID then
+		return
+	end
+
+	local db = module.db
+
+	-- Seed from what is currently displayed, so the first drag reorders the
+	-- visible cluster instead of an empty list.
+	if not db.currencyOrder or #db.currencyOrder == 0 then
+		db.currencyOrder = {}
+		for _, entry in ipairs(GetOrderedCurrencies()) do
+			tinsert(db.currencyOrder, entry.info.currencyTypesID)
+		end
+	end
+
+	local order = db.currencyOrder
+	for index, currencyID in ipairs(order) do
+		if currencyID == draggedID then
+			tremove(order, index)
+			break
+		end
+	end
+
+	for index, currencyID in ipairs(order) do
+		if currencyID == targetID then
+			tinsert(order, index, draggedID)
+			return
+		end
+	end
+
+	tinsert(order, draggedID)
+end
+
+local function Currency_OnDragStart(self)
+	if InCombatLockdown() or not self.currencyID then
+		return
+	end
+
+	module.draggingCurrencyID = self.currencyID
+	self:SetAlpha(0.4)
+end
+
+local function Currency_OnDragStop(self)
+	self:SetAlpha(1)
+
+	local draggedID = module.draggingCurrencyID
+	local targetID = module.dragHoverCurrencyID
+	module.draggingCurrencyID = nil
+	module.dragHoverCurrencyID = nil
+
+	if draggedID and targetID then
+		MoveCurrency(draggedID, targetID)
+		module:UpdateFooter()
+	end
+end
+
+local function Currency_OnDragEnter(self)
+	if module.draggingCurrencyID then
+		module.dragHoverCurrencyID = self.currencyID
+	end
+end
+
+local function Currency_OnDragLeave()
+	module.dragHoverCurrencyID = nil
+end
+
 -------------------------------------------------------------------------------
 --  Frame construction
 -------------------------------------------------------------------------------
@@ -2181,6 +2286,15 @@ function module:ConstructFrame()
 		end)
 		btn:HookScript("OnLeave", GameTooltip_Hide)
 
+		-- Drag one currency onto another to reorder the footer cluster, the
+		-- same interaction the sidebar categories already use. Blizzard's own
+		-- watch list stays untouched; only our display order moves.
+		btn:RegisterForDrag("LeftButton")
+		btn:SetScript("OnDragStart", Currency_OnDragStart)
+		btn:SetScript("OnDragStop", Currency_OnDragStop)
+		btn:HookScript("OnEnter", Currency_OnDragEnter)
+		btn:HookScript("OnLeave", Currency_OnDragLeave)
+
 		f.footer.currencyButtons[i] = btn
 	end
 
@@ -2307,15 +2421,24 @@ function module:UpdateFooter()
 	-- Chained right-to-left off the footer's own right edge (independent of
 	-- goldText's width), so the whole currency cluster stays flush to the
 	-- right instead of trailing right after the gold amount.
+	local ordered = GetOrderedCurrencies()
+
 	local rightAnchor, rightAnchorPoint, rightPadding = f.footer, "RIGHT", -6
 	for i = 1, MAX_WATCHED_TOKENS do
 		local btn = f.footer.currencyButtons[i]
-		local info = C_CurrencyInfo_GetBackpackCurrencyInfo(i)
+		local entry = ordered[i]
 
-		if info and info.name then
+		if entry then
+			local info = entry.info
 			local icon = btn.icon or btn.Icon
 			icon:SetTexture(info.iconFileID)
 			btn.text:SetText(info.quantity)
+
+			-- The button's ID is Blizzard's watch index, not our display
+			-- position: the template's own tooltip (SetBackpackToken) reads
+			-- it, so it has to follow the currency, not the slot it sits in.
+			btn:SetID(entry.index)
+			btn.currencyID = info.currencyTypesID
 
 			btn:ClearAllPoints()
 			btn.text:ClearAllPoints()
@@ -2325,6 +2448,7 @@ function module:UpdateFooter()
 
 			rightAnchor, rightAnchorPoint, rightPadding = btn, "LEFT", -14
 		else
+			btn.currencyID = nil
 			btn:Hide()
 		end
 	end
@@ -2344,7 +2468,7 @@ function module:GetJunkValue()
 		for slotID = 1, numSlots do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 			if info and info.hyperlink and not info.hasNoValue and info.quality == ITEMQUALITY_POOR then
-				local sellPrice = select(11, C_Item_GetItemInfo(info.hyperlink))
+				local sellPrice = select(11, API.GetItemInfo(info.hyperlink))
 				if sellPrice and sellPrice > 0 then
 					value = value + sellPrice * (info.stackCount or 1)
 				end
@@ -2391,26 +2515,26 @@ end
 -- opens), in one call instead of moving items one at a time. Targets whichever
 -- of the two banks the sidebar is currently showing.
 function module:AutoDepositToBank()
-	if not module.isBankOpen or not AutoDepositItemsIntoBank then
+	if not module.isBankOpen or not BankAPI.AutoDeposit then
 		E:Print(L["You must be at the bank."])
 		return
 	end
 
 	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
 	local bankType = isWarbandView and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
-	AutoDepositItemsIntoBank(bankType)
+	BankAPI.AutoDeposit(bankType)
 end
 
 -- Confirmation prompt for buying the next bank tab (mirrors Blizzard's own
--- purchase flow, which also confirms before spending gold) - PurchaseBankTab
+-- purchase flow, which also confirms before spending gold) - BankAPI.PurchaseTab
 -- always targets "the next" tab, there's no per-tab selection, so this is
 -- only ever offered for the one tab slot right after your last purchased one.
 local function ShowPurchaseBankTabPrompt(bankType)
-	if not FetchNextPurchasableBankTabData or not PurchaseBankTab then
+	if not BankAPI.FetchNextPurchasableTabData or not BankAPI.PurchaseTab then
 		return
 	end
 
-	local tabData = FetchNextPurchasableBankTabData(bankType)
+	local tabData = BankAPI.FetchNextPurchasableTabData(bankType)
 	if not tabData then
 		return
 	end
@@ -2440,12 +2564,12 @@ local function GetDisplayItemLevel(itemLink, quality)
 		return nil
 	end
 
-	local _, _, _, _, _, classID = C_Item_GetItemInfoInstant(itemLink)
+	local _, _, _, _, _, classID = API.GetItemInfoInstant(itemLink)
 	if classID ~= ITEMCLASS_ARMOR and classID ~= ITEMCLASS_WEAPON then
 		return nil
 	end
 
-	local iLvl = C_Item_GetDetailedItemLevelInfo(itemLink)
+	local iLvl = API.GetDetailedItemLevelInfo(itemLink)
 	return iLvl and iLvl > 0 and iLvl or nil
 end
 
@@ -2460,13 +2584,13 @@ local function GetWarboundInfo(itemLink, bagID, slotID)
 		return false, false
 	end
 
-	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = C_Item_GetItemInfo(itemLink)
+	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = API.GetItemInfo(itemLink)
 	if bindType == ITEMBIND_TO_BNET_ACCOUNT then
 		return true, false
 	elseif bindType == ITEMBIND_TO_BNET_ACCOUNT_UNTIL_EQUIPPED then
 		return true, true
-	elseif bindType == ITEMBIND_ON_EQUIP and C_Item_IsBoundToAccountUntilEquip then
-		if C_Item_IsBoundToAccountUntilEquip(ItemLocation:CreateFromBagAndSlot(bagID, slotID)) then
+	elseif bindType == ITEMBIND_ON_EQUIP and API.IsBoundToAccountUntilEquip then
+		if API.IsBoundToAccountUntilEquip(ItemLocation:CreateFromBagAndSlot(bagID, slotID)) then
 			return true, true
 		end
 	end
@@ -2483,7 +2607,7 @@ local function GetBindText(itemLink, isBound, isUntilEquipped)
 		return L["WuE"]
 	end
 
-	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = C_Item_GetItemInfo(itemLink)
+	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = API.GetItemInfo(itemLink)
 	return bindType and BIND_TEXT[bindType]
 end
 
@@ -2518,7 +2642,7 @@ local function GetItemExpansionInfo(itemID)
 		return nil
 	end
 
-	local expacID = select(15, C_Item_GetItemInfo(itemID))
+	local expacID = select(15, API.GetItemInfo(itemID))
 	if not expacID then
 		return nil
 	end
@@ -2656,7 +2780,7 @@ local function CollectItemsFromBags(bagIDList, scratch)
 
 					local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
 
-					local isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false
+					local isNew = API.IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false
 					if isNew then
 						MarkItemRecent(info.itemID)
 					end
@@ -2857,7 +2981,7 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 
 				local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
 
-				local isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false
+				local isNew = API.IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false
 				if isNew then
 					MarkItemRecent(info.itemID)
 				end
@@ -2902,7 +3026,7 @@ end
 -- (Bags.lua, B:BankTab_PurchasedData).
 local bankTabDataScratch = {}
 local function GetBankTabInfo(bagID)
-	if not FetchPurchasedBankTabData then
+	if not BankAPI.FetchPurchasedTabData then
 		return nil
 	end
 
@@ -2916,7 +3040,7 @@ local function GetBankTabInfo(bagID)
 	end
 
 	wipe(bankTabDataScratch)
-	local tabs = FetchPurchasedBankTabData(bankType)
+	local tabs = BankAPI.FetchPurchasedTabData(bankType)
 	if tabs then
 		for _, data in ipairs(tabs) do
 			bankTabDataScratch[data.ID] = data
@@ -2974,7 +3098,7 @@ module.BAG_BAR_BUTTON_SIZE, module.BAG_BAR_SPACING = BAG_BAR_BUTTON_SIZE, BAG_BA
 
 -- Tri-state helper for a fixed-length bank/warband tab list (purchased / next
 -- purchasable / locked) - shared by the Bank frame's own sidebar tab rows
--- (BankFrame.lua). PurchaseBankTab always buys "the next" tab, there's no
+-- (BankFrame.lua). BankAPI.PurchaseTab always buys "the next" tab, there's no
 -- per-tab selection, so only the slot right after the last purchased one can
 -- ever be "purchasable"; anything further out stays "locked" until that one
 -- is bought (same one-step-at-a-time reveal Blizzard's own tab bar uses).
@@ -2984,12 +3108,12 @@ local function GetBankTabSlotState(bagIDList, bankType, index)
 		return nil
 	end
 
-	local purchasedCount = (bankType and FetchNumPurchasedBankTabs) and FetchNumPurchasedBankTabs(bankType)
+	local purchasedCount = (bankType and BankAPI.FetchNumPurchasedTabs) and BankAPI.FetchNumPurchasedTabs(bankType)
 		or #bagIDList
 
 	if index <= purchasedCount then
 		return "purchased", bagID
-	elseif index == purchasedCount + 1 and bankType and CanPurchaseBankTab and CanPurchaseBankTab(bankType) then
+	elseif index == purchasedCount + 1 and bankType and BankAPI.CanPurchaseTab and BankAPI.CanPurchaseTab(bankType) then
 		return "purchasable", bankType
 	end
 
@@ -3341,7 +3465,7 @@ local function MergeDuplicateEntries(items)
 	local seen, merged = {}, {}
 	for _, entry in ipairs(items) do
 		local key = entry.itemLink
-		if key and not C_Item_IsEquippableItem(key) then
+		if key and not API.IsEquippableItem(key) then
 			local existing = seen[key]
 			if existing then
 				-- Copy on first duplicate: the entry itself is also painted
@@ -3503,7 +3627,7 @@ local function RenderCategorySections(ctx, sections)
 				-- SnapshotNewItemsForBags), so all three have to go.
 				module:ClearRecentItems()
 				for _, entry in ipairs(section.items) do
-					C_NewItems_RemoveNewItem(entry.bagID, entry.slotID)
+					API.RemoveNewItem(entry.bagID, entry.slotID)
 					newItemSnapshot[entry.bagID * 1000 + entry.slotID] = nil
 				end
 				ctx.refresh()
@@ -3716,6 +3840,42 @@ local function RenderCategorySections(ctx, sections)
 	end
 end
 
+-- Shrinks a window to whatever its content needs, using the configured
+-- height as the upper bound - so the height slider becomes "at most this
+-- tall" instead of "always this tall". The chrome (title bar, search row,
+-- footer) is measured from the live geometry rather than hardcoded, so it
+-- keeps working when those change size.
+local AUTO_HEIGHT_MIN = 220
+
+local function ApplyAutoHeight(frame, contentChild, sidebarChild, maxHeight)
+	if not module.db.autoSize or InCombatLockdown() then
+		return
+	end
+
+	local scrollHeight = frame.mainScroll:GetHeight()
+	if not scrollHeight or scrollHeight <= 0 then
+		return
+	end
+
+	local chrome = frame:GetHeight() - scrollHeight
+	local wanted = contentChild:GetHeight() + chrome + 4
+
+	-- A long category list must not end up scrolling inside a window that
+	-- was shrunk to fit a handful of items, so the sidebar sets its own
+	-- floor: whatever it overflows by is added to the current height.
+	local sidebarOverflow = sidebarChild:GetHeight() - frame.sidebarScroll:GetHeight()
+	if sidebarOverflow > 0 then
+		wanted = math.max(wanted, frame:GetHeight() + sidebarOverflow)
+	end
+
+	wanted = math.min(maxHeight, math.max(AUTO_HEIGHT_MIN, wanted))
+
+	if math.abs(wanted - frame:GetHeight()) >= 1 then
+		frame:Height(wanted)
+	end
+end
+module.ApplyAutoHeight = ApplyAutoHeight
+
 module.RenderCategorySections = RenderCategorySections
 
 function module:RefreshCategoryFrame()
@@ -3799,6 +3959,8 @@ function module:RefreshCategoryFrame()
 			module:RefreshCategoryFrame()
 		end,
 	}, sections)
+
+	ApplyAutoHeight(f, module.contentChild, module.sidebarChild, db.height)
 
 	f.titleText:SetText(L["Inventory"])
 	SetTitleCount(f.titleCountText, usedSlots, totalSlots, CountSearchHits(BAG_IDS))
@@ -3944,8 +4106,8 @@ _G.StaticPopupDialogs["MER_BAGCATEGORIES_PURCHASE_BANK_TAB"] = {
 	button1 = ACCEPT,
 	button2 = CANCEL,
 	OnAccept = function(_, data)
-		if data and data.bankType and PurchaseBankTab then
-			PurchaseBankTab(data.bankType)
+		if data and data.bankType and BankAPI.PurchaseTab then
+			BankAPI.PurchaseTab(data.bankType)
 		end
 	end,
 	timeout = 0,
@@ -4606,7 +4768,7 @@ function module:OnBankOpened()
 	-- Mirrors ElvUI's own OpenBank landing logic - the Warband Bank Distance
 	-- Inhibitor grants remote Warband access without personal bank access at
 	-- that spot, so land on whichever bank the player can actually view.
-	local canViewCharacter = not CanViewBank or CanViewBank(CHARACTER_BANK_TYPE)
+	local canViewCharacter = not BankAPI.CanView or BankAPI.CanView(CHARACTER_BANK_TYPE)
 	module.bankViewMode = (not canViewCharacter and #module.WarbandBagIDs > 0) and "WARBAND_ALL" or "BANK_ALL"
 
 	module:ShowBankFrame()

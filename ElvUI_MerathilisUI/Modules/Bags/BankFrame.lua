@@ -858,6 +858,8 @@ function module:RefreshBankCategoryFrame()
 		end,
 	}, sections)
 
+	module.ApplyAutoHeight(f, module.bankContentChild, module.bankSidebarChild, db.bankHeight)
+
 	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
 	local countBagIDs = isWarbandView and module.WarbandBagIDs or module.BankBagIDs
 	local usedSlots = isWarbandView and warbandItemCount or bankItemCount
