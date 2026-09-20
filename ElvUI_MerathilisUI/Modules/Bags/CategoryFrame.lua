@@ -48,6 +48,7 @@ local C_NewItems_RemoveNewItem = C_NewItems.RemoveNewItem
 local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
 local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
 local C_Item_GetItemInfo = C_Item.GetItemInfo
+local C_Item_IsEquippableItem = C_Item.IsEquippableItem
 local C_Item_IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip
 local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
 local C_TooltipInfo_GetBagItem = C_TooltipInfo.GetBagItem
@@ -1210,8 +1211,15 @@ local function UpdateSlotVisual(btn, entry)
 	btn.itemLink = entry.itemLink
 
 	SetItemButtonTexture(btn, entry.icon)
+
 	SetItemButtonCount(btn, entry.count)
-	SetItemButtonDesaturated(btn, entry.isLocked)
+
+	-- Locked (being moved/split) as before, plus optionally vendor trash, so
+	-- it reads as "sell me" at a glance; the junk coin icon stays either way.
+	SetItemButtonDesaturated(
+		btn,
+		entry.isLocked or (entry.isJunk and module.db.effects.desaturateJunk) or false
+	)
 
 	local countFont = module.db.itemCountFont
 	if btn.Count then
@@ -2534,6 +2542,16 @@ local function GetExpansionLogo(expacID)
 	return logo or nil
 end
 
+-- Both kinds of nesting are optional; a category only nests when its own
+-- rule says so AND the matching option is on.
+local function NestsByExpansion(cat)
+	return (cat and cat.nestByExpansion and module.db.nestByExpansion) or false
+end
+
+local function NestsByEquipmentSet(cat)
+	return (cat and cat.nestByEquipmentSet and module.db.nestByEquipmentSet) or false
+end
+
 -- Groups items sharing the same subgroupName (expansion name, or equipment
 -- set name) into contiguous runs, items without one first/unsorted. Returns
 -- the reordered items plus a list of { name, index } marking where a small
@@ -2622,11 +2640,11 @@ local function CollectItemsFromBags(bagIDList, scratch)
 
 					local cat = catByKey[key]
 					local subgroupName, subgroupOrder, subgroupIcon, subgroupIconIsLogo
-					if cat and cat.nestByExpansion then
+					if NestsByExpansion(cat) then
 						subgroupName, subgroupOrder = GetItemExpansionInfo(info.itemID)
 						subgroupIcon = GetExpansionLogo(subgroupOrder)
 						subgroupIconIsLogo = true
-					elseif cat and cat.nestByEquipmentSet then
+					elseif NestsByEquipmentSet(cat) then
 						subgroupName = module:GetEquipmentSetName(info.itemID)
 						subgroupIcon = module:GetEquipmentSetIcon(subgroupName)
 					end
@@ -2749,10 +2767,10 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 					end
 
 					if memberCat then
-						if memberCat.nestByEquipmentSet then
+						if NestsByEquipmentSet(memberCat) then
 							hasNesting = true
 						end
-						if memberCat.nestByExpansion then
+						if NestsByExpansion(memberCat) then
 							hasNesting, nestByExpansion = true, true
 						end
 					end
@@ -2788,8 +2806,8 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 			local items = itemsByCategory[cat.key] or {}
 			if #items > 0 or not db.hideEmptyCategories or cat.isUser then
 				local subHeaders
-				if cat.nestByExpansion or cat.nestByEquipmentSet then
-					items, subHeaders = GroupBySubgroup(items, cat.nestByExpansion)
+				if NestsByExpansion(cat) or NestsByEquipmentSet(cat) then
+					items, subHeaders = GroupBySubgroup(items, NestsByExpansion(cat))
 				end
 				tinsert(sections, {
 					key = cat.key,
@@ -3255,16 +3273,129 @@ local function BuildFlatSections()
 	return BuildFlatSectionsFrom(BAG_IDS, CollectItemsByBag())
 end
 
+-- Panels that hand over one bag slot at a time (mail, trade, auction house,
+-- vendor, bank, guild bank): a merged slot button only passes along the one
+-- slot behind it, so three merged stacks would mail/sell exactly one. While
+-- any of them is open, duplicates stay split.
+module.openItemPanels = {}
+
+local ITEM_PANEL_EVENTS = {
+	MAIL_SHOW = { "mail", true },
+	MAIL_CLOSED = { "mail", false },
+	TRADE_SHOW = { "trade", true },
+	TRADE_CLOSED = { "trade", false },
+	AUCTION_HOUSE_SHOW = { "auction", true },
+	AUCTION_HOUSE_CLOSED = { "auction", false },
+	MERCHANT_SHOW = { "merchant", true },
+	MERCHANT_CLOSED = { "merchant", false },
+	GUILDBANKFRAME_OPENED = { "guildbank", true },
+	GUILDBANKFRAME_CLOSED = { "guildbank", false },
+}
+module.ITEM_PANEL_EVENTS = ITEM_PANEL_EVENTS
+
+function module:SetItemPanelOpen(key, open)
+	if (module.openItemPanels[key] or false) == open then
+		return
+	end
+
+	module.openItemPanels[key] = open or nil
+
+	if module.frame and module.frame:IsShown() then
+		module:RefreshCategoryFrame()
+	end
+	if module.bankFrame and module.bankFrame:IsShown() then
+		module:RefreshBankCategoryFrame()
+	end
+end
+
+function module:OnItemPanelEvent(event)
+	local panel = ITEM_PANEL_EVENTS[event]
+	if panel then
+		module:SetItemPanelOpen(panel[1], panel[2])
+	end
+end
+
+local function AnyItemPanelOpen()
+	if next(module.openItemPanels) ~= nil then
+		return true
+	end
+
+	-- The bank counts as one of those panels, but it has its own event
+	-- handlers already (OnBankOpened/OnBankClosed) - read its state instead
+	-- of duplicating them here.
+	return module.isBankOpen and true or false
+end
+
+-- Collapses identical stacks (same item link) into one button showing the
+-- combined count; the button still acts on the first stack's bag/slot, which
+-- is why this is off while an item panel is open. Gear is left alone: two
+-- copies of the same piece are still two separate things to compare, equip
+-- or hand in, and the reference behaves the same way.
+local function MergeDuplicateEntries(items)
+	if not module.db.mergeDuplicates or AnyItemPanelOpen() then
+		return items
+	end
+
+	local seen, merged = {}, {}
+	for _, entry in ipairs(items) do
+		local key = entry.itemLink
+		if key and not C_Item_IsEquippableItem(key) then
+			local existing = seen[key]
+			if existing then
+				-- Copy on first duplicate: the entry itself is also painted
+				-- by the untouched bag views, which must keep the real
+				-- per-slot count.
+				if not existing.isMerged then
+					local proxy = {}
+					for field, value in pairs(existing) do
+						proxy[field] = value
+					end
+					proxy.isMerged = true
+					merged[existing.mergeIndex] = proxy
+					seen[key] = proxy
+					proxy.mergeIndex = existing.mergeIndex
+					existing = proxy
+				end
+
+				existing.count = (existing.count or 1) + (entry.count or 1)
+				existing.isNew = existing.isNew or entry.isNew
+			else
+				tinsert(merged, entry)
+				entry.mergeIndex = #merged
+				seen[key] = entry
+			end
+		else
+			tinsert(merged, entry)
+		end
+	end
+
+	return merged
+end
+
+-- Sidebar rows and section headers keep counting real stacks, so the numbers
+-- don't change just because the view merges them.
+local function MergeSectionItems(sections)
+	for _, section in ipairs(sections) do
+		section.itemCount = #section.items
+		if not section.isBagSection then
+			section.items = MergeDuplicateEntries(section.items)
+		end
+	end
+
+	return sections
+end
+module.MergeSectionItems = MergeSectionItems
+
 local function BuildSections()
 	local viewMode = module.db.viewMode
 
 	if viewMode == "BAG" then
-		return BuildBagSections()
+		return MergeSectionItems(BuildBagSections())
 	elseif viewMode == "ALL" then
-		return BuildFlatSections()
+		return MergeSectionItems(BuildFlatSections())
 	end
 
-	return BuildCategorySections()
+	return MergeSectionItems(BuildCategorySections())
 end
 
 function module:SetSidebarCollapsed(collapsed)
@@ -3352,7 +3483,7 @@ local function RenderCategorySections(ctx, sections)
 		header:ClearAllPoints()
 		header:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 0, -y)
 		header:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", 0, -y)
-		header.text:SetText(format("%s |cff999999(%d)|r", section.name, #section.items))
+		header.text:SetText(format("%s |cff999999(%d)|r", section.name, section.itemCount or #section.items))
 		SetCategoryIcon(header.icon, section)
 
 		local collapsed = not searching and db.collapsedSections[section.key] and true or false
@@ -3387,7 +3518,7 @@ local function RenderCategorySections(ctx, sections)
 		-- still render. skipSidebarRow (bank tab sections) is the same idea:
 		-- a fixed row already exists elsewhere for it.
 		if section.key == module.PinnedCategory.key then
-			ctx.pinnedRow.count:SetText(#section.items)
+			ctx.pinnedRow.count:SetText(section.itemCount or #section.items)
 		elseif not section.skipSidebarRow then
 			sidebarIndex = sidebarIndex + 1
 			-- Bag sections aren't reorderable either (no persisted "bag order"
@@ -3399,7 +3530,7 @@ local function RenderCategorySections(ctx, sections)
 				section.name,
 				section.icon,
 				section.isAtlas,
-				#section.items,
+				section.itemCount or #section.items,
 				section.key:find("^USER_") and true or false,
 				section.key == module.RecentCategory.key
 					or section.key == module.AllItemsCategory.key
@@ -4667,6 +4798,14 @@ function module:Initialize()
 	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
 	module:SecureHook("GameTooltip_SetDefaultAnchor", "OnGameTooltipDefaultAnchor")
 	module:RegisterEvent("CURSOR_CHANGED", "OnCursorChanged")
+
+	-- Registered even when duplicate merging is off: the option can be
+	-- flipped at any time, and a missed open/close would leave the panel
+	-- state wrong until the next one. A renamed/removed event must not take
+	-- the whole module down with it, hence the pcall.
+	for event in pairs(module.ITEM_PANEL_EVENTS) do
+		pcall(module.RegisterEvent, module, event, "OnItemPanelEvent")
+	end
 
 	if #module.BankBagIDs > 0 or #module.WarbandBagIDs > 0 then
 		module:RegisterEvent("BANKFRAME_OPENED", "OnBankOpened")

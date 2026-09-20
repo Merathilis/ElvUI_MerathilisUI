@@ -166,6 +166,24 @@ options.bags = {
 							name = L["Alternating Row Background"],
 							desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
 						},
+						nestByExpansion = {
+							order = 5.02,
+							type = "toggle",
+							name = L["Group by Expansion"],
+							desc = L["Splits categories like Consumables or Trade Goods into sub-headers per expansion, newest first."],
+						},
+						nestByEquipmentSet = {
+							order = 5.03,
+							type = "toggle",
+							name = L["Group by Equipment Set"],
+							desc = L["Splits the gear categories into sub-headers per Blizzard equipment set."],
+						},
+						mergeDuplicates = {
+							order = 5.05,
+							type = "toggle",
+							name = L["Merge Duplicate Stacks"],
+							desc = L["Shows identical items from several bag slots as one slot with the combined count. Gear is never merged, and merging pauses while a vendor, mailbox, trade, auction house or bank window is open, since those only ever take one stack at a time."],
+						},
 						clearRecentOnClose = {
 							order = 5.1,
 							type = "toggle",
@@ -719,6 +737,12 @@ options.bags = {
 							max = 1,
 							step = 0.05,
 							isPercent = true,
+						},
+						desaturateJunk = {
+							order = 7.4,
+							type = "toggle",
+							name = L["Desaturate Junk"],
+							desc = L["Greys out grey-quality items, in addition to the coin icon they already get."],
 						},
 						pinMarker = {
 							order = 7.5,
