@@ -796,6 +796,11 @@ end
 
 local function Slot_OnDrag(self)
 	-- Alt held: rearrange the view instead of physically moving the item.
+	-- Deliberately a raw IsAltKeyDown() and not IsModifiedClick(): there is
+	-- no Blizzard click binding for "reorder", and a binding check would
+	-- also report true for whatever else the player put on Alt. Ours runs
+	-- first, so an Alt-drag in our frame always reorders - the tooltip says
+	-- so while Alt is held.
 	-- Only inside a section that has a stable identity to store an order
 	-- under (orderKey is nil for the bag views and All Items).
 	if IsAltKeyDown() and self.orderKey and self.itemID then
@@ -859,6 +864,14 @@ local function Slot_OnEnter(self)
 		if module.isBankOpen then
 			GameTooltip:AddLine(L["Ctrl+Right-click to move to a specific tab/bag"], 0.6, 0.6, 0.6)
 		end
+
+		-- Shown on every item of a reorderable section, not just while Alt
+		-- is held: the feature is invisible otherwise, and the hint is where
+		-- people look when they wonder why an item sits where it sits.
+		if self.orderKey then
+			GameTooltip:AddLine(L["Alt+Drag onto another item to move it there. Items stay in their bag slots."], 0.6, 0.6, 0.6)
+		end
+
 		GameTooltip:Show()
 	end
 
@@ -2194,6 +2207,7 @@ function module:ConstructFrame()
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Alt + Drag:"], L["Reorder items inside a category"], 1, 1, 1)
+		GameTooltip:AddLine(L["Changes the display order only - nothing moves in your bags."], 0.6, 0.6, 0.6)
 
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(L["Bank / Warband Bank (while open)"], 1, 0.82, 0)

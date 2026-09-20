@@ -325,6 +325,7 @@ function module:ConstructBankFrame()
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Alt + Drag:"], L["Reorder items inside a category"], 1, 1, 1)
+		GameTooltip:AddLine(L["Changes the display order only - nothing moves in your bags."], 0.6, 0.6, 0.6)
 	end)
 	f.helpButton:Point("TOPRIGHT", f, "TOPRIGHT", -40, -8)
 
