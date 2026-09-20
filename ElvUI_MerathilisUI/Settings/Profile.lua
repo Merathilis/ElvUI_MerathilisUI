@@ -311,6 +311,7 @@ P.bags = {
 		disabledCategories = {},
 		categoryOrder = {},
 		currencyOrder = {},
+		itemOrder = {},
 		userCategories = {},
 		itemAssignments = {},
 		pinnedItemsByChar = {},

@@ -15,6 +15,7 @@ local format = format
 local strmatch, strlower = strmatch, strlower
 local IsShiftKeyDown = IsShiftKeyDown
 local IsControlKeyDown = IsControlKeyDown
+local IsAltKeyDown = IsAltKeyDown
 local IsModifiedClick = IsModifiedClick
 local HandleModifiedItemClick = HandleModifiedItemClick
 local CursorHasItem = CursorHasItem
@@ -701,9 +702,131 @@ local function Slot_OnClick(self, mouseButton)
 	end
 end
 
+-- Manual item order, one list of item IDs per section key (category, group
+-- or Pinned Items), set by alt-dragging a slot onto another one. Items with
+-- no stored position keep their normal order behind the ones that have one,
+-- so picking up something new never reshuffles what the user arranged.
+function module:GetItemOrder(sectionKey)
+	local db = module.db
+	return sectionKey and db.itemOrder and db.itemOrder[sectionKey] or nil
+end
+
+function module:ClearItemOrder(sectionKey)
+	local db = module.db
+	if db.itemOrder then
+		db.itemOrder[sectionKey] = nil
+	end
+end
+
+local function ApplyItemOrder(sectionKey, items)
+	local order = module:GetItemOrder(sectionKey)
+	if not order or #items < 2 then
+		return items
+	end
+
+	local position = {}
+	for index, itemID in ipairs(order) do
+		position[itemID] = index
+	end
+
+	local decorated = {}
+	for index, entry in ipairs(items) do
+		tinsert(decorated, {
+			entry = entry,
+			position = position[entry.itemID] or (#order + index),
+			index = index,
+		})
+	end
+
+	tsort(decorated, function(a, b)
+		if a.position == b.position then
+			return a.index < b.index
+		end
+		return a.position < b.position
+	end)
+
+	local sorted = {}
+	for _, item in ipairs(decorated) do
+		tinsert(sorted, item.entry)
+	end
+
+	return sorted
+end
+
+-- Alt-drag reorder: seeds the stored list from what is on screen, then moves
+-- the dragged item in front of the one it was dropped on.
+local function MoveItemInOrder(sectionKey, items, draggedID, targetID)
+	if not sectionKey or not draggedID or not targetID or draggedID == targetID then
+		return
+	end
+
+	local db = module.db
+	db.itemOrder = db.itemOrder or {}
+
+	local order = db.itemOrder[sectionKey]
+	if not order then
+		order = {}
+		local seen = {}
+		for _, entry in ipairs(items) do
+			if entry.itemID and not seen[entry.itemID] then
+				seen[entry.itemID] = true
+				tinsert(order, entry.itemID)
+			end
+		end
+		db.itemOrder[sectionKey] = order
+	end
+
+	for index, itemID in ipairs(order) do
+		if itemID == draggedID then
+			tremove(order, index)
+			break
+		end
+	end
+
+	for index, itemID in ipairs(order) do
+		if itemID == targetID then
+			tinsert(order, index, draggedID)
+			return
+		end
+	end
+
+	tinsert(order, draggedID)
+end
+
 local function Slot_OnDrag(self)
+	-- Alt held: rearrange the view instead of physically moving the item.
+	-- Only inside a section that has a stable identity to store an order
+	-- under (orderKey is nil for the bag views and All Items).
+	if IsAltKeyDown() and self.orderKey and self.itemID then
+		module.draggingOrderKey = self.orderKey
+		module.draggingOrderItemID = self.itemID
+		module.dragHoverOrderItemID = nil
+		self:SetAlpha(0.4)
+		return
+	end
+
 	if self.BagID and self.SlotID then
 		C_Container_PickupContainerItem(self.BagID, self.SlotID)
+	end
+end
+
+local function Slot_OnDragStop(self)
+	if not module.draggingOrderKey then
+		return
+	end
+
+	self:SetAlpha(1)
+
+	local sectionKey = module.draggingOrderKey
+	local draggedID = module.draggingOrderItemID
+	local targetID = module.dragHoverOrderItemID
+	module.draggingOrderKey = nil
+	module.draggingOrderItemID = nil
+	module.dragHoverOrderItemID = nil
+
+	if draggedID and targetID then
+		MoveItemInOrder(sectionKey, module.orderedSectionItems and module.orderedSectionItems[sectionKey], draggedID, targetID)
+		RefreshOwnerFrame(self.ownerFrame)
 	end
 end
 
@@ -740,6 +863,10 @@ local function Slot_OnEnter(self)
 
 	Slot_UpdateCursor(self)
 
+	if module.draggingOrderKey and self.orderKey == module.draggingOrderKey then
+		module.dragHoverOrderItemID = self.itemID
+	end
+
 	-- Blizzard's own bags drop an item's "new" state as soon as you hover
 	-- its slot (ContainerFrameItemButtonMixin:OnUpdate), so do the same -
 	-- glow and badge only mark what you haven't looked at yet. The Recent
@@ -754,7 +881,11 @@ local function Slot_OnEnter(self)
 	end
 end
 
-local function Slot_OnLeave()
+local function Slot_OnLeave(self)
+	if module.draggingOrderKey and self and module.dragHoverOrderItemID == self.itemID then
+		module.dragHoverOrderItemID = nil
+	end
+
 	if not GameTooltip:IsForbidden() then
 		GameTooltip:Hide()
 	end
@@ -944,6 +1075,7 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 
 	btn:RegisterForDrag("LeftButton")
 	btn:SetScript("OnDragStart", Slot_OnDrag)
+	btn:SetScript("OnDragStop", Slot_OnDragStop)
 	btn:SetScript("OnReceiveDrag", Slot_OnDrag)
 
 	btn:SetScript("OnEnter", Slot_OnEnter)
@@ -1238,6 +1370,10 @@ end
 local function UpdateSlotVisual(btn, entry)
 	btn.BagID = entry.bagID
 	btn.SlotID = entry.slotID
+
+	-- A slot faded out by an alt-drag can come back from the pool before its
+	-- drag ever finished (a refresh mid-drag), so always reset it here.
+	btn:SetAlpha(1)
 	btn:SetID(entry.slotID)
 	btn.itemID = entry.itemID
 	btn.itemLink = entry.itemLink
@@ -2056,6 +2192,7 @@ function module:ConstructFrame()
 		GameTooltip:AddDoubleLine(L["Shift + Right Click:"], L["Split Stack"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Alt + Drag:"], L["Reorder items inside a category"], 1, 1, 1)
 
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(L["Bank / Warband Bank (while open)"], 1, 0.82, 0)
@@ -3522,9 +3659,35 @@ end
 
 -- Sidebar rows and section headers keep counting real stacks, so the numbers
 -- don't change just because the view merges them.
+-- A section can carry a manual item order when it has a stable identity to
+-- store one under: the physical bag views and the flat All Items list don't,
+-- Recent Items is ordered by when things arrived, and a section split into
+-- expansion/set sub-headers is already arranged by those buckets.
+local function GetSectionOrderKey(section)
+	if
+		section.isBagSection
+		or section.isRecent
+		or section.subHeaders
+		or section.key == module.AllItemsCategory.key
+	then
+		return nil
+	end
+
+	return section.key
+end
+
 local function MergeSectionItems(sections)
+	module.orderedSectionItems = wipe(module.orderedSectionItems or {})
+
 	for _, section in ipairs(sections) do
 		section.itemCount = #section.items
+
+		section.orderKey = GetSectionOrderKey(section)
+		if section.orderKey then
+			section.items = ApplyItemOrder(section.orderKey, section.items)
+			module.orderedSectionItems[section.orderKey] = section.items
+		end
+
 		if not section.isBagSection then
 			section.items = MergeDuplicateEntries(section.items)
 		end
@@ -3821,6 +3984,7 @@ local function RenderCategorySections(ctx, sections)
 				slotIndex = slotIndex + 1
 				local btn = pools.AcquireSlot(slotIndex)
 				UpdateSlotVisual(btn, entry)
+				btn.orderKey = section.orderKey
 
 				btn:ClearAllPoints()
 				btn:Size(db.itemSize)
@@ -4413,6 +4577,13 @@ function module:OpenCategoryContextMenu(row)
 				module:RefreshCategoryFrame()
 			end)
 
+			if module:GetItemOrder(key) then
+				rootDescription:CreateButton(L["Reset Item Order"], function()
+					module:ClearItemOrder(key)
+					module:RefreshCategoryFrame()
+				end)
+			end
+
 			rootDescription:CreateButton(
 				module:IsHiddenFromAllItems(key) and L["Show in All Items"] or L["Hide in All Items"],
 				function()
@@ -4440,6 +4611,13 @@ function module:OpenCategoryContextMenu(row)
 				module:RefreshCategoryFrame()
 			end)
 
+			if module:GetItemOrder(key) then
+				rootDescription:CreateButton(L["Reset Item Order"], function()
+					module:ClearItemOrder(key)
+					module:RefreshCategoryFrame()
+				end)
+			end
+
 			AddGroupingSubmenus(rootDescription, key)
 		end)
 
@@ -4460,6 +4638,13 @@ function module:OpenCategoryContextMenu(row)
 		if db.categoryNameOverrides and db.categoryNameOverrides[key] then
 			rootDescription:CreateButton(L["Reset Name"], function()
 				module:ResetCategoryName(key)
+				module:RefreshCategoryFrame()
+			end)
+		end
+
+		if module:GetItemOrder(key) then
+			rootDescription:CreateButton(L["Reset Item Order"], function()
+				module:ClearItemOrder(key)
 				module:RefreshCategoryFrame()
 			end)
 		end
