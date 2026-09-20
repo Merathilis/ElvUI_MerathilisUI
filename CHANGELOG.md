@@ -11,3 +11,5 @@
 -   [Improvement]: Bags: Categorized Bags - "Assign to Category" opened from a bank slot now notes that the assignment takes effect once the item is in your bags.
 -   [Improvement]: Bags: Categorized Bags - the collapsed sidebar is a bit wider, its collapse arrow sits centered over the icons and its scrollbar stays inside the sidebar instead of hanging over the edge.
 -   [Improvement]: Bags: Categorized Bags - right-clicking a category now offers "Create Group With" and "Add to Group", so category groups are no longer limited to the built-in "Equipment" one.
+-   [Improvement]: Bags: Categorized Bags - Recent Items now tracks item IDs instead of bag slots, so sorting no longer moves the marks onto other items; the list is capped (default 20, adjustable) and can optionally empty itself when the bags close.
+-   [Improvement]: Bags: Categorized Bags - hovering a slot clears its new-item glow and NEW badge, like Blizzard's own bags; the item stays in Recent Items.
