@@ -8,7 +8,7 @@ local EM = MER:GetModule("MER_EquipManager") ---@class EquipmentManager
 
 local _G = _G
 local ipairs, pairs = ipairs, pairs
-local tinsert, wipe = tinsert, wipe
+local tinsert, tremove, wipe = tinsert, tremove, wipe
 local tsort = table.sort
 local floor, ceil = math.floor, math.ceil
 local format = format
@@ -173,6 +173,39 @@ local function SnapshotNewItemsForBags(bagIDList)
 			newItemSnapshot[key] = C_NewItems_IsNewItem(bagID, slotID) or nil
 		end
 	end
+end
+
+-- Recent Items tracks item IDs, not bag/slot positions: a slot-based list
+-- follows the slot, so sorting the bags moved the "recent" marks onto
+-- whatever item happened to land there. Newest last, capped at
+-- db.recentLimit (oldest drops out first).
+local recentItems, recentOrder = {}, {}
+
+local function TrimRecentItems()
+	local limit = module.db and module.db.recentLimit or 20
+	while #recentOrder > limit do
+		local oldest = tremove(recentOrder, 1)
+		recentItems[oldest] = nil
+	end
+end
+
+local function MarkItemRecent(itemID)
+	if not itemID or recentItems[itemID] then
+		return
+	end
+
+	recentItems[itemID] = true
+	tinsert(recentOrder, itemID)
+	TrimRecentItems()
+end
+
+function module:IsRecentItem(itemID)
+	return (itemID and recentItems[itemID]) or false
+end
+
+function module:ClearRecentItems()
+	wipe(recentItems)
+	wipe(recentOrder)
 end
 
 local function SnapshotNewItems()
@@ -673,6 +706,19 @@ local function Slot_OnEnter(self)
 	end
 
 	Slot_UpdateCursor(self)
+
+	-- Blizzard's own bags drop an item's "new" state as soon as you hover
+	-- its slot (ContainerFrameItemButtonMixin:OnUpdate), so do the same -
+	-- glow and badge only mark what you haven't looked at yet. The Recent
+	-- Items list is tracked separately by item ID and stays put.
+	if self.BagID and self.SlotID and self.newItemGlow and self.newItemGlow:IsShown() then
+		C_NewItems_RemoveNewItem(self.BagID, self.SlotID)
+		newItemSnapshot[self.BagID * 1000 + self.SlotID] = nil
+		self.newItemGlow:Hide()
+		if self.newBadge then
+			self.newBadge:Hide()
+		end
+	end
 end
 
 local function Slot_OnLeave()
@@ -2590,6 +2636,11 @@ local function CollectItemsFromBags(bagIDList, scratch)
 
 					local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
 
+					local isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false
+					if isNew then
+						MarkItemRecent(info.itemID)
+					end
+
 					tinsert(scratch[key], {
 						bagID = bagID,
 						slotID = slotID,
@@ -2599,7 +2650,8 @@ local function CollectItemsFromBags(bagIDList, scratch)
 						count = info.stackCount,
 						quality = info.quality,
 						isLocked = info.isLocked,
-						isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
+						isNew = isNew,
+						isRecent = module:IsRecentItem(info.itemID),
 						itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
 							or nil,
 						bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped) or nil,
@@ -2654,7 +2706,7 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 		local recent = {}
 		for _, cat in ipairs(categories) do
 			for _, entry in ipairs(itemsByCategory[cat.key] or {}) do
-				if entry.isNew then
+				if entry.isRecent then
 					tinsert(recent, entry)
 				end
 			end
@@ -2785,6 +2837,11 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 
 				local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
 
+				local isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false
+				if isNew then
+					MarkItemRecent(info.itemID)
+				end
+
 				tinsert(scratch[bagID], {
 					bagID = bagID,
 					slotID = slotID,
@@ -2794,7 +2851,8 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 					count = info.stackCount,
 					quality = info.quality,
 					isLocked = info.isLocked,
-					isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
+					isNew = isNew,
+					isRecent = module:IsRecentItem(info.itemID),
 					itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
 						or nil,
 					bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped) or nil,
@@ -3065,7 +3123,7 @@ local function BuildBagSectionsFrom(bagIDList, itemsByBag, alwaysShow, skipSideb
 		local recent = {}
 		for _, bagID in ipairs(bagIDList) do
 			for _, entry in ipairs(itemsByBag[bagID] or {}) do
-				if entry.isNew then
+				if entry.isRecent then
 					tinsert(recent, entry)
 				end
 			end
@@ -3154,7 +3212,7 @@ local function BuildFlatSectionsFrom(bagIDList, itemsByBag)
 		local recent = {}
 		for _, bagID in ipairs(bagIDList) do
 			for _, entry in ipairs(itemsByBag[bagID] or {}) do
-				if entry.isNew then
+				if entry.isRecent then
 					tinsert(recent, entry)
 				end
 			end
@@ -3307,10 +3365,10 @@ local function RenderCategorySections(ctx, sections)
 		if section.showClear then
 			header.clearButton:Show()
 			header.clearButton:SetScript("OnClick", function()
-				-- "New" is the native flag OR our open-time snapshot (see
-				-- SnapshotNewItemsForBags) - clear both, or items that were
-				-- already new when the bags opened stay listed until the next
-				-- open re-takes the snapshot.
+				-- The list itself is the tracked item IDs; the glow on top of
+				-- it is the native flag OR our open-time snapshot (see
+				-- SnapshotNewItemsForBags), so all three have to go.
+				module:ClearRecentItems()
 				for _, entry in ipairs(section.items) do
 					C_NewItems_RemoveNewItem(entry.bagID, entry.slotID)
 					newItemSnapshot[entry.bagID * 1000 + entry.slotID] = nil
@@ -3531,6 +3589,10 @@ function module:RefreshCategoryFrame()
 	if not module.frame or not module.frame:IsShown() then
 		return
 	end
+
+	-- Picks up a lowered Recent Items limit from the options without waiting
+	-- for the next item to come in.
+	TrimRecentItems()
 
 	local db = module.db
 	local sections = BuildSections()
@@ -4313,6 +4375,10 @@ end
 
 function module:OnFrameHidden()
 	module:UnregisterBagEventsFor("bag")
+
+	if module.db.clearRecentOnClose then
+		module:ClearRecentItems()
+	end
 
 	-- The native item-search filter is shared, global Blizzard state (see
 	-- module.searchText) - only clear it once neither of our frames still

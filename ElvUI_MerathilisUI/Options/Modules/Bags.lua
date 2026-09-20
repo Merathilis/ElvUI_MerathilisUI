@@ -166,6 +166,27 @@ options.bags = {
 							name = L["Alternating Row Background"],
 							desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
 						},
+						clearRecentOnClose = {
+							order = 5.1,
+							type = "toggle",
+							name = L["Clear Recent on Close"],
+							desc = L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."],
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.showRecent
+							end,
+						},
+						recentLimit = {
+							order = 5.2,
+							type = "range",
+							name = L["Recent Items Limit"],
+							desc = L["How many items the Recent Items list keeps at most; the oldest drops out first."],
+							min = 5,
+							max = 50,
+							step = 1,
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.showRecent
+							end,
+						},
 						resetCategoryGroups = {
 							order = 6,
 							type = "execute",
