@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_BagCategories") ---@class BagCategories
 
 local ipairs, pairs = ipairs, pairs
 local tinsert, tremove = tinsert, tremove
-local tsort = table.sort
+local tsort, tconcat = table.sort, table.concat
 local format, floor = format, math.floor
 
 local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
@@ -149,11 +149,12 @@ local DEFAULT_CATEGORIES = {
 	},
 }
 
--- Fixed default category groups: several sidebar categories collapse into
--- one combined content section, with their own indented rows underneath the
--- group's row for navigation/counts. No user-defined groups yet, no
--- collapse/expand toggle - always shown expanded, matching the reference.
-module.CategoryGroups = {
+-- Built-in category groups: several sidebar categories collapse into one
+-- combined content section, with their own indented rows underneath the
+-- group's row for navigation/counts. Users can build their own groups on
+-- top of these (db.customGroups) and add categories to any group
+-- (db.groupExtraMembers); no collapse/expand toggle, always shown expanded.
+module.DefaultCategoryGroups = {
 	{
 		key = "GROUP_ARMORY",
 		name = L["Equipment"],
@@ -162,25 +163,127 @@ module.CategoryGroups = {
 	},
 }
 
-function module:GetCategoryGroupForKey(catKey)
-	local db = module.db
-	if db and db.ungroupedCategories and db.ungroupedCategories[catKey] then
-		return nil
+-- Auto-generated names follow the member list ("Armor & Consumables") and
+-- are regenerated whenever membership changes, unless the user renamed the
+-- group (db.groupNameOverrides) - then their name wins for good.
+local function BuildAutoGroupName(memberKeys)
+	local names = {}
+	for _, memberKey in ipairs(memberKeys) do
+		local cat = module:FindCategory(memberKey)
+		tinsert(names, cat and cat.name or memberKey)
 	end
 
-	for _, group in ipairs(module.CategoryGroups) do
-		if not (db and db.disbandedGroups and db.disbandedGroups[group.key]) then
+	if #names == 0 then
+		return L["Group"]
+	elseif #names == 1 then
+		return names[1]
+	end
+
+	local last = tremove(names)
+	return format("%s & %s", tconcat(names, ", "), last)
+end
+
+-- Resolves a group's stored member list into the keys that actually count
+-- right now: categories the user pulled out are dropped, categories added
+-- to a built-in group are appended.
+local function ResolveGroupMembers(group, claimed)
+	local db = module.db
+	local ungrouped = (db and db.ungroupedCategories) or {}
+	local members = {}
+
+	local function AddMember(memberKey)
+		if ungrouped[memberKey] or (claimed and claimed[memberKey]) then
+			return
+		end
+		if module:FindCategory(memberKey) then
+			tinsert(members, memberKey)
+		end
+	end
+
+	for _, memberKey in ipairs(group.members) do
+		AddMember(memberKey)
+	end
+
+	local extra = db and db.groupExtraMembers and db.groupExtraMembers[group.key]
+	if extra then
+		for _, memberKey in ipairs(extra) do
+			AddMember(memberKey)
+		end
+	end
+
+	return members
+end
+
+-- A group needs at least two members to exist as a group; with one left it
+-- renders as that plain category again (same as the reference behavior).
+function module:GetCategoryGroups()
+	local db = module.db
+	local groups = {}
+
+	local function Add(group, claimed)
+		local members = ResolveGroupMembers(group, claimed)
+		if #members < 2 then
+			return
+		end
+
+		-- A custom group has no icon of its own: it borrows its first
+		-- member's, which has to carry that member's isAtlas flag with it.
+		local icon, isAtlas = group.icon, group.isAtlas
+		if not icon then
+			local firstMember = module:FindCategory(members[1])
+			icon = firstMember and firstMember.icon
+			isAtlas = firstMember and firstMember.isAtlas
+		end
+
+		tinsert(groups, {
+			key = group.key,
+			name = (db and db.groupNameOverrides and db.groupNameOverrides[group.key])
+				or group.name
+				or BuildAutoGroupName(members),
+			icon = icon,
+			isAtlas = isAtlas,
+			isUserGroup = group.isUserGroup,
+			members = members,
+		})
+	end
+
+	-- Custom groups are resolved first and claim their members, so a
+	-- category the user moved out of a built-in group into one of their own
+	-- doesn't end up listed in both.
+	local claimed = {}
+	if db and db.customGroups then
+		for _, group in ipairs(db.customGroups) do
 			for _, memberKey in ipairs(group.members) do
-				if memberKey == catKey then
-					return group
-				end
+				claimed[memberKey] = true
+			end
+		end
+
+		for _, group in ipairs(db.customGroups) do
+			Add({ key = group.key, members = group.members, isUserGroup = true })
+		end
+	end
+
+	for _, group in ipairs(module.DefaultCategoryGroups) do
+		if not (db and db.disbandedGroups and db.disbandedGroups[group.key]) then
+			Add(group, claimed)
+		end
+	end
+
+	return groups
+end
+
+function module:GetCategoryGroupForKey(catKey)
+	for _, group in ipairs(module:GetCategoryGroups()) do
+		for _, memberKey in ipairs(group.members) do
+			if memberKey == catKey then
+				return group
 			end
 		end
 	end
 end
 
 function module:FindCategoryGroup(groupKey)
-	for _, group in ipairs(module.CategoryGroups) do
+	for _, group in ipairs(module:GetCategoryGroups()) do
 		if group.key == groupKey then
 			return group
 		end
@@ -202,14 +305,118 @@ function module:RenameGroup(groupKey, newName)
 	db.groupNameOverrides[groupKey] = newName
 end
 
+local function FindCustomGroup(groupKey)
+	local db = module.db
+	if not db or not db.customGroups then
+		return nil
+	end
+
+	for index, group in ipairs(db.customGroups) do
+		if group.key == groupKey then
+			return group, index
+		end
+	end
+end
+
+-- Creates a group out of two categories that are not in one yet. Keys are
+-- generated (not derived from the name) so a later rename never orphans the
+-- stored overrides/hidden-in-All-Items flags.
+function module:CreateCategoryGroup(catKeyA, catKeyB)
+	local db = module.db
+	if not catKeyA or not catKeyB or catKeyA == catKeyB then
+		return nil
+	end
+
+	db.customGroups = db.customGroups or {}
+	db.nextGroupID = (db.nextGroupID or 0) + 1
+
+	local group = { key = "USERGROUP_" .. db.nextGroupID, members = { catKeyA, catKeyB } }
+	tinsert(db.customGroups, group)
+
+	if db.ungroupedCategories then
+		db.ungroupedCategories[catKeyA] = nil
+		db.ungroupedCategories[catKeyB] = nil
+	end
+
+	return group.key
+end
+
+function module:AddCategoryToGroup(catKey, groupKey)
+	local db = module.db
+	if not catKey or not groupKey then
+		return
+	end
+
+	if db.ungroupedCategories then
+		db.ungroupedCategories[catKey] = nil
+	end
+
+	local customGroup = FindCustomGroup(groupKey)
+	if customGroup then
+		for _, memberKey in ipairs(customGroup.members) do
+			if memberKey == catKey then
+				return
+			end
+		end
+		tinsert(customGroup.members, catKey)
+		return
+	end
+
+	db.groupExtraMembers = db.groupExtraMembers or {}
+	db.groupExtraMembers[groupKey] = db.groupExtraMembers[groupKey] or {}
+	for _, memberKey in ipairs(db.groupExtraMembers[groupKey]) do
+		if memberKey == catKey then
+			return
+		end
+	end
+	tinsert(db.groupExtraMembers[groupKey], catKey)
+end
+
 function module:DisbandGroup(groupKey)
 	local db = module.db
-	db.disbandedGroups = db.disbandedGroups or {}
-	db.disbandedGroups[groupKey] = true
+
+	local _, index = FindCustomGroup(groupKey)
+	if index then
+		tremove(db.customGroups, index)
+	else
+		db.disbandedGroups = db.disbandedGroups or {}
+		db.disbandedGroups[groupKey] = true
+	end
+
+	if db.groupExtraMembers then
+		db.groupExtraMembers[groupKey] = nil
+	end
+	if db.groupNameOverrides then
+		db.groupNameOverrides[groupKey] = nil
+	end
 end
 
 function module:UngroupCategory(catKey)
 	local db = module.db
+	local group = module:GetCategoryGroupForKey(catKey)
+
+	-- Removing a member from a custom group drops it from that group's own
+	-- list; the ungrouped flag alone would keep resurrecting it whenever the
+	-- same category is added to another group later.
+	local customGroup = group and FindCustomGroup(group.key)
+	if customGroup then
+		for index, memberKey in ipairs(customGroup.members) do
+			if memberKey == catKey then
+				tremove(customGroup.members, index)
+				break
+			end
+		end
+	end
+
+	if group and db.groupExtraMembers and db.groupExtraMembers[group.key] then
+		for index, memberKey in ipairs(db.groupExtraMembers[group.key]) do
+			if memberKey == catKey then
+				tremove(db.groupExtraMembers[group.key], index)
+				break
+			end
+		end
+	end
+
 	db.ungroupedCategories = db.ungroupedCategories or {}
 	db.ungroupedCategories[catKey] = true
 end

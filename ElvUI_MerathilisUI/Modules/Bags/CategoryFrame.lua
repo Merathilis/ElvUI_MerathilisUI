@@ -2724,6 +2724,7 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 						key = group.key,
 						name = module:GetGroupName(group),
 						icon = group.icon,
+						isAtlas = group.isAtlas,
 						items = mergedItems,
 						subHeaders = subHeaders,
 						isGroup = true,
@@ -3944,6 +3945,49 @@ function module:PromptAddCategory()
 	f.nameBox:SetFocus()
 end
 
+-- "Create Group With" / "Add to Group": offered on every category that is
+-- not in a group yet. Creating one needs a partner category that is free
+-- too, adding one needs an existing group - each submenu is skipped when
+-- there is nothing to put in it.
+local function AddGroupingSubmenus(rootDescription, key)
+	-- The reagent bag mirrors a physical container rather than a rule-based
+	-- category, so it stays out of groups on both ends.
+	local ownCat = module:FindCategory(key)
+	if ownCat and ownCat.isReagentBag then
+		return
+	end
+
+	local freeCategories = {}
+	for _, cat in ipairs(module:GetCategories()) do
+		if cat.key ~= key and not cat.isReagentBag and not module:GetCategoryGroupForKey(cat.key) then
+			tinsert(freeCategories, cat)
+		end
+	end
+
+	if #freeCategories > 0 then
+		local createSub = rootDescription:CreateButton(L["Create Group With"])
+		for _, cat in ipairs(freeCategories) do
+			createSub:CreateButton(cat.name, function()
+				module:CreateCategoryGroup(key, cat.key)
+				module:InvalidateCategoryCache()
+				module:RefreshCategoryFrame()
+			end)
+		end
+	end
+
+	local groups = module:GetCategoryGroups()
+	if #groups > 0 then
+		local addSub = rootDescription:CreateButton(L["Add to Group"])
+		for _, group in ipairs(groups) do
+			addSub:CreateButton(module:GetGroupName(group), function()
+				module:AddCategoryToGroup(key, group.key)
+				module:InvalidateCategoryCache()
+				module:RefreshCategoryFrame()
+			end)
+		end
+	end
+end
+
 function module:OpenCategoryContextMenu(row)
 	if not _G.MenuUtil or not _G.MenuUtil.CreateContextMenu then
 		return
@@ -3965,6 +4009,7 @@ function module:OpenCategoryContextMenu(row)
 
 			rootDescription:CreateButton(format(L["Ungroup %s"], memberCat and memberCat.name or memberKey), function()
 				module:UngroupCategory(memberKey)
+				module:InvalidateCategoryCache()
 				module:RefreshCategoryFrame()
 			end)
 		end)
@@ -3985,6 +4030,7 @@ function module:OpenCategoryContextMenu(row)
 
 			rootDescription:CreateButton(L["Disband Group"], function()
 				module:DisbandGroup(key)
+				module:InvalidateCategoryCache()
 				module:RefreshCategoryFrame()
 			end)
 
@@ -4014,6 +4060,8 @@ function module:OpenCategoryContextMenu(row)
 				module:RemoveUserCategory(key)
 				module:RefreshCategoryFrame()
 			end)
+
+			AddGroupingSubmenus(rootDescription, key)
 		end)
 
 		return
@@ -4036,6 +4084,8 @@ function module:OpenCategoryContextMenu(row)
 				module:RefreshCategoryFrame()
 			end)
 		end
+
+		AddGroupingSubmenus(rootDescription, key)
 
 		rootDescription:CreateButton(
 			module:IsHiddenFromAllItems(key) and L["Show in All Items"] or L["Hide in All Items"],

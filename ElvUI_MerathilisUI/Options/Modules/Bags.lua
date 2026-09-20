@@ -170,12 +170,14 @@ options.bags = {
 							order = 6,
 							type = "execute",
 							name = L["Reset Category Groups"],
-							desc = L["Restores any category group (e.g. \"Equipment\") you disbanded or removed a category from, and clears any group renames."],
+							desc = L["Restores any category group (e.g. \"Equipment\") you disbanded or removed a category from, removes the groups you created yourself and clears any group renames."],
 							func = function()
 								local db = BC.db
 								db.ungroupedCategories = nil
 								db.disbandedGroups = nil
 								db.groupNameOverrides = nil
+								db.customGroups = nil
+								db.groupExtraMembers = nil
 
 								BC:InvalidateCategoryCache()
 								if BC.frame then
