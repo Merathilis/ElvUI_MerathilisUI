@@ -19,5 +19,8 @@ MER.Changelog[735] = {
 		"Bags: Categorized Bags - right-clicking a category now offers \"Create Group With\" and \"Add to Group\", so category groups are no longer limited to the built-in \"Equipment\" one.",
 		"Bags: Categorized Bags - Recent Items now tracks item IDs instead of bag slots, so sorting no longer moves the marks onto other items; the list is capped (default 20, adjustable) and can optionally empty itself when the bags close.",
 		"Bags: Categorized Bags - hovering a slot clears its new-item glow and NEW badge, like Blizzard's own bags; the item stays in Recent Items.",
+		"Bags: Categorized Bags - identical stacks can be shown as one slot with the combined count (new \"Merge Duplicate Stacks\" option, on by default); gear is never merged and merging pauses while a vendor, mailbox, trade, auction house or bank window is open.",
+		"Bags: Categorized Bags - grey-quality items can be desaturated on top of their coin icon (new \"Desaturate Junk\" option under Effects).",
+		"Bags: Categorized Bags - grouping by expansion and by equipment set can now be turned off (new options under General).",
 	},
 }
