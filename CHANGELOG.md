@@ -19,3 +19,6 @@
 -   [Improvement]: Bags: Categorized Bags - identical stacks can be shown as one slot with the combined count (new "Merge Duplicate Stacks" option, on by default); gear is never merged and merging pauses while a vendor, mailbox, trade, auction house or bank window is open.
 -   [Improvement]: Bags: Categorized Bags - grey-quality items can be desaturated on top of their coin icon (new "Desaturate Junk" option under Effects).
 -   [Improvement]: Bags: Categorized Bags - grouping by expansion and by equipment set can now be turned off (new options under General).
+-   [Fix]: Bags: Categorized Bags - General options (merging, nesting, empty categories, pinned/recent) now also repaint an open Bank window.
+-   [Fix]: Bags: Categorized Bags - fixed the category group list being rebuilt once per item in the All Items view, which slowed down refreshes with full bags.
+-   [Fix]: Bags: Categorized Bags - disbanding a group no longer leaves its "Hide in All Items"/collapsed state behind, and a group left with a single category is removed instead of lingering unusable.
