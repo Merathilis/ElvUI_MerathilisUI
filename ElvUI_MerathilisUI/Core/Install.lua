@@ -430,7 +430,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["keepSizeRatio"] = false
 	E.db["auras"]["buffs"]["height"] = 28
 	E.db["auras"]["buffs"]["size"] = 36
-	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-253,-17"
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-272,-17"
 	E.db["auras"]["buffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
 	E.db["auras"]["buffs"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -440,7 +440,7 @@ function MER:SetupLayout()
 	E.db["auras"]["debuffs"]["keepSizeRatio"] = false
 	E.db["auras"]["debuffs"]["height"] = 30
 	E.db["auras"]["debuffs"]["size"] = 34
-	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-255,-189"
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-260,-189"
 	E.db["auras"]["debuffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["debuffs"]["countFontSize"] = 12
 	E.db["auras"]["debuffs"]["countFontOutline"] = "SHADOWOUTLINE"
