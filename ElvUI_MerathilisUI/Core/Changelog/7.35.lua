@@ -14,6 +14,7 @@ MER.Changelog[735] = {
 		"Maps: Minimap Buttons - the Calendar button's tooltip lists your raid lockouts with boss progress and difficulty, plus the realm time and the weekly reset countdown.",
 	},
 	IMPROVEMENTS = {
+		"Bags: Categorized Bags - the sidebar collapse arrow turns class-colored on hover, like the other buttons.",
 		"Bags: Categorized Bags - the tracked currencies in the footer can be reordered by dragging one onto another, with a \"Reset Currency Order\" button in the options.",
 		"Bags: Categorized Bags - new \"Auto Height\" option shrinks the bag and bank windows to fit their contents, using the configured height as the maximum.",
 		"Maps: Minimap Buttons - new Growth Direction option, so the bar can extend down, up, left or right instead of always downwards.",
