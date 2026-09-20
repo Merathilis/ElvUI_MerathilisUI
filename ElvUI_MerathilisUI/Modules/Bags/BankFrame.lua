@@ -727,6 +727,8 @@ function module:RefreshBankCategoryFrame()
 
 	local db = module.db
 	local f = module.bankFrame
+	module.TrimRecentItems()
+
 	local sections = module.MergeSectionItems(BuildBankSections())
 
 	module.bankCategoryOffsets = {}

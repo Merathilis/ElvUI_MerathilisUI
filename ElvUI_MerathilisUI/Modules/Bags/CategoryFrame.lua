@@ -204,6 +204,8 @@ function module:IsRecentItem(itemID)
 	return (itemID and recentItems[itemID]) or false
 end
 
+module.TrimRecentItems = TrimRecentItems
+
 function module:ClearRecentItems()
 	wipe(recentItems)
 	wipe(recentOrder)
@@ -4509,6 +4511,12 @@ function module:OnFrameHidden()
 
 	if module.db.clearRecentOnClose then
 		module:ClearRecentItems()
+
+		-- The Bank window lists Recent Items too and can outlive the bag
+		-- window (closing the bags doesn't close it).
+		if module.bankFrame and module.bankFrame:IsShown() then
+			module:RefreshBankCategoryFrame()
+		end
 	end
 
 	-- The native item-search filter is shared, global Blizzard state (see

@@ -128,6 +128,13 @@ options.bags = {
 					BC.frame:Size(E.db.mui.bags.categorizedBags.width, E.db.mui.bags.categorizedBags.height)
 					BC:RefreshCategoryFrame()
 				end
+
+				-- Most of these settings (empty categories, pinned/recent,
+				-- merging, nesting) drive both windows, so an open Bank has
+				-- to be repainted as well.
+				if BC.bankFrame and BC.RefreshBankCategoryFrame then
+					BC:RefreshBankCategoryFrame()
+				end
 			end,
 			args = {
 				general = {

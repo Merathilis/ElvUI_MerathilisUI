@@ -216,7 +216,18 @@ end
 
 -- A group needs at least two members to exist as a group; with one left it
 -- renders as that plain category again (same as the reference behavior).
+-- Resolving groups walks every member through FindCategory, and the flat
+-- "All Items" view asks for a category's group once per item - cache the
+-- resolved list and drop it whenever the categories or the groups change.
+function module:InvalidateCategoryGroupCache()
+	module._categoryGroupsCache = nil
+end
+
 function module:GetCategoryGroups()
+	if module._categoryGroupsCache then
+		return module._categoryGroupsCache
+	end
+
 	local db = module.db
 	local groups = {}
 
@@ -269,6 +280,8 @@ function module:GetCategoryGroups()
 		end
 	end
 
+	module._categoryGroupsCache = groups
+
 	return groups
 end
 
@@ -303,6 +316,7 @@ function module:RenameGroup(groupKey, newName)
 	local db = module.db
 	db.groupNameOverrides = db.groupNameOverrides or {}
 	db.groupNameOverrides[groupKey] = newName
+	module:InvalidateCategoryGroupCache()
 end
 
 local function FindCustomGroup(groupKey)
@@ -338,6 +352,8 @@ function module:CreateCategoryGroup(catKeyA, catKeyB)
 		db.ungroupedCategories[catKeyB] = nil
 	end
 
+	module:InvalidateCategoryGroupCache()
+
 	return group.key
 end
 
@@ -350,6 +366,8 @@ function module:AddCategoryToGroup(catKey, groupKey)
 	if db.ungroupedCategories then
 		db.ungroupedCategories[catKey] = nil
 	end
+
+	module:InvalidateCategoryGroupCache()
 
 	local customGroup = FindCustomGroup(groupKey)
 	if customGroup then
@@ -389,6 +407,17 @@ function module:DisbandGroup(groupKey)
 	if db.groupNameOverrides then
 		db.groupNameOverrides[groupKey] = nil
 	end
+
+	-- Stored per key, so a disbanded group would otherwise leave a hidden
+	-- flag behind that a later group reusing that key inherits.
+	if db.hiddenFromAllItems then
+		db.hiddenFromAllItems[groupKey] = nil
+	end
+	if db.collapsedSections then
+		db.collapsedSections[groupKey] = nil
+	end
+
+	module:InvalidateCategoryGroupCache()
 end
 
 function module:UngroupCategory(catKey)
@@ -398,12 +427,25 @@ function module:UngroupCategory(catKey)
 	-- Removing a member from a custom group drops it from that group's own
 	-- list; the ungrouped flag alone would keep resurrecting it whenever the
 	-- same category is added to another group later.
-	local customGroup = group and FindCustomGroup(group.key)
+	local customGroup, customIndex = nil, nil
+	if group then
+		customGroup, customIndex = FindCustomGroup(group.key)
+	end
 	if customGroup then
 		for index, memberKey in ipairs(customGroup.members) do
 			if memberKey == catKey then
 				tremove(customGroup.members, index)
 				break
+			end
+		end
+
+		-- A single member is not a group any more (it already renders as a
+		-- plain category); drop the leftover entry instead of keeping one
+		-- that can never be seen or added to again.
+		if #customGroup.members < 2 then
+			tremove(db.customGroups, customIndex)
+			if db.groupNameOverrides then
+				db.groupNameOverrides[customGroup.key] = nil
 			end
 		end
 	end
@@ -419,6 +461,8 @@ function module:UngroupCategory(catKey)
 
 	db.ungroupedCategories = db.ungroupedCategories or {}
 	db.ungroupedCategories[catKey] = true
+
+	module:InvalidateCategoryGroupCache()
 end
 
 function module:IsHiddenFromAllItems(key)
@@ -585,6 +629,7 @@ end
 
 function module:InvalidateCategoryCache()
 	module._categoriesCache = nil
+	module._categoryGroupsCache = nil
 end
 
 -- itemID -> equipment-set name, rebuilt once per collection pass
