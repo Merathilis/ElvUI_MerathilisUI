@@ -6,8 +6,12 @@ MER.Changelog[735] = {
 		"Bags: Categorized Bags - fixed the Recent Items clear button sometimes not removing the items until the bags were reopened.",
 		"Bags: Categorized Bags - the sort spinner now shows on top of the items instead of behind them.",
 	},
-	NEW = {},
+	NEW = {
+		"Maps: Minimap Buttons - new Tracking, Calendar, Mail and Crafting Orders buttons, each replacing the matching Blizzard icon on the Minimap while it is enabled (Calendar, Mail and Crafting Orders on by default, Tracking off since ElvUI already places that one). They live on their own \"Elements\" bar with its own anchor, growth direction, size and spacing, separate from the Great Vault and M+ Portals bar.",
+		"Maps: Minimap Buttons - the Calendar button's tooltip lists your raid lockouts with boss progress and difficulty, plus the realm time and the weekly reset countdown.",
+	},
 	IMPROVEMENTS = {
+		"Maps: Minimap Buttons - new Growth Direction option, so the bar can extend down, up, left or right instead of always downwards.",
 		"Bags: Categorized Bags - items now dim while sorting, and hovering a bag in the bag bar dims everything outside that bag, like ElvUI's own bags.",
 		"Bags: Categorized Bags - while an item is on the cursor, the empty slots at the end of each category light up to show where it can be dropped to assign it.",
 		"Bags: Categorized Bags - pinned items show a pin marker in their normal category too, and newly picked-up items get a NEW badge in addition to the glow (all three toggleable under Effects).",
