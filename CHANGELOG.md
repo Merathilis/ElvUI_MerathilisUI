@@ -22,3 +22,5 @@
 -   [Fix]: Bags: Categorized Bags - General options (merging, nesting, empty categories, pinned/recent) now also repaint an open Bank window.
 -   [Fix]: Bags: Categorized Bags - fixed the category group list being rebuilt once per item in the All Items view, which slowed down refreshes with full bags.
 -   [Fix]: Bags: Categorized Bags - disbanding a group no longer leaves its "Hide in All Items"/collapsed state behind, and a group left with a single category is removed instead of lingering unusable.
+-   [Improvement]: Bags: Categorized Bags - the tracked currencies in the footer can be reordered by dragging one onto another, with a "Reset Currency Order" button in the options.
+-   [Improvement]: Bags: Categorized Bags - new "Auto Height" option shrinks the bag and bank windows to fit their contents, using the configured height as the maximum.
