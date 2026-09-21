@@ -367,7 +367,7 @@ L["Reset Name"] = "Name zurücksetzen"
 L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."] =
 	"Ersetzt ElvUIs Taschenfenster durch eine Ansicht mit Kategorie-Seitenleiste (angeheftete/kürzliche Gegenstände, eigene Kategorien). Erfordert einen UI-Reload."
 L["Shift + Middle Click:"] = "Umschalt + Mittelklick:"
-L["Shift + Right Click:"] = "Umschalt + Rechtsklick:"
+L["Shift + Click:"] = "Shift + Klick:"
 L["Split Stack"] = "Stapel aufteilen"
 L["Ctrl + Right Click:"] = "Strg + Rechtsklick:"
 L["Move to Bank Tab / Bag"] = "In Bank-Tab / Tasche verschieben"

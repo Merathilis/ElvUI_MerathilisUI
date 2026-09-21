@@ -774,7 +774,7 @@ L["Reset Name"] = "Reset Name"
 L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."] =
 	"Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."
 L["Shift + Middle Click:"] = "Shift + Middle Click:"
-L["Shift + Right Click:"] = "Shift + Right Click:"
+L["Shift + Click:"] = "Shift + Click:"
 L["Split Stack"] = "Split Stack"
 L["Ctrl + Right Click:"] = "Ctrl + Right Click:"
 L["Move to Bank Tab / Bag"] = "Move to Bank Tab / Bag"

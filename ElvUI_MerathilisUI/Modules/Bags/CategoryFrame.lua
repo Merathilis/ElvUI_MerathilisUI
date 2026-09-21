@@ -561,6 +561,40 @@ end
 local function Slot_SplitStack(self, split)
 	if self.BagID and self.SlotID then
 		C_Container.SplitContainerItem(self.BagID, self.SlotID, split)
+
+		-- With "Merge Duplicate Stacks" the two halves would be shown as one
+		-- slot again right away, as if nothing happened. Keep this item's
+		-- stacks apart until the bags close (MergeDuplicateEntries).
+		if self.itemLink then
+			module.unmergedLinks[self.itemLink] = true
+		end
+
+		-- The category views show no empty bag slots, so there is nowhere
+		-- to click the split-off part down - put it in a free slot right
+		-- away instead of leaving it on the cursor. Retried a frame later
+		-- in case the cursor isn't filled yet.
+		local bagID = self.BagID
+		if CursorHasItem() then
+			module:PlaceCursorItemNear(bagID)
+		else
+			C_Timer.After(0, function()
+				module:PlaceCursorItemNear(bagID)
+			end)
+		end
+	end
+end
+
+-- Opens Blizzard's split dialog for a stackable slot (Shift+click, same as
+-- Blizzard's own bags). Shared by the left- and right-click paths.
+function module:OpenSplitStack(btn)
+	if not btn.BagID or not btn.SlotID then
+		return
+	end
+
+	local info = C_Container_GetContainerItemInfo(btn.BagID, btn.SlotID)
+	if info and not info.isLocked and info.stackCount and info.stackCount > 1 then
+		btn.SplitStack = Slot_SplitStack
+		_G.StackSplitFrame:OpenStackSplitFrame(info.stackCount, btn, "BOTTOMRIGHT", "TOPRIGHT")
 	end
 end
 
@@ -632,12 +666,10 @@ local function Slot_OnClick(self, mouseButton, down)
 		return
 	end
 
-	-- Right button only: IsModifiedClick("SPLITSTACK") just checks the held
-	-- modifier key, not which mouse button, and that key is Shift by
-	-- default - so matching any button swallowed Shift+Left-click (chat
-	-- link) and Shift+Middle-click (assign to category) as split-stack
-	-- attempts. Split Stack is documented as Shift+Right-click in the help
-	-- tooltip, so bind it to that button alone.
+	-- Right button here; the left button goes through the chat-link check
+	-- first (see below). IsModifiedClick("SPLITSTACK") only checks the held
+	-- modifier key, not which mouse button - matched unconditionally it
+	-- swallowed Shift+Left-click links and Shift+Middle-click assigns.
 	if mouseButton == "RightButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
 		if not InCombatLockdown() then
 			self:SetAttribute("*type2", nil)
@@ -657,20 +689,24 @@ local function Slot_OnClick(self, mouseButton, down)
 			end)
 		end
 
-		if self.BagID and self.SlotID then
-			local info = C_Container_GetContainerItemInfo(self.BagID, self.SlotID)
-			if info and not info.isLocked and info.stackCount and info.stackCount > 1 then
-				self.SplitStack = Slot_SplitStack
-				_G.StackSplitFrame:OpenStackSplitFrame(info.stackCount, self, "BOTTOMRIGHT", "TOPRIGHT")
-			end
-		end
+		module:OpenSplitStack(self)
 
 		return
 	end
 
 	if mouseButton == "LeftButton" then
 		if IsModifiedClick() then
-			HandleModifiedItemClick(self.itemLink)
+			-- Same order as Blizzard's own bags: a chat link (only when a
+			-- chat edit box is open), dress-up and the like win; otherwise
+			-- Shift+click splits the stack.
+			local itemLocation = self.BagID and self.SlotID and ItemLocation:CreateFromBagAndSlot(self.BagID, self.SlotID)
+			if
+				not HandleModifiedItemClick(self.itemLink, itemLocation)
+				and IsModifiedClick("SPLITSTACK")
+				and not CursorHasItem()
+			then
+				module:OpenSplitStack(self)
+			end
 		elseif self.BagID and self.SlotID then
 			C_Container_PickupContainerItem(self.BagID, self.SlotID)
 		end
@@ -2345,7 +2381,7 @@ function module:ConstructFrame()
 		GameTooltip:AddLine(L["Bag"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Use / equip item"], 1, 1, 1)
-		GameTooltip:AddDoubleLine(L["Shift + Right Click:"], L["Split Stack"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Shift + Click:"], L["Split Stack"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Alt + Drag:"], L["Reorder items inside a category"], 1, 1, 1)
@@ -3773,6 +3809,10 @@ end
 -- is why this is off while an item panel is open. Gear is left alone: two
 -- copies of the same piece are still two separate things to compare, equip
 -- or hand in, and the reference behaves the same way.
+-- Items split in this session, keyed by link: shown as separate stacks
+-- until the bag window closes, so a split is actually visible.
+module.unmergedLinks = {}
+
 local function MergeDuplicateEntries(items)
 	if not module.db.mergeDuplicates or AnyItemPanelOpen() then
 		return items
@@ -3781,7 +3821,7 @@ local function MergeDuplicateEntries(items)
 	local seen, merged = {}, {}
 	for _, entry in ipairs(items) do
 		local key = entry.itemLink
-		if key and not API.IsEquippableItem(key) then
+		if key and not API.IsEquippableItem(key) and not module.unmergedLinks[key] then
 			local existing = seen[key]
 			if existing then
 				-- Copy on first duplicate: the entry itself is also painted
@@ -4868,6 +4908,37 @@ local function FindFreeSlot(bagID)
 	return nil
 end
 
+-- Drops whatever is on the cursor into a free slot of the same container
+-- group the item came from: the source bag first, then the other bags (or
+-- bank tabs of the same bank). Leaves the cursor alone if everything's full.
+function module:PlaceCursorItemNear(bagID)
+	if not CursorHasItem() then
+		return
+	end
+
+	local group = BAG_IDS
+	if module.BankBagIDSet and module.BankBagIDSet[bagID] then
+		group = module.BankBagIDs
+	elseif module.WarbandBagIDSet and module.WarbandBagIDSet[bagID] then
+		group = module.WarbandBagIDs
+	end
+
+	local order = { bagID }
+	for _, id in ipairs(group) do
+		if id ~= bagID then
+			tinsert(order, id)
+		end
+	end
+
+	for _, id in ipairs(order) do
+		local freeSlot = FindFreeSlot(id)
+		if freeSlot then
+			C_Container_PickupContainerItem(id, freeSlot)
+			return
+		end
+	end
+end
+
 local function MoveItemToBag(sourceBagID, sourceSlotID, destBagID)
 	if InCombatLockdown() or CursorHasItem() then
 		return
@@ -5034,6 +5105,8 @@ end
 
 function module:OnFrameHidden()
 	module:UnregisterBagEventsFor("bag")
+
+	wipe(module.unmergedLinks)
 
 	if module.db.clearRecentOnClose then
 		module:ClearRecentItems()
