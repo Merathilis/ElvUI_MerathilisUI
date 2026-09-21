@@ -128,6 +128,15 @@ options.bags = {
 					BC.frame:Size(E.db.mui.bags.categorizedBags.width, E.db.mui.bags.categorizedBags.height)
 					BC:RefreshCategoryFrame()
 				end
+
+				-- Most of these settings (empty categories, pinned/recent,
+				-- merging, nesting) drive both windows, so an open Bank has
+				-- to be repainted as well. Resizing first also restores the
+				-- configured height after Auto Height is switched back off.
+				if BC.bankFrame and BC.RefreshBankCategoryFrame then
+					BC.bankFrame:Size(E.db.mui.bags.categorizedBags.bankWidth, E.db.mui.bags.categorizedBags.bankHeight)
+					BC:RefreshBankCategoryFrame()
+				end
 			end,
 			args = {
 				general = {
@@ -144,6 +153,7 @@ options.bags = {
 								E.db.mui.bags.categorizedBags[info[#info]] = value
 								E:StaticPopup_Show("PRIVATE_RL")
 							end,
+							width = "full",
 						},
 						hideEmptyCategories = {
 							order = 2,
@@ -166,16 +176,76 @@ options.bags = {
 							name = L["Alternating Row Background"],
 							desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
 						},
+						autoSize = {
+							order = 5.01,
+							type = "toggle",
+							name = L["Auto Height"],
+							desc = L["Shrinks the bag and bank windows to fit their contents. The configured height becomes the maximum instead of a fixed size."],
+						},
+						nestByExpansion = {
+							order = 5.02,
+							type = "toggle",
+							name = L["Group by Expansion"],
+							desc = L["Splits categories like Consumables or Trade Goods into sub-headers per expansion, newest first."],
+						},
+						nestByEquipmentSet = {
+							order = 5.03,
+							type = "toggle",
+							name = L["Group by Equipment Set"],
+							desc = L["Splits the gear categories into sub-headers per Blizzard equipment set."],
+						},
+						mergeDuplicates = {
+							order = 5.05,
+							type = "toggle",
+							name = L["Merge Duplicate Stacks"],
+							desc = L["Shows identical items from several bag slots as one slot with the combined count. Gear is never merged, and merging pauses while a vendor, mailbox, trade, auction house or bank window is open, since those only ever take one stack at a time."],
+						},
+						clearRecentOnClose = {
+							order = 5.1,
+							type = "toggle",
+							name = L["Clear Recent on Close"],
+							desc = L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."],
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.showRecent
+							end,
+						},
+						recentLimit = {
+							order = 5.2,
+							type = "range",
+							name = L["Recent Items Limit"],
+							desc = L["How many items the Recent Items list keeps at most; the oldest drops out first."],
+							min = 5,
+							max = 50,
+							step = 1,
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.showRecent
+							end,
+						},
+						resetCurrencyOrder = {
+							order = 5.9,
+							type = "execute",
+							name = L["Reset Currency Order"],
+							desc = L["Puts the tracked currencies in the footer back into Blizzard's own order. Drag one currency onto another in the footer to reorder them."],
+							func = function()
+								BC.db.currencyOrder = {}
+
+								if BC.frame then
+									BC:UpdateFooter()
+								end
+							end,
+						},
 						resetCategoryGroups = {
 							order = 6,
 							type = "execute",
 							name = L["Reset Category Groups"],
-							desc = L["Restores any category group (e.g. \"Equipment\") you disbanded or removed a category from, and clears any group renames."],
+							desc = L['Restores any category group (e.g. "Equipment") you disbanded or removed a category from, removes the groups you created yourself and clears any group renames.'],
 							func = function()
 								local db = BC.db
 								db.ungroupedCategories = nil
 								db.disbandedGroups = nil
 								db.groupNameOverrides = nil
+								db.customGroups = nil
+								db.groupExtraMembers = nil
 
 								BC:InvalidateCategoryCache()
 								if BC.frame then
@@ -681,15 +751,45 @@ options.bags = {
 							name = L["New Item Glow"],
 							desc = L["Pulsing glow on newly picked-up items."],
 						},
+						newItemBadge = {
+							order = 3.5,
+							type = "toggle",
+							name = L["New Item Badge"],
+							desc = L["Shows a small NEW badge on newly picked-up items, in addition to the glow."],
+						},
 						placeholderAlpha = {
 							order = 4,
 							type = "range",
 							name = L["Empty Slot Opacity"],
-							desc = L["Opacity of the empty drop-target slots at the end of each category (the first \"+\" slot always stays fully visible)."],
+							desc = L['Opacity of the empty drop-target slots at the end of each category (the first "+" slot always stays fully visible).'],
 							min = 0,
 							max = 1,
 							step = 0.05,
 							isPercent = true,
+						},
+						itemContextDim = {
+							order = 7.35,
+							type = "toggle",
+							name = L["Dim Unusable Items"],
+							desc = L["While a spell or window waits for an item (Disenchant, Milling, Prospecting, enchant scrolls, the scrapper...), darkens every item it can't be used on."],
+						},
+						desaturateJunk = {
+							order = 7.4,
+							type = "toggle",
+							name = L["Desaturate Junk"],
+							desc = L["Greys out grey-quality items, in addition to the coin icon they already get."],
+						},
+						pinMarker = {
+							order = 7.5,
+							type = "toggle",
+							name = L["Pinned Marker"],
+							desc = L["Shows a small pin icon on pinned items, also in their normal category."],
+						},
+						subHeaderIcons = {
+							order = 7.6,
+							type = "toggle",
+							name = L["Sub-Header Icons"],
+							desc = L["Shows the expansion logo or equipment set icon in front of the sub-headers."],
 						},
 						customBackground = {
 							order = 8,
@@ -714,6 +814,12 @@ options.bags = {
 							type = "toggle",
 							name = L["Warbound Marker"],
 							desc = L["Shows a small Warband icon on items that are Warbound or Warbound until equipped."],
+						},
+						dropTargetHighlight = {
+							order = 4.5,
+							type = "toggle",
+							name = L["Highlight Drop Targets"],
+							desc = L["Lights up the empty slots at the end of each category while an item is on the cursor, so it's clear where it can be dropped to assign it."],
 						},
 						hoverClassColor = {
 							order = 5,

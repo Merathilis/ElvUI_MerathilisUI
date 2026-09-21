@@ -1,7 +1,32 @@
 ### Changes
 
--   [Fix]: Bags: Categorized Bags - fixed a taint error ("tried to call the protected function 'UpgradeItem()'") when upgrading an item at an upgrade NPC.
--   [Fix]: Misc: fixed the Guild MOTD popup not closing on Escape.
--   [Fix]: Armory: fixed the character sheet tainting Blizzard's paperdoll code, which could cause "Interface action failed because of an AddOn" when opening the character frame in combat.
--   [Improvement]: Mail/Loot: replaced the deprecated dropdown API in the send-mail template list and the Loot Spec Manager with Blizzard's current menu system, avoiding a known source of taint.
--   [Improvement]: General: removed leftover code paths for Classic clients, since MerathilisUI is Retail only.
+-   [Fix]: Bags: Categorized Bags - profession spells that target an item (Disenchant, Milling, Prospecting, enchant scrolls...) work again with a left-click; the click used to pick the item up, and middle-clicking to pin no longer uses the item.
+-   [Fix]: Bags: Categorized Bags - shift-clicking an item links it in chat again; the split-stack handler swallowed every shift-click instead of only shift-right-click.
+-   [Fix]: Bags: Categorized Bags - General options (merging, nesting, empty categories, pinned/recent) now also repaint an open Bank window.
+-   [Fix]: Bags: Categorized Bags - fixed the category group list being rebuilt once per item in the All Items view, which slowed down refreshes with full bags.
+-   [Fix]: Bags: Categorized Bags - disbanding a group no longer leaves its "Hide in All Items"/collapsed state behind, and a group left with a single category is removed instead of lingering unusable.
+-   [Fix]: Bags: Categorized Bags - fixed the Recent Items clear button sometimes not removing the items until the bags were reopened.
+-   [Fix]: Bags: Categorized Bags - the sort spinner now shows on top of the items instead of behind them.
+-   [New]: Maps: Minimap Buttons - new Tracking, Calendar, Mail and Crafting Orders buttons, each replacing the matching Blizzard icon on the Minimap while it is enabled (Calendar, Mail and Crafting Orders on by default, Tracking off since ElvUI already places that one). They live on their own "Elements" bar with its own anchor, growth direction, size and spacing, separate from the Great Vault and M+ Portals bar.
+-   [New]: Maps: Minimap Buttons - the Calendar button's tooltip lists your raid lockouts with boss progress and difficulty, plus the realm time and the weekly reset countdown.
+-   [Improvement]: Bags: Categorized Bags - while Disenchant, Milling, Prospecting or another item-targeting spell or window is active, items it can't be used on are darkened (new "Dim Unusable Items" option under Effects).
+-   [Improvement]: Bags: Categorized Bags - item tooltips in reorderable categories now explain the alt-drag ordering, and the help tooltip notes that it only changes the display order.
+-   [Improvement]: Bags: Categorized Bags - alt-dragging a slot onto another one reorders items inside a category, group or Pinned Items without moving them in your bags; right-click the sidebar entry for "Reset Item Order".
+-   [Improvement]: Bags: Categorized Bags - the sidebar collapse arrow turns class-colored on hover, like the other buttons.
+-   [Improvement]: Bags: Categorized Bags - the tracked currencies in the footer can be reordered by dragging one onto another, with a "Reset Currency Order" button in the options.
+-   [Improvement]: Bags: Categorized Bags - new "Auto Height" option shrinks the bag and bank windows to fit their contents, using the configured height as the maximum.
+-   [Improvement]: Maps: Minimap Buttons - new Growth Direction option, so the bar can extend down, up, left or right instead of always downwards.
+-   [Improvement]: Bags: Categorized Bags - items now dim while sorting, and hovering a bag in the bag bar dims everything outside that bag, like ElvUI's own bags.
+-   [Improvement]: Bags: Categorized Bags - while an item is on the cursor, the empty slots at the end of each category light up to show where it can be dropped to assign it.
+-   [Improvement]: Bags: Categorized Bags - pinned items show a pin marker in their normal category too, and newly picked-up items get a NEW badge in addition to the glow (all three toggleable under Effects).
+-   [Improvement]: Bags: Categorized Bags - sub-headers now show the expansion logo or equipment set icon, with a slimmer background that fades out to the right (toggleable under Effects).
+-   [Improvement]: Bags: Categorized Bags - the sidebar edge got a soft class-colored line and a subtle shadow towards the items.
+-   [Improvement]: Bags: Categorized Bags - the gold tooltip now shows class icons for your characters plus icons for the total and the Warband Bank.
+-   [Improvement]: Bags: Categorized Bags - "Assign to Category" opened from a bank slot now notes that the assignment takes effect once the item is in your bags.
+-   [Improvement]: Bags: Categorized Bags - the collapsed sidebar is a bit wider, its collapse arrow sits centered over the icons and its scrollbar stays inside the sidebar instead of hanging over the edge.
+-   [Improvement]: Bags: Categorized Bags - right-clicking a category now offers "Create Group With" and "Add to Group", so category groups are no longer limited to the built-in "Equipment" one.
+-   [Improvement]: Bags: Categorized Bags - Recent Items now tracks item IDs instead of bag slots, so sorting no longer moves the marks onto other items; the list is capped (default 20, adjustable) and can optionally empty itself when the bags close.
+-   [Improvement]: Bags: Categorized Bags - hovering a slot clears its new-item glow and NEW badge, like Blizzard's own bags; the item stays in Recent Items.
+-   [Improvement]: Bags: Categorized Bags - identical stacks can be shown as one slot with the combined count (new "Merge Duplicate Stacks" option, on by default); gear is never merged and merging pauses while a vendor, mailbox, trade, auction house or bank window is open.
+-   [Improvement]: Bags: Categorized Bags - grey-quality items can be desaturated on top of their coin icon (new "Desaturate Junk" option under Effects).
+-   [Improvement]: Bags: Categorized Bags - grouping by expansion and by equipment set can now be turned off (new options under General).

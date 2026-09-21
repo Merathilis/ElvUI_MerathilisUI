@@ -3,6 +3,113 @@ local module = MER:GetModule("MER_Options") ---@class Options
 
 local options = module.options.modules.args
 
+-- The Minimap button bars share one anchor/size/spacing block. getBar() returns
+-- the settings table of the bar the block belongs to; the toggles above it keep
+-- the group's own get/set, so the block brings its own.
+local function AddMinimapBarLayout(args, getBar)
+	local function get(info)
+		return getBar()[info[#info]]
+	end
+
+	local function set(info, value)
+		getBar()[info[#info]] = value
+		F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
+	end
+
+	local layout = {
+		layoutSpacer = {
+			order = 20,
+			type = "description",
+			name = "",
+		},
+		point = {
+			order = 21,
+			type = "select",
+			name = L["Anchor Point"],
+			get = get,
+			set = set,
+			values = {
+				TOPLEFT = L["Top Left"],
+				TOP = L["Top"],
+				TOPRIGHT = L["Top Right"],
+				LEFT = L["Left"],
+				RIGHT = L["Right"],
+				BOTTOMLEFT = L["Bottom Left"],
+				BOTTOM = L["Bottom"],
+				BOTTOMRIGHT = L["Bottom Right"],
+			},
+		},
+		growth = {
+			order = 22,
+			type = "select",
+			name = L["Growth Direction"],
+			desc = L["Which way the bar extends as buttons are added."],
+			get = get,
+			set = set,
+			values = {
+				DOWN = L["Down"],
+				UP = L["Up"],
+				LEFT = L["Left"],
+				RIGHT = L["Right"],
+			},
+		},
+		size = {
+			order = 23,
+			type = "range",
+			name = L["Size"],
+			get = get,
+			set = set,
+			min = 14,
+			max = 40,
+			step = 1,
+		},
+		spacing = {
+			order = 24,
+			type = "range",
+			name = L["Spacing"],
+			get = get,
+			set = set,
+			min = 0,
+			max = 20,
+			step = 1,
+		},
+		xOffset = {
+			order = 25,
+			type = "range",
+			name = L["X-Offset"],
+			get = get,
+			set = set,
+			min = -100,
+			max = 100,
+			step = 1,
+		},
+		yOffset = {
+			order = 26,
+			type = "range",
+			name = L["Y-Offset"],
+			get = get,
+			set = set,
+			min = -100,
+			max = 100,
+			step = 1,
+		},
+	}
+
+	for key, option in pairs(layout) do
+		args[key] = option
+	end
+
+	return args
+end
+
+local function MainBarDB()
+	return E.db.mui.minimapButtons
+end
+
+local function ElementBarDB()
+	return E.db.mui.minimapButtons.elements
+end
+
 options.maps = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Maps"], "maps"),
@@ -147,7 +254,7 @@ options.maps = {
 						feature = {
 							order = 1,
 							type = "description",
-							name = L["Add Great Vault and M+ Portals buttons next to your Minimap."],
+							name = L["Add a bar of extra buttons next to your Minimap."],
 							fontSize = "medium",
 						},
 					},
@@ -162,93 +269,92 @@ options.maps = {
 					type = "description",
 					name = "",
 				},
-				greatVaultEnable = {
+				buttons = {
 					order = 3,
-					type = "toggle",
-					name = L["Great Vault"],
-					get = function()
-						return E.db.mui.minimapButtons.greatVault.enable
+					type = "group",
+					inline = true,
+					name = L["Buttons"],
+					get = function(info)
+						return E.db.mui.minimapButtons[info[#info]].enable
 					end,
-					set = function(_, value)
-						E.db.mui.minimapButtons.greatVault.enable = value
+					set = function(info, value)
+						E.db.mui.minimapButtons[info[#info]].enable = value
 						F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
 					end,
+					args = AddMinimapBarLayout({
+						greatVault = {
+							order = 1,
+							type = "toggle",
+							name = L["Great Vault"],
+						},
+						mplusPortals = {
+							order = 2,
+							type = "toggle",
+							name = L["M+ Portals"],
+						},
+						testGreatVaultPulse = {
+							order = 3,
+							type = "execute",
+							name = L["Test Pulse"],
+							desc = L["Briefly plays the Great Vault button's pulse animation, even without any unclaimed rewards."],
+							func = function()
+								MER:GetModule("MER_MinimapButtons"):TestGreatVaultPulse()
+							end,
+							disabled = function()
+								return not E.db.mui.minimapButtons.greatVault.enable
+							end,
+						},
+					}, MainBarDB),
 				},
-				mplusPortalsEnable = {
+				elements = {
 					order = 4,
-					type = "toggle",
-					name = L["M+ Portals"],
-					get = function()
-						return E.db.mui.minimapButtons.mplusPortals.enable
+					type = "group",
+					inline = true,
+					name = L["Elements"],
+					get = function(info)
+						return E.db.mui.minimapButtons[info[#info]].enable
 					end,
-					set = function(_, value)
-						E.db.mui.minimapButtons.mplusPortals.enable = value
+					set = function(info, value)
+						E.db.mui.minimapButtons[info[#info]].enable = value
 						F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
 					end,
-				},
-				testGreatVaultPulse = {
-					order = 5,
-					type = "execute",
-					name = L["Test Pulse"],
-					desc = L["Briefly plays the Great Vault button's pulse animation, even without any unclaimed rewards."],
-					func = function()
-						MER:GetModule("MER_MinimapButtons"):TestGreatVaultPulse()
-					end,
-					disabled = function()
-						return not E.db.mui.minimapButtons.greatVault.enable
-					end,
-				},
-				spacer2 = {
-					order = 6,
-					type = "description",
-					name = "",
-				},
-				point = {
-					order = 7,
-					type = "select",
-					name = L["Anchor Point"],
-					values = {
-						TOPLEFT = L["Top Left"],
-						TOP = L["Top"],
-						TOPRIGHT = L["Top Right"],
-						LEFT = L["Left"],
-						RIGHT = L["Right"],
-						BOTTOMLEFT = L["Bottom Left"],
-						BOTTOM = L["Bottom"],
-						BOTTOMRIGHT = L["Bottom Right"],
-					},
-				},
-				size = {
-					order = 8,
-					type = "range",
-					name = L["Size"],
-					min = 14,
-					max = 40,
-					step = 1,
-				},
-				spacing = {
-					order = 9,
-					type = "range",
-					name = L["Spacing"],
-					min = 0,
-					max = 20,
-					step = 1,
-				},
-				xOffset = {
-					order = 10,
-					type = "range",
-					name = L["X-Offset"],
-					min = -100,
-					max = 100,
-					step = 1,
-				},
-				yOffset = {
-					order = 11,
-					type = "range",
-					name = L["Y-Offset"],
-					min = -100,
-					max = 100,
-					step = 1,
+					args = AddMinimapBarLayout({
+						elementsDesc = {
+							order = 0,
+							type = "description",
+							name = L["A second bar for the Blizzard indicators, anchored on its own."],
+						},
+						tracking = {
+							order = 1,
+							type = "toggle",
+							name = L["Tracking"],
+							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."],
+						},
+						calendar = {
+							order = 2,
+							type = "toggle",
+							name = L["Calendar"],
+							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]
+								.. "\n"
+								.. L["The tooltip lists your raid lockouts, the realm time and the weekly reset."],
+						},
+						mail = {
+							order = 3,
+							type = "toggle",
+							name = L["Mail"],
+							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]
+								.. "\n"
+								.. L["Only shown while there is something to report."],
+						},
+						craftingOrders = {
+							order = 4,
+							type = "toggle",
+							name = L["Crafting Orders"],
+							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]
+								.. "\n"
+								.. L["Only shown while there is something to report."],
+						},
+					}, ElementBarDB),
 				},
 			},
 		},

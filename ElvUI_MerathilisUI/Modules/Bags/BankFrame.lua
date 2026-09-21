@@ -324,6 +324,8 @@ function module:ConstructBankFrame()
 		GameTooltip:AddDoubleLine(L["Ctrl + Right Click:"], L["Move to Bank Tab / Bag"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Alt + Drag:"], L["Reorder items inside a category"], 1, 1, 1)
+		GameTooltip:AddLine(L["Changes the display order only - nothing moves in your bags."], 0.6, 0.6, 0.6)
 	end)
 	f.helpButton:Point("TOPRIGHT", f, "TOPRIGHT", -40, -8)
 
@@ -344,6 +346,7 @@ function module:ConstructBankFrame()
 	f.sidebar:Point("BOTTOMLEFT", f, "BOTTOMLEFT", 8, 60)
 	f.sidebar:Width(db.bankSidebarCollapsed and COLLAPSED_SIDEBAR_WIDTH or db.bankSidebarWidth)
 	pcall(f.sidebar.SetTemplate, f.sidebar, "Transparent")
+	module.AddSidebarEdge(f.sidebar)
 
 	f.sidebarHeaderText = f.sidebar:CreateFontString(nil, "OVERLAY")
 	f.sidebarHeaderText:FontTemplate()
@@ -366,6 +369,7 @@ function module:ConstructBankFrame()
 		GameTooltip:Show()
 	end)
 	f.collapseButton:SetScript("OnLeave", GameTooltip_Hide)
+	module.AddCollapseButtonHover(f.collapseButton)
 
 	-- Fixed rows: only the two "All ... Tabs" mode-selector rows sit above
 	-- the scrollable list (mirrors the bag frame's own ALL/CATEGORY/BAG
@@ -506,7 +510,7 @@ function module:ConstructBankFrame()
 				return
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
-			GameTooltip:AddLine(L["Warband Bank"], 1, 1, 1)
+			GameTooltip:AddLine(module.TooltipIcon("warbands-icon") .. L["Warband Bank"], 1, 1, 1)
 			GameTooltip:Show()
 		end)
 		f.footer.warbandGoldButton:SetScript("OnLeave", GameTooltip_Hide)
@@ -726,7 +730,9 @@ function module:RefreshBankCategoryFrame()
 
 	local db = module.db
 	local f = module.bankFrame
-	local sections = BuildBankSections()
+	module.TrimRecentItems()
+
+	local sections = module.MergeSectionItems(BuildBankSections())
 
 	module.bankCategoryOffsets = {}
 
@@ -756,6 +762,8 @@ function module:RefreshBankCategoryFrame()
 	f.pinnedRow.count:SetShown(not db.bankSidebarCollapsed)
 	SetCategoryIcon(f.pinnedRow.icon, module.PinnedCategory)
 
+	module.PositionCollapseButton(f, db.bankSidebarCollapsed)
+
 	local collapseArrowRotation = S.ArrowRotation and S.ArrowRotation[db.bankSidebarCollapsed and "right" or "left"]
 	if collapseArrowRotation then
 		for _, tex in ipairs({ f.collapseButton:GetNormalTexture(), f.collapseButton:GetPushedTexture() }) do
@@ -767,13 +775,12 @@ function module:RefreshBankCategoryFrame()
 
 	f.sidebarHeaderText:SetShown(not db.bankSidebarCollapsed)
 
-	local scrollbarReserve = db.bankSidebarCollapsed and 16 or 30
-	f.sidebarChild:Width(sidebarWidth - scrollbarReserve)
+	f.sidebarChild:Width(module.GetSidebarChildWidth(sidebarWidth))
 	-- Only the right inset moves with the collapsed state - TOPLEFT is fixed
 	-- forever after construction (the tab-list block above it never changes
 	-- row count), so this must NOT ClearAllPoints() first or it'd drop that
 	-- anchor entirely.
-	f.sidebarScroll:SetPoint("BOTTOMRIGHT", -(scrollbarReserve - 6), 4)
+	f.sidebarScroll:SetPoint("BOTTOMRIGHT", -module.SIDEBAR_SCROLLBAR_INSET, 4)
 
 	-- Tab rows render into the same scrollable sidebarChild as the category
 	-- rows below them (RenderCategorySections continues right after, via
@@ -853,6 +860,8 @@ function module:RefreshBankCategoryFrame()
 			module:RefreshBankCategoryFrame()
 		end,
 	}, sections)
+
+	module.ApplyAutoHeight(f, module.bankContentChild, module.bankSidebarChild, db.bankHeight)
 
 	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
 	local countBagIDs = isWarbandView and module.WarbandBagIDs or module.BankBagIDs

@@ -8,13 +8,14 @@ local EM = MER:GetModule("MER_EquipManager") ---@class EquipmentManager
 
 local _G = _G
 local ipairs, pairs = ipairs, pairs
-local tinsert, wipe = tinsert, wipe
+local tinsert, tremove, wipe = tinsert, tremove, wipe
 local tsort = table.sort
 local floor, ceil = math.floor, math.ceil
 local format = format
-local strmatch = strmatch
+local strmatch, strlower = strmatch, strlower
 local IsShiftKeyDown = IsShiftKeyDown
 local IsControlKeyDown = IsControlKeyDown
+local IsAltKeyDown = IsAltKeyDown
 local IsModifiedClick = IsModifiedClick
 local HandleModifiedItemClick = HandleModifiedItemClick
 local CursorHasItem = CursorHasItem
@@ -23,15 +24,22 @@ local ClearCursor = ClearCursor
 
 local CreateFrame = CreateFrame
 local CreateAnimationGroup = CreateAnimationGroup
+local CreateAtlasMarkup = CreateAtlasMarkup
+local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 local GetMoney = GetMoney
-local CloseBankFrame = (C_Bank and C_Bank.CloseBankFrame) or CloseBankFrame
-local FetchPurchasedBankTabData = C_Bank and C_Bank.FetchPurchasedBankTabData
-local AutoDepositItemsIntoBank = C_Bank and C_Bank.AutoDepositItemsIntoBank
-local CanViewBank = C_Bank and C_Bank.CanViewBank
-local FetchNumPurchasedBankTabs = C_Bank and C_Bank.FetchNumPurchasedBankTabs
-local FetchNextPurchasableBankTabData = C_Bank and C_Bank.FetchNextPurchasableBankTabData
-local PurchaseBankTab = C_Bank and C_Bank.PurchaseBankTab
-local CanPurchaseBankTab = C_Bank and C_Bank.CanPurchaseBankTab
+-- Bundled instead of one upvalue each: this file's main chunk is close to
+-- Lua's hard limit of 200 locals per function, and going over it makes the
+-- whole file fail to compile.
+local BankAPI = {
+	Close = (C_Bank and C_Bank.CloseBankFrame) or CloseBankFrame,
+	FetchPurchasedTabData = C_Bank and C_Bank.FetchPurchasedBankTabData,
+	AutoDeposit = C_Bank and C_Bank.AutoDepositItemsIntoBank,
+	CanView = C_Bank and C_Bank.CanViewBank,
+	FetchNumPurchasedTabs = C_Bank and C_Bank.FetchNumPurchasedBankTabs,
+	FetchNextPurchasableTabData = C_Bank and C_Bank.FetchNextPurchasableBankTabData,
+	PurchaseTab = C_Bank and C_Bank.PurchaseBankTab,
+	CanPurchaseTab = C_Bank and C_Bank.CanPurchaseBankTab,
+}
 local CHARACTER_BANK_TYPE = (Enum.BankType and Enum.BankType.Character) or 0
 local WARBAND_BANK_TYPE = (Enum.BankType and Enum.BankType.Account) or 2
 
@@ -41,14 +49,19 @@ local C_Container_GetContainerItemCooldown = C_Container.GetContainerItemCooldow
 local C_Container_GetContainerItemQuestInfo = C_Container.GetContainerItemQuestInfo
 local C_Container_SetItemSearch = C_Container.SetItemSearch
 local C_Container_PickupContainerItem = C_Container.PickupContainerItem
-local C_NewItems_IsNewItem = C_NewItems.IsNewItem
-local C_NewItems_RemoveNewItem = C_NewItems.RemoveNewItem
-local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
-local C_Item_GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo
-local C_Item_GetItemInfo = C_Item.GetItemInfo
-local C_Item_IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip
-local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
-local C_TooltipInfo_GetBagItem = C_TooltipInfo.GetBagItem
+-- Same reason as BankAPI above: bundled to stay clear of the 200-local
+-- limit. The per-item C_Container calls below stay plain upvalues.
+local API = {
+	IsNewItem = C_NewItems.IsNewItem,
+	RemoveNewItem = C_NewItems.RemoveNewItem,
+	GetItemInfoInstant = C_Item.GetItemInfoInstant,
+	GetDetailedItemLevelInfo = C_Item.GetDetailedItemLevelInfo,
+	GetItemInfo = C_Item.GetItemInfo,
+	IsEquippableItem = C_Item.IsEquippableItem,
+	IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip,
+	GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo,
+	GetBagItemTooltip = C_TooltipInfo.GetBagItem,
+}
 local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
 local C_MerchantFrame_SellAllJunkItems = C_MerchantFrame.SellAllJunkItems
 local ITEMQUALITY_POOR = Enum.ItemQuality.Poor
@@ -63,8 +76,19 @@ local SLOT_NAME_PREFIX = "MER_BagCategoriesSlot"
 local BANK_FRAME_NAME = "MER_BankCategoriesFrame"
 local BANK_SLOT_NAME_PREFIX = "MER_BankCategoriesSlot"
 local HEADER_PADDING = 6
-local COLLAPSED_SIDEBAR_WIDTH = 40
+local COLLAPSED_SIDEBAR_WIDTH = 50
 local VIEW_MODE_ROW_HEIGHT = 24
+
+-- The sidebar scrollbar sits in the same spot collapsed or expanded, inside
+-- the sidebar's right border. The collapsed width is sized so the icon
+-- column (4 + 4 + 16px) still fits left of it; a smaller inset while
+-- collapsed pushed the bar half across the sidebar edge.
+local SIDEBAR_SCROLLBAR_INSET = 24
+local function GetSidebarChildWidth(sidebarWidth)
+	return sidebarWidth - SIDEBAR_SCROLLBAR_INSET - 6
+end
+module.SIDEBAR_SCROLLBAR_INSET = SIDEBAR_SCROLLBAR_INSET
+module.GetSidebarChildWidth = GetSidebarChildWidth
 
 -- Exposed so BankFrame.lua can build its own frame/slot names consistently.
 module.BANK_FRAME_NAME = BANK_FRAME_NAME
@@ -157,9 +181,44 @@ local function SnapshotNewItemsForBags(bagIDList)
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
 		for slotID = 1, numSlots do
 			local key = bagID * 1000 + slotID
-			newItemSnapshot[key] = C_NewItems_IsNewItem(bagID, slotID) or nil
+			newItemSnapshot[key] = API.IsNewItem(bagID, slotID) or nil
 		end
 	end
+end
+
+-- Recent Items tracks item IDs, not bag/slot positions: a slot-based list
+-- follows the slot, so sorting the bags moved the "recent" marks onto
+-- whatever item happened to land there. Newest last, capped at
+-- db.recentLimit (oldest drops out first).
+local recentItems, recentOrder = {}, {}
+
+local function TrimRecentItems()
+	local limit = module.db and module.db.recentLimit or 20
+	while #recentOrder > limit do
+		local oldest = tremove(recentOrder, 1)
+		recentItems[oldest] = nil
+	end
+end
+
+local function MarkItemRecent(itemID)
+	if not itemID or recentItems[itemID] then
+		return
+	end
+
+	recentItems[itemID] = true
+	tinsert(recentOrder, itemID)
+	TrimRecentItems()
+end
+
+function module:IsRecentItem(itemID)
+	return (itemID and recentItems[itemID]) or false
+end
+
+module.TrimRecentItems = TrimRecentItems
+
+function module:ClearRecentItems()
+	wipe(recentItems)
+	wipe(recentOrder)
 end
 
 local function SnapshotNewItems()
@@ -208,12 +267,12 @@ local function HideElvUIBagFrame()
 end
 
 -- Same technique as HideElvUIBagFrame above, doubly important here: ElvUI's
--- shared Container_OnHide handler calls CloseBankFrame() as a side effect
+-- shared Container_OnHide handler calls BankAPI.Close() as a side effect
 -- for any frame with isBank=true, which would immediately end the real
 -- server-side bank interaction if it ran for real - suppressing OnHide
 -- around the :Hide() call avoids that while still getting a real, correct
 -- IsShown() == false. module:OnFrameHidden() is responsible for actually
--- closing the bank via CloseBankFrame() when appropriate.
+-- closing the bank via BankAPI.Close() when appropriate.
 local function HideElvUIBankFrame()
 	if B.BankFrame and B.BankFrame:IsShown() then
 		SnapshotBankNewItems()
@@ -270,6 +329,67 @@ function module:OnGameTooltipDefaultAnchor(tt)
 
 	tt:ClearAllPoints()
 	tt:Point(E.InversePoints[anchorBags], anchorFrame, anchorBags, db.xOffset, db.yOffset)
+end
+
+-- Class-colored arrow on hover, the same treatment the title bar buttons,
+-- the Recent Items "X" and the placeholder slots already get. Hooked, so
+-- the tooltip scripts set up by the caller keep running.
+function module.AddCollapseButtonHover(btn)
+	local function Tint(r, g, b)
+		for _, tex in ipairs({ btn:GetNormalTexture(), btn:GetPushedTexture() }) do
+			if tex then
+				tex:SetVertexColor(r, g, b)
+			end
+		end
+	end
+
+	btn:HookScript("OnEnter", function()
+		local cc = E.myClassColor
+		Tint(cc.r, cc.g, cc.b)
+	end)
+	btn:HookScript("OnLeave", function()
+		Tint(1, 1, 1)
+	end)
+end
+
+-- Expanded: top-right corner next to the "Categories" title. Collapsed: the
+-- title is gone and the corner would leave the arrow dangling off to the
+-- side, so it sits centered over the icon column (row inset 4 + icon inset
+-- 4 + half the 16px icon) instead.
+function module.PositionCollapseButton(f, collapsed)
+	f.collapseButton:ClearAllPoints()
+	if collapsed then
+		f.collapseButton:Point("TOP", f.sidebar, "TOPLEFT", 16, -4)
+	else
+		f.collapseButton:Point("TOPRIGHT", f.sidebar, "TOPRIGHT", -2, -4)
+	end
+end
+
+-- Softens the sidebar's right edge: a class-colored line that fades out
+-- towards the top and bottom, plus a short shadow falling into the gap
+-- towards the items. Shared by the bag and bank windows.
+function module.AddSidebarEdge(sidebar)
+	local cc = E.myClassColor
+
+	local function Half(point, relPoint, fromAlpha, toAlpha)
+		local tex = sidebar:CreateTexture(nil, "OVERLAY")
+		tex:SetTexture(E.media.blankTex)
+		tex:Width(1)
+		tex:Point(point, sidebar, point, -1, point == "TOPRIGHT" and -1 or 1)
+		tex:Point(relPoint, sidebar, "RIGHT", -1, 0)
+		tex:SetGradient("VERTICAL", CreateColor(cc.r, cc.g, cc.b, fromAlpha), CreateColor(cc.r, cc.g, cc.b, toAlpha))
+		return tex
+	end
+	-- VERTICAL gradients run bottom (first color) to top (second color).
+	sidebar.edgeTop = Half("TOPRIGHT", "BOTTOMRIGHT", 0.6, 0)
+	sidebar.edgeBottom = Half("BOTTOMRIGHT", "TOPRIGHT", 0, 0.6)
+
+	sidebar.edgeShadow = sidebar:CreateTexture(nil, "BACKGROUND")
+	sidebar.edgeShadow:SetTexture(E.media.blankTex)
+	sidebar.edgeShadow:Width(6)
+	sidebar.edgeShadow:Point("TOPLEFT", sidebar, "TOPRIGHT", 0, 0)
+	sidebar.edgeShadow:Point("BOTTOMLEFT", sidebar, "BOTTOMRIGHT", 0, 0)
+	sidebar.edgeShadow:SetGradient("HORIZONTAL", CreateColor(0, 0, 0, 0.35), CreateColor(0, 0, 0, 0))
 end
 
 -- Reskins a scrollbar to a thin, track-less thumb: HandleScrollBar's own
@@ -466,15 +586,61 @@ end
 -- the button's native OnClick, which dispatches the secure type/item
 -- attributes (needs the RightButtonDown click phase registered too, see
 -- CreateSlotButton).
-local function Slot_OnClick(self, mouseButton)
-	-- Excludes MiddleButton: that's already our own Pin/Assign-to-Category
-	-- click, and IsModifiedClick("SPLITSTACK") only checks the held modifier
-	-- key, not which mouse button - without this exclusion, a Shift+Middle
-	-- click would get hijacked by split-stack instead of opening the assign
-	-- menu whenever Split Stack happens to be bound to Shift too.
-	if mouseButton ~= "MiddleButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
+local function Slot_OnClick(self, mouseButton, down)
+	-- LeftButtonDown is registered only for spell targeting (see below):
+	-- the secure action may fire on the down phase (ActionButtonUseKeyDown),
+	-- so the "/use" macro has to be in place by then. Every other left-click
+	-- keeps being handled once, on release.
+	if mouseButton == "LeftButton" and down then
+		if
+			not InCombatLockdown()
+			and self.BagID
+			and self.SlotID
+			and not IsModifiedClick()
+			and (SpellCanTargetItem() or SpellCanTargetItemID())
+		then
+			-- A spell is waiting for an item target (Disenchant, Milling,
+			-- Prospecting, enchant scrolls, armor kits...). Blizzard's own
+			-- bags answer that with UseContainerItem(bag, slot), which is
+			-- protected - so hand this click to the secure button as a
+			-- "/use bag slot" macro. The "item" action can't do it: it equips
+			-- gear rather than targeting it. Stays set until the release
+			-- below, since the secure action fires on down OR up depending
+			-- on the player's key-down setting.
+			self:SetAttribute("type1", "macro")
+			self:SetAttribute("macrotext1", format("/use %d %d", self.BagID, self.SlotID))
+			self.pendingTargetClick = true
+		elseif self.pendingTargetClick and not InCombatLockdown() then
+			-- Left over from a targeting press that was released somewhere
+			-- else: drop it now, before this plain click's secure dispatch
+			-- could run the stale "/use" and use or equip the item.
+			self:SetAttribute("type1", nil)
+			self:SetAttribute("macrotext1", nil)
+			self.pendingTargetClick = nil
+		end
+		return
+	end
+
+	if mouseButton == "LeftButton" and self.pendingTargetClick then
+		self.pendingTargetClick = nil
+		C_Timer.After(0, function()
+			if not InCombatLockdown() then
+				self:SetAttribute("type1", nil)
+				self:SetAttribute("macrotext1", nil)
+			end
+		end)
+		return
+	end
+
+	-- Right button only: IsModifiedClick("SPLITSTACK") just checks the held
+	-- modifier key, not which mouse button, and that key is Shift by
+	-- default - so matching any button swallowed Shift+Left-click (chat
+	-- link) and Shift+Middle-click (assign to category) as split-stack
+	-- attempts. Split Stack is documented as Shift+Right-click in the help
+	-- tooltip, so bind it to that button alone.
+	if mouseButton == "RightButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
 		if not InCombatLockdown() then
-			self:SetAttribute("type", nil)
+			self:SetAttribute("*type2", nil)
 			self:SetAttribute("item", nil)
 
 			-- Restored via a deferred call instead of a PostClick script -
@@ -485,7 +651,7 @@ local function Slot_OnClick(self, mouseButton)
 			local itemLink = self.itemLink
 			C_Timer.After(0, function()
 				if not InCombatLockdown() then
-					self:SetAttribute("type", "item")
+					self:SetAttribute("*type2", "item")
 					self:SetAttribute("item", itemLink)
 				end
 			end)
@@ -531,13 +697,13 @@ local function Slot_OnClick(self, mouseButton)
 			and self.SlotID
 		then
 			if not InCombatLockdown() then
-				self:SetAttribute("type", nil)
+				self:SetAttribute("*type2", nil)
 				self:SetAttribute("item", nil)
 
 				local itemLink = self.itemLink
 				C_Timer.After(0, function()
 					if not InCombatLockdown() then
-						self:SetAttribute("type", "item")
+						self:SetAttribute("*type2", "item")
 						self:SetAttribute("item", itemLink)
 					end
 				end)
@@ -567,14 +733,14 @@ local function Slot_OnClick(self, mouseButton)
 			local bagID, slotID = self.BagID, self.SlotID
 			local itemLink = self.itemLink
 
-			self:SetAttribute("type", nil)
+			self:SetAttribute("*type2", nil)
 			self:SetAttribute("item", nil)
 
 			C_Timer.After(0, function()
 				C_Container.UseContainerItem(bagID, slotID)
 
 				if not InCombatLockdown() then
-					self:SetAttribute("type", "item")
+					self:SetAttribute("*type2", "item")
 					self:SetAttribute("item", itemLink)
 				end
 			end)
@@ -582,9 +748,136 @@ local function Slot_OnClick(self, mouseButton)
 	end
 end
 
+-- Manual item order, one list of item IDs per section key (category, group
+-- or Pinned Items), set by alt-dragging a slot onto another one. Items with
+-- no stored position keep their normal order behind the ones that have one,
+-- so picking up something new never reshuffles what the user arranged.
+function module:GetItemOrder(sectionKey)
+	local db = module.db
+	return sectionKey and db.itemOrder and db.itemOrder[sectionKey] or nil
+end
+
+function module:ClearItemOrder(sectionKey)
+	local db = module.db
+	if db.itemOrder then
+		db.itemOrder[sectionKey] = nil
+	end
+end
+
+local function ApplyItemOrder(sectionKey, items)
+	local order = module:GetItemOrder(sectionKey)
+	if not order or #items < 2 then
+		return items
+	end
+
+	local position = {}
+	for index, itemID in ipairs(order) do
+		position[itemID] = index
+	end
+
+	local decorated = {}
+	for index, entry in ipairs(items) do
+		tinsert(decorated, {
+			entry = entry,
+			position = position[entry.itemID] or (#order + index),
+			index = index,
+		})
+	end
+
+	tsort(decorated, function(a, b)
+		if a.position == b.position then
+			return a.index < b.index
+		end
+		return a.position < b.position
+	end)
+
+	local sorted = {}
+	for _, item in ipairs(decorated) do
+		tinsert(sorted, item.entry)
+	end
+
+	return sorted
+end
+
+-- Alt-drag reorder: seeds the stored list from what is on screen, then moves
+-- the dragged item in front of the one it was dropped on.
+local function MoveItemInOrder(sectionKey, items, draggedID, targetID)
+	if not sectionKey or not draggedID or not targetID or draggedID == targetID then
+		return
+	end
+
+	local db = module.db
+	db.itemOrder = db.itemOrder or {}
+
+	local order = db.itemOrder[sectionKey]
+	if not order then
+		order = {}
+		local seen = {}
+		for _, entry in ipairs(items) do
+			if entry.itemID and not seen[entry.itemID] then
+				seen[entry.itemID] = true
+				tinsert(order, entry.itemID)
+			end
+		end
+		db.itemOrder[sectionKey] = order
+	end
+
+	for index, itemID in ipairs(order) do
+		if itemID == draggedID then
+			tremove(order, index)
+			break
+		end
+	end
+
+	for index, itemID in ipairs(order) do
+		if itemID == targetID then
+			tinsert(order, index, draggedID)
+			return
+		end
+	end
+
+	tinsert(order, draggedID)
+end
+
 local function Slot_OnDrag(self)
+	-- Alt held: rearrange the view instead of physically moving the item.
+	-- Deliberately a raw IsAltKeyDown() and not IsModifiedClick(): there is
+	-- no Blizzard click binding for "reorder", and a binding check would
+	-- also report true for whatever else the player put on Alt. Ours runs
+	-- first, so an Alt-drag in our frame always reorders - the tooltip says
+	-- so while Alt is held.
+	-- Only inside a section that has a stable identity to store an order
+	-- under (orderKey is nil for the bag views and All Items).
+	if IsAltKeyDown() and self.orderKey and self.itemID then
+		module.draggingOrderKey = self.orderKey
+		module.draggingOrderItemID = self.itemID
+		module.dragHoverOrderItemID = nil
+		self:SetAlpha(0.4)
+		return
+	end
+
 	if self.BagID and self.SlotID then
 		C_Container_PickupContainerItem(self.BagID, self.SlotID)
+	end
+end
+
+local function Slot_OnDragStop(self)
+	if not module.draggingOrderKey then
+		return
+	end
+
+	self:SetAlpha(1)
+
+	local sectionKey = module.draggingOrderKey
+	local draggedID = module.draggingOrderItemID
+	local targetID = module.dragHoverOrderItemID
+	module.draggingOrderKey = nil
+	module.draggingOrderItemID = nil
+	module.dragHoverOrderItemID = nil
+
+	if draggedID and targetID then
+		MoveItemInOrder(sectionKey, module.orderedSectionItems and module.orderedSectionItems[sectionKey], draggedID, targetID)
+		RefreshOwnerFrame(self.ownerFrame)
 	end
 end
 
@@ -616,13 +909,42 @@ local function Slot_OnEnter(self)
 		if module.isBankOpen then
 			GameTooltip:AddLine(L["Ctrl+Right-click to move to a specific tab/bag"], 0.6, 0.6, 0.6)
 		end
+
+		-- Shown on every item of a reorderable section, not just while Alt
+		-- is held: the feature is invisible otherwise, and the hint is where
+		-- people look when they wonder why an item sits where it sits.
+		if self.orderKey then
+			GameTooltip:AddLine(L["Alt+Drag onto another item to move it there. Items stay in their bag slots."], 0.6, 0.6, 0.6)
+		end
+
 		GameTooltip:Show()
 	end
 
 	Slot_UpdateCursor(self)
+
+	if module.draggingOrderKey and self.orderKey == module.draggingOrderKey then
+		module.dragHoverOrderItemID = self.itemID
+	end
+
+	-- Blizzard's own bags drop an item's "new" state as soon as you hover
+	-- its slot (ContainerFrameItemButtonMixin:OnUpdate), so do the same -
+	-- glow and badge only mark what you haven't looked at yet. The Recent
+	-- Items list is tracked separately by item ID and stays put.
+	if self.BagID and self.SlotID and self.newItemGlow and self.newItemGlow:IsShown() then
+		API.RemoveNewItem(self.BagID, self.SlotID)
+		newItemSnapshot[self.BagID * 1000 + self.SlotID] = nil
+		self.newItemGlow:Hide()
+		if self.newBadge then
+			self.newBadge:Hide()
+		end
+	end
 end
 
-local function Slot_OnLeave()
+local function Slot_OnLeave(self)
+	if module.draggingOrderKey and self and module.dragHoverOrderItemID == self.itemID then
+		module.dragHoverOrderItemID = nil
+	end
+
 	if not GameTooltip:IsForbidden() then
 		GameTooltip:Hide()
 	end
@@ -647,8 +969,117 @@ end
 -- (and its Header/SubHeader/Sidebar counterparts below) each produce one
 -- independent, closure-owned pool instead, parented/named per the frame that
 -- owns them (see CreatePoolSet's bagPools/bankPools instantiation).
+-- Darkens item slots with the button's own search overlay (the same dark
+-- tint ElvUI's bags use): all of them while a sort settles, and everything
+-- outside the hovered bag while hovering the bag bar. SetAlpha isn't an
+-- option here - ItemButtonMixin overrides it and would re-show the Blizzard
+-- IconBorder we hide. Bag frame only, since both triggers are bag-only.
+local slotPools = {}
+
+-- True when Blizzard's item-context system says this slot can't take part
+-- in whatever is waiting for an item right now: Disenchant/Milling/
+-- Prospecting and other spells with an item condition, enchant scrolls,
+-- the scrapper, item upgrades... Blizzard's own bags dim exactly these via
+-- ItemButtonUtil, so we ask the same function instead of guessing per spell.
+--
+-- Disenchant, Milling and Prospecting report no item context at all
+-- (confirmed live: GetItemContext() nil, TargetSpellChecksItemCondition()
+-- false while the Disenchant cursor is up), so those get their own checks,
+-- keyed by the spell that owns the targeting cursor (GetPendingTargetSpellCheck).
+local TargetSpellChecks = {
+	-- Disenchant: uncommon to epic weapons, armor (minus cosmetics) and
+	-- profession gear.
+	[13262] = function(bagID, slotID)
+		local info = C_Container_GetContainerItemInfo(bagID, slotID)
+		if not info or not info.hyperlink or not info.quality then
+			return false
+		end
+		if info.quality < Enum.ItemQuality.Uncommon or info.quality > Enum.ItemQuality.Epic then
+			return false
+		end
+
+		local _, _, _, _, _, classID, subClassID = API.GetItemInfoInstant(info.hyperlink)
+		if classID == Enum.ItemClass.Weapon then
+			return true
+		elseif classID == Enum.ItemClass.Armor then
+			return subClassID ~= Enum.ItemArmorSubclass.Cosmetic
+		elseif classID == Enum.ItemClass.Profession then
+			return API.IsEquippableItem(info.hyperlink)
+		end
+
+		return false
+	end,
+}
+
+-- Milling and Prospecting: the item's own tooltip says "Millable" /
+-- "Prospectable", and both need a stack of at least five.
+do
+	local function TooltipCheck(globalStringName)
+		return function(bagID, slotID)
+			local label = _G[globalStringName]
+			local info = C_Container_GetContainerItemInfo(bagID, slotID)
+			if not label or not info or (info.stackCount or 0) < 5 then
+				return false
+			end
+
+			local data = API.GetBagItemTooltip(bagID, slotID)
+			for _, line in ipairs(data and data.lines or {}) do
+				if line.leftText == label then
+					return true
+				end
+			end
+
+			return false
+		end
+	end
+	TargetSpellChecks[51005] = TooltipCheck("ITEM_MILLABLE")
+	TargetSpellChecks[31252] = TooltipCheck("ITEM_PROSPECTABLE")
+end
+module.TargetSpellChecks = TargetSpellChecks
+
+local function IsSlotOutOfItemContext(btn)
+	if not module.itemContextActive or not module.db.effects.itemContextDim then
+		return false
+	end
+	if not btn.BagID or not btn.SlotID then
+		return false
+	end
+
+	local spellCheck = module.targetSpellCheck
+	if spellCheck then
+		return not spellCheck(btn.BagID, btn.SlotID)
+	end
+
+	local itemLocation = ItemLocation:CreateFromBagAndSlot(btn.BagID, btn.SlotID)
+	local result = _G.ItemButtonUtil.GetItemContextMatchResultForItem(itemLocation)
+	return result == _G.ItemButtonUtil.ItemContextMatchResult.Mismatch
+end
+
+local function ApplySlotDim(btn)
+	if not btn.searchOverlay then
+		return
+	end
+
+	local dim = IsSlotOutOfItemContext(btn)
+	if not dim and btn.ownerFrame == module.frame then
+		dim = module.sortingBags or (module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID)
+	end
+	btn.searchOverlay:SetShown(dim and true or false)
+end
+
+local function RefreshSlotDim()
+	for _, pool in ipairs(slotPools) do
+		for _, btn in ipairs(pool) do
+			if btn:IsShown() then
+				ApplySlotDim(btn)
+			end
+		end
+	end
+end
+
 local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	local slotPool = {}
+	tinsert(slotPools, slotPool)
 
 	local function CreateSlotButton(index)
 		local btn = CreateFrame(
@@ -696,9 +1127,11 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 		btn.IconOverlay2:SetInside()
 	end
 
-	-- Defaults to shown until something hides it; we filter non-matching
-	-- items out of the list entirely instead of dimming them in place.
+	-- Defaults to shown until something hides it. Search doesn't use it (we
+	-- filter non-matching items out of the list entirely); it's the sort and
+	-- bag-hover dimming instead (ApplySlotDim), tinted like ElvUI's own bags.
 	if btn.searchOverlay then
+		btn.searchOverlay:SetColorTexture(0, 0, 0, 0.6)
 		btn.searchOverlay:Hide()
 	end
 
@@ -734,6 +1167,13 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	btn.warboundIcon:Point("TOPRIGHT", -1, -1)
 	btn.warboundIcon:Hide()
 
+	-- Pinned marker, so a pinned item is recognizable in its normal category
+	-- too (same atlas as the Pinned Items category icon).
+	btn.pinIcon = btn:CreateTexture(nil, "OVERLAY", nil, 3)
+	btn.pinIcon:SetAtlas(module.PinnedCategory.icon)
+	btn.pinIcon:Point("BOTTOMLEFT", 1, 1)
+	btn.pinIcon:Hide()
+
 	-- Pawn upgrade-arrow overlay (same as ElvUI's own bags) - Blizzard has no
 	-- reliable native API for this, so it's driven entirely by the Pawn
 	-- addon's own PawnShouldItemLinkHaveUpgradeArrowUnbudgeted, if installed.
@@ -767,12 +1207,14 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	btn:SetScript("OnMouseUp", nil)
 
 	-- RightButtonDown too: the secure type/item dispatch needs the down-click
-	-- phase registered, not just Up.
-	btn:RegisterForClicks("AnyUp", "RightButtonDown")
+	-- phase registered, not just Up. LeftButtonDown for the same reason, but
+	-- only acted on while a spell waits for an item target (Slot_OnClick).
+	btn:RegisterForClicks("AnyUp", "RightButtonDown", "LeftButtonDown")
 	btn:SetScript("PreClick", Slot_OnClick)
 
 	btn:RegisterForDrag("LeftButton")
 	btn:SetScript("OnDragStart", Slot_OnDrag)
+	btn:SetScript("OnDragStop", Slot_OnDragStop)
 	btn:SetScript("OnReceiveDrag", Slot_OnDrag)
 
 	btn:SetScript("OnEnter", Slot_OnEnter)
@@ -842,6 +1284,18 @@ end
 --  items - drag an item onto one to assign it to that category, or pin it
 --  for the Pinned section, without physically moving it in the bag)
 -------------------------------------------------------------------------------
+-- While an item is on the cursor, every drop-target placeholder lights up at
+-- full opacity so it's obvious where it can be dropped to assign it; otherwise
+-- they sit at their normal resting alpha. One entry per frame's pool (bag and
+-- bank), so a cursor change can update both.
+local placeholderPools = {}
+
+local function ApplyDropHighlight(ph)
+	local active = module.cursorHasItem and ph.onAssign and module.db.effects.dropTargetHighlight
+	ph.dropHighlight:SetShown(active and true or false)
+	ph:SetAlpha(active and 1 or ph.restAlpha or 1)
+end
+
 local function CreatePlaceholderPoolFor(getContentChild)
 	local placeholderPool = {}
 
@@ -898,6 +1352,11 @@ local function CreatePlaceholderPoolFor(getContentChild)
 		btn.plusIcon:SetVertexColor(cc.r, cc.g, cc.b)
 		btn.plusIcon:Hide()
 
+		btn.dropHighlight = btn:CreateTexture(nil, "ARTWORK")
+		btn.dropHighlight:SetInside()
+		btn.dropHighlight:SetColorTexture(cc.r, cc.g, cc.b, 0.25)
+		btn.dropHighlight:Hide()
+
 		btn:SetScript("OnReceiveDrag", OnPlaceholderDrop)
 		btn:SetScript("OnMouseUp", OnPlaceholderDrop)
 		btn:SetScript("OnEnter", OnPlaceholderEnter)
@@ -923,6 +1382,14 @@ local function CreatePlaceholderPoolFor(getContentChild)
 			placeholderPool[i]:Hide()
 		end
 	end
+
+	tinsert(placeholderPools, function()
+		for _, ph in ipairs(placeholderPool) do
+			if ph:IsShown() then
+				ApplyDropHighlight(ph)
+			end
+		end
+	end)
 
 	return { Acquire = AcquirePlaceholder, Release = ReleasePlaceholdersFrom }
 end
@@ -952,7 +1419,7 @@ function UpdateUpgradeIcon(btn)
 		return
 	end
 
-	local _, _, _, equipLoc = C_Item_GetItemInfoInstant(itemLink)
+	local _, _, _, equipLoc = API.GetItemInfoInstant(itemLink)
 	if not equipLoc or not IS_EQUIPMENT_SLOT[equipLoc] then
 		btn.UpgradeIcon:Hide()
 		btn:SetScript("OnUpdate", nil)
@@ -973,7 +1440,7 @@ end
 -- Same tooltip-scan EquipManager.lua uses for ElvUI's native bags
 -- (GetContainerItemEquipmentSetInfo is still unreliable).
 local function IsItemInEquipmentSet(bagID, slotID)
-	local tooltipData = C_TooltipInfo_GetBagItem(bagID, slotID)
+	local tooltipData = API.GetBagItemTooltip(bagID, slotID)
 	if not tooltipData or not tooltipData.lines then
 		return false
 	end
@@ -999,7 +1466,7 @@ local function UpdateEquipSetIcon(btn, entry)
 		return
 	end
 
-	local _, _, _, equipLoc = C_Item_GetItemInfoInstant(entry.itemLink)
+	local _, _, _, equipLoc = API.GetItemInfoInstant(entry.itemLink)
 	if not equipLoc or not IS_EQUIPMENT_SLOT[equipLoc] or not IsItemInEquipmentSet(entry.bagID, entry.slotID) then
 		btn.equipIcon:Hide()
 		return
@@ -1042,13 +1509,24 @@ end
 local function UpdateSlotVisual(btn, entry)
 	btn.BagID = entry.bagID
 	btn.SlotID = entry.slotID
+
+	-- A slot faded out by an alt-drag can come back from the pool before its
+	-- drag ever finished (a refresh mid-drag), so always reset it here.
+	btn:SetAlpha(1)
 	btn:SetID(entry.slotID)
 	btn.itemID = entry.itemID
 	btn.itemLink = entry.itemLink
 
 	SetItemButtonTexture(btn, entry.icon)
+
 	SetItemButtonCount(btn, entry.count)
-	SetItemButtonDesaturated(btn, entry.isLocked)
+
+	-- Locked (being moved/split) as before, plus optionally vendor trash, so
+	-- it reads as "sell me" at a glance; the junk coin icon stays either way.
+	SetItemButtonDesaturated(
+		btn,
+		entry.isLocked or (entry.isJunk and module.db.effects.desaturateJunk) or false
+	)
 
 	local countFont = module.db.itemCountFont
 	if btn.Count then
@@ -1061,8 +1539,18 @@ local function UpdateSlotVisual(btn, entry)
 	-- ADDON_ACTION_FORBIDDEN). SetAttribute itself is combat-protected on
 	-- secure frames, so skip refreshing it mid-combat; the previous item's
 	-- attributes simply stay in place until the next safe refresh.
+	--
+	-- "*type2", not "type": an unsuffixed "type" applies to every mouse
+	-- button, so a left-click also fired the secure "use item" action right
+	-- after our PreClick had handed the item to the cursor. With a
+	-- profession spell waiting for a target (Disenchant, Milling, an
+	-- enchant scroll...) that second action swallowed the targeting click,
+	-- and a middle-click (pin) used the item as well. "*" keeps it working
+	-- with any modifier held; "item" stays unsuffixed so every button
+	-- still resolves it.
 	if not InCombatLockdown() then
-		btn:SetAttribute("type", "item")
+		btn:SetAttribute("type", nil)
+		btn:SetAttribute("*type2", "item")
 		btn:SetAttribute("item", entry.itemLink)
 	end
 
@@ -1116,6 +1604,15 @@ local function UpdateSlotVisual(btn, entry)
 	btn.warboundIcon:SetSize(module.db.itemSize * 0.4, module.db.itemSize * 0.4)
 	btn.warboundIcon:SetShown(entry.isWarbound and module.db.effects.warboundMarker and true or false)
 
+	btn.pinIcon:SetSize(module.db.itemSize * 0.4, module.db.itemSize * 0.4)
+	btn.pinIcon:SetShown(module.db.effects.pinMarker and module:IsItemPinned(entry.itemID) or false)
+
+	-- Straddles the slot's top edge like a tab badge, so it doesn't cover
+	-- the icon or the item level. Static: the slot glow already pulses.
+	F.SyncNewFeatureBadge(btn, "newBadge", entry.isNew and module.db.effects.newItemBadge, function()
+		return F.CreateNewFeatureBadge(btn, "CENTER", btn, "TOP", 0, 0, 0.6, true)
+	end)
+
 	local fx = module.db.effects
 	local showGlow = entry.isNew and fx.newItemGlow
 	btn.newItemGlow:SetShown(showGlow and true or false)
@@ -1147,6 +1644,7 @@ local function UpdateSlotVisual(btn, entry)
 	end
 
 	UpdateSlotCooldown(btn, entry.bagID, entry.slotID)
+	ApplySlotDim(btn)
 end
 
 -------------------------------------------------------------------------------
@@ -1256,6 +1754,31 @@ end
 -------------------------------------------------------------------------------
 --  Category sub-headers (expansion / equipment-set nesting within a category)
 -------------------------------------------------------------------------------
+-- Logos are wide 2:1 artwork, set icons are square item-style icons with
+-- the usual trimmed border.
+local function SetSubHeaderIcon(header, icon, isLogo)
+	local text = header.text
+	text:ClearAllPoints()
+
+	if not icon then
+		header.icon:Hide()
+		text:Point("LEFT", header, "LEFT", 8, 0)
+		return
+	end
+
+	local height = header:GetHeight()
+	header.icon:SetTexture(icon)
+	if isLogo then
+		header.icon:SetTexCoord(0, 1, 0, 1)
+		header.icon:Size(height * 2, height)
+	else
+		header.icon:SetTexCoord(unpack(E.TexCoords))
+		header.icon:Size(height - 2, height - 2)
+	end
+	header.icon:Show()
+	text:Point("LEFT", header.icon, "RIGHT", 4, 0)
+end
+
 local function CreateSubHeaderPoolFor(getContentChild)
 	local subHeaderPool = {}
 
@@ -1268,9 +1791,15 @@ local function CreateSubHeaderPoolFor(getContentChild)
 		-- correct position, shown=true) but visually unreadable against
 		-- whatever bled through behind it. A background bar fixes that
 		-- regardless of what's behind, same reasoning as the category headers.
+		-- The bar spans about half the content width (sized at render time,
+		-- never narrower than the label) and fades out
+		-- to the right, so it doesn't compete with the full-width category
+		-- header above it.
 		header.bg = header:CreateTexture(nil, "BACKGROUND")
-		header.bg:SetAllPoints()
-		header.bg:SetColorTexture(0, 0, 0, 0.35)
+		header.bg:SetTexture(E.media.blankTex)
+		header.bg:Point("TOPLEFT", 0, 0)
+		header.bg:Point("BOTTOMLEFT", 0, 0)
+		header.bg:SetGradient("HORIZONTAL", CreateColor(0, 0, 0, 0.45), CreateColor(0, 0, 0, 0))
 
 		-- Class-colored accent stripe on the left edge, echoing the selected
 		-- sidebar row bar and the category header divider.
@@ -1280,6 +1809,12 @@ local function CreateSubHeaderPoolFor(getContentChild)
 		header.accent:Width(2)
 		header.accent:Point("TOPLEFT", 0, 0)
 		header.accent:Point("BOTTOMLEFT", 0, 0)
+
+		-- Expansion logo or equipment set icon in front of the label, set
+		-- per render by SetSubHeaderIcon.
+		header.icon = header:CreateTexture(nil, "ARTWORK")
+		header.icon:Point("LEFT", 8, 0)
+		header.icon:Hide()
 
 		header.text = header:CreateFontString(nil, "OVERLAY")
 		header.text:FontTemplate(nil, 11)
@@ -1545,6 +2080,102 @@ local bagPools = CreatePoolSet(
 -- contentChild/sidebarChild/frame/offsets exist.
 module.CreatePoolSet = CreatePoolSet
 
+-- Footer currency order: a list of currencyTypesIDs kept in db.currencyOrder.
+-- Currencies the player starts watching later aren't in it yet and simply
+-- follow in Blizzard's own order.
+local function GetOrderedCurrencies()
+	local order = module.db.currencyOrder or {}
+	local position = {}
+	for index, currencyID in ipairs(order) do
+		position[currencyID] = index
+	end
+
+	local watched = {}
+	for index = 1, MAX_WATCHED_TOKENS do
+		local info = API.GetBackpackCurrencyInfo(index)
+		if info and info.name then
+			tinsert(watched, {
+				index = index,
+				info = info,
+				position = position[info.currencyTypesID] or (#order + index),
+			})
+		end
+	end
+
+	tsort(watched, function(a, b)
+		return a.position < b.position
+	end)
+
+	return watched
+end
+
+local function MoveCurrency(draggedID, targetID)
+	if not draggedID or not targetID or draggedID == targetID then
+		return
+	end
+
+	local db = module.db
+
+	-- Seed from what is currently displayed, so the first drag reorders the
+	-- visible cluster instead of an empty list.
+	if not db.currencyOrder or #db.currencyOrder == 0 then
+		db.currencyOrder = {}
+		for _, entry in ipairs(GetOrderedCurrencies()) do
+			tinsert(db.currencyOrder, entry.info.currencyTypesID)
+		end
+	end
+
+	local order = db.currencyOrder
+	for index, currencyID in ipairs(order) do
+		if currencyID == draggedID then
+			tremove(order, index)
+			break
+		end
+	end
+
+	for index, currencyID in ipairs(order) do
+		if currencyID == targetID then
+			tinsert(order, index, draggedID)
+			return
+		end
+	end
+
+	tinsert(order, draggedID)
+end
+
+local function Currency_OnDragStart(self)
+	if InCombatLockdown() or not self.currencyID then
+		return
+	end
+
+	module.draggingCurrencyID = self.currencyID
+	self:SetAlpha(0.4)
+end
+
+local function Currency_OnDragStop(self)
+	self:SetAlpha(1)
+
+	local draggedID = module.draggingCurrencyID
+	local targetID = module.dragHoverCurrencyID
+	module.draggingCurrencyID = nil
+	module.dragHoverCurrencyID = nil
+
+	if draggedID and targetID then
+		MoveCurrency(draggedID, targetID)
+		module:UpdateFooter()
+	end
+end
+
+local function Currency_OnDragEnter(self)
+	if module.draggingCurrencyID then
+		module.dragHoverCurrencyID = self.currencyID
+	end
+end
+
+local function Currency_OnDragLeave()
+	module.dragHoverCurrencyID = nil
+end
+
 -------------------------------------------------------------------------------
 --  Frame construction
 -------------------------------------------------------------------------------
@@ -1710,6 +2341,8 @@ function module:ConstructFrame()
 		GameTooltip:AddDoubleLine(L["Shift + Right Click:"], L["Split Stack"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Alt + Drag:"], L["Reorder items inside a category"], 1, 1, 1)
+		GameTooltip:AddLine(L["Changes the display order only - nothing moves in your bags."], 0.6, 0.6, 0.6)
 
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(L["Bank / Warband Bank (while open)"], 1, 0.82, 0)
@@ -1740,6 +2373,7 @@ function module:ConstructFrame()
 	f.sidebar:Point("BOTTOMLEFT", f, "BOTTOMLEFT", 8, 60)
 	f.sidebar:Width(db.sidebarCollapsed and COLLAPSED_SIDEBAR_WIDTH or db.sidebarWidth)
 	pcall(f.sidebar.SetTemplate, f.sidebar, "Transparent")
+	module.AddSidebarEdge(f.sidebar)
 
 	f.sidebarHeaderText = f.sidebar:CreateFontString(nil, "OVERLAY")
 	f.sidebarHeaderText:FontTemplate()
@@ -1763,6 +2397,7 @@ function module:ConstructFrame()
 		GameTooltip:Show()
 	end)
 	f.collapseButton:SetScript("OnLeave", GameTooltip_Hide)
+	module.AddCollapseButtonHover(f.collapseButton)
 
 	-- Fixed (non-scrolling) view-mode switcher, always pinned above the
 	-- scrollable category/bag list - "All Items" is a flat, ungrouped list;
@@ -1960,6 +2595,15 @@ function module:ConstructFrame()
 		end)
 		btn:HookScript("OnLeave", GameTooltip_Hide)
 
+		-- Drag one currency onto another to reorder the footer cluster, the
+		-- same interaction the sidebar categories already use. Blizzard's own
+		-- watch list stays untouched; only our display order moves.
+		btn:RegisterForDrag("LeftButton")
+		btn:SetScript("OnDragStart", Currency_OnDragStart)
+		btn:SetScript("OnDragStop", Currency_OnDragStop)
+		btn:HookScript("OnEnter", Currency_OnDragEnter)
+		btn:HookScript("OnLeave", Currency_OnDragLeave)
+
 		f.footer.currencyButtons[i] = btn
 	end
 
@@ -2015,6 +2659,13 @@ local function SortGoldDescending(a, b)
 	return a.amount > b.amount
 end
 
+-- Small inline icons so characters, the account total and the warband bank
+-- are told apart at a glance instead of by reading every label.
+local function TooltipIcon(atlas)
+	return CreateAtlasMarkup(atlas, 14, 14) .. " "
+end
+module.TooltipIcon = TooltipIcon
+
 function module:ShowGoldTooltip(anchor)
 	if GameTooltip:IsForbidden() then
 		return
@@ -2047,17 +2698,20 @@ function module:ShowGoldTooltip(anchor)
 	for _, data in ipairs(characters) do
 		local color = (data.class and E:ClassColor(data.class)) or _G.HIGHLIGHT_FONT_COLOR
 		local nameLine = data.realm ~= E.myrealm and format("%s - %s", data.name, data.realm) or data.name
+		if data.class then
+			nameLine = TooltipIcon("classicon-" .. strlower(data.class)) .. nameLine
+		end
 		GameTooltip:AddDoubleLine(nameLine, E:FormatMoney(data.amount, "SMART"), color.r, color.g, color.b, 1, 1, 1)
 	end
 
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine(_G.TOTAL or L["Total"], E:FormatMoney(total, "SMART"), 1, 1, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(TooltipIcon("coin-gold") .. (_G.TOTAL or L["Total"]), E:FormatMoney(total, "SMART"), 1, 1, 1, 1, 1, 1)
 
 	if _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
 		local warbandBankType = (Enum.BankType and Enum.BankType.Account) or 2
 		local ok, warbandGold = pcall(_G.C_Bank.FetchDepositedMoney, warbandBankType)
 		if ok and warbandGold then
-			GameTooltip:AddDoubleLine(L["Warband Bank"], E:FormatMoney(warbandGold, "SMART"), 1, 1, 1, 1, 1, 1)
+			GameTooltip:AddDoubleLine(TooltipIcon("warbands-icon") .. L["Warband Bank"], E:FormatMoney(warbandGold, "SMART"), 1, 1, 1, 1, 1, 1)
 		end
 	end
 
@@ -2076,15 +2730,24 @@ function module:UpdateFooter()
 	-- Chained right-to-left off the footer's own right edge (independent of
 	-- goldText's width), so the whole currency cluster stays flush to the
 	-- right instead of trailing right after the gold amount.
+	local ordered = GetOrderedCurrencies()
+
 	local rightAnchor, rightAnchorPoint, rightPadding = f.footer, "RIGHT", -6
 	for i = 1, MAX_WATCHED_TOKENS do
 		local btn = f.footer.currencyButtons[i]
-		local info = C_CurrencyInfo_GetBackpackCurrencyInfo(i)
+		local entry = ordered[i]
 
-		if info and info.name then
+		if entry then
+			local info = entry.info
 			local icon = btn.icon or btn.Icon
 			icon:SetTexture(info.iconFileID)
 			btn.text:SetText(info.quantity)
+
+			-- The button's ID is Blizzard's watch index, not our display
+			-- position: the template's own tooltip (SetBackpackToken) reads
+			-- it, so it has to follow the currency, not the slot it sits in.
+			btn:SetID(entry.index)
+			btn.currencyID = info.currencyTypesID
 
 			btn:ClearAllPoints()
 			btn.text:ClearAllPoints()
@@ -2094,6 +2757,7 @@ function module:UpdateFooter()
 
 			rightAnchor, rightAnchorPoint, rightPadding = btn, "LEFT", -14
 		else
+			btn.currencyID = nil
 			btn:Hide()
 		end
 	end
@@ -2113,7 +2777,7 @@ function module:GetJunkValue()
 		for slotID = 1, numSlots do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 			if info and info.hyperlink and not info.hasNoValue and info.quality == ITEMQUALITY_POOR then
-				local sellPrice = select(11, C_Item_GetItemInfo(info.hyperlink))
+				local sellPrice = select(11, API.GetItemInfo(info.hyperlink))
 				if sellPrice and sellPrice > 0 then
 					value = value + sellPrice * (info.stackCount or 1)
 				end
@@ -2160,26 +2824,26 @@ end
 -- opens), in one call instead of moving items one at a time. Targets whichever
 -- of the two banks the sidebar is currently showing.
 function module:AutoDepositToBank()
-	if not module.isBankOpen or not AutoDepositItemsIntoBank then
+	if not module.isBankOpen or not BankAPI.AutoDeposit then
 		E:Print(L["You must be at the bank."])
 		return
 	end
 
 	local isWarbandView = module.bankViewMode == "WARBAND_ALL" or module.bankViewMode == "ONEWARBAND"
 	local bankType = isWarbandView and WARBAND_BANK_TYPE or CHARACTER_BANK_TYPE
-	AutoDepositItemsIntoBank(bankType)
+	BankAPI.AutoDeposit(bankType)
 end
 
 -- Confirmation prompt for buying the next bank tab (mirrors Blizzard's own
--- purchase flow, which also confirms before spending gold) - PurchaseBankTab
+-- purchase flow, which also confirms before spending gold) - BankAPI.PurchaseTab
 -- always targets "the next" tab, there's no per-tab selection, so this is
 -- only ever offered for the one tab slot right after your last purchased one.
 local function ShowPurchaseBankTabPrompt(bankType)
-	if not FetchNextPurchasableBankTabData or not PurchaseBankTab then
+	if not BankAPI.FetchNextPurchasableTabData or not BankAPI.PurchaseTab then
 		return
 	end
 
-	local tabData = FetchNextPurchasableBankTabData(bankType)
+	local tabData = BankAPI.FetchNextPurchasableTabData(bankType)
 	if not tabData then
 		return
 	end
@@ -2209,12 +2873,12 @@ local function GetDisplayItemLevel(itemLink, quality)
 		return nil
 	end
 
-	local _, _, _, _, _, classID = C_Item_GetItemInfoInstant(itemLink)
+	local _, _, _, _, _, classID = API.GetItemInfoInstant(itemLink)
 	if classID ~= ITEMCLASS_ARMOR and classID ~= ITEMCLASS_WEAPON then
 		return nil
 	end
 
-	local iLvl = C_Item_GetDetailedItemLevelInfo(itemLink)
+	local iLvl = API.GetDetailedItemLevelInfo(itemLink)
 	return iLvl and iLvl > 0 and iLvl or nil
 end
 
@@ -2229,13 +2893,13 @@ local function GetWarboundInfo(itemLink, bagID, slotID)
 		return false, false
 	end
 
-	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = C_Item_GetItemInfo(itemLink)
+	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = API.GetItemInfo(itemLink)
 	if bindType == ITEMBIND_TO_BNET_ACCOUNT then
 		return true, false
 	elseif bindType == ITEMBIND_TO_BNET_ACCOUNT_UNTIL_EQUIPPED then
 		return true, true
-	elseif bindType == ITEMBIND_ON_EQUIP and C_Item_IsBoundToAccountUntilEquip then
-		if C_Item_IsBoundToAccountUntilEquip(ItemLocation:CreateFromBagAndSlot(bagID, slotID)) then
+	elseif bindType == ITEMBIND_ON_EQUIP and API.IsBoundToAccountUntilEquip then
+		if API.IsBoundToAccountUntilEquip(ItemLocation:CreateFromBagAndSlot(bagID, slotID)) then
 			return true, true
 		end
 	end
@@ -2252,7 +2916,7 @@ local function GetBindText(itemLink, isBound, isUntilEquipped)
 		return L["WuE"]
 	end
 
-	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = C_Item_GetItemInfo(itemLink)
+	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = API.GetItemInfo(itemLink)
 	return bindType and BIND_TEXT[bindType]
 end
 
@@ -2287,12 +2951,40 @@ local function GetItemExpansionInfo(itemID)
 		return nil
 	end
 
-	local expacID = select(15, C_Item_GetItemInfo(itemID))
+	local expacID = select(15, API.GetItemInfo(itemID))
 	if not expacID then
 		return nil
 	end
 
 	return _G["EXPANSION_NAME" .. expacID], expacID
+end
+
+-- Expansion logos (the wide 2:1 artwork from the login screen) used as the
+-- sub-header icon; cached since the lookup runs for every nested item.
+local expansionLogoCache = {}
+local function GetExpansionLogo(expacID)
+	if not expacID or not GetExpansionDisplayInfo then
+		return nil
+	end
+
+	local logo = expansionLogoCache[expacID]
+	if logo == nil then
+		local info = GetExpansionDisplayInfo(expacID)
+		logo = info and info.logo or false
+		expansionLogoCache[expacID] = logo
+	end
+
+	return logo or nil
+end
+
+-- Both kinds of nesting are optional; a category only nests when its own
+-- rule says so AND the matching option is on.
+local function NestsByExpansion(cat)
+	return (cat and cat.nestByExpansion and module.db.nestByExpansion) or false
+end
+
+local function NestsByEquipmentSet(cat)
+	return (cat and cat.nestByEquipmentSet and module.db.nestByEquipmentSet) or false
 end
 
 -- Groups items sharing the same subgroupName (expansion name, or equipment
@@ -2301,12 +2993,15 @@ end
 -- sub-header should be inserted before rendering that item.
 local function GroupBySubgroup(items, nestByExpansion)
 	local seen, nameOrder, orderedNames = {}, {}, {}
+	local nameIcon, nameIsLogo = {}, {}
 
 	for _, entry in ipairs(items) do
 		local name = entry.subgroupName
 		if name and not seen[name] then
 			seen[name] = true
 			nameOrder[name] = entry.subgroupOrder or 0
+			nameIcon[name] = entry.subgroupIcon
+			nameIsLogo[name] = entry.subgroupIconIsLogo
 			tinsert(orderedNames, name)
 		end
 	end
@@ -2337,7 +3032,13 @@ local function GroupBySubgroup(items, nestByExpansion)
 	for _, name in ipairs(orderedNames) do
 		local bucket = buckets[name]
 		if bucket and #bucket > 0 then
-			tinsert(subHeaders, { name = name, index = #result + 1, count = #bucket })
+			tinsert(subHeaders, {
+				name = name,
+				index = #result + 1,
+				count = #bucket,
+				icon = nameIcon[name],
+				isLogo = nameIsLogo[name],
+			})
 			for _, entry in ipairs(bucket) do
 				tinsert(result, entry)
 			end
@@ -2373,17 +3074,25 @@ local function CollectItemsFromBags(bagIDList, scratch)
 					scratch[key] = scratch[key] or {}
 
 					local cat = catByKey[key]
-					local subgroupName, subgroupOrder
-					if cat and cat.nestByExpansion then
+					local subgroupName, subgroupOrder, subgroupIcon, subgroupIconIsLogo
+					if NestsByExpansion(cat) then
 						subgroupName, subgroupOrder = GetItemExpansionInfo(info.itemID)
-					elseif cat and cat.nestByEquipmentSet then
+						subgroupIcon = GetExpansionLogo(subgroupOrder)
+						subgroupIconIsLogo = true
+					elseif NestsByEquipmentSet(cat) then
 						subgroupName = module:GetEquipmentSetName(info.itemID)
+						subgroupIcon = module:GetEquipmentSetIcon(subgroupName)
 					end
 
 					local questID, isActiveQuest, isJunk =
 						GetQuestAndJunkInfo(bagID, slotID, info.quality, info.hasNoValue)
 
 					local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
+
+					local isNew = API.IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false
+					if isNew then
+						MarkItemRecent(info.itemID)
+					end
 
 					tinsert(scratch[key], {
 						bagID = bagID,
@@ -2394,13 +3103,16 @@ local function CollectItemsFromBags(bagIDList, scratch)
 						count = info.stackCount,
 						quality = info.quality,
 						isLocked = info.isLocked,
-						isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
+						isNew = isNew,
+						isRecent = module:IsRecentItem(info.itemID),
 						itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
 							or nil,
 						bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped) or nil,
 						isWarbound = isWarbound,
 						subgroupName = subgroupName,
 						subgroupOrder = subgroupOrder,
+						subgroupIcon = subgroupIcon,
+						subgroupIconIsLogo = subgroupIconIsLogo,
 						questID = questID,
 						isActiveQuest = isActiveQuest,
 						isJunk = isJunk,
@@ -2447,7 +3159,7 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 		local recent = {}
 		for _, cat in ipairs(categories) do
 			for _, entry in ipairs(itemsByCategory[cat.key] or {}) do
-				if entry.isNew then
+				if entry.isRecent then
 					tinsert(recent, entry)
 				end
 			end
@@ -2490,10 +3202,10 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 					end
 
 					if memberCat then
-						if memberCat.nestByEquipmentSet then
+						if NestsByEquipmentSet(memberCat) then
 							hasNesting = true
 						end
-						if memberCat.nestByExpansion then
+						if NestsByExpansion(memberCat) then
 							hasNesting, nestByExpansion = true, true
 						end
 					end
@@ -2517,6 +3229,7 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 						key = group.key,
 						name = module:GetGroupName(group),
 						icon = group.icon,
+						isAtlas = group.isAtlas,
 						items = mergedItems,
 						subHeaders = subHeaders,
 						isGroup = true,
@@ -2528,8 +3241,8 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 			local items = itemsByCategory[cat.key] or {}
 			if #items > 0 or not db.hideEmptyCategories or cat.isUser then
 				local subHeaders
-				if cat.nestByExpansion or cat.nestByEquipmentSet then
-					items, subHeaders = GroupBySubgroup(items, cat.nestByExpansion)
+				if NestsByExpansion(cat) or NestsByEquipmentSet(cat) then
+					items, subHeaders = GroupBySubgroup(items, NestsByExpansion(cat))
 				end
 				tinsert(sections, {
 					key = cat.key,
@@ -2577,6 +3290,11 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 
 				local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
 
+				local isNew = API.IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false
+				if isNew then
+					MarkItemRecent(info.itemID)
+				end
+
 				tinsert(scratch[bagID], {
 					bagID = bagID,
 					slotID = slotID,
@@ -2586,7 +3304,8 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 					count = info.stackCount,
 					quality = info.quality,
 					isLocked = info.isLocked,
-					isNew = C_NewItems_IsNewItem(bagID, slotID) or newItemSnapshot[bagID * 1000 + slotID] or false,
+					isNew = isNew,
+					isRecent = module:IsRecentItem(info.itemID),
 					itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
 						or nil,
 					bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped) or nil,
@@ -2616,7 +3335,7 @@ end
 -- (Bags.lua, B:BankTab_PurchasedData).
 local bankTabDataScratch = {}
 local function GetBankTabInfo(bagID)
-	if not FetchPurchasedBankTabData then
+	if not BankAPI.FetchPurchasedTabData then
 		return nil
 	end
 
@@ -2630,7 +3349,7 @@ local function GetBankTabInfo(bagID)
 	end
 
 	wipe(bankTabDataScratch)
-	local tabs = FetchPurchasedBankTabData(bankType)
+	local tabs = BankAPI.FetchPurchasedTabData(bankType)
 	if tabs then
 		for _, data in ipairs(tabs) do
 			bankTabDataScratch[data.ID] = data
@@ -2688,7 +3407,7 @@ module.BAG_BAR_BUTTON_SIZE, module.BAG_BAR_SPACING = BAG_BAR_BUTTON_SIZE, BAG_BA
 
 -- Tri-state helper for a fixed-length bank/warband tab list (purchased / next
 -- purchasable / locked) - shared by the Bank frame's own sidebar tab rows
--- (BankFrame.lua). PurchaseBankTab always buys "the next" tab, there's no
+-- (BankFrame.lua). BankAPI.PurchaseTab always buys "the next" tab, there's no
 -- per-tab selection, so only the slot right after the last purchased one can
 -- ever be "purchasable"; anything further out stays "locked" until that one
 -- is bought (same one-step-at-a-time reveal Blizzard's own tab bar uses).
@@ -2698,12 +3417,12 @@ local function GetBankTabSlotState(bagIDList, bankType, index)
 		return nil
 	end
 
-	local purchasedCount = (bankType and FetchNumPurchasedBankTabs) and FetchNumPurchasedBankTabs(bankType)
+	local purchasedCount = (bankType and BankAPI.FetchNumPurchasedTabs) and BankAPI.FetchNumPurchasedTabs(bankType)
 		or #bagIDList
 
 	if index <= purchasedCount then
 		return "purchased", bagID
-	elseif index == purchasedCount + 1 and bankType and CanPurchaseBankTab and CanPurchaseBankTab(bankType) then
+	elseif index == purchasedCount + 1 and bankType and BankAPI.CanPurchaseTab and BankAPI.CanPurchaseTab(bankType) then
 		return "purchasable", bankType
 	end
 
@@ -2764,8 +3483,15 @@ function module:ConstructBagBarPopout()
 			GameTooltip:SetOwner(self, "ANCHOR_TOP")
 			GameTooltip:AddLine(format("%s (%d/%d)", GetBagDisplayName(self.bagID), numSlots - freeSlots, numSlots), 1, 1, 1)
 			GameTooltip:Show()
+
+			module.hoveredBagID = self.bagID
+			RefreshSlotDim()
 		end)
-		btn:SetScript("OnLeave", GameTooltip_Hide)
+		btn:SetScript("OnLeave", function()
+			GameTooltip_Hide()
+			module.hoveredBagID = nil
+			RefreshSlotDim()
+		end)
 
 		f.buttons[i] = btn
 	end
@@ -2850,7 +3576,7 @@ local function BuildBagSectionsFrom(bagIDList, itemsByBag, alwaysShow, skipSideb
 		local recent = {}
 		for _, bagID in ipairs(bagIDList) do
 			for _, entry in ipairs(itemsByBag[bagID] or {}) do
-				if entry.isNew then
+				if entry.isRecent then
 					tinsert(recent, entry)
 				end
 			end
@@ -2939,7 +3665,7 @@ local function BuildFlatSectionsFrom(bagIDList, itemsByBag)
 		local recent = {}
 		for _, bagID in ipairs(bagIDList) do
 			for _, entry in ipairs(itemsByBag[bagID] or {}) do
-				if entry.isNew then
+				if entry.isRecent then
 					tinsert(recent, entry)
 				end
 			end
@@ -2982,16 +3708,155 @@ local function BuildFlatSections()
 	return BuildFlatSectionsFrom(BAG_IDS, CollectItemsByBag())
 end
 
+-- Panels that hand over one bag slot at a time (mail, trade, auction house,
+-- vendor, bank, guild bank): a merged slot button only passes along the one
+-- slot behind it, so three merged stacks would mail/sell exactly one. While
+-- any of them is open, duplicates stay split.
+module.openItemPanels = {}
+
+local ITEM_PANEL_EVENTS = {
+	MAIL_SHOW = { "mail", true },
+	MAIL_CLOSED = { "mail", false },
+	TRADE_SHOW = { "trade", true },
+	TRADE_CLOSED = { "trade", false },
+	AUCTION_HOUSE_SHOW = { "auction", true },
+	AUCTION_HOUSE_CLOSED = { "auction", false },
+	MERCHANT_SHOW = { "merchant", true },
+	MERCHANT_CLOSED = { "merchant", false },
+	GUILDBANKFRAME_OPENED = { "guildbank", true },
+	GUILDBANKFRAME_CLOSED = { "guildbank", false },
+}
+module.ITEM_PANEL_EVENTS = ITEM_PANEL_EVENTS
+
+function module:SetItemPanelOpen(key, open)
+	if (module.openItemPanels[key] or false) == open then
+		return
+	end
+
+	module.openItemPanels[key] = open or nil
+
+	if module.frame and module.frame:IsShown() then
+		module:RefreshCategoryFrame()
+	end
+	if module.bankFrame and module.bankFrame:IsShown() then
+		module:RefreshBankCategoryFrame()
+	end
+end
+
+function module:OnItemPanelEvent(event)
+	local panel = ITEM_PANEL_EVENTS[event]
+	if panel then
+		module:SetItemPanelOpen(panel[1], panel[2])
+	end
+end
+
+local function AnyItemPanelOpen()
+	if next(module.openItemPanels) ~= nil then
+		return true
+	end
+
+	-- The bank counts as one of those panels, but it has its own event
+	-- handlers already (OnBankOpened/OnBankClosed) - read its state instead
+	-- of duplicating them here.
+	return module.isBankOpen and true or false
+end
+
+-- Collapses identical stacks (same item link) into one button showing the
+-- combined count; the button still acts on the first stack's bag/slot, which
+-- is why this is off while an item panel is open. Gear is left alone: two
+-- copies of the same piece are still two separate things to compare, equip
+-- or hand in, and the reference behaves the same way.
+local function MergeDuplicateEntries(items)
+	if not module.db.mergeDuplicates or AnyItemPanelOpen() then
+		return items
+	end
+
+	local seen, merged = {}, {}
+	for _, entry in ipairs(items) do
+		local key = entry.itemLink
+		if key and not API.IsEquippableItem(key) then
+			local existing = seen[key]
+			if existing then
+				-- Copy on first duplicate: the entry itself is also painted
+				-- by the untouched bag views, which must keep the real
+				-- per-slot count.
+				if not existing.isMerged then
+					local proxy = {}
+					for field, value in pairs(existing) do
+						proxy[field] = value
+					end
+					proxy.isMerged = true
+					merged[existing.mergeIndex] = proxy
+					seen[key] = proxy
+					proxy.mergeIndex = existing.mergeIndex
+					existing = proxy
+				end
+
+				existing.count = (existing.count or 1) + (entry.count or 1)
+				existing.isNew = existing.isNew or entry.isNew
+			else
+				tinsert(merged, entry)
+				entry.mergeIndex = #merged
+				seen[key] = entry
+			end
+		else
+			tinsert(merged, entry)
+		end
+	end
+
+	return merged
+end
+
+-- Sidebar rows and section headers keep counting real stacks, so the numbers
+-- don't change just because the view merges them.
+-- A section can carry a manual item order when it has a stable identity to
+-- store one under: the physical bag views and the flat All Items list don't,
+-- Recent Items is ordered by when things arrived, and a section split into
+-- expansion/set sub-headers is already arranged by those buckets.
+local function GetSectionOrderKey(section)
+	if
+		section.isBagSection
+		or section.isRecent
+		or section.subHeaders
+		or section.key == module.AllItemsCategory.key
+	then
+		return nil
+	end
+
+	return section.key
+end
+
+local function MergeSectionItems(sections)
+	module.orderedSectionItems = wipe(module.orderedSectionItems or {})
+
+	for _, section in ipairs(sections) do
+		section.itemCount = #section.items
+
+		section.orderKey = GetSectionOrderKey(section)
+		if section.orderKey then
+			section.items = ApplyItemOrder(section.orderKey, section.items)
+			module.orderedSectionItems[section.orderKey] = section.items
+		end
+
+		if not section.isBagSection then
+			section.items = MergeDuplicateEntries(section.items)
+		end
+	end
+
+	return sections
+end
+module.MergeSectionItems = MergeSectionItems
+
 local function BuildSections()
 	local viewMode = module.db.viewMode
 
 	if viewMode == "BAG" then
-		return BuildBagSections()
+		return MergeSectionItems(BuildBagSections())
 	elseif viewMode == "ALL" then
-		return BuildFlatSections()
+		return MergeSectionItems(BuildFlatSections())
 	end
 
-	return BuildCategorySections()
+	return MergeSectionItems(BuildCategorySections())
 end
 
 function module:SetSidebarCollapsed(collapsed)
@@ -3079,7 +3944,7 @@ local function RenderCategorySections(ctx, sections)
 		header:ClearAllPoints()
 		header:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 0, -y)
 		header:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", 0, -y)
-		header.text:SetText(format("%s |cff999999(%d)|r", section.name, #section.items))
+		header.text:SetText(format("%s |cff999999(%d)|r", section.name, section.itemCount or #section.items))
 		SetCategoryIcon(header.icon, section)
 
 		local collapsed = not searching and db.collapsedSections[section.key] and true or false
@@ -3092,8 +3957,13 @@ local function RenderCategorySections(ctx, sections)
 		if section.showClear then
 			header.clearButton:Show()
 			header.clearButton:SetScript("OnClick", function()
+				-- The list itself is the tracked item IDs; the glow on top of
+				-- it is the native flag OR our open-time snapshot (see
+				-- SnapshotNewItemsForBags), so all three have to go.
+				module:ClearRecentItems()
 				for _, entry in ipairs(section.items) do
-					C_NewItems_RemoveNewItem(entry.bagID, entry.slotID)
+					API.RemoveNewItem(entry.bagID, entry.slotID)
+					newItemSnapshot[entry.bagID * 1000 + entry.slotID] = nil
 				end
 				ctx.refresh()
 			end)
@@ -3109,7 +3979,7 @@ local function RenderCategorySections(ctx, sections)
 		-- still render. skipSidebarRow (bank tab sections) is the same idea:
 		-- a fixed row already exists elsewhere for it.
 		if section.key == module.PinnedCategory.key then
-			ctx.pinnedRow.count:SetText(#section.items)
+			ctx.pinnedRow.count:SetText(section.itemCount or #section.items)
 		elseif not section.skipSidebarRow then
 			sidebarIndex = sidebarIndex + 1
 			-- Bag sections aren't reorderable either (no persisted "bag order"
@@ -3121,7 +3991,7 @@ local function RenderCategorySections(ctx, sections)
 				section.name,
 				section.icon,
 				section.isAtlas,
-				#section.items,
+				section.itemCount or #section.items,
 				section.key:find("^USER_") and true or false,
 				section.key == module.RecentCategory.key
 					or section.key == module.AllItemsCategory.key
@@ -3212,7 +4082,8 @@ local function RenderCategorySections(ctx, sections)
 				-- All of these accept a drop, but only the "+" one should
 				-- visually read as an actual button - the rest stay
 				-- transparent, purely there to fill the row out to full width.
-				ph:SetAlpha(isAddSlot and 1 or db.effects.placeholderAlpha)
+				ph.restAlpha = isAddSlot and 1 or db.effects.placeholderAlpha
+				ApplyDropHighlight(ph)
 
 				col = col + 1
 				if col >= columns then
@@ -3251,6 +4122,9 @@ local function RenderCategorySections(ctx, sections)
 					subHeader:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 6, -rowStartY)
 					subHeader:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", -6, -rowStartY)
 					subHeader.text:SetText(format("%s |cff999999(%d)|r", nextSubHeader.name, nextSubHeader.count))
+					SetSubHeaderIcon(subHeader, module.db.effects.subHeaderIcons and nextSubHeader.icon, nextSubHeader.isLogo)
+					local iconWidth = subHeader.icon:IsShown() and (subHeader.icon:GetWidth() + 4) or 0
+					subHeader.bg:Width(math.max(subHeader.text:GetStringWidth() + iconWidth + 48, (ctx.contentChild:GetWidth() - 12) * 0.5))
 					rowStartY = rowStartY + subHeader:GetHeight() + 2
 
 					nextSubHeader = subHeaders[nextSubHeaderPos]
@@ -3260,6 +4134,7 @@ local function RenderCategorySections(ctx, sections)
 				slotIndex = slotIndex + 1
 				local btn = pools.AcquireSlot(slotIndex)
 				UpdateSlotVisual(btn, entry)
+				btn.orderKey = section.orderKey
 
 				btn:ClearAllPoints()
 				btn:Size(db.itemSize)
@@ -3301,12 +4176,52 @@ local function RenderCategorySections(ctx, sections)
 	end
 end
 
+-- Shrinks a window to whatever its content needs, using the configured
+-- height as the upper bound - so the height slider becomes "at most this
+-- tall" instead of "always this tall". The chrome (title bar, search row,
+-- footer) is measured from the live geometry rather than hardcoded, so it
+-- keeps working when those change size.
+local AUTO_HEIGHT_MIN = 220
+
+local function ApplyAutoHeight(frame, contentChild, sidebarChild, maxHeight)
+	if not module.db.autoSize or InCombatLockdown() then
+		return
+	end
+
+	local scrollHeight = frame.mainScroll:GetHeight()
+	if not scrollHeight or scrollHeight <= 0 then
+		return
+	end
+
+	local chrome = frame:GetHeight() - scrollHeight
+	local wanted = contentChild:GetHeight() + chrome + 4
+
+	-- A long category list must not end up scrolling inside a window that
+	-- was shrunk to fit a handful of items, so the sidebar sets its own
+	-- floor: whatever it overflows by is added to the current height.
+	local sidebarOverflow = sidebarChild:GetHeight() - frame.sidebarScroll:GetHeight()
+	if sidebarOverflow > 0 then
+		wanted = math.max(wanted, frame:GetHeight() + sidebarOverflow)
+	end
+
+	wanted = math.min(maxHeight, math.max(AUTO_HEIGHT_MIN, wanted))
+
+	if math.abs(wanted - frame:GetHeight()) >= 1 then
+		frame:Height(wanted)
+	end
+end
+module.ApplyAutoHeight = ApplyAutoHeight
+
 module.RenderCategorySections = RenderCategorySections
 
 function module:RefreshCategoryFrame()
 	if not module.frame or not module.frame:IsShown() then
 		return
 	end
+
+	-- Picks up a lowered Recent Items limit from the options without waiting
+	-- for the next item to come in.
+	TrimRecentItems()
 
 	local db = module.db
 	local sections = BuildSections()
@@ -3345,20 +4260,16 @@ function module:RefreshCategoryFrame()
 		module.SetSelectedRowTextColor(row, isSelected)
 	end
 
-	-- The scrollbar reserve (sidebarScroll's right inset) is sized for the
-	-- full-width sidebar; a fixed -30 on top of a collapsed ~40px sidebar
-	-- left almost nothing for the icon column and clipped it. Both the
-	-- scroll frame's own inset and the child width it scrolls need a
-	-- collapsed-appropriate reserve instead.
-	local scrollbarReserve = db.sidebarCollapsed and 16 or 30
 	f.sidebarScroll:ClearAllPoints()
 	f.sidebarScroll:Point("TOPLEFT", 4, -18 - (#f.viewModeRows + 1) * VIEW_MODE_ROW_HEIGHT - 10)
-	f.sidebarScroll:Point("BOTTOMRIGHT", -(scrollbarReserve - 6), 4)
-	f.sidebarChild:Width(sidebarWidth - scrollbarReserve)
+	f.sidebarScroll:Point("BOTTOMRIGHT", -SIDEBAR_SCROLLBAR_INSET, 4)
+	f.sidebarChild:Width(GetSidebarChildWidth(sidebarWidth))
 
 	f.pinnedRow.text:SetShown(not db.sidebarCollapsed)
 	f.pinnedRow.count:SetShown(not db.sidebarCollapsed)
 	SetCategoryIcon(f.pinnedRow.icon, module.PinnedCategory)
+
+	module.PositionCollapseButton(f, db.sidebarCollapsed)
 
 	local collapseArrowRotation = S.ArrowRotation and S.ArrowRotation[db.sidebarCollapsed and "right" or "left"]
 	if collapseArrowRotation then
@@ -3384,6 +4295,8 @@ function module:RefreshCategoryFrame()
 			module:RefreshCategoryFrame()
 		end,
 	}, sections)
+
+	ApplyAutoHeight(f, module.contentChild, module.sidebarChild, db.height)
 
 	f.titleText:SetText(L["Inventory"])
 	SetTitleCount(f.titleCountText, usedSlots, totalSlots, CountSearchHits(BAG_IDS))
@@ -3529,8 +4442,8 @@ _G.StaticPopupDialogs["MER_BAGCATEGORIES_PURCHASE_BANK_TAB"] = {
 	button1 = ACCEPT,
 	button2 = CANCEL,
 	OnAccept = function(_, data)
-		if data and data.bankType and PurchaseBankTab then
-			PurchaseBankTab(data.bankType)
+		if data and data.bankType and BankAPI.PurchaseTab then
+			BankAPI.PurchaseTab(data.bankType)
 		end
 	end,
 	timeout = 0,
@@ -3725,6 +4638,49 @@ function module:PromptAddCategory()
 	f.nameBox:SetFocus()
 end
 
+-- "Create Group With" / "Add to Group": offered on every category that is
+-- not in a group yet. Creating one needs a partner category that is free
+-- too, adding one needs an existing group - each submenu is skipped when
+-- there is nothing to put in it.
+local function AddGroupingSubmenus(rootDescription, key)
+	-- The reagent bag mirrors a physical container rather than a rule-based
+	-- category, so it stays out of groups on both ends.
+	local ownCat = module:FindCategory(key)
+	if ownCat and ownCat.isReagentBag then
+		return
+	end
+
+	local freeCategories = {}
+	for _, cat in ipairs(module:GetCategories()) do
+		if cat.key ~= key and not cat.isReagentBag and not module:GetCategoryGroupForKey(cat.key) then
+			tinsert(freeCategories, cat)
+		end
+	end
+
+	if #freeCategories > 0 then
+		local createSub = rootDescription:CreateButton(L["Create Group With"])
+		for _, cat in ipairs(freeCategories) do
+			createSub:CreateButton(cat.name, function()
+				module:CreateCategoryGroup(key, cat.key)
+				module:InvalidateCategoryCache()
+				module:RefreshCategoryFrame()
+			end)
+		end
+	end
+
+	local groups = module:GetCategoryGroups()
+	if #groups > 0 then
+		local addSub = rootDescription:CreateButton(L["Add to Group"])
+		for _, group in ipairs(groups) do
+			addSub:CreateButton(module:GetGroupName(group), function()
+				module:AddCategoryToGroup(key, group.key)
+				module:InvalidateCategoryCache()
+				module:RefreshCategoryFrame()
+			end)
+		end
+	end
+end
+
 function module:OpenCategoryContextMenu(row)
 	if not _G.MenuUtil or not _G.MenuUtil.CreateContextMenu then
 		return
@@ -3746,6 +4702,7 @@ function module:OpenCategoryContextMenu(row)
 
 			rootDescription:CreateButton(format(L["Ungroup %s"], memberCat and memberCat.name or memberKey), function()
 				module:UngroupCategory(memberKey)
+				module:InvalidateCategoryCache()
 				module:RefreshCategoryFrame()
 			end)
 		end)
@@ -3766,8 +4723,16 @@ function module:OpenCategoryContextMenu(row)
 
 			rootDescription:CreateButton(L["Disband Group"], function()
 				module:DisbandGroup(key)
+				module:InvalidateCategoryCache()
 				module:RefreshCategoryFrame()
 			end)
+
+			if module:GetItemOrder(key) then
+				rootDescription:CreateButton(L["Reset Item Order"], function()
+					module:ClearItemOrder(key)
+					module:RefreshCategoryFrame()
+				end)
+			end
 
 			rootDescription:CreateButton(
 				module:IsHiddenFromAllItems(key) and L["Show in All Items"] or L["Hide in All Items"],
@@ -3795,6 +4760,15 @@ function module:OpenCategoryContextMenu(row)
 				module:RemoveUserCategory(key)
 				module:RefreshCategoryFrame()
 			end)
+
+			if module:GetItemOrder(key) then
+				rootDescription:CreateButton(L["Reset Item Order"], function()
+					module:ClearItemOrder(key)
+					module:RefreshCategoryFrame()
+				end)
+			end
+
+			AddGroupingSubmenus(rootDescription, key)
 		end)
 
 		return
@@ -3818,6 +4792,15 @@ function module:OpenCategoryContextMenu(row)
 			end)
 		end
 
+		if module:GetItemOrder(key) then
+			rootDescription:CreateButton(L["Reset Item Order"], function()
+				module:ClearItemOrder(key)
+				module:RefreshCategoryFrame()
+			end)
+		end
+
+		AddGroupingSubmenus(rootDescription, key)
+
 		rootDescription:CreateButton(
 			module:IsHiddenFromAllItems(key) and L["Show in All Items"] or L["Hide in All Items"],
 			function()
@@ -3840,6 +4823,11 @@ function module:OpenAssignMenu(slot)
 	local ownerFrame = slot.ownerFrame
 	_G.MenuUtil.CreateContextMenu(slot, function(_, rootDescription)
 		rootDescription:CreateTitle(L["Assign to Category"])
+		-- The bank groups by tab, not by category, so an assignment made
+		-- here only shows once the item is back in the bags.
+		if ownerFrame and ownerFrame == module.bankFrame then
+			rootDescription:CreateTitle("|cff999999" .. L["Takes effect once the item is in your bags."] .. "|r")
+		end
 
 		for _, cat in ipairs(module:GetCategories()) do
 			if not cat.isReagentBag then
@@ -4040,6 +5028,16 @@ end
 function module:OnFrameHidden()
 	module:UnregisterBagEventsFor("bag")
 
+	if module.db.clearRecentOnClose then
+		module:ClearRecentItems()
+
+		-- The Bank window lists Recent Items too and can outlive the bag
+		-- window (closing the bags doesn't close it).
+		if module.bankFrame and module.bankFrame:IsShown() then
+			module:RefreshBankCategoryFrame()
+		end
+	end
+
 	-- The native item-search filter is shared, global Blizzard state (see
 	-- module.searchText) - only clear it once neither of our frames still
 	-- wants it, so closing the bag frame doesn't wipe a search the still-open
@@ -4127,7 +5125,7 @@ function module:OnBankOpened()
 	-- Mirrors ElvUI's own OpenBank landing logic - the Warband Bank Distance
 	-- Inhibitor grants remote Warband access without personal bank access at
 	-- that spot, so land on whichever bank the player can actually view.
-	local canViewCharacter = not CanViewBank or CanViewBank(CHARACTER_BANK_TYPE)
+	local canViewCharacter = not BankAPI.CanView or BankAPI.CanView(CHARACTER_BANK_TYPE)
 	module.bankViewMode = (not canViewCharacter and #module.WarbandBagIDs > 0) and "WARBAND_ALL" or "BANK_ALL"
 
 	module:ShowBankFrame()
@@ -4186,6 +5184,7 @@ local function StopSortSpinner(generation)
 	end
 
 	module.sortingBags = nil
+	RefreshSlotDim()
 	if module.frame and module.frame.spinnerIcon then
 		E:StopSpinner(module.frame.spinnerIcon)
 	end
@@ -4196,14 +5195,27 @@ function module:PokeSortSpinner()
 	E:Delay(0.4, StopSortSpinner, sortSpinnerGeneration)
 end
 
+-- Items are dimmed while sorting even with the spinner itself turned off,
+-- same as ElvUI's own bags.
 function module:StartSortSpinner()
-	local db = module.db.spinner
-	if not (db and db.enable and module.frame and module.frame.spinnerIcon) then
+	if not module.frame then
 		return
 	end
 
 	module.sortingBags = true
-	E:StartSpinner(module.frame.spinnerIcon, nil, nil, nil, nil, db.size, db.color.r, db.color.g, db.color.b)
+	RefreshSlotDim()
+
+	local db = module.db.spinner
+	if db and db.enable and module.frame.spinnerIcon then
+		-- Item slots sit several levels below the frame (scroll frame ->
+		-- content child -> slot, plus badges on top), so a plain child of the
+		-- frame ends up behind them. Set per start, since the frame's own
+		-- level moves when it's raised.
+		local spinner = module.frame.spinnerIcon
+		spinner:SetFrameLevel(module.frame:GetFrameLevel() + 30)
+		E:StartSpinner(spinner, nil, nil, nil, nil, db.size, db.color.r, db.color.g, db.color.b)
+	end
+
 	module:PokeSortSpinner()
 end
 
@@ -4272,6 +5284,68 @@ function module:UnregisterBagEventsFor(owner)
 	end
 end
 
+-- CURSOR_CHANGED also fires for plain cursor-icon changes while hovering, so
+-- only touch the placeholders when "an item is on the cursor" actually flips.
+-- Same two events Blizzard itself drives its bag dimming from (EventRouting:
+-- CURRENT_SPELL_CAST_CHANGED / UPDATE_SPELL_TARGET_ITEM_CONTEXT).
+-- CURRENT_SPELL_CAST_CHANGED fires on every cast, so bail out early unless
+-- the context actually changed or one of our windows is showing it.
+-- Which of our known spells owns the targeting cursor: C_Spell.IsCurrentSpell
+-- is true while a spell is "being cast or queued to be cast", which includes
+-- waiting for its item target - the same check Blizzard's spell flyouts use
+-- to highlight a pending spell. (Hooking UseAction doesn't work for this:
+-- action bar presses are handled by the client without calling it.)
+local function GetPendingTargetSpellCheck()
+	for spellID, check in pairs(TargetSpellChecks) do
+		if C_Spell.IsCurrentSpell(spellID) then
+			return check, spellID
+		end
+	end
+end
+
+function module.EvaluateItemContext()
+	local blizzardContext = _G.ItemButtonUtil and _G.ItemButtonUtil.GetItemContext() ~= nil or false
+
+	local spellCheck
+	if not blizzardContext and SpellIsTargeting() and SpellCanTargetItem() then
+		spellCheck = GetPendingTargetSpellCheck()
+	end
+
+	local active = blizzardContext or spellCheck ~= nil
+
+	if active == module.itemContextActive and spellCheck == module.targetSpellCheck and not active then
+		return
+	end
+
+	module.itemContextActive = active
+	module.targetSpellCheck = spellCheck
+
+	local bagsShown = module.frame and module.frame:IsShown()
+	local bankShown = module.bankFrame and module.bankFrame:IsShown()
+	if bagsShown or bankShown then
+		RefreshSlotDim()
+	end
+end
+
+-- Deferred a frame: SpellIsTargeting() isn't reliably up to date yet while
+-- CURRENT_SPELL_CAST_CHANGED is still being dispatched (the live log showed
+-- it reporting false around the targeting cursor).
+function module:OnItemContextChanged()
+	C_Timer.After(0, module.EvaluateItemContext)
+end
+
+function module:OnCursorChanged()
+	local hasItem = CursorHasItem() and true or false
+	if hasItem == module.cursorHasItem then
+		return
+	end
+
+	module.cursorHasItem = hasItem
+	for _, refresh in ipairs(placeholderPools) do
+		refresh()
+	end
+end
+
 -------------------------------------------------------------------------------
 --  Lifecycle
 -------------------------------------------------------------------------------
@@ -4298,6 +5372,17 @@ function module:Initialize()
 	module:SecureHook(B, "OpenBags", "OnElvUIBagsOpened")
 	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
 	module:SecureHook("GameTooltip_SetDefaultAnchor", "OnGameTooltipDefaultAnchor")
+	module:RegisterEvent("CURSOR_CHANGED", "OnCursorChanged")
+	module:RegisterEvent("CURRENT_SPELL_CAST_CHANGED", "OnItemContextChanged")
+	module:RegisterEvent("UPDATE_SPELL_TARGET_ITEM_CONTEXT", "OnItemContextChanged")
+
+	-- Registered even when duplicate merging is off: the option can be
+	-- flipped at any time, and a missed open/close would leave the panel
+	-- state wrong until the next one. A renamed/removed event must not take
+	-- the whole module down with it, hence the pcall.
+	for event in pairs(module.ITEM_PANEL_EVENTS) do
+		pcall(module.RegisterEvent, module, event, "OnItemPanelEvent")
+	end
 
 	if #module.BankBagIDs > 0 or #module.WarbandBagIDs > 0 then
 		module:RegisterEvent("BANKFRAME_OPENED", "OnBankOpened")

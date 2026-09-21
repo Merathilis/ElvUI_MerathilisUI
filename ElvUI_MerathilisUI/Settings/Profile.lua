@@ -293,7 +293,13 @@ P.bags = {
 		height = 600,
 		showPinned = true,
 		showRecent = true,
+		clearRecentOnClose = false,
+		recentLimit = 20,
 		hideEmptyCategories = true,
+		mergeDuplicates = true,
+		autoSize = false,
+		nestByExpansion = true,
+		nestByEquipmentSet = true,
 		alternatingRowBackground = true,
 		viewMode = "CATEGORY",
 		sidebarCollapsed = false,
@@ -304,6 +310,8 @@ P.bags = {
 		bankHeight = 600,
 		disabledCategories = {},
 		categoryOrder = {},
+		currencyOrder = {},
+		itemOrder = {},
 		userCategories = {},
 		itemAssignments = {},
 		pinnedItemsByChar = {},
@@ -354,6 +362,12 @@ P.bags = {
 			hoverColor = { r = 1, g = 1, b = 1 },
 			placeholderAlpha = 0.4,
 			warboundMarker = true,
+			desaturateJunk = false,
+			itemContextDim = true,
+			pinMarker = true,
+			subHeaderIcons = true,
+			newItemBadge = true,
+			dropTargetHighlight = true,
 			customBackground = false,
 			backgroundAlpha = 0.8,
 		},
@@ -902,6 +916,7 @@ P.miniMapCoords = {
 P.minimapButtons = {
 	enable = true,
 	point = "BOTTOMLEFT",
+	growth = "DOWN",
 	xOffset = -13,
 	yOffset = 52,
 	size = 20,
@@ -911,6 +926,29 @@ P.minimapButtons = {
 		enable = true,
 	},
 	mplusPortals = {
+		enable = true,
+	},
+
+	-- Second bar for the Blizzard indicators, anchored and sized on its own.
+	elements = {
+		point = "TOPLEFT",
+		growth = "DOWN",
+		xOffset = -13,
+		yOffset = -10,
+		size = 20,
+		spacing = 2,
+	},
+	-- Tracking stays off: ElvUI already places that icon on the Minimap.
+	tracking = {
+		enable = false,
+	},
+	calendar = {
+		enable = true,
+	},
+	mail = {
+		enable = true,
+	},
+	craftingOrders = {
 		enable = true,
 	},
 }
