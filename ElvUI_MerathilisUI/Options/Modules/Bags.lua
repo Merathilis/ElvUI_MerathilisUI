@@ -134,10 +134,7 @@ options.bags = {
 				-- to be repainted as well. Resizing first also restores the
 				-- configured height after Auto Height is switched back off.
 				if BC.bankFrame and BC.RefreshBankCategoryFrame then
-					BC.bankFrame:Size(
-						E.db.mui.bags.categorizedBags.bankWidth,
-						E.db.mui.bags.categorizedBags.bankHeight
-					)
+					BC.bankFrame:Size(E.db.mui.bags.categorizedBags.bankWidth, E.db.mui.bags.categorizedBags.bankHeight)
 					BC:RefreshBankCategoryFrame()
 				end
 			end,
@@ -156,6 +153,7 @@ options.bags = {
 								E.db.mui.bags.categorizedBags[info[#info]] = value
 								E:StaticPopup_Show("PRIVATE_RL")
 							end,
+							width = "full",
 						},
 						hideEmptyCategories = {
 							order = 2,
@@ -240,7 +238,7 @@ options.bags = {
 							order = 6,
 							type = "execute",
 							name = L["Reset Category Groups"],
-							desc = L["Restores any category group (e.g. \"Equipment\") you disbanded or removed a category from, removes the groups you created yourself and clears any group renames."],
+							desc = L['Restores any category group (e.g. "Equipment") you disbanded or removed a category from, removes the groups you created yourself and clears any group renames.'],
 							func = function()
 								local db = BC.db
 								db.ungroupedCategories = nil
@@ -763,11 +761,17 @@ options.bags = {
 							order = 4,
 							type = "range",
 							name = L["Empty Slot Opacity"],
-							desc = L["Opacity of the empty drop-target slots at the end of each category (the first \"+\" slot always stays fully visible)."],
+							desc = L['Opacity of the empty drop-target slots at the end of each category (the first "+" slot always stays fully visible).'],
 							min = 0,
 							max = 1,
 							step = 0.05,
 							isPercent = true,
+						},
+						itemContextDim = {
+							order = 7.35,
+							type = "toggle",
+							name = L["Dim Unusable Items"],
+							desc = L["While a spell or window waits for an item (Disenchant, Milling, Prospecting, enchant scrolls, the scrapper...), darkens every item it can't be used on."],
 						},
 						desaturateJunk = {
 							order = 7.4,

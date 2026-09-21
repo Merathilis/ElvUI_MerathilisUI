@@ -586,7 +586,52 @@ end
 -- the button's native OnClick, which dispatches the secure type/item
 -- attributes (needs the RightButtonDown click phase registered too, see
 -- CreateSlotButton).
-local function Slot_OnClick(self, mouseButton)
+local function Slot_OnClick(self, mouseButton, down)
+	-- LeftButtonDown is registered only for spell targeting (see below):
+	-- the secure action may fire on the down phase (ActionButtonUseKeyDown),
+	-- so the "/use" macro has to be in place by then. Every other left-click
+	-- keeps being handled once, on release.
+	if mouseButton == "LeftButton" and down then
+		if
+			not InCombatLockdown()
+			and self.BagID
+			and self.SlotID
+			and not IsModifiedClick()
+			and (SpellCanTargetItem() or SpellCanTargetItemID())
+		then
+			-- A spell is waiting for an item target (Disenchant, Milling,
+			-- Prospecting, enchant scrolls, armor kits...). Blizzard's own
+			-- bags answer that with UseContainerItem(bag, slot), which is
+			-- protected - so hand this click to the secure button as a
+			-- "/use bag slot" macro. The "item" action can't do it: it equips
+			-- gear rather than targeting it. Stays set until the release
+			-- below, since the secure action fires on down OR up depending
+			-- on the player's key-down setting.
+			self:SetAttribute("type1", "macro")
+			self:SetAttribute("macrotext1", format("/use %d %d", self.BagID, self.SlotID))
+			self.pendingTargetClick = true
+		elseif self.pendingTargetClick and not InCombatLockdown() then
+			-- Left over from a targeting press that was released somewhere
+			-- else: drop it now, before this plain click's secure dispatch
+			-- could run the stale "/use" and use or equip the item.
+			self:SetAttribute("type1", nil)
+			self:SetAttribute("macrotext1", nil)
+			self.pendingTargetClick = nil
+		end
+		return
+	end
+
+	if mouseButton == "LeftButton" and self.pendingTargetClick then
+		self.pendingTargetClick = nil
+		C_Timer.After(0, function()
+			if not InCombatLockdown() then
+				self:SetAttribute("type1", nil)
+				self:SetAttribute("macrotext1", nil)
+			end
+		end)
+		return
+	end
+
 	-- Right button only: IsModifiedClick("SPLITSTACK") just checks the held
 	-- modifier key, not which mouse button, and that key is Shift by
 	-- default - so matching any button swallowed Shift+Left-click (chat
@@ -595,7 +640,7 @@ local function Slot_OnClick(self, mouseButton)
 	-- tooltip, so bind it to that button alone.
 	if mouseButton == "RightButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
 		if not InCombatLockdown() then
-			self:SetAttribute("type", nil)
+			self:SetAttribute("*type2", nil)
 			self:SetAttribute("item", nil)
 
 			-- Restored via a deferred call instead of a PostClick script -
@@ -606,7 +651,7 @@ local function Slot_OnClick(self, mouseButton)
 			local itemLink = self.itemLink
 			C_Timer.After(0, function()
 				if not InCombatLockdown() then
-					self:SetAttribute("type", "item")
+					self:SetAttribute("*type2", "item")
 					self:SetAttribute("item", itemLink)
 				end
 			end)
@@ -652,13 +697,13 @@ local function Slot_OnClick(self, mouseButton)
 			and self.SlotID
 		then
 			if not InCombatLockdown() then
-				self:SetAttribute("type", nil)
+				self:SetAttribute("*type2", nil)
 				self:SetAttribute("item", nil)
 
 				local itemLink = self.itemLink
 				C_Timer.After(0, function()
 					if not InCombatLockdown() then
-						self:SetAttribute("type", "item")
+						self:SetAttribute("*type2", "item")
 						self:SetAttribute("item", itemLink)
 					end
 				end)
@@ -688,14 +733,14 @@ local function Slot_OnClick(self, mouseButton)
 			local bagID, slotID = self.BagID, self.SlotID
 			local itemLink = self.itemLink
 
-			self:SetAttribute("type", nil)
+			self:SetAttribute("*type2", nil)
 			self:SetAttribute("item", nil)
 
 			C_Timer.After(0, function()
 				C_Container.UseContainerItem(bagID, slotID)
 
 				if not InCombatLockdown() then
-					self:SetAttribute("type", "item")
+					self:SetAttribute("*type2", "item")
 					self:SetAttribute("item", itemLink)
 				end
 			end)
@@ -931,13 +976,92 @@ end
 -- IconBorder we hide. Bag frame only, since both triggers are bag-only.
 local slotPools = {}
 
+-- True when Blizzard's item-context system says this slot can't take part
+-- in whatever is waiting for an item right now: Disenchant/Milling/
+-- Prospecting and other spells with an item condition, enchant scrolls,
+-- the scrapper, item upgrades... Blizzard's own bags dim exactly these via
+-- ItemButtonUtil, so we ask the same function instead of guessing per spell.
+--
+-- Disenchant, Milling and Prospecting report no item context at all
+-- (confirmed live: GetItemContext() nil, TargetSpellChecksItemCondition()
+-- false while the Disenchant cursor is up), so those get their own checks,
+-- keyed by the spell that owns the targeting cursor (GetPendingTargetSpellCheck).
+local TargetSpellChecks = {
+	-- Disenchant: uncommon to epic weapons, armor (minus cosmetics) and
+	-- profession gear.
+	[13262] = function(bagID, slotID)
+		local info = C_Container_GetContainerItemInfo(bagID, slotID)
+		if not info or not info.hyperlink or not info.quality then
+			return false
+		end
+		if info.quality < Enum.ItemQuality.Uncommon or info.quality > Enum.ItemQuality.Epic then
+			return false
+		end
+
+		local _, _, _, _, _, classID, subClassID = API.GetItemInfoInstant(info.hyperlink)
+		if classID == Enum.ItemClass.Weapon then
+			return true
+		elseif classID == Enum.ItemClass.Armor then
+			return subClassID ~= Enum.ItemArmorSubclass.Cosmetic
+		elseif classID == Enum.ItemClass.Profession then
+			return API.IsEquippableItem(info.hyperlink)
+		end
+
+		return false
+	end,
+}
+
+-- Milling and Prospecting: the item's own tooltip says "Millable" /
+-- "Prospectable", and both need a stack of at least five.
+do
+	local function TooltipCheck(globalStringName)
+		return function(bagID, slotID)
+			local label = _G[globalStringName]
+			local info = C_Container_GetContainerItemInfo(bagID, slotID)
+			if not label or not info or (info.stackCount or 0) < 5 then
+				return false
+			end
+
+			local data = API.GetBagItemTooltip(bagID, slotID)
+			for _, line in ipairs(data and data.lines or {}) do
+				if line.leftText == label then
+					return true
+				end
+			end
+
+			return false
+		end
+	end
+	TargetSpellChecks[51005] = TooltipCheck("ITEM_MILLABLE")
+	TargetSpellChecks[31252] = TooltipCheck("ITEM_PROSPECTABLE")
+end
+module.TargetSpellChecks = TargetSpellChecks
+
+local function IsSlotOutOfItemContext(btn)
+	if not module.itemContextActive or not module.db.effects.itemContextDim then
+		return false
+	end
+	if not btn.BagID or not btn.SlotID then
+		return false
+	end
+
+	local spellCheck = module.targetSpellCheck
+	if spellCheck then
+		return not spellCheck(btn.BagID, btn.SlotID)
+	end
+
+	local itemLocation = ItemLocation:CreateFromBagAndSlot(btn.BagID, btn.SlotID)
+	local result = _G.ItemButtonUtil.GetItemContextMatchResultForItem(itemLocation)
+	return result == _G.ItemButtonUtil.ItemContextMatchResult.Mismatch
+end
+
 local function ApplySlotDim(btn)
 	if not btn.searchOverlay then
 		return
 	end
 
-	local dim = false
-	if btn.ownerFrame == module.frame then
+	local dim = IsSlotOutOfItemContext(btn)
+	if not dim and btn.ownerFrame == module.frame then
 		dim = module.sortingBags or (module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID)
 	end
 	btn.searchOverlay:SetShown(dim and true or false)
@@ -1083,8 +1207,9 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 	btn:SetScript("OnMouseUp", nil)
 
 	-- RightButtonDown too: the secure type/item dispatch needs the down-click
-	-- phase registered, not just Up.
-	btn:RegisterForClicks("AnyUp", "RightButtonDown")
+	-- phase registered, not just Up. LeftButtonDown for the same reason, but
+	-- only acted on while a spell waits for an item target (Slot_OnClick).
+	btn:RegisterForClicks("AnyUp", "RightButtonDown", "LeftButtonDown")
 	btn:SetScript("PreClick", Slot_OnClick)
 
 	btn:RegisterForDrag("LeftButton")
@@ -1414,8 +1539,18 @@ local function UpdateSlotVisual(btn, entry)
 	-- ADDON_ACTION_FORBIDDEN). SetAttribute itself is combat-protected on
 	-- secure frames, so skip refreshing it mid-combat; the previous item's
 	-- attributes simply stay in place until the next safe refresh.
+	--
+	-- "*type2", not "type": an unsuffixed "type" applies to every mouse
+	-- button, so a left-click also fired the secure "use item" action right
+	-- after our PreClick had handed the item to the cursor. With a
+	-- profession spell waiting for a target (Disenchant, Milling, an
+	-- enchant scroll...) that second action swallowed the targeting click,
+	-- and a middle-click (pin) used the item as well. "*" keeps it working
+	-- with any modifier held; "item" stays unsuffixed so every button
+	-- still resolves it.
 	if not InCombatLockdown() then
-		btn:SetAttribute("type", "item")
+		btn:SetAttribute("type", nil)
+		btn:SetAttribute("*type2", "item")
 		btn:SetAttribute("item", entry.itemLink)
 	end
 
@@ -5151,6 +5286,54 @@ end
 
 -- CURSOR_CHANGED also fires for plain cursor-icon changes while hovering, so
 -- only touch the placeholders when "an item is on the cursor" actually flips.
+-- Same two events Blizzard itself drives its bag dimming from (EventRouting:
+-- CURRENT_SPELL_CAST_CHANGED / UPDATE_SPELL_TARGET_ITEM_CONTEXT).
+-- CURRENT_SPELL_CAST_CHANGED fires on every cast, so bail out early unless
+-- the context actually changed or one of our windows is showing it.
+-- Which of our known spells owns the targeting cursor: C_Spell.IsCurrentSpell
+-- is true while a spell is "being cast or queued to be cast", which includes
+-- waiting for its item target - the same check Blizzard's spell flyouts use
+-- to highlight a pending spell. (Hooking UseAction doesn't work for this:
+-- action bar presses are handled by the client without calling it.)
+local function GetPendingTargetSpellCheck()
+	for spellID, check in pairs(TargetSpellChecks) do
+		if C_Spell.IsCurrentSpell(spellID) then
+			return check, spellID
+		end
+	end
+end
+
+function module.EvaluateItemContext()
+	local blizzardContext = _G.ItemButtonUtil and _G.ItemButtonUtil.GetItemContext() ~= nil or false
+
+	local spellCheck
+	if not blizzardContext and SpellIsTargeting() and SpellCanTargetItem() then
+		spellCheck = GetPendingTargetSpellCheck()
+	end
+
+	local active = blizzardContext or spellCheck ~= nil
+
+	if active == module.itemContextActive and spellCheck == module.targetSpellCheck and not active then
+		return
+	end
+
+	module.itemContextActive = active
+	module.targetSpellCheck = spellCheck
+
+	local bagsShown = module.frame and module.frame:IsShown()
+	local bankShown = module.bankFrame and module.bankFrame:IsShown()
+	if bagsShown or bankShown then
+		RefreshSlotDim()
+	end
+end
+
+-- Deferred a frame: SpellIsTargeting() isn't reliably up to date yet while
+-- CURRENT_SPELL_CAST_CHANGED is still being dispatched (the live log showed
+-- it reporting false around the targeting cursor).
+function module:OnItemContextChanged()
+	C_Timer.After(0, module.EvaluateItemContext)
+end
+
 function module:OnCursorChanged()
 	local hasItem = CursorHasItem() and true or false
 	if hasItem == module.cursorHasItem then
@@ -5190,6 +5373,8 @@ function module:Initialize()
 	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
 	module:SecureHook("GameTooltip_SetDefaultAnchor", "OnGameTooltipDefaultAnchor")
 	module:RegisterEvent("CURSOR_CHANGED", "OnCursorChanged")
+	module:RegisterEvent("CURRENT_SPELL_CAST_CHANGED", "OnItemContextChanged")
+	module:RegisterEvent("UPDATE_SPELL_TARGET_ITEM_CONTEXT", "OnItemContextChanged")
 
 	-- Registered even when duplicate merging is off: the option can be
 	-- flipped at any time, and a missed open/close would leave the panel

@@ -363,6 +363,7 @@ P.bags = {
 			placeholderAlpha = 0.4,
 			warboundMarker = true,
 			desaturateJunk = false,
+			itemContextDim = true,
 			pinMarker = true,
 			subHeaderIcons = true,
 			newItemBadge = true,
