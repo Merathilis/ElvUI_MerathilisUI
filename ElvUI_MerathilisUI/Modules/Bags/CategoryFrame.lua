@@ -1061,8 +1061,11 @@ local function ApplySlotDim(btn)
 	end
 
 	local dim = IsSlotOutOfItemContext(btn)
+	if not dim and module.sortingBags then
+		dim = btn.ownerFrame == (module.sortingFrame or module.frame)
+	end
 	if not dim and btn.ownerFrame == module.frame then
-		dim = module.sortingBags or (module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID)
+		dim = module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID
 	end
 	btn.searchOverlay:SetShown(dim and true or false)
 end
@@ -2279,18 +2282,22 @@ function module:ConstructFrame()
 		return btn
 	end
 
-	-- Blizzard's SortBags() already merges partial stacks as part of sorting;
-	-- we don't have ElvUI's own separate animated Stack/Compress algorithm,
-	-- so both buttons call the same native sort for now.
+	-- Sort is Blizzard's native SortBags(); Stack uses ElvUI's own
+	-- stacking (see module:StackItems), which only merges partial stacks
+	-- and leaves everything else where it is.
 	f.sortButton = CreateTitleButton("SortButton", E.Media.Textures.PetBroom, L["Sort Bags"], function()
 		module:StartSortSpinner()
 		C_Container.SortBags()
 	end)
 	f.sortButton:Point("TOPRIGHT", f, "TOPRIGHT", -40, -8)
 
-	f.stackButton = CreateTitleButton("StackButton", E.Media.Textures.Planks, L["Stack Items In Bags"], function()
-		module:StartSortSpinner()
-		C_Container.SortBags()
+	f.stackButton = CreateTitleButton("StackButton", E.Media.Textures.Planks, function()
+		GameTooltip:AddLine(L["Stack Items In Bags"], 1, 1, 1)
+		if module.isBankOpen then
+			GameTooltip:AddDoubleLine(L["Hold Shift:"], L["Stack Items To Bank"], 1, 1, 1)
+		end
+	end, function()
+		module:StackItems(module.frame, false)
 	end)
 	f.stackButton:Point("TOPRIGHT", f.sortButton, "TOPLEFT", -2, 0)
 
@@ -5185,8 +5192,11 @@ local function StopSortSpinner(generation)
 
 	module.sortingBags = nil
 	RefreshSlotDim()
-	if module.frame and module.frame.spinnerIcon then
-		E:StopSpinner(module.frame.spinnerIcon)
+
+	local frame = module.sortingFrame or module.frame
+	module.sortingFrame = nil
+	if frame and frame.spinnerIcon then
+		E:StopSpinner(frame.spinnerIcon)
 	end
 end
 
@@ -5197,22 +5207,51 @@ end
 
 -- Items are dimmed while sorting even with the spinner itself turned off,
 -- same as ElvUI's own bags.
-function module:StartSortSpinner()
-	if not module.frame then
+-- Stacking goes through ElvUI's own sorter (Sort.lua) instead of a second
+-- copy of it: B.Compress merges partial stacks in place, B.Stack moves
+-- partial stacks from one side into matching stacks on the other. Its bag
+-- groups only know the backpack + four bags ("bags") and the character bank
+-- tabs ("bank") - no reagent bag, no Warband bank - so the Warband view has
+-- no stacking of its own.
+-- fromBank: stack the character bank (true) or the bags (false). Holding
+-- Shift while the bank is open moves partial stacks to the other side.
+function module:StackItems(frame, fromBank)
+	if not (B.CommandDecorator and B.Stack and B.Compress) then
+		return
+	end
+
+	local toOtherSide = IsShiftKeyDown() and module.isBankOpen
+	local command
+	if fromBank then
+		command = toOtherSide and B:CommandDecorator(B.Stack, "bank bags") or B:CommandDecorator(B.Compress, "bank")
+	else
+		command = toOtherSide and B:CommandDecorator(B.Stack, "bags bank") or B:CommandDecorator(B.Compress, "bags")
+	end
+
+	module:StartSortSpinner(frame)
+	command()
+end
+
+-- frame: the window being sorted (the bag frame when omitted; the Bank
+-- window passes itself), which gets the spinner and the dimmed slots.
+function module:StartSortSpinner(frame)
+	frame = frame or module.frame
+	if not frame then
 		return
 	end
 
 	module.sortingBags = true
+	module.sortingFrame = frame
 	RefreshSlotDim()
 
 	local db = module.db.spinner
-	if db and db.enable and module.frame.spinnerIcon then
+	if db and db.enable and frame.spinnerIcon then
 		-- Item slots sit several levels below the frame (scroll frame ->
 		-- content child -> slot, plus badges on top), so a plain child of the
 		-- frame ends up behind them. Set per start, since the frame's own
 		-- level moves when it's raised.
-		local spinner = module.frame.spinnerIcon
-		spinner:SetFrameLevel(module.frame:GetFrameLevel() + 30)
+		local spinner = frame.spinnerIcon
+		spinner:SetFrameLevel(frame:GetFrameLevel() + 30)
 		E:StartSpinner(spinner, nil, nil, nil, nil, db.size, db.color.r, db.color.g, db.color.b)
 	end
 
