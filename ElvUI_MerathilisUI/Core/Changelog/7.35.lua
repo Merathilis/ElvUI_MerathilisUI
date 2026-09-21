@@ -3,6 +3,7 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[735] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"Bags: Categorized Bags - profession spells that target an item (Disenchant, Milling, Prospecting, enchant scrolls...) work again with a left-click; the click used to pick the item up, and middle-clicking to pin no longer uses the item.",
 		"Bags: Categorized Bags - shift-clicking an item links it in chat again; the split-stack handler swallowed every shift-click instead of only shift-right-click.",
 		"Bags: Categorized Bags - General options (merging, nesting, empty categories, pinned/recent) now also repaint an open Bank window.",
 		"Bags: Categorized Bags - fixed the category group list being rebuilt once per item in the All Items view, which slowed down refreshes with full bags.",
@@ -15,6 +16,7 @@ MER.Changelog[735] = {
 		"Maps: Minimap Buttons - the Calendar button's tooltip lists your raid lockouts with boss progress and difficulty, plus the realm time and the weekly reset countdown.",
 	},
 	IMPROVEMENTS = {
+		"Bags: Categorized Bags - while Disenchant, Milling, Prospecting or another item-targeting spell or window is active, items it can't be used on are darkened (new \"Dim Unusable Items\" option under Effects).",
 		"Bags: Categorized Bags - item tooltips in reorderable categories now explain the alt-drag ordering, and the help tooltip notes that it only changes the display order.",
 		"Bags: Categorized Bags - alt-dragging a slot onto another one reorders items inside a category, group or Pinned Items without moving them in your bags; right-click the sidebar entry for \"Reset Item Order\".",
 		"Bags: Categorized Bags - the sidebar collapse arrow turns class-colored on hover, like the other buttons.",

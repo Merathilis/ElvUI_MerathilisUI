@@ -28,3 +28,5 @@
 -   [Improvement]: Bags: Categorized Bags - alt-dragging a slot onto another one reorders items inside a category, group or Pinned Items without moving them in your bags; right-click the sidebar entry for "Reset Item Order".
 -   [Fix]: Bags: Categorized Bags - shift-clicking an item links it in chat again; the split-stack handler swallowed every shift-click instead of only shift-right-click.
 -   [Improvement]: Bags: Categorized Bags - item tooltips in reorderable categories now explain the alt-drag ordering, and the help tooltip notes that it only changes the display order.
+-   [Fix]: Bags: Categorized Bags - profession spells that target an item (Disenchant, Milling, Prospecting, enchant scrolls...) work again with a left-click; the click used to pick the item up, and middle-clicking to pin no longer uses the item.
+-   [Improvement]: Bags: Categorized Bags - while Disenchant, Milling, Prospecting or another item-targeting spell or window is active, items it can't be used on are darkened (new "Dim Unusable Items" option under Effects).
