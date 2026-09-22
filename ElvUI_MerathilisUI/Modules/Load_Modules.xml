@@ -7,6 +7,7 @@
 	<Include file="Auras\Load_Auras.xml"/>
 	<Include file="Bags\Load_Bags.xml"/>
 	<Include file="BuffReminder\Load_BuffReminder.xml"/>
+	<Include file="Chat\Load_Chat.xml"/>
 	<Include file="Cursor\Load_Cursor.xml"/>
 	<Include file="DataTexts\Load_DataTexts.xml"/>
 	<Include file="ItemLevel\Load_ItemLevel.xml"/>

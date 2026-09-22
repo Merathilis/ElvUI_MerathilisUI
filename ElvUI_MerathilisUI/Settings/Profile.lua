@@ -913,6 +913,54 @@ P.miniMapCoords = {
 	},
 }
 
+P.chat = {
+	lockSize = false,
+	combatLog = {
+		enable = true,
+	},
+	tabs = {
+		underline = true,
+	},
+	editBox = {
+		enable = true,
+		style = true,
+		backdropAlpha = 0.8,
+		accent = true,
+		badge = true,
+		animation = true,
+		glow = true,
+	},
+	sidebar = {
+		enable = true,
+		panel = "LEFT",
+		side = "LEFT",
+		attach = "INSIDE",
+		attachSpacing = 3,
+		order = "friends,guild,durability,copy,portals,voice,settings",
+		width = 28,
+		iconSize = 18,
+		spacing = 6,
+		counterFontSize = 10,
+		visibility = "ALWAYS",
+		divider = true,
+		iconAlpha = 0.6,
+		iconColor = { r = 1, g = 1, b = 1 },
+		hoverClassColor = true,
+		hoverColor = { r = 0, g = 0.75, b = 0.98 },
+		durabilityWarning = 30,
+		buttons = {
+			friends = true,
+			guild = false,
+			durability = false,
+			copy = true,
+			portals = true,
+			voice = false,
+			settings = true,
+			scroll = true,
+		},
+	},
+}
+
 P.minimapButtons = {
 	enable = true,
 	point = "BOTTOMLEFT",
