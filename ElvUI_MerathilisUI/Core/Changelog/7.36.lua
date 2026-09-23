@@ -5,6 +5,7 @@ MER.Changelog[736] = {
 	FIXES = {
 		"Bags: Categorized Bags - splitting stacks works again: Shift+click splits like in Blizzard's bags (links in chat only while a chat box is open), the split-off part is put into a free slot right away, and a split item isn't merged back into one slot until the bags close.",
 		"Maps: Minimap Buttons - the Great Vault button stops pulsing as soon as the reward is claimed instead of only after opening the vault again.",
+		"Bags: Categorized Bags - right-clicking a piece of gear equips it again when you already wear another copy of the same item (a different upgrade level, a second ring or trinket). Right-click now acts on the bag slot itself instead of looking the item up by name, which also makes selling at a merchant and depositing at the bank behave exactly like Blizzard's bags.",
 	},
 	NEW = {
 		"Chat: New Chat Sidebar - a slim icon bar inside (or next to) the left or right chat panel with online friends/guild counters, durability, copy chat, M+ portals, chat channels, settings and a scroll-to-bottom button that lights up while the chat is scrolled up. Its copy button replaces ElvUI's (right-click opens the chat menu), its channel button takes over Blizzard's voice buttons on the chat panel - it lights up while a voice channel is active, turns into a crossed out microphone while you are muted or deafened and toggles the microphone (right-click) or the speakers (middle-click) - and the icons can be reordered with Shift + drag.",
