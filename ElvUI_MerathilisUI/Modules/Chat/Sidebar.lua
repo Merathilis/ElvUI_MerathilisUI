@@ -21,8 +21,16 @@ local IsShiftKeyDown = IsShiftKeyDown
 local C_FriendList = C_FriendList
 local C_GuildInfo = C_GuildInfo
 local C_Timer = C_Timer
+local C_VoiceChat = C_VoiceChat
 
+local BINDING_HEADER_VOICE_CHAT = BINDING_HEADER_VOICE_CHAT
+local CHAT_CHANNELS = CHAT_CHANNELS
 local ERR_NOT_IN_COMBAT = ERR_NOT_IN_COMBAT
+local NONE = NONE
+local VOICE_TOOLTIP_DEAFEN = VOICE_TOOLTIP_DEAFEN
+local VOICE_TOOLTIP_MUTE_MIC = VOICE_TOOLTIP_MUTE_MIC
+local VOICE_TOOLTIP_UNDEAFEN = VOICE_TOOLTIP_UNDEAFEN
+local VOICE_TOOLTIP_UNMUTE_MIC = VOICE_TOOLTIP_UNMUTE_MIC
 
 -- ElvUI insets its tab strip 2px into the chat panel and the chat text 5px.
 local EDGE_INSET = 2
@@ -34,6 +42,15 @@ local DIVIDER_ALPHA = 0.8
 local UPDATE_THROTTLE = 0.1
 local FADE_SPEED = 5
 local GUILD_ROSTER_THROTTLE = 15
+
+-- The voice buttons Blizzard docks to the chat, in the order ElvUI handles them.
+local VOICE_BUTTONS = {
+	"TextToSpeechButton",
+	"ChatFrameChannelButton",
+	"ChatFrameToggleVoiceDeafenButton",
+	"ChatFrameToggleVoiceMuteButton",
+}
+local VOICE_SILENT_COLOR = { 0.9, 0.3, 0.3 }
 
 -------------------------------------------------------------------------------
 -- Helpers
@@ -94,7 +111,12 @@ local function BlockedInCombat()
 end
 
 local function ClickHint(button, text)
-	local mouse = button == "RIGHT" and L["Right Click:"] or L["Left Click:"]
+	local mouse = L["Left Click:"]
+	if button == "RIGHT" then
+		mouse = L["Right Click:"]
+	elseif button == "MIDDLE" then
+		mouse = L["Middle Click:"]
+	end
 	_G.GameTooltip:AddDoubleLine(format("%s |cffffffff%s|r", F.Icon(MER.Media.Mouse[button]), mouse), text, 1, 1, 1, 1, 1, 1)
 end
 
@@ -135,6 +157,26 @@ local function GetLowestDurability()
 	end
 
 	return floor(lowest)
+end
+
+-------------------------------------------------------------------------------
+-- Voice chat
+-------------------------------------------------------------------------------
+-- Logged in, in a channel, microphone off, speakers off. Being silenced counts
+-- as muted because the result is the same: nobody hears you.
+local function GetVoiceState()
+	if not C_VoiceChat.IsLoggedIn() then
+		return false
+	end
+
+	local muted = C_VoiceChat.IsMuted() or C_VoiceChat.IsSilenced() or C_VoiceChat.IsParentalMuted()
+	return true, C_VoiceChat.GetActiveChannelID() ~= nil, muted, C_VoiceChat.IsDeafened()
+end
+
+local function GetVoiceChannelName()
+	local channelID = C_VoiceChat.GetActiveChannelID()
+	local channel = channelID and C_VoiceChat.GetChannel(channelID)
+	return channel and channel.name
 end
 
 -------------------------------------------------------------------------------
@@ -209,9 +251,32 @@ local BUTTONS = {
 	{
 		key = "voice",
 		label = L["Voice / Channels"],
-		onClick = function()
-			if not BlockedInCombat() then
+		middleClick = true,
+		onClick = function(_, mouseButton)
+			if mouseButton == "RightButton" then
+				if C_VoiceChat.IsLoggedIn() then
+					_G.VoiceChat_ToggleMutedFromUserAction()
+				end
+			elseif mouseButton == "MiddleButton" then
+				if C_VoiceChat.IsLoggedIn() then
+					_G.VoiceChat_ToggleDeafenedFromUserAction()
+				end
+			elseif not BlockedInCombat() then
 				_G.ToggleChannelFrame()
+			end
+		end,
+		tooltip = function()
+			local loggedIn, _, muted, deafened = GetVoiceState()
+
+			if loggedIn then
+				_G.GameTooltip:AddDoubleLine(BINDING_HEADER_VOICE_CHAT, GetVoiceChannelName() or NONE, 1, 1, 1, 1, 1, 1)
+			end
+
+			ClickHint("LEFT", CHAT_CHANNELS)
+
+			if loggedIn then
+				ClickHint("RIGHT", muted and VOICE_TOOLTIP_UNMUTE_MIC or VOICE_TOOLTIP_MUTE_MIC)
+				ClickHint("MIDDLE", deafened and VOICE_TOOLTIP_UNDEAFEN or VOICE_TOOLTIP_DEAFEN)
 			end
 		end,
 	},
@@ -247,7 +312,13 @@ function module:ColorButton(btn)
 	local db = self.db
 	local r, g, b, a
 
-	if btn.hovered or btn.highlighted then
+	if btn.hovered then
+		r, g, b = GetHoverColor(db)
+		a = ICON_ALPHA_HOVER
+	elseif btn.stateColor then
+		r, g, b = unpack(btn.stateColor)
+		a = ICON_ALPHA_HOVER
+	elseif btn.highlighted then
 		r, g, b = GetHoverColor(db)
 		a = ICON_ALPHA_HOVER
 	else
@@ -406,7 +477,11 @@ end
 
 function module:CreateButton(info)
 	local btn = CreateFrame("Button", "MER_ChatSidebar" .. info.key:gsub("^%l", string.upper), self.bar.holder)
-	btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	if info.middleClick then
+		btn:RegisterForClicks("LeftButtonUp", "MiddleButtonUp", "RightButtonUp")
+	else
+		btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	end
 	btn.info = info
 
 	local icon = btn:CreateTexture(nil, "ARTWORK")
@@ -527,10 +602,58 @@ function module:QueueDurability()
 	end)
 end
 
+-- The icon lights up while a voice channel is active and turns into a crossed
+-- out microphone as soon as the player can no longer be heard or hear others.
+function module:UpdateVoice()
+	local btn = self.buttons and self.buttons.voice
+	if not btn then
+		return
+	end
+
+	local loggedIn, active, muted, deafened = GetVoiceState()
+	local silent = loggedIn and active and (muted or deafened) or false
+
+	btn.Icon:SetTexture(silent and I.Media.Icons.Chat.voiceoff or I.Media.Icons.Chat.voice)
+	btn.highlighted = (loggedIn and active) or nil
+	btn.stateColor = silent and VOICE_SILENT_COLOR or nil
+	self:ColorButton(btn)
+end
+
+-- Blizzard puts its own voice buttons back on every state change, so they are
+-- faded out and made click-through instead of hidden.
+function module:UpdateBlizzardVoiceButtons()
+	local hidden = self:IsActive() and self.db.buttons.voice and self.db.hideVoiceButtons
+
+	for _, name in ipairs(VOICE_BUTTONS) do
+		local button = _G[name]
+		if button then
+			button:SetAlpha(hidden and 0 or 1)
+			button:EnableMouse(not hidden)
+		end
+	end
+
+	-- ElvUI's holder for the unpinned buttons has nothing left to show.
+	if CH.VoicePanel then
+		CH.VoicePanel:SetShown(not hidden)
+		if not hidden then
+			CH:ResetVoicePanelAlpha()
+		end
+	end
+
+	-- ElvUI hangs the tab overflow button off the last voice button, which
+	-- leaves a gap once they are gone. Its own pass runs right before this one.
+	local overflow = _G.GeneralDockManagerOverflowButton
+	if hidden and overflow then
+		overflow:ClearAllPoints()
+		overflow:Point("RIGHT", _G.GeneralDockManager, "RIGHT", -4, 0)
+	end
+end
+
 function module:UpdateCounters()
 	self:UpdateFriends()
 	self:UpdateGuild()
 	self:UpdateDurability()
+	self:UpdateVoice()
 end
 
 function module:PLAYER_REGEN_ENABLED()
@@ -552,6 +675,15 @@ local FRIEND_EVENTS = {
 }
 local GUILD_EVENTS = { "GUILD_ROSTER_UPDATE", "PLAYER_GUILD_UPDATE" }
 local DURABILITY_EVENTS = { "UPDATE_INVENTORY_DURABILITY", "UPDATE_INVENTORY_ALERTS" }
+local VOICE_EVENTS = {
+	"VOICE_CHAT_LOGIN",
+	"VOICE_CHAT_LOGOUT",
+	"VOICE_CHAT_CHANNEL_ACTIVATED",
+	"VOICE_CHAT_CHANNEL_DEACTIVATED",
+	"VOICE_CHAT_MUTED_CHANGED",
+	"VOICE_CHAT_DEAFENED_CHANGED",
+	"VOICE_CHAT_SILENCED_CHANGED",
+}
 
 function module:RegisterCounterEvents()
 	for _, event in ipairs(FRIEND_EVENTS) do
@@ -563,12 +695,15 @@ function module:RegisterCounterEvents()
 	for _, event in ipairs(DURABILITY_EVENTS) do
 		self:RegisterEvent(event, "QueueDurability")
 	end
+	for _, event in ipairs(VOICE_EVENTS) do
+		self:RegisterEvent(event, "UpdateVoice")
+	end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateCounters")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 end
 
 function module:UnregisterCounterEvents()
-	for _, list in ipairs({ FRIEND_EVENTS, GUILD_EVENTS, DURABILITY_EVENTS }) do
+	for _, list in ipairs({ FRIEND_EVENTS, GUILD_EVENTS, DURABILITY_EVENTS, VOICE_EVENTS }) do
 		for _, event in ipairs(list) do
 			self:UnregisterEvent(event)
 		end
@@ -749,9 +884,11 @@ function module:UpdateSidebar()
 		end
 
 		btn:SetShown(show)
-		btn.hovered, btn.highlighted = nil, nil
+		btn.hovered, btn.highlighted, btn.stateColor = nil, nil, nil
 		self:ColorButton(btn)
 	end
+
+	self:UpdateVoice()
 
 	if db.buttons.scroll then
 		scroll:Point("BOTTOM", bar, "BOTTOM", 0, spacing)
@@ -893,12 +1030,15 @@ function module:SettingsUpdate()
 		end
 	end
 
+	self:UpdateBlizzardVoiceButtons()
+
 	-- Hand the panel back to ElvUI's layout (or take it over), the hooks above
 	-- decide which one it gets.
 	if E.private.chat.enable then
 		CH:PositionChats()
 		CH:ToggleCopyChatButtons()
 		CH:UpdateEditboxAnchors()
+		CH:RepositionOverflowButton()
 	end
 end
 
@@ -907,6 +1047,7 @@ function module:InitializeSidebar()
 	self:SecureHook(CH, "PositionChat", "PostPositionChat")
 	self:SecureHook(CH, "ToggleChatButton", "PostToggleChatButton")
 	self:SecureHook(CH, "UpdateEditboxAnchors", "PostUpdateEditboxAnchors")
+	self:SecureHook(CH, "RepositionOverflowButton", "UpdateBlizzardVoiceButtons")
 
 	F.Event.RegisterCallback("ChatSidebar.SettingsUpdate", self.SettingsUpdate, self)
 

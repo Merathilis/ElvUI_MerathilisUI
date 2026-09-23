@@ -1379,3 +1379,7 @@ L["Active Underline"] = true
 L["Marks the active tab with a line in your class color."] = true
 L["How opaque the edit box backdrop is. ElvUI's own transparency setting is used for everything else."] = true
 L["Replaced by the copy button of the MerathilisUI Chat Sidebar."] = true
+L["Hide Voice Buttons"] = true
+L["Hides the voice buttons on the chat panel, the sidebar button takes their place."] = true
+L["Opens the channel list. Right-click mutes your microphone, middle-click your speakers."] = true
+L["Replaced by the voice button of the MerathilisUI Chat Sidebar."] = true

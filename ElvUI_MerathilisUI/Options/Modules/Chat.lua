@@ -298,6 +298,23 @@ options.chat = {
 							order = 6,
 							type = "toggle",
 							name = L["Voice / Channels"],
+							desc = L["Opens the channel list. Right-click mutes your microphone, middle-click your speakers."],
+						},
+						hideVoiceButtons = {
+							order = 6.5,
+							type = "toggle",
+							name = L["Hide Voice Buttons"],
+							desc = L["Hides the voice buttons on the chat panel, the sidebar button takes their place."],
+							get = function(info)
+								return SidebarDB()[info[#info]]
+							end,
+							set = function(info, value)
+								SidebarDB()[info[#info]] = value
+								Update()
+							end,
+							disabled = function()
+								return Disabled() or not SidebarDB().buttons.voice
+							end,
 						},
 						settings = {
 							order = 7,
@@ -502,6 +519,15 @@ options.chat = {
 -- ElvUI options our chat extensions take over are grayed out while they do,
 -- with a hint pointing here instead.
 -------------------------------------------------------------------------------
+local function VoiceButtonsReplaced()
+	local db = SidebarDB()
+	return E.private.chat.enable and db.enable and db.buttons.voice and db.hideVoiceButtons
+end
+
+local function VoiceButtonsReason()
+	return L["Replaced by the voice button of the MerathilisUI Chat Sidebar."]
+end
+
 local REPLACED_ELVUI_OPTIONS = {
 	{
 		path = { "chat", "general", "hideCopyButton" },
@@ -517,6 +543,25 @@ local REPLACED_ELVUI_OPTIONS = {
 		end,
 	},
 }
+
+-- Every option in ElvUI's voice group brings its own disabled state, which
+-- would win over one set on the group, so each one is taken over on its own.
+for _, key in ipairs({
+	"hideVoiceButtons",
+	"pinVoiceButtons",
+	"desaturateVoiceIcons",
+	"mouseoverVoicePanel",
+	"voicePanelAlpha",
+}) do
+	tinsert(REPLACED_ELVUI_OPTIONS, {
+		path = { "chat", "general", "voicechatGroup", key },
+		isReplaced = VoiceButtonsReplaced,
+		reason = VoiceButtonsReason,
+		fallbackDisabled = function()
+			return not E.Chat.Initialized
+		end,
+	})
+end
 
 -- AceConfigRegistry validates option tables against a fixed key list, so the
 -- "already patched" flag lives here instead of on ElvUI's option.
