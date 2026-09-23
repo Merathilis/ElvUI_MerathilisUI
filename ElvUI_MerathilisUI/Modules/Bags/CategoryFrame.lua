@@ -673,18 +673,15 @@ local function Slot_OnClick(self, mouseButton, down)
 	if mouseButton == "RightButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
 		if not InCombatLockdown() then
 			self:SetAttribute("*type2", nil)
-			self:SetAttribute("item", nil)
 
 			-- Restored via a deferred call instead of a PostClick script -
 			-- merely having a PostClick handler on this button appears to
-			-- disturb the native secure type/item dispatch's own timing for
-			-- a *plain* right-click (equips instead of selling at a
-			-- merchant), even when that handler is a no-op for that click.
-			local itemLink = self.itemLink
+			-- disturb the native secure dispatch's own timing for a *plain*
+			-- right-click (equips instead of selling at a merchant), even
+			-- when that handler is a no-op for that click.
 			C_Timer.After(0, function()
 				if not InCombatLockdown() then
-					self:SetAttribute("*type2", "item")
-					self:SetAttribute("item", itemLink)
+					self:SetAttribute("*type2", "macro")
 				end
 			end)
 		end
@@ -719,12 +716,12 @@ local function Slot_OnClick(self, mouseButton, down)
 		end
 	elseif mouseButton == "RightButton" then
 		-- Ctrl+Right-click while the bank is open offers a "move to a specific
-		-- tab/bag" picker (plain right-click below also deposits/withdraws,
-		-- but always into the first free slot - this is for when the
-		-- destination matters). Cursor must be empty (nothing to pick a
-		-- destination for otherwise); same attribute suppression as the Split
-		-- Stack/vendor-sell cases so the native dispatch doesn't equip/use the
-		-- item instead of just opening the menu.
+		-- tab/bag" picker (a plain right-click also deposits/withdraws, but
+		-- always into the first free slot - this is for when the destination
+		-- matters). Cursor must be empty (nothing to pick a destination for
+		-- otherwise); same attribute suppression as the Split Stack case, so
+		-- the secure dispatch doesn't deposit the item instead of just
+		-- opening the menu.
 		if
 			IsControlKeyDown()
 			and not CursorHasItem()
@@ -734,13 +731,10 @@ local function Slot_OnClick(self, mouseButton, down)
 		then
 			if not InCombatLockdown() then
 				self:SetAttribute("*type2", nil)
-				self:SetAttribute("item", nil)
 
-				local itemLink = self.itemLink
 				C_Timer.After(0, function()
 					if not InCombatLockdown() then
-						self:SetAttribute("*type2", "item")
-						self:SetAttribute("item", itemLink)
+						self:SetAttribute("*type2", "macro")
 					end
 				end)
 			end
@@ -749,38 +743,10 @@ local function Slot_OnClick(self, mouseButton, down)
 			return
 		end
 
-		-- The native type/item dispatch (fires on RightButtonDown, see
-		-- CreateSlotButton) is equivalent to "/use [item link]", which is
-		-- just a plain use/equip with no context awareness at all - both the
-		-- vendor-sell AND the bank-deposit/withdraw special-casing live only
-		-- inside Blizzard's own C_Container.UseContainerItem, never in the
-		-- generic secure item click. Confirmed live: left as the native
-		-- dispatch, right-click at an open bank equips gear instead of
-		-- depositing it (and does nothing at all for non-equippable items,
-		-- since a plain "/use" has no effect on those). The native dispatch
-		-- also fires synchronously, BEFORE our deferred UseContainerItem call
-		-- below runs on the next frame - left alone it would equip/use first
-		-- and our deferred call would then act on the wrong (swapped-in)
-		-- item. Suppressing the attributes here (same technique as the Split
-		-- Stack click above) stops that dispatch from firing for this click
-		-- at all, so only our own context-aware call decides what happens.
-		local atMerchant = _G.MerchantFrame and _G.MerchantFrame:IsShown()
-		if not InCombatLockdown() and (atMerchant or module.isBankOpen) and self.BagID and self.SlotID then
-			local bagID, slotID = self.BagID, self.SlotID
-			local itemLink = self.itemLink
-
-			self:SetAttribute("*type2", nil)
-			self:SetAttribute("item", nil)
-
-			C_Timer.After(0, function()
-				C_Container.UseContainerItem(bagID, slotID)
-
-				if not InCombatLockdown() then
-					self:SetAttribute("*type2", "item")
-					self:SetAttribute("item", itemLink)
-				end
-			end)
-		end
+		-- Nothing else to do: a plain right-click is dispatched by the
+		-- secure "/use bag slot" macro (see UpdateSlotVisual), which goes
+		-- through C_Container.UseContainerItem and therefore already sells
+		-- at a merchant and deposits/withdraws at an open bank on its own.
 	end
 end
 
@@ -1573,24 +1539,37 @@ local function UpdateSlotVisual(btn, entry)
 		PositionSlotText(btn.Count, countFont.position)
 	end
 
-	-- Right-click "use/equip" via the secure type/item attributes instead of
-	-- calling UseContainerItem from Lua (protected, throws
+	-- Right-click "use/equip" through a secure "/use bag slot" macro instead
+	-- of calling UseContainerItem from Lua (protected, throws
 	-- ADDON_ACTION_FORBIDDEN). SetAttribute itself is combat-protected on
 	-- secure frames, so skip refreshing it mid-combat; the previous item's
 	-- attributes simply stay in place until the next safe refresh.
 	--
+	-- A macro, not the "item" action: the latter resolves the item by NAME
+	-- (EquipItemByName/UseItemByName), and skips equipping entirely when
+	-- something with that name is already equipped - so a spare copy of a
+	-- piece the player is wearing (same item at another upgrade level, a
+	-- second trinket/ring...) simply did nothing on right-click. It also has
+	-- no context awareness at all, where "/use bag slot" ends up in
+	-- C_Container.UseContainerItem, exactly like Blizzard's own bags: equip
+	-- or use normally, sell at a merchant, deposit/withdraw at an open bank.
+	--
 	-- "*type2", not "type": an unsuffixed "type" applies to every mouse
-	-- button, so a left-click also fired the secure "use item" action right
-	-- after our PreClick had handed the item to the cursor. With a
-	-- profession spell waiting for a target (Disenchant, Milling, an
-	-- enchant scroll...) that second action swallowed the targeting click,
-	-- and a middle-click (pin) used the item as well. "*" keeps it working
-	-- with any modifier held; "item" stays unsuffixed so every button
-	-- still resolves it.
+	-- button, so a left-click also fired the secure action right after our
+	-- PreClick had handed the item to the cursor. With a profession spell
+	-- waiting for a target (Disenchant, Milling, an enchant scroll...) that
+	-- second action swallowed the targeting click, and a middle-click (pin)
+	-- used the item as well. "*" keeps it working with any modifier held.
 	if not InCombatLockdown() then
 		btn:SetAttribute("type", nil)
-		btn:SetAttribute("*type2", "item")
-		btn:SetAttribute("item", entry.itemLink)
+		btn:SetAttribute("item", nil)
+		if entry.bagID and entry.slotID then
+			btn:SetAttribute("*type2", "macro")
+			btn:SetAttribute("*macrotext2", format("/use %d %d", entry.bagID, entry.slotID))
+		else
+			btn:SetAttribute("*type2", nil)
+			btn:SetAttribute("*macrotext2", nil)
+		end
 	end
 
 	-- Blizzard's SetItemButtonQuality paints Blizzard's own (hidden) IconBorder;
