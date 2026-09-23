@@ -1,10 +1,9 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_LocationPanel")
 local WS = W:GetModule("Skins")
-local MM = E:GetModule("Minimap")
 
 local _G = _G
-local format, ipairs = string.format, ipairs
+local format, ipairs, setmetatable = string.format, ipairs, setmetatable
 
 local CreateFrame = CreateFrame
 local GetMinimapZoneText = GetMinimapZoneText
@@ -19,6 +18,7 @@ local COMBAT_ZONE = COMBAT_ZONE
 local CONTESTED_TERRITORY = CONTESTED_TERRITORY
 local FACTION_CONTROLLED_TERRITORY = FACTION_CONTROLLED_TERRITORY
 local FREE_FOR_ALL_TERRITORY = FREE_FOR_ALL_TERRITORY
+local NORMAL_FONT_COLOR = _G.NORMAL_FONT_COLOR
 local SANCTUARY_TERRITORY = SANCTUARY_TERRITORY
 local WORLDMAP_BUTTON = WORLDMAP_BUTTON
 
@@ -45,6 +45,28 @@ local ZONE_EVENTS = {
 	"ZONE_CHANGED_INDOORS",
 	"ZONE_CHANGED_NEW_AREA",
 }
+
+-- Blizzard's own zone colors (Minimap_Update / Minimap_SetTooltip in Blizzard_Minimap),
+-- everything not listed uses NORMAL_FONT_COLOR. The minimap text leaves combat zones
+-- in the normal color, only the tooltip marks them red.
+local ZONE_TEXT_COLORS = {
+	sanctuary = { 0.41, 0.8, 0.94 },
+	arena = { 1, 0.1, 0.1 },
+	friendly = { 0.1, 1, 0.1 },
+	hostile = { 1, 0.1, 0.1 },
+	contested = { 1, 0.7, 0 },
+}
+
+local ZONE_TOOLTIP_COLORS = setmetatable({ combat = { 1, 0.1, 0.1 } }, { __index = ZONE_TEXT_COLORS })
+
+local function GetZoneColor(colors, pvpType)
+	local color = pvpType and colors[pvpType]
+	if color then
+		return color[1], color[2], color[3]
+	end
+
+	return NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b
+end
 
 local function GetZoneTexts()
 	local zone = GetZoneText() or ""
@@ -78,7 +100,7 @@ function module:GetTextColor()
 		return color.r, color.g, color.b
 	end
 
-	return MM:GetLocTextColor()
+	return GetZoneColor(ZONE_TEXT_COLORS, (C_PvP.GetZonePVPInfo()))
 end
 
 function module:UpdateText()
@@ -129,7 +151,7 @@ function module:ShowTooltip()
 	local tooltip = _G.GameTooltip
 	local zone, subZone = GetZoneTexts()
 	local pvpType, _, factionName = C_PvP.GetZonePVPInfo()
-	local r, g, b = MM:GetLocTextColor()
+	local r, g, b = GetZoneColor(ZONE_TOOLTIP_COLORS, pvpType)
 
 	tooltip:SetOwner(panel, "ANCHOR_NONE")
 	tooltip:ClearAllPoints()
