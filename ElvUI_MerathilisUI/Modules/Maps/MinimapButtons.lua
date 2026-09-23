@@ -15,6 +15,7 @@ local GetDifficultyInfo = GetDifficultyInfo
 local RequestRaidInfo = RequestRaidInfo
 local SecondsToTime = SecondsToTime
 local ToggleCalendar = ToggleCalendar
+local hooksecurefunc = hooksecurefunc
 local issecretvalue = issecretvalue
 local C_AddOns = C_AddOns
 local C_WeeklyRewards = C_WeeklyRewards
@@ -144,10 +145,20 @@ end
 
 -- Pulses the icon's alpha and grows the whole button while at least one weekly reward is ready to claim.
 local function UpdateGreatVaultPulse(btn)
-	local hasRewards = btn.testPulse
-		or (C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards and C_WeeklyRewards.HasAvailableRewards())
+	local hasRewards = C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards and C_WeeklyRewards.HasAvailableRewards()
 
-	if hasRewards then
+	-- HasAvailableRewards can stay true after claiming until the vault is opened again,
+	-- so a claim suppresses the pulse until the API confirms or the vault reopens.
+	if btn.rewardClaimed then
+		local vaultFrame = _G.WeeklyRewardsFrame
+		if not hasRewards or (vaultFrame and vaultFrame:IsShown()) then
+			btn.rewardClaimed = nil
+		else
+			hasRewards = false
+		end
+	end
+
+	if btn.testPulse or hasRewards then
 		if not btn.PulseGroup:IsPlaying() then
 			btn.PulseGroup:Play()
 		end
@@ -236,6 +247,18 @@ local function CreateGreatVaultButton(parent)
 	btn:RegisterEvent("WEEKLY_REWARDS_UPDATE")
 	btn:RegisterEvent("PLAYER_ENTERING_WORLD")
 	btn:SetScript("OnEvent", UpdateGreatVaultPulse)
+
+	-- The vault closes right after the claim and no fresh update may follow, so stop the pulse
+	-- here and re-check once the server has had time to confirm.
+	if C_WeeklyRewards and C_WeeklyRewards.ClaimReward then
+		hooksecurefunc(C_WeeklyRewards, "ClaimReward", function()
+			btn.rewardClaimed = true
+			UpdateGreatVaultPulse(btn)
+			C_Timer.After(3, function()
+				UpdateGreatVaultPulse(btn)
+			end)
+		end)
+	end
 
 	icon:SetVertexColor(0.85, 0.85, 0.85)
 	UpdateGreatVaultPulse(btn)
