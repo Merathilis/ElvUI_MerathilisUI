@@ -18,12 +18,16 @@ local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local IsShiftKeyDown = IsShiftKeyDown
+local C_BattleNet = C_BattleNet
 local C_FriendList = C_FriendList
 local C_GuildInfo = C_GuildInfo
 local C_Timer = C_Timer
 local C_VoiceChat = C_VoiceChat
 
+local issecretvalue = issecretvalue
+
 local BINDING_HEADER_VOICE_CHAT = BINDING_HEADER_VOICE_CHAT
+local BNET_CLIENT_WOW = _G.BNET_CLIENT_WOW or "WoW"
 local CHAT_CHANNELS = CHAT_CHANNELS
 local ERR_NOT_IN_COMBAT = ERR_NOT_IN_COMBAT
 local NONE = NONE
@@ -129,6 +133,24 @@ local function GetFriendsOnline()
 	return bnetOnline or 0, wowOnline
 end
 
+-- Online Battle.net friends that are in World of Warcraft right now, going by the
+-- game account the friends list shows for them. Only needed for the tooltip.
+local function GetBattleNetFriendsInWoW()
+	local numTotal = BNGetNumFriends() or 0
+	local inWoW = 0
+
+	for i = 1, numTotal do
+		local accountInfo = C_BattleNet.GetFriendAccountInfo(i)
+		local gameInfo = accountInfo and accountInfo.gameAccountInfo
+		local client = gameInfo and gameInfo.isOnline and gameInfo.clientProgram
+		if client and not (issecretvalue and issecretvalue(client)) and client == BNET_CLIENT_WOW then
+			inWoW = inWoW + 1
+		end
+	end
+
+	return inWoW
+end
+
 local lastGuildRoster = 0
 local function GetGuildOnline()
 	if not IsInGuild() then
@@ -193,9 +215,11 @@ local BUTTONS = {
 			end
 		end,
 		tooltip = function()
-			local bnet, wow = GetFriendsOnline()
-			_G.GameTooltip:AddDoubleLine(L["Battle.net"], bnet, 1, 1, 1, 1, 1, 1)
-			_G.GameTooltip:AddDoubleLine(L["World of Warcraft"], wow, 1, 1, 1, 1, 1, 1)
+			-- Character friends are in WoW by definition; Battle.net friends only while they play it.
+			local bnet, characters = GetFriendsOnline()
+			local bnetInWoW = GetBattleNetFriendsInWoW()
+			_G.GameTooltip:AddDoubleLine(L["World of Warcraft"], bnetInWoW + characters, 1, 1, 1, 1, 1, 1)
+			_G.GameTooltip:AddDoubleLine(L["Other Games / App"], bnet - bnetInWoW, 1, 1, 1, 1, 1, 1)
 		end,
 	},
 	{

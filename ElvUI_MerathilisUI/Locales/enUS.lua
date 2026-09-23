@@ -1370,6 +1370,7 @@ L["Hide Voice Buttons"] = true
 L["Hides the voice buttons on the chat panel, the sidebar button takes their place."] = true
 L["Opens the channel list. Right-click mutes your microphone, middle-click your speakers."] = true
 L["Replaced by the voice button of the MerathilisUI Chat Sidebar."] = true
+L["Other Games / App"] = true
 
 -- Location Panel
 L["Location Panel"] = true

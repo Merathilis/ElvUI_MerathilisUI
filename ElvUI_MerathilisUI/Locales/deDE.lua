@@ -1131,6 +1131,7 @@ L["Hide Voice Buttons"] = "Sprach-Buttons ausblenden"
 L["Hides the voice buttons on the chat panel, the sidebar button takes their place."] = "Blendet die Sprach-Buttons am Chat-Panel aus, der Seitenleisten-Button übernimmt sie."
 L["Opens the channel list. Right-click mutes your microphone, middle-click your speakers."] = "Öffnet die Kanalliste. Rechtsklick schaltet das Mikrofon stumm, Mittelklick den Ton."
 L["Replaced by the voice button of the MerathilisUI Chat Sidebar."] = "Ersetzt durch den Sprachchat-Button der MerathilisUI-Chat-Seitenleiste."
+L["Other Games / App"] = "Andere Spiele / App"
 
 L["Location Panel"] = "Standort-Panel"
 L["Shows the current zone in a panel above your Minimap. Click it to open the World Map."] = "Zeigt die aktuelle Zone in einem Panel über deiner Minimap an. Ein Klick öffnet die Weltkarte."
