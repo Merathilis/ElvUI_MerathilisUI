@@ -199,13 +199,14 @@ options.reset = {
 				end)
 			end,
 		},
-		miniMapCoords = {
+		locationPanel = {
 			order = 17,
 			type = "execute",
-			name = L["Minimap Coordinates"],
+			name = L["Location Panel"],
 			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Coordinates"], nil, function()
-					E:CopyTable(E.db.mui.miniMapCoords, P.miniMapCoords)
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Location Panel"], nil, function()
+					E:CopyTable(E.db.mui.locationPanel, P.locationPanel)
+					F.Event.TriggerEvent("LocationPanel.DatabaseUpdate")
 				end)
 			end,
 		},

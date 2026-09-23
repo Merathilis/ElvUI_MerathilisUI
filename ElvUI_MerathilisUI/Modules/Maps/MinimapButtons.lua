@@ -26,6 +26,7 @@ local C_DateAndTime = C_DateAndTime
 local C_CraftingOrders = C_CraftingOrders
 local Enum = Enum
 
+local ADDONS = ADDONS
 local HAVE_MAIL = HAVE_MAIL
 local HAVE_MAIL_FROM = HAVE_MAIL_FROM
 local MAILFRAME_CRAFTING_ORDERS_TOOLTIP_TITLE = MAILFRAME_CRAFTING_ORDERS_TOOLTIP_TITLE
@@ -450,6 +451,76 @@ local function ToggleTrackingMenu(self)
 	end
 end
 
+-------------------------------------------------------------------------------
+-- Addon compartment: same approach as tracking, Blizzard's dropdown with our anchor
+-------------------------------------------------------------------------------
+local function GetAddonCount()
+	local compartment = _G.AddonCompartmentFrame
+	return compartment and compartment.registeredAddons and #compartment.registeredAddons or 0
+end
+
+local function ToggleCompartmentMenu(self)
+	local compartment = _G.AddonCompartmentFrame
+	if not compartment or not compartment.OpenMenu then
+		return
+	end
+
+	if compartment.menu and compartment.menu:IsShown() then
+		compartment:CloseMenu()
+		return
+	end
+
+	compartment:OpenMenu()
+
+	local menu = compartment.menu
+	if menu then
+		menu:ClearAllPoints()
+		if GrowsRight(self.bar) then
+			menu:SetPoint("TOPLEFT", self, "TOPRIGHT", F.Dpi(4), 0)
+		else
+			menu:SetPoint("TOPRIGHT", self, "TOPLEFT", -F.Dpi(4), 0)
+		end
+	end
+end
+
+local function CreateCompartmentButton(parent)
+	local btn = CreateFrame("Button", "MER_MinimapAddonCompartmentButton", parent)
+	btn:EnableMouse(true)
+	btn:SetTemplate("Transparent")
+
+	local icon = btn:CreateTexture(nil, "ARTWORK")
+	icon:SetTexture(I.Media.Icons.List)
+	icon:SetPoint("CENTER")
+	icon:SetVertexColor(0.85, 0.85, 0.85)
+	btn.Icon = icon
+
+	-- The glyph fills its whole texture, so it gets more room around it than the atlas icons.
+	btn.UpdateIcon = function(self, size)
+		local iconSize = F.Round(size * 0.6)
+		self.Icon:SetSize(iconSize, iconSize)
+	end
+
+	-- Blizzard hides its own button while no addon registered, and so does this one.
+	-- ElvUI's "hide" option parks the original on a hidden parent, where its menu cannot open.
+	btn.ShouldShow = function()
+		return GetAddonCount() > 0 and not E.db.general.addonCompartment.hide
+	end
+
+	btn:SetScript("OnEnter", function(self)
+		self.Icon:SetVertexColor(1, 1, 1)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		_G.GameTooltip:AddDoubleLine(ADDONS, GetAddonCount(), nil, nil, nil, 1, 1, 1)
+		_G.GameTooltip:Show()
+	end)
+	btn:SetScript("OnLeave", function(self)
+		self.Icon:SetVertexColor(0.85, 0.85, 0.85)
+		_G.GameTooltip:Hide()
+	end)
+	btn:SetScript("OnClick", ToggleCompartmentMenu)
+
+	return btn
+end
+
 local function CreateTrackingButton(parent)
 	local btn = CreateIndicatorButton(parent, "Tracking", TRACKING_ATLAS, ToggleTrackingMenu)
 
@@ -794,6 +865,7 @@ function module:UpdateBlizzardIndicators(forceRestore)
 	local replaced = {
 		tracking = { tracking, tracking and tracking.Button },
 		calendar = { _G.GameTimeFrame },
+		addonCompartment = { _G.AddonCompartmentFrame },
 		mail = { indicator and indicator.MailFrame },
 		craftingOrders = { indicator and indicator.CraftingOrderFrame },
 	}
@@ -842,6 +914,7 @@ function module:CreateButtons()
 	self.portalButton = CreatePortalButton(holder)
 	self.trackingButton = CreateTrackingButton(elementHolder)
 	self.calendarButton = CreateCalendarButton(elementHolder)
+	self.compartmentButton = CreateCompartmentButton(elementHolder)
 	self.mailButton = CreateMailButton(elementHolder)
 	self.craftingButton = CreateCraftingButton(elementHolder)
 
@@ -852,6 +925,7 @@ function module:CreateButtons()
 		{ key = "mplusPortals", bar = "main", btn = self.portalButton },
 		{ key = "tracking", bar = "elements", btn = self.trackingButton },
 		{ key = "calendar", bar = "elements", btn = self.calendarButton },
+		{ key = "addonCompartment", bar = "elements", btn = self.compartmentButton },
 		{ key = "mail", bar = "elements", btn = self.mailButton },
 		{ key = "craftingOrders", bar = "elements", btn = self.craftingButton },
 	}
@@ -870,6 +944,14 @@ function module:CreateButtons()
 	watcher:SetScript("OnEvent", function()
 		module:RefreshIndicators()
 	end)
+
+	-- The compartment collects its addons on PLAYER_ENTERING_WORLD, possibly after our watcher ran.
+	local compartment = _G.AddonCompartmentFrame
+	if compartment and compartment.UpdateDisplay then
+		hooksecurefunc(compartment, "UpdateDisplay", function()
+			module:RefreshIndicators()
+		end)
+	end
 
 	-- Nothing fires when the date rolls over, so the calendar icon is checked on
 	-- a slow ticker instead.

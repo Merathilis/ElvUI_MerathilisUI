@@ -894,22 +894,21 @@ P.vehicleBar = {
 	},
 }
 
-P.miniMapCoords = {
+P.locationPanel = {
 	enable = true,
-	xOffset = 0,
-	yOffset = 70,
-	format = "%.0f",
-	mouseOver = false,
+	height = 20,
+	spacing = 3,
+	textMode = "MINIMAP",
+	colorMode = "PVP",
+	customColor = { r = 1, g = 1, b = 1 },
+	coords = true,
+	coordsFormat = "%.1f",
+	coordsColor = { r = 1, g = 1, b = 1 },
 
 	font = {
 		name = E.db.general.font,
-		size = 14,
+		size = 12,
 		style = "SHADOWOUTLINE",
-		color = {
-			r = 1,
-			g = 1,
-			b = 1,
-		},
 	},
 }
 
@@ -992,6 +991,9 @@ P.minimapButtons = {
 		enable = false,
 	},
 	calendar = {
+		enable = true,
+	},
+	addonCompartment = {
 		enable = true,
 	},
 	mail = {

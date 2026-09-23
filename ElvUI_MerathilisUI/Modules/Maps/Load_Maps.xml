@@ -1,4 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Script file="MiniMapCoords.lua"/>
     <Script file="MinimapButtons.lua"/>
+    <Script file="LocationPanel.lua"/>
 </Ui>

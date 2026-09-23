@@ -119,17 +119,20 @@ options.maps = {
 			type = "header",
 			name = F.cOption(L["Maps"], "orange"),
 		},
-		miniMapCoords = {
+		locationPanel = {
 			order = 1,
 			type = "group",
 			guiInline = true,
-			name = L["Minimap Coordinates"],
+			name = L["Location Panel"],
 			get = function(info)
-				return E.db.mui.miniMapCoords[info[#info]]
+				return E.db.mui.locationPanel[info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.miniMapCoords[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
+				E.db.mui.locationPanel[info[#info]] = value
+				F.Event.TriggerEvent("LocationPanel.SettingsUpdate")
+			end,
+			disabled = function()
+				return not E.private.general.minimap.enable
 			end,
 			args = {
 				desc = {
@@ -141,7 +144,7 @@ options.maps = {
 						feature = {
 							order = 1,
 							type = "description",
-							name = L["Add coords to your Minimap."],
+							name = L["Shows the current zone in a panel above your Minimap. Click it to open the World Map."],
 							fontSize = "medium",
 						},
 					},
@@ -150,44 +153,156 @@ options.maps = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
+					set = function(info, value)
+						E.db.mui.locationPanel[info[#info]] = value
+						F.Event.TriggerEvent("LocationPanel.DatabaseUpdate")
+					end,
+				},
+				clusterDisable = {
+					order = 2,
+					type = "toggle",
+					name = L["Disable ElvUI Cluster"],
+					desc = L["ElvUI's Minimap Cluster shows the zone text and the clock above the Minimap. Disable it so it does not overlap the panel."],
+					get = function()
+						return E.db.general.minimap.clusterDisable
+					end,
+					set = function(_, value)
+						E.db.general.minimap.clusterDisable = value
+						E:GetModule("Minimap"):UpdateSettings()
+						E:StaticPopup_Show("PRIVATE_RL")
+					end,
+				},
+				hideLocationText = {
+					order = 2.5,
+					type = "toggle",
+					name = L["Hide ElvUI Location Text"],
+					desc = L["Hides the zone text ElvUI shows on the Minimap, the panel shows it already."],
+					get = function()
+						return E.db.general.minimap.locationText == "HIDE"
+					end,
+					set = function(_, value)
+						E.db.general.minimap.locationText = value and "HIDE" or "MOUSEOVER"
+						E:GetModule("Minimap"):UpdateSettings()
+					end,
 				},
 				spacer = {
-					order = 2,
+					order = 4,
 					type = "description",
 					name = "",
 				},
-				xOffset = {
-					order = 3,
+				height = {
+					order = 5,
 					type = "range",
-					name = L["X-Offset"],
-					min = -300,
-					max = 300,
+					name = L["Height"],
+					min = 14,
+					max = 40,
 					step = 1,
 				},
-				yOffset = {
-					order = 3,
+				spacing = {
+					order = 6,
 					type = "range",
-					name = L["Y-Offset"],
-					min = -300,
-					max = 300,
+					name = L["Spacing"],
+					desc = L["Gap between the panel and the Minimap."],
+					min = 0,
+					max = 20,
 					step = 1,
 				},
-				mouseOver = {
-					order = 4,
-					type = "toggle",
-					name = L["Mouse Over"],
+				textMode = {
+					order = 7,
+					type = "select",
+					name = L["Text"],
+					values = {
+						MINIMAP = L["Minimap Zone Text"],
+						ZONE = L["Zone"],
+						ZONE_SUBZONE = L["Zone and Subzone"],
+					},
+				},
+				colorMode = {
+					order = 8,
+					type = "select",
+					name = L["Text Color"],
+					values = {
+						PVP = L["Zone PvP Status"],
+						CLASS = L["Class Color"],
+						CUSTOM = L["Custom Color"],
+					},
+				},
+				customColor = {
+					order = 9,
+					type = "color",
+					name = L["Custom Color"],
+					hasAlpha = false,
+					hidden = function()
+						return E.db.mui.locationPanel.colorMode ~= "CUSTOM"
+					end,
+					get = function(info)
+						local db = E.db.mui.locationPanel[info[#info]]
+						local default = P.locationPanel[info[#info]]
+						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+					end,
+					set = function(info, r, g, b)
+						local db = E.db.mui.locationPanel[info[#info]]
+						db.r, db.g, db.b = r, g, b
+						F.Event.TriggerEvent("LocationPanel.SettingsUpdate")
+					end,
+				},
+				coordsGroup = {
+					order = 10,
+					type = "group",
+					inline = true,
+					name = L["Coordinates"],
+					args = {
+						coords = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable"],
+							desc = L["Shows your X coordinate left and your Y coordinate right of the zone text."],
+						},
+						coordsFormat = {
+							order = 2,
+							type = "select",
+							name = L["Format"],
+							values = {
+								["%.0f"] = "45",
+								["%.1f"] = "45.3",
+								["%.2f"] = "45.27",
+							},
+							disabled = function()
+								return not E.db.mui.locationPanel.coords
+							end,
+						},
+						coordsColor = {
+							order = 3,
+							type = "color",
+							name = L["Color"],
+							hasAlpha = false,
+							disabled = function()
+								return not E.db.mui.locationPanel.coords
+							end,
+							get = function(info)
+								local db = E.db.mui.locationPanel[info[#info]]
+								local default = P.locationPanel[info[#info]]
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(info, r, g, b)
+								local db = E.db.mui.locationPanel[info[#info]]
+								db.r, db.g, db.b = r, g, b
+								F.Event.TriggerEvent("LocationPanel.SettingsUpdate")
+							end,
+						},
+					},
 				},
 				font = {
-					order = 7,
+					order = 11,
 					type = "group",
 					inline = true,
 					name = L["Font"],
 					get = function(info)
-						return E.db.mui.miniMapCoords.font[info[#info]]
+						return E.db.mui.locationPanel.font[info[#info]]
 					end,
 					set = function(info, value)
-						E.db.mui.miniMapCoords.font[info[#info]] = value
-						E:StaticPopup_Show("PRIVATE_RL")
+						E.db.mui.locationPanel.font[info[#info]] = value
+						F.Event.TriggerEvent("LocationPanel.SettingsUpdate")
 					end,
 					args = {
 						name = {
@@ -202,7 +317,7 @@ options.maps = {
 							name = L["Size"],
 							type = "range",
 							min = 5,
-							max = 60,
+							max = 40,
 							step = 1,
 						},
 						style = {
@@ -211,22 +326,6 @@ options.maps = {
 							name = L["Outline"],
 							values = MER.Values.FontFlags,
 							sortByValue = true,
-						},
-						color = {
-							order = 6,
-							type = "color",
-							name = L["Custom Color"],
-							hasAlpha = false,
-							get = function(info)
-								local db = E.db.mui.miniMapCoords.font[info[#info]]
-								local default = P.miniMapCoords.font[info[#info]]
-								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
-							end,
-							set = function(info, r, g, b)
-								local db = E.db.mui.miniMapCoords.font[info[#info]]
-								db.r, db.g, db.b = r, g, b
-								F.Event.TriggerEvent("MiniMapCoords.SettingsUpdate")
-							end,
 						},
 					},
 				},
@@ -337,6 +436,14 @@ options.maps = {
 							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]
 								.. "\n"
 								.. L["The tooltip lists your raid lockouts, the realm time and the weekly reset."],
+						},
+						addonCompartment = {
+							order = 2.5,
+							type = "toggle",
+							name = L["Addon Compartment"],
+							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]
+								.. "\n"
+								.. L["Opens Blizzard's addon list. Hidden while ElvUI's own option hides the addon compartment."],
 						},
 						mail = {
 							order = 3,
