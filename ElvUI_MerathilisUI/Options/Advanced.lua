@@ -220,6 +220,17 @@ options.reset = {
 				end)
 			end,
 		},
+		movementAlert = {
+			order = 18.5,
+			type = "execute",
+			name = L["Movement Alert"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Movement Alert"], nil, function()
+					E:CopyTable(E.db.mui.movementAlert, P.movementAlert)
+					MER:GetModule("MER_MovementAlert"):ProfileUpdate()
+				end)
+			end,
+		},
 		nameHover = {
 			order = 19,
 			type = "execute",
