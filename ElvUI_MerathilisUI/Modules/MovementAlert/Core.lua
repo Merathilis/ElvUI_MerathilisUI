@@ -1063,8 +1063,10 @@ function module:CreateFrames()
 	)
 end
 
-local function StyleTextFrame(frame, db)
+-- The sample text sizes the frame, it can only be set once the font is.
+local function StyleTextFrame(frame, db, sample)
 	SetFont(frame.text, db.font)
+	frame.text:SetText(sample)
 	frame.text:SetTextColor(GetColor(db))
 	frame:Size(max(100, frame.text:GetStringWidth() + 20), max(20, db.font.size * 2 + 8))
 end
@@ -1084,10 +1086,8 @@ function module:UpdateLayout()
 		self:StyleSlot(slot)
 	end
 
-	self.timeSpiralFrame.text:SetText(db.timeSpiral.text .. "\n0.0")
-	StyleTextFrame(self.timeSpiralFrame, db.timeSpiral)
-	self.gatewayFrame.text:SetText(db.gateway.text)
-	StyleTextFrame(self.gatewayFrame, db.gateway)
+	StyleTextFrame(self.timeSpiralFrame, db.timeSpiral, db.timeSpiral.text .. "\n0.0")
+	StyleTextFrame(self.gatewayFrame, db.gateway, db.gateway.text)
 end
 
 -------------------------------------------------------------------------------
