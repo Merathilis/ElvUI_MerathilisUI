@@ -16,7 +16,6 @@ local RequestRaidInfo = RequestRaidInfo
 local SecondsToTime = SecondsToTime
 local ToggleCalendar = ToggleCalendar
 local hooksecurefunc = hooksecurefunc
-local issecretvalue = issecretvalue
 local C_AddOns = C_AddOns
 local C_WeeklyRewards = C_WeeklyRewards
 local C_Timer = C_Timer
@@ -715,7 +714,7 @@ local function HasUnreadMail()
 	end
 
 	local raw = HasNewMail()
-	if issecretvalue and issecretvalue(raw) then
+	if E:IsSecretValue(raw) and raw then
 		return false
 	end
 
