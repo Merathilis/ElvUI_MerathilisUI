@@ -17,7 +17,7 @@ options.Notification = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Notification"], "orange"),
+			name = L["Notification"],
 		},
 		credits = {
 			order = 1,
@@ -429,7 +429,10 @@ do
 					local result = {}
 					for currencyID in pairs(E.db.mui.notification.currencyWarning.list) do
 						local currencyInfo = C_CurrencyInfo.GetCurrencyInfo(currencyID)
-						result[currencyID] = currencyInfo and currencyInfo.name and format("%s (%d)", currencyInfo.name, currencyID) or currencyID
+						result[currencyID] = currencyInfo
+								and currencyInfo.name
+								and format("%s (%d)", currencyInfo.name, currencyID)
+							or currencyID
 					end
 					return result
 				end,

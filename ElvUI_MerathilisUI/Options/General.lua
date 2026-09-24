@@ -17,7 +17,7 @@ options.name = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["General"], "orange"),
+			name = L["General"],
 		},
 		style = {
 			order = 2,

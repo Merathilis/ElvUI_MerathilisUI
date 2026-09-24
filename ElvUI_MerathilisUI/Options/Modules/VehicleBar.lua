@@ -22,7 +22,7 @@ options.vehicleBar = {
 		name = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["VehicleBar"], "orange"),
+			name = L["VehicleBar"],
 		},
 		credits = {
 			order = 2,
@@ -139,7 +139,7 @@ options.vehicleBar = {
 				vigorBarBarHeader = {
 					order = 2,
 					type = "header",
-					name = F.cOption(L["Bar Settings"], "orange"),
+					name = L["Bar Settings"],
 				},
 				height = {
 					order = 3,
@@ -190,7 +190,7 @@ options.vehicleBar = {
 				vigorBarcolorHeader = {
 					order = 6,
 					type = "header",
-					name = F.cOption(L["Color Settings"], "orange"),
+					name = L["Color Settings"],
 				},
 				useCustomColor = {
 					order = 7,
@@ -241,7 +241,7 @@ options.vehicleBar = {
 				speedTextHeader = {
 					order = 10,
 					type = "header",
-					name = F.cOption(L["Speed Text Settings"], "orange"),
+					name = L["Speed Text Settings"],
 				},
 				showSpeedText = {
 					order = 11,

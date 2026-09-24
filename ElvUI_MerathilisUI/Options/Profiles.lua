@@ -51,7 +51,7 @@ options.generalGroup = {
 		header = {
 			order = 2,
 			type = "header",
-			name = F.cOption(L["Fonts"], "orange"),
+			name = L["Fonts"],
 		},
 		applyButton = {
 			order = 3,
@@ -108,7 +108,7 @@ options.addons = {
 		header = {
 			order = 3,
 			type = "header",
-			name = F.cOption(L["Profiles"], "orange"),
+			name = L["Profiles"],
 		},
 	},
 }

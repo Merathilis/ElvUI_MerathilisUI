@@ -55,7 +55,7 @@ options.general = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["General"], "orange"),
+			name = L["General"],
 		},
 		enable = {
 			order = 1,
@@ -167,7 +167,7 @@ options.addonskins = {
 		header = {
 			order = 4,
 			type = "header",
-			name = F.cOption(L["AddOnSkins"], "orange"),
+			name = L["AddOnSkins"],
 		},
 	},
 }
@@ -221,7 +221,7 @@ options.Embed = {
 		header = {
 			order = 2,
 			type = "header",
-			name = F.cOption(L["Embed Settings"], "orange"),
+			name = L["Embed Settings"],
 		},
 		spacer1 = {
 			order = 3,
@@ -364,7 +364,7 @@ options.advancedSettings = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(L["Details Skin"], "orange"),
+					name = L["Details Skin"],
 				},
 				enable = {
 					order = 1,

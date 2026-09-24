@@ -117,7 +117,7 @@ options.maps = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Maps"], "orange"),
+			name = L["Maps"],
 		},
 		locationPanel = {
 			order = 1,

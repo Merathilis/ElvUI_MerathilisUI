@@ -6,8 +6,6 @@ local B = E:GetModule("Bags")
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("bags")
-
 options.bags = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Bags"], "bags"),
@@ -15,7 +13,7 @@ options.bags = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.NewFeatureText(F.cOption(L["Bags"], "orange")),
+			name = L["Bags"],
 		},
 		equipmentManager = {
 			order = 1,

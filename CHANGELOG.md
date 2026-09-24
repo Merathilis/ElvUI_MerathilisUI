@@ -14,3 +14,4 @@
 -   [Improvement]: Bags: Categorized Bags - the Bank window has its own Sort button, sorting whichever bank it shows (character or Warband) and asking first like Blizzard's bank does.
 -   [Improvement]: Bags: Categorized Bags - the Stack button now really stacks (merges partial stacks without re-sorting) instead of sorting again; Shift-click at the bank tops up matching stacks in the bank, and the Bank window got a Stack button that does the same towards your bags.
 -   [Improvement]: Options: Option groups on the MerathilisUI pages stand out more clearly - a larger title with a small accent bar in front of it, a slightly lighter box and a small shadow behind it.
+-   [Improvement]: Options: Headers and group titles no longer carry their own orange coloring and all use the same white MerathilisUI style. The Bags tab is no longer marked as new.

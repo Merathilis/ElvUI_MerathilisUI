@@ -28,7 +28,7 @@ options.armory = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Armory"], "orange"),
+			name = L["Armory"],
 		},
 		credits = {
 			order = 2,

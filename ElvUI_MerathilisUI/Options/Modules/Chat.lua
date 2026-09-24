@@ -21,10 +21,6 @@ local function ChatDB()
 	return E.db.mui.chat
 end
 
-local function ColorGet(db, default)
-	return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
-end
-
 options.chat = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Chat"], "chat"),

@@ -17,7 +17,7 @@ options.core = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["General"], "orange"),
+			name = L["General"],
 		},
 		loginMessage = {
 			order = 1,
@@ -54,7 +54,7 @@ options.reset = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Reset"], "orange"),
+			name = L["Reset"],
 		},
 		desc = {
 			order = 1,

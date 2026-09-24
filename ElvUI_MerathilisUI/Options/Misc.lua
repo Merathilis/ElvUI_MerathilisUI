@@ -21,7 +21,7 @@ options.general = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["General"], "orange"),
+			name = L["General"],
 		},
 		gmotd = {
 			order = 2,
@@ -165,7 +165,7 @@ options.gameMenu = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Game Menu"], "orange"),
+			name = L["Game Menu"],
 		},
 		enable = {
 			order = 1,
@@ -270,7 +270,7 @@ options.scale = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Scale"], "orange"),
+			name = L["Scale"],
 		},
 		enable = {
 			order = 1,
@@ -745,7 +745,7 @@ options.raidInfo = {
 				header = {
 					order = 0,
 					type = "header",
-					name = F.cOption(L["Customization"], "orange"),
+					name = L["Customization"],
 				},
 				size = {
 					order = 1,
