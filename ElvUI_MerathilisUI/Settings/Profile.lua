@@ -1389,6 +1389,68 @@ P.buffReminder = {
 	},
 }
 
+P.movementAlert = {
+	enable = false,
+	combatOnly = false,
+	displayMode = "TEXT", -- TEXT, ICON, BAR
+	textFormat = "NAME_TIME", -- NAME_TIME, TIME_NAME, TIME
+	textWidth = 250,
+	decimals = true,
+	iconSize = 40,
+	spacing = 4,
+	growDirection = "UP",
+	font = {
+		name = I.Fonts.Primary,
+		size = 20,
+		style = "SHADOWOUTLINE",
+	},
+	useClassColor = false,
+	color = { r = 1, g = 1, b = 1 },
+	bar = {
+		width = 200,
+		height = 20,
+		texture = "ElvUI Norm",
+		showIcon = true,
+		showTime = true,
+	},
+	spells = {}, -- [spellID] = true/false, overrides the default state of a preset spell
+	customSpells = {}, -- [class] = { [spellID] = true }
+	alert = {
+		enable = false,
+		sound = "None",
+		tts = false,
+	},
+	timeSpiral = {
+		enable = false,
+		text = "FREE MOVEMENT",
+		showTimer = true,
+		font = {
+			name = I.Fonts.Primary,
+			size = 24,
+			style = "SHADOWOUTLINE",
+		},
+		useClassColor = false,
+		color = { r = 0.53, g = 1, b = 0 },
+		sound = "None",
+		tts = false,
+		ttsText = "Free movement",
+	},
+	gateway = {
+		enable = false,
+		combatOnly = false,
+		text = "GATEWAY READY",
+		font = {
+			name = I.Fonts.Primary,
+			size = 24,
+			style = "SHADOWOUTLINE",
+		},
+		useClassColor = false,
+		color = { r = 0.7, g = 0, b = 1 },
+		sound = "None",
+		tts = false,
+	},
+}
+
 P.media = {}
 
 P.panels = {
