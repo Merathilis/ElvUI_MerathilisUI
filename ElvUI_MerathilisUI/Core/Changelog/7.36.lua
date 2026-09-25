@@ -14,6 +14,7 @@ MER.Changelog[736] = {
 		"Chat: The chat edit box can get a MerathilisUI style: backdrop with stripes and its own opacity, a small bar in the chat type's color instead of a colored border, the channel prefix as a colored badge, a fade-in when it opens and a class colored glow while it is open. ElvUI's edit box position can be set right there too, and the \"inside\" positions leave room for the Chat Sidebar.",
 		"Chat: The active chat tab gets an underline in your class color, like the tabs of the MerathilisUI options.",
 		"Maps: New Location Panel - shows the current zone in a panel above the Minimap (click opens the World Map, the tooltip lists zone, subzone and PvP status) with your coordinates left and right of the zone text. The zone is colored by its PvP status in the same colors as on Blizzard's Minimap. It replaces ElvUI's Minimap Cluster, which the installer now disables together with its clock, and the old Minimap Coordinates module, which has been removed.",
+		"Movement Alert - new module that shows the cooldown of your class's movement spells (Blink, Heroic Leap, Disengage, ...) while they are not available, as text, icon or bar. It also works in restricted content where cooldowns are hidden from addons, can play a sound or read the spell out loud when it is ready again, lets you pick which spells to track (custom spell IDs included), shows a banner while Time Spiral lets you use a movement spell for free and reminds you when your Gateway Control Shard can be used. Idea by EllesmereUI.",
 	},
 	IMPROVEMENTS = {
 		"Maps: Minimap Buttons - the M+ Portals flyout is now shared with the Chat Sidebar.",
@@ -23,5 +24,6 @@ MER.Changelog[736] = {
 		"Options: Option groups on the MerathilisUI pages stand out more clearly - a larger title with a small accent bar in front of it, a slightly lighter box and a small shadow behind it.",
 		"Options: Headers and group titles no longer carry their own orange coloring and all use the same white MerathilisUI style. The Bags tab is no longer marked as new.",
 		"Options: The navigation tree on the MerathilisUI pages matches the rest of the options - white labels, the selected entry marked with an accent bar and accent text, a subtle hover and a darker box with a small shadow.",
+		"Options: The module tabs on the MerathilisUI pages are sorted alphabetically again, new modules no longer end up in the wrong spot.",
 	},
 }

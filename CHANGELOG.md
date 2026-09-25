@@ -17,3 +17,4 @@
 -   [Improvement]: Options: Option groups on the MerathilisUI pages stand out more clearly - a larger title with a small accent bar in front of it, a slightly lighter box and a small shadow behind it.
 -   [Improvement]: Options: Headers and group titles no longer carry their own orange coloring and all use the same white MerathilisUI style. The Bags tab is no longer marked as new.
 -   [Improvement]: Options: The navigation tree on the MerathilisUI pages matches the rest of the options - white labels, the selected entry marked with an accent bar and accent text, a subtle hover and a darker box with a small shadow.
+-   [Improvement]: Options: The module tabs on the MerathilisUI pages are sorted alphabetically again, new modules no longer end up in the wrong spot.
