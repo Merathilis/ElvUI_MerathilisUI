@@ -744,7 +744,7 @@ function module:UpdateMovementAlert(fromTicker)
 			end
 			-- Secret states always report as unavailable, so they can not be
 			-- used to detect the moment a spell comes back.
-			if alpha == 1 then
+			if not IsSecret(alpha) and alpha == 1 then
 				shownNow[entry.spellID] = entry
 			end
 		end
