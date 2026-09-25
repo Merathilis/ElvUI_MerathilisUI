@@ -121,6 +121,8 @@ function module:Initialize()
 	hooksecurefunc(UF, "Update_BossFrames", module.Update_BossFrames)
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
+	-- Faction Indicator
+	module:FactionIndicator()
 
 	-- Portraits
 	module:Portraits(true)

@@ -1189,3 +1189,11 @@ L["Plays a sound or reads the spell name out loud when a movement spell is avail
 L["Spells"] = "Zauber"
 L["Shows a banner while one of your movement spells can be used for free after Time Spiral or a similar effect reset it."] = "Zeigt ein Banner, solange einer deiner Bewegungszauber gratis genutzt werden kann, nachdem Zeitspirale oder ein ähnlicher Effekt ihn zurückgesetzt hat."
 L["Shows a reminder while the Gateway Control Shard in your bags can be used."] = "Zeigt eine Erinnerung, solange der Torsteuerungssplitter in deinen Taschen benutzt werden kann."
+
+-- Faction Indicator
+L["Faction Indicator"] = "Fraktionsanzeige"
+L["Shows the faction icon of players from the opposing faction."] = "Zeigt das Fraktionssymbol von Spielern der gegnerischen Fraktion an."
+L["Crest"] = "Wappen"
+L["Round"] = "Rund"
+L["TargetTarget"] = "Ziel des Ziels"
+L["FocusTarget"] = "Fokusziel"

@@ -58,6 +58,74 @@ local frameStrata = {
 
 local sizeString = ":16:16:0:0:64:64:4:60:4:60"
 
+local positionValues = {
+	TOPLEFT = "TOPLEFT",
+	LEFT = "LEFT",
+	BOTTOMLEFT = "BOTTOMLEFT",
+	RIGHT = "RIGHT",
+	TOPRIGHT = "TOPRIGHT",
+	BOTTOMRIGHT = "BOTTOMRIGHT",
+	CENTER = "CENTER",
+	TOP = "TOP",
+	BOTTOM = "BOTTOM",
+}
+
+local function FactionIndicatorOptions(order, unit)
+	return {
+		order = order,
+		type = "group",
+		name = L["Faction Indicator"],
+		guiInline = true,
+		get = function(info)
+			return E.db.mui.unitframes.factionIndicator.units[unit][info[#info]]
+		end,
+		set = function(info, value)
+			E.db.mui.unitframes.factionIndicator.units[unit][info[#info]] = value
+			MUF:UpdateFactionIndicators()
+		end,
+		disabled = function()
+			return not E.db.mui.unitframes.factionIndicator.enable or not E.db.unitframe.units[unit].enable
+		end,
+		args = {
+			enable = {
+				order = 1,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			size = {
+				order = 2,
+				type = "range",
+				name = L["Size"],
+				min = 8,
+				max = 60,
+				step = 1,
+			},
+			position = {
+				order = 3,
+				type = "select",
+				name = L["Anchor Point"],
+				values = positionValues,
+			},
+			xOffset = {
+				order = 4,
+				type = "range",
+				name = L["X-Offset"],
+				min = -100,
+				max = 100,
+				step = 1,
+			},
+			yOffset = {
+				order = 5,
+				type = "range",
+				name = L["Y-Offset"],
+				min = -100,
+				max = 100,
+				step = 1,
+			},
+		},
+	}
+end
+
 options.unitframes = {
 	type = "group",
 	name = module:AddCategorieIcon(L["UnitFrames"], "unitframes"),
@@ -111,6 +179,43 @@ options.unitframes = {
 					type = "description",
 					name = "",
 				},
+				factionIndicator = {
+					order = 11,
+					type = "group",
+					name = L["Faction Indicator"],
+					guiInline = true,
+					get = function(info)
+						return E.db.mui.unitframes.factionIndicator[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.unitframes.factionIndicator[info[#info]] = value
+						MUF:UpdateFactionIndicators()
+					end,
+					args = {
+						desc = {
+							order = 1,
+							type = "description",
+							name = L["Shows the faction icon of players from the opposing faction."],
+						},
+						enable = {
+							order = 2,
+							type = "toggle",
+							name = L["Enable"],
+						},
+						style = {
+							order = 3,
+							type = "select",
+							name = L["Style"],
+							values = {
+								crest = L["Crest"],
+								round = L["Round"],
+							},
+							disabled = function()
+								return not E.db.mui.unitframes.factionIndicator.enable
+							end,
+						},
+					},
+				},
 			},
 		},
 		individualUnits = {
@@ -154,6 +259,38 @@ options.unitframes = {
 						},
 					},
 				},
+				target = {
+					order = 2,
+					type = "group",
+					name = L["Target"],
+					args = {
+						factionIndicator = FactionIndicatorOptions(1, "target"),
+					},
+				},
+				targettarget = {
+					order = 3,
+					type = "group",
+					name = L["TargetTarget"],
+					args = {
+						factionIndicator = FactionIndicatorOptions(1, "targettarget"),
+					},
+				},
+				focus = {
+					order = 4,
+					type = "group",
+					name = L["Focus"],
+					args = {
+						factionIndicator = FactionIndicatorOptions(1, "focus"),
+					},
+				},
+				focustarget = {
+					order = 5,
+					type = "group",
+					name = L["FocusTarget"],
+					args = {
+						factionIndicator = FactionIndicatorOptions(1, "focustarget"),
+					},
+				},
 			},
 		},
 		groupUnits = {
@@ -166,6 +303,14 @@ options.unitframes = {
 					type = "group",
 					name = L["Party"],
 					args = {},
+				},
+				arena = {
+					order = 2,
+					type = "group",
+					name = L["Arena"],
+					args = {
+						factionIndicator = FactionIndicatorOptions(1, "arena"),
+					},
 				},
 			},
 		},

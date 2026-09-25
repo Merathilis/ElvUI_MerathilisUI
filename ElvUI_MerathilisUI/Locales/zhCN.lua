@@ -1436,3 +1436,11 @@ L["Plays a sound or reads the spell name out loud when a movement spell is avail
 L["Spells"] = true
 L["Shows a banner while one of your movement spells can be used for free after Time Spiral or a similar effect reset it."] = true
 L["Shows a reminder while the Gateway Control Shard in your bags can be used."] = true
+
+-- Faction Indicator
+L["Faction Indicator"] = true
+L["Shows the faction icon of players from the opposing faction."] = true
+L["Crest"] = true
+L["Round"] = true
+L["TargetTarget"] = true
+L["FocusTarget"] = true

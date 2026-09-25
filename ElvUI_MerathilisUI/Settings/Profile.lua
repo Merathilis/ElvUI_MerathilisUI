@@ -1004,7 +1004,16 @@ P.minimapButtons = {
 	},
 }
 
-P.nameplates = {}
+P.nameplates = {
+	factionIndicator = {
+		enable = true,
+		style = "crest",
+		size = 20,
+		position = "LEFT",
+		xOffset = -2,
+		yOffset = 0,
+	},
+}
 
 P.unitframes = {
 	style = true,
@@ -1014,6 +1023,17 @@ P.unitframes = {
 	restingIndicator = {
 		enable = true,
 		customClassColor = false,
+	},
+	factionIndicator = {
+		enable = true,
+		style = "crest",
+		units = {
+			target = { enable = true, size = 22, position = "TOPRIGHT", xOffset = 8, yOffset = 8 },
+			targettarget = { enable = false, size = 16, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
+			focus = { enable = true, size = 18, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
+			focustarget = { enable = false, size = 16, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
+			arena = { enable = true, size = 18, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
+		},
 	},
 }
 

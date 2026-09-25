@@ -109,6 +109,8 @@ function module:Initialize()
 		end
 	end)
 
+	module:FactionIndicator()
+
 	RefreshAll()
 end
 
