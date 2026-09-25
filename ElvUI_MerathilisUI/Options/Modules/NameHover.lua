@@ -43,7 +43,7 @@ options.nameHover = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Name Hover"], "orange"),
+			name = L["Name Hover"],
 		},
 		credits = {
 			order = 2,

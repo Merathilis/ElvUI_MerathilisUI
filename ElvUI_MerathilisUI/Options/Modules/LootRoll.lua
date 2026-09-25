@@ -19,7 +19,7 @@ options.lootRoll = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Loot Roll"], "orange"),
+			name = L["Loot Roll"],
 		},
 		desc = {
 			order = 1,

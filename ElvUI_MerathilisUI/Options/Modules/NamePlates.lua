@@ -17,7 +17,7 @@ options.nameplates = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["NamePlates"], "orange"),
+			name = L["NamePlates"],
 		},
 		general = {
 			order = 2,

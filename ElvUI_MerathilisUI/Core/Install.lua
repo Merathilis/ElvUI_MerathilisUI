@@ -352,8 +352,9 @@ function MER:SetupLayout()
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["interruptAnnounce"] = "RAID"
-	E.db["general"]["minimap"]["clusterDisable"] = false
-	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
+	-- The MerathilisUI Location Panel replaces the cluster and its zone text
+	E.db["general"]["minimap"]["clusterDisable"] = true
+	E.db["general"]["minimap"]["locationText"] = "HIDE"
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.75
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = -3
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 48

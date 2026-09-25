@@ -56,7 +56,7 @@ options.name = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Information"], "orange"),
+			name = L["Information"],
 		},
 		support = {
 			order = 1,
@@ -295,7 +295,7 @@ options.changelog = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Changelog"], "orange"),
+			name = L["Changelog"],
 		},
 	},
 }

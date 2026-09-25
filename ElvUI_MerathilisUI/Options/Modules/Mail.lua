@@ -18,7 +18,7 @@ options.mail = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Mail"], "orange"),
+			name = L["Mail"],
 		},
 		desc = {
 			order = 1,

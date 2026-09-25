@@ -17,7 +17,7 @@ options.panels = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["Panels"], "orange"),
+			name = L["Panels"],
 		},
 		color = {
 			order = 2,

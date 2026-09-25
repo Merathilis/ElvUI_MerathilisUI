@@ -561,6 +561,40 @@ end
 local function Slot_SplitStack(self, split)
 	if self.BagID and self.SlotID then
 		C_Container.SplitContainerItem(self.BagID, self.SlotID, split)
+
+		-- With "Merge Duplicate Stacks" the two halves would be shown as one
+		-- slot again right away, as if nothing happened. Keep this item's
+		-- stacks apart until the bags close (MergeDuplicateEntries).
+		if self.itemLink then
+			module.unmergedLinks[self.itemLink] = true
+		end
+
+		-- The category views show no empty bag slots, so there is nowhere
+		-- to click the split-off part down - put it in a free slot right
+		-- away instead of leaving it on the cursor. Retried a frame later
+		-- in case the cursor isn't filled yet.
+		local bagID = self.BagID
+		if CursorHasItem() then
+			module:PlaceCursorItemNear(bagID)
+		else
+			C_Timer.After(0, function()
+				module:PlaceCursorItemNear(bagID)
+			end)
+		end
+	end
+end
+
+-- Opens Blizzard's split dialog for a stackable slot (Shift+click, same as
+-- Blizzard's own bags). Shared by the left- and right-click paths.
+function module:OpenSplitStack(btn)
+	if not btn.BagID or not btn.SlotID then
+		return
+	end
+
+	local info = C_Container_GetContainerItemInfo(btn.BagID, btn.SlotID)
+	if info and not info.isLocked and info.stackCount and info.stackCount > 1 then
+		btn.SplitStack = Slot_SplitStack
+		_G.StackSplitFrame:OpenStackSplitFrame(info.stackCount, btn, "BOTTOMRIGHT", "TOPRIGHT")
 	end
 end
 
@@ -632,45 +666,44 @@ local function Slot_OnClick(self, mouseButton, down)
 		return
 	end
 
-	-- Right button only: IsModifiedClick("SPLITSTACK") just checks the held
-	-- modifier key, not which mouse button, and that key is Shift by
-	-- default - so matching any button swallowed Shift+Left-click (chat
-	-- link) and Shift+Middle-click (assign to category) as split-stack
-	-- attempts. Split Stack is documented as Shift+Right-click in the help
-	-- tooltip, so bind it to that button alone.
+	-- Right button here; the left button goes through the chat-link check
+	-- first (see below). IsModifiedClick("SPLITSTACK") only checks the held
+	-- modifier key, not which mouse button - matched unconditionally it
+	-- swallowed Shift+Left-click links and Shift+Middle-click assigns.
 	if mouseButton == "RightButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
 		if not InCombatLockdown() then
 			self:SetAttribute("*type2", nil)
-			self:SetAttribute("item", nil)
 
 			-- Restored via a deferred call instead of a PostClick script -
 			-- merely having a PostClick handler on this button appears to
-			-- disturb the native secure type/item dispatch's own timing for
-			-- a *plain* right-click (equips instead of selling at a
-			-- merchant), even when that handler is a no-op for that click.
-			local itemLink = self.itemLink
+			-- disturb the native secure dispatch's own timing for a *plain*
+			-- right-click (equips instead of selling at a merchant), even
+			-- when that handler is a no-op for that click.
 			C_Timer.After(0, function()
 				if not InCombatLockdown() then
-					self:SetAttribute("*type2", "item")
-					self:SetAttribute("item", itemLink)
+					self:SetAttribute("*type2", "macro")
 				end
 			end)
 		end
 
-		if self.BagID and self.SlotID then
-			local info = C_Container_GetContainerItemInfo(self.BagID, self.SlotID)
-			if info and not info.isLocked and info.stackCount and info.stackCount > 1 then
-				self.SplitStack = Slot_SplitStack
-				_G.StackSplitFrame:OpenStackSplitFrame(info.stackCount, self, "BOTTOMRIGHT", "TOPRIGHT")
-			end
-		end
+		module:OpenSplitStack(self)
 
 		return
 	end
 
 	if mouseButton == "LeftButton" then
 		if IsModifiedClick() then
-			HandleModifiedItemClick(self.itemLink)
+			-- Same order as Blizzard's own bags: a chat link (only when a
+			-- chat edit box is open), dress-up and the like win; otherwise
+			-- Shift+click splits the stack.
+			local itemLocation = self.BagID and self.SlotID and ItemLocation:CreateFromBagAndSlot(self.BagID, self.SlotID)
+			if
+				not HandleModifiedItemClick(self.itemLink, itemLocation)
+				and IsModifiedClick("SPLITSTACK")
+				and not CursorHasItem()
+			then
+				module:OpenSplitStack(self)
+			end
 		elseif self.BagID and self.SlotID then
 			C_Container_PickupContainerItem(self.BagID, self.SlotID)
 		end
@@ -683,12 +716,12 @@ local function Slot_OnClick(self, mouseButton, down)
 		end
 	elseif mouseButton == "RightButton" then
 		-- Ctrl+Right-click while the bank is open offers a "move to a specific
-		-- tab/bag" picker (plain right-click below also deposits/withdraws,
-		-- but always into the first free slot - this is for when the
-		-- destination matters). Cursor must be empty (nothing to pick a
-		-- destination for otherwise); same attribute suppression as the Split
-		-- Stack/vendor-sell cases so the native dispatch doesn't equip/use the
-		-- item instead of just opening the menu.
+		-- tab/bag" picker (a plain right-click also deposits/withdraws, but
+		-- always into the first free slot - this is for when the destination
+		-- matters). Cursor must be empty (nothing to pick a destination for
+		-- otherwise); same attribute suppression as the Split Stack case, so
+		-- the secure dispatch doesn't deposit the item instead of just
+		-- opening the menu.
 		if
 			IsControlKeyDown()
 			and not CursorHasItem()
@@ -698,13 +731,10 @@ local function Slot_OnClick(self, mouseButton, down)
 		then
 			if not InCombatLockdown() then
 				self:SetAttribute("*type2", nil)
-				self:SetAttribute("item", nil)
 
-				local itemLink = self.itemLink
 				C_Timer.After(0, function()
 					if not InCombatLockdown() then
-						self:SetAttribute("*type2", "item")
-						self:SetAttribute("item", itemLink)
+						self:SetAttribute("*type2", "macro")
 					end
 				end)
 			end
@@ -713,38 +743,10 @@ local function Slot_OnClick(self, mouseButton, down)
 			return
 		end
 
-		-- The native type/item dispatch (fires on RightButtonDown, see
-		-- CreateSlotButton) is equivalent to "/use [item link]", which is
-		-- just a plain use/equip with no context awareness at all - both the
-		-- vendor-sell AND the bank-deposit/withdraw special-casing live only
-		-- inside Blizzard's own C_Container.UseContainerItem, never in the
-		-- generic secure item click. Confirmed live: left as the native
-		-- dispatch, right-click at an open bank equips gear instead of
-		-- depositing it (and does nothing at all for non-equippable items,
-		-- since a plain "/use" has no effect on those). The native dispatch
-		-- also fires synchronously, BEFORE our deferred UseContainerItem call
-		-- below runs on the next frame - left alone it would equip/use first
-		-- and our deferred call would then act on the wrong (swapped-in)
-		-- item. Suppressing the attributes here (same technique as the Split
-		-- Stack click above) stops that dispatch from firing for this click
-		-- at all, so only our own context-aware call decides what happens.
-		local atMerchant = _G.MerchantFrame and _G.MerchantFrame:IsShown()
-		if not InCombatLockdown() and (atMerchant or module.isBankOpen) and self.BagID and self.SlotID then
-			local bagID, slotID = self.BagID, self.SlotID
-			local itemLink = self.itemLink
-
-			self:SetAttribute("*type2", nil)
-			self:SetAttribute("item", nil)
-
-			C_Timer.After(0, function()
-				C_Container.UseContainerItem(bagID, slotID)
-
-				if not InCombatLockdown() then
-					self:SetAttribute("*type2", "item")
-					self:SetAttribute("item", itemLink)
-				end
-			end)
-		end
+		-- Nothing else to do: a plain right-click is dispatched by the
+		-- secure "/use bag slot" macro (see UpdateSlotVisual), which goes
+		-- through C_Container.UseContainerItem and therefore already sells
+		-- at a merchant and deposits/withdraws at an open bank on its own.
 	end
 end
 
@@ -1061,8 +1063,11 @@ local function ApplySlotDim(btn)
 	end
 
 	local dim = IsSlotOutOfItemContext(btn)
+	if not dim and module.sortingBags then
+		dim = btn.ownerFrame == (module.sortingFrame or module.frame)
+	end
 	if not dim and btn.ownerFrame == module.frame then
-		dim = module.sortingBags or (module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID)
+		dim = module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID
 	end
 	btn.searchOverlay:SetShown(dim and true or false)
 end
@@ -1534,24 +1539,37 @@ local function UpdateSlotVisual(btn, entry)
 		PositionSlotText(btn.Count, countFont.position)
 	end
 
-	-- Right-click "use/equip" via the secure type/item attributes instead of
-	-- calling UseContainerItem from Lua (protected, throws
+	-- Right-click "use/equip" through a secure "/use bag slot" macro instead
+	-- of calling UseContainerItem from Lua (protected, throws
 	-- ADDON_ACTION_FORBIDDEN). SetAttribute itself is combat-protected on
 	-- secure frames, so skip refreshing it mid-combat; the previous item's
 	-- attributes simply stay in place until the next safe refresh.
 	--
+	-- A macro, not the "item" action: the latter resolves the item by NAME
+	-- (EquipItemByName/UseItemByName), and skips equipping entirely when
+	-- something with that name is already equipped - so a spare copy of a
+	-- piece the player is wearing (same item at another upgrade level, a
+	-- second trinket/ring...) simply did nothing on right-click. It also has
+	-- no context awareness at all, where "/use bag slot" ends up in
+	-- C_Container.UseContainerItem, exactly like Blizzard's own bags: equip
+	-- or use normally, sell at a merchant, deposit/withdraw at an open bank.
+	--
 	-- "*type2", not "type": an unsuffixed "type" applies to every mouse
-	-- button, so a left-click also fired the secure "use item" action right
-	-- after our PreClick had handed the item to the cursor. With a
-	-- profession spell waiting for a target (Disenchant, Milling, an
-	-- enchant scroll...) that second action swallowed the targeting click,
-	-- and a middle-click (pin) used the item as well. "*" keeps it working
-	-- with any modifier held; "item" stays unsuffixed so every button
-	-- still resolves it.
+	-- button, so a left-click also fired the secure action right after our
+	-- PreClick had handed the item to the cursor. With a profession spell
+	-- waiting for a target (Disenchant, Milling, an enchant scroll...) that
+	-- second action swallowed the targeting click, and a middle-click (pin)
+	-- used the item as well. "*" keeps it working with any modifier held.
 	if not InCombatLockdown() then
 		btn:SetAttribute("type", nil)
-		btn:SetAttribute("*type2", "item")
-		btn:SetAttribute("item", entry.itemLink)
+		btn:SetAttribute("item", nil)
+		if entry.bagID and entry.slotID then
+			btn:SetAttribute("*type2", "macro")
+			btn:SetAttribute("*macrotext2", format("/use %d %d", entry.bagID, entry.slotID))
+		else
+			btn:SetAttribute("*type2", nil)
+			btn:SetAttribute("*macrotext2", nil)
+		end
 	end
 
 	-- Blizzard's SetItemButtonQuality paints Blizzard's own (hidden) IconBorder;
@@ -2279,18 +2297,22 @@ function module:ConstructFrame()
 		return btn
 	end
 
-	-- Blizzard's SortBags() already merges partial stacks as part of sorting;
-	-- we don't have ElvUI's own separate animated Stack/Compress algorithm,
-	-- so both buttons call the same native sort for now.
+	-- Sort is Blizzard's native SortBags(); Stack uses ElvUI's own
+	-- stacking (see module:StackItems), which only merges partial stacks
+	-- and leaves everything else where it is.
 	f.sortButton = CreateTitleButton("SortButton", E.Media.Textures.PetBroom, L["Sort Bags"], function()
 		module:StartSortSpinner()
 		C_Container.SortBags()
 	end)
 	f.sortButton:Point("TOPRIGHT", f, "TOPRIGHT", -40, -8)
 
-	f.stackButton = CreateTitleButton("StackButton", E.Media.Textures.Planks, L["Stack Items In Bags"], function()
-		module:StartSortSpinner()
-		C_Container.SortBags()
+	f.stackButton = CreateTitleButton("StackButton", E.Media.Textures.Planks, function()
+		GameTooltip:AddLine(L["Stack Items In Bags"], 1, 1, 1)
+		if module.isBankOpen then
+			GameTooltip:AddDoubleLine(L["Hold Shift:"], L["Stack Items To Bank"], 1, 1, 1)
+		end
+	end, function()
+		module:StackItems(module.frame, false)
 	end)
 	f.stackButton:Point("TOPRIGHT", f.sortButton, "TOPLEFT", -2, 0)
 
@@ -2338,7 +2360,7 @@ function module:ConstructFrame()
 		GameTooltip:AddLine(L["Bag"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Use / equip item"], 1, 1, 1)
-		GameTooltip:AddDoubleLine(L["Shift + Right Click:"], L["Split Stack"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Shift + Click:"], L["Split Stack"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Alt + Drag:"], L["Reorder items inside a category"], 1, 1, 1)
@@ -3766,6 +3788,10 @@ end
 -- is why this is off while an item panel is open. Gear is left alone: two
 -- copies of the same piece are still two separate things to compare, equip
 -- or hand in, and the reference behaves the same way.
+-- Items split in this session, keyed by link: shown as separate stacks
+-- until the bag window closes, so a split is actually visible.
+module.unmergedLinks = {}
+
 local function MergeDuplicateEntries(items)
 	if not module.db.mergeDuplicates or AnyItemPanelOpen() then
 		return items
@@ -3774,7 +3800,7 @@ local function MergeDuplicateEntries(items)
 	local seen, merged = {}, {}
 	for _, entry in ipairs(items) do
 		local key = entry.itemLink
-		if key and not API.IsEquippableItem(key) then
+		if key and not API.IsEquippableItem(key) and not module.unmergedLinks[key] then
 			local existing = seen[key]
 			if existing then
 				-- Copy on first duplicate: the entry itself is also painted
@@ -4861,6 +4887,37 @@ local function FindFreeSlot(bagID)
 	return nil
 end
 
+-- Drops whatever is on the cursor into a free slot of the same container
+-- group the item came from: the source bag first, then the other bags (or
+-- bank tabs of the same bank). Leaves the cursor alone if everything's full.
+function module:PlaceCursorItemNear(bagID)
+	if not CursorHasItem() then
+		return
+	end
+
+	local group = BAG_IDS
+	if module.BankBagIDSet and module.BankBagIDSet[bagID] then
+		group = module.BankBagIDs
+	elseif module.WarbandBagIDSet and module.WarbandBagIDSet[bagID] then
+		group = module.WarbandBagIDs
+	end
+
+	local order = { bagID }
+	for _, id in ipairs(group) do
+		if id ~= bagID then
+			tinsert(order, id)
+		end
+	end
+
+	for _, id in ipairs(order) do
+		local freeSlot = FindFreeSlot(id)
+		if freeSlot then
+			C_Container_PickupContainerItem(id, freeSlot)
+			return
+		end
+	end
+end
+
 local function MoveItemToBag(sourceBagID, sourceSlotID, destBagID)
 	if InCombatLockdown() or CursorHasItem() then
 		return
@@ -5028,6 +5085,8 @@ end
 function module:OnFrameHidden()
 	module:UnregisterBagEventsFor("bag")
 
+	wipe(module.unmergedLinks)
+
 	if module.db.clearRecentOnClose then
 		module:ClearRecentItems()
 
@@ -5185,8 +5244,11 @@ local function StopSortSpinner(generation)
 
 	module.sortingBags = nil
 	RefreshSlotDim()
-	if module.frame and module.frame.spinnerIcon then
-		E:StopSpinner(module.frame.spinnerIcon)
+
+	local frame = module.sortingFrame or module.frame
+	module.sortingFrame = nil
+	if frame and frame.spinnerIcon then
+		E:StopSpinner(frame.spinnerIcon)
 	end
 end
 
@@ -5197,22 +5259,51 @@ end
 
 -- Items are dimmed while sorting even with the spinner itself turned off,
 -- same as ElvUI's own bags.
-function module:StartSortSpinner()
-	if not module.frame then
+-- Stacking goes through ElvUI's own sorter (Sort.lua) instead of a second
+-- copy of it: B.Compress merges partial stacks in place, B.Stack moves
+-- partial stacks from one side into matching stacks on the other. Its bag
+-- groups only know the backpack + four bags ("bags") and the character bank
+-- tabs ("bank") - no reagent bag, no Warband bank - so the Warband view has
+-- no stacking of its own.
+-- fromBank: stack the character bank (true) or the bags (false). Holding
+-- Shift while the bank is open moves partial stacks to the other side.
+function module:StackItems(frame, fromBank)
+	if not (B.CommandDecorator and B.Stack and B.Compress) then
+		return
+	end
+
+	local toOtherSide = IsShiftKeyDown() and module.isBankOpen
+	local command
+	if fromBank then
+		command = toOtherSide and B:CommandDecorator(B.Stack, "bank bags") or B:CommandDecorator(B.Compress, "bank")
+	else
+		command = toOtherSide and B:CommandDecorator(B.Stack, "bags bank") or B:CommandDecorator(B.Compress, "bags")
+	end
+
+	module:StartSortSpinner(frame)
+	command()
+end
+
+-- frame: the window being sorted (the bag frame when omitted; the Bank
+-- window passes itself), which gets the spinner and the dimmed slots.
+function module:StartSortSpinner(frame)
+	frame = frame or module.frame
+	if not frame then
 		return
 	end
 
 	module.sortingBags = true
+	module.sortingFrame = frame
 	RefreshSlotDim()
 
 	local db = module.db.spinner
-	if db and db.enable and module.frame.spinnerIcon then
+	if db and db.enable and frame.spinnerIcon then
 		-- Item slots sit several levels below the frame (scroll frame ->
 		-- content child -> slot, plus badges on top), so a plain child of the
 		-- frame ends up behind them. Set per start, since the frame's own
 		-- level moves when it's raised.
-		local spinner = module.frame.spinnerIcon
-		spinner:SetFrameLevel(module.frame:GetFrameLevel() + 30)
+		local spinner = frame.spinnerIcon
+		spinner:SetFrameLevel(frame:GetFrameLevel() + 30)
 		E:StartSpinner(spinner, nil, nil, nil, nil, db.size, db.color.r, db.color.g, db.color.b)
 	end
 

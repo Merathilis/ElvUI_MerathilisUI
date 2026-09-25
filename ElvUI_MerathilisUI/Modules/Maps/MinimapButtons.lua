@@ -1,19 +1,11 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_MinimapButtons")
-local S = E:GetModule("Skins") ---@type Skins
-local WS = W:GetModule("Skins")
 
 local _G = _G
 local ipairs, pairs, format = ipairs, pairs, string.format
-local ceil, floor, random = math.ceil, math.floor, math.random
 local max, sort, strfind = math.max, table.sort, string.find
 
 local CreateFrame = CreateFrame
-local InCombatLockdown = InCombatLockdown
-local IsPlayerSpell = IsPlayerSpell
-local IsInInstance = IsInInstance
-local UnitClass = UnitClass
-local PlayerHasToy = PlayerHasToy
 local GetGameTime = GetGameTime
 local HasNewMail = HasNewMail
 local GetLatestThreeSenders = GetLatestThreeSenders
@@ -23,14 +15,9 @@ local GetDifficultyInfo = GetDifficultyInfo
 local RequestRaidInfo = RequestRaidInfo
 local SecondsToTime = SecondsToTime
 local ToggleCalendar = ToggleCalendar
-local issecretvalue = issecretvalue
+local hooksecurefunc = hooksecurefunc
 local C_AddOns = C_AddOns
-local C_Spell = C_Spell
 local C_WeeklyRewards = C_WeeklyRewards
-local C_ChallengeMode = C_ChallengeMode
-local C_Container = C_Container
-local C_Item = C_Item
-local C_ToyBox = C_ToyBox
 local C_Timer = C_Timer
 local C_Texture = C_Texture
 local C_CVar = C_CVar
@@ -38,6 +25,7 @@ local C_DateAndTime = C_DateAndTime
 local C_CraftingOrders = C_CraftingOrders
 local Enum = Enum
 
+local ADDONS = ADDONS
 local HAVE_MAIL = HAVE_MAIL
 local HAVE_MAIL_FROM = HAVE_MAIL_FROM
 local MAILFRAME_CRAFTING_ORDERS_TOOLTIP_TITLE = MAILFRAME_CRAFTING_ORDERS_TOOLTIP_TITLE
@@ -46,21 +34,6 @@ local TIMEMANAGER_TOOLTIP_REALMTIME = TIMEMANAGER_TOOLTIP_REALMTIME
 local TRACKING = TRACKING
 
 local Minimap = _G.Minimap
-
--------------------------------------------------------------------------------
--- Current Mythic+ season portals. Update this list once per season -- spellID
--- is the teleport spell, short is the abbreviated flyout button label.
--------------------------------------------------------------------------------
-local SEASON_PORTALS = {
-	{ spellID = 1286801, short = "BV" }, -- The Blinding Vale
-	{ spellID = 1286804, short = "VA" }, -- Voidscar Arena
-	{ spellID = 1286807, short = "DoN" }, -- Den of Nalorakk
-	{ spellID = 1286809, short = "MR" }, -- Murder Row
-	{ spellID = 1286812, short = "AoF" }, -- Altar of Fangs
-	{ spellID = 393256, short = "RLP" }, -- Ruby Life Pools
-	{ spellID = 1286828, short = "ToS" }, -- Temple of Sethraliss
-	{ spellID = 1286831, short = "KR" }, -- Kings' Rest
-}
 
 -- first: where the leading button sits on the holder; point/rel/x/y: how each
 -- following button hangs off its predecessor, scaled by the spacing setting.
@@ -172,10 +145,20 @@ end
 
 -- Pulses the icon's alpha and grows the whole button while at least one weekly reward is ready to claim.
 local function UpdateGreatVaultPulse(btn)
-	local hasRewards = btn.testPulse
-		or (C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards and C_WeeklyRewards.HasAvailableRewards())
+	local hasRewards = C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards and C_WeeklyRewards.HasAvailableRewards()
 
-	if hasRewards then
+	-- HasAvailableRewards can stay true after claiming until the vault is opened again,
+	-- so a claim suppresses the pulse until the API confirms or the vault reopens.
+	if btn.rewardClaimed then
+		local vaultFrame = _G.WeeklyRewardsFrame
+		if not hasRewards or (vaultFrame and vaultFrame:IsShown()) then
+			btn.rewardClaimed = nil
+		else
+			hasRewards = false
+		end
+	end
+
+	if btn.testPulse or hasRewards then
 		if not btn.PulseGroup:IsPlaying() then
 			btn.PulseGroup:Play()
 		end
@@ -265,6 +248,18 @@ local function CreateGreatVaultButton(parent)
 	btn:RegisterEvent("PLAYER_ENTERING_WORLD")
 	btn:SetScript("OnEvent", UpdateGreatVaultPulse)
 
+	-- The vault closes right after the claim and no fresh update may follow, so stop the pulse
+	-- here and re-check once the server has had time to confirm.
+	if C_WeeklyRewards and C_WeeklyRewards.ClaimReward then
+		hooksecurefunc(C_WeeklyRewards, "ClaimReward", function()
+			btn.rewardClaimed = true
+			UpdateGreatVaultPulse(btn)
+			C_Timer.After(3, function()
+				UpdateGreatVaultPulse(btn)
+			end)
+		end)
+	end
+
 	icon:SetVertexColor(0.85, 0.85, 0.85)
 	UpdateGreatVaultPulse(btn)
 
@@ -272,468 +267,17 @@ local function CreateGreatVaultButton(parent)
 end
 
 -------------------------------------------------------------------------------
--- Mythic+ Portals button + flyout
+-- Mythic+ Portals button (the flyout itself is shared, see F.PortalFlyout)
 -------------------------------------------------------------------------------
-local _portalFlyout, _portalFlyoutButtons, _hearthButtons
-
-local function RefreshPortalButtons()
-	if not _portalFlyoutButtons then
-		return
-	end
-
-	for _, btn in ipairs(_portalFlyoutButtons) do
-		local known = IsPlayerSpell(btn.spellID)
-		btn.Icon:SetDesaturated(not known)
-		btn.Icon:SetAlpha(known and 1 or 0.4)
-
-		if known then
-			local cdInfo = C_Spell.GetSpellCooldown(btn.spellID)
-			if cdInfo and cdInfo.startTime and cdInfo.duration and cdInfo.duration > 0 then
-				btn.Cooldown:SetCooldown(cdInfo.startTime, cdInfo.duration)
-			else
-				btn.Cooldown:Clear()
-			end
-		else
-			btn.Cooldown:Clear()
-		end
-	end
-end
-
--------------------------------------------------------------------------------
--- Hearthstone row: Hearthstone slot, Dalaran Hearthstone, Housing Dashboard.
--- Resolver logic ported from EllesmereUI (owned-toy rotation + Shaman Astral
--- Recall fallback in protected instances).
--------------------------------------------------------------------------------
-local HEARTH_TOYS = {
-	54452, -- Ethereal Portal
-	64488, -- The Innkeeper's Daughter
-	93672, -- Dark Portal
-	28585, -- Ruby Slippers
-	142542, -- Tome of Town Portal
-	163045, -- Headless Horseman's Hearthstone
-	162973, -- Greatfather Winter's Hearthstone
-	165669, -- Lunar Elder's Hearthstone
-	165670, -- Peddlefeet's Lovely Hearthstone
-	165802, -- Noble Gardener's Hearthstone
-	166746, -- Fire Eater's Hearthstone
-	166747, -- Brewfest Reveler's Hearthstone
-	168907, -- Holographic Digitalization Hearthstone
-	172179, -- Eternal Traveler's Hearthstone
-	184353, -- Kyrian Hearthstone
-	180290, -- Night Fae Hearthstone
-	182773, -- Necrolord Hearthstone
-	183716, -- Venthyr Sinstone
-	188952, -- Dominated Hearthstone
-	190237, -- Broker Translocation Matrix
-	190196, -- Enlightened Hearthstone
-	193588, -- Timewalker's Hearthstone
-	200630, -- Ohn'ir Windsage's Hearthstone
-	206195, -- Path of the Naaru
-	209035, -- Hearthstone of the Flame
-	210455, -- Draenic Hologem
-	208704, -- Deepdweller's Earthen Hearthstone
-	212337, -- Stone of the Hearth
-	228940, -- Notorious Thread's Hearthstone
-	235016, -- Redeployment Module
-	236687, -- Explosive Hearthstone
-	245970, -- P.O.S.T. Master's Express Hearthstone
-	246565, -- Cosmic Hearthstone
-	250411, -- Timerunner's Hearthstone
-	257736, -- Lightcalled Hearthstone
-	263489, -- Naaru's Enfold
-	263933, -- Preyseeker's Hearthstone
-	265100, -- Corewarden's Hearthstone
-	142298, -- Astonishingly Scarlet Slippers
-	264367, -- Mushroom
-}
-local SHAMAN_ASTRAL_RECALL = 556
-local DALARAN_HS = 253629
-local DALARAN_HS_FALLBACK = 140192
-
--- Real toy icon (not the "learn" item icon).
-local function ToyIcon(id)
-	if C_ToyBox and C_ToyBox.GetToyInfo then
-		local _, _, icon = C_ToyBox.GetToyInfo(id)
-		if icon then
-			return icon
-		end
-	end
-	return C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(id) or 134414
-end
-
--- Same "teleport to house" icon Blizzard's own Housing Dashboard uses.
-local HOUSING_ATLAS = "dashboard-panel-homestone-teleport-button"
-
--- M+/raid/PvP instance check -- guards hearth-toy cooldown reads against
--- tainted/secret values while a key or encounter is active.
-local function InProtectedInstance()
-	local _, instanceType = IsInInstance()
-	if instanceType == "raid" and InCombatLockdown() then
-		return true
-	end
-	if
-		instanceType == "party"
-		and C_ChallengeMode
-		and C_ChallengeMode.IsChallengeModeActive
-		and C_ChallengeMode.IsChallengeModeActive()
-	then
-		return true
-	end
-	if (instanceType == "pvp" or instanceType == "arena") and InCombatLockdown() then
-		return true
-	end
-	return false
-end
-
-local function IsHearthOnCD(id)
-	if InProtectedInstance() then
-		return true
-	end
-	if C_Container and C_Container.GetItemCooldown then
-		local ok, start, dur = pcall(C_Container.GetItemCooldown, id)
-		if ok and start and dur and dur > 1.5 then
-			return true
-		end
-	end
-	return false
-end
-
--- Slot 1: Shamans with Astral Recall known prefer it in protected instances or
--- when every owned hearth toy is on cooldown; otherwise a random owned toy,
--- falling back to the base Hearthstone (6948) if none are known.
-local function ResolveHearthSlot()
-	local _, cls = UnitClass("player")
-	local isShaman = cls == "SHAMAN" and IsPlayerSpell(SHAMAN_ASTRAL_RECALL)
-
-	if isShaman and InProtectedInstance() then
-		local info = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo(SHAMAN_ASTRAL_RECALL)
-		return "spell", SHAMAN_ASTRAL_RECALL, info and info.iconID or 136010
-	end
-
-	local owned = {}
-	for _, id in ipairs(HEARTH_TOYS) do
-		if PlayerHasToy and PlayerHasToy(id) then
-			owned[#owned + 1] = id
-		end
-	end
-
-	if isShaman and #owned > 0 then
-		local anyOnCD = false
-		for _, id in ipairs(owned) do
-			if IsHearthOnCD(id) then
-				anyOnCD = true
-				break
-			end
-		end
-		if anyOnCD then
-			local info = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo(SHAMAN_ASTRAL_RECALL)
-			return "spell", SHAMAN_ASTRAL_RECALL, info and info.iconID or 136010
-		end
-	end
-
-	if #owned == 0 then
-		local icon = C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(6948) or 134414
-		return "item", 6948, icon
-	end
-
-	local pick = owned[random(#owned)]
-	return "item", pick, ToyIcon(pick)
-end
-
--- Slot 2: Dalaran Hearthstone, falling back to the older variant.
-local function ResolveDalaranSlot()
-	local id = (PlayerHasToy and PlayerHasToy(DALARAN_HS)) and DALARAN_HS or DALARAN_HS_FALLBACK
-	return "item", id, ToyIcon(id)
-end
-
--- Slot 3: Housing Dashboard toggle (not a spell/item).
-local function ResolveHousingSlot()
-	return "housing", 0, HOUSING_ATLAS
-end
-
-local HEARTH_RESOLVERS = { ResolveHearthSlot, ResolveDalaranSlot, ResolveHousingSlot }
-
-local function RefreshHearthCooldowns()
-	if not _hearthButtons then
-		return
-	end
-
-	for _, btn in ipairs(_hearthButtons) do
-		local hsType, id = btn.hsType, btn.hsID
-		if hsType == "spell" then
-			local cdInfo = C_Spell.GetSpellCooldown(id)
-			if cdInfo and cdInfo.startTime and cdInfo.duration and cdInfo.duration > 0 then
-				btn.Cooldown:SetCooldown(cdInfo.startTime, cdInfo.duration)
-			else
-				btn.Cooldown:Clear()
-			end
-		elseif hsType == "item" and C_Container and C_Container.GetItemCooldown then
-			local ok, start, dur = pcall(C_Container.GetItemCooldown, id)
-			if ok and start and dur and dur > 0 then
-				btn.Cooldown:SetCooldown(start, dur)
-			else
-				btn.Cooldown:Clear()
-			end
-		else
-			btn.Cooldown:Clear()
-		end
-	end
-end
-
-local function ResolveHearthButtons()
-	if not _hearthButtons or InCombatLockdown() then
-		return
-	end
-
-	for i, btn in ipairs(_hearthButtons) do
-		local hsType, id, icon = HEARTH_RESOLVERS[i]()
-		btn.hsType = hsType
-		btn.hsID = id
-
-		if hsType == "housing" then
-			btn.Icon:SetAtlas(icon)
-			btn:SetAttribute("type", nil)
-			btn:SetAttribute("macrotext", nil)
-		elseif hsType == "spell" then
-			btn.Icon:SetTexture(icon or 134414)
-			btn:SetAttribute("type", "macro")
-			local info = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo(id)
-			btn:SetAttribute("macrotext", "/cast " .. (info and info.name or ""))
-		else
-			btn.Icon:SetTexture(icon or 134414)
-			btn:SetAttribute("type", "macro")
-			if id == 6948 then
-				btn:SetAttribute("macrotext", "/use item:" .. id)
-			else
-				local toyName
-				if C_ToyBox and C_ToyBox.GetToyInfo then
-					local _, tn = C_ToyBox.GetToyInfo(id)
-					toyName = tn
-				end
-				btn:SetAttribute("macrotext", toyName and ("/use " .. toyName) or ("/use item:" .. id))
-			end
-		end
-	end
-
-	RefreshHearthCooldowns()
-end
-
-local function CreatePortalFlyout()
-	if _portalFlyout then
-		return _portalFlyout
-	end
-
-	local btnSize, spacing, padding, cols = F.Dpi(32), F.Dpi(2), F.Dpi(4), 4
-	local rows = ceil(#SEASON_PORTALS / cols)
-	local height = padding * 2 + btnSize * rows + spacing * (rows - 1)
-
-	-- Hearthstone column: 3 icons stacked to the right, matching the grid's height.
-	local hsCount = 3
-	local hsH = floor((height - padding * 2 - spacing * (hsCount - 1)) / hsCount)
-	local hsX = padding + cols * btnSize + (cols - 1) * spacing + spacing
-	local width = hsX + hsH + padding
-
-	local flyout = CreateFrame("Frame", "MER_MinimapPortalFlyout", E.UIParent)
-	flyout:SetSize(width, height)
-	flyout:SetFrameStrata("DIALOG")
-	flyout:SetClampedToScreen(true)
-	flyout:SetTemplate("Transparent")
-	flyout:Hide()
-	WS:CreateShadow(flyout)
-	_G.tinsert(_G.UISpecialFrames, "MER_MinimapPortalFlyout")
-
-	local guard = CreateFrame("Frame")
-	guard:RegisterEvent("PLAYER_REGEN_DISABLED")
-	guard:SetScript("OnEvent", function()
-		flyout:Hide()
-	end)
-
-	-- Click anywhere outside the flyout to close it. Strata sits above the
-	-- default world UI but below the flyout itself, so its own buttons stay clickable.
-	local catcher = CreateFrame("Button", nil, E.UIParent)
-	catcher:SetFrameStrata("HIGH")
-	catcher:SetAllPoints(E.UIParent)
-	catcher:Hide()
-	catcher:SetScript("OnClick", function()
-		flyout:Hide()
-	end)
-
-	_portalFlyoutButtons = {}
-	for i, entry in ipairs(SEASON_PORTALS) do
-		local col = (i - 1) % cols
-		local row = (i - 1 - col) / cols
-
-		local btn = CreateFrame("Button", "MER_MinimapPortal" .. i, flyout, "SecureActionButtonTemplate")
-		btn:SetSize(btnSize, btnSize)
-		btn:SetPoint("TOPLEFT", padding + col * (btnSize + spacing), -(padding + row * (btnSize + spacing)))
-		btn:SetFrameStrata("DIALOG")
-		btn:SetTemplate("Default")
-		btn.spellID = entry.spellID
-
-		local icon = btn:CreateTexture(nil, "ARTWORK")
-		icon:SetPoint("TOPLEFT", 1, -1)
-		icon:SetPoint("BOTTOMRIGHT", -1, 1)
-		icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		local spellInfo = C_Spell.GetSpellInfo(entry.spellID)
-		if spellInfo then
-			icon:SetTexture(spellInfo.iconID)
-		end
-		btn.Icon = icon
-		S:HandleIcon(icon)
-
-		local cooldown = CreateFrame("Cooldown", nil, btn, "CooldownFrameTemplate")
-		cooldown:SetAllPoints(icon)
-		cooldown:SetHideCountdownNumbers(true)
-		cooldown:SetDrawBling(false)
-		btn.Cooldown = cooldown
-
-		local castHL = btn:CreateTexture(nil, "OVERLAY", nil, 1)
-		castHL:SetAllPoints(icon)
-		castHL:SetColorTexture(1, 1, 1, 0.4)
-		castHL:Hide()
-		btn.CastHighlight = castHL
-
-		if entry.short then
-			local label = F.CreateFS(btn, 8, entry.short, false, "BOTTOM", 0, 2)
-			label:SetTextColor(1, 1, 1, 0.9)
-		end
-
-		btn:RegisterForClicks("AnyUp", "AnyDown")
-		btn:SetAttribute("type", "spell")
-		btn:SetAttribute("spell", entry.spellID)
-
-		btn:SetScript("OnEnter", function(self)
-			_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			_G.GameTooltip:SetSpellByID(self.spellID)
-			_G.GameTooltip:Show()
-		end)
-		btn:SetScript("OnLeave", function()
-			_G.GameTooltip:Hide()
-		end)
-
-		_portalFlyoutButtons[i] = btn
-	end
-
-	_hearthButtons = {}
-	for i = 1, hsCount do
-		local btn = CreateFrame("Button", "MER_MinimapHearth" .. i, flyout, "SecureActionButtonTemplate")
-		btn:SetSize(hsH, hsH)
-		btn:SetPoint("TOPLEFT", hsX, -(padding + (i - 1) * (hsH + spacing)))
-		btn:SetFrameStrata("DIALOG")
-		btn:SetTemplate("Default")
-
-		local icon = btn:CreateTexture(nil, "ARTWORK")
-		icon:SetPoint("TOPLEFT", 1, -1)
-		icon:SetPoint("BOTTOMRIGHT", -1, 1)
-		icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		btn.Icon = icon
-		S:HandleIcon(icon)
-
-		local cooldown = CreateFrame("Cooldown", nil, btn, "CooldownFrameTemplate")
-		cooldown:SetAllPoints(icon)
-		cooldown:SetHideCountdownNumbers(true)
-		cooldown:SetDrawBling(false)
-		btn.Cooldown = cooldown
-
-		local castHL = btn:CreateTexture(nil, "OVERLAY", nil, 1)
-		castHL:SetAllPoints(icon)
-		castHL:SetColorTexture(1, 1, 1, 0.4)
-		castHL:Hide()
-		btn.CastHighlight = castHL
-
-		btn:RegisterForClicks("AnyUp", "AnyDown")
-
-		btn:SetScript("OnEnter", function(self)
-			_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			if self.hsType == "spell" then
-				_G.GameTooltip:SetSpellByID(self.hsID)
-			elseif self.hsType == "item" then
-				_G.GameTooltip:SetItemByID(self.hsID)
-			else
-				_G.GameTooltip:AddLine(L["Housing Dashboard"])
-			end
-			_G.GameTooltip:Show()
-		end)
-		btn:SetScript("OnLeave", function()
-			_G.GameTooltip:Hide()
-		end)
-		btn:HookScript("PostClick", function(self)
-			if self.hsType == "housing" then
-				if _G.HousingFramesUtil and _G.HousingFramesUtil.ToggleHousingDashboard then
-					_G.HousingFramesUtil.ToggleHousingDashboard()
-				end
-				flyout:Hide()
-			else
-				self.CastHighlight:Show()
-			end
-		end)
-
-		_hearthButtons[i] = btn
-	end
-
-	flyout:SetScript("OnShow", function(self)
-		self:RegisterEvent("SPELL_UPDATE_COOLDOWN")
-		self:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
-		self:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
-		self:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
-		self:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
-		self:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
-		RefreshPortalButtons()
-		ResolveHearthButtons()
-		catcher:Show()
-	end)
-	flyout:SetScript("OnHide", function(self)
-		self:UnregisterAllEvents()
-		for _, btn in ipairs(_portalFlyoutButtons) do
-			btn.CastHighlight:Hide()
-		end
-		for _, btn in ipairs(_hearthButtons) do
-			btn.CastHighlight:Hide()
-		end
-		catcher:Hide()
-	end)
-	flyout:SetScript("OnEvent", function(_, event, unit, _, spellID)
-		if event == "SPELL_UPDATE_COOLDOWN" then
-			RefreshPortalButtons()
-			RefreshHearthCooldowns()
-		elseif unit == "player" then
-			local casting = (event == "UNIT_SPELLCAST_START") and spellID or nil
-			for _, btn in ipairs(_portalFlyoutButtons) do
-				btn.CastHighlight:SetShown(casting ~= nil and casting == btn.spellID)
-			end
-			if not casting then
-				for _, btn in ipairs(_hearthButtons) do
-					btn.CastHighlight:Hide()
-				end
-			end
-		end
-	end)
-
-	_portalFlyout = flyout
-	return flyout
-end
-
 local function TogglePortalFlyout(anchorBtn)
-	if InCombatLockdown() then
-		return
-	end
-
-	local flyout = CreatePortalFlyout()
-	if flyout:IsShown() then
-		flyout:Hide()
-		return
-	end
-
 	local edge = GrowsRight(anchorBtn.bar) and "LEFT" or "RIGHT"
 	local gap = F.Dpi(4)
 
-	flyout:ClearAllPoints()
 	if GrowsUp(anchorBtn.bar) then
-		flyout:SetPoint("BOTTOM" .. edge, anchorBtn, "TOP" .. edge, 0, gap)
+		F.PortalFlyout.Toggle(anchorBtn, "BOTTOM" .. edge, "TOP" .. edge, 0, gap)
 	else
-		flyout:SetPoint("TOP" .. edge, anchorBtn, "BOTTOM" .. edge, 0, -gap)
+		F.PortalFlyout.Toggle(anchorBtn, "TOP" .. edge, "BOTTOM" .. edge, 0, -gap)
 	end
-	flyout:Show()
 end
 
 local function CreatePortalButton(parent)
@@ -750,7 +294,7 @@ local function CreatePortalButton(parent)
 
 	btn:SetScript("OnEnter", function(self)
 		self.Icon:SetVertexColor(1, 1, 1)
-		if _portalFlyout and _portalFlyout:IsShown() then
+		if F.PortalFlyout.IsShown() then
 			return
 		end
 		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -906,6 +450,76 @@ local function ToggleTrackingMenu(self)
 	end
 end
 
+-------------------------------------------------------------------------------
+-- Addon compartment: same approach as tracking, Blizzard's dropdown with our anchor
+-------------------------------------------------------------------------------
+local function GetAddonCount()
+	local compartment = _G.AddonCompartmentFrame
+	return compartment and compartment.registeredAddons and #compartment.registeredAddons or 0
+end
+
+local function ToggleCompartmentMenu(self)
+	local compartment = _G.AddonCompartmentFrame
+	if not compartment or not compartment.OpenMenu then
+		return
+	end
+
+	if compartment.menu and compartment.menu:IsShown() then
+		compartment:CloseMenu()
+		return
+	end
+
+	compartment:OpenMenu()
+
+	local menu = compartment.menu
+	if menu then
+		menu:ClearAllPoints()
+		if GrowsRight(self.bar) then
+			menu:SetPoint("TOPLEFT", self, "TOPRIGHT", F.Dpi(4), 0)
+		else
+			menu:SetPoint("TOPRIGHT", self, "TOPLEFT", -F.Dpi(4), 0)
+		end
+	end
+end
+
+local function CreateCompartmentButton(parent)
+	local btn = CreateFrame("Button", "MER_MinimapAddonCompartmentButton", parent)
+	btn:EnableMouse(true)
+	btn:SetTemplate("Transparent")
+
+	local icon = btn:CreateTexture(nil, "ARTWORK")
+	icon:SetTexture(I.Media.Icons.List)
+	icon:SetPoint("CENTER")
+	icon:SetVertexColor(0.85, 0.85, 0.85)
+	btn.Icon = icon
+
+	-- The glyph fills its whole texture, so it gets more room around it than the atlas icons.
+	btn.UpdateIcon = function(self, size)
+		local iconSize = F.Round(size * 0.6)
+		self.Icon:SetSize(iconSize, iconSize)
+	end
+
+	-- Blizzard hides its own button while no addon registered, and so does this one.
+	-- ElvUI's "hide" option parks the original on a hidden parent, where its menu cannot open.
+	btn.ShouldShow = function()
+		return GetAddonCount() > 0 and not E.db.general.addonCompartment.hide
+	end
+
+	btn:SetScript("OnEnter", function(self)
+		self.Icon:SetVertexColor(1, 1, 1)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		_G.GameTooltip:AddDoubleLine(ADDONS, GetAddonCount(), nil, nil, nil, 1, 1, 1)
+		_G.GameTooltip:Show()
+	end)
+	btn:SetScript("OnLeave", function(self)
+		self.Icon:SetVertexColor(0.85, 0.85, 0.85)
+		_G.GameTooltip:Hide()
+	end)
+	btn:SetScript("OnClick", ToggleCompartmentMenu)
+
+	return btn
+end
+
 local function CreateTrackingButton(parent)
 	local btn = CreateIndicatorButton(parent, "Tracking", TRACKING_ATLAS, ToggleTrackingMenu)
 
@@ -1041,7 +655,7 @@ local function ShowCalendarTooltip(self)
 	_G.GameTooltip:AddLine(L["Calendar"])
 
 	-- Lockout reads can hand back secret values inside an active key or raid.
-	if not InProtectedInstance() then
+	if not F.InProtectedInstance() then
 		if RequestRaidInfo then
 			RequestRaidInfo()
 		end
@@ -1100,7 +714,7 @@ local function HasUnreadMail()
 	end
 
 	local raw = HasNewMail()
-	if issecretvalue and issecretvalue(raw) then
+	if E:IsSecretValue(raw) and raw then
 		return false
 	end
 
@@ -1250,6 +864,7 @@ function module:UpdateBlizzardIndicators(forceRestore)
 	local replaced = {
 		tracking = { tracking, tracking and tracking.Button },
 		calendar = { _G.GameTimeFrame },
+		addonCompartment = { _G.AddonCompartmentFrame },
 		mail = { indicator and indicator.MailFrame },
 		craftingOrders = { indicator and indicator.CraftingOrderFrame },
 	}
@@ -1298,6 +913,7 @@ function module:CreateButtons()
 	self.portalButton = CreatePortalButton(holder)
 	self.trackingButton = CreateTrackingButton(elementHolder)
 	self.calendarButton = CreateCalendarButton(elementHolder)
+	self.compartmentButton = CreateCompartmentButton(elementHolder)
 	self.mailButton = CreateMailButton(elementHolder)
 	self.craftingButton = CreateCraftingButton(elementHolder)
 
@@ -1308,6 +924,7 @@ function module:CreateButtons()
 		{ key = "mplusPortals", bar = "main", btn = self.portalButton },
 		{ key = "tracking", bar = "elements", btn = self.trackingButton },
 		{ key = "calendar", bar = "elements", btn = self.calendarButton },
+		{ key = "addonCompartment", bar = "elements", btn = self.compartmentButton },
 		{ key = "mail", bar = "elements", btn = self.mailButton },
 		{ key = "craftingOrders", bar = "elements", btn = self.craftingButton },
 	}
@@ -1326,6 +943,14 @@ function module:CreateButtons()
 	watcher:SetScript("OnEvent", function()
 		module:RefreshIndicators()
 	end)
+
+	-- The compartment collects its addons on PLAYER_ENTERING_WORLD, possibly after our watcher ran.
+	local compartment = _G.AddonCompartmentFrame
+	if compartment and compartment.UpdateDisplay then
+		hooksecurefunc(compartment, "UpdateDisplay", function()
+			module:RefreshIndicators()
+		end)
+	end
 
 	-- Nothing fires when the date rolls over, so the calendar icon is checked on
 	-- a slow ticker instead.

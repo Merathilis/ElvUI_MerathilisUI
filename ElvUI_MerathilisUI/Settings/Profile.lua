@@ -894,21 +894,69 @@ P.vehicleBar = {
 	},
 }
 
-P.miniMapCoords = {
+P.locationPanel = {
 	enable = true,
-	xOffset = 0,
-	yOffset = 70,
-	format = "%.0f",
-	mouseOver = false,
+	height = 20,
+	spacing = 3,
+	textMode = "MINIMAP",
+	colorMode = "PVP",
+	customColor = { r = 1, g = 1, b = 1 },
+	coords = true,
+	coordsFormat = "%.1f",
+	coordsColor = { r = 1, g = 1, b = 1 },
 
 	font = {
 		name = E.db.general.font,
-		size = 14,
+		size = 12,
 		style = "SHADOWOUTLINE",
-		color = {
-			r = 1,
-			g = 1,
-			b = 1,
+	},
+}
+
+P.chat = {
+	lockSize = false,
+	combatLog = {
+		enable = true,
+	},
+	tabs = {
+		underline = true,
+	},
+	editBox = {
+		enable = true,
+		style = true,
+		backdropAlpha = 0.8,
+		accent = true,
+		badge = true,
+		animation = true,
+		glow = true,
+	},
+	sidebar = {
+		enable = true,
+		panel = "LEFT",
+		side = "LEFT",
+		attach = "INSIDE",
+		attachSpacing = 3,
+		order = "friends,guild,durability,copy,portals,voice,settings",
+		width = 28,
+		iconSize = 14,
+		spacing = 6,
+		counterFontSize = 10,
+		visibility = "ALWAYS",
+		divider = true,
+		iconAlpha = 0.6,
+		iconColor = { r = 1, g = 1, b = 1 },
+		hoverClassColor = true,
+		hoverColor = { r = 0, g = 0.75, b = 0.98 },
+		durabilityWarning = 30,
+		hideVoiceButtons = true,
+		buttons = {
+			friends = true,
+			guild = false,
+			durability = false,
+			copy = true,
+			portals = true,
+			voice = true,
+			settings = true,
+			scroll = true,
 		},
 	},
 }
@@ -943,6 +991,9 @@ P.minimapButtons = {
 		enable = false,
 	},
 	calendar = {
+		enable = true,
+	},
+	addonCompartment = {
 		enable = true,
 	},
 	mail = {
@@ -1335,6 +1386,68 @@ P.buffReminder = {
 		preferredFlask = "last_used",
 		preferredFood = "last_used",
 		preferredWeaponEnchant = "last_used",
+	},
+}
+
+P.movementAlert = {
+	enable = false,
+	combatOnly = false,
+	displayMode = "TEXT", -- TEXT, ICON, BAR
+	textFormat = "NAME_TIME", -- NAME_TIME, TIME_NAME, TIME
+	textWidth = 250,
+	decimals = true,
+	iconSize = 40,
+	spacing = 4,
+	growDirection = "UP",
+	font = {
+		name = I.Fonts.Primary,
+		size = 20,
+		style = "SHADOWOUTLINE",
+	},
+	useClassColor = false,
+	color = { r = 1, g = 1, b = 1 },
+	bar = {
+		width = 200,
+		height = 20,
+		texture = "ElvUI Norm",
+		showIcon = true,
+		showTime = true,
+	},
+	spells = {}, -- [spellID] = true/false, overrides the default state of a preset spell
+	customSpells = {}, -- [class] = { [spellID] = true }
+	alert = {
+		enable = false,
+		sound = "None",
+		tts = false,
+	},
+	timeSpiral = {
+		enable = false,
+		text = "FREE MOVEMENT",
+		showTimer = true,
+		font = {
+			name = I.Fonts.Primary,
+			size = 24,
+			style = "SHADOWOUTLINE",
+		},
+		useClassColor = false,
+		color = { r = 0.53, g = 1, b = 0 },
+		sound = "None",
+		tts = false,
+		ttsText = "Free movement",
+	},
+	gateway = {
+		enable = false,
+		combatOnly = false,
+		text = "GATEWAY READY",
+		font = {
+			name = I.Fonts.Primary,
+			size = 24,
+			style = "SHADOWOUTLINE",
+		},
+		useClassColor = false,
+		color = { r = 0.7, g = 0, b = 1 },
+		sound = "None",
+		tts = false,
 	},
 }
 

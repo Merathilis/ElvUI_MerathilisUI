@@ -19,7 +19,7 @@ options.itemLevel = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Item Level"], "orange"),
+			name = L["Item Level"],
 		},
 		desc = {
 			order = 1,

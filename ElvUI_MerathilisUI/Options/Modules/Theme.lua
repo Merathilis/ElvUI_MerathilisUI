@@ -24,7 +24,7 @@ options.theme = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Theme"], "orange"),
+			name = L["Theme"],
 		},
 	},
 }

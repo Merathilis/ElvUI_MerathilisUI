@@ -1,0 +1,29 @@
+local MER = unpack(ElvUI_MerathilisUI)
+
+MER.Changelog[736] = {
+	RELEASE_DATE = "25.09.2026",
+	FIXES = {
+		"Bags: Categorized Bags - splitting stacks works again: Shift+click splits like in Blizzard's bags (links in chat only while a chat box is open), the split-off part is put into a free slot right away, and a split item isn't merged back into one slot until the bags close.",
+		"Maps: Minimap Buttons - the Great Vault button stops pulsing as soon as the reward is claimed instead of only after opening the vault again.",
+		"Bags: Categorized Bags - right-clicking a piece of gear equips it again when you already wear another copy of the same item (a different upgrade level, a second ring or trinket). Right-click now acts on the bag slot itself instead of looking the item up by name, which also makes selling at a merchant and depositing at the bank behave exactly like Blizzard's bags.",
+	},
+	NEW = {
+		"Chat: New Chat Sidebar - a slim icon bar inside (or next to) the left or right chat panel with online friends/guild counters, durability, copy chat, M+ portals, chat channels, settings and a scroll-to-bottom button that lights up while the chat is scrolled up. Its copy button replaces ElvUI's (right-click opens the chat menu), its channel button takes over Blizzard's voice buttons on the chat panel - it lights up while a voice channel is active, turns into a crossed out microphone while you are muted or deafened and toggles the microphone (right-click) or the speakers (middle-click) - and the icons can be reordered with Shift + drag.",
+		"Chat: Chat panels can be resized by dragging the grip that shows in their corner while hovering them (new \"Lock Chat Size\" option to hide it). The right panel only gets one while it shows a backdrop or holds a chat window.",
+		"Chat: The active combat log filter is shown in your class color, the others are dimmed.",
+		"Chat: The chat edit box can get a MerathilisUI style: backdrop with stripes and its own opacity, a small bar in the chat type's color instead of a colored border, the channel prefix as a colored badge, a fade-in when it opens and a class colored glow while it is open. ElvUI's edit box position can be set right there too, and the \"inside\" positions leave room for the Chat Sidebar.",
+		"Chat: The active chat tab gets an underline in your class color, like the tabs of the MerathilisUI options.",
+		"Maps: New Location Panel - shows the current zone in a panel above the Minimap (click opens the World Map, the tooltip lists zone, subzone and PvP status) with your coordinates left and right of the zone text. The zone is colored by its PvP status in the same colors as on Blizzard's Minimap. It replaces ElvUI's Minimap Cluster, which the installer now disables together with its clock, and the old Minimap Coordinates module, which has been removed.",
+		"Movement Alert - new module that shows the cooldown of your class's movement spells (Blink, Heroic Leap, Disengage, ...) while they are not available, as text, icon or bar. It also works in restricted content where cooldowns are hidden from addons, can play a sound or read the spell out loud when it is ready again, lets you pick which spells to track (custom spell IDs included), shows a banner while Time Spiral lets you use a movement spell for free and reminds you when your Gateway Control Shard can be used. Idea by EllesmereUI.",
+	},
+	IMPROVEMENTS = {
+		"Maps: Minimap Buttons - the M+ Portals flyout is now shared with the Chat Sidebar.",
+		"Maps: Minimap Buttons - new Addon Compartment button in the Elements bar, it opens Blizzard's addon list and replaces the counter on the Minimap.",
+		"Bags: Categorized Bags - the Bank window has its own Sort button, sorting whichever bank it shows (character or Warband) and asking first like Blizzard's bank does.",
+		"Bags: Categorized Bags - the Stack button now really stacks (merges partial stacks without re-sorting) instead of sorting again; Shift-click at the bank tops up matching stacks in the bank, and the Bank window got a Stack button that does the same towards your bags.",
+		"Options: Option groups on the MerathilisUI pages stand out more clearly - a larger title with a small accent bar in front of it, a slightly lighter box and a small shadow behind it.",
+		"Options: Headers and group titles no longer carry their own orange coloring and all use the same white MerathilisUI style. The Bags tab is no longer marked as new.",
+		"Options: The navigation tree on the MerathilisUI pages matches the rest of the options - white labels, the selected entry marked with an accent bar and accent text, a subtle hover and a darker box with a small shadow.",
+		"Options: The module tabs on the MerathilisUI pages are sorted alphabetically again, new modules no longer end up in the wrong spot.",
+	},
+}

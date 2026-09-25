@@ -51,7 +51,7 @@ options.cursor = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Cursor"], "orange"),
+			name = L["Cursor"],
 		},
 		desc = {
 			order = 1,

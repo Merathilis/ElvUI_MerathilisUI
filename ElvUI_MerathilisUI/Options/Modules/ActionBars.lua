@@ -16,13 +16,13 @@ options.actionbars = {
 		header = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["ActionBars"], "orange"),
+			name = L["ActionBars"],
 		},
 		--[[
 		general = {
 			order = 2,
 			type = "group",
-			name = F.cOption(L["General"], 'orange'),
+			name = L["General"],
 			guiInline = true,
 			args = {
 			},

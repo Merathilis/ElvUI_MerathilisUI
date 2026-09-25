@@ -259,6 +259,74 @@ local function CreateBankSidebarRowButton(parent)
 	return row
 end
 
+-------------------------------------------------------------------------------
+--  Sorting
+-------------------------------------------------------------------------------
+-- The bank the window is currently showing: Warband for the two Warband
+-- views, the character bank otherwise.
+function module:GetDisplayedBankType()
+	local mode = module.bankViewMode
+	if mode == "WARBAND_ALL" or mode == "ONEWARBAND" then
+		return WARBAND_BANK_TYPE
+	end
+
+	return CHARACTER_BANK_TYPE
+end
+
+local function HasTabsToSort(bankType)
+	local fetch = C_Bank and C_Bank.FetchNumPurchasedBankTabs
+	return fetch and (fetch(bankType) or 0) > 0 or false
+end
+
+local function SortBank(bankType)
+	if not C_Container.SortBank or not HasTabsToSort(bankType) then
+		return
+	end
+
+	module:StartSortSpinner(module.bankFrame)
+	C_Container.SortBank(bankType)
+end
+
+-- Own dialog instead of Blizzard's BankCleanUpConfirmationPopup: that one
+-- sorts whatever bank type Blizzard's own (hidden) bank panel has active,
+-- which isn't necessarily the one this window shows. It honors the same
+-- "bankConfirmTabCleanUp" CVar, so "don't ask again" carries over both ways.
+_G.StaticPopupDialogs["MER_BANK_SORT_CONFIRM"] = {
+	text = "%s",
+	button1 = L["Sort"],
+	button2 = CANCEL,
+	button3 = L["Sort, don't ask again"],
+	OnAccept = function(_, data)
+		SortBank(data and data.bankType)
+	end,
+	OnAlt = function(_, data)
+		SetCVar("bankConfirmTabCleanUp", 0)
+		SortBank(data and data.bankType)
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
+function module:SortDisplayedBank()
+	local bankType = module:GetDisplayedBankType()
+	if not HasTabsToSort(bankType) then
+		return
+	end
+
+	if GetCVarBool("bankConfirmTabCleanUp") then
+		local bankName = bankType == WARBAND_BANK_TYPE and L["Warband Bank"] or L["Bank"]
+		StaticPopup_Show(
+			"MER_BANK_SORT_CONFIRM",
+			format(L["Sort the %s? Items are moved between its tabs."], bankName),
+			nil,
+			{ bankType = bankType }
+		)
+	else
+		SortBank(bankType)
+	end
+end
+
 function module:ConstructBankFrame()
 	if module.bankFrame then
 		return module.bankFrame
@@ -320,7 +388,7 @@ function module:ConstructBankFrame()
 		GameTooltip:AddLine(L["Bank / Warband Bank (while open)"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Deposit / withdraw item"], 1, 1, 1)
-		GameTooltip:AddDoubleLine(L["Shift + Right Click:"], L["Split Stack"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Shift + Click:"], L["Split Stack"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Ctrl + Right Click:"], L["Move to Bank Tab / Bag"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Middle Click:"], L["Pin / unpin item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Middle Click:"], L["Assign to Category"], 1, 1, 1)
@@ -328,6 +396,45 @@ function module:ConstructBankFrame()
 		GameTooltip:AddLine(L["Changes the display order only - nothing moves in your bags."], 0.6, 0.6, 0.6)
 	end)
 	f.helpButton:Point("TOPRIGHT", f, "TOPRIGHT", -40, -8)
+
+	-- Same broom icon as the bag window's Sort button; sorts the bank the
+	-- window is currently showing. Help moves one slot left to stay next
+	-- to the search box, same order as in the bag window.
+	f.sortButton = CreateTitleButton(f, "SortButton", E.Media.Textures.PetBroom, function()
+		local bankType = module:GetDisplayedBankType()
+		GameTooltip:AddLine(bankType == WARBAND_BANK_TYPE and L["Sort Warband Bank"] or L["Sort Bank"], 1, 1, 1)
+		if not HasTabsToSort(bankType) then
+			GameTooltip:AddLine(L["No bank tabs purchased yet."], 0.6, 0.6, 0.6)
+		end
+	end, function()
+		module:SortDisplayedBank()
+	end)
+	f.sortButton:Point("TOPRIGHT", f, "TOPRIGHT", -40, -8)
+
+	-- Character bank only: ElvUI's stacking (module:StackItems) has no
+	-- notion of the Warband bank tabs.
+	f.stackButton = CreateTitleButton(f, "StackButton", E.Media.Textures.Planks, function()
+		GameTooltip:AddLine(L["Stack Items In Bank"], 1, 1, 1)
+		if module:GetDisplayedBankType() == WARBAND_BANK_TYPE then
+			GameTooltip:AddLine(L["Only available for the character bank."], 0.6, 0.6, 0.6)
+		else
+			GameTooltip:AddDoubleLine(L["Hold Shift:"], L["Stack Items To Bags"], 1, 1, 1)
+		end
+	end, function()
+		if module:GetDisplayedBankType() ~= WARBAND_BANK_TYPE then
+			module:StackItems(module.bankFrame, true)
+		end
+	end)
+	f.stackButton:Point("TOPRIGHT", f.sortButton, "TOPLEFT", -2, 0)
+
+	f.helpButton:ClearAllPoints()
+	f.helpButton:Point("TOPRIGHT", f.stackButton, "TOPLEFT", -2, 0)
+
+	-- Sort spinner, same as the bag window's (see StartSortSpinner).
+	f.spinnerIcon = CreateFrame("Frame", nil, f)
+	f.spinnerIcon:Size(80, 80)
+	f.spinnerIcon:Point("CENTER")
+	f.spinnerIcon:Hide()
 
 	f.searchBox = CreateFrame("EditBox", BANK_FRAME_NAME .. "SearchBox", f, "SearchBoxTemplate")
 	f.searchBox:Point("TOPRIGHT", f.helpButton, "TOPLEFT", -6, 0)

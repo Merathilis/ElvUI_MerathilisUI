@@ -65,6 +65,14 @@ function MER:UpdateScripts()
 		UpdateMessage(L["Cooldown Manager"] .. ": " .. L["Update Database"], profileVersion)
 	end
 
+	if profileVersion < 7.36 then
+		-- Minimap Coordinates were merged into the Location Panel
+		if E.db.mui and E.db.mui.miniMapCoords then
+			E.db.mui.miniMapCoords = nil
+		end
+		UpdateMessage(L["Location Panel"] .. ": " .. L["Update Database"], profileVersion)
+	end
+
 	if not isFirstLine then
 		WF.PrintGradientLine()
 	end

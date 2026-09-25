@@ -75,7 +75,7 @@ options.unitframes = {
 		name = {
 			order = 1,
 			type = "header",
-			name = F.cOption(L["UnitFrames"], "orange"),
+			name = L["UnitFrames"],
 		},
 		general = {
 			order = 2,

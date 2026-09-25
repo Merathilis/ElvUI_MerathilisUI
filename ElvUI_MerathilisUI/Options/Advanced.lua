@@ -17,7 +17,7 @@ options.core = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["General"], "orange"),
+			name = L["General"],
 		},
 		loginMessage = {
 			order = 1,
@@ -54,7 +54,7 @@ options.reset = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.cOption(L["Reset"], "orange"),
+			name = L["Reset"],
 		},
 		desc = {
 			order = 1,
@@ -199,13 +199,14 @@ options.reset = {
 				end)
 			end,
 		},
-		miniMapCoords = {
+		locationPanel = {
 			order = 17,
 			type = "execute",
-			name = L["Minimap Coordinates"],
+			name = L["Location Panel"],
 			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Coordinates"], nil, function()
-					E:CopyTable(E.db.mui.miniMapCoords, P.miniMapCoords)
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Location Panel"], nil, function()
+					E:CopyTable(E.db.mui.locationPanel, P.locationPanel)
+					F.Event.TriggerEvent("LocationPanel.DatabaseUpdate")
 				end)
 			end,
 		},
@@ -216,6 +217,17 @@ options.reset = {
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Buttons"], nil, function()
 					E:CopyTable(E.db.mui.minimapButtons, P.minimapButtons)
+				end)
+			end,
+		},
+		movementAlert = {
+			order = 18.5,
+			type = "execute",
+			name = L["Movement Alert"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Movement Alert"], nil, function()
+					E:CopyTable(E.db.mui.movementAlert, P.movementAlert)
+					MER:GetModule("MER_MovementAlert"):ProfileUpdate()
 				end)
 			end,
 		},

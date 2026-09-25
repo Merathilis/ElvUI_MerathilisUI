@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Sidebar.lua"/>
+	<Script file="ResizeGrip.lua"/>
+	<Script file="CombatLog.lua"/>
+	<Script file="EditBox.lua"/>
+	<Script file="Tabs.lua"/>
+	<Script file="Core.lua"/>
+</Ui>
