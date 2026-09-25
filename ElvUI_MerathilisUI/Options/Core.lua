@@ -2,7 +2,8 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local MISC = MER:GetModule("MER_Misc")
 
-local format, type, pairs, next, tinsert = format, type, pairs, next, tinsert
+local format, type, pairs, ipairs, next, tinsert, sort = format, type, pairs, ipairs, next, tinsert, sort
+local gsub, strlower, strtrim = gsub, strlower, strtrim
 local xpcall = xpcall
 
 local CreateTextureMarkup = CreateTextureMarkup
@@ -262,6 +263,34 @@ function module:AddCategorieIcon(text, icon)
 	return format("|T%s:16:16|t  %s", iconPath, text)
 end
 
+-- Strips texture/color escapes so "|T...|t  Name" sorts by "Name", not by the icon path
+local function GetSortName(key, entry)
+	local name = type(entry.name) == "string" and entry.name or key
+	name = gsub(name, "|T.-|t", "")
+	name = gsub(name, "|c%x%x%x%x%x%x%x%x", "")
+	name = gsub(name, "|r", "")
+	return strlower(strtrim(name))
+end
+
+-- Gives every group without an explicit order an alphabetical one, starting at firstOrder
+function module:SortGroupsByName(args, firstOrder)
+	local keys, sortNames = {}, {}
+	for key, entry in pairs(args) do
+		if type(entry) == "table" and entry.type == "group" and entry.order == nil then
+			tinsert(keys, key)
+			sortNames[key] = GetSortName(key, entry)
+		end
+	end
+
+	sort(keys, function(a, b)
+		return sortNames[a] < sortNames[b]
+	end)
+
+	for index, key in ipairs(keys) do
+		args[key].order = firstOrder + index - 1
+	end
+end
+
 function module:AddCallback(name, func)
 	-- Don't load any other settings except general and changelog when MER is not installed
 	if not F.IsMERProfile() and (name ~= "Information" and name ~= "General" and name ~= "Changelog") then
@@ -349,6 +378,8 @@ function module:OptionsCallback()
 			},
 		},
 	}
+
+	self:SortGroupsByName(self.options.modules.args, 2)
 
 	for category, info in pairs(self.options) do
 		E.Options.args.mui.args[category] = {
