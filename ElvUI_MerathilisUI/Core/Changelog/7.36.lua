@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[736] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "25.09.2026",
 	FIXES = {
 		"Bags: Categorized Bags - splitting stacks works again: Shift+click splits like in Blizzard's bags (links in chat only while a chat box is open), the split-off part is put into a free slot right away, and a split item isn't merged back into one slot until the bags close.",
 		"Maps: Minimap Buttons - the Great Vault button stops pulsing as soon as the reward is claimed instead of only after opening the vault again.",
