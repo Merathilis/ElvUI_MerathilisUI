@@ -20,8 +20,19 @@ local MIN_HEIGHT, MAX_HEIGHT = 60, 1000
 
 local PANELS = {
 	{ name = "LeftChatPanel", width = "panelWidth", height = "panelHeight" },
-	{ name = "RightChatPanel", width = "panelWidthRight", height = "panelHeightRight", separate = true },
+	{ name = "RightChatPanel", width = "panelWidthRight", height = "panelHeightRight", separate = true, optional = true },
 }
+
+-- The right panel is often left empty and without a backdrop (e.g. to hold a
+-- meter); a grip there would resize an invisible frame.
+local function IsPanelInUse(entry)
+	if not entry.optional then
+		return true
+	end
+
+	local backdrop = CH.db.panelBackdrop
+	return backdrop == "SHOWBOTH" or backdrop == "RIGHT" or CH.RightChatWindow ~= nil
+end
 
 -- The grip texture points to the bottom right; tex coords mirror it into the
 -- other corners.
@@ -161,7 +172,23 @@ function module:UpdateResizeGrips()
 			end
 
 			grip.sizing = nil
-			grip:SetShown(enabled)
+			grip:SetShown(enabled and IsPanelInUse(entry))
+		end
+	end
+end
+
+-- ElvUI repositions the chats whenever the backdrop setting changes or a window
+-- is snapped to a panel. This also runs on every drag step, so it only toggles
+-- the grips and leaves an ongoing resize alone.
+function module:PostPositionChats()
+	if not self.resizeInitialized or self.chatDB.lockSize then
+		return
+	end
+
+	for _, entry in ipairs(PANELS) do
+		local grip = self.resizeGrips[entry.name]
+		if grip then
+			grip:SetShown(IsPanelInUse(entry))
 		end
 	end
 end
@@ -169,4 +196,6 @@ end
 function module:InitializeResizeGrips()
 	self.resizeGrips = {}
 	self.resizeInitialized = true
+
+	self:SecureHook(CH, "PositionChats", "PostPositionChats")
 end
