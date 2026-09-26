@@ -149,17 +149,6 @@ options.reset = {
 				end)
 			end,
 		},
-		battleRes = {
-			order = 12.5,
-			type = "execute",
-			name = L["Battle Res"],
-			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Battle Res"], nil, function()
-					E:CopyTable(E.db.mui.battleRes, P.battleRes)
-					MER:GetModule("MER_BattleRes"):ProfileUpdate()
-				end)
-			end,
-		},
 		buffReminder = {
 			order = 13,
 			type = "execute",
@@ -279,6 +268,17 @@ options.reset = {
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Theme"], nil, function()
 					E:CopyTable(E.db.mui.themes, P.themes)
+				end)
+			end,
+		},
+		tracker = {
+			order = 22.5,
+			type = "execute",
+			name = L["Tracker"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Tracker"], nil, function()
+					E:CopyTable(E.db.mui.tracker, P.tracker)
+					MER:GetModule("MER_Tracker"):ProfileUpdate()
 				end)
 			end,
 		},

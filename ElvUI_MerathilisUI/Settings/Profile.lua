@@ -1409,25 +1409,41 @@ P.buffReminder = {
 	},
 }
 
-P.battleRes = {
-	enable = false,
-	visibility = "MPLUS_AND_RAID", -- MPLUS_AND_RAID, MPLUS, RAID
-	displayMode = "ICON", -- ICON, TEXT
-	iconSize = 40,
-	desaturate = true,
-	countFont = {
-		name = I.Fonts.Primary,
-		size = 14,
-		style = "SHADOWOUTLINE",
-	},
-	countColor = { r = 1, g = 1, b = 1 },
-	timeFont = {
-		name = I.Fonts.Primary,
-		size = 14,
-		style = "SHADOWOUTLINE",
-	},
-	timeColor = { r = 1, g = 1, b = 1 },
+P.tracker = {
 	debug = false,
+	battleRes = {
+		enable = false,
+		visibility = "MPLUS_AND_RAID", -- MPLUS_AND_RAID, MPLUS, RAID
+		displayMode = "ICON", -- ICON, TEXT
+		iconSize = 40,
+		desaturate = true,
+		countFont = {
+			name = I.Fonts.Primary,
+			size = 14,
+			style = "SHADOWOUTLINE",
+		},
+		countColor = { r = 1, g = 1, b = 1 },
+		timeFont = {
+			name = I.Fonts.Primary,
+			size = 14,
+			style = "SHADOWOUTLINE",
+		},
+		timeColor = { r = 1, g = 1, b = 1 },
+	},
+	bloodlust = {
+		enable = false,
+		visibility = "MPLUS_AND_RAID", -- MPLUS_AND_RAID, MPLUS, RAID
+		iconSize = 40,
+		showSated = true,
+		showReady = false,
+		desaturate = true,
+		font = {
+			name = I.Fonts.Primary,
+			size = 14,
+			style = "SHADOWOUTLINE",
+		},
+		color = { r = 1, g = 1, b = 1 },
+	},
 }
 
 P.movementAlert = {
