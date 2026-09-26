@@ -2,3 +2,4 @@
 
 -   [Fix]: Movement Alert - fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell's cooldown is restricted.
 -   [New]: UnitFrames/NamePlates: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.
+-   [Improvement]: Login Logo: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.
