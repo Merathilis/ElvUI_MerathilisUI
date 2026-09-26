@@ -236,7 +236,7 @@ function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
 			)
 		end
 
-		self:SplashScreen()
+		self:LoginLogo()
 	end
 
 	if _G.ElvDB then
