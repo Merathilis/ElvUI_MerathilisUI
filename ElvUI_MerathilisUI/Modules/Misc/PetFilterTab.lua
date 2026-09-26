@@ -8,7 +8,6 @@ local IsShiftKeyDown = IsShiftKeyDown
 local C_PetJournal_SetPetTypeFilter = C_PetJournal.SetPetTypeFilter
 local C_PetJournal_IsPetTypeChecked = C_PetJournal.IsPetTypeChecked
 local C_PetJournal_SetAllPetTypesChecked = C_PetJournal.SetAllPetTypesChecked
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local PET_TYPE_SUFFIX = PET_TYPE_SUFFIX
 
@@ -72,24 +71,15 @@ function module:PetTabs_Create()
 	end
 end
 
-function module:PetTabs_Load(addon)
-	if addon == "Blizzard_Collections" then
-		module:PetTabs_Create()
-		MER:UnregisterEvent(self, module.PetTabs_Load)
-	end
-end
-
 function module:PetFilterTab()
 	self.db = F.GetDBFromPath("mui.misc.petFilterTab")
 	if not self.db then
 		return
 	end
 
-	if C_AddOns_IsAddOnLoaded("Blizzard_Collections") then
+	F.Event.ContinueOnAddOnLoaded("Blizzard_Collections", function()
 		module:PetTabs_Create()
-	else
-		MER:RegisterEvent("ADDON_LOADED", module.PetTabs_Load)
-	end
+	end)
 end
 
 module:AddCallback("PetFilterTab")

@@ -133,11 +133,8 @@ function module:ItemLevel_ScrappingSetup()
 	end
 end
 
-function module.ItemLevel_ScrappingShow(event, addon)
-	if addon == "Blizzard_ScrappingMachineUI" then
-		hooksecurefunc(_G.ScrappingMachineFrame, "UpdateScrapButtonState", module.ItemLevel_ScrappingSetup)
-		MER:UnregisterEvent(event, module.ItemLevel_ScrappingShow)
-	end
+function module.ItemLevel_ScrappingShow()
+	hooksecurefunc(_G.ScrappingMachineFrame, "UpdateScrapButtonState", module.ItemLevel_ScrappingSetup)
 end
 
 function module:ItemLevel_UpdateMerchant(link)
@@ -237,7 +234,7 @@ function module:Initialize()
 	end)
 
 	-- ScrappingMachine (lazy load)
-	MER:RegisterEvent("ADDON_LOADED", module.ItemLevel_ScrappingShow)
+	F.Event.ContinueOnAddOnLoaded("Blizzard_ScrappingMachineUI", module.ItemLevel_ScrappingShow)
 
 	-- MerchantFrame + TradeFrame
 	if db.merchantFrame and db.merchantFrame.enable then
