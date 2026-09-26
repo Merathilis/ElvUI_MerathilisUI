@@ -88,5 +88,6 @@ Next version = released + 0.01 (e.g. 7.36 → 7.37, 7.39 → 7.40).
    -
    ```
 6. Commit `📖 DOC: prep changelogs`, then ask before `git push origin development`.
+   This push touches `Core/Changelog/`, so `.github/workflows/website.yml` rebuilds merathilisui.com with the released notes. Until then the site still shows the version as "In development" (it reads the `development` branch, which gets the release commit only with this push).
 
 Finish with a short recap: version released, tag, links (Actions, CurseForge, Wago), and the new in-progress version.
