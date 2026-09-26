@@ -3,6 +3,7 @@
 	<Script file='Armory.lua'/>
 	<Script file='Auras.lua'/>
 	<Script file='Bags.lua'/>
+	<Script file='BattleRes.lua'/>
 	<Script file='BuffReminder.lua'/>
 	<Script file='Chat.lua'/>
 	<Script file='Cursor.lua'/>

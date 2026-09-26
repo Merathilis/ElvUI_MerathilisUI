@@ -100,6 +100,7 @@ MER.Modules.ActionBars = MER:NewModule("MER_Actionbars", "AceEvent-3.0", "AceHoo
 MER.Modules.Armory = MER:NewModule("MER_Armory", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Auras = MER:NewModule("MER_Auras", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.BagCategories = MER:NewModule("MER_BagCategories", "AceHook-3.0", "AceEvent-3.0")
+MER.Modules.BattleRes = MER:NewModule("MER_BattleRes", "AceEvent-3.0")
 MER.Modules.BuffReminder = MER:NewModule("MER_BuffReminder", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Changelog = MER:NewModule("MER_Changelog", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.Chat = MER:NewModule("MER_Chat", "AceHook-3.0", "AceEvent-3.0")

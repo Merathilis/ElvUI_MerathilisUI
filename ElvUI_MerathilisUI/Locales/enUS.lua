@@ -1389,6 +1389,19 @@ L["Hides the zone text ElvUI shows on the Minimap, the panel shows it already."]
 L["Coordinates"] = true
 L["Shows your X coordinate left and your Y coordinate right of the zone text."] = true
 
+-- Battle Res
+L["Battle Res"] = true
+L["Shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters."] = true
+L["Shows sample charges for 20 seconds so you can check the look and position."] = true
+L["Mythic+ and Raid"] = true
+L["Raid"] = true
+L["Desaturate"] = true
+L["Greys out the icon while no charge is left."] = true
+L["Charges"] = true
+L["Recharge Time"] = true
+L["Debug Mode"] = true
+L["Shows the tracker everywhere with the real battle res data instead of only in Mythic+ keys and raid encounters, and prints every change of the charges and of the visibility state to the chat."] = true
+
 -- Movement Alert
 L["No %s"] = true
 L["%s ready"] = true

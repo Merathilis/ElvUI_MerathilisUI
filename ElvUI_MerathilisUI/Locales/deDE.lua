@@ -1149,6 +1149,19 @@ L["Hides the zone text ElvUI shows on the Minimap, the panel shows it already."]
 L["Coordinates"] = "Koordinaten"
 L["Shows your X coordinate left and your Y coordinate right of the zone text."] = "Zeigt deine X-Koordinate links und deine Y-Koordinate rechts vom Zonentext."
 
+-- Battle Res
+L["Battle Res"] = "Kampfwiederbelebung"
+L["Shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters."] = "Zeigt die gemeinsamen Kampfwiederbelebungs-Aufladungen deiner Gruppe und die Zeit bis zur nächsten Aufladung in Mythisch+-Schlüsseln und bei Schlachtzugsbossen."
+L["Shows sample charges for 20 seconds so you can check the look and position."] = "Zeigt 20 Sekunden lang Beispiel-Aufladungen, damit du Aussehen und Position prüfen kannst."
+L["Mythic+ and Raid"] = "Mythisch+ und Schlachtzug"
+L["Raid"] = "Schlachtzug"
+L["Desaturate"] = "Entsättigen"
+L["Greys out the icon while no charge is left."] = "Färbt das Symbol grau, solange keine Aufladung übrig ist."
+L["Charges"] = "Aufladungen"
+L["Recharge Time"] = "Aufladezeit"
+L["Debug Mode"] = "Debug-Modus"
+L["Shows the tracker everywhere with the real battle res data instead of only in Mythic+ keys and raid encounters, and prints every change of the charges and of the visibility state to the chat."] = "Zeigt die Anzeige überall mit den echten Kampfwiederbelebungs-Daten statt nur in Mythisch+-Schlüsseln und Schlachtzugsbegegnungen und schreibt jede Änderung der Aufladungen und der Sichtbarkeit in den Chat."
+
 -- Movement Alert
 L["No %s"] = "Kein %s"
 L["%s ready"] = "%s bereit"

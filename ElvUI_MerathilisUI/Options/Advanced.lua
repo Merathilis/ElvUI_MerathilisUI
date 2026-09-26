@@ -149,6 +149,17 @@ options.reset = {
 				end)
 			end,
 		},
+		battleRes = {
+			order = 12.5,
+			type = "execute",
+			name = L["Battle Res"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Battle Res"], nil, function()
+					E:CopyTable(E.db.mui.battleRes, P.battleRes)
+					MER:GetModule("MER_BattleRes"):ProfileUpdate()
+				end)
+			end,
+		},
 		buffReminder = {
 			order = 13,
 			type = "execute",
