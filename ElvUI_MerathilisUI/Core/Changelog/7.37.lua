@@ -37,5 +37,6 @@ MER.Changelog[737] = {
 		"[Core]: Removed unused internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets).",
 		"[Vehicle Bar]: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.",
 		"[Core]: Removed the unused legacy gradient color settings and color helpers.",
+		"[Core]: Uses ElvUI's animation library instead of a bundled copy.",
 	},
 }

@@ -30,3 +30,4 @@
 -   [Improvement]: Core: Removed unused internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets).
 -   [Improvement]: Vehicle Bar: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.
 -   [Improvement]: Core: Removed the unused legacy gradient color settings and color helpers.
+-   [Improvement]: Core: Uses ElvUI's animation library instead of a bundled copy.

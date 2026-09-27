@@ -26,6 +26,7 @@ local UnitAttackSpeed = UnitAttackSpeed
 local UnitEffectiveLevel = UnitEffectiveLevel
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local GetAchievementInfo = GetAchievementInfo
+local CreateAnimationGroup = CreateAnimationGroup -- ElvUI LibAnim
 
 local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
 local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
@@ -318,7 +319,7 @@ function module:SetupGrowAnimation(obj, hold)
 		return
 	end
 
-	obj.GrowIn = F.Animation.CreateAnimationGroup(obj)
+	obj.GrowIn = CreateAnimationGroup(obj)
 
 	obj.GrowIn.ResetGrow = obj.GrowIn:CreateAnimation("Width")
 	obj.GrowIn.ResetGrow:SetDuration(0)
@@ -354,7 +355,7 @@ function module:SetupFadeAnimation(obj, slot)
 		return
 	end
 
-	obj.FadeIn = F.Animation.CreateAnimationGroup(obj)
+	obj.FadeIn = CreateAnimationGroup(obj)
 
 	obj.FadeIn.ResetFade = obj.FadeIn:CreateAnimation("Fade")
 	obj.FadeIn.ResetFade:SetDuration(0)

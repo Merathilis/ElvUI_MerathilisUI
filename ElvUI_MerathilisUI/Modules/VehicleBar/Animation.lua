@@ -3,11 +3,9 @@ local module = MER:GetModule("MER_VehicleBar")
 
 local ipairs = ipairs
 
-function module:StopAllAnimations()
-	if self.bar.SlideIn and (self.bar.SlideIn.SlideIn:IsPlaying()) then
-		self.bar.SlideIn.SlideIn:Finish()
-	end
+local CreateAnimationGroup = CreateAnimationGroup -- ElvUI LibAnim
 
+function module:StopAllAnimations()
 	for _, button in ipairs(self.bar.buttons) do
 		if button.FadeIn and (button.FadeIn:IsPlaying()) then
 			button.FadeIn:Stop()
@@ -29,7 +27,7 @@ function module:SetupButtonAnim(button, index)
 	local iconFade = (1 * self.db.animationsMult)
 	local iconHold = (index * 0.10) * self.db.animationsMult
 
-	button.FadeIn = button.FadeIn or F.Animation.CreateAnimationGroup(button)
+	button.FadeIn = button.FadeIn or CreateAnimationGroup(button)
 
 	button.FadeIn.ResetFade = button.FadeIn.ResetFade or button.FadeIn:CreateAnimation("Fade")
 	button.FadeIn.ResetFade:SetDuration(0)
