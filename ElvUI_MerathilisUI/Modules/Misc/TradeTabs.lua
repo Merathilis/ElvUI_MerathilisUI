@@ -287,8 +287,11 @@ function handler:TRADE_SKILL_SHOW(event)
 	if C_AddOns_IsAddOnLoaded("TradeSkillDW") and owner == _G.ProfessionsFrame then
 		self:UnregisterEvent(event)
 	else
-		HandleTabs(owner)
-		UpdateSelectedTabs(owner)
+		-- Forever's ProfessionsFrame has its own profession tabs on the right edge
+		if not (E.Forever and owner == _G.ProfessionsFrame) then
+			HandleTabs(owner)
+			UpdateSelectedTabs(owner)
+		end
 		if not isLoaded then
 			FilterIcons()
 			isLoaded = true
