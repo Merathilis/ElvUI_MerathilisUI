@@ -13,6 +13,8 @@
 -   [Fix]: Armory/Equipment Manager: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.
 -   [Fix]: Resting Indicator: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.
 -   [Fix]: Gradient Theme: The saturation boost settings are now also used for frames without a fixed color.
+-   [Fix]: Armory: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.
+-   [Fix]: Core: Class gradient texts now fully reach their end color on the last letter.
 -   [New]: UnitFrames/NamePlates: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.
 -   [New]: Tracker: New module - a Battle Res tracker shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters, as an icon or as a compact text line. A Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again.
 -   [New]: Installer - new Modules step after UnitFrames, pick which MerathilisUI modules you want to use, applied on the reload at the end.

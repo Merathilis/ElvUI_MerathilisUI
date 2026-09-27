@@ -3,12 +3,14 @@ F.String = {}
 
 local error = error
 local floor = math.floor
-local type, tostring = type, tostring
+local max = math.max
+local tonumber, tostring, type = tonumber, tostring, type
 local char = string.char
 local format = string.format
 local gmatch = string.gmatch
 local gsub = string.gsub
 local strmatch = string.match
+local strtrim = strtrim
 local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower, string.utf8sub, string.utf8upper
 local concat = table.concat
 
@@ -47,33 +49,17 @@ function F.String.RGB(msg, colors)
 	end
 end
 
-do
-	local shortenReplace = function(t)
-		return t:utf8sub(1, 1) .. ". "
-	end
-end
-
-function F.String.Uppercase(text)
-	if type(text) ~= "string" then
-		return text
-	end
-	return utf8upper(text)
-end
-
-function F.String.Lowercase(text)
-	if type(text) ~= "string" then
-		return text
-	end
-	return utf8lower(text)
-end
-
+---"SOUL_SHARDS" -> "Soul Shards"
 function F.String.LowercaseEnum(text)
 	if type(text) ~= "string" then
 		return text
 	end
-	return strtrim(text):gsub("_", " "):gsub("(%a)([%w_']*)", function(a, b)
-		return F.String.Uppercase(a) .. F.String.Lowercase(b)
+
+	text = gsub(gsub(strtrim(text), "_", " "), "(%a)([%w_']*)", function(first, rest)
+		return utf8upper(first) .. utf8lower(rest)
 	end)
+
+	return text
 end
 
 function F.String.ColorFirstLetter(text)
@@ -84,126 +70,86 @@ function F.String.ColorFirstLetter(text)
 	return F.String.MERATHILISUI(utf8upper(utf8sub(text, 1, 1))) .. "|cfff5feff" .. utf8sub(text, 2) .. "|r"
 end
 
-function F.String.StripTexture(text)
-	if type(text) ~= "string" then
-		return text
-	end
-	return gsub(text, "(%s?)(|?)|[TA].-|[ta](%s?)", function(w, x, y)
-		if x == "" then
-			return (w ~= "" and w) or (y ~= "" and y) or ""
-		end
-	end)
+-- Removes |T...|t textures and |A...|a atlases, keeps escaped || pipes
+local function StripTexture(text)
+	return (
+		gsub(text, "(%s?)(|?)|[TA].-|[ta](%s?)", function(w, x, y)
+			if x == "" then
+				return (w ~= "" and w) or (y ~= "" and y) or ""
+			end
+		end)
+	)
 end
 
+---Remove color codes (|cAARRGGBB, |cn<name>: and |r), other escapes stay intact
 function F.String.StripColor(text)
 	if type(text) ~= "string" then
 		return text
 	end
 
-	-- Remove |c...|r format
-	text = text:gsub("|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
-	-- Remove |cn...: format
-	text = text:gsub("|cn.-:(.-)|r", "%1")
-	-- Remove any remaining |r
-	text = text:gsub("|r", "")
-	-- Remove any remaining |
-	text = text:gsub("|", "")
+	text = gsub(text, "|c%x%x%x%x%x%x%x%x", "")
+	text = gsub(text, "|cn[^:|]*:", "")
+	text = gsub(text, "|r", "")
 
 	return text
 end
 
+---Plain text: removes colors, textures, atlases and hyperlinks ([Item] stays)
 function F.String.Strip(text)
 	if type(text) ~= "string" then
 		return text
 	end
-	return F.String.StripColor(F.String.StripTexture(text))
+
+	text = gsub(text, "|H.-|h(.-)|h", "%1")
+	return F.String.StripColor(StripTexture(text))
 end
 
 function F.String.Muted(msg)
 	return F.String.Color(msg, I.Enum.Colors.MUTED)
 end
 
-function F.String.RemoveRuneOfThePrefix(text)
-	return text:gsub(".* the ", ""):gsub(".* of ", "")
-end
-
-function F.String.RemoveEveryOfTheAndEverythingAfter(text)
-	return text:gsub(" of (.*)", ""):gsub(" the (.*)", "")
-end
-
--- Capture the following strings
--- .+%s(.+)$
--- . represents all characters
--- + makes us capture 1 or more repetitions of the previous character/symbol will always match the longest possible part
--- %s represents all space characters
--- $ at the end makes the pattern match to the end of the string
--- Example: "Lightweave Embroidery" captures "Embroidery"
-function F.String.GetTheLastWordOfAString(text)
-	return strmatch(text, ".+%s(.+)$")
-end
-
--- Strips leading whitespace and punctuation (^[%s%p]*), e.g. "  (Rank" becomes "Rank"
-function F.String.RemoveAllWhitespaceCharacters(text)
-	return text:gsub("^[%s%p]*", "")
-end
-
--- Returns the first run of digits (%d+) or nil, used as a "contains a number" check
-function F.String.ContainsNumericalCharacters(text)
-	return strmatch(text, "%d+")
-end
-
--- Removes every non-digit character (%D+), so only the digits remain, e.g. "+10 Agi" becomes "10"
-function F.String.RemoveTheLongestNumericalChain(text)
-	return text:gsub("%D+", "")
-end
-
+---Abbreviate a name to initials plus its last word, e.g. "Lightweave Embroidery" -> "L. Embroidery"
 function F.String.Abbreviate(text)
 	if type(text) ~= "string" or E:IsSecretValue(text) or text == "" then
 		return text
 	end
 
-	-- if string has Rune at the start it is almost 100% a DK Rune and needs some different initial logic.
 	if strmatch(text, "^Rune") then
-		text = F.String.RemoveRuneOfThePrefix(text)
+		-- DK runes: "Rune of the Fallen Crusader" -> "Fallen Crusader"
+		text = gsub(gsub(text, ".* the ", ""), ".* of ", "")
 	else
-		text = F.String.RemoveEveryOfTheAndEverythingAfter(text)
+		-- Drop everything from " of " / " the " on
+		text = gsub(gsub(text, " of (.*)", ""), " the (.*)", "")
 	end
 
-	local removeWhitespace = F.String.RemoveAllWhitespaceCharacters
-	local containsNumerical = F.String.ContainsNumericalCharacters
-	local removeNumeric = F.String.RemoveTheLongestNumericalChain
-
-	local letters = {}
-	local lastWord = F.String.GetTheLastWordOfAString(text)
+	local lastWord = strmatch(text, ".+%s(.+)$")
 	if not lastWord then
 		return text
 	end
 
-	-- split the string on each space and loop through them
-	-- If we have a string that contains numbers we will add them differently to the stringbuilder
-	-- If we have an alphabetical word we check if the first letter is Uppercase, if this is the case add it to the resulting string with a . after it
-	-- Else we ignore the word
+	-- Every word before the last one: capitalized words become "X. ",
+	-- words containing digits keep only their digits ("+10" -> "10 "), the rest is dropped
+	local letters = {}
 	for word in gmatch(text, ".-%s") do
-		local firstLetter = removeWhitespace(word)
+		word = gsub(word, "^[%s%p]*", "")
 
-		if not containsNumerical(firstLetter) then
-			firstLetter = utf8sub(firstLetter, 1, 1)
+		if strmatch(word, "%d") then
+			letters[#letters + 1] = gsub(word, "%D+", "") .. " "
+		else
+			local firstLetter = utf8sub(word, 1, 1)
 			if firstLetter ~= utf8lower(firstLetter) then
 				letters[#letters + 1] = firstLetter .. ". "
 			end
-		else
-			firstLetter = removeNumeric(firstLetter)
-			letters[#letters + 1] = firstLetter .. " "
 		end
 	end
 
-	-- Combine the build string in the loop and the complete last word
 	return concat(letters) .. lastWord
 end
 
 function F.String.FastGradient(text, r1, g1, b1, r2, g2, b2)
 	local parts = {}
 	local len = utf8len(text)
+	local steps = max(len - 1, 1)
 	local idx = 0
 	local fastRGB = F.String.FastRGB
 	local fastColorGradient = F.FastColorGradient
@@ -214,7 +160,7 @@ function F.String.FastGradient(text, r1, g1, b1, r2, g2, b2)
 			parts[#parts + 1] = x
 			idx = idx + 1
 		else
-			local relperc = (idx / len)
+			local relperc = idx / steps
 
 			if not r2 then
 				parts[#parts + 1] = "|cff" .. fastRGB(r1, g1, b1) .. x .. "|r"
@@ -284,9 +230,7 @@ function F.String.GradientClass(text, class, reverse)
 end
 
 function F.String.Class(msg, class)
-	local finalClass = class or E.myclass
-
-	local color = E:ClassColor(finalClass, true)
+	local color = E:ClassColor(class or E.myclass, true) or E:ClassColor(E.myclass, true)
 	return F.String.Color(msg, F.String.FastRGB(color.r, color.g, color.b))
 end
 
