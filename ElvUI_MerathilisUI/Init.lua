@@ -236,11 +236,9 @@ function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
 	end
 
 	if _G.ElvDB then
-		if isInitialLogin or not _G.ElvDB.MER then
-			_G.ElvDB.MER = {
-				DisabledAddOns = {},
-			}
-		end
+		-- Keep the addons disabled by /muidebug across logins, /muidebug off needs them
+		_G.ElvDB.MER = _G.ElvDB.MER or {}
+		_G.ElvDB.MER.DisabledAddOns = _G.ElvDB.MER.DisabledAddOns or {}
 
 		if next(_G.ElvDB.MER.DisabledAddOns) then
 			E:Delay(4, self.PrintDebugEnviromentTip)

@@ -11,6 +11,7 @@ MER.Changelog[737] = {
 		"[Core]: Fixed Lua errors when MerathilisUI tried to report an internal problem (e.g. a missing media file, category icon or skin element).",
 		"[Core]: Class gradient texts now fully reach their end color on the last letter.",
 		"[Core]: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.",
+		"[Debug Mode]: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.",
 		"[Durability/ItemLevel Datatext]: Fixed Lua errors with low durability when the icon is colored or the colored thresholds are enabled.",
 		"[ElvUI AuraBars]: MerathilisUI no longer replaces ElvUI's name abbreviation, so the aura bars abbreviate spell names the ElvUI way again.",
 		"[Gradient Theme]: The saturation boost settings are now also used for frames without a fixed color.",

@@ -888,17 +888,6 @@ end
 MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
 MER.WoWBuild = tonumber(MER.WoWBuild)
 
-_G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
-SlashCmdList["WOWVERSION"] = function()
-	print(
-		"Patch:",
-		MER.WoWPatch .. ", " .. "Build:",
-		MER.WoWBuild .. ", " .. "Released",
-		MER.WoWPatchReleaseDate .. ", " .. "Interface:",
-		MER.TocVersion
-	)
-end
-
 -- Icon Style
 function F.PixelIcon(self, texture, highlight)
 	if not self then
