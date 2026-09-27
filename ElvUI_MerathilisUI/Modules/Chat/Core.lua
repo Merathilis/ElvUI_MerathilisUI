@@ -17,6 +17,11 @@ function module:Initialize()
 		return
 	end
 
+	-- ElvUI can fire chat hooks (e.g. PositionChats on login) before the delayed
+	-- DatabaseUpdate below, so the hooks need the db right away.
+	self.chatDB = E.db.mui.chat
+	self.db = self.chatDB.sidebar
+
 	-- Sidebar, resize grips, tabs and the edit box style live on ElvUI's chat; the
 	-- combat log style rides on ElvUI's skin and checks that itself.
 	if E.private.chat.enable then
