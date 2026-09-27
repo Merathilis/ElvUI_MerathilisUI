@@ -64,16 +64,8 @@ options.name = {
 			name = L["Support & Downloads"],
 			guiInline = true,
 			args = {
-				tukui = {
-					order = 1,
-					type = "execute",
-					name = L["Tukui"],
-					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://www.tukui.org/addons.php?id=1")
-					end,
-				},
 				curse = {
-					order = 2,
+					order = 1,
 					type = "execute",
 					name = L["CurseForge"],
 					func = function()
@@ -86,7 +78,7 @@ options.name = {
 					end,
 				},
 				development = {
-					order = 3,
+					order = 2,
 					type = "execute",
 					name = L["Development Version"],
 					desc = L["Here you can download the latest development version."],
@@ -100,17 +92,26 @@ options.name = {
 					end,
 				},
 				spacer = {
-					order = 4,
+					order = 3,
 					type = "description",
 					name = " ",
+				},
+				website = {
+					order = 4,
+					type = "execute",
+					name = L["Website"],
+					image = I.Media.Icons.Home,
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://merathilisui.com")
+					end,
 				},
 				discord = {
 					order = 5,
 					type = "execute",
-					name = L["Tukui Discord Server"],
+					name = L["MerathilisUI Discord"],
 					image = I.Media.Icons.Discord,
 					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/xFWcfgE")
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/28We6esE9v")
 					end,
 				},
 				git = {
@@ -147,8 +148,35 @@ options.name = {
 				},
 			},
 		},
-		testing = {
+		tukui = {
 			order = 2,
+			type = "group",
+			name = L["Tukui"],
+			guiInline = true,
+			args = {
+				tukui = {
+					order = 1,
+					type = "execute",
+					name = L["Tukui"],
+					image = I.General.MediaPath .. "Textures\\Tukui",
+					imageCoords = { 5 / 64, 59 / 64, 5 / 64, 59 / 64 },
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://tukui.org/")
+					end,
+				},
+				discord = {
+					order = 2,
+					type = "execute",
+					name = L["Tukui Discord Server"],
+					image = I.Media.Icons.Discord,
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/xFWcfgE")
+					end,
+				},
+			},
+		},
+		testing = {
+			order = 3,
 			type = "group",
 			name = L["Testing & Inspiration"],
 			guiInline = true,
@@ -164,7 +192,7 @@ options.name = {
 			},
 		},
 		donors = {
-			order = 3,
+			order = 4,
 			type = "group",
 			name = L["Donations"],
 			guiInline = true,

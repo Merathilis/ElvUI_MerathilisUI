@@ -50,6 +50,8 @@ L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"
 L["Tukui"] = true -- no need to translate
 L["Github"] = true -- no need to translate
+L["Website"] = "Webseite"
+L["MerathilisUI Discord"] = true -- no need to translate
 L["CurseForge"] = true -- no need to translate
 L["Coding"] = true -- no need to translate
 L["Testing & Inspiration"] = "Tester & Inspiration"
@@ -573,6 +575,12 @@ L["Plugins"] = "Plugins"
 L["This part of the installation process will apply changes to ElvUI Plugins"] =
 	"Dieser Teil des Installationsprozesses wird Änderungen an ElvUI Plugins anwenden."
 L["Important Plugins"] = "Wichtige Plugins"
+L["Interface"] = "Oberfläche"
+L["Combat"] = "Kampf"
+L["Quality of Life"] = "Komfort"
+L["Choose the modules you want to use. Changes are applied on the reload at the end of the installer and can be changed anytime in the options."] = "Wähle die Module aus, die Du nutzen möchtest. Die Änderungen werden beim Neuladen am Ende der Installation übernommen und können jederzeit in den Optionen geändert werden."
+L["You are now finished with the installation process."] = "Die Installation ist abgeschlossen."
+L["Features, the full changelog and downloads can be found on the website %s."] = "Alle Features, das komplette Changelog und Downloads findest Du auf der Webseite %s."
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =

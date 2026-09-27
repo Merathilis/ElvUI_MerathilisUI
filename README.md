@@ -9,9 +9,9 @@
 
 <br>
 
-![Image of MerathilsUI](https://i.imgur.com/NOIoOyl.jpeg)
+![MerathilisUI on Retail](https://raw.githubusercontent.com/Merathilis/ElvUI_MerathilisUI/development/.github/media/screenshot-retail.jpg)
 
-<p align="center"; style="color:red;font-size:8px">Image shows other AddOns and WeakAuras</p>
+<p align="center"; style="color:red;font-size:8px">Screenshot also shows other AddOns.</p>
 
 ---
 

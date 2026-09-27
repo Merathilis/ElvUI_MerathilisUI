@@ -376,6 +376,15 @@ function module:OptionsCallback()
 					E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/28We6esE9v")
 				end,
 			},
+			websiteButton = {
+				order = 6,
+				type = "execute",
+				name = L["|T" .. I.General.MediaPath .. "Icons\\Home.tga:18:18:0:0:64:64|t Website"],
+				customWidth = 140,
+				func = function()
+					E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://merathilisui.com")
+				end,
+			},
 		},
 	}
 
