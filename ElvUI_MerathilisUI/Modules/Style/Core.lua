@@ -132,7 +132,7 @@ local function ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNa
 	end
 
 	if not frame.CreateStyle then
-		WF.Developer.LogDebug("API functions not found!", "MERCreateStyle", true)
+		F.Developer.LogDebug("API functions not found!", "MERCreateStyle", true)
 		return
 	end
 

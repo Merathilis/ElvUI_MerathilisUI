@@ -154,8 +154,6 @@ L["Unknown or undiscovered currency ID."] = true
 L["You are close to the cap: %d / %d"] = true
 L["Title Font"] = true
 L["Text Font"] = true
-L["Debug Print"] = true
-L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] = true
 
 -- Actionbars
 L["Specialization Bar"] = true
@@ -1406,8 +1404,6 @@ L["Desaturate"] = true
 L["Greys out the icon while no charge is left."] = true
 L["Charges"] = true
 L["Recharge Time"] = true
-L["Debug Mode"] = true
-L["Shows the trackers everywhere with their real data instead of only in Mythic+ keys and raid encounters, and prints every change of the charges, the Sated lockout and the visibility state to the chat."] = true
 L["Bloodlust"] = true
 L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."] = true
 L["Show Sated"] = true

@@ -289,7 +289,7 @@ end
 -------------------------------------------------------------------------------
 function module:ShouldShowBloodlust()
 	local db = self.db.bloodlust
-	if not (self.testMode or self.db.debug) then
+	if not (self.testMode or self:IsDebug()) then
 		if self.satedAura then
 			-- The active lust is worth seeing even with the lockout itself hidden
 			if not db.showSated and not self.bloodlustFrame.buff:IsShown() then
@@ -347,11 +347,11 @@ end
 function module:DebugSated()
 	local aura = self.satedAura
 	if not aura then
-		self:DebugPrint("Sated: none")
+		self:Debug("Sated: none")
 		return
 	end
 
-	self:DebugPrint(
+	self:Debug(
 		format(
 			"Sated: spell %s, expirationTime %s, duration %s, auraInstanceID %s",
 			tostring(self.satedSpell),

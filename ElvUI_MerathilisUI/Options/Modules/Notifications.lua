@@ -204,12 +204,6 @@ options.Notification = {
 					type = "toggle",
 					name = L["Vignette Print"],
 				},
-				debugPrint = {
-					order = 3,
-					type = "toggle",
-					name = F.cOption(L["Debug Print"], "red"),
-					desc = L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"],
-				},
 				timeOut = {
 					order = 4,
 					type = "range",

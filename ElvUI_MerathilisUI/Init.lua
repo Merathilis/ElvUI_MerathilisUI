@@ -154,13 +154,13 @@ function MER:Initialize()
 	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
 
 	for _, module in self:IterateModules() do
-		WF.Developer.InjectLogger(module)
+		Engine[4].Developer.InjectLogger(module)
 	end
 
 	hooksecurefunc(MER, "NewModule", function(_, name)
 		local module = MER:GetModule(name, true)
 		if module then
-			WF.Developer.InjectLogger(module)
+			Engine[4].Developer.InjectLogger(module)
 		end
 	end)
 

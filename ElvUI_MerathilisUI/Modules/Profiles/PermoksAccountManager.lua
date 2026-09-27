@@ -14,7 +14,7 @@ end
 
 function module:ApplyPermoksAccountManagerProfile()
 	if not E:IsAddOnEnabled("PermoksAccountManager") then
-		WF.Developer.LogWarning("PermoksAccountManager is not enabled. Will not apply profile.")
+		F.Developer.LogWarning("PermoksAccountManager is not enabled. Will not apply profile.")
 		return
 	end
 

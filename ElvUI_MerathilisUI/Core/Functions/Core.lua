@@ -1135,7 +1135,7 @@ do
 	local protected_call = {}
 
 	function protected_call._error_handler(err)
-		WF.Developer.LogInfo(err)
+		F.Developer.LogInfo(err)
 	end
 
 	function protected_call._handle_result(success, ...)
@@ -1255,13 +1255,13 @@ function F:SecureHook(object, method, handler)
 		if object[method] then
 			hooksecurefunc(object, method, handler)
 		else
-			WF.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
+			F.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
 		end
 	else
 		if _G[method] then
 			hooksecurefunc(method, handler)
 		else
-			WF.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
+			F.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
 		end
 	end
 end

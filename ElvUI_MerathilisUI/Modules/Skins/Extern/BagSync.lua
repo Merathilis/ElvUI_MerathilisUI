@@ -11,7 +11,7 @@ local hooksecurefunc = hooksecurefunc
 
 local function SkinScrollBar(self)
 	if not self then
-		WF.Developer.ThrowError("scrollbar is nil")
+		F.Developer.ThrowError("scrollbar is nil")
 		return
 	end
 
@@ -20,7 +20,7 @@ end
 
 local function SkinInfoFrame(self)
 	if not self then
-		WF.Developer.ThrowError("frame is nil")
+		F.Developer.ThrowError("frame is nil")
 		return
 	end
 
@@ -32,7 +32,7 @@ end
 
 local function SkinSortOrder(self)
 	if not self.UpdateList then
-		WF.Developer.ThrowError("func is nil")
+		F.Developer.ThrowError("func is nil")
 		return
 	end
 

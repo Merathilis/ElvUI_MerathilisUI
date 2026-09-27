@@ -797,7 +797,6 @@ P.notification = {
 	vignette = {
 		enable = true,
 		print = true,
-		debugPrint = false,
 		timeOut = 20,
 		blacklist = {
 			[5485] = true,
@@ -1410,7 +1409,6 @@ P.buffReminder = {
 }
 
 P.tracker = {
-	debug = false,
 	battleRes = {
 		enable = false,
 		visibility = "MPLUS_AND_RAID", -- MPLUS_AND_RAID, MPLUS, RAID

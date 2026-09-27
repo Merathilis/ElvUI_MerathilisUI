@@ -41,9 +41,5 @@ G.advancedOptions = {
 
 G.developer = {
 	logLevel = 2,
-	tableAttributeDisplay = {
-		enable = false,
-		width = 1000,
-		height = 600,
-	},
+	channels = {},
 }

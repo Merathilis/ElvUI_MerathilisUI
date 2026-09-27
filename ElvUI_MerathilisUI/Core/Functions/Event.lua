@@ -56,7 +56,7 @@ do
 		if generator then
 			return generator(f, ...)
 		end
-		WF.Developer.ThrowError(
+		F.Developer.ThrowError(
 			"Closure generation does not support more than " .. (#closureGeneration - 1) .. " parameters"
 		)
 	end
@@ -98,7 +98,7 @@ do
 		if attribute == InsertEventAttribute then
 			local event = securecallfunction(unpack, value)
 			if type(event) ~= "string" then
-				return WF.Developer.ThrowError("'event' requires string type", event)
+				return F.Developer.ThrowError("'event' requires string type", event)
 			end
 			for _, callbackTable in pairs(callbackTables) do
 				if not callbackTable[event] then
@@ -130,14 +130,14 @@ do
 
 	function F.Event.RegisterCallback(event, func, owner, ...)
 		if type(event) ~= "string" then
-			return WF.Developer.ThrowError("RegisterCallback 'event' requires string type.", event)
+			return F.Developer.ThrowError("RegisterCallback 'event' requires string type.", event)
 		elseif type(func) ~= "function" then
-			return WF.Developer.ThrowError("RegisterCallback 'func' requires function type.", event)
+			return F.Developer.ThrowError("RegisterCallback 'func' requires function type.", event)
 		else
 			if owner == nil then
 				owner = F.Event.GenerateOwnerId()
 			elseif type(owner) == "number" then
-				return WF.Developer.ThrowError("RegisterCallback 'owner' as number is reserved internally.")
+				return F.Developer.ThrowError("RegisterCallback 'owner' as number is reserved internally.")
 			end
 		end
 
@@ -179,7 +179,7 @@ do
 
 	function F.Event.TriggerEvent(event, ...)
 		if type(event) ~= "string" then
-			return WF.Developer.ThrowError("TriggerEvent 'event' requires string type.", event)
+			return F.Developer.ThrowError("TriggerEvent 'event' requires string type.", event)
 		end
 
 		local closures = F.Event.GetCallbacksByEvent(callbackType.CLOSURE, event)
@@ -199,7 +199,7 @@ do
 		elseif value == 1 then
 			-- Unknown events (e.g. retail-only ones on Forever) would throw here
 			if not pcall(eventFrame.RegisterEvent, eventFrame, frameEvent) then
-				WF.Developer.LogDebug("RegisterFrameEvent: unknown event", frameEvent)
+				F.Developer.LogDebug("RegisterFrameEvent: unknown event", frameEvent)
 			end
 		end
 	end
@@ -252,9 +252,9 @@ do
 
 	function F.Event.UnregisterCallback(event, owner)
 		if type(event) ~= "string" then
-			WF.Developer.ThrowError("UnregisterCallback 'event' requires string type", event)
+			F.Developer.ThrowError("UnregisterCallback 'event' requires string type", event)
 		elseif owner == nil then
-			WF.Developer.ThrowError("UnregisterCallback 'owner' is required", owner)
+			F.Developer.ThrowError("UnregisterCallback 'owner' is required", owner)
 		end
 
 		for _, callbackTable in pairs(callbackTables) do

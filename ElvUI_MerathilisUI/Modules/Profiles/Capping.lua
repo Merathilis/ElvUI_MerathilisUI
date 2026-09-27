@@ -29,7 +29,7 @@ end
 
 function module:ApplyCappingProfile()
 	if not E:IsAddOnEnabled("Capping") then
-		WF.Developer.LogWarning("Capping is not enabled. Will not apply profile.")
+		F.Developer.LogWarning("Capping is not enabled. Will not apply profile.")
 		return
 	end
 

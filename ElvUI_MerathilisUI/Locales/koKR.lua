@@ -176,9 +176,6 @@ L["Unknown or undiscovered currency ID."] = true
 L["You are close to the cap: %d / %d"] = true
 L["Title Font"] = "제목 글꼴"
 L["Text Font"] = "텍스트 글꼴"
-L["Debug Print"] = "디버그 출력"
-L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] =
-	"이 옵션을 활성화하면 미니맵의 비넷 이름과 ID를 채팅으로 출력합니다"
 L["Credits"] = "제작진"
 
 -- Actionbars
@@ -1485,8 +1482,6 @@ L["Desaturate"] = true
 L["Greys out the icon while no charge is left."] = true
 L["Charges"] = true
 L["Recharge Time"] = true
-L["Debug Mode"] = true
-L["Shows the trackers everywhere with their real data instead of only in Mythic+ keys and raid encounters, and prints every change of the charges, the Sated lockout and the visibility state to the chat."] = true
 L["Bloodlust"] = true
 L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."] = true
 L["Show Sated"] = true

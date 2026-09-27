@@ -96,7 +96,7 @@ end)
 -- Register own Modules
 function MER:RegisterModule(name)
 	if not name then
-		WF.Developer.ThrowError("The name of module is required!")
+		F.Developer.ThrowError("The name of module is required!")
 		return
 	end
 
@@ -113,7 +113,7 @@ function MER:InitializeModules()
 		if module.Initialize then
 			local ok, err = pcall(module.Initialize, module)
 			if not ok then
-				WF.Developer.LogDebug(err)
+				F.Developer.LogDebug(err)
 			end
 		end
 	end

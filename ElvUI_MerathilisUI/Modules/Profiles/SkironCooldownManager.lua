@@ -16,7 +16,7 @@ end
 
 function module:ApplySkironCooldownManagerProfile()
 	if not E:IsAddOnEnabled("SkironCooldownManager") then
-		WF.Developer.LogWarning("SkironCooldownManager is not enabled. Will not apply profile.")
+		F.Developer.LogWarning("SkironCooldownManager is not enabled. Will not apply profile.")
 		return
 	end
 

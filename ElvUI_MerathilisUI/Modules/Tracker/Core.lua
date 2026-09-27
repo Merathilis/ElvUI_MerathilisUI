@@ -99,18 +99,12 @@ function module:CreateTrackerMover(frame, name, text, db)
 end
 
 -------------------------------------------------------------------------------
---  Debug
+--  Debug (/muidev debug Tracker)
 --  Shows the trackers everywhere with their real data and prints every change
 --  of that data and of the visibility state to the chat.
 -------------------------------------------------------------------------------
 function module:IsDebug()
-	return self.db and self.db.debug
-end
-
-function module:DebugPrint(...)
-	if self:IsDebug() then
-		F.Print("|cff00c0fa[Tracker]|r", ...)
-	end
+	return F.Developer.IsDebugging("Tracker")
 end
 
 function module:DebugState(reason)
@@ -119,7 +113,7 @@ function module:DebugState(reason)
 	end
 
 	local _, instanceType, difficultyID = GetInstanceInfo()
-	self:DebugPrint(
+	self:Debug(
 		format(
 			"%s: instance %s (difficulty %s), keystone %s, raid encounter %s, battle res shown %s, bloodlust shown %s",
 			reason,
@@ -148,7 +142,7 @@ function module:ShouldShowTracker(db)
 		return false
 	end
 
-	if self.testMode or self.db.debug then
+	if self.testMode or self:IsDebug() then
 		return true
 	end
 
@@ -317,6 +311,14 @@ function module:Initialize()
 	if self:IsAnyTrackerEnabled() then
 		self:EnableTrackers()
 	end
+
+	-- Debug mode changes the visibility, so re-evaluate when a channel is toggled
+	F.Event.RegisterCallback("MER.DebugChannelChanged", function()
+		if self:IsAnyTrackerEnabled() then
+			self.lastDebugLine = nil
+			self:UpdateVisibility("Debug toggled")
+		end
+	end, self)
 end
 
 function module:ProfileUpdate()

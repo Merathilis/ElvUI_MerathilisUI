@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Misc") ---@class Misc
 
 function module:Scale()
 	if not E.db and not E.db.mui then
-		WF.Developer.LogDebug("Scaling >> Database not found. Scalling is not loaded!")
+		F.Developer.LogDebug("Scaling >> Database not found. Scalling is not loaded!")
 		return
 	end
 

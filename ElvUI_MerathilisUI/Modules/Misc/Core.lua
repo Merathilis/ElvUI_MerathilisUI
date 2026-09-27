@@ -57,7 +57,7 @@ end
 ---@param object function[] Array of callback functions
 function module:CallLoadedAddon(addonName, object)
 	for _, func in next, object do
-		xpcall(func, WF.Developer.LogDebug, self)
+		xpcall(func, F.Developer.LogDebug, self)
 	end
 
 	self.addonsToLoad[addonName] = nil

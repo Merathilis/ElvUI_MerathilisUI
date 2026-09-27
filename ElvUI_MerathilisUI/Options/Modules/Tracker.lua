@@ -166,13 +166,6 @@ options.tracker = {
 				TR:ToggleTestMode()
 			end,
 		},
-		debug = {
-			order = 3,
-			type = "toggle",
-			name = L["Debug Mode"],
-			desc = L["Shows the trackers everywhere with their real data instead of only in Mythic+ keys and raid encounters, and prints every change of the charges, the Sated lockout and the visibility state to the chat."],
-			disabled = NothingEnabled,
-		},
 		battleRes = {
 			order = 10,
 			type = "group",

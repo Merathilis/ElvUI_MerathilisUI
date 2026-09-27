@@ -106,7 +106,7 @@ end
 
 function module:ApplyLSProfile()
 	if not E:IsAddOnEnabled("ls_Toasts") then
-		WF.Developer.LogWarning("ls_Toasts is not enabled. Will not apply profile.")
+		F.Developer.LogWarning("ls_Toasts is not enabled. Will not apply profile.")
 		return
 	end
 

@@ -7,7 +7,7 @@ function module:SetElementScale(dbName, blizzName)
 	local option = E.db.mui.scale[dbName]
 
 	if not option then
-		WF.Developer.LogDebug("AdditionalScaling > option " .. dbName .. " not found, skipping scaling!")
+		F.Developer.LogDebug("AdditionalScaling > option " .. dbName .. " not found, skipping scaling!")
 		return
 	end
 

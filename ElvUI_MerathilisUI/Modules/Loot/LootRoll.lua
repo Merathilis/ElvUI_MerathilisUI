@@ -766,14 +766,14 @@ function module:Test()
 	for i, bar in ipairs(module.testBars) do
 		PopulateTestBar(bar, testItems[i])
 
-		if module.debug then
+		if F.Developer.IsDebugging("LootRoll") then
 			for _, key in ipairs({ "need", "greed", "disenchant", "transmog", "pass" }) do
 				local bu = bar[key]
 				local tex = bu.normalTex
 				local w, h = bu:GetSize()
-				print(
+				module:Debug(
 					format(
-						"|cff33ff99[MLR]|r #%d %s: shown=%s enabled=%s size=%.0fx%.0f alpha=%.2f texture=%s",
+						"#%d %s: shown=%s enabled=%s size=%.0fx%.0f alpha=%.2f texture=%s",
 						i,
 						key,
 						tostring(bu:IsShown()),
@@ -791,11 +791,6 @@ end
 
 MER:AddCommand("MLR", "/mlr", function()
 	module:Test()
-end)
-
-MER:AddCommand("MLRDEBUG", "/mlrdebug", function()
-	module.debug = not module.debug
-	print("|cff33ff99[MLR]|r debug: " .. tostring(module.debug))
 end)
 
 --------------------------------------------------------------------

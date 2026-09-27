@@ -174,9 +174,6 @@ L["Unknown or undiscovered currency ID."] = "Unbekannte oder noch nicht entdeckt
 L["You are close to the cap: %d / %d"] = "Du näherst dich der Kappe: %d / %d"
 L["Title Font"] = "Titel Schriftart"
 L["Text Font"] = "Text Schriftart"
-L["Debug Print"] = "Debuggausgabe"
-L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] =
-	"Aktiviere diese Option um eine Chatausgabe vom Namen und ID von den Vignetten auf der Minikarte zu erhalten."
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
@@ -1168,8 +1165,6 @@ L["Desaturate"] = "Entsättigen"
 L["Greys out the icon while no charge is left."] = "Färbt das Symbol grau, solange keine Aufladung übrig ist."
 L["Charges"] = "Aufladungen"
 L["Recharge Time"] = "Aufladezeit"
-L["Debug Mode"] = "Debug-Modus"
-L["Shows the trackers everywhere with their real data instead of only in Mythic+ keys and raid encounters, and prints every change of the charges, the Sated lockout and the visibility state to the chat."] = "Zeigt die Tracker überall mit ihren echten Daten statt nur in Mythisch+-Schlüsseln und Schlachtzugsbegegnungen und schreibt jede Änderung der Aufladungen, der Sättigung und der Sichtbarkeit in den Chat."
 L["Bloodlust"] = "Kampfrausch"
 L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."] = "Der Kampfrausch-Tracker zeigt deine Sättigung, den aktiven Kampfrausch und auf Wunsch, wann ein Kampfrausch wieder bereit ist."
 L["Show Sated"] = "Sättigung anzeigen"
