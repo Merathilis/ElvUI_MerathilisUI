@@ -14,6 +14,8 @@ MER.Changelog[737] = {
 		"[Commands]: The hints of /mer (usage, missing MerathilisUI profile) are shown again, they were hidden behind a WindTools log setting.",
 		"[UnitFrames]: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.",
 		"[Armory/Equipment Manager]: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.",
+		"[Resting Indicator]: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.",
+		"[Gradient Theme]: The saturation boost settings are now also used for frames without a fixed color.",
 	},
 	NEW = {
 		"[UnitFrames/NamePlates]: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.",
@@ -28,5 +30,7 @@ MER.Changelog[737] = {
 		"[Core]: Removed a lot of unused internal functions and an unused interrupt check that ran on every spec, level and zone change.",
 		"[Core]: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.",
 		"[Core]: Removed unused internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets).",
+		"[Vehicle Bar]: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.",
+		"[Core]: Removed the unused legacy gradient color settings and color helpers.",
 	},
 }

@@ -250,11 +250,6 @@ options.unitframes = {
 									type = "toggle",
 									name = L["Enable"],
 								},
-								customClassColor = {
-									order = 2,
-									type = "toggle",
-									name = L["Custom Gradient Color"],
-								},
 							},
 						},
 					},

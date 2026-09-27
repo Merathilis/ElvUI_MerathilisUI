@@ -32,11 +32,7 @@ local function GradientBars()
 						if row.minha_tabela and row.minha_tabela.name then
 							local class = row.minha_tabela:class()
 							if classes[class] then
-								if E.db.mui.gradient.customColor.enableClass then
-									row.textura:SetGradient("Horizontal", F.GradientColorsDetailsCustom(class))
-								else
-									row.textura:SetGradient("Horizontal", F.GradientColorsDetails(class))
-								end
+								row.textura:SetGradient("Horizontal", F.GradientColorsDetails(class))
 							else
 								row.textura:SetGradient(
 									"Horizontal",

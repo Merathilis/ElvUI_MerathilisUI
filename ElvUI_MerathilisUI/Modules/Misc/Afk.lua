@@ -192,9 +192,6 @@ function module:AFK()
 		return
 	end
 
-	local _, classunit = UnitClass("player")
-	local colorDB = E.db.mui.gradient
-
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel
 	AFK.AFKMode.bottom.LogoTop:Hide()
@@ -247,26 +244,16 @@ function module:AFK()
 	AFK.AFKMode.PlayerName:FontTemplate(nil, 24, "SHADOWOUTLINE")
 
 	local coloredClass
-	if colorDB.enable then
-		if colorDB.customColor.enableClass then
-			AFK.AFKMode.PlayerName:SetText(F.GradientNameCustom(E.myname, classunit))
-			coloredClass = F.GradientNameCustom(E.myLocalizedClass:gsub("%-.+", "*"), classunit)
-		else
-			AFK.AFKMode.PlayerName:SetText(F.GradientName(E.myname, classunit))
-			coloredClass = F.GradientName(E.myLocalizedClass:gsub("%-.+", "*"), classunit)
-		end
-	else
-		AFK.AFKMode.PlayerName:SetText(E.myname)
-		AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
+	AFK.AFKMode.PlayerName:SetText(E.myname)
+	AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
 
-		local color = E:ClassColor(E.myclass)
-		coloredClass = ("|cff%02x%02x%02x%s"):format(
-			color.r * 255,
-			color.g * 255,
-			color.b * 255,
-			E.myLocalizedClass:gsub("%-.+", "*")
-		)
-	end
+	local color = E:ClassColor(E.myclass)
+	coloredClass = ("|cff%02x%02x%02x%s"):format(
+		color.r * 255,
+		color.g * 255,
+		color.b * 255,
+		E.myLocalizedClass:gsub("%-.+", "*")
+	)
 
 	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
 	AFK.AFKMode.Guild:Point("LEFT", AFK.AFKMode.Panel, "LEFT", 5, 0)

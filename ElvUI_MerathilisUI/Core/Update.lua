@@ -73,6 +73,17 @@ function MER:UpdateScripts()
 		UpdateMessage(L["Location Panel"] .. ": " .. L["Update Database"], profileVersion)
 	end
 
+	if profileVersion < 7.37 then
+		-- The legacy gradient colors and the resting indicator custom gradient were removed
+		if E.db.mui then
+			E.db.mui.gradient = nil
+
+			if E.db.mui.unitframes and E.db.mui.unitframes.restingIndicator then
+				E.db.mui.unitframes.restingIndicator.customClassColor = nil
+			end
+		end
+	end
+
 	if not isFirstLine then
 		WF.PrintGradientLine()
 	end
