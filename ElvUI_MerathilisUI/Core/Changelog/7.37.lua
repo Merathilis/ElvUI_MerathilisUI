@@ -27,6 +27,7 @@ MER.Changelog[737] = {
 		'[Portal Flyout]: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.',
 		"[Profiles]: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.",
 		"[Resting Indicator]: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.",
+		"[Tags]: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.",
 		"[UnitFrames]: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.",
 		"[Vehicle Bar]: Changed settings apply right away again instead of only after a reload.",
 	},
