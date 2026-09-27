@@ -1,7 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local PI = E:GetModule("PluginInstaller")
-local CH = E:GetModule("Chat")
 local PF = MER:GetModule("MER_Profiles")
+local CH = E:GetModule("Chat")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local ipairs, next = ipairs, next
@@ -2480,7 +2481,6 @@ local function ModuleToggle_OnClick(check)
 end
 
 local function CreateModuleToggles()
-	local S = E:GetModule("Skins")
 	local container = CreateFrame("Frame", nil, PluginInstallFrame)
 	local columnWidth = 260
 	container:SetSize(columnWidth * #moduleToggles - 80, 210)
