@@ -50,6 +50,7 @@ L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"
 L["Tukui"] = true -- no need to translate
 L["Github"] = true -- no need to translate
+L["Website"] = "Webseite"
 L["CurseForge"] = true -- no need to translate
 L["Coding"] = true -- no need to translate
 L["Testing & Inspiration"] = "Tester & Inspiration"

@@ -104,8 +104,17 @@ options.name = {
 					type = "description",
 					name = " ",
 				},
-				discord = {
+				website = {
 					order = 5,
+					type = "execute",
+					name = L["Website"],
+					image = I.Media.Icons.Home,
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://merathilisui.com")
+					end,
+				},
+				discord = {
+					order = 6,
 					type = "execute",
 					name = L["Tukui Discord Server"],
 					image = I.Media.Icons.Discord,
@@ -114,7 +123,7 @@ options.name = {
 					end,
 				},
 				git = {
-					order = 6,
+					order = 7,
 					type = "execute",
 					name = L["Github"],
 					image = I.Media.Icons.Github,
@@ -128,12 +137,12 @@ options.name = {
 					end,
 				},
 				spacer1 = {
-					order = 7,
+					order = 8,
 					type = "description",
 					name = " ",
 				},
 				debugModeTip = {
-					order = 8,
+					order = 9,
 					type = "description",
 					fontSize = "medium",
 					name = newSignIgnored

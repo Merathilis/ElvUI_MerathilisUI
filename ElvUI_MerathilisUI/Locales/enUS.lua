@@ -51,6 +51,7 @@ L["Information"] = true
 L["Support & Downloads"] = true
 L["Tukui"] = true
 L["Github"] = true
+L["Website"] = true
 L["CurseForge"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
