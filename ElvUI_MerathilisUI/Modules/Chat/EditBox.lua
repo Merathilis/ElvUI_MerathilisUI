@@ -181,10 +181,21 @@ local function CreateOverlay(editbox)
 	return overlay
 end
 
-local function CopyFontString(copy, source)
+-- Dark text drops the outline and shadow: a black outline around black text
+-- turns the label into an unreadable blob (Whisper's pink badge).
+local function CopyFontString(copy, source, darkText)
 	local font, size, flags = source:GetFont()
 	if font then
+		if darkText and flags then
+			flags = flags:gsub("THICKOUTLINE", ""):gsub("OUTLINE", ""):gsub("^[,%s]+", ""):gsub("[,%s]+$", "")
+		end
 		copy:SetFont(font, size, flags)
+	end
+	if darkText then
+		copy:SetShadowOffset(0, 0)
+	else
+		copy:SetShadowOffset(source:GetShadowOffset())
+		copy:SetShadowColor(source:GetShadowColor())
 	end
 	copy:SetText(source:GetText())
 end
@@ -274,8 +285,9 @@ function module:StyleEditBox(editbox, fromHeader)
 		badge:SetVertexColor(r, g, b, BADGE_ALPHA)
 
 		local tr, tg, tb = GetBadgeTextColor(r, g, b)
+		local darkText = tr < 0.5
 
-		CopyFontString(label, header)
+		CopyFontString(label, header, darkText)
 		label:ClearAllPoints()
 		label:SetPoint("LEFT", header, "LEFT")
 		label:SetPoint("RIGHT", header, "RIGHT")
@@ -283,7 +295,7 @@ function module:StyleEditBox(editbox, fromHeader)
 		header:SetAlpha(0)
 
 		if suffixShown then
-			CopyFontString(suffixLabel, suffix)
+			CopyFontString(suffixLabel, suffix, darkText)
 			suffixLabel:ClearAllPoints()
 			suffixLabel:SetPoint("LEFT", suffix, "LEFT")
 			suffixLabel:SetTextColor(tr, tg, tb)
