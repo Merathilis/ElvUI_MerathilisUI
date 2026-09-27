@@ -5,6 +5,7 @@ MER.Changelog[737] = {
 	FIXES = {
 		'[Armory]: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.',
 		"[Armory/Equipment Manager]: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.",
+		"[Changelog]: /mer changelog and the chat link open the changelog page again instead of only the options start page.",
 		"[Chat Edit Box]: The chat type badge text was unreadable on bright chat colors like Whisper or Say, because the dark text kept a black outline.",
 		"[Commands]: The hints of /mer (usage, missing MerathilisUI profile) are shown again, they were hidden behind a WindTools log setting.",
 		'[Core]: Fixed possible Lua errors in combat ("secret value") in color comparisons, color gradients and name abbreviations.',

@@ -129,7 +129,7 @@ function MER:HandleChatCommand(msg)
 	if not category then
 		E:ToggleOptions("mui")
 	elseif category == "changelog" or category == "cl" then
-		E:ToggleOptions("mui,changelog")
+		self:OpenChangelog()
 	elseif category == "settings" then
 		E:ToggleOptions("mui")
 	elseif category == "status" or category == "info" then

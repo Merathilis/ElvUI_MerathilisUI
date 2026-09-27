@@ -31,22 +31,17 @@ if not E.Retail then
 	E:StaticPopup_Show("WRONGWOWVERSION")
 end
 
--- this needs to be available early (don't put it in Staticpopups.lua)
-E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
-	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),
-	button1 = L["Open Changelog"],
-	button2 = _G.CANCEL,
-	OnAccept = function()
-		E:ToggleOptions("mui,changelog")
-	end,
-	hideOnEscape = 1,
-}
+function MER:OpenChangelog()
+	E:ToggleOptions("mui,information,changelog")
+end
 
 -- Clickable chat links, built with MER.CreateLink("feature", "text", args...).
 -- Blizzard's "addon" link type is handled by LinkUtil and forwarded as the
 -- "SetItemRef" EventRegistry event, so it never falls through to ItemRefTooltip.
 MER.LinkOperations = {
-	["changelog"] = E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG.OnAccept,
+	["changelog"] = function()
+		MER:OpenChangelog()
+	end,
 }
 
 local LINK_PREFIX = "addon:MerathilisUI:"
