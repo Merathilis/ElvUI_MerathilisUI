@@ -1,5 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local S = E:GetModule("Skins")
+local WS = W:GetModule("Skins")
 
 local _G = _G
 local date = date
@@ -362,6 +363,7 @@ local function CreateLogFrame()
 	frame:SetScript("OnDragStart", frame.StartMoving)
 	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 	frame:SetClampedToScreen(true)
+	WS:CreateShadow(frame)
 	tinsert(_G.UISpecialFrames, frame:GetName())
 
 	frame.Header = frame:CreateFontString(nil, "OVERLAY")
