@@ -1,8 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
-V.general = {
-	install_complete = nil,
-}
+-- install_complete (MerathilisUI version) is written by the installer
+V.general = {}
 
 V.skins = {
 	enable = true,
@@ -83,11 +82,5 @@ V.skins = {
 			[4] = { width = 340, height = 144 },
 			[5] = { width = 340, height = 144 },
 		},
-	},
-
-	actionStatus = {
-		name = E.db.general.font,
-		size = 15,
-		style = "SHADOWOUTLINE",
 	},
 }

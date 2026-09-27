@@ -2,7 +2,6 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local Skins = MER:GetModule("MER_Skins") ---@type Skins
 local C = W.Utilities.Color
-local LSM = E.LSM
 
 local options = module.options.skins.args
 
@@ -84,50 +83,6 @@ options.general = {
 					type = "toggle",
 					name = L["Screen Shadow Overlay"],
 					desc = L["Enables/Disables a shadow overlay to darken the screen."],
-				},
-			},
-		},
-	},
-}
-
-options.font = {
-	order = 2,
-	type = "group",
-	name = L["Fonts"],
-	args = {
-		actionStatus = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Action Status"],
-			get = function(info)
-				return E.private.mui.skins.actionStatus[info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.actionStatus[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			args = {
-				name = {
-					order = 1,
-					type = "select",
-					dialogControl = "LSM30_Font",
-					name = L["Font"],
-					values = LSM:HashTable("font"),
-				},
-				style = {
-					order = 2,
-					type = "select",
-					name = L["Outline"],
-					values = MER.Values.FontFlags,
-				},
-				size = {
-					order = 3,
-					name = L["Size"],
-					type = "range",
-					min = 5,
-					max = 60,
-					step = 1,
 				},
 			},
 		},

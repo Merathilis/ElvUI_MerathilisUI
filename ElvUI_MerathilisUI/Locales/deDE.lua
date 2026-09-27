@@ -606,7 +606,6 @@ L["Right Color"] = "Rechte Farbe"
 
 L["The options below is only for the Details look, NOT the Embeded."] =
 	"Die nachfolgende Option ist nur für das Aussehen von Details, NICHT die Einbettung."
-L["Action Status"] = "Aktionsstatus"
 L["Embed Settings"] = "Einbettungseinstellungen"
 L["With this option you can embed your Details into an own Panel."] =
 	"Mit dieser Option kannst Du Dein Details in ein eigenes Panel einbetten."

@@ -341,7 +341,6 @@ L["%s is not loaded."] = true
 L["Left Color"] = true
 L["Right Color"] = true
 L["The options below is only for the Details look, NOT the Embeded."] = true
-L["Action Status"] = true
 L["Embed Settings"] = true
 L["With this option you can embed your Details into an own Panel."] = true
 L["Number of Windows"] = true

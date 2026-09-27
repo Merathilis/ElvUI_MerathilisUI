@@ -421,7 +421,6 @@ L["Left Color"] = "왼쪽 색상"
 L["Right Color"] = "오른쪽 색상"
 L["The options below is only for the Details look, NOT the Embeded."] =
 	"아래 옵션은 'Details' 외형용이며, 내장 모드가 아닙니다"
-L["Action Status"] = "행동 상태"
 L["Embed Settings"] = "내장 설정"
 L["With this option you can embed your Details into an own Panel."] =
 	"이 옵션으로 'Details' 애드온을 별도 패널에 내장할 수 있습니다"
