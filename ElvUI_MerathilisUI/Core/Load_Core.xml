@@ -6,7 +6,6 @@
 	<Script file="Requirements.lua"/>
 
 	<Script file="Core.lua"/>
-	<Script file="Constants.lua"/>
 	<Script file="Commands.lua"/>
 	<Script file="Install.lua"/>
 	<Script file="LoginLogo.lua"/>
