@@ -6,13 +6,16 @@ MER.Changelog[737] = {
 		'[Movement Alert]: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell\'s cooldown is restricted.',
 		"[ItemLevel/Pet Filter Tab]: The item level on the Scrapping Machine and the pet filter tab in the Collections window could fail to appear, because both loaded through the same event handler.",
 		"[Chat Edit Box]: The chat type badge text was unreadable on bright chat colors like Whisper or Say, because the dark text kept a black outline.",
+		"[Installer]: The color preview of the UnitFrames step stuck to other steps, and the step buttons cut off longer labels. Closing the installer no longer leaves MerathilisUI changes behind for the next plugin installer.",
 	},
 	NEW = {
 		"[UnitFrames/NamePlates]: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.",
 		"[Tracker]: New module - a Battle Res tracker shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters, as an icon or as a compact text line. A Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again.",
+		"[Installer]: New Modules step after UnitFrames - pick which MerathilisUI modules you want to use, applied on the reload at the end.",
 	},
 	IMPROVEMENTS = {
 		"[Login Logo]: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.",
 		"[Information]: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.",
+		"[Installer]: The final step now points to the MerathilisUI website, with a Website button next to Discord.",
 	},
 }
