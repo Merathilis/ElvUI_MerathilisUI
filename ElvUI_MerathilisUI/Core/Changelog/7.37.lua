@@ -18,6 +18,9 @@ MER.Changelog[737] = {
 		"[Gradient Theme]: The saturation boost settings are now also used for frames without a fixed color.",
 		'[Armory]: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.',
 		"[Core]: Class gradient texts now fully reach their end color on the last letter.",
+		"[Vehicle Bar]: Changed settings apply right away again instead of only after a reload.",
+		"[Gradient Theme]: The gradient previews in the options update again when colors are changed.",
+		"[Core]: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.",
 	},
 	NEW = {
 		"[UnitFrames/NamePlates]: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.",

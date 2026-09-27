@@ -1001,7 +1001,6 @@ function module:Initialize()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("MinimapButtons.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("MinimapButtons.SettingsUpdate", self.SettingsUpdate, self)
 
 	self.Initialized = true

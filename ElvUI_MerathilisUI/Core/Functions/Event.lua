@@ -66,21 +66,16 @@ function F.Event.RunNextFrame(callback, delay)
 	C_Timer_After(delay or 0, callback)
 end
 
-function F.Event.CreateCounter(initialCount)
-	local count = initialCount or 0
-	local counter = function()
+do
+	local count = 0
+	local function counter()
 		count = count + 1
 		return count
 	end
-	return function()
-		return securecallfunction(counter)
-	end
-end
 
-do
-	local generateOwnerIdCounter = F.Event.CreateCounter()
+	-- Numeric owner ids are reserved for callbacks registered without an owner
 	function F.Event.GenerateOwnerId()
-		return generateOwnerIdCounter()
+		return securecallfunction(counter)
 	end
 end
 
@@ -108,11 +103,11 @@ do
 		end
 	end)
 
-	function F.Event.GetCallbacksByEvent(callType, event)
+	local function GetCallbacksByEvent(callType, event)
 		return callbackTables[callType][event]
 	end
 
-	function F.Event.HasRegistrantsForEvent(event)
+	local function HasRegistrantsForEvent(event)
 		for _, callbackTable in pairs(callbackTables) do
 			local callbacks = callbackTable[event]
 			if callbacks and securecallfunction(next, callbacks) then
@@ -122,8 +117,18 @@ do
 		return false
 	end
 
-	function F.Event.SecureInsertEvent(event)
-		if not F.Event.HasRegistrantsForEvent(event) then
+	local function HasCallback(event, owner)
+		for _, callbackTable in pairs(callbackTables) do
+			local callbacks = callbackTable[event]
+			if callbacks and callbacks[owner] then
+				return true
+			end
+		end
+		return false
+	end
+
+	local function SecureInsertEvent(event)
+		if not HasRegistrantsForEvent(event) then
 			attributeDelegate:SetAttribute(InsertEventAttribute, { event })
 		end
 	end
@@ -141,7 +146,7 @@ do
 			end
 		end
 
-		F.Event.SecureInsertEvent(event)
+		SecureInsertEvent(event)
 
 		for _, callbackTable in pairs(callbackTables) do
 			local callbacks = callbackTable[event]
@@ -150,10 +155,10 @@ do
 
 		local count = select("#", ...)
 		if count > 0 then
-			local callbacks = F.Event.GetCallbacksByEvent(callbackType.CLOSURE, event)
+			local callbacks = GetCallbacksByEvent(callbackType.CLOSURE, event)
 			callbacks[owner] = F.Event.GenerateClosure(func, owner, ...)
 		else
-			local callbacks = F.Event.GetCallbacksByEvent(callbackType.FUNCTION, event)
+			local callbacks = GetCallbacksByEvent(callbackType.FUNCTION, event)
 			callbacks[owner] = func
 		end
 
@@ -182,18 +187,18 @@ do
 			return F.Developer.ThrowError("TriggerEvent 'event' requires string type.", event)
 		end
 
-		local closures = F.Event.GetCallbacksByEvent(callbackType.CLOSURE, event)
+		local closures = GetCallbacksByEvent(callbackType.CLOSURE, event)
 		if closures and next(closures) then
 			secureexecuterange(copyCallbacks(closures), CallbackRegistryExecuteClosurePair, ...)
 		end
 
-		local funcs = F.Event.GetCallbacksByEvent(callbackType.FUNCTION, event)
+		local funcs = GetCallbacksByEvent(callbackType.FUNCTION, event)
 		if funcs and next(funcs) then
 			secureexecuterange(copyCallbacks(funcs), CallbackRegistryExecuteOwnerPair, ...)
 		end
 	end
 
-	function F.Event.OnAttributeChanged(_, frameEvent, value)
+	eventFrame:SetScript("OnAttributeChanged", function(_, frameEvent, value)
 		if value == 0 then
 			eventFrame:UnregisterEvent(frameEvent)
 		elseif value == 1 then
@@ -202,7 +207,7 @@ do
 				F.Developer.LogDebug("RegisterFrameEvent: unknown event", frameEvent)
 			end
 		end
-	end
+	end)
 
 	function F.Event.RegisterFrameEvent(frameEvent)
 		eventFrame:SetAttribute(frameEvent, (eventFrame:GetAttribute(frameEvent) or 0) + 1)
@@ -215,9 +220,12 @@ do
 		end
 	end
 
-	function F.Event.RegisterFrameEventAndCallback(frameEvent, ...)
-		F.Event.RegisterFrameEvent(frameEvent)
-		return F.Event.RegisterCallback(frameEvent, ...)
+	-- The frame event is counted once per owner, so re-registering an owner does not leak a count
+	function F.Event.RegisterFrameEventAndCallback(frameEvent, func, owner, ...)
+		if owner == nil or not HasCallback(frameEvent, owner) then
+			F.Event.RegisterFrameEvent(frameEvent)
+		end
+		return F.Event.RegisterCallback(frameEvent, func, owner, ...)
 	end
 
 	local function createCallbackHandle(event, owner)
@@ -252,9 +260,9 @@ do
 
 	function F.Event.UnregisterCallback(event, owner)
 		if type(event) ~= "string" then
-			F.Developer.ThrowError("UnregisterCallback 'event' requires string type", event)
+			return F.Developer.ThrowError("UnregisterCallback 'event' requires string type", event)
 		elseif owner == nil then
-			F.Developer.ThrowError("UnregisterCallback 'owner' is required", owner)
+			return F.Developer.ThrowError("UnregisterCallback 'owner' is required")
 		end
 
 		for _, callbackTable in pairs(callbackTables) do
@@ -265,9 +273,12 @@ do
 		end
 	end
 
-	function F.Event.UnregisterFrameEventAndCallback(frameEvent, ...)
-		F.Event.UnregisterFrameEvent(frameEvent)
-		F.Event.UnregisterCallback(frameEvent, ...)
+	-- Only releases the frame event if this owner actually registered it
+	function F.Event.UnregisterFrameEventAndCallback(frameEvent, owner)
+		if owner ~= nil and HasCallback(frameEvent, owner) then
+			F.Event.UnregisterFrameEvent(frameEvent)
+		end
+		F.Event.UnregisterCallback(frameEvent, owner)
 	end
 
 	function F.Event.RegisterOnceCallback(frameEvent, callback)
@@ -398,7 +409,6 @@ do
 		end
 	end
 
-	eventFrame:SetScript("OnAttributeChanged", F.Event.OnAttributeChanged)
 	eventFrame:SetScript("OnEvent", function(_, event, ...)
 		F.Event.TriggerEvent(event, ...)
 	end)

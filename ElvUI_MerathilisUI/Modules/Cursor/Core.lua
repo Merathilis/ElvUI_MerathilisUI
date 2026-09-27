@@ -503,7 +503,6 @@ function module:Initialize()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("Cursor.DatabaseUpdate", self.DatabaseUpdate, self)
 
 	self.Initialized = true
 end

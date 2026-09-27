@@ -15,6 +15,9 @@
 -   [Fix]: Gradient Theme: The saturation boost settings are now also used for frames without a fixed color.
 -   [Fix]: Armory: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.
 -   [Fix]: Core: Class gradient texts now fully reach their end color on the last letter.
+-   [Fix]: Vehicle Bar: Changed settings apply right away again instead of only after a reload.
+-   [Fix]: Gradient Theme: The gradient previews in the options update again when colors are changed.
+-   [Fix]: Core: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.
 -   [New]: UnitFrames/NamePlates: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.
 -   [New]: Tracker: New module - a Battle Res tracker shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters, as an icon or as a compact text line. A Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again.
 -   [New]: Installer - new Modules step after UnitFrames, pick which MerathilisUI modules you want to use, applied on the reload at the end.

@@ -219,8 +219,9 @@ function module:Initialize()
 	-- Register for updates
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("MER_VehicleBar.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("MER_VehicleBar.SettingsUpdate", self.UpdateBar, self)
+	F.Event.RegisterCallback("VehicleBar.DatabaseUpdate", self.DatabaseUpdate, self)
+	-- Settings need the full disable/enable cycle, UpdateBar alone would create the bar while disabled
+	F.Event.RegisterCallback("VehicleBar.SettingsUpdate", self.DatabaseUpdate, self)
 
 	self.Initialized = true
 end

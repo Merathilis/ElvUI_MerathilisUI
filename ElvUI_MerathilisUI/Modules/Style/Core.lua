@@ -421,8 +421,7 @@ function module:Initialize()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("module.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("module.SettingsUpdate", self.SettingsUpdate, self)
+	F.Event.RegisterCallback("Style.DatabaseUpdate", self.DatabaseUpdate, self)
 
 	self.Initialized = true
 end

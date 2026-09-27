@@ -2031,7 +2031,6 @@ function module:Initialize()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("Armory.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("Armory.SettingsUpdate", self.UpdateCharacterArmory, self)
 
 	self.Initialized = true
