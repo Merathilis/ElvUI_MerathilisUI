@@ -12,6 +12,7 @@ MER.Changelog[737] = {
 		"[Core]: Class gradient texts now fully reach their end color on the last letter.",
 		"[Core]: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.",
 		"[Core]: Clicking the Open Changelog link in the chat no longer also opens an empty link tooltip.",
+		"[Core]: A fresh install no longer prints Update Database messages, and update messages only appear when something changed, in the right order.",
 		"[Debug Mode]: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.",
 		"[Durability/ItemLevel Datatext]: Fixed Lua errors with low durability when the icon is colored or the colored thresholds are enabled.",
 		"[ElvUI AuraBars]: MerathilisUI no longer replaces ElvUI's name abbreviation, so the aura bars abbreviate spell names the ElvUI way again.",
