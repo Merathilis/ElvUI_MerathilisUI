@@ -20,24 +20,21 @@ local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
 local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEditBox
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
-local VOICE, LOOT, GENERAL, TRADE = VOICE, LOOT, GENERAL, TRADE
+local VOICE, LOOT, GENERAL, COMBAT_LOG = VOICE, LOOT, GENERAL, COMBAT_LOG
 
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
-local IsInstalled = false
-local function InstallComplete(fishished)
+local function InstallComplete(finished)
 	E.private.install_complete = E.version
 	E.db.mui.core.installed = true
 	E.private.mui.general.install_complete = MER.Version
 
-	if fishished then
+	if finished then
 		E.db.mui.core.lastLayoutVersion = MER.DisplayVersion
-		IsInstalled = true
 	end
-	IsInstalled = false
 
 	C_UI_Reload()
 end
@@ -175,7 +172,7 @@ local function SetupChat()
 		if id == 1 then
 			FCF_SetWindowName(frame, GENERAL)
 		elseif id == 2 then
-			FCF_SetWindowName(frame, LOG)
+			FCF_SetWindowName(frame, COMBAT_LOG)
 		elseif id == 3 then
 			VoiceTranscriptionFrame_UpdateVisibility(frame)
 			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
@@ -188,42 +185,29 @@ local function SetupChat()
 		FCF_StopDragging(frame)
 	end
 
-	local ChatFrame1_AddChannel = _G.ChatFrame1.AddChannel or _G.ChatFrame_AddChannel
-	local ChatFrame4_RemoveChannel = _G.ChatFrame4.RemoveChannel or _G.ChatFrame_RemoveChannel
-	ChatFrame4_RemoveChannel(_G.ChatFrame4, L["Trade"])
-	ChatFrame1_AddChannel(_G.ChatFrame1, L["Trade"])
+	local generalChat, lootChat = _G.ChatFrame1, _G.ChatFrame4
+	lootChat:RemoveChannel(L["Trade"])
+	generalChat:AddChannel(L["Trade"])
+	generalChat:AddMessageGroup("TARGETICONS")
 
-	local ChatFrame1_AddMessageGroup = _G.ChatFrame1.AddMessageGroup or _G.ChatFrame_AddMessageGroup
-	local ChatFrame4_AddMessageGroup = _G.ChatFrame4_AddMessageGroup or _G.ChatFrame_AddMessageGroup
-	ChatFrame1_AddMessageGroup(_G.ChatFrame1, "TARGETICONS")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_FACTION_CHANGE")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_HONOR_GAIN")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_XP_GAIN")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "CURRENCY")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "LOOT")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "MONEY")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "SKILL")
+	-- Loot and progress messages go to the loot tab only
+	for _, group in ipairs({
+		"COMBAT_FACTION_CHANGE",
+		"COMBAT_GUILD_XP_GAIN",
+		"COMBAT_HONOR_GAIN",
+		"COMBAT_XP_GAIN",
+		"CURRENCY",
+		"LOOT",
+		"MONEY",
+		"SKILL",
+	}) do
+		lootChat:AddMessageGroup(group)
+		generalChat:RemoveMessageGroup(group)
+	end
 
-	local ChatFrame1_RemoveMessageGroup = _G.ChatFrame1.RemoveMessageGroup or _G.ChatFrame_RemoveMessageGroup
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_FACTION_CHANGE")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_HONOR_GAIN")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_XP_GAIN")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "CURRENCY")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "LOOT")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "MONEY")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "SKILL")
-
-	local ChatFrame4_RemoveMessageGroup = _G.ChatFrame4.RemoveMessageGroup or _G.ChatFrame_RemoveMessageGroup
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "SAY")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "YELL")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "GUILD")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "WHISPER")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "BN_WHISPER")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "PARTY")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "PARTY_LEADER")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "CHANNEL")
+	for _, group in ipairs({ "SAY", "YELL", "GUILD", "WHISPER", "BN_WHISPER", "PARTY", "PARTY_LEADER", "CHANNEL" }) do
+		lootChat:RemoveMessageGroup(group)
+	end
 
 	local chatGroup = {
 		"SAY",
@@ -2244,8 +2228,8 @@ function MER:DeveloperSettings()
 		return
 	end
 
-	SetCVar("uiScale", E:PixelBestSize())
-	SetCVar("cooldownViewerEnabled", 1)
+	C_CVar_SetCVar("uiScale", E:PixelBestSize())
+	C_CVar_SetCVar("cooldownViewerEnabled", 1)
 
 	-- General
 	E.global["general"]["UIScale"] = E:PixelBestSize()
@@ -2357,8 +2341,8 @@ function MER:ProfileDialog()
 			frame.editBox:SetText(E.mynameRealm)
 			frame.editBox:HighlightText()
 		end,
-		button1 = OKAY,
-		button2 = CANCEL,
+		button1 = _G.OKAY,
+		button2 = _G.CANCEL,
 		OnAccept = function(frame)
 			CreateNewProfile(frame.editBox:GetText())
 		end,
@@ -2888,17 +2872,6 @@ MER.installTable = {
 						.. "!"
 				)
 			else
-				PluginInstallFrame.SubTitle:SetText(L["Plugins"])
-				PluginInstallFrame.Desc1:SetText(
-					L["This part of the installation process will apply changes to ElvUI Plugins"]
-				)
-				PluginInstallFrame.Desc2:SetText(
-					"Currently supported AddOns: "
-						.. WF.GetWindStyleText("ElvUI_WindTools")
-						.. ", "
-						.. "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r"
-				)
-
 				if E:IsAddOnEnabled("ElvUI_WindTools") then
 					PluginInstallFrame.Option1:Show()
 					PluginInstallFrame.Option1:SetScript("OnClick", function()
@@ -3011,24 +2984,6 @@ MER.installTable = {
 			local msg = MER.Title .. L[" install complete."]
 			MER:ShowStepComplete(msg)
 		end,
-		[F.IsDeveloper() and 17] = function()
-			MER:Resize(nil, nil, true)
-
-			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
-			PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])
-			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function()
-				MER:DeveloperSettings()
-			end)
-			PluginInstallFrame.Option1:SetText(L["Setup Developer Settings"])
-
-			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript("OnClick", function()
-				InstallComplete(true)
-			end)
-			PluginInstallFrame.Option2:SetText(L["Finished"])
-			MER:WidenOptions()
-		end,
 	},
 
 	["StepTitles"] = {
@@ -3048,7 +3003,6 @@ MER.installTable = {
 		[14] = L["BigWigs"],
 		[15] = L["Details"],
 		[16] = L["Installation Complete"],
-		[F.IsDeveloper() and 17] = L["Developer Settings"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
@@ -3056,3 +3010,26 @@ MER.installTable = {
 	StepTitleButtonWidth = 180,
 	StepTitleTextJustification = "CENTER",
 }
+
+-- Developers get one more page after the regular last one
+if F.IsDeveloper() then
+	MER.installTable.StepTitles[17] = L["Developer Settings"]
+	MER.installTable.Pages[17] = function()
+		MER:Resize(nil, nil, true)
+
+		PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
+		PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])
+		PluginInstallFrame.Option1:Show()
+		PluginInstallFrame.Option1:SetScript("OnClick", function()
+			MER:DeveloperSettings()
+		end)
+		PluginInstallFrame.Option1:SetText(L["Setup Developer Settings"])
+
+		PluginInstallFrame.Option2:Show()
+		PluginInstallFrame.Option2:SetScript("OnClick", function()
+			InstallComplete(true)
+		end)
+		PluginInstallFrame.Option2:SetText(L["Finished"])
+		MER:WidenOptions()
+	end
+end

@@ -17,6 +17,7 @@
 -   [Fix]: Gradient Theme: The gradient previews in the options update again when colors are changed.
 -   [Fix]: Installer: The color preview of the UnitFrames step stuck to other steps, and the step buttons cut off longer labels. Closing the installer no longer leaves MerathilisUI changes behind for the next plugin installer.
 -   [Fix]: Installer: Errors while applying a profile are now reported instead of being silently ignored.
+-   [Fix]: Installer: The chat step names the combat log window correctly again and uses Blizzard's current chat functions instead of deprecated ones.
 -   [Fix]: ItemLevel/Pet Filter Tab: The item level on the Scrapping Machine and the pet filter tab in the Collections window could fail to appear, because both loaded through the same event handler.
 -   [Fix]: Loot Spec Manager/Copy Transmog: The info tooltips are colored again.
 -   [Fix]: Movement Alert: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell's cooldown is restricted.
