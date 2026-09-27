@@ -111,9 +111,10 @@ function MER:InitializeModules()
 	for _, moduleName in ipairs(MER.RegisteredModules) do
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
+			-- Report through the error handler, a failed Initialize leaves the module half set up
 			local ok, err = pcall(module.Initialize, module)
 			if not ok then
-				F.Developer.LogDebug(err)
+				F.Developer.ThrowError(moduleName, "failed to initialize:", err)
 			end
 		end
 	end
