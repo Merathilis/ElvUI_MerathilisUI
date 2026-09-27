@@ -313,24 +313,6 @@ do
 		F.Event.RegisterOnceFrameEventAndCallback("PLAYER_REGEN_ENABLED", callback)
 	end
 
-	function F.Event.ContinueMERInitialized(callback)
-		if MER.initialized then
-			callback()
-			return
-		end
-
-		F.Event.RegisterOnceCallback("MER.Initialized", callback)
-	end
-
-	function F.Event.ContinueToxiUIInitializedSafe(callback)
-		if MER.initializedSafe then
-			callback()
-			return
-		end
-
-		F.Event.RegisterOnceCallback("MER.InitializedSafe", callback)
-	end
-
 	function F.Event.ContinueAfter(cmp, callback)
 		if cmp() == true then
 			callback()

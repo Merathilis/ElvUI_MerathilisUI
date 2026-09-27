@@ -3,14 +3,14 @@ F.String = {}
 
 local error = error
 local floor = math.floor
-local type, unpack, tostring = type, unpack, tostring
+local type, tostring = type, tostring
 local char = string.char
 local format = string.format
 local gmatch = string.gmatch
 local gsub = string.gsub
-local strbyte, strfind, strmatch, strlen, strsub = string.byte, string.find, string.match, string.len, string.sub
+local strmatch = string.match
 local utf8len, utf8lower, utf8sub, utf8upper = string.utf8len, string.utf8lower, string.utf8sub, string.utf8upper
-local tinsert, concat = table.insert, table.concat
+local concat = table.concat
 
 function F.String.Color(msg, color)
 	if type(color) == "string" then
@@ -35,164 +35,8 @@ function F.String.HexToRGB(hex)
 		(a ~= "") and (tonumber(a, 16) / 255) or nil
 end
 
-function F.String.CharBytes(s, i)
-	-- argument defaults
-	i = i or 1
-
-	-- argument checking
-	if type(s) ~= "string" then
-		error("bad argument #1 to 'F.CharBytes' (string expected, got " .. type(s) .. ")")
-	end
-	if type(i) ~= "number" then
-		error("bad argument #2 to 'F.CharBytes' (number expected, got " .. type(i) .. ")")
-	end
-
-	local c = strbyte(s, i)
-
-	-- determine bytes needed for character, based on RFC 3629
-	-- validate byte 1
-	if c > 0 and c <= 127 then
-		-- UTF8-1
-		return 1
-	elseif c >= 194 and c <= 223 then
-		-- UTF8-2
-		local c2 = strbyte(s, i + 1)
-
-		if not c2 then
-			error("UTF-8 string terminated early")
-		end
-
-		-- validate byte 2
-		if c2 < 128 or c2 > 191 then
-			error("Invalid UTF-8 character")
-		end
-
-		return 2
-	elseif c >= 224 and c <= 239 then
-		-- UTF8-3
-		local c2 = strbyte(s, i + 1)
-		local c3 = strbyte(s, i + 2)
-
-		if not c2 or not c3 then
-			error("UTF-8 string terminated early")
-		end
-
-		-- validate byte 2
-		if c == 224 and (c2 < 160 or c2 > 191) then
-			error("Invalid UTF-8 character")
-		elseif c == 237 and (c2 < 128 or c2 > 159) then
-			error("Invalid UTF-8 character")
-		elseif c2 < 128 or c2 > 191 then
-			error("Invalid UTF-8 character")
-		end
-
-		-- validate byte 3
-		if c3 < 128 or c3 > 191 then
-			error("Invalid UTF-8 character")
-		end
-
-		return 3
-	elseif c >= 240 and c <= 244 then
-		-- UTF8-4
-		local c2 = strbyte(s, i + 1)
-		local c3 = strbyte(s, i + 2)
-		local c4 = strbyte(s, i + 3)
-
-		if not c2 or not c3 or not c4 then
-			error("UTF-8 string terminated early")
-		end
-
-		-- validate byte 2
-		if c == 240 and (c2 < 144 or c2 > 191) then
-			error("Invalid UTF-8 character")
-		elseif c == 244 and (c2 < 128 or c2 > 143) then
-			error("Invalid UTF-8 character")
-		elseif c2 < 128 or c2 > 191 then
-			error("Invalid UTF-8 character")
-		end
-
-		-- validate byte 3
-		if c3 < 128 or c3 > 191 then
-			error("Invalid UTF-8 character")
-		end
-
-		-- validate byte 4
-		if c4 < 128 or c4 > 191 then
-			error("Invalid UTF-8 character")
-		end
-
-		return 4
-	else
-		error("Invalid UTF-8 character")
-	end
-end
-
-function F.String.Replace(s, mapping)
-	-- argument checking
-	if type(s) ~= "string" then
-		error("bad argument #1 to 'F.Replace' (string expected, got " .. type(s) .. ")")
-		return ""
-	end
-	if type(mapping) ~= "table" then
-		error("bad argument #2 to 'F.Replace' (table expected, got " .. type(mapping) .. ")")
-		return s
-	end
-
-	local pos = 1
-	local bytes = strlen(s)
-	local charbytes
-	local parts = {}
-
-	while pos <= bytes do
-		charbytes = F.String.CharBytes(s, pos)
-		if not charbytes then
-			WF.Developer.ThrowError("Invalid UTF-8 character")
-			return s
-		end
-		local c = strsub(s, pos, pos + charbytes - 1)
-
-		parts[#parts + 1] = mapping[c] or c
-		pos = pos + charbytes
-	end
-
-	return concat(parts)
-end
-
-function F.String.Split(subject, delimiter)
-	if not subject or subject == "" then
-		return {}
-	end
-
-	local length = strlen(delimiter)
-	local results = {}
-
-	local i = 0
-	local j = 0
-
-	while true do
-		j = strfind(subject, delimiter, i + length)
-		if strlen(subject) == i then
-			break
-		end
-
-		if j == nil then
-			tinsert(results, strsub(subject, i))
-			break
-		end
-
-		tinsert(results, strsub(subject, i, j - 1))
-		i = j + length
-	end
-
-	return unpack(results)
-end
-
 function F.String.FastRGB(r, g, b)
 	return format("%02x%02x%02x", r * 255, g * 255, b * 255)
-end
-
-function F.String.FastRGBA(r, g, b, a)
-	return format("%02x%02x%02x%02x", (a or 1) * 255, r * 255, g * 255, b * 255)
 end
 
 function F.String.RGB(msg, colors)
@@ -206,25 +50,6 @@ end
 do
 	local shortenReplace = function(t)
 		return t:utf8sub(1, 1) .. ". "
-	end
-	function F.String.ShortenString(text, length, cut, firstname)
-		if text and string.len(text) > length then
-			if cut then
-				text = E:ShortenString(text, length)
-			else
-				if firstname then
-					local first, last = text:match("^(%a*)(.*)$")
-					if first and last then
-						text = first .. " " .. last:gsub("(%S+)", shortenReplace)
-					else
-						text = text:gsub("(%S+) ", shortenReplace)
-					end
-				else
-					text = text:gsub("(%S+) ", shortenReplace)
-				end
-			end
-		end
-		return text
 	end
 end
 
@@ -240,20 +65,6 @@ function F.String.Lowercase(text)
 		return text
 	end
 	return utf8lower(text)
-end
-
-function F.String.UppercaseFirstLetter(text)
-	if type(text) ~= "string" then
-		return text
-	end
-	return utf8upper(utf8sub(text, 1, 1)) .. utf8sub(text, 2)
-end
-
-function F.String.UppercaseFirstLetterOnly(text)
-	if type(text) ~= "string" then
-		return text
-	end
-	return utf8upper(utf8sub(text, 1, 1)) .. utf8lower(utf8sub(text, 2))
 end
 
 function F.String.LowercaseEnum(text)
@@ -308,46 +119,8 @@ function F.String.Strip(text)
 	return F.String.StripColor(F.String.StripTexture(text))
 end
 
-function F.String.Trim(text)
-	return strmatch(text, "^%s*(.*%S)") or ""
-end
-
-function F.String.Silver(msg)
-	return F.String.Color(msg, I.Enum.Colors.SILVER)
-end
-
 function F.String.Muted(msg)
 	return F.String.Color(msg, I.Enum.Colors.MUTED)
-end
-
-function F.String.DiffChanged(msg)
-	return F.String.Color(msg, I.Enum.Colors.DIFF_CHANGED)
-end
-
-function F.String.DiffRemoved(msg)
-	return F.String.Color(msg, I.Enum.Colors.DIFF_REMOVED)
-end
-
-function F.String.DiffAdded(msg)
-	return F.String.Color(msg, I.Enum.Colors.DIFF_ADDED)
-end
-
-function F.String.GoodIcon(size)
-	size = size or 14
-	return format("|TInterface\\RAIDFRAME\\ReadyCheck-Ready:%d:%d:0:-1|t", size, size)
-end
-
-function F.String.GoodIconSpaced(size)
-	return "  " .. F.String.GoodIcon(size) .. "  "
-end
-
-function F.String.ErrorIcon(size)
-	size = size or 14
-	return format("|TInterface\\RAIDFRAME\\ReadyCheck-NotReady:%d:%d:0:-1|t", size, size)
-end
-
-function F.String.ErrorIconSpaced(size)
-	return "  " .. F.String.ErrorIcon(size) .. "  "
 end
 
 function F.String.RemoveRuneOfThePrefix(text)
@@ -369,30 +142,17 @@ function F.String.GetTheLastWordOfAString(text)
 	return strmatch(text, ".+%s(.+)$")
 end
 
--- Capture the following string
--- ^[%s%p]*
--- ^ forces us to start capturing at the start of the string
--- %s represents all space characters
--- %p represents all punctuation characters
--- * matches 0 or more repetitions of the previous character/symbol/pattern
--- [] is a capture group
--- This would capture the start of the string and replace all spaces with nothing (but most likely isn't working)
+-- Strips leading whitespace and punctuation (^[%s%p]*), e.g. "  (Rank" becomes "Rank"
 function F.String.RemoveAllWhitespaceCharacters(text)
 	return text:gsub("^[%s%p]*", "")
 end
 
--- Capture the following string
--- %d+
--- %d represents all digits
--- this would capture the longest number chain in a string
+-- Returns the first run of digits (%d+) or nil, used as a "contains a number" check
 function F.String.ContainsNumericalCharacters(text)
 	return strmatch(text, "%d+")
 end
 
--- Capture the following string
--- %d+
--- %d represents all digits
--- this would capture the longest number chain in a string
+-- Removes every non-digit character (%D+), so only the digits remain, e.g. "+10 Agi" becomes "10"
 function F.String.RemoveTheLongestNumericalChain(text)
 	return text:gsub("%D+", "")
 end
@@ -550,38 +310,6 @@ function F.String.BigWigs(msg)
 	return F.String.Color(msg, I.Enum.Colors.BIGWIGS)
 end
 
-function F.String.OmniCD(msg)
-	if not msg or msg == "" then
-		return F.String.Color(L["OmniCD"], I.Enum.Colors.OMNICD)
-	end
-
-	return F.String.Color(msg, I.Enum.Colors.OMNICD)
-end
-
-function F.String.WindTools(msg)
-	if not msg or msg == "" then
-		return F.String.Color(L["WindTools"], I.Enum.Colors.WT)
-	end
-
-	return F.String.Color(msg, I.Enum.Colors.WT)
-end
-
-function F.String.FCT(msg)
-	if not msg or msg == "" then
-		return F.String.Color(L["FCT"], I.Enum.Colors.FCT)
-	end
-
-	return F.String.Color(msg, I.Enum.Colors.FCT)
-end
-
-function F.String.AS(msg)
-	if not msg or msg == "" then
-		return F.String.Color(L["AddOnSkins"], I.Enum.Colors.AS)
-	end
-
-	return F.String.Color(msg, I.Enum.Colors.AS)
-end
-
 function F.String.ElvUI(msg)
 	if not msg or msg == "" then
 		return F.String.Color(L["ElvUI"], I.Enum.Colors.ELVUI)
@@ -606,28 +334,8 @@ function F.String.Warning(msg)
 	return F.String.Color(msg, I.Enum.Colors.WARNING)
 end
 
-function F.String.GradientString()
-	return F.String.FastGradient("Gradient", 0, 0.6, 1, 0, 0.9, 1)
-end
-
-function F.String.Legendary(msg)
-	return F.String.Color(msg, I.Enum.Colors.LEGENDARY)
-end
-
 function F.String.Epic(msg)
 	return F.String.Color(msg, I.Enum.Colors.EPIC)
-end
-
-function F.String.Rare(msg)
-	return F.String.Color(msg, I.Enum.Colors.RARE)
-end
-
-function F.String.Beta(msg)
-	return F.String.Color(msg, I.Enum.Colors.BETA)
-end
-
-function F.String.Grey(msg)
-	return F.String.Color(msg, I.Enum.Colors.GREY)
 end
 
 -- Credits to WunderUI
