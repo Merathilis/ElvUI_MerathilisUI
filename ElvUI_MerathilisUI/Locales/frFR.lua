@@ -415,7 +415,6 @@ L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = true
-L["Blizzard Fixes"] = true
 L["The message will be shown in chat when you login."] = true
 L["This section will help reset specfic settings back to default."] = true
 
@@ -556,7 +555,6 @@ L["Value Font"] = true
 L[" Raid Info Frame"] = " Raid Info Frame"
 L[" install complete."] = " install complete."
 L["%day%-%month%-%year%"] = "%day%-%month%-%year%"
-L["%s detects CVar %s has been changed."] = "%s detects CVar %s has been changed."
 L[".\n\n"] = ".\n\n"
 L["Abbreviates the enchant strings."] = "Abbreviates the enchant strings."
 L["Add"] = "Add"
@@ -891,8 +889,6 @@ L["Improvements"] = "Improvements"
 L["Install"] = "Install"
 L["Installation Complete"] = "Installation Complete"
 L["Invalid Model, you need to add a Model ID/Path"] = "Invalid Model, you need to add a Model ID/Path"
-L["It will cause some buttons not work properly before UI reloading."] =
-	"It will cause some buttons not work properly before UI reloading."
 L["It will override your %s setting."] = "It will override your %s setting."
 L["Item Level Font"] = "Item Level Font"
 L["Keep Current"] = "Keep Current"
@@ -1083,7 +1079,6 @@ L["WindTools"] = "WindTools"
 L["Windtools"] = "Windtools"
 L["Work In Progress"] = "Work In Progress"
 L["WowLua"] = "WowLua"
-L["You can disable this alert in [%s]-[%s]-[%s]"] = "You can disable this alert in [%s]-[%s]-[%s]"
 L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"] =
 	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] =

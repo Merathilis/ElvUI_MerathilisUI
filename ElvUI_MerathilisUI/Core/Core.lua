@@ -3,17 +3,11 @@ local C = W.Utilities.Color
 
 local _G = _G
 local format = string.format
-local pcall = pcall
+local ipairs, pcall, select, tonumber, tostring = ipairs, pcall, select, tonumber, tostring
+local strsplit = strsplit
 local tinsert = table.insert
 
-local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
 local InCombatLockdown = InCombatLockdown
-local InviteUnit = C_PartyInfo.InviteUnit
-local strsplit = strsplit
-local hooksecurefunc = hooksecurefunc
-
-E.myClassColor = E.myClassColor or E:ClassColor(E.myclass, true)
 
 MER.GearTex = "Interface\\WorldMap\\Gear_64"
 
@@ -37,61 +31,44 @@ if not E.Retail then
 	E:StaticPopup_Show("WRONGWOWVERSION")
 end
 
-E.PopupDialogs.MERATHILISUI_BUTTON_FIX_RELOAD = {
-	text = format(
-		"%s\n%s\n\n%s",
-		format(
-			L["%s detects CVar %s has been changed."],
-			MER.Title,
-			C.StringByTemplate("ActionButtonUseKeyDown", "blue-400")
-		),
-		L["It will cause some buttons not work properly before UI reloading."],
-		C.StringByTemplate(
-			format(
-				L["You can disable this alert in [%s]-[%s]-[%s]"],
-				MER.Title,
-				L["Advanced Settings"],
-				L["Blizzard Fixes"]
-			),
-			"neutral-300"
-		)
-	),
-	button1 = L["Reload UI"],
-	button2 = _G.CANCEL,
-	OnAccept = _G.ReloadUI,
-}
-
 -- this needs to be available early (don't put it in Staticpopups.lua)
 E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
 	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),
 	button1 = L["Open Changelog"],
-	button2 = CANCEL,
+	button2 = _G.CANCEL,
 	OnAccept = function()
 		E:ToggleOptions("mui,changelog")
 	end,
 	hideOnEscape = 1,
 }
 
--- ElvUI_MerathilisUI Link Operations
--- 1. Print "|Hmerlink:feature:arg1:arg2:arg3:..." in the chat
--- 2. Click the link, it will trigger the corresponding function with the provided arguments
--- => MER.LinkOperations[feature](arg1, arg2, arg3, ...)
+-- Clickable chat links, built with MER.CreateLink("feature", "text", args...).
+-- Blizzard's "addon" link type is handled by LinkUtil and forwarded as the
+-- "SetItemRef" EventRegistry event, so it never falls through to ItemRefTooltip.
 MER.LinkOperations = {
 	["changelog"] = E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG.OnAccept,
-	["invite"] = function(name)
-		if name then
-			InviteUnit(name)
-		end
-	end,
 }
 
--- Dispatches clicked "|Hmerlink:feature:arg1:arg2:arg3|h" chat links to MER.LinkOperations
-hooksecurefunc("SetItemRef", function(link, ...)
-	local linkType, feature, arg1, arg2, arg3 = strsplit(":", link)
-	if linkType == "merlink" and feature and MER.LinkOperations[feature] then
+local LINK_PREFIX = "addon:MerathilisUI:"
+
+---@param feature string key of MER.LinkOperations
+---@param text string visible link text
+---@param ... string|number arguments passed to the operation
+function MER.CreateLink(feature, text, ...)
+	local data = LINK_PREFIX .. feature
+	for i = 1, select("#", ...) do
+		data = data .. ":" .. tostring((select(i, ...)))
+	end
+
+	return format("|H%s|h[%s]|h", data, text)
+end
+
+_G.EventRegistry:RegisterCallback("SetItemRef", function(_, link)
+	local linkType, addon, feature, arg1, arg2, arg3 = strsplit(":", link)
+	if linkType == "addon" and addon == "MerathilisUI" and MER.LinkOperations[feature] then
 		MER.LinkOperations[feature](arg1, arg2, arg3)
 	end
-end)
+end, MER)
 
 -- Register own Modules
 function MER:RegisterModule(name)
@@ -153,7 +130,10 @@ function MER:UpdateModules()
 	for _, moduleName in ipairs(self.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
-			pcall(module.ProfileUpdate, module)
+			local ok, err = pcall(module.ProfileUpdate, module)
+			if not ok then
+				F.Developer.ThrowError(moduleName, "failed to update the profile:", err)
+			end
 		end
 	end
 end
@@ -188,7 +168,7 @@ function MER:ChangelogReadAlert()
 		else
 			F.Print(
 				format(L["Welcome to version %s!"], C.StringByTemplate(MER.Version, "teal-400")),
-				C.StringByTemplate(format("|Hmerlink:changelog::|h[%s]|h", L["Open Changelog"]), "sky-400")
+				C.StringByTemplate(MER.CreateLink("changelog", L["Open Changelog"]), "sky-400")
 			)
 		end
 	end
@@ -200,40 +180,17 @@ function MER:UpdateProfiles(_)
 	F.Event.TriggerEvent("MER.DatabaseUpdate")
 end
 
-function MER:EventTraceLogEvent(trace, event, ...)
-	if event == "COMBAT_LOG_EVENT_UNFILTERED" or event == "COMBAT_LOG_EVENT" then
-		self.hooks[_G.EventTrace].LogEvent(trace, event, CombatLogGetCurrentEventInfo())
-	elseif event == "COMBAT_TEXT_UPDATE" then
-		self.hooks[_G.EventTrace].LogEvent(trace, event, (...), GetCurrentCombatTextEventInfo())
-	else
-		self.hooks[_G.EventTrace].LogEvent(trace, event, ...)
+-- Deliberate Blizzard global override (see the taint audit): Blizzard's
+-- ShouldShowMawBuffs tests C_UnitAuras data, which is secret while auras are
+-- restricted and then errors when reached from tainted code (ElvUI's objective
+-- tracker updates). The Maw buffs can't matter while auras are secret.
+local ShouldShowMawBuffs = _G.ShouldShowMawBuffs
+if ShouldShowMawBuffs and C_Secrets and C_Secrets.ShouldAurasBeSecret then
+	_G.ShouldShowMawBuffs = function()
+		if C_Secrets.ShouldAurasBeSecret() then
+			return false
+		end
+
+		return ShouldShowMawBuffs()
 	end
-end
-
-function MER:TryReplaceEventTraceLogEvent()
-	if _G.EventTrace and _G.EventTrace.LogEvent and not self:IsHooked(_G.EventTrace, "LogEvent") then
-		W:RawHook(_G.EventTrace, "LogEvent", "EventTraceLogEvent", true)
-	end
-end
-
-function MER:ADDON_LOADED(_, addOnName)
-	if addOnName ~= "Blizzard_EventTrace" then
-		return
-	end
-
-	self:UnregisterEvent("ADDON_LOADED")
-
-	if E.global.mui.advancedOptions.advancedCLEUEventTrace then
-		self:TryReplaceEventTraceLogEvent()
-	end
-end
-
---	Fix ShouldShowMawBuffs taint
-local orig = ShouldShowMawBuffs
-ShouldShowMawBuffs = function()
-	if C_Secrets.ShouldAurasBeSecret() then
-		return false
-	end
-
-	return orig()
 end

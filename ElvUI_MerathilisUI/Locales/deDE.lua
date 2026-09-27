@@ -644,7 +644,6 @@ L["Level"] = "Stufe"
 
 -- Advanced Settings
 L["Advanced Settings"] = "Erweiterte Einstellungen"
-L["Blizzard Fixes"] = "Blizzard Fixe"
 L["The message will be shown in chat when you login."] = "Die Nachricht wird im Chat angezeigt, wenn Du Dich anmeldest."
 L["This section will help reset specfic settings back to default."] =
 	"Dieser Abschnitt hilft dabei, bestimmte Einstellungen auf die Standardeinstellungen zurückzusetzen."

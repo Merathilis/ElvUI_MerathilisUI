@@ -32,13 +32,6 @@ G.misc = {
 	lfgList = {},
 }
 
-G.advancedOptions = {
-	advancedCLEUEventTrace = false,
-	cvarAlert = false,
-	fixSetPassThroughButtons = true,
-	guildNews = true,
-}
-
 G.developer = {
 	logLevel = 2,
 	channels = {},

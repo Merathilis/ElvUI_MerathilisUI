@@ -8,6 +8,7 @@
 -   [Fix]: Core: Fixed Lua errors when MerathilisUI tried to report an internal problem (e.g. a missing media file, category icon or skin element).
 -   [Fix]: Core: Class gradient texts now fully reach their end color on the last letter.
 -   [Fix]: Core: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.
+-   [Fix]: Core: Clicking the Open Changelog link in the chat no longer also opens an empty link tooltip.
 -   [Fix]: Debug Mode: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.
 -   [Fix]: Durability/ItemLevel Datatext: Fixed Lua errors with low durability when the icon is colored or the colored thresholds are enabled.
 -   [Fix]: ElvUI AuraBars: MerathilisUI no longer replaces ElvUI's name abbreviation, so the aura bars abbreviate spell names the ElvUI way again.
@@ -30,6 +31,7 @@
 -   [Improvement]: Core: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.
 -   [Improvement]: Core: Uses ElvUI's animation library instead of a bundled copy.
 -   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings and an interrupt check that ran on every spec, level and zone change.
+-   [Improvement]: Core: Errors of a module while switching profiles are now reported instead of being silently ignored.
 -   [Improvement]: Information: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.
 -   [Improvement]: Installer: The final step now points to the MerathilisUI website, with a Website button next to Discord.
 -   [Improvement]: Login Logo: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.
