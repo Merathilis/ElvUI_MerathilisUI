@@ -3,12 +3,14 @@ local ES = E:GetModule("Skins")
 local LSM = E.LSM
 
 local _G = _G
-local ipairs, pairs, print, select, tonumber, type, unpack = ipairs, pairs, print, select, tonumber, type, unpack
-local format, gsub, match = string.format, string.gsub, string.match
-local strfind, strmatch, strsplit = strfind, strmatch, strsplit
-local tinsert = table.insert
-local abs, max, min, modf = math.abs, math.max, math.min, math.modf
+local ipairs, pairs, print, select, tonumber, tostring, type, unpack = ipairs, pairs, print, select, tonumber, tostring, type, unpack
+local xpcall = xpcall
+local format, gmatch, gsub, match = string.format, string.gmatch, string.gsub, string.match
+local strfind, strjoin, strmatch, strsplit = strfind, strjoin, strmatch, strsplit
+local tinsert, wipe = table.insert, wipe
+local abs, ceil, max, min, modf = math.abs, math.ceil, math.max, math.min, math.modf
 local len = string.len
+local hooksecurefunc = hooksecurefunc
 
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 local CreateFrame = CreateFrame
@@ -202,10 +204,6 @@ function F.Dpi(value, frac)
 	return F.Round(value * perfectMulti, frac)
 end
 
-function F:Interval(value, minValue, maxValue)
-	return max(minValue, min(maxValue, value))
-end
-
 function F.GetFontPath(font)
 	font = font or I.General.DefaultFont
 
@@ -243,12 +241,14 @@ function F.FontSizeScaled(value, clamp)
 end
 
 function F.FontOverride(font)
-	local override = F.GetDBFromPath("mui.general.fontOverride")[font]
+	local overrides = F.GetDBFromPath("mui.general.fontOverride")
+	local override = overrides and overrides[font]
 	return (override and override ~= "DEFAULT") and override or font
 end
 
 function F.FontStyleOverride(font, style)
-	local override = F.GetDBFromPath("mui.general.fontStyleOverride")[font]
+	local overrides = F.GetDBFromPath("mui.general.fontStyleOverride")
+	local override = overrides and overrides[font]
 	return (override and override ~= "DEFAULT") and override or style
 end
 
@@ -439,13 +439,13 @@ function F.Round(n, q)
 	return int * q
 end
 
+---Number as string with a fixed amount of decimals (default 0)
 function F.RoundNumber(number, decimals)
-	if number then
-		return (("%%.%df"):format(decimals)):format(number)
-	else
-		F.Print(L["!! ERROR - Round:"], tostring(number), "-", tostring(decimals))
-		return 0
+	if not number then
+		return "0"
 	end
+
+	return format("%." .. (decimals or 0) .. "f", number)
 end
 
 function F.cOption(name, color)
@@ -482,7 +482,13 @@ end
 ---Print message with MerathilisUI title prefix
 ---@param ... string|number Message parts to print
 function F.Print(...)
-	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
+	local count = select("#", ...)
+	local parts = { ... }
+	for i = 1, count do
+		parts[i] = tostring(parts[i])
+	end
+
+	print(format("%s: %s", MER.Title, strjoin(" ", unpack(parts, 1, count))))
 end
 
 function F.DebugPrint(text, msgtype)
@@ -505,7 +511,7 @@ end
 
 do
 	-- Tooltip Stuff
-	function F:HideTooltip()
+	local function HideTooltip()
 		_G.GameTooltip:Hide()
 	end
 
@@ -551,7 +557,7 @@ do
 			self.title = L["Tips"]
 		end
 		self:HookScript("OnEnter", Tooltip_OnEnter)
-		self:HookScript("OnLeave", F.HideTooltip)
+		self:HookScript("OnLeave", HideTooltip)
 	end
 
 	function F:CreateGear(name)
@@ -866,15 +872,16 @@ end
 --]]
 ----------------------------------
 do
-	function F:ResetTabAnchor(size, outline)
-		local text = self.Text or (self.GetName and _G[self:GetName() .. "Text"])
+	-- Keep tab labels centered when Blizzard (de)selects a tab
+	local function ResetTabAnchor(tab)
+		local text = tab.Text or (tab.GetName and _G[tab:GetName() .. "Text"])
 		if text then
-			text:SetPoint("CENTER", self)
+			text:SetPoint("CENTER", tab)
 		end
 	end
 
-	hooksecurefunc("PanelTemplates_SelectTab", F.ResetTabAnchor)
-	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
+	hooksecurefunc("PanelTemplates_SelectTab", ResetTabAnchor)
+	hooksecurefunc("PanelTemplates_DeselectTab", ResetTabAnchor)
 end
 
 -- Inform us of the patch info we play on.
@@ -1090,47 +1097,16 @@ function F.Enum(tbl)
 end
 
 do
-	local protected_call = {}
-
-	function protected_call._error_handler(err)
-		F.Developer.LogInfo(err)
-	end
-
-	function protected_call._handle_result(success, ...)
+	local function HandleResult(success, ...)
 		if success then
 			return ...
 		end
 	end
 
-	local do_pcall
-	if not select(
-		2,
-		xpcall(function(a)
-			return a
-		end, error, true)
-	) then
-		do_pcall = function(func, ...)
-			local args = { ... }
-			return protected_call._handle_result(xpcall(function()
-				return func(unpack(args))
-			end, protected_call._error_handler))
-		end
-	else
-		do_pcall = function(func, ...)
-			return protected_call._handle_result(xpcall(func, protected_call._error_handler, ...))
-		end
+	---Call func(...) and report errors through the error handler instead of aborting the caller
+	function F.ProtectedCall(func, ...)
+		return HandleResult(xpcall(func, F.Developer.ThrowError, ...))
 	end
-
-	function protected_call.call(func, ...)
-		return do_pcall(func, ...)
-	end
-
-	local pcall_mt = {}
-	function pcall_mt:__call(...)
-		return do_pcall(...)
-	end
-
-	F.ProtectedCall = setmetatable(protected_call, pcall_mt)
 end
 
 do

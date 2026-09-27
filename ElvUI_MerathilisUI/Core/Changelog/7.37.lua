@@ -23,6 +23,8 @@ MER.Changelog[737] = {
 		"[Core]: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.",
 		"[Profiles]: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.",
 		'[Portal Flyout]: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.',
+		"[Durability/ItemLevel Datatext]: Fixed Lua errors with low durability when the icon is colored or the colored thresholds are enabled.",
+		"[Installer]: Errors while applying a profile are now reported instead of being silently ignored.",
 	},
 	NEW = {
 		"[UnitFrames/NamePlates]: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.",

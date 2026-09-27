@@ -159,7 +159,7 @@ local function OnEvent(self)
 	if db.colored.enable then
 		if
 			(totalDurability or 0) <= db.colored.a.value
-			and not ((totalDurability or 0) <= db.durabilityIlevel.colored.b.value)
+			and not ((totalDurability or 0) <= db.colored.b.value)
 		then
 			colorDurability = db.colored.a.color
 		elseif (totalDurability or 0) <= db.colored.b.value then

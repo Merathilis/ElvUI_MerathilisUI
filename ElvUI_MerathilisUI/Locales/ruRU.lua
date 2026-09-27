@@ -586,7 +586,6 @@ L["Value Font"] = true
 -- Automatically added missing keys
 L[" Raid Info Frame"] = " Raid Info Frame"
 L[" install complete."] = " install complete."
-L["!! ERROR - Round:"] = "!! ERROR - Round:"
 L["%day%-%month%-%year%"] = "%day%-%month%-%year%"
 L["%s detects CVar %s has been changed."] = "%s detects CVar %s has been changed."
 L[".\n\n"] = ".\n\n"
