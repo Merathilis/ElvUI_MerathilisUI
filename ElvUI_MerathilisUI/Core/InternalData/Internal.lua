@@ -1,13 +1,10 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
-I.General = {
-	AddOnPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\",
-	MediaPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\",
-	ElvUIMediaPath = "Interface\\Addons\\ElvUI\\Core\\Media\\",
+local pairs = pairs
 
+I.General = {
+	MediaPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\",
 	DefaultFont = "Expressway",
-	DefaultFontSize = 10,
-	DefaultFontOutline = "SHADOWOUTLINE",
 }
 
 I.Fonts = {
@@ -24,24 +21,6 @@ I.Textures = {
 I.Colors = {
 	-- Shared accent color for MerathilisUI-only option widgets (keep in sync with F.cOption's "teal" hex: #00c0fa)
 	Accent = { r = 0x00 / 255, g = 0xc0 / 255, b = 0xfa / 255 },
-}
-
-I.FontNames = {
-	[I.Fonts.Primary] = "Primary",
-	[I.Fonts.GothamRaid] = "Gotham Raid",
-	[I.Fonts.Runescape] = "Runescape",
-}
-
-I.FontDescription = {
-	[I.Fonts.Primary] = "Used in the majority of the UI.",
-	[I.Fonts.GothamRaid] = "Used for names in Raid Frames.",
-	[I.Fonts.Runescape] = "Used for some WeakAuras",
-}
-
-I.FontOrder = {
-	I.Fonts.Primary,
-	I.Fonts.GothamRaid,
-	I.Fonts.RuneScape,
 }
 
 I.MaxLevelTable = {
@@ -82,186 +61,27 @@ I.Media = {
 	Armory = {},
 }
 
+-- Role icon theme -> media name prefix (<prefix>Tank, <prefix>Healer, <prefix>DPS)
 I.Icons = {
-	["Role"] = {
-		["MERATHILISUI"] = {
-			["default"] = {
-				TANK = "LynUITank",
-				HEALER = "LynUIHealer",
-				DAMAGER = "LynUIDPS",
-			},
-			["raid1"] = {
-				TANK = "WhiteTank",
-				HEALER = "WhiteHealer",
-				DAMAGER = "WhiteDPS",
-			},
-			["raid2"] = {
-				TANK = "WhiteTank",
-				HEALER = "WhiteHealer",
-				DAMAGER = "WhiteDPS",
-			},
-			["raid3"] = {
-				TANK = "WhiteTank",
-				HEALER = "WhiteHealer",
-				DAMAGER = "WhiteDPS",
-			},
-		},
-		["MATERIAL"] = {
-			["default"] = {
-				TANK = "MaterialTank",
-				HEALER = "MaterialHealer",
-				DAMAGER = "MaterialDPS",
-			},
-			["raid1"] = {
-				TANK = "MaterialTank",
-				HEALER = "MaterialHealer",
-				DAMAGER = "MaterialDPS",
-			},
-			["raid2"] = {
-				TANK = "MaterialTank",
-				HEALER = "MaterialHealer",
-				DAMAGER = "MaterialDPS",
-			},
-			["raid3"] = {
-				TANK = "MaterialTank",
-				HEALER = "MaterialHealer",
-				DAMAGER = "MaterialDPS",
-			},
-		},
-		["SUNUI"] = {
-			["default"] = {
-				TANK = "SunUITank",
-				HEALER = "SunUIHealer",
-				DAMAGER = "SunUIDPS",
-			},
-			["raid1"] = {
-				TANK = "SunUITank",
-				HEALER = "SunUIHealer",
-				DAMAGER = "SunUIDPS",
-			},
-			["raid2"] = {
-				TANK = "SunUITank",
-				HEALER = "SunUIHealer",
-				DAMAGER = "SunUIDPS",
-			},
-			["raid3"] = {
-				TANK = "SunUITank",
-				HEALER = "SunUIHealer",
-				DAMAGER = "SunUIDPS",
-			},
-		},
-		["SVUI"] = {
-			["default"] = {
-				TANK = "SVUITank",
-				HEALER = "SVUIHealer",
-				DAMAGER = "SVUIDPS",
-			},
-			["raid1"] = {
-				TANK = "SVUITank",
-				HEALER = "SVUIHealer",
-				DAMAGER = "SVUIDPS",
-			},
-			["raid2"] = {
-				TANK = "SVUITank",
-				HEALER = "SVUIHealer",
-				DAMAGER = "SVUIDPS",
-			},
-			["raid3"] = {
-				TANK = "SVUITank",
-				HEALER = "SVUIHealer",
-				DAMAGER = "SVUIDPS",
-			},
-		},
-		["GLOW"] = {
-			["default"] = {
-				TANK = "GlowTank",
-				HEALER = "GlowHealer",
-				DAMAGER = "GlowDPS",
-			},
-			["raid1"] = {
-				TANK = "GlowTank",
-				HEALER = "GlowHealer",
-				DAMAGER = "GlowDPS",
-			},
-			["raid2"] = {
-				TANK = "GlowTank",
-				HEALER = "GlowHealer",
-				DAMAGER = "GlowDPS",
-			},
-			["raid3"] = {
-				TANK = "GlowTank",
-				HEALER = "GlowHealer",
-				DAMAGER = "GlowDPS",
-			},
-		},
-		["CUSTOM"] = {
-			["default"] = {
-				TANK = "CustomTank",
-				HEALER = "CustomHealer",
-				DAMAGER = "CustomDPS",
-			},
-			["raid1"] = {
-				TANK = "CustomTank",
-				HEALER = "CustomHealer",
-				DAMAGER = "CustomDPS",
-			},
-			["raid2"] = {
-				TANK = "CustomTank",
-				HEALER = "CustomHealer",
-				DAMAGER = "CustomDPS",
-			},
-			["raid3"] = {
-				TANK = "CustomTank",
-				HEALER = "CustomHealer",
-				DAMAGER = "CustomDPS",
-			},
-		},
-		["GRAVED"] = {
-			["default"] = {
-				TANK = "GravedTank",
-				HEALER = "GravedHealer",
-				DAMAGER = "GravedDPS",
-			},
-			["raid1"] = {
-				TANK = "GravedTank",
-				HEALER = "GravedHealer",
-				DAMAGER = "GravedDPS",
-			},
-			["raid2"] = {
-				TANK = "GravedTank",
-				HEALER = "GravedHealer",
-				DAMAGER = "GravedDPS",
-			},
-			["raid3"] = {
-				TANK = "GravedTank",
-				HEALER = "GravedHealer",
-				DAMAGER = "GravedDPS",
-			},
-		},
-		["ElvUI"] = {
-			["default"] = {
-				TANK = "ElvUITank",
-				HEALER = "ElvUIHealer",
-				DAMAGER = "ElvUIDPS",
-			},
-			["raid1"] = {
-				TANK = "ElvUITank",
-				HEALER = "ElvUIHealer",
-				DAMAGER = "ElvUIDPS",
-			},
-			["raid2"] = {
-				TANK = "ElvUITank",
-				HEALER = "ElvUIHealer",
-				DAMAGER = "ElvUIDPS",
-			},
-			["raid3"] = {
-				TANK = "ElvUITank",
-				HEALER = "ElvUIHealer",
-				DAMAGER = "ElvUIDPS",
-			},
-		},
-	},
+	Role = {},
 }
+
+for theme, prefix in pairs({
+	MERATHILISUI = "White",
+	MATERIAL = "Material",
+	SUNUI = "SunUI",
+	SVUI = "SVUI",
+	GLOW = "Glow",
+	CUSTOM = "Custom",
+	GRAVED = "Graved",
+	ElvUI = "ElvUI",
+}) do
+	I.Icons.Role[theme] = {
+		TANK = prefix .. "Tank",
+		HEALER = prefix .. "Healer",
+		DAMAGER = prefix .. "DPS",
+	}
+end
 
 I.ProfileNames = {
 	["Default"] = MER.Title,
@@ -269,10 +89,7 @@ I.ProfileNames = {
 }
 
 I.Requirements = {
-	["GradientMode"] = {
-		I.Enum.Requirements.DARK_MODE_DISABLED,
-		I.Enum.Requirements.ELVUI_NOT_SKINNED,
-	},
+	["GradientMode"] = {},
 	["VehicleBar"] = {
 		I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED,
 	},
@@ -281,14 +98,6 @@ I.Requirements = {
 	},
 	["GameMenu"] = {},
 	["RaidInfoFrame"] = {},
-}
-
-I.RepairMounts = {
-	2237, -- Grizzly Hills Packmaster
-	460, -- Grand Expedition Yak
-	284, -- Traveler's Tundra Mammoth (Horde)
-	280, -- Traveler's Tundra Mammoth (Alliance)
-	1039, -- Mighty Caravan Brutosaur
 }
 
 I.GradientMode = {

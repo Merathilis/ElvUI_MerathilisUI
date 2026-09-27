@@ -207,47 +207,6 @@ function F:Interval(value, minValue, maxValue)
 	return max(minValue, min(maxValue, value))
 end
 
-function F.GetFontColorFromDB(db, prefix)
-	-- Vars
-	if prefix == nil then
-		prefix = ""
-	end
-	local fontColor
-	local useDB = (db and prefix) and true or false
-	local colorSwitch = (useDB and db[prefix .. "color"]) or I.General.DefaultFontColor
-
-	-- Switch
-	if colorSwitch == "CUSTOM" then
-		fontColor = (useDB and db[prefix .. "color"]) or I.General.DefaultFontCustomColor
-	elseif colorSwitch == "MER" then
-		fontColor = I.Strings.Branding.ColorRGBA
-	elseif colorSwitch == "CLASS" then
-		local classColor = E:ClassColor(E.myclass, true)
-		fontColor = {
-			r = classColor.r,
-			g = classColor.g,
-			b = classColor.b,
-			a = 1,
-		}
-	elseif colorSwitch == "VALUE" then
-		fontColor = {
-			r = E.media.rgbvaluecolor[1],
-			g = E.media.rgbvaluecolor[2],
-			b = E.media.rgbvaluecolor[3],
-			a = 1,
-		}
-	else
-		fontColor = {
-			r = 1,
-			g = 1,
-			b = 1,
-			a = 1,
-		}
-	end
-
-	return fontColor
-end
-
 function F.GetFontPath(font)
 	font = font or I.General.DefaultFont
 

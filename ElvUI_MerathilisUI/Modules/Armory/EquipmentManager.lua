@@ -466,7 +466,7 @@ function module:RefreshEquipmentManagerPanel()
 			panel.headerText:SetText(headerLabel)
 			WF.SetFontColorWithDB(panel.headerText, statsHeaderFont.color)
 
-			local fontColor = F.GetFontColorFromDB(module.db.stats, "header")
+			local fontColor = statsHeaderFont.color
 			F.Color.SetGradientRGB(
 				panel.headerLeftLine,
 				"HORIZONTAL",

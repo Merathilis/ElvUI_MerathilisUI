@@ -915,7 +915,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 			1
 		)
 	else
-		local fontColor = F.GetFontColorFromDB(self.db.stats, "header")
+		local fontColor = module.db.stats.headerFont.color
 		F.Color.SetGradientRGB(
 			leftDivider,
 			"HORIZONTAL",
@@ -952,7 +952,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 			0
 		)
 	else
-		local fontColor = F.GetFontColorFromDB(self.db.stats, "header")
+		local fontColor = module.db.stats.headerFont.color
 		F.Color.SetGradientRGB(
 			rightDivider,
 			"HORIZONTAL",
@@ -1081,7 +1081,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 				module.db.stats.alternatingBackgroundAlpha
 			)
 		else
-			local fontColor = F.GetFontColorFromDB(self.db.stats, "label")
+			local fontColor = module.db.stats.labelFont.color
 			F.Color.SetGradientRGB(
 				frame.MERGradient,
 				"HORIZONTAL",

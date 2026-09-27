@@ -31,15 +31,7 @@ function MER:CheckRequirements(requirements, skipProfile)
 	end
 
 	for _, requirement in ipairs(requirements) do
-		if requirement == I.Enum.Requirements.GRADIENT_MODE_ENABLED then
-			if E.db.mui.gradient.enable ~= true then
-				return requirement
-			end
-		elseif requirement == I.Enum.Requirements.GRADIENT_MODE_DISABLED then
-			if E.db.mui.gradient.enable ~= false then
-				return requirement
-			end
-		elseif requirement == I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED then
+		if requirement == I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED then
 			if E.private.actionbar.enable ~= true then
 				return requirement
 			end

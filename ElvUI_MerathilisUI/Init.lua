@@ -148,11 +148,6 @@ function MER:Initialize()
 		return
 	end
 
-	local flavorMap = {
-		["Mainline"] = I.Enum.Flavor.RETAIL,
-	}
-	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
-
 	for _, module in self:IterateModules() do
 		Engine[4].Developer.InjectLogger(module)
 	end

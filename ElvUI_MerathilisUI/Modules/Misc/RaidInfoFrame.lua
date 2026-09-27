@@ -140,13 +140,13 @@ function module:UpdateIcons()
 	local theme = E.db.mui.elvUIIcons.roleIcons.theme
 
 	if self.frame.tankIcon then
-		self.frame.tankIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].raid1.TANK))
+		self.frame.tankIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].TANK))
 	end
 	if self.frame.healIcon then
-		self.frame.healIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].raid1.HEALER))
+		self.frame.healIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].HEALER))
 	end
 	if self.frame.dpsIcon then
-		self.frame.dpsIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].raid1.DAMAGER))
+		self.frame.dpsIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].DAMAGER))
 	end
 end
 
