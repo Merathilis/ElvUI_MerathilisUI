@@ -1,13 +1,19 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Table = {}
 
-local pairs, next, type, select, unpack = pairs, next, type, select, unpack
+local pairs, next, rawset, select, type = pairs, next, rawset, select, type
 local tinsert = table.insert
 
+---@param tbl table?
+---@return boolean
 function F.Table.IsEmpty(tbl)
-	return next(tbl) == nil
+	return not tbl or next(tbl) == nil
 end
 
+---Walk down the given keys and create missing sub tables on the way
+---@param tbl table
+---@param ... any Keys
+---@return table
 function F.Table.GetOrCreate(tbl, ...)
 	local currentTable = tbl
 
@@ -22,6 +28,9 @@ function F.Table.GetOrCreate(tbl, ...)
 	return currentTable
 end
 
+---Shallow merge into a new table; array entries are appended, other keys overwrite
+---@param ... table?
+---@return table
 function F.Table.Join(...)
 	local ret = {}
 
@@ -41,12 +50,15 @@ function F.Table.Join(...)
 	return ret
 end
 
+---Deep merge the given tables into `ret` (in place)
+---@param ret table
+---@param ... table?
 function F.Table.Crush(ret, ...)
 	for i = 1, select("#", ...) do
 		local t = select(i, ...)
 		if t then
 			for k, v in pairs(t) do
-				if type(v) == "table" and type(ret[k] or false) == "table" then
+				if type(v) == "table" and type(ret[k]) == "table" then
 					F.Table.Crush(ret[k], v)
 				else
 					rawset(ret, k, v)
@@ -56,29 +68,15 @@ function F.Table.Crush(ret, ...)
 	end
 end
 
-function F.Table.RGB(r, g, b, a)
-	local ret = {
-		r = r,
-		g = g,
-		b = b,
-	}
-
-	if a then
-		ret.a = a
-	end
-
-	return ret
-end
-
+---"#rrggbb" or "#rrggbbaa" to { r, g, b[, a] }
+---@param hex string
+---@return table
 function F.Table.HexToRGB(hex)
 	local r, g, b, a = F.String.HexToRGB(hex)
-	return F.Table.RGB(r, g, b, a)
+	return { r = r, g = g, b = b, a = a }
 end
 
+---Pack varargs including trailing nils, `n` holds the count
 function F.Table.SafePack(...)
 	return { n = select("#", ...), ... }
-end
-
-function F.Table.SafeUnpack(tbl)
-	return unpack(tbl, 1, tbl.n)
 end

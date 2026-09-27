@@ -140,10 +140,7 @@ function MER:InitializeModules()
 		end)
 	end
 
-	local events = { "PLAYER_ENTERING_WORLD" }
-	tinsert(events, "FIRST_FRAME_RENDERED")
-
-	F.Event.ContinueAfterAllEvents(onAllEvents, F.Table.SafeUnpack(events))
+	F.Event.ContinueAfterAllEvents(onAllEvents, "PLAYER_ENTERING_WORLD", "FIRST_FRAME_RENDERED")
 end
 
 function MER:PLAYER_LOGIN()
