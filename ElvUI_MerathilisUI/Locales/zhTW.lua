@@ -958,6 +958,12 @@ L["Pawn"] = "Pawn"
 L["Pet"] = "Pet"
 L["Pet Battle Scripts"] = "Pet Battle Scripts"
 L["Player"] = "Player"
+L["Interface"] = true
+L["Combat"] = true
+L["Quality of Life"] = true
+L["Choose the modules you want to use. Changes are applied on the reload at the end of the installer and can be changed anytime in the options."] = true
+L["You are now finished with the installation process."] = true
+L["Features, the full changelog and downloads can be found on the website %s."] = true
 L["Please click the button below so you can setup variables and ReloadUI."] =
 	"Please click the button below so you can setup variables and ReloadUI."
 L["Please click the button below to apply the UI Scale."] = "Please click the button below to apply the UI Scale."
@@ -1085,8 +1091,6 @@ L["WindTools"] = "WindTools"
 L["Windtools"] = "Windtools"
 L["Work In Progress"] = "Work In Progress"
 L["WowLua"] = "WowLua"
-L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."] =
-	"You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."
 L["You can disable this alert in [%s]-[%s]-[%s]"] = "You can disable this alert in [%s]-[%s]-[%s]"
 L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"] =
 	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"
