@@ -416,8 +416,10 @@ do
 		button1 = _G.ACCEPT,
 		button2 = _G.CANCEL,
 		OnAccept = function()
-			F.Profiles.ImportByString(text)
-			C_UI_Reload()
+			-- Only reload on success, otherwise the error message would be lost
+			if F.Profiles.ImportByString(text) then
+				C_UI_Reload()
+			end
 		end,
 		whileDead = 1,
 		hideOnEscape = true,
