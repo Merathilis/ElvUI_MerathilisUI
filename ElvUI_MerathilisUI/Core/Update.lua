@@ -48,6 +48,15 @@ function MER:UpdateScripts()
 		return
 	end
 
+	-- A fresh install has nothing to migrate: running the old migrations here would
+	-- delete defaults that were just applied (e.g. the whole gradient table)
+	if globalVersion == 0 and not E.db.mui.version and not E.private.mui.version then
+		E.global.mui.version = MER.Version
+		E.db.mui.version = MER.Version
+		E.private.mui.version = MER.Version
+		return
+	end
+
 	isFirstLine = true
 
 	if profileVersion < 7.14 then
