@@ -528,7 +528,12 @@ end
 function F.String.Class(msg, class)
 	local finalClass = class or E.myclass
 
+	-- Classes that don't exist on the current client (e.g. Monk on Forever) have no color
 	local color = E:ClassColor(finalClass, true)
+	if not color then
+		return msg
+	end
+
 	return F.String.Color(msg, F.String.FastRGB(color.r, color.g, color.b))
 end
 

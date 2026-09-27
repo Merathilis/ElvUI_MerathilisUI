@@ -81,6 +81,7 @@ options.general = {
 			order = 40,
 			type = "group",
 			name = L["LootSpecManager"],
+			hidden = E.Forever,
 			desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
 			inline = true,
 			get = function(info)
@@ -215,11 +216,13 @@ options.gameMenu = {
 					order = 2,
 					type = "toggle",
 					name = L["Show Weekly Delves Keys"],
+					hidden = E.Forever,
 				},
 				mythic = {
 					order = 3,
 					type = "group",
 					name = "|cffFF0000WIP|r" .. " " .. L["Mythic+"],
+					hidden = E.Forever,
 					args = {
 						showMythicKey = {
 							order = 1,
@@ -652,6 +655,7 @@ options.singingSockets = {
 	order = 10,
 	type = "group",
 	name = L["Singing Sockets"],
+	hidden = E.Forever,
 	get = function(info)
 		return E.db.mui.misc.singingSockets[info[#info]]
 	end,

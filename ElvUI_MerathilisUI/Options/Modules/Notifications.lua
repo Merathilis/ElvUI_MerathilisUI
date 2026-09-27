@@ -113,6 +113,7 @@ options.Notification = {
 			order = 9,
 			type = "toggle",
 			name = L["Quick Join"],
+			hidden = E.Forever,
 			disabled = function()
 				return not E.db.mui.notification.enable
 			end,
@@ -121,6 +122,7 @@ options.Notification = {
 			order = 10,
 			type = "toggle",
 			name = _G.BATTLEGROUND_HOLIDAY,
+			hidden = E.Forever,
 			disabled = function()
 				return not E.db.mui.notification.enable
 			end,
@@ -137,6 +139,7 @@ options.Notification = {
 			order = 12,
 			type = "toggle",
 			name = L["Great Vault"],
+			hidden = E.Forever,
 			disabled = function()
 				return not E.db.mui.notification.enable
 			end,

@@ -226,6 +226,7 @@ options.nameHover = {
 			type = "group",
 			name = L["Dungeon Info Options"],
 			guiInline = true,
+			hidden = E.Forever,
 			args = {
 				mythicPlus_ShowForces = {
 					order = 1,

@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_MinimapButtons")
 
 local _G = _G
 local ipairs, pairs, format = ipairs, pairs, string.format
-local max, sort, strfind = math.max, table.sort, string.find
+local max, sort, strfind, tinsert = math.max, table.sort, string.find, table.insert
 
 local CreateFrame = CreateFrame
 local GetGameTime = GetGameTime
@@ -909,17 +909,20 @@ function module:CreateButtons()
 	self.holder = holder
 	self.elementHolder = elementHolder
 
-	self.greatVaultButton = CreateGreatVaultButton(holder)
-	self.portalButton = CreatePortalButton(holder)
+	-- Great Vault, M+ portals and crafting orders are Retail-only systems
+	if not E.Forever then
+		self.greatVaultButton = CreateGreatVaultButton(holder)
+		self.portalButton = CreatePortalButton(holder)
+		self.craftingButton = CreateCraftingButton(elementHolder)
+	end
 	self.trackingButton = CreateTrackingButton(elementHolder)
 	self.calendarButton = CreateCalendarButton(elementHolder)
 	self.compartmentButton = CreateCompartmentButton(elementHolder)
 	self.mailButton = CreateMailButton(elementHolder)
-	self.craftingButton = CreateCraftingButton(elementHolder)
 
 	-- Order within each bar. Mail and crafting orders sit last so the always-on
 	-- buttons keep their place when those two appear or vanish.
-	self.buttons = {
+	local buttons = {
 		{ key = "greatVault", bar = "main", btn = self.greatVaultButton },
 		{ key = "mplusPortals", bar = "main", btn = self.portalButton },
 		{ key = "tracking", bar = "elements", btn = self.trackingButton },
@@ -928,6 +931,13 @@ function module:CreateButtons()
 		{ key = "mail", bar = "elements", btn = self.mailButton },
 		{ key = "craftingOrders", bar = "elements", btn = self.craftingButton },
 	}
+
+	self.buttons = {}
+	for _, entry in ipairs(buttons) do
+		if entry.btn then
+			tinsert(self.buttons, entry)
+		end
+	end
 
 	-- Each button knows its bar, so its menu or flyout can open the way that bar grows.
 	for _, entry in ipairs(self.buttons) do
@@ -938,7 +948,9 @@ function module:CreateButtons()
 	watcher:RegisterEvent("UPDATE_PENDING_MAIL")
 	watcher:RegisterEvent("MAIL_INBOX_UPDATE")
 	watcher:RegisterEvent("MAIL_CLOSED")
-	watcher:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS")
+	if not E.Forever then
+		watcher:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS")
+	end
 	watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
 	watcher:SetScript("OnEvent", function()
 		module:RefreshIndicators()

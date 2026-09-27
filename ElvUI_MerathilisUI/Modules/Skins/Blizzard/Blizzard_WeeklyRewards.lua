@@ -2,6 +2,11 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
 
+-- The Great Vault does not exist on Forever
+if E.Forever then
+	return
+end
+
 local _G = _G
 local ipairs, unpack = ipairs, unpack
 

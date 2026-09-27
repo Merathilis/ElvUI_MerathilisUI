@@ -133,6 +133,7 @@ options.reset = {
 			order = 11,
 			type = "execute",
 			name = L["Armory"],
+			hidden = E.Forever,
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Armory"], nil, function()
 					E:CopyTable(E.db.mui.armory, P.armory)

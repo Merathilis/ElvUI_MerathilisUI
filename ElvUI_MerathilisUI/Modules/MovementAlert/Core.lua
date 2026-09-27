@@ -10,8 +10,6 @@ local format, gsub, wipe = format, gsub, wipe
 
 local CreateFont = CreateFont
 local CreateFrame = CreateFrame
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
 local GetSpellBaseCooldown = GetSpellBaseCooldown
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
@@ -149,8 +147,7 @@ local function IsKnown(spellID)
 end
 
 local function GetSpecID()
-	local spec = GetSpecialization and GetSpecialization()
-	return spec and GetSpecializationInfo(spec) or nil
+	return select(2, F.GetPlayerSpec())
 end
 
 local function GetOverrideSpell(spellID)

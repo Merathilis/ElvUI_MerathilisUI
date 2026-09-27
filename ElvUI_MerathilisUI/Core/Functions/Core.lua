@@ -15,6 +15,8 @@ local len, utf8sub = string.len, string.utf8sub
 local tcontains = tContains
 
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
+local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
+local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local CreateFrame = CreateFrame
 local GetContainerItemID = C_Container.GetContainerItemID
 local GetContainerNumSlots = C_Container.GetContainerNumSlots
@@ -1926,6 +1928,25 @@ function F:GetFontColorSetter(profileDB, callback, customKey)
 	end
 end
 
+---Return the player's active specialization index and ID.
+---Uses C_SpecializationInfo directly: the GetSpecialization globals are deprecation shims
+---that are not loaded on WoW Forever. Both values are nil when there is no active spec.
+---@return number? specIndex
+---@return number? specID
+function F.GetPlayerSpec()
+	local specIndex = C_SpecializationInfo_GetSpecialization()
+	if not specIndex or specIndex == 0 then
+		return
+	end
+
+	local specID = C_SpecializationInfo_GetSpecializationInfo(specIndex)
+	if not specID or specID == 0 then
+		return specIndex
+	end
+
+	return specIndex, specID
+end
+
 function F.CheckInterruptConditions(condition)
 	if condition.class and condition.class ~= E.myclass then
 		return
@@ -1933,7 +1954,7 @@ function F.CheckInterruptConditions(condition)
 	if condition.level and condition.level > UnitLevel("player") then
 		return
 	end
-	if condition.specIds and not tcontains(condition.specIds, GetSpecializationInfo(GetSpecialization())) then
+	if condition.specIds and not tcontains(condition.specIds, select(2, F.GetPlayerSpec())) then
 		return
 	end
 	return true

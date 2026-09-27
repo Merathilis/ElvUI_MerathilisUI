@@ -453,7 +453,12 @@ function module:OnEnable()
 		end
 	end
 
-	self:SecureHook("InboxFrame_Update", "UpdateMailIcons")
+	-- Forever's rewritten mail frame replaced InboxFrame_Update with InboxMixin:Update
+	if _G.InboxFrame_Update then
+		self:SecureHook("InboxFrame_Update", "UpdateMailIcons")
+	else
+		self:SecureHook(_G.InboxFrame, "Update", "UpdateMailIcons")
+	end
 	self:RegisterEvent("MAIL_CLOSED", "OnMailClosed")
 	self:RegisterEvent("MAIL_FAILED", "OnMailFailed")
 	self:SecureHook("SendMailFrame_Reset", "OnSendMailReset")

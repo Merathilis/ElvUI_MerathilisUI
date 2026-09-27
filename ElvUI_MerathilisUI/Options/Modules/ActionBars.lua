@@ -31,6 +31,7 @@ options.actionbars = {
 			order = 3,
 			type = "group",
 			name = L["Specialization Bar"],
+			hidden = E.Forever,
 			guiInline = true,
 			disabled = function()
 				return not E.private.actionbar.enable

@@ -468,6 +468,7 @@ options.advancedSettings = {
 		weeklyRewards = {
 			order = 3,
 			type = "group",
+			hidden = E.Forever,
 			name = L["Weekly Rewards"],
 			get = function(info)
 				return E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]]

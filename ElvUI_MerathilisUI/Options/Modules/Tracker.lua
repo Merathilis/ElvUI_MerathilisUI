@@ -197,6 +197,8 @@ options.tracker = {
 							type = "select",
 							name = L["Visibility"],
 							values = VISIBILITY,
+							-- Raid encounters are the only option on Forever
+							hidden = E.Forever,
 						},
 						displayMode = {
 							order = 2,
@@ -273,6 +275,8 @@ options.tracker = {
 							type = "select",
 							name = L["Visibility"],
 							values = VISIBILITY,
+							-- Raid encounters are the only option on Forever
+							hidden = E.Forever,
 						},
 						iconSize = {
 							order = 2,

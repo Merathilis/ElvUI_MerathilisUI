@@ -1,6 +1,11 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 
+-- The Talking Head frame is not used on Forever
+if E.Forever then
+	return
+end
+
 local _G = _G
 
 function module:TalkingHeadFrame()

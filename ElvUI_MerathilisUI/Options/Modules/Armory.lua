@@ -13,6 +13,8 @@ local GetItemInfo = C_Item.GetItemInfo
 options.armory = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Armory"], "armory"),
+	-- Forever uses its own character frame, which the Armory does not support yet
+	hidden = E.Forever,
 	childGroups = "tab",
 	get = function(info)
 		return E.db.mui.armory[info[#info]]

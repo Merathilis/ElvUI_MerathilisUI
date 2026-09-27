@@ -332,6 +332,15 @@ local BUTTONS = {
 	},
 }
 
+-- The portal flyout only offers Mythic+ teleports, which Forever does not have
+if E.Forever then
+	for i = #BUTTONS, 1, -1 do
+		if BUTTONS[i].key == "portals" then
+			tremove(BUTTONS, i)
+		end
+	end
+end
+
 function module:ColorButton(btn)
 	local db = self.db
 	local r, g, b, a

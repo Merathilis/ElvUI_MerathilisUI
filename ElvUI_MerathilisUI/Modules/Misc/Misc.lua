@@ -5,7 +5,6 @@ local _G = _G
 
 local hooksecurefunc = hooksecurefunc
 local GetNumGroupMembers = GetNumGroupMembers
-local GetSpecialization = GetSpecialization
 local IsFriend = C_FriendList.IsFriend
 local IsGuildMember = IsGuildMember
 local UnitLevel = UnitLevel
@@ -15,7 +14,12 @@ local UnitSetRole = UnitSetRole
 local GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
 
 function module:SetRole()
-	local spec = GetSpecialization()
+	-- Forever may have no specializations, which would clear the role on every update
+	if E.Forever then
+		return
+	end
+
+	local spec = F.GetPlayerSpec()
 	if UnitLevel("player") >= 10 and not InCombatLockdown() then
 		if spec == nil and UnitGroupRolesAssigned("player") ~= "NONE" then
 			UnitSetRole("player", "NONE")

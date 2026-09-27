@@ -5,9 +5,9 @@ local MERS = MER:GetModule("MER_Skins")
 local ipairs = ipairs
 
 local IsShiftKeyDown = IsShiftKeyDown
-local C_PetJournal_SetPetTypeFilter = C_PetJournal.SetPetTypeFilter
-local C_PetJournal_IsPetTypeChecked = C_PetJournal.IsPetTypeChecked
-local C_PetJournal_SetAllPetTypesChecked = C_PetJournal.SetAllPetTypesChecked
+local C_PetJournal_SetPetTypeFilter = C_PetJournal and C_PetJournal.SetPetTypeFilter
+local C_PetJournal_IsPetTypeChecked = C_PetJournal and C_PetJournal.IsPetTypeChecked
+local C_PetJournal_SetAllPetTypesChecked = C_PetJournal and C_PetJournal.SetAllPetTypesChecked
 
 local PET_TYPE_SUFFIX = PET_TYPE_SUFFIX
 
@@ -73,7 +73,7 @@ end
 
 function module:PetFilterTab()
 	self.db = F.GetDBFromPath("mui.misc.petFilterTab")
-	if not self.db then
+	if not self.db or not C_PetJournal_SetPetTypeFilter then
 		return
 	end
 

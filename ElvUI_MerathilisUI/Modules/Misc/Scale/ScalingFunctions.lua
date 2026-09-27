@@ -11,7 +11,11 @@ function module:SetElementScale(dbName, blizzName)
 		return
 	end
 
-	_G[blizzName]:SetScale(option.scale)
+	-- Some frames only exist on one client (e.g. PVEFrame is Retail-only)
+	local frame = _G[blizzName]
+	if frame then
+		frame:SetScale(option.scale)
+	end
 end
 
 function module:ScaleCollections()

@@ -5,10 +5,10 @@ local pcall, tonumber = pcall, tonumber
 
 local UnitIsPlayer = UnitIsPlayer
 
-local C_ScenarioInfo_GetUnitCriteriaProgressValues = C_ScenarioInfo.GetUnitCriteriaProgressValues
-local C_ChallengeMode_IsChallengeModeActive = C_ChallengeMode.IsChallengeModeActive
-local C_Scenario_GetStepInfo = C_Scenario.GetStepInfo
-local C_ScenarioInfo_GetCriteriaInfo = C_ScenarioInfo.GetCriteriaInfo
+local C_ScenarioInfo_GetUnitCriteriaProgressValues = C_ScenarioInfo and C_ScenarioInfo.GetUnitCriteriaProgressValues
+local C_ChallengeMode_IsChallengeModeActive = C_ChallengeMode and C_ChallengeMode.IsChallengeModeActive
+local C_Scenario_GetStepInfo = C_Scenario and C_Scenario.GetStepInfo
+local C_ScenarioInfo_GetCriteriaInfo = C_ScenarioInfo and C_ScenarioInfo.GetCriteriaInfo
 
 local CONTRIBUTION_COLOR = { r = 1, g = 1, b = 1 }
 local CONTEXT_COLOR = { r = 0.7, g = 0.7, b = 0.7 } -- light gray: pull progress

@@ -41,8 +41,9 @@ local versionString = GetAddOnMetadata(addon, "Version")
 local xVersionString = GetAddOnMetadata(addon, "X-Version")
 local metaFlavor = GetAddOnMetadata(addon, "X-Flavor")
 
-MER.MetaFlavor = metaFlavor
-MER.IsRetail = (metaFlavor == "Mainline") or (build >= 120000)
+-- Forever shares the Mainline client, so the TOC flavor alone cannot tell them apart
+MER.MetaFlavor = E.Forever and "Forever" or metaFlavor
+MER.IsRetail = E.Retail
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata(addon, "X-ElvUIVersion"))
 
@@ -150,6 +151,7 @@ function MER:Initialize()
 
 	local flavorMap = {
 		["Mainline"] = I.Enum.Flavor.RETAIL,
+		["Forever"] = I.Enum.Flavor.FOREVER,
 	}
 	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
 

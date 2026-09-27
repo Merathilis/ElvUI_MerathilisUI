@@ -2,6 +2,11 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
 local S = MER:GetModule("MER_Skins")
 
+-- Singing Sockets are Retail-only gems
+if E.Forever then
+	return
+end
+
 local ClearCursor = ClearCursor
 local ClickSocketButton = ClickSocketButton
 local GetSocketTypes = GetSocketTypes

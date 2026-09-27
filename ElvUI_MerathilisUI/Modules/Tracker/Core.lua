@@ -5,6 +5,7 @@ local WS = W:GetModule("Skins")
 -- Credit: EllesmereUI, by EllesmereGaming
 
 local ipairs, format, gsub, unpack, tostring = ipairs, format, gsub, unpack, tostring
+local tinsert = table.insert
 
 local C_ChallengeMode = C_ChallengeMode
 local C_Timer = C_Timer
@@ -48,6 +49,9 @@ end
 
 local function ActiveKeystone()
 	-- Only true while the key timer runs, not just for having a keystone in a dungeon.
+	if not C_ChallengeMode then -- Forever has no Mythic+
+		return false
+	end
 	return C_ChallengeMode.IsChallengeModeActive() and (C_ChallengeMode.GetActiveKeystoneInfo() or 0) > 0
 end
 
@@ -158,7 +162,8 @@ function module:ShouldShowTracker(db)
 		return false
 	end
 
-	local visibility = db.visibility
+	-- Forever has no keystones, so a Mythic+ only setting falls back to raid encounters
+	local visibility = E.Forever and "RAID" or db.visibility
 	if visibility ~= "RAID" and self.inKeystone then
 		return true
 	end
@@ -210,12 +215,16 @@ local EVENTS = {
 	"PLAYER_ENTERING_WORLD",
 	"ENCOUNTER_START",
 	"ENCOUNTER_END",
-	"CHALLENGE_MODE_START",
-	"CHALLENGE_MODE_COMPLETED",
-	"CHALLENGE_MODE_RESET",
-	"WORLD_STATE_TIMER_START",
-	"WORLD_STATE_TIMER_STOP",
 }
+
+-- Keystone timers only exist on Retail
+if not E.Forever then
+	tinsert(EVENTS, "CHALLENGE_MODE_START")
+	tinsert(EVENTS, "CHALLENGE_MODE_COMPLETED")
+	tinsert(EVENTS, "CHALLENGE_MODE_RESET")
+	tinsert(EVENTS, "WORLD_STATE_TIMER_START")
+	tinsert(EVENTS, "WORLD_STATE_TIMER_STOP")
+end
 
 function module:PLAYER_ENTERING_WORLD(event)
 	self:RefreshInstanceState()

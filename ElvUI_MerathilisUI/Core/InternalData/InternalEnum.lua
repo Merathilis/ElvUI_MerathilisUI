@@ -53,4 +53,4 @@ I.Enum.GradientMode = {
 	Color = F.Enum({ "SHIFT", "NORMAL" }),
 }
 
-I.Enum.Flavor = F.Enum({ "MOP", "RETAIL" })
+I.Enum.Flavor = F.Enum({ "MOP", "RETAIL", "FOREVER" })

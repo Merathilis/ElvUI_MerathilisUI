@@ -5,6 +5,7 @@ local _G = _G
 local format = string.format
 local pcall = pcall
 local tinsert = table.insert
+local debugprofilestop = debugprofilestop
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
@@ -25,7 +26,7 @@ MER.Values = {
 	FontFlags = E.Libs.ACH.FontValues,
 }
 
-if not E.Retail then
+if not (E.Retail or E.Forever) then
 	E.PopupDialogs.WRONGWOWVERSION = {
 		text = MER.Title
 			.. L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"],
@@ -155,7 +156,13 @@ function MER:UpdateModules()
 	for _, moduleName in ipairs(self.RegisteredModules) do
 		local module = MER:GetModule(moduleName)
 		if module.ProfileUpdate then
+			-- DEBUG(Forever install lag): report slow module updates in debug log level
+			local debugStart = debugprofilestop()
 			pcall(module.ProfileUpdate, module)
+			local elapsed = debugprofilestop() - debugStart
+			if elapsed > 5 then
+				WF.Developer.LogDebug(format("[UpdateModules] %s: %.1f ms", moduleName, elapsed))
+			end
 		end
 	end
 end

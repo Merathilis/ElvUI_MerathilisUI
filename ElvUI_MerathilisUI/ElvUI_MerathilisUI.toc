@@ -1,7 +1,7 @@
-## Interface: 120100
+## Interface: 120100, 16001
 ## Author: Merathilis
 ## Version: @project-version@
-## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
+## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r [AllowLoadGameType standard, camelot]
 ## AddonCompartmentFunc: MerathilisUI_OnAddonCompartmentClick
 ## IconTexture: Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\m2
 ## Notes: A decorative edit for ElvUI + additional features.

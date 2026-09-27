@@ -317,13 +317,17 @@ function module:Initialize()
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
 	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
-	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
-	self:RegisterEvent("LFG_UPDATE_RANDOM_INFO")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("QUEST_ACCEPTED")
-	self:RegisterEvent("WEEKLY_REWARDS_UPDATE")
 	self:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
+
+	-- Quick Join, Call to Arms and the Great Vault are Retail-only systems
+	if not E.Forever then
+		self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
+		self:RegisterEvent("LFG_UPDATE_RANDOM_INFO")
+		self:RegisterEvent("WEEKLY_REWARDS_UPDATE")
+	end
 
 	self:AlertFullBags()
 
