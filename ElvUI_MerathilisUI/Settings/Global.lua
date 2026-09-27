@@ -11,25 +11,8 @@ G.core = {
 }
 
 G.mail = {
-	contacts = {
-		alts = {},
-		favorites = {},
-		updateAlts = true,
-	},
 	templates = {},
 	quickAttachRecipients = {},
-}
-
-G.bags = {
-	CustomJunkList = {},
-}
-
-G.maps = {
-	eventTracker = {},
-}
-
-G.misc = {
-	lfgList = {},
 }
 
 G.developer = {

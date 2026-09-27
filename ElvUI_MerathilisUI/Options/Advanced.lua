@@ -312,16 +312,6 @@ options.reset = {
 				end)
 			end,
 		},
-		cooldownManager = {
-			order = 26,
-			type = "execute",
-			name = L["Cooldown Manager"],
-			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Cooldown Manager"], nil, function()
-					E:CopyTable(E.db.mui.cooldownManager, P.cooldownManager)
-				end)
-			end,
-		},
 		datatexts = {
 			order = 27,
 			type = "execute",
@@ -329,16 +319,6 @@ options.reset = {
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["DataTexts"], nil, function()
 					E:CopyTable(E.db.mui.datatexts, P.datatexts)
-				end)
-			end,
-		},
-		raidBuffs = {
-			order = 28,
-			type = "execute",
-			name = L["Raid Buffs"],
-			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Raid Buffs"], nil, function()
-					E:CopyTable(E.db.mui.raidBuffs, P.raidBuffs)
 				end)
 			end,
 		},

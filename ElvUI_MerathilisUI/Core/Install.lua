@@ -2243,16 +2243,6 @@ function MER:DeveloperSettings()
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
 	E.db["mui"]["scale"]["auctionHouse"]["scale"] = 1.15
 	E.db["mui"]["armory"]["stats"]["itemLevelFont"]["itemLevelFontColor"] = "GRADIENT"
-	E.db["mui"]["cooldownManager"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["fading"] = true
-	E.db["mui"]["cooldownManager"]["dynamicBarsWidth"] = true
-	E.db["mui"]["cooldownManager"]["anchors"]["essential"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["anchors"]["utility"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["anchors"]["buff"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["anchors"]["buffBar"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["essential"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["utility"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["buff"] = true
 
 	-- Chat
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
@@ -2433,7 +2423,6 @@ local moduleToggles = {
 	},
 	{
 		name = L["Combat"],
-		{ label = L["Cooldown Manager"], path = { "cooldownManager", "enable" } },
 		{ label = L["Buff Reminder"], path = { "buffReminder", "enable" } },
 		{ label = L["Battle Res"], path = { "tracker", "battleRes", "enable" } },
 		{ label = L["Bloodlust"], path = { "tracker", "bloodlust", "enable" } },

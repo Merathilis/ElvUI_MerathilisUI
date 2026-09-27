@@ -85,8 +85,13 @@ function MER:UpdateScripts()
 	end
 
 	if profileVersion < 7.37 then
-		-- The legacy gradient colors and the resting indicator custom gradient were removed
+		-- Removed settings: legacy gradient colors, resting indicator custom gradient,
+		-- the old Cooldown Manager and Raid Buffs modules and two unused tables
 		RemoveProfileKey("gradient")
+		RemoveProfileKey("cooldownManager")
+		RemoveProfileKey("raidBuffs")
+		RemoveProfileKey("colors")
+		RemoveProfileKey("media")
 
 		local restingIndicator = E.db.mui.unitframes and E.db.mui.unitframes.restingIndicator
 		if restingIndicator then

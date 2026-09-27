@@ -141,9 +141,6 @@ P.themes = {
 			focus = I.Enum.GradientMode.Direction.LEFT,
 		},
 
-		interruptCDEnabled = false,
-		interruptSoonEnabled = false,
-
 		saturationBoost = {
 			enable = false,
 			shiftLight = 0.7,
@@ -375,15 +372,10 @@ P.bags = {
 	},
 }
 
-P.colors = {
-	styleAlpha = 1,
-}
-
 P.misc = {
 	gmotd = true,
 	funstuff = true,
 	wowheadlinks = true,
-	respec = true,
 	tradeTabs = true,
 	blockRequest = false,
 	singingSockets = {
@@ -828,42 +820,6 @@ P.actionbars = {
 	},
 }
 
-P.cooldownManager = {
-	enable = false,
-	fading = false,
-
-	dynamicBarsWidth = false,
-	dynamicCastbarWidth = false,
-	minDynamicWidth = F.Dpi(250),
-
-	-- Anchoring
-	anchors = {
-		essential = {
-			enable = false,
-			yOffset = -4,
-		},
-		utility = {
-			enable = false,
-			yOffset = -4,
-		},
-		buff = {
-			enable = false,
-			yOffset = 20,
-		},
-		buffBar = {
-			enable = false,
-			yOffset = 80,
-		},
-	},
-
-	-- Centering
-	centering = {
-		essential = false,
-		utility = false,
-		buff = false,
-	},
-}
-
 P.vehicleBar = {
 	enable = false,
 	hideElvUIBars = true,
@@ -1050,7 +1006,6 @@ P.nameHover = {
 	level = true,
 	classification = true,
 
-	display_BackgroundAlpha = 0.5,
 	display_BackgroundPadding = 2,
 
 	mainTextSize = 14,
@@ -1242,8 +1197,6 @@ P.movementAlert = {
 	},
 }
 
-P.media = {}
-
 P.panels = {
 	colorType = "CLASS",
 	customColor = { r = 1, g = 1, b = 1 },
@@ -1306,16 +1259,6 @@ P.itemLevel = {
 	guildNews = {
 		enable = true,
 	},
-}
-
-P.raidBuffs = {
-	enable = true,
-	visibility = "INPARTY",
-	class = true,
-	size = 30,
-	alpha = 0.3,
-	glow = true,
-	customVisibility = "[noexists, nogroup] hide; show",
 }
 
 P.elvUIIcons = {

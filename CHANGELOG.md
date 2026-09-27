@@ -19,12 +19,14 @@
 -   [Fix]: Installer: The color preview of the UnitFrames step stuck to other steps, and the step buttons cut off longer labels. Closing the installer no longer leaves MerathilisUI changes behind for the next plugin installer.
 -   [Fix]: Installer: Errors while applying a profile are now reported instead of being silently ignored.
 -   [Fix]: Installer: The chat step names the combat log window correctly again and uses Blizzard's current chat functions instead of deprecated ones.
+-   [Fix]: Installer: Removed the Cooldown Manager checkbox from the Modules step, the module no longer exists.
 -   [Fix]: ItemLevel/Pet Filter Tab: The item level on the Scrapping Machine and the pet filter tab in the Collections window could fail to appear, because both loaded through the same event handler.
 -   [Fix]: Loot Spec Manager/Copy Transmog: The info tooltips are colored again.
 -   [Fix]: Movement Alert: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell's cooldown is restricted.
 -   [Fix]: Portal Flyout: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.
 -   [Fix]: Profiles: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.
 -   [Fix]: Resting Indicator: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.
+-   [Fix]: Skins: The ls_Toasts skin can be turned off again, and Mount Route Planner has its own toggle in the AddOnSkins options.
 -   [Fix]: Tags: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.
 -   [Fix]: UnitFrames: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.
 -   [Fix]: Vehicle Bar: Changed settings apply right away again instead of only after a reload.
@@ -34,7 +36,7 @@
 -   [New]: UnitFrames/NamePlates: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.
 -   [Improvement]: Core: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.
 -   [Improvement]: Core: Uses ElvUI's animation library instead of a bundled copy.
--   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings and an interrupt check that ran on every spec, level and zone change.
+-   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.
 -   [Improvement]: Core: Errors of a module while switching profiles are now reported instead of being silently ignored.
 -   [Improvement]: Information: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.
 -   [Improvement]: Installer: The final step now points to the MerathilisUI website, with a Website button next to Discord.
