@@ -13,5 +13,6 @@ MER.Changelog[737] = {
 	},
 	IMPROVEMENTS = {
 		"[Login Logo]: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.",
+		"[Information]: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.",
 	},
 }
