@@ -3,8 +3,7 @@ local ES = E:GetModule("Skins")
 local LSM = E.LSM
 
 local _G = _G
-local ipairs, pairs, pcall, print, select, tonumber, type, unpack =
-	ipairs, pairs, pcall, print, select, tonumber, type, unpack
+local ipairs, pairs, print, select, tonumber, type, unpack = ipairs, pairs, print, select, tonumber, type, unpack
 local format, gsub, match = string.format, string.gsub, string.match
 local strfind, strmatch, strsplit = strfind, strmatch, strsplit
 local tinsert = table.insert
