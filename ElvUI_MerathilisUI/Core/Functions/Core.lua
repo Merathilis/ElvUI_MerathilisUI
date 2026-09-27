@@ -7,10 +7,9 @@ local ipairs, pairs, pcall, print, select, tonumber, type, unpack =
 	ipairs, pairs, pcall, print, select, tonumber, type, unpack
 local format, gsub, match = string.format, string.gsub, string.match
 local strfind, strmatch, strsplit = strfind, strmatch, strsplit
-local tinsert, tremove = table.insert, table.remove
+local tinsert = table.insert
 local abs, max, min, modf = math.abs, math.max, math.min, math.modf
 local len = string.len
-local tcontains = tContains
 
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 local CreateFrame = CreateFrame
@@ -544,21 +543,6 @@ function F.DebugPrint(text, msgtype)
 		message = format("%s: %s", MER.Title, text)
 	end
 	print(message)
-end
-
-do
-	local throttleNamespaces = {}
-
-	function F.CreateThrottleWrapper(namespace, throttle, func)
-		return function(...)
-			local currentTime = GetTime()
-			if throttleNamespaces[namespace] and ((currentTime - throttleNamespaces[namespace]) <= throttle) then
-				return
-			end
-			throttleNamespaces[namespace] = currentTime
-			return func(...)
-		end
-	end
 end
 
 do
@@ -1192,7 +1176,7 @@ do
 end
 
 do
-	local eventManagerFrame, eventManagerTable, eventManagerDelayed = CreateFrame("Frame"), {}, {}
+	local eventManagerDelayed = {}
 	local flushPending = false
 
 	local function flushDelayed()
@@ -1209,143 +1193,6 @@ do
 			flushPending = true
 			E:Delay(0, flushDelayed)
 		end
-	end
-
-	eventManagerFrame:SetScript("OnEvent", function(_, event, ...)
-		local namespaces = eventManagerTable[event]
-		if namespaces then
-			for _, funcs in pairs(namespaces) do
-				for _, func in ipairs(funcs) do
-					func(event, ...)
-				end
-			end
-		end
-	end)
-
-	function F.EventManagerRegister(namespace, event, func)
-		local namespaces = eventManagerTable[event]
-
-		if not namespaces then
-			eventManagerTable[event] = {}
-			namespaces = eventManagerTable[event]
-			pcall(eventManagerFrame.RegisterEvent, eventManagerFrame, event)
-		end
-
-		local funcs = namespaces[namespace]
-
-		if not funcs then
-			namespaces[namespace] = { func }
-		elseif not tcontains(funcs, func) then
-			tinsert(funcs, func)
-		end
-	end
-
-	function F.EventManagerUnregisterAll(namespace)
-		for event in pairs(eventManagerTable) do
-			local namespaces = eventManagerTable[event]
-			local funcs = namespaces and namespaces[namespace]
-			if funcs ~= nil then
-				F.EventManagerUnregister(namespace, event)
-			end
-		end
-	end
-
-	function F.EventManagerUnregister(namespace, event, func)
-		local namespaces = eventManagerTable[event]
-		local funcs = namespaces and namespaces[namespace]
-
-		if funcs then
-			for index, fnc in ipairs(funcs) do
-				if not func or (func == fnc) then
-					tremove(funcs, index)
-					break
-				end
-			end
-
-			if #funcs == 0 then
-				namespaces[namespace] = nil
-			end
-
-			if not next(funcs) then
-				eventManagerFrame:UnregisterEvent(event)
-				eventManagerTable[event] = nil
-			end
-		end
-	end
-end
-
-function F.CheckInterruptConditions(condition)
-	if condition.class and condition.class ~= E.myclass then
-		return
-	end
-	if condition.level and condition.level > UnitLevel("player") then
-		return
-	end
-	if condition.specIds and not tcontains(condition.specIds, GetSpecializationInfo(GetSpecialization())) then
-		return
-	end
-	return true
-end
-
-function F.CheckInterruptSpellsEvaluation()
-	for _, entry in ipairs(I.InterruptSpellMap) do
-		entry.active = IsSpellKnownOrOverridesKnown(entry.id) and F.CheckInterruptConditions(entry.conditions)
-	end
-end
-
-function F.CanInterruptEvaluation()
-	local interruptCD = nil
-
-	local spellIDs = {}
-	for _, entry in ipairs(I.InterruptSpellMap) do
-		if entry.active then
-			tinsert(spellIDs, entry.id)
-		end
-	end
-
-	for _, interruptSpellId in ipairs(spellIDs) do
-		if E.myclass ~= "WARLOCK" then
-			local cdStart, cdDur
-			if TXUI.IsRetail then
-				local cd = GetSpellCooldown(interruptSpellId)
-				cdStart, cdDur = cd.startTime, cd.duration
-			else
-				cdStart, cdDur = GetSpellCooldown(interruptSpellId)
-			end
-
-			local tmpInterruptCD = (cdStart > 0 and cdDur - (GetTime() - cdStart)) or 0
-			if not interruptCD or (tmpInterruptCD < interruptCD) then
-				interruptCD = tmpInterruptCD
-			end
-		elseif C_SpellBook.FindSpellOverrideByID(119898) then -- Check if WL has the command ability
-			local cdStart, cdDur
-			if TXUI.IsRetail then
-				local cd = GetSpellCooldown(interruptSpellId)
-				cdStart, cdDur = cd.startTime, cd.duration
-			else
-				cdStart, cdDur = GetSpellCooldown(interruptSpellId)
-			end
-			local tmpInterruptCD = (cdStart > 0 and cdDur - (GetTime() - cdStart)) or 0
-			if (tmpInterruptCD > 0) and (not interruptCD or (tmpInterruptCD < interruptCD)) then
-				interruptCD = tmpInterruptCD
-			end
-		end
-	end
-
-	if interruptCD and interruptCD > 0 then
-		return interruptCD
-	end
-	return 0
-end
-
-do
-	local cachedCD = 0
-	F.CanInterrupt = function()
-		local cdDur = F.CanInterruptThrottled()
-		if cdDur ~= nil then
-			cachedCD = cdDur
-		end
-		return cachedCD
 	end
 end
 
@@ -1438,6 +1285,3 @@ function F.CalculateUltrawideOffset()
 		return 0
 	end
 end
-
-F.CheckInterruptSpells = F.CreateThrottleWrapper("CheckInterruptSpells", 2, F.CheckInterruptSpellsEvaluation)
-F.CanInterruptThrottled = F.CreateThrottleWrapper("CanInterrupt", 0.2, F.CanInterruptEvaluation)
