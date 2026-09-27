@@ -2449,10 +2449,11 @@ end
 
 -- Modules that can be toggled on the installer's module page, one column per group
 -- Each entry is the path below E.db.mui, the last key is the toggle itself
+-- Entries with hidden = true are left out (modules that are off on this client)
 local moduleToggles = {
 	{
 		name = L["Interface"],
-		{ label = L["Armory"], path = { "armory", "enable" } },
+		{ label = L["Armory"], path = { "armory", "enable" }, hidden = E.Forever },
 		{ label = L["Categorized Bags"], path = { "bags", "categorizedBags", "enable" } },
 		{ label = L["Chat Sidebar"], path = { "chat", "sidebar", "enable" } },
 		{ label = L["Location Panel"], path = { "locationPanel", "enable" } },
@@ -2509,21 +2510,26 @@ local function CreateModuleToggles()
 		header:SetText(group.name)
 		header:SetTextColor(F.r, F.g, F.b)
 
-		for row, toggle in ipairs(group) do
-			local check = CreateFrame("CheckButton", nil, container, "UICheckButtonTemplate")
-			check:SetSize(22, 22)
-			check:SetPoint("TOPLEFT", x, -row * 26)
-			check:SetHitRectInsets(0, -(columnWidth - 40), 0, 0)
-			check:SetScript("OnClick", ModuleToggle_OnClick)
-			check.path = toggle.path
-			S:HandleCheckBox(check)
+		local row = 0
+		for _, toggle in ipairs(group) do
+			if not toggle.hidden then
+				row = row + 1
 
-			check.label = check:CreateFontString(nil, "OVERLAY")
-			check.label:FontTemplate()
-			check.label:SetPoint("LEFT", check, "RIGHT", 6, 0)
-			check.label:SetText(toggle.label)
+				local check = CreateFrame("CheckButton", nil, container, "UICheckButtonTemplate")
+				check:SetSize(22, 22)
+				check:SetPoint("TOPLEFT", x, -row * 26)
+				check:SetHitRectInsets(0, -(columnWidth - 40), 0, 0)
+				check:SetScript("OnClick", ModuleToggle_OnClick)
+				check.path = toggle.path
+				S:HandleCheckBox(check)
 
-			tinsert(container.checks, check)
+				check.label = check:CreateFontString(nil, "OVERLAY")
+				check.label:FontTemplate()
+				check.label:SetPoint("LEFT", check, "RIGHT", 6, 0)
+				check.label:SetText(toggle.label)
+
+				tinsert(container.checks, check)
+			end
 		end
 	end
 
