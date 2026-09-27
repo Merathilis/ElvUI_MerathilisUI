@@ -1022,7 +1022,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 		local labelString = F.String.StripColor(frame.Label:GetText()) or ""
 
 		if module.db.stats.labelFont.abbreviateLabels and labelString ~= "" then
-			labelString = E:ShortenString(E.TagFunctions.Abbrev(labelString), 12)
+			labelString = E:ShortenString(F.String.Abbreviate(labelString), 12)
 		end
 
 		if module.db.stats.labelFont.labelFontColor == "GRADIENT" then

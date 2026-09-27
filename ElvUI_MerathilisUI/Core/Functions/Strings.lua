@@ -398,7 +398,7 @@ function F.String.RemoveTheLongestNumericalChain(text)
 end
 
 function F.String.Abbreviate(text)
-	if type(text) ~= "string" or text == "" then
+	if type(text) ~= "string" or E:IsSecretValue(text) or text == "" then
 		return text
 	end
 
@@ -440,8 +440,6 @@ function F.String.Abbreviate(text)
 	-- Combine the build string in the loop and the complete last word
 	return concat(letters) .. lastWord
 end
-
-E.TagFunctions.Abbrev = F.String.Abbreviate
 
 function F.String.FastGradient(text, r1, g1, b1, r2, g2, b2)
 	local parts = {}

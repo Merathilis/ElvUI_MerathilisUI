@@ -1,7 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Event = {}
 
-local next, pairs, select, type, unpack = next, pairs, select, type, unpack
+local next, pairs, pcall, select, type, unpack = next, pairs, pcall, select, type, unpack
 local rawset = rawset
 local securecallfunction = securecallfunction
 local secureexecuterange = secureexecuterange
@@ -160,27 +160,36 @@ do
 		return owner
 	end
 
+	local function CallbackRegistryExecuteClosurePair(_, closure, ...)
+		securecallfunction(closure, ...)
+	end
+
+	local function CallbackRegistryExecuteOwnerPair(owner, func, ...)
+		securecallfunction(func, owner, ...)
+	end
+
+	-- Snapshot so callbacks can (un)register during dispatch; keys are owners and must be kept as-is
+	local function copyCallbacks(callbacks)
+		local copy = {}
+		for owner, callback in pairs(callbacks) do
+			copy[owner] = callback
+		end
+		return copy
+	end
+
 	function F.Event.TriggerEvent(event, ...)
 		if type(event) ~= "string" then
 			return WF.Developer.ThrowError("TriggerEvent 'event' requires string type.", event)
 		end
 
 		local closures = F.Event.GetCallbacksByEvent(callbackType.CLOSURE, event)
-		if closures then
-			local function CallbackRegistryExecuteClosurePair(_, closure, ...)
-				securecallfunction(closure, ...)
-			end
-
-			secureexecuterange(F.Table.Join({}, closures), CallbackRegistryExecuteClosurePair, ...)
+		if closures and next(closures) then
+			secureexecuterange(copyCallbacks(closures), CallbackRegistryExecuteClosurePair, ...)
 		end
 
 		local funcs = F.Event.GetCallbacksByEvent(callbackType.FUNCTION, event)
-		if funcs then
-			local function CallbackRegistryExecuteOwnerPair(owner, func, ...)
-				securecallfunction(func, owner, ...)
-			end
-
-			secureexecuterange(F.Table.Join({}, funcs), CallbackRegistryExecuteOwnerPair, ...)
+		if funcs and next(funcs) then
+			secureexecuterange(copyCallbacks(funcs), CallbackRegistryExecuteOwnerPair, ...)
 		end
 	end
 
@@ -188,7 +197,10 @@ do
 		if value == 0 then
 			eventFrame:UnregisterEvent(frameEvent)
 		elseif value == 1 then
-			eventFrame:RegisterEvent(frameEvent)
+			-- Unknown events (e.g. retail-only ones on Forever) would throw here
+			if not pcall(eventFrame.RegisterEvent, eventFrame, frameEvent) then
+				WF.Developer.LogDebug("RegisterFrameEvent: unknown event", frameEvent)
+			end
 		end
 	end
 
@@ -273,8 +285,10 @@ do
 		local handle = nil
 		local requiredEventArgs = F.Table.SafePack(...)
 		local CallbackWrapper = function(_, ...)
-			for i = 1, select("#", ...) do
-				if select(i, ...) ~= requiredEventArgs[i] then
+			-- Only compare the args the caller filters on; payloads may carry secret values
+			for i = 1, requiredEventArgs.n do
+				local arg = select(i, ...)
+				if E:IsSecretValue(arg) or arg ~= requiredEventArgs[i] then
 					return
 				end
 			end

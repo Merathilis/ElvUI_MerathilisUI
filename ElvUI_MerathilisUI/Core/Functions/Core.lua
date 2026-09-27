@@ -267,19 +267,11 @@ end
 function F.AlmostEqual(a, b, epsilon)
 	epsilon = epsilon or 0.001
 
-	if type(a) ~= "number" or type(b) ~= "number" then
+	if type(a) ~= "number" or type(b) ~= "number" or E:IsSecretValue(a) or E:IsSecretValue(b) then
 		return false
 	end
 
-	local success, diff = pcall(function()
-		return abs(a - b)
-	end)
-
-	if success then
-		return diff < epsilon
-	else
-		return false
-	end
+	return abs(a - b) < epsilon
 end
 
 function F.PerfectScale(n)
@@ -454,8 +446,8 @@ function F:CreateFS(size, text, color, anchor, x, y)
 	F.SetFontSize(fs, size)
 	fs:SetText(text)
 	fs:SetWordWrap(false)
-	if color and type(color) == "boolean" then
-		fs:SetTextColor(cr, cg, cb)
+	if color == true then
+		fs:SetTextColor(F.r, F.g, F.b)
 	elseif color == "system" then
 		fs:SetTextColor(1, 0.8, 0)
 	elseif color == "info" then
@@ -566,7 +558,7 @@ function F.ConvertToHSL(r, g, b)
 end
 
 local function clamp255(x)
-	if type(x) ~= "number" then
+	if type(x) ~= "number" or E:IsSecretValue(x) then
 		return 255
 	end
 	if x < 0 then
@@ -621,7 +613,10 @@ function F.SlowColorGradient(perc, ...)
 end
 
 function F.FastColorGradient(perc, r1, g1, b1, r2, g2, b2)
-	if perc >= 1 then
+	-- Secret percentages can't be compared, fall back to the start color
+	if E:IsSecretValue(perc) then
+		return r1, g1, b1
+	elseif perc >= 1 then
 		return r2, g2, b2
 	elseif perc <= 0 then
 		return r1, g1, b1
@@ -647,7 +642,7 @@ function F.RoundNumber(number, decimals)
 	if number then
 		return (("%%.%df"):format(decimals)):format(number)
 	else
-		F.Print(L["!! ERROR - Round:"] .. " " .. number .. " - " .. decimals)
+		F.Print(L["!! ERROR - Round:"], tostring(number), "-", tostring(decimals))
 		return 0
 	end
 end
@@ -700,7 +695,9 @@ function F.DebugPrint(text, msgtype)
 	elseif msgtype == "warning" then
 		message = format("%s: %s", MER.Title .. F.String.Warning(L["Warning"]), text)
 	elseif msgtype == "info" then
-		message = format("%s: %s", MER.Title .. F.String.MER(L["Information"]), text)
+		message = format("%s: %s", MER.Title .. F.String.MERATHILISUI(L["Information"]), text)
+	else
+		message = format("%s: %s", MER.Title, text)
 	end
 	print(message)
 end
@@ -767,7 +764,7 @@ do
 				r, g, b = F.r, F.g, F.b
 			elseif self.color == "SYSTEM" then
 				r, g, b = 1, 0.8, 0
-			elseif self.color == "BLUE" then
+			elseif self.color == "BLUE" or self.color == "info" then
 				r, g, b = 0.6, 0.8, 1
 			elseif self.color == "RED" then
 				r, g, b = 0.9, 0.3, 0.3
