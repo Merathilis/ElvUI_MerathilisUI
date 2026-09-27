@@ -1068,7 +1068,9 @@ L["Left-click to attach all - right-click to set a default recipient."] =
 -- Chat
 L["Chat Sidebar"] = "Chat-Seitenleiste"
 L["Adds a slim icon bar inside a chat panel with quick access to friends, guild, copy chat, M+ portals and more."] = "Fügt eine schmale Icon-Leiste in ein Chat-Panel ein, mit Schnellzugriff auf Freunde, Gilde, Chat kopieren, M+-Portale und mehr."
-L["Requires ElvUI's Chat module to be enabled."] = "Erfordert, dass ElvUIs Chat-Modul aktiviert ist."
+L["Requires ElvUI's %s module to be enabled."] = "Benötigt das aktivierte %s-Modul von ElvUI."
+L["No MerathilisUI profile installed."] = "Kein MerathilisUI-Profil installiert."
+L["Not available while EltruismUI is enabled."] = "Nicht verfügbar, solange EltruismUI aktiviert ist."
 L["Chat Panel"] = "Chat-Panel"
 L["Side"] = "Seite"
 L["Which edge of the chat panel the sidebar sits on."] = "An welcher Kante des Chat-Panels die Seitenleiste sitzt."

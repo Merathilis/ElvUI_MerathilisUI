@@ -136,15 +136,14 @@ options.unitframes = {
 	set = function(info, value)
 		E.db.mui.unitframes[info[#info]] = value
 	end,
-	disabled = function()
-		return not E.private.unitframe.enable
-	end,
+	disabled = module.RequirementsDisabled(I.Requirements.UnitFrames),
 	args = {
 		name = {
 			order = 1,
 			type = "header",
 			name = L["UnitFrames"],
 		},
+		requirements = module.RequirementsNotice(I.Requirements.UnitFrames, 1.5),
 		general = {
 			order = 2,
 			type = "group",

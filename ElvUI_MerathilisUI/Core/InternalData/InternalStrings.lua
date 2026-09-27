@@ -2,16 +2,6 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
 I.Strings = {}
 
-I.Strings.Requirements = {
-	[I.Enum.Requirements.MERUI_PROFILE] = "NO_STRING_NEEDED",
-	[I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED] = "You can't use this module because ElvUI's ActionBars module is currently turned off. Please enable it to unlock this option.",
-	[I.Enum.Requirements.ELTRUISM_DISABLED] = "You can't use this module because EltruismUI is enabled. Please disable it to unlock this option.",
-}
-
-I.Strings.RequirementsDebug = {
-	[I.Enum.Requirements.MERUI_PROFILE] = "No MerathilisUI Profile",
-}
-
 I.Strings.Colors = {
 	[I.Enum.Colors.MER] = "00c0fa", -- #00c0fa
 	[I.Enum.Colors.DETAILS] = "f7f552", -- #f7f552

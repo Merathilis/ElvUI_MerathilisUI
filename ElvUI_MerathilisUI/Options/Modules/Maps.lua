@@ -131,10 +131,9 @@ options.maps = {
 				E.db.mui.locationPanel[info[#info]] = value
 				F.Event.TriggerEvent("LocationPanel.SettingsUpdate")
 			end,
-			disabled = function()
-				return not E.private.general.minimap.enable
-			end,
+			disabled = module.RequirementsDisabled(I.Requirements.Minimap),
 			args = {
+				requirements = module.RequirementsNotice(I.Requirements.Minimap),
 				desc = {
 					order = 0,
 					type = "group",

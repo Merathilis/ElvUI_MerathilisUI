@@ -263,15 +263,15 @@ options.scale = {
 	order = 4,
 	type = "group",
 	name = L["Scale"],
-	hidden = function()
-		return not MER:HasRequirements(I.Requirements.AdditionalScaling)
-	end,
+	-- Shown but locked with the reason, instead of silently hiding the tab
+	disabled = module.RequirementsDisabled(I.Requirements.AdditionalScaling),
 	args = {
 		header = {
 			order = 0,
 			type = "header",
 			name = L["Scale"],
 		},
+		requirements = module.RequirementsNotice(I.Requirements.AdditionalScaling, 0.5),
 		enable = {
 			order = 1,
 			type = "toggle",

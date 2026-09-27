@@ -14,7 +14,7 @@ local function Update()
 end
 
 local function Disabled()
-	return not E.private.chat.enable or not SidebarDB().enable
+	return not MER:HasRequirements(I.Requirements.Chat) or not SidebarDB().enable
 end
 
 local function ChatDB()
@@ -56,15 +56,7 @@ options.chat = {
 							name = L["Adds a slim icon bar inside a chat panel with quick access to friends, guild, copy chat, M+ portals and more."],
 							fontSize = "medium",
 						},
-						requirement = {
-							order = 2,
-							type = "description",
-							name = function()
-								return E.private.chat.enable and ""
-									or F.cOption(L["Requires ElvUI's Chat module to be enabled."], "red")
-							end,
-							fontSize = "medium",
-						},
+						requirement = module.RequirementsNotice(I.Requirements.Chat, 2),
 					},
 				},
 				enable = {
@@ -72,7 +64,7 @@ options.chat = {
 					type = "toggle",
 					name = L["Enable"],
 					disabled = function()
-						return not E.private.chat.enable
+						return not MER:HasRequirements(I.Requirements.Chat)
 					end,
 				},
 				spacer = {
@@ -368,7 +360,7 @@ options.chat = {
 				MER:GetModule("MER_Chat"):UpdateResizeGrips()
 			end,
 			disabled = function()
-				return not E.private.chat.enable
+				return not MER:HasRequirements(I.Requirements.Chat)
 			end,
 			args = {
 				lockSize = {
@@ -418,7 +410,7 @@ options.chat = {
 				MER:GetModule("MER_Chat"):UpdateEditBoxes()
 			end,
 			disabled = function(info)
-				if not E.private.chat.enable then
+				if not MER:HasRequirements(I.Requirements.Chat) then
 					return true
 				end
 				return info[#info] ~= "enable" and not ChatDB().editBox.enable
@@ -459,7 +451,7 @@ options.chat = {
 						E:GetModule("Chat"):UpdateEditboxAnchors()
 					end,
 					disabled = function()
-						return not E.private.chat.enable
+						return not MER:HasRequirements(I.Requirements.Chat)
 					end,
 				},
 				style = {
@@ -479,7 +471,7 @@ options.chat = {
 					isPercent = true,
 					disabled = function()
 						local db = ChatDB().editBox
-						return not E.private.chat.enable or not db.enable or not db.style
+						return not MER:HasRequirements(I.Requirements.Chat) or not db.enable or not db.style
 					end,
 				},
 				accent = {
@@ -517,7 +509,7 @@ options.chat = {
 -------------------------------------------------------------------------------
 local function VoiceButtonsReplaced()
 	local db = SidebarDB()
-	return E.private.chat.enable and db.enable and db.buttons.voice and db.hideVoiceButtons
+	return MER:HasRequirements(I.Requirements.Chat) and db.enable and db.buttons.voice and db.hideVoiceButtons
 end
 
 local function VoiceButtonsReason()
@@ -529,7 +521,7 @@ local REPLACED_ELVUI_OPTIONS = {
 		path = { "chat", "general", "hideCopyButton" },
 		isReplaced = function()
 			local db = SidebarDB()
-			return E.private.chat.enable and db.enable and db.buttons.copy
+			return MER:HasRequirements(I.Requirements.Chat) and db.enable and db.buttons.copy
 		end,
 		reason = function()
 			return L["Replaced by the copy button of the MerathilisUI Chat Sidebar."]

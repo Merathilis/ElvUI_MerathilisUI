@@ -38,10 +38,9 @@ options.nameplates = {
 						E.db.mui.nameplates.factionIndicator[info[#info]] = value
 						MNP:UpdateFactionIndicators()
 					end,
-					disabled = function()
-						return not E.private.nameplates.enable
-					end,
+					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
+						requirements = module.RequirementsNotice(I.Requirements.NamePlates),
 						desc = {
 							order = 1,
 							type = "description",

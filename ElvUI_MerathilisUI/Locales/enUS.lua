@@ -1300,7 +1300,9 @@ L["Collapse Buffs"] = true
 -- Chat
 L["Chat Sidebar"] = true
 L["Adds a slim icon bar inside a chat panel with quick access to friends, guild, copy chat, M+ portals and more."] = true
-L["Requires ElvUI's Chat module to be enabled."] = true
+L["Requires ElvUI's %s module to be enabled."] = true
+L["No MerathilisUI profile installed."] = true
+L["Not available while EltruismUI is enabled."] = true
 L["Chat Panel"] = true
 L["Side"] = true
 L["Which edge of the chat panel the sidebar sits on."] = true

@@ -88,10 +88,26 @@ I.ProfileNames = {
 	["Development"] = MER.Title .. "Dev",
 }
 
+-- Requirements per feature, checked by MER:HasRequirements (Core/Requirements.lua)
 I.Requirements = {
 	["GradientMode"] = {},
+	["ActionBars"] = {
+		I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED,
+	},
 	["VehicleBar"] = {
 		I.Enum.Requirements.ELVUI_ACTIONBARS_ENABLED,
+	},
+	["UnitFrames"] = {
+		I.Enum.Requirements.ELVUI_UNITFRAMES_ENABLED,
+	},
+	["NamePlates"] = {
+		I.Enum.Requirements.ELVUI_NAMEPLATES_ENABLED,
+	},
+	["Chat"] = {
+		I.Enum.Requirements.ELVUI_CHAT_ENABLED,
+	},
+	["Minimap"] = {
+		I.Enum.Requirements.ELVUI_MINIMAP_ENABLED,
 	},
 	["AdditionalScaling"] = {
 		I.Enum.Requirements.ELTRUISM_DISABLED,

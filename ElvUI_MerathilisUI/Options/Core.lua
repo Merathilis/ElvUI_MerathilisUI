@@ -181,6 +181,36 @@ function module:AddInlineSoloDesc(options, othersDesc)
 	return group
 end
 
+---Red notice with the reason why a requirement isn't met, hidden while it is met.
+---Pair it with `disabled = module.RequirementsDisabled(requirements)` on the same group.
+---@param requirements number[] list from I.Requirements
+---@param order number?
+---@return table option
+function module.RequirementsNotice(requirements, order)
+	return {
+		order = order or 0,
+		type = "description",
+		fontSize = "medium",
+		width = "full",
+		name = function()
+			local check = MER:CheckRequirements(requirements)
+			local reason = check ~= true and MER:GetRequirementString(check)
+			return reason and F.String.Error(reason) or ""
+		end,
+		hidden = function()
+			return MER:HasRequirements(requirements)
+		end,
+	}
+end
+
+---@param requirements number[] list from I.Requirements
+---@return function disabled
+function module.RequirementsDisabled(requirements)
+	return function()
+		return not MER:HasRequirements(requirements)
+	end
+end
+
 function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requirements)
 	local orderIdx = self:GetOrder()
 	local inlineGroup = self:AddInlineGroup(options, othersGroup)
@@ -364,7 +394,7 @@ function module:OptionsCallback()
 					MISC.StatusReportToggled = true
 				end,
 				disabled = function()
-					return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE) and not F.IsMERProfile()
+					return not F.IsMERProfile()
 				end,
 			},
 			discordButton = {

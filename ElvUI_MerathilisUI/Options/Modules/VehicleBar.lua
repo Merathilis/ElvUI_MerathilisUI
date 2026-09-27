@@ -15,15 +15,14 @@ options.vehicleBar = {
 		E.db.mui.vehicleBar[info[#info]] = value
 		F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
 	end,
-	disabled = function()
-		return not E.private.actionbar.enable
-	end,
+	disabled = module.RequirementsDisabled(I.Requirements.VehicleBar),
 	args = {
 		name = {
 			order = 1,
 			type = "header",
 			name = L["VehicleBar"],
 		},
+		requirements = module.RequirementsNotice(I.Requirements.VehicleBar, 1.5),
 		credits = {
 			order = 2,
 			type = "group",
@@ -121,7 +120,7 @@ options.vehicleBar = {
 			type = "group",
 			name = L["Vigor Bar"],
 			disabled = function()
-				return not E.private.actionbar.enable or not E.db.mui.vehicleBar.enable
+				return not E.db.mui.vehicleBar.enable
 			end,
 			args = {
 				vigorBar = {
@@ -321,7 +320,7 @@ options.vehicleBar = {
 			type = "group",
 			name = L["Animations"],
 			disabled = function()
-				return not E.private.actionbar.enable or not E.db.mui.vehicleBar.enable
+				return not E.db.mui.vehicleBar.enable
 			end,
 			args = {
 				animations = {

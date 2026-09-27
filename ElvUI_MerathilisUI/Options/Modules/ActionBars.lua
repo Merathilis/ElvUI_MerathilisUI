@@ -32,9 +32,7 @@ options.actionbars = {
 			type = "group",
 			name = L["Specialization Bar"],
 			guiInline = true,
-			disabled = function()
-				return not E.private.actionbar.enable
-			end,
+			disabled = module.RequirementsDisabled(I.Requirements.ActionBars),
 			get = function(info)
 				return E.db.mui.actionbars.specBar[info[#info]]
 			end,
@@ -43,13 +41,11 @@ options.actionbars = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
+				requirements = module.RequirementsNotice(I.Requirements.ActionBars),
 				enable = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					disabled = function()
-						return not E.private.actionbar.enable
-					end,
 					width = "full",
 				},
 				mouseover = {
@@ -57,7 +53,7 @@ options.actionbars = {
 					type = "toggle",
 					name = L["Mouseover"],
 					disabled = function()
-						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar.enable
+						return not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 				size = {
@@ -68,7 +64,7 @@ options.actionbars = {
 					max = 60,
 					step = 1,
 					disabled = function()
-						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar.enable
+						return not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 				frameStrata = {
@@ -76,7 +72,7 @@ options.actionbars = {
 					type = "select",
 					name = L["Frame Strata"],
 					disabled = function()
-						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar.enable
+						return not E.db.mui.actionbars.specBar.enable
 					end,
 					values = {
 						BACKGROUND = L["BACKGROUND"],
@@ -93,7 +89,7 @@ options.actionbars = {
 					max = 256,
 					step = 1,
 					disabled = function()
-						return not E.private.actionbar.enable or not E.db.mui.actionbars.specBar.enable
+						return not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 			},
@@ -111,15 +107,14 @@ options.actionbars = {
 				E.db.mui.colorModifiers[info[#info]] = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
+			disabled = module.RequirementsDisabled(I.Requirements.ActionBars),
 			args = {
+				requirements = module.RequirementsNotice(I.Requirements.ActionBars),
 				enable = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
 					desc = L["Credits: ElvUI_ToxiUI"],
-					disabled = function()
-						return not E.private.actionbar.enable
-					end,
 					width = "full",
 				},
 			},
