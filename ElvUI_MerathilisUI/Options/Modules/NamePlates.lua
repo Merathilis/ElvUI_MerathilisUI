@@ -5,16 +5,14 @@ local MNP = MER:GetModule("MER_Nameplates")
 
 local options = module.options.modules.args
 
+-- Own disabled replaces the group's, so the children repeat the requirement
+local function FactionIndicatorDisabled()
+	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.factionIndicator.enable
+end
+
 options.nameplates = {
 	type = "group",
 	name = module:AddCategorieIcon(L["NamePlates"], "nameplates"),
-	get = function(info)
-		return E.db.mui.nameplates[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.nameplates[info[#info]] = value
-		E:StaticPopup_Show("GLOBAL_RL")
-	end,
 	args = {
 		header = {
 			order = 1,
@@ -38,10 +36,9 @@ options.nameplates = {
 						E.db.mui.nameplates.factionIndicator[info[#info]] = value
 						MNP:UpdateFactionIndicators()
 					end,
-					disabled = function()
-						return not E.private.nameplates.enable
-					end,
+					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
+						requirements = module.RequirementsNotice(I.Requirements.NamePlates),
 						desc = {
 							order = 1,
 							type = "description",
@@ -56,6 +53,7 @@ options.nameplates = {
 							order = 3,
 							type = "select",
 							name = L["Style"],
+							disabled = FactionIndicatorDisabled,
 							values = {
 								crest = L["Crest"],
 								round = L["Round"],
@@ -65,6 +63,7 @@ options.nameplates = {
 							order = 4,
 							type = "range",
 							name = L["Size"],
+							disabled = FactionIndicatorDisabled,
 							min = 8,
 							max = 60,
 							step = 1,
@@ -73,22 +72,14 @@ options.nameplates = {
 							order = 5,
 							type = "select",
 							name = L["Anchor Point"],
-							values = {
-								TOPLEFT = "TOPLEFT",
-								LEFT = "LEFT",
-								BOTTOMLEFT = "BOTTOMLEFT",
-								RIGHT = "RIGHT",
-								TOPRIGHT = "TOPRIGHT",
-								BOTTOMRIGHT = "BOTTOMRIGHT",
-								CENTER = "CENTER",
-								TOP = "TOP",
-								BOTTOM = "BOTTOM",
-							},
+							disabled = FactionIndicatorDisabled,
+							values = I.Values.positionValues,
 						},
 						xOffset = {
 							order = 6,
 							type = "range",
 							name = L["X-Offset"],
+							disabled = FactionIndicatorDisabled,
 							min = -100,
 							max = 100,
 							step = 1,
@@ -97,6 +88,7 @@ options.nameplates = {
 							order = 7,
 							type = "range",
 							name = L["Y-Offset"],
+							disabled = FactionIndicatorDisabled,
 							min = -100,
 							max = 100,
 							step = 1,

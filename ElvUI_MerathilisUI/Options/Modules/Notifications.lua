@@ -3,6 +3,17 @@ local module = MER:GetModule("MER_Options") ---@class Options
 
 local options = module.options.modules.args
 
+local function Disabled()
+	return not E.db.mui.notification.enable
+end
+
+-- Own disabled replaces the group's, so the children repeat the module state
+local function SectionDisabled(section)
+	return function()
+		return Disabled() or not E.db.mui.notification[section].enable
+	end
+end
+
 options.Notification = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Notification"], "notifications"),
@@ -11,7 +22,9 @@ options.Notification = {
 	end,
 	set = function(info, value)
 		E.db.mui.notification[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
+		if info[#info] == "enable" and value then
+			E:StaticPopup_Show("CONFIG_RL")
+		end
 	end,
 	args = {
 		header = {
@@ -37,9 +50,7 @@ options.Notification = {
 			type = "description",
 			fontSize = "small",
 			name = L["Here you can enable/disable the different notification types."],
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 		},
 		enable = {
 			order = 3,
@@ -47,7 +58,7 @@ options.Notification = {
 			name = L["Enable"],
 		},
 		testNotification = {
-			order = 3.5,
+			order = 4,
 			type = "execute",
 			name = L["Test Notification"],
 			desc = L["Sends an example toast notification."],
@@ -65,84 +76,64 @@ options.Notification = {
 					0.92
 				)
 			end,
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 		},
 		noSound = {
-			order = 4,
-			type = "toggle",
-			name = L["No Sounds"],
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
-		},
-		mail = {
 			order = 5,
 			type = "toggle",
-			name = L["Enable Mail"],
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			name = L["No Sounds"],
+			disabled = Disabled,
 		},
-		invites = {
+		mail = {
 			order = 6,
 			type = "toggle",
-			name = L["Enable Invites"],
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			name = L["Enable Mail"],
+			disabled = Disabled,
 		},
-		guildEvents = {
+		invites = {
 			order = 7,
 			type = "toggle",
-			name = L["Enable Guild Events"],
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			name = L["Enable Invites"],
+			disabled = Disabled,
 		},
-		paragon = {
+		guildEvents = {
 			order = 8,
 			type = "toggle",
+			name = L["Enable Guild Events"],
+			disabled = Disabled,
+		},
+		paragon = {
+			order = 9,
+			type = "toggle",
 			name = L["MISC_PARAGON"],
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 		},
 		quickJoin = {
-			order = 9,
+			order = 10,
 			type = "toggle",
 			name = L["Quick Join"],
 			hidden = E.Forever,
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 		},
 		callToArms = {
-			order = 10,
+			order = 11,
 			type = "toggle",
 			name = _G.BATTLEGROUND_HOLIDAY,
 			hidden = E.Forever,
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 		},
 		bags = {
-			order = 11,
+			order = 12,
 			type = "toggle",
 			name = L["Bags Full"],
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 		},
 		greatVault = {
-			order = 12,
+			order = 13,
 			type = "toggle",
 			name = L["Great Vault"],
 			hidden = E.Forever,
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 		},
 		currencyWarning = {
 			order = 15,
@@ -154,11 +145,8 @@ options.Notification = {
 			end,
 			set = function(info, value)
 				E.db.mui.notification.currencyWarning[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 			args = {
 				desc = {
 					order = 0,
@@ -175,6 +163,7 @@ options.Notification = {
 					order = 2,
 					type = "range",
 					name = L["Warn at (%)"],
+					disabled = SectionDisabled("currencyWarning"),
 					min = 50,
 					max = 99,
 					step = 1,
@@ -191,11 +180,8 @@ options.Notification = {
 			end,
 			set = function(info, value)
 				E.db.mui.notification.vignette[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-			disabled = function()
-				return not E.db.mui.notification.enable
-			end,
+			disabled = Disabled,
 			args = {
 				enable = {
 					order = 1,
@@ -206,17 +192,13 @@ options.Notification = {
 					order = 2,
 					type = "toggle",
 					name = L["Vignette Print"],
-				},
-				debugPrint = {
-					order = 3,
-					type = "toggle",
-					name = F.cOption(L["Debug Print"], "red"),
-					desc = L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"],
+					disabled = SectionDisabled("vignette"),
 				},
 				timeOut = {
-					order = 4,
+					order = 3,
 					type = "range",
 					name = L["Time Out"],
+					disabled = SectionDisabled("vignette"),
 					desc = L["How long a vignette of the same time should not be notified. In seconds"],
 					min = 5,
 					max = 120,
@@ -314,19 +296,17 @@ do
 		type = "group",
 		inline = true,
 		name = L["Blacklist"],
-		disabled = function()
-			return not E.db.mui.notification.enable
-		end,
+		disabled = SectionDisabled("vignette"),
 		args = {
 			name = {
 				order = 1,
 				type = "input",
 				name = L["Vignette ID"],
 				get = function()
-					return tonumber(tempID)
+					return tempID and tostring(tempID) or ""
 				end,
 				set = function(_, value)
-					tempID = value
+					tempID = tonumber(value)
 				end,
 			},
 			addButton = {
@@ -335,7 +315,7 @@ do
 				name = L["Add"],
 				func = function()
 					if tempID then
-						E.db.mui.notification.vignette.blacklist[tonumber(tempID)] = true
+						E.db.mui.notification.vignette.blacklist[tempID] = true
 						tempID = nil
 					else
 						F.Print(L["Please set the ID first."])
@@ -360,8 +340,10 @@ do
 				end,
 				values = function()
 					local result = {}
-					for fullID in pairs(E.db.mui.notification.vignette.blacklist) do
-						result[fullID] = fullID
+					for id, blocked in pairs(E.db.mui.notification.vignette.blacklist) do
+						if blocked then
+							result[id] = id
+						end
 					end
 					return result
 				end,
@@ -372,7 +354,8 @@ do
 				name = L["Delete"],
 				func = function()
 					if selectedKey then
-						E.db.mui.notification.vignette.blacklist[selectedKey] = nil
+						E.db.mui.notification.vignette.blacklist[selectedKey] = false
+						selectedKey = nil
 					end
 				end,
 			},
@@ -388,9 +371,7 @@ do
 		type = "group",
 		inline = true,
 		name = L["Tracked Currencies"],
-		disabled = function()
-			return not E.db.mui.notification.enable
-		end,
+		disabled = SectionDisabled("currencyWarning"),
 		args = {
 			name = {
 				order = 1,

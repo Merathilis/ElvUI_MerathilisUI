@@ -421,6 +421,16 @@ function module:UpdateSelectionCheckboxes()
 end
 
 function module:OnEnable()
+	-- One example template on the very first enable, so the templates menu isn't empty
+	if not E.global.mui.mail.exampleTemplateSeeded then
+		E.global.mui.mail.exampleTemplateSeeded = true
+		E.global.mui.mail.templates[L["Example: Send to Alts"]] = {
+			recipients = { "AltName-RealmName" },
+			subject = L["Gold from Main"],
+			body = L["This is an example template - edit the recipients/subject/body or delete it in Options > Mail > Send Templates."],
+		}
+	end
+
 	for i = 1, 7 do
 		local expire = _G["MailItem" .. i .. "ExpireTime"]
 		if expire and not expire.returnicon then
@@ -516,32 +526,22 @@ function module:OnDisable()
 	module:HideQuickAttachUI()
 end
 
-function module:Initialize()
-	local db = E.db.mui.mail
-	if db and db.enable then
-		if type(db.selection) ~= "table" then
-			db.selection = CopyTable(P.mail.selection)
-		end
-		if type(E.global.mui.mail.templates) ~= "table" then
-			E.global.mui.mail.templates = {}
-		end
-		if type(E.global.mui.mail.quickAttachRecipients) ~= "table" then
-			E.global.mui.mail.quickAttachRecipients = {}
-		end
-
-		if not E.global.mui.mail.exampleTemplateSeeded then
-			E.global.mui.mail.exampleTemplateSeeded = true
-			E.global.mui.mail.templates[L["Example: Send to Alts"]] = {
-				recipients = { "AltName-RealmName" },
-				subject = L["Gold from Main"],
-				body = L["This is an example template - edit the recipients/subject/body or delete it in Options > Mail > Send Templates."],
-			}
-		end
-
+-- OnEnable/OnDisable build and remove everything, so the option and a profile switch apply live
+function module:UpdateEnabled()
+	if E.db.mui.mail.enable then
 		self:Enable()
+		self:UpdateSelectionCheckboxes()
 	else
 		self:Disable()
 	end
+end
+
+function module:Initialize()
+	self:UpdateEnabled()
+end
+
+function module:ProfileUpdate()
+	self:UpdateEnabled()
 end
 
 MER:RegisterModule(module:GetName())

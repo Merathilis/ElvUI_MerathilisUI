@@ -99,58 +99,32 @@ local function Box_OnClick(frame)
 	ColorPickerFrame:SetFrameLevel(frame:GetFrameLevel() + 10)
 	ColorPickerFrame:SetClampedToScreen(true)
 
-	if ColorPickerFrame.SetupColorPickerAndShow then -- 10.2.5 color picker overhaul
-		local r2, g2, b2, a2 = self.r, self.g, self.b, (self.a or 1)
+	-- Retail and Forever both have the 10.2.5 picker API
+	local r2, g2, b2, a2 = self.r, self.g, self.b, (self.a or 1)
 
-		ColorPickerFrame:SetupColorPickerAndShow({
-			swatchFunc = function()
-				local r, g, b = ColorPickerFrame:GetColorRGB()
-				local a = ColorPickerFrame:GetColorAlpha()
-				ColorCallback(self, r, g, b, a)
-			end,
-
-			hasOpacity = self.hasAlpha,
-			opacityFunc = function()
-				local r, g, b = ColorPickerFrame:GetColorRGB()
-				local a = ColorPickerFrame:GetColorAlpha()
-				ColorCallback(self, r, g, b, a, true)
-			end,
-			opacity = a2,
-
-			cancelFunc = function()
-				ColorCallback(self, r2, g2, b2, a2, true)
-			end,
-
-			r = r2,
-			g = g2,
-			b = b2,
-		})
-	else
-		ColorPickerFrame.func = function()
+	ColorPickerFrame:SetupColorPickerAndShow({
+		swatchFunc = function()
 			local r, g, b = ColorPickerFrame:GetColorRGB()
-			local a = OpacitySliderFrame:GetValue()
+			local a = ColorPickerFrame:GetColorAlpha()
 			ColorCallback(self, r, g, b, a)
-		end
+		end,
 
-		ColorPickerFrame.hasOpacity = self.hasAlpha
-		ColorPickerFrame.opacityFunc = function()
+		hasOpacity = self.hasAlpha,
+		opacityFunc = function()
 			local r, g, b = ColorPickerFrame:GetColorRGB()
-			local a = OpacitySliderFrame:GetValue()
+			local a = ColorPickerFrame:GetColorAlpha()
 			ColorCallback(self, r, g, b, a, true)
-		end
+		end,
+		opacity = a2,
 
-		local r, g, b, a = self.r, self.g, self.b, 1 - (self.a or 1)
-		if self.hasAlpha then
-			ColorPickerFrame.opacity = a
-		end
-		ColorPickerFrame:SetColorRGB(r, g, b)
+		cancelFunc = function()
+			ColorCallback(self, r2, g2, b2, a2, true)
+		end,
 
-		ColorPickerFrame.cancelFunc = function()
-			ColorCallback(self, r, g, b, a, true)
-		end
-
-		ColorPickerFrame:Show()
-	end
+		r = r2,
+		g = g2,
+		b = b2,
+	})
 
 	AceGUI:ClearFocus()
 end

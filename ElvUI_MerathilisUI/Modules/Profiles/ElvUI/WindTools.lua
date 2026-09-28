@@ -90,11 +90,10 @@ function module:LoadWindToolsProfile()
 	E.db.movers["WTExtraItemsBar3Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-12,279"
 	E.db.movers["WTExtraItemsBar4Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-263,321"
 	E.db.movers["WTExtraItemsBar5Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-260,363"
-
 	E.db.movers["WTInstanceDifficultyFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-197,-43"
 	E.db.movers["WTCombatAlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-300"
-
-	E.db.movers["WTDamageMeterLayoutMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-4,47"
+	E.db.movers["WTDamageMeterLayoutMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,47"
+	E.db.movers["WTChatBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,40,196"
 end
 
 function module:ApplyWindToolsProfile()

@@ -7,13 +7,6 @@ local options = module.options.modules.args
 options.mail = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Mail"], "mail"),
-	get = function(info)
-		return E.db.mui.mail[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.mail[info[#info]] = value
-		E:StaticPopup_Show("CONFIG_RL")
-	end,
 	args = {
 		header = {
 			order = 0,
@@ -39,6 +32,13 @@ options.mail = {
 			type = "toggle",
 			name = L["Enable"],
 			width = "full",
+			get = function()
+				return E.db.mui.mail.enable
+			end,
+			set = function(_, value)
+				E.db.mui.mail.enable = value
+				Mail:UpdateEnabled()
+			end,
 		},
 	},
 }

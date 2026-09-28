@@ -58,6 +58,11 @@ function module:UpdateFactionIndicators()
 	end
 end
 
+-- The settings are read on every configure, the plates that exist just need a refresh
+function module:ProfileUpdate()
+	module:UpdateFactionIndicators()
+end
+
 function module:FactionIndicator()
 	hooksecurefunc(NP, "StylePlate", function(_, nameplate)
 		module:Configure_FactionIndicator(nameplate, true)

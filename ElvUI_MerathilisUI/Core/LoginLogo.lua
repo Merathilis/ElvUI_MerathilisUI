@@ -4,8 +4,6 @@ local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local CreateFrame = CreateFrame
 
-local logoFrame
-
 -- Timings (seconds) of the fly-in, drift, bounce-back and fly-out phases
 local FLY_TIME = 0.5
 local DRIFT_TIME = 2
@@ -71,7 +69,6 @@ local function CreateLogoFrame()
 
 	anim:SetScript("OnFinished", function()
 		frame:Hide()
-		logoFrame = nil
 	end)
 
 	frame.anim = anim
@@ -88,9 +85,10 @@ function MER:LoginLogo_Play()
 
 	self:UnregisterEvent("PLAYER_STARTED_MOVING")
 
-	logoFrame = CreateLogoFrame()
-	logoFrame:Show()
-	logoFrame.anim:Play()
+	-- Plays once per login, the frame is not reused
+	local logo = CreateLogoFrame()
+	logo:Show()
+	logo.anim:Play()
 end
 
 function MER:LoginLogo()

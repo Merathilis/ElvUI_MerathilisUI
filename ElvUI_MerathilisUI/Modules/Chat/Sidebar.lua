@@ -983,7 +983,11 @@ function module:PostUpdateEditboxAnchors()
 	for _, frameName in ipairs(_G.CHAT_FRAMES) do
 		local chat = _G[frameName]
 		local editbox = chat and chat.editBox
-		local _, relativeTo = editbox and editbox:GetPoint(1)
+		-- GetPoint must not sit behind an `and`: that truncates it to its first return value.
+		local relativeTo
+		if editbox then
+			relativeTo = select(2, editbox:GetPoint(1))
+		end
 
 		-- Only boxes ElvUI anchored to this panel (classic chat style).
 		if relativeTo == panel then

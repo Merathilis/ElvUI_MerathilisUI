@@ -18,7 +18,7 @@ local StaticPopupDialogs = StaticPopupDialogs
 local PanelTemplates_GetSelectedTab = PanelTemplates_GetSelectedTab
 
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
-local rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA
+local rgbValueColorR, rgbValueColorG, rgbValueColorB
 local bordercolorr, bordercolorg, bordercolorb
 
 module.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
@@ -510,7 +510,7 @@ end
 
 -- keep the colors updated
 function module:UpdateMedia()
-	rgbValueColorR, rgbValueColorG, rgbValueColorB, rgbValueColorA = unpack(E.media.rgbvaluecolor)
+	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
 	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
 	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
 end

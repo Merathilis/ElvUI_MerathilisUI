@@ -9,8 +9,6 @@ local floor, max = math.floor, math.max
 local CreateFrame = CreateFrame
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local IsPlayerSpell = IsPlayerSpell
-local IsSpellKnown = IsSpellKnown
 local UnitClass = UnitClass
 local UnitExists = UnitExists
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
@@ -33,13 +31,20 @@ local C_UnitAuras_GetAuraDataByIndex = C_UnitAuras.GetAuraDataByIndex
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
 local C_Item_GetItemIconByID = C_Item.GetItemIconByID
+local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
+local C_SpellBook_IsSpellInSpellBook = C_SpellBook.IsSpellInSpellBook
+local C_SpellBook_IsSpellKnown = C_SpellBook.IsSpellKnown
 local GetItemIcon = C_Item_GetItemIconByID or GetItemIcon
 
 -------------------------------------------------------------------------------
 --  Basic helpers
 -------------------------------------------------------------------------------
 local function Known(id)
-	return id and (IsPlayerSpell(id) or IsSpellKnown(id))
+	return id
+		and (
+			C_SpellBook_IsSpellKnown(id)
+			or C_SpellBook_IsSpellInSpellBook(id, Enum.SpellBookSpellBank.Player, false)
+		)
 end
 
 local function InCombat()
@@ -557,7 +562,7 @@ local function GetWeaponCategory(slotID)
 	if not link then
 		return nil
 	end
-	local equipLoc = select(4, GetItemInfoInstant(link))
+	local equipLoc = select(4, C_Item_GetItemInfoInstant(link))
 	return ENCHANTABLE_EQUIP_LOCS[equipLoc]
 end
 
@@ -566,7 +571,7 @@ local function HasShieldEquipped()
 	if not link then
 		return false
 	end
-	return select(4, GetItemInfoInstant(link)) == "INVTYPE_SHIELD"
+	return select(4, C_Item_GetItemInfoInstant(link)) == "INVTYPE_SHIELD"
 end
 
 local _bagCounts = {}
@@ -1054,6 +1059,7 @@ local function CollectConsumables(missing, playerClass, co)
 			hasMH = C_PaperDollInfo.GetTemporaryEnchantmentInfo(INVSLOT_MAINHAND) ~= nil
 			hasOH = C_PaperDollInfo.GetTemporaryEnchantmentInfo(INVSLOT_OFFHAND) ~= nil
 		else
+			local _
 			hasMH, _, _, _, hasOH = GetWeaponEnchantInfo()
 		end
 		for _, slotInfo in ipairs(WEAPON_ENCHANT_SLOTS) do
@@ -1089,17 +1095,20 @@ local _soundPrev, _soundCur, _soundPrimed = {}, {}, false
 local function HandleAppearSounds(missing)
 	local db = module.db
 	wipe(_soundCur)
+	-- Every current key has to be recorded, a break here made the rest count as new again
+	local played = false
 	for i = 1, #missing do
 		local dk = missing[i].dismissKey
 		if dk then
 			_soundCur[dk] = true
-			if _soundPrimed and not _soundPrev[dk] and db.sound.enable then
+			if not played and _soundPrimed and not _soundPrev[dk] and db.sound.enable then
 				local prefix = dk:match("^(%a+):")
 				local key = prefix == "raidbuff" and "raidBuffs" or prefix == "aura" and "auras" or "consumables"
+				-- One sound per refresh, a muted category must not swallow it
 				if db.sound[key] then
 					PlaySound(db.sound.soundKitID or 8960, "Master")
+					played = true
 				end
-				break
 			end
 		end
 	end
@@ -1223,10 +1232,17 @@ end
 local _refreshMissing = {}
 function module:Refresh()
 	local db = self.db
-	if not db or not db.enable or not iconAnchor then
+	if not db or not iconAnchor then
 		return
 	end
 	if InCombatLockdown() then
+		return
+	end
+
+	-- Turned off in the options or by a profile switch: clear what is shown
+	if not db.enable then
+		HideAllIcons()
+		iconAnchor:Hide()
 		return
 	end
 

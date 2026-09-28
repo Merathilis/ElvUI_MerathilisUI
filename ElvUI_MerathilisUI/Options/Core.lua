@@ -125,12 +125,12 @@ function module:GetEnableName(check, group)
 	local enabled = self:GetEnabledState(check, group)
 
 	if enabled == self.enabledState.YES then
-		return F.String.Good("Enable")
+		return F.String.Good(L["Enable"])
 	elseif enabled == self.enabledState.NO then
-		return F.String.Error("Disable")
+		return F.String.Error(L["Disable"])
 	end
 
-	return "Disable"
+	return L["Disable"]
 end
 
 function module:AddGroup(options, others)
@@ -181,6 +181,36 @@ function module:AddInlineSoloDesc(options, othersDesc)
 	return group
 end
 
+---Red notice with the reason why a requirement isn't met, hidden while it is met.
+---Pair it with `disabled = module.RequirementsDisabled(requirements)` on the same group.
+---@param requirements number[] list from I.Requirements
+---@param order number?
+---@return table option
+function module.RequirementsNotice(requirements, order)
+	return {
+		order = order or 0,
+		type = "description",
+		fontSize = "medium",
+		width = "full",
+		name = function()
+			local check = MER:CheckRequirements(requirements)
+			local reason = check ~= true and MER:GetRequirementString(check)
+			return reason and F.String.Error(reason) or ""
+		end,
+		hidden = function()
+			return MER:HasRequirements(requirements)
+		end,
+	}
+end
+
+---@param requirements number[] list from I.Requirements
+---@return function disabled
+function module.RequirementsDisabled(requirements)
+	return function()
+		return not MER:HasRequirements(requirements)
+	end
+end
+
 function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requirements)
 	local orderIdx = self:GetOrder()
 	local inlineGroup = self:AddInlineGroup(options, othersGroup)
@@ -189,9 +219,7 @@ function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requ
 		type = "description",
 	}, othersDesc)
 
-	inlineGroup.disabled = function()
-		return not MER:HasRequirements(requirements)
-	end
+	inlineGroup.disabled = module.RequirementsDisabled(requirements)
 
 	-- Define if not defined
 	if not group["name"] then
@@ -213,8 +241,6 @@ function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requ
 			end
 			return description
 		end
-	else
-		-- self:LogDebug("GroupName is not a string, cannot convert to requirements check")
 	end
 
 	inlineGroup["args"]["fancyInlineDesc" .. orderIdx] = group
@@ -246,10 +272,6 @@ end
 function module:GetOrder()
 	self.orderIndex = self.orderIndex + 1
 	return self.orderIndex
-end
-
-function module:ResetOrder()
-	self.orderIndex = 1
 end
 
 function module:AddCategorieIcon(text, icon)
@@ -354,17 +376,18 @@ function module:OptionsCallback()
 				order = 4,
 				type = "execute",
 				name = L["|T" .. I.General.MediaPath .. "Icons\\gradientList.tga:18:18:0:0:64:64|t Status Report"],
-				desc = "Open the "
-					.. MER.Title
-					.. " Status Report window that shows necessary information for debugging. Post this when reporting bugs!",
+				desc = format(
+					L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"],
+					MER.Title
+				),
 				customWidth = 140,
 				func = function()
-					MER:GetModule("MER_Misc"):StatusReportShow()
+					MISC:StatusReportShow()
 					E:ToggleOptions()
 					MISC.StatusReportToggled = true
 				end,
 				disabled = function()
-					return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE) and not F.IsMERProfile()
+					return not F.IsMERProfile()
 				end,
 			},
 			discordButton = {
@@ -373,7 +396,7 @@ function module:OptionsCallback()
 				name = L["|T" .. I.General.MediaPath .. "Icons\\Discord.tga:18:18:0:0:64:64|t |cffffffffMerathilis|r|cffff7d0aUI|r Discord"],
 				customWidth = 160,
 				func = function()
-					E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/28We6esE9v")
+					E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.DiscordURL)
 				end,
 			},
 			websiteButton = {
@@ -382,7 +405,7 @@ function module:OptionsCallback()
 				name = L["|T" .. I.General.MediaPath .. "Icons\\Home.tga:18:18:0:0:64:64|t Website"],
 				customWidth = 140,
 				func = function()
-					E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://merathilisui.com")
+					E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.WebsiteURL)
 				end,
 			},
 		},
@@ -401,8 +424,8 @@ function module:OptionsCallback()
 			args = info.args,
 			get = info.get,
 			set = info.set,
-			hidden = function() -- Hide the options if not my profile is installed
-				return not MER:HasRequirements(I.Enum.Requirements.MERUI_PROFILE)
+			hidden = function() -- Only the start page is shown until the installer ran
+				return not F.IsMERProfile()
 			end,
 		}
 	end

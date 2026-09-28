@@ -56,11 +56,7 @@ function module:Configure_RestingIndicator(frame)
 			end
 
 			if not _G["MER_PlayerRestLoopRestTexture"].Gradient then
-				if E.db.mui.unitframes.restingIndicator.customClassColor then
-					_G["MER_PlayerRestLoopRestTexture"]:SetGradient("HORIZONTAL", F.GradientColorsCustom(E.myclass))
-				else
-					_G["MER_PlayerRestLoopRestTexture"]:SetGradient("HORIZONTAL", F.GradientColors(E.myclass))
-				end
+				_G["MER_PlayerRestLoopRestTexture"]:SetGradient("HORIZONTAL", F.GradientColors(E.myclass))
 				_G["MER_PlayerRestLoopRestTexture"].Gradient = true
 			end
 		end)

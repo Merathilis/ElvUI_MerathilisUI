@@ -1,9 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
 
-local _G = _G
-
-local hooksecurefunc = hooksecurefunc
 local GetNumGroupMembers = GetNumGroupMembers
 local IsFriend = C_FriendList.IsFriend
 local IsGuildMember = IsGuildMember

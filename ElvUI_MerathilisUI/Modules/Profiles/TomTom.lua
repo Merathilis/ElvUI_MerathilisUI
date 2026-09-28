@@ -39,7 +39,7 @@ end
 
 function module:ApplyTomTomProfile()
 	if not E:IsAddOnEnabled("TomTom") then
-		WF.Developer.LogWarning("TomTom is not enabled. Will not apply profile.")
+		F.Developer.LogWarning("TomTom is not enabled. Will not apply profile.")
 		return
 	end
 

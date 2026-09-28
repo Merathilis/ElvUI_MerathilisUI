@@ -13,7 +13,6 @@ local CreateFrame = CreateFrame
 local GetSpellBaseCooldown = GetSpellBaseCooldown
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local IsPlayerSpell = IsPlayerSpell
 local PlaySoundFile = PlaySoundFile
 local UnitAffectingCombat = UnitAffectingCombat
 
@@ -142,8 +141,7 @@ local function IsSecret(value)
 end
 
 local function IsKnown(spellID)
-	return (IsPlayerSpell and IsPlayerSpell(spellID))
-		or (C_SpellBook and C_SpellBook.IsSpellKnown and C_SpellBook.IsSpellKnown(spellID))
+	return C_SpellBook.IsSpellKnown(spellID)
 end
 
 local function GetSpecID()

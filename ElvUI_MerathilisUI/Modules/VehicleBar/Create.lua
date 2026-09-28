@@ -2,10 +2,34 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
 local LSM = E.Libs.LSM
 
-local _G = _G
 local tinsert = table.insert
 
 local C_Timer_NewTicker = C_Timer.NewTicker
+
+-- Disable() cancels both tickers, so they are (re)started whenever the bar is built or updated
+function module:StartVigorTickers()
+	local vigorBar = self.vigorBar
+	if vigorBar.vigorTicker then
+		vigorBar.vigorTicker:Cancel()
+	end
+	if vigorBar.speedTextTicker then
+		vigorBar.speedTextTicker:Cancel()
+	end
+
+	-- Smooth recharge animation (0.05s = 20fps, visually indistinguishable from per-frame)
+	vigorBar.vigorTicker = C_Timer_NewTicker(0.05, function()
+		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
+			self:UpdateVigorSegments()
+		end
+	end)
+
+	-- Speed text at its own update rate (cheaper than OnUpdate throttling)
+	vigorBar.speedTextTicker = C_Timer_NewTicker(self.vdb.speedTextUpdateRate, function()
+		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
+			self:UpdateSpeedText()
+		end
+	end)
+end
 
 function module:CreateVigorBar()
 	local vigorBar = CreateFrame("Frame", "MER_VigorBar", UIParent)
@@ -47,22 +71,10 @@ function module:CreateVigorBar()
 		end
 	end)
 
-	-- Ticker for smooth recharge animation (0.05s = 20fps, visually indistinguishable from per-frame)
-	vigorBar.vigorTicker = C_Timer_NewTicker(0.05, function()
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
-			self:UpdateVigorSegments()
-		end
-	end)
-
-	-- Use C_Timer for speed text updates (more efficient than OnUpdate throttling)
-	vigorBar.speedTextTicker = C_Timer_NewTicker(self.vdb.speedTextUpdateRate, function()
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
-			self:UpdateSpeedText()
-		end
-	end)
-
 	self.vigorBar = vigorBar
 	self.vigorBar.segments = {}
+
+	self:StartVigorTickers()
 
 	self:CreateVigorSegments()
 	if not F.Table.IsEmpty(self.vigorBar.segments) then
@@ -93,7 +105,7 @@ function module:CreateVigorSegments()
 		local customRight = self.vdb.customColorRight
 		leftColor = CreateColor(customLeft.r, customLeft.g, customLeft.b, 1)
 		rightColor = CreateColor(customRight.r, customRight.g, customRight.b, 1)
-	elseif E.db.mui.gradient.enable then
+	elseif E.db.mui.themes.gradientMode.enable then
 		local colorMap = E.db.mui.themes.gradientMode.classColorMap
 
 		local left = colorMap[1][E.myclass]

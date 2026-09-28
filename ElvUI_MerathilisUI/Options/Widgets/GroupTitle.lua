@@ -3,7 +3,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 -- AceGUIContainer-InlineGroup's title FontString uses "GameFontNormal" (WoW's
 -- classic yellow-gold UI color) unconditionally - there's no dialogControl
 -- override point for containers, same problem MERTabGroup's tab buttons have
--- (see TabGroupSkin.lua's big comment for the full reasoning: "InlineGroup"
+-- (see TabGroup.lua's big comment for the full reasoning: "InlineGroup"
 -- is a widget type on the *shared* AceGUI-3.0 instance, so this reaches in
 -- *after* AceConfigDialog builds it instead of registering a replacement type).
 --

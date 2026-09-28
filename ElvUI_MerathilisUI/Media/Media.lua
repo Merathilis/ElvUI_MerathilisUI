@@ -174,10 +174,6 @@ F.AddMedia("role", "SVUITank")
 F.AddMedia("role", "SVUIHealer")
 F.AddMedia("role", "SVUIDPS")
 
-F.AddMedia("role", "LynUITank")
-F.AddMedia("role", "LynUIHealer")
-F.AddMedia("role", "LynUIDPS")
-
 F.AddMedia("role", "CustomTank")
 F.AddMedia("role", "CustomHealer")
 F.AddMedia("role", "CustomDPS")

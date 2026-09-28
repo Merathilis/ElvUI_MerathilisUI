@@ -5,6 +5,7 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "koKR")
 L["Enable"] = "사용"
 L[" is loaded. For any issues or suggestions join my discord: "] =
 	"애드온 로딩이 완료되었습니다. 오류 신고 및 피드백은 디스코드를 통해 전달해 주세요."
+L[" or visit my homepage: "] = true
 L["Please run through the installation process to set up the plugin.\n\n |cffff7d0aThis step is needed to ensure that all features are configured correctly for your profile. You don't have to apply every step.|r"] =
 	"플러그인을 설정하려면 설치 과정을 실행하세요.\n\n |cffff7d0a이 단계는 프로필의 모든 기능이 올바르게 구성되었는지 확인하는 데 필요합니다. 모든 단계를 적용할 필요는 없습니다.|r"
 L["Font"] = "글꼴"
@@ -99,8 +100,6 @@ L["Misc"] = "기타"
 L["has appeared on the MiniMap!"] = "미니맵에 나타났습니다!"
 L["Name Hover"] = "이름 표시"
 L["MISC_PARAGON"] = "용사"
-L["Fun Stuff"] = "재미있는 기능"
-L["Change the NPC Talk Frame."] = "NPC 대화 프레임을 변경합니다"
 L["Wowhead Links"] = "Wowhead 링크"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] =
 	"업적 및 세계지도 프레임에 Wowhead 링크를 추가합니다"
@@ -115,12 +114,9 @@ L["Sync Inspect"] = "살펴보기 동기화"
 L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."] =
 	"켜면 살펴보기 창의 크기가 캐릭터 창의 크기와 동일하게 설정됩니다"
 L["Talents"] = "전문화"
-L["Wardrobe"] = "옷장"
 L["Mailbox"] = "우편함"
 L["Auction House"] = "경매장"
 L["Transmog Frame"] = "형상변환 창"
-L["Makes the transmogrification frame bigger. Credits to Kayr for code."] =
-	"형상변환 창을 더 크게 표시합니다. 코드 제공: Kayr"
 L["Add more oUF tags. You can use them on UnitFrames configuration."] =
 	"추가 oUF 태그를 제공합니다. 유닛 프레임 설정에서 사용 가능합니다"
 L["Custom Color"] = "사용자 지정 색상"
@@ -128,7 +124,6 @@ L["Armory"] = "전투정보실"
 L["Trade Tabs"] = "제작 탭"
 L["Enable Tabs on the Profession Frames"] = "제작 전문 기술 창에 탭을 활성화합니다"
 L["Group Finder"] = "던전 및 공격대"
-L["Equipment Upgrade"] = "장비 강화"
 L["Vendor"] = "상인"
 L["Class Trainer"] = "직업 훈련사"
 L["Gossip"] = "대화"
@@ -176,9 +171,6 @@ L["Unknown or undiscovered currency ID."] = true
 L["You are close to the cap: %d / %d"] = true
 L["Title Font"] = "제목 글꼴"
 L["Text Font"] = "텍스트 글꼴"
-L["Debug Print"] = "디버그 출력"
-L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] =
-	"이 옵션을 활성화하면 미니맵의 비넷 이름과 ID를 채팅으로 출력합니다"
 L["Credits"] = "제작진"
 
 -- Actionbars
@@ -208,15 +200,11 @@ L["Missing Sockets"] = "누락된 소켓"
 L["Short Enchant Text"] = "마법부여 텍스트 간소화"
 L["Enchant Font"] = "마법부여 글꼴"
 L["Item Level"] = "아이템 레벨"
-L["Add an extra item level text to some equipment buttons."] =
-	"일부 장비 버튼에 아이템 레벨 텍스트를 추가합니다."
-L["Flyout Button"] = "장비 관리창 펼침 버튼"
-L["Use Bags Setting"] = "가방 설정 사용"
-L["Quality Color"] = "품질 색상"
-L["Scrapping Machine"] = "분해 기계"
-L["Guild News"] = "길드 새 소식"
-L["Settings for the Item Level next tor your item slot"] =
+L["Shows the item level on the items in the merchant and trade windows."] = true
+L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."] = true
+L["Settings for the Item Level next to your item slot"] =
 	"아이템 슬롯 옆에 표시되는 아이템 레벨 설정"
+L["Settings for the custom %s Armory decorative lines."] = true
 L["Enable/Disable the Item Level text display"] = "아이템 레벨 텍스트 표시 여부 설정"
 L["Toggle sockets & azerite traits"] = "소켓 및 아제라이트 특성 표시 전환"
 L["Item Quality Gradient"] = "아이템 품질 그라데이션"
@@ -300,16 +288,12 @@ L["UnitFrames"] = "유닛프레임"
 L["Individual Units"] = "개별 유닛"
 L["Group Units"] = "그룹 유닛"
 L["Resting Indicator"] = "휴식 상태 표시기"
-L["UnitFrame Style"] = "유닛 프레임 스타일"
-L["Adds my styling to the Unitframes if you use transparent health."] =
-	"투명 생명력 바 사용 시 유닛 프레임에 스타일을 적용합니다"
 L["Custom Texture"] = true
 L["Raid Icon"] = "공격대 아이콘"
 L["Change the default raid icons."] = "기본 공격대 아이콘을 변경합니다"
 L["Highlight"] = "하이라이트"
 L["Adds an own highlight to the Unitframes"] = "유닛 프레임에 고유한 하이라이트 효과를 추가합니다"
 L["Auras"] = "오라"
-L["Adds an shadow around the auras"] = "오라 주변에 그림자를 추가합니다"
 
 -- Cooldowns
 L["Cooldown Flash"] = "재사용 시각 효과"
@@ -424,7 +408,6 @@ L["Left Color"] = "왼쪽 색상"
 L["Right Color"] = "오른쪽 색상"
 L["The options below is only for the Details look, NOT the Embeded."] =
 	"아래 옵션은 'Details' 외형용이며, 내장 모드가 아닙니다"
-L["Action Status"] = "행동 상태"
 L["Embed Settings"] = "내장 설정"
 L["With this option you can embed your Details into an own Panel."] =
 	"이 옵션으로 'Details' 애드온을 별도 패널에 내장할 수 있습니다"
@@ -505,10 +488,15 @@ L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"모든 |cffffffffMerathilis|r|cffff7d0aUI|r 글꼴 설정을 적용합니다"
 L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"모든 |cffffffffMerathilis|r|cffff7d0aUI|r 글꼴 설정을 초기화합니다"
+L["Changes are only applied to the ElvUI profile after clicking Apply."] = true
+L["Main Font"] = true
+L["Number Font"] = true
+L["Font Size Offset"] = true
+L["Added to every font size the profile sets."] = true
+L["Default keeps the outline each element uses in the profile."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = "고급 설정"
-L["Blizzard Fixes"] = "블리자드 버그 수정"
 L["The message will be shown in chat when you login."] = "로그인 시 채팅창에 메시지가 표시됩���다"
 L["This section will help reset specfic settings back to default."] =
 	"이 섹션에서는 특정 설정을 기본값으로 초기화할 수 있습니다"
@@ -525,6 +513,10 @@ L[" below.\n\n"] = true
 L["Class Colors"] = true
 L["NPC Colors"] = true
 L["Here you can change the "] = true
+L["Power Colors"] = true
+L["Non-interruptible"] = true
+L["Regular"] = true
+L["Here you can change additional settings for the %s."] = true
 L[" of NPC colors.\n\n"] = true
 L[" of Power colors.\n\n"] = true
 L["Other Colors"] = true
@@ -615,6 +607,7 @@ L["After you stop debuging, %s will reenable the addons automatically."] =
 	"디버깅을 중지하면 %s이(가) 애드온을 자동으로 다시 활성화합니다."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
 	"버그를 제출하기 전에 %s을(를) 사용하여 디버그 모드를 활성화하고 한 번 더 테스트하십시오."
+L["If you get an error, open %s and paste its content into your report."] = true
 L["Error"] = "오류"
 L["Warning"] = "경고"
 
@@ -636,9 +629,7 @@ L["Square"] = true
 -- Automatically added missing keys
 L[" Raid Info Frame"] = " Raid Info Frame"
 L[" install complete."] = " install complete."
-L["!! ERROR - Round:"] = "!! ERROR - Round:"
 L["%day%-%month%-%year%"] = "%day%-%month%-%year%"
-L["%s detects CVar %s has been changed."] = "%s detects CVar %s has been changed."
 L[".\n\n"] = ".\n\n"
 L["Abbreviates the enchant strings."] = "Abbreviates the enchant strings."
 L["Add"] = "Add"
@@ -706,7 +697,6 @@ L["Could not convert unicode "] = "Could not convert unicode "
 L["Credits: ElvUI_ToxiUI"] = "Credits: ElvUI_ToxiUI"
 L["Crit"] = "Crit"
 L["Custom"] = "Custom"
-L["Custom Gradient Color"] = "Custom Gradient Color"
 L["Dark Layout"] = "Dark Layout"
 L["Dark Texture"] = "Dark Texture"
 L["Decorative Lines"] = "Decorative Lines"
@@ -973,9 +963,6 @@ L["Importance: |cffFF0000Low|r"] = "Importance: |cffFF0000Low|r"
 L["Improvements"] = "Improvements"
 L["Install"] = "Install"
 L["Installation Complete"] = "Installation Complete"
-L["Invalid Model, you need to add a Model ID/Path"] = "Invalid Model, you need to add a Model ID/Path"
-L["It will cause some buttons not work properly before UI reloading."] =
-	"It will cause some buttons not work properly before UI reloading."
 L["It will override your %s setting."] = "It will override your %s setting."
 L["Item Level Font"] = "Item Level Font"
 L["Keep Current"] = "Keep Current"
@@ -989,8 +976,6 @@ L["Layout Set"] = "Layout Set"
 L["Left Click:"] = "Left Click:"
 L["Localization"] = "Localization"
 L["MEDIUM"] = "MEDIUM"
-L["MONOCHROME"] = "MONOCHROME"
-L["MONOCROMEOUTLINE"] = "MONOCROMEOUTLINE"
 L["Main Text Outline"] = "Main Text Outline"
 L["Main Text Size"] = "Main Text Size"
 L["Many thanks to these wonderful persons for letting me use some of their code: %s."] =
@@ -1064,8 +1049,6 @@ L["Raid 3"] = "Raid 3"
 L["Raid Marker Bar"] = "Raid Marker Bar"
 L["Released"] = "Released"
 L["Reload UI"] = "Reload UI"
-L["Render the item level text with the setting in ElvUI bags."] =
-	"Render the item level text with the setting in ElvUI bags."
 L["Reset"] = "Reset"
 L["Reset Details check"] = "Reset Details check"
 L["Right Click:"] = "Right Click:"
@@ -1112,15 +1095,12 @@ L["Status Text Size"] = "Status Text Size"
 L["String"] = "String"
 L["Sub Text Outline"] = "Sub Text Outline"
 L["Sub Text Size"] = "Sub Text Size"
-L["THICKOUTLINE"] = "THICKOUTLINE"
 L["Tank"] = "Tank"
 L["Tank Target"] = "Tank Target"
 L["Target"] = "Target"
 L["Target of Target"] = "Target of Target"
 L["Text Options"] = "Text Options"
 L["The feature is just a part of that module."] = "The feature is just a part of that module."
-L["The options below is only for the look, NOT the Embeded."] =
-	"The options below is only for the look, NOT the Embeded."
 L["The profile from which the private settings will be copied."] =
 	"The profile from which the private settings will be copied."
 L["The style already exists."] = "The style already exists."
@@ -1164,13 +1144,9 @@ L["Welcome to %s %s!"] = "Welcome to %s %s!"
 L["Welcome to version %s!"] = "Welcome to version %s!"
 L["WindTools"] = "WindTools"
 L["Windtools"] = "Windtools"
-L["Work In Progress"] = "Work In Progress"
 L["WowLua"] = "WowLua"
-L["You can disable this alert in [%s]-[%s]-[%s]"] = "You can disable this alert in [%s]-[%s]-[%s]"
 L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"] =
 	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] =
-	"You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."
 L["You have %s pending calendar |4invite:invites;."] = "You have %s pending calendar |4invite:invites;."
 L["You have %s pending guild |4event:events;."] = "You have %s pending guild |4event:events;."
 L["Your current Profile is: "] = "Your current Profile is: "
@@ -1389,7 +1365,10 @@ L["Left-click to attach all - right-click to set a default recipient."] =
 -- Chat
 L["Chat Sidebar"] = true
 L["Adds a slim icon bar inside a chat panel with quick access to friends, guild, copy chat, M+ portals and more."] = true
-L["Requires ElvUI's Chat module to be enabled."] = true
+L["Requires ElvUI's %s module to be enabled."] = true
+L["No MerathilisUI profile installed."] = true
+L["Not available while EltruismUI is enabled."] = true
+L["Not available while BenikUI is enabled."] = true
 L["Chat Panel"] = true
 L["Side"] = true
 L["Which edge of the chat panel the sidebar sits on."] = true
@@ -1485,8 +1464,6 @@ L["Desaturate"] = true
 L["Greys out the icon while no charge is left."] = true
 L["Charges"] = true
 L["Recharge Time"] = true
-L["Debug Mode"] = true
-L["Shows the trackers everywhere with their real data instead of only in Mythic+ keys and raid encounters, and prints every change of the charges, the Sated lockout and the visibility state to the chat."] = true
 L["Bloodlust"] = true
 L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."] = true
 L["Show Sated"] = true
@@ -1541,3 +1518,5 @@ L["Crest"] = true
 L["Round"] = true
 L["TargetTarget"] = true
 L["FocusTarget"] = true
+L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"] = true
+L["Equipment Flyout"] = true

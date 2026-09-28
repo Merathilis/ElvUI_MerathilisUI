@@ -60,7 +60,8 @@ MER.ClassIcons.data = {
 local type = type
 local path = "Interface\\Addons\\ElvUI_MerathilisUI\\Media\\Class\\"
 
--- style = texture style, textur = path to the texture, table with texture coords for each class, name = optional name to show in dopdown menu
+-- style = texture style, texture = path to the texture, a table with texture coords for each class,
+-- name = optional name to show in the dropdown menu
 function MER:AddClassIcons(style, texture, texCoords, name)
 	if not (style and texture and texCoords) then
 		F.Print("|CFFEA1818Error|r:", L["Could not add the texture."])

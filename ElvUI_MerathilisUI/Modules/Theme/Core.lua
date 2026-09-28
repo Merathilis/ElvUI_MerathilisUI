@@ -223,8 +223,6 @@ function module:Disable()
 
 	self:UnhookAll()
 	self.uf:Update_AllFrames()
-
-	F.EventManagerUnregisterAll(self.interruptNamespace)
 end
 
 function module:Enable()
@@ -246,11 +244,6 @@ function module:Enable()
 
 	self:SecureHook(self.uf, "Update_StatusBars", "UpdateStatusBars")
 	self:SecureHook(self.uf, "Update_StatusBar", "UpdateStatusBar")
-
-	F.EventManagerRegister(self.interruptNamespace, "PLAYER_SPECIALIZATION_CHANGED", F.CheckInterruptSpells)
-	F.EventManagerRegister(self.interruptNamespace, "PLAYER_ENTERING_WORLD", F.CheckInterruptSpells)
-	F.EventManagerRegister(self.interruptNamespace, "PLAYER_LEVEL_CHANGED", F.CheckInterruptSpells)
-	F.EventManagerRegister(self.interruptNamespace, "LEARNED_SPELL_IN_SKILL_LINE", F.CheckInterruptSpells)
 
 	self.uf:Update_AllFrames()
 
@@ -298,8 +291,6 @@ function module:Initialize()
 	F.Event.RegisterCallback("MER_Theme.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("MER_Theme.SettingsUpdate", self.SettingsUpdate, self)
 	F.Event.RegisterCallback("MER_Theme.TexturesUpdate", self.TexturesUpdate, self)
-
-	self.interruptNamespace = "GR_INTERRUPT"
 
 	self.Initialized = true
 end

@@ -53,16 +53,25 @@ do
 		["ElvUI_mMediaTag"] = true,
 		["!BugGrabber"] = true,
 		["BugSack"] = true,
+		["DevTool"] = true, -- used by /muidev dump
 	}
 
+	-- Addons disabled by debug mode, kept in ElvDB across logins
+	local function GetDisabledAddOns()
+		_G.ElvDB.MER = _G.ElvDB.MER or {}
+		_G.ElvDB.MER.DisabledAddOns = _G.ElvDB.MER.DisabledAddOns or {}
+		return _G.ElvDB.MER.DisabledAddOns
+	end
+
 	MER:AddCommand("ERROR", "/muidebug", function(msg)
-		local switch = strlower(msg)
+		local switch = strlower(msg or "")
 		if switch == "on" or switch == "1" then
+			local disabled = GetDisabledAddOns()
 			for i = 1, GetNumAddOns() do
 				local name = GetAddOnInfo(i)
 				if not AcceptableAddons[name] and E:IsAddOnEnabled(name) then
 					DisableAddOn(name, E.myguid)
-					ElvDB.MER.DisabledAddOns[name] = i
+					disabled[name] = i
 				end
 			end
 
@@ -74,14 +83,15 @@ do
 			E:Print("Lua errors off.")
 
 			if E:IsAddOnEnabled("ElvUI_CPU") then
-				DisableAddOn("ElvUI_CPU")
+				DisableAddOn("ElvUI_CPU", E.myguid)
 			end
 
-			if next(ElvDB.MER.DisabledAddOns) then
-				for name in pairs(ElvDB.MER.DisabledAddOns) do
+			local disabled = GetDisabledAddOns()
+			if next(disabled) then
+				for name in pairs(disabled) do
 					EnableAddOn(name, E.myguid)
 				end
-				wipe(ElvDB.MER.DisabledAddOns)
+				wipe(disabled)
 				Reload()
 			end
 		else
@@ -106,7 +116,7 @@ end
 
 function MER:ShowStatusReport()
 	if not F.IsMERProfile() then
-		WF.Developer.LogInfo("You are not using a " .. MER.Title .. " Profile")
+		F.Print("You are not using a " .. MER.Title .. " Profile")
 		return
 	end
 
@@ -119,20 +129,19 @@ function MER:HandleChatCommand(msg)
 	if not category then
 		E:ToggleOptions("mui")
 	elseif category == "changelog" or category == "cl" then
-		E:ToggleOptions("mui,changelog")
+		self:OpenChangelog()
 	elseif category == "settings" then
 		E:ToggleOptions("mui")
-	elseif (category == "status" or category == "info") and F.IsMERProfile() then
+	elseif category == "status" or category == "info" then
 		self:ShowStatusReport()
 	elseif category == "install" or category == "i" then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
-	elseif F.IsMERProfile() then
-		WF.Developer.LogInfo("Usage: /mer cl; changelog; install; i; info; settings; status")
 	else
-		WF.Developer.LogInfo(
-			"You are not using a " .. MER.Title .. " profile. Please install " .. MER.Title .. " first."
-		)
-		WF.Developer.LogInfo("Usage: /mer cl; changelog; install; i; settings")
+		if not F.IsMERProfile() then
+			F.Print("You are not using a " .. MER.Title .. " profile. Please install " .. MER.Title .. " first.")
+		end
+		F.Print("Usage: /mer [changelog|cl] [install|i] [status|info] [settings]")
+		F.Print("Debugging: /muidebug [on|off], /muidev")
 	end
 end
 
@@ -141,4 +150,18 @@ function MER:LoadCommands()
 	self:RegisterChatCommand("mer", "HandleChatCommand")
 	self:RegisterChatCommand("merathilis", "HandleChatCommand")
 	self:RegisterChatCommand("merathilisui", "HandleChatCommand")
+
+	self:AddCommand("DEV", "/muidev", F.Developer.HandleCommand)
+
+	self:AddCommand("WOWVERSION", { "/patch", "/version" }, function()
+		print(
+			format(
+				"Patch: %s, Build: %s, Released %s, Interface: %s",
+				MER.WoWPatch,
+				MER.WoWBuild,
+				MER.WoWPatchReleaseDate,
+				MER.TocVersion
+			)
+		)
+	end)
 end

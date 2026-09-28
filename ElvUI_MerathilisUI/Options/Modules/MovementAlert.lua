@@ -11,8 +11,6 @@ local GetSpecializationInfoByID = GetSpecializationInfoByID
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("movementAlert")
-
 local function DB()
 	return E.db.mui.movementAlert
 end
@@ -23,6 +21,12 @@ end
 
 local function Disabled()
 	return not DB().enable
+end
+
+-- Own disabled replaces the group's, so every child repeats the module state. The
+-- timeSpiral, gateway and alert sections have their own enable on top.
+local function SectionDisabled(section)
+	return Disabled() or (section and DB()[section].enable == false)
 end
 
 -- get/set for the options of one sub table (nil = the module table itself)
@@ -51,6 +55,9 @@ local function ColorArgs(order, section)
 			order = order,
 			type = "toggle",
 			name = L["Use Class Color"],
+			disabled = function()
+				return SectionDisabled(section)
+			end,
 			get = function()
 				return Tbl().useClassColor
 			end,
@@ -65,7 +72,7 @@ local function ColorArgs(order, section)
 			name = L["Custom Color"],
 			hasAlpha = false,
 			disabled = function()
-				return Disabled() or Tbl().useClassColor
+				return SectionDisabled(section) or Tbl().useClassColor
 			end,
 			get = function()
 				local db = Tbl().color
@@ -91,6 +98,9 @@ local function FontGroup(order, section)
 		type = "group",
 		name = L["Font"],
 		guiInline = true,
+		disabled = function()
+			return SectionDisabled(section)
+		end,
 		get = function(info)
 			return Font()[info[#info]]
 		end,
@@ -138,7 +148,7 @@ local function AlertArgs(order, section, ttsText)
 			name = L["Sound"],
 			values = LSM:HashTable("sound"),
 			disabled = function()
-				return Disabled() or Tbl().tts
+				return SectionDisabled(section) or Tbl().tts
 			end,
 			get = function()
 				return Tbl().sound
@@ -152,6 +162,9 @@ local function AlertArgs(order, section, ttsText)
 			type = "toggle",
 			name = L["Text to Speech"],
 			desc = L["Reads the alert out loud with the voice from Blizzard's Text to Speech settings instead of playing the sound."],
+			disabled = function()
+				return SectionDisabled(section)
+			end,
 			get = function()
 				return Tbl().tts
 			end,
@@ -167,7 +180,7 @@ local function AlertArgs(order, section, ttsText)
 			type = "input",
 			name = L["Spoken Text"],
 			disabled = function()
-				return Disabled() or not Tbl().tts
+				return SectionDisabled(section) or not Tbl().tts
 			end,
 			get = function()
 				return Tbl().ttsText
@@ -547,7 +560,7 @@ options.movementAlert = {
 			disabled = Disabled,
 			get = timeSpiralGet,
 			set = timeSpiralSet,
-			args = F.Table.Join({
+			args = {
 				desc = {
 					order = 0,
 					type = "description",
@@ -563,11 +576,17 @@ options.movementAlert = {
 					order = 2,
 					type = "input",
 					name = L["Text"],
+					disabled = function()
+						return SectionDisabled("timeSpiral")
+					end,
 				},
 				showTimer = {
 					order = 3,
 					type = "toggle",
 					name = L["Show Time"],
+					disabled = function()
+						return SectionDisabled("timeSpiral")
+					end,
 				},
 				color = {
 					order = 4,
@@ -584,7 +603,7 @@ options.movementAlert = {
 					guiInline = true,
 					args = AlertArgs(1, "timeSpiral", true),
 				},
-			}),
+			},
 		},
 		gateway = {
 			order = 40,
@@ -609,11 +628,17 @@ options.movementAlert = {
 					order = 2,
 					type = "toggle",
 					name = L["Combat Only"],
+					disabled = function()
+						return SectionDisabled("gateway")
+					end,
 				},
 				text = {
 					order = 3,
 					type = "input",
 					name = L["Text"],
+					disabled = function()
+						return SectionDisabled("gateway")
+					end,
 				},
 				color = {
 					order = 4,

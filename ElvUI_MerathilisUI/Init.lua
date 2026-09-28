@@ -43,7 +43,6 @@ local metaFlavor = GetAddOnMetadata(addon, "X-Flavor")
 
 -- Forever shares the Mainline client, so the TOC flavor alone cannot tell them apart
 MER.MetaFlavor = E.Forever and "Forever" or metaFlavor
-MER.IsRetail = E.Retail
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata(addon, "X-ElvUIVersion"))
 
@@ -91,6 +90,8 @@ do
 	Engine.version = "@project-version@"
 
 	MER.AddOnName = addon
+	MER.DiscordURL = "https://discord.gg/28We6esE9v"
+	MER.WebsiteURL = "https://merathilisui.com"
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 	MER.PlainTitle = gsub(MER.Title, "|c........([^|]+)|r", "%1")
 end
@@ -149,20 +150,14 @@ function MER:Initialize()
 		return
 	end
 
-	local flavorMap = {
-		["Mainline"] = I.Enum.Flavor.RETAIL,
-		["Forever"] = I.Enum.Flavor.FOREVER,
-	}
-	self.Flavor = flavorMap[self.MetaFlavor] or I.Enum.Flavor.RETAIL
-
 	for _, module in self:IterateModules() do
-		WF.Developer.InjectLogger(module)
+		Engine[4].Developer.InjectLogger(module)
 	end
 
 	hooksecurefunc(MER, "NewModule", function(_, name)
 		local module = MER:GetModule(name, true)
 		if module then
-			WF.Developer.InjectLogger(module)
+			Engine[4].Developer.InjectLogger(module)
 		end
 	end)
 
@@ -229,13 +224,19 @@ function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
 
 		local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 		if E.db.mui.core.installed and E.global.mui.core.loginMsg then
+			-- Clickable [url] links, handled by ElvUI's chat
+			local function URL(url)
+				return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
+			end
+
 			print(
 				icon
-					.. ""
 					.. self.Title
 					.. format("|cff00c0fa%s|r", self.Version)
 					.. L[" is loaded. For any issues or suggestions join my discord: "]
-					.. Engine[4].PrintURL("https://discord.gg/28We6esE9v")
+					.. URL(self.DiscordURL)
+					.. L[" or visit my homepage: "]
+					.. URL(self.WebsiteURL)
 			)
 		end
 
@@ -243,11 +244,9 @@ function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
 	end
 
 	if _G.ElvDB then
-		if isInitialLogin or not _G.ElvDB.MER then
-			_G.ElvDB.MER = {
-				DisabledAddOns = {},
-			}
-		end
+		-- Keep the addons disabled by /muidebug across logins, /muidebug off needs them
+		_G.ElvDB.MER = _G.ElvDB.MER or {}
+		_G.ElvDB.MER.DisabledAddOns = _G.ElvDB.MER.DisabledAddOns or {}
 
 		if next(_G.ElvDB.MER.DisabledAddOns) then
 			E:Delay(4, self.PrintDebugEnviromentTip)

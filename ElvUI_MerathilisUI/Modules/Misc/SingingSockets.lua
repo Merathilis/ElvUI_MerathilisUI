@@ -8,15 +8,15 @@ if E.Forever then
 end
 
 local ClearCursor = ClearCursor
-local ClickSocketButton = ClickSocketButton
-local GetSocketTypes = GetSocketTypes
-local GetExistingSocketInfo = GetExistingSocketInfo
 
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemID = C_Container.GetContainerItemID
 local C_Container_PickupContainerItem = C_Container.PickupContainerItem
 local C_Item_GetItemIconByID = C_Item.GetItemIconByID
 local C_Item_GetItemInfo = C_Item.GetItemInfo
+local C_ItemSocketInfo_ClickSocketButton = C_ItemSocketInfo.ClickSocketButton
+local C_ItemSocketInfo_GetExistingSocketInfo = C_ItemSocketInfo.GetExistingSocketInfo
+local C_ItemSocketInfo_GetSocketTypes = C_ItemSocketInfo.GetSocketTypes
 
 local iconSize = 36
 local gemsInfo = {
@@ -52,7 +52,7 @@ function module:Socket_OnClick()
 		for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
 			if C_Container_GetContainerItemID(bagID, slotID) == self.gemID then
 				C_Container_PickupContainerItem(bagID, slotID)
-				ClickSocketButton(self.socketID)
+				C_ItemSocketInfo_ClickSocketButton(self.socketID)
 				ClearCursor()
 				return
 			end
@@ -140,15 +140,15 @@ function module:SetupSingingSockets()
 			module.FiberSockets:Hide()
 		end
 
-		local socketType = GetSocketTypes(1)
+		local socketType = C_ItemSocketInfo_GetSocketTypes(1)
 		if socketType == "SingingThunder" then
 			module:CreateSingingSockets()
 			for i = 1, 3 do
-				module.SingingFrames[i]:SetShown(not GetExistingSocketInfo(i))
+				module.SingingFrames[i]:SetShown(not C_ItemSocketInfo_GetExistingSocketInfo(i))
 			end
 		elseif socketType == "Fiber" then
 			module:CreateFiberSockets()
-			module.FiberSockets:SetShown(not GetExistingSocketInfo(1))
+			module.FiberSockets:SetShown(not C_ItemSocketInfo_GetExistingSocketInfo(1))
 		end
 	end)
 end

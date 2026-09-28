@@ -1,12 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local C = W.Utilities.Color
 
 local _G = _G
-
-local norm = format("|cff1eff00%s|r", L["[ABBR] Normal"])
-local hero = format("|cff0070dd%s|r", L["[ABBR] Heroic"])
-local myth = format("|cffa335ee%s|r", L["[ABBR] Mythic"])
-local lfr = format("|cffff8000%s|r", L["[ABBR] Looking for Raid"])
 
 P.core = {
 	installed = nil,
@@ -25,19 +19,11 @@ P.general = {
 	fontOverride = {
 		[I.Fonts.Primary] = "DEFAULT",
 		[I.Fonts.GothamRaid] = "DEFAULT",
-		[I.Fonts.Runescape] = "DEFAULT",
 	},
 
 	fontStyleOverride = {
 		[I.Fonts.Primary] = "DEFAULT",
 		[I.Fonts.GothamRaid] = "DEFAULT",
-		[I.Fonts.Runescape] = "DEFAULT",
-	},
-
-	fontShadowOverride = {
-		[I.Fonts.Primary] = "DEFAULT",
-		[I.Fonts.GothamRaid] = "DEFAULT",
-		[I.Fonts.Runescape] = "DEFAULT",
 	},
 }
 
@@ -140,9 +126,6 @@ P.themes = {
 			boss = I.Enum.GradientMode.Direction.LEFT,
 			focus = I.Enum.GradientMode.Direction.LEFT,
 		},
-
-		interruptCDEnabled = false,
-		interruptSoonEnabled = false,
 
 		saturationBoost = {
 			enable = false,
@@ -375,15 +358,9 @@ P.bags = {
 	},
 }
 
-P.colors = {
-	styleAlpha = 1,
-}
-
 P.misc = {
 	gmotd = true,
-	funstuff = true,
 	wowheadlinks = true,
-	respec = true,
 	tradeTabs = true,
 	blockRequest = false,
 	singingSockets = {
@@ -397,7 +374,6 @@ P.misc = {
 		padding = 6,
 		backdropColor = { r = 0, g = 0, b = 0, a = 0.5 },
 		hideInCombat = true,
-		roleIconStyle = "MERATHILISUI",
 	},
 	petFilterTab = true,
 	copyMog = {
@@ -424,7 +400,6 @@ P.armory = {
 		enable = true,
 		alpha = 0.85,
 		height = 1,
-		color = "CLASS",
 	},
 	stats = {
 		showAvgItemLevel = false,
@@ -624,12 +599,6 @@ P.armory = {
 		name = I.Fonts.Primary,
 		size = 14,
 		style = "SHADOWOUTLINE",
-		fontColor = "CUSTOM", -- CLASS, CUSTOM, GRADIENT
-		color = {
-			r = 1,
-			g = 1,
-			b = 1,
-		},
 		offsetX = 0,
 		offsetY = -1,
 		short = true,
@@ -639,12 +608,6 @@ P.armory = {
 		name = I.Fonts.Primary,
 		size = 16,
 		style = "SHADOWOUTLINE",
-		fontColor = "CLASS", -- CLASS, CUSTOM, GRADIENT
-		color = {
-			r = 1,
-			g = 1,
-			b = 1,
-		},
 		offsetX = 0,
 		offsetY = -1,
 	},
@@ -797,7 +760,6 @@ P.notification = {
 	vignette = {
 		enable = true,
 		print = true,
-		debugPrint = false,
 		timeOut = 20,
 		blacklist = {
 			[5485] = true,
@@ -823,45 +785,6 @@ P.actionbars = {
 		frameStrata = "BACKGROUND",
 		frameLevel = 1,
 		size = 20,
-	},
-	colorModifier = {
-		enable = true,
-	},
-}
-
-P.cooldownManager = {
-	enable = false,
-	fading = false,
-
-	dynamicBarsWidth = false,
-	dynamicCastbarWidth = false,
-	minDynamicWidth = F.Dpi(250),
-
-	-- Anchoring
-	anchors = {
-		essential = {
-			enable = false,
-			yOffset = -4,
-		},
-		utility = {
-			enable = false,
-			yOffset = -4,
-		},
-		buff = {
-			enable = false,
-			yOffset = 20,
-		},
-		buffBar = {
-			enable = false,
-			yOffset = 80,
-		},
-	},
-
-	-- Centering
-	centering = {
-		essential = false,
-		utility = false,
-		buff = false,
 	},
 }
 
@@ -1016,13 +939,10 @@ P.nameplates = {
 }
 
 P.unitframes = {
-	style = true,
 	raidIcons = true,
 	highlight = true,
-	auras = true,
 	restingIndicator = {
 		enable = true,
-		customClassColor = false,
 	},
 	factionIndicator = {
 		enable = true,
@@ -1034,269 +954,6 @@ P.unitframes = {
 			focustarget = { enable = false, size = 16, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
 			arena = { enable = true, size = 18, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
 		},
-	},
-}
-
-P.gradient = {
-	customColor = {
-		druidcolorR1 = 1,
-		druidcolorR2 = 1,
-		druidcolorG1 = 0.23921568627451,
-		druidcolorG2 = 0.48627450980392,
-		druidcolorB1 = 0.007843137254902,
-		druidcolorB2 = 0.03921568627451,
-
-		huntercolorR1 = 0.40392156862745,
-		huntercolorR2 = 0.67058823529412,
-		huntercolorG1 = 0.53725490196078,
-		huntercolorG2 = 0.92941176470588,
-		huntercolorB1 = 0.22352941176471,
-		huntercolorB2 = 0.30980392156863,
-
-		paladincolorR1 = 1,
-		paladincolorR2 = 0.95686274509804,
-		paladincolorG1 = 0.26666666666667,
-		paladincolorG2 = 0.54901960784314,
-		paladincolorB1 = 0.53725490196078,
-		paladincolorB2 = 0.72941176470588,
-
-		magecolorR1 = 0,
-		magecolorR2 = 0.49019607843137,
-		magecolorG1 = 0.33333333333333,
-		magecolorG2 = 0.87058823529412,
-		magecolorB1 = 0.53725490196078,
-		magecolorB2 = 1,
-
-		roguecolorR1 = 1,
-		roguecolorR2 = 1,
-		roguecolorG1 = 0.68627450980392,
-		roguecolorG2 = 0.83137254901961,
-		roguecolorB1 = 0,
-		roguecolorB2 = 0.25490196078431,
-
-		priestcolorR1 = 0.3568627450980392,
-		priestcolorR2 = 0.98823529411765,
-		priestcolorG1 = 0.3568627450980392,
-		priestcolorG2 = 0.98823529411765,
-		priestcolorB1 = 0.3568627450980392,
-		priestcolorB2 = 0.98823529411765,
-
-		deathknightcolorR1 = 0.49803921568627,
-		deathknightcolorR2 = 1,
-		deathknightcolorG1 = 0.074509803921569,
-		deathknightcolorG2 = 0.1843137254902,
-		deathknightcolorB1 = 0.14901960784314,
-		deathknightcolorB2 = 0.23921568627451,
-
-		demonhuntercolorR1 = 0.36470588235294,
-		demonhuntercolorR2 = 0.74509803921569,
-		demonhuntercolorG1 = 0.13725490196078,
-		demonhuntercolorG2 = 0.1921568627451,
-		demonhuntercolorB1 = 0.57254901960784,
-		demonhuntercolorB2 = 1,
-
-		shamancolorR1 = 0,
-		shamancolorR2 = 0,
-		shamancolorG1 = 0.25882352941176,
-		shamancolorG2 = 0.43921568627451,
-		shamancolorB1 = 0.50980392156863,
-		shamancolorB2 = 0.87058823529412,
-
-		warlockcolorR1 = 0.26274509803922,
-		warlockcolorR2 = 0.66274509803922,
-		warlockcolorG1 = 0.26666666666667,
-		warlockcolorG2 = 0.3921568627451,
-		warlockcolorB1 = 0.46666666666667,
-		warlockcolorB2 = 0.7843137254902,
-
-		warriorcolorR1 = 0.42745098039216,
-		warriorcolorR2 = 0.56470588235294,
-		warriorcolorG1 = 0.13725490196078,
-		warriorcolorG2 = 0.43137254901961,
-		warriorcolorB1 = 0.090196078431373,
-		warriorcolorB2 = 0.24705882352941,
-
-		monkcolorR1 = 0.015686274509804,
-		monkcolorR2 = 0,
-		monkcolorG1 = 0.6078431372549,
-		monkcolorG2 = 1,
-		monkcolorB1 = 0.36862745098039,
-		monkcolorB2 = 0.58823529411765,
-
-		evokercolorR1 = 0.19607843137255,
-		evokercolorR2 = 0.2,
-		evokercolorG1 = 0.46666666666667,
-		evokercolorG2 = 0.57647058823529,
-		evokercolorB1 = 0.53725490196078,
-		evokercolorB2 = 0.49803921568627,
-
-		npcfriendlyR1 = 0.30980392156863,
-		npcfriendlyR2 = 0.34117647058824,
-		npcfriendlyG1 = 0.85098039215686,
-		npcfriendlyG2 = 0.62745098039216,
-		npcfriendlyB1 = 0.2,
-		npcfriendlyB2 = 0.4078431372549,
-
-		npcneutralR1 = 0.8156862745098,
-		npcneutralG1 = 1,
-		npcneutralB1 = 0,
-		npcneutralR2 = 1,
-		npcneutralG2 = 0.85882352941176,
-		npcneutralB2 = 0.2078431372549,
-
-		npcunfriendlyR1 = 0.84313725490196,
-		npcunfriendlyG1 = 0.30196078431373,
-		npcunfriendlyB1 = 0,
-		npcunfriendlyR2 = 0.83137254901961,
-		npcunfriendlyG2 = 0.45882352941176,
-		npcunfriendlyB2 = 0,
-
-		npchostileR1 = 1,
-		npchostileR2 = 1,
-		npchostileG1 = 0.090196078431373,
-		npchostileG2 = 0,
-		npchostileB1 = 0,
-		npchostileB2 = 0.54901960784314,
-
-		goodthreatR1 = 0.27843075990677,
-		goodthreatR2 = 0.95294117647059,
-		goodthreatG1 = 1,
-		goodthreatG2 = 0.99999779462814,
-		goodthreatB1 = 0,
-		goodthreatB2 = 0,
-
-		badthreatR1 = 1,
-		badthreatR2 = 0.82352941176471,
-		badthreatG1 = 0.17647058823529,
-		badthreatG2 = 0,
-		badthreatB1 = 0.17647058823529,
-		badthreatB2 = 0.34901960784314,
-
-		goodthreattransitionR1 = 1,
-		goodthreattransitionR2 = 1,
-		goodthreattransitionG1 = 0.99607843137255,
-		goodthreattransitionG2 = 0.73333333333333,
-		goodthreattransitionB1 = 0.2,
-		goodthreattransitionB2 = 0,
-
-		badthreattransitionR1 = 1,
-		badthreattransitionR2 = 1,
-		badthreattransitionG1 = 0.3921568627451,
-		badthreattransitionG2 = 0.9843137254902,
-		badthreattransitionB1 = 0.2,
-		badthreattransitionB2 = 0,
-
-		offtankR1 = 0.72941176470588,
-		offtankR2 = 0.34117647058824,
-		offtankG1 = 0.2,
-		offtankG2 = 0,
-		offtankB1 = 1,
-		offtankB2 = 1,
-
-		badthreattransitionofftankR1 = 0.70980392156863,
-		badthreattransitionofftankG1 = 0.43137254901961,
-		badthreattransitionofftankB1 = 0.27058823529412,
-		badthreattransitionofftankR2 = 0.90196078431373,
-		badthreattransitionofftankG2 = 0.15294117647059,
-		badthreattransitionofftankB2 = 0,
-
-		goodthreattransitionofftankR1 = 0.30980392156863,
-		goodthreattransitionofftankR2 = 0,
-		goodthreattransitionofftankG1 = 0.45098039215686,
-		goodthreattransitionofftankG2 = 1,
-		goodthreattransitionofftankB1 = 0.63137254901961,
-		goodthreattransitionofftankB2 = 0.70980392156863,
-
-		tappedR1 = 1,
-		tappedG1 = 1,
-		tappedB1 = 1,
-		tappedR2 = 0,
-		tappedG2 = 0,
-		tappedB2 = 0,
-
-		manaR1 = 0.49,
-		manaG1 = 0.71,
-		manaB1 = 1,
-		manaR2 = 0.29,
-		manaG2 = 0.26,
-		manaB2 = 1,
-
-		rageR1 = 1,
-		rageG1 = 0.32,
-		rageB1 = 0.32,
-		rageR2 = 1,
-		rageG2 = 0,
-		rageB2 = 0.13,
-
-		focusR1 = 1,
-		focusG1 = 0.50,
-		focusB1 = 0.25,
-		focusR2 = 0.71,
-		focusG2 = 0.22,
-		focusB2 = 0.07,
-
-		energyR1 = 1,
-		energyG1 = 0.97,
-		energyB1 = 0.54,
-		energyR2 = 1,
-		energyG2 = 0.70,
-		energyB2 = 0.07,
-
-		runicpowerR1 = 0,
-		runicpowerG1 = 0.82,
-		runicpowerB1 = 1,
-		runicpowerR2 = 0,
-		runicpowerG2 = 0.40,
-		runicpowerB2 = 1,
-
-		lunarpowerR1 = 0.30,
-		lunarpowerG1 = 0.52,
-		lunarpowerB1 = 0.90,
-		lunarpowerR2 = 0.12,
-		lunarpowerG2 = 0.36,
-		lunarpowerB2 = 0.90,
-
-		altpowerR1 = 0.20,
-		altpowerG1 = 0.40,
-		altpowerB1 = 0.8,
-		altpowerR2 = 0.25,
-		altpowerG2 = 0.51,
-		altpowerB2 = 1,
-
-		maelstromR1 = 0,
-		maelstromG1 = 0.50,
-		maelstromB1 = 1,
-		maelstromR2 = 0,
-		maelstromG2 = 0.11,
-		maelstromB2 = 1,
-
-		insanityR1 = 0.50,
-		insanityG1 = 0.25,
-		insanityB1 = 1,
-		insanityR2 = 0.70,
-		insanityG2 = 0,
-		insanityB2 = 1,
-
-		furyR1 = 0.79,
-		furyG1 = 0.26,
-		furyB1 = 1,
-		furyR2 = 1,
-		furyG2 = 0,
-		furyB2 = 0.95,
-
-		painR1 = 1,
-		painG1 = 0.61,
-		painB1 = 0,
-		painR2 = 1,
-		painG2 = 0.30,
-		painB2 = 0,
-
-		backdropR1 = 0,
-		backdropG1 = 0,
-		backdropB1 = 0,
-		backdropR2 = 0.19,
-		backdropG2 = 0.19,
-		backdropB2 = 0.19,
 	},
 }
 
@@ -1315,7 +972,6 @@ P.nameHover = {
 	level = true,
 	classification = true,
 
-	display_BackgroundAlpha = 0.5,
 	display_BackgroundPadding = 2,
 
 	mainTextSize = 14,
@@ -1410,7 +1066,6 @@ P.buffReminder = {
 }
 
 P.tracker = {
-	debug = false,
 	battleRes = {
 		enable = false,
 		visibility = "MPLUS_AND_RAID", -- MPLUS_AND_RAID, MPLUS, RAID
@@ -1508,8 +1163,6 @@ P.movementAlert = {
 	},
 }
 
-P.media = {}
-
 P.panels = {
 	colorType = "CLASS",
 	customColor = { r = 1, g = 1, b = 1 },
@@ -1532,56 +1185,6 @@ P.panels = {
 
 P.itemLevel = {
 	enable = true,
-	flyout = {
-		enable = true,
-		useBagsFontSetting = false,
-		qualityColor = true,
-		font = {
-			name = I.Fonts.Primary,
-			size = 11,
-			style = "SHADOWOUTLINE",
-			xOffset = 0,
-			yOffset = 0,
-			color = {
-				r = 1,
-				g = 1,
-				b = 1,
-			},
-		},
-	},
-	scrappingMachine = {
-		enable = true,
-		useBagsFontSetting = false,
-		qualityColor = true,
-		font = {
-			name = I.Fonts.Primary,
-			size = 13,
-			style = "SHADOWOUTLINE",
-			xOffset = 0,
-			yOffset = 0,
-			color = {
-				r = 1,
-				g = 1,
-				b = 1,
-			},
-		},
-	},
-	merchantFrame = {
-		enable = true,
-	},
-	guildNews = {
-		enable = true,
-	},
-}
-
-P.raidBuffs = {
-	enable = true,
-	visibility = "INPARTY",
-	class = true,
-	size = 30,
-	alpha = 0.3,
-	glow = true,
-	customVisibility = "[noexists, nogroup] hide; show",
 }
 
 P.elvUIIcons = {
@@ -1634,16 +1237,13 @@ P.scale = {
 		scale = 1,
 	},
 
-	transmog = {
-		enable = false,
-	},
 
 	itemUpgrade = {
 		scale = 1,
 	},
 
 	equipmentFlyout = {
-		scale = 2,
+		scale = 1,
 	},
 
 	vendor = {
@@ -1705,7 +1305,7 @@ P.lootRoll = {
 
 	showRollers = true,
 
-	font = nil,
+	font = I.Fonts.Primary,
 	fontSize = 13,
 	fontOutline = "THICKOUTLINE",
 }

@@ -44,7 +44,7 @@ function module:SpawnToast(toast)
 		return false
 	end
 
-	local YOffset = 0
+	local YOffset
 	if E:GetScreenQuadrant(anchorFrame):find("TOP") then
 		YOffset = -54
 	else
@@ -70,7 +70,7 @@ function module:SpawnToast(toast)
 	toast.AnimIn:Play()
 	toast.AnimOut:Play()
 
-	if module.db.noSound ~= true then
+	if E.db.mui.notification.noSound ~= true then
 		PlaySound(18019, "Master")
 	end
 end
@@ -129,8 +129,6 @@ function module:CreateToast()
 		return toast
 	end
 
-	local db = E.db.mui.notification
-
 	toast = CreateFrame("Frame", MER.Title .. "Toast", E.UIParent, "BackdropTemplate")
 	toast:SetFrameStrata("HIGH")
 	toast:SetSize(bannerWidth, bannerHeight)
@@ -152,7 +150,6 @@ function module:CreateToast()
 	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
 	local title = toast:CreateFontString(nil, "OVERLAY")
-	WF.SetFontWithDB(title, db.titleFont)
 	title:SetShadowOffset(1, -1)
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -5)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
@@ -161,7 +158,6 @@ function module:CreateToast()
 	toast.title = title
 
 	local text = toast:CreateFontString(nil, "OVERLAY")
-	WF.SetFontWithDB(text, db.textFont)
 	text:SetShadowOffset(1, -1)
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 17)
 	text:SetPoint("RIGHT", toast, -9, 0)
@@ -224,7 +220,17 @@ function module:CreateToast()
 end
 
 function module:DisplayToast(name, message, clickFunc, texture, ...)
+	-- Nothing to anchor to while the module was disabled on load
+	if not anchorFrame then
+		return
+	end
+
 	local toast = self:CreateToast()
+
+	-- Toasts are reused, so the fonts are set every time to pick up option changes
+	local db = E.db.mui.notification
+	WF.SetFontWithDB(toast.title, db.titleFont)
+	WF.SetFontWithDB(toast.text, db.textFont)
 
 	toast.clickFunc = type(clickFunc) == "function" and clickFunc or nil
 
@@ -255,19 +261,19 @@ function module:DisplayToast(name, message, clickFunc, texture, ...)
 		self:SpawnToast(toast)
 	end)
 	if not ok then
-		print(MER.Title .. "|cffff0000Toast-Fehler:|r", err)
+		F.Developer.ThrowError("DisplayToast:", err)
 	end
 end
 
 function module:PLAYER_FLAGS_CHANGED(event)
 	self:UnregisterEvent(event)
-	for i = 1, max_active_toasts - #activeToasts do
+	for _ = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
 end
 
 function module:PLAYER_REGEN_ENABLED()
-	for i = 1, max_active_toasts - #activeToasts do
+	for _ = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
 end
@@ -291,9 +297,9 @@ SlashCmdList.TESTNOTIFICATION = function(b)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
+-- Every notification checks its setting when it fires, only the events are set up here
 function module:Initialize()
-	module.db = F.GetDBFromPath("mui.notification") or E.db.mui.notification
-	if not module.db.enable then
+	if not E.db.mui.notification.enable then
 		return
 	end
 

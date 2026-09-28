@@ -391,6 +391,11 @@ end
 --  Visibility / settings glue
 -------------------------------------------------------------------------------
 function module:UpdateVisibility()
+	-- The mouselook hooks stay installed after Disable(), they must not show the frames again
+	if not (self.db and self.db.enable) then
+		return
+	end
+
 	local f = self.ringFrame
 	if f then
 		local show = self:ShouldShowRing()
@@ -503,7 +508,6 @@ function module:Initialize()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("Cursor.DatabaseUpdate", self.DatabaseUpdate, self)
 
 	self.Initialized = true
 end

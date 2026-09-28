@@ -8,11 +8,11 @@ local ceil, floor, random = math.ceil, math.floor, math.random
 
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
-local IsPlayerSpell = IsPlayerSpell
 local IsInInstance = IsInInstance
 local UnitClass = UnitClass
 local PlayerHasToy = PlayerHasToy
 local C_Spell = C_Spell
+local C_SpellBook = C_SpellBook
 local C_ChallengeMode = C_ChallengeMode
 local C_Container = C_Container
 local C_Item = C_Item
@@ -42,23 +42,53 @@ local SEASON_PORTALS = {
 
 local _portalFlyout, _portalFlyoutButtons, _hearthButtons
 
+-- Spell cooldowns are secret while cooldowns are restricted (e.g. in an active key).
+-- Tainted code can't compare them or pass them to SetCooldown, so let the engine feed
+-- the swipe through a duration object instead.
+local function SetSpellCooldown(cooldown, spellID)
+	local cdInfo = C_Spell.GetSpellCooldown(spellID)
+	if not cdInfo then
+		cooldown:Clear()
+	elseif E:IsSecretValue(cdInfo.startTime) or E:IsSecretValue(cdInfo.duration) then
+		local duration = C_Spell.GetSpellCooldownDuration and C_Spell.GetSpellCooldownDuration(spellID)
+		if duration then
+			cooldown:SetCooldownFromDurationObject(duration)
+		else
+			cooldown:Clear()
+		end
+	elseif cdInfo.startTime and cdInfo.duration and cdInfo.duration > 0 then
+		cooldown:SetCooldown(cdInfo.startTime, cdInfo.duration)
+	else
+		cooldown:Clear()
+	end
+end
+
+-- start, duration of an item cooldown; nil when unreadable or secret
+local function GetItemCooldown(itemID)
+	if not (C_Container and C_Container.GetItemCooldown) then
+		return
+	end
+
+	local ok, start, duration = pcall(C_Container.GetItemCooldown, itemID)
+	if not ok or E:IsSecretValue(start) or E:IsSecretValue(duration) then
+		return
+	end
+
+	return start, duration
+end
+
 local function RefreshPortalButtons()
 	if not _portalFlyoutButtons then
 		return
 	end
 
 	for _, btn in ipairs(_portalFlyoutButtons) do
-		local known = IsPlayerSpell(btn.spellID)
+		local known = C_SpellBook.IsSpellKnown(btn.spellID)
 		btn.Icon:SetDesaturated(not known)
 		btn.Icon:SetAlpha(known and 1 or 0.4)
 
 		if known then
-			local cdInfo = C_Spell.GetSpellCooldown(btn.spellID)
-			if cdInfo and cdInfo.startTime and cdInfo.duration and cdInfo.duration > 0 then
-				btn.Cooldown:SetCooldown(cdInfo.startTime, cdInfo.duration)
-			else
-				btn.Cooldown:Clear()
-			end
+			SetSpellCooldown(btn.Cooldown, btn.spellID)
 		else
 			btn.Cooldown:Clear()
 		end
@@ -156,21 +186,17 @@ local function IsHearthOnCD(id)
 	if InProtectedInstance() then
 		return true
 	end
-	if C_Container and C_Container.GetItemCooldown then
-		local ok, start, dur = pcall(C_Container.GetItemCooldown, id)
-		if ok and start and dur and dur > 1.5 then
-			return true
-		end
-	end
-	return false
+	local start, duration = GetItemCooldown(id)
+	-- Ignore the global cooldown
+	return start ~= nil and duration > 1.5
 end
 
 -- Slot 1: Shamans with Astral Recall known prefer it in protected instances or
--- when every owned hearth toy is on cooldown; otherwise a random owned toy,
--- falling back to the base Hearthstone (6948) if none are known.
+-- while the hearthstones are on cooldown (all hearth toys share one cooldown);
+-- otherwise a random owned toy, falling back to the base Hearthstone (6948).
 local function ResolveHearthSlot()
 	local _, cls = UnitClass("player")
-	local isShaman = cls == "SHAMAN" and IsPlayerSpell(SHAMAN_ASTRAL_RECALL)
+	local isShaman = cls == "SHAMAN" and C_SpellBook.IsSpellKnown(SHAMAN_ASTRAL_RECALL)
 
 	if isShaman and InProtectedInstance() then
 		local info = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo(SHAMAN_ASTRAL_RECALL)
@@ -228,16 +254,11 @@ local function RefreshHearthCooldowns()
 	for _, btn in ipairs(_hearthButtons) do
 		local hsType, id = btn.hsType, btn.hsID
 		if hsType == "spell" then
-			local cdInfo = C_Spell.GetSpellCooldown(id)
-			if cdInfo and cdInfo.startTime and cdInfo.duration and cdInfo.duration > 0 then
-				btn.Cooldown:SetCooldown(cdInfo.startTime, cdInfo.duration)
-			else
-				btn.Cooldown:Clear()
-			end
-		elseif hsType == "item" and C_Container and C_Container.GetItemCooldown then
-			local ok, start, dur = pcall(C_Container.GetItemCooldown, id)
-			if ok and start and dur and dur > 0 then
-				btn.Cooldown:SetCooldown(start, dur)
+			SetSpellCooldown(btn.Cooldown, id)
+		elseif hsType == "item" then
+			local start, duration = GetItemCooldown(id)
+			if start and duration > 0 then
+				btn.Cooldown:SetCooldown(start, duration)
 			else
 				btn.Cooldown:Clear()
 			end
@@ -459,12 +480,14 @@ local function CreatePortalFlyout()
 		end
 		catcher:Hide()
 	end)
-	flyout:SetScript("OnEvent", function(_, event, unit, _, spellID)
+	-- The spellcast events are registered for the player only, the payload may be secret
+	flyout:SetScript("OnEvent", function(_, event, _, _, spellID)
 		if event == "SPELL_UPDATE_COOLDOWN" then
 			RefreshPortalButtons()
 			RefreshHearthCooldowns()
-		elseif unit == "player" then
-			local casting = (event == "UNIT_SPELLCAST_START") and spellID or nil
+		else
+			-- The spell ID is secret while spell casts are restricted, no highlight then
+			local casting = (event == "UNIT_SPELLCAST_START" and not E:IsSecretValue(spellID)) and spellID or nil
 			for _, btn in ipairs(_portalFlyoutButtons) do
 				btn.CastHighlight:SetShown(casting ~= nil and casting == btn.spellID)
 			end

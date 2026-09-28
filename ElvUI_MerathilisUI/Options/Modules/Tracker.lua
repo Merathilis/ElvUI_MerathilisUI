@@ -125,13 +125,6 @@ options.tracker = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Tracker"], "Tool"),
 	childGroups = "tab",
-	get = function(info)
-		return DB()[info[#info]]
-	end,
-	set = function(info, value)
-		DB()[info[#info]] = value
-		Update()
-	end,
 	args = {
 		header = {
 			order = 0,
@@ -165,13 +158,6 @@ options.tracker = {
 			func = function()
 				TR:ToggleTestMode()
 			end,
-		},
-		debug = {
-			order = 3,
-			type = "toggle",
-			name = L["Debug Mode"],
-			desc = L["Shows the trackers everywhere with their real data instead of only in Mythic+ keys and raid encounters, and prints every change of the charges, the Sated lockout and the visibility state to the chat."],
-			disabled = NothingEnabled,
 		},
 		battleRes = {
 			order = 10,

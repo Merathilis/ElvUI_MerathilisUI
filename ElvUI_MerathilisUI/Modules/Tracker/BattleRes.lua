@@ -264,6 +264,6 @@ function module:DebugBattleRes(info)
 
 	if line ~= self.lastDebugLine then
 		self.lastDebugLine = line
-		self:DebugPrint(line)
+		self:Debug(line)
 	end
 end

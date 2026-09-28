@@ -18,6 +18,10 @@ local IsInGuild = IsInGuild
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 
+local function IsEnabled()
+	return E.db.mui.general.AFK == true and MER:HasRequirements(I.Requirements.AFK, true)
+end
+
 local function Player_Model(self)
 	self:ClearModel()
 	self:SetUnit("player")
@@ -100,11 +104,11 @@ local daysAbr = {
 
 -- Create Date
 local function CreateDate()
-	local date = GetCurrentCalendarTime()
-	local presentWeekday = date.weekday
-	local presentMonth = date.month
-	local presentDay = date.monthDay
-	local presentYear = date.year
+	local now = GetCurrentCalendarTime()
+	local presentWeekday = now.weekday
+	local presentMonth = now.month
+	local presentDay = now.monthDay
+	local presentYear = now.year
 
 	if AFK.AFKMode.DateText then
 		AFK.AFKMode.DateText:SetFormattedText(
@@ -141,7 +145,6 @@ end
 
 local function UpdateTimer()
 	local createdTime = CreateTime()
-	local time = GetTime() - AFK.startTime
 
 	-- Set Clock
 	if AFK.AFKMode.ClockText then
@@ -156,7 +159,7 @@ hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 AFK.SetAFKMER = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:SetAFKMER(status)
-	if E.db.mui.general.AFK ~= true then
+	if not IsEnabled() then
 		return
 	end
 
@@ -188,12 +191,9 @@ function AFK:SetAFK(status)
 end
 
 function module:AFK()
-	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then
+	if E.db.general.afk ~= true or not IsEnabled() then
 		return
 	end
-
-	local _, classunit = UnitClass("player")
-	local colorDB = E.db.mui.gradient
 
 	-- Hide ElvUI Elements
 	AFK.AFKMode.bottom:Hide() -- Bottom panel
@@ -247,26 +247,16 @@ function module:AFK()
 	AFK.AFKMode.PlayerName:FontTemplate(nil, 24, "SHADOWOUTLINE")
 
 	local coloredClass
-	if colorDB.enable then
-		if colorDB.customColor.enableClass then
-			AFK.AFKMode.PlayerName:SetText(F.GradientNameCustom(E.myname, classunit))
-			coloredClass = F.GradientNameCustom(E.myLocalizedClass:gsub("%-.+", "*"), classunit)
-		else
-			AFK.AFKMode.PlayerName:SetText(F.GradientName(E.myname, classunit))
-			coloredClass = F.GradientName(E.myLocalizedClass:gsub("%-.+", "*"), classunit)
-		end
-	else
-		AFK.AFKMode.PlayerName:SetText(E.myname)
-		AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
+	AFK.AFKMode.PlayerName:SetText(E.myname)
+	AFK.AFKMode.PlayerName:SetTextColor(F.r, F.g, F.b or 1, 1, 1)
 
-		local color = E:ClassColor(E.myclass)
-		coloredClass = ("|cff%02x%02x%02x%s"):format(
-			color.r * 255,
-			color.g * 255,
-			color.b * 255,
-			E.myLocalizedClass:gsub("%-.+", "*")
-		)
-	end
+	local color = E:ClassColor(E.myclass)
+	coloredClass = ("|cff%02x%02x%02x%s"):format(
+		color.r * 255,
+		color.g * 255,
+		color.b * 255,
+		E.myLocalizedClass:gsub("%-.+", "*")
+	)
 
 	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, "OVERLAY")
 	AFK.AFKMode.Guild:Point("LEFT", AFK.AFKMode.Panel, "LEFT", 5, 0)
@@ -284,7 +274,8 @@ function module:AFK()
 		modelHolder:SetPoint("RIGHT", AFK.AFKMode.Panel, "RIGHT", 250, 100)
 
 		local playerModel = CreateFrame("PlayerModel", nil, modelHolder)
-		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
+		-- Double the screen size on purpose, this prevents clipping of models.
+		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2)
 		playerModel:SetPoint("CENTER", modelHolder, "CENTER")
 		playerModel:SetScript("OnShow", Player_Model)
 		playerModel:SetFrameLevel(3)

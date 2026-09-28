@@ -356,7 +356,7 @@ function module:StatusReportUpdate()
 			local requirements = MER:CheckRequirements(I.Requirements.GradientMode)
 
 			if requirements ~= true then
-				text = F.String.Error(format("No (%s)", I.Strings.RequirementsDebug[requirements]))
+				text = F.String.Error(format("No (%s)", MER:GetRequirementString(requirements) or "?"))
 			else
 				text = E.db.mui.themes.gradientMode.enable and F.String.Good("On") or F.String.Error("Off")
 			end

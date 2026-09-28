@@ -37,7 +37,7 @@ function module:BugSack_OpenSack()
 end
 
 function module:BugSack()
-	if not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.bugSack then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bugSack then
 		return
 	end
 

@@ -5,14 +5,13 @@ local select, tonumber, tostring, type = select, tonumber, tostring, type
 local strsplit = strsplit
 local find, format, lower = string.find, string.format, string.lower
 local floor = math.floor
-local tinsert, tconcat = table.insert, table.concat
+local tinsert = table.insert
 
 local GetMouseFoci = GetMouseFoci
 local UnitIsPlayer = UnitIsPlayer
 local UnitGUID = UnitGUID
 local C_StringUtil_WrapString = C_StringUtil.WrapString
 
-local _combineBuf = {}
 
 local function clamp255(x)
 	if type(x) ~= "number" then

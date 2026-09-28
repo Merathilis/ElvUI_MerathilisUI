@@ -74,7 +74,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(_, vignetteGUID, onMinimap)
 	end
 
 	local time = GetTime()
-	if time <= (self.lastMinimapRare.time + (db.timeOut or 20)) then
+	if time <= (self.lastMinimapRare.time + (db.vignette.timeOut or 20)) then
 		self.lastMinimapRare.id = vignetteGUID
 		return
 	end
@@ -82,12 +82,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(_, vignetteGUID, onMinimap)
 	local displayName = format("|cff00c0fa%s|r", utf8sub(vignetteInfo.name, 1, 28))
 	self:DisplayToast(displayName, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 
-	if db.vignette.debugPrint then
-		F.DebugPrint(
-			"Vignette-ID: " .. vignetteInfo.vignetteID .. " Vignette-Name: " .. vignetteInfo.name,
-			"warning"
-		)
-	end
+	self:Debug("Vignette-ID:", vignetteInfo.vignetteID, "Vignette-Name:", vignetteInfo.name)
 
 	if db.vignette.print then
 		local currentTime = E.db.chat.timeStampFormat == 1 and ("|cff00ff00[" .. date("%H:%M:%S") .. "]|r") or ""

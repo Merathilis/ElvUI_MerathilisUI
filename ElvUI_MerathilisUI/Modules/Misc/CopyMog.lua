@@ -11,6 +11,7 @@ local _G = _G
 local tinsert = table.insert
 local wipe = wipe
 
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 local C_Transmog_CanHaveSecondaryAppearanceForSlotID = C_Transmog and C_Transmog.CanHaveSecondaryAppearanceForSlotID
 local C_TransmogCollection_GetAppearanceSourceDrops = C_TransmogCollection.GetAppearanceSourceDrops
 local C_TransmogCollection_GetIllusionStrings = C_TransmogCollection.GetIllusionStrings
@@ -112,7 +113,7 @@ local function GetTransmogInfo(slotID, sourceID)
 		return
 	end
 
-	local itemLink = sourceInfo.itemID and select(2, GetItemInfo(sourceInfo.itemID))
+	local itemLink = sourceInfo.itemID and select(2, C_Item_GetItemInfo(sourceInfo.itemID))
 	if not itemLink then
 		local r, g, b = E:GetItemQualityColor(sourceInfo.quality)
 		itemLink = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, sourceInfo.name)

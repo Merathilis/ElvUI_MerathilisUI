@@ -1,6 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
-local MERS = MER:GetModule("MER_Skins")
 
 local ipairs = ipairs
 
