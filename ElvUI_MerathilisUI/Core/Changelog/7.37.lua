@@ -6,6 +6,8 @@ MER.Changelog[737] = {
 		"[ActionBars]: Color Modifier Keys can be turned on and off without a reload, turning it off or switching profiles works right away now.",
 		"[AFK]: The AFK screen is now really turned off while BenikUI is enabled, as the option always described, and the option shows the reason.",
 		'[Armory]: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.',
+		"[Armory]: The Missing Sockets tooltip no longer throws a Lua error.",
+		"[Armory]: The outline setting of the header texts (name, title, level, class, spec icon) works now, and Class Gradient for the title text is applied.",
 		"[Armory/Equipment Manager]: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.",
 		"[Armory/Socket Panel]: Inserting a gem through the socket panel on the Character Frame works now, before it silently did nothing.",
 		"[Changelog]: /mer changelog and the chat link open the changelog page again instead of only the options start page.",
@@ -54,6 +56,7 @@ MER.Changelog[737] = {
 	},
 	IMPROVEMENTS = {
 		"[ActionBars]: The Specialization Bar mouseover option applies without a reload.",
+		"[Armory]: Font, header and background settings apply right away without a reload.",
 		"[Core]: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.",
 		"[Core]: Uses ElvUI's animation library instead of a bundled copy.",
 		"[Core]: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.",

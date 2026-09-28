@@ -434,32 +434,32 @@ function module:UpdateTitle()
 		self.nameText:SetFont(
 			LSM:Fetch("font", module.db.nameText.name),
 			module.db.nameText.size,
-			module.db.nameText.fontStyle
+			module.db.nameText.style
 		)
 		self.titleText:SetFont(
 			LSM:Fetch("font", module.db.titleText.name),
 			module.db.titleText.size,
-			module.db.titleText.fontStyle
+			module.db.titleText.style
 		)
 		self.levelTitleText:SetFont(
 			LSM:Fetch("font", module.db.levelTitleText.name),
 			module.db.levelTitleText.size,
-			module.db.levelTitleText.fontStyle
+			module.db.levelTitleText.style
 		)
 		self.levelText:SetFont(
 			LSM:Fetch("font", module.db.levelText.name),
 			module.db.levelText.size,
-			module.db.levelText.fontStyle
+			module.db.levelText.style
 		)
 		self.classText:SetFont(
 			LSM:Fetch("font", module.db.classText.name),
 			module.db.classText.size,
-			module.db.classText.fontStyle
+			module.db.classText.style
 		)
 		self.specIcon:SetFont(
 			LSM:Fetch("font", module.db.specIcon.name),
 			module.db.specIcon.size,
-			module.db.specIcon.fontStyle
+			module.db.specIcon.style
 		)
 		self._titleFontDirty = false
 	end
@@ -501,6 +501,8 @@ function module:UpdateTitle()
 
 	if module.db.titleText.fontColor == "GRADIENT" then
 		self.titleText:SetText(F.String.FastGradient(titleName, 0, 0.9, 1, 0, 0.6, 1))
+	elseif module.db.titleText.fontColor == "CLASS" then
+		self.titleText:SetText(F.String.GradientClass(titleName))
 	else
 		self.titleText:SetText(titleName)
 		WF.SetFontColorWithDB(self.titleText, module.db.titleText.color)
@@ -1521,16 +1523,9 @@ function module:UpdateLineColors()
 	if module.db.lines.enable then
 		local alpha = module.db.lines.alpha
 
-		top:SetColorTexture(1, 1, 1, alpha)
-		bottom:SetColorTexture(1, 1, 1, alpha)
-
-		if module.db.lines.color == "CLASS" then
-			local classColor = E:ClassColor(E.myclass, true)
-			local r, g, b = classColor.r, classColor.g, classColor.b
-
-			top:SetColorTexture(r, g, b, alpha)
-			bottom:SetColorTexture(r, g, b, alpha)
-		end
+		local classColor = E:ClassColor(E.myclass, true)
+		top:SetColorTexture(classColor.r, classColor.g, classColor.b, alpha)
+		bottom:SetColorTexture(classColor.r, classColor.g, classColor.b, alpha)
 	else
 		top:SetColorTexture(0, 0, 0, 0)
 		bottom:SetColorTexture(0, 0, 0, 0)

@@ -1,14 +1,21 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local Armory = MER:GetModule("MER_Armory")
-local M = E.Misc
 local LSM = E.LSM
 
 local options = module.options.modules.args
 
-local _G = _G
+local format = string.format
 
+local GetItemIconByID = C_Item.GetItemIconByID
 local GetItemInfo = C_Item.GetItemInfo
+
+local SOCKET_ITEM_ID = 263897
+
+-- Redraws the whole armory: fonts, colors, lines, background, page info and stats
+local function Refresh()
+	F.Event.TriggerEvent("Armory.SettingsUpdate")
+end
 
 options.armory = {
 	type = "group",
@@ -19,7 +26,7 @@ options.armory = {
 	end,
 	set = function(info, value)
 		E.db.mui.armory[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
+		E:StaticPopup_Show("CONFIG_RL")
 	end,
 	disabled = function()
 		return not E.db.general.itemLevel.displayCharacterInfo
@@ -50,7 +57,7 @@ options.armory = {
 			desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
 		},
 		general = {
-			order = 3,
+			order = 4,
 			type = "group",
 			name = L["General"],
 			args = {
@@ -63,11 +70,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.background[info[#info]] = value
-						M:UpdatePageInfo(_G.CharacterFrame, "Character")
-
-						if not E.db.general.itemLevel.displayCharacterInfo then
-							M:ClearPageInfo(_G.CharacterFrame, "Character")
-						end
+						Refresh()
 					end,
 					args = {
 						enable = {
@@ -84,6 +87,9 @@ options.armory = {
 							max = 1,
 							step = 0.01,
 							isPercent = true,
+							disabled = function()
+								return not E.db.mui.armory.background.enable
+							end,
 						},
 						style = {
 							order = 3,
@@ -96,7 +102,7 @@ options.armory = {
 								[3] = "3. Draenor",
 							},
 							disabled = function()
-								return E.db.mui.armory.background.class
+								return not E.db.mui.armory.background.enable or E.db.mui.armory.background.class
 							end,
 						},
 						class = {
@@ -110,13 +116,16 @@ options.armory = {
 							width = 1.2,
 						},
 						hideControls = {
-							order = 1,
+							order = 5,
 							type = "toggle",
 							name = L["Hide Controls"],
 							desc = L["Hides the camera controls when hovering the character model."],
 							set = function(_, value)
 								E.db.mui.armory.background.hideControls = value
-								if value == false then
+								-- The camera controls stay hidden until a reload
+								if value then
+									Refresh()
+								else
 									E:StaticPopup_Show("CONFIG_RL")
 								end
 							end,
@@ -171,11 +180,7 @@ options.armory = {
 			end,
 			set = function(info, value)
 				E.db.mui.armory.stats[info[#info]] = value
-				M:UpdatePageInfo(_G.CharacterFrame, "Character")
-
-				if not E.db.general.itemLevel.displayCharacterInfo then
-					M:ClearPageInfo(_G.CharacterFrame, "Character")
-				end
+				Refresh()
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
@@ -217,6 +222,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.stats.itemLevelFont[info[#info]] = value
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -268,6 +274,7 @@ options.armory = {
 							set = function(info, r, g, b)
 								local db = E.db.mui.armory.stats.itemLevelFont[info[#info]]
 								db.r, db.g, db.b = r, g, b
+								Refresh()
 							end,
 						},
 					},
@@ -300,7 +307,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.nameText[info[#info]] = value
-						E:StaticPopup_Show("CONFIG_RL")
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -351,7 +358,7 @@ options.armory = {
 							set = function(info, r, g, b)
 								local db = E.db.mui.armory.nameText[info[#info]]
 								db.r, db.g, db.b = r, g, b
-								E:StaticPopup_Show("CONFIG_RL")
+								Refresh()
 							end,
 						},
 						spacer = {
@@ -387,7 +394,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.titleText[info[#info]] = value
-						E:StaticPopup_Show("CONFIG_RL")
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -438,7 +445,7 @@ options.armory = {
 							set = function(info, r, g, b)
 								local db = E.db.mui.armory.titleText[info[#info]]
 								db.r, db.g, db.b = r, g, b
-								E:StaticPopup_Show("CONFIG_RL")
+								Refresh()
 							end,
 						},
 						spacer = {
@@ -474,7 +481,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.levelTitleText[info[#info]] = value
-						E:StaticPopup_Show("CONFIG_RL")
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -537,7 +544,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.levelText[info[#info]] = value
-						E:StaticPopup_Show("CONFIG_RL")
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -595,7 +602,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.specIcon[info[#info]] = value
-						E:StaticPopup_Show("CONFIG_RL")
+						Refresh()
 					end,
 					args = {
 						style = {
@@ -639,7 +646,7 @@ options.armory = {
 							set = function(info, r, g, b)
 								local db = E.db.mui.armory.specIcon[info[#info]]
 								db.r, db.g, db.b = r, g, b
-								E:StaticPopup_Show("CONFIG_RL")
+								Refresh()
 							end,
 						},
 					},
@@ -654,7 +661,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.classText[info[#info]] = value
-						E:StaticPopup_Show("CONFIG_RL")
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -704,7 +711,7 @@ options.armory = {
 							set = function(info, r, g, b)
 								local db = E.db.mui.armory.classText[info[#info]]
 								db.r, db.g, db.b = r, g, b
-								E:StaticPopup_Show("CONFIG_RL")
+								Refresh()
 							end,
 						},
 						spacer = {
@@ -741,11 +748,7 @@ options.armory = {
 			end,
 			set = function(info, value)
 				E.db.mui.armory.pageInfo[info[#info]] = value
-				M:UpdatePageInfo(_G.CharacterFrame, "Character")
-
-				if not E.db.general.itemLevel.displayCharacterInfo then
-					M:ClearPageInfo(_G.CharacterFrame, "Character")
-				end
+				Refresh()
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
@@ -776,22 +779,14 @@ options.armory = {
 					type = "toggle",
 					name = L["Missing Sockets"],
 					desc = function()
-						local socketItem, socketTexture = nil, nil
-						if GetItemInfo then
-							local itemName = GetItemInfo(263897)
-							if itemName then
-								socketItem = itemName
-							end
+						local text = L["Shows a warning when you're missing sockets on your necklace."]
+						local itemName = GetItemInfo(SOCKET_ITEM_ID)
+						if not itemName then
+							return text
 						end
-						return L["Shows a warning when you're missing sockets on your necklace."]
-							.. "\n\n"
-							.. (
-								socketItem
-									and (L["Sockets can be added with "] .. F.GetIconString(socketTexture, 14, 14, true) .. " " .. F.String.Epic(
-										socketItem
-									))
-								or ""
-							)
+
+						local icon = F.GetIconString(GetItemIconByID(SOCKET_ITEM_ID), 14, 14, true)
+						return text .. "\n\n" .. L["Sockets can be added with "] .. icon .. " " .. F.String.Epic(itemName)
 					end,
 				},
 				abbreviateEnchantText = {
@@ -813,7 +808,10 @@ options.armory = {
 					desc = L["Crops and moves sockets above enchant text."],
 					set = function(_, value)
 						E.db.mui.armory.pageInfo.moveSockets = value
-						if value == false then
+						-- Moved sockets only go back with a reload
+						if value then
+							Refresh()
+						else
 							E:StaticPopup_Show("CONFIG_RL")
 						end
 					end,
@@ -833,6 +831,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.pageInfo.enchantFont[info[#info]] = value
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -870,11 +869,7 @@ options.armory = {
 			end,
 			set = function(info, value)
 				E.db.mui.armory.pageInfo[info[#info]] = value
-				M:UpdatePageInfo(_G.CharacterFrame, "Character")
-
-				if not E.db.general.itemLevel.displayCharacterInfo then
-					M:ClearPageInfo(_G.CharacterFrame, "Character")
-				end
+				Refresh()
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
@@ -886,7 +881,7 @@ options.armory = {
 				desc = {
 					order = 0,
 					type = "description",
-					name = L["Settings for the Item Level next tor your item slot"],
+					name = L["Settings for the Item Level next to your item slot"],
 				},
 				itemLevelTextEnabled = {
 					order = 1,
@@ -915,6 +910,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.pageInfo.iLvLFont[info[#info]] = value
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -952,11 +948,7 @@ options.armory = {
 			end,
 			set = function(info, value)
 				E.db.mui.armory.pageInfo[info[#info]] = value
-				M:UpdatePageInfo(_G.CharacterFrame, "Character")
-
-				if not E.db.general.itemLevel.displayCharacterInfo then
-					M:ClearPageInfo(_G.CharacterFrame, "Character")
-				end
+				Refresh()
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
@@ -1033,7 +1025,7 @@ options.armory = {
 				desc = {
 					order = 0,
 					type = "description",
-					name = L["Settings for the custom " .. MER.Title .. " Armory decorative lines.\n\n"],
+					name = format(L["Settings for the custom %s Armory decorative lines."], MER.Title),
 				},
 				enable = {
 					order = 1,
@@ -1057,14 +1049,6 @@ options.armory = {
 					max = 5,
 					step = 1,
 				},
-				color = {
-					order = 5,
-					type = "select",
-					name = L["Color"],
-					values = {
-						CLASS = F.String.Class("Class"),
-					},
-				},
 			},
 		},
 		attributesGroup = {
@@ -1076,7 +1060,7 @@ options.armory = {
 			end,
 			set = function(info, value)
 				E.db.mui.armory.stats[info[#info]] = value
-				F.Event.TriggerEvent("Armory.SettingsUpdate")
+				Refresh()
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
@@ -1118,6 +1102,7 @@ options.armory = {
 							end,
 							set = function(info, value)
 								E.db.mui.armory.stats.headerFont[info[#info]] = value
+								Refresh()
 							end,
 							args = {
 								name = {
@@ -1168,7 +1153,7 @@ options.armory = {
 									set = function(info, r, g, b)
 										local db = E.db.mui.armory.stats.headerFont[info[#info]]
 										db.r, db.g, db.b = r, g, b
-										F.Event.TriggerEvent("Armory.SettingsUpdate")
+										Refresh()
 									end,
 								},
 							},
@@ -1182,6 +1167,7 @@ options.armory = {
 							end,
 							set = function(info, value)
 								E.db.mui.armory.stats.labelFont[info[#info]] = value
+								Refresh()
 							end,
 							args = {
 								name = {
@@ -1232,7 +1218,7 @@ options.armory = {
 									set = function(info, r, g, b)
 										local db = E.db.mui.armory.stats.labelFont[info[#info]]
 										db.r, db.g, db.b = r, g, b
-										F.Event.TriggerEvent("Armory.SettingsUpdate")
+										Refresh()
 									end,
 								},
 								abbreviateLabels = {
@@ -1252,6 +1238,7 @@ options.armory = {
 							end,
 							set = function(info, value)
 								E.db.mui.armory.stats.valueFont[info[#info]] = value
+								Refresh()
 							end,
 							args = {
 								name = {
@@ -1298,7 +1285,7 @@ options.armory = {
 			end,
 			set = function(info, value)
 				E.db.mui.armory.socketPanel[info[#info]] = value
-				F.Event.TriggerEvent("Armory.SettingsUpdate")
+				Refresh()
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
@@ -1323,7 +1310,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.socketPanel[info[#info]] = value
-						F.Event.TriggerEvent("Armory.SettingsUpdate")
+						Refresh()
 					end,
 					args = {
 						iconSize = {
@@ -1380,7 +1367,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.socketPanel[info[#info]] = value
-						F.Event.TriggerEvent("Armory.SettingsUpdate")
+						Refresh()
 					end,
 					args = {
 						flyoutWidth = {
@@ -1419,7 +1406,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.socketPanel.font[info[#info]] = value
-						F.Event.TriggerEvent("Armory.SettingsUpdate")
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -1457,7 +1444,7 @@ options.armory = {
 			end,
 			set = function(info, value)
 				E.db.mui.armory.equipmentManager[info[#info]] = value
-				F.Event.TriggerEvent("Armory.SettingsUpdate")
+				Refresh()
 			end,
 			disabled = function()
 				return not E.db.mui.armory.enable
@@ -1495,7 +1482,7 @@ options.armory = {
 					set = function(info, r, g, b)
 						local db = E.db.mui.armory.equipmentManager[info[#info]]
 						db.r, db.g, db.b = r, g, b
-						F.Event.TriggerEvent("Armory.SettingsUpdate")
+						Refresh()
 					end,
 				},
 				showBackdrop = {
@@ -1514,7 +1501,7 @@ options.armory = {
 					end,
 					set = function(info, value)
 						E.db.mui.armory.equipmentManager.font[info[#info]] = value
-						F.Event.TriggerEvent("Armory.SettingsUpdate")
+						Refresh()
 					end,
 					args = {
 						name = {
@@ -1561,7 +1548,7 @@ for stat, _ in pairs(P.armory.stats.mode) do
 		end,
 		set = function(info, value)
 			E.db.mui.armory.stats.mode[info[#info]].mode = value
-			F.Event.TriggerEvent("Armory.SettingsUpdate")
+			Refresh()
 		end,
 	}
 end

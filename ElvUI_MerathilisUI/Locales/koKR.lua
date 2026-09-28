@@ -207,8 +207,9 @@ L["Use Bags Setting"] = "가방 설정 사용"
 L["Quality Color"] = "품질 색상"
 L["Scrapping Machine"] = "분해 기계"
 L["Guild News"] = "길드 새 소식"
-L["Settings for the Item Level next tor your item slot"] =
+L["Settings for the Item Level next to your item slot"] =
 	"아이템 슬롯 옆에 표시되는 아이템 레벨 설정"
+L["Settings for the custom %s Armory decorative lines."] = true
 L["Enable/Disable the Item Level text display"] = "아이템 레벨 텍스트 표시 여부 설정"
 L["Toggle sockets & azerite traits"] = "소켓 및 아제라이트 특성 표시 전환"
 L["Item Quality Gradient"] = "아이템 품질 그라데이션"

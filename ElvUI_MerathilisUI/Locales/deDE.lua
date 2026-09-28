@@ -188,8 +188,9 @@ L["Missing Sockets"] = "Fehlende Sockel"
 L["Short Enchant Text"] = "Kurzer Verzauberungstext"
 L["Enchant Font"] = "Verzauberungsschriftart"
 L["Item Level"] = "Gegenstandsstufe"
-L["Settings for the Item Level next tor your item slot"] =
+L["Settings for the Item Level next to your item slot"] =
 	"Einstellungen für die Gegenstandsstufe neben Deinem Gegenstandsplatz"
+L["Settings for the custom %s Armory decorative lines."] = "Einstellungen für die dekorativen Linien der %s Armory."
 L["Enable/Disable the Item Level text display"] = "Aktiviere/deaktiviere die Texte auf Elementebene"
 L["Toggle sockets & azerite traits"] = "Sockel und Azerit-Eigenschaften umschalten"
 L["Item Quality Gradient"] = "Gegenstandsqualität Farbverlauf"

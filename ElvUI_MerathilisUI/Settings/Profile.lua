@@ -400,7 +400,6 @@ P.armory = {
 		enable = true,
 		alpha = 0.85,
 		height = 1,
-		color = "CLASS",
 	},
 	stats = {
 		showAvgItemLevel = false,
@@ -600,12 +599,6 @@ P.armory = {
 		name = I.Fonts.Primary,
 		size = 14,
 		style = "SHADOWOUTLINE",
-		fontColor = "CUSTOM", -- CLASS, CUSTOM, GRADIENT
-		color = {
-			r = 1,
-			g = 1,
-			b = 1,
-		},
 		offsetX = 0,
 		offsetY = -1,
 		short = true,
@@ -615,12 +608,6 @@ P.armory = {
 		name = I.Fonts.Primary,
 		size = 16,
 		style = "SHADOWOUTLINE",
-		fontColor = "CLASS", -- CLASS, CUSTOM, GRADIENT
-		color = {
-			r = 1,
-			g = 1,
-			b = 1,
-		},
 		offsetX = 0,
 		offsetY = -1,
 	},

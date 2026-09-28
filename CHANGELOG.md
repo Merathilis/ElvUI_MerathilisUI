@@ -3,6 +3,8 @@
 -   [Fix]: ActionBars: Color Modifier Keys can be turned on and off without a reload, turning it off or switching profiles works right away now.
 -   [Fix]: AFK: The AFK screen is now really turned off while BenikUI is enabled, as the option always described, and the option shows the reason.
 -   [Fix]: Armory: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.
+-   [Fix]: Armory: The Missing Sockets tooltip no longer throws a Lua error.
+-   [Fix]: Armory: The outline setting of the header texts (name, title, level, class, spec icon) works now, and Class Gradient for the title text is applied.
 -   [Fix]: Armory/Equipment Manager: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.
 -   [Fix]: Armory/Socket Panel: Inserting a gem through the socket panel on the Character Frame works now, before it silently did nothing.
 -   [Fix]: Changelog: /mer changelog and the chat link open the changelog page again instead of only the options start page.
@@ -47,6 +49,7 @@
 -   [New]: Tracker: New module - a Battle Res tracker shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters, as an icon or as a compact text line. A Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again.
 -   [New]: UnitFrames/NamePlates: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.
 -   [Improvement]: ActionBars: The Specialization Bar mouseover option applies without a reload.
+-   [Improvement]: Armory: Font, header and background settings apply right away without a reload.
 -   [Improvement]: Core: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.
 -   [Improvement]: Core: Uses ElvUI's animation library instead of a bundled copy.
 -   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.
