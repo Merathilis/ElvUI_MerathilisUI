@@ -768,12 +768,6 @@ L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"Wendet alle |cffffffffMerathilis|r|cffff7d0aUI|r Schriftart Einstellungen an."
 L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"Setzt alle |cffffffffMerathilis|r|cffff7d0aUI|r Schriftart Einstellungen zurück."
-L["Changes are only applied to the ElvUI profile after clicking Apply."] = "Änderungen werden erst mit Klick auf Anwenden ins ElvUI-Profil übernommen."
-L["Main Font"] = "Hauptschriftart"
-L["Number Font"] = "Zahlenschriftart"
-L["Font Size Offset"] = "Schriftgrößen-Versatz"
-L["Added to every font size the profile sets."] = "Wird zu jeder Schriftgröße addiert, die das Profil setzt."
-L["Default keeps the outline each element uses in the profile."] = "Standard behält die Kontur bei, die das jeweilige Element im Profil nutzt."
 
 -- Debug
 L["Usage"] = "Verwendungszweck"

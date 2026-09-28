@@ -1,7 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local Profile = MER:GetModule("MER_Profiles")
-local LSM = E.Libs.LSM
 
 local options = module.options.profiles.args
 
@@ -35,49 +34,6 @@ local SupportedProfiles = {
 		"ApplyWindToolsProfile",
 	},
 }
-
--- "DEFAULT" in the override tables means "keep the font / outline the profile uses"
-local OutlineValues = E:CopyTable({ DEFAULT = L["Default"] }, MER.Values.FontFlags)
-
--- Font + outline override for one of the fonts the ElvUI profile is built from
-local function FontOverrideGroup(order, name, baseFont)
-	return {
-		order = order,
-		type = "group",
-		inline = true,
-		name = name,
-		args = {
-			font = {
-				order = 1,
-				type = "select",
-				dialogControl = "LSM30_Font",
-				name = L["Font"],
-				values = LSM:HashTable("font"),
-				get = function()
-					return F.FontOverride(baseFont)
-				end,
-				set = function(_, value)
-					-- picking the base font again clears the override
-					E.db.mui.general.fontOverride[baseFont] = value == baseFont and "DEFAULT" or value
-				end,
-			},
-			outline = {
-				order = 2,
-				type = "select",
-				name = L["Outline"],
-				desc = L["Default keeps the outline each element uses in the profile."],
-				values = OutlineValues,
-				sortByValue = true,
-				get = function()
-					return E.db.mui.general.fontStyleOverride[baseFont] or "DEFAULT"
-				end,
-				set = function(_, value)
-					E.db.mui.general.fontStyleOverride[baseFont] = value
-				end,
-			},
-		},
-	}
-end
 
 options.generalGroup = {
 	order = 1,
@@ -119,7 +75,6 @@ options.generalGroup = {
 			func = function()
 				E.db.mui.general.fontOverride = E:CopyTable({}, P.general.fontOverride)
 				E.db.mui.general.fontStyleOverride = E:CopyTable({}, P.general.fontStyleOverride)
-				E.db.mui.general.fontScale = P.general.fontScale
 
 				Profile:ApplyFontChange()
 			end,
@@ -129,28 +84,11 @@ options.generalGroup = {
 			type = "description",
 			name = "",
 		},
-		applyHint = {
+		wip = {
 			order = 6,
 			type = "description",
-			name = F.String.Warning(L["Changes are only applied to the ElvUI profile after clicking Apply."]),
-			fontSize = "medium",
-		},
-		primaryFont = FontOverrideGroup(7, L["Main Font"], I.Fonts.Primary),
-		numberFont = FontOverrideGroup(8, L["Number Font"], I.Fonts.GothamRaid),
-		fontScale = {
-			order = 9,
-			type = "range",
-			name = L["Font Size Offset"],
-			desc = L["Added to every font size the profile sets."],
-			min = -4,
-			max = 4,
-			step = 1,
-			get = function()
-				return E.db.mui.general.fontScale
-			end,
-			set = function(_, value)
-				E.db.mui.general.fontScale = value
-			end,
+			name = F.GetStyledText(L["Work In Progress"]),
+			fontSize = "large",
 		},
 	},
 }

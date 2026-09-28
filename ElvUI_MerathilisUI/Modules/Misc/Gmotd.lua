@@ -27,7 +27,7 @@ function module:CreateGMOTD()
 			return
 		end
 
-		gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent, "BackdropTemplate")
+		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent, "BackdropTemplate")
 		gmotd:SetPoint("CENTER", 0, GetScreenHeight() / 5)
 		gmotd:SetSize(350, 150)
 		gmotd:SetFrameStrata("TOOLTIP")
@@ -68,7 +68,8 @@ function module:CreateGMOTD()
 
 		local icon = "|TInterface\\CHATFRAME\\UI-ChatIcon-Share:18:18|t"
 		gmotd:SetScript("OnEvent", function(self, event, message)
-			local guild, msg
+			local guild = false
+			local msg = false
 			if event == "GUILD_MOTD" then
 				msg = message
 				guild = select(1, GetGuildInfo("player"))

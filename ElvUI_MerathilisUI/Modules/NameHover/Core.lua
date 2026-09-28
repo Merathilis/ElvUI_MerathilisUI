@@ -2,7 +2,9 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_NameHover")
 
 local pcall, type = pcall, type
+local find = string.find
 local max = math.max
+local issecretvalue = issecretvalue
 
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
@@ -12,12 +14,14 @@ local IsControlKeyDown = IsControlKeyDown
 local IsAltKeyDown = IsAltKeyDown
 local IsInInstance = IsInInstance
 local UnitName = UnitName
+local UnitIsUnit = UnitIsUnit
 local UnitExists = UnitExists
 local UnitGUID = UnitGUID
 
 local C_Timer_After = C_Timer.After
 local GameTooltip = GameTooltip
 local UIParent = UIParent
+local WorldFrame = WorldFrame
 
 local LOP
 if type(LibStub) == "table" and type(LibStub.GetLibrary) == "function" then
@@ -400,7 +404,7 @@ local function UpdateFrameContents(f)
 	if module:IsNotEmpty(guild) then
 		top = SetAnchor(f.guildText, f.mainText, "TOPLEFT", top)
 	end
-	if module:IsNotEmpty(headerText) then
+	if module:IsNotEmpty(header) then
 		top = SetAnchor(f.headerText, f.mainText, "TOPLEFT", top)
 	end
 	if module:IsNotEmpty(status) then
