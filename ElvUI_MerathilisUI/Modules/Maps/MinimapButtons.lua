@@ -880,7 +880,8 @@ function module:UpdateBlizzardIndicators(forceRestore)
 end
 
 function module:SettingsUpdate()
-	if not self.Initialized then
+	-- Disable() hid the bars, a layout option changed afterwards must not build or show them again
+	if not self.Initialized or not (self.db and self.db.enable) then
 		return
 	end
 

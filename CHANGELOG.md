@@ -34,10 +34,12 @@
 -   [Fix]: Installer: The chat step names the combat log window correctly again and uses Blizzard's current chat functions instead of deprecated ones.
 -   [Fix]: Installer: Removed the Cooldown Manager checkbox from the Modules step, the module no longer exists.
 -   [Fix]: Item Level: Turning the module on or off no longer throws a Lua error.
+-   [Fix]: Location Panel: The Disable ElvUI Cluster option asks for the correct reload, and the options of the panel are disabled while it is turned off.
 -   [Fix]: Loot Roll: After a profile switch the bars use the settings of the new profile, and an open test preview follows color and direction changes right away.
 -   [Fix]: Loot Spec Manager: Fixed a Lua error every time a tab of the Encounter Journal was switched.
 -   [Fix]: Loot Spec Manager/Copy Transmog: The info tooltips are colored again.
 -   [Fix]: Mail: Switching to a profile with the Mail module turned off (or on) applies right away.
+-   [Fix]: Minimap Buttons: Turning the module off hides both bars right away and gives the Blizzard icons back, before it needed a reload.
 -   [Fix]: Movement Alert: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell's cooldown is restricted.
 -   [Fix]: Name Hover: The line with faction, classification and race is now placed correctly between the guild and the status line.
 -   [Fix]: Options: Sub-options of the Buff Reminder, the Categorized Bags and the Specialization Bar are disabled as well when their module or the required ElvUI module is turned off.
