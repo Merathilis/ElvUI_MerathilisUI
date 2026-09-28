@@ -374,7 +374,6 @@ P.bags = {
 
 P.misc = {
 	gmotd = true,
-	funstuff = true,
 	wowheadlinks = true,
 	tradeTabs = true,
 	blockRequest = false,
@@ -389,7 +388,6 @@ P.misc = {
 		padding = 6,
 		backdropColor = { r = 0, g = 0, b = 0, a = 0.5 },
 		hideInCombat = true,
-		roleIconStyle = "MERATHILISUI",
 	},
 	petFilterTab = true,
 	copyMog = {
@@ -1311,9 +1309,6 @@ P.scale = {
 		scale = 1,
 	},
 
-	transmog = {
-		enable = false,
-	},
 
 	itemUpgrade = {
 		scale = 1,

@@ -28,6 +28,7 @@
 -   [Fix]: Profiles: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.
 -   [Fix]: Reset: The reset buttons in the Advanced settings now fully restore a module's defaults. Entries you added yourself, like blacklist entries or custom categories, were kept before.
 -   [Fix]: Resting Indicator: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.
+-   [Fix]: Scale: Sync Inspect works, and the Transmog, Class Trainer, Item Upgrade and Equipment Flyout sliders now actually scale their frames.
 -   [Fix]: Skins: The ls_Toasts skin can be turned off again, and Mount Route Planner has its own toggle in the AddOnSkins options.
 -   [Fix]: Tags: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.
 -   [Fix]: UnitFrames: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.
@@ -45,6 +46,7 @@
 -   [Improvement]: Installer: The final step now points to the MerathilisUI website, with a Website button next to Discord.
 -   [Improvement]: Login Logo: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.
 -   [Improvement]: Login Message: The login message now also links the MerathilisUI website.
+-   [Improvement]: Misc: Removed the Fun Stuff option and the old Transmog Frame toggle, they had no effect anymore.
 -   [Improvement]: Options: Pages that are locked because an ElvUI module is turned off or EltruismUI is enabled now show the reason at the top. The Scale tab is no longer hidden with EltruismUI, it is locked instead.
 -   [Improvement]: Reset: New reset buttons for Chat and NamePlates.
 -   [Improvement]: Skins: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.

@@ -95,8 +95,6 @@ L["Misc"] = "Verschiedenes"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Name Hover"] = "Namen MouseOver"
 L["MISC_PARAGON"] = "Paragon"
-L["Fun Stuff"] = "Lustiges Zeugs"
-L["Change the NPC Talk Frame."] = "Ändert das NPC Sprechfenster ab."
 L["Wowhead Links"] = true -- no need to translate
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] =
 	"Fügt Wowhead Links dem Erfolgfenster und der Weltkarte hinzu."
@@ -114,18 +112,14 @@ L["Sync Inspect"] = "Syncronisiere Betrachtung"
 L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."] =
 	"Wenn Du diese Option aktivierst, hat der Maßstab Deines Betrachtungsfensters den selben Wert wie der Maßstab des Charakterfensters."
 L["Talents"] = "Talente"
-L["Wardrobe"] = "Kleiderschrank"
 L["Auction House"] = "Auktionshaus"
 L["Transmog Frame"] = "Transmogrifikationsfenster"
-L["Makes the transmogrification frame bigger. Credits to Kayr for code."] =
-	"Macht das Transmogrifikationsfenster größer. Dank an Kayr für den Code."
 L["Add more oUF tags. You can use them on UnitFrames configuration."] =
 	"Füge weitere oUF-Tags hinzu. Du kannst sie in der Einheitsfenster-Konfiguration verwenden."
 
 L["Trade Tabs"] = "Berufe Tabs"
 L["Enable Tabs on the Profession Frames"] = "Aktiviere die Tabs in den Berufsfenstern"
 L["Group Finder"] = "Gruppenfinder"
-L["Equipment Upgrade"] = "Gegenstandsverbesserung"
 L["Vendor"] = "Händler"
 L["Class Trainer"] = "Klassentrainer"
 L["Gossip"] = "Tratsch"
@@ -1226,3 +1220,4 @@ L["Round"] = "Rund"
 L["TargetTarget"] = "Ziel des Ziels"
 L["FocusTarget"] = "Fokusziel"
 L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"] = "Öffnet das %s-Statusfenster mit den Informationen zur Fehlersuche. Bitte bei Fehlermeldungen mitschicken!"
+L["Equipment Flyout"] = "Ausrüstungsauswahl"

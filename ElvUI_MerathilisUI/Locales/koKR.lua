@@ -100,8 +100,6 @@ L["Misc"] = "기타"
 L["has appeared on the MiniMap!"] = "미니맵에 나타났습니다!"
 L["Name Hover"] = "이름 표시"
 L["MISC_PARAGON"] = "용사"
-L["Fun Stuff"] = "재미있는 기능"
-L["Change the NPC Talk Frame."] = "NPC 대화 프레임을 변경합니다"
 L["Wowhead Links"] = "Wowhead 링크"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] =
 	"업적 및 세계지도 프레임에 Wowhead 링크를 추가합니다"
@@ -116,12 +114,9 @@ L["Sync Inspect"] = "살펴보기 동기화"
 L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."] =
 	"켜면 살펴보기 창의 크기가 캐릭터 창의 크기와 동일하게 설정됩니다"
 L["Talents"] = "전문화"
-L["Wardrobe"] = "옷장"
 L["Mailbox"] = "우편함"
 L["Auction House"] = "경매장"
 L["Transmog Frame"] = "형상변환 창"
-L["Makes the transmogrification frame bigger. Credits to Kayr for code."] =
-	"형상변환 창을 더 크게 표시합니다. 코드 제공: Kayr"
 L["Add more oUF tags. You can use them on UnitFrames configuration."] =
 	"추가 oUF 태그를 제공합니다. 유닛 프레임 설정에서 사용 가능합니다"
 L["Custom Color"] = "사용자 지정 색상"
@@ -129,7 +124,6 @@ L["Armory"] = "전투정보실"
 L["Trade Tabs"] = "제작 탭"
 L["Enable Tabs on the Profession Frames"] = "제작 전문 기술 창에 탭을 활성화합니다"
 L["Group Finder"] = "던전 및 공격대"
-L["Equipment Upgrade"] = "장비 강화"
 L["Vendor"] = "상인"
 L["Class Trainer"] = "직업 훈련사"
 L["Gossip"] = "대화"
@@ -1531,3 +1525,4 @@ L["Round"] = true
 L["TargetTarget"] = true
 L["FocusTarget"] = true
 L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"] = true
+L["Equipment Flyout"] = true

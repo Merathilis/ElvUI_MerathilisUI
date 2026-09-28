@@ -1,6 +1,9 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
 
+local _G = _G
+local InCombatLockdown = InCombatLockdown
+
 local talentsHooked = false
 
 function module:SetElementScale(dbName, blizzName)
@@ -11,7 +14,13 @@ function module:SetElementScale(dbName, blizzName)
 		return
 	end
 
-	_G[blizzName]:SetScale(option.scale)
+	local frame = _G[blizzName]
+	-- Missing on some clients; protected frames can't be scaled in combat
+	if not frame or (frame:IsProtected() and InCombatLockdown()) then
+		return
+	end
+
+	frame:SetScale(option.scale)
 end
 
 function module:ScaleCollections()
@@ -67,4 +76,17 @@ end
 
 function module:ScaleEncounterJournal()
 	module:SetElementScale("encounterjournal", "EncounterJournal")
+end
+
+-- The "wardrobe" setting scales the transmog frame, WardrobeFrame no longer exists
+function module:ScaleTransmog()
+	module:SetElementScale("wardrobe", "TransmogFrame")
+end
+
+function module:ScaleClassTrainer()
+	module:SetElementScale("classTrainer", "ClassTrainerFrame")
+end
+
+function module:ScaleItemUpgrade()
+	module:SetElementScale("itemUpgrade", "ItemUpgradeFrame")
 end
