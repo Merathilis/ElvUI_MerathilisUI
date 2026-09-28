@@ -4,15 +4,58 @@ local Panels = MER:GetModule("MER_Panels")
 
 local options = module.options.modules.args
 
+local function Height(order, key, toggleKey)
+	return {
+		order = order,
+		type = "range",
+		name = L["Height"],
+		min = 1,
+		max = 400,
+		step = 1,
+		get = function()
+			return E.db.mui.panels[key]
+		end,
+		set = function(_, value)
+			E.db.mui.panels[key] = value
+			Panels:Resize()
+		end,
+		disabled = function()
+			return not E.db.mui.panels[toggleKey]
+		end,
+	}
+end
+
+---Toggle for one of the style panels; the extra panel needs its main panel
+local function StylePanel(order, name, key, mainKey)
+	return {
+		order = order,
+		type = "toggle",
+		name = name,
+		disabled = mainKey and function()
+			return not E.db.mui.panels.stylePanels[mainKey]
+		end,
+		get = function()
+			return E.db.mui.panels.stylePanels[key]
+		end,
+		set = function(_, value)
+			E.db.mui.panels.stylePanels[key] = value
+			Panels:UpdatePanels()
+		end,
+	}
+end
+
+local function Spacer(order)
+	return {
+		order = order,
+		type = "description",
+		name = "",
+		width = "full",
+	}
+end
+
 options.panels = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Panels"], "panels"),
-	get = function(info)
-		return E.db.mui.panels[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.panels[info[#info]] = value
-	end,
 	args = {
 		header = {
 			order = 1,
@@ -29,11 +72,11 @@ options.panels = {
 					order = 1,
 					name = L["Color"],
 					type = "select",
-					get = function(info)
-						return E.db.mui.panels[info[#info]]
+					get = function()
+						return E.db.mui.panels.colorType
 					end,
-					set = function(info, value)
-						E.db.mui.panels[info[#info]] = value
+					set = function(_, value)
+						E.db.mui.panels.colorType = value
 						Panels:UpdateColors()
 					end,
 					values = {
@@ -43,20 +86,20 @@ options.panels = {
 					},
 				},
 				customColor = {
-					type = "color",
 					order = 2,
+					type = "color",
 					name = L["Custom Color"],
+					hasAlpha = false,
 					disabled = function()
 						return E.db.mui.panels.colorType ~= "CUSTOM"
 					end,
-					get = function(info)
-						local t = E.db.mui.panels[info[#info]]
-						local d = P.panels[info[#info]]
-						return t.r, t.g, t.b, d.r, d.g, d.b
+					get = function()
+						local t = E.db.mui.panels.customColor
+						local d = P.panels.customColor
+						return t.r, t.g, t.b, nil, d.r, d.g, d.b, nil
 					end,
-					set = function(info, r, g, b)
-						E.db.mui.panels[info[#info]] = {}
-						local t = E.db.mui.panels[info[#info]]
+					set = function(_, r, g, b)
+						local t = E.db.mui.panels.customColor
 						t.r, t.g, t.b = r, g, b
 						Panels:UpdateColors()
 					end,
@@ -73,67 +116,29 @@ options.panels = {
 					order = 1,
 					type = "toggle",
 					name = L["Top Panel"],
-					get = function(info)
+					get = function()
 						return E.db.mui.panels.topPanel
 					end,
-					set = function(info, value)
+					set = function(_, value)
 						E.db.mui.panels.topPanel = value
 						Panels:UpdatePanels()
 					end,
 				},
-				topPanelHeight = {
-					order = 2,
-					type = "range",
-					name = L["Height"],
-					min = 1,
-					max = 400,
-					step = 1,
-					get = function(info)
-						return E.db.mui.panels.topPanelHeight
-					end,
-					set = function(info, value)
-						E.db.mui.panels.topPanelHeight = value
-						module:Resize()
-					end,
-					disabled = function()
-						return not E.db.mui.panels.topPanel
-					end,
-				},
-				spacer = {
-					order = 3,
-					type = "description",
-					name = "",
-				},
+				topPanelHeight = Height(2, "topPanelHeight", "topPanel"),
+				spacer = Spacer(3),
 				bottomPanel = {
 					order = 4,
 					type = "toggle",
 					name = L["Bottom Panel"],
-					get = function(info)
+					get = function()
 						return E.db.mui.panels.bottomPanel
 					end,
-					set = function(info, value)
+					set = function(_, value)
 						E.db.mui.panels.bottomPanel = value
 						Panels:UpdatePanels()
 					end,
 				},
-				bottomPanelHeight = {
-					order = 5,
-					type = "range",
-					name = L["Height"],
-					min = 1,
-					max = 400,
-					step = 1,
-					get = function(info)
-						return E.db.mui.panels.bottomPanelHeight
-					end,
-					set = function(info, value)
-						E.db.mui.panels.bottomPanelHeight = value
-						Panels:Resize()
-					end,
-					disabled = function()
-						return not E.db.mui.panels.bottomPanel
-					end,
-				},
+				bottomPanelHeight = Height(5, "bottomPanelHeight", "bottomPanel"),
 			},
 		},
 		stylepanels = {
@@ -149,143 +154,36 @@ options.panels = {
 					min = 50,
 					max = 800,
 					step = 1,
-					get = function(info)
+					get = function()
 						return E.db.mui.panels.panelSize
 					end,
-					set = function(info, value)
+					set = function(_, value)
 						E.db.mui.panels.panelSize = value
 						Panels:Resize()
 					end,
 				},
-				spacer = {
-					order = 2,
-					type = "description",
-					name = "",
-					width = "full",
-				},
-				topLeftPanel = {
-					order = 3,
-					type = "toggle",
-					name = L["Top Left Panel"],
-					get = function(info)
-						return E.db.mui.panels.stylePanels.topLeftPanel
-					end,
-					set = function(info, value)
-						E.db.mui.panels.stylePanels.topLeftPanel = value
-						Panels:UpdatePanels()
-					end,
-				},
-				topLeftExtraPanel = {
-					order = 4,
-					type = "toggle",
-					name = L["Top Left Extra Panel"],
-					get = function(info)
-						return E.db.mui.panels.stylePanels.topLeftExtraPanel
-					end,
-					set = function(info, value)
-						E.db.mui.panels.stylePanels.topLeftExtraPanel = value
-						Panels:UpdatePanels()
-					end,
-					disabled = function()
-						return not E.db.mui.panels.stylePanels.topLeftPanel
-					end,
-				},
-				spacer1 = {
-					order = 5,
-					type = "description",
-					name = "",
-				},
-				topRightPanel = {
-					order = 6,
-					type = "toggle",
-					name = L["Top Right Panel"],
-					get = function(info)
-						return E.db.mui.panels.stylePanels.topRightPanel
-					end,
-					set = function(info, value)
-						E.db.mui.panels.stylePanels.topRightPanel = value
-						Panels:UpdatePanels()
-					end,
-				},
-				topRightExtraPanel = {
-					order = 7,
-					type = "toggle",
-					name = L["Top Right Extra Panel"],
-					get = function(info)
-						return E.db.mui.panels.stylePanels.topRightExtraPanel
-					end,
-					set = function(info, value)
-						E.db.mui.panels.stylePanels.topRightExtraPanel = value
-						Panels:UpdatePanels()
-					end,
-					disabled = function()
-						return not E.db.mui.panels.stylePanels.topRightPanel
-					end,
-				},
-				spacer2 = {
-					order = 8,
-					type = "description",
-					name = "",
-				},
-				bottomLeftPanel = {
-					order = 9,
-					type = "toggle",
-					name = L["Bottom Left Panel"],
-					get = function(info)
-						return E.db.mui.panels.stylePanels.bottomLeftPanel
-					end,
-					set = function(info, value)
-						E.db.mui.panels.stylePanels.bottomLeftPanel = value
-						Panels:UpdatePanels()
-					end,
-				},
-				bottomLeftExtraPanel = {
-					order = 10,
-					type = "toggle",
-					name = L["Bottom Left Extra Panel"],
-					get = function(info)
-						return E.db.mui.panels.stylePanels.bottomLeftExtraPanel
-					end,
-					set = function(info, value)
-						E.db.mui.panels.stylePanels.bottomLeftExtraPanel = value
-						Panels:UpdatePanels()
-					end,
-					disabled = function()
-						return not E.db.mui.panels.stylePanels.bottomLeftPanel
-					end,
-				},
-				spacer3 = {
-					order = 11,
-					type = "description",
-					name = "",
-				},
-				bottomRightPanel = {
-					order = 12,
-					type = "toggle",
-					name = L["Bottom Right Panel"],
-					get = function(info)
-						return E.db.mui.panels.stylePanels.bottomRightPanel
-					end,
-					set = function(info, value)
-						E.db.mui.panels.stylePanels.bottomRightPanel = value
-						Panels:UpdatePanels()
-					end,
-				},
-				bottomRightExtraPanel = {
-					order = 13,
-					type = "toggle",
-					name = L["Bottom Right Extra Panel"],
-					get = function(info)
-						return E.db.mui.panels.stylePanels.bottomRightExtraPanel
-					end,
-					set = function(info, value)
-						E.db.mui.panels.stylePanels.bottomRightExtraPanel = value
-						Panels:UpdatePanels()
-					end,
-					disabled = function()
-						return not E.db.mui.panels.stylePanels.bottomRightPanel
-					end,
-				},
+				spacer = Spacer(2),
+				topLeftPanel = StylePanel(3, L["Top Left Panel"], "topLeftPanel"),
+				topLeftExtraPanel = StylePanel(4, L["Top Left Extra Panel"], "topLeftExtraPanel", "topLeftPanel"),
+				spacer1 = Spacer(5),
+				topRightPanel = StylePanel(6, L["Top Right Panel"], "topRightPanel"),
+				topRightExtraPanel = StylePanel(7, L["Top Right Extra Panel"], "topRightExtraPanel", "topRightPanel"),
+				spacer2 = Spacer(8),
+				bottomLeftPanel = StylePanel(9, L["Bottom Left Panel"], "bottomLeftPanel"),
+				bottomLeftExtraPanel = StylePanel(
+					10,
+					L["Bottom Left Extra Panel"],
+					"bottomLeftExtraPanel",
+					"bottomLeftPanel"
+				),
+				spacer3 = Spacer(11),
+				bottomRightPanel = StylePanel(12, L["Bottom Right Panel"], "bottomRightPanel"),
+				bottomRightExtraPanel = StylePanel(
+					13,
+					L["Bottom Right Extra Panel"],
+					"bottomRightExtraPanel",
+					"bottomRightPanel"
+				),
 			},
 		},
 	},

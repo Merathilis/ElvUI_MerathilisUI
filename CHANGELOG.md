@@ -48,6 +48,7 @@
 -   [Fix]: Notification: The Vignette Time Out option works now, before it was always 20 seconds, and the font options are applied to every notification.
 -   [Fix]: Notification: Adding something that is not a number to the Vignette blacklist no longer throws a Lua error, and removed default IDs stay removed after a reload.
 -   [Fix]: Options: Sub-options of the Buff Reminder, the Categorized Bags and the Specialization Bar are disabled as well when their module or the required ElvUI module is turned off.
+-   [Fix]: Panels: Changing the height of the top panel no longer throws a Lua error, the Reset of the custom color restores the right color and a profile switch applies the panel settings of the new profile.
 -   [Fix]: Pet Filter Tab: The pet filter tab in the Collections window could fail to appear, because it loaded through the same event handler as another feature.
 -   [Fix]: Portal Flyout: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.
 -   [Fix]: Profiles: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.

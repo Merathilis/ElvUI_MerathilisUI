@@ -253,6 +253,17 @@ function module:Resize()
 	_G.MER_BottomRightStylePanel1:Size(panelSize, E.mult)
 end
 
+-- Visibility, color and size are all read from the profile, so a switch just re-applies them
+function module:ProfileUpdate()
+	if not _G.MER_TopPanel then
+		return
+	end
+
+	self:UpdatePanels()
+	self:UpdateColors()
+	self:Resize()
+end
+
 function module:Initialize()
 	self:CreatePanels()
 end
