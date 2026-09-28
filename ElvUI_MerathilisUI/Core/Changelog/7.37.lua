@@ -29,6 +29,7 @@ MER.Changelog[737] = {
 		'[Movement Alert]: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell\'s cooldown is restricted.',
 		'[Portal Flyout]: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.',
 		"[Profiles]: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.",
+		"[Profiles]: Removed the AddOnSkins button under Profiles > AddOns, it did nothing. The addon buttons have a fixed order now.",
 		"[Reset]: The reset buttons in the Advanced settings now fully restore a module's defaults. Entries you added yourself, like blacklist entries or custom categories, were kept before.",
 		"[Resting Indicator]: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.",
 		"[Scale]: Sync Inspect works, and the Transmog, Class Trainer, Item Upgrade and Equipment Flyout sliders now actually scale their frames.",

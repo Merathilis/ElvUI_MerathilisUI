@@ -33,12 +33,6 @@ P.general = {
 		[I.Fonts.GothamRaid] = "DEFAULT",
 		[I.Fonts.Runescape] = "DEFAULT",
 	},
-
-	fontShadowOverride = {
-		[I.Fonts.Primary] = "DEFAULT",
-		[I.Fonts.GothamRaid] = "DEFAULT",
-		[I.Fonts.Runescape] = "DEFAULT",
-	},
 }
 
 P.gameMenu = {
