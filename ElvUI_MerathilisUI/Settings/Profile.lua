@@ -19,13 +19,11 @@ P.general = {
 	fontOverride = {
 		[I.Fonts.Primary] = "DEFAULT",
 		[I.Fonts.GothamRaid] = "DEFAULT",
-		[I.Fonts.Runescape] = "DEFAULT",
 	},
 
 	fontStyleOverride = {
 		[I.Fonts.Primary] = "DEFAULT",
 		[I.Fonts.GothamRaid] = "DEFAULT",
-		[I.Fonts.Runescape] = "DEFAULT",
 	},
 }
 
@@ -800,9 +798,6 @@ P.actionbars = {
 		frameStrata = "BACKGROUND",
 		frameLevel = 1,
 		size = 20,
-	},
-	colorModifier = {
-		enable = true,
 	},
 }
 

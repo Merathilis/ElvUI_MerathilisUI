@@ -1078,7 +1078,6 @@ L["Welcome to %s %s!"] = "Welcome to %s %s!"
 L["Welcome to version %s!"] = "Welcome to version %s!"
 L["WindTools"] = "WindTools"
 L["Windtools"] = "Windtools"
-L["Work In Progress"] = "Work In Progress"
 L["WowLua"] = "WowLua"
 L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"] =
 	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"

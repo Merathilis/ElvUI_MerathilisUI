@@ -43,6 +43,7 @@
 -   [New]: Developer Tools: New /muidev command - a copyable log window with version info for bug reports (/muidev log), debug channels per module (/muidev debug <module>), log level and value inspection. Replaces the Tracker debug mode, the Vignette debug print option and /mlrdebug.
 -   [New]: Installer: New Modules step after UnitFrames - pick which MerathilisUI modules you want to use, applied on the reload at the end.
 -   [New]: Profiles: The General tab has real font options now - pick a replacement font and outline for the main font and the number font, and a size offset for all fonts. Apply writes them into the ElvUI profile.
+-   [New]: Profiles: Font options under Profiles > General: choose the main and number font, their outline and a font size offset, applied with the Apply button.
 -   [New]: Tracker: New module - a Battle Res tracker shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters, as an icon or as a compact text line. A Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again.
 -   [New]: UnitFrames/NamePlates: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.
 -   [Improvement]: Core: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.

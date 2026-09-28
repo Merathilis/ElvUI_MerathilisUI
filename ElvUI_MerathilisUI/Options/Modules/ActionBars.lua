@@ -5,28 +5,12 @@ local options = module.options.modules.args
 options.actionbars = {
 	type = "group",
 	name = module:AddCategorieIcon(L["ActionBars"], "actionbars"),
-	get = function(info)
-		return E.db.mui.actionbars[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.actionbars[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
-	end,
 	args = {
 		header = {
 			order = 1,
 			type = "header",
 			name = L["ActionBars"],
 		},
-		--[[
-		general = {
-			order = 2,
-			type = "group",
-			name = L["General"],
-			guiInline = true,
-			args = {
-			},
-		},]]
 		specBar = {
 			order = 3,
 			type = "group",
