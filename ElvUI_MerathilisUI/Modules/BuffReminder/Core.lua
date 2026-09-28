@@ -9,8 +9,6 @@ local floor, max = math.floor, math.max
 local CreateFrame = CreateFrame
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local IsPlayerSpell = IsPlayerSpell
-local IsSpellKnown = IsSpellKnown
 local UnitClass = UnitClass
 local UnitExists = UnitExists
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
@@ -35,13 +33,20 @@ local C_UnitAuras_GetAuraDataByIndex = C_UnitAuras.GetAuraDataByIndex
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
 local C_Item_GetItemIconByID = C_Item.GetItemIconByID
+local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
+local C_SpellBook_IsSpellInSpellBook = C_SpellBook.IsSpellInSpellBook
+local C_SpellBook_IsSpellKnown = C_SpellBook.IsSpellKnown
 local GetItemIcon = C_Item_GetItemIconByID or GetItemIcon
 
 -------------------------------------------------------------------------------
 --  Basic helpers
 -------------------------------------------------------------------------------
 local function Known(id)
-	return id and (IsPlayerSpell(id) or IsSpellKnown(id))
+	return id
+		and (
+			C_SpellBook_IsSpellKnown(id)
+			or C_SpellBook_IsSpellInSpellBook(id, Enum.SpellBookSpellBank.Player, false)
+		)
 end
 
 local function InCombat()
@@ -563,7 +568,7 @@ local function GetWeaponCategory(slotID)
 	if not link then
 		return nil
 	end
-	local equipLoc = select(4, GetItemInfoInstant(link))
+	local equipLoc = select(4, C_Item_GetItemInfoInstant(link))
 	return ENCHANTABLE_EQUIP_LOCS[equipLoc]
 end
 
@@ -572,7 +577,7 @@ local function HasShieldEquipped()
 	if not link then
 		return false
 	end
-	return select(4, GetItemInfoInstant(link)) == "INVTYPE_SHIELD"
+	return select(4, C_Item_GetItemInfoInstant(link)) == "INVTYPE_SHIELD"
 end
 
 local _bagCounts = {}

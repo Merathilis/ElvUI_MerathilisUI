@@ -9,9 +9,9 @@ local ipairs, pairs = ipairs, pairs
 local strsplit = strsplit
 local Round = Round
 
-local GetOverrideBarIndex = GetOverrideBarIndex
-local GetVehicleBarIndex = GetVehicleBarIndex
 
+local C_ActionBar_GetOverrideBarIndex = C_ActionBar.GetOverrideBarIndex
+local C_ActionBar_GetVehicleBarIndex = C_ActionBar.GetVehicleBarIndex
 local C_Timer_NewTicker = C_Timer.NewTicker
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 local GetUnitSpeed = GetUnitSpeed
@@ -180,8 +180,8 @@ function module:UpdateBar()
 		"_onstate-page",
 		[[
 		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar")) and GetTempShapeshiftBarIndex())
-		or (UnitHasVehicleUI("player") and GetVehicleBarIndex())
-		or (HasOverrideActionBar() and GetOverrideBarIndex())
+		or (UnitHasVehicleUI("player") and C_ActionBar_GetVehicleBarIndex())
+		or (HasOverrideActionBar() and C_ActionBar_GetOverrideBarIndex())
 		or newstate
 
 		if not newstate then
@@ -252,10 +252,10 @@ function module:UpdateBar()
 	end
 
 	-- Update Paging
-	local vehicleBarIndex = GetVehicleBarIndex()
+	local vehicleBarIndex = C_ActionBar_GetVehicleBarIndex()
 	local pageState = format(
 		"[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13; %s",
-		GetOverrideBarIndex(),
+		C_ActionBar_GetOverrideBarIndex(),
 		vehicleBarIndex,
 		vehicleBarIndex,
 		"[bonusbar:5] 11;"

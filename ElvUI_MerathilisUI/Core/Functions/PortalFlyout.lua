@@ -8,11 +8,11 @@ local ceil, floor, random = math.ceil, math.floor, math.random
 
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
-local IsPlayerSpell = IsPlayerSpell
 local IsInInstance = IsInInstance
 local UnitClass = UnitClass
 local PlayerHasToy = PlayerHasToy
 local C_Spell = C_Spell
+local C_SpellBook = C_SpellBook
 local C_ChallengeMode = C_ChallengeMode
 local C_Container = C_Container
 local C_Item = C_Item
@@ -83,7 +83,7 @@ local function RefreshPortalButtons()
 	end
 
 	for _, btn in ipairs(_portalFlyoutButtons) do
-		local known = IsPlayerSpell(btn.spellID)
+		local known = C_SpellBook.IsSpellKnown(btn.spellID)
 		btn.Icon:SetDesaturated(not known)
 		btn.Icon:SetAlpha(known and 1 or 0.4)
 
@@ -196,7 +196,7 @@ end
 -- otherwise a random owned toy, falling back to the base Hearthstone (6948).
 local function ResolveHearthSlot()
 	local _, cls = UnitClass("player")
-	local isShaman = cls == "SHAMAN" and IsPlayerSpell(SHAMAN_ASTRAL_RECALL)
+	local isShaman = cls == "SHAMAN" and C_SpellBook.IsSpellKnown(SHAMAN_ASTRAL_RECALL)
 
 	if isShaman and InProtectedInstance() then
 		local info = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo(SHAMAN_ASTRAL_RECALL)

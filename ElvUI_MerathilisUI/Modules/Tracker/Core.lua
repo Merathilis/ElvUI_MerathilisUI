@@ -7,10 +7,10 @@ local WS = W:GetModule("Skins")
 local ipairs, format, gsub, unpack, tostring = ipairs, format, gsub, unpack, tostring
 
 local C_ChallengeMode = C_ChallengeMode
+local C_InstanceEncounter = C_InstanceEncounter
 local C_Timer = C_Timer
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
-local IsEncounterInProgress = IsEncounterInProgress
 
 local TEST_DURATION = 20
 
@@ -132,7 +132,7 @@ end
 -------------------------------------------------------------------------------
 function module:RefreshInstanceState()
 	local _, instanceType = GetInstanceInfo()
-	self.inRaidEncounter = IsEncounterInProgress() and instanceType == "raid"
+	self.inRaidEncounter = C_InstanceEncounter.IsEncounterInProgress() and instanceType == "raid"
 	self.inKeystone = ActiveKeystone()
 end
 

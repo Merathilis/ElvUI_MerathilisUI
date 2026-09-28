@@ -13,7 +13,7 @@ local GetNumSockets = C_ItemSocketInfo.GetNumSockets
 local ClickSocketButton = C_ItemSocketInfo.ClickSocketButton
 local AcceptSockets = C_ItemSocketInfo.AcceptSockets
 local CloseSocketInfo = C_ItemSocketInfo.CloseSocketInfo
-local SocketInventoryItem = C_ItemSocketInfo.SocketInventoryItem
+local SocketInventoryItem = SocketInventoryItem -- global, not part of C_ItemSocketInfo
 
 local C_Item = C_Item
 local C_Container = C_Container

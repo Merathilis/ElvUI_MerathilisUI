@@ -142,7 +142,6 @@ function module:BuildEquipmentManagerPanel(pane)
 			module:RefreshEquipmentManagerPanel()
 		end
 	end)
-	equipText = equipBtn._fs
 
 	local saveBtn, saveText
 	saveBtn = MakeTextLink(linksRow, L["Save"] or "Save", function()

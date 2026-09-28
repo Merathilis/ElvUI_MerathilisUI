@@ -15,6 +15,7 @@ local C_Spell_GetSpellTexture = C_Spell.GetSpellTexture
 local C_SpellBook_GetSpellBookItemName = C_SpellBook.GetSpellBookItemName
 local C_SpellBook_GetSpellBookItemTexture = C_SpellBook.GetSpellBookItemTexture
 local C_SpellBook_GetSpellBookItemInfo = C_SpellBook.GetSpellBookItemInfo
+local C_SpellBook_IsSpellInSpellBook = C_SpellBook.IsSpellInSpellBook
 local C_TradeSkillUI_GetOnlyShowSkillUpRecipes = C_TradeSkillUI.GetOnlyShowSkillUpRecipes
 local C_TradeSkillUI_SetOnlyShowSkillUpRecipes = C_TradeSkillUI.SetOnlyShowSkillUpRecipes
 local C_TradeSkillUI_GetOnlyShowMakeableRecipes = C_TradeSkillUI.GetOnlyShowMakeableRecipes
@@ -269,7 +270,7 @@ local function HandleTabs(object)
 
 		-- Runuforging and Pick Lock
 		for index = 1, #spells do
-			if IsSpellKnown(spells[index]) then
+			if C_SpellBook_IsSpellInSpellBook(spells[index], Enum.SpellBookSpellBank.Player, false) then
 				local name = E:GetSpellInfo(spells[index])
 				local texture = C_Spell_GetSpellTexture(spells[index])
 				UpdateTab(object, name, texture, spells[index])

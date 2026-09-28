@@ -4,12 +4,12 @@ local module = MER:GetModule("MER_Tracker")
 local format, ipairs, pcall, tostring = format, ipairs, pcall, tostring
 
 local C_Spell = C_Spell
+local C_SpellBook = C_SpellBook
 local C_Timer = C_Timer
 local C_UnitAuras = C_UnitAuras
 local CreateFont = CreateFont
 local CreateFrame = CreateFrame
 local GetTime = GetTime
-local IsPlayerSpell = IsPlayerSpell
 local UnitFactionGroup = UnitFactionGroup
 
 -- Castable lusts, the first one the character knows supplies the icon
@@ -50,7 +50,7 @@ function module:GetLustIcon()
 	end
 
 	for _, spellID in ipairs(LUST_SPELLS) do
-		if IsPlayerSpell(spellID) then
+		if C_SpellBook.IsSpellKnown(spellID) then
 			self.lustIcon = C_Spell.GetSpellTexture(spellID)
 			if self.lustIcon then
 				return self.lustIcon
