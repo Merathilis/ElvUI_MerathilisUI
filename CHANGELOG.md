@@ -80,6 +80,7 @@
 -   [Improvement]: Login Message: The login message now also links the MerathilisUI website.
 -   [Improvement]: Mail: The Mail module can be turned on and off without a reload.
 -   [Improvement]: Misc: Removed the Fun Stuff option and the old Transmog Frame toggle, they had no effect anymore.
+-   [Improvement]: Movement Alert: The color, font, sound and text options of the Time Spiral, Gateway Control Shard and Ready Alert sections are disabled while that section is turned off.
 -   [Improvement]: Options: Pages that are locked because an ElvUI module is turned off or EltruismUI is enabled now show the reason at the top. The Scale tab is no longer hidden with EltruismUI, it is locked instead.
 -   [Improvement]: Reset: New reset buttons for Chat and NamePlates.
 -   [Improvement]: Skins: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.
