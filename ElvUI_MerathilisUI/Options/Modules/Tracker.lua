@@ -125,13 +125,6 @@ options.tracker = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Tracker"], "Tool"),
 	childGroups = "tab",
-	get = function(info)
-		return DB()[info[#info]]
-	end,
-	set = function(info, value)
-		DB()[info[#info]] = value
-		Update()
-	end,
 	args = {
 		header = {
 			order = 0,
