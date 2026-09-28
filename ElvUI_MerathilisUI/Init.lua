@@ -15,6 +15,8 @@ local collectgarbage = collectgarbage
 
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
+local DISCORD_URL = "https://discord.gg/28We6esE9v"
+
 ---@class ElvUI_MerathilisUI : AceAddon, AceConsole-3.0, AceEvent-3.0, AceTimer-3.0, AceHook-3.0
 local MER = AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local W, WF = unpack(WindTools or {})
@@ -228,7 +230,7 @@ function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
 					.. self.Title
 					.. format("|cff00c0fa%s|r", self.Version)
 					.. L[" is loaded. For any issues or suggestions join my discord: "]
-					.. Engine[4].PrintURL("https://discord.gg/28We6esE9v")
+					.. format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", DISCORD_URL, DISCORD_URL)
 			)
 		end
 
