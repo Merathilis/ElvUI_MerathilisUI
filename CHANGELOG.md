@@ -33,12 +33,13 @@
 -   [Fix]: Installer: Errors while applying a profile are now reported instead of being silently ignored.
 -   [Fix]: Installer: The chat step names the combat log window correctly again and uses Blizzard's current chat functions instead of deprecated ones.
 -   [Fix]: Installer: Removed the Cooldown Manager checkbox from the Modules step, the module no longer exists.
--   [Fix]: ItemLevel/Pet Filter Tab: The item level on the Scrapping Machine and the pet filter tab in the Collections window could fail to appear, because both loaded through the same event handler.
+-   [Fix]: Item Level: Turning the module on or off no longer throws a Lua error.
 -   [Fix]: Loot Spec Manager: Fixed a Lua error every time a tab of the Encounter Journal was switched.
 -   [Fix]: Loot Spec Manager/Copy Transmog: The info tooltips are colored again.
 -   [Fix]: Movement Alert: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell's cooldown is restricted.
 -   [Fix]: Name Hover: The line with faction, classification and race is now placed correctly between the guild and the status line.
 -   [Fix]: Options: Sub-options of the Buff Reminder, the Categorized Bags and the Specialization Bar are disabled as well when their module or the required ElvUI module is turned off.
+-   [Fix]: Pet Filter Tab: The pet filter tab in the Collections window could fail to appear, because it loaded through the same event handler as another feature.
 -   [Fix]: Portal Flyout: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.
 -   [Fix]: Profiles: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.
 -   [Fix]: Profiles: Removed the AddOnSkins button under Profiles > AddOns, it did nothing. The addon buttons have a fixed order now.
@@ -69,6 +70,7 @@
 -   [Improvement]: Information: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.
 -   [Improvement]: Information: Support & Downloads now points to /muidev log for bug reports, and the translator list has a fixed order.
 -   [Improvement]: Installer: The final step now points to the MerathilisUI website, with a Website button next to Discord.
+-   [Improvement]: Item Level: The item level on the equipment flyout, the scrapping machine and in the guild news is now left to WindTools (Item > Item Level, Misc), which did the same and showed it twice. MerathilisUI keeps the item level in the merchant and trade windows, which can be turned off without a reload.
 -   [Improvement]: Login Logo: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.
 -   [Improvement]: Login Message: The login message now also links the MerathilisUI website.
 -   [Improvement]: Misc: Removed the Fun Stuff option and the old Transmog Frame toggle, they had no effect anymore.

@@ -1187,46 +1187,6 @@ P.panels = {
 
 P.itemLevel = {
 	enable = true,
-	flyout = {
-		enable = true,
-		useBagsFontSetting = false,
-		qualityColor = true,
-		font = {
-			name = I.Fonts.Primary,
-			size = 11,
-			style = "SHADOWOUTLINE",
-			xOffset = 0,
-			yOffset = 0,
-			color = {
-				r = 1,
-				g = 1,
-				b = 1,
-			},
-		},
-	},
-	scrappingMachine = {
-		enable = true,
-		useBagsFontSetting = false,
-		qualityColor = true,
-		font = {
-			name = I.Fonts.Primary,
-			size = 13,
-			style = "SHADOWOUTLINE",
-			xOffset = 0,
-			yOffset = 0,
-			color = {
-				r = 1,
-				g = 1,
-				b = 1,
-			},
-		},
-	},
-	merchantFrame = {
-		enable = true,
-	},
-	guildNews = {
-		enable = true,
-	},
 }
 
 P.elvUIIcons = {
