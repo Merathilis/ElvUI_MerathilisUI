@@ -16,7 +16,6 @@ local GetTradePlayerItemLink = GetTradePlayerItemLink
 local GetTradeTargetItemLink = GetTradeTargetItemLink
 local EquipmentManager_GetLocationData = EquipmentManager_GetLocationData
 local EquipmentManager_GetItemInfoByLocation = EquipmentManager_GetItemInfoByLocation
-local UnitExists = UnitExists
 
 local EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION = EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION
 

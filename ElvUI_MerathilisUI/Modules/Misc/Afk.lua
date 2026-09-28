@@ -145,7 +145,6 @@ end
 
 local function UpdateTimer()
 	local createdTime = CreateTime()
-	local time = GetTime() - AFK.startTime
 
 	-- Set Clock
 	if AFK.AFKMode.ClockText then

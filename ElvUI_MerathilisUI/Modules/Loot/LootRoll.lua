@@ -240,7 +240,6 @@ end
 -- Bar creation
 --------------------------------------------------------------------
 function module:CreateBar(index)
-	local db = module.db
 	local bar = CreateFrame("Frame", "MERLootRollBar" .. index, anchor)
 	bar:SetFrameStrata("HIGH")
 	bar:Hide()

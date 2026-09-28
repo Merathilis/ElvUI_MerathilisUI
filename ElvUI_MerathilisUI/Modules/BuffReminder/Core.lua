@@ -1060,6 +1060,7 @@ local function CollectConsumables(missing, playerClass, co)
 			hasMH = C_PaperDollInfo.GetTemporaryEnchantmentInfo(INVSLOT_MAINHAND) ~= nil
 			hasOH = C_PaperDollInfo.GetTemporaryEnchantmentInfo(INVSLOT_OFFHAND) ~= nil
 		else
+			local _
 			hasMH, _, _, _, hasOH = GetWeaponEnchantInfo()
 		end
 		for _, slotInfo in ipairs(WEAPON_ENCHANT_SLOTS) do

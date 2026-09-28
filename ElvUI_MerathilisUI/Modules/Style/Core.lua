@@ -200,31 +200,6 @@ local function MERConfigWindowStyle(frame, template, glossTex, ignoreUpdates, _,
 	ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNamePlateElement)
 end
 
--- ElvUI frame API (resolved at load; only injected if missing on metatable)
-local API = {
-	Kill = Kill,
-	Size = Size,
-	Point = Point,
-	Width = Width,
-	Height = Height,
-	PointXY = PointXY,
-	GrabPoint = GrabPoint,
-	NudgePoint = NudgePoint,
-	SetOutside = SetOutside,
-	SetInside = SetInside,
-	SetTemplate = SetTemplate,
-	CreateBackdrop = CreateBackdrop,
-	CreateShadow = CreateShadow,
-	FontTemplate = FontTemplate,
-	StripTextures = StripTextures,
-	StripTexts = StripTexts,
-	StyleButton = StyleButton,
-	OffsetFrameLevel = OffsetFrameLevel,
-	CreateCloseButton = CreateCloseButton,
-	SetTexCoords = SetTexCoords,
-	GetChild = GetChild,
-}
-
 function module:API(object)
 	local mt = getmetatable(object)
 	if not mt then
@@ -234,12 +209,6 @@ function module:API(object)
 	local mk = mt.__index
 	if type(mk) ~= "table" then
 		return
-	end
-
-	for method, func in next, API do
-		if func and not object[method] and not mk[method] then
-			mk[method] = func
-		end
 	end
 
 	if

@@ -2,7 +2,6 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_VehicleBar")
 local LSM = E.Libs.LSM
 
-local _G = _G
 local tinsert = table.insert
 
 local C_Timer_NewTicker = C_Timer.NewTicker

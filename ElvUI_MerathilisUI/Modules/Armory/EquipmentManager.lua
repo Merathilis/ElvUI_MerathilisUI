@@ -2,12 +2,11 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory") ---@class Armory
 
 local _G = _G
-local ipairs, pairs, select = ipairs, pairs, select
+local ipairs, select = ipairs, select
 local format = string.format
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local CreateFrame = CreateFrame
-local hooksecurefunc = hooksecurefunc
 
 local C_EquipmentSet = C_EquipmentSet
 local C_SpecializationInfo = C_SpecializationInfo
@@ -132,7 +131,7 @@ function module:BuildEquipmentManagerPanel(pane)
 		OpenIconPopup(_G.IconSelectorPopupFrameModes.New, nil, "")
 	end)
 
-	local equipBtn, equipText
+	local equipBtn
 	equipBtn = MakeTextLink(linksRow, L["Equip"] or "Equip", function()
 		if InCombatLockdown() then
 			return

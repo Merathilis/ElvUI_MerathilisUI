@@ -4,60 +4,6 @@ local MUF = MER:GetModule("MER_UnitFrames")
 
 local options = module.options.modules.args
 
-local form = {
-	SQ = L["Old"] .. " " .. L["Drop"],
-	RO = L["Old"] .. " " .. L["Drop round"],
-	CI = L["Old"] .. " " .. L["Circle"],
-	PI = L["Old"] .. " " .. L["Pad"],
-	RA = L["Old"] .. " " .. L["Diamond"],
-	QA = L["Old"] .. " " .. L["Square"],
-	MO = L["Old"] .. " " .. L["Moon"],
-	SQT = L["Old"] .. " " .. L["Drop flipped"],
-	ROT = L["Old"] .. " " .. L["Drop round flipped"],
-	TH = L["Old"] .. " " .. L["Thin"],
-	circle = L["Circle"],
-	thincircle = L["Thin Circle"],
-	diamond = L["Diamond"],
-	thindiamond = L["Thin Diamond"],
-	drop = L["Drop round"],
-	dropsharp = L["Drop"],
-	dropflip = L["Drop round flipped"],
-	dropsharpflip = L["Drop flipped"],
-	octagon = L["Octagon"],
-	pad = L["Pad"],
-	pure = L["Pure round"],
-	puresharp = L["Pure"],
-	shield = L["Shield"],
-	square = L["Square"],
-	thin = L["Thin"],
-}
-
-local style = {
-	a = "FLAT",
-	b = "SMOOTH",
-	c = "METALLIC",
-}
-
-local extraStyle = {
-	a = L["Style"] .. " A",
-	b = L["Style"] .. " B",
-	c = L["Style"] .. " C",
-	d = L["Style"] .. " D",
-	e = L["Style"] .. " E",
-}
-
-local frameStrata = {
-	BACKGROUND = "BACKGROUND",
-	LOW = "LOW",
-	MEDIUM = "MEDIUM",
-	HIGH = "HIGH",
-	DIALOG = "DIALOG",
-	TOOLTIP = "TOOLTIP",
-	AUTO = "Auto",
-}
-
-local sizeString = ":16:16:0:0:64:64:4:60:4:60"
-
 local positionValues = {
 	TOPLEFT = "TOPLEFT",
 	LEFT = "LEFT",

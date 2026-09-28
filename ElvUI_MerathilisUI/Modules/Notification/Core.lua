@@ -44,7 +44,7 @@ function module:SpawnToast(toast)
 		return false
 	end
 
-	local YOffset = 0
+	local YOffset
 	if E:GetScreenQuadrant(anchorFrame):find("TOP") then
 		YOffset = -54
 	else
@@ -261,13 +261,13 @@ end
 
 function module:PLAYER_FLAGS_CHANGED(event)
 	self:UnregisterEvent(event)
-	for i = 1, max_active_toasts - #activeToasts do
+	for _ = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
 end
 
 function module:PLAYER_REGEN_ENABLED()
-	for i = 1, max_active_toasts - #activeToasts do
+	for _ = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
 end

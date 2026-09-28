@@ -302,10 +302,10 @@ local function RefreshActivityCard(frame, selectedActivity)
 	end
 
 	local card = EnsureCardBackdrop(frame, STYLE.cardInset)
-	local bar = EnsureProgressBar(card)
+	EnsureProgressBar(card)
 	local lock = EnsureLockIcon(card)
 
-	local complete, progress, threshold, ratio = GetActivityState(frame)
+	local complete, _, _, ratio = GetActivityState(frame)
 	local isSelected = selectedActivity == frame and frame.hasRewards
 
 	local col = complete and STYLE.colors.complete or STYLE.colors.locked

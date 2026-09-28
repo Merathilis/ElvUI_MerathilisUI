@@ -54,7 +54,7 @@ local function colorText(value, color)
 end
 
 local function OnEnter(self)
-	local _, hc, myth, mythp, other, title, tip = F.mColorDatatext()
+	local tip = select(7, F.mColorDatatext())
 	DT.tooltip:ClearLines()
 
 	for slot, durability in pairs(invDurability) do
@@ -126,13 +126,14 @@ local function OnEvent(self)
 	for index in pairs(slots) do
 		local currentDura, maxDura = GetInventoryItemDurability(index)
 		if currentDura and maxDura > 0 then
-			local perc, repairCost = (currentDura / maxDura) * 100, 0
+			local perc = (currentDura / maxDura) * 100
 			invDurability[index] = perc
 
 			if perc < totalDurability then
 				totalDurability = perc
 			end
 
+			local repairCost
 			if E.ScanTooltip.GetTooltipData then
 				E.ScanTooltip:SetInventoryItem("player", index)
 				E.ScanTooltip:Show()
@@ -147,13 +148,11 @@ local function OnEvent(self)
 		end
 	end
 
-	local avgEquipped = 0
 	local shieldIcon =
 		"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Datatext\\shield.tga:14:14:0:0:64:64:5:59:5:59"
 	local armorIcon =
 		"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Datatext\\armor.tga:14:14:0:0:64:64:5:59:5:59|t"
 	local text = db.icon and "%s %s  %s %s" or "%s%s | %s%s"
-	local avgEquippedString = ""
 	local colorDurability = nil
 
 	if db.colored.enable then
@@ -185,9 +184,9 @@ local function OnEvent(self)
 	armorIcon = db.icon and armorIcon or ""
 	local totalDurabilityString = format("%." .. E.db.general.decimalLength .. "f%%", totalDurability or 0)
 
-	_, avgEquipped = GetAverageItemLevel()
+	local _, avgEquipped = GetAverageItemLevel()
 	shieldIcon = db.icon and shieldIcon or ""
-	avgEquippedString = format("%." .. E.db.general.decimalLength .. "f", avgEquipped or 0)
+	local avgEquippedString = format("%." .. E.db.general.decimalLength .. "f", avgEquipped or 0)
 	text = format(
 		text,
 		shieldIcon,

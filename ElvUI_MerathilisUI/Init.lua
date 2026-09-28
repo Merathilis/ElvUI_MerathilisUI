@@ -42,7 +42,6 @@ local xVersionString = GetAddOnMetadata(addon, "X-Version")
 local metaFlavor = GetAddOnMetadata(addon, "X-Flavor")
 
 MER.MetaFlavor = metaFlavor
-MER.IsRetail = (metaFlavor == "Mainline") or (build >= 120000)
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata(addon, "X-ElvUIVersion"))
 
