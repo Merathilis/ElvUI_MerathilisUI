@@ -12,7 +12,6 @@ local Round = Round
 
 local C_ActionBar_GetOverrideBarIndex = C_ActionBar.GetOverrideBarIndex
 local C_ActionBar_GetVehicleBarIndex = C_ActionBar.GetVehicleBarIndex
-local C_Timer_NewTicker = C_Timer.NewTicker
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 local GetUnitSpeed = GetUnitSpeed
 
@@ -106,15 +105,8 @@ function module:UpdateVigorBar()
 		self.vigorBar.speedText:Hide()
 	end
 
-	-- Recreate speed text ticker if update rate changed
-	if self.vigorBar.speedTextTicker then
-		self.vigorBar.speedTextTicker:Cancel()
-	end
-	self.vigorBar.speedTextTicker = C_Timer_NewTicker(self.vdb.speedTextUpdateRate, function()
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
-			self:UpdateSpeedText()
-		end
-	end)
+	-- Disable() cancelled both tickers; this also picks up a changed speed text rate
+	self:StartVigorTickers()
 
 	-- Create segments (they will be sized correctly based on vigorBar width)
 	self:CreateVigorSegments()
@@ -272,11 +264,16 @@ function module:UpdateBar()
 
 	bar:Hide()
 
-	if init then
-		-- Hook for animation (only hook once during initialization)
+	-- Disable() removes every hook (UnhookAll), so they are set again on each enable. Without
+	-- OnShow the vigor bar, the animations and the keybinds never came back.
+	if not self:IsHooked(bar, "OnShow") then
 		self:SecureHookScript(bar, "OnShow", "OnShowEvent")
+	end
+	if not self:IsHooked(bar, "OnHide") then
 		self:SecureHookScript(bar, "OnHide", "OnHideEvent")
+	end
 
+	if init then
 		-- Create Mover
 		E:CreateMover(
 			bar,
@@ -294,14 +291,13 @@ function module:UpdateBar()
 		for _, button in pairs(bar.buttons) do
 			button:UpdateAction()
 		end
-
-		if not self.vigorBar and self.vdb.enable then
-			self:CreateVigorBar()
-		end
 	end
 
-	-- Update vigor bar if it exists (for settings changes)
-	if self.vigorBar and self.vdb.enable then
+	-- Also when the vigor bar was turned off on login and is turned on later
+	if not self.vigorBar and self.vdb.enable then
+		self:CreateVigorBar()
+	elseif self.vigorBar and self.vdb.enable then
+		-- Update vigor bar if it exists (for settings changes)
 		self:UpdateVigorBar()
 		-- Show vigor bar if the vehicle bar is currently shown and we're skyriding
 		if self.bar:IsShown() and self:IsVigorAvailable() then

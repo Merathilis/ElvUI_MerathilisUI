@@ -6,6 +6,31 @@ local tinsert = table.insert
 
 local C_Timer_NewTicker = C_Timer.NewTicker
 
+-- Disable() cancels both tickers, so they are (re)started whenever the bar is built or updated
+function module:StartVigorTickers()
+	local vigorBar = self.vigorBar
+	if vigorBar.vigorTicker then
+		vigorBar.vigorTicker:Cancel()
+	end
+	if vigorBar.speedTextTicker then
+		vigorBar.speedTextTicker:Cancel()
+	end
+
+	-- Smooth recharge animation (0.05s = 20fps, visually indistinguishable from per-frame)
+	vigorBar.vigorTicker = C_Timer_NewTicker(0.05, function()
+		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
+			self:UpdateVigorSegments()
+		end
+	end)
+
+	-- Speed text at its own update rate (cheaper than OnUpdate throttling)
+	vigorBar.speedTextTicker = C_Timer_NewTicker(self.vdb.speedTextUpdateRate, function()
+		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
+			self:UpdateSpeedText()
+		end
+	end)
+end
+
 function module:CreateVigorBar()
 	local vigorBar = CreateFrame("Frame", "MER_VigorBar", UIParent)
 	local width = self.bar:GetWidth()
@@ -46,22 +71,10 @@ function module:CreateVigorBar()
 		end
 	end)
 
-	-- Ticker for smooth recharge animation (0.05s = 20fps, visually indistinguishable from per-frame)
-	vigorBar.vigorTicker = C_Timer_NewTicker(0.05, function()
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
-			self:UpdateVigorSegments()
-		end
-	end)
-
-	-- Use C_Timer for speed text updates (more efficient than OnUpdate throttling)
-	vigorBar.speedTextTicker = C_Timer_NewTicker(self.vdb.speedTextUpdateRate, function()
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
-			self:UpdateSpeedText()
-		end
-	end)
-
 	self.vigorBar = vigorBar
 	self.vigorBar.segments = {}
+
+	self:StartVigorTickers()
 
 	self:CreateVigorSegments()
 	if not F.Table.IsEmpty(self.vigorBar.segments) then

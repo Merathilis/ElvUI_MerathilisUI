@@ -62,8 +62,9 @@ function module:OnShowEvent()
 		end
 	end
 
-	-- Show the custom vigor bar when the vehicle bar is shown
-	if self:IsVigorAvailable() and self.vigorBar then
+	-- Show the custom vigor bar when the vehicle bar is shown; once built it stays around after
+	-- the option is turned off, so the setting is checked here as well
+	if self.vdb.enable and self:IsVigorAvailable() and self.vigorBar then
 		self.vigorBar:Show()
 	end
 

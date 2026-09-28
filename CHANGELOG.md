@@ -63,6 +63,7 @@
 -   [Fix]: UnitFrames: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.
 -   [Fix]: UnitFrames: Raid Icon and Highlight ask for the reload they need, the options follow the ElvUI UnitFrames requirement and the empty Party tab is gone.
 -   [Fix]: Vehicle Bar: Changed settings apply right away again instead of only after a reload.
+-   [Fix]: Vehicle Bar: After turning the Vehicle Bar off and on again or changing a setting, the Vigor Bar, the button animations and the keybinds work again. Turning off the Vigor Bar hides it right away, and the options are disabled while the Vehicle Bar or ElvUI's action bars are turned off.
 -   [New]: Cursor: The GCD and cast rings have the Only In Instances and Only In Combat options as well.
 -   [New]: Developer Tools: New /muidev command - a copyable log window with version info for bug reports (/muidev log), debug channels per module (/muidev debug <module>), log level and value inspection. Replaces the Tracker debug mode, the Vignette debug print option and /mlrdebug.
 -   [New]: Installer: New Modules step after UnitFrames - pick which MerathilisUI modules you want to use, applied on the reload at the end.
@@ -70,6 +71,7 @@
 -   [New]: Profiles: The General tab has real font options now - pick a replacement font and outline for the main font and the number font, and a size offset for all fonts. Apply writes them into the ElvUI profile.
 -   [New]: Tracker: New module - a Battle Res tracker shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters, as an icon or as a compact text line. A Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again.
 -   [New]: UnitFrames/NamePlates: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.
+-   [New]: Vehicle Bar: The font size of the speed text can be changed.
 -   [Improvement]: ActionBars: The Specialization Bar mouseover option applies without a reload.
 -   [Improvement]: Armory: Font, header and background settings apply right away without a reload.
 -   [Improvement]: Auras: The Collapse & Expand option is disabled with a notice while ElvUI's buffs are turned off.
@@ -98,3 +100,4 @@
 -   [Improvement]: Skins: The embed options are disabled while the skins or the embed are turned off, and the AddOn skin list has a fixed order.
 -   [Improvement]: UnitFrames: Removed the UnitFrame Style and Auras options, they had no effect anymore.
 -   [Improvement]: Vehicle Bar: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.
+-   [Improvement]: Vehicle Bar: Turning the Vehicle Bar or the Vigor Bar on and off works without a reload.
