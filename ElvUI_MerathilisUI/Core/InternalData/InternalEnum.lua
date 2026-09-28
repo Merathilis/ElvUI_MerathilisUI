@@ -14,6 +14,7 @@ I.Enum.Requirements = F.Enum({
 	"ELTRUISM_DISABLED",
 	"BENIKUI_DISABLED",
 	"ELVUI_BAGS_ENABLED",
+	"ELVUI_BUFFS_ENABLED",
 })
 
 I.Enum.Colors = F.Enum({

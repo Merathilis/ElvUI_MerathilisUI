@@ -10,6 +10,7 @@ MER.Changelog[737] = {
 		"[Armory]: The outline setting of the header texts (name, title, level, class, spec icon) works now, and Class Gradient for the title text is applied.",
 		"[Armory/Equipment Manager]: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.",
 		"[Armory/Socket Panel]: Inserting a gem through the socket panel on the Character Frame works now, before it silently did nothing.",
+		"[Auras]: The collapsed state of the buffs is kept when the Collapse & Expand button is turned off and on again, and a profile switch uses the state of the new profile.",
 		"[Bags]: Changes to the equipment set icon show up in the categorized bags right away, and the item font options repaint the bank as well.",
 		"[Buff Reminder]: The reminder sound no longer repeats for reminders that were already shown, and a muted category no longer blocks the sound of the others.",
 		"[Buff Reminder]: Turning the module off or switching to a profile where it is off hides the icons right away.",
@@ -60,6 +61,7 @@ MER.Changelog[737] = {
 	IMPROVEMENTS = {
 		"[ActionBars]: The Specialization Bar mouseover option applies without a reload.",
 		"[Armory]: Font, header and background settings apply right away without a reload.",
+		"[Auras]: The Collapse & Expand option is disabled with a notice while ElvUI's buffs are turned off.",
 		"[Bags]: The bag options are disabled with a notice while ElvUI's bags are turned off.",
 		"[Buff Reminder]: Options that have no effect in the current setup are disabled.",
 		"[Core]: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.",

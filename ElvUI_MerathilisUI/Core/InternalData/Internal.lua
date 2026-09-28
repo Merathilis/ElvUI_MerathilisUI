@@ -113,6 +113,9 @@ I.Requirements = {
 	["Bags"] = {
 		I.Enum.Requirements.ELVUI_BAGS_ENABLED,
 	},
+	["Auras"] = {
+		I.Enum.Requirements.ELVUI_BUFFS_ENABLED,
+	},
 	["AdditionalScaling"] = {
 		I.Enum.Requirements.ELTRUISM_DISABLED,
 	},

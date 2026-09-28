@@ -45,6 +45,10 @@ local requirements = {
 	[R.ELVUI_BAGS_ENABLED] = ElvUIModule(L["Bags"], function()
 		return E.private.bags.enable
 	end),
+	-- ElvUI's Auras module with its own buff header, not Blizzard's buff frame
+	[R.ELVUI_BUFFS_ENABLED] = ElvUIModule(L["Auras"], function()
+		return E.private.auras.enable and E.private.auras.buffsHeader
+	end),
 	[R.ELTRUISM_DISABLED] = {
 		check = function()
 			return not E:IsAddOnEnabled("ElvUI_EltreumUI")

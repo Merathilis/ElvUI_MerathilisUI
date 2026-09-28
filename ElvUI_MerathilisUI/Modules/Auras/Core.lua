@@ -271,8 +271,10 @@ function module:Refresh()
 	if not header.collapseButton then
 		self:SetupHeader(header)
 	else
+		-- From the database, not header.collapsed: turning the feature off expands the header,
+		-- and a profile switch brings its own state
 		UpdateButtonLayout(header)
-		ApplyCollapsedState(header, header.collapsed)
+		ApplyCollapsedState(header, not db.expanded)
 	end
 end
 
