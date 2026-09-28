@@ -45,6 +45,8 @@
 -   [Fix]: Name Hover: The outline options work now, before every text always used a shadow outline, and the Enemy Forces font size is applied to the text as well.
 -   [Fix]: Name Hover: A profile switch applies the settings of the new profile right away, including turning Name Hover on or off.
 -   [Fix]: NamePlates: After a profile switch the faction icons on the visible nameplates use the settings of the new profile.
+-   [Fix]: Notification: The Vignette Time Out option works now, before it was always 20 seconds, and the font options are applied to every notification.
+-   [Fix]: Notification: Adding something that is not a number to the Vignette blacklist no longer throws a Lua error, and removed default IDs stay removed after a reload.
 -   [Fix]: Options: Sub-options of the Buff Reminder, the Categorized Bags and the Specialization Bar are disabled as well when their module or the required ElvUI module is turned off.
 -   [Fix]: Pet Filter Tab: The pet filter tab in the Collections window could fail to appear, because it loaded through the same event handler as another feature.
 -   [Fix]: Portal Flyout: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.
@@ -85,6 +87,7 @@
 -   [Improvement]: Misc: Removed the Fun Stuff option and the old Transmog Frame toggle, they had no effect anymore.
 -   [Improvement]: Movement Alert: The color, font, sound and text options of the Time Spiral, Gateway Control Shard and Ready Alert sections are disabled while that section is turned off.
 -   [Improvement]: Name Hover: Font and display options apply without a reload, and the options are disabled while Name Hover is turned off.
+-   [Improvement]: Notification: All options apply without a reload, only turning the module on still needs one.
 -   [Improvement]: Options: Pages that are locked because an ElvUI module is turned off or EltruismUI is enabled now show the reason at the top. The Scale tab is no longer hidden with EltruismUI, it is locked instead.
 -   [Improvement]: Reset: New reset buttons for Chat and NamePlates.
 -   [Improvement]: Skins: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.

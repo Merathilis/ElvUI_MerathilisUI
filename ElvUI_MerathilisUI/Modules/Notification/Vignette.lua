@@ -74,7 +74,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(_, vignetteGUID, onMinimap)
 	end
 
 	local time = GetTime()
-	if time <= (self.lastMinimapRare.time + (db.timeOut or 20)) then
+	if time <= (self.lastMinimapRare.time + (db.vignette.timeOut or 20)) then
 		self.lastMinimapRare.id = vignetteGUID
 		return
 	end
