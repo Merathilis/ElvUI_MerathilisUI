@@ -27,6 +27,7 @@
 -   [Fix]: Debug Mode: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.
 -   [Fix]: Durability/ItemLevel Datatext: Fixed Lua errors with low durability when the icon is colored or the colored thresholds are enabled.
 -   [Fix]: ElvUI AuraBars: MerathilisUI no longer replaces ElvUI's name abbreviation, so the aura bars abbreviate spell names the ElvUI way again.
+-   [Fix]: Gradient Theme: The Saturation Boost can be turned on again, before the toggle had no effect. Its sliders are disabled while it is off.
 -   [Fix]: Gradient Theme: The saturation boost settings are now also used for frames without a fixed color.
 -   [Fix]: Gradient Theme: The gradient previews in the options update again when colors are changed.
 -   [Fix]: Installer: The color preview of the UnitFrames step stuck to other steps, and the step buttons cut off longer labels. Closing the installer no longer leaves MerathilisUI changes behind for the next plugin installer.
@@ -78,6 +79,7 @@
 -   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.
 -   [Improvement]: Core: Errors of a module while switching profiles are now reported instead of being silently ignored.
 -   [Improvement]: Cursor: Turning the module on or off works without a reload.
+-   [Improvement]: Gradient Theme: Several option labels (NPC reactions, cast colors, power colors, fade directions) are translated now.
 -   [Improvement]: Information: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.
 -   [Improvement]: Information: Support & Downloads now points to /muidev log for bug reports, and the translator list has a fixed order.
 -   [Improvement]: Installer: The final step now points to the MerathilisUI website, with a Website button next to Discord.
