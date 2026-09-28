@@ -25,6 +25,7 @@
 -   [Fix]: Movement Alert: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell's cooldown is restricted.
 -   [Fix]: Portal Flyout: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.
 -   [Fix]: Profiles: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.
+-   [Fix]: Reset: The reset buttons in the Advanced settings now fully restore a module's defaults. Entries you added yourself, like blacklist entries or custom categories, were kept before.
 -   [Fix]: Resting Indicator: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.
 -   [Fix]: Skins: The ls_Toasts skin can be turned off again, and Mount Route Planner has its own toggle in the AddOnSkins options.
 -   [Fix]: Tags: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.
@@ -43,5 +44,6 @@
 -   [Improvement]: Login Logo: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.
 -   [Improvement]: Login Message: The login message now also links the MerathilisUI website.
 -   [Improvement]: Options: Pages that are locked because an ElvUI module is turned off or EltruismUI is enabled now show the reason at the top. The Scale tab is no longer hidden with EltruismUI, it is locked instead.
+-   [Improvement]: Reset: New reset buttons for Chat and NamePlates.
 -   [Improvement]: Skins: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.
 -   [Improvement]: Vehicle Bar: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.
