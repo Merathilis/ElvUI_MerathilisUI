@@ -22,6 +22,8 @@
 -   [Fix]: Core: Clicking the Open Changelog link in the chat no longer also opens an empty link tooltip.
 -   [Fix]: Core: A fresh install no longer prints Update Database messages, and update messages only appear when something changed, in the right order.
 -   [Fix]: Core: Buff Reminder, Copy Transmog, Movement Alert, Portal Flyout, Singing Sockets, Trade Tabs, Tracker and Vehicle Bar no longer use deprecated Blizzard functions, which only exist while Blizzard's deprecation fallbacks are enabled.
+-   [Fix]: Cursor: The GCD and cast rings no longer throw Lua errors ("secret value") during Mythic+ and raid encounters.
+-   [Fix]: Cursor: With "Only While Steering Camera" the ring no longer shows up after the module was turned off.
 -   [Fix]: Debug Mode: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.
 -   [Fix]: Durability/ItemLevel Datatext: Fixed Lua errors with low durability when the icon is colored or the colored thresholds are enabled.
 -   [Fix]: ElvUI AuraBars: MerathilisUI no longer replaces ElvUI's name abbreviation, so the aura bars abbreviate spell names the ElvUI way again.
@@ -48,6 +50,7 @@
 -   [Fix]: Tags: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.
 -   [Fix]: UnitFrames: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.
 -   [Fix]: Vehicle Bar: Changed settings apply right away again instead of only after a reload.
+-   [New]: Cursor: The GCD and cast rings have the Only In Instances and Only In Combat options as well.
 -   [New]: Developer Tools: New /muidev command - a copyable log window with version info for bug reports (/muidev log), debug channels per module (/muidev debug <module>), log level and value inspection. Replaces the Tracker debug mode, the Vignette debug print option and /mlrdebug.
 -   [New]: Installer: New Modules step after UnitFrames - pick which MerathilisUI modules you want to use, applied on the reload at the end.
 -   [New]: Profiles: The General tab has real font options now - pick a replacement font and outline for the main font and the number font, and a size offset for all fonts. Apply writes them into the ElvUI profile.
@@ -62,6 +65,7 @@
 -   [Improvement]: Core: Uses ElvUI's animation library instead of a bundled copy.
 -   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.
 -   [Improvement]: Core: Errors of a module while switching profiles are now reported instead of being silently ignored.
+-   [Improvement]: Cursor: Turning the module on or off works without a reload.
 -   [Improvement]: Information: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.
 -   [Improvement]: Information: Support & Downloads now points to /muidev log for bug reports, and the translator list has a fixed order.
 -   [Improvement]: Installer: The final step now points to the MerathilisUI website, with a Website button next to Discord.

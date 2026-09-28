@@ -58,16 +58,21 @@ function module:CreateGCDRing()
 			return
 		end
 
+		-- Cooldown values are secret while cooldowns are restricted (M+, raid encounters),
+		-- comparing them would throw, so the ring just skips that GCD
+		local cdData = GetSpellCooldown(GCD_REFERENCE_SPELL)
+		if not cdData or E:IsSecretValue(cdData.duration) or E:IsSecretValue(cdData.startTime) then
+			return
+		end
+
 		if event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_INTERRUPTED" or event == "UNIT_SPELLCAST_STOP" then
-			local cdData = GetSpellCooldown(GCD_REFERENCE_SPELL)
-			if not cdData or not cdData.duration or cdData.duration <= 0 then
+			if not cdData.duration or cdData.duration <= 0 then
 				root.ring:StopRing()
 			end
 			return
 		end
 
-		local cdData = GetSpellCooldown(GCD_REFERENCE_SPELL)
-		if not cdData or not cdData.startTime then
+		if not cdData.startTime then
 			return
 		end
 
@@ -241,10 +246,16 @@ function module:CreateCastRing()
 			return
 		end
 
+		-- A secret cast ID can't be compared, treat it as unknown (any stop ends the ring)
+		if E:IsSecretValue(castID) then
+			castID = nil
+		end
+
 		if event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_DELAYED" then
 			local name, _, _, startMS, endMS, _, castGUID = UnitCastingInfo("player")
-			if name then
-				self._castID = castGUID
+			-- Cast times are secret while spell casts are restricted, arithmetic on them would throw
+			if name and not E:IsSecretValue(startMS) and not E:IsSecretValue(endMS) then
+				self._castID = not E:IsSecretValue(castGUID) and castGUID or nil
 				root.ring:StartRing(GetTime() - startMS * 0.001, (endMS - startMS) * 0.001)
 				if db.sparkEnable then
 					root.spark:Show()
@@ -257,10 +268,18 @@ function module:CreateCastRing()
 			or event == "UNIT_SPELLCAST_EMPOWER_UPDATE"
 		then
 			local name, _, _, startMS, endMS, _, _, _, _, numStages = UnitChannelInfo("player")
-			if name then
+			if
+				name
+				and not E:IsSecretValue(startMS)
+				and not E:IsSecretValue(endMS)
+				and not E:IsSecretValue(numStages)
+			then
 				self._castID = nil
 				if numStages and numStages > 0 and GetUnitEmpowerHoldAtMaxTime then
-					endMS = endMS + GetUnitEmpowerHoldAtMaxTime("player")
+					local holdMS = GetUnitEmpowerHoldAtMaxTime("player")
+					if holdMS and not E:IsSecretValue(holdMS) then
+						endMS = endMS + holdMS
+					end
 				end
 				root.ring:StartRing(GetTime() - startMS * 0.001, (endMS - startMS) * 0.001)
 				if db.sparkEnable then
@@ -268,7 +287,7 @@ function module:CreateCastRing()
 				end
 			end
 		elseif event == "UNIT_SPELLCAST_STOP" then
-			if castID == self._castID then
+			if not castID or castID == self._castID then
 				self._castID = nil
 				root.ring:StopRing()
 				root.spark:Hide()
