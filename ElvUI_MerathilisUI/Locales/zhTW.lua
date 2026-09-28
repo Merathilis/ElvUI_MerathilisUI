@@ -505,6 +505,7 @@ L["After you stop debuging, %s will reenable the addons automatically."] =
 	"在停止偵錯模式後, %s 將自動重新啟用插件."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
 	"在提交錯誤報告前, 請先使用 %s 命令啟用除錯模式並再次測試."
+L["If you get an error, open %s and paste its content into your report."] = true
 L["Error"] = true
 L["Warning"] = true
 

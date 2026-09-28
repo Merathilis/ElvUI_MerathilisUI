@@ -503,6 +503,7 @@ L["Debug Enviroment"] = true
 L["You can use |cff00ff00/muidebug off|r command to exit debug mode."] = true
 L["After you stop debuging, %s will reenable the addons automatically."] = true
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] = true
+L["If you get an error, open %s and paste its content into your report."] = true
 L["Error"] = true
 L["Warning"] = true
 

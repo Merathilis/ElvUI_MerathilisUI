@@ -41,6 +41,7 @@
 -   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.
 -   [Improvement]: Core: Errors of a module while switching profiles are now reported instead of being silently ignored.
 -   [Improvement]: Information: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.
+-   [Improvement]: Information: Support & Downloads now points to /muidev log for bug reports, and the translator list has a fixed order.
 -   [Improvement]: Installer: The final step now points to the MerathilisUI website, with a Website button next to Discord.
 -   [Improvement]: Login Logo: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.
 -   [Improvement]: Login Message: The login message now also links the MerathilisUI website.
