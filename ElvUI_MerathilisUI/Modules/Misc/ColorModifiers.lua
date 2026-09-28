@@ -70,6 +70,11 @@ function module:FormatKeybind(keybind)
 end
 
 function module:ColorKeybinds(button)
+	-- The hook stays once set, so turning the option off has to stop it here
+	if not (module.db and module.db.enable) then
+		return
+	end
+
 	local text = button.HotKey:GetText()
 	local colorHex = sub(E:ClassColor(E.myclass, true).colorStr, 3)
 
@@ -82,20 +87,21 @@ function module:ColorKeybinds(button)
 	end
 end
 
-function module:Enable()
-	if self.isHooked then
-		return
-	end
-	hooksecurefunc(AB, "FixKeybindText", module.ColorKeybinds)
-	AB:UpdateButtonSettings()
-	self.isHooked = true
-end
-
 function module:DatabaseUpdate()
 	self.db = F.GetDBFromPath("mui.colorModifiers")
 
-	if self.db and self.db.enable and E.private.actionbar.enable then
-		self:Enable()
+	if not E.private.actionbar.enable then
+		return
+	end
+
+	if self.db and self.db.enable and not self.isHooked then
+		hooksecurefunc(AB, "FixKeybindText", module.ColorKeybinds)
+		self.isHooked = true
+	end
+
+	-- Redraw the keybinds, colored or plain
+	if self.isHooked then
+		AB:UpdateButtonSettings()
 	end
 end
 

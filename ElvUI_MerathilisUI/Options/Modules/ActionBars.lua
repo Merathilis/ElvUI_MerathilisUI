@@ -1,6 +1,10 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
+local AB = MER:GetModule("MER_Actionbars")
+local CM = MER:GetModule("MER_ColorModifiers") ---@type ColorModifiers
 local options = module.options.modules.args
+
+local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
 options.actionbars = {
 	type = "group",
@@ -21,8 +25,20 @@ options.actionbars = {
 				return E.db.mui.actionbars.specBar[info[#info]]
 			end,
 			set = function(info, value)
-				E.db.mui.actionbars.specBar[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
+				local key = info[#info]
+				E.db.mui.actionbars.specBar[key] = value
+
+				-- Mouseover is read live, the rest builds the bar
+				local bar = AB.specBar
+				if key == "mouseover" and bar then
+					if value then
+						UIFrameFadeOut(bar, 0.2, bar:GetAlpha(), 0)
+					else
+						UIFrameFadeIn(bar, 0.2, bar:GetAlpha(), 1)
+					end
+				else
+					E:StaticPopup_Show("CONFIG_RL")
+				end
 			end,
 			args = {
 				requirements = module.RequirementsNotice(I.Requirements.ActionBars),
@@ -89,7 +105,7 @@ options.actionbars = {
 			end,
 			set = function(info, value)
 				E.db.mui.colorModifiers[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
+				CM:DatabaseUpdate()
 			end,
 			disabled = module.RequirementsDisabled(I.Requirements.ActionBars),
 			args = {

@@ -3,6 +3,7 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[737] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"[ActionBars]: Color Modifier Keys can be turned on and off without a reload, turning it off or switching profiles works right away now.",
 		"[AFK]: The AFK screen is now really turned off while BenikUI is enabled, as the option always described, and the option shows the reason.",
 		'[Armory]: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.',
 		"[Armory/Equipment Manager]: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.",
@@ -52,6 +53,7 @@ MER.Changelog[737] = {
 		"[UnitFrames/NamePlates]: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.",
 	},
 	IMPROVEMENTS = {
+		"[ActionBars]: The Specialization Bar mouseover option applies without a reload.",
 		"[Core]: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.",
 		"[Core]: Uses ElvUI's animation library instead of a bundled copy.",
 		"[Core]: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.",
