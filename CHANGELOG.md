@@ -44,6 +44,7 @@
 -   [Fix]: Name Hover: The line with faction, classification and race is now placed correctly between the guild and the status line.
 -   [Fix]: Name Hover: The outline options work now, before every text always used a shadow outline, and the Enemy Forces font size is applied to the text as well.
 -   [Fix]: Name Hover: A profile switch applies the settings of the new profile right away, including turning Name Hover on or off.
+-   [Fix]: NamePlates: After a profile switch the faction icons on the visible nameplates use the settings of the new profile.
 -   [Fix]: Options: Sub-options of the Buff Reminder, the Categorized Bags and the Specialization Bar are disabled as well when their module or the required ElvUI module is turned off.
 -   [Fix]: Pet Filter Tab: The pet filter tab in the Collections window could fail to appear, because it loaded through the same event handler as another feature.
 -   [Fix]: Portal Flyout: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.
