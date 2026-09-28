@@ -236,16 +236,12 @@ L["+ New Set"] = true
 
 -- Unitframes
 L["UnitFrames"] = "单位框体"
-L["UnitFrame Style"] = "头像样式"
-L["Adds my styling to the Unitframes if you use transparent health."] =
-	"当你使用透明头像时，添加Merathilis风格"
 L["Custom Texture"] = true
 L["Raid Icon"] = true
 L["Change the default raid icons."] = true
 L["Highlight"] = true
 L["Adds an own highlight to the Unitframes"] = true
 L["Auras"] = true
-L["Adds an shadow around the auras"] = true
 
 -- Cooldowns
 L["Cooldown Flash"] = "冷却闪光"

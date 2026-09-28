@@ -232,15 +232,12 @@ L["+ New Set"] = true
 
 -- Unitframes
 L["UnitFrames"] = "Cadre d'unité"
-L["UnitFrame Style"] = true
-L["Adds my styling to the Unitframes if you use transparent health."] = true
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 L["Raid Icon"] = true
 L["Change the default raid icons."] = true
 L["Highlight"] = true
 L["Adds an own highlight to the Unitframes"] = true
 L["Auras"] = true
-L["Adds an shadow around the auras"] = true
 
 -- Cooldowns
 L["Cooldown Flash"] = true

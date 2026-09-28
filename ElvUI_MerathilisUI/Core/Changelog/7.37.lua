@@ -64,6 +64,7 @@ MER.Changelog[737] = {
 		"[Skins]: The BugSack skin and the BigWigs queue timer skin now follow the AddOnSkins toggle.",
 		"[Tags]: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.",
 		"[UnitFrames]: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.",
+		"[UnitFrames]: Raid Icon and Highlight ask for the reload they need, the options follow the ElvUI UnitFrames requirement and the empty Party tab is gone.",
 		"[Vehicle Bar]: Changed settings apply right away again instead of only after a reload.",
 	},
 	NEW = {
@@ -102,6 +103,7 @@ MER.Changelog[737] = {
 		"[Reset]: New reset buttons for Chat and NamePlates.",
 		"[Skins]: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.",
 		"[Skins]: The embed options are disabled while the skins or the embed are turned off, and the AddOn skin list has a fixed order.",
+		"[UnitFrames]: Removed the UnitFrame Style and Auras options, they had no effect anymore.",
 		"[Vehicle Bar]: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.",
 	},
 }

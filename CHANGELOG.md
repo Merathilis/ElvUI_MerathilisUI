@@ -61,6 +61,7 @@
 -   [Fix]: Skins: The BugSack skin and the BigWigs queue timer skin now follow the AddOnSkins toggle.
 -   [Fix]: Tags: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.
 -   [Fix]: UnitFrames: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.
+-   [Fix]: UnitFrames: Raid Icon and Highlight ask for the reload they need, the options follow the ElvUI UnitFrames requirement and the empty Party tab is gone.
 -   [Fix]: Vehicle Bar: Changed settings apply right away again instead of only after a reload.
 -   [New]: Cursor: The GCD and cast rings have the Only In Instances and Only In Combat options as well.
 -   [New]: Developer Tools: New /muidev command - a copyable log window with version info for bug reports (/muidev log), debug channels per module (/muidev debug <module>), log level and value inspection. Replaces the Tracker debug mode, the Vignette debug print option and /mlrdebug.
@@ -95,4 +96,5 @@
 -   [Improvement]: Reset: New reset buttons for Chat and NamePlates.
 -   [Improvement]: Skins: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.
 -   [Improvement]: Skins: The embed options are disabled while the skins or the embed are turned off, and the AddOn skin list has a fixed order.
+-   [Improvement]: UnitFrames: Removed the UnitFrame Style and Auras options, they had no effect anymore.
 -   [Improvement]: Vehicle Bar: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.

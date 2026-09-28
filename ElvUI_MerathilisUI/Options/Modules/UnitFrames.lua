@@ -4,17 +4,10 @@ local MUF = MER:GetModule("MER_UnitFrames")
 
 local options = module.options.modules.args
 
-local positionValues = {
-	TOPLEFT = "TOPLEFT",
-	LEFT = "LEFT",
-	BOTTOMLEFT = "BOTTOMLEFT",
-	RIGHT = "RIGHT",
-	TOPRIGHT = "TOPRIGHT",
-	BOTTOMRIGHT = "BOTTOMRIGHT",
-	CENTER = "CENTER",
-	TOP = "TOP",
-	BOTTOM = "BOTTOM",
-}
+-- Own disabled replaces the group's, so every own disabled repeats the requirement
+local function UnitFramesDisabled()
+	return not MER:HasRequirements(I.Requirements.UnitFrames)
+end
 
 local function FactionIndicatorOptions(order, unit)
 	return {
@@ -30,7 +23,9 @@ local function FactionIndicatorOptions(order, unit)
 			MUF:UpdateFactionIndicators()
 		end,
 		disabled = function()
-			return not E.db.mui.unitframes.factionIndicator.enable or not E.db.unitframe.units[unit].enable
+			return UnitFramesDisabled()
+				or not E.db.mui.unitframes.factionIndicator.enable
+				or not E.db.unitframe.units[unit].enable
 		end,
 		args = {
 			enable = {
@@ -50,7 +45,7 @@ local function FactionIndicatorOptions(order, unit)
 				order = 3,
 				type = "select",
 				name = L["Anchor Point"],
-				values = positionValues,
+				values = I.Values.positionValues,
 			},
 			xOffset = {
 				order = 4,
@@ -81,8 +76,9 @@ options.unitframes = {
 	end,
 	set = function(info, value)
 		E.db.mui.unitframes[info[#info]] = value
+		E:StaticPopup_Show("CONFIG_RL")
 	end,
-	disabled = module.RequirementsDisabled(I.Requirements.UnitFrames),
+	disabled = UnitFramesDisabled,
 	args = {
 		name = {
 			order = 1,
@@ -95,29 +91,17 @@ options.unitframes = {
 			type = "group",
 			name = L["General"],
 			args = {
-				style = {
-					order = 1,
-					type = "toggle",
-					name = L["UnitFrame Style"],
-					desc = L["Adds my styling to the Unitframes if you use transparent health."],
-				},
 				raidIcons = {
-					order = 2,
+					order = 1,
 					type = "toggle",
 					name = L["Raid Icon"],
 					desc = L["Change the default raid icons."],
 				},
 				highlight = {
-					order = 4,
+					order = 2,
 					type = "toggle",
 					name = L["Highlight"],
 					desc = L["Adds an own highlight to the Unitframes"],
-				},
-				auras = {
-					order = 5,
-					type = "toggle",
-					name = L["Auras"],
-					desc = L["Adds an shadow around the auras"],
 				},
 				spacer = {
 					order = 10,
@@ -156,7 +140,7 @@ options.unitframes = {
 								round = L["Round"],
 							},
 							disabled = function()
-								return not E.db.mui.unitframes.factionIndicator.enable
+								return UnitFramesDisabled() or not E.db.mui.unitframes.factionIndicator.enable
 							end,
 						},
 					},
@@ -183,10 +167,11 @@ options.unitframes = {
 							end,
 							set = function(info, value)
 								E.db.mui.unitframes.restingIndicator[info[#info]] = value
-								E:StaticPopup_Show("PRIVATE_RL")
+								E:StaticPopup_Show("CONFIG_RL")
 							end,
 							disabled = function()
-								return not E.db.unitframe.units.player.enable
+								return UnitFramesDisabled()
+									or not E.db.unitframe.units.player.enable
 									or not E.db.unitframe.units.player.RestIcon.enable
 							end,
 							args = {
@@ -238,14 +223,8 @@ options.unitframes = {
 			type = "group",
 			name = L["Group Units"],
 			args = {
-				party = {
-					order = 1,
-					type = "group",
-					name = L["Party"],
-					args = {},
-				},
 				arena = {
-					order = 2,
+					order = 1,
 					type = "group",
 					name = L["Arena"],
 					args = {

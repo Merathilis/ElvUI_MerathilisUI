@@ -240,9 +240,6 @@ L["+ New Set"] = true
 
 -- Unitframes
 L["UnitFrames"] = "Рамки юнитов"
-L["UnitFrame Style"] = "Стиль юнитфреймов"
-L["Adds my styling to the Unitframes if you use transparent health."] =
-	"Добавляет мой стиль в рамки юнитов, если вы используете прозрачное здоровье."
 L["Custom Texture"] = "Пользовательская текстура"
 L["Raid Icon"] = "Значок рейда"
 L["Change the default raid icons."] = "Изменить стандартные значки рейдов."
@@ -250,7 +247,6 @@ L["Highlight"] = "Выделение"
 L["Adds an own highlight to the Unitframes"] =
 	"Добавляет собственную изюминку в рамки юнитов"
 L["Auras"] = "Ауры"
-L["Adds an shadow around the auras"] = "Добавляет тень вокруг ауры"
 
 -- Cooldowns
 L["Cooldown Flash"] = "Перезарядка вспышки"

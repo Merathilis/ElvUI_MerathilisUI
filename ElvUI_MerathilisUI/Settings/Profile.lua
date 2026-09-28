@@ -939,10 +939,8 @@ P.nameplates = {
 }
 
 P.unitframes = {
-	style = true,
 	raidIcons = true,
 	highlight = true,
-	auras = true,
 	restingIndicator = {
 		enable = true,
 	},

@@ -288,16 +288,12 @@ L["UnitFrames"] = "유닛프레임"
 L["Individual Units"] = "개별 유닛"
 L["Group Units"] = "그룹 유닛"
 L["Resting Indicator"] = "휴식 상태 표시기"
-L["UnitFrame Style"] = "유닛 프레임 스타일"
-L["Adds my styling to the Unitframes if you use transparent health."] =
-	"투명 생명력 바 사용 시 유닛 프레임에 스타일을 적용합니다"
 L["Custom Texture"] = true
 L["Raid Icon"] = "공격대 아이콘"
 L["Change the default raid icons."] = "기본 공격대 아이콘을 변경합니다"
 L["Highlight"] = "하이라이트"
 L["Adds an own highlight to the Unitframes"] = "유닛 프레임에 고유한 하이라이트 효과를 추가합니다"
 L["Auras"] = "오라"
-L["Adds an shadow around the auras"] = "오라 주변에 그림자를 추가합니다"
 
 -- Cooldowns
 L["Cooldown Flash"] = "재사용 시각 효과"

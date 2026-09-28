@@ -469,9 +469,6 @@ L["+ New Set"] = "+ Neues Set"
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
 
-L["UnitFrame Style"] = "Einheitenfenster Stil"
-L["Adds my styling to the Unitframes if you use transparent health."] =
-	"Fügt meinen Stil zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 L["Raid Icon"] = "Schlachtzugsymbol"
 L["Change the default raid icons."] = "Ändert das Standard Schlachtzugsymbol"
@@ -480,7 +477,6 @@ L["Adds an own highlight to the Unitframes"] = "Fügt den Einheitsfenstern ein e
 L["Auras"] = "Auren"
 L["Cooldown Manager"] = "Cooldown Manager"
 L["Tooltip"] = "Tooltip"
-L["Adds an shadow around the auras"] = "Fügt Schatten um die Auren hinzu"
 
 -- Cooldowns
 L["Cooldown Flash"] = "Abklingzeiten Aufleuchten"
