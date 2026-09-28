@@ -431,6 +431,10 @@ end
 
 function module:UpdateAnchors()
 	module:StackBars(module.RollBars)
+
+	if module.testBars then
+		module:StackBars(module.testBars)
+	end
 end
 
 --------------------------------------------------------------------
@@ -798,18 +802,28 @@ end)
 -- Init
 --------------------------------------------------------------------
 function module:ApplySettings()
-	if not module.db.enable then
+	-- Nothing is built while the module was disabled on load
+	if not anchor or not module.db.enable then
 		return
 	end
 
 	module:Layout()
 	module:UpdateAnchors()
+
+	-- Colors and the item level are set when a bar is filled, so an open preview is filled again
+	if module.testBars and module.testBars[1]:IsShown() then
+		for i, bar in ipairs(module.testBars) do
+			PopulateTestBar(bar, testItems[i])
+		end
+	end
+end
+
+function module:ProfileUpdate()
+	module.db = E.db.mui.lootRoll
+	module:ApplySettings()
 end
 
 function module:Initialize()
-	if type(E.db.mui.lootRoll) ~= "table" then
-		E.db.mui.lootRoll = CopyTable(P.lootRoll)
-	end
 	module.db = E.db.mui.lootRoll
 
 	if not module.db.enable then

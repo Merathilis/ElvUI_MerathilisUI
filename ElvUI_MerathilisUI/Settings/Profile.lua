@@ -1307,7 +1307,7 @@ P.lootRoll = {
 
 	showRollers = true,
 
-	font = nil,
+	font = I.Fonts.Primary,
 	fontSize = 13,
 	fontOutline = "THICKOUTLINE",
 }
