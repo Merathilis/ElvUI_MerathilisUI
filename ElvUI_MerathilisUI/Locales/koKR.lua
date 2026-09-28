@@ -496,6 +496,12 @@ L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"모든 |cffffffffMerathilis|r|cffff7d0aUI|r 글꼴 설정을 적용합니다"
 L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"모든 |cffffffffMerathilis|r|cffff7d0aUI|r 글꼴 설정을 초기화합니다"
+L["Changes are only applied to the ElvUI profile after clicking Apply."] = true
+L["Main Font"] = true
+L["Number Font"] = true
+L["Font Size Offset"] = true
+L["Added to every font size the profile sets."] = true
+L["Default keeps the outline each element uses in the profile."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = "고급 설정"
@@ -1104,8 +1110,6 @@ L["Target"] = "Target"
 L["Target of Target"] = "Target of Target"
 L["Text Options"] = "Text Options"
 L["The feature is just a part of that module."] = "The feature is just a part of that module."
-L["The options below is only for the look, NOT the Embeded."] =
-	"The options below is only for the look, NOT the Embeded."
 L["The profile from which the private settings will be copied."] =
 	"The profile from which the private settings will be copied."
 L["The style already exists."] = "The style already exists."
@@ -1149,7 +1153,6 @@ L["Welcome to %s %s!"] = "Welcome to %s %s!"
 L["Welcome to version %s!"] = "Welcome to version %s!"
 L["WindTools"] = "WindTools"
 L["Windtools"] = "Windtools"
-L["Work In Progress"] = "Work In Progress"
 L["WowLua"] = "WowLua"
 L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"] =
 	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"

@@ -27,7 +27,7 @@ function module:CreateGMOTD()
 			return
 		end
 
-		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent, "BackdropTemplate")
+		gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent, "BackdropTemplate")
 		gmotd:SetPoint("CENTER", 0, GetScreenHeight() / 5)
 		gmotd:SetSize(350, 150)
 		gmotd:SetFrameStrata("TOOLTIP")

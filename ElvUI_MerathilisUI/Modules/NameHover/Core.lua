@@ -404,7 +404,7 @@ local function UpdateFrameContents(f)
 	if module:IsNotEmpty(guild) then
 		top = SetAnchor(f.guildText, f.mainText, "TOPLEFT", top)
 	end
-	if module:IsNotEmpty(header) then
+	if module:IsNotEmpty(headerText) then
 		top = SetAnchor(f.headerText, f.mainText, "TOPLEFT", top)
 	end
 	if module:IsNotEmpty(status) then

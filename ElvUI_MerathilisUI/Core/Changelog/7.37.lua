@@ -34,6 +34,7 @@ MER.Changelog[737] = {
 		"[Resting Indicator]: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.",
 		"[Scale]: Sync Inspect works, and the Transmog, Class Trainer, Item Upgrade and Equipment Flyout sliders now actually scale their frames.",
 		"[Skins]: The ls_Toasts skin can be turned off again, and Mount Route Planner has its own toggle in the AddOnSkins options.",
+		"[Skins]: The BugSack skin and the BigWigs queue timer skin now follow the AddOnSkins toggle.",
 		"[Tags]: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.",
 		"[UnitFrames]: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.",
 		"[Vehicle Bar]: Changed settings apply right away again instead of only after a reload.",
@@ -41,6 +42,7 @@ MER.Changelog[737] = {
 	NEW = {
 		"[Developer Tools]: New /muidev command - a copyable log window with version info for bug reports (/muidev log), debug channels per module (/muidev debug <module>), log level and value inspection. Replaces the Tracker debug mode, the Vignette debug print option and /mlrdebug.",
 		"[Installer]: New Modules step after UnitFrames - pick which MerathilisUI modules you want to use, applied on the reload at the end.",
+		"[Profiles]: The General tab has real font options now - pick a replacement font and outline for the main font and the number font, and a size offset for all fonts. Apply writes them into the ElvUI profile.",
 		"[Tracker]: New module - a Battle Res tracker shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters, as an icon or as a compact text line. A Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again.",
 		"[UnitFrames/NamePlates]: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.",
 	},
@@ -58,6 +60,7 @@ MER.Changelog[737] = {
 		"[Options]: Pages that are locked because an ElvUI module is turned off or EltruismUI is enabled now show the reason at the top. The Scale tab is no longer hidden with EltruismUI, it is locked instead.",
 		"[Reset]: New reset buttons for Chat and NamePlates.",
 		"[Skins]: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.",
+		"[Skins]: The embed options are disabled while the skins or the embed are turned off, and the AddOn skin list has a fixed order.",
 		"[Vehicle Bar]: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.",
 	},
 }

@@ -25,13 +25,11 @@ P.general = {
 	fontOverride = {
 		[I.Fonts.Primary] = "DEFAULT",
 		[I.Fonts.GothamRaid] = "DEFAULT",
-		[I.Fonts.Runescape] = "DEFAULT",
 	},
 
 	fontStyleOverride = {
 		[I.Fonts.Primary] = "DEFAULT",
 		[I.Fonts.GothamRaid] = "DEFAULT",
-		[I.Fonts.Runescape] = "DEFAULT",
 	},
 }
 
