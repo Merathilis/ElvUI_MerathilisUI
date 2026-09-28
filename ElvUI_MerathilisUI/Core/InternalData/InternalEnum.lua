@@ -13,6 +13,7 @@ I.Enum.Requirements = F.Enum({
 	"ELVUI_MINIMAP_ENABLED",
 	"ELTRUISM_DISABLED",
 	"BENIKUI_DISABLED",
+	"ELVUI_BAGS_ENABLED",
 })
 
 I.Enum.Colors = F.Enum({

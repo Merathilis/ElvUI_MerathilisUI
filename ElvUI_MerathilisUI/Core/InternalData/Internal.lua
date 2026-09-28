@@ -109,6 +109,10 @@ I.Requirements = {
 	["Minimap"] = {
 		I.Enum.Requirements.ELVUI_MINIMAP_ENABLED,
 	},
+	-- Both bag features hook into ElvUI's bag frames
+	["Bags"] = {
+		I.Enum.Requirements.ELVUI_BAGS_ENABLED,
+	},
 	["AdditionalScaling"] = {
 		I.Enum.Requirements.ELTRUISM_DISABLED,
 	},

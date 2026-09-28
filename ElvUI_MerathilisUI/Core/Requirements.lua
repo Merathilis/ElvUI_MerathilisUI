@@ -42,6 +42,9 @@ local requirements = {
 	[R.ELVUI_MINIMAP_ENABLED] = ElvUIModule(L["Minimap"], function()
 		return E.private.general.minimap.enable
 	end),
+	[R.ELVUI_BAGS_ENABLED] = ElvUIModule(L["Bags"], function()
+		return E.private.bags.enable
+	end),
 	[R.ELTRUISM_DISABLED] = {
 		check = function()
 			return not E:IsAddOnEnabled("ElvUI_EltreumUI")

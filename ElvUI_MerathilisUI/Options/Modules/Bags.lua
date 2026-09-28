@@ -6,6 +6,12 @@ local B = E:GetModule("Bags")
 
 local options = module.options.modules.args
 
+-- Repaints the categorized bag and bank windows, both skip it while closed
+local function RefreshCategoryFrames()
+	BC:RefreshCategoryFrame()
+	BC:RefreshBankCategoryFrame()
+end
+
 options.bags = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Bags"], "bags"),
@@ -15,20 +21,21 @@ options.bags = {
 			type = "header",
 			name = L["Bags"],
 		},
+		requirements = module.RequirementsNotice(I.Requirements.Bags, 0.5),
 		equipmentManager = {
 			order = 1,
 			type = "group",
 			name = L["Equipment Manager"],
 			guiInline = true,
+			disabled = module.RequirementsDisabled(I.Requirements.Bags),
 			get = function(info)
 				return E.db.mui.bags.equipmentManager[info[#info]]
 			end,
-			-- set = function(info, value) E.db.mui.bags.equipmentManager[info[#info]] = value; EM:UpdateBagSettings() end,
+			-- The categorized bags draw the same icon from these settings
 			set = function(info, value)
 				E.db.mui.bags.equipmentManager[info[#info]] = value
-				-- B:UpdateLayouts()
-				-- B:UpdateAllBagSlots()
 				EM:UpdateItemDisplay()
+				RefreshCategoryFrames()
 			end,
 			args = {
 				enable = {
@@ -38,9 +45,9 @@ options.bags = {
 					desc = L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."],
 					set = function(info, value)
 						E.db.mui.bags.equipmentManager[info[#info]] = value
-						-- EM:ToggleSettings()
 						B:UpdateLayouts()
 						B:UpdateAllBagSlots(true)
+						RefreshCategoryFrames()
 					end,
 				},
 				size = {
@@ -104,9 +111,8 @@ options.bags = {
 					set = function(info, r, g, b, a)
 						local t = E.db.mui.bags.equipmentManager[info[#info]]
 						t.r, t.g, t.b, t.a = r, g, b, a
-						-- B:UpdateLayouts()
-						-- B:UpdateAllBagSlots()
 						EM:UpdateItemDisplay()
+						RefreshCategoryFrames()
 					end,
 				},
 			},
@@ -116,6 +122,7 @@ options.bags = {
 			type = "group",
 			name = L["Categorized Bags"],
 			childGroups = "tab",
+			disabled = module.RequirementsDisabled(I.Requirements.Bags),
 			get = function(info)
 				return E.db.mui.bags.categorizedBags[info[#info]]
 			end,
@@ -149,7 +156,7 @@ options.bags = {
 							desc = L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."],
 							set = function(info, value)
 								E.db.mui.bags.categorizedBags[info[#info]] = value
-								E:StaticPopup_Show("PRIVATE_RL")
+								E:StaticPopup_Show("CONFIG_RL")
 							end,
 							width = "full",
 						},
@@ -175,31 +182,31 @@ options.bags = {
 							desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
 						},
 						autoSize = {
-							order = 5.01,
+							order = 6,
 							type = "toggle",
 							name = L["Auto Height"],
 							desc = L["Shrinks the bag and bank windows to fit their contents. The configured height becomes the maximum instead of a fixed size."],
 						},
 						nestByExpansion = {
-							order = 5.02,
+							order = 7,
 							type = "toggle",
 							name = L["Group by Expansion"],
 							desc = L["Splits categories like Consumables or Trade Goods into sub-headers per expansion, newest first."],
 						},
 						nestByEquipmentSet = {
-							order = 5.03,
+							order = 8,
 							type = "toggle",
 							name = L["Group by Equipment Set"],
 							desc = L["Splits the gear categories into sub-headers per Blizzard equipment set."],
 						},
 						mergeDuplicates = {
-							order = 5.05,
+							order = 9,
 							type = "toggle",
 							name = L["Merge Duplicate Stacks"],
 							desc = L["Shows identical items from several bag slots as one slot with the combined count. Gear is never merged, and merging pauses while a vendor, mailbox, trade, auction house or bank window is open, since those only ever take one stack at a time."],
 						},
 						clearRecentOnClose = {
-							order = 5.1,
+							order = 10,
 							type = "toggle",
 							name = L["Clear Recent on Close"],
 							desc = L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."],
@@ -208,7 +215,7 @@ options.bags = {
 							end,
 						},
 						recentLimit = {
-							order = 5.2,
+							order = 11,
 							type = "range",
 							name = L["Recent Items Limit"],
 							desc = L["How many items the Recent Items list keeps at most; the oldest drops out first."],
@@ -220,7 +227,7 @@ options.bags = {
 							end,
 						},
 						resetCurrencyOrder = {
-							order = 5.9,
+							order = 12,
 							type = "execute",
 							name = L["Reset Currency Order"],
 							desc = L["Puts the tracked currencies in the footer back into Blizzard's own order. Drag one currency onto another in the footer to reorder them."],
@@ -233,7 +240,7 @@ options.bags = {
 							end,
 						},
 						resetCategoryGroups = {
-							order = 6,
+							order = 13,
 							type = "execute",
 							name = L["Reset Category Groups"],
 							desc = L['Restores any category group (e.g. "Equipment") you disbanded or removed a category from, removes the groups you created yourself and clears any group renames.'],
@@ -246,13 +253,11 @@ options.bags = {
 								db.groupExtraMembers = nil
 
 								BC:InvalidateCategoryCache()
-								if BC.frame then
-									BC:RefreshCategoryFrame()
-								end
+								RefreshCategoryFrames()
 							end,
 						},
 						spinnerGroup = {
-							order = 7,
+							order = 14,
 							type = "group",
 							inline = true,
 							name = L["Sort Spinner"],
@@ -443,9 +448,7 @@ options.bags = {
 							end,
 							set = function(info, value)
 								E.db.mui.bags.categorizedBags.itemCountFont[info[#info]] = value
-								if BC.frame then
-									BC:RefreshCategoryFrame()
-								end
+								RefreshCategoryFrames()
 							end,
 							args = {
 								name = {
@@ -488,9 +491,7 @@ options.bags = {
 							end,
 							set = function(info, value)
 								E.db.mui.bags.categorizedBags.itemLevel[info[#info]] = value
-								if BC.frame then
-									BC:RefreshCategoryFrame()
-								end
+								RefreshCategoryFrames()
 							end,
 							args = {
 								enable = {
@@ -512,9 +513,7 @@ options.bags = {
 									end,
 									set = function(info, value)
 										E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]] = value
-										if BC.frame then
-											BC:RefreshCategoryFrame()
-										end
+										RefreshCategoryFrames()
 									end,
 									args = {
 										name = {
@@ -559,9 +558,7 @@ options.bags = {
 							end,
 							set = function(info, value)
 								E.db.mui.bags.categorizedBags.itemInfo[info[#info]] = value
-								if BC.frame then
-									BC:RefreshCategoryFrame()
-								end
+								RefreshCategoryFrames()
 							end,
 							args = {
 								enable = {
@@ -584,9 +581,7 @@ options.bags = {
 									end,
 									set = function(info, value)
 										E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]] = value
-										if BC.frame then
-											BC:RefreshCategoryFrame()
-										end
+										RefreshCategoryFrames()
 									end,
 									args = {
 										name = {
@@ -631,12 +626,7 @@ options.bags = {
 							end,
 							set = function(info, value)
 								E.db.mui.bags.categorizedBags.headerFont[info[#info]] = value
-								if BC.frame then
-									BC:RefreshCategoryFrame()
-								end
-								if BC.bankFrame and BC.RefreshBankCategoryFrame then
-									BC:RefreshBankCategoryFrame()
-								end
+								RefreshCategoryFrames()
 							end,
 							args = {
 								name = {
@@ -673,12 +663,7 @@ options.bags = {
 							end,
 							set = function(info, value)
 								E.db.mui.bags.categorizedBags.subHeaderFont[info[#info]] = value
-								if BC.frame then
-									BC:RefreshCategoryFrame()
-								end
-								if BC.bankFrame and BC.RefreshBankCategoryFrame then
-									BC:RefreshBankCategoryFrame()
-								end
+								RefreshCategoryFrames()
 							end,
 							args = {
 								name = {
@@ -718,12 +703,7 @@ options.bags = {
 						E.db.mui.bags.categorizedBags.effects[info[#info]] = value
 						BC:ApplyBackgroundOpacity()
 
-						if BC.frame then
-							BC:RefreshCategoryFrame()
-						end
-						if BC.bankFrame and BC.RefreshBankCategoryFrame then
-							BC:RefreshBankCategoryFrame()
-						end
+						RefreshCategoryFrames()
 					end,
 					args = {
 						fade = {
@@ -750,13 +730,13 @@ options.bags = {
 							desc = L["Pulsing glow on newly picked-up items."],
 						},
 						newItemBadge = {
-							order = 3.5,
+							order = 4,
 							type = "toggle",
 							name = L["New Item Badge"],
 							desc = L["Shows a small NEW badge on newly picked-up items, in addition to the glow."],
 						},
 						placeholderAlpha = {
-							order = 4,
+							order = 5,
 							type = "range",
 							name = L["Empty Slot Opacity"],
 							desc = L['Opacity of the empty drop-target slots at the end of each category (the first "+" slot always stays fully visible).'],
@@ -765,68 +745,20 @@ options.bags = {
 							step = 0.05,
 							isPercent = true,
 						},
-						itemContextDim = {
-							order = 7.35,
-							type = "toggle",
-							name = L["Dim Unusable Items"],
-							desc = L["While a spell or window waits for an item (Disenchant, Milling, Prospecting, enchant scrolls, the scrapper...), darkens every item it can't be used on."],
-						},
-						desaturateJunk = {
-							order = 7.4,
-							type = "toggle",
-							name = L["Desaturate Junk"],
-							desc = L["Greys out grey-quality items, in addition to the coin icon they already get."],
-						},
-						pinMarker = {
-							order = 7.5,
-							type = "toggle",
-							name = L["Pinned Marker"],
-							desc = L["Shows a small pin icon on pinned items, also in their normal category."],
-						},
-						subHeaderIcons = {
-							order = 7.6,
-							type = "toggle",
-							name = L["Sub-Header Icons"],
-							desc = L["Shows the expansion logo or equipment set icon in front of the sub-headers."],
-						},
-						customBackground = {
-							order = 8,
-							type = "toggle",
-							name = L["Custom Window Opacity"],
-							desc = L["Overrides ElvUI's transparent backdrop opacity for the bag and bank windows."],
-						},
-						backgroundAlpha = {
-							order = 9,
-							type = "range",
-							name = L["Window Opacity"],
-							min = 0,
-							max = 1,
-							step = 0.05,
-							isPercent = true,
-							disabled = function()
-								return not E.db.mui.bags.categorizedBags.effects.customBackground
-							end,
-						},
-						warboundMarker = {
-							order = 7,
-							type = "toggle",
-							name = L["Warbound Marker"],
-							desc = L["Shows a small Warband icon on items that are Warbound or Warbound until equipped."],
-						},
 						dropTargetHighlight = {
-							order = 4.5,
+							order = 6,
 							type = "toggle",
 							name = L["Highlight Drop Targets"],
 							desc = L["Lights up the empty slots at the end of each category while an item is on the cursor, so it's clear where it can be dropped to assign it."],
 						},
 						hoverClassColor = {
-							order = 5,
+							order = 7,
 							type = "toggle",
 							name = L["Use Class Color"],
 							desc = L["Tints the item slot hover highlight in your class color."],
 						},
 						hoverColor = {
-							order = 6,
+							order = 8,
 							type = "color",
 							name = L["Hover Color"],
 							disabled = function()
@@ -841,12 +773,55 @@ options.bags = {
 								local t = E.db.mui.bags.categorizedBags.effects[info[#info]]
 								t.r, t.g, t.b = r, g, b
 
-								if BC.frame then
-									BC:RefreshCategoryFrame()
-								end
-								if BC.bankFrame and BC.RefreshBankCategoryFrame then
-									BC:RefreshBankCategoryFrame()
-								end
+								RefreshCategoryFrames()
+							end,
+						},
+						warboundMarker = {
+							order = 9,
+							type = "toggle",
+							name = L["Warbound Marker"],
+							desc = L["Shows a small Warband icon on items that are Warbound or Warbound until equipped."],
+						},
+						itemContextDim = {
+							order = 10,
+							type = "toggle",
+							name = L["Dim Unusable Items"],
+							desc = L["While a spell or window waits for an item (Disenchant, Milling, Prospecting, enchant scrolls, the scrapper...), darkens every item it can't be used on."],
+						},
+						desaturateJunk = {
+							order = 11,
+							type = "toggle",
+							name = L["Desaturate Junk"],
+							desc = L["Greys out grey-quality items, in addition to the coin icon they already get."],
+						},
+						pinMarker = {
+							order = 12,
+							type = "toggle",
+							name = L["Pinned Marker"],
+							desc = L["Shows a small pin icon on pinned items, also in their normal category."],
+						},
+						subHeaderIcons = {
+							order = 13,
+							type = "toggle",
+							name = L["Sub-Header Icons"],
+							desc = L["Shows the expansion logo or equipment set icon in front of the sub-headers."],
+						},
+						customBackground = {
+							order = 14,
+							type = "toggle",
+							name = L["Custom Window Opacity"],
+							desc = L["Overrides ElvUI's transparent backdrop opacity for the bag and bank windows."],
+						},
+						backgroundAlpha = {
+							order = 15,
+							type = "range",
+							name = L["Window Opacity"],
+							min = 0,
+							max = 1,
+							step = 0.05,
+							isPercent = true,
+							disabled = function()
+								return not E.db.mui.bags.categorizedBags.effects.customBackground
 							end,
 						},
 					},
