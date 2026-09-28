@@ -18,6 +18,10 @@ local IsInGuild = IsInGuild
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 
+local function IsEnabled()
+	return E.db.mui.general.AFK == true and MER:HasRequirements(I.Requirements.AFK, true)
+end
+
 local function Player_Model(self)
 	self:ClearModel()
 	self:SetUnit("player")
@@ -156,7 +160,7 @@ hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 AFK.SetAFKMER = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:SetAFKMER(status)
-	if E.db.mui.general.AFK ~= true then
+	if not IsEnabled() then
 		return
 	end
 
@@ -188,7 +192,7 @@ function AFK:SetAFK(status)
 end
 
 function module:AFK()
-	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then
+	if E.db.general.afk ~= true or not IsEnabled() then
 		return
 	end
 

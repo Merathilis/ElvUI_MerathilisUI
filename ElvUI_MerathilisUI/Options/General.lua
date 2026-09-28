@@ -52,6 +52,8 @@ options.name = {
 			type = "toggle",
 			name = L["AFK"],
 			desc = L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"],
+			disabled = module.RequirementsDisabled(I.Requirements.AFK),
 		},
+		afkRequirements = module.RequirementsNotice(I.Requirements.AFK, 5),
 	},
 }

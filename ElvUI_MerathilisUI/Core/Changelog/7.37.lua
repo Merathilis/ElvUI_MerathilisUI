@@ -3,6 +3,7 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[737] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"[AFK]: The AFK screen is now really turned off while BenikUI is enabled, as the option always described, and the option shows the reason.",
 		'[Armory]: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.',
 		"[Armory/Equipment Manager]: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.",
 		"[Changelog]: /mer changelog and the chat link open the changelog page again instead of only the options start page.",

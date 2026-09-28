@@ -12,6 +12,7 @@ I.Enum.Requirements = F.Enum({
 	"ELVUI_CHAT_ENABLED",
 	"ELVUI_MINIMAP_ENABLED",
 	"ELTRUISM_DISABLED",
+	"BENIKUI_DISABLED",
 })
 
 I.Enum.Colors = F.Enum({

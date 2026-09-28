@@ -112,6 +112,10 @@ I.Requirements = {
 	["AdditionalScaling"] = {
 		I.Enum.Requirements.ELTRUISM_DISABLED,
 	},
+	-- BenikUI replaces ElvUI's AFK screen as well
+	["AFK"] = {
+		I.Enum.Requirements.BENIKUI_DISABLED,
+	},
 	["GameMenu"] = {},
 	["RaidInfoFrame"] = {},
 }

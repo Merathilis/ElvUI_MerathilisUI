@@ -50,6 +50,14 @@ local requirements = {
 			return L["Not available while EltruismUI is enabled."]
 		end,
 	},
+	[R.BENIKUI_DISABLED] = {
+		check = function()
+			return not E:IsAddOnEnabled("ElvUI_BenikUI")
+		end,
+		reason = function()
+			return L["Not available while BenikUI is enabled."]
+		end,
+	},
 }
 
 ---First requirement that isn't met, or true when all are met
