@@ -496,6 +496,12 @@ L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"모든 |cffffffffMerathilis|r|cffff7d0aUI|r 글꼴 설정을 적용합니다"
 L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"모든 |cffffffffMerathilis|r|cffff7d0aUI|r 글꼴 설정을 초기화합니다"
+L["Changes are only applied to the ElvUI profile after clicking Apply."] = true
+L["Main Font"] = true
+L["Number Font"] = true
+L["Font Size Offset"] = true
+L["Added to every font size the profile sets."] = true
+L["Default keeps the outline each element uses in the profile."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = "고급 설정"

@@ -407,6 +407,12 @@ L["WARNING: Some fonts might still not look ideal! The results will not be ideal
 	true
 L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
 L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] = true
+L["Changes are only applied to the ElvUI profile after clicking Apply."] = true
+L["Main Font"] = true
+L["Number Font"] = true
+L["Font Size Offset"] = true
+L["Added to every font size the profile sets."] = true
+L["Default keeps the outline each element uses in the profile."] = true
 
 -- Advanced Settings
 L["Advanced Settings"] = true
