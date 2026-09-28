@@ -228,17 +228,6 @@ function module:CheckMessageCondition(slotOptions)
 		enchantNeeded = (conditions.level == UnitLevel("player"))
 	end
 
-	-- Primary Stat Condition
-	if enchantNeeded and conditions.primary then
-		enchantNeeded = false
-		local spec = C_SpecializationInfo_GetSpecialization()
-		local primaryStat
-		if spec then
-			primaryStat = select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
-			enchantNeeded = (conditions.primary == primaryStat)
-		end
-	end
-
 	-- ItemType and ItemSubtype check
 	if enchantNeeded and conditions.itemType then
 		local itemType = select(12, GetItemInfo(GetInventoryItemID("player", slotOptions.id)))
@@ -640,19 +629,24 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 
 	-- Enchant/Socket Text Handling
 	if self.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
-		if self.db.pageInfo.missingSocketText and slotOptions.needsSocket and not E.TimerunningID then
-			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
-				local missingGemSlots = 1 - #slotInfo.gems
-				if missingGemSlots > 0 then
-					local text = format(L["Add %d socket"], missingGemSlots)
-					local missingColor = {
-						F.String.FastColorGradientHex(missingGemSlots, module.colors.LIGHT_GREEN, module.colors.RED),
-					}
-					slotItem.enchantText:SetText(F.String.RGB(text, missingColor))
-				end
-			else
-				slotItem.enchantText:SetText("")
-			end
+		-- A missing socket wins over the enchant text. Slots that have their socket
+		-- (e.g. a socketed helm) still go through the enchant handling below.
+		local missingGemSlots = 0
+		if
+			self.db.pageInfo.missingSocketText
+			and slotOptions.needsSocket
+			and not E.TimerunningID
+			and (not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions))
+		then
+			missingGemSlots = 1 - #slotInfo.gems
+		end
+
+		if missingGemSlots > 0 then
+			local text = format(L["Add %d socket"], missingGemSlots)
+			local missingColor = {
+				F.String.FastColorGradientHex(missingGemSlots, module.colors.LIGHT_GREEN, module.colors.RED),
+			}
+			slotItem.enchantText:SetText(F.String.RGB(text, missingColor))
 		elseif slotInfo.enchantColors and next(slotInfo.enchantColors) then
 			if slotInfo.enchantText and slotInfo.enchantText ~= "" then
 				local text = slotInfo.enchantTextShort
@@ -1261,8 +1255,15 @@ function module:UpdateCharacterStats()
 				end
 
 				-- Mode 1/2 - Validate hideAt value in Smart Mode/Always Show if not empty mode
-				if (hideAt ~= nil) and ((statMode == 1) or (statMode == 2)) then
-					showStat = (stat.hideAt ~= statFrame.numericValue)
+				-- Compares the local hideAt, which mode 2 defaults to 0. A secret value can't be
+				-- compared, so the stat stays visible then.
+				local numericValue = statFrame.numericValue
+				if
+					(hideAt ~= nil)
+					and ((statMode == 1) or (statMode == 2))
+					and E:NotSecretValue(numericValue)
+				then
+					showStat = (hideAt ~= numericValue)
 				end
 
 				if showStat then
@@ -1484,18 +1485,25 @@ function module:BuildStatCategories()
 	}
 end
 
-local isHooked = false
+local function ControlFrame_OnShow(frame)
+	local db = module.db
+	if db and db.enable and db.background.enable and db.background.hideControls then
+		frame:Hide()
+	end
+end
+
+local controlsHooked = false
 function module:UpdateBackground()
-	if module.db.background.enable then
-		if module.db.background.hideControls then
-			local controlFrame = _G.CharacterModelScene and _G.CharacterModelScene.ControlFrame
-			if controlFrame and not isHooked then
-				controlFrame:SetScript("OnShow", function(frame)
-					frame:Hide()
-				end)
-				isHooked = true
-			end
+	-- Hooked once and checked on every show, so the toggle works without a reload
+	if not controlsHooked then
+		local controlFrame = _G.CharacterModelScene and _G.CharacterModelScene.ControlFrame
+		if controlFrame then
+			controlFrame:HookScript("OnShow", ControlFrame_OnShow)
+			controlsHooked = true
 		end
+	end
+
+	if module.db.background.enable then
 
 		if self.db.background.class then
 			self.frame.MERBackground.Texture:SetTexture(I.Media.Armory["MERATHILISUI-" .. E.myclass])
@@ -1993,6 +2001,8 @@ function module:Enable()
 
 	-- Hook Blizzard OnShow
 	self:SecureHookScript(self.frame, "OnShow", "OpenCharacterArmory")
+	-- Closes the gem flyout and drops the socket panel's bag/equipment events while closed
+	self:SecureHookScript(self.frame, "OnHide", "SocketPanelOnHide")
 
 	-- Check ElvUI Options
 	self:ElvOptionsCheck()

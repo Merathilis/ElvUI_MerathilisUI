@@ -120,15 +120,6 @@ options.armory = {
 							type = "toggle",
 							name = L["Hide Controls"],
 							desc = L["Hides the camera controls when hovering the character model."],
-							set = function(_, value)
-								E.db.mui.armory.background.hideControls = value
-								-- The camera controls stay hidden until a reload
-								if value then
-									Refresh()
-								else
-									E:StaticPopup_Show("CONFIG_RL")
-								end
-							end,
 							disabled = function()
 								return not E.db.mui.armory.background.enable
 							end,

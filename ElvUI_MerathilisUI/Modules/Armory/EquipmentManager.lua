@@ -260,8 +260,20 @@ function module:AcquireEquipmentTile(index)
 		return tile:IsMouseOver() or cog:IsMouseOver() or del:IsMouseOver()
 	end
 
+	-- The cog's context menu is anchored to the cog. Hiding the cog closes the menu,
+	-- so the controls stay visible while that menu is open.
+	local function IsMenuOpen()
+		return tile._menu and tile._menu:IsShown()
+	end
+
 	local function UpdateHoverState()
-		if IsTileHovered() then
+		if not IsTileHovered() and IsMenuOpen() then
+			tile._hover:Show()
+			ShowTileControls(tile, true)
+			if GameTooltip:GetOwner() == tile then
+				GameTooltip:Hide()
+			end
+		elseif IsTileHovered() then
 			tile._hover:Show()
 			if tile._setID then
 				ShowTileControls(tile, true)
@@ -354,7 +366,12 @@ function module:AcquireEquipmentTile(index)
 			module:RefreshEquipmentManagerPanel()
 		end
 
-		_G.MenuUtil.CreateContextMenu(self, function(dropdown, rootDescription)
+		tile._menu = _G.MenuUtil.CreateContextMenu(self, function(_, rootDescription)
+			-- Menu frames are pooled, drop the reference once ours is released
+			rootDescription:AddMenuReleasedCallback(function()
+				tile._menu = nil
+			end)
+
 			rootDescription:CreateButton(L["Change Icon"] or "Change Icon", function()
 				OpenIconPopup(_G.IconSelectorPopupFrameModes.Edit, setID, setName)
 			end)
@@ -601,60 +618,80 @@ function module:RefreshEquipmentManagerPanel()
 	end
 end
 
-function module:EnableEquipmentManagerSkin()
-	if self.equipmentManagerSkinned then
-		return
-	end
-
-	if not GetDB() then
-		return
-	end
-
+local function GetEquipmentManagerPane()
 	local pane = _G.PaperDollFrame and _G.PaperDollFrame.EquipmentManagerPane
-	if not pane or not pane.ScrollBox then
-		return
+	if pane and pane.ScrollBox then
+		return pane
 	end
+end
 
-	self.equipmentManagerSkinned = true
-
-	pane.ScrollBox:Hide()
+-- Swaps between our panel and Blizzard's own list, so the enable toggle works live
+local function SetPanelActive(pane, active)
+	module.equipmentPanel:SetShown(active)
+	pane.ScrollBox:SetShown(not active)
 	if pane.ScrollBar then
-		pane.ScrollBar:Hide()
+		pane.ScrollBar:SetShown(not active)
 	end
 	if pane.EquipSet then
-		pane.EquipSet:Hide()
+		pane.EquipSet:SetShown(not active)
 	end
 	if pane.SaveSet then
-		pane.SaveSet:Hide()
+		pane.SaveSet:SetShown(not active)
+	end
+end
+
+function module:EnableEquipmentManagerSkin()
+	local db = GetDB()
+	local pane = GetEquipmentManagerPane()
+	if not db or not pane then
+		return
 	end
 
-	self:BuildEquipmentManagerPanel(pane)
+	if not db.enable then
+		self:DisableEquipmentManagerSkin()
+		return
+	end
 
-	pane:HookScript("OnShow", function()
-		module:RefreshEquipmentManagerPanel()
-	end)
+	-- Hooks and the event frame are set up once, both check whether the panel is active
+	if not self.equipmentPanel then
+		self:BuildEquipmentManagerPanel(pane)
 
-	local refreshPending = false
-	local function QueueRefresh()
-		if refreshPending then
-			return
-		end
-		refreshPending = true
-		C_Timer.After(0.2, function()
-			refreshPending = false
-			if pane:IsShown() then
+		pane:HookScript("OnShow", function()
+			if module.equipmentManagerSkinned then
 				module:RefreshEquipmentManagerPanel()
 			end
 		end)
+
+		local refreshPending = false
+		local function QueueRefresh()
+			if refreshPending or not module.equipmentManagerSkinned then
+				return
+			end
+			refreshPending = true
+			C_Timer.After(0.2, function()
+				refreshPending = false
+				if module.equipmentManagerSkinned and pane:IsShown() then
+					module:RefreshEquipmentManagerPanel()
+				end
+			end)
+		end
+
+		local eventFrame = CreateFrame("Frame")
+		eventFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+		eventFrame:RegisterEvent("EQUIPMENT_SWAP_FINISHED")
+		eventFrame:RegisterEvent("EQUIPMENT_SETS_CHANGED")
+		eventFrame:SetScript("OnEvent", QueueRefresh)
 	end
 
-	local eventFrame = CreateFrame("Frame")
-	eventFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-	eventFrame:RegisterEvent("EQUIPMENT_SWAP_FINISHED")
-	eventFrame:RegisterEvent("EQUIPMENT_SETS_CHANGED")
-	eventFrame:SetScript("OnEvent", QueueRefresh)
+	self.equipmentManagerSkinned = true
+	SetPanelActive(pane, true)
 end
 
 function module:DisableEquipmentManagerSkin()
 	self.equipmentManagerSkinned = false
+
+	local pane = GetEquipmentManagerPane()
+	if pane and self.equipmentPanel then
+		SetPanelActive(pane, false)
+	end
 end

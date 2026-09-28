@@ -794,7 +794,9 @@ function module:BuildSocketFlyout()
 	end)
 
 	flyout:SetScript("OnMouseWheel", function(_, delta)
-		if not self.socketGemCache or #self.socketGemCache <= db.maxRows then
+		-- Read fresh, the db table changes on a profile switch
+		local currentDB = GetDB()
+		if not currentDB or not self.socketGemCache or #self.socketGemCache <= currentDB.maxRows then
 			return
 		end
 
@@ -838,13 +840,10 @@ function module:BuildSocketGemRow(index)
 		return row
 	end
 
-	local db = GetDB()
-
+	-- Height and icon size are set by SetSocketRowFont on every populate
 	row = CreateFrame("Button", nil, self.socketFlyout)
-	row:SetHeight(Scale(db.rowHeight))
 
 	row.icon = row:CreateTexture(nil, "ARTWORK")
-	row.icon:SetSize(Scale(db.rowHeight - 2), Scale(db.rowHeight - 2))
 	row.icon:SetPoint("LEFT", 2, 0)
 
 	row.label = row:CreateFontString(nil, "OVERLAY")
@@ -893,6 +892,10 @@ function module:SetSocketRowFont(row)
 	if not db then
 		return
 	end
+
+	-- Rows are pooled, so the row height option is applied here and not only on creation
+	row:SetHeight(Scale(db.rowHeight))
+	row.icon:SetSize(Scale(db.rowHeight - 2), Scale(db.rowHeight - 2))
 
 	WF.SetFontWithDB(row.label, db.font)
 	WF.SetFontWithDB(row.count, db.font)

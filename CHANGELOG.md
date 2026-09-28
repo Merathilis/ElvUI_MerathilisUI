@@ -5,8 +5,13 @@
 -   [Fix]: Armory: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.
 -   [Fix]: Armory: The Missing Sockets tooltip no longer throws a Lua error.
 -   [Fix]: Armory: The outline setting of the header texts (name, title, level, class, spec icon) works now, and Class Gradient for the title text is applied.
+-   [Fix]: Armory: Enchant texts on socketed items are abbreviated and class colored again, and a missing head enchant is shown.
+-   [Fix]: Armory: The "Always show if not empty" stat mode hides empty stats again.
 -   [Fix]: Armory/Equipment Manager: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.
+-   [Fix]: Armory/Equipment Manager: The Enable toggle now switches between the custom panel and Blizzard's list, also when the Armory is turned off.
+-   [Fix]: Armory/Equipment Manager: The cog menu no longer closes as soon as the mouse moves onto it.
 -   [Fix]: Armory/Socket Panel: Inserting a gem through the socket panel on the Character Frame works now, before it silently did nothing.
+-   [Fix]: Armory/Socket Panel: Closing the Character Frame now also closes the gem list and stops scanning the bags in the background.
 -   [Fix]: Auras: The collapsed state of the buffs is kept when the Collapse & Expand button is turned off and on again, and a profile switch uses the state of the new profile.
 -   [Fix]: Bags: Changes to the equipment set icon show up in the categorized bags right away, and the item font options repaint the bank as well.
 -   [Fix]: Buff Reminder: The reminder sound no longer repeats for reminders that were already shown, and a muted category no longer blocks the sound of the others.
@@ -74,6 +79,7 @@
 -   [New]: Vehicle Bar: The font size of the speed text can be changed.
 -   [Improvement]: ActionBars: The Specialization Bar mouseover option applies without a reload.
 -   [Improvement]: Armory: Font, header and background settings apply right away without a reload.
+-   [Improvement]: Armory: Hide Controls no longer needs a reload.
 -   [Improvement]: Auras: The Collapse & Expand option is disabled with a notice while ElvUI's buffs are turned off.
 -   [Improvement]: Bags: The bag options are disabled with a notice while ElvUI's bags are turned off.
 -   [Improvement]: Buff Reminder: Options that have no effect in the current setup are disabled.
