@@ -1243,7 +1243,7 @@ P.scale = {
 	},
 
 	equipmentFlyout = {
-		scale = 2,
+		scale = 1,
 	},
 
 	vendor = {
