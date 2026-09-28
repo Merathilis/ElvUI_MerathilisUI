@@ -186,7 +186,7 @@ end
 
 -- Pulsing "NEW" badge (F.CreateNewFeatureBadge) for tab-style groups. Call
 -- F.MarkTabAsNew("<argsKey>") next to an option's own definition (e.g.
--- Options/Modules/BuffReminder.lua's `options.buffReminder`) to call it out -
+-- Options/Modules/Tracker.lua's `options.tracker`) to call it out -
 -- keyed by tab.value (the args table key) rather than a marker embedded in
 -- `name` like headers use, because a tab's `name` also doubles as
 -- AceConfigDialog's alphabetical sort key (a marker there silently reorders
