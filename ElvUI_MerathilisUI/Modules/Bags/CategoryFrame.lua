@@ -1737,7 +1737,6 @@ local function CreateHeaderPoolFor(getContentChild)
 		header.clearButton.tex:SetAllPoints()
 		header.clearButton.tex:SetTexture(E.Media.Textures.Close)
 		header.clearButton:SetScript("OnEnter", function(self)
-			local cc = E.myClassColor
 			self.tex:SetVertexColor(cc.r, cc.g, cc.b)
 		end)
 		header.clearButton:SetScript("OnLeave", function(self)

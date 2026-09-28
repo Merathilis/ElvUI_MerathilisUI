@@ -404,7 +404,7 @@ local function UpdateFrameContents(f)
 		top = SetAnchor(f.headerText, f.mainText, "TOPLEFT", top)
 	end
 	if module:IsNotEmpty(status) then
-		top = SetAnchor(f.statusText, f.mainText, "TOPLEFT", top)
+		SetAnchor(f.statusText, f.mainText, "TOPLEFT", top)
 	end
 	f.subText:ClearAllPoints()
 	if subCount > 0 then

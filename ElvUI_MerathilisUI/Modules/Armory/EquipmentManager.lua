@@ -383,7 +383,6 @@ function module:AcquireEquipmentTile(index)
 	tile._lastClick = 0
 	tile:SetScript("OnClick", function()
 		local setID = tile._setID
-		local panel = module.equipmentPanel
 		if not setID then
 			OpenIconPopup(_G.IconSelectorPopupFrameModes.New, nil, "")
 			return

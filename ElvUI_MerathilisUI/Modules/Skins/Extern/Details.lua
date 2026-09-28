@@ -247,16 +247,16 @@ local function ReskinDetails()
 
 	local listener = Details:CreateEventListener()
 	listener:RegisterEvent("DETAILS_INSTANCE_OPEN")
-	function listener:OnDetailsEvent(event, instance)
+	function listener:OnDetailsEvent(event, openedInstance)
 		if event == "DETAILS_INSTANCE_OPEN" then
-			if not instance.skinned then
-				local id = instance:GetId()
+			if not openedInstance.skinned then
+				local id = openedInstance:GetId()
 				if id > 1 and id <= GetEmbedWindowCount() then
 					local width, height = GetEmbedWindowSize(id)
-					EmbedWindow(instance, -3, GetWindowOffset(id), width, height)
+					EmbedWindow(openedInstance, -3, GetWindowOffset(id), width, height)
 				end
 			end
-			SetupInstance(instance)
+			SetupInstance(openedInstance)
 		end
 	end
 

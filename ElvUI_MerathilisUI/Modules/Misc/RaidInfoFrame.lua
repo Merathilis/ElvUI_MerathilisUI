@@ -234,14 +234,15 @@ function module:Update()
 			local unit = "raid" .. i
 			if UnitExists(unit) then
 				local role = UnitGroupRolesAssigned(unit)
-				if E:IsSecretValue(role) then
-					-- skip: role identity is hidden for this unit
-				elseif role == "TANK" then
-					tank = tank + 1
-				elseif role == "HEALER" then
-					heal = heal + 1
-				elseif role == "DAMAGER" then
-					dps = dps + 1
+				-- A secret role (hidden for this unit) is not counted.
+				if E:NotSecretValue(role) then
+					if role == "TANK" then
+						tank = tank + 1
+					elseif role == "HEALER" then
+						heal = heal + 1
+					elseif role == "DAMAGER" then
+						dps = dps + 1
+					end
 				end
 			end
 		end

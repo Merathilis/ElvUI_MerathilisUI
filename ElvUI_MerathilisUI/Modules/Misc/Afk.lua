@@ -104,11 +104,11 @@ local daysAbr = {
 
 -- Create Date
 local function CreateDate()
-	local date = GetCurrentCalendarTime()
-	local presentWeekday = date.weekday
-	local presentMonth = date.month
-	local presentDay = date.monthDay
-	local presentYear = date.year
+	local now = GetCurrentCalendarTime()
+	local presentWeekday = now.weekday
+	local presentMonth = now.month
+	local presentDay = now.monthDay
+	local presentYear = now.year
 
 	if AFK.AFKMode.DateText then
 		AFK.AFKMode.DateText:SetFormattedText(
@@ -274,7 +274,8 @@ function module:AFK()
 		modelHolder:SetPoint("RIGHT", AFK.AFKMode.Panel, "RIGHT", 250, 100)
 
 		local playerModel = CreateFrame("PlayerModel", nil, modelHolder)
-		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
+		-- Double the screen size on purpose, this prevents clipping of models.
+		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2)
 		playerModel:SetPoint("CENTER", modelHolder, "CENTER")
 		playerModel:SetScript("OnShow", Player_Model)
 		playerModel:SetFrameLevel(3)

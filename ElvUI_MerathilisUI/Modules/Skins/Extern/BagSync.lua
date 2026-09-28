@@ -49,8 +49,8 @@ local function SkinSortOrder(self)
 	end)
 end
 
-local function SkinBagSyncFrame(name, module)
-	local frame = module.frame
+local function SkinBagSyncFrame(name, bagSyncModule)
+	local frame = bagSyncModule.frame
 	if not frame then
 		return
 	end
@@ -67,12 +67,12 @@ local function SkinBagSyncFrame(name, module)
 		S:HandleEditBox(frame.SearchBox)
 	end
 
-	if module.scrollFrame then
-		S:HandleScrollBar(module.scrollFrame.scrollBar)
+	if bagSyncModule.scrollFrame then
+		S:HandleScrollBar(bagSyncModule.scrollFrame.scrollBar)
 	end
 
-	if module.warningFrame then
-		SkinInfoFrame(module.warningFrame)
+	if bagSyncModule.warningFrame then
+		SkinInfoFrame(bagSyncModule.warningFrame)
 	end
 
 	for _, key in ipairs({ "PlusButton", "RefreshButton", "HelpButton" }) do
@@ -85,14 +85,14 @@ local function SkinBagSyncFrame(name, module)
 	if name == "Search" then
 		S:HandleButton(frame.searchFiltersBtn)
 		S:HandleButton(frame.resetButton)
-		SkinInfoFrame(module.helpFrame)
-		SkinScrollBar(module.helpFrame.ScrollFrame)
-		SkinInfoFrame(module.savedSearch)
-		SkinScrollBar(module.savedSearch.scrollFrame)
-		S:HandleButton(module.savedSearch.addSavedBtn)
+		SkinInfoFrame(bagSyncModule.helpFrame)
+		SkinScrollBar(bagSyncModule.helpFrame.ScrollFrame)
+		SkinInfoFrame(bagSyncModule.savedSearch)
+		SkinScrollBar(bagSyncModule.savedSearch.scrollFrame)
+		S:HandleButton(bagSyncModule.savedSearch.addSavedBtn)
 	elseif name == "SearchFilters" then
-		SkinScrollBar(module.playerScroll)
-		SkinScrollBar(module.locationScroll)
+		SkinScrollBar(bagSyncModule.playerScroll)
+		SkinScrollBar(bagSyncModule.locationScroll)
 		S:HandleButton(frame.selectAllButton)
 		S:HandleButton(frame.resetButton)
 	elseif name == "Blacklist" then
@@ -104,7 +104,7 @@ local function SkinBagSyncFrame(name, module)
 		S:HandleButton(frame.addItemIDBtn)
 		S:HandleEditBox(frame.itemIDBox)
 	elseif name == "SortOrder" then
-		SkinSortOrder(module)
+		SkinSortOrder(bagSyncModule)
 	end
 end
 

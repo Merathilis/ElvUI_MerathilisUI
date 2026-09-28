@@ -49,12 +49,12 @@ function module:MerathilisUI_Themes_GradientMode()
 	}
 
 	-- Options
-	local options = options.theme.args.gradientMode.args
+	local gradientOptions = options.theme.args.gradientMode.args
 
 	-- General
 	do
 		-- General Group
-		local generalGroup = self:AddInlineRequirementsDesc(options, {
+		local generalGroup = self:AddInlineRequirementsDesc(gradientOptions, {
 			name = "Description",
 		}, {
 			name = "Credits: |cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r"
@@ -88,7 +88,7 @@ function module:MerathilisUI_Themes_GradientMode()
 	-- Colors
 	do
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = L["Class Colors"],
 		}).args
 
@@ -208,7 +208,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		local name = L["NPC Colors"]
 
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = name,
 		}).args
 
@@ -322,7 +322,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		local name = "Power Colors"
 
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = name,
 		}).args
 
@@ -430,7 +430,7 @@ function module:MerathilisUI_Themes_GradientMode()
 	-- Other Colors
 	do
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = L["Other Colors"],
 		}).args
 
@@ -638,7 +638,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		local name = L["Fade Direction"]
 
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = name,
 		}).args
 
@@ -851,7 +851,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		local name = "Settings"
 
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = name,
 		}).args
 

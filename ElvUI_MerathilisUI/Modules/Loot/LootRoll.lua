@@ -107,7 +107,8 @@ local function CreateRollButton(parent, rolltype, tiptext)
 	button:SetScript("OnLeave", GameTooltip_Hide)
 	button:SetMotionScriptsWhileDisabled(true)
 	button:SetHitRectInsets(2, 2, 2, 2)
-	button:CreateBackdrop("Default") -- dark slot behind the icon so it doesn't wash out against a bright/saturated status bar color
+	-- Dark slot behind the icon so it doesn't wash out against a bright/saturated status bar color.
+	button:CreateBackdrop("Default")
 
 	local texture = rollTextures[rolltype]
 	button:SetNormalTexture(texture)
@@ -291,7 +292,8 @@ function module:CreateBar(index)
 	spark:SetWidth(8)
 	spark:Point("TOP", status:GetStatusBarTexture(), "TOPRIGHT")
 	spark:Point("BOTTOM", status:GetStatusBarTexture(), "BOTTOMRIGHT")
-	spark:SetColorTexture(1, 1, 1, 0.5) -- neutral white regardless of quality color, so it never outshines the (dimmer) fill
+	-- Neutral white regardless of quality color, so it never outshines the (dimmer) fill.
+	spark:SetColorTexture(1, 1, 1, 0.5)
 	status.spark = spark
 
 	bar.need = CreateRollButton(bar, 1, NEED)

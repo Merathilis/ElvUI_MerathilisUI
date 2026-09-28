@@ -156,13 +156,11 @@ local function OnEvent(self)
 	local colorDurability = nil
 
 	if db.colored.enable then
-		if
-			(totalDurability or 0) <= db.colored.a.value
-			and not ((totalDurability or 0) <= db.colored.b.value)
-		then
-			colorDurability = db.colored.a.color
-		elseif (totalDurability or 0) <= db.colored.b.value then
+		local durability = totalDurability or 0
+		if durability <= db.colored.b.value then
 			colorDurability = db.colored.b.color
+		elseif durability <= db.colored.a.value then
+			colorDurability = db.colored.a.color
 		end
 	elseif (totalDurability or 0) <= 15 then
 		colorDurability = { r = 1, g = 0.78, b = 0, hex = "|CFFFFC900" }

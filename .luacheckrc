@@ -13,6 +13,7 @@ exclude_files = {
 
 ignore = {
 	"212", -- Unused argument
+	"432/self", -- Shadowing self in callbacks inside methods
 	-- The shared file header unpacks the whole engine; most files only use part of it.
 	"211/MER",
 	"211/W",
@@ -38283,6 +38284,7 @@ read_globals = {
 			"GetInspectRatedSoloShuffleData",
 			"GetMinItemLevel",
 			"GetStaggerPercentage",
+			"GetTemporaryEnchantmentInfo",
 			"IsInventorySlotEnabled",
 			"IsRangedSlotShown",
 			"OffhandHasShield",
@@ -39067,6 +39069,7 @@ read_globals = {
 			"GetJailersTowerTypeString",
 			"GetScenarioInfo",
 			"GetScenarioStepInfo",
+			"GetUnitCriteriaProgressValues",
 		},
 	},
 	C_ScrappingMachineUI = {
@@ -47644,6 +47647,15 @@ read_globals = {
 				fields = {
 					"AllowDuplicate",
 					"AllowMultiple",
+				},
+			},
+			OnUpdateMode = {
+				fields = {
+					"Disabled",
+					"RunWhenVisible",
+					"RunWhenVisibleOnce",
+					"RunOnce",
+					"RunAlways",
 				},
 			},
 			PartyPlaylistEntry = {
