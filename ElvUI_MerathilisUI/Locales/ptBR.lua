@@ -7,6 +7,7 @@ end
 -- Core
 L["Enable"] = true
 L[" is loaded. For any issues or suggestions join my discord: "] = true
+L[" or visit my homepage: "] = true
 L["Please run through the installation process to set up the plugin.\n\n |cffff7d0aThis step is needed to ensure that all features are configured correctly for your profile. You don't have to apply every step.|r"] =
 	true
 L["Font"] = true
@@ -1450,3 +1451,4 @@ L["Crest"] = true
 L["Round"] = true
 L["TargetTarget"] = true
 L["FocusTarget"] = true
+L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"] = true

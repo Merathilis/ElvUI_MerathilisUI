@@ -2947,13 +2947,13 @@ MER.installTable = {
 
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
-				E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://merathilisui.com")
+				E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.WebsiteURL)
 			end)
 			PluginInstallFrame.Option1:SetText(format("|T%s:18:18:0:0:64:64|t %s", I.Media.Icons.Home, L["Website"]))
 
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function()
-				E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/28We6esE9v")
+				E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.DiscordURL)
 			end)
 			PluginInstallFrame.Option2:SetText(
 				L["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"]

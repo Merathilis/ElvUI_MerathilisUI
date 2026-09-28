@@ -15,8 +15,6 @@ local collectgarbage = collectgarbage
 
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
-local DISCORD_URL = "https://discord.gg/28We6esE9v"
-
 ---@class ElvUI_MerathilisUI : AceAddon, AceConsole-3.0, AceEvent-3.0, AceTimer-3.0, AceHook-3.0
 local MER = AceAddon:NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local W, WF = unpack(WindTools or {})
@@ -92,6 +90,8 @@ do
 	Engine.version = "@project-version@"
 
 	MER.AddOnName = addon
+	MER.DiscordURL = "https://discord.gg/28We6esE9v"
+	MER.WebsiteURL = "https://merathilisui.com"
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
 	MER.PlainTitle = gsub(MER.Title, "|c........([^|]+)|r", "%1")
 end
@@ -224,13 +224,19 @@ function MER:PLAYER_ENTERING_WORLD(_, isInitialLogin, _)
 
 		local icon = Engine[4].GetIconString([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\pepeSmall]], 14)
 		if E.db.mui.core.installed and E.global.mui.core.loginMsg then
+			-- Clickable [url] links, handled by ElvUI's chat
+			local function URL(url)
+				return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
+			end
+
 			print(
 				icon
-					.. ""
 					.. self.Title
 					.. format("|cff00c0fa%s|r", self.Version)
 					.. L[" is loaded. For any issues or suggestions join my discord: "]
-					.. format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", DISCORD_URL, DISCORD_URL)
+					.. URL(self.DiscordURL)
+					.. L[" or visit my homepage: "]
+					.. URL(self.WebsiteURL)
 			)
 		end
 

@@ -4,7 +4,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 -- Core
 L["Enable"] = "Eingeschaltet"
 L[" is loaded. For any issues or suggestions join my discord: "] =
-	" wurde geladen. Um Fehler zu melden oder mir Vorschläge zu unterbreiten joined meinen Discord: "
+	" wurde geladen. Um Fehler zu melden oder mir Vorschläge zu unterbreiten, tritt meinem Discord bei: "
+L[" or visit my homepage: "] = " oder besuche meine Homepage: "
 L["Please run through the installation process to set up the plugin.\n\n |cffff7d0aThis step is needed to ensure that all features are configured correctly for your profile. You don't have to apply every step.|r"] =
 	"Bitte durchlaufe den Installationsprozess, um das Plugin einzurichten.\n\n |cffff7d0aDieser Schritt ist notwendig, um sicherzustellen, dass alle Funktionen korrekt für dein Profil konfiguriert sind. Du musst nicht jeden Schritt anwenden.|r"
 L["Font"] = "Schriftart"
@@ -1222,3 +1223,4 @@ L["Crest"] = "Wappen"
 L["Round"] = "Rund"
 L["TargetTarget"] = "Ziel des Ziels"
 L["FocusTarget"] = "Fokusziel"
+L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"] = "Öffnet das %s-Statusfenster mit den Informationen zur Fehlersuche. Bitte bei Fehlermeldungen mitschicken!"

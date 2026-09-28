@@ -48,6 +48,7 @@ MER.Changelog[737] = {
 		"[Information]: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.",
 		"[Installer]: The final step now points to the MerathilisUI website, with a Website button next to Discord.",
 		"[Login Logo]: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.",
+		"[Login Message]: The login message now also links the MerathilisUI website.",
 		"[Options]: Pages that are locked because an ElvUI module is turned off or EltruismUI is enabled now show the reason at the top. The Scale tab is no longer hidden with EltruismUI, it is locked instead.",
 		"[Skins]: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.",
 		"[Vehicle Bar]: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.",

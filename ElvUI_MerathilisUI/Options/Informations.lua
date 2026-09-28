@@ -102,7 +102,7 @@ options.name = {
 					name = L["Website"],
 					image = I.Media.Icons.Home,
 					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://merathilisui.com")
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.WebsiteURL)
 					end,
 				},
 				discord = {
@@ -111,7 +111,7 @@ options.name = {
 					name = L["MerathilisUI Discord"],
 					image = I.Media.Icons.Discord,
 					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/28We6esE9v")
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.DiscordURL)
 					end,
 				},
 				git = {
