@@ -39,8 +39,9 @@ local function BuildSectionArgs(section, list)
 	local db = function()
 		return E.db.mui.buffReminder[section]
 	end
+	-- Own disabled replaces the group's, so the module state is repeated here
 	local sectionDisabled = function()
-		return not db().enable
+		return ModuleDisabled() or not db().enable
 	end
 
 	local args = {
@@ -241,7 +242,7 @@ options.buffReminder = {
 					max = 30,
 					step = 1,
 					disabled = function()
-						return not E.db.mui.buffReminder.showText
+						return ModuleDisabled() or not E.db.mui.buffReminder.showText
 					end,
 				},
 				textOutline = {
@@ -251,7 +252,7 @@ options.buffReminder = {
 					values = MER.Values.FontFlags,
 					sortByValue = true,
 					disabled = function()
-						return not E.db.mui.buffReminder.showText
+						return ModuleDisabled() or not E.db.mui.buffReminder.showText
 					end,
 				},
 				showBagCount = {
@@ -270,7 +271,7 @@ options.buffReminder = {
 					name = L["Glow Color"],
 					hasAlpha = false,
 					disabled = function()
-						return not E.db.mui.buffReminder.glowEnable
+						return ModuleDisabled() or not E.db.mui.buffReminder.glowEnable
 					end,
 					get = function()
 						local t = E.db.mui.buffReminder.glowColor
@@ -309,7 +310,7 @@ options.buffReminder = {
 					type = "toggle",
 					name = L["Raid Buffs"],
 					disabled = function()
-						return not E.db.mui.buffReminder.sound.enable
+						return ModuleDisabled() or not E.db.mui.buffReminder.sound.enable
 					end,
 				},
 				auras = {
@@ -317,7 +318,7 @@ options.buffReminder = {
 					type = "toggle",
 					name = L["Auras"],
 					disabled = function()
-						return not E.db.mui.buffReminder.sound.enable
+						return ModuleDisabled() or not E.db.mui.buffReminder.sound.enable
 					end,
 				},
 				consumables = {
@@ -325,7 +326,7 @@ options.buffReminder = {
 					type = "toggle",
 					name = L["Consumables"],
 					disabled = function()
-						return not E.db.mui.buffReminder.sound.enable
+						return ModuleDisabled() or not E.db.mui.buffReminder.sound.enable
 					end,
 				},
 			},

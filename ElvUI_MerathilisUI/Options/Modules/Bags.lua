@@ -7,6 +7,11 @@ local B = E:GetModule("Bags")
 local options = module.options.modules.args
 
 -- Repaints the categorized bag and bank windows, both skip it while closed
+-- Own disabled replaces the group's, so the requirement is repeated there
+local function BagsDisabled()
+	return not MER:HasRequirements(I.Requirements.Bags)
+end
+
 local function RefreshCategoryFrames()
 	BC:RefreshCategoryFrame()
 	BC:RefreshBankCategoryFrame()
@@ -27,7 +32,7 @@ options.bags = {
 			type = "group",
 			name = L["Equipment Manager"],
 			guiInline = true,
-			disabled = module.RequirementsDisabled(I.Requirements.Bags),
+			disabled = BagsDisabled,
 			get = function(info)
 				return E.db.mui.bags.equipmentManager[info[#info]]
 			end,
@@ -122,7 +127,7 @@ options.bags = {
 			type = "group",
 			name = L["Categorized Bags"],
 			childGroups = "tab",
-			disabled = module.RequirementsDisabled(I.Requirements.Bags),
+			disabled = BagsDisabled,
 			get = function(info)
 				return E.db.mui.bags.categorizedBags[info[#info]]
 			end,
@@ -211,7 +216,7 @@ options.bags = {
 							name = L["Clear Recent on Close"],
 							desc = L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."],
 							disabled = function()
-								return not E.db.mui.bags.categorizedBags.showRecent
+								return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
 							end,
 						},
 						recentLimit = {
@@ -223,7 +228,7 @@ options.bags = {
 							max = 50,
 							step = 1,
 							disabled = function()
-								return not E.db.mui.bags.categorizedBags.showRecent
+								return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
 							end,
 						},
 						resetCurrencyOrder = {
@@ -506,7 +511,7 @@ options.bags = {
 									inline = true,
 									name = L["Font"],
 									disabled = function()
-										return not E.db.mui.bags.categorizedBags.itemLevel.enable
+										return BagsDisabled() or not E.db.mui.bags.categorizedBags.itemLevel.enable
 									end,
 									get = function(info)
 										return E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]]
@@ -574,7 +579,7 @@ options.bags = {
 									inline = true,
 									name = L["Font"],
 									disabled = function()
-										return not E.db.mui.bags.categorizedBags.itemInfo.enable
+										return BagsDisabled() or not E.db.mui.bags.categorizedBags.itemInfo.enable
 									end,
 									get = function(info)
 										return E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]]
@@ -720,7 +725,7 @@ options.bags = {
 							max = 0.5,
 							step = 0.01,
 							disabled = function()
-								return not E.db.mui.bags.categorizedBags.effects.fade
+								return BagsDisabled() or not E.db.mui.bags.categorizedBags.effects.fade
 							end,
 						},
 						newItemGlow = {
@@ -762,7 +767,7 @@ options.bags = {
 							type = "color",
 							name = L["Hover Color"],
 							disabled = function()
-								return E.db.mui.bags.categorizedBags.effects.hoverClassColor
+								return BagsDisabled() or E.db.mui.bags.categorizedBags.effects.hoverClassColor
 							end,
 							get = function(info)
 								local t = E.db.mui.bags.categorizedBags.effects[info[#info]]
@@ -821,7 +826,7 @@ options.bags = {
 							step = 0.05,
 							isPercent = true,
 							disabled = function()
-								return not E.db.mui.bags.categorizedBags.effects.customBackground
+								return BagsDisabled() or not E.db.mui.bags.categorizedBags.effects.customBackground
 							end,
 						},
 					},

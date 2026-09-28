@@ -289,7 +289,7 @@ options.chat = {
 							desc = L["Opens the channel list. Right-click mutes your microphone, middle-click your speakers."],
 						},
 						hideVoiceButtons = {
-							order = 6.5,
+							order = 7,
 							type = "toggle",
 							name = L["Hide Voice Buttons"],
 							desc = L["Hides the voice buttons on the chat panel, the sidebar button takes their place."],
@@ -305,18 +305,18 @@ options.chat = {
 							end,
 						},
 						settings = {
-							order = 7,
+							order = 8,
 							type = "toggle",
 							name = L["Settings"],
 						},
 						scroll = {
-							order = 8,
+							order = 9,
 							type = "toggle",
 							name = L["Scroll to Bottom"],
 							desc = L["Pinned to the bottom of the sidebar, lights up while the chat is scrolled up."],
 						},
 						durabilityWarning = {
-							order = 9,
+							order = 10,
 							type = "range",
 							name = L["Durability Warning"],
 							desc = L["The durability counter turns red at or below this value."],
@@ -335,7 +335,7 @@ options.chat = {
 							end,
 						},
 						resetOrder = {
-							order = 10,
+							order = 11,
 							type = "execute",
 							name = L["Reset Order"],
 							func = function()
@@ -369,19 +369,6 @@ options.chat = {
 					name = L["Lock Chat Size"],
 					desc = L["Hides the resize grip that shows in the corner of a chat panel while hovering it."],
 				},
-				underline = {
-					order = 3,
-					type = "toggle",
-					name = L["Active Underline"],
-					desc = L["Marks the active tab with a line in your class color."],
-					get = function()
-						return ChatDB().tabs.underline
-					end,
-					set = function(_, value)
-						ChatDB().tabs.underline = value
-						MER:GetModule("MER_Chat"):UpdateTabs()
-					end,
-				},
 				combatLog = {
 					order = 2,
 					type = "toggle",
@@ -393,6 +380,19 @@ options.chat = {
 					set = function(_, value)
 						ChatDB().combatLog.enable = value
 						MER:GetModule("MER_Chat"):UpdateCombatLog()
+					end,
+				},
+				underline = {
+					order = 3,
+					type = "toggle",
+					name = L["Active Underline"],
+					desc = L["Marks the active tab with a line in your class color."],
+					get = function()
+						return ChatDB().tabs.underline
+					end,
+					set = function(_, value)
+						ChatDB().tabs.underline = value
+						MER:GetModule("MER_Chat"):UpdateTabs()
 					end,
 				},
 			},
@@ -427,7 +427,7 @@ options.chat = {
 					name = L["Enable"],
 				},
 				editBoxPosition = {
-					order = 1.5,
+					order = 2,
 					type = "select",
 					name = function()
 						return L["Chat EditBox Position"]
@@ -455,13 +455,13 @@ options.chat = {
 					end,
 				},
 				style = {
-					order = 2,
+					order = 3,
 					type = "toggle",
 					name = L["MerathilisUI Style"],
 					desc = L["Transparent backdrop with the MerathilisUI stripes and gradient."],
 				},
 				backdropAlpha = {
-					order = 2.5,
+					order = 4,
 					type = "range",
 					name = L["Backdrop Alpha"],
 					desc = L["How opaque the edit box backdrop is. ElvUI's own transparency setting is used for everything else."],
@@ -475,25 +475,25 @@ options.chat = {
 					end,
 				},
 				accent = {
-					order = 3,
+					order = 5,
 					type = "toggle",
 					name = L["Chat Type Accent"],
 					desc = L["A neutral border with a small bar in the color of the current chat type, instead of coloring the whole border."],
 				},
 				badge = {
-					order = 4,
+					order = 6,
 					type = "toggle",
 					name = L["Header Badge"],
 					desc = L["Shows the chat type prefix (Say, Guild, Whisper to ...) as a colored badge."],
 				},
 				animation = {
-					order = 5,
+					order = 7,
 					type = "toggle",
 					name = L["Open Animation"],
 					desc = L["Fades the box in when it opens."],
 				},
 				glow = {
-					order = 6,
+					order = 8,
 					type = "toggle",
 					name = L["Class Color Glow"],
 					desc = L["A glow in your class color around the box while it is open."],

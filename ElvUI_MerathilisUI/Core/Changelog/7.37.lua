@@ -39,6 +39,7 @@ MER.Changelog[737] = {
 		"[Loot Spec Manager/Copy Transmog]: The info tooltips are colored again.",
 		'[Movement Alert]: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell\'s cooldown is restricted.',
 		"[Name Hover]: The line with faction, classification and race is now placed correctly between the guild and the status line.",
+		"[Options]: Sub-options of the Buff Reminder, the Categorized Bags and the Specialization Bar are disabled as well when their module or the required ElvUI module is turned off.",
 		'[Portal Flyout]: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.',
 		"[Profiles]: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.",
 		"[Profiles]: Removed the AddOnSkins button under Profiles > AddOns, it did nothing. The addon buttons have a fixed order now.",
