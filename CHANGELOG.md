@@ -3,8 +3,10 @@
 -   [Fix]: AFK: The AFK screen is now really turned off while BenikUI is enabled, as the option always described, and the option shows the reason.
 -   [Fix]: Armory: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.
 -   [Fix]: Armory/Equipment Manager: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.
+-   [Fix]: Armory/Socket Panel: Inserting a gem through the socket panel on the Character Frame works now, before it silently did nothing.
 -   [Fix]: Changelog: /mer changelog and the chat link open the changelog page again instead of only the options start page.
 -   [Fix]: Chat Edit Box: The chat type badge text was unreadable on bright chat colors like Whisper or Say, because the dark text kept a black outline.
+-   [Fix]: Chat Sidebar: With the edit box inside the chat panel, the edit box no longer covers the sidebar.
 -   [Fix]: Commands: The hints of /mer (usage, missing MerathilisUI profile) are shown again, they were hidden behind a WindTools log setting.
 -   [Fix]: Core: Fixed possible Lua errors in combat ("secret value") in color comparisons, color gradients and name abbreviations.
 -   [Fix]: Core: Fixed Lua errors when MerathilisUI tried to report an internal problem (e.g. a missing media file, category icon or skin element).
@@ -12,6 +14,7 @@
 -   [Fix]: Core: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.
 -   [Fix]: Core: Clicking the Open Changelog link in the chat no longer also opens an empty link tooltip.
 -   [Fix]: Core: A fresh install no longer prints Update Database messages, and update messages only appear when something changed, in the right order.
+-   [Fix]: Core: Buff Reminder, Copy Transmog, Movement Alert, Portal Flyout, Singing Sockets, Trade Tabs, Tracker and Vehicle Bar no longer use deprecated Blizzard functions, which only exist while Blizzard's deprecation fallbacks are enabled.
 -   [Fix]: Debug Mode: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.
 -   [Fix]: Durability/ItemLevel Datatext: Fixed Lua errors with low durability when the icon is colored or the colored thresholds are enabled.
 -   [Fix]: ElvUI AuraBars: MerathilisUI no longer replaces ElvUI's name abbreviation, so the aura bars abbreviate spell names the ElvUI way again.
@@ -22,8 +25,10 @@
 -   [Fix]: Installer: The chat step names the combat log window correctly again and uses Blizzard's current chat functions instead of deprecated ones.
 -   [Fix]: Installer: Removed the Cooldown Manager checkbox from the Modules step, the module no longer exists.
 -   [Fix]: ItemLevel/Pet Filter Tab: The item level on the Scrapping Machine and the pet filter tab in the Collections window could fail to appear, because both loaded through the same event handler.
+-   [Fix]: Loot Spec Manager: Fixed a Lua error every time a tab of the Encounter Journal was switched.
 -   [Fix]: Loot Spec Manager/Copy Transmog: The info tooltips are colored again.
 -   [Fix]: Movement Alert: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell's cooldown is restricted.
+-   [Fix]: Name Hover: The line with faction, classification and race is now placed correctly between the guild and the status line.
 -   [Fix]: Portal Flyout: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.
 -   [Fix]: Profiles: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.
 -   [Fix]: Profiles: Removed the AddOnSkins button under Profiles > AddOns, it did nothing. The addon buttons have a fixed order now.
