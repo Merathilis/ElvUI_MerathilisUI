@@ -3,8 +3,6 @@ local module = MER:GetModule("MER_Options") ---@class Options
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("chat")
-
 local function SidebarDB()
 	return E.db.mui.chat.sidebar
 end
@@ -28,7 +26,7 @@ options.chat = {
 		header = {
 			order = 0,
 			type = "header",
-			name = F.NewFeatureText(F.cOption(L["Chat"], "orange")),
+			name = F.cOption(L["Chat"], "orange"),
 		},
 		sidebar = {
 			order = 1,

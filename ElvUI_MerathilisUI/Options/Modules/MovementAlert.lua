@@ -11,8 +11,6 @@ local GetSpecializationInfoByID = GetSpecializationInfoByID
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("movementAlert")
-
 local function DB()
 	return E.db.mui.movementAlert
 end
