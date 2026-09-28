@@ -8,6 +8,8 @@
 -   [Fix]: Armory/Equipment Manager: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.
 -   [Fix]: Armory/Socket Panel: Inserting a gem through the socket panel on the Character Frame works now, before it silently did nothing.
 -   [Fix]: Bags: Changes to the equipment set icon show up in the categorized bags right away, and the item font options repaint the bank as well.
+-   [Fix]: Buff Reminder: The reminder sound no longer repeats for reminders that were already shown, and a muted category no longer blocks the sound of the others.
+-   [Fix]: Buff Reminder: Turning the module off or switching to a profile where it is off hides the icons right away.
 -   [Fix]: Changelog: /mer changelog and the chat link open the changelog page again instead of only the options start page.
 -   [Fix]: Chat Edit Box: The chat type badge text was unreadable on bright chat colors like Whisper or Say, because the dark text kept a black outline.
 -   [Fix]: Chat Sidebar: With the edit box inside the chat panel, the edit box no longer covers the sidebar.
@@ -52,6 +54,7 @@
 -   [Improvement]: ActionBars: The Specialization Bar mouseover option applies without a reload.
 -   [Improvement]: Armory: Font, header and background settings apply right away without a reload.
 -   [Improvement]: Bags: The bag options are disabled with a notice while ElvUI's bags are turned off.
+-   [Improvement]: Buff Reminder: Options that have no effect in the current setup are disabled.
 -   [Improvement]: Core: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.
 -   [Improvement]: Core: Uses ElvUI's animation library instead of a bundled copy.
 -   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.

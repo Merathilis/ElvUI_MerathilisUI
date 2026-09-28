@@ -1101,17 +1101,20 @@ local _soundPrev, _soundCur, _soundPrimed = {}, {}, false
 local function HandleAppearSounds(missing)
 	local db = module.db
 	wipe(_soundCur)
+	-- Every current key has to be recorded, a break here made the rest count as new again
+	local played = false
 	for i = 1, #missing do
 		local dk = missing[i].dismissKey
 		if dk then
 			_soundCur[dk] = true
-			if _soundPrimed and not _soundPrev[dk] and db.sound.enable then
+			if not played and _soundPrimed and not _soundPrev[dk] and db.sound.enable then
 				local prefix = dk:match("^(%a+):")
 				local key = prefix == "raidbuff" and "raidBuffs" or prefix == "aura" and "auras" or "consumables"
+				-- One sound per refresh, a muted category must not swallow it
 				if db.sound[key] then
 					PlaySound(db.sound.soundKitID or 8960, "Master")
+					played = true
 				end
-				break
 			end
 		end
 	end
@@ -1235,10 +1238,17 @@ end
 local _refreshMissing = {}
 function module:Refresh()
 	local db = self.db
-	if not db or not db.enable or not iconAnchor then
+	if not db or not iconAnchor then
 		return
 	end
 	if InCombatLockdown() then
+		return
+	end
+
+	-- Turned off in the options or by a profile switch: clear what is shown
+	if not db.enable then
+		HideAllIcons()
+		iconAnchor:Hide()
 		return
 	end
 
