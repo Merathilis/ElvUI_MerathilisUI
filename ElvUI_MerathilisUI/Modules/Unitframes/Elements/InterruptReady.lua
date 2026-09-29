@@ -225,6 +225,23 @@ local function Clip_OnUpdate(clip, elapsed)
 	end
 end
 
+-- Colors and toggles, also reapplied to running casts when the settings change
+local function ApplyStyle(ir)
+	local castbar = ir.castbar
+	local db = ir.getDB()
+
+	-- A texture change on the castbar can hand out a new fill region
+	ir.tint:SetAllPoints(castbar:GetStatusBarTexture())
+	ApplyColor(ir.tint, castbar, "INTERRUPTCD")
+	ir.tint:SetShown(db.tint)
+
+	ApplyColor(ir.window, castbar, "INTERRUPTSOON")
+	ir.window:SetShown(db.window)
+
+	ir.tick:SetVertexColor(db.tickColor.r, db.tickColor.g, db.tickColor.b, 1)
+	ir.tick:SetShown(db.tick)
+end
+
 local function Hide(ir)
 	active[ir] = nil
 	ir.tint:Hide()
@@ -247,27 +264,13 @@ local function Start(ir, unit)
 		return
 	end
 
-	local db = ir.getDB()
 	ir.unit = unit
 	ir.isChannel = castbar.channeling and true or false
 	ir.isEmpowered = castbar.empowering and true or false
 
 	UpdateLayout(ir)
 	UpdateGeometry(ir)
-
-	if db.tint then
-		-- A texture change on the castbar can hand out a new fill region
-		ir.tint:SetAllPoints(castbar:GetStatusBarTexture())
-		ApplyColor(ir.tint, castbar, "INTERRUPTCD")
-		ir.tint:Show()
-	end
-	if db.window then
-		ApplyColor(ir.window, castbar, "INTERRUPTSOON")
-		ir.window:Show()
-	end
-
-	ir.tick:SetColorTexture(db.tickColor.r, db.tickColor.g, db.tickColor.b, 1)
-	ir.tick:SetShown(db.tick)
+	ApplyStyle(ir)
 
 	ir.clip.elapsed = 0
 	ir.clip:Show()
@@ -304,7 +307,9 @@ local function Create(castbar)
 	ir.marker = CreateFrame("StatusBar", nil, ir.clip)
 	ir.marker:SetStatusBarTexture(E.media.blankTex)
 
+	-- White texture tinted by vertex color, a second SetColorTexture did not recolor it
 	ir.tick = ir.clip:CreateTexture(nil, "OVERLAY", nil, 3)
+	ir.tick:SetTexture(E.media.blankTex)
 	ir.tick:SetWidth(2)
 
 	local function OnStart(_, unit)
@@ -367,8 +372,17 @@ function IR:Configure(castbar, getDB, enabled)
 
 	if not enabled then
 		Hide(ir)
+	elseif active[ir] then
+		ApplyStyle(ir)
 	end
 end
+
+-- Changed Theme castbar colors reach running casts right away
+F.Event.RegisterCallback("MER_Theme.SettingsUpdate", function()
+	for ir in pairs(active) do
+		ApplyStyle(ir)
+	end
+end, "MER_InterruptReady")
 
 do
 	local frame = CreateFrame("Frame")
