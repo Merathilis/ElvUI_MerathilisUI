@@ -18,13 +18,13 @@ module.callOnInit = {}
 module.options = {
 	general = {
 		order = 101,
-		name = F.cOption(L["General"], "gradient"),
+		name = L["General"],
 		icon = I.Media.Icons.Categories.OptionsHome,
 		args = {},
 	},
 	modules = {
 		order = 102,
-		name = F.cOption(L["Modules"], "gradient"),
+		name = L["Modules"],
 		icon = I.Media.Icons.Categories.Config,
 		args = {
 			info = {
@@ -36,31 +36,31 @@ module.options = {
 	},
 	misc = {
 		order = 103,
-		name = F.cOption(L["Misc"], "gradient"),
+		name = L["Misc"],
 		icon = I.Media.Icons.Categories.More,
 		args = {},
 	},
 	skins = {
 		order = 104,
-		name = F.cOption(L["Skins/AddOns"], "gradient"),
+		name = L["Skins/AddOns"],
 		icon = I.Media.Icons.Categories.Bill,
 		args = {},
 	},
 	profiles = {
 		order = 105,
-		name = F.cOption(L["Profiles"], "gradient"),
+		name = L["Profiles"],
 		icon = I.Media.Icons.Categories.System,
 		args = {},
 	},
 	advanced = {
 		order = 111,
-		name = F.cOption(L["Advanced Settings"], "gradient"),
+		name = L["Advanced Settings"],
 		icon = I.Media.Icons.Categories.Tips,
 		args = {},
 	},
 	information = {
 		order = 112,
-		name = F.cOption(L["Information"], "gradient"),
+		name = L["Information"],
 		icon = I.Media.Icons.Categories.Save,
 		args = {},
 	},
