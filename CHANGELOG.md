@@ -27,7 +27,7 @@
 -   [Fix]: Core: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.
 -   [Fix]: Core: Clicking the Open Changelog link in the chat no longer also opens an empty link tooltip.
 -   [Fix]: Core: A fresh install no longer prints Update Database messages, and update messages only appear when something changed, in the right order.
--   [Fix]: Core: Buff Reminder, Copy Transmog, Movement Alert, Portal Flyout, Singing Sockets, Trade Tabs, Tracker and Vehicle Bar no longer use deprecated Blizzard functions, which only exist while Blizzard's deprecation fallbacks are enabled.
+-   [Fix]: Core: Buff Reminder, Copy Transmog, Movement Alert, Portal Flyout, Singing Sockets, Trade Tabs, Tracker, Vehicle Bar and the Great Vault skin no longer use deprecated Blizzard functions, which only exist while Blizzard's deprecation fallbacks are enabled.
 -   [Fix]: Cursor: The GCD and cast rings no longer throw Lua errors ("secret value") during Mythic+ and raid encounters.
 -   [Fix]: Cursor: With "Only While Steering Camera" the ring no longer shows up after the module was turned off.
 -   [Fix]: Debug Mode: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.
@@ -70,6 +70,7 @@
 -   [Fix]: UnitFrames: Raid Icon and Highlight ask for the reload they need, the options follow the ElvUI UnitFrames requirement and the empty Party tab is gone.
 -   [Fix]: Vehicle Bar: Changed settings apply right away again instead of only after a reload.
 -   [Fix]: Vehicle Bar: After turning the Vehicle Bar off and on again or changing a setting, the Vigor Bar, the button animations and the keybinds work again. Turning off the Vigor Bar hides it right away, and the options are disabled while the Vehicle Bar or ElvUI's action bars are turned off.
+-   [Fix]: Vehicle Bar: Fixed possible Lua errors ("secret value") of the vigor bar during Mythic+ and raid encounters.
 -   [New]: Cursor: The GCD and cast rings have the Only In Instances and Only In Combat options as well.
 -   [New]: Developer Tools: New /muidev command - a copyable log window with version info for bug reports (/muidev log), debug channels per module (/muidev debug <module>), log level and value inspection. Replaces the Tracker debug mode, the Vignette debug print option and /mlrdebug.
 -   [New]: Installer: New Modules step after UnitFrames - pick which MerathilisUI modules you want to use, applied on the reload at the end.
@@ -102,6 +103,7 @@
 -   [Improvement]: Name Hover: Font and display options apply without a reload, and the options are disabled while Name Hover is turned off.
 -   [Improvement]: Notification: All options apply without a reload, only turning the module on still needs one.
 -   [Improvement]: Options: Pages that are locked because an ElvUI module is turned off or EltruismUI is enabled now show the reason at the top. The Scale tab is no longer hidden with EltruismUI, it is locked instead.
+-   [Improvement]: Profiles: The WindTools profile now also places the WindTools chat bar.
 -   [Improvement]: Reset: New reset buttons for Chat and NamePlates.
 -   [Improvement]: Skins: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.
 -   [Improvement]: Skins: The embed options are disabled while the skins or the embed are turned off, and the AddOn skin list has a fixed order.
