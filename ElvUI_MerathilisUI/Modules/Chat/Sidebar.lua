@@ -24,8 +24,6 @@ local C_GuildInfo = C_GuildInfo
 local C_Timer = C_Timer
 local C_VoiceChat = C_VoiceChat
 
-local issecretvalue = issecretvalue
-
 local BINDING_HEADER_VOICE_CHAT = BINDING_HEADER_VOICE_CHAT
 local BNET_CLIENT_WOW = _G.BNET_CLIENT_WOW or "WoW"
 local CHAT_CHANNELS = CHAT_CHANNELS
@@ -143,7 +141,7 @@ local function GetBattleNetFriendsInWoW()
 		local accountInfo = C_BattleNet.GetFriendAccountInfo(i)
 		local gameInfo = accountInfo and accountInfo.gameAccountInfo
 		local client = gameInfo and gameInfo.isOnline and gameInfo.clientProgram
-		if client and not (issecretvalue and issecretvalue(client)) and client == BNET_CLIENT_WOW then
+		if client and E:NotSecretValue(client) and client == BNET_CLIENT_WOW then
 			inWoW = inWoW + 1
 		end
 	end
