@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[737] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "29.09.2026",
 	FIXES = {
 		"[ActionBars]: Color Modifier Keys can be turned on and off without a reload, turning it off or switching profiles works right away now.",
 		"[AFK]: The AFK screen is now really turned off while BenikUI is enabled, as the option always described, and the option shows the reason.",
