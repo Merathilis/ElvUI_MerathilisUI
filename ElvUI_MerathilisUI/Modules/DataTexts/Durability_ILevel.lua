@@ -12,7 +12,7 @@ local GetInventoryItemTexture = GetInventoryItemTexture
 local GetMountInfoByID = C_MountJournal.GetMountInfoByID
 local SummonByID = C_MountJournal.SummonByID
 
-local hexColor = E:RGBToHex(E.db.general.valuecolor.r, E.db.general.valuecolor.g, E.db.general.valuecolor.b)
+local hexColor = "|cffffffff"
 local mText = L["Durability/ Ilevel"]
 
 local REPAIR_COST = REPAIR_COST
@@ -133,18 +133,11 @@ local function OnEvent(self)
 				totalDurability = perc
 			end
 
-			local repairCost
-			if E.ScanTooltip.GetTooltipData then
-				E.ScanTooltip:SetInventoryItem("player", index)
-				E.ScanTooltip:Show()
+			E.ScanTooltip:SetInventoryItem("player", index)
+			E.ScanTooltip:Show()
 
-				local data = E.ScanTooltip:GetTooltipData()
-				repairCost = data and data.repairCost
-			else
-				repairCost = select(3, E.ScanTooltip:SetInventoryItem("player", index))
-			end
-
-			totalRepairCost = totalRepairCost + (repairCost or 0)
+			local data = E.ScanTooltip:GetTooltipData()
+			totalRepairCost = totalRepairCost + (data and data.repairCost or 0)
 		end
 	end
 
@@ -196,6 +189,11 @@ local function OnEvent(self)
 	self.text:SetText(text)
 end
 
+-- ElvUI calls this whenever the value color changes and runs OnEvent right after
+local function ApplySettings(_, hex)
+	hexColor = hex
+end
+
 local function OnClick(_, button)
 	local db = E.db.mui and E.db.mui.datatexts and E.db.mui.datatexts.durabilityIlevel
 	if not db then
@@ -222,7 +220,7 @@ end
 DT:RegisterDatatext(
 	"DurabilityIlevel",
 	MER.DatatextString,
-	"UPDATE_INVENTORY_DURABILITY",
+	{ "UPDATE_INVENTORY_DURABILITY", "PLAYER_AVG_ITEM_LEVEL_UPDATE" },
 	OnEvent,
 	nil,
 	OnClick,
@@ -230,5 +228,5 @@ DT:RegisterDatatext(
 	OnLeave,
 	mText,
 	nil,
-	nil
+	ApplySettings
 )

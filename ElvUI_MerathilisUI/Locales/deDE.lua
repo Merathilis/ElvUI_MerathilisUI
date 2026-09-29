@@ -1230,3 +1230,18 @@ L["Open the %s Status Report window that shows necessary information for debuggi
 L["Equipment Flyout"] = "Ausrüstungsauswahl"
 L["Shows the item level on the items in the merchant and trade windows."] = "Zeigt die Gegenstandsstufe der Gegenstände im Händler- und Handelsfenster."
 L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."] = "Die Gegenstandsstufe im Ausrüstungsmenü, in der Verschrottungsmaschine und in den Gildennachrichten gehört zu WindTools (Item > Item Level, Misc)."
+
+-- DataTexts
+L["Settings for the MerathilisUI datatexts. Add them to a panel in ElvUI's DataTexts options."] = "Einstellungen für die MerathilisUI-Infotexte. Hinzufügen kannst du sie in den ElvUI-Infotext-Optionen zu einem Panel."
+L["Show Icons"] = "Symbole anzeigen"
+L["White Text"] = "Weißer Text"
+L["Shows the values in white instead of ElvUI's value color."] = "Zeigt die Werte in Weiß statt in ElvUIs Wertfarbe."
+L["White Icon"] = "Weißes Symbol"
+L["Keeps the durability icon white instead of coloring it like the durability."] = "Lässt das Haltbarkeitssymbol weiß, statt es wie die Haltbarkeit einzufärben."
+L["Repair Mount"] = "Reparatur-Reittier"
+L["Summoned with a right click on the datatext."] = "Wird mit einem Rechtsklick auf den Infotext beschworen."
+L["Colored Durability"] = "Farbige Haltbarkeit"
+L["Colors the durability below the thresholds. Turned off, it only turns orange below 15%."] = "Färbt die Haltbarkeit unterhalb der Schwellen ein. Ausgeschaltet wird sie nur unter 15% orange."
+L["Warning Color"] = "Warnfarbe"
+L["Critical"] = "Kritisch"
+L["Critical Color"] = "Kritische Farbe"

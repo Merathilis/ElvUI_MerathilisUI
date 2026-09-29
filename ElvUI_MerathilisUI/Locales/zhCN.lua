@@ -1454,3 +1454,18 @@ L["TargetTarget"] = true
 L["FocusTarget"] = true
 L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"] = true
 L["Equipment Flyout"] = true
+
+-- DataTexts
+L["Settings for the MerathilisUI datatexts. Add them to a panel in ElvUI's DataTexts options."] = true
+L["Show Icons"] = true
+L["White Text"] = true
+L["Shows the values in white instead of ElvUI's value color."] = true
+L["White Icon"] = true
+L["Keeps the durability icon white instead of coloring it like the durability."] = true
+L["Repair Mount"] = true
+L["Summoned with a right click on the datatext."] = true
+L["Colored Durability"] = true
+L["Colors the durability below the thresholds. Turned off, it only turns orange below 15%."] = true
+L["Warning Color"] = true
+L["Critical"] = true
+L["Critical Color"] = true
