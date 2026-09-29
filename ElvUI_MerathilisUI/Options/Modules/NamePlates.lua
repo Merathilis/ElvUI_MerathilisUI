@@ -8,6 +8,8 @@ local pairs, tonumber, tsort = pairs, tonumber, table.sort
 
 local options = module.options.modules.args
 
+F.MarkTabAsNew("nameplates")
+
 -- Own disabled replaces the group's, so the children repeat the requirement
 local function FactionIndicatorDisabled()
 	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.factionIndicator.enable
