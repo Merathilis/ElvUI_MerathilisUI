@@ -291,7 +291,6 @@ P.bags = {
 		bankSidebarCollapsed = false,
 		bankWidth = 600,
 		bankHeight = 600,
-		disabledCategories = {},
 		categoryOrder = {},
 		currencyOrder = {},
 		itemOrder = {},

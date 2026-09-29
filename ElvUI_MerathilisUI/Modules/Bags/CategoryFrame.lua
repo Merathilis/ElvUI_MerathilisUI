@@ -5148,7 +5148,9 @@ end
 -- before our hook wraps it, so the wrapped version is never what actually
 -- gets called.)
 function module:OnElvUIBagsOpened()
-	if InCombatLockdown() then
+	-- The hooks stay after a switch to a profile with the categorized bags off,
+	-- ElvUI's own bag frame is used then
+	if InCombatLockdown() or not module.db.enable then
 		return
 	end
 
@@ -5172,7 +5174,7 @@ end
 -- bag frame is a related but independent concern (see the auto-open note
 -- below).
 function module:OnBankOpened()
-	if InCombatLockdown() or (#module.BankBagIDs == 0 and #module.WarbandBagIDs == 0) then
+	if InCombatLockdown() or not module.db.enable or (#module.BankBagIDs == 0 and #module.WarbandBagIDs == 0) then
 		return
 	end
 
@@ -5438,25 +5440,14 @@ end
 -------------------------------------------------------------------------------
 --  Lifecycle
 -------------------------------------------------------------------------------
-function module:Initialize()
-	local db = F.GetDBFromPath("mui.bags.categorizedBags") or E.db.mui.bags.categorizedBags
-	module.db = db
-
-	if not db.enable then
+-- Hooks and events are set up once, the first time a profile with the
+-- categorized bags turned on is active (at login or after a profile switch).
+-- The handlers check db.enable themselves.
+local function SetupHooks()
+	if module.hooksSetUp then
 		return
 	end
-
-	-- One-time cleanup for a profile saved before Bank/Warband got their own
-	-- frame: db.viewMode ("CATEGORY"/"ALL"/"BAG" now) could still hold a
-	-- leftover "BANK"/"WARBAND" from back when this field also drove the bag
-	-- frame's own view - neither is a bag-frame view any more, and leaving
-	-- one in place would mean no sidebar row ever shows as selected.
-	if db.viewMode == "BANK" or db.viewMode == "WARBAND" then
-		db.viewMode = "CATEGORY"
-	end
-
-	module.searchText = ""
-	module.bankViewMode = module.bankViewMode or "BANK_ALL"
+	module.hooksSetUp = true
 
 	module:SecureHook(B, "OpenBags", "OnElvUIBagsOpened")
 	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
@@ -5481,10 +5472,47 @@ function module:Initialize()
 	end
 end
 
+-- One-time cleanup for a profile saved before Bank/Warband got their own
+-- frame: db.viewMode ("CATEGORY"/"ALL"/"BAG" now) could still hold a
+-- leftover "BANK"/"WARBAND" from back when this field also drove the bag
+-- frame's own view - neither is a bag-frame view any more, and leaving
+-- one in place would mean no sidebar row ever shows as selected.
+local function MigrateViewMode(db)
+	if db.viewMode == "BANK" or db.viewMode == "WARBAND" then
+		db.viewMode = "CATEGORY"
+	end
+end
+
+function module:Initialize()
+	local db = F.GetDBFromPath("mui.bags.categorizedBags") or E.db.mui.bags.categorizedBags
+	module.db = db
+
+	module.searchText = ""
+	module.bankViewMode = module.bankViewMode or "BANK_ALL"
+
+	if not db.enable then
+		return
+	end
+
+	MigrateViewMode(db)
+	SetupHooks()
+end
+
 function module:ProfileUpdate()
 	local db = F.GetDBFromPath("mui.bags.categorizedBags") or E.db.mui.bags.categorizedBags
 	module.db = db
 	module:InvalidateCategoryCache()
+
+	-- A profile with the categorized bags off closes ours, the next open uses
+	-- ElvUI's bag frame. Hiding our bank frame also ends the bank interaction.
+	if not db.enable then
+		module:HideCategoryFrame()
+		module:HideBankFrame()
+		return
+	end
+
+	MigrateViewMode(db)
+	SetupHooks()
 
 	if module.frame and module.frame:IsShown() then
 		module:RefreshCategoryFrame()

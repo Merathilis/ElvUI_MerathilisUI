@@ -171,4 +171,17 @@ function module:Initialize()
 	self:UpdateItemDisplay()
 end
 
+-- module.db points at the old profile's table after a switch, so icon, size,
+-- position and the enable toggle would keep using the old settings
+function module:ProfileUpdate()
+	module.db = F.GetDBFromPath("mui.bags.equipmentManager") or E.db.mui.bags.equipmentManager
+
+	if not E.private.bags.enable then
+		return
+	end
+
+	self:UpdateItemDisplay()
+	B:UpdateAllBagSlots()
+end
+
 MER:RegisterModule(module:GetName())
