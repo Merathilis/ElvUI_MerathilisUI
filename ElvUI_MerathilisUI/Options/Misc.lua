@@ -668,7 +668,7 @@ options.raidInfo = {
 	end,
 	set = function(info, value)
 		E.db.mui.misc.raidInfo[info[#info]] = value
-		E:StaticPopup_Show("CONFIG_RL")
+		RIF:DatabaseUpdate()
 	end,
 	args = {
 		desc = {
@@ -798,6 +798,7 @@ options.raidInfo = {
 					end,
 					set = function(_, value)
 						E.db.mui.misc.raidInfo.hideInCombat = value
+						RIF:UpdateVisibility()
 					end,
 				},
 				roleIcons = {
