@@ -7,4 +7,5 @@
 -   [Fix]: DataTexts: The Durability/Ilevel datatext follows a changed value color right away and updates the item level after a gear change.
 -   [Fix]: Item Level: Turning the item level on, also by a profile switch, works without a reload.
 -   [Fix]: Loot Spec Manager: Turning it off now really stops the automatic loot spec changes and hides the Encounter Journal button, without a reload. A profile switch uses the settings of the new profile.
+-   [Fix]: Mail: Open Selected no longer opens the wrong mails once a mail without text is removed after it was emptied.
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
