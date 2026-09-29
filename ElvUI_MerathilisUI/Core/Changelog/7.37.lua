@@ -16,6 +16,7 @@ MER.Changelog[737] = {
 		"[Armory/Socket Panel]: Inserting a gem through the socket panel on the Character Frame works now, before it silently did nothing.",
 		"[Armory/Socket Panel]: Closing the Character Frame now also closes the gem list and stops scanning the bags in the background.",
 		"[Auras]: The collapsed state of the buffs is kept when the Collapse & Expand button is turned off and on again, and a profile switch uses the state of the new profile.",
+		"[Auras]: Clicking the collapse button while ElvUI blocks buff updates (M+, encounters, PvP matches) no longer changes the saved state.",
 		"[Bags]: Changes to the equipment set icon show up in the categorized bags right away, and the item font options repaint the bank as well.",
 		"[Buff Reminder]: The reminder sound no longer repeats for reminders that were already shown, and a muted category no longer blocks the sound of the others.",
 		"[Buff Reminder]: Turning the module off or switching to a profile where it is off hides the icons right away.",
