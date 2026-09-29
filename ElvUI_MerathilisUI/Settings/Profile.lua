@@ -961,6 +961,19 @@ P.nameplates = {
 		tick = true,
 		tickColor = { r = 1, g = 1, b = 1 },
 	},
+	executeLine = {
+		enable = true,
+		percent = 20,
+		width = 2,
+		glow = true,
+		notches = true,
+		zone = true,
+		zoneAlpha = 0.25,
+		pulse = false,
+		hostileOnly = true,
+		colorMode = "CUSTOM",
+		customColor = F.Table.HexToRGB("#00c0fa"),
+	},
 }
 
 P.unitframes = {
@@ -991,6 +1004,25 @@ P.unitframes = {
 			focus = true,
 			boss = true,
 			arena = true,
+		},
+	},
+	executeLine = {
+		enable = true,
+		percent = 20,
+		width = 2,
+		glow = true,
+		notches = true,
+		zone = true,
+		zoneAlpha = 0.25,
+		pulse = false,
+		hostileOnly = true,
+		colorMode = "CUSTOM",
+		customColor = F.Table.HexToRGB("#00c0fa"),
+		units = {
+			target = true,
+			focus = true,
+			boss = true,
+			arena = false,
 		},
 	},
 }

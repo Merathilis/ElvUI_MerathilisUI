@@ -58,6 +58,8 @@ function module:Initialize()
 	module:FactionIndicator()
 	-- Interrupt Ready
 	module:InterruptReady()
+	-- Execute Line
+	module:ExecuteLine()
 end
 
 -- The settings are read on every configure, the frames that exist just need a refresh
@@ -68,6 +70,7 @@ function module:ProfileUpdate()
 
 	module:UpdateFactionIndicators()
 	module:UpdateInterruptReady()
+	module:UpdateExecuteLines()
 end
 
 MER:RegisterModule(module:GetName())

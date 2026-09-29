@@ -313,6 +313,157 @@ function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled
 	return group
 end
 
+---Settings of the Execute Line on the health bar, shared by UnitFrames and NamePlates
+---@param order number
+---@param getDB function returns the settings table
+---@param update function refresh after a change
+---@param requirementsDisabled function disabled check of the owning module
+---@param extraArgs table? more options, merged into the group's args
+---@return table option
+function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, extraArgs)
+	-- Own disabled replaces the group's, so the children repeat the requirement
+	local function Disabled()
+		return requirementsDisabled() or not getDB().enable
+	end
+
+	local group = {
+		order = order,
+		type = "group",
+		name = L["Execute Line"],
+		guiInline = true,
+		get = function(info)
+			return getDB()[info[#info]]
+		end,
+		set = function(info, value)
+			getDB()[info[#info]] = value
+			update()
+		end,
+		disabled = requirementsDisabled,
+		args = {
+			desc = {
+				order = 1,
+				type = "description",
+				dialogControl = "MERNewFeatureLabel",
+				name = F.NewFeatureTrailingText(
+					L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."]
+				),
+			},
+			enable = {
+				order = 2,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			hostileOnly = {
+				order = 3,
+				type = "toggle",
+				name = L["Hostile Units Only"],
+				desc = L["Only shows the line on units you can attack."],
+				disabled = Disabled,
+			},
+			percent = {
+				order = 4,
+				type = "range",
+				name = L["Health Percent"],
+				min = 1,
+				max = 90,
+				step = 1,
+				disabled = Disabled,
+			},
+			width = {
+				order = 5,
+				type = "range",
+				name = L["Width"],
+				min = 1,
+				max = 6,
+				step = 1,
+				disabled = Disabled,
+			},
+			colorMode = {
+				order = 6,
+				type = "select",
+				name = L["Color"],
+				values = {
+					CLASS = L["Class Color"],
+					CUSTOM = L["Custom"],
+				},
+				disabled = Disabled,
+			},
+			customColor = {
+				order = 7,
+				type = "color",
+				name = L["Custom Color"],
+				hasAlpha = false,
+				disabled = function()
+					return Disabled() or getDB().colorMode ~= "CUSTOM"
+				end,
+				get = function()
+					local color = getDB().customColor
+					local dr, dg, db = F.String.HexToRGB("#00c0fa")
+					return color.r, color.g, color.b, nil, dr, dg, db, nil
+				end,
+				set = function(_, r, g, b)
+					local color = getDB().customColor
+					color.r, color.g, color.b = r, g, b
+					update()
+				end,
+			},
+			glow = {
+				order = 9,
+				type = "toggle",
+				name = L["Glow"],
+				desc = L["A soft glow around the line."],
+				disabled = Disabled,
+			},
+			pulse = {
+				order = 10,
+				type = "toggle",
+				name = L["Pulse"],
+				desc = L["The glow slowly pulses."],
+				disabled = function()
+					return Disabled() or not getDB().glow
+				end,
+			},
+			notches = {
+				order = 11,
+				type = "toggle",
+				name = L["Markers"],
+				desc = L["Small arrows at both ends of the line that point at the health bar."],
+				disabled = Disabled,
+			},
+			zone = {
+				order = 12,
+				type = "toggle",
+				name = L["Execute Range"],
+				desc = L["Tints the part of the health bar below the line, fading in towards the line."],
+				disabled = Disabled,
+			},
+			zoneAlpha = {
+				order = 13,
+				type = "range",
+				name = L["Range Opacity"],
+				min = 0.05,
+				max = 0.8,
+				step = 0.05,
+				isPercent = true,
+				disabled = function()
+					return Disabled() or not getDB().zone
+				end,
+			},
+		},
+	}
+
+	if extraArgs then
+		for key, option in pairs(extraArgs) do
+			if option.disabled == nil then
+				option.disabled = Disabled
+			end
+			group.args[key] = option
+		end
+	end
+
+	return group
+end
+
 function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requirements)
 	local orderIdx = self:GetOrder()
 	local inlineGroup = self:AddInlineGroup(options, othersGroup)

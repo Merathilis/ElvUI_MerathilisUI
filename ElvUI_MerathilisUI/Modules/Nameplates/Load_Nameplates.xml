@@ -4,4 +4,5 @@
 	<Script file="TargetArrows.lua"/>
 	<Script file="Highlight.lua"/>
 	<Script file="InterruptReady.lua"/>
+	<Script file="ExecuteLine.lua"/>
 </Ui>

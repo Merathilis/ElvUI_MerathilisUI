@@ -319,6 +319,11 @@ options.nameplates = {
 				end, function()
 					MNP:UpdateInterruptReady()
 				end, module.RequirementsDisabled(I.Requirements.NamePlates), "nameplates"),
+				executeLine = module.ExecuteLineOptions(5, function()
+					return E.db.mui.nameplates.executeLine
+				end, function()
+					MNP:UpdateExecuteLines()
+				end, module.RequirementsDisabled(I.Requirements.NamePlates)),
 			},
 		},
 	},

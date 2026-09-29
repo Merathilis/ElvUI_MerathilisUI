@@ -1489,3 +1489,19 @@ L["Tick Color"] = true
 L["Units"] = true
 L["Interrupt on Cooldown"] = true
 L["Interrupt Ready Soon"] = true
+
+-- Execute Line
+L["Execute Line"] = true
+L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."] = true
+L["Hostile Units Only"] = true
+L["Only shows the line on units you can attack."] = true
+L["Health Percent"] = true
+L["Glow"] = true
+L["A soft glow around the line."] = true
+L["Pulse"] = true
+L["The glow slowly pulses."] = true
+L["Markers"] = true
+L["Small arrows at both ends of the line that point at the health bar."] = true
+L["Execute Range"] = true
+L["Tints the part of the health bar below the line, fading in towards the line."] = true
+L["Range Opacity"] = true

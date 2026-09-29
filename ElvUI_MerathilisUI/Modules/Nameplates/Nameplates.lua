@@ -113,6 +113,7 @@ function module:Initialize()
 	module:TargetArrows()
 	module:Highlight()
 	module:InterruptReady()
+	module:ExecuteLine()
 
 	RefreshAll()
 end

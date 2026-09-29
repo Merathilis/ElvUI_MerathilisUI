@@ -64,6 +64,7 @@ function module:ProfileUpdate()
 	module:UpdateTargetArrows()
 	module:UpdateHighlights()
 	module:UpdateInterruptReady()
+	module:UpdateExecuteLines()
 end
 
 function module:FactionIndicator()
