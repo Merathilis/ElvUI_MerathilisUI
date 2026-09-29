@@ -14,5 +14,7 @@
 -   [Fix]: Trade Tabs: Opening a profession or the trade window in combat no longer causes an "action blocked" message.
 -   [Fix]: Wowhead Links: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
+-   [New]: NamePlates: Animated target arrows next to your target's nameplate (slide in, bounce or both, in class color by default). They replace the arrows of ElvUI's target indicator while enabled.
+-   [New]: NamePlates: The mouseover highlight on the health bar can be restyled with a texture, class or custom color and a short fade in.
 -   [New]: Skins: New skin for Permoks Account Manager: window borders, the category and page buttons and the close button in the MerathilisUI style.
 -   [Improvement]: Core: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.

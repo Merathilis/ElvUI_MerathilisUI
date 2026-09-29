@@ -1461,3 +1461,17 @@ L["Warning Color"] = true
 L["Critical"] = true
 L["Critical Color"] = true
 L["Permoks Account Manager"] = true
+
+-- NamePlates
+L["Target Arrows"] = true
+L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."] = true
+L["Side Arrows"] = true
+L["Top Arrow"] = true
+L["Slide In"] = true
+L["Bounce"] = true
+L["Arrow Texture"] = true
+L["Hover Highlight"] = true
+L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."] = true
+L["Fade In"] = true
+L["Additive Blend"] = true
+L["Brightens the health bar instead of laying the texture over it."] = true

@@ -19,6 +19,8 @@ MER.Changelog[738] = {
 	},
 	NEW = {
 		"[DataTexts]: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.",
+		"[NamePlates]: Animated target arrows next to your target's nameplate (slide in, bounce or both, in class color by default). They replace the arrows of ElvUI's target indicator while enabled.",
+		"[NamePlates]: The mouseover highlight on the health bar can be restyled with a texture, class or custom color and a short fade in.",
 		"[Skins]: New skin for Permoks Account Manager: window borders, the category and page buttons and the close button in the MerathilisUI style.",
 	},
 	IMPROVEMENTS = {

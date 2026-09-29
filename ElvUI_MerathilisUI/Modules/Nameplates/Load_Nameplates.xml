@@ -1,4 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Nameplates.lua"/>
 	<Script file="FactionIndicator.lua"/>
+	<Script file="TargetArrows.lua"/>
+	<Script file="Highlight.lua"/>
 </Ui>

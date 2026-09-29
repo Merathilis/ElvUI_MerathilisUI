@@ -935,6 +935,25 @@ P.nameplates = {
 		xOffset = -2,
 		yOffset = 0,
 	},
+	targetArrows = {
+		enable = true,
+		layout = "sides",
+		animation = "slide",
+		arrow = "Arrow9",
+		size = 22,
+		spacing = 2,
+		colorMode = "CLASS",
+		customColor = { r = 1, g = 1, b = 1 },
+	},
+	highlight = {
+		enable = true,
+		texture = "MER_Stripes",
+		colorMode = "CLASS",
+		customColor = { r = 1, g = 1, b = 1 },
+		alpha = 0.45,
+		additive = true,
+		fade = true,
+	},
 }
 
 P.unitframes = {

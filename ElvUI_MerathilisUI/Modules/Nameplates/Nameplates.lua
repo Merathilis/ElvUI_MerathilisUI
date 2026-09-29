@@ -110,6 +110,8 @@ function module:Initialize()
 	end)
 
 	module:FactionIndicator()
+	module:TargetArrows()
+	module:Highlight()
 
 	RefreshAll()
 end

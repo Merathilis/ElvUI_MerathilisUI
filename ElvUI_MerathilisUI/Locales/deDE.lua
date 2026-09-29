@@ -1246,3 +1246,17 @@ L["Warning Color"] = "Warnfarbe"
 L["Critical"] = "Kritisch"
 L["Critical Color"] = "Kritische Farbe"
 L["Permoks Account Manager"] = true
+
+-- NamePlates
+L["Target Arrows"] = "Zielpfeile"
+L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."] = "Animierte Pfeile neben der Namensplakette deines Ziels. Solange sie aktiv sind, ersetzen sie die Pfeile der ElvUI-Zielanzeige, deren Leuchten bleibt."
+L["Side Arrows"] = "Seitliche Pfeile"
+L["Top Arrow"] = "Pfeil oben"
+L["Slide In"] = "Einschieben"
+L["Bounce"] = "Wippen"
+L["Arrow Texture"] = "Pfeiltextur"
+L["Hover Highlight"] = "Mouseover-Hervorhebung"
+L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."] = "Gestaltet die Hervorhebung auf der Lebensleiste der Namensplakette unter der Maus neu. Benötigt die Hervorhebungs-Option der ElvUI-Namensplaketten."
+L["Fade In"] = "Einblenden"
+L["Additive Blend"] = "Additive Überblendung"
+L["Brightens the health bar instead of laying the texture over it."] = "Hellt die Lebensleiste auf, statt die Textur darüberzulegen."
