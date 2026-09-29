@@ -1,18 +1,19 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local C = W.Utilities.Color
 
-local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn
+local _G = _G
+local format = format
+local ReloadUI = C_UI.Reload
 
 -- MerathilisUI Credits
 E.PopupDialogs.MERATHILISUI_EditBox = {
 	text = MER.Title,
-	button1 = OKAY,
+	button1 = _G.OKAY,
 	hasEditBox = 1,
 	OnShow = function(self, data)
 		self.editBox:SetAutoFocus(false)
 		self.editBox.width = self.editBox:GetWidth()
 		self.editBox:Width(280)
-		self.editBox:AddHistoryLine("text")
 		self.editBox.temptxt = data
 		self.editBox:SetText(data)
 		self.editBox:HighlightText()
@@ -21,7 +22,7 @@ E.PopupDialogs.MERATHILISUI_EditBox = {
 	OnHide = function(self)
 		self.editBox:Width(self.editBox.width or 50)
 		self.editBox.width = nil
-		self.temptxt = nil
+		self.editBox.temptxt = nil
 	end,
 	EditBoxOnEnterPressed = function(self)
 		self:GetParent():Hide()
@@ -55,7 +56,7 @@ E.PopupDialogs.VERSION_OUTDATED = {
 
 E.PopupDialogs.VERSION_MISMATCH = {
 	text = L["MSG_MER_ELV_MISMATCH"],
-	button1 = CLOSE,
+	button1 = _G.CLOSE,
 	timeout = 0,
 	whileDead = 1,
 	preferredIndex = 3,
@@ -66,28 +67,10 @@ E.PopupDialogs.MERATHILIS_OPEN_CHANGELOG = {
 	text = format(L["Welcome to %s %s!"], MER.Title, MER.DisplayVersion),
 	button1 = L["Open Changelog"],
 	button2 = C.StringByTemplate(L["Next Time"], "gray-300"),
-	OnAccept = function(self)
-		E:ToggleOptions("mui,information,changelog")
+	OnAccept = function()
+		MER:OpenChangelog()
 	end,
 	hideOnEscape = 1,
-}
-
--- Compatibility
-E.PopupDialogs.MERATHILISUI_INCOMPATIBLE = {
-	text = L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
-	OnAccept = function()
-		DisableAddOn("ElvUI_WindTools")
-		ReloadUI()
-	end,
-	OnCancel = function()
-		DisableAddOn("ElvUI_MerathilisUI")
-		ReloadUI()
-	end,
-	button1 = "|cff00c0faElvUI_Windtools|r",
-	button2 = MER.Title,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
 }
 
 E.PopupDialogs.MERATHILISUI_RESET_MODULE = {
@@ -107,18 +90,10 @@ E.PopupDialogs.MERATHILISUI_RESET_ALL_MODULES = {
 	button1 = _G.ACCEPT,
 	button2 = _G.CANCEL,
 	OnAccept = function()
-		E.db.mui = P
-		E.private.mui = V
+		E.db.mui = E:CopyTable({}, P)
+		E.private.mui = E:CopyTable({}, V)
 		ReloadUI()
 	end,
-	whileDead = 1,
-	hideOnEscape = true,
-}
-
-E.PopupDialogs.MERATHILISUI_INVALIDPOWER = {
-	text = L["Invalid Model, you need to add a Model ID/Path"],
-	button1 = _G.OKAY,
-	timeout = 0,
 	whileDead = 1,
 	hideOnEscape = true,
 }

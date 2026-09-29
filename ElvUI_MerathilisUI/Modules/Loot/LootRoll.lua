@@ -107,7 +107,8 @@ local function CreateRollButton(parent, rolltype, tiptext)
 	button:SetScript("OnLeave", GameTooltip_Hide)
 	button:SetMotionScriptsWhileDisabled(true)
 	button:SetHitRectInsets(2, 2, 2, 2)
-	button:CreateBackdrop("Default") -- dark slot behind the icon so it doesn't wash out against a bright/saturated status bar color
+	-- Dark slot behind the icon so it doesn't wash out against a bright/saturated status bar color.
+	button:CreateBackdrop("Default")
 
 	local texture = rollTextures[rolltype]
 	button:SetNormalTexture(texture)
@@ -240,7 +241,6 @@ end
 -- Bar creation
 --------------------------------------------------------------------
 function module:CreateBar(index)
-	local db = module.db
 	local bar = CreateFrame("Frame", "MERLootRollBar" .. index, anchor)
 	bar:SetFrameStrata("HIGH")
 	bar:Hide()
@@ -292,7 +292,8 @@ function module:CreateBar(index)
 	spark:SetWidth(8)
 	spark:Point("TOP", status:GetStatusBarTexture(), "TOPRIGHT")
 	spark:Point("BOTTOM", status:GetStatusBarTexture(), "BOTTOMRIGHT")
-	spark:SetColorTexture(1, 1, 1, 0.5) -- neutral white regardless of quality color, so it never outshines the (dimmer) fill
+	-- Neutral white regardless of quality color, so it never outshines the (dimmer) fill.
+	spark:SetColorTexture(1, 1, 1, 0.5)
 	status.spark = spark
 
 	bar.need = CreateRollButton(bar, 1, NEED)
@@ -430,6 +431,10 @@ end
 
 function module:UpdateAnchors()
 	module:StackBars(module.RollBars)
+
+	if module.testBars then
+		module:StackBars(module.testBars)
+	end
 end
 
 --------------------------------------------------------------------
@@ -766,14 +771,14 @@ function module:Test()
 	for i, bar in ipairs(module.testBars) do
 		PopulateTestBar(bar, testItems[i])
 
-		if module.debug then
+		if F.Developer.IsDebugging("LootRoll") then
 			for _, key in ipairs({ "need", "greed", "disenchant", "transmog", "pass" }) do
 				local bu = bar[key]
 				local tex = bu.normalTex
 				local w, h = bu:GetSize()
-				print(
+				module:Debug(
 					format(
-						"|cff33ff99[MLR]|r #%d %s: shown=%s enabled=%s size=%.0fx%.0f alpha=%.2f texture=%s",
+						"#%d %s: shown=%s enabled=%s size=%.0fx%.0f alpha=%.2f texture=%s",
 						i,
 						key,
 						tostring(bu:IsShown()),
@@ -793,27 +798,32 @@ MER:AddCommand("MLR", "/mlr", function()
 	module:Test()
 end)
 
-MER:AddCommand("MLRDEBUG", "/mlrdebug", function()
-	module.debug = not module.debug
-	print("|cff33ff99[MLR]|r debug: " .. tostring(module.debug))
-end)
-
 --------------------------------------------------------------------
 -- Init
 --------------------------------------------------------------------
 function module:ApplySettings()
-	if not module.db.enable then
+	-- Nothing is built while the module was disabled on load
+	if not anchor or not module.db.enable then
 		return
 	end
 
 	module:Layout()
 	module:UpdateAnchors()
+
+	-- Colors and the item level are set when a bar is filled, so an open preview is filled again
+	if module.testBars and module.testBars[1]:IsShown() then
+		for i, bar in ipairs(module.testBars) do
+			PopulateTestBar(bar, testItems[i])
+		end
+	end
+end
+
+function module:ProfileUpdate()
+	module.db = E.db.mui.lootRoll
+	module:ApplySettings()
 end
 
 function module:Initialize()
-	if type(E.db.mui.lootRoll) ~= "table" then
-		E.db.mui.lootRoll = CopyTable(P.lootRoll)
-	end
 	module.db = E.db.mui.lootRoll
 
 	if not module.db.enable then

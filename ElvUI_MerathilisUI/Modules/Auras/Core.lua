@@ -124,7 +124,7 @@ end
 -- change, reusing the same filter/candidate data ElvUI built for this group.
 local function ApplyCollapsedState(header, collapsed)
 	if not header or E:IsRestrictedAuras() or header.forceShowAuras then
-		return
+		return false
 	end
 
 	header.collapsed = collapsed
@@ -148,13 +148,17 @@ local function ApplyCollapsedState(header, collapsed)
 	end
 
 	UpdateButtonRotation(header)
+	return true
 end
 
 function module:ToggleCollapsed(header)
 	local collapsed = not header.collapsed
-	ApplyCollapsedState(header, collapsed)
 
-	GetDB().expanded = not collapsed
+	-- Only saved when it was applied: while ElvUI blocks aura container updates (M+, encounters,
+	-- PvP matches) the click does nothing, and a saved state would kick in on the next update
+	if ApplyCollapsedState(header, collapsed) then
+		GetDB().expanded = not collapsed
+	end
 end
 
 -- Only expanded buffs give us an accurate count (collapsed mode caps the container itself),
@@ -271,8 +275,10 @@ function module:Refresh()
 	if not header.collapseButton then
 		self:SetupHeader(header)
 	else
+		-- From the database, not header.collapsed: turning the feature off expands the header,
+		-- and a profile switch brings its own state
 		UpdateButtonLayout(header)
-		ApplyCollapsedState(header, header.collapsed)
+		ApplyCollapsedState(header, not db.expanded)
 	end
 end
 

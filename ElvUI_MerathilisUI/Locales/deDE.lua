@@ -4,7 +4,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 -- Core
 L["Enable"] = "Eingeschaltet"
 L[" is loaded. For any issues or suggestions join my discord: "] =
-	" wurde geladen. Um Fehler zu melden oder mir Vorschläge zu unterbreiten joined meinen Discord: "
+	" wurde geladen. Um Fehler zu melden oder mir Vorschläge zu unterbreiten, tritt meinem Discord bei: "
+L[" or visit my homepage: "] = " oder besuche meine Homepage: "
 L["Please run through the installation process to set up the plugin.\n\n |cffff7d0aThis step is needed to ensure that all features are configured correctly for your profile. You don't have to apply every step.|r"] =
 	"Bitte durchlaufe den Installationsprozess, um das Plugin einzurichten.\n\n |cffff7d0aDieser Schritt ist notwendig, um sicherzustellen, dass alle Funktionen korrekt für dein Profil konfiguriert sind. Du musst nicht jeden Schritt anwenden.|r"
 L["Font"] = "Schriftart"
@@ -50,6 +51,8 @@ L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"
 L["Tukui"] = true -- no need to translate
 L["Github"] = true -- no need to translate
+L["Website"] = "Webseite"
+L["MerathilisUI Discord"] = true -- no need to translate
 L["CurseForge"] = true -- no need to translate
 L["Coding"] = true -- no need to translate
 L["Testing & Inspiration"] = "Tester & Inspiration"
@@ -92,8 +95,6 @@ L["Misc"] = "Verschiedenes"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Name Hover"] = "Namen MouseOver"
 L["MISC_PARAGON"] = "Paragon"
-L["Fun Stuff"] = "Lustiges Zeugs"
-L["Change the NPC Talk Frame."] = "Ändert das NPC Sprechfenster ab."
 L["Wowhead Links"] = true -- no need to translate
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] =
 	"Fügt Wowhead Links dem Erfolgfenster und der Weltkarte hinzu."
@@ -111,18 +112,14 @@ L["Sync Inspect"] = "Syncronisiere Betrachtung"
 L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."] =
 	"Wenn Du diese Option aktivierst, hat der Maßstab Deines Betrachtungsfensters den selben Wert wie der Maßstab des Charakterfensters."
 L["Talents"] = "Talente"
-L["Wardrobe"] = "Kleiderschrank"
 L["Auction House"] = "Auktionshaus"
 L["Transmog Frame"] = "Transmogrifikationsfenster"
-L["Makes the transmogrification frame bigger. Credits to Kayr for code."] =
-	"Macht das Transmogrifikationsfenster größer. Dank an Kayr für den Code."
 L["Add more oUF tags. You can use them on UnitFrames configuration."] =
 	"Füge weitere oUF-Tags hinzu. Du kannst sie in der Einheitsfenster-Konfiguration verwenden."
 
 L["Trade Tabs"] = "Berufe Tabs"
 L["Enable Tabs on the Profession Frames"] = "Aktiviere die Tabs in den Berufsfenstern"
 L["Group Finder"] = "Gruppenfinder"
-L["Equipment Upgrade"] = "Gegenstandsverbesserung"
 L["Vendor"] = "Händler"
 L["Class Trainer"] = "Klassentrainer"
 L["Gossip"] = "Tratsch"
@@ -172,9 +169,6 @@ L["Unknown or undiscovered currency ID."] = "Unbekannte oder noch nicht entdeckt
 L["You are close to the cap: %d / %d"] = "Du näherst dich der Kappe: %d / %d"
 L["Title Font"] = "Titel Schriftart"
 L["Text Font"] = "Text Schriftart"
-L["Debug Print"] = "Debuggausgabe"
-L["Enable this option to get a chat print of the Name and ID from the Vignettes on the Minimap"] =
-	"Aktiviere diese Option um eine Chatausgabe vom Namen und ID von den Vignetten auf der Minikarte zu erhalten."
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
@@ -194,8 +188,9 @@ L["Missing Sockets"] = "Fehlende Sockel"
 L["Short Enchant Text"] = "Kurzer Verzauberungstext"
 L["Enchant Font"] = "Verzauberungsschriftart"
 L["Item Level"] = "Gegenstandsstufe"
-L["Settings for the Item Level next tor your item slot"] =
+L["Settings for the Item Level next to your item slot"] =
 	"Einstellungen für die Gegenstandsstufe neben Deinem Gegenstandsplatz"
+L["Settings for the custom %s Armory decorative lines."] = "Einstellungen für die dekorativen Linien der %s Armory."
 L["Enable/Disable the Item Level text display"] = "Aktiviere/deaktiviere die Texte auf Elementebene"
 L["Toggle sockets & azerite traits"] = "Sockel und Azerit-Eigenschaften umschalten"
 L["Item Quality Gradient"] = "Gegenstandsqualität Farbverlauf"
@@ -474,9 +469,6 @@ L["+ New Set"] = "+ Neues Set"
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
 
-L["UnitFrame Style"] = "Einheitenfenster Stil"
-L["Adds my styling to the Unitframes if you use transparent health."] =
-	"Fügt meinen Stil zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 L["Raid Icon"] = "Schlachtzugsymbol"
 L["Change the default raid icons."] = "Ändert das Standard Schlachtzugsymbol"
@@ -485,7 +477,6 @@ L["Adds an own highlight to the Unitframes"] = "Fügt den Einheitsfenstern ein e
 L["Auras"] = "Auren"
 L["Cooldown Manager"] = "Cooldown Manager"
 L["Tooltip"] = "Tooltip"
-L["Adds an shadow around the auras"] = "Fügt Schatten um die Auren hinzu"
 
 -- Cooldowns
 L["Cooldown Flash"] = "Abklingzeiten Aufleuchten"
@@ -573,6 +564,12 @@ L["Plugins"] = "Plugins"
 L["This part of the installation process will apply changes to ElvUI Plugins"] =
 	"Dieser Teil des Installationsprozesses wird Änderungen an ElvUI Plugins anwenden."
 L["Important Plugins"] = "Wichtige Plugins"
+L["Interface"] = "Oberfläche"
+L["Combat"] = "Kampf"
+L["Quality of Life"] = "Komfort"
+L["Choose the modules you want to use. Changes are applied on the reload at the end of the installer and can be changed anytime in the options."] = "Wähle die Module aus, die Du nutzen möchtest. Die Änderungen werden beim Neuladen am Ende der Installation übernommen und können jederzeit in den Optionen geändert werden."
+L["You are now finished with the installation process."] = "Die Installation ist abgeschlossen."
+L["Features, the full changelog and downloads can be found on the website %s."] = "Alle Features, das komplette Changelog und Downloads findest Du auf der Webseite %s."
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
@@ -601,7 +598,6 @@ L["Right Color"] = "Rechte Farbe"
 
 L["The options below is only for the Details look, NOT the Embeded."] =
 	"Die nachfolgende Option ist nur für das Aussehen von Details, NICHT die Einbettung."
-L["Action Status"] = "Aktionsstatus"
 L["Embed Settings"] = "Einbettungseinstellungen"
 L["With this option you can embed your Details into an own Panel."] =
 	"Mit dieser Option kannst Du Dein Details in ein eigenes Panel einbetten."
@@ -639,7 +635,6 @@ L["Level"] = "Stufe"
 
 -- Advanced Settings
 L["Advanced Settings"] = "Erweiterte Einstellungen"
-L["Blizzard Fixes"] = "Blizzard Fixe"
 L["The message will be shown in chat when you login."] = "Die Nachricht wird im Chat angezeigt, wenn Du Dich anmeldest."
 L["This section will help reset specfic settings back to default."] =
 	"Dieser Abschnitt hilft dabei, bestimmte Einstellungen auf die Standardeinstellungen zurückzusetzen."
@@ -656,6 +651,10 @@ L[" below.\n\n"] = true
 L["Class Colors"] = true
 L["NPC Colors"] = true
 L["Here you can change the "] = true
+L["Power Colors"] = "Ressourcenfarben"
+L["Non-interruptible"] = "Nicht unterbrechbar"
+L["Regular"] = "Normal"
+L["Here you can change additional settings for the %s."] = "Hier kannst du weitere Einstellungen für den %s ändern."
 L[" of NPC colors.\n\n"] = true
 L[" of Power colors.\n\n"] = true
 L["Other Colors"] = true
@@ -770,6 +769,12 @@ L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"Wendet alle |cffffffffMerathilis|r|cffff7d0aUI|r Schriftart Einstellungen an."
 L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
 	"Setzt alle |cffffffffMerathilis|r|cffff7d0aUI|r Schriftart Einstellungen zurück."
+L["Changes are only applied to the ElvUI profile after clicking Apply."] = "Änderungen werden erst mit Klick auf Anwenden ins ElvUI-Profil übernommen."
+L["Main Font"] = "Hauptschriftart"
+L["Number Font"] = "Zahlenschriftart"
+L["Font Size Offset"] = "Schriftgrößen-Versatz"
+L["Added to every font size the profile sets."] = "Wird zu jeder Schriftgröße addiert, die das Profil setzt."
+L["Default keeps the outline each element uses in the profile."] = "Standard behält die Kontur bei, die das jeweilige Element im Profil nutzt."
 
 -- Debug
 L["Usage"] = "Verwendungszweck"
@@ -786,6 +791,7 @@ L["After you stop debuging, %s will reenable the addons automatically."] =
 	"Nachdem Du das Debuggen beendet hast, wird %s die Addons automatisch aktivieren."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
 	"Bevor Du einen Fehler meldest, aktiviere bitte den Debug Modus mit dem %s Befehl und teste es noch einmal."
+L["If you get an error, open %s and paste its content into your report."] = "Wenn du einen Fehler bekommst, öffne %s und füge den Inhalt in deine Meldung ein."
 L["Error"] = "Fehler"
 L["Warning"] = "Warnung"
 
@@ -1064,7 +1070,10 @@ L["Left-click to attach all - right-click to set a default recipient."] =
 -- Chat
 L["Chat Sidebar"] = "Chat-Seitenleiste"
 L["Adds a slim icon bar inside a chat panel with quick access to friends, guild, copy chat, M+ portals and more."] = "Fügt eine schmale Icon-Leiste in ein Chat-Panel ein, mit Schnellzugriff auf Freunde, Gilde, Chat kopieren, M+-Portale und mehr."
-L["Requires ElvUI's Chat module to be enabled."] = "Erfordert, dass ElvUIs Chat-Modul aktiviert ist."
+L["Requires ElvUI's %s module to be enabled."] = "Benötigt das aktivierte %s-Modul von ElvUI."
+L["No MerathilisUI profile installed."] = "Kein MerathilisUI-Profil installiert."
+L["Not available while EltruismUI is enabled."] = "Nicht verfügbar, solange EltruismUI aktiviert ist."
+L["Not available while BenikUI is enabled."] = "Nicht verfügbar, solange BenikUI aktiviert ist."
 L["Chat Panel"] = "Chat-Panel"
 L["Side"] = "Seite"
 L["Which edge of the chat panel the sidebar sits on."] = "An welcher Kante des Chat-Panels die Seitenleiste sitzt."
@@ -1149,6 +1158,26 @@ L["Hides the zone text ElvUI shows on the Minimap, the panel shows it already."]
 L["Coordinates"] = "Koordinaten"
 L["Shows your X coordinate left and your Y coordinate right of the zone text."] = "Zeigt deine X-Koordinate links und deine Y-Koordinate rechts vom Zonentext."
 
+-- Tracker
+L["Tracker"] = "Tracker"
+L["Battle Res"] = "Kampfwiederbelebung"
+L["Shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters."] = "Zeigt die gemeinsamen Kampfwiederbelebungs-Aufladungen deiner Gruppe und die Zeit bis zur nächsten Aufladung in Mythisch+-Schlüsseln und bei Schlachtzugsbossen."
+L["Shows sample values for 20 seconds so you can check the look and position."] = "Zeigt 20 Sekunden lang Beispielwerte, damit du Aussehen und Position prüfen kannst."
+L["Mythic+ and Raid"] = "Mythisch+ und Schlachtzug"
+L["Raid"] = "Schlachtzug"
+L["Desaturate"] = "Entsättigen"
+L["Greys out the icon while no charge is left."] = "Färbt das Symbol grau, solange keine Aufladung übrig ist."
+L["Charges"] = "Aufladungen"
+L["Recharge Time"] = "Aufladezeit"
+L["Bloodlust"] = "Kampfrausch"
+L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."] = "Der Kampfrausch-Tracker zeigt deine Sättigung, den aktiven Kampfrausch und auf Wunsch, wann ein Kampfrausch wieder bereit ist."
+L["Show Sated"] = "Sättigung anzeigen"
+L["Shows the remaining time of your Sated lockout. The active lust itself is always shown."] = "Zeigt die Restzeit deiner Sättigung. Der aktive Kampfrausch selbst wird immer angezeigt."
+L["Show Ready"] = "Bereit anzeigen"
+L["Keeps the icon up with a Ready text while you can benefit from a lust again."] = "Lässt das Symbol mit dem Text Bereit sichtbar, solange du wieder von einem Kampfrausch profitieren kannst."
+L["Greys out the icon while you are Sated."] = "Färbt das Symbol grau, solange du gesättigt bist."
+L["Ready"] = "Bereit"
+
 -- Movement Alert
 L["No %s"] = "Kein %s"
 L["%s ready"] = "%s bereit"
@@ -1189,3 +1218,15 @@ L["Plays a sound or reads the spell name out loud when a movement spell is avail
 L["Spells"] = "Zauber"
 L["Shows a banner while one of your movement spells can be used for free after Time Spiral or a similar effect reset it."] = "Zeigt ein Banner, solange einer deiner Bewegungszauber gratis genutzt werden kann, nachdem Zeitspirale oder ein ähnlicher Effekt ihn zurückgesetzt hat."
 L["Shows a reminder while the Gateway Control Shard in your bags can be used."] = "Zeigt eine Erinnerung, solange der Torsteuerungssplitter in deinen Taschen benutzt werden kann."
+
+-- Faction Indicator
+L["Faction Indicator"] = "Fraktionsanzeige"
+L["Shows the faction icon of players from the opposing faction."] = "Zeigt das Fraktionssymbol von Spielern der gegnerischen Fraktion an."
+L["Crest"] = "Wappen"
+L["Round"] = "Rund"
+L["TargetTarget"] = "Ziel des Ziels"
+L["FocusTarget"] = "Fokusziel"
+L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"] = "Öffnet das %s-Statusfenster mit den Informationen zur Fehlersuche. Bitte bei Fehlermeldungen mitschicken!"
+L["Equipment Flyout"] = "Ausrüstungsauswahl"
+L["Shows the item level on the items in the merchant and trade windows."] = "Zeigt die Gegenstandsstufe der Gegenstände im Händler- und Handelsfenster."
+L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."] = "Die Gegenstandsstufe im Ausrüstungsmenü, in der Verschrottungsmaschine und in den Gildennachrichten gehört zu WindTools (Item > Item Level, Misc)."

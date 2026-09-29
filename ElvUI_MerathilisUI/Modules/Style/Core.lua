@@ -132,7 +132,7 @@ local function ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNa
 	end
 
 	if not frame.CreateStyle then
-		WF.Developer.LogDebug("API functions not found!", "MERCreateStyle", true)
+		F.Developer.LogDebug("API functions not found!", "MERCreateStyle", true)
 		return
 	end
 
@@ -200,31 +200,6 @@ local function MERConfigWindowStyle(frame, template, glossTex, ignoreUpdates, _,
 	ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNamePlateElement)
 end
 
--- ElvUI frame API (resolved at load; only injected if missing on metatable)
-local API = {
-	Kill = Kill,
-	Size = Size,
-	Point = Point,
-	Width = Width,
-	Height = Height,
-	PointXY = PointXY,
-	GrabPoint = GrabPoint,
-	NudgePoint = NudgePoint,
-	SetOutside = SetOutside,
-	SetInside = SetInside,
-	SetTemplate = SetTemplate,
-	CreateBackdrop = CreateBackdrop,
-	CreateShadow = CreateShadow,
-	FontTemplate = FontTemplate,
-	StripTextures = StripTextures,
-	StripTexts = StripTexts,
-	StyleButton = StyleButton,
-	OffsetFrameLevel = OffsetFrameLevel,
-	CreateCloseButton = CreateCloseButton,
-	SetTexCoords = SetTexCoords,
-	GetChild = GetChild,
-}
-
 function module:API(object)
 	local mt = getmetatable(object)
 	if not mt then
@@ -234,12 +209,6 @@ function module:API(object)
 	local mk = mt.__index
 	if type(mk) ~= "table" then
 		return
-	end
-
-	for method, func in next, API do
-		if func and not object[method] and not mk[method] then
-			mk[method] = func
-		end
 	end
 
 	if
@@ -421,8 +390,7 @@ function module:Initialize()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("module.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("module.SettingsUpdate", self.SettingsUpdate, self)
+	F.Event.RegisterCallback("Style.DatabaseUpdate", self.DatabaseUpdate, self)
 
 	self.Initialized = true
 end

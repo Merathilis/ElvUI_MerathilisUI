@@ -1,20 +1,112 @@
 ### Changes
 
--   [Fix]: Bags: Categorized Bags - splitting stacks works again: Shift+click splits like in Blizzard's bags (links in chat only while a chat box is open), the split-off part is put into a free slot right away, and a split item isn't merged back into one slot until the bags close.
--   [Fix]: Maps: Minimap Buttons - the Great Vault button stops pulsing as soon as the reward is claimed instead of only after opening the vault again.
--   [Fix]: Bags: Categorized Bags - right-clicking a piece of gear equips it again when you already wear another copy of the same item (a different upgrade level, a second ring or trinket). Right-click now acts on the bag slot itself instead of looking the item up by name, which also makes selling at a merchant and depositing at the bank behave exactly like Blizzard's bags.
--   [New]: Chat: New Chat Sidebar - a slim icon bar inside (or next to) the left or right chat panel with online friends/guild counters, durability, copy chat, M+ portals, chat channels, settings and a scroll-to-bottom button that lights up while the chat is scrolled up. Its copy button replaces ElvUI's (right-click opens the chat menu), its channel button takes over Blizzard's voice buttons on the chat panel - it lights up while a voice channel is active, turns into a crossed out microphone while you are muted or deafened and toggles the microphone (right-click) or the speakers (middle-click) - and the icons can be reordered with Shift + drag.
--   [New]: Chat: Chat panels can be resized by dragging the grip that shows in their corner while hovering them (new "Lock Chat Size" option to hide it). The right panel only gets one while it shows a backdrop or holds a chat window.
--   [New]: Chat: The active combat log filter is shown in your class color, the others are dimmed.
--   [New]: Chat: The chat edit box can get a MerathilisUI style: backdrop with stripes and its own opacity, a small bar in the chat type's color instead of a colored border, the channel prefix as a colored badge, a fade-in when it opens and a class colored glow while it is open. ElvUI's edit box position can be set right there too, and the "inside" positions leave room for the Chat Sidebar.
--   [New]: Chat: The active chat tab gets an underline in your class color, like the tabs of the MerathilisUI options.
--   [New]: Maps: New Location Panel - shows the current zone in a panel above the Minimap (click opens the World Map, the tooltip lists zone, subzone and PvP status) with your coordinates left and right of the zone text. The zone is colored by its PvP status in the same colors as on Blizzard's Minimap. It replaces ElvUI's Minimap Cluster, which the installer now disables together with its clock, and the old Minimap Coordinates module, which has been removed.
--   [New]: Movement Alert - new module that shows the cooldown of your class's movement spells (Blink, Heroic Leap, Disengage, ...) while they are not available, as text, icon or bar. It also works in restricted content where cooldowns are hidden from addons, can play a sound or read the spell out loud when it is ready again, lets you pick which spells to track (custom spell IDs included), shows a banner while Time Spiral lets you use a movement spell for free and reminds you when your Gateway Control Shard can be used. Idea by EllesmereUI.
--   [Improvement]: Maps: Minimap Buttons - the M+ Portals flyout is now shared with the Chat Sidebar.
--   [Improvement]: Maps: Minimap Buttons - new Addon Compartment button in the Elements bar, it opens Blizzard's addon list and replaces the counter on the Minimap.
--   [Improvement]: Bags: Categorized Bags - the Bank window has its own Sort button, sorting whichever bank it shows (character or Warband) and asking first like Blizzard's bank does.
--   [Improvement]: Bags: Categorized Bags - the Stack button now really stacks (merges partial stacks without re-sorting) instead of sorting again; Shift-click at the bank tops up matching stacks in the bank, and the Bank window got a Stack button that does the same towards your bags.
--   [Improvement]: Options: Option groups on the MerathilisUI pages stand out more clearly - a larger title with a small accent bar in front of it, a slightly lighter box and a small shadow behind it.
--   [Improvement]: Options: Headers and group titles no longer carry their own orange coloring and all use the same white MerathilisUI style. The Bags tab is no longer marked as new.
--   [Improvement]: Options: The navigation tree on the MerathilisUI pages matches the rest of the options - white labels, the selected entry marked with an accent bar and accent text, a subtle hover and a darker box with a small shadow.
--   [Improvement]: Options: The module tabs on the MerathilisUI pages are sorted alphabetically again, new modules no longer end up in the wrong spot.
+-   [Fix]: ActionBars: Color Modifier Keys can be turned on and off without a reload, turning it off or switching profiles works right away now.
+-   [Fix]: AFK: The AFK screen is now really turned off while BenikUI is enabled, as the option always described, and the option shows the reason.
+-   [Fix]: Armory: Enchant texts and stat labels no longer show broken icon codes (e.g. "A:Professions-...") after their colors were removed.
+-   [Fix]: Armory: The Missing Sockets tooltip no longer throws a Lua error.
+-   [Fix]: Armory: The outline setting of the header texts (name, title, level, class, spec icon) works now, and Class Gradient for the title text is applied.
+-   [Fix]: Armory: Enchant texts on socketed items are abbreviated and class colored again, and a missing head enchant is shown.
+-   [Fix]: Armory: The "Always show if not empty" stat mode hides empty stats again.
+-   [Fix]: Armory/Equipment Manager: With a custom header or label font color, the dividers and row gradients stayed white instead of using that color.
+-   [Fix]: Armory/Equipment Manager: The Enable toggle now switches between the custom panel and Blizzard's list, also when the Armory is turned off.
+-   [Fix]: Armory/Equipment Manager: The cog menu no longer closes as soon as the mouse moves onto it.
+-   [Fix]: Armory/Socket Panel: Inserting a gem through the socket panel on the Character Frame works now, before it silently did nothing.
+-   [Fix]: Armory/Socket Panel: Closing the Character Frame now also closes the gem list and stops scanning the bags in the background.
+-   [Fix]: Auras: The collapsed state of the buffs is kept when the Collapse & Expand button is turned off and on again, and a profile switch uses the state of the new profile.
+-   [Fix]: Auras: Clicking the collapse button while ElvUI blocks buff updates (M+, encounters, PvP matches) no longer changes the saved state.
+-   [Fix]: Bags: Changes to the equipment set icon show up in the categorized bags right away, and the item font options repaint the bank as well.
+-   [Fix]: Buff Reminder: The reminder sound no longer repeats for reminders that were already shown, and a muted category no longer blocks the sound of the others.
+-   [Fix]: Buff Reminder: Turning the module off or switching to a profile where it is off hides the icons right away.
+-   [Fix]: Changelog: /mer changelog and the chat link open the changelog page again instead of only the options start page.
+-   [Fix]: Chat Edit Box: The chat type badge text was unreadable on bright chat colors like Whisper or Say, because the dark text kept a black outline.
+-   [Fix]: Chat Sidebar: With the edit box inside the chat panel, the edit box no longer covers the sidebar.
+-   [Fix]: Commands: The hints of /mer (usage, missing MerathilisUI profile) are shown again, they were hidden behind a WindTools log setting.
+-   [Fix]: Core: Fixed possible Lua errors in combat ("secret value") in color comparisons, color gradients and name abbreviations.
+-   [Fix]: Core: Fixed Lua errors when MerathilisUI tried to report an internal problem (e.g. a missing media file, category icon or skin element).
+-   [Fix]: Core: Class gradient texts now fully reach their end color on the last letter.
+-   [Fix]: Core: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.
+-   [Fix]: Core: Clicking the Open Changelog link in the chat no longer also opens an empty link tooltip.
+-   [Fix]: Core: A fresh install no longer prints Update Database messages, and update messages only appear when something changed, in the right order.
+-   [Fix]: Core: Buff Reminder, Copy Transmog, Movement Alert, Portal Flyout, Singing Sockets, Trade Tabs, Tracker, Vehicle Bar, the Game Menu, the Status Report, the automatic group role and the Great Vault skin no longer use deprecated Blizzard functions, which only exist while Blizzard's deprecation fallbacks are enabled.
+-   [Fix]: Cursor: The GCD and cast rings no longer throw Lua errors ("secret value") during Mythic+ and raid encounters.
+-   [Fix]: Cursor: With "Only While Steering Camera" the ring no longer shows up after the module was turned off.
+-   [Fix]: Debug Mode: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.
+-   [Fix]: Durability/ItemLevel Datatext: Fixed Lua errors with low durability when the icon is colored or the colored thresholds are enabled.
+-   [Fix]: ElvUI AuraBars: MerathilisUI no longer replaces ElvUI's name abbreviation, so the aura bars abbreviate spell names the ElvUI way again.
+-   [Fix]: Gradient Theme: The Saturation Boost can be turned on again, before the toggle had no effect. Its sliders are disabled while it is off.
+-   [Fix]: Gradient Theme: The saturation boost settings are now also used for frames without a fixed color.
+-   [Fix]: Gradient Theme: The gradient previews in the options update again when colors are changed.
+-   [Fix]: Installer: The color preview of the UnitFrames step stuck to other steps, and the step buttons cut off longer labels. Closing the installer no longer leaves MerathilisUI changes behind for the next plugin installer.
+-   [Fix]: Installer: Errors while applying a profile are now reported instead of being silently ignored.
+-   [Fix]: Installer: The chat step names the combat log window correctly again and uses Blizzard's current chat functions instead of deprecated ones.
+-   [Fix]: Installer: Removed the Cooldown Manager checkbox from the Modules step, the module no longer exists.
+-   [Fix]: Item Level: Turning the module on or off no longer throws a Lua error.
+-   [Fix]: Location Panel: The Disable ElvUI Cluster option asks for the correct reload, and the options of the panel are disabled while it is turned off.
+-   [Fix]: Loot Roll: After a profile switch the bars use the settings of the new profile, and an open test preview follows color and direction changes right away.
+-   [Fix]: Loot Spec Manager: Fixed a Lua error every time a tab of the Encounter Journal was switched.
+-   [Fix]: Loot Spec Manager/Copy Transmog: The info tooltips are colored again.
+-   [Fix]: Mail: Switching to a profile with the Mail module turned off (or on) applies right away.
+-   [Fix]: Minimap Buttons: Turning the module off hides both bars right away and gives the Blizzard icons back, before it needed a reload.
+-   [Fix]: Movement Alert: Fixed a Lua error in combat ("attempt to compare a secret number value") when a tracked spell's cooldown is restricted.
+-   [Fix]: Name Hover: The line with faction, classification and race is now placed correctly between the guild and the status line.
+-   [Fix]: Name Hover: The outline options work now, before every text always used a shadow outline, and the Enemy Forces font size is applied to the text as well.
+-   [Fix]: Name Hover: A profile switch applies the settings of the new profile right away, including turning Name Hover on or off.
+-   [Fix]: NamePlates: After a profile switch the faction icons on the visible nameplates use the settings of the new profile.
+-   [Fix]: Notification: The Vignette Time Out option works now, before it was always 20 seconds, and the font options are applied to every notification.
+-   [Fix]: Notification: Adding something that is not a number to the Vignette blacklist no longer throws a Lua error, and removed default IDs stay removed after a reload.
+-   [Fix]: Options: Sub-options of the Buff Reminder, the Categorized Bags and the Specialization Bar are disabled as well when their module or the required ElvUI module is turned off.
+-   [Fix]: Panels: Changing the height of the top panel no longer throws a Lua error, the Reset of the custom color restores the right color and a profile switch applies the panel settings of the new profile.
+-   [Fix]: Pet Filter Tab: The pet filter tab in the Collections window could fail to appear, because it loaded through the same event handler as another feature.
+-   [Fix]: Portal Flyout: Fixed Lua errors ("secret value") when opening the flyout or casting during an active Mythic+ key.
+-   [Fix]: Profiles: Importing an invalid or damaged string no longer reloads the UI or throws a Lua error, it shows an error message and changes nothing.
+-   [Fix]: Profiles: Removed the AddOnSkins button under Profiles > AddOns, it did nothing. The addon buttons have a fixed order now.
+-   [Fix]: Reset: The reset buttons in the Advanced settings now fully restore a module's defaults. Entries you added yourself, like blacklist entries or custom categories, were kept before.
+-   [Fix]: Resting Indicator: Removed the broken Custom Gradient Color option, it caused a Lua error after login. The indicator always uses the class gradient.
+-   [Fix]: Scale: Sync Inspect works, and the Transmog, Class Trainer, Item Upgrade and Equipment Flyout sliders now actually scale their frames.
+-   [Fix]: Skins: The ls_Toasts skin can be turned off again, and Mount Route Planner has its own toggle in the AddOnSkins options.
+-   [Fix]: Skins: The BugSack skin and the BigWigs queue timer skin now follow the AddOnSkins toggle.
+-   [Fix]: Tags: [name:MER:gradient] shows players without a known class again and updates its color when the reaction of an NPC changes.
+-   [Fix]: UnitFrames: Removed a leftover call to the old Portraits that stopped the UnitFrames setup with a hidden Lua error.
+-   [Fix]: UnitFrames: Raid Icon and Highlight ask for the reload they need, the options follow the ElvUI UnitFrames requirement and the empty Party tab is gone.
+-   [Fix]: Vehicle Bar: Changed settings apply right away again instead of only after a reload.
+-   [Fix]: Vehicle Bar: After turning the Vehicle Bar off and on again or changing a setting, the Vigor Bar, the button animations and the keybinds work again. Turning off the Vigor Bar hides it right away, and the options are disabled while the Vehicle Bar or ElvUI's action bars are turned off.
+-   [Fix]: Vehicle Bar: Fixed possible Lua errors ("secret value") of the vigor bar during Mythic+ and raid encounters.
+-   [New]: Cursor: The GCD and cast rings have the Only In Instances and Only In Combat options as well.
+-   [New]: Developer Tools: New /muidev command - a copyable log window with version info for bug reports (/muidev log), debug channels per module (/muidev debug <module>), log level and value inspection. Replaces the Tracker debug mode, the Vignette debug print option and /mlrdebug.
+-   [New]: Installer: New Modules step after UnitFrames - pick which MerathilisUI modules you want to use, applied on the reload at the end.
+-   [New]: Loot Roll: The font of the loot roll bars can be changed.
+-   [New]: Profiles: The General tab has real font options now - pick a replacement font and outline for the main font and the number font, and a size offset for all fonts. Apply writes them into the ElvUI profile.
+-   [New]: Tracker: New module - a Battle Res tracker shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters, as an icon or as a compact text line. A Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again.
+-   [New]: UnitFrames/NamePlates: New Faction Indicator - shows the faction crest of players from the opposing faction on the Target, Focus and Arena frames (Target of Target and Focus Target optional) and on the NamePlates. Style, size and position can be set per frame.
+-   [New]: Vehicle Bar: The font size of the speed text can be changed.
+-   [Improvement]: ActionBars: The Specialization Bar mouseover option applies without a reload.
+-   [Improvement]: Armory: Font, header and background settings apply right away without a reload.
+-   [Improvement]: Armory: Hide Controls no longer needs a reload.
+-   [Improvement]: Auras: The Collapse & Expand option is disabled with a notice while ElvUI's buffs are turned off.
+-   [Improvement]: Bags: The bag options are disabled with a notice while ElvUI's bags are turned off.
+-   [Improvement]: Buff Reminder: Options that have no effect in the current setup are disabled.
+-   [Improvement]: Core: Errors while a module starts up are now reported (e.g. in BugSack) instead of being silently ignored.
+-   [Improvement]: Core: Uses ElvUI's animation library instead of a bundled copy.
+-   [Improvement]: Core: Removed a lot of unused internal code: helper functions, internal data (a large boss ID list, unused colors, fonts, requirements and duplicate role icon sets), the legacy gradient color settings, unused settings of removed modules and an interrupt check that ran on every spec, level and zone change.
+-   [Improvement]: Core: Errors of a module while switching profiles are now reported instead of being silently ignored.
+-   [Improvement]: Cursor: Turning the module on or off works without a reload.
+-   [Improvement]: Gradient Theme: Several option labels (NPC reactions, cast colors, power colors, fade directions) are translated now.
+-   [Improvement]: Information: New buttons for the MerathilisUI website on the options start page and in the Information tab. Support & Downloads now also links the MerathilisUI Discord, the Tukui links have their own section.
+-   [Improvement]: Information: Support & Downloads now points to /muidev log for bug reports, and the translator list has a fixed order.
+-   [Improvement]: Installer: The final step now points to the MerathilisUI website, with a Website button next to Discord.
+-   [Improvement]: Item Level: The item level on the equipment flyout, the scrapping machine and in the guild news is now left to WindTools (Item > Item Level, Misc), which did the same and showed it twice. MerathilisUI keeps the item level in the merchant and trade windows, which can be turned off without a reload.
+-   [Improvement]: Login Logo: The logo no longer shows up while in combat or in an instance, only after the installer has been completed, and it moves more smoothly.
+-   [Improvement]: Login Message: The login message now also links the MerathilisUI website.
+-   [Improvement]: Mail: The Mail module can be turned on and off without a reload.
+-   [Improvement]: Misc: Removed the Fun Stuff option and the old Transmog Frame toggle, they had no effect anymore.
+-   [Improvement]: Movement Alert: The color, font, sound and text options of the Time Spiral, Gateway Control Shard and Ready Alert sections are disabled while that section is turned off.
+-   [Improvement]: Name Hover: Font and display options apply without a reload, and the options are disabled while Name Hover is turned off.
+-   [Improvement]: Notification: All options apply without a reload, only turning the module on still needs one.
+-   [Improvement]: Options: Pages that are locked because an ElvUI module is turned off or EltruismUI is enabled now show the reason at the top. The Scale tab is no longer hidden with EltruismUI, it is locked instead.
+-   [Improvement]: Profiles: The WindTools profile now also places the WindTools chat bar.
+-   [Improvement]: Reset: New reset buttons for Chat and NamePlates.
+-   [Improvement]: Skins: Removed the Action Status font option, it had no effect anymore. WindTools offers the same setting.
+-   [Improvement]: Skins: The embed options are disabled while the skins or the embed are turned off, and the AddOn skin list has a fixed order.
+-   [Improvement]: UnitFrames: Removed the UnitFrame Style and Auras options, they had no effect anymore.
+-   [Improvement]: Vehicle Bar: The vigor bar uses the class gradient of the Gradient Theme when the theme is enabled.
+-   [Improvement]: Vehicle Bar: Turning the Vehicle Bar or the Vigor Bar on and off works without a reload.

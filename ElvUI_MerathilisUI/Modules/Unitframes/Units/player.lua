@@ -2,7 +2,5 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnitFrames")
 
 function module:Update_PlayerFrame(frame)
-	local db = E.db.mui.unitframes
-
 	module:CreateHighlight(frame)
 end

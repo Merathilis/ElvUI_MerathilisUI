@@ -6,44 +6,27 @@ I.Enum.Layouts = F.Enum({ "VERTICAL", "HORIZONTAL" })
 
 I.Enum.Requirements = F.Enum({
 	"MERUI_PROFILE",
-	"GRADIENT_MODE_ENABLED",
-	"GRADIENT_MODE_DISABLED",
 	"ELVUI_ACTIONBARS_ENABLED",
+	"ELVUI_UNITFRAMES_ENABLED",
+	"ELVUI_NAMEPLATES_ENABLED",
+	"ELVUI_CHAT_ENABLED",
+	"ELVUI_MINIMAP_ENABLED",
 	"ELTRUISM_DISABLED",
+	"BENIKUI_DISABLED",
+	"ELVUI_BAGS_ENABLED",
+	"ELVUI_BUFFS_ENABLED",
 })
 
 I.Enum.Colors = F.Enum({
 	"MER",
 	"DETAILS",
 	"BIGWIGS",
-	"OMNICD",
-	"WT",
-	"AS",
-	"FCT",
-	"MMEDIA",
 	"ELVUI",
-	"ELVUI_VALUE",
-	"CLASS",
 	"GOOD",
 	"ERROR",
-	"INSTALLER_WARNING",
 	"WARNING",
-	"WHITE",
-	"GREY",
-
-	"SILVER",
-	"GOLD",
-
-	"LEGENDARY",
 	"EPIC",
-	"RARE",
-	"BETA",
-
 	"MUTED",
-
-	"DIFF_CHANGED",
-	"DIFF_REMOVED",
-	"DIFF_ADDED",
 })
 
 -- Used for gradient theme
@@ -52,5 +35,3 @@ I.Enum.GradientMode = {
 	Mode = F.Enum({ "HORIZONTAL", "VERTICAL" }),
 	Color = F.Enum({ "SHIFT", "NORMAL" }),
 }
-
-I.Enum.Flavor = F.Enum({ "MOP", "RETAIL" })

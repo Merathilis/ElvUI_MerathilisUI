@@ -1,7 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Event = {}
 
-local next, pairs, select, type, unpack = next, pairs, select, type, unpack
+local next, pairs, pcall, select, type, unpack = next, pairs, pcall, select, type, unpack
 local rawset = rawset
 local securecallfunction = securecallfunction
 local secureexecuterange = secureexecuterange
@@ -56,7 +56,7 @@ do
 		if generator then
 			return generator(f, ...)
 		end
-		WF.Developer.ThrowError(
+		F.Developer.ThrowError(
 			"Closure generation does not support more than " .. (#closureGeneration - 1) .. " parameters"
 		)
 	end
@@ -66,21 +66,16 @@ function F.Event.RunNextFrame(callback, delay)
 	C_Timer_After(delay or 0, callback)
 end
 
-function F.Event.CreateCounter(initialCount)
-	local count = initialCount or 0
-	local counter = function()
+do
+	local count = 0
+	local function counter()
 		count = count + 1
 		return count
 	end
-	return function()
-		return securecallfunction(counter)
-	end
-end
 
-do
-	local generateOwnerIdCounter = F.Event.CreateCounter()
+	-- Numeric owner ids are reserved for callbacks registered without an owner
 	function F.Event.GenerateOwnerId()
-		return generateOwnerIdCounter()
+		return securecallfunction(counter)
 	end
 end
 
@@ -98,7 +93,7 @@ do
 		if attribute == InsertEventAttribute then
 			local event = securecallfunction(unpack, value)
 			if type(event) ~= "string" then
-				return WF.Developer.ThrowError("'event' requires string type", event)
+				return F.Developer.ThrowError("'event' requires string type", event)
 			end
 			for _, callbackTable in pairs(callbackTables) do
 				if not callbackTable[event] then
@@ -108,11 +103,11 @@ do
 		end
 	end)
 
-	function F.Event.GetCallbacksByEvent(callType, event)
+	local function GetCallbacksByEvent(callType, event)
 		return callbackTables[callType][event]
 	end
 
-	function F.Event.HasRegistrantsForEvent(event)
+	local function HasRegistrantsForEvent(event)
 		for _, callbackTable in pairs(callbackTables) do
 			local callbacks = callbackTable[event]
 			if callbacks and securecallfunction(next, callbacks) then
@@ -122,26 +117,36 @@ do
 		return false
 	end
 
-	function F.Event.SecureInsertEvent(event)
-		if not F.Event.HasRegistrantsForEvent(event) then
+	local function HasCallback(event, owner)
+		for _, callbackTable in pairs(callbackTables) do
+			local callbacks = callbackTable[event]
+			if callbacks and callbacks[owner] then
+				return true
+			end
+		end
+		return false
+	end
+
+	local function SecureInsertEvent(event)
+		if not HasRegistrantsForEvent(event) then
 			attributeDelegate:SetAttribute(InsertEventAttribute, { event })
 		end
 	end
 
 	function F.Event.RegisterCallback(event, func, owner, ...)
 		if type(event) ~= "string" then
-			return WF.Developer.ThrowError("RegisterCallback 'event' requires string type.", event)
+			return F.Developer.ThrowError("RegisterCallback 'event' requires string type.", event)
 		elseif type(func) ~= "function" then
-			return WF.Developer.ThrowError("RegisterCallback 'func' requires function type.", event)
+			return F.Developer.ThrowError("RegisterCallback 'func' requires function type.", event)
 		else
 			if owner == nil then
 				owner = F.Event.GenerateOwnerId()
 			elseif type(owner) == "number" then
-				return WF.Developer.ThrowError("RegisterCallback 'owner' as number is reserved internally.")
+				return F.Developer.ThrowError("RegisterCallback 'owner' as number is reserved internally.")
 			end
 		end
 
-		F.Event.SecureInsertEvent(event)
+		SecureInsertEvent(event)
 
 		for _, callbackTable in pairs(callbackTables) do
 			local callbacks = callbackTable[event]
@@ -150,47 +155,59 @@ do
 
 		local count = select("#", ...)
 		if count > 0 then
-			local callbacks = F.Event.GetCallbacksByEvent(callbackType.CLOSURE, event)
+			local callbacks = GetCallbacksByEvent(callbackType.CLOSURE, event)
 			callbacks[owner] = F.Event.GenerateClosure(func, owner, ...)
 		else
-			local callbacks = F.Event.GetCallbacksByEvent(callbackType.FUNCTION, event)
+			local callbacks = GetCallbacksByEvent(callbackType.FUNCTION, event)
 			callbacks[owner] = func
 		end
 
 		return owner
 	end
 
+	local function CallbackRegistryExecuteClosurePair(_, closure, ...)
+		securecallfunction(closure, ...)
+	end
+
+	local function CallbackRegistryExecuteOwnerPair(owner, func, ...)
+		securecallfunction(func, owner, ...)
+	end
+
+	-- Snapshot so callbacks can (un)register during dispatch; keys are owners and must be kept as-is
+	local function copyCallbacks(callbacks)
+		local copy = {}
+		for owner, callback in pairs(callbacks) do
+			copy[owner] = callback
+		end
+		return copy
+	end
+
 	function F.Event.TriggerEvent(event, ...)
 		if type(event) ~= "string" then
-			return WF.Developer.ThrowError("TriggerEvent 'event' requires string type.", event)
+			return F.Developer.ThrowError("TriggerEvent 'event' requires string type.", event)
 		end
 
-		local closures = F.Event.GetCallbacksByEvent(callbackType.CLOSURE, event)
-		if closures then
-			local function CallbackRegistryExecuteClosurePair(_, closure, ...)
-				securecallfunction(closure, ...)
-			end
-
-			secureexecuterange(F.Table.Join({}, closures), CallbackRegistryExecuteClosurePair, ...)
+		local closures = GetCallbacksByEvent(callbackType.CLOSURE, event)
+		if closures and next(closures) then
+			secureexecuterange(copyCallbacks(closures), CallbackRegistryExecuteClosurePair, ...)
 		end
 
-		local funcs = F.Event.GetCallbacksByEvent(callbackType.FUNCTION, event)
-		if funcs then
-			local function CallbackRegistryExecuteOwnerPair(owner, func, ...)
-				securecallfunction(func, owner, ...)
-			end
-
-			secureexecuterange(F.Table.Join({}, funcs), CallbackRegistryExecuteOwnerPair, ...)
+		local funcs = GetCallbacksByEvent(callbackType.FUNCTION, event)
+		if funcs and next(funcs) then
+			secureexecuterange(copyCallbacks(funcs), CallbackRegistryExecuteOwnerPair, ...)
 		end
 	end
 
-	function F.Event.OnAttributeChanged(_, frameEvent, value)
+	eventFrame:SetScript("OnAttributeChanged", function(_, frameEvent, value)
 		if value == 0 then
 			eventFrame:UnregisterEvent(frameEvent)
 		elseif value == 1 then
-			eventFrame:RegisterEvent(frameEvent)
+			-- Unknown events (e.g. retail-only ones on Forever) would throw here
+			if not pcall(eventFrame.RegisterEvent, eventFrame, frameEvent) then
+				F.Developer.LogDebug("RegisterFrameEvent: unknown event", frameEvent)
+			end
 		end
-	end
+	end)
 
 	function F.Event.RegisterFrameEvent(frameEvent)
 		eventFrame:SetAttribute(frameEvent, (eventFrame:GetAttribute(frameEvent) or 0) + 1)
@@ -203,9 +220,12 @@ do
 		end
 	end
 
-	function F.Event.RegisterFrameEventAndCallback(frameEvent, ...)
-		F.Event.RegisterFrameEvent(frameEvent)
-		return F.Event.RegisterCallback(frameEvent, ...)
+	-- The frame event is counted once per owner, so re-registering an owner does not leak a count
+	function F.Event.RegisterFrameEventAndCallback(frameEvent, func, owner, ...)
+		if owner == nil or not HasCallback(frameEvent, owner) then
+			F.Event.RegisterFrameEvent(frameEvent)
+		end
+		return F.Event.RegisterCallback(frameEvent, func, owner, ...)
 	end
 
 	local function createCallbackHandle(event, owner)
@@ -240,9 +260,9 @@ do
 
 	function F.Event.UnregisterCallback(event, owner)
 		if type(event) ~= "string" then
-			WF.Developer.ThrowError("UnregisterCallback 'event' requires string type", event)
+			return F.Developer.ThrowError("UnregisterCallback 'event' requires string type", event)
 		elseif owner == nil then
-			WF.Developer.ThrowError("UnregisterCallback 'owner' is required", owner)
+			return F.Developer.ThrowError("UnregisterCallback 'owner' is required")
 		end
 
 		for _, callbackTable in pairs(callbackTables) do
@@ -253,9 +273,12 @@ do
 		end
 	end
 
-	function F.Event.UnregisterFrameEventAndCallback(frameEvent, ...)
-		F.Event.UnregisterFrameEvent(frameEvent)
-		F.Event.UnregisterCallback(frameEvent, ...)
+	-- Only releases the frame event if this owner actually registered it
+	function F.Event.UnregisterFrameEventAndCallback(frameEvent, owner)
+		if owner ~= nil and HasCallback(frameEvent, owner) then
+			F.Event.UnregisterFrameEvent(frameEvent)
+		end
+		F.Event.UnregisterCallback(frameEvent, owner)
 	end
 
 	function F.Event.RegisterOnceCallback(frameEvent, callback)
@@ -273,8 +296,10 @@ do
 		local handle = nil
 		local requiredEventArgs = F.Table.SafePack(...)
 		local CallbackWrapper = function(_, ...)
-			for i = 1, select("#", ...) do
-				if select(i, ...) ~= requiredEventArgs[i] then
+			-- Only compare the args the caller filters on; payloads may carry secret values
+			for i = 1, requiredEventArgs.n do
+				local arg = select(i, ...)
+				if E:IsSecretValue(arg) or arg ~= requiredEventArgs[i] then
 					return
 				end
 			end
@@ -297,24 +322,6 @@ do
 		end
 
 		F.Event.RegisterOnceFrameEventAndCallback("PLAYER_REGEN_ENABLED", callback)
-	end
-
-	function F.Event.ContinueMERInitialized(callback)
-		if MER.initialized then
-			callback()
-			return
-		end
-
-		F.Event.RegisterOnceCallback("MER.Initialized", callback)
-	end
-
-	function F.Event.ContinueToxiUIInitializedSafe(callback)
-		if MER.initializedSafe then
-			callback()
-			return
-		end
-
-		F.Event.RegisterOnceCallback("MER.InitializedSafe", callback)
 	end
 
 	function F.Event.ContinueAfter(cmp, callback)
@@ -402,7 +409,6 @@ do
 		end
 	end
 
-	eventFrame:SetScript("OnAttributeChanged", F.Event.OnAttributeChanged)
 	eventFrame:SetScript("OnEvent", function(_, event, ...)
 		F.Event.TriggerEvent(event, ...)
 	end)

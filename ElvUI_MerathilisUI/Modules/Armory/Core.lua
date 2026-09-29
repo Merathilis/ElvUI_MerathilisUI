@@ -26,6 +26,7 @@ local UnitAttackSpeed = UnitAttackSpeed
 local UnitEffectiveLevel = UnitEffectiveLevel
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local GetAchievementInfo = GetAchievementInfo
+local CreateAnimationGroup = CreateAnimationGroup -- ElvUI LibAnim
 
 local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
 local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
@@ -227,17 +228,6 @@ function module:CheckMessageCondition(slotOptions)
 		enchantNeeded = (conditions.level == UnitLevel("player"))
 	end
 
-	-- Primary Stat Condition
-	if enchantNeeded and conditions.primary then
-		enchantNeeded = false
-		local spec = C_SpecializationInfo_GetSpecialization()
-		local primaryStat
-		if spec then
-			primaryStat = select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
-			enchantNeeded = (conditions.primary == primaryStat)
-		end
-	end
-
 	-- ItemType and ItemSubtype check
 	if enchantNeeded and conditions.itemType then
 		local itemType = select(12, GetItemInfo(GetInventoryItemID("player", slotOptions.id)))
@@ -318,7 +308,7 @@ function module:SetupGrowAnimation(obj, hold)
 		return
 	end
 
-	obj.GrowIn = F.Animation.CreateAnimationGroup(obj)
+	obj.GrowIn = CreateAnimationGroup(obj)
 
 	obj.GrowIn.ResetGrow = obj.GrowIn:CreateAnimation("Width")
 	obj.GrowIn.ResetGrow:SetDuration(0)
@@ -354,7 +344,7 @@ function module:SetupFadeAnimation(obj, slot)
 		return
 	end
 
-	obj.FadeIn = F.Animation.CreateAnimationGroup(obj)
+	obj.FadeIn = CreateAnimationGroup(obj)
 
 	obj.FadeIn.ResetFade = obj.FadeIn:CreateAnimation("Fade")
 	obj.FadeIn.ResetFade:SetDuration(0)
@@ -433,32 +423,32 @@ function module:UpdateTitle()
 		self.nameText:SetFont(
 			LSM:Fetch("font", module.db.nameText.name),
 			module.db.nameText.size,
-			module.db.nameText.fontStyle
+			module.db.nameText.style
 		)
 		self.titleText:SetFont(
 			LSM:Fetch("font", module.db.titleText.name),
 			module.db.titleText.size,
-			module.db.titleText.fontStyle
+			module.db.titleText.style
 		)
 		self.levelTitleText:SetFont(
 			LSM:Fetch("font", module.db.levelTitleText.name),
 			module.db.levelTitleText.size,
-			module.db.levelTitleText.fontStyle
+			module.db.levelTitleText.style
 		)
 		self.levelText:SetFont(
 			LSM:Fetch("font", module.db.levelText.name),
 			module.db.levelText.size,
-			module.db.levelText.fontStyle
+			module.db.levelText.style
 		)
 		self.classText:SetFont(
 			LSM:Fetch("font", module.db.classText.name),
 			module.db.classText.size,
-			module.db.classText.fontStyle
+			module.db.classText.style
 		)
 		self.specIcon:SetFont(
 			LSM:Fetch("font", module.db.specIcon.name),
 			module.db.specIcon.size,
-			module.db.specIcon.fontStyle
+			module.db.specIcon.style
 		)
 		self._titleFontDirty = false
 	end
@@ -500,6 +490,8 @@ function module:UpdateTitle()
 
 	if module.db.titleText.fontColor == "GRADIENT" then
 		self.titleText:SetText(F.String.FastGradient(titleName, 0, 0.9, 1, 0, 0.6, 1))
+	elseif module.db.titleText.fontColor == "CLASS" then
+		self.titleText:SetText(F.String.GradientClass(titleName))
 	else
 		self.titleText:SetText(titleName)
 		WF.SetFontColorWithDB(self.titleText, module.db.titleText.color)
@@ -637,19 +629,24 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 
 	-- Enchant/Socket Text Handling
 	if self.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
-		if self.db.pageInfo.missingSocketText and slotOptions.needsSocket and not E.TimerunningID then
-			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
-				local missingGemSlots = 1 - #slotInfo.gems
-				if missingGemSlots > 0 then
-					local text = format(L["Add %d socket"], missingGemSlots)
-					local missingColor = {
-						F.String.FastColorGradientHex(missingGemSlots, module.colors.LIGHT_GREEN, module.colors.RED),
-					}
-					slotItem.enchantText:SetText(F.String.RGB(text, missingColor))
-				end
-			else
-				slotItem.enchantText:SetText("")
-			end
+		-- A missing socket wins over the enchant text. Slots that have their socket
+		-- (e.g. a socketed helm) still go through the enchant handling below.
+		local missingGemSlots = 0
+		if
+			self.db.pageInfo.missingSocketText
+			and slotOptions.needsSocket
+			and not E.TimerunningID
+			and (not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions))
+		then
+			missingGemSlots = 1 - #slotInfo.gems
+		end
+
+		if missingGemSlots > 0 then
+			local text = format(L["Add %d socket"], missingGemSlots)
+			local missingColor = {
+				F.String.FastColorGradientHex(missingGemSlots, module.colors.LIGHT_GREEN, module.colors.RED),
+			}
+			slotItem.enchantText:SetText(F.String.RGB(text, missingColor))
 		elseif slotInfo.enchantColors and next(slotInfo.enchantColors) then
 			if slotInfo.enchantText and slotInfo.enchantText ~= "" then
 				local text = slotInfo.enchantTextShort
@@ -915,7 +912,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 			1
 		)
 	else
-		local fontColor = F.GetFontColorFromDB(self.db.stats, "header")
+		local fontColor = module.db.stats.headerFont.color
 		F.Color.SetGradientRGB(
 			leftDivider,
 			"HORIZONTAL",
@@ -952,7 +949,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 			0
 		)
 	else
-		local fontColor = F.GetFontColorFromDB(self.db.stats, "header")
+		local fontColor = module.db.stats.headerFont.color
 		F.Color.SetGradientRGB(
 			rightDivider,
 			"HORIZONTAL",
@@ -1022,7 +1019,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 		local labelString = F.String.StripColor(frame.Label:GetText()) or ""
 
 		if module.db.stats.labelFont.abbreviateLabels and labelString ~= "" then
-			labelString = E:ShortenString(E.TagFunctions.Abbrev(labelString), 12)
+			labelString = E:ShortenString(F.String.Abbreviate(labelString), 12)
 		end
 
 		if module.db.stats.labelFont.labelFontColor == "GRADIENT" then
@@ -1081,7 +1078,7 @@ function module:UpdateCharacterStat(frame, showGradient)
 				module.db.stats.alternatingBackgroundAlpha
 			)
 		else
-			local fontColor = F.GetFontColorFromDB(self.db.stats, "label")
+			local fontColor = module.db.stats.labelFont.color
 			F.Color.SetGradientRGB(
 				frame.MERGradient,
 				"HORIZONTAL",
@@ -1258,8 +1255,15 @@ function module:UpdateCharacterStats()
 				end
 
 				-- Mode 1/2 - Validate hideAt value in Smart Mode/Always Show if not empty mode
-				if (hideAt ~= nil) and ((statMode == 1) or (statMode == 2)) then
-					showStat = (stat.hideAt ~= statFrame.numericValue)
+				-- Compares the local hideAt, which mode 2 defaults to 0. A secret value can't be
+				-- compared, so the stat stays visible then.
+				local numericValue = statFrame.numericValue
+				if
+					(hideAt ~= nil)
+					and ((statMode == 1) or (statMode == 2))
+					and E:NotSecretValue(numericValue)
+				then
+					showStat = (hideAt ~= numericValue)
 				end
 
 				if showStat then
@@ -1481,18 +1485,25 @@ function module:BuildStatCategories()
 	}
 end
 
-local isHooked = false
+local function ControlFrame_OnShow(frame)
+	local db = module.db
+	if db and db.enable and db.background.enable and db.background.hideControls then
+		frame:Hide()
+	end
+end
+
+local controlsHooked = false
 function module:UpdateBackground()
-	if module.db.background.enable then
-		if module.db.background.hideControls then
-			local controlFrame = _G.CharacterModelScene and _G.CharacterModelScene.ControlFrame
-			if controlFrame and not isHooked then
-				controlFrame:SetScript("OnShow", function(frame)
-					frame:Hide()
-				end)
-				isHooked = true
-			end
+	-- Hooked once and checked on every show, so the toggle works without a reload
+	if not controlsHooked then
+		local controlFrame = _G.CharacterModelScene and _G.CharacterModelScene.ControlFrame
+		if controlFrame then
+			controlFrame:HookScript("OnShow", ControlFrame_OnShow)
+			controlsHooked = true
 		end
+	end
+
+	if module.db.background.enable then
 
 		if self.db.background.class then
 			self.frame.MERBackground.Texture:SetTexture(I.Media.Armory["MERATHILISUI-" .. E.myclass])
@@ -1520,16 +1531,9 @@ function module:UpdateLineColors()
 	if module.db.lines.enable then
 		local alpha = module.db.lines.alpha
 
-		top:SetColorTexture(1, 1, 1, alpha)
-		bottom:SetColorTexture(1, 1, 1, alpha)
-
-		if module.db.lines.color == "CLASS" then
-			local classColor = E:ClassColor(E.myclass, true)
-			local r, g, b = classColor.r, classColor.g, classColor.b
-
-			top:SetColorTexture(r, g, b, alpha)
-			bottom:SetColorTexture(r, g, b, alpha)
-		end
+		local classColor = E:ClassColor(E.myclass, true)
+		top:SetColorTexture(classColor.r, classColor.g, classColor.b, alpha)
+		bottom:SetColorTexture(classColor.r, classColor.g, classColor.b, alpha)
 	else
 		top:SetColorTexture(0, 0, 0, 0)
 		bottom:SetColorTexture(0, 0, 0, 0)
@@ -1997,6 +2001,8 @@ function module:Enable()
 
 	-- Hook Blizzard OnShow
 	self:SecureHookScript(self.frame, "OnShow", "OpenCharacterArmory")
+	-- Closes the gem flyout and drops the socket panel's bag/equipment events while closed
+	self:SecureHookScript(self.frame, "OnHide", "SocketPanelOnHide")
 
 	-- Check ElvUI Options
 	self:ElvOptionsCheck()
@@ -2031,7 +2037,6 @@ function module:Initialize()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("Armory.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("Armory.SettingsUpdate", self.UpdateCharacterArmory, self)
 
 	self.Initialized = true

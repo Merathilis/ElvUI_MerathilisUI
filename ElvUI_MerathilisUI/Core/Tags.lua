@@ -1,6 +1,4 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
-local ElvUF = E.oUF
-assert(ElvUF, "ElvUI was unable to locate oUF.")
 
 local UnitClass = UnitClass
 local UnitName = UnitName
@@ -8,43 +6,48 @@ local UnitInPartyIsAI = UnitInPartyIsAI
 local UnitIsPlayer = UnitIsPlayer
 local UnitReaction = UnitReaction
 
-E:AddTag("name:MER:gradient", "UNIT_NAME_UPDATE", function(unit)
-	local name = UnitName(unit)
-	if not name then
-		return
-	end
+-- UnitReaction -> gradient key of F.GradientName
+local REACTION_GRADIENTS = {
+	[1] = "NPCHOSTILE",
+	[2] = "NPCHOSTILE",
+	[3] = "NPCUNFRIENDLY",
+	[4] = "NPCNEUTRAL",
+	[5] = "NPCFRIENDLY",
+	[6] = "NPCFRIENDLY",
+	[7] = "NPCFRIENDLY",
+	[8] = "NPCFRIENDLY",
+}
 
-	local isTarget = false
-	local isPlayerUnit = UnitIsPlayer(unit)
-	isPlayerUnit = E:NotSecretValue(isPlayerUnit) and isPlayerUnit
-
-	if isPlayerUnit or UnitInPartyIsAI(unit) then
-		local _, unitClass = UnitClass(unit)
-		if not unitClass then
+-- Only UnitName can be secret (identity restricted units), F.GradientName handles that.
+-- The other results are guarded anyway so a future API change can't break the tag.
+E:AddTag(
+	"name:MER:gradient",
+	"UNIT_NAME_UPDATE UNIT_FACTION INSTANCE_ENCOUNTER_ENGAGE_UNIT",
+	function(unit)
+		local name = UnitName(unit)
+		if not name then
 			return
 		end
 
-		if not E:NotSecretValue(unitClass) then
-			return name
-		end
-
-		return F.GradientName(name, unitClass, isTarget, true)
-	elseif not isPlayerUnit then
-		local reaction = UnitReaction(unit, "player")
-		if E:NotSecretValue(reaction) and reaction then
-			if reaction >= 5 then
-				return F.GradientName(name, "NPCFRIENDLY", isTarget, true)
-			elseif reaction == 4 then
-				return F.GradientName(name, "NPCNEUTRAL", isTarget, true)
-			elseif reaction == 3 then
-				return F.GradientName(name, "NPCUNFRIENDLY", isTarget, true)
-			elseif reaction == 2 or reaction == 1 then
-				return F.GradientName(name, "NPCHOSTILE", isTarget, true)
+		local isPlayer = UnitIsPlayer(unit)
+		local isAI = UnitInPartyIsAI and UnitInPartyIsAI(unit)
+		if E:NotSecretValue(isPlayer) and isPlayer or E:NotSecretValue(isAI) and isAI then
+			local _, unitClass = UnitClass(unit)
+			if not unitClass or E:IsSecretValue(unitClass) then
+				return name
 			end
+
+			return F.GradientName(name, unitClass, false, true)
 		end
 
-		-- reaction unknown/secret - fall back to the plain (possibly secret) name
+		local reaction = UnitReaction(unit, "player")
+		local gradient = E:NotSecretValue(reaction) and REACTION_GRADIENTS[reaction]
+		if gradient then
+			return F.GradientName(name, gradient, false, true)
+		end
+
+		-- Reaction unknown or secret: plain (possibly secret) name
 		return name
 	end
-end)
-E:AddTagInfo("name:MER:gradient", MER.Title, "Displays a shorten name in gradient classcolor")
+)
+E:AddTagInfo("name:MER:gradient", MER.Title, "Displays the name in a class or reaction color gradient")

@@ -102,6 +102,15 @@ local function AddMinimapBarLayout(args, getBar)
 	return args
 end
 
+-- Own disabled replaces the group's, so every child repeats the full condition
+local function LocationPanelDisabled()
+	return not MER:HasRequirements(I.Requirements.Minimap) or not E.db.mui.locationPanel.enable
+end
+
+local function MinimapButtonsDisabled()
+	return not E.db.mui.minimapButtons.enable
+end
+
 local function MainBarDB()
 	return E.db.mui.minimapButtons
 end
@@ -131,10 +140,9 @@ options.maps = {
 				E.db.mui.locationPanel[info[#info]] = value
 				F.Event.TriggerEvent("LocationPanel.SettingsUpdate")
 			end,
-			disabled = function()
-				return not E.private.general.minimap.enable
-			end,
+			disabled = module.RequirementsDisabled(I.Requirements.Minimap),
 			args = {
+				requirements = module.RequirementsNotice(I.Requirements.Minimap),
 				desc = {
 					order = 0,
 					type = "group",
@@ -169,14 +177,17 @@ options.maps = {
 					set = function(_, value)
 						E.db.general.minimap.clusterDisable = value
 						E:GetModule("Minimap"):UpdateSettings()
-						E:StaticPopup_Show("PRIVATE_RL")
+						E:StaticPopup_Show("CONFIG_RL")
 					end,
 				},
 				hideLocationText = {
-					order = 2.5,
+					order = 3,
 					type = "toggle",
 					name = L["Hide ElvUI Location Text"],
 					desc = L["Hides the zone text ElvUI shows on the Minimap, the panel shows it already."],
+					disabled = function()
+						return not MER:HasRequirements(I.Requirements.Minimap) or not E.db.general.minimap.clusterDisable
+					end,
 					get = function()
 						return E.db.general.minimap.locationText == "HIDE"
 					end,
@@ -194,6 +205,7 @@ options.maps = {
 					order = 5,
 					type = "range",
 					name = L["Height"],
+					disabled = LocationPanelDisabled,
 					min = 14,
 					max = 40,
 					step = 1,
@@ -203,6 +215,7 @@ options.maps = {
 					type = "range",
 					name = L["Spacing"],
 					desc = L["Gap between the panel and the Minimap."],
+					disabled = LocationPanelDisabled,
 					min = 0,
 					max = 20,
 					step = 1,
@@ -211,6 +224,7 @@ options.maps = {
 					order = 7,
 					type = "select",
 					name = L["Text"],
+					disabled = LocationPanelDisabled,
 					values = {
 						MINIMAP = L["Minimap Zone Text"],
 						ZONE = L["Zone"],
@@ -221,6 +235,7 @@ options.maps = {
 					order = 8,
 					type = "select",
 					name = L["Text Color"],
+					disabled = LocationPanelDisabled,
 					values = {
 						PVP = L["Zone PvP Status"],
 						CLASS = L["Class Color"],
@@ -232,6 +247,7 @@ options.maps = {
 					type = "color",
 					name = L["Custom Color"],
 					hasAlpha = false,
+					disabled = LocationPanelDisabled,
 					hidden = function()
 						return E.db.mui.locationPanel.colorMode ~= "CUSTOM"
 					end,
@@ -251,6 +267,7 @@ options.maps = {
 					type = "group",
 					inline = true,
 					name = L["Coordinates"],
+					disabled = LocationPanelDisabled,
 					args = {
 						coords = {
 							order = 1,
@@ -268,7 +285,7 @@ options.maps = {
 								["%.2f"] = "45.27",
 							},
 							disabled = function()
-								return not E.db.mui.locationPanel.coords
+								return LocationPanelDisabled() or not E.db.mui.locationPanel.coords
 							end,
 						},
 						coordsColor = {
@@ -277,7 +294,7 @@ options.maps = {
 							name = L["Color"],
 							hasAlpha = false,
 							disabled = function()
-								return not E.db.mui.locationPanel.coords
+								return LocationPanelDisabled() or not E.db.mui.locationPanel.coords
 							end,
 							get = function(info)
 								local db = E.db.mui.locationPanel[info[#info]]
@@ -297,6 +314,7 @@ options.maps = {
 					type = "group",
 					inline = true,
 					name = L["Font"],
+					disabled = LocationPanelDisabled,
 					get = function(info)
 						return E.db.mui.locationPanel.font[info[#info]]
 					end,
@@ -362,6 +380,10 @@ options.maps = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
+					set = function(info, value)
+						E.db.mui.minimapButtons[info[#info]] = value
+						MER:GetModule("MER_MinimapButtons"):DatabaseUpdate()
+					end,
 				},
 				spacer = {
 					order = 2,
@@ -373,6 +395,7 @@ options.maps = {
 					type = "group",
 					inline = true,
 					name = L["Buttons"],
+					disabled = MinimapButtonsDisabled,
 					get = function(info)
 						return E.db.mui.minimapButtons[info[#info]].enable
 					end,
@@ -400,7 +423,7 @@ options.maps = {
 								MER:GetModule("MER_MinimapButtons"):TestGreatVaultPulse()
 							end,
 							disabled = function()
-								return not E.db.mui.minimapButtons.greatVault.enable
+								return MinimapButtonsDisabled() or not E.db.mui.minimapButtons.greatVault.enable
 							end,
 						},
 					}, MainBarDB),
@@ -410,6 +433,7 @@ options.maps = {
 					type = "group",
 					inline = true,
 					name = L["Elements"],
+					disabled = MinimapButtonsDisabled,
 					get = function(info)
 						return E.db.mui.minimapButtons[info[#info]].enable
 					end,
@@ -438,7 +462,7 @@ options.maps = {
 								.. L["The tooltip lists your raid lockouts, the realm time and the weekly reset."],
 						},
 						addonCompartment = {
-							order = 2.5,
+							order = 3,
 							type = "toggle",
 							name = L["Addon Compartment"],
 							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]
@@ -446,7 +470,7 @@ options.maps = {
 								.. L["Opens Blizzard's addon list. Hidden while ElvUI's own option hides the addon compartment."],
 						},
 						mail = {
-							order = 3,
+							order = 4,
 							type = "toggle",
 							name = L["Mail"],
 							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]
@@ -454,7 +478,7 @@ options.maps = {
 								.. L["Only shown while there is something to report."],
 						},
 						craftingOrders = {
-							order = 4,
+							order = 5,
 							type = "toggle",
 							name = L["Crafting Orders"],
 							desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]

@@ -8,8 +8,6 @@ local next, pairs, ipairs, tinsert = next, pairs, ipairs, tinsert
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetRealZoneText = GetRealZoneText
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
 local UNKNOWN = UNKNOWN
 
 local englishClassName = {
@@ -29,7 +27,8 @@ local englishClassName = {
 }
 
 local function getSpecName()
-	return I.SpecNames[GetSpecializationInfo(GetSpecialization())] or UNKNOWN
+	local _, specID = F.GetPlayerSpec()
+	return specID and I.SpecNames[specID] or UNKNOWN
 end
 
 function module:StatusReportCreateContent(num, width, parent, anchorTo, content)
@@ -357,7 +356,7 @@ function module:StatusReportUpdate()
 			local requirements = MER:CheckRequirements(I.Requirements.GradientMode)
 
 			if requirements ~= true then
-				text = F.String.Error(format("No (%s)", I.Strings.RequirementsDebug[requirements]))
+				text = F.String.Error(format("No (%s)", MER:GetRequirementString(requirements) or "?"))
 			else
 				text = E.db.mui.themes.gradientMode.enable and F.String.Good("On") or F.String.Error("Off")
 			end

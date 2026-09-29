@@ -6,8 +6,23 @@ local options = module.options.advanced.args
 
 local _G = _G
 local format = string.format
+local select = select
 
 local C_UI_Reload = C_UI.Reload
+
+-- Resets replace the whole table with a fresh copy of the defaults. Merging (E:CopyTable into the
+-- current table) kept everything the user added on top, e.g. list entries or custom categories.
+-- The reset popup reloads the UI afterwards, so no module keeps a reference to the old table.
+local function ResetProfile(...)
+	for i = 1, select("#", ...) do
+		local key = select(i, ...)
+		E.db.mui[key] = E:CopyTable({}, P[key])
+	end
+end
+
+local function ResetPrivateSkins(key)
+	E.private.mui.skins[key] = E:CopyTable({}, V.skins[key])
+end
 
 options.core = {
 	order = 1,
@@ -72,8 +87,7 @@ options.reset = {
 			name = L["General"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["General"], nil, function()
-					E:CopyTable(E.db.mui.general, P.general)
-					E:CopyTable(E.db.mui.style, P.style)
+					ResetProfile("general", "style")
 				end)
 			end,
 		},
@@ -83,7 +97,7 @@ options.reset = {
 			name = L["Game Menu"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Game Menu"], nil, function()
-					E:CopyTable(E.db.mui.gameMenu, P.gameMenu)
+					ResetProfile("gameMenu")
 				end)
 			end,
 		},
@@ -93,7 +107,7 @@ options.reset = {
 			name = L["Scale"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Scale"], nil, function()
-					E:CopyTable(E.db.mui.scale, P.scale)
+					ResetProfile("scale")
 				end)
 			end,
 		},
@@ -103,9 +117,7 @@ options.reset = {
 			name = L["Misc"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Misc"], nil, function()
-					E:CopyTable(E.db.mui.misc, P.misc)
-					E:CopyTable(E.db.mui.lootSpecManager, P.lootSpecManager)
-					E:CopyTable(E.db.mui.elvUIIcons, P.elvUIIcons)
+					ResetProfile("misc", "lootSpecManager", "elvUIIcons")
 				end)
 			end,
 		},
@@ -115,7 +127,27 @@ options.reset = {
 			name = L["ActionBars"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["ActionBars"], nil, function()
-					E:CopyTable(E.db.mui.actionbars, P.actionbars)
+					ResetProfile("actionbars")
+				end)
+			end,
+		},
+		chat = {
+			order = 9.1,
+			type = "execute",
+			name = L["Chat"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Chat"], nil, function()
+					ResetProfile("chat")
+				end)
+			end,
+		},
+		nameplates = {
+			order = 9.2,
+			type = "execute",
+			name = L["NamePlates"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["NamePlates"], nil, function()
+					ResetProfile("nameplates")
 				end)
 			end,
 		},
@@ -125,7 +157,7 @@ options.reset = {
 			name = L["Color Modifier Keys"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Color Modifier Keys"], nil, function()
-					E:CopyTable(E.db.mui.colorModifiers, P.colorModifiers)
+					ResetProfile("colorModifiers")
 				end)
 			end,
 		},
@@ -135,7 +167,7 @@ options.reset = {
 			name = L["Armory"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Armory"], nil, function()
-					E:CopyTable(E.db.mui.armory, P.armory)
+					ResetProfile("armory")
 				end)
 			end,
 		},
@@ -145,7 +177,7 @@ options.reset = {
 			name = L["Bags"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Bags"], nil, function()
-					E:CopyTable(E.db.mui.bags, P.bags)
+					ResetProfile("bags")
 				end)
 			end,
 		},
@@ -155,7 +187,7 @@ options.reset = {
 			name = L["Buff Reminder"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Buff Reminder"], nil, function()
-					E:CopyTable(E.db.mui.buffReminder, P.buffReminder)
+					ResetProfile("buffReminder")
 				end)
 			end,
 		},
@@ -165,7 +197,7 @@ options.reset = {
 			name = L["Cursor"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Cursor"], nil, function()
-					E:CopyTable(E.db.mui.cursor, P.cursor)
+					ResetProfile("cursor")
 				end)
 			end,
 		},
@@ -175,7 +207,7 @@ options.reset = {
 			name = L["Item Level"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Item Level"], nil, function()
-					E:CopyTable(E.db.mui.itemLevel, P.itemLevel)
+					ResetProfile("itemLevel")
 				end)
 			end,
 		},
@@ -185,7 +217,7 @@ options.reset = {
 			name = L["Loot Roll"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Loot Roll"], nil, function()
-					E:CopyTable(E.db.mui.lootRoll, P.lootRoll)
+					ResetProfile("lootRoll")
 				end)
 			end,
 		},
@@ -195,7 +227,7 @@ options.reset = {
 			name = L["Mail"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Mail"], nil, function()
-					E:CopyTable(E.db.mui.mail, P.mail)
+					ResetProfile("mail")
 				end)
 			end,
 		},
@@ -205,7 +237,7 @@ options.reset = {
 			name = L["Location Panel"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Location Panel"], nil, function()
-					E:CopyTable(E.db.mui.locationPanel, P.locationPanel)
+					ResetProfile("locationPanel")
 					F.Event.TriggerEvent("LocationPanel.DatabaseUpdate")
 				end)
 			end,
@@ -216,7 +248,7 @@ options.reset = {
 			name = L["Minimap Buttons"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Minimap Buttons"], nil, function()
-					E:CopyTable(E.db.mui.minimapButtons, P.minimapButtons)
+					ResetProfile("minimapButtons")
 				end)
 			end,
 		},
@@ -226,7 +258,7 @@ options.reset = {
 			name = L["Movement Alert"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Movement Alert"], nil, function()
-					E:CopyTable(E.db.mui.movementAlert, P.movementAlert)
+					ResetProfile("movementAlert")
 					MER:GetModule("MER_MovementAlert"):ProfileUpdate()
 				end)
 			end,
@@ -237,7 +269,7 @@ options.reset = {
 			name = L["Name Hover"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Name Hover"], nil, function()
-					E:CopyTable(E.db.mui.nameHover, P.nameHover)
+					ResetProfile("nameHover")
 				end)
 			end,
 		},
@@ -247,7 +279,7 @@ options.reset = {
 			name = L["Notification"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Notification"], nil, function()
-					E:CopyTable(E.db.mui.notification, P.notification)
+					ResetProfile("notification")
 				end)
 			end,
 		},
@@ -257,7 +289,7 @@ options.reset = {
 			name = L["Panels"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Panels"], nil, function()
-					E:CopyTable(E.db.mui.panels, P.panels)
+					ResetProfile("panels")
 				end)
 			end,
 		},
@@ -267,7 +299,18 @@ options.reset = {
 			name = L["Theme"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Theme"], nil, function()
-					E:CopyTable(E.db.mui.themes, P.themes)
+					ResetProfile("themes")
+				end)
+			end,
+		},
+		tracker = {
+			order = 22.5,
+			type = "execute",
+			name = L["Tracker"],
+			func = function()
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Tracker"], nil, function()
+					ResetProfile("tracker")
+					MER:GetModule("MER_Tracker"):ProfileUpdate()
 				end)
 			end,
 		},
@@ -277,7 +320,7 @@ options.reset = {
 			name = L["UnitFrames"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["UnitFrames"], nil, function()
-					E:CopyTable(E.db.mui.unitframes, P.unitframes)
+					ResetProfile("unitframes")
 				end)
 			end,
 		},
@@ -287,7 +330,7 @@ options.reset = {
 			name = L["VehicleBar"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["VehicleBar"], nil, function()
-					E:CopyTable(E.db.mui.vehicleBar, P.vehicleBar)
+					ResetProfile("vehicleBar")
 				end)
 			end,
 		},
@@ -297,17 +340,7 @@ options.reset = {
 			name = L["Auras"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Auras"], nil, function()
-					E:CopyTable(E.db.mui.auras, P.auras)
-				end)
-			end,
-		},
-		cooldownManager = {
-			order = 26,
-			type = "execute",
-			name = L["Cooldown Manager"],
-			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Cooldown Manager"], nil, function()
-					E:CopyTable(E.db.mui.cooldownManager, P.cooldownManager)
+					ResetProfile("auras")
 				end)
 			end,
 		},
@@ -317,17 +350,7 @@ options.reset = {
 			name = L["DataTexts"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["DataTexts"], nil, function()
-					E:CopyTable(E.db.mui.datatexts, P.datatexts)
-				end)
-			end,
-		},
-		raidBuffs = {
-			order = 28,
-			type = "execute",
-			name = L["Raid Buffs"],
-			func = function()
-				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Raid Buffs"], nil, function()
-					E:CopyTable(E.db.mui.raidBuffs, P.raidBuffs)
+					ResetProfile("datatexts")
 				end)
 			end,
 		},
@@ -337,7 +360,7 @@ options.reset = {
 			name = L["Tooltip"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Tooltip"], nil, function()
-					E:CopyTable(E.db.mui.tooltip, P.tooltip)
+					ResetProfile("tooltip")
 				end)
 			end,
 		},
@@ -352,7 +375,7 @@ options.reset = {
 			name = L["Blizzard"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Blizzard"], nil, function()
-					E.private.mui.skins.blizzard = V.skins.blizzard
+					ResetPrivateSkins("blizzard")
 				end)
 			end,
 		},
@@ -362,7 +385,7 @@ options.reset = {
 			name = L["Addons"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Addon Skins"], nil, function()
-					E.private.mui.skins.addonSkins = V.skins.addonSkins
+					ResetPrivateSkins("addonSkins")
 				end)
 			end,
 		},
@@ -372,7 +395,7 @@ options.reset = {
 			name = L["Embed Settings"],
 			func = function()
 				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Embed Settings"], nil, function()
-					E.private.mui.skins.embed = V.skins.embed
+					ResetPrivateSkins("embed")
 				end)
 			end,
 		},
@@ -405,8 +428,10 @@ do
 		button1 = _G.ACCEPT,
 		button2 = _G.CANCEL,
 		OnAccept = function()
-			F.Profiles.ImportByString(text)
-			C_UI_Reload()
+			-- Only reload on success, otherwise the error message would be lost
+			if F.Profiles.ImportByString(text) then
+				C_UI_Reload()
+			end
 		end,
 		whileDead = 1,
 		hideOnEscape = true,

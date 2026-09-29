@@ -4,6 +4,10 @@ local NH = MER:GetModule("MER_NameHover")
 
 local options = module.options.modules.args
 
+local function Disabled()
+	return not E.db.mui.nameHover.enable
+end
+
 options.nameHover = {
 	type = "group",
 	name = module:AddCategorieIcon(L["Name Hover"], "name_hover"),
@@ -11,33 +15,20 @@ options.nameHover = {
 		return E.db.mui.nameHover[info[#info]]
 	end,
 	set = function(info, value)
-		local key = info[#info]
+		E.db.mui.nameHover[info[#info]] = value
 
-		E.db.mui.nameHover[key] = value
-
-		-- Instant apply (no reload needed)
-		if key == "blizztooltip" or key == "disableInDungeons" or key == "inspectKey" then
-			if NH and NH.frame then
-				NH.inspectMode = false
-
-				if NH.UpdateInstanceState then
-					NH:UpdateInstanceState()
-				end
-
-				-- Force tooltip refresh
-				if GameTooltip and GameTooltip:IsShown() then
-					GameTooltip:Show()
-				end
-
-				-- Force NameHover refresh
-				NH.frame:Show()
+		-- The frame is only built while the module is enabled on load
+		if not NH.frame then
+			if info[#info] == "enable" and value then
+				E:StaticPopup_Show("CONFIG_RL")
 			end
-
-			return --IMPORTANT: prevents reload popup
+			return
 		end
 
-		-- Everything else requires reload
-		E:StaticPopup_Show("GLOBAL_RL")
+		-- Everything is applied live: fonts here, the rest is read on the next update
+		NH.inspectMode = false
+		NH:UpdateFonts()
+		NH:UpdateInstanceState()
 	end,
 	args = {
 		header = {
@@ -67,6 +58,7 @@ options.nameHover = {
 		textGroup = {
 			order = 3,
 			type = "group",
+			disabled = Disabled,
 			name = L["Text Options"],
 			guiInline = true,
 			args = {
@@ -150,46 +142,55 @@ options.nameHover = {
 		targettarget = {
 			order = 4,
 			type = "toggle",
+			disabled = Disabled,
 			name = L["Show Target of Target"],
 		},
 		guildName = {
 			order = 5,
 			type = "toggle",
+			disabled = Disabled,
 			name = L["Guild Name"],
 		},
 		guildRank = {
 			order = 6,
 			type = "toggle",
+			disabled = Disabled,
 			name = L["Guild Rank"],
 		},
 		race = {
 			order = 7,
 			type = "toggle",
+			disabled = Disabled,
 			name = L["Race"],
 		},
 		status = {
 			order = 8,
 			type = "toggle",
+			disabled = Disabled,
 			name = L["Status"],
 		},
 		faction = {
 			order = 9,
 			type = "toggle",
+			disabled = Disabled,
 			name = L["Faction"],
 		},
 		level = {
 			order = 10,
 			type = "toggle",
+			disabled = Disabled,
 			name = L["Level"],
 		},
 		classification = {
 			order = 11,
 			type = "toggle",
+			disabled = Disabled,
 			name = L["Classification"],
 		},
 		BlizzToolTipGroup = {
 			order = 12,
 			type = "group",
+			disabled = Disabled,
 			name = L["Blizzard ToolTip Options"],
 			guiInline = true,
 			args = {
@@ -224,6 +225,7 @@ options.nameHover = {
 		DungeonGroup = {
 			order = 13,
 			type = "group",
+			disabled = Disabled,
 			name = L["Dungeon Info Options"],
 			guiInline = true,
 			args = {

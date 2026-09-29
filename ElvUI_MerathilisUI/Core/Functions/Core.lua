@@ -1,37 +1,26 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local ES = E:GetModule("Skins")
-local WS = W:GetModule("Skins")
 local LSM = E.LSM
 
 local _G = _G
-local ipairs, pairs, pcall, print, select, tonumber, type, unpack =
-	ipairs, pairs, pcall, print, select, tonumber, type, unpack
-local coroutine = coroutine
-local format, gsub, match = string.format, string.gsub, string.match
-local strfind, strmatch, strsplit, strlen, strsub = strfind, strmatch, strsplit, strlen, strsub
-local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
-local abs, max, min, modf = math.abs, math.max, math.min, math.modf
-local len, utf8sub = string.len, string.utf8sub
-local tcontains = tContains
+local ipairs, pairs, print, select, tonumber, tostring, type, unpack = ipairs, pairs, print, select, tonumber, tostring, type, unpack
+local xpcall = xpcall
+local format, gmatch, gsub, match = string.format, string.gmatch, string.gsub, string.match
+local strfind, strjoin, strmatch, strsplit = strfind, strjoin, strmatch, strsplit
+local tinsert, wipe = table.insert, wipe
+local abs, ceil, max, min, modf = math.abs, math.ceil, math.max, math.min, math.modf
+local len = string.len
+local hooksecurefunc = hooksecurefunc
 
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
+local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
+local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local CreateFrame = CreateFrame
-local GetContainerItemID = C_Container.GetContainerItemID
-local GetContainerNumSlots = C_Container.GetContainerNumSlots
-local GetBuffDataByIndex = C_UnitAuras.GetBuffDataByIndex
-local UnitIsGroupAssistant = UnitIsGroupAssistant
-local UnitIsGroupLeader = UnitIsGroupLeader
-local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInInstance = IsInInstance
-local IsInGroup = IsInGroup
-local IsInRaid = IsInRaid
 
 local GetInventoryItem = C_TooltipInfo.GetInventoryItem
 local GetBagItem = C_TooltipInfo.GetBagItem
 local GetHyperlink = C_TooltipInfo.GetHyperlink
-
-local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
-local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
 -- Profile
 function F.IsMERProfile()
@@ -94,17 +83,6 @@ function F.GetDBFromPath(path, dbRef)
 	end
 
 	return nil
-end
-
-function F.UpdateDBFromPath(db, path, key)
-	F.GetDBFromPath(path)[key] = F.GetDBFromPath(path, db)[key]
-end
-
-function F.UpdateDBFromPathRGB(db, path)
-	F.UpdateDBFromPath(db, path, "r")
-	F.UpdateDBFromPath(db, path, "g")
-	F.UpdateDBFromPath(db, path, "b")
-	F.UpdateDBFromPath(db, path, "a")
 end
 
 function F.IsThisASafeSecret(value, hasValue, isBG)
@@ -197,89 +175,14 @@ function F.CreateStyle(frame, createStripes, createGradient)
 	end
 end
 
-function F.CreateOverlay(f)
-	if f.overlay then
-		return
-	end
-
-	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
-	overlay:Point("TOPLEFT", 2, -2)
-	overlay:Point("BOTTOMRIGHT", -2, 2)
-	overlay:SetTexture(E["media"].blankTex)
-	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
-	f.overlay = overlay
-end
-
-function F.CreateBorder(f, i, o)
-	if i then
-		if f.iborder then
-			return
-		end
-		local border = CreateFrame("Frame", "$parentInnerBorder", f)
-		border:Point("TOPLEFT", E.mult, -E.mult)
-		border:Point("BOTTOMRIGHT", -E.mult, E.mult)
-		border:CreateBackdrop()
-		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
-		f.iborder = border
-	end
-
-	if o then
-		if f.oborder then
-			return
-		end
-		local border = CreateFrame("Frame", "$parentOuterBorder", f)
-		border:Point("TOPLEFT", -E.mult, E.mult)
-		border:Point("BOTTOMRIGHT", E.mult, -E.mult)
-		border:OffsetFrameLevel(1, f)
-		border:CreateBackdrop()
-		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
-		f.oborder = border
-	end
-end
-
-function F.CreatePanel(f, t, w, h, a1, p, a2, x, y)
-	f:Width(w)
-	f:Height(h)
-	f:SetFrameLevel(3)
-	f:SetFrameStrata("BACKGROUND")
-	f:Point(a1, p, a2, x, y)
-	f:CreateBackdrop()
-
-	if t == "Transparent" then
-		backdropa = 0.45
-		F.CreateBorder(f, true, true)
-		WS:CreateBackdropShadow(f.backdrop)
-	elseif t == "Overlay" then
-		backdropa = 1
-		F.CreateOverlay(f)
-		WS:CreateBackdropShadow(f.backdrop)
-	elseif t == "Invisible" then
-		backdropa = 0
-		bordera = 0
-	else
-		backdropa = 1
-	end
-
-	f.backdrop:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
-	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
-end
-
 function F.AlmostEqual(a, b, epsilon)
 	epsilon = epsilon or 0.001
 
-	if type(a) ~= "number" or type(b) ~= "number" then
+	if type(a) ~= "number" or type(b) ~= "number" or E:IsSecretValue(a) or E:IsSecretValue(b) then
 		return false
 	end
 
-	local success, diff = pcall(function()
-		return abs(a - b)
-	end)
-
-	if success then
-		return diff < epsilon
-	else
-		return false
-	end
+	return abs(a - b) < epsilon
 end
 
 function F.PerfectScale(n)
@@ -299,75 +202,8 @@ local baseScale = 768 / 1080
 local perfectScale = baseScale / F.PixelPerfect()
 local perfectMulti = perfectScale
 
-function F.HiDpi()
-	return E.physicalHeight / 1440 >= 1
-end
-
 function F.Dpi(value, frac)
 	return F.Round(value * perfectMulti, frac)
-end
-
-function F.DpiRaw(value)
-	return value * perfectMulti
-end
-
-function F:Interval(value, minValue, maxValue)
-	return max(minValue, min(maxValue, value))
-end
-
-function F.RemoveFontTemplate(fs)
-	E.texts[fs] = nil
-end
-
-function F.GetFontColorFromDB(db, prefix)
-	-- Vars
-	if prefix == nil then
-		prefix = ""
-	end
-	local fontColor
-	local useDB = (db and prefix) and true or false
-	local colorSwitch = (useDB and db[prefix .. "color"]) or I.General.DefaultFontColor
-
-	-- Switch
-	if colorSwitch == "CUSTOM" then
-		fontColor = (useDB and db[prefix .. "color"]) or I.General.DefaultFontCustomColor
-	elseif colorSwitch == "MER" then
-		fontColor = I.Strings.Branding.ColorRGBA
-	elseif colorSwitch == "CLASS" then
-		local classColor = E:ClassColor(E.myclass, true)
-		fontColor = {
-			r = classColor.r,
-			g = classColor.g,
-			b = classColor.b,
-			a = 1,
-		}
-	elseif colorSwitch == "VALUE" then
-		fontColor = {
-			r = E.media.rgbvaluecolor[1],
-			g = E.media.rgbvaluecolor[2],
-			b = E.media.rgbvaluecolor[3],
-			a = 1,
-		}
-	else
-		fontColor = {
-			r = 1,
-			g = 1,
-			b = 1,
-			a = 1,
-		}
-	end
-
-	return fontColor
-end
-
-function F.SetFontColorFromDB(db, prefix, fs)
-	local fontColor = F.GetFontColorFromDB(db, prefix)
-	F.RemoveFontTemplate(fs)
-	fs:SetTextColor(fontColor.r, fontColor.g, fontColor.b, fontColor.a)
-end
-
-function F.SetFontScaledFromDB(db, prefix, fs, color, fontOverwrite)
-	F.SetFontFromDB(db, prefix, fs, color, fontOverwrite, true)
 end
 
 function F.GetFontPath(font)
@@ -385,31 +221,6 @@ function F.GetFontPath(font)
 	end -- backup to elvui font if not found
 
 	return lsmFont
-end
-
-function F.SetFontFromDB(db, prefix, fs, color, fontOverwrite, useScaling)
-	local useDB = (db and prefix) and true or false
-	local font = (useDB and db[prefix .. "name"]) or I.General.DefaultFont
-	local size = (useDB and db[prefix .. "size"]) or I.General.DefaultFontSize
-	local outline = (useDB and db[prefix .. "style"]) or I.General.DefaultFontOutline
-
-	if fontOverwrite then
-		font = fontOverwrite
-	end
-	local lsmFont = F.GetFontPath(font)
-
-	outline = F.FontStyleOverride(font, outline)
-
-	if outline == "NONE" then
-		outline = ""
-	end
-
-	F.RemoveFontTemplate(fs)
-	fs:SetFont(lsmFont, useScaling and F.FontSizeScaled(size) or size, (not shadow and outline) or "")
-
-	if (color == nil) or (color == true) then
-		F.SetFontColorFromDB(db, prefix, fs)
-	end
 end
 
 function F.FontSize(value)
@@ -432,12 +243,14 @@ function F.FontSizeScaled(value, clamp)
 end
 
 function F.FontOverride(font)
-	local override = F.GetDBFromPath("mui.general.fontOverride")[font]
+	local overrides = F.GetDBFromPath("mui.general.fontOverride")
+	local override = overrides and overrides[font]
 	return (override and override ~= "DEFAULT") and override or font
 end
 
 function F.FontStyleOverride(font, style)
-	local override = F.GetDBFromPath("mui.general.fontStyleOverride")[font]
+	local overrides = F.GetDBFromPath("mui.general.fontStyleOverride")
+	local override = overrides and overrides[font]
 	return (override and override ~= "DEFAULT") and override or style
 end
 
@@ -454,8 +267,8 @@ function F:CreateFS(size, text, color, anchor, x, y)
 	F.SetFontSize(fs, size)
 	fs:SetText(text)
 	fs:SetWordWrap(false)
-	if color and type(color) == "boolean" then
-		fs:SetTextColor(cr, cg, cb)
+	if color == true then
+		fs:SetTextColor(F.r, F.g, F.b)
 	elseif color == "system" then
 		fs:SetTextColor(1, 0.8, 0)
 	elseif color == "info" then
@@ -566,7 +379,7 @@ function F.ConvertToHSL(r, g, b)
 end
 
 local function clamp255(x)
-	if type(x) ~= "number" then
+	if type(x) ~= "number" or E:IsSecretValue(x) then
 		return 255
 	end
 	if x < 0 then
@@ -583,10 +396,6 @@ function F.GetTextWithColor(text, color)
 	local g = clamp255(color and color.g or 1)
 	local b = clamp255(color and color.b or 1)
 	return format("|cFF%02x%02x%02x%s|r", r, g, b, text)
-end
-
-function F.GetMERStyleText(text)
-	return E:TextGradient(text, 0.32941, 0.52157, 0.93333, 0.29020, 0.70980, 0.89412, 0.25882, 0.84314, 0.86667)
 end
 
 function F.CalculateMultiplierColor(multi, r, g, b)
@@ -606,22 +415,11 @@ function F.CalculateMultiplierColorArray(multi, colors)
 	return F.CalculateMultiplierColor(multi, r, g, b)
 end
 
-function F.SlowColorGradient(perc, ...)
-	if perc >= 1 then
-		return select(select("#", ...) - 2, ...)
-	elseif perc <= 0 then
-		return ...
-	end
-
-	local num = select("#", ...) / 3
-	local segment, relperc = modf(perc * (num - 1))
-	local r1, g1, b1, r2, g2, b2 = select((segment * 3) + 1, ...)
-
-	return F.FastColorGradient(relperc, r1, g1, b1, r2, g2, b2)
-end
-
 function F.FastColorGradient(perc, r1, g1, b1, r2, g2, b2)
-	if perc >= 1 then
+	-- Secret percentages can't be compared, fall back to the start color
+	if E:IsSecretValue(perc) then
+		return r1, g1, b1
+	elseif perc >= 1 then
 		return r2, g2, b2
 	elseif perc <= 0 then
 		return r1, g1, b1
@@ -643,13 +441,13 @@ function F.Round(n, q)
 	return int * q
 end
 
+---Number as string with a fixed amount of decimals (default 0)
 function F.RoundNumber(number, decimals)
-	if number then
-		return (("%%.%df"):format(decimals)):format(number)
-	else
-		F.Print(L["!! ERROR - Round:"] .. " " .. number .. " - " .. decimals)
-		return 0
+	if not number then
+		return "0"
 	end
+
+	return format("%." .. (decimals or 0) .. "f", number)
 end
 
 function F.cOption(name, color)
@@ -686,7 +484,13 @@ end
 ---Print message with MerathilisUI title prefix
 ---@param ... string|number Message parts to print
 function F.Print(...)
-	print(format("%s: %s", MER.Title, strjoin(" ", ...)))
+	local count = select("#", ...)
+	local parts = { ... }
+	for i = 1, count do
+		parts[i] = tostring(parts[i])
+	end
+
+	print(format("%s: %s", MER.Title, strjoin(" ", unpack(parts, 1, count))))
 end
 
 function F.DebugPrint(text, msgtype)
@@ -700,53 +504,16 @@ function F.DebugPrint(text, msgtype)
 	elseif msgtype == "warning" then
 		message = format("%s: %s", MER.Title .. F.String.Warning(L["Warning"]), text)
 	elseif msgtype == "info" then
-		message = format("%s: %s", MER.Title .. F.String.MER(L["Information"]), text)
+		message = format("%s: %s", MER.Title .. F.String.MERATHILISUI(L["Information"]), text)
+	else
+		message = format("%s: %s", MER.Title, text)
 	end
 	print(message)
 end
 
-function F.PrintURL(url)
-	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
-end
-
-function F.DebugPrintTable(tbl, simple, noFunctions)
-	if type(tbl) == "table" then
-		local tblLength = GetTableLng(tbl)
-		F.Print(
-			": Table Start >>>",
-			tbl,
-			"Entries:",
-			tblLength,
-			"Options:",
-			"Simple:",
-			simple,
-			"Functions:",
-			noFunctions
-		)
-		PrintTable(tbl, "-", (tblLength > 50), noFunctions)
-	else
-		F.Print("Not a Table:", tbl)
-	end
-end
-
-do
-	local throttleNamespaces = {}
-
-	function F.CreateThrottleWrapper(namespace, throttle, func)
-		return function(...)
-			local currentTime = GetTime()
-			if throttleNamespaces[namespace] and ((currentTime - throttleNamespaces[namespace]) <= throttle) then
-				return
-			end
-			throttleNamespaces[namespace] = currentTime
-			return func(...)
-		end
-	end
-end
-
 do
 	-- Tooltip Stuff
-	function F:HideTooltip()
+	local function HideTooltip()
 		_G.GameTooltip:Hide()
 	end
 
@@ -767,7 +534,7 @@ do
 				r, g, b = F.r, F.g, F.b
 			elseif self.color == "SYSTEM" then
 				r, g, b = 1, 0.8, 0
-			elseif self.color == "BLUE" then
+			elseif self.color == "BLUE" or self.color == "info" then
 				r, g, b = 0.6, 0.8, 1
 			elseif self.color == "RED" then
 				r, g, b = 0.9, 0.3, 0.3
@@ -792,7 +559,7 @@ do
 			self.title = L["Tips"]
 		end
 		self:HookScript("OnEnter", Tooltip_OnEnter)
-		self:HookScript("OnLeave", F.HideTooltip)
+		self:HookScript("OnLeave", HideTooltip)
 	end
 
 	function F:CreateGear(name)
@@ -821,15 +588,6 @@ do
 
 		return bu
 	end
-end
-
--- Glow Parent
-function F:CreateGlowFrame(size)
-	local frame = CreateFrame("Frame", nil, self)
-	frame:SetPoint("CENTER")
-	frame:SetSize(size + 4, size + 4)
-
-	return frame
 end
 
 ---Attach a Blizzard-style pulsing "NEW" badge (as seen on the Game Menu's Options button) to
@@ -1026,34 +784,10 @@ function F.MarkTabAsNew(key)
 	F.NewFeatureTabs[key] = true
 end
 
-function F.SplitList(list, variable, cleanup)
-	if cleanup then
-		twipe(list)
-	end
-
-	for word in variable:gmatch("%S+") do
-		list[word] = true
-	end
-end
-
-F.iLvlClassIDs = {
-	[Enum.ItemClass.Gem] = Enum.ItemGemSubclass.Artifactrelic,
-	[Enum.ItemClass.Armor] = 0,
-	[Enum.ItemClass.Weapon] = 0,
-}
-
 do -- Tooltip scanning stuff. Credits siweia, with permission.
 	local iLvlDB = {}
 	local itemLevelString = "^" .. gsub(ITEM_LEVEL, "%%d", "")
-	local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
 	local enchantString = gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
-	local isUnknownString = {
-		[TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN] = true,
-		[TRANSMOGRIFY_TOOLTIP_ITEM_UNKNOWN_APPEARANCE_KNOWN] = true,
-	}
-
-	local tip = CreateFrame("GameTooltip", "mUI_ScanTooltip", nil, "GameTooltipTemplate")
-	F.ScanTip = tip
 
 	local slotData = { gems = {}, gemsColor = {} }
 	function F.GetItemLevel(link, arg1, arg2, fullScan)
@@ -1133,80 +867,6 @@ do -- Tooltip scanning stuff. Credits siweia, with permission.
 			return iLvlDB[link]
 		end
 	end
-
-	local pendingNPCs, nameCache, callbacks = {}, {}, {}
-	local loadingStr = "..."
-	local pendingFrame = CreateFrame("Frame")
-	pendingFrame:Hide()
-	pendingFrame:SetScript("OnUpdate", function(self, elapsed)
-		self.elapsed = (self.elapsed or 0) + elapsed
-		if self.elapsed > 1 then
-			if next(pendingNPCs) then
-				for npcID, count in pairs(pendingNPCs) do
-					if count > 2 then
-						nameCache[npcID] = UNKNOWN
-						if callbacks[npcID] then
-							callbacks[npcID](UNKNOWN)
-						end
-						pendingNPCs[npcID] = nil
-					else
-						local name = F.GetNPCName(npcID, callbacks[npcID])
-						if name and name ~= loadingStr then
-							pendingNPCs[npcID] = nil
-						else
-							pendingNPCs[npcID] = pendingNPCs[npcID] + 1
-						end
-					end
-				end
-			else
-				self:Hide()
-			end
-
-			self.elapsed = 0
-		end
-	end)
-
-	function F.GetNPCName(npcID, callback)
-		local name = nameCache[npcID]
-		if not name then
-			name = loadingStr
-			local data = GetHyperlink(format("unit:Creature-0-0-0-0-%d", npcID))
-			local lineData = data and data.lines
-			if lineData then
-				name = lineData[1] and lineData[1].leftText
-			end
-			if name == loadingStr then
-				if not pendingNPCs[npcID] then
-					pendingNPCs[npcID] = 1
-					pendingFrame:Show()
-				end
-			else
-				nameCache[npcID] = name
-			end
-		end
-		if callback then
-			callback(name)
-			callbacks[npcID] = callback
-		end
-
-		return name
-	end
-
-	function F.IsUnknownTransmog(bagID, slotID)
-		local data = GetBagItem(bagID, slotID)
-		local lineData = data and data.lines
-		if not lineData then
-			return
-		end
-
-		for i = #lineData, 1, -1 do
-			local line = lineData[i]
-			if line.price then
-				return false
-			end
-			return line.leftText and isUnknownString[line.leftText]
-		end
-	end
 end
 
 --[[----------------------------------
@@ -1214,111 +874,21 @@ end
 --]]
 ----------------------------------
 do
-	function F:ResetTabAnchor(size, outline)
-		local text = self.Text or (self.GetName and _G[self:GetName() .. "Text"])
+	-- Keep tab labels centered when Blizzard (de)selects a tab
+	local function ResetTabAnchor(tab)
+		local text = tab.Text or (tab.GetName and _G[tab:GetName() .. "Text"])
 		if text then
-			text:SetPoint("CENTER", self)
+			text:SetPoint("CENTER", tab)
 		end
 	end
 
-	hooksecurefunc("PanelTemplates_SelectTab", F.ResetTabAnchor)
-	hooksecurefunc("PanelTemplates_DeselectTab", F.ResetTabAnchor)
-
-	-- Kill regions
-	F.HiddenFrame = CreateFrame("Frame")
-	F.HiddenFrame:Hide()
-
-	function F:HideObject()
-		if self.UnregisterAllEvents then
-			self:UnregisterAllEvents()
-			self:SetParent(F.HiddenFrame)
-		else
-			self.Show = self.Hide
-		end
-		self:Hide()
-	end
-
-	function F:ReplaceIconString(text)
-		if not text then
-			text = self:GetText()
-		end
-		if not text or text == "" then
-			return
-		end
-
-		local newText, count = gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:0:0:64:64:5:59:5:59|t")
-		if count > 0 then
-			self:SetFormattedText("%s", newText)
-		end
-	end
-end
-
--- Check Chat channels
-function F.CheckChat(msg)
-	if IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then
-		return "INSTANCE_CHAT"
-	elseif IsInRaid(_G.LE_PARTY_CATEGORY_HOME) then
-		if msg and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player") or IsEveryoneAssistant()) then
-			return "RAID_WARNING"
-		else
-			return "RAID"
-		end
-	elseif IsInGroup(_G.LE_PARTY_CATEGORY_HOME) then
-		return "PARTY"
-	end
-
-	return "SAY"
-end
-
-function F.CheckPlayerBuff(spell)
-	for i = 1, 40 do
-		local name, _, _, _, _, _, unitCaster = GetBuffDataByIndex("player", i)
-		if not name then
-			break
-		end
-		if name == spell then
-			return i, unitCaster
-		end
-	end
-	return nil
-end
-
-function F.BagSearch(itemId)
-	for container = 0, _G.NUM_BAG_SLOTS do
-		for slot = 1, GetContainerNumSlots(container) do
-			if itemId == GetContainerItemID(container, slot) then
-				return container, slot
-			end
-		end
-	end
-end
-
-function F.Reset(group)
-	if not group then
-		print("U wot m8?")
-	end
-
-	if group == "marks" or group == "all" then
-		E:CopyTable(E.db.mui.raidmarkers, P.raidmarkers)
-		E:ResetMovers(L["Raid Marker Bar"])
-	end
-	E:UpdateAll()
+	hooksecurefunc("PanelTemplates_SelectTab", ResetTabAnchor)
+	hooksecurefunc("PanelTemplates_DeselectTab", ResetTabAnchor)
 end
 
 -- Inform us of the patch info we play on.
 MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
 MER.WoWBuild = tonumber(MER.WoWBuild)
-
-_G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
-SlashCmdList["WOWVERSION"] = function()
-	print(
-		"Patch:",
-		MER.WoWPatch .. ", " .. "Build:",
-		MER.WoWBuild .. ", " .. "Released",
-		MER.WoWPatchReleaseDate .. ", " .. "Interface:",
-		MER.TocVersion
-	)
-end
 
 -- Icon Style
 function F.PixelIcon(self, texture, highlight)
@@ -1367,33 +937,6 @@ function F:CreateCheckBox()
 
 	cb.Type = "CheckBox"
 	return cb
-end
-
--- Role Icons
-function F.ReskinRole(self, role)
-	if self.background then
-		self.background:SetTexture("")
-	end
-	local cover = self.cover or self.Cover
-	if cover then
-		cover:SetTexture("")
-	end
-
-	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
-	if checkButton then
-		checkButton:OffsetFrameLevel(2, self)
-		checkButton:Point("BOTTOMLEFT", -2, -2)
-	end
-
-	local shortageBorder = self.shortageBorder
-	if shortageBorder then
-		shortageBorder:SetTexture("")
-		local icon = self.incentiveIcon
-		icon:Point("BOTTOMRIGHT")
-		icon:Size(14, 14)
-		icon.texture:SetSize(14, 14)
-		icon.border:SetTexture("")
-	end
 end
 
 -- Atlas info
@@ -1464,8 +1007,6 @@ end
 do
 	local cuttedIconTemplate = "|T%s:%d:%d:0:0:64:64:5:59:5:59|t"
 	local cuttedIconAspectRatioTemplate = "|T%s:%d:%d:0:0:64:64:%d:%d:%d:%d|t"
-	local textureTemplate = "|T%s:%d:%d|t"
-	local aspectRatioTemplate = "|T%s:0:aspectRatio|t"
 	local s = 14
 
 	function F.GetIconString(icon, height, width, aspectRatio)
@@ -1482,186 +1023,6 @@ do
 		width = width or height
 		return format(cuttedIconTemplate, icon, height or s, width or s)
 	end
-
-	function F.GetTextureString(texture, height, width, aspectRatio)
-		if aspectRatio then
-			return format(aspectRatioTemplate, texture)
-		else
-			width = width or height
-			return format(textureTemplate, texture, height or s, width or s)
-		end
-	end
-end
-
-local MediaPath = "Interface/Addons/ElvUI_MerathilisUI/Media/"
-
-do
-	local texTable = {
-		texWidth = 2048,
-		texHeight = 1024,
-		tipWidth = 512,
-		tipHeight = 170,
-		languages = {
-			enUS = 0,
-		},
-		type = {
-			button = { 0, 0 },
-			checkBox = { 512, 0 },
-			tab = { 1024, 0 },
-			treeGroupButton = { 1536, 0 },
-			slider = { 0, 180 },
-		},
-	}
-
-	function F.GetWidgetTips(widgetType)
-		if not texTable.type[widgetType] then
-			return
-		end
-		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
-		if not offsetY then
-			return
-		end
-
-		local xStart = texTable.type[widgetType][1]
-		local yStart = texTable.type[widgetType][2] + offsetY
-		local xEnd = xStart + texTable.tipWidth
-		local yEnd = yStart + texTable.tipHeight
-
-		return {
-			xStart / texTable.texWidth,
-			xEnd / texTable.texWidth,
-			yStart / texTable.texHeight,
-			yEnd / texTable.texHeight,
-		}
-	end
-
-	function F.GetWidgetTipsString(widgetType)
-		if not texTable.type[widgetType] then
-			return
-		end
-		local offsetY = texTable.languages[E.global.general.locale] or texTable.languages["enUS"]
-		if not offsetY then
-			return
-		end
-
-		local xStart = texTable.type[widgetType][1]
-		local yStart = texTable.type[widgetType][2] + offsetY
-		local xEnd = xStart + texTable.tipWidth
-		local yEnd = yStart + texTable.tipHeight
-
-		return format(
-			"|T%s:%d:%d:0:0:%d:%d:%d:%d:%d:%d:255:255:255|t",
-			I.Media.Textures.WidgetsTips,
-			ceil(texTable.tipHeight * 0.4),
-			ceil(texTable.tipWidth * 0.4),
-			texTable.texWidth,
-			texTable.texHeight,
-			xStart,
-			xEnd,
-			yStart,
-			yEnd
-		)
-	end
-end
-
----@alias ClassIconStyle
----| "flat"          # Flat style without border
----| "flatborder"    # Flat style with thin border
----| "flatborder2"   # Flat style with thicker border
----| "round"         # Circular style
----| "square"        # Square style with rounded corners
----| "warcraftflat"  # Warcraft-themed flat style
-
-local availableClassIconStyles = { "flat", "flatborder", "flatborder2", "round", "square", "warcraftflat" }
-
----Get list of available class icon styles
----@return ClassIconStyle[] styles Array of available style names
-function F.GetClassIconStyleList()
-	return availableClassIconStyles
-end
-
----Get class icon texture path with specified style
----@param class string The class name (case insensitive)
----@param style ClassIconStyle The icon style from GetClassIconStyleList()
----@return string|nil iconPath The full texture path, or nil if invalid parameters
-function F.GetClassIconWithStyle(class, style)
-	if not class or not tContains(_G.CLASS_SORT_ORDER, strupper(class)) then
-		return
-	end
-
-	return MediaPath .. "Icons/ClassIcon/" .. strlower(class) .. "_" .. style .. ".tga"
-end
-
----Generate class icon string with specified style and dimensions
----@param class string The class name (case insensitive)
----@param style ClassIconStyle The icon style from GetClassIconStyleList()
----@param width number|nil Icon width in pixels
----@param height number|nil Icon height in pixels (defaults to width if not specified)
----@return string|nil iconString The formatted icon string, or nil if invalid parameters
-function F.GetClassIconStringWithStyle(class, style, width, height)
-	local path = F.GetClassIconWithStyle(class, style)
-	if not path then
-		return
-	end
-
-	if not width and not height then
-		return format("|T%s:0|t", path)
-	end
-
-	if not height then
-		height = width
-	end
-
-	return format("|T%s:%d:%d:0:0:64:64:0:64:0:64|t", path, height, width)
-end
-
--- Check Textures
-local txframe = CreateFrame("Frame")
-local tx = txframe:CreateTexture()
-
-function F:TextureExists(path)
-	if not path or path == "" then
-		return F.DebugPrint("Path not valid or defined.", "error")
-	end
-	tx:SetTexture("?")
-	tx:SetTexture(path)
-
-	return (tx:GetTexture())
-end
-
--- GUID to npcID
-function F.GetNPCID(guid)
-	local id = tonumber(strmatch((guid or ""), "%-(%d-)%-%x-$"))
-	return id
-end
-
-function F.SplitString(delimiter, subject)
-	if not subject or subject == "" then
-		return {}
-	end
-
-	local length = strlen(delimiter)
-	local results = {}
-
-	local i = 0
-	local j = 0
-
-	while true do
-		j = strfind(subject, delimiter, i + length)
-		if strlen(subject) == i then
-			break
-		end
-
-		if j == nil then
-			tinsert(results, strsub(subject, i))
-			break
-		end
-
-		tinsert(results, strsub(subject, i, j - 1))
-		i = j + length
-	end
-
-	return unpack(results)
 end
 
 do
@@ -1688,25 +1049,6 @@ do
 		end
 		return text
 	end
-end
-
-function F.SetCallback(callback, target, times, ...)
-	times = times or 0
-	if times >= 10 then
-		return
-	end
-
-	if times < 10 then
-		local result = { pcall(target, ...) }
-		if result and result[1] == true then
-			tremove(result, 1)
-			if callback(unpack(result)) then
-				return
-			end
-		end
-	end
-
-	E:Delay(0.1, F.SetCallback, callback, target, times + 1, ...)
 end
 
 function F:Texture_OnEnter()
@@ -1745,77 +1087,21 @@ function F.Enum(tbl)
 	return tbl
 end
 
-function F.In(val, tbl)
-	if not val or not tbl or type(tbl) ~= "table" then
-		return false
-	end
-
-	for _, v in pairs(tbl) do
-		if v == val then
-			return true
-		end
-	end
-
-	return false
-end
-
-function F.IsNaN(val)
-	return tostring(val) == tostring(0 / 0)
-end
-
-function F.Or(val, default)
-	if not val or F.IsNaN(val) then
-		return default
-	end
-	return val
-end
-
 do
-	local protected_call = {}
-
-	function protected_call._error_handler(err)
-		WF.Developer.LogInfo(err)
-	end
-
-	function protected_call._handle_result(success, ...)
+	local function HandleResult(success, ...)
 		if success then
 			return ...
 		end
 	end
 
-	local do_pcall
-	if not select(
-		2,
-		xpcall(function(a)
-			return a
-		end, error, true)
-	) then
-		do_pcall = function(func, ...)
-			local args = { ... }
-			return protected_call._handle_result(xpcall(function()
-				return func(unpack(args))
-			end, protected_call._error_handler))
-		end
-	else
-		do_pcall = function(func, ...)
-			return protected_call._handle_result(xpcall(func, protected_call._error_handler, ...))
-		end
+	---Call func(...) and report errors through the error handler instead of aborting the caller
+	function F.ProtectedCall(func, ...)
+		return HandleResult(xpcall(func, F.Developer.ThrowError, ...))
 	end
-
-	function protected_call.call(func, ...)
-		return do_pcall(func, ...)
-	end
-
-	local pcall_mt = {}
-	function pcall_mt:__call(...)
-		return do_pcall(...)
-	end
-
-	F.ProtectedCall = setmetatable(protected_call, pcall_mt)
 end
 
 do
-	local eventManagerFrame, eventManagerTable, eventManagerDelayed = CreateFrame("Frame"), {}, {}
+	local eventManagerDelayed = {}
 	local flushPending = false
 
 	local function flushDelayed()
@@ -1833,401 +1119,25 @@ do
 			E:Delay(0, flushDelayed)
 		end
 	end
-
-	eventManagerFrame:SetScript("OnEvent", function(_, event, ...)
-		local namespaces = eventManagerTable[event]
-		if namespaces then
-			for _, funcs in pairs(namespaces) do
-				for _, func in ipairs(funcs) do
-					func(event, ...)
-				end
-			end
-		end
-	end)
-
-	function F.EventManagerRegister(namespace, event, func)
-		local namespaces = eventManagerTable[event]
-
-		if not namespaces then
-			eventManagerTable[event] = {}
-			namespaces = eventManagerTable[event]
-			pcall(eventManagerFrame.RegisterEvent, eventManagerFrame, event)
-		end
-
-		local funcs = namespaces[namespace]
-
-		if not funcs then
-			namespaces[namespace] = { func }
-		elseif not tcontains(funcs, func) then
-			tinsert(funcs, func)
-		end
-	end
-
-	function F.EventManagerUnregisterAll(namespace)
-		for event in pairs(eventManagerTable) do
-			local namespaces = eventManagerTable[event]
-			local funcs = namespaces and namespaces[namespace]
-			if funcs ~= nil then
-				F.EventManagerUnregister(namespace, event)
-			end
-		end
-	end
-
-	function F.EventManagerUnregister(namespace, event, func)
-		local namespaces = eventManagerTable[event]
-		local funcs = namespaces and namespaces[namespace]
-
-		if funcs then
-			for index, fnc in ipairs(funcs) do
-				if not func or (func == fnc) then
-					tremove(funcs, index)
-					break
-				end
-			end
-
-			if #funcs == 0 then
-				namespaces[namespace] = nil
-			end
-
-			if not next(funcs) then
-				eventManagerFrame:UnregisterEvent(event)
-				eventManagerTable[event] = nil
-			end
-		end
-	end
 end
 
-function F:GetFontColorGetter(profileDB, defaultDB, customKey)
-	return function(info)
-		local key = customKey or info[#info]
-		local profileEntry = F.GetDBFromPath(profileDB)[key]
-		local defaultEntry = defaultDB[key]
-		return profileEntry.r,
-			profileEntry.g,
-			profileEntry.b,
-			profileEntry.a,
-			defaultEntry.r,
-			defaultEntry.g,
-			defaultEntry.b,
-			defaultEntry.a
-	end
-end
-
-function F:GetFontColorSetter(profileDB, callback, customKey)
-	return function(info, r, g, b, a)
-		local key = customKey or info[#info]
-		local profileEntry = F.GetDBFromPath(profileDB)[key]
-		if profileEntry.r ~= r or profileEntry.g ~= g or profileEntry.b ~= b or profileEntry.a ~= a then
-			profileEntry.r, profileEntry.g, profileEntry.b, profileEntry.a = r, g, b, a
-			if callback then
-				callback()
-			end
-		end
-	end
-end
-
-function F.CheckInterruptConditions(condition)
-	if condition.class and condition.class ~= E.myclass then
-		return
-	end
-	if condition.level and condition.level > UnitLevel("player") then
-		return
-	end
-	if condition.specIds and not tcontains(condition.specIds, GetSpecializationInfo(GetSpecialization())) then
-		return
-	end
-	return true
-end
-
-function F.CheckInterruptSpellsEvaluation()
-	for _, entry in ipairs(I.InterruptSpellMap) do
-		entry.active = IsSpellKnownOrOverridesKnown(entry.id) and F.CheckInterruptConditions(entry.conditions)
-	end
-end
-
-function F.CanInterruptEvaluation()
-	local interruptCD = nil
-
-	local spellIDs = {}
-	for _, entry in ipairs(I.InterruptSpellMap) do
-		if entry.active then
-			tinsert(spellIDs, entry.id)
-		end
-	end
-
-	for _, interruptSpellId in ipairs(spellIDs) do
-		if E.myclass ~= "WARLOCK" then
-			local cdStart, cdDur
-			if TXUI.IsRetail then
-				local cd = GetSpellCooldown(interruptSpellId)
-				cdStart, cdDur = cd.startTime, cd.duration
-			else
-				cdStart, cdDur = GetSpellCooldown(interruptSpellId)
-			end
-
-			local tmpInterruptCD = (cdStart > 0 and cdDur - (GetTime() - cdStart)) or 0
-			if not interruptCD or (tmpInterruptCD < interruptCD) then
-				interruptCD = tmpInterruptCD
-			end
-		elseif C_SpellBook.FindSpellOverrideByID(119898) then -- Check if WL has the command ability
-			local cdStart, cdDur
-			if TXUI.IsRetail then
-				local cd = GetSpellCooldown(interruptSpellId)
-				cdStart, cdDur = cd.startTime, cd.duration
-			else
-				cdStart, cdDur = GetSpellCooldown(interruptSpellId)
-			end
-			local tmpInterruptCD = (cdStart > 0 and cdDur - (GetTime() - cdStart)) or 0
-			if (tmpInterruptCD > 0) and (not interruptCD or (tmpInterruptCD < interruptCD)) then
-				interruptCD = tmpInterruptCD
-			end
-		end
-	end
-
-	if interruptCD and interruptCD > 0 then
-		return interruptCD
-	end
-	return 0
-end
-
-do
-	local cachedCD = 0
-	F.CanInterrupt = function()
-		local cdDur = F.CanInterruptThrottled()
-		if cdDur ~= nil then
-			cachedCD = cdDur
-		end
-		return cachedCD
-	end
-end
-
-function F.ProcessMovers(dbRef)
-	-- Disable screen restrictions
-	E:SetMoversClampedToScreen(false)
-
-	-- Enable all movers
-	for name in pairs(E.DisabledMovers) do
-		local disable = E.DisabledMovers[name].shouldDisable
-		local shouldDisable = (disable and disable()) or false
-
-		if not shouldDisable and not E.CreatedMovers[name] then
-			local holder = E.DisabledMovers[name]
-			if not holder then
-				F.Developer.LogDebug("holder doesnt exist", name or "nil")
-			end
-
-			E.CreatedMovers[name] = {}
-			for x, y in pairs(holder) do
-				E.CreatedMovers[name][x] = y
-			end
-
-			E.DisabledMovers[name] = nil
-		else
-			F.Developer.LogDebug("could not enable mover", name or "nil")
-		end
-	end
-
-	local relativeMovers = {}
-	local globalMovers = {}
-
-	for name, points in pairs(dbRef.movers) do
-		local _, relativeTo = strsplit(",", points)
-		if relativeTo then
-			relativeTo = relativeTo:gsub("Mover", "")
-
-			if relativeTo ~= "ElvUIParent" and relativeTo ~= "UIParent" then
-				if not relativeMovers[relativeTo] then
-					relativeMovers[relativeTo] = {}
-				end
-				tinsert(relativeMovers[relativeTo], { name, points })
-			else
-				tinsert(globalMovers, { name, points })
-			end
-		end
-	end
-
-	local function processMover(info)
-		local name, points = unpack(info)
-		local cleanName = name:gsub("Mover", "")
-
-		local holder = E.CreatedMovers[name]
-		local mover = holder and holder.mover
-
-		if mover and mover:GetCenter() then
-			local point1, relativeTo1, relativePoint1, xOffset1, yOffset1 = strsplit(",", points)
-
-			-- Set To DB Points
-			mover:ClearAllPoints()
-			mover:SetPoint(point1, relativeTo1, relativePoint1, xOffset1, yOffset1)
-
-			-- Set ElvUI Converted Point
-			local xOffsetConverted, yOffsetConverted, pointConverted = E:CalculateMoverPoints(mover)
-			mover:ClearAllPoints()
-			mover:SetPoint(pointConverted, _G.UIParent, pointConverted, xOffsetConverted, yOffsetConverted)
-
-			-- Read resulting point, save it to our db
-			local point3, _, relativePoint3, xOffset3, yOffset3 = mover:GetPoint()
-			dbRef.movers[name] = format(
-				"%s,ElvUIParent,%s,%d,%d",
-				point3,
-				relativePoint3,
-				xOffset3 and E:Round(xOffset3) or 0,
-				yOffset3 and E:Round(yOffset3) or 0
-			)
-
-			-- Process other movers that are relative to us
-			if relativeMovers[cleanName] and #relativeMovers[cleanName] > 0 then
-				for i, relativeInfo in ipairs(relativeMovers[cleanName]) do
-					if relativeInfo then
-						relativeMovers[cleanName][i] = nil
-						processMover(relativeInfo)
-					end
-				end
-			end
-		else
-			F.Developer.LogDebug(F.String.Error("Could not find holder"), name)
-		end
-	end
-
-	for _, info in ipairs(globalMovers) do
-		processMover(info)
-	end
-
-	for parent, infos in pairs(relativeMovers) do
-		for _, info in ipairs(infos) do
-			if info then
-				F.Developer.LogDebug(
-					F.String.Error("Parent was never processed resulted in dangling child"),
-					parent,
-					info[1]
-				)
-			end
-		end
-	end
-end
-
----@type table<any, table> Throttle states storage
-local throttleStates = {}
-
----Throttle function execution to prevent excessive calls
----@param duration number Duration in seconds to throttle
----@param key any? Unique key for throttling (optional, defaults to function)
----@param func function The function to throttle
----@param ... any Arguments to pass to the function
-function F.Throttle(duration, key, func, ...)
-	if type(duration) ~= "number" or duration < 0 then
-		WF.Developer.ThrowError("Invalid duration for F.Throttle: must be a non-negative number")
-	end
-
-	-- duration == 0 means immediate execution (no throttling)
-	if duration == 0 then
-		if type(func) ~= "function" then
-			WF.Developer.ThrowError("Invalid function for F.Throttle: third argument must be a function")
-		end
-		func(...)
+---Return the player's active specialization index and ID.
+---Uses C_SpecializationInfo directly: the GetSpecialization globals are deprecation shims
+---that are not loaded on WoW Forever. Both values are nil when there is no active spec.
+---@return number? specIndex
+---@return number? specID
+function F.GetPlayerSpec()
+	local specIndex = C_SpecializationInfo_GetSpecialization()
+	if not specIndex or specIndex == 0 then
 		return
 	end
 
-	if type(func) ~= "function" then
-		WF.Developer.ThrowError("Invalid function for F.Throttle: third argument must be a function")
+	local specID = C_SpecializationInfo_GetSpecializationInfo(specIndex)
+	if not specID or specID == 0 then
+		return specIndex
 	end
 
-	local finalKey = key ~= nil and key or func
-	local state = throttleStates[finalKey]
-
-	if not state then
-		state = {
-			isThrottling = false,
-			timer = nil,
-			lastArgs = { ... },
-		}
-		throttleStates[finalKey] = state
-	else
-		state.lastArgs = { ... }
-
-		if state.isThrottling then
-			return
-		end
-	end
-
-	state.isThrottling = true
-
-	if state.timer then
-		state.timer:Cancel()
-		state.timer = nil
-	end
-
-	state.timer = E:Delay(duration, function()
-		func(unpack(state.lastArgs))
-		state.isThrottling = false
-		state.timer = nil
-	end)
-end
-
----Create a throttled version of a function
----@param duration number Duration in seconds to throttle
----@param func function The function to throttle
----@return function throttledFunction The throttled version of the function
-function F.ThrottleFunction(duration, func)
-	return function(...)
-		F.Throttle(duration, func, func, ...)
-	end
-end
-
----Cancel throttle for a specific key
----@param key any The throttle key to cancel
-function F.CancelThrottle(key)
-	local state = throttleStates[key]
-	if state and state.timer then
-		state.timer:Cancel()
-		state.timer = nil
-		state.isThrottling = false
-	end
-end
-
----Wait for condition to be true, then execute callback
----@param condition function Function that returns boolean when condition is met
----@param callback function Function to execute when condition is true
----@param interval number? Check interval in seconds (default: 0.1)
----@param maxTimes number? Maximum number of checks (default: 10)
-function F.WaitFor(condition, callback, interval, maxTimes)
-	interval = interval or 0.1
-	maxTimes = maxTimes or 10
-
-	local co = coroutine.create(function()
-		local leftTimes = maxTimes
-
-		while leftTimes > 0 do
-			local success, result = pcall(condition)
-			if success and result then
-				if type(result) == "string" and result == "end" then
-					break
-				end
-				callback()
-				return
-			end
-
-			leftTimes = leftTimes - 1
-			if leftTimes <= 0 then
-				break
-			end
-
-			coroutine.yield(interval)
-		end
-	end)
-
-	local function resumeCoroutine()
-		local success, delay = coroutine.resume(co)
-		if not success then
-			WF.Developer.ThrowError("WaitFor coroutine error:", tostring(delay))
-			return
-		end
-		if coroutine.status(co) ~= "dead" then
-			E:Delay(delay, resumeCoroutine)
-		end
-	end
-
-	resumeCoroutine()
+	return specIndex, specID
 end
 
 ---Move frame by offset while preserving all anchor points
@@ -2255,101 +1165,6 @@ function F.Move(frame, x, y)
 	end
 end
 
----@param fontFile string Font path or name
----@param fontSize number Font size
----@param fontStyle string Font style (e.g., "OUTLINE")
----@param texts string | string[] Text or array of texts to measure
----@return number maxWidth The maximum width among the provided texts
-function F.GetAdaptiveTextWidth(fontFile, fontSize, fontStyle, texts)
-	if not F.__GetAdaptiveTextWidthFont then
-		F.__GetAdaptiveTextWidthFont = E.UIParent:CreateFontString(nil, "OVERLAY")
-		F.__GetAdaptiveTextWidthFont:Hide()
-		F.InternalizeMethod(F.__GetAdaptiveTextWidthFont, "Show", true)
-	end
-
-	local font = F.__GetAdaptiveTextWidthFont
-	font:FontTemplate(fontFile or E.media.normFont, fontSize or E.db.general.fontSize, fontStyle or "NONE")
-
-	if type(texts) == "string" then
-		texts = { texts }
-	end
-
-	local maxWidth = 0
-	for _, text in pairs(texts) do
-		if type(text) == "string" then
-			font:SetText(text)
-			local width = font:GetStringWidth()
-			if width > maxWidth then
-				maxWidth = width
-			end
-		end
-	end
-
-	return maxWidth
-end
-
----Check if two numbers are approximately equal
----@param a? number|number[] First number or array of numbers
----@param b? number|number[] Second number or array of numbers
----@param allowance number? Allowed difference (default: 0.025)
----@return boolean equal True if numbers are approximately equal
-function F.IsAlmost(a, b, allowance)
-	if a == b then
-		return true
-	end
-
-	if a == nil or b == nil then
-		return false
-	end
-
-	allowance = allowance or 0.025
-
-	if type(a) == "table" and type(b) == "table" then
-		local len = #a
-		if len ~= #b then
-			return false
-		end
-
-		for i = 1, len do
-			if not F.IsAlmost(a[i], b[i], allowance) then
-				return false
-			end
-		end
-
-		return true
-	end
-
-	return abs(a - b) < allowance
-end
-
----Internalizes a method by creating a backup copy with a double underscore prefix.
----This function is commonly used to preserve original method implementations before
----overriding them with custom behavior. The original method is stored as "__methodName"
----and can optionally be replaced with a no-operation function.
----@param frame any The frame object that contains the method to be internalized
----@param methodKey any The name of the method to create an internal backup for
----@param override boolean? If true, replaces the original method with E.noop function
-function F.InternalizeMethod(frame, methodKey, override)
-	local internalMethodKey = "__" .. methodKey
-	if frame[internalMethodKey] or not frame[methodKey] then
-		return
-	end
-
-	frame[internalMethodKey] = frame[methodKey]
-	if override then
-		frame[methodKey] = E.noop
-	end
-end
-
---- Checks if a method has been internalized on a frame object
---- @param frame table|nil The frame object to check for the internalized method
---- @param methodKey string The name of the method to check for internalization
---- @return boolean True if the frame has an internalized version of the method, false otherwise
-function F.IsMethodInternalized(frame, methodKey)
-	local internalMethodKey = "__" .. methodKey
-	return frame and frame[internalMethodKey] ~= nil or false
-end
-
 ---Safely calls a method on a frame object, with fallback support for internal method variants.
 ---This function first attempts to call an internal version of the method (prefixed with "__"),
 ---and if that doesn't exist, falls back to calling the standard method name.
@@ -2363,38 +1178,6 @@ function F.CallMethod(frame, methodKey, ...)
 	end
 
 	return frame[methodKey](frame, ...)
-end
-
-function F:ReskinNavBar(bar)
-	if bar.navBarStyled then
-		return
-	end
-
-	local homeButton = bar.homeButton
-	local overflowButton = bar.overflowButton
-
-	bar:GetRegions():Hide()
-	bar:DisableDrawLayer("BORDER")
-	bar.overlay:Hide()
-
-	if homeButton then
-		homeButton:GetRegions():Hide()
-		ES:HandleButton(homeButton)
-	end
-
-	if overflowButton then
-		ES:HandleButton(overflowButton, true)
-
-		local tex = overflowButton:CreateTexture(nil, "ARTWORK")
-		tex:Size(14)
-		tex:Point("CENTER")
-		tex:SetTexture(E.Media.Textures.ArrowUp)
-
-		overflowButton:HookScript("OnEnter", F.Texture_OnEnter)
-		overflowButton:HookScript("OnLeave", F.Texture_OnLeave)
-	end
-
-	bar.navBarStyled = true
 end
 
 function F.IsSkyriding()
@@ -2416,13 +1199,13 @@ function F:SecureHook(object, method, handler)
 		if object[method] then
 			hooksecurefunc(object, method, handler)
 		else
-			WF.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
+			F.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
 		end
 	else
 		if _G[method] then
 			hooksecurefunc(method, handler)
 		else
-			WF.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
+			F.Developer.ThrowError(format("Attempting to hook a non existing function %s", method))
 		end
 	end
 end
@@ -2446,6 +1229,3 @@ function F.CalculateUltrawideOffset()
 		return 0
 	end
 end
-
-F.CheckInterruptSpells = F.CreateThrottleWrapper("CheckInterruptSpells", 2, F.CheckInterruptSpellsEvaluation)
-F.CanInterruptThrottled = F.CreateThrottleWrapper("CanInterrupt", 0.2, F.CanInterruptEvaluation)

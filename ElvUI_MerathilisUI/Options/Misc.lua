@@ -29,12 +29,6 @@ options.general = {
 			name = GUILD_MOTD_LABEL2,
 			desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 		},
-		funstuff = {
-			order = 4,
-			type = "toggle",
-			name = L["Fun Stuff"],
-			desc = L["Change the NPC Talk Frame."],
-		},
 		wowheadlinks = {
 			order = 5,
 			type = "toggle",
@@ -263,15 +257,15 @@ options.scale = {
 	order = 4,
 	type = "group",
 	name = L["Scale"],
-	hidden = function()
-		return not MER:HasRequirements(I.Requirements.AdditionalScaling)
-	end,
+	-- Shown but locked with the reason, instead of silently hiding the tab
+	disabled = module.RequirementsDisabled(I.Requirements.AdditionalScaling),
 	args = {
 		header = {
 			order = 0,
 			type = "header",
 			name = L["Scale"],
 		},
+		requirements = module.RequirementsNotice(I.Requirements.AdditionalScaling, 0.5),
 		enable = {
 			order = 1,
 			type = "toggle",
@@ -337,7 +331,7 @@ options.scale = {
 					type = "range",
 					name = L["Inspect Frame"],
 					disabled = function()
-						return E.db.mui.scale.syncInspect.enabled
+						return E.db.mui.scale.syncInspect.enable
 					end,
 					get = function(_)
 						return E.db.mui.scale.inspectFrame.scale
@@ -356,10 +350,10 @@ options.scale = {
 					name = L["Sync Inspect"],
 					desc = L["Toggling this on makes your inspect frame scale have the same value as the character frame scale."],
 					get = function(_)
-						return E.db.mui.scale.syncInspect.enabled
+						return E.db.mui.scale.syncInspect.enable
 					end,
 					set = function(_, value)
-						E.db.mui.scale.syncInspect.enabled = value
+						E.db.mui.scale.syncInspect.enable = value
 						MI:Scale()
 					end,
 				},
@@ -413,7 +407,7 @@ options.scale = {
 				wardrobe = {
 					order = 3,
 					type = "range",
-					name = L["Wardrobe"],
+					name = L["Transmog Frame"],
 					get = function(_)
 						return E.db.mui.scale.wardrobe.scale
 					end,
@@ -455,23 +449,6 @@ options.scale = {
 					max = 2,
 					step = 0.05,
 				},
-				transmog = {
-					order = 6,
-					type = "toggle",
-					name = L["Transmog Frame"],
-					desc = L["Makes the transmogrification frame bigger. Credits to Kayr for code."],
-					get = function(_)
-						return E.db.mui.scale.transmog.enable
-					end,
-					set = function(_, value)
-						E.db.mui.scale.transmog.enable = value
-						if value then
-							MI:Scale()
-						else
-							E:StaticPopup_Show("CONFIG_RL")
-						end
-					end,
-				},
 				groupFinder = {
 					order = 7,
 					type = "range",
@@ -505,7 +482,7 @@ options.scale = {
 				equipmentFlyout = {
 					order = 9,
 					type = "range",
-					name = L["Equipment Upgrade"],
+					name = L["Equipment Flyout"],
 					get = function(_)
 						return E.db.mui.scale.equipmentFlyout.scale
 					end,

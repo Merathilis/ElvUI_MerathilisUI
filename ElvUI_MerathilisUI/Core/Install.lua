@@ -1,7 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local PI = E:GetModule("PluginInstaller")
-local CH = E:GetModule("Chat")
 local PF = MER:GetModule("MER_Profiles")
+local CH = E:GetModule("Chat")
+local S = E:GetModule("Skins")
 
 local _G = _G
 local ipairs, next = ipairs, next
@@ -19,24 +20,21 @@ local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
 local VoiceTranscriptionFrame_UpdateEditBox = VoiceTranscriptionFrame_UpdateEditBox
 local VoiceTranscriptionFrame_UpdateVisibility = VoiceTranscriptionFrame_UpdateVisibility
 local VoiceTranscriptionFrame_UpdateVoiceTab = VoiceTranscriptionFrame_UpdateVoiceTab
-local VOICE, LOOT, GENERAL, TRADE = VOICE, LOOT, GENERAL, TRADE
+local VOICE, LOOT, GENERAL, COMBAT_LOG = VOICE, LOOT, GENERAL, COMBAT_LOG
 
 local C_UI_Reload = C_UI.Reload
 local C_CVar_SetCVar = C_CVar.SetCVar
 
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
-local IsInstalled = false
-local function InstallComplete(fishished)
+local function InstallComplete(finished)
 	E.private.install_complete = E.version
 	E.db.mui.core.installed = true
 	E.private.mui.general.install_complete = MER.Version
 
-	if fishished then
+	if finished then
 		E.db.mui.core.lastLayoutVersion = MER.DisplayVersion
-		IsInstalled = true
 	end
-	IsInstalled = false
 
 	C_UI_Reload()
 end
@@ -174,7 +172,7 @@ local function SetupChat()
 		if id == 1 then
 			FCF_SetWindowName(frame, GENERAL)
 		elseif id == 2 then
-			FCF_SetWindowName(frame, LOG)
+			FCF_SetWindowName(frame, COMBAT_LOG)
 		elseif id == 3 then
 			VoiceTranscriptionFrame_UpdateVisibility(frame)
 			VoiceTranscriptionFrame_UpdateVoiceTab(frame)
@@ -187,42 +185,29 @@ local function SetupChat()
 		FCF_StopDragging(frame)
 	end
 
-	local ChatFrame1_AddChannel = _G.ChatFrame1.AddChannel or _G.ChatFrame_AddChannel
-	local ChatFrame4_RemoveChannel = _G.ChatFrame4.RemoveChannel or _G.ChatFrame_RemoveChannel
-	ChatFrame4_RemoveChannel(_G.ChatFrame4, L["Trade"])
-	ChatFrame1_AddChannel(_G.ChatFrame1, L["Trade"])
+	local generalChat, lootChat = _G.ChatFrame1, _G.ChatFrame4
+	lootChat:RemoveChannel(L["Trade"])
+	generalChat:AddChannel(L["Trade"])
+	generalChat:AddMessageGroup("TARGETICONS")
 
-	local ChatFrame1_AddMessageGroup = _G.ChatFrame1.AddMessageGroup or _G.ChatFrame_AddMessageGroup
-	local ChatFrame4_AddMessageGroup = _G.ChatFrame4_AddMessageGroup or _G.ChatFrame_AddMessageGroup
-	ChatFrame1_AddMessageGroup(_G.ChatFrame1, "TARGETICONS")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_FACTION_CHANGE")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_HONOR_GAIN")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "COMBAT_XP_GAIN")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "CURRENCY")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "LOOT")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "MONEY")
-	ChatFrame4_AddMessageGroup(_G.ChatFrame4, "SKILL")
+	-- Loot and progress messages go to the loot tab only
+	for _, group in ipairs({
+		"COMBAT_FACTION_CHANGE",
+		"COMBAT_GUILD_XP_GAIN",
+		"COMBAT_HONOR_GAIN",
+		"COMBAT_XP_GAIN",
+		"CURRENCY",
+		"LOOT",
+		"MONEY",
+		"SKILL",
+	}) do
+		lootChat:AddMessageGroup(group)
+		generalChat:RemoveMessageGroup(group)
+	end
 
-	local ChatFrame1_RemoveMessageGroup = _G.ChatFrame1.RemoveMessageGroup or _G.ChatFrame_RemoveMessageGroup
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_FACTION_CHANGE")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_HONOR_GAIN")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "COMBAT_XP_GAIN")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "CURRENCY")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "LOOT")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "MONEY")
-	ChatFrame1_RemoveMessageGroup(_G.ChatFrame1, "SKILL")
-
-	local ChatFrame4_RemoveMessageGroup = _G.ChatFrame4.RemoveMessageGroup or _G.ChatFrame_RemoveMessageGroup
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "SAY")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "YELL")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "GUILD")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "WHISPER")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "BN_WHISPER")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "PARTY")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "PARTY_LEADER")
-	ChatFrame4_RemoveMessageGroup(_G.ChatFrame4, "CHANNEL")
+	for _, group in ipairs({ "SAY", "YELL", "GUILD", "WHISPER", "BN_WHISPER", "PARTY", "PARTY_LEADER", "CHANNEL" }) do
+		lootChat:RemoveMessageGroup(group)
+	end
 
 	local chatGroup = {
 		"SAY",
@@ -2243,8 +2228,8 @@ function MER:DeveloperSettings()
 		return
 	end
 
-	SetCVar("uiScale", E:PixelBestSize())
-	SetCVar("cooldownViewerEnabled", 1)
+	C_CVar_SetCVar("uiScale", E:PixelBestSize())
+	C_CVar_SetCVar("cooldownViewerEnabled", 1)
 
 	-- General
 	E.global["general"]["UIScale"] = E:PixelBestSize()
@@ -2258,16 +2243,6 @@ function MER:DeveloperSettings()
 	E.db["mui"]["scale"]["talents"]["scale"] = 0.9
 	E.db["mui"]["scale"]["auctionHouse"]["scale"] = 1.15
 	E.db["mui"]["armory"]["stats"]["itemLevelFont"]["itemLevelFontColor"] = "GRADIENT"
-	E.db["mui"]["cooldownManager"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["fading"] = true
-	E.db["mui"]["cooldownManager"]["dynamicBarsWidth"] = true
-	E.db["mui"]["cooldownManager"]["anchors"]["essential"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["anchors"]["utility"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["anchors"]["buff"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["anchors"]["buffBar"]["enable"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["essential"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["utility"] = true
-	E.db["mui"]["cooldownManager"]["centering"]["buff"] = true
 
 	-- Chat
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
@@ -2356,8 +2331,8 @@ function MER:ProfileDialog()
 			frame.editBox:SetText(E.mynameRealm)
 			frame.editBox:HighlightText()
 		end,
-		button1 = OKAY,
-		button2 = CANCEL,
+		button1 = _G.OKAY,
+		button2 = _G.CANCEL,
 		OnAccept = function(frame)
 			CreateNewProfile(frame.editBox:GetText())
 		end,
@@ -2402,22 +2377,11 @@ function MER:ProfileDialog()
 	E:StaticPopup_Show(dialogName)
 end
 
-function MER:InstallAdditions(installType, mode, null)
+function MER:InstallAdditions(installType, mode)
 	if not PluginInstallFrame.installpreview then
 		PluginInstallFrame.installpreview = PluginInstallFrame:CreateTexture(nil, "OVERLAY")
 	end
 	PluginInstallFrame.installpreview:SetInside(PluginInstallFrame, 5, 28)
-
-	if null then
-		PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-		PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-		PluginInstallFrame.Option2:SetScript("OnEnter", nil)
-		PluginInstallFrame.Option2:SetScript("OnLeave", nil)
-		PluginInstallFrame.Option3:SetScript("OnEnter", nil)
-		PluginInstallFrame.Option3:SetScript("OnLeave", nil)
-		PluginInstallFrame.Option4:SetScript("OnEnter", nil)
-		PluginInstallFrame.Option4:SetScript("OnLeave", nil)
-	end
 
 	if mode == "ENTERING" then
 		UIFrameFadeIn(PluginInstallFrame.installpreview, 0.5, 0, 1)
@@ -2444,24 +2408,192 @@ function MER:InstallAdditions(installType, mode, null)
 	end
 end
 
-function MER:Resize(firstPage, lastPage, devPage)
-	PluginInstallFrame:SetSize(860, 512)
-	PluginInstallFrame.Desc1:ClearAllPoints()
-	PluginInstallFrame.Desc1:SetPoint("TOP", PluginInstallFrame.SubTitle, "BOTTOM", 0, -30)
+-- Modules that can be toggled on the installer's module page, one column per group
+-- Each entry is the path below E.db.mui, the last key is the toggle itself
+local moduleToggles = {
+	{
+		name = L["Interface"],
+		{ label = L["Armory"], path = { "armory", "enable" } },
+		{ label = L["Categorized Bags"], path = { "bags", "categorizedBags", "enable" } },
+		{ label = L["Chat Sidebar"], path = { "chat", "sidebar", "enable" } },
+		{ label = L["Location Panel"], path = { "locationPanel", "enable" } },
+		{ label = L["Minimap Buttons"], path = { "minimapButtons", "enable" } },
+		{ label = L["Game Menu"], path = { "gameMenu", "enable" } },
+		{ label = L["VehicleBar"], path = { "vehicleBar", "enable" } },
+	},
+	{
+		name = L["Combat"],
+		{ label = L["Buff Reminder"], path = { "buffReminder", "enable" } },
+		{ label = L["Battle Res"], path = { "tracker", "battleRes", "enable" } },
+		{ label = L["Bloodlust"], path = { "tracker", "bloodlust", "enable" } },
+		{ label = L["Movement Alert"], path = { "movementAlert", "enable" } },
+		{ label = L["Cursor"], path = { "cursor", "enable" } },
+	},
+	{
+		name = L["Quality of Life"],
+		{ label = L["Item Level"], path = { "itemLevel", "enable" } },
+		{ label = L["Loot Roll"], path = { "lootRoll", "enable" } },
+		{ label = L["Mail"], path = { "mail", "enable" } },
+		{ label = L["Notification"], path = { "notification", "enable" } },
+		{ label = L["Name Hover"], path = { "nameHover", "enable" } },
+	},
+}
 
-	if not PluginInstallFrame.peepo then
-		PluginInstallFrame.peepo = PluginInstallFrame:CreateTexture(nil, "OVERLAY")
+local function GetToggleParent(path)
+	local db = E.db.mui
+	for i = 1, #path - 1 do
+		db = db[path[i]]
 	end
-	PluginInstallFrame.peepo:SetPoint("BOTTOM", PluginInstallTutorialImage, "TOP", 0, -20)
+	return db, path[#path]
+end
+
+-- Only the db is written, the reload at the end of the installer loads the modules
+local function ModuleToggle_OnClick(check)
+	local db, key = GetToggleParent(check.path)
+	db[key] = check:GetChecked() and true or false
+end
+
+local function CreateModuleToggles()
+	local container = CreateFrame("Frame", nil, PluginInstallFrame)
+	local columnWidth = 260
+	container:SetSize(columnWidth * #moduleToggles - 80, 210)
+	container:SetPoint("TOP", PluginInstallFrame.Desc1, "BOTTOM", 0, -24)
+	container.checks = {}
+
+	for column, group in ipairs(moduleToggles) do
+		local x = (column - 1) * columnWidth
+
+		local header = container:CreateFontString(nil, "OVERLAY")
+		header:FontTemplate(nil, 14)
+		header:SetPoint("TOPLEFT", x, 0)
+		header:SetText(group.name)
+		header:SetTextColor(F.r, F.g, F.b)
+
+		for row, toggle in ipairs(group) do
+			local check = CreateFrame("CheckButton", nil, container, "UICheckButtonTemplate")
+			check:SetSize(22, 22)
+			check:SetPoint("TOPLEFT", x, -row * 26)
+			check:SetHitRectInsets(0, -(columnWidth - 40), 0, 0)
+			check:SetScript("OnClick", ModuleToggle_OnClick)
+			check.path = toggle.path
+			S:HandleCheckBox(check)
+
+			check.label = check:CreateFontString(nil, "OVERLAY")
+			check.label:FontTemplate()
+			check.label:SetPoint("LEFT", check, "RIGHT", 6, 0)
+			check.label:SetText(toggle.label)
+
+			tinsert(container.checks, check)
+		end
+	end
+
+	return container
+end
+
+function MER:ShowModuleToggles()
+	if not PluginInstallFrame.muiModules then
+		PluginInstallFrame.muiModules = CreateModuleToggles()
+	end
+
+	-- Read the db every time, the profile page might have switched profiles
+	for _, check in ipairs(PluginInstallFrame.muiModules.checks) do
+		local db, key = GetToggleParent(check.path)
+		check:SetChecked(db[key])
+	end
+
+	PluginInstallTutorialImage:Hide()
+	PluginInstallFrame.muiModules:Show()
+end
+
+-- Everything we add to ElvUI's shared frame has to go when our installer closes,
+-- otherwise the next plugin in the queue inherits it
+local function Installer_OnHide()
+	local frame = PluginInstallFrame
+	if frame.Title:GetText() ~= MER.installTable.Title then
+		return
+	end
+
+	for i = 1, 4 do
+		frame["Option" .. i]:SetScript("OnEnter", nil)
+		frame["Option" .. i]:SetScript("OnLeave", nil)
+	end
+	frame.Option3:SetWidth(100)
+	frame.Option4:SetWidth(100)
+
+	frame.peepo:SetTexture()
+	frame.website:Hide()
+	if frame.muiModules then
+		frame.muiModules:Hide()
+	end
+	if frame.installpreview then
+		frame.installpreview:SetAlpha(0)
+	end
+
+	PluginInstallTutorialImage:Show()
+	PluginInstallTutorialImage:SetAlpha(1)
+	for i = 1, 4 do
+		frame["Desc" .. i]:SetAlpha(1)
+	end
+	frame.SubTitle:SetAlpha(1)
+
+	frame.Desc1:ClearAllPoints()
+	frame.Desc1:SetPoint("TOPLEFT", 20, -75)
+end
+
+-- ElvUI shrinks the buttons to 110/100 as soon as a second one shows, too narrow for longer labels
+-- Call it after the buttons are shown, their anchors keep them centered
+function MER:WidenOptions()
+	for i = 1, 4 do
+		local option = PluginInstallFrame["Option" .. i]
+		if option:IsShown() then
+			option:SetWidth(180)
+		end
+	end
+end
+
+-- Runs first on every page: ElvUI resets texts and clicks, the rest is ours
+function MER:Resize(firstPage, lastPage, devPage)
+	local frame = PluginInstallFrame
+	frame:SetSize(860, 512)
+	frame.Desc1:ClearAllPoints()
+	frame.Desc1:SetPoint("TOP", frame.SubTitle, "BOTTOM", 0, -30)
+
+	if not frame.peepo then
+		frame.peepo = frame:CreateTexture(nil, "OVERLAY")
+		frame.peepo:SetPoint("BOTTOM", PluginInstallTutorialImage, "TOP", 0, -20)
+
+		frame.website = frame:CreateTexture(nil, "OVERLAY")
+		frame.website:SetTexture(I.General.MediaPath .. "Textures\\Install\\Website.tga")
+		frame.website:SetSize(480, 240)
+		frame.website:SetPoint("BOTTOM", 0, 78)
+
+		frame:HookScript("OnHide", Installer_OnHide)
+	end
+
+	-- Hover previews (UnitFrames page) must not leak onto other pages
+	for i = 1, 4 do
+		frame["Option" .. i]:SetScript("OnEnter", nil)
+		frame["Option" .. i]:SetScript("OnLeave", nil)
+	end
+
+	if frame.muiModules then
+		frame.muiModules:Hide()
+	end
+
+	-- ElvUI's own OnHide scripts restore Option1 and Option2, but never Option3 and Option4
+	frame.Option3:SetWidth(100)
+	frame.Option4:SetWidth(100)
+
+	-- The last page shows the website instead of the logo
+	PluginInstallTutorialImage:SetShown(not lastPage)
+	frame.website:SetShown(lastPage)
 
 	if firstPage then
-		PluginInstallFrame.peepo:SetTexture(I.Media.Textures.PepoOkaygeL)
-	elseif lastPage then
-		PluginInstallFrame.peepo:SetTexture(I.Media.Textures.PepoStrongge)
+		frame.peepo:SetTexture(I.Media.Textures.PepoOkaygeL)
 	elseif devPage then
-		PluginInstallFrame.peepo:SetTexture(I.Media.Textures.PepoWeirdge)
+		frame.peepo:SetTexture(I.Media.Textures.PepoWeirdge)
 	else
-		PluginInstallFrame.peepo:SetTexture()
+		frame.peepo:SetTexture()
 	end
 end
 
@@ -2475,17 +2607,6 @@ MER.installTable = {
 	Pages = {
 		[1] = function()
 			MER:Resize(true)
-			-- MER:InstallAdditions()
-
-			if PluginInstallFrame then
-				PluginInstallFrame:HookScript("OnShow", function()
-					if PluginInstallFrame.Title then
-						if PluginInstallFrame.Title:GetText() ~= "|cffff7d0aMerathilisUI|r Installation" then
-							MER:InstallAdditions(nil, nil, true) -- Don't use the addition on other Plugins
-						end
-					end
-				end)
-			end
 
 			PluginInstallFrame.SubTitle:SetFormattedText(
 				L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."],
@@ -2500,8 +2621,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
 				InstallComplete(true)
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Skip Process"])
 		end,
 		[2] = function()
@@ -2518,15 +2637,10 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
 				MER:ProfileDialog()
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["New Profile"])
 
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", PI.NextPage)
-
-			PluginInstallFrame.Option2:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option2:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option2:SetText(L["Keep Current"])
 		end,
 		[3] = function()
@@ -2541,8 +2655,6 @@ MER.installTable = {
 				E.global.general.UIScale = 0.6
 				E.PixelScaleChanged()
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Small"])
 
 			PluginInstallFrame.Option2:Show()
@@ -2550,8 +2662,6 @@ MER.installTable = {
 				E.global.general.UIScale = 0.8
 				E.PixelScaleChanged()
 			end)
-			PluginInstallFrame.Option2:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option2:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option2:SetText(L["Medium"])
 
 			PluginInstallFrame.Option3:Show()
@@ -2559,8 +2669,6 @@ MER.installTable = {
 				E.global.general.UIScale = 1
 				E.PixelScaleChanged()
 			end)
-			PluginInstallFrame.Option3:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option3:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option3:SetText(L["Large"])
 
 			PluginInstallFrame.Option4:Show()
@@ -2568,8 +2676,6 @@ MER.installTable = {
 				E.global.general.UIScale = E:PixelBestSize()
 				E.PixelScaleChanged()
 			end)
-			PluginInstallFrame.Option4:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option4:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option4:SetText(L["Auto Scale"])
 		end,
 		[4] = function()
@@ -2583,8 +2689,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
 				MER:SetupLayout()
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["General Layout"])
 		end,
 		[5] = function()
@@ -2632,8 +2736,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
 				SetupCVars()
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["CVars"])
 		end,
 		[7] = function()
@@ -2649,8 +2751,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
 				SetupChat()
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup Chat"])
 		end,
 		[8] = function()
@@ -2666,8 +2766,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
 				MER:SetupDts()
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup Datatexts"])
 		end,
 		[9] = function()
@@ -2683,8 +2781,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
 				MER:SetupActionbars()
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup ActionBars"])
 		end,
 		[10] = function()
@@ -2698,8 +2794,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
 				MER:SetupNamePlates()
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 			PluginInstallFrame.Option1:SetText(L["Setup NamePlates"])
 		end,
 		[11] = function()
@@ -2738,6 +2832,15 @@ MER.installTable = {
 		[12] = function()
 			MER:Resize(nil)
 
+			PluginInstallFrame.SubTitle:SetText(L["Modules"])
+			PluginInstallFrame.Desc1:SetText(
+				L["Choose the modules you want to use. Changes are applied on the reload at the end of the installer and can be changed anytime in the options."]
+			)
+			MER:ShowModuleToggles()
+		end,
+		[13] = function()
+			MER:Resize(nil)
+
 			PluginInstallFrame.SubTitle:SetText(L["Plugins"])
 			PluginInstallFrame.Desc1:SetText(
 				L["This part of the installation process will apply changes to ElvUI Plugins"]
@@ -2758,25 +2861,12 @@ MER.installTable = {
 						.. "!"
 				)
 			else
-				PluginInstallFrame.SubTitle:SetText(L["Plugins"])
-				PluginInstallFrame.Desc1:SetText(
-					L["This part of the installation process will apply changes to ElvUI Plugins"]
-				)
-				PluginInstallFrame.Desc2:SetText(
-					"Currently supported AddOns: "
-						.. WF.GetWindStyleText("ElvUI_WindTools")
-						.. ", "
-						.. "|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r"
-				)
-
 				if E:IsAddOnEnabled("ElvUI_WindTools") then
 					PluginInstallFrame.Option1:Show()
 					PluginInstallFrame.Option1:SetScript("OnClick", function()
 						PF:ApplyWindToolsProfile()
 					end)
 					PluginInstallFrame.Option1:SetText(WF.GetWindStyleText("ElvUI_WindTools"))
-					PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-					PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 				end
 
 				if E:IsAddOnEnabled("ElvUI_mMediaTag") then
@@ -2787,12 +2877,11 @@ MER.installTable = {
 					PluginInstallFrame.Option2:SetText(
 						"|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r"
 					)
-					PluginInstallFrame.Option2:SetScript("OnEnter", nil)
-					PluginInstallFrame.Option2:SetScript("OnLeave", nil)
 				end
 			end
+			MER:WidenOptions()
 		end,
-		[13] = function()
+		[14] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("BigWigs") then
@@ -2806,8 +2895,6 @@ MER.installTable = {
 				PluginInstallFrame.Option1:SetScript("OnClick", function()
 					PF:ApplyBigWigsProfile()
 				end)
-				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 				PluginInstallFrame.Option1:SetText("BigWigs")
 			else
 				PluginInstallFrame.SubTitle:SetText(F.String.BigWigs("BigWigs"))
@@ -2820,7 +2907,7 @@ MER.installTable = {
 				)
 			end
 		end,
-		[14] = function()
+		[15] = function()
 			MER:Resize(nil)
 
 			if E:IsAddOnEnabled("Details") then
@@ -2837,8 +2924,6 @@ MER.installTable = {
 				PluginInstallFrame.Option1:SetScript("OnClick", function()
 					PF:ApplyDetailsProfile()
 				end)
-				PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option1:SetScript("OnLeave", nil)
 				PluginInstallFrame.Option1:SetText(L["Details"])
 			else
 				PluginInstallFrame.Desc1:SetText(
@@ -2847,62 +2932,46 @@ MER.installTable = {
 				PluginInstallFrame.Desc2:SetText("Please install Details and restart the installer!")
 			end
 		end,
-		[15] = function()
+		[16] = function()
 			MER:Resize(nil, true)
 
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
-			PluginInstallFrame.Desc1:SetText(
-				L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."]
+			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process."])
+			PluginInstallFrame.Desc2:SetFormattedText(
+				L["Features, the full changelog and downloads can be found on the website %s."],
+				"|cffff7d0amerathilisui.com|r"
 			)
-			PluginInstallFrame.Desc2:SetText(
+			PluginInstallFrame.Desc3:SetText(
 				L["Please click the button below so you can setup variables and ReloadUI."]
 			)
+
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function()
-				E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/28We6esE9v")
+				E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.WebsiteURL)
 			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-			PluginInstallFrame.Option1:SetText(
+			PluginInstallFrame.Option1:SetText(format("|T%s:18:18:0:0:64:64|t %s", I.Media.Icons.Home, L["Website"]))
+
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript("OnClick", function()
+				E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.DiscordURL)
+			end)
+			PluginInstallFrame.Option2:SetText(
 				L["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"]
 			)
 
-			if F.IsDeveloper() then
-				PluginInstallFrame.Option2:Hide()
-			else
-				PluginInstallFrame.Option2:Show()
-				PluginInstallFrame.Option2:SetScript("OnClick", function()
+			-- Developers finish on the next page
+			if not F.IsDeveloper() then
+				PluginInstallFrame.Option3:Show()
+				PluginInstallFrame.Option3:SetScript("OnClick", function()
 					InstallComplete(true)
 				end)
-				PluginInstallFrame.Option2:SetScript("OnEnter", nil)
-				PluginInstallFrame.Option2:SetScript("OnLeave", nil)
-				PluginInstallFrame.Option2:SetText(L["Finished"])
+				PluginInstallFrame.Option3:SetText(L["Finished"])
 			end
+			MER:WidenOptions()
 
 			-- Show Install complete message
 			local msg = MER.Title .. L[" install complete."]
 			MER:ShowStepComplete(msg)
-		end,
-		[F.IsDeveloper() and 16] = function()
-			MER:Resize(nil, nil, true)
-
-			PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
-			PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])
-			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function()
-				MER:DeveloperSettings()
-			end)
-			PluginInstallFrame.Option1:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option1:SetScript("OnLeave", nil)
-			PluginInstallFrame.Option1:SetText(L["Setup Developer Settings"])
-
-			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript("OnClick", function()
-				InstallComplete(true)
-			end)
-			PluginInstallFrame.Option2:SetScript("OnEnter", nil)
-			PluginInstallFrame.Option2:SetScript("OnLeave", nil)
-			PluginInstallFrame.Option2:SetText(L["Finished"])
 		end,
 	},
 
@@ -2918,11 +2987,11 @@ MER.installTable = {
 		[9] = L["ActionBars"],
 		[10] = L["NamePlates"],
 		[11] = L["UnitFrames"],
-		[12] = L["Important Plugins"],
-		[13] = L["BigWigs"],
-		[14] = L["Details"],
-		[15] = L["Installation Complete"],
-		[F.IsDeveloper() and 16] = L["Developer Settings"],
+		[12] = L["Modules"],
+		[13] = L["Important Plugins"],
+		[14] = L["BigWigs"],
+		[15] = L["Details"],
+		[16] = L["Installation Complete"],
 	},
 	StepTitlesColor = { 1, 1, 1 },
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
@@ -2930,3 +2999,26 @@ MER.installTable = {
 	StepTitleButtonWidth = 180,
 	StepTitleTextJustification = "CENTER",
 }
+
+-- Developers get one more page after the regular last one
+if F.IsDeveloper() then
+	MER.installTable.StepTitles[17] = L["Developer Settings"]
+	MER.installTable.Pages[17] = function()
+		MER:Resize(nil, nil, true)
+
+		PluginInstallFrame.SubTitle:SetText(L["Developer Settings"])
+		PluginInstallFrame.Desc1:SetText(L["Importance: |cffD3CF00Medium|r"])
+		PluginInstallFrame.Option1:Show()
+		PluginInstallFrame.Option1:SetScript("OnClick", function()
+			MER:DeveloperSettings()
+		end)
+		PluginInstallFrame.Option1:SetText(L["Setup Developer Settings"])
+
+		PluginInstallFrame.Option2:Show()
+		PluginInstallFrame.Option2:SetScript("OnClick", function()
+			InstallComplete(true)
+		end)
+		PluginInstallFrame.Option2:SetText(L["Finished"])
+		MER:WidenOptions()
+	end
+end

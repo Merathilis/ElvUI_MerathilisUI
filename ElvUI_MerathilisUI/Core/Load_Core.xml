@@ -1,15 +1,14 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Include file="Functions\Load_Functions.xml"/>
-	<Script file="Requirements.lua"/>
 
 	<!-- Settings -->
 	<Include file="InternalData\Load_InternalData.xml"/>
+	<Script file="Requirements.lua"/>
 
 	<Script file="Core.lua"/>
-	<Script file="Constants.lua"/>
 	<Script file="Commands.lua"/>
 	<Script file="Install.lua"/>
-	<Script file="SplashScreen.lua"/>
+	<Script file="LoginLogo.lua"/>
 	<Script file="Staticpopup.lua"/>
 	<Script file="Tags.lua"/>
 	<Script file="Update.lua"/>

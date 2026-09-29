@@ -17,7 +17,6 @@ local EJ_GetInstanceByIndex = EJ_GetInstanceByIndex
 local EJ_GetNumTiers = EJ_GetNumTiers
 local EJ_GetTierInfo = EJ_GetTierInfo
 local EJ_InstanceIsRaid = EJ_InstanceIsRaid
-local EJ_GetCurrentInstance = EJ_GetCurrentInstance
 local EJ_SelectInstance = EJ_SelectInstance
 local SetLootSpecialization = SetLootSpecialization
 local C_ChallengeMode_GetActiveChallengeMapID = C_ChallengeMode.GetActiveChallengeMapID
@@ -397,7 +396,8 @@ function module:CreateEJButton()
 	bu:SetScript("OnClick", module.TogglePanel)
 
 	hooksecurefunc("EncounterJournal_SetTab", function()
-		bu:SetShown(IsMythicPlusDungeon() or IsCurrentExpansionRaid(EJ_GetCurrentInstance()))
+		-- The journal instance on display; Blizzard sets it in EncounterJournal_DisplayInstance.
+		bu:SetShown(IsMythicPlusDungeon() or IsCurrentExpansionRaid(_G.EncounterJournal.instanceID))
 	end)
 end
 

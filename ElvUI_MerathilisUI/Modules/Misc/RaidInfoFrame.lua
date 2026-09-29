@@ -140,13 +140,13 @@ function module:UpdateIcons()
 	local theme = E.db.mui.elvUIIcons.roleIcons.theme
 
 	if self.frame.tankIcon then
-		self.frame.tankIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].raid1.TANK))
+		self.frame.tankIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].TANK))
 	end
 	if self.frame.healIcon then
-		self.frame.healIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].raid1.HEALER))
+		self.frame.healIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].HEALER))
 	end
 	if self.frame.dpsIcon then
-		self.frame.dpsIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].raid1.DAMAGER))
+		self.frame.dpsIcon:SetTexture(F.GetMedia(I.Media.RoleIcons, I.Icons.Role[theme].DAMAGER))
 	end
 end
 
@@ -234,14 +234,15 @@ function module:Update()
 			local unit = "raid" .. i
 			if UnitExists(unit) then
 				local role = UnitGroupRolesAssigned(unit)
-				if E:IsSecretValue(role) then
-					-- skip: role identity is hidden for this unit
-				elseif role == "TANK" then
-					tank = tank + 1
-				elseif role == "HEALER" then
-					heal = heal + 1
-				elseif role == "DAMAGER" then
-					dps = dps + 1
+				-- A secret role (hidden for this unit) is not counted.
+				if E:NotSecretValue(role) then
+					if role == "TANK" then
+						tank = tank + 1
+					elseif role == "HEALER" then
+						heal = heal + 1
+					elseif role == "DAMAGER" then
+						dps = dps + 1
+					end
 				end
 			end
 		end

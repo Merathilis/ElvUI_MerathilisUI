@@ -4,44 +4,126 @@ local Cursor = MER:GetModule("MER_Cursor")
 
 local options = module.options.modules.args
 
-local function RequestRefresh()
-	Cursor:SettingsApply()
+local function ModuleDisabled()
+	return not E.db.mui.cursor.enable
 end
 
-local function BuildColorArgs(order, sectionKey)
+-- Own disabled replaces the group's, so every child repeats the module state
+local function SectionDisabled(section)
+	return function()
+		return ModuleDisabled() or not E.db.mui.cursor[section].enable
+	end
+end
+
+---Group for one part of the cursor (ring, trail, gcd, castCircle) that reads and writes its own table
+local function SectionGroup(order, name, section, args)
 	return {
-		useClassColor = {
-			order = order,
-			type = "toggle",
-			name = L["Use Class Color"],
-			get = function()
-				return E.db.mui.cursor[sectionKey].useClassColor
-			end,
-			set = function(_, value)
-				E.db.mui.cursor[sectionKey].useClassColor = value
-				RequestRefresh()
-			end,
-		},
-		color = {
-			order = order + 1,
-			type = "color",
-			name = L["Custom Color"],
-			hasAlpha = false,
-			disabled = function()
-				return E.db.mui.cursor[sectionKey].useClassColor
-			end,
-			get = function()
-				local db = E.db.mui.cursor[sectionKey].color
-				local default = P.cursor[sectionKey].color
-				return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
-			end,
-			set = function(_, r, g, b)
-				local db = E.db.mui.cursor[sectionKey].color
-				db.r, db.g, db.b = r, g, b
-				RequestRefresh()
-			end,
-		},
+		order = order,
+		type = "group",
+		guiInline = true,
+		name = name,
+		disabled = ModuleDisabled,
+		get = function(info)
+			return E.db.mui.cursor[section][info[#info]]
+		end,
+		set = function(info, value)
+			E.db.mui.cursor[section][info[#info]] = value
+			Cursor:SettingsApply()
+		end,
+		args = args,
 	}
+end
+
+local function EnableArg()
+	return {
+		order = 1,
+		type = "toggle",
+		name = L["Enable"],
+	}
+end
+
+local function RadiusArg(order, section, min, max)
+	return {
+		order = order,
+		type = "range",
+		name = L["Radius"],
+		min = min,
+		max = max,
+		step = 1,
+		disabled = SectionDisabled(section),
+	}
+end
+
+local function AlphaArg(order, section)
+	return {
+		order = order,
+		type = "range",
+		name = L["Alpha"],
+		min = 0.1,
+		max = 1,
+		step = 0.05,
+		isPercent = true,
+		disabled = SectionDisabled(section),
+	}
+end
+
+local function AttachedArg(order, section)
+	return {
+		order = order,
+		type = "toggle",
+		name = L["Attach to Cursor"],
+		disabled = SectionDisabled(section),
+	}
+end
+
+---Instance/combat filters and the color, shared by all rings
+local function AddCommonArgs(args, order, section)
+	local disabled = SectionDisabled(section)
+
+	args.spacerCommon = {
+		order = order,
+		type = "description",
+		name = "",
+	}
+	args.instanceOnly = {
+		order = order + 1,
+		type = "toggle",
+		name = L["Only In Instances"],
+		disabled = disabled,
+	}
+	args.combatOnly = {
+		order = order + 2,
+		type = "toggle",
+		name = L["Only In Combat"],
+		disabled = disabled,
+	}
+	args.useClassColor = {
+		order = order + 3,
+		type = "toggle",
+		name = L["Use Class Color"],
+		disabled = disabled,
+	}
+	args.color = {
+		order = order + 4,
+		type = "color",
+		name = L["Custom Color"],
+		hasAlpha = false,
+		disabled = function()
+			return disabled() or E.db.mui.cursor[section].useClassColor
+		end,
+		get = function()
+			local db = E.db.mui.cursor[section].color
+			local default = P.cursor[section].color
+			return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+		end,
+		set = function(_, r, g, b)
+			local db = E.db.mui.cursor[section].color
+			db.r, db.g, db.b = r, g, b
+			Cursor:SettingsApply()
+		end,
+	}
+
+	return args
 end
 
 options.cursor = {
@@ -74,9 +156,10 @@ options.cursor = {
 			get = function()
 				return E.db.mui.cursor.enable
 			end,
+			-- The module builds and tears down its frames on a database update
 			set = function(_, value)
 				E.db.mui.cursor.enable = value
-				E:StaticPopup_Show("PRIVATE_RL")
+				Cursor:DatabaseUpdate()
 			end,
 		},
 		spacer = {
@@ -84,280 +167,59 @@ options.cursor = {
 			type = "description",
 			name = "",
 		},
-		ring = {
-			order = 4,
-			type = "group",
-			guiInline = true,
-			name = L["Cursor Ring"],
-			disabled = function()
-				return not E.db.mui.cursor.enable
-			end,
-			args = F.Table.Join({
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					get = function()
-						return E.db.mui.cursor.ring.enable
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.ring.enable = value
-						RequestRefresh()
-					end,
-				},
-				radius = {
-					order = 2,
-					type = "range",
-					name = L["Radius"],
-					min = 6,
-					max = 40,
-					step = 1,
-					get = function()
-						return E.db.mui.cursor.ring.radius
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.ring.radius = value
-						RequestRefresh()
-					end,
-				},
-				alpha = {
-					order = 3,
-					type = "range",
-					name = L["Alpha"],
-					min = 0.1,
-					max = 1,
-					step = 0.05,
-					isPercent = true,
-					get = function()
-						return E.db.mui.cursor.ring.alpha
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.ring.alpha = value
-						RequestRefresh()
-					end,
-				},
+		ring = SectionGroup(
+			4,
+			L["Cursor Ring"],
+			"ring",
+			AddCommonArgs({
+				enable = EnableArg(),
+				radius = RadiusArg(2, "ring", 6, 40),
+				alpha = AlphaArg(3, "ring"),
 				reticle = {
 					order = 4,
 					type = "toggle",
 					name = L["Show Center Dot"],
-					get = function()
-						return E.db.mui.cursor.ring.reticle
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.ring.reticle = value
-						RequestRefresh()
-					end,
-				},
-				spacer2 = {
-					order = 5,
-					type = "description",
-					name = "",
-				},
-				instanceOnly = {
-					order = 6,
-					type = "toggle",
-					name = L["Only In Instances"],
-					get = function()
-						return E.db.mui.cursor.ring.instanceOnly
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.ring.instanceOnly = value
-						RequestRefresh()
-					end,
-				},
-				combatOnly = {
-					order = 7,
-					type = "toggle",
-					name = L["Only In Combat"],
-					get = function()
-						return E.db.mui.cursor.ring.combatOnly
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.ring.combatOnly = value
-						RequestRefresh()
-					end,
+					disabled = SectionDisabled("ring"),
 				},
 				onlyWhenHidden = {
-					order = 8,
+					order = 5,
 					type = "toggle",
 					name = L["Only While Steering Camera"],
 					desc = L["Only show the ring while you're holding a mouse button to turn or move the camera (the hardware cursor is hidden)."],
-					get = function()
-						return E.db.mui.cursor.ring.onlyWhenHidden
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.ring.onlyWhenHidden = value
-						RequestRefresh()
-					end,
+					disabled = SectionDisabled("ring"),
 				},
-			}, BuildColorArgs(9, "ring")),
-		},
-		trail = {
-			order = 5,
-			type = "group",
-			guiInline = true,
-			name = L["Cursor Trail"],
-			disabled = function()
-				return not E.db.mui.cursor.enable
-			end,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					get = function()
-						return E.db.mui.cursor.trail.enable
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.trail.enable = value
-						RequestRefresh()
-					end,
-				},
-			},
-		},
-		gcd = {
-			order = 6,
-			type = "group",
-			guiInline = true,
-			name = L["GCD Ring"],
-			disabled = function()
-				return not E.db.mui.cursor.enable
-			end,
-			args = F.Table.Join({
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					get = function()
-						return E.db.mui.cursor.gcd.enable
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.gcd.enable = value
-						RequestRefresh()
-					end,
-				},
-				attached = {
-					order = 2,
-					type = "toggle",
-					name = L["Attach to Cursor"],
-					get = function()
-						return E.db.mui.cursor.gcd.attached
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.gcd.attached = value
-						RequestRefresh()
-					end,
-				},
-				radius = {
-					order = 3,
-					type = "range",
-					name = L["Radius"],
-					min = 10,
-					max = 60,
-					step = 1,
-					get = function()
-						return E.db.mui.cursor.gcd.radius
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.gcd.radius = value
-						RequestRefresh()
-					end,
-				},
-				alpha = {
-					order = 4,
-					type = "range",
-					name = L["Alpha"],
-					min = 0.1,
-					max = 1,
-					step = 0.05,
-					isPercent = true,
-					get = function()
-						return E.db.mui.cursor.gcd.alpha
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.gcd.alpha = value
-						RequestRefresh()
-					end,
-				},
-			}, BuildColorArgs(5, "gcd")),
-		},
-		castCircle = {
-			order = 7,
-			type = "group",
-			guiInline = true,
-			name = L["Cast Ring"],
-			disabled = function()
-				return not E.db.mui.cursor.enable
-			end,
-			args = F.Table.Join({
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					get = function()
-						return E.db.mui.cursor.castCircle.enable
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.castCircle.enable = value
-						RequestRefresh()
-					end,
-				},
-				attached = {
-					order = 2,
-					type = "toggle",
-					name = L["Attach to Cursor"],
-					get = function()
-						return E.db.mui.cursor.castCircle.attached
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.castCircle.attached = value
-						RequestRefresh()
-					end,
-				},
-				radius = {
-					order = 3,
-					type = "range",
-					name = L["Radius"],
-					min = 10,
-					max = 60,
-					step = 1,
-					get = function()
-						return E.db.mui.cursor.castCircle.radius
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.castCircle.radius = value
-						RequestRefresh()
-					end,
-				},
-				alpha = {
-					order = 4,
-					type = "range",
-					name = L["Alpha"],
-					min = 0.1,
-					max = 1,
-					step = 0.05,
-					isPercent = true,
-					get = function()
-						return E.db.mui.cursor.castCircle.alpha
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.castCircle.alpha = value
-						RequestRefresh()
-					end,
-				},
+			}, 6, "ring")
+		),
+		trail = SectionGroup(5, L["Cursor Trail"], "trail", {
+			enable = EnableArg(),
+		}),
+		gcd = SectionGroup(
+			6,
+			L["GCD Ring"],
+			"gcd",
+			AddCommonArgs({
+				enable = EnableArg(),
+				attached = AttachedArg(2, "gcd"),
+				radius = RadiusArg(3, "gcd", 10, 60),
+				alpha = AlphaArg(4, "gcd"),
+			}, 5, "gcd")
+		),
+		castCircle = SectionGroup(
+			7,
+			L["Cast Ring"],
+			"castCircle",
+			AddCommonArgs({
+				enable = EnableArg(),
+				attached = AttachedArg(2, "castCircle"),
+				radius = RadiusArg(3, "castCircle", 10, 60),
+				alpha = AlphaArg(4, "castCircle"),
 				sparkEnable = {
 					order = 5,
 					type = "toggle",
 					name = L["Show Spark"],
-					get = function()
-						return E.db.mui.cursor.castCircle.sparkEnable
-					end,
-					set = function(_, value)
-						E.db.mui.cursor.castCircle.sparkEnable = value
-						RequestRefresh()
-					end,
+					disabled = SectionDisabled("castCircle"),
 				},
-			}, BuildColorArgs(6, "castCircle")),
-		},
+			}, 6, "castCircle")
+		),
 	},
 }

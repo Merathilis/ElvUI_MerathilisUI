@@ -8,6 +8,7 @@ local ipairs, unpack = ipairs, unpack
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 local C_Item_GetItemQualityByID = C_Item.GetItemQualityByID
 local C_Timer_After = C_Timer.After
 local C_WeeklyRewards_GetItemHyperlink = C_WeeklyRewards.GetItemHyperlink
@@ -138,19 +139,14 @@ local function GetItemBorderColor(itemLink)
 		return c.r, c.g, c.b
 	end
 
-	local quality = C_Item and C_Item_GetItemQualityByID and C_Item_GetItemQualityByID(itemLink)
+	local quality = C_Item_GetItemQualityByID(itemLink)
 	if not quality then
-		local _, _, itemQuality = GetItemInfo(itemLink)
+		local _, _, itemQuality = C_Item_GetItemInfo(itemLink)
 		quality = itemQuality
 	end
 
 	if quality then
-		local r, g, b
-		if C_Item and C_Item_GetItemQualityColor then
-			r, g, b = C_Item_GetItemQualityColor(quality)
-		elseif GetItemQualityColor then
-			r, g, b = GetItemQualityColor(quality)
-		end
+		local r, g, b = E:GetItemQualityColor(quality)
 		if r then
 			return r, g, b
 		end
@@ -306,10 +302,10 @@ local function RefreshActivityCard(frame, selectedActivity)
 	end
 
 	local card = EnsureCardBackdrop(frame, STYLE.cardInset)
-	local bar = EnsureProgressBar(card)
+	EnsureProgressBar(card)
 	local lock = EnsureLockIcon(card)
 
-	local complete, progress, threshold, ratio = GetActivityState(frame)
+	local complete, _, _, ratio = GetActivityState(frame)
 	local isSelected = selectedActivity == frame and frame.hasRewards
 
 	local col = complete and STYLE.colors.complete or STYLE.colors.locked

@@ -16,6 +16,7 @@
 	<Script file='Notifications.lua'/>
 	<Script file='Panels.lua'/>
 	<Script file='Theme.lua'/>
+	<Script file='Tracker.lua'/>
 	<Script file='UnitFrames.lua'/>
 	<Script file='VehicleBar.lua'/>
 </Ui>

@@ -4,7 +4,8 @@ local C = W.Utilities.Color
 
 local options = module.options.information.args
 
-local unpack = unpack
+local format, gsub, strjoin, strsplit = string.format, string.gsub, strjoin, strsplit
+local ipairs, mod, tonumber, tostring, unpack = ipairs, mod, tonumber, tostring, unpack
 local tconcat, tsort = table.concat, table.sort
 
 local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
@@ -43,7 +44,7 @@ local PATRONS = {
 	"Graldur",
 	"Deezyl",
 	"Zhadar",
-	"Dadedadeur ",
+	"Dadedadeur",
 }
 tsort(PATRONS, SortList)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
@@ -64,16 +65,8 @@ options.name = {
 			name = L["Support & Downloads"],
 			guiInline = true,
 			args = {
-				tukui = {
-					order = 1,
-					type = "execute",
-					name = L["Tukui"],
-					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://www.tukui.org/addons.php?id=1")
-					end,
-				},
 				curse = {
-					order = 2,
+					order = 1,
 					type = "execute",
 					name = L["CurseForge"],
 					func = function()
@@ -86,7 +79,7 @@ options.name = {
 					end,
 				},
 				development = {
-					order = 3,
+					order = 2,
 					type = "execute",
 					name = L["Development Version"],
 					desc = L["Here you can download the latest development version."],
@@ -100,17 +93,26 @@ options.name = {
 					end,
 				},
 				spacer = {
-					order = 4,
+					order = 3,
 					type = "description",
 					name = " ",
+				},
+				website = {
+					order = 4,
+					type = "execute",
+					name = L["Website"],
+					image = I.Media.Icons.Home,
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.WebsiteURL)
+					end,
 				},
 				discord = {
 					order = 5,
 					type = "execute",
-					name = L["Tukui Discord Server"],
+					name = L["MerathilisUI Discord"],
 					image = I.Media.Icons.Discord,
 					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/xFWcfgE")
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.DiscordURL)
 					end,
 				},
 				git = {
@@ -145,10 +147,49 @@ options.name = {
 						.. "|r",
 					width = "full",
 				},
+				logTip = {
+					order = 9,
+					type = "description",
+					fontSize = "medium",
+					name = newSignIgnored
+						.. " "
+						.. format(
+							L["If you get an error, open %s and paste its content into your report."],
+							"|cff00ff00/muidev log|r"
+						),
+					width = "full",
+				},
+			},
+		},
+		tukui = {
+			order = 2,
+			type = "group",
+			name = L["Tukui"],
+			guiInline = true,
+			args = {
+				tukui = {
+					order = 1,
+					type = "execute",
+					name = L["Tukui"],
+					image = I.General.MediaPath .. "Textures\\Tukui",
+					imageCoords = { 5 / 64, 59 / 64, 5 / 64, 59 / 64 },
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://tukui.org/")
+					end,
+				},
+				discord = {
+					order = 2,
+					type = "execute",
+					name = L["Tukui Discord Server"],
+					image = I.Media.Icons.Discord,
+					func = function()
+						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/xFWcfgE")
+					end,
+				},
 			},
 		},
 		testing = {
-			order = 2,
+			order = 3,
 			type = "group",
 			name = L["Testing & Inspiration"],
 			guiInline = true,
@@ -164,7 +205,7 @@ options.name = {
 			},
 		},
 		donors = {
-			order = 3,
+			order = 4,
 			type = "group",
 			name = L["Donations"],
 			guiInline = true,
@@ -255,19 +296,14 @@ do
 	local korean = F.GetIconString(I.Media.Icons.Korean, 10, 20)
 
 	local localizationList = {
-		["Deutsche (deDE)" .. " " .. german] = {
-			"|cff00c0faDlarge|r",
-		},
-		["русский язык (ruRU)" .. " " .. russian] = {
-			"Hollicsh @ GitHub",
-		},
-		["한국어 (koKR)" .. " " .. korean] = {
-			"Crazyyoungs @ GitHub",
-		},
+		{ "Deutsch (deDE) " .. german, { "|cff00c0faDlarge|r" } },
+		{ "한국어 (koKR) " .. korean, { "Crazyyoungs @ GitHub" } },
+		{ "русский язык (ruRU) " .. russian, { "Hollicsh @ GitHub" } },
 	}
 
 	local configOrder = 1
-	for langName, credits in pairs(localizationList) do
+	for _, entry in ipairs(localizationList) do
+		local langName, credits = entry[1], entry[2]
 		options.name.args.localization.args[tostring(configOrder)] = {
 			order = configOrder,
 			type = "description",
@@ -275,7 +311,7 @@ do
 		}
 		configOrder = configOrder + 1
 
-		for _, credit in pairs(credits) do
+		for _, credit in ipairs(credits) do
 			options.name.args.localization.args[tostring(configOrder)] = {
 				order = configOrder,
 				type = "description",
@@ -300,6 +336,12 @@ options.changelog = {
 	},
 }
 
+-- Hide the "I got it!" button once read, and for versions newer than the installed one
+local function IsChangelogConfirmHidden(changelogVer, addonVer)
+	local readVer = E.global.mui and tonumber(E.global.mui.changelogRead)
+	return readVer and readVer >= changelogVer or addonVer < changelogVer
+end
+
 local function renderChangeLogLine(line)
 	line = gsub(line, "%[[^%[]+%]", function(text)
 		return C.StringByTemplate(text, "blue-500")
@@ -307,7 +349,7 @@ local function renderChangeLogLine(line)
 	return line
 end
 
-for version, data in pairs(MER.Changelog) do
+for version, data in next, MER.Changelog do
 	local versionString = format("%d.%02d", version / 100, mod(version, 100))
 	local changelogVer = tonumber(versionString)
 	local addonVer = MER.Version and tonumber(MER.Version) or 0
@@ -416,8 +458,7 @@ for version, data in pairs(MER.Changelog) do
 		name = " ",
 		width = "full",
 		hidden = function()
-			local dbVer = E.global.mui and E.global.mui.changelogRead and tonumber(E.global.mui.changelogRead)
-			return dbVer and dbVer >= changelogVer or addonVer < changelogVer
+			return IsChangelogConfirmHidden(changelogVer, addonVer)
 		end,
 	}
 
@@ -427,8 +468,7 @@ for version, data in pairs(MER.Changelog) do
 		name = " ",
 		width = "full",
 		hidden = function()
-			local dbVer = E.global.mui and E.global.mui.changelogRead and tonumber(E.global.mui.changelogRead)
-			return dbVer and dbVer >= changelogVer or addonVer < changelogVer
+			return IsChangelogConfirmHidden(changelogVer, addonVer)
 		end,
 	}
 
@@ -439,8 +479,7 @@ for version, data in pairs(MER.Changelog) do
 		desc = L["Mark as read, the changelog message will be hidden when you login next time."],
 		width = "full",
 		hidden = function()
-			local dbVer = E.global.mui and E.global.mui.changelogRead and tonumber(E.global.mui.changelogRead)
-			return dbVer and dbVer >= changelogVer or addonVer < changelogVer
+			return IsChangelogConfirmHidden(changelogVer, addonVer)
 		end,
 		func = function()
 			E.global.mui.changelogRead = versionString

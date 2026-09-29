@@ -10,12 +10,9 @@ local format, gsub, wipe = format, gsub, wipe
 
 local CreateFont = CreateFont
 local CreateFrame = CreateFrame
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
 local GetSpellBaseCooldown = GetSpellBaseCooldown
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local IsPlayerSpell = IsPlayerSpell
 local PlaySoundFile = PlaySoundFile
 local UnitAffectingCombat = UnitAffectingCombat
 
@@ -144,13 +141,11 @@ local function IsSecret(value)
 end
 
 local function IsKnown(spellID)
-	return (IsPlayerSpell and IsPlayerSpell(spellID))
-		or (C_SpellBook and C_SpellBook.IsSpellKnown and C_SpellBook.IsSpellKnown(spellID))
+	return C_SpellBook.IsSpellKnown(spellID)
 end
 
 local function GetSpecID()
-	local spec = GetSpecialization and GetSpecialization()
-	return spec and GetSpecializationInfo(spec) or nil
+	return select(2, F.GetPlayerSpec())
 end
 
 local function GetOverrideSpell(spellID)
@@ -744,7 +739,7 @@ function module:UpdateMovementAlert(fromTicker)
 			end
 			-- Secret states always report as unavailable, so they can not be
 			-- used to detect the moment a spell comes back.
-			if alpha == 1 then
+			if not IsSecret(alpha) and alpha == 1 then
 				shownNow[entry.spellID] = entry
 			end
 		end

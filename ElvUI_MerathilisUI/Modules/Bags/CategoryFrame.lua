@@ -74,7 +74,6 @@ end
 local FRAME_NAME = "MER_BagCategoriesFrame"
 local SLOT_NAME_PREFIX = "MER_BagCategoriesSlot"
 local BANK_FRAME_NAME = "MER_BankCategoriesFrame"
-local BANK_SLOT_NAME_PREFIX = "MER_BankCategoriesSlot"
 local HEADER_PADDING = 6
 local COLLAPSED_SIDEBAR_WIDTH = 50
 local VIEW_MODE_ROW_HEIGHT = 24
@@ -1738,7 +1737,6 @@ local function CreateHeaderPoolFor(getContentChild)
 		header.clearButton.tex:SetAllPoints()
 		header.clearButton.tex:SetTexture(E.Media.Textures.Close)
 		header.clearButton:SetScript("OnEnter", function(self)
-			local cc = E.myClassColor
 			self.tex:SetVertexColor(cc.r, cc.g, cc.b)
 		end)
 		header.clearButton:SetScript("OnLeave", function(self)

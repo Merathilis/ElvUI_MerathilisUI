@@ -2,7 +2,6 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local Skins = MER:GetModule("MER_Skins") ---@type Skins
 local C = W.Utilities.Color
-local LSM = E.LSM
 
 local options = module.options.skins.args
 
@@ -21,6 +20,7 @@ local DecorAddons = {
 	{ "Clique", L["Clique"], "cl" },
 	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
+	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "Pawn", L["Pawn"], "pawn" },
 	{ "ParagonReputation", L["Paragon Reputation"], "paragonReputation" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
@@ -89,50 +89,6 @@ options.general = {
 	},
 }
 
-options.font = {
-	order = 2,
-	type = "group",
-	name = L["Fonts"],
-	args = {
-		actionStatus = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Action Status"],
-			get = function(info)
-				return E.private.mui.skins.actionStatus[info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.actionStatus[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			args = {
-				name = {
-					order = 1,
-					type = "select",
-					dialogControl = "LSM30_Font",
-					name = L["Font"],
-					values = LSM:HashTable("font"),
-				},
-				style = {
-					order = 2,
-					type = "select",
-					name = L["Outline"],
-					values = MER.Values.FontFlags,
-				},
-				size = {
-					order = 3,
-					name = L["Size"],
-					type = "range",
-					min = 5,
-					max = 60,
-					step = 1,
-				},
-			},
-		},
-	},
-}
-
 options.addonskins = {
 	order = 6,
 	type = "group",
@@ -172,8 +128,7 @@ options.addonskins = {
 	},
 }
 
-local addorder = 8
-for _, v in ipairs(DecorAddons) do
+for index, v in ipairs(DecorAddons) do
 	local addonName, addonString, addonOption = unpack(v)
 	local iconTexture = GetAddOnMetadata(addonName, "IconTexture")
 	local iconAtlas = GetAddOnMetadata(addonName, "IconAtlas")
@@ -189,10 +144,9 @@ for _, v in ipairs(DecorAddons) do
 	end
 
 	options.addonskins.args[addonOption] = {
-		order = addorder + 1,
+		order = 4 + index,
 		type = "toggle",
 		name = addonString,
-		icon = addonIcon,
 		desc = format("%s " .. addonString .. " %s", L["Enable/Disable"], L["decor."]),
 		disabled = function()
 			return not DoesAddOnExist(addonName)
@@ -210,6 +164,9 @@ options.Embed = {
 	set = function(info, value)
 		E.private.mui.skins.embed[info[#info]] = value
 		E:StaticPopup_Show("PRIVATE_RL")
+	end,
+	disabled = function()
+		return not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.enable)
 	end,
 	args = {
 		info = {
@@ -245,9 +202,12 @@ options.Embed = {
 			end,
 		},
 		toggleDirection = {
-			order = 5,
+			order = 6,
 			type = "select",
 			name = L["Toggle Direction"],
+			disabled = function()
+				return not E.private.mui.skins.embed.enable
+			end,
 			set = function(_, value)
 				E.private.mui.skins.embed.toggleDirection = value
 				UpdateToggleDirection()
@@ -261,12 +221,15 @@ options.Embed = {
 			},
 		},
 		mouseOver = {
-			order = 6,
+			order = 7,
 			type = "toggle",
 			name = L["Mouse Over"],
+			disabled = function()
+				return not E.private.mui.skins.embed.enable
+			end,
 		},
 		windows = {
-			order = 7,
+			order = 8,
 			type = "range",
 			name = L["Number of Windows"],
 			min = 1,
@@ -284,7 +247,7 @@ options.Embed = {
 			end,
 		},
 		spacer2 = {
-			order = 8,
+			order = 9,
 			type = "description",
 			name = " ",
 		},
@@ -293,7 +256,7 @@ options.Embed = {
 
 for winIndex = 1, 5 do
 	options.Embed.args["windowSize" .. winIndex] = {
-		order = 8 + winIndex,
+		order = 9 + winIndex,
 		type = "group",
 		inline = true,
 		name = format(L["Window %d"], winIndex),
@@ -421,8 +384,8 @@ options.advancedSettings = {
 						return not E:IsAddOnEnabled("Details")
 					end,
 					func = function()
-						local instance = Details:GetInstance(1)
-						Details:OpenOptionsWindow(instance)
+						local instance = _G.Details:GetInstance(1)
+						_G.Details:OpenOptionsWindow(instance)
 					end,
 				},
 			},
@@ -436,7 +399,7 @@ options.advancedSettings = {
 			end,
 			set = function(info, value)
 				E.private.mui.skins.blizzard.damageMeter[info[#info]] = value
-				E:StaticPopup_Show("CONFIG_RL")
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
 				header = {
@@ -449,20 +412,6 @@ options.advancedSettings = {
 					type = "toggle",
 					name = L["Enable"],
 				},
-				description = {
-					order = 2,
-					type = "description",
-					name = function()
-						return format("|cfffff400%s", L["The options below is only for the look, NOT the Embeded."])
-					end,
-					fontSize = "medium",
-				},
-				spacer = {
-					order = 3,
-					type = "description",
-					name = " ",
-					width = "full",
-				},
 			},
 		},
 		weeklyRewards = {
@@ -474,7 +423,7 @@ options.advancedSettings = {
 			end,
 			set = function(info, value)
 				E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]] = value
-				E:StaticPopup_Show("CONFIG_RL")
+				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
 				header = {

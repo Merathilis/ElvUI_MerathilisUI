@@ -2,6 +2,5 @@
 	<Script file="InternalEnum.lua"/>
 	<Script file="InternalSpecs.lua"/>
 	<Script file="InternalStrings.lua"/>
-	<Script file="InternalIDs.lua"/>
 	<Script file="Internal.lua"/>
 </Ui>

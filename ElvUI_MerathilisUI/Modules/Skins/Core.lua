@@ -138,7 +138,7 @@ function module:PLAYER_ENTERING_WORLD()
 	end
 
 	for index, func in next, self.enteredLoad do
-		xpcall(func, WF.Developer.ThrowError, self)
+		xpcall(func, F.Developer.ThrowError, self)
 		self.enteredLoad[index] = nil
 	end
 end
@@ -148,7 +148,7 @@ end
 ---@param callbacks table The callback functions table
 function module:CallLoadedAddon(addonName, callbacks)
 	for _, callback in next, callbacks do
-		if not xpcall(callback, WF.Developer.ThrowError, self) then
+		if not xpcall(callback, F.Developer.ThrowError, self) then
 			self:Log("debug", format("Failed to run addon %s", addonName))
 		end
 	end
@@ -186,7 +186,7 @@ function module:LibStub_NewLibrary(_, major, minor)
 			return
 		end
 		for _, func in next, self.libraryHandlers[major] do
-			if not xpcall(func, WF.Developer.ThrowError, self, lib) then
+			if not xpcall(func, F.Developer.ThrowError, self, lib) then
 				self:Log("debug", format("Failed to skin library %s", major))
 			end
 		end
@@ -199,7 +199,7 @@ function module:ReskinSettingFrame(name, func)
 	end
 
 	if not func then
-		WF.Developer.ThrowError("ReskinSettingFrame: func is nil")
+		F.Developer.ThrowError("ReskinSettingFrame: func is nil")
 		return
 	end
 
@@ -220,7 +220,7 @@ function module:Initialize()
 	end
 
 	for index, func in next, self.nonAddonsToLoad do
-		if not xpcall(func, WF.Developer.ThrowError, self) then
+		if not xpcall(func, F.Developer.ThrowError, self) then
 			self:Log("debug", "Failed to run skin function")
 		end
 		self.nonAddonsToLoad[index] = nil

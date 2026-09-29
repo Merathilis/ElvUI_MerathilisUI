@@ -31,7 +31,7 @@ end
 
 function module:ApplyDetailsProfile()
 	if not E:IsAddOnEnabled("Details") then
-		WF.Developer.LogWarning("Details is not enabled. Will not apply profile.")
+		F.Developer.LogWarning("Details is not enabled. Will not apply profile.")
 		return
 	end
 

@@ -54,10 +54,10 @@ local function RegisterEvents()
 		end
 	end
 
-	F.Event.RegisterCallback("MER_Themes.SettingsUpdate.Health", RefreshAll, "MERGradientPreview.Health")
-	F.Event.RegisterCallback("MER_Themes.SettingsUpdate.Power", RefreshAll, "MERGradientPreview.Power")
-	F.Event.RegisterCallback("MER_Themes.SettingsUpdate", RefreshAll, "MERGradientPreview.Settings")
-	F.Event.RegisterCallback("MER_Themes.DatabaseUpdate", RefreshAll, "MERGradientPreview.Database")
+	F.Event.RegisterCallback("MER_Theme.SettingsUpdate.Health", RefreshAll, "MERGradientPreview.Health")
+	F.Event.RegisterCallback("MER_Theme.SettingsUpdate.Power", RefreshAll, "MERGradientPreview.Power")
+	F.Event.RegisterCallback("MER_Theme.SettingsUpdate", RefreshAll, "MERGradientPreview.Settings")
+	F.Event.RegisterCallback("MER_Theme.DatabaseUpdate", RefreshAll, "MERGradientPreview.Database")
 end
 
 local function Constructor()

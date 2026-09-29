@@ -1,46 +1,19 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Table = {}
 
-local pairs, next, type, select, unpack = pairs, next, type, select, unpack
-local tinsert, tsort = table.insert, table.sort
-local setmetatable = setmetatable
+local pairs, next, rawset, select, type = pairs, next, rawset, select, type
+local tinsert = table.insert
 
-function F.Table.Print(tbl, indent)
-	if not indent then
-		indent = 0
-	end
-
-	for k, v in pairs(tbl) do
-		local formatting = string.rep("  ", indent) .. tostring(k) .. ": "
-		if type(v) == "table" then
-			print(formatting)
-			F.Table.Print(v, indent + 1)
-		elseif type(v) == "boolean" then
-			print(formatting .. tostring(v))
-		else
-			print(formatting .. tostring(v))
-		end
-	end
-end
-
-function F.Table.SetMetatables(tbl, mt)
-	for k, v in pairs(tbl) do
-		if type(v) == "table" then
-			tbl[k] = F.Table.SetMetatables(v, mt)
-		end
-	end
-
-	return setmetatable(tbl, mt)
-end
-
+---@param tbl table?
+---@return boolean
 function F.Table.IsEmpty(tbl)
-	return next(tbl) == nil
+	return not tbl or next(tbl) == nil
 end
 
-function F.Table.HasAnyEntries(tbl)
-	return not F.Table.IsEmpty(tbl)
-end
-
+---Walk down the given keys and create missing sub tables on the way
+---@param tbl table
+---@param ... any Keys
+---@return table
 function F.Table.GetOrCreate(tbl, ...)
 	local currentTable = tbl
 
@@ -55,20 +28,9 @@ function F.Table.GetOrCreate(tbl, ...)
 	return currentTable
 end
 
-function F.Table.RemoveEmpty(tbl)
-	for k, v in pairs(tbl) do
-		if type(v) == "table" then
-			if next(v) == nil then
-				tbl[k] = nil
-			else
-				tbl[k] = F.Table.RemoveEmpty(v)
-			end
-		end
-	end
-
-	return tbl
-end
-
+---Shallow merge into a new table; array entries are appended, other keys overwrite
+---@param ... table?
+---@return table
 function F.Table.Join(...)
 	local ret = {}
 
@@ -88,12 +50,15 @@ function F.Table.Join(...)
 	return ret
 end
 
+---Deep merge the given tables into `ret` (in place)
+---@param ret table
+---@param ... table?
 function F.Table.Crush(ret, ...)
 	for i = 1, select("#", ...) do
 		local t = select(i, ...)
 		if t then
 			for k, v in pairs(t) do
-				if type(v) == "table" and type(ret[k] or false) == "table" then
+				if type(v) == "table" and type(ret[k]) == "table" then
 					F.Table.Crush(ret[k], v)
 				else
 					rawset(ret, k, v)
@@ -103,90 +68,15 @@ function F.Table.Crush(ret, ...)
 	end
 end
 
-function F.Table.CrushDebug(ret, ...)
-	for i = 1, select("#", ...) do
-		local t = select(i, ...)
-		if t then
-			for k, v in pairs(t) do
-				if type(v) == "table" and type(ret[k] or false) == "table" then
-					F.Table.CrushDebug(ret[k], v)
-				else
-					if
-						ret[k] == nil
-						and k ~= "customTexts"
-						and k ~= "infoPanel"
-						and k ~= "customTexture"
-						and k ~= "movers"
-						and k ~= "uiScaleInformed"
-						and k ~= "convertPages"
-					then
-						WF.Developer.LogDebug("Setting new k,v", k, v)
-					end
-
-					rawset(ret, k, v)
-				end
-			end
-		end
-	end
-end
-
-function F.Table.If(cond, thenTable, orTable)
-	if not cond then
-		return orTable or {}
-	end
-	return thenTable or {}
-end
-
-function F.Table.RGB(r, g, b, a)
-	local ret = {
-		r = r,
-		g = g,
-		b = b,
-	}
-
-	if a then
-		ret.a = a
-	end
-
-	return ret
-end
-
+---"#rrggbb" or "#rrggbbaa" to { r, g, b[, a] }
+---@param hex string
+---@return table
 function F.Table.HexToRGB(hex)
 	local r, g, b, a = F.String.HexToRGB(hex)
-	return F.Table.RGB(r, g, b, a)
+	return { r = r, g = g, b = b, a = a }
 end
 
-function F.Table.CurrentClassColor()
-	local color = E:ClassColor(E.myclass, true)
-
-	-- Fuck priests
-	if E.myclass == "PRIEST" then
-		return F.Table.RGB(E.PriestColors.r, E.PriestColors.g, E.PriestColors.b)
-	end
-
-	return F.Table.RGB(color.r, color.g, color.b)
-end
-
-function F.Table.Sort(t, f)
-	local keys = {}
-
-	for k in pairs(t) do
-		keys[#keys + 1] = k
-	end
-
-	tsort(keys, f)
-
-	local i = 0
-	return function()
-		i = i + 1
-		return keys[i], t[keys[i]]
-	end
-end
-
+---Pack varargs including trailing nils, `n` holds the count
 function F.Table.SafePack(...)
 	return { n = select("#", ...), ... }
-end
-
-function F.Table.SafeUnpack(tbl)
-	return unpack(tbl, 1, tbl.n)
 end

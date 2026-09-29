@@ -12,7 +12,6 @@ function module:Configure_RaidIcon(frame)
 	if RI.Replace then
 		return
 	end
-	RI.SetTexture = SetTexture
 
 	if db.raidicon.enable then
 		RI:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\RaidIcons\UI-RaidTargetingIcons]])

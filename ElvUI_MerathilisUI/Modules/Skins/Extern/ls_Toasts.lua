@@ -6,7 +6,7 @@ local _G = _G
 local unpack = unpack
 
 function module:ls_Toasts()
-	if not E.private.mui.skins.addonSkins.enable then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.ls then
 		return
 	end
 

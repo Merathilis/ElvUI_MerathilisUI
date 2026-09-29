@@ -880,7 +880,8 @@ function module:UpdateBlizzardIndicators(forceRestore)
 end
 
 function module:SettingsUpdate()
-	if not self.Initialized then
+	-- Disable() hid the bars, a layout option changed afterwards must not build or show them again
+	if not self.Initialized or not (self.db and self.db.enable) then
 		return
 	end
 
@@ -1001,7 +1002,6 @@ function module:Initialize()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)
-	F.Event.RegisterCallback("MinimapButtons.DatabaseUpdate", self.DatabaseUpdate, self)
 	F.Event.RegisterCallback("MinimapButtons.SettingsUpdate", self.SettingsUpdate, self)
 
 	self.Initialized = true

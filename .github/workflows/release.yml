@@ -25,7 +25,7 @@ jobs:
             # otherwise, the upload to GitHub Releases won't work.
             GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
 
-            # Project URLs - used for Discord notification
+            # Project URLs - used for the Discord announcement
             CF_URL: https://www.curseforge.com/wow/addons/merathilis-ui
             WAGO_URL: https://addons.wago.io/addons/elvui-merathilisui
 
@@ -103,52 +103,99 @@ jobs:
                   include-hidden-files: true
 
             # ---------------------------------------------------------
-            # Send release notification to Discord
+            # Post release announcement to Discord via the
+            # "MerathilisUI Release" bot and publish it to followers
             # ---------------------------------------------------------
-            - name: Send Status to Discord
-              if: success()
-              uses: repooc/djs-actions@my_changes
-              with:
-                  id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-                  token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+            - name: Announce on Discord
+              if: success() && !contains(env.RELEASE_VERSION, 'alpha') && !contains(env.RELEASE_VERSION, 'beta')
+              continue-on-error: true
+              shell: bash
+              env:
+                  BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+                  CHANNEL_ID: "907240345346142219"
+                  RELEASE_URL: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}
+                  LOGO_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/media/logo.png
+                  WEBSITE_URL: https://merathilisui.com
+              run: |
+                  if [ -z "$BOT_TOKEN" ]; then
+                      echo "::warning::DISCORD_BOT_TOKEN secret is not set, skipping Discord announcement"
+                      exit 0
+                  fi
 
-                  title: "New *${{ github.event.repository.name }}* Version Released!"
+                  API="https://discord.com/api/v10/channels/${CHANNEL_ID}/messages"
+                  UA="DiscordBot (${{ github.server_url }}/${{ github.repository }}, 1.0)"
 
-                  description: |
-                      [${{ github.event.sender.login }}](${{ github.event.sender.html_url }}) has released a new version of ${{ github.event.repository.name }}!
+                  # Turn the "-   [Fix]: text" changelog lines into emoji bullets
+                  sed -E \
+                      -e 's/\r$//' \
+                      -e '/^###/d' \
+                      -e '/^[[:space:]]*$/d' \
+                      -e 's/^-[[:space:]]+\[Fix\]:[[:space:]]*/🐛 /' \
+                      -e 's/^-[[:space:]]+\[New\]:[[:space:]]*/✨ /' \
+                      -e 's/^-[[:space:]]+\[Improvement\]:[[:space:]]*/👌 /' \
+                      -e 's/^-[[:space:]]+\[([^]]+)\]:[[:space:]]*/• **\1:** /' \
+                      CHANGELOG.md > DISCORD_NOTES.md
 
-                      If you use an addon client that supports Wago Addons or CurseForge, it is recommended to use one of those clients to install or update the addon.
+                  # Embed descriptions are capped at 4096 chars, cut at a line boundary
+                  if [ "$(wc -m < DISCORD_NOTES.md)" -gt 3800 ]; then
+                      awk '{ n += length($0) + 1; if (n > 3700) exit; print }' DISCORD_NOTES.md > DISCORD_NOTES.tmp
+                      printf '\n…\n[Full changelog](%s)\n' "$RELEASE_URL" >> DISCORD_NOTES.tmp
+                      mv DISCORD_NOTES.tmp DISCORD_NOTES.md
+                  fi
 
-                      You can also download the addon manually from the GitHub release.
+                  jq -n \
+                      --arg version "$RELEASE_VERSION" \
+                      --arg url "$RELEASE_URL" \
+                      --arg logo "$LOGO_URL" \
+                      --rawfile notes DISCORD_NOTES.md \
+                      --arg links "[CurseForge](${CF_URL}) · [Wago](${WAGO_URL}) · [GitHub](${RELEASE_URL})" \
+                      --arg website "$WEBSITE_URL" \
+                      '{
+                          content: "@here",
+                          allowed_mentions: { parse: ["everyone"] },
+                          embeds: [{
+                              title: ("MerathilisUI " + $version),
+                              url: $url,
+                              description: $notes,
+                              color: 16088064,
+                              thumbnail: { url: $logo },
+                              fields: [
+                                  { name: "📥 Download", value: $links, inline: false },
+                                  { name: "🌐 Website", value: ("[merathilisui.com](" + $website + ")"), inline: true },
+                                  { name: "🏷️ Version", value: $version, inline: true }
+                              ],
+                              footer: { text: "Addon by Merathilis", icon_url: $logo },
+                              timestamp: (now | todate)
+                          }]
+                      }' > DISCORD_PAYLOAD.json
 
-                  fields: >-
-                      [
-                        {
-                          "name": "Released By:",
-                          "value": "[${{ github.event.sender.login }}](${{ github.event.sender.html_url }})",
-                          "inline": true
-                        },
-                        {
-                          "name": "Issue Tracker:",
-                          "value": "[${{ github.event.repository.name }}](${{ github.event.repository.html_url }}/issues)",
-                          "inline": true
-                        },
-                        {
-                          "name": "Version",
-                          "value": "${{ env.RELEASE_VERSION }}",
-                          "inline": true
-                        },
-                        {
-                          "name": "Wago Addons",
-                          "value": "[Click Here](${{ env.WAGO_URL }})",
-                          "inline": true
-                        },
-                        {
-                          "name": "CurseForge",
-                          "value": "[Click Here](${{ env.CF_URL }})",
-                          "inline": true
-                        }
-                      ]
+                  HTTP=$(curl -sS -o DISCORD_RESPONSE.json -w '%{http_code}' \
+                      -H "Authorization: Bot ${BOT_TOKEN}" \
+                      -H "User-Agent: ${UA}" \
+                      -H "Content-Type: application/json" \
+                      --data-binary @DISCORD_PAYLOAD.json "$API") || {
+                      echo "::warning::Could not reach the Discord API"
+                      exit 0
+                  }
 
-                  footer: "Addon by Merathilis"
-                  timestamp: true
+                  if [ "$HTTP" -ge 300 ]; then
+                      echo "::warning::Discord rejected the announcement (HTTP ${HTTP})"
+                      cat DISCORD_RESPONSE.json
+                      exit 0
+                  fi
+
+                  MESSAGE_ID=$(jq -r '.id' DISCORD_RESPONSE.json)
+                  echo "Announcement posted (message ${MESSAGE_ID})"
+
+                  # Publish to every server following the announcement channel
+                  HTTP=$(curl -sS -o DISCORD_RESPONSE.json -w '%{http_code}' -X POST \
+                      -H "Authorization: Bot ${BOT_TOKEN}" \
+                      -H "User-Agent: ${UA}" \
+                      "${API}/${MESSAGE_ID}/crosspost") || HTTP=000
+
+                  if [ "$HTTP" -ge 300 ] || [ "$HTTP" = "000" ]; then
+                      echo "::warning::Could not publish the announcement to followers (HTTP ${HTTP})"
+                      cat DISCORD_RESPONSE.json 2>/dev/null
+                  else
+                      echo "Announcement published to followers"
+                  fi

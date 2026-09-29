@@ -439,7 +439,7 @@ do
 			self:Fire("OnValueChanged", self.value)
 		end
 
-		local function Constructor()
+		local function FontItemConstructor()
 			local self = ItemBase.Create(FontItemType)
 
 			self.frame:SetScript("OnClick", Frame_OnClick)
@@ -453,7 +453,7 @@ do
 			return self
 		end
 
-		AceGUI:RegisterWidgetType(FontItemType, Constructor, FontItemVersion + ItemBase.version)
+		AceGUI:RegisterWidgetType(FontItemType, FontItemConstructor, FontItemVersion + ItemBase.version)
 	end
 end
 
@@ -516,7 +516,7 @@ do
 			self:Fire("OnValueChanged", self.value)
 		end
 
-		local function Constructor()
+		local function IconItemConstructor()
 			local self = ItemBase.Create(IconItemType)
 
 			local icon = self.frame:CreateTexture(nil, "OVERLAY")
@@ -540,6 +540,6 @@ do
 			return self
 		end
 
-		AceGUI:RegisterWidgetType(IconItemType, Constructor, IconItemVersion + ItemBase.version)
+		AceGUI:RegisterWidgetType(IconItemType, IconItemConstructor, IconItemVersion + ItemBase.version)
 	end
 end

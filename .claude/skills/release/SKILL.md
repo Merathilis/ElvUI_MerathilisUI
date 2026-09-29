@@ -19,7 +19,8 @@ Argument: optional target version (e.g. `7.36`). Without it, derive it (see Phas
 - Pushing a tag triggers `.github/workflows/release.yml` (BigWigs packager → CurseForge, Wago, GitHub release, Discord notification). The tag name is the version, e.g. `7.36`.
 - Branch flow: work happens on `development`; releases are `development` merged into `main`, tag on the merge commit. `beta`/`ptr` are **not** part of the release.
 - Commit prefixes: `📖 DOC:`, `🚀 RELEASE:` etc. No mention of source addons in commit messages.
-- `gh` and `luacheck` are not installed on the user's machine.
+- `gh` is not installed on the user's machine. `luacheck` is (standalone exe on PATH, config `.luacheckrc` in the repo root).
+- "New" markers in the options: `F.MarkTabAsNew("<argsKey>")` (tab badge) and `F.NewFeatureText(...)` (header badge). They belong **only** to modules/additions that are new in the version being released - never to anything that already shipped in an earlier version.
 
 ## Phase 0 - Preconditions
 
@@ -46,7 +47,8 @@ Report findings; fix only after the user agrees.
 - **Locales**: keys added to `Locales/enUS.lua` since the last tag exist in every other locale file (`L["key"] = true` is enough).
 - **Profile migrations**: in `Core/Update.lua`, no `profileVersion < x` block uses a version **higher** than the one being released (it would never run until a later release). Blocks for exactly this version are expected.
 - **Leftovers**: grep the diff since the last tag for debug prints / temporary code (`print(`, `DevTool`, `--TODO`/`FIXME` added in this range, `debug = true`).
-- **Syntax**: if `luac`/`luacheck` is available use it; otherwise mention that this check was skipped.
+- **Syntax / lint**: `luacheck ElvUI_MerathilisUI -q` from the repo root; report every warning.
+- **New markers**: grep `F.MarkTabAsNew` / `F.NewFeatureText` and check each against the released changelogs in `Core/Changelog/Previous/`. A marker on a feature that already shipped has to go; only features new in this version keep theirs.
 - **Game/ElvUI versions**: show the current `## Interface` and `## X-ElvUIVersion` from the `.toc` and ask whether either needs bumping (the user knows the current patch/ElvUI version).
 
 ## Phase 3 - Release commit
@@ -87,6 +89,8 @@ Next version = released + 0.01 (e.g. 7.36 → 7.37, 7.39 → 7.40).
 
    -
    ```
-6. Commit `📖 DOC: prep changelogs`, then ask before `git push origin development`.
+6. Remove every `F.MarkTabAsNew(...)` call and `F.NewFeatureText(...)` wrapper (keep the wrapped text): everything they marked has just been released. Leave the helper functions themselves in `Core/Functions/Core.lua`.
+7. Commit `📖 DOC: prep changelogs`, then ask before `git push origin development`.
+   This push touches `Core/Changelog/`, so `.github/workflows/website.yml` rebuilds merathilisui.com with the released notes. Until then the site still shows the version as "In development" (it reads the `development` branch, which gets the release commit only with this push).
 
 Finish with a short recap: version released, tag, links (Actions, CurseForge, Wago), and the new in-progress version.

@@ -329,7 +329,7 @@ function module:BigWigs_Plugins()
 end
 
 function module:BigWigs_QueueTimer()
-	if not E.private.mui.skins.enable or not E.private.mui.skins.addonSkins.bw.queueTimer.enable then
+	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bw.queueTimer.enable then
 		return
 	end
 

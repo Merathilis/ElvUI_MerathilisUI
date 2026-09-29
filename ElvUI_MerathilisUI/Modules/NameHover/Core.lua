@@ -2,9 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_NameHover")
 
 local pcall, type = pcall, type
-local find = string.find
 local max = math.max
-local issecretvalue = issecretvalue
 
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
@@ -14,14 +12,12 @@ local IsControlKeyDown = IsControlKeyDown
 local IsAltKeyDown = IsAltKeyDown
 local IsInInstance = IsInInstance
 local UnitName = UnitName
-local UnitIsUnit = UnitIsUnit
 local UnitExists = UnitExists
 local UnitGUID = UnitGUID
 
 local C_Timer_After = C_Timer.After
 local GameTooltip = GameTooltip
 local UIParent = UIParent
-local WorldFrame = WorldFrame
 
 local LOP
 if type(LibStub) == "table" and type(LibStub.GetLibrary) == "function" then
@@ -104,7 +100,15 @@ end
 
 function module:RefreshInstanceState()
 	local db = self.db
-	if not db or not db.disableInDungeons then
+
+	-- Turned off (option or profile switch) works like a disabled instance:
+	-- NameHover stays hidden and the Blizzard tooltip is shown normally
+	if not db or not db.enable then
+		self._disabledInInstance = true
+		return
+	end
+
+	if not db.disableInDungeons then
 		self._disabledInInstance = false
 		return
 	end
@@ -332,8 +336,8 @@ local function UpdateFrameContents(f)
 	local headerW = Measure(f.headerText)
 	local statusW = Measure(f.statusText)
 	local subW, subH = Measure(f.subText)
-	local fontSize = tonumber(E.db.mui.nameHover.displayFontSize) or Layout.MAIN_MIN_HEIGHT
-	local mpFontSize = tonumber(E.db.mui.nameHover.mythicPlus_FontSize) or fontSize
+	local fontSize = tonumber(module.db.mainTextSize) or Layout.MAIN_MIN_HEIGHT
+	local mpFontSize = tonumber(module.db.mythicPlus_FontSize) or fontSize
 
 	local forcesW, forcesH = 0, 0
 	if hasForces then
@@ -404,11 +408,11 @@ local function UpdateFrameContents(f)
 	if module:IsNotEmpty(guild) then
 		top = SetAnchor(f.guildText, f.mainText, "TOPLEFT", top)
 	end
-	if module:IsNotEmpty(header) then
+	if module:IsNotEmpty(headerText) then
 		top = SetAnchor(f.headerText, f.mainText, "TOPLEFT", top)
 	end
 	if module:IsNotEmpty(status) then
-		top = SetAnchor(f.statusText, f.mainText, "TOPLEFT", top)
+		SetAnchor(f.statusText, f.mainText, "TOPLEFT", top)
 	end
 	f.subText:ClearAllPoints()
 	if subCount > 0 then
@@ -470,8 +474,36 @@ function module:UpdateInstanceState()
 	end
 end
 
+-- font string = { size key, outline key, fallback size }
+local FONTS = {
+	mainText = { "mainTextSize", "mainTextOutline", 14 },
+	statusText = { "statusTextSize", "statusTextOutline", 11 },
+	headerText = { "headerTextSize", "headerTextOutline", 11 },
+	guildText = { "guildTextSize", "guildTextOutline", 11 },
+	subText = { "subTextSize", "subTextOutline", 11 },
+	forcesText = { "mythicPlus_FontSize", "mythicPlusFontOutline", 11 },
+}
+
+function module:UpdateFonts()
+	local frame, db = self.frame, self.db
+	if not frame or not db then
+		return
+	end
+
+	for key, keys in pairs(FONTS) do
+		frame[key]:FontTemplate(nil, db[keys[1]] or keys[3], db[keys[2]] or "SHADOWOUTLINE")
+	end
+end
+
+-- Everything else is read on every update; a profile switch can also turn it on or off
+function module:ProfileUpdate()
+	self.db = E.db.mui.nameHover
+	self:UpdateFonts()
+	self:UpdateInstanceState()
+end
+
 function module:Initialize()
-	local db = F.GetDBFromPath("mui.nameHover") or E.db.mui.nameHover
+	local db = E.db.mui.nameHover
 	module.db = db
 
 	if not db.enable or module.Initialized then
@@ -484,27 +516,13 @@ function module:Initialize()
 	frame:SetFrameStrata("TOOLTIP")
 	module.frame = frame
 
-	local function fontOpts(sizeKey, outlineKey, defaultSize)
-		return nil, db[sizeKey] or defaultSize, db[outlineKey] and "SHADOWOUTLINE" or "NONE"
-	end
-
 	frame.mainText = frame:CreateFontString(nil, "OVERLAY")
-	frame.mainText:FontTemplate(fontOpts("mainTextSize", "mainTextOutline", 14))
-
 	frame.statusText = frame:CreateFontString(nil, "OVERLAY")
-	frame.statusText:FontTemplate(fontOpts("statusTextSize", "statusTextOutline", 11))
-
 	frame.headerText = frame:CreateFontString(nil, "OVERLAY")
-	frame.headerText:FontTemplate(fontOpts("headerTextSize", "headerTextOutline", 11))
-
 	frame.guildText = frame:CreateFontString(nil, "OVERLAY")
-	frame.guildText:FontTemplate(fontOpts("guildTextSize", "guildTextOutline", 11))
-
 	frame.subText = frame:CreateFontString(nil, "OVERLAY", "GameTooltipText")
-	frame.subText:FontTemplate(fontOpts("subTextSize", "subTextOutline", 11))
-
 	frame.forcesText = frame:CreateFontString(nil, "OVERLAY", "GameTooltipText")
-	frame.forcesText:FontTemplate(fontOpts("mythicPlusFontSize", "mythicPlusFontOutline", 11))
+	self:UpdateFonts()
 
 	frame.refreshElapsed = 0
 	frame.blizzElapsed = 0

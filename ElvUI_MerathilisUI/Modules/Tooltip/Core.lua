@@ -28,7 +28,7 @@ function module:Initialize()
 	self.db = E.db.mui.tooltip
 
 	for index, func in next, self.load do
-		xpcall(func, WF.Developer.ThrowError, self)
+		xpcall(func, F.Developer.ThrowError, self)
 		self.load[index] = nil
 	end
 
@@ -37,7 +37,7 @@ end
 
 function module:ProfileUpdate()
 	for index, func in next, self.updateProfile do
-		xpcall(func, WF.Developer.ThrowError, self)
+		xpcall(func, F.Developer.ThrowError, self)
 		self.updateProfile[index] = nil
 	end
 end

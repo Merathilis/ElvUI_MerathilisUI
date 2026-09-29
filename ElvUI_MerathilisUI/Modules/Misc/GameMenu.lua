@@ -6,7 +6,6 @@ local pairs, format, random = pairs, format, math.random
 
 local CreateFrame = CreateFrame
 local GetGuildInfo = GetGuildInfo
-local GetSpecialization = GetSpecialization
 local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 local GetTotalAchievementPoints = GetTotalAchievementPoints
 local UIFrameFadeIn = UIFrameFadeIn
@@ -295,8 +294,8 @@ local function UpdatePlayerInfo(self)
 	local guildName = GetGuildInfo("player")
 
 	local _, classId = UnitClassBase("player")
-	local specIndex = GetSpecialization()
-	local id = GetSpecializationInfoForClassID(classId, specIndex)
+	local specIndex = F.GetPlayerSpec()
+	local id = specIndex and GetSpecializationInfoForClassID(classId, specIndex)
 	local specIcon = (id and id ~= 0 and iconsDb and iconsDb[id]) or ""
 
 	bottomPanel.nameText:SetText(F.String.GradientClass(E.myname))

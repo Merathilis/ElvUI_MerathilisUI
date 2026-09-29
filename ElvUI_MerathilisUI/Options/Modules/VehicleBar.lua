@@ -4,26 +4,56 @@ local LSM = E.Libs.LSM
 
 local options = module.options.modules.args
 
+-- Own disabled replaces the group's, so every own disabled repeats the requirement
+local function RequirementMissing()
+	return not MER:HasRequirements(I.Requirements.VehicleBar)
+end
+
+local function ModuleDisabled()
+	return RequirementMissing() or not E.db.mui.vehicleBar.enable
+end
+
+local function VigorDisabled()
+	return ModuleDisabled() or not E.db.mui.vehicleBar.vigorBar.enable
+end
+
+-- The module rebuilds the bar on every change (disable + enable), no reload needed
+local function Update()
+	F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
+end
+
+local function VigorColor(order, name, key, disabled)
+	return {
+		order = order,
+		type = "color",
+		name = name,
+		hasAlpha = false,
+		disabled = disabled,
+		get = function()
+			local t = E.db.mui.vehicleBar.vigorBar[key]
+			local d = P.vehicleBar.vigorBar[key]
+			return t.r, t.g, t.b, nil, d.r, d.g, d.b, nil
+		end,
+		set = function(_, r, g, b)
+			local t = E.db.mui.vehicleBar.vigorBar[key]
+			t.r, t.g, t.b = r, g, b
+			Update()
+		end,
+	}
+end
+
 options.vehicleBar = {
 	type = "group",
 	name = module:AddCategorieIcon(L["VehicleBar"], "vehicle"),
 	childGroups = "tab",
-	get = function(info)
-		return E.db.mui.vehicleBar[info[#info]]
-	end,
-	set = function(info, value)
-		E.db.mui.vehicleBar[info[#info]] = value
-		F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-	end,
-	disabled = function()
-		return not E.private.actionbar.enable
-	end,
+	disabled = RequirementMissing,
 	args = {
 		name = {
 			order = 1,
 			type = "header",
 			name = L["VehicleBar"],
 		},
+		requirements = module.RequirementsNotice(I.Requirements.VehicleBar, 1.5),
 		credits = {
 			order = 2,
 			type = "group",
@@ -51,17 +81,18 @@ options.vehicleBar = {
 					end,
 					set = function(_, value)
 						E.db.mui.vehicleBar.enable = value
-						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
-						E:StaticPopup_Show("CONFIG_RL")
+						Update()
 					end,
 				},
 				elvuiBars = {
 					order = 2,
 					type = "toggle",
 					name = L["Hide ElvUI Bars"],
+					disabled = ModuleDisabled,
 					get = function()
 						return E.db.mui.vehicleBar.hideElvUIBars
 					end,
+					-- The ElvUI bars are only given back when the new value still says to hide them
 					set = function(_, value)
 						E.db.mui.vehicleBar.hideElvUIBars = value
 						E:StaticPopup_Show("CONFIG_RL")
@@ -74,67 +105,55 @@ options.vehicleBar = {
 			type = "group",
 			name = L["Buttons"],
 			desc = L["Settings for the Action Bar Buttons of the Vehicle Bar.\n\n"],
+			disabled = ModuleDisabled,
+			get = function(info)
+				return E.db.mui.vehicleBar[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.vehicleBar[info[#info]] = value
+				Update()
+			end,
 			args = {
 				buttonWidth = {
 					order = 1,
 					type = "range",
 					name = L["Button Width"],
 					desc = L["Change the Vehicle Bar's Button width. The height will scale accordingly in a 4:3 aspect ratio."],
-					get = function()
-						return E.db.mui.vehicleBar.buttonWidth
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.buttonWidth = value
-						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
-					end,
+					min = 20,
+					max = 80,
+					step = 1,
 				},
 				showKeybinds = {
 					order = 2,
 					type = "toggle",
 					name = L["Show Keybinds"],
 					desc = L["Toggle whether to show keybinds of an action bar button on the Vehicle Bar."],
-					get = function()
-						return E.db.mui.vehicleBar.showKeybinds
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.showKeybinds = value
-						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
-					end,
 				},
 				showMacro = {
 					order = 3,
 					type = "toggle",
 					name = L["Show Macro Text"],
 					desc = L["Toggle whether to show macro text of an action bar button on the Vehicle Bar."],
-					get = function()
-						return E.db.mui.vehicleBar.showMacro
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.showMacro = value
-						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
-					end,
 				},
 			},
 		},
-		vigorBargGroup = {
+		vigorBarGroup = {
 			order = 5,
 			type = "group",
 			name = L["Vigor Bar"],
-			disabled = function()
-				return not E.private.actionbar.enable or not E.db.mui.vehicleBar.enable
+			disabled = ModuleDisabled,
+			get = function(info)
+				return E.db.mui.vehicleBar.vigorBar[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.vehicleBar.vigorBar[info[#info]] = value
+				Update()
 			end,
 			args = {
-				vigorBar = {
+				enable = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.enable
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.enable = value
-						E:StaticPopup_Show("CONFIG_RL")
-					end,
 				},
 				vigorBarBarHeader = {
 					order = 2,
@@ -149,13 +168,7 @@ options.vehicleBar = {
 					min = 4,
 					max = 20,
 					step = 1,
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.height
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.height = value
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
+					disabled = VigorDisabled,
 				},
 				normalTexture = {
 					order = 4,
@@ -164,13 +177,7 @@ options.vehicleBar = {
 					desc = L["Vigor bar texture for Normal and Gradient Mode"],
 					dialogControl = "LSM30_Statusbar",
 					values = LSM:HashTable("statusbar"),
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.normalTexture
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.normalTexture = value
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
+					disabled = VigorDisabled,
 				},
 				darkTexture = {
 					order = 5,
@@ -179,13 +186,7 @@ options.vehicleBar = {
 					desc = L["Vigor bar texture for Dark Mode."],
 					dialogControl = "LSM30_Statusbar",
 					values = LSM:HashTable("statusbar"),
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.darkTexture
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.darkTexture = value
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
+					disabled = VigorDisabled,
 				},
 				vigorBarcolorHeader = {
 					order = 6,
@@ -196,48 +197,14 @@ options.vehicleBar = {
 					order = 7,
 					type = "toggle",
 					name = L["Use Custom Color"],
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.useCustomColor
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.useCustomColor = value
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
+					disabled = VigorDisabled,
 				},
-				customColorLeft = {
-					order = 8,
-					type = "color",
-					name = L["Left Color"],
-					disabled = function()
-						return not E.db.mui.vehicleBar.vigorBar.useCustomColor
-					end,
-					get = function()
-						local t = E.db.mui.vehicleBar.vigorBar.customColorLeft
-						return t.r, t.g, t.b, t.a
-					end,
-					set = function(_, r, g, b, a)
-						local t = E.db.mui.vehicleBar.vigorBar.customColorLeft
-						t.r, t.g, t.b, t.a = r, g, b, a
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
-				},
-				customColorRight = {
-					order = 9,
-					type = "color",
-					name = L["Right Color"],
-					disabled = function()
-						return not E.db.mui.vehicleBar.vigorBar.useCustomColor
-					end,
-					get = function()
-						local t = E.db.mui.vehicleBar.vigorBar.customColorRight
-						return t.r, t.g, t.b, t.a
-					end,
-					set = function(_, r, g, b, a)
-						local t = E.db.mui.vehicleBar.vigorBar.customColorRight
-						t.r, t.g, t.b, t.a = r, g, b, a
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
-				},
+				customColorLeft = VigorColor(8, L["Left Color"], "customColorLeft", function()
+					return VigorDisabled() or not E.db.mui.vehicleBar.vigorBar.useCustomColor
+				end),
+				customColorRight = VigorColor(9, L["Right Color"], "customColorRight", function()
+					return VigorDisabled() or not E.db.mui.vehicleBar.vigorBar.useCustomColor
+				end),
 				speedTextHeader = {
 					order = 10,
 					type = "header",
@@ -247,72 +214,44 @@ options.vehicleBar = {
 					order = 11,
 					type = "toggle",
 					name = L["Show Speed Text"],
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.showSpeedText
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.showSpeedText = value
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
+					disabled = VigorDisabled,
 				},
-				thrillColor = {
-					order = 12,
-					type = "color",
-					name = L["Thrill Color"],
-					get = function()
-						local t = E.db.mui.vehicleBar.vigorBar.thrillColor
-						return t.r, t.g, t.b, t.a
-					end,
-					set = function(_, r, g, b, a)
-						local t = E.db.mui.vehicleBar.vigorBar.thrillColor
-						t.r, t.g, t.b, t.a = r, g, b, a
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
-				},
+				thrillColor = VigorColor(12, L["Thrill Color"], "thrillColor", VigorDisabled),
 				speedTextFont = {
 					order = 13,
 					type = "select",
 					name = L["Font"],
 					dialogControl = "LSM30_Font",
 					values = LSM:HashTable("font"),
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.speedTextFont
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.speedTextFont = value
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
+					disabled = VigorDisabled,
+				},
+				speedTextFontSize = {
+					order = 14,
+					type = "range",
+					name = L["Font Size"],
+					min = 8,
+					max = 40,
+					step = 1,
+					disabled = VigorDisabled,
 				},
 				speedTextOffsetY = {
-					order = 14,
+					order = 15,
 					type = "range",
 					name = L["Offset Y"],
 					min = -10,
 					max = 10,
 					step = 1,
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.speedTextOffsetY
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.speedTextOffsetY = value
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
+					disabled = VigorDisabled,
 				},
 				speedTextUpdateRate = {
-					order = 15,
+					order = 16,
 					type = "range",
 					name = L["Update Rate"],
 					desc = L["How often the speed text is updated."],
 					min = 0.05,
 					max = 1,
 					step = 0.05,
-					get = function()
-						return E.db.mui.vehicleBar.vigorBar.speedTextUpdateRate
-					end,
-					set = function(_, value)
-						E.db.mui.vehicleBar.vigorBar.speedTextUpdateRate = value
-						F.Event.TriggerEvent("VehicleBar.SettingsUpdate")
-					end,
+					disabled = VigorDisabled,
 				},
 			},
 		},
@@ -320,9 +259,7 @@ options.vehicleBar = {
 			order = 6,
 			type = "group",
 			name = L["Animations"],
-			disabled = function()
-				return not E.private.actionbar.enable or not E.db.mui.vehicleBar.enable
-			end,
+			disabled = ModuleDisabled,
 			args = {
 				animations = {
 					order = 1,
@@ -333,9 +270,10 @@ options.vehicleBar = {
 					end,
 					set = function(_, value)
 						E.db.mui.vehicleBar.animations = value
-						F.Event.TriggerEvent("VehicleBar.DatabaseUpdate")
+						Update()
 					end,
 				},
+				-- Read when the bar is shown, nothing to rebuild
 				animationsMult = {
 					order = 2,
 					type = "range",
@@ -344,6 +282,9 @@ options.vehicleBar = {
 					max = 2,
 					step = 0.1,
 					isPercent = true,
+					disabled = function()
+						return ModuleDisabled() or not E.db.mui.vehicleBar.animations
+					end,
 					get = function()
 						return 1 / E.db.mui.vehicleBar.animationsMult
 					end,

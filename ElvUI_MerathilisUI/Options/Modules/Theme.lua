@@ -5,6 +5,7 @@ local ACH = LibStub("LibAceConfigHelper")
 local options = module.options.modules.args
 
 local _G = _G
+local format = string.format
 local FACTION_BAR_COLORS = _G.FACTION_BAR_COLORS
 local LOCALIZED_CLASS_NAMES_FEMALE = _G.LOCALIZED_CLASS_NAMES_FEMALE
 local LOCALIZED_CLASS_NAMES_MALE = _G.LOCALIZED_CLASS_NAMES_MALE
@@ -49,13 +50,13 @@ function module:MerathilisUI_Themes_GradientMode()
 	}
 
 	-- Options
-	local options = options.theme.args.gradientMode.args
+	local gradientOptions = options.theme.args.gradientMode.args
 
 	-- General
 	do
 		-- General Group
-		local generalGroup = self:AddInlineRequirementsDesc(options, {
-			name = "Description",
+		local generalGroup = self:AddInlineRequirementsDesc(gradientOptions, {
+			name = L["Description"],
 		}, {
 			name = "Credits: |cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r"
 				.. "\n\n"
@@ -88,7 +89,7 @@ function module:MerathilisUI_Themes_GradientMode()
 	-- Colors
 	do
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = L["Class Colors"],
 		}).args
 
@@ -208,7 +209,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		local name = L["NPC Colors"]
 
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = name,
 		}).args
 
@@ -232,11 +233,11 @@ function module:MerathilisUI_Themes_GradientMode()
 			end
 
 			-- Reaction Name
-			local npcColorName = "Neutral"
+			local npcColorName = _G.FACTION_STANDING_LABEL4
 			if reaction == "GOOD" then
-				npcColorName = "Friendly"
+				npcColorName = _G.FRIENDLY
 			elseif reaction == "BAD" then
-				npcColorName = "Enemy"
+				npcColorName = _G.ENEMY
 			end
 
 			-- Reaction Name
@@ -319,10 +320,10 @@ function module:MerathilisUI_Themes_GradientMode()
 
 	-- Power Colors
 	do
-		local name = "Power Colors"
+		local name = L["Power Colors"]
 
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = name,
 		}).args
 
@@ -430,7 +431,7 @@ function module:MerathilisUI_Themes_GradientMode()
 	-- Other Colors
 	do
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = L["Other Colors"],
 		}).args
 
@@ -544,9 +545,9 @@ function module:MerathilisUI_Themes_GradientMode()
 				-- Name
 				local settingsName
 				if cast == "NOINTERRUPT" then
-					settingsName = "Non-interruptible"
+					settingsName = L["Non-interruptible"]
 				elseif cast == "DEFAULT" then
-					settingsName = "Regular"
+					settingsName = L["Regular"]
 				else
 					settingsName = F.String.LowercaseEnum(cast)
 				end
@@ -638,13 +639,13 @@ function module:MerathilisUI_Themes_GradientMode()
 		local name = L["Fade Direction"]
 
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = name,
 		}).args
 
 		local directionValues = {
-			[I.Enum.GradientMode.Direction.LEFT] = "Left",
-			[I.Enum.GradientMode.Direction.RIGHT] = "Right",
+			[I.Enum.GradientMode.Direction.LEFT] = L["Left"],
+			[I.Enum.GradientMode.Direction.RIGHT] = L["Right"],
 		}
 
 		local function directionGet(unitType)
@@ -848,10 +849,10 @@ function module:MerathilisUI_Themes_GradientMode()
 
 	-- Settings
 	do
-		local name = "Settings"
+		local name = L["Settings"]
 
 		-- Tab
-		local tab = self:AddGroup(options, {
+		local tab = self:AddGroup(gradientOptions, {
 			name = name,
 		}).args
 
@@ -859,7 +860,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		self:AddInlineDesc(tab, {
 			name = name,
 		}, {
-			name = L["Here you can change additional settings for the " .. gradientTitle .. " Mode|r.\n\n"],
+			name = format(L["Here you can change additional settings for the %s."], gradientTitle .. " Mode|r") .. "\n\n",
 		})
 
 		-- Spacer
@@ -975,7 +976,7 @@ function module:MerathilisUI_Themes_GradientMode()
 				.. L[" Colors|r\nFor people that like it a bit more extreme\n\n"],
 		}).args
 
-		saturationGroup.enabled = {
+		saturationGroup.enable = {
 			order = self:GetOrder(),
 			type = "toggle",
 			name = function()
@@ -983,9 +984,15 @@ function module:MerathilisUI_Themes_GradientMode()
 			end,
 		}
 
+		-- The HSL values are only used while the boost is on
+		local function BoostDisabled()
+			return not E.db.mui.themes.gradientMode.saturationBoost.enable
+		end
+
 		saturationGroup.shiftLight = {
 			order = self:GetOrder(),
 			type = "range",
+			disabled = BoostDisabled,
 			name = L["Shift Lightness"],
 			desc = L["Control the Lightness value of HSL for the Shift color."],
 			min = 0.1,
@@ -996,6 +1003,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		saturationGroup.shiftSat = {
 			order = self:GetOrder(),
 			type = "range",
+			disabled = BoostDisabled,
 			name = L["Shift Saturation"],
 			desc = L["Control the Saturation value of HSL for the Shift color."],
 			min = 0.1,
@@ -1006,6 +1014,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		saturationGroup.normalLight = {
 			order = self:GetOrder(),
 			type = "range",
+			disabled = BoostDisabled,
 			name = L["Normal Lightness"],
 			desc = L["Control the Lightness value of HSL for the Normal color."],
 			min = 0.1,
@@ -1016,6 +1025,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		saturationGroup.normalSat = {
 			order = self:GetOrder(),
 			type = "range",
+			disabled = BoostDisabled,
 			name = L["Normal Saturation"],
 			desc = L["Control the Saturation value of HSL for the Normal color."],
 			min = 0.1,
