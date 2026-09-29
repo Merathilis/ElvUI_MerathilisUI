@@ -327,7 +327,7 @@ function module:RefreshGUI()
 end
 
 function module:EncounterStart(id, _, diffID)
-	if C_ChallengeMode_GetActiveKeystoneInfo() ~= 0 then
+	if not module.db.enable or C_ChallengeMode_GetActiveKeystoneInfo() ~= 0 then
 		return
 	end
 
@@ -338,6 +338,10 @@ function module:EncounterStart(id, _, diffID)
 end
 
 function module:MythicPlusStart()
+	if not module.db.enable then
+		return
+	end
+
 	local mapID = C_ChallengeMode_GetActiveChallengeMapID()
 	if not mapID then
 		return
@@ -397,7 +401,10 @@ function module:CreateEJButton()
 
 	hooksecurefunc("EncounterJournal_SetTab", function()
 		-- The journal instance on display; Blizzard sets it in EncounterJournal_DisplayInstance.
-		bu:SetShown(IsMythicPlusDungeon() or IsCurrentExpansionRaid(_G.EncounterJournal.instanceID))
+		bu:SetShown(
+			module.db.enable
+				and (IsMythicPlusDungeon() or IsCurrentExpansionRaid(_G.EncounterJournal.instanceID))
+		)
 	end)
 end
 
@@ -414,6 +421,20 @@ function module:Initialize()
 	module:RegisterEvent("CHALLENGE_MODE_START", module.MythicPlusStart)
 	local misc = MER:GetModule("MER_Misc")
 	misc:AddCallbackForAddon("Blizzard_EncounterJournal", module.CreateEJButton)
+end
+
+-- The enable toggle and profile switches apply right away: the event handlers,
+-- the journal button and /lsm check db.enable themselves
+function module:ProfileUpdate()
+	module.db = E.db.mui.lootSpecManager
+
+	if module.GUI then
+		if module.db.enable then
+			module:RefreshGUI()
+		else
+			module.GUI:Hide()
+		end
+	end
 end
 
 MER:AddCommand("LSM", "/lsm", function()

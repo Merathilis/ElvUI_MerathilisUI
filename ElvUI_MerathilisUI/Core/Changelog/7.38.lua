@@ -9,6 +9,7 @@ MER.Changelog[738] = {
 		"[Cursor]: The GCD and cast rings work again after turning the Cursor module off and on or switching profiles, before they stayed empty until a reload.",
 		"[DataTexts]: The Durability/Ilevel datatext follows a changed value color right away and updates the item level after a gear change.",
 		"[Item Level]: Turning the item level on, also by a profile switch, works without a reload.",
+		"[Loot Spec Manager]: Turning it off now really stops the automatic loot spec changes and hides the Encounter Journal button, without a reload. A profile switch uses the settings of the new profile.",
 	},
 	NEW = {
 		"[DataTexts]: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.",

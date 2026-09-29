@@ -82,7 +82,7 @@ options.general = {
 			end,
 			set = function(info, value)
 				E.db.mui.lootSpecManager[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
+				LSM:ProfileUpdate()
 			end,
 			args = {
 				enable = {
