@@ -42,12 +42,9 @@ options.itemLevel = {
 			get = function()
 				return E.db.mui.itemLevel.enable
 			end,
-			-- Checked on every update, only turning it on needs the hooks from a reload
+			-- Checked on every update, the next open merchant or trade window follows it
 			set = function(_, value)
 				E.db.mui.itemLevel.enable = value
-				if value then
-					E:StaticPopup_Show("CONFIG_RL")
-				end
 			end,
 		},
 	},
