@@ -103,8 +103,63 @@ jobs:
                   include-hidden-files: true
 
             # ---------------------------------------------------------
-            # Post release announcement to Discord via the
-            # "MerathilisUI Release" bot and publish it to followers
+            # Send the release notification through Repooc's Discord
+            # webhook (posts into the #release channel)
+            # ---------------------------------------------------------
+            - name: Send Status to Discord
+              if: success()
+              continue-on-error: true
+              uses: repooc/djs-actions@my_changes
+              with:
+                  id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+                  token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+
+                  title: "New *${{ github.event.repository.name }}* Version Released!"
+
+                  description: |
+                      [${{ github.event.sender.login }}](${{ github.event.sender.html_url }}) has released a new version of ${{ github.event.repository.name }}!
+
+                      If you use an addon client that supports Wago Addons or CurseForge, it is recommended to use one of those clients to install or update the addon.
+
+                      You can also download the addon manually from the GitHub release.
+
+                  fields: >-
+                      [
+                        {
+                          "name": "Released By:",
+                          "value": "[${{ github.event.sender.login }}](${{ github.event.sender.html_url }})",
+                          "inline": true
+                        },
+                        {
+                          "name": "Issue Tracker:",
+                          "value": "[${{ github.event.repository.name }}](${{ github.event.repository.html_url }}/issues)",
+                          "inline": true
+                        },
+                        {
+                          "name": "Version",
+                          "value": "${{ env.RELEASE_VERSION }}",
+                          "inline": true
+                        },
+                        {
+                          "name": "Wago Addons",
+                          "value": "[Click Here](${{ env.WAGO_URL }})",
+                          "inline": true
+                        },
+                        {
+                          "name": "CurseForge",
+                          "value": "[Click Here](${{ env.CF_URL }})",
+                          "inline": true
+                        }
+                      ]
+
+                  footer: "Addon by Merathilis"
+                  timestamp: true
+
+            # ---------------------------------------------------------
+            # Post the release announcement with the changelog via the
+            # "MerathilisUI Release" bot and publish it to followers.
+            # The channel can be changed with the DISCORD_CHANNEL_ID
+            # repository variable (Settings > Secrets and variables).
             # ---------------------------------------------------------
             - name: Announce on Discord
               if: success() && !contains(env.RELEASE_VERSION, 'alpha') && !contains(env.RELEASE_VERSION, 'beta')
@@ -112,11 +167,16 @@ jobs:
               shell: bash
               env:
                   BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-                  CHANNEL_ID: "907240345346142219"
+                  CHANNEL_ID: ${{ vars.DISCORD_CHANNEL_ID || '907240345346142219' }}
                   RELEASE_URL: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}
                   LOGO_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/media/logo.png
                   WEBSITE_URL: https://merathilisui.com
               run: |
+                  summary() {
+                      echo "$1"
+                      echo "$1" >> "$GITHUB_STEP_SUMMARY"
+                  }
+
                   if [ -z "$BOT_TOKEN" ]; then
                       echo "::warning::DISCORD_BOT_TOKEN secret is not set, skipping Discord announcement"
                       exit 0
@@ -125,20 +185,36 @@ jobs:
                   API="https://discord.com/api/v10/channels/${CHANNEL_ID}/messages"
                   UA="DiscordBot (${{ github.server_url }}/${{ github.repository }}, 1.0)"
 
-                  # Turn the "-   [Fix]: text" changelog lines into emoji bullets
-                  sed -E \
-                      -e 's/\r$//' \
-                      -e '/^###/d' \
-                      -e '/^[[:space:]]*$/d' \
-                      -e 's/^-[[:space:]]+\[Fix\]:[[:space:]]*/🐛 /' \
-                      -e 's/^-[[:space:]]+\[New\]:[[:space:]]*/✨ /' \
-                      -e 's/^-[[:space:]]+\[Improvement\]:[[:space:]]*/👌 /' \
-                      -e 's/^-[[:space:]]+\[([^]]+)\]:[[:space:]]*/• **\1:** /' \
-                      CHANGELOG.md > DISCORD_NOTES.md
+                  # Group the "-   [Fix]: Module: text" lines by category (New first) and bold the module
+                  awk '
+                      { sub(/\r$/, "") }
+                      /^-[[:space:]]+\[(Fix|New|Improvement)\]:/ {
+                          cat = $0
+                          sub(/^-[[:space:]]+\[/, "", cat)
+                          sub(/\].*/, "", cat)
+                          text = $0
+                          sub(/^-[[:space:]]+\[[^]]+\]:[[:space:]]*/, "", text)
+                          if (match(text, /^[^:]+: /)) {
+                              text = "**" substr(text, 1, RLENGTH - 2) ":** " substr(text, RLENGTH + 1)
+                          }
+                          lines[cat] = lines[cat] "• " text "\n"
+                      }
+                      END {
+                          if (lines["New"] != "") printf "**✨ New**\n%s\n", lines["New"]
+                          if (lines["Improvement"] != "") printf "**👌 Improvements**\n%s\n", lines["Improvement"]
+                          if (lines["Fix"] != "") printf "**🐛 Fixes**\n%s", lines["Fix"]
+                      }
+                  ' CHANGELOG.md > DISCORD_NOTES.md
+
+                  # Counts per category, so a cut off list still shows the size of the release
+                  NEW=$(grep -c '^-[[:space:]]*\[New\]' CHANGELOG.md || true)
+                  IMPROVEMENTS=$(grep -c '^-[[:space:]]*\[Improvement\]' CHANGELOG.md || true)
+                  FIXES=$(grep -c '^-[[:space:]]*\[Fix\]' CHANGELOG.md || true)
+                  COUNTS="✨ ${NEW} New · 👌 ${IMPROVEMENTS} Improvements · 🐛 ${FIXES} Fixes"
 
                   # Embed descriptions are capped at 4096 chars, cut at a line boundary
                   if [ "$(wc -m < DISCORD_NOTES.md)" -gt 3800 ]; then
-                      awk '{ n += length($0) + 1; if (n > 3700) exit; print }' DISCORD_NOTES.md > DISCORD_NOTES.tmp
+                      awk '{ n += length($0) + 1; if (n > 3600) exit; print }' DISCORD_NOTES.md > DISCORD_NOTES.tmp
                       printf '\n…\n[Full changelog](%s)\n' "$RELEASE_URL" >> DISCORD_NOTES.tmp
                       mv DISCORD_NOTES.tmp DISCORD_NOTES.md
                   fi
@@ -148,11 +224,12 @@ jobs:
                       --arg url "$RELEASE_URL" \
                       --arg logo "$LOGO_URL" \
                       --rawfile notes DISCORD_NOTES.md \
+                      --arg counts "$COUNTS" \
                       --arg links "[CurseForge](${CF_URL}) · [Wago](${WAGO_URL}) · [GitHub](${RELEASE_URL})" \
                       --arg website "$WEBSITE_URL" \
                       '{
-                          content: "@here",
-                          allowed_mentions: { parse: ["everyone"] },
+                          content: ("**Version " + $version + " is out, go check it out!**"),
+                          allowed_mentions: { parse: [] },
                           embeds: [{
                               title: ("MerathilisUI " + $version),
                               url: $url,
@@ -160,6 +237,7 @@ jobs:
                               color: 16088064,
                               thumbnail: { url: $logo },
                               fields: [
+                                  { name: "📋 Changes", value: $counts, inline: false },
                                   { name: "📥 Download", value: $links, inline: false },
                                   { name: "🌐 Website", value: ("[merathilisui.com](" + $website + ")"), inline: true },
                                   { name: "🏷️ Version", value: $version, inline: true }
@@ -185,7 +263,7 @@ jobs:
                   fi
 
                   MESSAGE_ID=$(jq -r '.id' DISCORD_RESPONSE.json)
-                  echo "Announcement posted (message ${MESSAGE_ID})"
+                  summary "Discord: announcement posted in channel ${CHANNEL_ID} (message ${MESSAGE_ID})"
 
                   # Publish to every server following the announcement channel
                   HTTP=$(curl -sS -o DISCORD_RESPONSE.json -w '%{http_code}' -X POST \
@@ -197,5 +275,5 @@ jobs:
                       echo "::warning::Could not publish the announcement to followers (HTTP ${HTTP})"
                       cat DISCORD_RESPONSE.json 2>/dev/null
                   else
-                      echo "Announcement published to followers"
+                      summary "Discord: announcement published to followers"
                   fi
