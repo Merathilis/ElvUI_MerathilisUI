@@ -30,7 +30,7 @@ MER.Changelog[737] = {
 		"[Core]: Fixed modules losing combat events (e.g. the Armory update after combat) when another module was turned off or updated.",
 		"[Core]: Clicking the Open Changelog link in the chat no longer also opens an empty link tooltip.",
 		"[Core]: A fresh install no longer prints Update Database messages, and update messages only appear when something changed, in the right order.",
-		"[Core]: Buff Reminder, Copy Transmog, Movement Alert, Portal Flyout, Singing Sockets, Trade Tabs, Tracker, Vehicle Bar and the Great Vault skin no longer use deprecated Blizzard functions, which only exist while Blizzard's deprecation fallbacks are enabled.",
+		"[Core]: Buff Reminder, Copy Transmog, Movement Alert, Portal Flyout, Singing Sockets, Trade Tabs, Tracker, Vehicle Bar, the Game Menu, the Status Report, the automatic group role and the Great Vault skin no longer use deprecated Blizzard functions, which only exist while Blizzard's deprecation fallbacks are enabled.",
 		'[Cursor]: The GCD and cast rings no longer throw Lua errors ("secret value") during Mythic+ and raid encounters.',
 		'[Cursor]: With "Only While Steering Camera" the ring no longer shows up after the module was turned off.',
 		"[Debug Mode]: /muidebug off can re-enable the disabled addons again after logging out and back in, the list was cleared on every login.",

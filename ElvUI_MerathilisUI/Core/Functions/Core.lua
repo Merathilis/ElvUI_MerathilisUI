@@ -13,6 +13,8 @@ local len = string.len
 local hooksecurefunc = hooksecurefunc
 
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
+local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
+local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local CreateFrame = CreateFrame
 local IsInInstance = IsInInstance
 
@@ -1117,6 +1119,25 @@ do
 			E:Delay(0, flushDelayed)
 		end
 	end
+end
+
+---Return the player's active specialization index and ID.
+---Uses C_SpecializationInfo directly: the GetSpecialization globals are deprecation shims
+---that are not loaded on WoW Forever. Both values are nil when there is no active spec.
+---@return number? specIndex
+---@return number? specID
+function F.GetPlayerSpec()
+	local specIndex = C_SpecializationInfo_GetSpecialization()
+	if not specIndex or specIndex == 0 then
+		return
+	end
+
+	local specID = C_SpecializationInfo_GetSpecializationInfo(specIndex)
+	if not specID or specID == 0 then
+		return specIndex
+	end
+
+	return specIndex, specID
 end
 
 ---Move frame by offset while preserving all anchor points

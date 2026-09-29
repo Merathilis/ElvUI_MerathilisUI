@@ -8,8 +8,6 @@ local next, pairs, ipairs, tinsert = next, pairs, ipairs, tinsert
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetRealZoneText = GetRealZoneText
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
 local UNKNOWN = UNKNOWN
 
 local englishClassName = {
@@ -29,7 +27,8 @@ local englishClassName = {
 }
 
 local function getSpecName()
-	return I.SpecNames[GetSpecializationInfo(GetSpecialization())] or UNKNOWN
+	local _, specID = F.GetPlayerSpec()
+	return specID and I.SpecNames[specID] or UNKNOWN
 end
 
 function module:StatusReportCreateContent(num, width, parent, anchorTo, content)

@@ -22,8 +22,6 @@ local IsFlying = IsFlying
 local IsResting = IsResting
 local UnitInVehicle = UnitInVehicle
 local IsInInstance = IsInInstance
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
 local PlaySound = PlaySound
 
 local C_Spell_GetSpellTexture = C_Spell.GetSpellTexture
@@ -93,11 +91,7 @@ local function GetPlayerClass()
 end
 
 local function GetSpecID()
-	local s = GetSpecialization and GetSpecialization()
-	if not s then
-		return nil
-	end
-	return GetSpecializationInfo(s)
+	return select(2, F.GetPlayerSpec())
 end
 
 local function InRealInstancedContent()

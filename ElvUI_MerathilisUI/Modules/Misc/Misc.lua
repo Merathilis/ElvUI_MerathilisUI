@@ -2,7 +2,6 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
 
 local GetNumGroupMembers = GetNumGroupMembers
-local GetSpecialization = GetSpecialization
 local IsFriend = C_FriendList.IsFriend
 local IsGuildMember = IsGuildMember
 local UnitLevel = UnitLevel
@@ -12,7 +11,7 @@ local UnitSetRole = UnitSetRole
 local GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
 
 function module:SetRole()
-	local spec = GetSpecialization()
+	local spec = F.GetPlayerSpec()
 	if UnitLevel("player") >= 10 and not InCombatLockdown() then
 		if spec == nil and UnitGroupRolesAssigned("player") ~= "NONE" then
 			UnitSetRole("player", "NONE")
