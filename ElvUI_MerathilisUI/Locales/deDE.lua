@@ -1260,3 +1260,17 @@ L["Restyles the highlight on the health bar of the nameplate under your mouse. N
 L["Fade In"] = "Einblenden"
 L["Additive Blend"] = "Additive Überblendung"
 L["Brightens the health bar instead of laying the texture over it."] = "Hellt die Lebensleiste auf, statt die Textur darüberzulegen."
+
+-- Interrupt Ready
+L["Interrupt Ready"] = "Unterbrechung bereit"
+L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."] = "Färbt die Zauberleiste feindlicher Einheiten ein, solange deine Unterbrechung abklingt, und markiert den Moment, ab dem sie wieder bereit ist. Die Farben sind die Unterbrechungs-Einträge der Zauberleisten-Farben in den Theme-Optionen."
+L["Cooldown Color"] = "Abklingfarbe"
+L["Colors the filled part of the castbar while your interrupt is on cooldown."] = "Färbt den gefüllten Teil der Zauberleiste, solange deine Unterbrechung abklingt."
+L["Ready Window"] = "Bereit-Fenster"
+L["Colors the rest of the cast from the moment your interrupt is ready again."] = "Färbt den Rest des Zaubers ab dem Moment, in dem deine Unterbrechung wieder bereit ist."
+L["Ready Tick"] = "Bereit-Markierung"
+L["A thin line at the moment your interrupt is ready again."] = "Eine dünne Linie an dem Moment, in dem deine Unterbrechung wieder bereit ist."
+L["Tick Color"] = "Markierungsfarbe"
+L["Units"] = "Einheiten"
+L["Interrupt on Cooldown"] = "Unterbrechung klingt ab"
+L["Interrupt Ready Soon"] = "Unterbrechung bald bereit"

@@ -211,6 +211,108 @@ function module.RequirementsDisabled(requirements)
 	end
 end
 
+---Settings of the Interrupt Ready castbar indicator, shared by UnitFrames and NamePlates
+---@param order number
+---@param getDB function returns the settings table
+---@param update function refresh after a change
+---@param requirementsDisabled function disabled check of the owning module
+---@param previewKey string settings key under E.db.mui ("unitframes", "nameplates") for the sample castbar
+---@param extraArgs table? more options, merged into the group's args
+---@return table option
+function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled, previewKey, extraArgs)
+	-- Own disabled replaces the group's, so the children repeat the requirement
+	local function Disabled()
+		return requirementsDisabled() or not getDB().enable
+	end
+
+	local group = {
+		order = order,
+		type = "group",
+		name = L["Interrupt Ready"],
+		guiInline = true,
+		get = function(info)
+			return getDB()[info[#info]]
+		end,
+		set = function(info, value)
+			getDB()[info[#info]] = value
+			update()
+		end,
+		disabled = requirementsDisabled,
+		args = {
+			desc = {
+				order = 1,
+				type = "description",
+				dialogControl = "MERNewFeatureLabel",
+				name = F.NewFeatureTrailingText(
+					L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."]
+				),
+			},
+			preview = {
+				order = 1.5,
+				type = "description",
+				dialogControl = "MERInterruptReadyPreview",
+				name = previewKey,
+				width = "full",
+			},
+			enable = {
+				order = 2,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			tint = {
+				order = 3,
+				type = "toggle",
+				name = L["Cooldown Color"],
+				desc = L["Colors the filled part of the castbar while your interrupt is on cooldown."],
+				disabled = Disabled,
+			},
+			window = {
+				order = 4,
+				type = "toggle",
+				name = L["Ready Window"],
+				desc = L["Colors the rest of the cast from the moment your interrupt is ready again."],
+				disabled = Disabled,
+			},
+			tick = {
+				order = 5,
+				type = "toggle",
+				name = L["Ready Tick"],
+				desc = L["A thin line at the moment your interrupt is ready again."],
+				disabled = Disabled,
+			},
+			tickColor = {
+				order = 6,
+				type = "color",
+				name = L["Tick Color"],
+				hasAlpha = false,
+				disabled = function()
+					return Disabled() or not getDB().tick
+				end,
+				get = function()
+					local color = getDB().tickColor
+					return color.r, color.g, color.b, nil, 1, 1, 1, nil
+				end,
+				set = function(_, r, g, b)
+					local color = getDB().tickColor
+					color.r, color.g, color.b = r, g, b
+					update()
+				end,
+			},
+		},
+	}
+
+	if extraArgs then
+		for key, option in pairs(extraArgs) do
+			if option.disabled == nil then
+				option.disabled = Disabled
+			end
+			group.args[key] = option
+		end
+	end
+
+	return group
+end
+
 function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requirements)
 	local orderIdx = self:GetOrder()
 	local inlineGroup = self:AddInlineGroup(options, othersGroup)

@@ -314,6 +314,11 @@ options.nameplates = {
 						end, HighlightCustomColorDisabled),
 					},
 				},
+				interruptReady = module.InterruptReadyOptions(4, function()
+					return E.db.mui.nameplates.interruptReady
+				end, function()
+					MNP:UpdateInterruptReady()
+				end, module.RequirementsDisabled(I.Requirements.NamePlates), "nameplates"),
 			},
 		},
 	},

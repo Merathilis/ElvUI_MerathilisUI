@@ -954,6 +954,13 @@ P.nameplates = {
 		additive = true,
 		fade = true,
 	},
+	interruptReady = {
+		enable = true,
+		tint = true,
+		window = true,
+		tick = true,
+		tickColor = { r = 1, g = 1, b = 1 },
+	},
 }
 
 P.unitframes = {
@@ -971,6 +978,19 @@ P.unitframes = {
 			focus = { enable = true, size = 18, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
 			focustarget = { enable = false, size = 16, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
 			arena = { enable = true, size = 18, position = "TOPRIGHT", xOffset = 6, yOffset = 6 },
+		},
+	},
+	interruptReady = {
+		enable = true,
+		tint = true,
+		window = true,
+		tick = true,
+		tickColor = { r = 1, g = 1, b = 1 },
+		units = {
+			target = true,
+			focus = true,
+			boss = true,
+			arena = true,
 		},
 	},
 }

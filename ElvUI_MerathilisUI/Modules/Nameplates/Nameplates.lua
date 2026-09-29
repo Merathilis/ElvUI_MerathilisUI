@@ -112,6 +112,7 @@ function module:Initialize()
 	module:FactionIndicator()
 	module:TargetArrows()
 	module:Highlight()
+	module:InterruptReady()
 
 	RefreshAll()
 end

@@ -1472,3 +1472,17 @@ L["Restyles the highlight on the health bar of the nameplate under your mouse. N
 L["Fade In"] = true
 L["Additive Blend"] = true
 L["Brightens the health bar instead of laying the texture over it."] = true
+
+-- Interrupt Ready
+L["Interrupt Ready"] = true
+L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."] = true
+L["Cooldown Color"] = true
+L["Colors the filled part of the castbar while your interrupt is on cooldown."] = true
+L["Ready Window"] = true
+L["Colors the rest of the cast from the moment your interrupt is ready again."] = true
+L["Ready Tick"] = true
+L["A thin line at the moment your interrupt is ready again."] = true
+L["Tick Color"] = true
+L["Units"] = true
+L["Interrupt on Cooldown"] = true
+L["Interrupt Ready Soon"] = true

@@ -16,5 +16,8 @@
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
 -   [New]: NamePlates: Animated target arrows next to your target's nameplate (slide in, bounce or both, in class color by default). They replace the arrows of ElvUI's target indicator while enabled.
 -   [New]: NamePlates: The mouseover highlight on the health bar can be restyled with a texture, class or custom color and a short fade in.
+-   [New]: NamePlates: Interrupt Ready on the castbars of hostile nameplates: while your interrupt is on cooldown the bar gets its own color, and the part of the cast after your interrupt is ready again is marked with a second color and a thin line.
 -   [New]: Skins: New skin for Permoks Account Manager: window borders, the category and page buttons and the close button in the MerathilisUI style.
+-   [New]: UnitFrames: Interrupt Ready on the castbars of the target, focus, boss and arena frames, the same indicator as on the nameplates.
 -   [Improvement]: Core: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.
+-   [Improvement]: Theme: The castbar colors now include Interrupt on Cooldown and Interrupt Ready Soon, used by the new Interrupt Ready indicator and following the gradient mode.

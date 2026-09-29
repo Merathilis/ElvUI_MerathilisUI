@@ -3,4 +3,5 @@
 	<Script file="FactionIndicator.lua"/>
 	<Script file="TargetArrows.lua"/>
 	<Script file="Highlight.lua"/>
+	<Script file="InterruptReady.lua"/>
 </Ui>

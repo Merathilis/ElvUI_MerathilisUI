@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="FactionIndicator.lua"/>
+	<Script file="InterruptReady.lua"/>
 	<Script file="RaidIcon.lua"/>
 	<Script file="RestingIndicator.lua"/>
 </Ui>
