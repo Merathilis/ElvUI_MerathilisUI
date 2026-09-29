@@ -128,6 +128,7 @@ function AFK:UpdateLogOff()
 
 	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
 		self:CancelTimer(self.logoffTimer)
+		self.logoffTimer = nil
 		if self.AFKMode.count then
 			self.AFKMode.count:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
 		end
@@ -156,38 +157,46 @@ local function UpdateTimer()
 end
 hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 
+local function CancelLogOffTimer()
+	if AFK.logoffTimer then
+		AFK:CancelTimer(AFK.logoffTimer)
+		AFK.logoffTimer = nil
+	end
+end
+
 AFK.SetAFKMER = AFK.SetAFK
 function AFK:SetAFK(status)
+	-- ElvUI's own SetAFK already clears isAFK when leaving, so the state from before its call
+	-- decides. Checking it afterwards never stopped the countdown, every AFK left one running.
+	local wasAFK = self.isAFK
 	self:SetAFKMER(status)
+
+	if not status then
+		CancelLogOffTimer()
+		if wasAFK and self.AFKMode.count then
+			self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		end
+		return
+	end
+
 	if not IsEnabled() then
 		return
 	end
 
-	local guildName = GetGuildInfo("player")
-
-	if status then
+	if AFK.AFKMode.Guild then
+		local guildName = IsInGuild() and GetGuildInfo("player")
 		if IsInGuild() then
-			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText(
-					guildName and F.String.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or ""
-				)
-			end
+			AFK.AFKMode.Guild:SetText(
+				guildName and F.String.FastGradientHex("<" .. guildName .. ">", "06c910", "33ff3d") or ""
+			)
 		else
-			if AFK.AFKMode.Guild then
-				AFK.AFKMode.Guild:SetText(L["No Guild"])
-			end
+			AFK.AFKMode.Guild:SetText(L["No Guild"])
 		end
-
-		AFK.startTime = GetTime()
-		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
-
-		AFK.isAFK = true
-	elseif AFK.isAFK then
-		self:CancelTimer(AFK.logoffTimer)
-
-		self.AFKMode.count:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-		AFK.isAFK = false
 	end
+
+	AFK.startTime = GetTime()
+	CancelLogOffTimer()
+	AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
 end
 
 function module:AFK()

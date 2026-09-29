@@ -71,8 +71,7 @@ function module:PetTabs_Create()
 end
 
 function module:PetFilterTab()
-	self.db = F.GetDBFromPath("mui.misc.petFilterTab")
-	if not self.db then
+	if not F.GetDBFromPath("mui.misc.petFilterTab") then
 		return
 	end
 

@@ -12,7 +12,6 @@ local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
-module.updateProfile = {}
 
 --- Register a callback function
 ---@param name string Function name
@@ -38,13 +37,6 @@ function module:AddCallbackForAddon(addonName, func)
 	tinsert(addon, func or self[addonName])
 end
 
---- Register an update callback function
----@param name string Function name
----@param func function|string? Callback function (defaults to self[name] if not provided)
-function module:AddCallbackForUpdate(name, func)
-	tinsert(self.updateProfile, func or self[name])
-end
-
 --[[
 	@param {string} err
 ]]
@@ -57,7 +49,7 @@ end
 ---@param object function[] Array of callback functions
 function module:CallLoadedAddon(addonName, object)
 	for _, func in next, object do
-		xpcall(func, F.Developer.LogDebug, self)
+		xpcall(func, errorhandler, self)
 	end
 
 	self.addonsToLoad[addonName] = nil
@@ -96,13 +88,6 @@ function module:Initialize()
 		if isLoaded and isFinished then
 			self:CallLoadedAddon(addonName, object)
 		end
-	end
-end
-
-function module:ProfileUpdate()
-	for index, func in next, self.updateProfile do
-		xpcall(func, errorhandler, self)
-		self.updateProfile[index] = nil
 	end
 end
 

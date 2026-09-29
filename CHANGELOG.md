@@ -1,5 +1,6 @@
 ### Changes
 
+-   [Fix]: AFK: Leaving the AFK screen stops its logout countdown again, before every AFK left a timer running until logout.
 -   [Fix]: Bags: Switching to a profile with the categorized bags turned off (or on) applies right away, before the bags stayed as they were until a reload.
 -   [Fix]: Bags: The equipment set icon in the bags follows a profile switch right away.
 -   [Fix]: Buff Reminder: Turning the Buff Reminder on in the options or by a profile switch works right away, even when it was turned off at login.
@@ -9,3 +10,4 @@
 -   [Fix]: Loot Spec Manager: Turning it off now really stops the automatic loot spec changes and hides the Encounter Journal button, without a reload. A profile switch uses the settings of the new profile.
 -   [Fix]: Mail: Open Selected no longer opens the wrong mails once a mail without text is removed after it was emptied.
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
+-   [Improvement]: Core: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.
