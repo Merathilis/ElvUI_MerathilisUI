@@ -6,9 +6,9 @@ local rad, cos, sin = math.rad, math.cos, math.sin
 local CreateFrame = CreateFrame
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local GetSpellCooldown = C_Spell and C_Spell.GetSpellCooldown or GetSpellCooldown
-local UnitCastingInfo = UnitCastingInfo or CastingInfo
-local UnitChannelInfo = UnitChannelInfo or ChannelInfo
+local GetSpellCooldown = C_Spell.GetSpellCooldown
+local UnitCastingInfo = UnitCastingInfo
+local UnitChannelInfo = UnitChannelInfo
 local GetUnitEmpowerHoldAtMaxTime = GetUnitEmpowerHoldAtMaxTime
 
 local Enum_OnUpdateMode_RunWhenVisible = Enum.OnUpdateMode and Enum.OnUpdateMode.RunWhenVisible
@@ -35,12 +35,6 @@ function module:CreateGCDRing()
 	root.ring = self:CreateRing(root, radius)
 	root.ring.idleHidden = true
 	root.ring.fg:Hide() -- the GCD ring only appears while actually sweeping
-
-	root:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
 
 	root:SetScript("OnEvent", function(_, event, unit)
 		if unit ~= "player" then
@@ -84,6 +78,16 @@ function module:CreateGCDRing()
 
 	root:Hide()
 	self.gcdRoot = root
+end
+
+-- Disable() unregisters the ring events, so they are registered on every Enable()
+function module:RegisterGCDEvents()
+	local root = self.gcdRoot
+	root:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
 end
 
 function module:CreateGCDMover()
@@ -216,20 +220,6 @@ function module:CreateCastRing()
 
 	root._castID = nil
 
-	root:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_DELAYED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_START", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_UPDATE", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_STOP", "player")
-	if UnitChannelInfo and GetUnitEmpowerHoldAtMaxTime then
-		root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_START", "player")
-		root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_UPDATE", "player")
-		root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_STOP", "player")
-	end
-
 	root:SetScript("OnEvent", function(self, event, unit, castID)
 		if unit ~= "player" then
 			return
@@ -275,7 +265,7 @@ function module:CreateCastRing()
 				and not E:IsSecretValue(numStages)
 			then
 				self._castID = nil
-				if numStages and numStages > 0 and GetUnitEmpowerHoldAtMaxTime then
+				if numStages and numStages > 0 then
 					local holdMS = GetUnitEmpowerHoldAtMaxTime("player")
 					if holdMS and not E:IsSecretValue(holdMS) then
 						endMS = endMS + holdMS
@@ -303,6 +293,22 @@ function module:CreateCastRing()
 
 	root:Hide()
 	self.castRoot = root
+end
+
+-- Disable() unregisters the ring events, so they are registered on every Enable()
+function module:RegisterCastEvents()
+	local root = self.castRoot
+	root:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_DELAYED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_START", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_UPDATE", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_STOP", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_START", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_UPDATE", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_STOP", "player")
 end
 
 function module:CreateCastMover()
