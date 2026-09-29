@@ -21,6 +21,7 @@ V.skins = {
 		klf = true,
 		paragonReputation = true,
 		classCodex = true,
+		pam = true,
 		bw = {
 			enable = true,
 			queueTimer = {

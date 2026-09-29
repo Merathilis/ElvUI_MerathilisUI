@@ -1535,3 +1535,4 @@ L["Colors the durability below the thresholds. Turned off, it only turns orange 
 L["Warning Color"] = true
 L["Critical"] = true
 L["Critical Color"] = true
+L["Permoks Account Manager"] = true

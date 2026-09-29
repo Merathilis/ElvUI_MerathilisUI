@@ -19,6 +19,7 @@ MER.Changelog[738] = {
 	},
 	NEW = {
 		"[DataTexts]: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.",
+		"[Skins]: New skin for Permoks Account Manager: window borders, the category and page buttons and the close button in the MerathilisUI style.",
 	},
 	IMPROVEMENTS = {
 		"[Core]: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.",
