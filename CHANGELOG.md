@@ -16,6 +16,10 @@
 -   [Fix]: Notification: Closing a toast with its close button frees the slot right away, so queued toasts show up.
 -   [Fix]: Notification: Fixed the map link in the chat message for rares on the minimap.
 -   [Fix]: Notification: The durability warning is no longer shown while notifications are disabled.
+-   [Fix]: Profiles: The ls_Toasts, Capping and TomTom profiles are now actually applied and activated.
+-   [Fix]: Profiles: The Details profile is now used on all characters as intended.
+-   [Fix]: Profiles: The mMediaTag profile no longer wipes the other portrait settings.
+-   [Fix]: Profiles: Profile buttons are only clickable while the addon is enabled.
 -   [Fix]: Raid Info Frame: Turning it on in the options no longer throws Lua errors from the size and spacing options, and turning it on or off, also by a profile switch, works without a reload. Hide In Combat applies right away.
 -   [Fix]: Skins: The BugSack skin no longer throws a Lua error with the latest WindTools, and the version line in the BugSack window is no longer added again on every open.
 -   [Fix]: Status Report: Opening it no longer throws a Lua error when Details is enabled but not loaded.

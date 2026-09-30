@@ -2,18 +2,12 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles") ---@class Profiles
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-
-if not IsAddOnLoaded("ElvUI_WindTools") then
-	return
-end
-
 function module:LoadWindToolsProfile()
-	local db = E and E.db and E.db.WT
-	local private = E and E.private and E.private.WT
-	local global = E and E.global and E.global.WT
+	local db = E.db.WT
+	local private = E.private.WT
+	local global = E.global.WT
 
-	if not db or not private then
+	if not db or not private or not global then
 		return
 	end
 

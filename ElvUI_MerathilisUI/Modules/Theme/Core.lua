@@ -20,7 +20,6 @@ function module:Toggle(theme, value)
 	elseif theme == "darkMode" then
 		E.db.mui.themes.gradientMode.enable = false
 		E.db.unitframe.colors.healthclass = false
-		pf:UpdateProfileForTheme()
 	end
 end
 
