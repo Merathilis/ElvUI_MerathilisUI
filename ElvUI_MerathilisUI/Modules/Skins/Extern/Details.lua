@@ -23,30 +23,37 @@ local classes = {
 	["EVOKER"] = true,
 }
 
+local function GetActorClass(actor)
+	local class = actor and actor.class and actor:class()
+	if class and E:NotSecretValue(class) then
+		return class
+	end
+end
+
+local function SetBarGradient(row, r, g, b)
+	if E:IsSecretValue(r) then
+		return
+	end
+
+	local class = GetActorClass(row.minha_tabela)
+	if class and classes[class] then
+		row.textura:SetGradient("Horizontal", F.GradientColorsDetails(class))
+	else
+		row.textura:SetGradient(
+			"Horizontal",
+			CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
+			CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9)
+		)
+	end
+end
+
 local function GradientBars()
 	hooksecurefunc(Details, "InstanceRefreshRows", function(instancia)
 		if instancia.barras and instancia.barras[1] then
 			for _, row in next, instancia.barras do
 				if row and row.textura and not row.textura.__MERSkin then
 					hooksecurefunc(row.textura, "SetVertexColor", function(_, r, g, b)
-						if row.minha_tabela and row.minha_tabela.name then
-							local class = row.minha_tabela:class()
-							if classes[class] then
-								row.textura:SetGradient("Horizontal", F.GradientColorsDetails(class))
-							else
-								row.textura:SetGradient(
-									"Horizontal",
-									CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
-									CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9)
-								)
-							end
-						else
-							row.textura:SetGradient(
-								"Horizontal",
-								CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
-								CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9)
-							)
-						end
+						SetBarGradient(row, r, g, b)
 					end)
 					row.textura.__MERSkin = true
 				end
@@ -55,41 +62,37 @@ local function GradientBars()
 	end)
 end
 
-local function GradientNames()
-	hooksecurefunc(Details.atributo_damage, "RefreshLine", function(_, detailsDB, lineContainer, whichRowLine)
-		local thisLine = lineContainer[whichRowLine]
-		if not thisLine then
+-- In combat Details shows secret names, those can't be stripped or shortened
+local function SetGradientName(line, db)
+	local fontString = line and line.lineText1
+	local class = line and GetActorClass(line.minha_tabela)
+	if not fontString or not class then
+		return
+	end
+
+	local name = fontString:GetText()
+	if E:NotSecretValue(name) then
+		if not name then
 			return
 		end
-		if thisLine.lineText1 then
-			local name = E:StripString(thisLine.lineText1:GetText())
-			if detailsDB.use_multi_fontstrings and detailsDB.use_auto_align_multi_fontstrings then
-				thisLine.lineText1:SetText(
-					F.GradientName(F:ShortenString(name, 10, true), thisLine.minha_tabela:class())
-				)
-			else
-				thisLine.lineText1:SetText(F.GradientName(name, thisLine.minha_tabela:class()))
-			end
-			thisLine.lineText1:SetShadowOffset(2, -2)
+
+		name = E:StripString(name)
+		if db.use_multi_fontstrings and db.use_auto_align_multi_fontstrings then
+			name = F:ShortenString(name, 10, true)
 		end
+	end
+
+	fontString:SetText(F.GradientName(name, class))
+	fontString:SetShadowOffset(2, -2)
+end
+
+local function GradientNames()
+	hooksecurefunc(Details.atributo_damage, "RefreshLine", function(_, instance, lineContainer, whichRowLine)
+		SetGradientName(lineContainer[whichRowLine], instance)
 	end)
 
-	hooksecurefunc(Details.atributo_heal, "RefreshLine", function(_, instancia, _, whichRowLine)
-		local thisLine = instancia.barras[whichRowLine]
-		if not thisLine then
-			return
-		end
-		if thisLine.lineText1 then
-			local name = E:StripString(thisLine.lineText1:GetText())
-			if instancia.use_multi_fontstrings and instancia.use_auto_align_multi_fontstrings then
-				thisLine.lineText1:SetText(
-					F.GradientName(F:ShortenString(name, 10, true), thisLine.minha_tabela:class())
-				)
-			else
-				thisLine.lineText1:SetText(F.GradientName(name, thisLine.minha_tabela:class()))
-			end
-			thisLine.lineText1:SetShadowOffset(2, -2)
-		end
+	hooksecurefunc(Details.atributo_heal, "RefreshLine", function(_, instance, _, whichRowLine)
+		SetGradientName(instance.barras[whichRowLine], instance)
 	end)
 end
 

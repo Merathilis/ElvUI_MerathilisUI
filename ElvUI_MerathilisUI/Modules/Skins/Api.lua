@@ -4,7 +4,7 @@ local S = E:GetModule("Skins")
 
 local _G = _G
 local assert, pairs, unpack, type = assert, pairs, unpack, type
-local strfind, strmatch, tinsert, format, tostring = strfind, strmatch, tinsert, format, tostring
+local strfind, strmatch, tinsert = strfind, strmatch, tinsert
 local rad = rad
 
 local CreateFrame = CreateFrame
@@ -323,28 +323,6 @@ function module:ApplyConfigArrows()
 end
 
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
-
--- Proxy function to call ElvUI Skins functions
----@param method string The function name in ElvUI Skins
----@param frame any The frame to pass to the function
----@param ... any Additional arguments to pass
-function module:Proxy(method, frame, ...)
-	if not frame then
-		F.Developer.ThrowError("Failed to proxy function: frame is nil.", "\n funcName:", method)
-		return
-	end
-
-	if not S[method] then
-		F.Developer.ThrowError(
-			format("Proxy: %s does not exist in ElvUI Skins", method),
-			"\n frame:",
-			frame.GetDebugName and frame:GetDebugName() or tostring(frame)
-		)
-		return
-	end
-
-	S[method](S, frame, ...)
-end
 
 -- Disable AddOnSkins Skin
 function module:DisableAddOnSkins(optionName, value)

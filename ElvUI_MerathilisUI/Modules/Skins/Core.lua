@@ -6,17 +6,11 @@ local xpcall = xpcall
 local tinsert, format, type = tinsert, format, type
 
 local CreateFrame = CreateFrame
-local GenerateClosure = GenerateClosure
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
-module.settingFrames = {}
-module.waitSettingFrames = {}
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
-module.enteredLoad = {}
-module.texturePathFetcher = E.UIParent:CreateTexture(nil, "ARTWORK")
-module.texturePathFetcher:Hide()
 
 function module:ShadowOverlay()
 	-- Based on ncShadow
@@ -37,16 +31,6 @@ function module:ShadowOverlay()
 	f:SetAlpha(0.7)
 end
 
-function module:IsTexturePathEqual(texture, path)
-	local got = texture and texture.GetTextureFilePath and texture:GetTextureFilePath()
-	if not got then
-		return false
-	end
-
-	self.texturePathFetcher:SetTexture(path)
-	return got == self.texturePathFetcher:GetTextureFilePath()
-end
-
 function module:AddCallback(name, func)
 	tinsert(self.nonAddonsToLoad, func or self[name])
 end
@@ -63,21 +47,6 @@ function module:AddCallbackForAddon(addonName, func)
 	end
 
 	tinsert(addon, func or self[addonName])
-end
-
-function module:AddCallbackForEnterWorld(name, func)
-	tinsert(self.enteredLoad, func or self[name])
-end
-
-function module:PLAYER_ENTERING_WORLD()
-	if not E.Initialized or not E.private.mui.skins.enable then
-		return
-	end
-
-	for index, func in next, self.enteredLoad do
-		xpcall(func, F.Developer.ThrowError, self)
-		self.enteredLoad[index] = nil
-	end
 end
 
 ---Call all loaded addon callbacks
@@ -101,24 +70,6 @@ function module:ADDON_LOADED(_, addonName)
 	local callbacks = self.addonsToLoad[addonName]
 	if callbacks then
 		self:CallLoadedAddon(addonName, callbacks)
-	end
-end
-
-function module:ReskinSettingFrame(name, func)
-	if type(func) == "string" and module[func] then
-		func = GenerateClosure(module[func], module)
-	end
-
-	if not func then
-		F.Developer.ThrowError("ReskinSettingFrame: func is nil")
-		return
-	end
-
-	local frame = self.settingFrames[name]
-	if frame then
-		func(frame)
-	else
-		self.waitSettingFrames[name] = func
 	end
 end
 
@@ -147,5 +98,4 @@ function module:Initialize()
 end
 
 module:RegisterEvent("ADDON_LOADED")
-module:RegisterEvent("PLAYER_ENTERING_WORLD")
 MER:RegisterModule(module:GetName())
