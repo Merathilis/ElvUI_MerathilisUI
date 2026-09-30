@@ -22,13 +22,15 @@ local function GetGuildInvites()
 	local date = GetCurrentCalendarTime()
 	for index = 1, GetNumGuildEvents() do
 		local info = GetGuildEventInfo(index)
-		local monthOffset = info.month - date.month
-		local numDayEvents = GetNumDayEvents(monthOffset, info.monthDay)
+		if info then
+			local monthOffset = info.month - date.month
+			local numDayEvents = GetNumDayEvents(monthOffset, info.monthDay)
 
-		for i = 1, numDayEvents do
-			local event = GetDayEvent(monthOffset, info.monthDay, i)
-			if event.inviteStatus == _G.CALENDAR_INVITESTATUS_NOT_SIGNEDUP then
-				numGuildInvites = numGuildInvites + 1
+			for i = 1, numDayEvents do
+				local event = GetDayEvent(monthOffset, info.monthDay, i)
+				if event and event.inviteStatus == _G.CALENDAR_INVITESTATUS_NOT_SIGNEDUP then
+					numGuildInvites = numGuildInvites + 1
+				end
 			end
 		end
 	end

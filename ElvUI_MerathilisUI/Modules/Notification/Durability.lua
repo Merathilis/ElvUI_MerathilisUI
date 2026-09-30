@@ -30,6 +30,11 @@ local function ResetRepairNotification()
 end
 
 function module:UPDATE_INVENTORY_DURABILITY()
+	local db = E.db.mui.notification
+	if not db or not db.enable then
+		return
+	end
+
 	local lowestPct, lowestName = 1, nil
 
 	for i = 1, #Slots do

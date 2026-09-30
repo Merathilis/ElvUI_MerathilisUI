@@ -4,7 +4,7 @@ local S = MER:GetModule("MER_Skins")
 local WS = W:GetModule("Skins")
 
 -- Credits RealUI
-local unpack, type, pairs = unpack, type, pairs
+local unpack, type, pcall = unpack, type, pcall
 local table = table
 local tinsert, tremove = table.insert, table.remove
 
@@ -64,6 +64,8 @@ function module:SpawnToast(toast)
 
 	tinsert(activeToasts, toast)
 
+	-- A toast closed by hand goes back into the pool fully visible
+	toast:SetAlpha(0)
 	toast:Show()
 	toast.AnimIn.AnimMove:SetOffset(0, YOffset)
 	toast.AnimOut.AnimMove:SetOffset(0, -YOffset)
@@ -107,11 +109,21 @@ function module:RefreshToasts()
 end
 
 function module:HideToast(toast)
-	for i, activeToast in pairs(activeToasts) do
-		if toast == activeToast then
+	local wasActive = false
+	for i = #activeToasts, 1, -1 do
+		if toast == activeToasts[i] then
 			tremove(activeToasts, i)
+			wasActive = true
 		end
 	end
+
+	-- Already back in the pool, a second insert would hand the frame out twice
+	if not wasActive then
+		return
+	end
+
+	toast.AnimIn:Stop()
+	toast.AnimOut:Stop()
 	tinsert(toasts, toast)
 	toast:Hide()
 	After(0.1, function()
@@ -129,7 +141,7 @@ function module:CreateToast()
 		return toast
 	end
 
-	toast = CreateFrame("Frame", MER.Title .. "Toast", E.UIParent, "BackdropTemplate")
+	toast = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
 	toast:SetFrameStrata("HIGH")
 	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
@@ -137,6 +149,10 @@ function module:CreateToast()
 	toast:CreateBackdrop("Transparent")
 	WS:CreateBackdropShadow(toast, true)
 	toast:CreateCloseButton(10)
+	-- The button only hides the frame, the slot has to be given back as well
+	toast.CloseButton:HookScript("OnClick", function(button)
+		module:HideToast(button:GetParent())
+	end)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
 	icon:SetSize(32, 32)
@@ -330,8 +346,7 @@ function module:Initialize()
 	self:RegisterEvent("QUEST_ACCEPTED")
 	self:RegisterEvent("WEEKLY_REWARDS_UPDATE")
 	self:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
-
-	self:AlertFullBags()
+	self:RegisterEvent("BAG_UPDATE_DELAYED")
 
 	self.lastMinimapRare = { time = 0, id = nil }
 end
