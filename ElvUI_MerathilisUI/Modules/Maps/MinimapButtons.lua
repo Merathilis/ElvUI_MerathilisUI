@@ -743,6 +743,19 @@ local function GetPersonalOrders()
 	return (type(infos) == "table" and #infos > 0) and infos or nil
 end
 
+-- These buttons only exist while something is waiting, so they pulse for as long as they are shown.
+local function PulseWhileShown(btn)
+	CreateExpandPulse(btn, btn.Icon, btn.upAtlas)
+	btn:SetScript("OnShow", function(self)
+		if not self.PulseGroup:IsPlaying() then
+			self.PulseGroup:Play()
+		end
+	end)
+	btn:SetScript("OnHide", function(self)
+		self.PulseGroup:Stop()
+	end)
+end
+
 local function CreateMailButton(parent)
 	local btn = CreateIndicatorButton(parent, "Mail", MAIL_ATLAS, nil)
 
@@ -758,16 +771,7 @@ local function CreateMailButton(parent)
 		_G.GameTooltip:Show()
 	end
 
-	-- The button only exists while mail is waiting, so it pulses for as long as it is shown.
-	CreateExpandPulse(btn, btn.Icon, MAIL_ATLAS[1])
-	btn:SetScript("OnShow", function(self)
-		if not self.PulseGroup:IsPlaying() then
-			self.PulseGroup:Play()
-		end
-	end)
-	btn:SetScript("OnHide", function(self)
-		self.PulseGroup:Stop()
-	end)
+	PulseWhileShown(btn)
 
 	return btn
 end
@@ -787,6 +791,8 @@ local function CreateCraftingButton(parent)
 		end
 		_G.GameTooltip:Show()
 	end
+
+	PulseWhileShown(btn)
 
 	return btn
 end
