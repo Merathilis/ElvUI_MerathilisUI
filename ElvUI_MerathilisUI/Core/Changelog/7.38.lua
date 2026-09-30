@@ -14,6 +14,7 @@ MER.Changelog[738] = {
 		"[Mail]: Open Selected no longer opens the wrong mails once a mail without text is removed after it was emptied.",
 		'[Name Hover]: Hovering a quest mob no longer throws a Lua error ("secret value") when its tooltip lines are restricted, e.g. in Mythic+.',
 		"[Name Hover]: The Mythic+ forces text no longer gets cut off with the Number or Both format.",
+		'[NamePlates]: Fixed the castbar spell name being cut off when ElvUI\'s "Name Length" was set',
 		"[Raid Info Frame]: Turning it on in the options no longer throws Lua errors from the size and spacing options, and turning it on or off, also by a profile switch, works without a reload. Hide In Combat applies right away.",
 		"[Skins]: The BugSack skin no longer throws a Lua error with the latest WindTools, and the version line in the BugSack window is no longer added again on every open.",
 		"[Status Report]: Opening it no longer throws a Lua error when Details is enabled but not loaded.",
