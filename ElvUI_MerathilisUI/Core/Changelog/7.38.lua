@@ -42,6 +42,8 @@ MER.Changelog[738] = {
 		"[NamePlates]: Execute Line: a line on the health bar of hostile nameplates at a health percent of your choice (20% by default), so you see when a unit gets into your execute range. Comes with a soft glow, small markers and a tinted execute range, each can be turned off, plus an optional pulse. Off by default.",
 		"[NamePlates]: Interrupt Ready on the castbars of hostile nameplates: while your interrupt is on cooldown the bar gets its own color, and the part of the cast after your interrupt is ready again is marked with a second color and a thin line.",
 		"[NamePlates]: Cast on You: the castbar of a hostile nameplate gets a colored border while its cast targets you, optionally the bar itself is colored too.",
+		"[NamePlates]: Focus Highlight: a texture over the health bar of your focus target's nameplate, with its own texture, color and opacity.",
+		"[NamePlates]: Raid Marker Color: the health bar of a nameplate with a raid marker is tinted in the color of that marker. Off by default.",
 		"[Skins]: New skin for Permoks Account Manager: window borders, the category and page buttons and the close button in the MerathilisUI style.",
 		"[UnitFrames]: Execute Line on the health bar of the target, focus, boss and arena frames, the same line as on the nameplates, also off by default.",
 		"[UnitFrames]: Interrupt Ready on the castbars of the target, focus, boss and arena frames, the same indicator as on the nameplates.",

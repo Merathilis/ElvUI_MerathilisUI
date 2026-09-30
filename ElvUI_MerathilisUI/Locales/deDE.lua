@@ -1260,6 +1260,10 @@ L["Restyles the highlight on the health bar of the nameplate under your mouse. N
 L["Fade In"] = "Einblenden"
 L["Additive Blend"] = "Additive Überblendung"
 L["Brightens the health bar instead of laying the texture over it."] = "Hellt die Lebensleiste auf, statt die Textur darüberzulegen."
+L["Focus Highlight"] = "Fokus-Hervorhebung"
+L["Lays a texture over the health bar of your focus target's nameplate."] = "Legt eine Textur über die Lebensleiste der Namensplakette deines Fokusziels."
+L["Raid Marker Color"] = "Schlachtzugsmarker-Farbe"
+L["Tints the health bar of a nameplate with a raid marker in the color of that marker."] = "Färbt die Lebensleiste einer Namensplakette mit Schlachtzugsmarker in der Farbe dieses Markers."
 
 -- Interrupt Ready
 L["Interrupt Ready"] = "Unterbrechung bereit"

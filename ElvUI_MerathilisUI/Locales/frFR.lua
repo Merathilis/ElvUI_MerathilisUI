@@ -1473,6 +1473,10 @@ L["Restyles the highlight on the health bar of the nameplate under your mouse. N
 L["Fade In"] = true
 L["Additive Blend"] = true
 L["Brightens the health bar instead of laying the texture over it."] = true
+L["Focus Highlight"] = true
+L["Lays a texture over the health bar of your focus target's nameplate."] = true
+L["Raid Marker Color"] = true
+L["Tints the health bar of a nameplate with a raid marker in the color of that marker."] = true
 
 -- Interrupt Ready
 L["Interrupt Ready"] = true

@@ -954,6 +954,17 @@ P.nameplates = {
 		additive = true,
 		fade = true,
 	},
+	focusHighlight = {
+		enable = true,
+		texture = "MER_Stripes",
+		colorMode = "CUSTOM",
+		customColor = { r = 1, g = 1, b = 1 },
+		alpha = 0.35,
+	},
+	markerColor = {
+		enable = false,
+		alpha = 0.75,
+	},
 	interruptReady = {
 		enable = true,
 		tint = true,

@@ -31,6 +31,14 @@ local function HighlightCustomColorDisabled()
 	return HighlightDisabled() or E.db.mui.nameplates.highlight.colorMode ~= "CUSTOM"
 end
 
+local function FocusHighlightDisabled()
+	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.focusHighlight.enable
+end
+
+local function FocusHighlightCustomColorDisabled()
+	return FocusHighlightDisabled() or E.db.mui.nameplates.focusHighlight.colorMode ~= "CUSTOM"
+end
+
 local function CastTargetDisabled()
 	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.castTarget.enable
 end
@@ -316,6 +324,116 @@ options.nameplates = {
 						end, P.nameplates.highlight, function()
 							MNP:UpdateHighlights()
 						end, HighlightCustomColorDisabled),
+					},
+				},
+				focusHighlight = {
+					order = 3.1,
+					type = "group",
+					name = L["Focus Highlight"],
+					guiInline = true,
+					get = function(info)
+						return E.db.mui.nameplates.focusHighlight[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.nameplates.focusHighlight[info[#info]] = value
+						MNP:UpdateFocusHighlights()
+					end,
+					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
+					args = {
+						desc = {
+							order = 1,
+							type = "description",
+							dialogControl = "MERNewFeatureLabel",
+							name = F.NewFeatureTrailingText(L["Lays a texture over the health bar of your focus target's nameplate."]),
+						},
+						preview = {
+							order = 1.5,
+							type = "description",
+							dialogControl = "MERNameplateHealthPreview",
+							name = "focusHighlight",
+							width = "full",
+						},
+						enable = {
+							order = 2,
+							type = "toggle",
+							name = L["Enable"],
+						},
+						texture = {
+							order = 3,
+							type = "select",
+							name = L["Texture"],
+							dialogControl = "LSM30_Statusbar",
+							values = LSM:HashTable("statusbar"),
+							disabled = FocusHighlightDisabled,
+						},
+						alpha = {
+							order = 4,
+							type = "range",
+							name = L["Alpha"],
+							disabled = FocusHighlightDisabled,
+							min = 0.05,
+							max = 1,
+							step = 0.05,
+							isPercent = true,
+						},
+						colorMode = {
+							order = 5,
+							type = "select",
+							name = L["Color"],
+							disabled = FocusHighlightDisabled,
+							values = COLOR_MODES,
+						},
+						customColor = CustomColorOption(6, function()
+							return E.db.mui.nameplates.focusHighlight
+						end, P.nameplates.focusHighlight, function()
+							MNP:UpdateFocusHighlights()
+						end, FocusHighlightCustomColorDisabled),
+					},
+				},
+				markerColor = {
+					order = 3.2,
+					type = "group",
+					name = L["Raid Marker Color"],
+					guiInline = true,
+					get = function(info)
+						return E.db.mui.nameplates.markerColor[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.nameplates.markerColor[info[#info]] = value
+						MNP:UpdateMarkerColors()
+					end,
+					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
+					args = {
+						desc = {
+							order = 1,
+							type = "description",
+							dialogControl = "MERNewFeatureLabel",
+							name = F.NewFeatureTrailingText(L["Tints the health bar of a nameplate with a raid marker in the color of that marker."]),
+						},
+						preview = {
+							order = 1.5,
+							type = "description",
+							dialogControl = "MERNameplateHealthPreview",
+							name = "markerColor",
+							width = "full",
+						},
+						enable = {
+							order = 2,
+							type = "toggle",
+							name = L["Enable"],
+						},
+						alpha = {
+							order = 3,
+							type = "range",
+							name = L["Alpha"],
+							disabled = function()
+								return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.markerColor.enable
+							end,
+							min = 0.05,
+							max = 1,
+							step = 0.05,
+							isPercent = true,
+						},
 					},
 				},
 				interruptReady = module.InterruptReadyOptions(4, function()
