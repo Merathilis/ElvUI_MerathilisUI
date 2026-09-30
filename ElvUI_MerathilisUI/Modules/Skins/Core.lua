@@ -1,7 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@class Skins
 
-local _G = _G
 local next, pairs = next, pairs
 local xpcall = xpcall
 local tinsert, format, type = tinsert, format, type
