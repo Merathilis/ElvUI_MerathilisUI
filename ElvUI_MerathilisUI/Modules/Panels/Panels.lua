@@ -5,14 +5,13 @@ local WS = W:GetModule("Skins")
 
 local CreateFrame = CreateFrame
 local CreateColor = CreateColor
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 local function GetPanelColor()
 	local db = E.db.mui.panels
 	if db.colorType == "CUSTOM" then
 		return db.customColor
 	elseif db.colorType == "CLASS" then
-		return RAID_CLASS_COLORS[E.myclass]
+		return E:ClassColor(E.myclass, true)
 	end
 	return nil -- default white handled below
 end
@@ -97,9 +96,8 @@ function module:CreatePanels()
 	topLeftExtra:Point("TOPLEFT", E.UIParent, "TOPLEFT", 2, -14)
 	topLeftExtra:Hide()
 
-	local topLeftExtraLine = CreateFrame("Frame", nil, topLeftExtra, "BackdropTemplate")
+	local topLeftExtraLine = CreateFrame("Frame", "MER_TopLeftExtraStyle1", topLeftExtra, "BackdropTemplate")
 	topLeftExtraLine:Point("TOP", topLeftExtra, "BOTTOM")
-	_G.MER_TopLeftExtraStyle1 = topLeftExtraLine
 
 	-- Bottom Left
 	local bottomLeftStyle = CreateFrame("Frame", "MER_BottomLeftStyle", E.UIParent, "BackdropTemplate")
@@ -114,9 +112,8 @@ function module:CreatePanels()
 	bottomLeftExtra:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 16)
 	bottomLeftExtra:Hide()
 
-	local bottomLeftExtraLine = CreateFrame("Frame", nil, bottomLeftExtra, "BackdropTemplate")
+	local bottomLeftExtraLine = CreateFrame("Frame", "MER_BottomLeftStylePanel1", bottomLeftExtra, "BackdropTemplate")
 	bottomLeftExtraLine:Point("BOTTOM", bottomLeftExtra, "TOP")
-	_G.MER_BottomLeftStylePanel1 = bottomLeftExtraLine
 
 	-- Top Right
 	local topRightStyle = CreateFrame("Frame", "MER_TopRightStyle", E.UIParent, "BackdropTemplate")
@@ -131,9 +128,8 @@ function module:CreatePanels()
 	topRightExtra:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -14)
 	topRightExtra:Hide()
 
-	local topRightExtraLine = CreateFrame("Frame", nil, topRightExtra, "BackdropTemplate")
+	local topRightExtraLine = CreateFrame("Frame", "MER_TopRightStylePanel1", topRightExtra, "BackdropTemplate")
 	topRightExtraLine:Point("TOP", topRightExtra, "BOTTOM")
-	_G.MER_TopRightStylePanel1 = topRightExtraLine
 
 	-- Bottom Right
 	local bottomRightStyle = CreateFrame("Frame", "MER_BottomRightStyle", E.UIParent, "BackdropTemplate")
@@ -148,21 +144,8 @@ function module:CreatePanels()
 	bottomRightExtra:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 16)
 	bottomRightExtra:Hide()
 
-	local bottomRightExtraLine = CreateFrame("Frame", nil, bottomRightExtra, "BackdropTemplate")
+	local bottomRightExtraLine = CreateFrame("Frame", "MER_BottomRightStylePanel1", bottomRightExtra, "BackdropTemplate")
 	bottomRightExtraLine:Point("BOTTOM", bottomRightExtra, "TOP")
-	_G.MER_BottomRightStylePanel1 = bottomRightExtraLine
-
-	-- Keep globals for external/profile references (named frames already register them)
-	_G.MER_TopPanel = topPanel
-	_G.MER_BottomPanel = bottomPanel
-	_G.MER_TopLeftStyle = topLeftStyle
-	_G.MER_TopLeftExtraStyle = topLeftExtra
-	_G.MER_BottomLeftStyle = bottomLeftStyle
-	_G.MER_BottomLeftExtraStyle = bottomLeftExtra
-	_G.MER_TopRightStyle = topRightStyle
-	_G.MER_TopRightExtraStyle = topRightExtra
-	_G.MER_BottomRightStyle = bottomRightStyle
-	_G.MER_BottomRightExtraStyle = bottomRightExtra
 
 	self.panelsCreated = true
 

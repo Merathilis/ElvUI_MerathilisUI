@@ -38,6 +38,7 @@ MER.Changelog[738] = {
 	IMPROVEMENTS = {
 		"[Core]: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.",
 		"[Minimap Buttons]: The Great Vault button now pulses like a highlighted world map pin while a reward is waiting, and the Mail and Crafting Orders buttons do the same while mail or a personal order is waiting.",
+		"[Panels]: The class color of the style panels now follows custom class colors.",
 		"[Theme]: The castbar colors now include Interrupt on Cooldown and Interrupt Ready Soon, used by the new Interrupt Ready indicator and following the gradient mode.",
 	},
 }
