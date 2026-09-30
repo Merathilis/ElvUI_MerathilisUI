@@ -962,7 +962,7 @@ P.nameplates = {
 		tickColor = { r = 1, g = 1, b = 1 },
 	},
 	executeLine = {
-		enable = true,
+		enable = false,
 		percent = 20,
 		width = 2,
 		glow = true,
@@ -1007,7 +1007,7 @@ P.unitframes = {
 		},
 	},
 	executeLine = {
-		enable = true,
+		enable = false,
 		percent = 20,
 		width = 2,
 		glow = true,
