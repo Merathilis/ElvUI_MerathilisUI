@@ -33,6 +33,8 @@
 -   [Fix]: Trade Tabs: Opening a profession or the trade window in combat no longer causes an "action blocked" message.
 -   [Fix]: UnitFrames: The mouseover highlight is only created once per frame; it used to pile up textures and hooks on every frame update.
 -   [Fix]: UnitFrames: The custom raid icons also apply when ElvUI's raid icon gets enabled later.
+-   [Fix]: Vehicle Bar: Fixed the bar not switching to the vehicle or override actions (Lua error in the page handler since 7.37).
+-   [Fix]: Vehicle Bar: Settings changes in combat are applied after combat instead of being blocked.
 -   [Fix]: Wowhead Links: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
 -   [New]: NamePlates: Animated target arrows next to your target's nameplate (slide in, bounce or both, in class color by default). They replace the arrows of ElvUI's target indicator while enabled.

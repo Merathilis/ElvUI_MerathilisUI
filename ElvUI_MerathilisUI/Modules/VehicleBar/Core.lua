@@ -14,15 +14,8 @@ function module:OnShowEvent()
 	if self.vigorBar and self:IsVigorAvailable() then
 		local widgetInfo = self:GetSpellChargeInfo()
 		if self.vigorBar.segments and widgetInfo then
-			-- Check if we have the correct amount of segments. If not, recreate the segments.
-			if #self.vigorBar.segments < widgetInfo.maxCharges then
-				-- Clear existing segments
-				for _, segment in ipairs(self.vigorBar.segments) do
-					segment:Kill()
-				end
-				self.vigorBar.segments = {} -- Clear the table
-
-				-- Create new segments
+			-- The amount of charges can change, e.g. with a talent
+			if #self.vigorBar.segments ~= widgetInfo.maxCharges then
 				self:CreateVigorSegments()
 			end
 		end
@@ -191,15 +184,13 @@ function module:Enable()
 end
 
 function module:DatabaseUpdate()
-	-- Disable
-	self:Disable()
-
-	-- Set db
-	self.db = F.GetDBFromPath("mui.vehicleBar") or E.db.mui.vehicleBar
-	self.vdb = F.GetDBFromPath("mui.vehicleBar.vigorBar") or E.db.mui.vehicleBar.vigorBar
-
-	-- Enable only out of combat
+	-- Both steps touch state drivers of secure bars, so they wait for the end of combat
 	F.Event.ContinueOutOfCombat(function()
+		self:Disable()
+
+		self.db = F.GetDBFromPath("mui.vehicleBar") or E.db.mui.vehicleBar
+		self.vdb = F.GetDBFromPath("mui.vehicleBar.vigorBar") or E.db.mui.vehicleBar.vigorBar
+
 		if self.db and self.db.enable and E.private.actionbar.enable then
 			self:Enable()
 		end

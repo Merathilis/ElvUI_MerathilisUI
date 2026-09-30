@@ -36,6 +36,8 @@ MER.Changelog[738] = {
 		'[Trade Tabs]: Opening a profession or the trade window in combat no longer causes an "action blocked" message.',
 		"[UnitFrames]: The mouseover highlight is only created once per frame; it used to pile up textures and hooks on every frame update.",
 		"[UnitFrames]: The custom raid icons also apply when ElvUI's raid icon gets enabled later.",
+		"[Vehicle Bar]: Fixed the bar not switching to the vehicle or override actions (Lua error in the page handler since 7.37).",
+		"[Vehicle Bar]: Settings changes in combat are applied after combat instead of being blocked.",
 		"[Wowhead Links]: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.",
 	},
 	NEW = {
