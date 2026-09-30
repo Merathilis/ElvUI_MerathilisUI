@@ -540,17 +540,17 @@ function module:MerathilisUI_Themes_GradientMode()
 		}).args
 
 		-- Cast Colors
-		for cast, _ in pairs(P.themes.gradientMode.castColorMap[I.Enum.GradientMode.Color.SHIFT]) do
-			if (cast == "NOINTERRUPT") or (cast == "DEFAULT") then
-				-- Name
-				local settingsName
-				if cast == "NOINTERRUPT" then
-					settingsName = L["Non-interruptible"]
-				elseif cast == "DEFAULT" then
-					settingsName = L["Regular"]
-				else
-					settingsName = F.String.LowercaseEnum(cast)
-				end
+		-- The interrupt entries are used by the Interrupt Ready indicator (UnitFrames, NamePlates)
+		local castNames = {
+			DEFAULT = L["Regular"],
+			NOINTERRUPT = L["Non-interruptible"],
+			INTERRUPTCD = L["Interrupt on Cooldown"],
+			INTERRUPTSOON = L["Interrupt Ready Soon"],
+		}
+
+		for _, cast in ipairs({ "DEFAULT", "NOINTERRUPT", "INTERRUPTCD", "INTERRUPTSOON" }) do
+			do
+				local settingsName = castNames[cast]
 
 				-- Cast Description
 				self:AddInlineSoloDesc(castGroup, {

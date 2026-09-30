@@ -71,8 +71,8 @@ function module:PetTabs_Create()
 end
 
 function module:PetFilterTab()
-	self.db = F.GetDBFromPath("mui.misc.petFilterTab")
-	if not self.db or not C_PetJournal_SetPetTypeFilter then
+	-- Forever has no pet type filter
+	if not F.GetDBFromPath("mui.misc.petFilterTab") or not C_PetJournal_SetPetTypeFilter then
 		return
 	end
 

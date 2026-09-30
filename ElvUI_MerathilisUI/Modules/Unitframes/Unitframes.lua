@@ -56,6 +56,21 @@ function module:Initialize()
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 	-- Faction Indicator
 	module:FactionIndicator()
+	-- Interrupt Ready
+	module:InterruptReady()
+	-- Execute Line
+	module:ExecuteLine()
+end
+
+-- The settings are read on every configure, the frames that exist just need a refresh
+function module:ProfileUpdate()
+	if not E.private.unitframe.enable then
+		return
+	end
+
+	module:UpdateFactionIndicators()
+	module:UpdateInterruptReady()
+	module:UpdateExecuteLines()
 end
 
 MER:RegisterModule(module:GetName())

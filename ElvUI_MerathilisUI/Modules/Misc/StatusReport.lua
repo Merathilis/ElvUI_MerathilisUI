@@ -400,16 +400,18 @@ function module:StatusReportUpdate()
 					version = E.versionString
 				end
 
+				-- Enabled is not loaded: a Details that failed to load has no global
 				if addOn == "Details" then
 					name = "Details!"
-					version = Details.GetVersionString()
+					local details = _G.Details
+					version = details and details.GetVersionString and details.GetVersionString() or version
 				end
 
 				data.name = F.String.Strip(name) or UNKNOWN
 				data.version = F.String.Strip(version) or UNKNOWN
 
 				if data.version == UNKNOWN and addOn == "Details" then
-					data.version = Details and Details.version or UNKNOWN
+					data.version = _G.Details and _G.Details.version or UNKNOWN
 				end
 
 				tinsert(addOnData, data)

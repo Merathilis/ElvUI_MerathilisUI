@@ -34,7 +34,7 @@ local C_Item_GetItemIconByID = C_Item.GetItemIconByID
 local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
 local C_SpellBook_IsSpellInSpellBook = C_SpellBook.IsSpellInSpellBook
 local C_SpellBook_IsSpellKnown = C_SpellBook.IsSpellKnown
-local GetItemIcon = C_Item_GetItemIconByID or GetItemIcon
+local C_PaperDollInfo_GetTemporaryEnchantmentInfo = C_PaperDollInfo.GetTemporaryEnchantmentInfo
 
 -------------------------------------------------------------------------------
 --  Basic helpers
@@ -47,17 +47,13 @@ local function Known(id)
 		)
 end
 
-local function InCombat()
-	return InCombatLockdown()
-end
-
 local texCache = {}
 local function Tex(id)
 	local c = texCache[id]
 	if c then
 		return c
 	end
-	local t = C_Spell_GetSpellTexture and C_Spell_GetSpellTexture(id)
+	local t = C_Spell_GetSpellTexture(id)
 	if t then
 		texCache[id] = t
 	end
@@ -70,7 +66,7 @@ local function SpellName(id, fallback)
 	if c then
 		return c
 	end
-	local n = C_Spell_GetSpellName and C_Spell_GetSpellName(id)
+	local n = C_Spell_GetSpellName(id)
 	if n then
 		nameCache[id] = n
 	end
@@ -799,7 +795,7 @@ local function GetOrCreateIcon(index)
 end
 
 local function SetIconSpell(btn, spellID, texture)
-	if not InCombat() then
+	if not InCombatLockdown() then
 		btn:SetAttribute("type", "spell")
 		btn:SetAttribute("spell", spellID)
 		btn:SetAttribute("item", nil)
@@ -811,19 +807,19 @@ local function SetIconSpell(btn, spellID, texture)
 end
 
 local function SetIconItem(btn, itemID, texture)
-	if not InCombat() then
+	if not InCombatLockdown() then
 		btn:SetAttribute("type", "item")
 		btn:SetAttribute("item", "item:" .. itemID)
 		btn:SetAttribute("spell", nil)
 		btn:SetAttribute("macrotext", nil)
 	end
-	btn._icon:SetTexture(texture or GetItemIcon(itemID) or 134400)
+	btn._icon:SetTexture(texture or C_Item_GetItemIconByID(itemID) or 134400)
 	btn._tooltipSpell = nil
 	btn._tooltipItem = itemID
 end
 
 local function SetIconMacro(btn, macrotext, texture)
-	if not InCombat() then
+	if not InCombatLockdown() then
 		btn:SetAttribute("type", "macro")
 		btn:SetAttribute("macrotext", macrotext)
 		btn:SetAttribute("spell", nil)
@@ -837,7 +833,7 @@ end
 -- Display-only: no click action. Used for the test-preview row so it can
 -- never accidentally cast a spell or consume a real item.
 local function SetIconTexture(btn, texture)
-	if not InCombat() then
+	if not InCombatLockdown() then
 		btn:SetAttribute("type", nil)
 		btn:SetAttribute("spell", nil)
 		btn:SetAttribute("item", nil)
@@ -1054,14 +1050,8 @@ local function CollectConsumables(missing, playerClass, co)
 	end
 
 	if co.enabled.weapon_enchant then
-		local hasMH, hasOH
-		if C_PaperDollInfo and C_PaperDollInfo.GetTemporaryEnchantmentInfo then
-			hasMH = C_PaperDollInfo.GetTemporaryEnchantmentInfo(INVSLOT_MAINHAND) ~= nil
-			hasOH = C_PaperDollInfo.GetTemporaryEnchantmentInfo(INVSLOT_OFFHAND) ~= nil
-		else
-			local _
-			hasMH, _, _, _, hasOH = GetWeaponEnchantInfo()
-		end
+		local hasMH = C_PaperDollInfo_GetTemporaryEnchantmentInfo(INVSLOT_MAINHAND) ~= nil
+		local hasOH = C_PaperDollInfo_GetTemporaryEnchantmentInfo(INVSLOT_OFFHAND) ~= nil
 		for _, slotInfo in ipairs(WEAPON_ENCHANT_SLOTS) do
 			local cat = GetWeaponCategory(slotInfo.slot)
 			if cat then
@@ -1073,7 +1063,7 @@ local function CollectConsumables(missing, playerClass, co)
 						local e = AcquireEntry()
 						e.mode = "macro"
 						e.macro = "/use item:" .. itemID .. "\n/use " .. slotInfo.slot
-						e.texture = GetItemIcon(itemID)
+						e.texture = C_Item_GetItemIconByID(itemID)
 						e.label = slotInfo.label
 						e.bagCount = BagCount(itemID)
 						e.desaturated = BagCount(itemID) == 0
@@ -1205,7 +1195,7 @@ local function BuildTestMissing(missing)
 	for _, t in ipairs(TEST_PREVIEW) do
 		local e = AcquireEntry()
 		e.mode = "texture"
-		e.texture = t.spellID and Tex(t.spellID) or GetItemIcon(t.itemID)
+		e.texture = t.spellID and Tex(t.spellID) or C_Item_GetItemIconByID(t.itemID)
 		e.label = t.label
 		e.bagCount = t.bagCount
 		e.desaturated = t.desaturated or false
@@ -1232,11 +1222,17 @@ end
 local _refreshMissing = {}
 function module:Refresh()
 	local db = self.db
-	if not db or not iconAnchor then
+	if not db or InCombatLockdown() then
 		return
 	end
-	if InCombatLockdown() then
-		return
+
+	-- Created the first time the module is on, also when it is turned on
+	-- later in the options or by a profile switch
+	if not iconAnchor then
+		if not db.enable then
+			return
+		end
+		self:SetupAnchor()
 	end
 
 	-- Turned off in the options or by a profile switch: clear what is shown
@@ -1395,14 +1391,7 @@ module.ZONE_CHANGED_NEW_AREA = module.RequestRefresh
 module.PLAYER_TALENT_UPDATE = module.RequestRefresh
 module.SPELLS_CHANGED = module.RequestRefresh
 
-function module:Initialize()
-	local db = F.GetDBFromPath("mui.buffReminder") or E.db.mui.buffReminder
-	module.db = db
-
-	if not db.enable then
-		return
-	end
-
+function module:SetupAnchor()
 	iconAnchor = CreateFrame("Frame", "MER_BuffReminderAnchor", E.UIParent)
 	iconAnchor:SetSize(ICON_SIZE, ICON_SIZE)
 	iconAnchor:Point("CENTER", E.UIParent, "CENTER", 0, -135)
@@ -1423,16 +1412,23 @@ function module:Initialize()
 	for _, event in ipairs(EVENTS) do
 		self:RegisterEvent(event)
 	end
+end
+
+function module:Initialize()
+	module.db = F.GetDBFromPath("mui.buffReminder") or E.db.mui.buffReminder
+
+	-- Directly, so the events are registered even after a reload in combat
+	-- (RequestRefresh does nothing in combat)
+	if module.db.enable then
+		self:SetupAnchor()
+	end
 
 	self:RequestRefresh()
 end
 
 function module:ProfileUpdate()
-	local db = F.GetDBFromPath("mui.buffReminder") or E.db.mui.buffReminder
-	module.db = db
-	if iconAnchor then
-		self:RequestRefresh()
-	end
+	module.db = F.GetDBFromPath("mui.buffReminder") or E.db.mui.buffReminder
+	self:RequestRefresh()
 end
 
 MER:RegisterModule(module:GetName())

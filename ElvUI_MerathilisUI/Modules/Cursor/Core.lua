@@ -470,6 +470,8 @@ function module:Enable()
 	self:CreateCursorFrame()
 	self:CreateGCDRing()
 	self:CreateCastRing()
+	self:RegisterGCDEvents()
+	self:RegisterCastEvents()
 	self:InstallMouselookHooks()
 
 	self.tracker:SetScript("OnUpdate", function(_, elapsed)

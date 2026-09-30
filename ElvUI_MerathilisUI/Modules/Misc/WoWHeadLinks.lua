@@ -3,7 +3,6 @@ local module = MER:GetModule("MER_Misc") ---@class Misc
 
 local _G = _G
 
-local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local Menu = _G.Menu
 
@@ -56,7 +55,8 @@ else
 end
 
 local selfText
-StaticPopupDialogs.WATCHFRAME_URL = {
+-- Our own key, other UI packs register a WATCHFRAME_URL popup as well
+StaticPopupDialogs.MER_WOWHEAD_URL = {
 	text = MER.Title .. F.String.ColorFirstLetter(L["Wowhead Links"]),
 	button1 = OKAY,
 	timeout = 0,
@@ -117,43 +117,40 @@ function module:WowheadLinks()
 	Menu.ModifyMenu("MENU_QUEST_OBJECTIVE_TRACKER", function(_, rootDescription)
 		rootDescription:CreateButton(F.String.ColorFirstLetter(L["Wowhead Links"]), function()
 			local text = linkQuest:format(ID)
-			StaticPopup_Show("WATCHFRAME_URL", _, _, text)
+			StaticPopup_Show("MER_WOWHEAD_URL", nil, nil, text)
 		end)
 	end)
 
 	Menu.ModifyMenu("MENU_BONUS_OBJECTIVE_TRACKER", function(_, rootDescription)
 		rootDescription:CreateButton(F.String.ColorFirstLetter(L["Wowhead Links"]), function()
 			local text = linkQuest:format(ID)
-			StaticPopup_Show("WATCHFRAME_URL", _, _, text)
+			StaticPopup_Show("MER_WOWHEAD_URL", nil, nil, text)
 		end)
 	end)
 
 	Menu.ModifyMenu("MENU_MONTHLY_ACTVITIES_TRACKER", function(_, rootDescription)
 		rootDescription:CreateButton(F.String.ColorFirstLetter(L["Wowhead Links"]), function()
 			local text = linkMonthlyActivities:format(ID)
-			StaticPopup_Show("WATCHFRAME_URL", _, _, text)
+			StaticPopup_Show("MER_WOWHEAD_URL", nil, nil, text)
 		end)
 	end)
 
 	Menu.ModifyMenu("MENU_ACHIEVEMENT_TRACKER", function(_, rootDescription)
 		rootDescription:CreateButton(F.String.ColorFirstLetter(L["Wowhead Links"]), function()
 			local text = linkAchievement:format(ID)
-			StaticPopup_Show("WATCHFRAME_URL", _, _, text)
+			StaticPopup_Show("MER_WOWHEAD_URL", nil, nil, text)
 		end)
 	end)
 
-	local frame = CreateFrame("Frame")
-	frame:RegisterEvent("ADDON_LOADED")
-	frame:SetScript("OnEvent", function(_, _, addon)
-		if addon == "Blizzard_AchievementUI" then
-			hooksecurefunc(AchievementTemplateMixin, "OnClick", function(self)
-				local elementData = self:GetElementData()
-				if elementData and elementData.id and IsControlKeyDown() then
-					local text = linkAchievement:format(elementData.id)
-					StaticPopup_Show("WATCHFRAME_URL", _, _, text)
-				end
-			end)
-		end
+	-- The Misc callback also runs when the achievement UI was loaded before this
+	module:AddCallbackForAddon("Blizzard_AchievementUI", function()
+		hooksecurefunc(_G.AchievementTemplateMixin, "OnClick", function(self)
+			local elementData = self:GetElementData()
+			if elementData and elementData.id and IsControlKeyDown() then
+				local text = linkAchievement:format(elementData.id)
+				StaticPopup_Show("MER_WOWHEAD_URL", nil, nil, text)
+			end
+		end)
 	end)
 end
 

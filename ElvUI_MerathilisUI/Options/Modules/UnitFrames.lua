@@ -4,6 +4,8 @@ local MUF = MER:GetModule("MER_UnitFrames")
 
 local options = module.options.modules.args
 
+F.MarkTabAsNew("unitframes")
+
 -- Own disabled replaces the group's, so every own disabled repeats the requirement
 local function UnitFramesDisabled()
 	return not MER:HasRequirements(I.Requirements.UnitFrames)
@@ -108,6 +110,54 @@ options.unitframes = {
 					type = "description",
 					name = "",
 				},
+				interruptReady = module.InterruptReadyOptions(12, function()
+					return E.db.mui.unitframes.interruptReady
+				end, function()
+					MUF:UpdateInterruptReady()
+				end, UnitFramesDisabled, "unitframes", {
+					units = {
+						order = 7,
+						type = "multiselect",
+						name = L["Units"],
+						values = {
+							target = L["Target"],
+							focus = L["Focus"],
+							boss = L["Boss"],
+							arena = L["Arena"],
+						},
+						get = function(_, key)
+							return E.db.mui.unitframes.interruptReady.units[key]
+						end,
+						set = function(_, key, value)
+							E.db.mui.unitframes.interruptReady.units[key] = value
+							MUF:UpdateInterruptReady()
+						end,
+					},
+				}),
+				executeLine = module.ExecuteLineOptions(13, function()
+					return E.db.mui.unitframes.executeLine
+				end, function()
+					MUF:UpdateExecuteLines()
+				end, UnitFramesDisabled, {
+					units = {
+						order = 8,
+						type = "multiselect",
+						name = L["Units"],
+						values = {
+							target = L["Target"],
+							focus = L["Focus"],
+							boss = L["Boss"],
+							arena = L["Arena"],
+						},
+						get = function(_, key)
+							return E.db.mui.unitframes.executeLine.units[key]
+						end,
+						set = function(_, key, value)
+							E.db.mui.unitframes.executeLine.units[key] = value
+							MUF:UpdateExecuteLines()
+						end,
+					},
+				}),
 				factionIndicator = {
 					order = 11,
 					type = "group",

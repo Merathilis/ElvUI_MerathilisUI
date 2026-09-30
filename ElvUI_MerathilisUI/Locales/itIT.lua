@@ -1442,3 +1442,63 @@ L["TargetTarget"] = true
 L["FocusTarget"] = true
 L["Open the %s Status Report window that shows necessary information for debugging. Post this when reporting bugs!"] = true
 L["Equipment Flyout"] = true
+
+-- DataTexts
+L["Settings for the MerathilisUI datatexts. Add them to a panel in ElvUI's DataTexts options."] = true
+L["Show Icons"] = true
+L["White Text"] = true
+L["Shows the values in white instead of ElvUI's value color."] = true
+L["White Icon"] = true
+L["Keeps the durability icon white instead of coloring it like the durability."] = true
+L["Repair Mount"] = true
+L["Summoned with a right click on the datatext."] = true
+L["Colored Durability"] = true
+L["Colors the durability below the thresholds. Turned off, it only turns orange below 15%."] = true
+L["Warning Color"] = true
+L["Critical"] = true
+L["Critical Color"] = true
+L["Permoks Account Manager"] = true
+
+-- NamePlates
+L["Target Arrows"] = true
+L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."] = true
+L["Side Arrows"] = true
+L["Top Arrow"] = true
+L["Slide In"] = true
+L["Bounce"] = true
+L["Arrow Texture"] = true
+L["Hover Highlight"] = true
+L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."] = true
+L["Fade In"] = true
+L["Additive Blend"] = true
+L["Brightens the health bar instead of laying the texture over it."] = true
+
+-- Interrupt Ready
+L["Interrupt Ready"] = true
+L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."] = true
+L["Cooldown Color"] = true
+L["Colors the filled part of the castbar while your interrupt is on cooldown."] = true
+L["Ready Window"] = true
+L["Colors the rest of the cast from the moment your interrupt is ready again."] = true
+L["Ready Tick"] = true
+L["A thin line at the moment your interrupt is ready again."] = true
+L["Tick Color"] = true
+L["Units"] = true
+L["Interrupt on Cooldown"] = true
+L["Interrupt Ready Soon"] = true
+
+-- Execute Line
+L["Execute Line"] = true
+L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."] = true
+L["Hostile Units Only"] = true
+L["Only shows the line on units you can attack."] = true
+L["Health Percent"] = true
+L["Glow"] = true
+L["A soft glow around the line."] = true
+L["Pulse"] = true
+L["The glow slowly pulses."] = true
+L["Markers"] = true
+L["Small arrows at both ends of the line that point at the health bar."] = true
+L["Execute Range"] = true
+L["Tints the part of the health bar below the line, fading in towards the line."] = true
+L["Range Opacity"] = true

@@ -61,6 +61,10 @@ end
 -- The settings are read on every configure, the plates that exist just need a refresh
 function module:ProfileUpdate()
 	module:UpdateFactionIndicators()
+	module:UpdateTargetArrows()
+	module:UpdateHighlights()
+	module:UpdateInterruptReady()
+	module:UpdateExecuteLines()
 end
 
 function module:FactionIndicator()

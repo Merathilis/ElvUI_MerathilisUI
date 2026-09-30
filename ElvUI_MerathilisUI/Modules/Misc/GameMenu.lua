@@ -70,7 +70,7 @@ function module:CreateGameMenuUI()
 		return
 	end
 
-	local db = self.db or F.GetDBFromPath("mui.gameMenu")
+	local db = E.db.mui.gameMenu
 
 	local mainFrame = CreateFrame("Frame", "MER_GameMenuFrame", E.UIParent)
 	mainFrame:SetAllPoints(E.UIParent)
@@ -517,9 +517,9 @@ function module:GameMenu_OnHide()
 end
 
 function module:GameMenu()
-	module.db = E.db.mui.gameMenu
+	local db = E.db.mui.gameMenu
 
-	if not MER:HasRequirements(I.Requirements.GameMenu) or not module.db or not module.db.enable then
+	if not MER:HasRequirements(I.Requirements.GameMenu) or not db or not db.enable then
 		return
 	end
 

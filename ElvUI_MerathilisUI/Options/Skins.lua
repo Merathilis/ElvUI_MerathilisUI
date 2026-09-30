@@ -22,6 +22,7 @@ local DecorAddons = {
 	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
 	{ "MountRoutePlanner", L["Mount Route Planner"], "mrp" },
 	{ "Pawn", L["Pawn"], "pawn" },
+	{ "PermoksAccountManager", L["Permoks Account Manager"], "pam" },
 	{ "ParagonReputation", L["Paragon Reputation"], "paragonReputation" },
 	{ "ls_Toasts", L["ls_Toasts"], "ls" },
 	{ "WIM", L["WIM"], "wim" },
