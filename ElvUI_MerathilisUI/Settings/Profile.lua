@@ -961,6 +961,13 @@ P.nameplates = {
 		tick = true,
 		tickColor = { r = 1, g = 1, b = 1 },
 	},
+	castTarget = {
+		enable = true,
+		border = true,
+		borderSize = 2,
+		tint = false,
+		color = F.Table.HexToRGB("#ff3b30"),
+	},
 	executeLine = {
 		enable = false,
 		percent = 20,

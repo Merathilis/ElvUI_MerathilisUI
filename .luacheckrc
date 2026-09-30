@@ -24304,6 +24304,7 @@ read_globals = {
 	"PlayerInteractionFrameManagerMixin",
 	"PlayerIsInCombat",
 	"PlayerIsPVPInactive",
+	"PlayerIsSpellTarget",
 	"PlayerIsTimerunning",
 	"PlayerLocationMixin",
 	"PlayerPowerBarAltMixin",

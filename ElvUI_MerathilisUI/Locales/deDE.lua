@@ -1275,6 +1275,15 @@ L["Units"] = "Einheiten"
 L["Interrupt on Cooldown"] = "Unterbrechung klingt ab"
 L["Interrupt Ready Soon"] = "Unterbrechung bald bereit"
 
+-- Cast on You
+L["Cast on You"] = "Zauber auf dich"
+L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = "Markiert die Zauberleiste feindlicher Einheiten, solange ihr Zauber dich zum Ziel hat. Kanalisierte Zauber werden nicht markiert."
+L["Castbar Border"] = "Rahmen der Zauberleiste"
+L["A colored border around the castbar."] = "Ein farbiger Rahmen um die Zauberleiste."
+L["Border Size"] = "Rahmengröße"
+L["Castbar Color"] = "Farbe der Zauberleiste"
+L["Colors the filled part of the castbar. The Interrupt Ready colors stay on top."] = "Färbt den gefüllten Teil der Zauberleiste. Die Farben von Unterbrechung bereit liegen darüber."
+
 -- Execute Line
 L["Execute Line"] = "Hinrichtungslinie"
 L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."] = "Eine Linie auf der Lebensleiste beim eingestellten Lebensprozentwert, damit du auf einen Blick siehst, wann eine Einheit in den Bereich deiner Hinrichtungsfähigkeiten kommt."

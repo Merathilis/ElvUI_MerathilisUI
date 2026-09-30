@@ -1563,6 +1563,15 @@ L["Units"] = true
 L["Interrupt on Cooldown"] = true
 L["Interrupt Ready Soon"] = true
 
+-- Cast on You
+L["Cast on You"] = true
+L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = true
+L["Castbar Border"] = true
+L["A colored border around the castbar."] = true
+L["Border Size"] = true
+L["Castbar Color"] = true
+L["Colors the filled part of the castbar. The Interrupt Ready colors stay on top."] = true
+
 -- Execute Line
 L["Execute Line"] = true
 L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."] = true

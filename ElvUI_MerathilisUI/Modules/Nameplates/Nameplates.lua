@@ -7,6 +7,7 @@ function module:ProfileUpdate()
 	module:UpdateTargetArrows()
 	module:UpdateHighlights()
 	module:UpdateInterruptReady()
+	module:UpdateCastTargets()
 	module:UpdateExecuteLines()
 end
 
@@ -19,6 +20,7 @@ function module:Initialize()
 	module:TargetArrows()
 	module:Highlight()
 	module:InterruptReady()
+	module:CastTarget()
 	module:ExecuteLine()
 end
 

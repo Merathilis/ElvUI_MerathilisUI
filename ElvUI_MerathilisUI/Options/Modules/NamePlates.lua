@@ -31,6 +31,10 @@ local function HighlightCustomColorDisabled()
 	return HighlightDisabled() or E.db.mui.nameplates.highlight.colorMode ~= "CUSTOM"
 end
 
+local function CastTargetDisabled()
+	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.castTarget.enable
+end
+
 local COLOR_MODES = {
 	CLASS = L["Class Color"],
 	CUSTOM = L["Custom"],
@@ -319,7 +323,83 @@ options.nameplates = {
 				end, function()
 					MNP:UpdateInterruptReady()
 				end, module.RequirementsDisabled(I.Requirements.NamePlates), "nameplates"),
-				executeLine = module.ExecuteLineOptions(5, function()
+				castTarget = {
+					order = 5,
+					type = "group",
+					name = L["Cast on You"],
+					guiInline = true,
+					get = function(info)
+						return E.db.mui.nameplates.castTarget[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.nameplates.castTarget[info[#info]] = value
+						MNP:UpdateCastTargets()
+					end,
+					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
+					args = {
+						desc = {
+							order = 1,
+							type = "description",
+							dialogControl = "MERNewFeatureLabel",
+							name = F.NewFeatureTrailingText(L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."]),
+						},
+						preview = {
+							order = 1.5,
+							type = "description",
+							dialogControl = "MERCastTargetPreview",
+							name = "nameplates",
+							width = "full",
+						},
+						enable = {
+							order = 2,
+							type = "toggle",
+							name = L["Enable"],
+						},
+						border = {
+							order = 3,
+							type = "toggle",
+							name = L["Castbar Border"],
+							desc = L["A colored border around the castbar."],
+							disabled = CastTargetDisabled,
+						},
+						borderSize = {
+							order = 4,
+							type = "range",
+							name = L["Border Size"],
+							disabled = function()
+								return CastTargetDisabled() or not E.db.mui.nameplates.castTarget.border
+							end,
+							min = 1,
+							max = 5,
+							step = 1,
+						},
+						tint = {
+							order = 5,
+							type = "toggle",
+							name = L["Castbar Color"],
+							desc = L["Colors the filled part of the castbar. The Interrupt Ready colors stay on top."],
+							disabled = CastTargetDisabled,
+						},
+						color = {
+							order = 6,
+							type = "color",
+							name = L["Color"],
+							hasAlpha = false,
+							disabled = CastTargetDisabled,
+							get = function()
+								local db = E.db.mui.nameplates.castTarget.color
+								local default = P.nameplates.castTarget.color
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(_, r, g, b)
+								local db = E.db.mui.nameplates.castTarget.color
+								db.r, db.g, db.b = r, g, b
+								MNP:UpdateCastTargets()
+							end,
+						},
+					},
+				},
+				executeLine = module.ExecuteLineOptions(6, function()
 					return E.db.mui.nameplates.executeLine
 				end, function()
 					MNP:UpdateExecuteLines()
