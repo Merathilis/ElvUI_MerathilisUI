@@ -1,30 +1,16 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@class Skins
 
-local _G = _G
-local next, pairs, ipairs = next, pairs, ipairs
-local xpcall, tonumber, strmatch = xpcall, tonumber, strmatch
+local next, pairs = next, pairs
+local xpcall = xpcall
 local tinsert, format, type = tinsert, format, type
-local assert = assert
 
 local CreateFrame = CreateFrame
-local GenerateClosure = GenerateClosure
-local RunNextFrame = RunNextFrame
-local LibStub = LibStub
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
-module.settingFrames = {}
-module.waitSettingFrames = {}
 module.addonsToLoad = {}
 module.nonAddonsToLoad = {}
-module.libraryHandlers = {}
-module.libraryHandledMinors = {}
-module.aceWidgetConfigs = {}
-module.aceWidgetWaitingList = {}
-module.enteredLoad = {}
-module.texturePathFetcher = E.UIParent:CreateTexture(nil, "ARTWORK")
-module.texturePathFetcher:Hide()
 
 function module:ShadowOverlay()
 	-- Based on ncShadow
@@ -32,7 +18,7 @@ function module:ShadowOverlay()
 		return
 	end
 
-	local f = CreateFrame("Frame", MER.Title .. "ShadowBackground")
+	local f = CreateFrame("Frame", "MER_ShadowOverlay")
 	f:Point("TOPLEFT")
 	f:Point("BOTTOMRIGHT")
 	f:SetFrameLevel(0)
@@ -45,59 +31,8 @@ function module:ShadowOverlay()
 	f:SetAlpha(0.7)
 end
 
-function module:IsTexturePathEqual(texture, path)
-	local got = texture and texture.GetTextureFilePath and texture:GetTextureFilePath()
-	if not got then
-		return false
-	end
-
-	self.texturePathFetcher:SetTexture(path)
-	return got == self.texturePathFetcher:GetTextureFilePath()
-end
-
-function module:ProcessWaitingAceGUIWidgets()
-	local lib = LibStub:GetLibrary("AceGUI-3.0", true)
-	assert(lib, "ProcessWaitingAceWidgets: AceGUI-3.0 not found")
-
-	for name, widgets in pairs(self.aceWidgetWaitingList) do
-		local config = self.aceWidgetConfigs[name]
-		if self.db.enable and config.checker(self.db) then
-			lib.WidgetRegistry[name] = function()
-				local widget = config.constructor()
-				config.handler(widget)
-				return widget
-			end
-
-			for _, widget in ipairs(widgets) do
-				config.handler(widget)
-			end
-		else
-			lib.WidgetRegistry[name] = config.constructor
-		end
-	end
-
-	self.aceWidgetWaitingList = nil
-end
-
 function module:AddCallback(name, func)
 	tinsert(self.nonAddonsToLoad, func or self[name])
-end
-
----Add a callback function for AceGUI widget styling
----@param name string The widget name
----@param handler function|string? The callback function or method name
----@param checker function The checker for enabling the skin or not
-function module:AddCallbackForAceGUIWidget(name, handler, checker)
-	if type(handler) == "string" then
-		handler = GenerateClosure(self[handler], self)
-	end
-
-	assert(type(handler) == "function", "AddCallbackForAceGUIWidget: handler must be a function or method name")
-
-	self.aceWidgetConfigs[name] = {
-		checker = checker,
-		handler = handler,
-	}
 end
 
 function module:AddCallbackForAddon(addonName, func)
@@ -112,35 +47,6 @@ function module:AddCallbackForAddon(addonName, func)
 	end
 
 	tinsert(addon, func or self[addonName])
-end
-
-function module:AddCallbackForLibrary(name, func)
-	local lib = self.libraryHandlers[name]
-	if not lib then
-		self.libraryHandlers[name] = {}
-		lib = self.libraryHandlers[name]
-	end
-
-	if type(func) == "string" then
-		func = self[func]
-	end
-
-	tinsert(lib, func or self[name])
-end
-
-function module:AddCallbackForEnterWorld(name, func)
-	tinsert(self.enteredLoad, func or self[name])
-end
-
-function module:PLAYER_ENTERING_WORLD()
-	if not E.Initialized or not E.private.mui.skins.enable then
-		return
-	end
-
-	for index, func in next, self.enteredLoad do
-		xpcall(func, F.Developer.ThrowError, self)
-		self.enteredLoad[index] = nil
-	end
 end
 
 ---Call all loaded addon callbacks
@@ -167,53 +73,8 @@ function module:ADDON_LOADED(_, addonName)
 	end
 end
 
-function module:LibStub_NewLibrary(_, major, minor)
-	if not self.libraryHandlers[major] then
-		return
-	end
-
-	minor = minor and tonumber(strmatch(minor, "%d+"))
-	local handledMinor = self.libraryHandledMinors[major]
-	if not minor or (handledMinor and handledMinor >= minor) then
-		return
-	end
-
-	self.libraryHandledMinors[major] = minor
-
-	RunNextFrame(function()
-		local lib, latestMinor = _G.LibStub(major, true)
-		if not lib or not latestMinor or latestMinor ~= minor then
-			return
-		end
-		for _, func in next, self.libraryHandlers[major] do
-			if not xpcall(func, F.Developer.ThrowError, self, lib) then
-				self:Log("debug", format("Failed to skin library %s", major))
-			end
-		end
-	end)
-end
-
-function module:ReskinSettingFrame(name, func)
-	if type(func) == "string" and module[func] then
-		func = GenerateClosure(module[func], module)
-	end
-
-	if not func then
-		F.Developer.ThrowError("ReskinSettingFrame: func is nil")
-		return
-	end
-
-	local frame = self.settingFrames[name]
-	if frame then
-		func(frame)
-	else
-		self.waitSettingFrames[name] = func
-	end
-end
-
 function module:Initialize()
 	self.db = E.private.mui.skins
-	self:ProcessWaitingAceGUIWidgets()
 
 	if not self.db.enable then
 		return
@@ -234,22 +95,7 @@ function module:Initialize()
 	end
 
 	self:ShadowOverlay()
-
-	-- Library & AceGUI widget callbacks
-	module:AddCallbackForLibrary("AceGUI-3.0", "AceGUI")
-	module:AddCallbackForLibrary("AceConfigDialog-3.0", "AceConfigDialog")
-	module:AddCallbackForLibrary("AceConfigDialog-3.0-ElvUI", "AceConfigDialog")
-	module:AddCallbackForAceGUIWidget("Frame", "Ace3_Frame", function(db)
-		return db.libraries.ace3 and db.shadow.enable
-	end)
-	module:AddCallbackForAceGUIWidget("Window", "Ace3_Frame", function(db)
-		return db.libraries.ace3 and db.shadow.enable
-	end)
-	module:AddCallbackForAceGUIWidget("Dropdown-Pullout", "Ace3_DropdownPullout", function(db)
-		return db.libraries.ace3 and (db.libraries.ace3Dropdown or db.shadow.enable)
-	end)
 end
 
 module:RegisterEvent("ADDON_LOADED")
-module:RegisterEvent("PLAYER_ENTERING_WORLD")
 MER:RegisterModule(module:GetName())

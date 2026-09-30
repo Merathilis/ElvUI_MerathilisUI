@@ -9,8 +9,26 @@
 -   [Fix]: Item Level: Turning the item level on, also by a profile switch, works without a reload.
 -   [Fix]: Loot Spec Manager: Turning it off now really stops the automatic loot spec changes and hides the Encounter Journal button, without a reload. A profile switch uses the settings of the new profile.
 -   [Fix]: Mail: Open Selected no longer opens the wrong mails once a mail without text is removed after it was emptied.
+-   [Fix]: Name Hover: Hovering a quest mob no longer throws a Lua error ("secret value") when its tooltip lines are restricted, e.g. in Mythic+.
+-   [Fix]: Name Hover: The Mythic+ forces text no longer gets cut off with the Number or Both format.
+-   [Fix]: NamePlates: Fixed the castbar spell name being cut off when ElvUI's "Name Length" was set
+-   [Fix]: Notification: The "bags are full" toast no longer repeats on every bag change and follows its option without a reload.
+-   [Fix]: Notification: Closing a toast with its close button frees the slot right away, so queued toasts show up.
+-   [Fix]: Notification: Fixed the map link in the chat message for rares on the minimap.
+-   [Fix]: Notification: The durability warning is no longer shown while notifications are disabled.
+-   [Fix]: Profiles: The ls_Toasts, Capping and TomTom profiles are now actually applied and activated.
+-   [Fix]: Profiles: The Details profile is now used on all characters as intended.
+-   [Fix]: Profiles: The mMediaTag profile no longer wipes the other portrait settings.
+-   [Fix]: Profiles: Profile buttons are only clickable while the addon is enabled.
 -   [Fix]: Raid Info Frame: Turning it on in the options no longer throws Lua errors from the size and spacing options, and turning it on or off, also by a profile switch, works without a reload. Hide In Combat applies right away.
+-   [Fix]: Skins: The BugSack skin no longer throws a Lua error with the latest WindTools, and the version line in the BugSack window is no longer added again on every open.
+-   [Fix]: Skins: The Cooldown Manager is no longer skinned twice; MerathilisUI only adds its bar style and the reversed cooldown swipe on top of ElvUI's skin.
+-   [Fix]: Skins: Details gradient names and bars no longer throw Lua errors with secret names in combat.
+-   [Fix]: Skins: The BigWigs queue timer and keystone window, Paragon Reputation and Mount Route Planner are no longer skinned twice; WindTools handles them.
 -   [Fix]: Status Report: Opening it no longer throws a Lua error when Details is enabled but not loaded.
+-   [Fix]: Style: Turning the style off and on again (or switching to a profile that has it enabled) brings the look back without a reload.
+-   [Fix]: Theme: Switching between two profiles that both use the gradient theme now applies the new profile's colors and textures.
+-   [Fix]: Theme: Changing a gradient color in the options repaints group and raid frames with their current unit.
 -   [Fix]: Trade Tabs: Opening a profession or the trade window in combat no longer causes an "action blocked" message.
 -   [Fix]: Wowhead Links: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
@@ -18,8 +36,14 @@
 -   [New]: NamePlates: The mouseover highlight on the health bar can be restyled with a texture, class or custom color and a short fade in.
 -   [New]: NamePlates: Execute Line: a line on the health bar of hostile nameplates at a health percent of your choice (20% by default), so you see when a unit gets into your execute range. Comes with a soft glow, small markers and a tinted execute range, each can be turned off, plus an optional pulse. Off by default.
 -   [New]: NamePlates: Interrupt Ready on the castbars of hostile nameplates: while your interrupt is on cooldown the bar gets its own color, and the part of the cast after your interrupt is ready again is marked with a second color and a thin line.
+-   [New]: NamePlates: Cast on You: the castbar of a hostile nameplate gets a colored border while its cast targets you, optionally the bar itself is colored too.
+-   [New]: NamePlates: Focus Highlight: a texture over the health bar of your focus target's nameplate, with its own texture, color and opacity.
+-   [New]: NamePlates: Raid Marker Color: the health bar of a nameplate with a raid marker is tinted in the color of that marker. Off by default.
+-   [New]: NamePlates: Enemy Forces: during a Mythic+ run, the nameplate shows how much an enemy contributes to the Enemy Forces, as percent, number or both.
 -   [New]: Skins: New skin for Permoks Account Manager: window borders, the category and page buttons and the close button in the MerathilisUI style.
 -   [New]: UnitFrames: Execute Line on the health bar of the target, focus, boss and arena frames, the same line as on the nameplates, also off by default.
 -   [New]: UnitFrames: Interrupt Ready on the castbars of the target, focus, boss and arena frames, the same indicator as on the nameplates.
 -   [Improvement]: Core: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.
+-   [Improvement]: Minimap Buttons: The Great Vault button now pulses like a highlighted world map pin while a reward is waiting, and the Mail and Crafting Orders buttons do the same while mail or a personal order is waiting.
+-   [Improvement]: Panels: The class color of the style panels now follows custom class colors.
 -   [Improvement]: Theme: The castbar colors now include Interrupt on Cooldown and Interrupt Ready Soon, used by the new Interrupt Ready indicator and following the gradient mode.

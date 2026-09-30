@@ -4,7 +4,7 @@ local module = MER:GetModule("MER_Skins") ---@type Skins
 local _G = _G
 
 function module:DetailsIcons()
-	if not E:IsAddOnEnabled("Details") then
+	if not (_G.Details and _G.Details.AddCustomIconSet) then
 		return
 	end
 

@@ -1260,6 +1260,12 @@ L["Restyles the highlight on the health bar of the nameplate under your mouse. N
 L["Fade In"] = "Einblenden"
 L["Additive Blend"] = "Additive Überblendung"
 L["Brightens the health bar instead of laying the texture over it."] = "Hellt die Lebensleiste auf, statt die Textur darüberzulegen."
+L["Focus Highlight"] = "Fokus-Hervorhebung"
+L["Lays a texture over the health bar of your focus target's nameplate."] = "Legt eine Textur über die Lebensleiste der Namensplakette deines Fokusziels."
+L["Raid Marker Color"] = "Schlachtzugsmarker-Farbe"
+L["Tints the health bar of a nameplate with a raid marker in the color of that marker."] = "Färbt die Lebensleiste einer Namensplakette mit Schlachtzugsmarker in der Farbe dieses Markers."
+L["Enemy Forces"] = "Feindliche Streitkräfte"
+L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."] = "Zeigt während eines Mythisch+-Schlüsselsteinlaufs neben der Lebensleiste, wie viel ein Gegner zur Anforderung der feindlichen Streitkräfte beiträgt."
 
 -- Interrupt Ready
 L["Interrupt Ready"] = "Unterbrechung bereit"
@@ -1274,6 +1280,15 @@ L["Tick Color"] = "Markierungsfarbe"
 L["Units"] = "Einheiten"
 L["Interrupt on Cooldown"] = "Unterbrechung klingt ab"
 L["Interrupt Ready Soon"] = "Unterbrechung bald bereit"
+
+-- Cast on You
+L["Cast on You"] = "Zauber auf dich"
+L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = "Markiert die Zauberleiste feindlicher Einheiten, solange ihr Zauber dich zum Ziel hat. Kanalisierte Zauber werden nicht markiert."
+L["Castbar Border"] = "Rahmen der Zauberleiste"
+L["A colored border around the castbar."] = "Ein farbiger Rahmen um die Zauberleiste."
+L["Border Size"] = "Rahmengröße"
+L["Castbar Color"] = "Farbe der Zauberleiste"
+L["Colors the filled part of the castbar. The Interrupt Ready colors stay on top."] = "Färbt den gefüllten Teil der Zauberleiste. Die Farben von Unterbrechung bereit liegen darüber."
 
 -- Execute Line
 L["Execute Line"] = "Hinrichtungslinie"

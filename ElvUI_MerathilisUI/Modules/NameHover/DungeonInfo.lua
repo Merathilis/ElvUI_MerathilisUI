@@ -106,7 +106,7 @@ local function Build(unit)
 			local pMode = E.db.mui.nameHover.mythicPlus_ProgressFormat or "PERCENT"
 
 			local curNum
-			if not issecretvalue(currentQ) and not issecretvalue(totalQ) then
+			if E:NotSecretValue(currentQ) and E:NotSecretValue(totalQ) then
 				local cp, tr = tonumber(currentQ), tonumber(totalQ)
 				if cp and tr then
 					curNum = tostring(math.floor((cp / 100) * tr + 0.5))
@@ -127,8 +127,10 @@ local function Build(unit)
 	return { line }
 end
 
+-- Widest text of the chosen formats, so the layout makes room for all of it
 function module:GetReserveText()
-	local mode = "PERCENT"
+	local db = E.db.mui.nameHover
+	local mode = db.mythicPlus_ContributionFormat or "PERCENT"
 	local reserve
 	if mode == "NUMBER" then
 		reserve = "+999"
@@ -138,8 +140,8 @@ function module:GetReserveText()
 		reserve = "+100%"
 	end
 
-	if E.db.mui.nameHover.mythicPlus_ShowProgress then
-		local pMode = "PERCENT"
+	if db.mythicPlus_ShowProgress then
+		local pMode = db.mythicPlus_ProgressFormat or "PERCENT"
 		local ctx
 		if pMode == "NUMBER" then
 			ctx = "(999 / 999)"

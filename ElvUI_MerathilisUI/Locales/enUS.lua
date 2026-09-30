@@ -919,7 +919,6 @@ L["Medium"] = "Medium"
 L["MerathilisUI saves all data in ElvUI Profile and Private database."] =
 	"MerathilisUI saves all data in ElvUI Profile and Private database."
 L["Moon"] = "Moon"
-L["Mount Route Planner"] = "Mount Route Planner"
 L["Mouse Over"] = "Mouse Over"
 L["Mouseover"] = "Mouseover"
 L["N/A"] = "N/A"
@@ -944,7 +943,6 @@ L["Open Changelog"] = "Open Changelog"
 L["Open Character Frame"] = "Open Character Frame"
 L["Other"] = "Other"
 L["Pad"] = "Pad"
-L["Paragon Reputation"] = "Paragon Reputation"
 L["Pawn"] = "Pawn"
 L["Pet"] = "Pet"
 L["Pet Battle Scripts"] = "Pet Battle Scripts"
@@ -1475,6 +1473,12 @@ L["Restyles the highlight on the health bar of the nameplate under your mouse. N
 L["Fade In"] = true
 L["Additive Blend"] = true
 L["Brightens the health bar instead of laying the texture over it."] = true
+L["Focus Highlight"] = true
+L["Lays a texture over the health bar of your focus target's nameplate."] = true
+L["Raid Marker Color"] = true
+L["Tints the health bar of a nameplate with a raid marker in the color of that marker."] = true
+L["Enemy Forces"] = true
+L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."] = true
 
 -- Interrupt Ready
 L["Interrupt Ready"] = true
@@ -1489,6 +1493,15 @@ L["Tick Color"] = true
 L["Units"] = true
 L["Interrupt on Cooldown"] = true
 L["Interrupt Ready Soon"] = true
+
+-- Cast on You
+L["Cast on You"] = true
+L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = true
+L["Castbar Border"] = true
+L["A colored border around the castbar."] = true
+L["Border Size"] = true
+L["Castbar Color"] = true
+L["Colors the filled part of the castbar. The Interrupt Ready colors stay on top."] = true
 
 -- Execute Line
 L["Execute Line"] = true

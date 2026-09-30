@@ -20,7 +20,7 @@ function module:Toggle(theme, value)
 	elseif theme == "darkMode" then
 		E.db.mui.themes.gradientMode.enable = false
 		E.db.unitframe.colors.healthclass = false
-		pf:UpdateProfileForTheme()
+		F.Event.TriggerEvent("MER_Theme.DatabaseUpdate")
 	end
 end
 
@@ -85,11 +85,10 @@ function module:UpdateStatusBarFrame(frame)
 
 		if not self:IsHooked(frame.Health, "PostUpdateColor") then
 			self:RawHook(frame.Health, "PostUpdateColor", F.Event.GenerateClosure(self.PostUpdateHealthColor, self))
-			self:AddFrameToSettingsUpdate(
-				"Health",
-				frame.Health,
-				F.Event.GenerateClosure(self.PostUpdateHealthColor, self, frame.Health, frame.unit)
-			)
+			-- Group frames change their unit, so it is read when the refresh runs
+			self:AddFrameToSettingsUpdate("Health", frame.Health, function()
+				self:PostUpdateHealthColor(frame.Health, frame.unit)
+			end)
 		end
 	end
 
@@ -132,11 +131,9 @@ function module:UpdateStatusBarFrame(frame)
 
 		if not self:IsHooked(frame.Power, "PostUpdateColor") then
 			self:RawHook(frame.Power, "PostUpdateColor", F.Event.GenerateClosure(self.PostUpdatePowerColor, self))
-			self:AddFrameToSettingsUpdate(
-				"Power",
-				frame.Power,
-				F.Event.GenerateClosure(self.PostUpdatePowerColor, self, frame.Power, frame.unit)
-			)
+			self:AddFrameToSettingsUpdate("Power", frame.Power, function()
+				self:PostUpdatePowerColor(frame.Power, frame.unit)
+			end)
 		end
 	end
 end
@@ -256,6 +253,11 @@ function module:DatabaseUpdate()
 
 	local isEnabled = self.db and self.db.enable
 	if self.isEnabled == isEnabled then
+		-- Still enabled, but the settings can belong to another profile now
+		if isEnabled and self:IsHooked(self.uf, "Configure_HealthBar") then
+			self:SettingsUpdate()
+			self:TexturesUpdate()
+		end
 		return
 	end
 	self.isEnabled = isEnabled

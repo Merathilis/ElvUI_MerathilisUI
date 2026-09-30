@@ -57,31 +57,6 @@ function module:UpdateTemplateStrata(frame)
 	style:SetFrameStrata(frame:GetFrameStrata())
 end
 
-local function WatchPixelSnap(frame, snap)
-	if frame and not frame:IsForbidden() and E:NotSecretTable(frame) and frame.PixelSnapDisabled and snap then
-		frame.PixelSnapDisabled = nil
-	end
-end
-
-local function DisablePixelSnap(frame)
-	if not frame or frame:IsForbidden() or frame.PixelSnapDisabled or not E:NotSecretTable(frame) then
-		return
-	end
-
-	if frame.SetSnapToPixelGrid then
-		frame:SetSnapToPixelGrid(false)
-		frame:SetTexelSnappingBias(0)
-	elseif frame.GetStatusBarTexture then
-		local texture = frame:GetStatusBarTexture()
-		if type(texture) == "table" and texture.SetSnapToPixelGrid then
-			texture:SetSnapToPixelGrid(false)
-			texture:SetTexelSnappingBias(0)
-		end
-	end
-
-	frame.PixelSnapDisabled = true
-end
-
 ---Applies (or ensures visible) the MERStyle gradient overlay on a qualifying frame.
 ---Shared by the normal Enable-gated path and the always-on config-window path below.
 local function ApplyMERStyle(frame, template, glossTex, isUnitFrameElement, isNamePlateElement)
@@ -156,7 +131,7 @@ function module:SetTemplate(frame, template, glossTex, ignoreUpdates, _, isUnitF
 		return
 	end
 
-	-- Module disabled → nothing to do (hooks are removed on Disable, but guard anyway)
+	-- Module disabled → hide what is there
 	local db = self.db
 	if not db or not db.enable then
 		if frame.MERStyle then
@@ -171,7 +146,7 @@ end
 ---Plain (non-AceHook) hook: always keeps the ElvUI options window styled/opaque, independent of
 ---the addon's own Enable toggle - ElvUI's "Transparent" template (which the window uses) is very
 ---see-through on its own, and the gradient overlay is what makes it look solid. Registered outside
----AceHook so module:Disable()'s UnhookAll() never removes it (see module:API below).
+---AceHook, it has to work while the module is disabled (see module:API below).
 local function MERConfigWindowStyle(frame, template, glossTex, ignoreUpdates, _, isUnitFrameElement, isNamePlateElement)
 	ignoreUpdates = ignoreUpdates or frame.ignoreUpdates
 	if ignoreUpdates then
@@ -211,43 +186,6 @@ function module:API(object)
 		return
 	end
 
-	if
-		not mk.DisabledPixelSnap
-		and (
-			mk.SetSnapToPixelGrid
-			or mk.SetStatusBarTexture
-			or mk.SetColorTexture
-			or mk.SetVertexColor
-			or mk.CreateTexture
-			or mk.SetTexCoord
-			or mk.SetTexture
-		)
-	then
-		if mk.SetSnapToPixelGrid then
-			hooksecurefunc(mk, "SetSnapToPixelGrid", WatchPixelSnap)
-		end
-		if mk.SetStatusBarTexture then
-			hooksecurefunc(mk, "SetStatusBarTexture", DisablePixelSnap)
-		end
-		if mk.SetColorTexture then
-			hooksecurefunc(mk, "SetColorTexture", DisablePixelSnap)
-		end
-		if mk.SetVertexColor then
-			hooksecurefunc(mk, "SetVertexColor", DisablePixelSnap)
-		end
-		if mk.CreateTexture then
-			hooksecurefunc(mk, "CreateTexture", DisablePixelSnap)
-		end
-		if mk.SetTexCoord then
-			hooksecurefunc(mk, "SetTexCoord", DisablePixelSnap)
-		end
-		if mk.SetTexture then
-			hooksecurefunc(mk, "SetTexture", DisablePixelSnap)
-		end
-
-		mk.DisabledPixelSnap = true
-	end
-
 	if mk.SetTemplate and not mk.MERSkin then
 		if not mk.CreateStyle then
 			mk.CreateStyle = F.CreateStyle
@@ -258,7 +196,7 @@ function module:API(object)
 			self:SecureHook(mk, "SetTemplate", "SetTemplate")
 		end
 
-		-- Plain hook (not via AceHook) so it survives module:Disable()'s UnhookAll()
+		-- Plain hook, runs no matter what the Enable setting says
 		hooksecurefunc(mk, "SetTemplate", MERConfigWindowStyle)
 
 		if mk.SetFrameLevel and not self:IsHooked(mk, "SetFrameLevel") then
@@ -304,10 +242,6 @@ function module:ForceRefresh()
 	E:UpdateMediaItems(true)
 end
 
-function module:MetatableScan()
-	self.MERStyle = self.MERStyle or {}
-end
-
 function module:Disable()
 	if not self.Initialized then
 		return
@@ -326,7 +260,8 @@ function module:Disable()
 	end
 	self.MERStyle = {}
 
-	self:UnhookAll()
+	-- The hooks stay: they are only set up once when the file loads and check the setting
+	-- themselves, removing them here left the style dead after turning it back on
 
 	-- Refresh ElvUI templates so overlays are no longer expected
 	if self.db and not self.db.enable then
@@ -339,28 +274,10 @@ function module:Enable()
 		return
 	end
 
-	self:MetatableScan() -- monitor this
+	self.MERStyle = self.MERStyle or {}
 	self:ForceRefresh()
 
 	self.isEnabled = true
-end
-
-function module:SettingsUpdate()
-	if not self.Initialized or not self.isEnabled then
-		return
-	end
-
-	local show = self.db and self.db.enable
-	for frame in pairs(self.MERStyle) do
-		local style = frame.MERStyle
-		if style then
-			if show then
-				style:Show()
-			else
-				style:Hide()
-			end
-		end
-	end
 end
 
 function module:DatabaseUpdate()

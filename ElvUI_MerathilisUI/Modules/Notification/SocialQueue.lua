@@ -32,7 +32,7 @@ function module:SocialQueueEvent(_, guid, numAddedItems)
 	end
 
 	local players = GetGroupMembers(guid)
-	if not players then
+	if not players or not players[1] then
 		return
 	end
 

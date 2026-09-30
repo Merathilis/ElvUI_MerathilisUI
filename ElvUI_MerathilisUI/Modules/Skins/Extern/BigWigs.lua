@@ -1,14 +1,10 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
-local S = E:GetModule("Skins")
 local WS = W:GetModule("Skins")
 local C = W.Utilities.Color
-local OF = W.Utilities.ObjectFinder
 
 local _G = _G
-local next, pcall, unpack = next, pcall, unpack
-local math_pi = math.pi
-local format = string.format
+local unpack = unpack
 
 local CreateFrame = CreateFrame
 
@@ -328,137 +324,4 @@ function module:BigWigs_Plugins()
 	})
 end
 
-function module:BigWigs_QueueTimer()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bw.queueTimer.enable then
-		return
-	end
-
-	if _G.BigWigsLoader then
-		_G.BigWigsLoader.RegisterMessage("MerathilisUI", "BigWigs_FrameCreated", function(_, frame, name)
-			local db = E.private.mui.skins.addonSkins.bw.queueTimer
-			if frame and (name == "QueueTimer") and not frame.__MERSkin then
-				local parent = frame:GetParent()
-				frame:StripTextures()
-				frame:CreateBackdrop("Transparent")
-				WS:CreateBackdropShadow(frame)
-
-				E:SetSmoothing(frame, db.smooth)
-
-				local statusBarTexture = frame:GetStatusBarTexture()
-				statusBarTexture:SetTexture(E.media.normTex)
-				statusBarTexture:SetGradient(
-					"HORIZONTAL",
-					C.CreateColorFromTable(db.colorLeft),
-					C.CreateColorFromTable(db.colorRight)
-				)
-
-				frame:Size(parent:GetWidth(), 10)
-				frame:ClearAllPoints()
-				frame:Point("TOPLEFT", parent, "BOTTOMLEFT", 1, -5)
-				frame:Point("TOPRIGHT", parent, "BOTTOMRIGHT", -1, -5)
-
-				if db.spark then
-					frame.spark = frame:CreateTexture(nil, "ARTWORK", nil, 1)
-					frame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
-					frame.spark:SetBlendMode("ADD")
-					frame.spark:Point("CENTER", statusBarTexture, "RIGHT", 0, 0)
-					frame.spark:SetSize(4, frame:GetHeight())
-				end
-
-				frame.text.SetFormattedText = function(textFrame, _, time)
-					textFrame:SetText(format("%d", time))
-				end
-				WF.SetFontWithDB(frame.text, db.countDown)
-				frame.text:ClearAllPoints()
-				frame.text:SetPoint("TOP", frame, "TOP", db.countDown.offsetX, db.countDown.offsetY)
-
-				frame.__MERSkin = true
-			end
-		end)
-
-		E:Delay(2, function()
-			_G.BigWigsLoader.UnregisterMessage("AddOnSkins", "BigWigs_FrameCreated")
-		end)
-	end
-end
-
-function module:BigWigs_Keystone()
-	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.bw.enable then
-		return
-	end
-
-	local BigWigsL = _G.BigWigsAPI and _G.BigWigsAPI:GetLocale("BigWigs")
-	local titleText = BigWigsL and BigWigsL.keystoneTitle
-
-	if not titleText then
-		return
-	end
-
-	local finder = OF.New()
-	finder:Find("Frame", function(frame)
-		-- Because the function is run on any type objects, need to ensure the safety
-		local text = frame and frame.TitleContainer and frame.TitleContainer.TitleText
-		if text and text.GetText then
-			local success, result = pcall(text.GetText, text)
-			if success and result == titleText then
-				return true
-			end
-		end
-		return false
-	end, function(frame)
-		for _, child in next, { frame:GetChildren() } do
-			if child.ScrollBar then
-				S:HandleTrimScrollBar(child.ScrollBar)
-			elseif
-				child.IsMouseEnabled
-				and child:IsMouseEnabled()
-				and child:GetScript("OnMouseDown")
-				and child:GetNumRegions() == 1
-			then
-				-- Drag
-				local tex = child:GetRegions()
-				if
-					tex
-					and tex.GetObjectType
-					and tex:GetObjectType() == "Texture"
-					and self:IsTexturePathEqual(tex, [[Interface\AddOns\BigWigs\Media\Icons\draghandle]])
-				then
-					tex:SetTexture(E.Media.Textures.ArrowUp)
-					tex:SetVertexColor(C.ExtractRGBAFromTemplate("neutral-50"))
-					tex:SetTexCoord(0, 1, 0, 1)
-					tex:SetRotation(math_pi * 1.25)
-					tex:SetAllPoints()
-				end
-
-				child:NudgePoint(1, -2)
-			end
-		end
-
-		frame.NineSlice:StripTextures()
-		frame.PortraitContainer:Hide()
-		frame.TopTileStreaks:Hide()
-		frame.Bg:Hide()
-		frame:SetTemplate("Transparent")
-		WS:CreateShadow(frame)
-		S:HandleCloseButton(frame.CloseButton)
-
-		if frame.Tabs then
-			for _, tab in next, frame.Tabs do
-				self:Proxy("HandleTab", tab)
-				WS:ReskinTab(tab)
-				tab:SetHeight(32)
-
-				if tab:GetPoint(1) == "BOTTOMLEFT" then
-					tab:ClearAllPoints()
-					tab:Point("BOTTOMLEFT", 10, -31)
-				end
-			end
-		end
-	end)
-
-	finder:Start()
-end
-
 module:AddCallbackForAddon("BigWigs_Plugins")
-module:AddCallbackForEnterWorld("BigWigs_QueueTimer")
-module:AddCallbackForEnterWorld("BigWigs_Keystone")

@@ -3,9 +3,13 @@ local module = MER:GetModule("MER_Profiles") ---@class Profiles
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 function module:LoadCappingProfile()
-	local profileName = I.ProfileNames.Default
+	local db = _G.CappingFrame and _G.CappingFrame.db
+	if not db then
+		return
+	end
 
-	_G.CappingSettings.profiles[profileName] = {
+	-- Capping reloads the UI itself when its profile changes
+	self:ApplyAceDBProfile(db, I.ProfileNames.Default, {
 		["outline"] = "OUTLINE",
 		["font"] = "MER_Expressway",
 		["lock"] = true,
@@ -24,7 +28,7 @@ function module:LoadCappingProfile()
 			nil,
 			0.35,
 		},
-	}
+	})
 end
 
 function module:ApplyCappingProfile()

@@ -128,11 +128,8 @@ function module:IsInTooltip(tooltipLines, query)
 	local q = lower(query)
 	for i = 1, #tooltipLines do
 		local line = tooltipLines[i]
-		local toFind = line
-		if E:NotSecretValue(line) and line then
-			toFind = lower(line)
-		end
-		if find(toFind or "", q, 1, true) then
+		-- A secret line can't be searched, it used to go into find() unchanged and errored
+		if line and E:NotSecretValue(line) and find(lower(line), q, 1, true) then
 			return true
 		end
 	end

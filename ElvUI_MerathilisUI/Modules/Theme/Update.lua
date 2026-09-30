@@ -9,7 +9,7 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 		eR, eG, eB = eR.r, eR.g, eR.b
 	end
 
-	if eR ~= nil and (E:IsSecretValue(eR) or E:IsSecretValue(eG) or E:IsSecretValue(eB)) then
+	if E:IsSecretValue(eR) or E:IsSecretValue(eG) or E:IsSecretValue(eB) then
 		eR, eG, eB = nil, nil, nil
 	end
 

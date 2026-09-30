@@ -61,7 +61,7 @@ local function HandleChatFrame(frame)
 		exit:ClearAllPoints()
 		exit:Point("TOPRIGHT", -2, 0)
 
-		local arrow = exit:CreateTexture(MER.Title .. "arrow", "ARTWORK")
+		local arrow = exit:CreateTexture(nil, "ARTWORK")
 		arrow:SetTexture(I.Media.Textures.arrow)
 		arrow:SetAllPoints()
 	end

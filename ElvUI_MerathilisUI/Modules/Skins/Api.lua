@@ -1,14 +1,12 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
-local WS = W:GetModule("Skins")
 local S = E:GetModule("Skins")
 
 local _G = _G
 local assert, pairs, unpack, type = assert, pairs, unpack, type
-local strfind, strmatch, tinsert, format, tostring = strfind, strmatch, tinsert, format, tostring
+local strfind, strmatch, tinsert = strfind, strmatch, tinsert
 local rad = rad
 
-local CreateColor = CreateColor
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local UIFrameFadeIn = UIFrameFadeIn
@@ -16,15 +14,6 @@ local UIFrameFadeOut = UIFrameFadeOut
 local YES, NO = YES, NO
 local StaticPopupDialogs = StaticPopupDialogs
 local PanelTemplates_GetSelectedTab = PanelTemplates_GetSelectedTab
-
-local unitFrameColorR, unitFrameColorG, unitFrameColorB
-local rgbValueColorR, rgbValueColorG, rgbValueColorB
-local bordercolorr, bordercolorg, bordercolorb
-
-module.ClassColor = _G.RAID_CLASS_COLORS[E.myclass]
-
-module.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
-module.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 -- Depends on the arrow texture to be down by default.
 module.ArrowRotation = {
@@ -95,26 +84,6 @@ function module:CreateBG(frame)
 	bg:SetVertexColor(0, 0, 0, 1)
 
 	return bg
-end
-
-function module:CreateBackdrop(frame)
-	if frame.backdrop then
-		return
-	end
-
-	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
-
-	local backdrop = CreateFrame("Frame", nil, parent, "BackdropTemplate")
-	backdrop:SetOutside(frame)
-	backdrop:SetTemplate("Transparent")
-
-	if (parent:GetFrameLevel() - 1) >= 0 then
-		backdrop:OffsetFrameLevel(-1, parent)
-	else
-		backdrop:SetFrameLevel(0)
-	end
-
-	frame.backdrop = backdrop
 end
 
 ---@param f Frame|Texture The frame or texture to create a backdrop for
@@ -205,29 +174,6 @@ do
 				thumb.__MERTrimHooked = true
 			end
 		end
-	end
-end
-
-function module:ColorButton()
-	if self.backdrop then
-		self = self.backdrop
-	end
-
-	self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.3)
-	self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-end
-
-function module:ClearButton()
-	if self.backdrop then
-		self = self.backdrop
-	end
-
-	self:SetBackdropColor(0, 0, 0, 0)
-
-	if self.isUnitFrameElement then
-		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
-	else
-		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 	end
 end
 
@@ -330,73 +276,6 @@ function module:ReskinFilterButton(button)
 	button.__texture = tex
 end
 
--- Handle collapse
-local function updateCollapseTexture(texture, collapsed)
-	if collapsed then
-		texture:SetTexCoord(0, 0.4375, 0, 0.4375)
-	else
-		texture:SetTexCoord(0.5625, 1, 0, 0.4375)
-	end
-end
-
-local function resetCollapseTexture(self, texture)
-	if self.settingTexture then
-		return
-	end
-	self.settingTexture = true
-	self:SetNormalTexture("")
-
-	if texture and texture ~= "" then
-		if strfind(texture, "Plus") or strfind(texture, "Closed") then
-			self.__texture:DoCollapse(true)
-		elseif strfind(texture, "Minus") or strfind(texture, "Open") then
-			self.__texture:DoCollapse(false)
-		end
-		self.bg:Show()
-	else
-		self.bg:Hide()
-	end
-	self.settingTexture = nil
-end
-
-function module:ReskinCollapse(button, isAtlas)
-	button:SetHighlightTexture("")
-	button:SetPushedTexture("")
-	button:SetDisabledTexture("")
-
-	local bg = module:CreateBDFrame(button, 0.25)
-	bg:ClearAllPoints()
-	bg:SetSize(13, 13)
-	bg:SetPoint("TOPLEFT", button:GetNormalTexture())
-	button.bg = bg
-
-	button.__texture = bg:CreateTexture(nil, "OVERLAY")
-	button.__texture:SetPoint("CENTER")
-	button.__texture:SetSize(7, 7)
-	button.__texture:SetTexture("Interface\\Buttons\\UI-PlusMinus-Buttons")
-	button.__texture.DoCollapse = updateCollapseTexture
-
-	button:HookScript("OnEnter", F.Texture_OnEnter)
-	button:HookScript("OnLeave", F.Texture_OnLeave)
-	if isAtlas then
-		hooksecurefunc(button, "SetNormalAtlas", resetCollapseTexture)
-	else
-		hooksecurefunc(button, "SetNormalTexture", resetCollapseTexture)
-	end
-end
-
-function module:SkinPanel(panel)
-	panel.tex = panel:CreateTexture(nil, "ARTWORK")
-	panel.tex:SetAllPoints()
-	panel.tex:SetTexture(E.media.blankTex)
-	panel.tex:SetGradient(
-		"VERTICAL",
-		CreateColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 1),
-		CreateColor(0, 0, 0, 1)
-	)
-	WS:CreateShadow(panel)
-end
-
 local buttons = {
 	"ElvUIMoverNudgeWindowUpButton",
 	"ElvUIMoverNudgeWindowDownButton",
@@ -445,28 +324,6 @@ end
 
 hooksecurefunc(E, "CreateMoverPopup", module.ApplyConfigArrows)
 
--- Proxy function to call ElvUI Skins functions
----@param method string The function name in ElvUI Skins
----@param frame any The frame to pass to the function
----@param ... any Additional arguments to pass
-function module:Proxy(method, frame, ...)
-	if not frame then
-		F.Developer.ThrowError("Failed to proxy function: frame is nil.", "\n funcName:", method)
-		return
-	end
-
-	if not S[method] then
-		F.Developer.ThrowError(
-			format("Proxy: %s does not exist in ElvUI Skins", method),
-			"\n frame:",
-			frame.GetDebugName and frame:GetDebugName() or tostring(frame)
-		)
-		return
-	end
-
-	S[method](S, frame, ...)
-end
-
 -- Disable AddOnSkins Skin
 function module:DisableAddOnSkins(optionName, value)
 	if _G.AddOnSkins then
@@ -475,14 +332,6 @@ function module:DisableAddOnSkins(optionName, value)
 			AS.db[optionName] = value
 			AS:SetOption(optionName, false)
 		end
-	end
-end
-
--- Replace the Recap button script re-set function
-function S:UpdateRecapButton()
-	if self and self.button4 and self.button4:IsEnabled() then
-		self.button4:SetScript("OnEnter", module.ColorButton)
-		self.button4:SetScript("OnLeave", module.ClearButton)
 	end
 end
 
@@ -507,15 +356,6 @@ do
 	end
 
 end
-
--- keep the colors updated
-function module:UpdateMedia()
-	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
-	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
-	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
-end
-
-hooksecurefunc(E, "UpdateMedia", module.UpdateMedia)
 
 -- hook the skin functions from ElvUI
 module:SecureHook(S, "HandleScrollBar")

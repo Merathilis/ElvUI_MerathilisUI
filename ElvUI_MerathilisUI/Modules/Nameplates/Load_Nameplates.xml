@@ -3,6 +3,10 @@
 	<Script file="FactionIndicator.lua"/>
 	<Script file="TargetArrows.lua"/>
 	<Script file="Highlight.lua"/>
+	<Script file="FocusHighlight.lua"/>
+	<Script file="MarkerColor.lua"/>
+	<Script file="EnemyForces.lua"/>
 	<Script file="InterruptReady.lua"/>
+	<Script file="CastTarget.lua"/>
 	<Script file="ExecuteLine.lua"/>
 </Ui>

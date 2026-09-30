@@ -3,9 +3,12 @@ local module = MER:GetModule("MER_Profiles") ---@class Profiles
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 function module:LoadTomTomProfile()
-	local profileName = I.ProfileNames.Default
+	local db = _G.TomTom and _G.TomTom.db
+	if not db then
+		return
+	end
 
-	_G.TomTomDB.profiles[profileName] = {
+	self:ApplyAceDBProfile(db, I.ProfileNames.Default, {
 		["arrow"] = {
 			["lock"] = true,
 			["position"] = {
@@ -34,7 +37,7 @@ function module:LoadTomTomProfile()
 			["arrow"] = true,
 			["coords"] = true,
 		},
-	}
+	})
 end
 
 function module:ApplyTomTomProfile()
