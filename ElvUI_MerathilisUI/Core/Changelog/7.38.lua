@@ -34,6 +34,8 @@ MER.Changelog[738] = {
 		"[Theme]: Changing a gradient color in the options repaints group and raid frames with their current unit.",
 		"[Tooltip]: The achievement comparison no longer errors on restricted links.",
 		'[Trade Tabs]: Opening a profession or the trade window in combat no longer causes an "action blocked" message.',
+		"[UnitFrames]: The mouseover highlight is only created once per frame; it used to pile up textures and hooks on every frame update.",
+		"[UnitFrames]: The custom raid icons also apply when ElvUI's raid icon gets enabled later.",
 		"[Wowhead Links]: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.",
 	},
 	NEW = {

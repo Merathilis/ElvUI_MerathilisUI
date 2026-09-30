@@ -31,6 +31,8 @@
 -   [Fix]: Theme: Changing a gradient color in the options repaints group and raid frames with their current unit.
 -   [Fix]: Tooltip: The achievement comparison no longer errors on restricted links.
 -   [Fix]: Trade Tabs: Opening a profession or the trade window in combat no longer causes an "action blocked" message.
+-   [Fix]: UnitFrames: The mouseover highlight is only created once per frame; it used to pile up textures and hooks on every frame update.
+-   [Fix]: UnitFrames: The custom raid icons also apply when ElvUI's raid icon gets enabled later.
 -   [Fix]: Wowhead Links: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
 -   [New]: NamePlates: Animated target arrows next to your target's nameplate (slide in, bounce or both, in class color by default). They replace the arrows of ElvUI's target indicator while enabled.
