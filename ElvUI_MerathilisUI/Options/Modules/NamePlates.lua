@@ -39,6 +39,10 @@ local function FocusHighlightCustomColorDisabled()
 	return FocusHighlightDisabled() or E.db.mui.nameplates.focusHighlight.colorMode ~= "CUSTOM"
 end
 
+local function EnemyForcesDisabled()
+	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.enemyForces.enable
+end
+
 local function CastTargetDisabled()
 	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.castTarget.enable
 end
@@ -433,6 +437,103 @@ options.nameplates = {
 							max = 1,
 							step = 0.05,
 							isPercent = true,
+						},
+					},
+				},
+				enemyForces = {
+					order = 3.3,
+					type = "group",
+					name = L["Enemy Forces"],
+					guiInline = true,
+					get = function(info)
+						return E.db.mui.nameplates.enemyForces[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.nameplates.enemyForces[info[#info]] = value
+						MNP:UpdateEnemyForces()
+					end,
+					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
+					args = {
+						desc = {
+							order = 1,
+							type = "description",
+							dialogControl = "MERNewFeatureLabel",
+							name = F.NewFeatureTrailingText(L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."]),
+						},
+						preview = {
+							order = 1.5,
+							type = "description",
+							dialogControl = "MERNameplateHealthPreview",
+							name = "enemyForces",
+							width = "full",
+						},
+						enable = {
+							order = 2,
+							type = "toggle",
+							name = L["Enable"],
+						},
+						format = {
+							order = 3,
+							type = "select",
+							name = L["Contribution Format"],
+							desc = L["How the enemy's own contribution is shown."],
+							disabled = EnemyForcesDisabled,
+							values = {
+								PERCENT = L["Percent"],
+								NUMBER = L["Number"],
+								BOTH = L["Both"],
+							},
+						},
+						fontSize = {
+							order = 4,
+							type = "range",
+							name = L["Font Size"],
+							disabled = EnemyForcesDisabled,
+							min = 6,
+							max = 24,
+							step = 1,
+						},
+						color = {
+							order = 5,
+							type = "color",
+							name = L["Color"],
+							hasAlpha = false,
+							disabled = EnemyForcesDisabled,
+							get = function()
+								local db = E.db.mui.nameplates.enemyForces.color
+								local default = P.nameplates.enemyForces.color
+								return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+							end,
+							set = function(_, r, g, b)
+								local db = E.db.mui.nameplates.enemyForces.color
+								db.r, db.g, db.b = r, g, b
+								MNP:UpdateEnemyForces()
+							end,
+						},
+						position = {
+							order = 6,
+							type = "select",
+							name = L["Anchor Point"],
+							disabled = EnemyForcesDisabled,
+							values = I.Values.positionValues,
+						},
+						xOffset = {
+							order = 7,
+							type = "range",
+							name = L["X-Offset"],
+							disabled = EnemyForcesDisabled,
+							min = -100,
+							max = 100,
+							step = 1,
+						},
+						yOffset = {
+							order = 8,
+							type = "range",
+							name = L["Y-Offset"],
+							disabled = EnemyForcesDisabled,
+							min = -100,
+							max = 100,
+							step = 1,
 						},
 					},
 				},

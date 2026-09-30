@@ -1264,6 +1264,8 @@ L["Focus Highlight"] = "Fokus-Hervorhebung"
 L["Lays a texture over the health bar of your focus target's nameplate."] = "Legt eine Textur über die Lebensleiste der Namensplakette deines Fokusziels."
 L["Raid Marker Color"] = "Schlachtzugsmarker-Farbe"
 L["Tints the health bar of a nameplate with a raid marker in the color of that marker."] = "Färbt die Lebensleiste einer Namensplakette mit Schlachtzugsmarker in der Farbe dieses Markers."
+L["Enemy Forces"] = "Feindliche Streitkräfte"
+L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."] = "Zeigt während eines Mythisch+-Schlüsselsteinlaufs neben der Lebensleiste, wie viel ein Gegner zur Anforderung der feindlichen Streitkräfte beiträgt."
 
 -- Interrupt Ready
 L["Interrupt Ready"] = "Unterbrechung bereit"

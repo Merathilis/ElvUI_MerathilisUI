@@ -1507,6 +1507,8 @@ L["Focus Highlight"] = true
 L["Lays a texture over the health bar of your focus target's nameplate."] = true
 L["Raid Marker Color"] = true
 L["Tints the health bar of a nameplate with a raid marker in the color of that marker."] = true
+L["Enemy Forces"] = true
+L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."] = true
 
 -- Interrupt Ready
 L["Interrupt Ready"] = true

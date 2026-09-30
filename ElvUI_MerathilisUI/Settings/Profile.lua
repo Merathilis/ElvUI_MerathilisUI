@@ -965,6 +965,15 @@ P.nameplates = {
 		enable = false,
 		alpha = 0.75,
 	},
+	enemyForces = {
+		enable = true,
+		format = "PERCENT",
+		fontSize = 10,
+		position = "RIGHT",
+		xOffset = 4,
+		yOffset = 0,
+		color = { r = 1, g = 1, b = 1 },
+	},
 	interruptReady = {
 		enable = true,
 		tint = true,
