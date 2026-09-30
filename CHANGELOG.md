@@ -26,6 +26,7 @@
 -   [Fix]: Skins: Details gradient names and bars no longer throw Lua errors with secret names in combat.
 -   [Fix]: Skins: The BigWigs queue timer and keystone window, Paragon Reputation and Mount Route Planner are no longer skinned twice; WindTools handles them.
 -   [Fix]: Status Report: Opening it no longer throws a Lua error when Details is enabled but not loaded.
+-   [Fix]: Style: Turning the style off and on again (or switching to a profile that has it enabled) brings the look back without a reload.
 -   [Fix]: Trade Tabs: Opening a profession or the trade window in combat no longer causes an "action blocked" message.
 -   [Fix]: Wowhead Links: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
