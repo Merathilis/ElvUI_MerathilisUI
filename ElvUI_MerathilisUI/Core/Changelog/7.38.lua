@@ -30,6 +30,8 @@ MER.Changelog[738] = {
 		"[Skins]: The BigWigs queue timer and keystone window, Paragon Reputation and Mount Route Planner are no longer skinned twice; WindTools handles them.",
 		"[Status Report]: Opening it no longer throws a Lua error when Details is enabled but not loaded.",
 		"[Style]: Turning the style off and on again (or switching to a profile that has it enabled) brings the look back without a reload.",
+		"[Theme]: Switching between two profiles that both use the gradient theme now applies the new profile's colors and textures.",
+		"[Theme]: Changing a gradient color in the options repaints group and raid frames with their current unit.",
 		'[Trade Tabs]: Opening a profession or the trade window in combat no longer causes an "action blocked" message.',
 		"[Wowhead Links]: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.",
 	},
