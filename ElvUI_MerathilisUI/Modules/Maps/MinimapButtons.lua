@@ -75,6 +75,51 @@ local GREAT_VAULT_ATLAS = "greatVault-whole-normal"
 local PORTAL_ICON = [[Interface\Icons\Spell_Arcane_PortalDalaran]]
 
 -------------------------------------------------------------------------------
+-- Attention pulse
+-------------------------------------------------------------------------------
+-- Mirrors the world map's ExpandAndFade pin highlight (MapPinAnimatedHighlightTemplate):
+-- a desaturated additive copy of the icon grows to twice its size while fading out.
+-- It lives on a raised child frame so neighbouring bar buttons don't draw over it.
+-- Stored as btn.PulseGroup; the caller decides when it plays.
+local function CreateExpandPulse(btn, icon, atlas)
+	local pulseFrame = CreateFrame("Frame", nil, btn)
+	pulseFrame:SetAllPoints(icon)
+	pulseFrame:SetFrameLevel(btn:GetFrameLevel() + 5)
+
+	local expand = pulseFrame:CreateTexture(nil, "OVERLAY")
+	expand:SetAtlas(atlas)
+	expand:SetAllPoints()
+	expand:SetBlendMode("ADD")
+	expand:SetDesaturated(true)
+	expand:SetAlpha(0)
+
+	local pulse = expand:CreateAnimationGroup()
+	pulse:SetLooping("REPEAT")
+	pulse:SetToFinalAlpha(false)
+
+	local fadeIn = pulse:CreateAnimation("Alpha")
+	fadeIn:SetFromAlpha(0)
+	fadeIn:SetToAlpha(0.3)
+	fadeIn:SetDuration(0.4)
+	fadeIn:SetOrder(1)
+
+	local grow = pulse:CreateAnimation("Scale")
+	grow:SetOrigin("CENTER", 0, 0)
+	grow:SetScaleFrom(1, 1)
+	grow:SetScaleTo(2, 2)
+	grow:SetDuration(1)
+	grow:SetOrder(1)
+
+	local fadeOut = pulse:CreateAnimation("Alpha")
+	fadeOut:SetFromAlpha(0.3)
+	fadeOut:SetToAlpha(0)
+	fadeOut:SetDuration(0.4)
+	fadeOut:SetOrder(2)
+
+	btn.PulseGroup = pulse
+end
+
+-------------------------------------------------------------------------------
 -- Great Vault button
 -------------------------------------------------------------------------------
 local function GetVaultTokenColor(state)
@@ -143,7 +188,7 @@ local function ToggleGreatVault()
 	end
 end
 
--- Pulses the icon's alpha and grows the whole button while at least one weekly reward is ready to claim.
+-- Plays the world-map-style expand pulse while at least one weekly reward is ready to claim.
 local function UpdateGreatVaultPulse(btn)
 	local hasRewards = C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards and C_WeeklyRewards.HasAvailableRewards()
 
@@ -162,18 +207,8 @@ local function UpdateGreatVaultPulse(btn)
 		if not btn.PulseGroup:IsPlaying() then
 			btn.PulseGroup:Play()
 		end
-		if not btn.ScaleGroup:IsPlaying() then
-			btn.ScaleGroup:Play()
-		end
-	else
-		if btn.PulseGroup:IsPlaying() then
-			btn.PulseGroup:Stop()
-			btn.Icon:SetAlpha(1)
-		end
-		if btn.ScaleGroup:IsPlaying() then
-			btn.ScaleGroup:Stop()
-			btn:SetScale(1)
-		end
+	elseif btn.PulseGroup:IsPlaying() then
+		btn.PulseGroup:Stop()
 	end
 end
 
@@ -200,9 +235,6 @@ function module:TestGreatVaultPulse()
 	end)
 end
 
-local PULSE_DURATION = 0.8
-local PULSE_MAX_SCALE = 1.35
-
 local function CreateGreatVaultButton(parent)
 	local btn = CreateFrame("Button", "MER_MinimapGreatVaultButton", parent)
 	btn:EnableMouse(true)
@@ -214,25 +246,7 @@ local function CreateGreatVaultButton(parent)
 	icon:SetPoint("BOTTOMRIGHT", -2, 2)
 	btn.Icon = icon
 
-	local pulse = icon:CreateAnimationGroup()
-	pulse:SetLooping("BOUNCE")
-	local pulseAlpha = pulse:CreateAnimation("Alpha")
-	pulseAlpha:SetFromAlpha(1)
-	pulseAlpha:SetToAlpha(0.35)
-	pulseAlpha:SetDuration(PULSE_DURATION)
-	pulseAlpha:SetSmoothing("IN_OUT")
-	btn.PulseGroup = pulse
-
-	-- Grows the whole button so the pulse reads at a glance.
-	local scaleGroup = btn:CreateAnimationGroup()
-	scaleGroup:SetLooping("BOUNCE")
-	local scaleAnim = scaleGroup:CreateAnimation("Scale")
-	scaleAnim:SetOrigin("CENTER", 0, 0)
-	scaleAnim:SetScaleFrom(1, 1)
-	scaleAnim:SetScaleTo(PULSE_MAX_SCALE, PULSE_MAX_SCALE)
-	scaleAnim:SetDuration(PULSE_DURATION)
-	scaleAnim:SetSmoothing("IN_OUT")
-	btn.ScaleGroup = scaleGroup
+	CreateExpandPulse(btn, icon, GREAT_VAULT_ATLAS)
 
 	btn:SetScript("OnEnter", function(self)
 		self.Icon:SetVertexColor(1, 1, 1)
@@ -743,6 +757,17 @@ local function CreateMailButton(parent)
 		end
 		_G.GameTooltip:Show()
 	end
+
+	-- The button only exists while mail is waiting, so it pulses for as long as it is shown.
+	CreateExpandPulse(btn, btn.Icon, MAIL_ATLAS[1])
+	btn:SetScript("OnShow", function(self)
+		if not self.PulseGroup:IsPlaying() then
+			self.PulseGroup:Play()
+		end
+	end)
+	btn:SetScript("OnHide", function(self)
+		self.PulseGroup:Stop()
+	end)
 
 	return btn
 end
