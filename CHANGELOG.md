@@ -9,6 +9,8 @@
 -   [Fix]: Item Level: Turning the item level on, also by a profile switch, works without a reload.
 -   [Fix]: Loot Spec Manager: Turning it off now really stops the automatic loot spec changes and hides the Encounter Journal button, without a reload. A profile switch uses the settings of the new profile.
 -   [Fix]: Mail: Open Selected no longer opens the wrong mails once a mail without text is removed after it was emptied.
+-   [Fix]: Name Hover: Hovering a quest mob no longer throws a Lua error ("secret value") when its tooltip lines are restricted, e.g. in Mythic+.
+-   [Fix]: Name Hover: The Mythic+ forces text no longer gets cut off with the Number or Both format.
 -   [Fix]: Raid Info Frame: Turning it on in the options no longer throws Lua errors from the size and spacing options, and turning it on or off, also by a profile switch, works without a reload. Hide In Combat applies right away.
 -   [Fix]: Status Report: Opening it no longer throws a Lua error when Details is enabled but not loaded.
 -   [Fix]: Trade Tabs: Opening a profession or the trade window in combat no longer causes an "action blocked" message.
