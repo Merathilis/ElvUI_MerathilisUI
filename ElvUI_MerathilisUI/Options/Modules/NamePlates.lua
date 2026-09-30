@@ -445,6 +445,7 @@ options.nameplates = {
 					type = "group",
 					name = L["Enemy Forces"],
 					guiInline = true,
+					hidden = E.Forever,
 					get = function(info)
 						return E.db.mui.nameplates.enemyForces[info[#info]]
 					end,
