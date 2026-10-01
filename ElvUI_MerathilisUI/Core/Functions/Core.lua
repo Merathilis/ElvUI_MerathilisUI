@@ -722,10 +722,11 @@ end
 -- F.NewFeatureTabs below instead, which never touches `name` at all.
 F.NewFeatureMarker = "\002MER_NEW\002"
 
----Prefix a header option's `name` with the marker Options/Widgets/
----SectionHeader.lua looks for and strips back out, turning it into a pulsing
----NEW badge next to the header text. Remove the wrapping again once that
----section isn't new anymore. Headers only - see F.MarkTabAsNew for tabs.
+---Prefix a header or toggle option's `name` with the marker Options/Widgets/
+---SectionHeader.lua and Options/Widgets/ToggleSwitch.lua look for and strip
+---back out, turning it into a pulsing NEW badge next to the text. Remove the
+---wrapping again once that option isn't new anymore. Only these two widgets
+---know the marker, other option types show it raw - see F.MarkTabAsNew for tabs.
 ---@param text string
 ---@return string
 function F.NewFeatureText(text)

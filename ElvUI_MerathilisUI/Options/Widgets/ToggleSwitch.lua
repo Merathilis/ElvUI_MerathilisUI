@@ -5,13 +5,19 @@ local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 local Type = "MERToggleSwitch"
 local Version = 1
 
-local select, pairs = select, pairs
+local _G = _G
+local min, select, pairs = math.min, select, pairs
 local PlaySound = PlaySound
 local CreateFrame, UIParent = CreateFrame, UIParent
 
 local TRACK_WIDTH, TRACK_HEIGHT = 34, 16
 local KNOB_SIZE = 12
 local KNOB_INSET = 2
+
+-- NEW badge of a label marked with F.NewFeatureText, the label keeps room for it
+local BADGE_SCALE = 0.6
+local BADGE_RESERVE = 28
+local TEXT_OFFSET = 6
 
 local COLOR_TRACK_OFF = { 0.16, 0.16, 0.16, 1 }
 local COLOR_TRACK_ON = { I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b, 1 }
@@ -23,16 +29,32 @@ local COLOR_TEXT_DISABLED = { 0.5, 0.5, 0.5 }
 local COLOR_TEXT_ENABLE_ON = { 0.1, 0.9, 0.1 }
 local COLOR_TEXT_ENABLE_OFF = { 0.9, 0.15, 0.15 }
 
+local function UpdateNewBadge(self)
+	local badge = F.SyncNewFeatureBadge(self, "newBadge", self.isNew, function()
+		return F.CreateNewFeatureBadge(self.frame, "LEFT", self.text, "LEFT", 0, 0, BADGE_SCALE)
+	end)
+	if not badge then
+		return
+	end
+
+	-- Right after the visible words; a truncated label ends where its room ends
+	local room = self.frame:GetWidth() - TRACK_WIDTH - TEXT_OFFSET - BADGE_RESERVE
+	badge:ClearAllPoints()
+	badge:SetPoint("LEFT", self.text, "LEFT", min(self.text:GetStringWidth(), room) + 4, 0)
+end
+
 local function AlignImage(self)
 	local img = self.image:GetTexture()
+	local right = self.isNew and -BADGE_RESERVE or 0
 	self.text:ClearAllPoints()
 	if not img then
-		self.text:SetPoint("LEFT", self.track, "RIGHT", 6, 0)
-		self.text:SetPoint("RIGHT")
+		self.text:SetPoint("LEFT", self.track, "RIGHT", TEXT_OFFSET, 0)
+		self.text:SetPoint("RIGHT", right, 0)
 	else
 		self.text:SetPoint("LEFT", self.image, "RIGHT", 1, 0)
-		self.text:SetPoint("RIGHT")
+		self.text:SetPoint("RIGHT", right, 0)
 	end
+	UpdateNewBadge(self)
 end
 
 local function UpdateTextColor(self)
@@ -68,7 +90,19 @@ local function UpdateVisual(self)
 end
 
 local function Control_OnEnter(frame)
-	frame.obj:Fire("OnEnter")
+	local self = frame.obj
+	self:Fire("OnEnter")
+
+	-- AceConfigDialog puts the raw option name into the tooltip title
+	if self.isNew then
+		local dialog = E.Libs.AceConfigDialog
+		local tooltip = dialog and dialog.tooltip
+		local title = tooltip and tooltip:GetName() and _G[tooltip:GetName() .. "TextLeft1"]
+		local text = title and title:GetText()
+		if text and text:find(F.NewFeatureMarker, 1, true) then
+			title:SetText((text:gsub(F.NewFeatureMarker, "")))
+		end
+	end
 end
 
 local function Control_OnLeave(frame)
@@ -95,6 +129,7 @@ local methods = {
 	["OnAcquire"] = function(self)
 		self:SetType()
 		self.isEnableToggle = nil
+		self.isNew = nil
 		self:SetValue(false)
 		self:SetTriState(nil)
 		self:SetWidth(200)
@@ -104,6 +139,7 @@ local methods = {
 	end,
 
 	["OnWidthSet"] = function(self, width)
+		UpdateNewBadge(self)
 		if self.desc then
 			self.desc:SetWidth(width - 30)
 			if self.desc:GetText() and self.desc:GetText() ~= "" then
@@ -155,9 +191,17 @@ local methods = {
 	end,
 
 	["SetLabel"] = function(self, label)
+		-- F.NewFeatureText marks the option as new, the marker becomes a NEW badge
+		local isNew = label and label:find(F.NewFeatureMarker, 1, true) ~= nil
+		if isNew then
+			label = label:gsub(F.NewFeatureMarker, "")
+		end
+
+		self.isNew = isNew
 		self.text:SetText(label)
 		self.isEnableToggle = label == L["Enable"]
 		UpdateTextColor(self)
+		AlignImage(self)
 	end,
 
 	["SetDescription"] = function(self, desc)
