@@ -590,7 +590,8 @@ function module:OptionsCallback()
 			logo = {
 				order = 2,
 				type = "description",
-				dialogControl = "MERNewFeatureLabel",
+				-- Logo + description with the "What's New" card next to it
+				dialogControl = "MERHomeHeader",
 				name = function()
 					local text
 					if not F.IsMERProfile() then

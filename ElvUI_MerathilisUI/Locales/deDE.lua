@@ -739,6 +739,22 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 
 -- Changelog
 L["Changelog"] = "Änderungen"
+L["What's New in %s"] = "Neu in %s"
+L["Full Changelog"] = "Alle Änderungen"
+L["In Development"] = "In Entwicklung"
+L["Did you know?"] = "Wusstest du?"
+L["Go to Option"] = "Zur Option"
+L["Type /mer status to open the Status Report. Post it when you report a bug."] = "Mit /mer status öffnest du den Status Report. Häng ihn an, wenn du einen Fehler meldest."
+L["/muidebug on turns off all other addons except ElvUI, WindTools, MerathilisUI and BugSack. /muidebug off turns them back on."] = "/muidebug on schaltet alle Addons außer ElvUI, WindTools, MerathilisUI und BugSack aus. /muidebug off schaltet sie wieder ein."
+L["Type /mer changelog to read what changed in every version."] = "Mit /mer changelog liest du, was sich in jeder Version geändert hat."
+L["Movement Alert shows the cooldown of your movement spells while they are not ready."] = "Movement Alert zeigt die Abklingzeit deiner Bewegungszauber, solange sie nicht bereit sind."
+L["The Tracker shows your group's battle res charges in Mythic+ keys and raid boss encounters."] = "Der Tracker zeigt die Battle-Res-Aufladungen deiner Gruppe in Mythic+ und bei Raidbossen."
+L["Cursor puts a colored ring around your mouse cursor, optionally with a GCD and cast ring."] = "Cursor legt einen farbigen Ring um deinen Mauszeiger, auf Wunsch mit GCD- und Zauberring."
+L["The Chat Sidebar gives quick access to friends, guild, copy chat and M+ portals."] = "Die Chat-Sidebar bietet schnellen Zugriff auf Freunde, Gilde, Chat kopieren und M+-Portale."
+L["Loot Roll replaces the roll frames with a movable bar. Its Test button shows a preview."] = "Loot Roll ersetzt die Würfelfenster durch eine verschiebbare Leiste. Der Test-Button zeigt eine Vorschau."
+L["Buff Reminder shows icons for the raid buffs you are missing."] = "Buff Reminder zeigt Symbole für die Raidbuffs, die dir fehlen."
+L["Singing Sockets adds a selection tool to the socketing frame."] = "Singing Sockets fügt dem Sockelfenster eine Auswahlhilfe hinzu."
+L["The Game Menu can show random battle pets."] = "Das Spielmenü kann zufällige Kampfhaustiere zeigen."
 
 -- Compatibility
 L["Complete"] = "Komplett"
