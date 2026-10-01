@@ -20,7 +20,7 @@ Argument: optional target version (e.g. `7.36`). Without it, derive it (see Phas
 - Branch flow: work happens on `development`; releases are `development` merged into `main`, tag on the merge commit. `beta`/`ptr` are **not** part of the release.
 - Commit prefixes: `📖 DOC:`, `🚀 RELEASE:` etc. No mention of source addons in commit messages.
 - `gh` is not installed on the user's machine. `luacheck` is (standalone exe on PATH, config `.luacheckrc` in the repo root).
-- "New" markers in the options: `F.MarkTabAsNew("<argsKey>")` (tab badge), `F.NewFeatureText(...)` (header badge) and `F.NewFeatureTrailingText(...)` + `dialogControl = "MERNewFeatureLabel"` (badge after a description, under `Options/Modules/`; the one on the logo text in `Options/Core.lua` is permanent). They belong **only** to modules/additions that are new in the version being released - never to anything that already shipped in an earlier version.
+- "New" markers in the options: `F.MarkTabAsNew("<argsKey>")` (tab badge), `F.NewFeatureText(...)` (badge on headers and toggles, other option types would show the raw marker) and `F.NewFeatureTrailingText(...)` + `dialogControl = "MERNewFeatureLabel"` (badge after a description, under `Options/Modules/`; the one on the logo text in `Options/Core.lua` is permanent). They belong **only** to modules/additions that are new in the version being released - never to anything that already shipped in an earlier version.
 
 ## Phase 0 - Preconditions
 

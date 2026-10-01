@@ -145,6 +145,7 @@ options.general = {
 	},
 }
 
+F.MarkTabAsNew("gameMenu")
 options.gameMenu = {
 	order = 2,
 	type = "group",
@@ -173,6 +174,15 @@ options.gameMenu = {
 			type = "toggle",
 			name = L["Show Random Pets"],
 			desc = L["Shows random battle pets"],
+		},
+		animations = {
+			order = 2.5,
+			type = "toggle",
+			name = F.NewFeatureText(L["Fade In Content"]),
+			desc = L["Fades the info blocks in one after the other when the game menu opens."],
+			hidden = function()
+				return not E.db.mui.gameMenu.enable
+			end,
 		},
 		bgColor = {
 			order = 3,
@@ -211,6 +221,18 @@ options.gameMenu = {
 					type = "toggle",
 					name = L["Show Weekly Delves Keys"],
 					hidden = E.Forever,
+				},
+				showGreatVault = {
+					order = 2.1,
+					type = "toggle",
+					name = F.NewFeatureText(L["Show Great Vault"]),
+					desc = L["Shows your Great Vault progress for raids, dungeons and the world."],
+				},
+				showClock = {
+					order = 2.2,
+					type = "toggle",
+					name = F.NewFeatureText(L["Show Clock"]),
+					desc = L["Shows the time, the date and the time until the weekly reset."],
 				},
 				mythic = {
 					order = 3,

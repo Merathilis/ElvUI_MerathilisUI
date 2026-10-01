@@ -43,6 +43,7 @@ MER.Changelog[738] = {
 	},
 	NEW = {
 		"[DataTexts]: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.",
+		"[Game Menu]: The Great Vault progress, a clock with the date and the time until the weekly reset, and a staggered fade in of the info blocks.",
 		"[NamePlates]: Animated target arrows next to your target's nameplate (slide in, bounce or both, in class color by default). They replace the arrows of ElvUI's target indicator while enabled.",
 		"[NamePlates]: The mouseover highlight on the health bar can be restyled with a texture, class or custom color and a short fade in.",
 		"[NamePlates]: Execute Line: a line on the health bar of hostile nameplates at a health percent of your choice (20% by default), so you see when a unit gets into your execute range. Comes with a soft glow, small markers and a tinted execute range, each can be turned off, plus an optional pulse. Off by default.",

@@ -2,7 +2,9 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Misc") ---@class Misc
 
 local _G = _G
-local pairs, format, random = pairs, format, math.random
+local date = date
+local ipairs, pairs, format, random = ipairs, pairs, format, math.random
+local sort = table.sort
 
 local CreateFrame = CreateFrame
 local GetGuildInfo = GetGuildInfo
@@ -24,6 +26,13 @@ local C_ChallengeMode_GetKeystoneLevelRarityColor = C_ChallengeMode and C_Challe
 local C_PlayerInfo_GetPlayerMythicPlusRatingSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary
 local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode and C_ChallengeMode.GetDungeonScoreRarityColor
 local C_MythicPlus_GetRunHistory = C_MythicPlus and C_MythicPlus.GetRunHistory
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime and C_DateAndTime.GetCurrentCalendarTime
+local C_DateAndTime_GetSecondsUntilWeeklyReset = C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset
+local C_WeeklyRewards_GetActivities = C_WeeklyRewards and C_WeeklyRewards.GetActivities
+local GameTime_GetTime = GameTime_GetTime
+local SecondsToTime = SecondsToTime
+local CALENDAR_WEEKDAY_NAMES = _G.CALENDAR_WEEKDAY_NAMES
+local CALENDAR_FULLDATE_MONTH_NAMES = _G.CALENDAR_FULLDATE_MONTH_NAMES
 
 local GameMenuFrame = _G.GameMenuFrame
 local CreateAnimationGroup = _G.CreateAnimationGroup
@@ -64,6 +73,77 @@ end
 
 local OUTER_SPACING = 100
 
+-- The panels need 0.6s to open, the content blocks follow one after the other
+local FADE_START = 0.45
+local FADE_STEP = 0.1
+local FADE_DURATION = 0.5
+local CLOCK_INTERVAL = 1
+
+-- Great Vault rows in the order of Blizzard's own window
+local VAULT_ROWS = {}
+do
+	local types = Enum.WeeklyRewardChestThresholdType
+	for _, row in ipairs({ { "Raid", RAIDS }, { "Activities", DUNGEONS }, { "World", WORLD } }) do
+		if types and types[row[1]] then
+			VAULT_ROWS[#VAULT_ROWS + 1] = { type = types[row[1]], label = row[2] }
+		end
+	end
+end
+local VAULT_SLOTS = 3
+local VAULT_SLOT_SIZE = 12
+
+local function SetupFadeIn(frame, delay)
+	local group = CreateAnimationGroup(frame)
+
+	group.hold = group:CreateAnimation("Sleep")
+	group.hold:SetDuration(delay)
+	group.hold:SetOrder(1)
+
+	group.fade = group:CreateAnimation("Fade")
+	group.fade:SetChange(1)
+	group.fade:SetDuration(FADE_DURATION)
+	group.fade:SetEasing("out-quintic")
+	group.fade:SetOrder(2)
+
+	frame.fadeIn = group
+end
+
+local function UpdateClock(holder)
+	local timeText = GameTime_GetTime and GameTime_GetTime(true) or date("%H:%M")
+	holder.time:SetText(F.String.GradientClass(timeText))
+
+	local info
+	local now = C_DateAndTime_GetCurrentCalendarTime and C_DateAndTime_GetCurrentCalendarTime()
+	if now and CALENDAR_WEEKDAY_NAMES and CALENDAR_FULLDATE_MONTH_NAMES then
+		info = format(
+			FULLDATE,
+			CALENDAR_WEEKDAY_NAMES[now.weekday],
+			CALENDAR_FULLDATE_MONTH_NAMES[now.month],
+			now.monthDay,
+			now.year
+		)
+	else
+		info = date("%d.%m.%Y")
+	end
+
+	local reset = C_DateAndTime_GetSecondsUntilWeeklyReset and C_DateAndTime_GetSecondsUntilWeeklyReset()
+	if reset and reset > 0 then
+		info = info .. "   -   " .. format(L["Weekly reset in %s"], SecondsToTime(reset, true, false, 2))
+	end
+
+	holder.info:SetText(info)
+end
+
+local function Clock_OnUpdate(holder, elapsed)
+	holder.elapsed = (holder.elapsed or 0) + elapsed
+	if holder.elapsed < CLOCK_INTERVAL then
+		return
+	end
+
+	holder.elapsed = 0
+	UpdateClock(holder)
+end
+
 ---Build the static Game Menu UI once
 function module:CreateGameMenuUI()
 	if self.mainFrame then
@@ -101,27 +181,31 @@ function module:CreateGameMenuUI()
 	bottomPanel.Logo:Point("CENTER", bottomPanel, "TOP", 0, -80)
 	bottomPanel.Logo:SetTexture(I.General.MediaPath .. "Textures\\mUI1_Shadow.tga")
 
-	bottomPanel.nameText = bottomPanel:CreateFontString(nil, "OVERLAY")
+	-- Name, guild and spec fade in together
+	local infoHolder = CreateFrame("Frame", nil, bottomPanel)
+	infoHolder:SetAllPoints(bottomPanel)
+
+	bottomPanel.nameText = infoHolder:CreateFontString(nil, "OVERLAY")
 	bottomPanel.nameText:FontTemplate(nil, 32)
 	bottomPanel.nameText:SetTextColor(1, 1, 1, 1)
 	bottomPanel.nameText:Point("TOP", bottomPanel.Logo, "BOTTOM", 0, -5)
 
-	bottomPanel.guildText = bottomPanel:CreateFontString(nil, "OVERLAY")
+	bottomPanel.guildText = infoHolder:CreateFontString(nil, "OVERLAY")
 	bottomPanel.guildText:FontTemplate(nil, 16)
 	bottomPanel.guildText:Point("TOP", bottomPanel.nameText, "BOTTOM", 0, 0)
 	bottomPanel.guildText:SetTextColor(1, 1, 1, 1)
 
-	bottomPanel.specIcon = bottomPanel:CreateFontString(nil, "OVERLAY")
+	bottomPanel.specIcon = infoHolder:CreateFontString(nil, "OVERLAY")
 	bottomPanel.specIcon:SetFont("Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Fonts\\Armory_Icons.ttf", 20, "OUTLINE")
 	bottomPanel.specIcon:Point("TOP", bottomPanel.guildText, "BOTTOM", 0, -15)
 	bottomPanel.specIcon:SetTextColor(1, 1, 1, 1)
 
-	bottomPanel.levelText = bottomPanel:CreateFontString(nil, "OVERLAY")
+	bottomPanel.levelText = infoHolder:CreateFontString(nil, "OVERLAY")
 	bottomPanel.levelText:FontTemplate(nil, 20, "OUTLINE")
 	bottomPanel.levelText:Point("RIGHT", bottomPanel.specIcon, "LEFT", -4, 0)
 	bottomPanel.levelText:SetTextColor(1, 1, 1, 1)
 
-	bottomPanel.classText = bottomPanel:CreateFontString(nil, "OVERLAY")
+	bottomPanel.classText = infoHolder:CreateFontString(nil, "OVERLAY")
 	bottomPanel.classText:FontTemplate(nil, 20, "OUTLINE")
 	bottomPanel.classText:Point("LEFT", bottomPanel.specIcon, "RIGHT", 4, 0)
 	bottomPanel.classText:SetTextColor(1, 1, 1, 1)
@@ -143,6 +227,22 @@ function module:CreateGameMenuUI()
 	topPanel.factionLogo:Point("CENTER", topPanel, "CENTER", 0, 0)
 	topPanel.factionLogo:Size(186, 186)
 	topPanel.factionLogo:SetTexture(I.General.MediaPath .. "Textures\\ClassBanner\\CLASS-" .. E.myclass)
+
+	-- Clock, date and weekly reset below the class banner
+	local clockHolder = CreateFrame("Frame", nil, mainFrame)
+	clockHolder:Size(600, 50)
+	clockHolder:Point("TOP", topPanel, "BOTTOM", 0, -12)
+
+	clockHolder.time = clockHolder:CreateFontString(nil, "OVERLAY")
+	clockHolder.time:FontTemplate(nil, 26, "SHADOWOUTLINE")
+	clockHolder.time:Point("TOP", clockHolder, "TOP")
+
+	clockHolder.info = clockHolder:CreateFontString(nil, "OVERLAY")
+	clockHolder.info:FontTemplate(nil, 13, "SHADOWOUTLINE")
+	clockHolder.info:Point("TOP", clockHolder.time, "BOTTOM", 0, -4)
+	clockHolder.info:SetTextColor(0.8, 0.8, 0.8, 1)
+
+	clockHolder:SetScript("OnUpdate", Clock_OnUpdate)
 
 	-- Top left holder (collections)
 	local topTextHolderLeft = CreateFrame("Frame", nil, topPanel)
@@ -251,6 +351,68 @@ function module:CreateGameMenuUI()
 		bottomTextHolderLeft.mythic = mythic
 	end
 
+	-- Bottom right holder (great vault)
+	local bottomTextHolderRight = CreateFrame("Frame", nil, bottomPanel)
+	bottomTextHolderRight:Point("RIGHT", bottomPanel, "TOPRIGHT", -5, 0)
+	bottomTextHolderRight:Width(E.screenWidth * 0.5)
+	bottomTextHolderRight:Height(E.screenHeight * (1 / 4) - 20)
+
+	-- Off on Forever like the delves and Mythic+ blocks
+	if db.showGreatVault and not E.Forever and C_WeeklyRewards_GetActivities and #VAULT_ROWS > 0 then
+		local vault = bottomTextHolderRight:CreateFontString(nil, "OVERLAY")
+		vault:FontTemplate(nil, 24, "SHADOWOUTLINE")
+		vault:Point("TOPRIGHT", bottomTextHolderRight, -OUTER_SPACING, -OUTER_SPACING * 1.5)
+		vault:SetTextColor(1, 1, 1, 1)
+		vault:SetText(F.String.GradientClass(L["Great Vault"]))
+
+		-- Per row: name, one box per vault slot (filled once unlocked) and the progress of the next slot
+		vault.rows = {}
+		local anchor = vault
+		for i, info in ipairs(VAULT_ROWS) do
+			local row = CreateFrame("Frame", nil, bottomTextHolderRight)
+			row:Size(300, 20)
+			row:Point("TOPRIGHT", anchor, "BOTTOMRIGHT", 0, i == 1 and m(-6) or m(-1))
+			row.type = info.type
+
+			row.progress = row:CreateFontString(nil, "OVERLAY")
+			row.progress:FontTemplate(nil, 16, "SHADOWOUTLINE")
+			row.progress:SetJustifyH("RIGHT")
+			row.progress:Width(50)
+			row.progress:Point("RIGHT", row, "RIGHT")
+
+			row.slots = {}
+			for slotIndex = VAULT_SLOTS, 1, -1 do
+				local slot = CreateFrame("Frame", nil, row)
+				slot:Size(VAULT_SLOT_SIZE)
+				slot:SetTemplate()
+
+				-- A texture instead of the backdrop color, ElvUI's template refresh would reset that
+				slot.fill = slot:CreateTexture(nil, "ARTWORK")
+				slot.fill:SetInside()
+				slot.fill:SetTexture(E.media.blankTex)
+				slot.fill:Hide()
+
+				if slotIndex == VAULT_SLOTS then
+					slot:Point("RIGHT", row.progress, "LEFT", -10, 0)
+				else
+					slot:Point("RIGHT", row.slots[slotIndex + 1], "LEFT", -4, 0)
+				end
+				row.slots[slotIndex] = slot
+			end
+
+			row.label = row:CreateFontString(nil, "OVERLAY")
+			row.label:FontTemplate(nil, 16, "SHADOWOUTLINE")
+			row.label:SetTextColor(1, 1, 1, 1)
+			row.label:Point("RIGHT", row.slots[1], "LEFT", -10, 0)
+			row.label:SetText(info.label)
+
+			vault.rows[i] = row
+			anchor = row
+		end
+
+		bottomTextHolderRight.vault = vault
+	end
+
 	-- Player model
 	local modelHolder = CreateFrame("Frame", nil, mainFrame)
 	modelHolder:Size(150)
@@ -276,8 +438,24 @@ function module:CreateGameMenuUI()
 		npcModel:SetAlpha(1)
 	end
 
+	-- Content blocks fade in one after the other once the panels open
+	self.fadeFrames = {
+		infoHolder,
+		clockHolder,
+		topTextHolderLeft,
+		topTextHolderRight,
+		bottomTextHolderLeft,
+		bottomTextHolderRight,
+	}
+	for i, frame in ipairs(self.fadeFrames) do
+		SetupFadeIn(frame, FADE_START + (i - 1) * FADE_STEP)
+	end
+
 	-- Store refs
 	self.mainFrame = mainFrame
+	self.infoHolder = infoHolder
+	self.clockHolder = clockHolder
+	self.bottomTextHolderRight = bottomTextHolderRight
 	self.bottomPanel = bottomPanel
 	self.topPanel = topPanel
 	self.topTextHolderLeft = topTextHolderLeft
@@ -438,6 +616,53 @@ local function UpdateMythic(self, db)
 	mythic.latestRuns:SetText(hasAny and F.String.GradientClass(L["Latest runs"]) or "")
 end
 
+---Refresh the great vault slots
+local function UpdateGreatVault(self)
+	local holder = self.bottomTextHolderRight
+	local vault = holder and holder.vault
+	if not vault then
+		return
+	end
+
+	if UnitLevel("player") < I.MaxLevelTable[MER.MetaFlavor] then
+		holder:Hide()
+		return
+	end
+	holder:Show()
+
+	local color = E:ClassColor(E.myclass, true)
+	for _, row in ipairs(vault.rows) do
+		local activities = C_WeeklyRewards_GetActivities(row.type) or {}
+		sort(activities, function(a, b)
+			return a.index < b.index
+		end)
+
+		local nextActivity
+		for slotIndex, slot in ipairs(row.slots) do
+			local activity = activities[slotIndex]
+			local unlocked = activity and activity.progress >= activity.threshold
+			slot.fill:SetVertexColor(color.r, color.g, color.b, 1)
+			slot.fill:SetShown(unlocked and true or false)
+
+			if activity and not unlocked and not nextActivity then
+				nextActivity = activity
+			end
+		end
+
+		local last = activities[#activities]
+		if nextActivity then
+			row.progress:SetText(
+				F.String.MERATHILISUI(format("%d/%d", nextActivity.progress, nextActivity.threshold))
+			)
+		elseif last then
+			-- Every slot is unlocked
+			row.progress:SetText(F.String.Good(format("%d/%d", last.progress, last.threshold)))
+		else
+			row.progress:SetText("")
+		end
+	end
+end
+
 ---Refresh player + optional NPC models
 local function UpdateModels(self, db)
 	local playerModel = self.playerModel
@@ -505,15 +730,38 @@ function module:GameMenu_OnShow()
 	UpdateCollections(self)
 	UpdateDelves(self)
 	UpdateMythic(self, db)
+	UpdateGreatVault(self)
 	UpdateModels(self, db)
+
+	local clockHolder = self.clockHolder
+	clockHolder:SetShown(db.showClock)
+	if db.showClock then
+		clockHolder.elapsed = 0
+		UpdateClock(clockHolder)
+	end
+
+	for _, frame in ipairs(self.fadeFrames) do
+		frame.fadeIn:Stop()
+		if db.animations then
+			frame:SetAlpha(0)
+			frame.fadeIn:Play()
+		else
+			frame:SetAlpha(1)
+		end
+	end
 
 	mainFrame:Show()
 end
 
 function module:GameMenu_OnHide()
-	if self.mainFrame then
-		self.mainFrame:Hide()
+	if not self.mainFrame then
+		return
 	end
+
+	for _, frame in ipairs(self.fadeFrames) do
+		frame.fadeIn:Stop()
+	end
+	self.mainFrame:Hide()
 end
 
 function module:GameMenu()

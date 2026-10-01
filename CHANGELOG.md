@@ -38,6 +38,7 @@
 -   [Fix]: Vehicle Bar: Settings changes in combat are applied after combat instead of being blocked.
 -   [Fix]: Wowhead Links: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.
 -   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
+-   [New]: Game Menu: The Great Vault progress, a clock with the date and the time until the weekly reset, and a staggered fade in of the info blocks.
 -   [New]: NamePlates: Animated target arrows next to your target's nameplate (slide in, bounce or both, in class color by default). They replace the arrows of ElvUI's target indicator while enabled.
 -   [New]: NamePlates: The mouseover highlight on the health bar can be restyled with a texture, class or custom color and a short fade in.
 -   [New]: NamePlates: Execute Line: a line on the health bar of hostile nameplates at a health percent of your choice (20% by default), so you see when a unit gets into your execute range. Comes with a soft glow, small markers and a tinted execute range, each can be turned off, plus an optional pulse. Off by default.
