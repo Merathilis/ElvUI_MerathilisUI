@@ -541,7 +541,7 @@ L["After you stop debuging, %s will reenable the addons automatically."] =
 	"После прекращения отладки %s автоматически активирует надстройки."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
 	"Перед отправкой сообщения об ошибке включите режим отладки с помощью %s и протестируйте его еще раз."
-L["If you get an error, open %s and paste its content into your report."] = true
+L["If you get an error, open the Status Report with %s, click %s and paste the text into your report."] = true
 L["Error"] = "Ошибка"
 L["Warning"] = "Предупреждение"
 

@@ -526,7 +526,7 @@ L["After you stop debuging, %s will reenable the addons automatically."] =
 	"在你停止调试后, %s 将自动重新启用插件."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
 	"在提交一个错误报告之前, 请先用 %s 命令启用调试模式并再测试一次."
-L["If you get an error, open %s and paste its content into your report."] = true
+L["If you get an error, open the Status Report with %s, click %s and paste the text into your report."] = true
 L["Error"] = true
 L["Warning"] = true
 

@@ -792,7 +792,7 @@ L["After you stop debuging, %s will reenable the addons automatically."] =
 	"Nachdem Du das Debuggen beendet hast, wird %s die Addons automatisch aktivieren."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
 	"Bevor Du einen Fehler meldest, aktiviere bitte den Debug Modus mit dem %s Befehl und teste es noch einmal."
-L["If you get an error, open %s and paste its content into your report."] = "Wenn du einen Fehler bekommst, öffne %s und füge den Inhalt in deine Meldung ein."
+L["If you get an error, open the Status Report with %s, click %s and paste the text into your report."] = "Wenn du einen Fehler bekommst, öffne den Status Report mit %s, klicke auf %s und füge den Text in deine Meldung ein."
 L["Error"] = "Fehler"
 L["Warning"] = "Warnung"
 

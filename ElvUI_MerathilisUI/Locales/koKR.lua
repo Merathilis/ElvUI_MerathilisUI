@@ -615,7 +615,7 @@ L["After you stop debuging, %s will reenable the addons automatically."] =
 	"디버깅을 중지하면 %s이(가) 애드온을 자동으로 다시 활성화합니다."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
 	"버그를 제출하기 전에 %s을(를) 사용하여 디버그 모드를 활성화하고 한 번 더 테스트하십시오."
-L["If you get an error, open %s and paste its content into your report."] = true
+L["If you get an error, open the Status Report with %s, click %s and paste the text into your report."] = true
 L["Error"] = "오류"
 L["Warning"] = "경고"
 
