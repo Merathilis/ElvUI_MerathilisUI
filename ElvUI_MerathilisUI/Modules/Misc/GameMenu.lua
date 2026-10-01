@@ -26,8 +26,8 @@ local C_ChallengeMode_GetKeystoneLevelRarityColor = C_ChallengeMode.GetKeystoneL
 local C_PlayerInfo_GetPlayerMythicPlusRatingSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary
 local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
 local C_MythicPlus_GetRunHistory = C_MythicPlus.GetRunHistory
-local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
-local C_DateAndTime_GetSecondsUntilWeeklyReset = C_DateAndTime.GetSecondsUntilWeeklyReset
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime and C_DateAndTime.GetCurrentCalendarTime
+local C_DateAndTime_GetSecondsUntilWeeklyReset = C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset
 local C_WeeklyRewards_GetActivities = C_WeeklyRewards and C_WeeklyRewards.GetActivities
 local GameTime_GetTime = GameTime_GetTime
 local SecondsToTime = SecondsToTime
@@ -112,7 +112,7 @@ local function UpdateClock(holder)
 	holder.time:SetText(F.String.GradientClass(timeText))
 
 	local info
-	local now = C_DateAndTime_GetCurrentCalendarTime()
+	local now = C_DateAndTime_GetCurrentCalendarTime and C_DateAndTime_GetCurrentCalendarTime()
 	if now and CALENDAR_WEEKDAY_NAMES and CALENDAR_FULLDATE_MONTH_NAMES then
 		info = format(
 			FULLDATE,
@@ -355,7 +355,8 @@ function module:CreateGameMenuUI()
 	bottomTextHolderRight:Width(E.screenWidth * 0.5)
 	bottomTextHolderRight:Height(E.screenHeight * (1 / 4) - 20)
 
-	if db.showGreatVault and C_WeeklyRewards_GetActivities and #VAULT_ROWS > 0 then
+	-- Off on Forever like the delves and Mythic+ blocks
+	if db.showGreatVault and not E.Forever and C_WeeklyRewards_GetActivities and #VAULT_ROWS > 0 then
 		local vault = bottomTextHolderRight:CreateFontString(nil, "OVERLAY")
 		vault:FontTemplate(nil, 24, "SHADOWOUTLINE")
 		vault:Point("TOPRIGHT", bottomTextHolderRight, -OUTER_SPACING, -OUTER_SPACING * 1.5)
