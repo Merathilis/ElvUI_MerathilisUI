@@ -482,6 +482,22 @@ L["This will create and apply profile for "] = true
 
 -- Changelog
 L["Changelog"] = "更新記錄"
+L["What's New in %s"] = true
+L["Full Changelog"] = true
+L["In Development"] = true
+L["Did you know?"] = true
+L["Go to Option"] = true
+L["Type /mer status to open the Status Report. Post it when you report a bug."] = true
+L["/muidebug on turns off all other addons except ElvUI, WindTools, MerathilisUI and BugSack. /muidebug off turns them back on."] = true
+L["Type /mer changelog to read what changed in every version."] = true
+L["Movement Alert shows the cooldown of your movement spells while they are not ready."] = true
+L["The Tracker shows your group's battle res charges in Mythic+ keys and raid boss encounters."] = true
+L["Cursor puts a colored ring around your mouse cursor, optionally with a GCD and cast ring."] = true
+L["The Chat Sidebar gives quick access to friends, guild, copy chat and M+ portals."] = true
+L["Loot Roll replaces the roll frames with a movable bar. Its Test button shows a preview."] = true
+L["Buff Reminder shows icons for the raid buffs you are missing."] = true
+L["Singing Sockets adds a selection tool to the socketing frame."] = true
+L["The Game Menu can show random battle pets."] = true
 
 -- Compatibility
 L["Complete"] = "完成"

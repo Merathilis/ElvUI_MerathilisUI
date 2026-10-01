@@ -11,6 +11,7 @@
 	<Script file='Button.lua' />
 	<Script file='SectionHeader.lua' />
 	<Script file='NewFeatureLabel.lua' />
+	<Script file='HomeHeader.lua' />
 	<Script file='TabGroup.lua' />
 	<Script file='GroupTitle.lua' />
 	<Script file='TreeGroup.lua' />

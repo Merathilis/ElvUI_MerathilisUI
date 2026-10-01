@@ -89,7 +89,7 @@ Next version = released + 0.01 (e.g. 7.36 → 7.37, 7.39 → 7.40).
 
    -
    ```
-6. Remove every `F.MarkTabAsNew(...)` call, every `F.NewFeatureText(...)` wrapper and every `F.NewFeatureTrailingText(...)` wrapper under `Options/` together with its `dialogControl = "MERNewFeatureLabel"` line (keep the wrapped text; `Options/Core.lua` has some in its shared option builders too, only the `MER_DESC` logo text keeps its badge): everything they marked has just been released. Leave the helper functions themselves in `Core/Functions/Core.lua`.
+6. Remove every `F.MarkTabAsNew(...)` call, every `F.NewFeatureText(...)` wrapper and every `F.NewFeatureTrailingText(...)` wrapper under `Options/` together with its `dialogControl = "MERNewFeatureLabel"` line (keep the wrapped text; `Options/Core.lua` has some in its shared option builders too, only the `MER_DESC` logo text keeps its badge, its `dialogControl = "MERHomeHeader"` stays as well): everything they marked has just been released. Leave the helper functions themselves in `Core/Functions/Core.lua`.
 7. Commit `📖 DOC: prep changelogs`, then ask before `git push origin development`.
    This push touches `Core/Changelog/`, so `.github/workflows/website.yml` rebuilds merathilisui.com with the released notes. Until then the site still shows the version as "In development" (it reads the `development` branch, which gets the release commit only with this push).
 
