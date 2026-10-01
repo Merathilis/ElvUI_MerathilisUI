@@ -58,9 +58,11 @@ MER.Changelog[738] = {
 	},
 	IMPROVEMENTS = {
 		"[Core]: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.",
+		"[Core]: The addon is about 39 MB smaller, unused portraits, emotes, icons and textures were removed.",
 		"[Cursor]: The GCD and cast rings now also show in Mythic+ and boss encounters, where cooldown and cast timings are restricted (the spark stays hidden there).",
 		"[Game Menu]: The random NPC next to the menu is shown at the same size for every model and no longer gets cut off; seven new pets from patch 12.1 joined the rotation.",
 		"[Minimap Buttons]: The Great Vault button now pulses like a highlighted world map pin while a reward is waiting, and the Mail and Crafting Orders buttons do the same while mail or a personal order is waiting.",
+		"[Options]: The main categories in the options sidebar now have the same look as the module entries.",
 		"[Panels]: The class color of the style panels now follows custom class colors.",
 		"[Theme]: The castbar colors now include Interrupt on Cooldown and Interrupt Ready Soon, used by the new Interrupt Ready indicator and following the gradient mode.",
 	},
