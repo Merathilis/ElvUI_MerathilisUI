@@ -19,7 +19,6 @@ L["Y-Offset"] = "Y-Versatz"
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
-L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = "von Merathilis (|cFF00c0faEU-Shattrath|r)"
 L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] =
 	" unterstützt nicht diese Spielversion, bitte deinstalliere mein Plugin und frage nicht nach Support. Danke!"
 L["AFK"] = "AFK"
@@ -253,7 +252,6 @@ L["Assign to Category"] = "Kategorie zuweisen"
 L["Categorized Bags"] = "Kategorisierte Taschen"
 L["Category Header Height"] = "Höhe der Kategorie-Überschrift"
 L["Clear Assignment"] = "Zuweisung entfernen"
-L["Enter a name for the new category:"] = "Gib einen Namen für die neue Kategorie ein:"
 L["Enter a spell/item/currency ID, or a texture path/ID, for the category icon:"] =
 	"Gib eine Zauber-/Item-/Währungs-ID oder einen Texturpfad/-ID für das Kategorie-Icon ein:"
 L["Enter a new name:"] = "Gib einen neuen Namen ein:"
@@ -269,14 +267,11 @@ L["BoU"] = "BoU"
 L["BoA"] = "BoA"
 L["Backpack"] = "Rucksack"
 L["Bag %d"] = "Tasche %d"
-L["Click to switch to bag view."] = "Klicken, um zur Taschen-Ansicht zu wechseln."
-L["Click to switch to category view."] = "Klicken, um zur Kategorie-Ansicht zu wechseln."
 L["All Items"] = "Alle Items"
 L["OneBag"] = "OneBag"
 L["MultiBag"] = "MultiBag"
 L["Inventory"] = "Inventar"
 L["Categories"] = "Kategorien"
-L["The Armory"] = "Die Rüstkammer"
 L["Equipment"] = "Ausrüstung"
 L["Ungroup %s"] = "%s entkoppeln"
 L["Disband Group"] = "Gruppe auflösen"
@@ -325,7 +320,6 @@ L["Create"] = "Erstellen"
 L["Position"] = "Position"
 L["Item Spacing (Horizontal)"] = "Symbolabstand (horizontal)"
 L["Item Spacing (Vertical)"] = "Symbolabstand (vertikal)"
-L["Junk"] = "Ramsch"
 L["Middle Click:"] = "Mittelklick:"
 L["Miscellaneous"] = "Sonstiges"
 L["No gray items to sell."] = "Keine grauen Gegenstände zum Verkaufen."
@@ -347,7 +341,6 @@ L["Clear Recent on Close"] = "Beim Schließen leeren"
 L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."] = "Leert die Liste „Kürzlich“ jedes Mal, wenn du die Taschen schließt, statt sie zu behalten, bis du sie selbst leerst."
 L["Recent Items Limit"] = "Limit für „Kürzlich“"
 L["How many items the Recent Items list keeps at most; the oldest drops out first."] = "Wie viele Einträge die Liste „Kürzlich“ höchstens behält; der älteste fällt zuerst heraus."
-L["Recipes"] = "Rezepte"
 L["Item Set Gear"] = "Set-Ausrüstung"
 L["Gear Enhancements"] = "Ausrüstungsverbesserungen"
 L["Professions"] = "Berufe"
@@ -434,12 +427,9 @@ L["Trade Goods"] = "Handwerksgüter"
 L["Use / equip item"] = "Gegenstand benutzen/anlegen"
 L["Vendor Grays"] = "Grauwaren verkaufen"
 L["Vendored gray items for: %s"] = "Graue Gegenstände verkauft für: %s"
-L["View: By Bag"] = "Ansicht: Nach Tasche"
-L["View: By Category"] = "Ansicht: Nach Kategorie"
 L["Weapons & Trinkets"] = "Waffen & Schmuck"
 L["You must be at a vendor."] = "Du musst bei einem Händler sein."
 L["You must be at the bank."] = "Du musst bei der Bank sein."
-L["Auto Deposit"] = "Automatisch einlagern"
 L["Replace Blizzard's native Equipment Manager pane with a custom MerathilisUI gear-set panel."] =
 	"Ersetzt Blizzards native Ausrüstungsverwaltung durch ein eigenes MerathilisUI-Set-Panel."
 L["Class Codex"] = true
@@ -463,7 +453,6 @@ L["Delete equipment set '%s'?"] = "Ausrüstungsset '%s' löschen?"
 L["Change Icon"] = "Symbol ändern"
 L["Assign to Spec"] = "Spezialisierung zuweisen"
 L["Unassigned"] = "Nicht zugewiesen"
-L["Missing Items:"] = "Fehlende Gegenstände:"
 L["+ New Set"] = "+ Neues Set"
 
 -- Unitframes
@@ -479,7 +468,6 @@ L["Cooldown Manager"] = "Cooldown Manager"
 L["Tooltip"] = "Tooltip"
 
 -- Cooldowns
-L["Cooldown Flash"] = "Abklingzeiten Aufleuchten"
 L["Spell List"] = "Zauberliste"
 
 -- GMOTD
@@ -588,7 +576,6 @@ L["Enable/Disable"] = "Aktiviere/Deaktiviere"
 L["decor."] = "Dekor"
 L["Backdrop Color"] = "Hintergrundfarbe"
 L["Character Frame"] = "Charakterfenster"
-L["Merchant Frame"] = "Handelsfenster"
 L["Item Upgrade"] = "Gegenstandsaufwertung"
 L["Trade"] = "Handeln"
 L["Misc"] = "Sonstiges"
@@ -630,7 +617,6 @@ L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 
 -- Friends List
 L["Default"] = "Standard"
-L["Square"] = "Quadrat"
 L["Level"] = "Stufe"
 
 -- Advanced Settings
@@ -697,7 +683,6 @@ L["Control the Saturation value of HSL for the Normal color."] = true
 
 -- LootSpecManager
 L["LootSpecManager"] = "Loot Spec Manager"
-L["LootSpecManagerTip"] = "Wechsle automatisch deine Beute-Spezialisierung. Befehl: /lsm"
 L["LootSpecManagerTips"] =
 	"|nBasierend auf LootSpecManager: Wechselt automatisch deine Beutespezifikation zwischen den Bossen. Unterstützt Raids und M+."
 L["LootSpecManagerRaidStart"] = "Boss gepullt. Spezialisierung geändert."
@@ -739,23 +724,12 @@ L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 L["Skins/AddOns"] = true -- no need to translate
 L["Profiles"] = "Profile"
 L["BigWigs"] = true -- no need to translate
-L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen und anwenden für "
 
 -- Changelog
 L["Changelog"] = "Änderungen"
 
 -- Compatibility
-L["Compatibility Check"] = "Kompatibilitätsprüfung"
-L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
-	"Es gibt viele Module von verschiedenen Addons oder ElvUI-Plugins, aber einige davon haben fast die gleiche Funktionalität."
-L["Have a good time with %s!"] = "Viel Spaß mit %s!"
-L["Choose the module you would like to |cff00ff00use|r"] =
-	"Wähle das Modul aus, das Du |cff00ff00verwenden|r möchtest."
-L["If you find the %s module conflicts with another addon, alert me via Discord."] =
-	"Wenn Du feststellst, dass das %s Modul mit einem anderen Addon in Konflikt steht, benachrichtige mich über Discord."
-L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] =
-	"Du kannst die Kompatibilitätsprüfung über die Option unten in [MerathilisUI]-[Informationen] deaktivieren/aktivieren."
 L["Complete"] = "Komplett"
 
 -- Profiles
@@ -796,9 +770,6 @@ L["Error"] = "Fehler"
 L["Warning"] = "Warnung"
 
 -- Abbreviate
-L["[ABBR] Heroic"] = "H"
-L["[ABBR] Mythic"] = "M"
-L["[ABBR] Normal"] = "N"
 L["[ABBR] Normal Scaling Party"] = "NSP"
 L["[ABBR] Officer"] = "O"
 L["[ABBR] Operation: Floodgate"] = "FLOOD"
@@ -974,7 +945,6 @@ L["Only show the ring while you're holding a mouse button to turn or move the ca
 -- Loot Roll
 L["Loot Roll"] = true
 L["Can't Roll"] = "Kann nicht würfeln"
-L["Example"] = "Beispiel"
 L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] =
 	"Ersetzt ElvUIs Bedarf/Gier/Passen-Loot-Roll-Fenster durch eine eigene, verschiebbare Leiste."
 L["Show/hide a fake roll bar to preview your settings."] =
@@ -1099,7 +1069,6 @@ L["Shows the durability of your most damaged item."] = "Zeigt die Haltbarkeit de
 L["Pinned to the bottom of the sidebar, lights up while the chat is scrolled up."] = "Am unteren Rand der Seitenleiste fixiert, leuchtet auf, solange der Chat hochgescrollt ist."
 L["Durability Warning"] = "Haltbarkeitswarnung"
 L["The durability counter turns red at or below this value."] = "Der Haltbarkeitszähler wird ab diesem Wert rot."
-L["Battle.net"] = true
 L["World of Warcraft"] = true
 L["Online"] = true
 L["ElvUI Chat"] = "ElvUI-Chat"
