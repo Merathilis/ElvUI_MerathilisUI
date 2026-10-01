@@ -4,6 +4,7 @@ local module = MER:GetModule("MER_Misc") ---@class Misc
 local _G = _G
 local date = date
 local ipairs, pairs, format, random = ipairs, pairs, format, math.random
+local abs, cos, sin, tan, max, pi = math.abs, math.cos, math.sin, math.tan, math.max, math.pi
 local sort = table.sort
 
 local CreateFrame = CreateFrame
@@ -43,26 +44,48 @@ local keyName = C_CurrencyInfo_GetCurrencyInfo(3028).name
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
 
-MER.NPCS = {
-	86470, -- Pepe
+-- Creature display IDs (the model viewer's display ID on the wowhead NPC page), NPC ID in brackets
+local NPC_DISPLAY_IDS = {
+	59624, -- Pepe (86470)
 	-- Shadowlands
-	172854, -- Dredger Butler
-	173992, -- Torghast Lurker
+	99901, -- Dredger Butler (172854)
+	99923, -- Torghast Lurker (173992)
 	-- Dragonflight
-	188844, -- Humduck Livingsworth the Third
-	184285, -- Gnomelia Gearheart
+	113909, -- Humduck Livingsworth the Third (188844)
+	105003, -- Gnomelia Gearheart (184285)
 	-- The War Within
-	222078, -- Wriggle
-	222877, -- Ghostcap Menace
-	222532, -- Bouncer
-	223399, -- Tickler
-	231713, -- Bluedoo
-	237715, -- Swabbie
+	114831, -- Wriggle (222078)
+	118222, -- Ghostcap Menace (222877)
+	119179, -- Bouncer (222532)
+	114052, -- Tickler (223399)
+	123008, -- Bluedoo (231713)
+	121701, -- Swabbie (237715)
 	-- Midnight
-	256698, -- Roofus
-	257695, -- Nova
-	257546, -- Voldy
+	139771, -- Roofus (256698)
+	128292, -- Nova (257695)
+	136053, -- Voldy (257546)
+	-- Midnight 12.1
+	145543, -- Cat'Thuzad (268672)
+	123070, -- Lil'Kruul (262210)
+	143092, -- Furiostraza (262220)
+	145546, -- Amewbisath (268676)
+	145535, -- Archmage's Familiar (268636)
+	142375, -- Pale Hexscale (269712)
+	143111, -- Zesty (271086)
 }
+
+-- Every NPC model is scaled until its largest side has the same length, so small
+-- critters and big pets end up the same size on screen
+local NPC_FIT_SIZE = 1
+local NPC_CAMERA_FOV = pi / 6
+-- Room around the measured box, the emote animations reach past the standing pose
+local NPC_CAMERA_MARGIN = 1.6
+local NPC_CAMERA_DISTANCE = NPC_FIT_SIZE * 0.5 / tan(NPC_CAMERA_FOV * 0.5) * NPC_CAMERA_MARGIN
+local NPC_YAW = 6 -- turned slightly towards the menu
+-- Right after a model swap the actor can still report the previous model's box,
+-- so measurements only count after NPC_FIT_MIN; NPC_FIT_TIMEOUT shows it in any case
+local NPC_FIT_MIN = 0.3
+local NPC_FIT_TIMEOUT = 1.5
 
 local Sequences = { 26, 52, 69, 111, 225 }
 
@@ -105,6 +128,92 @@ local function SetupFadeIn(frame, delay)
 	group.fade:SetOrder(2)
 
 	frame.fadeIn = group
+end
+
+---Scale the actor to NPC_FIT_SIZE and aim the camera at it, returns the measured size
+local function FitNPC(scene, actor)
+	local bottomX, bottomY, bottomZ, topX, topY, topZ = actor:GetActiveBoundingBox()
+	if not topZ then
+		return
+	end
+
+	local size = max(topX - bottomX, topY - bottomY, topZ - bottomZ)
+	if size <= 0 then
+		return
+	end
+
+	local changed = not scene.lastSize or abs(size - scene.lastSize) > size * 0.01
+	if changed and F.Developer.IsDebugging("GameMenu") then
+		local maxBottomX, maxBottomY, maxBottomZ, maxTopX, maxTopY, maxTopZ = actor:GetMaxBoundingBox()
+		F.Developer.Debug(
+			"GameMenu",
+			format(
+				"NPC %d: active %.2f x %.2f x %.2f, max %.2f x %.2f x %.2f, scale %.2f -> %.2f",
+				scene.displayID or 0,
+				topX - bottomX,
+				topY - bottomY,
+				topZ - bottomZ,
+				(maxTopX or 0) - (maxBottomX or 0),
+				(maxTopY or 0) - (maxBottomY or 0),
+				(maxTopZ or 0) - (maxBottomZ or 0),
+				actor:GetScale(),
+				NPC_FIT_SIZE / size
+			)
+		)
+	end
+
+	local scale = NPC_FIT_SIZE / size
+	actor:SetScale(scale)
+
+	-- Aim at the middle of the scaled model, the box is in model space before the yaw
+	local centerX, centerY = (bottomX + topX) * 0.5, (bottomY + topY) * 0.5
+	local yaw = actor:GetYaw()
+	local targetX = (centerX * cos(yaw) - centerY * sin(yaw)) * scale
+	local targetY = (centerX * sin(yaw) + centerY * cos(yaw)) * scale
+	local targetZ = (bottomZ + topZ) * 0.5 * scale
+	scene:SetCameraPosition(targetX + NPC_CAMERA_DISTANCE, targetY, targetZ)
+
+	return size
+end
+
+local function StartNPCFit(scene)
+	scene.fitTime = 0
+	scene.lastSize = nil
+end
+
+-- Refits until the measured size holds for two frames, then shows the NPC
+local function NPCScene_OnUpdate(scene, elapsed)
+	if not scene.fitTime then
+		return
+	end
+
+	local actor = scene.actor
+	scene.fitTime = scene.fitTime + elapsed
+
+	if actor:IsLoaded() then
+		local size = FitNPC(scene, actor)
+		local lastSize = scene.lastSize
+		if size and lastSize and scene.fitTime >= NPC_FIT_MIN and abs(size - lastSize) <= size * 0.01 then
+			-- Done, the animation would keep changing the box from here on
+			scene.fitTime = nil
+			if not scene.shown then
+				scene.shown = true
+				actor:SetAnimation(scene.animation)
+				actor:SetAlpha(1)
+			end
+			return
+		end
+		scene.lastSize = size
+	end
+
+	if scene.fitTime >= NPC_FIT_TIMEOUT then
+		scene.fitTime = nil
+		if not scene.shown then
+			scene.shown = true
+			actor:SetAnimation(scene.animation)
+			actor:SetAlpha(1)
+		end
+	end
 end
 
 local function UpdateClock(holder)
@@ -430,18 +539,30 @@ function module:CreateGameMenuUI()
 	playerModel:SetScale(0.8)
 	playerModel:SetAlpha(1)
 
-	-- Optional NPC model
-	local npcHolder, npcModel
+	-- Optional NPC, a model scene instead of a model frame: only an actor tells its size
+	local npcHolder, npcScene
 	if db.showRandomPets then
 		npcHolder = CreateFrame("Frame", nil, mainFrame)
 		npcHolder:Size(150)
 		npcHolder:Point("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 
-		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
-		npcModel:Point("CENTER", npcHolder, "CENTER")
-		npcModel:Size(256)
-		npcModel:SetScale(0.8)
-		npcModel:SetAlpha(1)
+		npcScene = CreateFrame("ModelScene", nil, npcHolder)
+		npcScene:Point("CENTER", npcHolder, "CENTER")
+		npcScene:Size(320)
+		npcScene:SetScale(0.8)
+		npcScene:SetCameraFieldOfView(NPC_CAMERA_FOV)
+		npcScene:SetCameraNearClip(0.01)
+		npcScene:SetCameraFarClip(100)
+		npcScene:SetCameraOrientationByYawPitchRoll(pi, 0, 0) -- looking at the model's front
+		npcScene:SetLightVisible(true)
+		npcScene:SetLightType(Enum.ModelLightType.Directional)
+		npcScene:SetLightDirection(-0.8, 0.3, -0.5)
+		npcScene:SetLightAmbientColor(0.7, 0.7, 0.7)
+		npcScene:SetLightDiffuseColor(0.8, 0.8, 0.8)
+
+		npcScene.actor = npcScene:CreateActor()
+		npcScene.actor:SetYaw(NPC_YAW)
+		npcScene:SetScript("OnUpdate", NPCScene_OnUpdate)
 	end
 
 	-- Content blocks fade in one after the other once the panels open
@@ -470,7 +591,7 @@ function module:CreateGameMenuUI()
 	self.modelHolder = modelHolder
 	self.playerModel = playerModel
 	self.npcHolder = npcHolder
-	self.npcModel = npcModel
+	self.npcScene = npcScene
 end
 
 ---Refresh dynamic player/spec info on the bottom panel
@@ -682,23 +803,22 @@ local function UpdateModels(self, db)
 		playerModel:SetAnimation(playerEmote)
 		playerModel:SetAlpha(0)
 		UIFrameFadeIn(playerModel, 1, 0, 1)
-		playerModel.isIdle = nil
 	end
 
-	local npcModel = self.npcModel
-	if db.showRandomPets and npcModel then
-		local npc = MER.NPCS
-		local npcID = npc[random(1, #npc)]
-		local npcEmote = Sequences[random(1, #Sequences)]
+	local npcScene = self.npcScene
+	if db.showRandomPets and npcScene then
+		local actor = npcScene.actor
+		-- Hidden until FitNPC has scaled it, the model loads in the background
+		actor:SetAlpha(0)
+		actor:SetScale(1)
+		npcScene.shown = nil
+		npcScene.animation = Sequences[random(1, #Sequences)]
+		npcScene.displayID = NPC_DISPLAY_IDS[random(1, #NPC_DISPLAY_IDS)]
+		actor:SetModelByCreatureDisplayID(npcScene.displayID)
+		StartNPCFit(npcScene)
 
-		npcModel:ClearModel()
-		npcModel:SetCreature(npcID)
-		npcModel:SetCamDistanceScale(1)
-		npcModel:SetFacing(6)
-		npcModel:SetAnimation(npcEmote)
-		npcModel:SetAlpha(0)
-		UIFrameFadeIn(npcModel, 1, 0, 1)
-		npcModel.isIdle = nil
+		npcScene:SetAlpha(0)
+		UIFrameFadeIn(npcScene, 1, 0, 1)
 	end
 end
 

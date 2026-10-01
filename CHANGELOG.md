@@ -52,6 +52,7 @@
 -   [New]: UnitFrames: Interrupt Ready on the castbars of the target, focus, boss and arena frames, the same indicator as on the nameplates.
 -   [Improvement]: Core: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.
 -   [Improvement]: Cursor: The GCD and cast rings now also show in Mythic+ and boss encounters, where cooldown and cast timings are restricted (the spark stays hidden there).
+-   [Improvement]: Game Menu: The random NPC next to the menu is shown at the same size for every model and no longer gets cut off; seven new pets from patch 12.1 joined the rotation.
 -   [Improvement]: Minimap Buttons: The Great Vault button now pulses like a highlighted world map pin while a reward is waiting, and the Mail and Crafting Orders buttons do the same while mail or a personal order is waiting.
 -   [Improvement]: Panels: The class color of the style panels now follows custom class colors.
 -   [Improvement]: Theme: The castbar colors now include Interrupt on Cooldown and Interrupt Ready Soon, used by the new Interrupt Ready indicator and following the gradient mode.
