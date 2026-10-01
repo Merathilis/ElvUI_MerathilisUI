@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[738] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "01.10.2026",
 	FIXES = {
 		"[AFK]: Leaving the AFK screen stops its logout countdown again, before every AFK left a timer running until logout.",
 		"[Armory]: Demon Hunters get their class symbol in the character frame; the icon file was missing.",
