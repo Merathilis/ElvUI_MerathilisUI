@@ -232,7 +232,9 @@ end
 
 local function StepTip(card, delta)
 	local index = card.nextTipIndex or card.tipIndex
-	ShowTip(card, mod(index - 1 + delta, #tips) + 1)
+	-- Lua's % (floored), not WoW's mod (math.fmod), which stays negative and
+	-- would step from the first tip to index -1 instead of the last one
+	ShowTip(card, (index - 1 + delta) % #tips + 1)
 end
 
 local function TipFadeOut_OnFinished(group)
