@@ -19,7 +19,6 @@
 ## X-Wago-ID: VBNBZVNx
 ## X-Flavor: Mainline
 
-Libs/Libs.xml
 Init.lua
 Locales\Load_Locales.xml
 Core\Load_Core.xml

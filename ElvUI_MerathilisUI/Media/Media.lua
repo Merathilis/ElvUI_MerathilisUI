@@ -4,8 +4,6 @@ local LSM = E.LSM or E.Libs.LSM
 local westAndRUBits = LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western
 local allLocaleBits = LSM.LOCALE_BIT_koKR + LSM.LOCALE_BIT_zhCN + LSM.LOCALE_BIT_zhTW + westAndRUBits
 
-MER.CustomPortraits = {}
-
 MER.Media = {}
 MER.Media.Mouse = {
 	LEFT = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\System\\mleft.tga",
