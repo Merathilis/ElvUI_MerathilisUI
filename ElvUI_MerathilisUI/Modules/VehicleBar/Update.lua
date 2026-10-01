@@ -76,14 +76,6 @@ function module:UpdateSpeedText()
 end
 
 function module:UpdateVigorBar()
-	-- Always recreate segments when settings change to ensure colors/textures are updated
-	if not F.Table.IsEmpty(self.vigorBar.segments) then
-		for _, segment in ipairs(self.vigorBar.segments) do
-			segment:Kill()
-		end
-		self.vigorBar.segments = {}
-	end
-
 	-- Update vigor bar size before creating segments
 	local height = self.vdb.height or 10
 	local width = self.bar:GetWidth() - self.spacing
@@ -108,7 +100,7 @@ function module:UpdateVigorBar()
 	-- Disable() cancelled both tickers; this also picks up a changed speed text rate
 	self:StartVigorTickers()
 
-	-- Create segments (they will be sized correctly based on vigorBar width)
+	-- Rebuild the segments with the current size, colors and textures
 	self:CreateVigorSegments()
 
 	-- Update segment display
@@ -168,12 +160,14 @@ function module:UpdateBar()
 	self.bar.id = 1
 
 	-- Page Handling
+	-- Runs in the restricted environment: it has GetVehicleBarIndex/GetOverrideBarIndex,
+	-- not this file's locals
 	bar:SetAttribute(
 		"_onstate-page",
 		[[
 		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar")) and GetTempShapeshiftBarIndex())
-		or (UnitHasVehicleUI("player") and C_ActionBar_GetVehicleBarIndex())
-		or (HasOverrideActionBar() and C_ActionBar_GetOverrideBarIndex())
+		or (UnitHasVehicleUI("player") and GetVehicleBarIndex())
+		or (HasOverrideActionBar() and GetOverrideBarIndex())
 		or newstate
 
 		if not newstate then

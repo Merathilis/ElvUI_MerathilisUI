@@ -18,7 +18,6 @@ L["Y-Offset"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
-L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
 L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] = true
 L["AFK"] = "ABS"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
@@ -227,7 +226,6 @@ L["Delete equipment set '%s'?"] = true
 L["Change Icon"] = true
 L["Assign to Spec"] = true
 L["Unassigned"] = true
-L["Missing Items:"] = true
 L["+ New Set"] = true
 
 -- Unitframes
@@ -240,7 +238,6 @@ L["Adds an own highlight to the Unitframes"] = true
 L["Auras"] = true
 
 -- Cooldowns
-L["Cooldown Flash"] = true
 L["Spell List"] = true
 
 -- GMOTD
@@ -326,7 +323,6 @@ L["Enable/Disable"] = true
 L["decor."] = true
 L["Backdrop Color"] = true
 L["Character Frame"] = true
-L["Merchant Frame"] = true
 L["Item Upgrade"] = true
 L["Trade"] = true
 L["Misc"] = true
@@ -364,7 +360,6 @@ L["Bottom Right Extra Panel"] = true
 
 -- LootSpecManager
 L["LootSpecManager"] = "Loot Spec Manager"
-L["LootSpecManagerTip"] = "Auto change your loot spec. Command: /lsm"
 L["LootSpecManagerTips"] = "|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."
 L["LootSpecManagerRaidStart"] = "Boss pulled. Spec changed."
 L["LootSpecManagerM+Start"] = "M+ started, loot spec changed."
@@ -477,21 +472,12 @@ L["Control the Saturation value of HSL for the Normal color."] = true
 L["Skins/AddOns"] = true
 L["Profiles"] = "Profiles"
 L["BigWigs"] = "BigWigs"
-L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = true
 
 -- Changelog
 L["Changelog"] = "Changelog"
 
 -- Compatibility
-L["Compatibility Check"] = "Vérification de compatibilité"
-L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
-	"Il existe de nombreux addons ou plugins pour ElvUI, mais WindTools peut remplacer certains d'entre eux qui ont les mêmes fonctionnalités."
-L["Have a good time with %s!"] = "Amusez-vous bien avec %s !"
-L["Choose the module you would like to |cff00ff00use|r"] = true
-L["If you find the %s module conflicts with another addon, alert me via Discord."] =
-	"Si vous constatez que l'addon %s est en conflit avec un autre addon, prévenez-moi via Discord."
-L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] = true
 L["Complete"] = "Complet"
 
 -- Debug
@@ -509,9 +495,6 @@ L["Error"] = true
 L["Warning"] = true
 
 -- Abbreviate
-L["[ABBR] Heroic"] = "H"
-L["[ABBR] Mythic"] = "M"
-L["[ABBR] Normal"] = "N"
 
 -- Additional locale entries for consistency
 L["Shows the item level on the items in the merchant and trade windows."] = true
@@ -546,7 +529,6 @@ L["Settings for different font strings"] = true
 L["Setup Chat"] = true
 L["Short Display"] = true
 L["Short Labels"] = true
-L["Square"] = true
 L["Tags"] = true
 L["Title Text"] = true
 L["Toggle"] = true
@@ -559,7 +541,6 @@ L[".\n\n"] = ".\n\n"
 L["Abbreviates the enchant strings."] = "Abbreviates the enchant strings."
 L["Add"] = "Add"
 L["Add %d socket"] = "Add %d socket"
-L["AddOn Control Panel"] = "AddOn Control Panel"
 L["Addon Skins"] = "Addon Skins"
 L["Addons"] = "Addons"
 L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."] =
@@ -579,7 +560,6 @@ L["BagSync"] = "BagSync"
 L["Bags"] = "Bags"
 L["Bar Height"] = "Bar Height"
 L["Bar Settings"] = "Bar Settings"
-L["BenikUI"] = "BenikUI"
 L["BigWigs is not installed or enabled."] = "BigWigs is not installed or enabled."
 L["Blacklist"] = "Blacklist"
 L["Blizzard"] = "Blizzard"
@@ -600,7 +580,6 @@ L["Character"] = "Character"
 L["Chat"] = "Chat"
 L["Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."] =
 	"Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."
-L["Circle"] = "Circle"
 L["Class Codex"] = true
 L["Class Color"] = "Class Color"
 L["Classification"] = "Classification"
@@ -616,7 +595,6 @@ L["Cooldown Manager"] = "Cooldown Manager"
 L["Tooltip"] = true
 L["Copy From"] = "Copy From"
 L["Copy Transmog"] = "Copy Transmog"
-L["Core"] = "Core"
 L["Could not add the texture."] = "Could not add the texture."
 L["Could not convert unicode "] = "Could not convert unicode "
 L["Credits: ElvUI_ToxiUI"] = "Credits: ElvUI_ToxiUI"
@@ -630,16 +608,10 @@ L["Details"] = "Details"
 L["Details Skin"] = "Details Skin"
 L["Developer Settings"] = "Developer Settings"
 L["Developer Settings Done"] = "Developer Settings Done"
-L["Diamond"] = "Diamond"
 L["Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHover will replace the Blizzard tooltip instead."] =
 	"Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHover will replace the Blizzard tooltip instead."
 L["Disable in Dungeons/Raids"] = "Disable in Dungeons/Raids"
-L["Drop"] = "Drop"
-L["Drop flipped"] = "Drop flipped"
-L["Drop round"] = "Drop round"
-L["Drop round flipped"] = "Drop round flipped"
 L["Durability/ Ilevel"] = "Durability/ Ilevel"
-L["EltreumUI"] = "EltreumUI"
 L["ElvUI"] = "ElvUI"
 L["ElvUI_WindTools"] = "ElvUI_WindTools"
 L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] =
@@ -670,7 +642,6 @@ L["Assign to Category"] = true
 L["Categorized Bags"] = true
 L["Category Header Height"] = true
 L["Clear Assignment"] = true
-L["Enter a name for the new category:"] = true
 L["Enter a spell/item/currency ID, or a texture path/ID, for the category icon:"] = true
 L["Enter a new name:"] = true
 L["Hide Empty Categories"] = true
@@ -684,14 +655,11 @@ L["BoU"] = true
 L["BoA"] = true
 L["Backpack"] = true
 L["Bag %d"] = true
-L["Click to switch to bag view."] = true
-L["Click to switch to category view."] = true
 L["All Items"] = true
 L["OneBag"] = true
 L["MultiBag"] = true
 L["Inventory"] = true
 L["Categories"] = true
-L["The Armory"] = true
 L["Equipment"] = true
 L["Ungroup %s"] = true
 L["Disband Group"] = true
@@ -741,7 +709,6 @@ L["Create"] = true
 L["Position"] = true
 L["Item Spacing (Horizontal)"] = true
 L["Item Spacing (Vertical)"] = true
-L["Junk"] = true
 L["Miscellaneous"] = true
 L["No gray items to sell."] = true
 L["Pinned Items"] = true
@@ -760,7 +727,6 @@ L["Clear Recent on Close"] = true
 L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."] = true
 L["Recent Items Limit"] = true
 L["How many items the Recent Items list keeps at most; the oldest drops out first."] = true
-L["Recipes"] = true
 L["Item Set Gear"] = true
 L["Gear Enhancements"] = true
 L["Professions"] = true
@@ -835,12 +801,9 @@ L["Only available for the character bank."] = true
 L["Trade Goods"] = true
 L["Vendor Grays"] = true
 L["Vendored gray items for: %s"] = true
-L["View: By Bag"] = true
-L["View: By Category"] = true
 L["Weapons & Trinkets"] = true
 L["You must be at a vendor."] = true
 L["You must be at the bank."] = true
-L["Auto Deposit"] = true
 L["Export All"] = "Export All"
 L["Export Private"] = "Export Private"
 L["Export Profile"] = "Export Profile"
@@ -849,7 +812,6 @@ L["Export the setting of %s that stored in ElvUI Private database."] =
 	"Export the setting of %s that stored in ElvUI Private database."
 L["Export the setting of %s that stored in ElvUI Profile database."] =
 	"Export the setting of %s that stored in ElvUI Profile database."
-L["FCT"] = "FCT"
 L["Faction"] = "Faction"
 L["Finished"] = "Finished"
 L["Fixes"] = "Fixes"
@@ -912,7 +874,6 @@ L["Mastery"] = "Mastery"
 L["Medium"] = "Medium"
 L["MerathilisUI saves all data in ElvUI Profile and Private database."] =
 	"MerathilisUI saves all data in ElvUI Profile and Private database."
-L["Moon"] = "Moon"
 L["Mouse Over"] = "Mouse Over"
 L["Mouseover"] = "Mouseover"
 L["N/A"] = "N/A"
@@ -928,18 +889,14 @@ L["Not Installed"] = "Not Installed"
 L["Not Set"] = "Not Set"
 L["Note: This feature only copies the private profile once per character. It does not synchronize settings afterwards."] =
 	"Note: This feature only copies the private profile once per character. It does not synchronize settings afterwards."
-L["Octagon"] = "Octagon"
 L["Offset Y"] = "Offset Y"
 L["Ok"] = "Ok"
-L["Old"] = "Old"
 L["OmniCD"] = "OmniCD"
 L["Open Changelog"] = "Open Changelog"
 L["Open Character Frame"] = "Open Character Frame"
 L["Other"] = "Other"
-L["Pad"] = "Pad"
 L["Pawn"] = "Pawn"
 L["Pet"] = "Pet"
-L["Pet Battle Scripts"] = "Pet Battle Scripts"
 L["Player"] = "Player"
 L["Interface"] = true
 L["Combat"] = true
@@ -960,18 +917,13 @@ L["Profession"] = "Profession"
 L["Profile"] = "Profile"
 L["Profile Created"] = "Profile Created"
 L["Profile Settings Setup"] = "Profile Settings Setup"
-L["ProjectAzilroka"] = "ProjectAzilroka"
-L["Pure"] = "Pure"
-L["Pure round"] = "Pure round"
 L["Quest"] = "Quest"
 L["RIGHT"] = "RIGHT"
 L["Race"] = "Race"
 L["Raid 1"] = "Raid 1"
 L["Raid 2"] = "Raid 2"
 L["Raid 3"] = "Raid 3"
-L["Raid Marker Bar"] = "Raid Marker Bar"
 L["Released"] = "Released"
-L["Reload UI"] = "Reload UI"
 L["Reset"] = "Reset"
 L["Reset Details check"] = "Reset Details check"
 L["Right Click:"] = "Right Click:"
@@ -1001,7 +953,6 @@ L["Shows a warning when you're missing an enchant."] = "Shows a warning when you
 L["Shows a warning when you're missing sockets on your necklace."] =
 	"Shows a warning when you're missing sockets on your necklace."
 L["Shows random battle pets"] = "Shows random battle pets"
-L["Simple Addon Manager"] = "Simple Addon Manager"
 L["Skip Process"] = "Skip Process"
 L["Small"] = "Small"
 L["So if you set ElvUI Profile and Private these |cffff0000TWO|r databases to the same across multiple character, the setting of MerathilisUI will be synced."] =
@@ -1023,14 +974,10 @@ L["Tank Target"] = "Tank Target"
 L["Target"] = "Target"
 L["Target of Target"] = "Target of Target"
 L["Text Options"] = "Text Options"
-L["The feature is just a part of that module."] = "The feature is just a part of that module."
 L["The profile from which the private settings will be copied."] =
 	"The profile from which the private settings will be copied."
 L["The style already exists."] = "The style already exists."
 L["The texture coordinates must be passed as a table."] = "The texture coordinates must be passed as a table."
-L["Thin"] = "Thin"
-L["Thin Circle"] = "Thin Circle"
-L["Thin Diamond"] = "Thin Diamond"
 L["This is useful when you have multiple characters but want to use a specific private profile as the starting point for new ones."] =
 	"This is useful when you have multiple characters but want to use a specific private profile as the starting point for new ones."
 L["Time Out"] = "Time Out"
@@ -1040,7 +987,6 @@ L["Toggle whether to show keybinds of an action bar button on the Vehicle Bar."]
 L["Toggle whether to show macro text of an action bar button on the Vehicle Bar."] =
 	"Toggle whether to show macro text of an action bar button on the Vehicle Bar."
 L["Toggles the blue bars behind every second number."] = "Toggles the blue bars behind every second number."
-L["Transmog"] = "Transmog"
 L["Transmog Text Frame"] = "Transmog Text Frame"
 L["Tukui Discord Server"] = "Tukui Discord Server"
 L["UI Scale"] = "UI Scale"
@@ -1065,21 +1011,18 @@ L["Weekly Delves Keys"] = "Weekly Delves Keys"
 L["Weekly Rewards"] = true
 L["Welcome to %s %s!"] = "Welcome to %s %s!"
 L["Welcome to version %s!"] = "Welcome to version %s!"
-L["WindTools"] = "WindTools"
-L["Windtools"] = "Windtools"
 L["WowLua"] = "WowLua"
-L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"] =
-	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: InterfaceAddOnsElvUI_SLEmedia\textureslock"
+L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"] =
+	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"
 L["You have %s pending calendar |4invite:invites;."] = "You have %s pending calendar |4invite:invites;."
 L["You have %s pending guild |4event:events;."] = "You have %s pending guild |4event:events;."
 L["Your current Profile is: "] = "Your current Profile is: "
-L["[ABBR] Looking for Raid"] = "[ABBR] Looking for Raid"
 L["is looking for members"] = "is looking for members"
 L["joined a group"] = "joined a group"
 L["ls_Toasts"] = "ls_Toasts"
 L["ncHoverName by Nightcracker"] = "ncHoverName by Nightcracker"
-L["|TInterfaceAddonsElvUI_MerathilisUIMediaIconsDiscord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"] =
-	"|TInterfaceAddonsElvUI_MerathilisUIMediaIconsDiscord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"
+L["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"] =
+	"|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"
 --
 
 -- Buff Reminder
@@ -1195,7 +1138,6 @@ L["Only show the ring while you're holding a mouse button to turn or move the ca
 -- Loot Roll
 L["Loot Roll"] = true
 L["Can't Roll"] = true
-L["Example"] = true
 L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] = true
 L["Show/hide a fake roll bar to preview your settings."] = true
 L["Layout"] = true
@@ -1317,7 +1259,6 @@ L["Shows the durability of your most damaged item."] = true
 L["Pinned to the bottom of the sidebar, lights up while the chat is scrolled up."] = true
 L["Durability Warning"] = true
 L["The durability counter turns red at or below this value."] = true
-L["Battle.net"] = true
 L["World of Warcraft"] = true
 L["Online"] = true
 L["ElvUI Chat"] = true

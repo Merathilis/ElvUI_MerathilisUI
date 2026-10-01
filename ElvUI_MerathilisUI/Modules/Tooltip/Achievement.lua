@@ -3,12 +3,18 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local format = format
 local find = string.find
 local select = select
+local type = type
 
 local GetAchievementInfo = GetAchievementInfo
 local UnitGUID = UnitGUID
 
 local function SetHyperlink(tooltip, refString)
 	if not E.db.mui.tooltip.achievement or tooltip:IsForbidden() then
+		return
+	end
+
+	-- A secret link can't be searched
+	if E:IsSecretValue(refString) or type(refString) ~= "string" then
 		return
 	end
 
