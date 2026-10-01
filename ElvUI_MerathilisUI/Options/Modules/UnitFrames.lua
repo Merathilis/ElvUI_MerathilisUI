@@ -4,8 +4,6 @@ local MUF = MER:GetModule("MER_UnitFrames")
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("unitframes")
-
 -- Own disabled replaces the group's, so every own disabled repeats the requirement
 local function UnitFramesDisabled()
 	return not MER:HasRequirements(I.Requirements.UnitFrames)

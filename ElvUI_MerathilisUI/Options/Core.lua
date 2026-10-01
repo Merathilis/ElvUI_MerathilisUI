@@ -242,10 +242,7 @@ function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled
 			desc = {
 				order = 1,
 				type = "description",
-				dialogControl = "MERNewFeatureLabel",
-				name = F.NewFeatureTrailingText(
-					L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."]
-				),
+				name = L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."],
 			},
 			preview = {
 				order = 1.5,
@@ -343,10 +340,7 @@ function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, e
 			desc = {
 				order = 1,
 				type = "description",
-				dialogControl = "MERNewFeatureLabel",
-				name = F.NewFeatureTrailingText(
-					L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."]
-				),
+				name = L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."],
 			},
 			enable = {
 				order = 2,
