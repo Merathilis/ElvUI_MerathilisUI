@@ -7,8 +7,12 @@ local CreateFrame = CreateFrame
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local GetSpellCooldown = C_Spell.GetSpellCooldown
+local GetSpellCooldownDuration = C_Spell.GetSpellCooldownDuration
 local UnitCastingInfo = UnitCastingInfo
 local UnitChannelInfo = UnitChannelInfo
+local UnitCastingDuration = UnitCastingDuration
+local UnitChannelDuration = UnitChannelDuration
+local UnitEmpoweredChannelDuration = UnitEmpoweredChannelDuration
 local GetUnitEmpowerHoldAtMaxTime = GetUnitEmpowerHoldAtMaxTime
 
 local Enum_OnUpdateMode_RunWhenVisible = Enum.OnUpdateMode and Enum.OnUpdateMode.RunWhenVisible
@@ -52,10 +56,18 @@ function module:CreateGCDRing()
 			return
 		end
 
-		-- Cooldown values are secret while cooldowns are restricted (M+, raid encounters),
-		-- comparing them would throw, so the ring just skips that GCD
 		local cdData = GetSpellCooldown(GCD_REFERENCE_SPELL)
-		if not cdData or E:IsSecretValue(cdData.duration) or E:IsSecretValue(cdData.startTime) then
+		if not cdData then
+			return
+		end
+
+		-- Cooldown values are secret while cooldowns are restricted (M+, raid encounters),
+		-- comparing them would throw. The duration object still drives the sweep, and as it
+		-- clears on a zero GCD it also covers the failed/interrupted/stop events.
+		if E:IsSecretValue(cdData.duration) or E:IsSecretValue(cdData.startTime) then
+			if GetSpellCooldownDuration then
+				root.ring:StartRingFromDuration(GetSpellCooldownDuration(GCD_REFERENCE_SPELL))
+			end
 			return
 		end
 
@@ -243,9 +255,17 @@ function module:CreateCastRing()
 
 		if event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_DELAYED" then
 			local name, _, _, startMS, endMS, _, castGUID = UnitCastingInfo("player")
-			-- Cast times are secret while spell casts are restricted, arithmetic on them would throw
-			if name and not E:IsSecretValue(startMS) and not E:IsSecretValue(endMS) then
-				self._castID = not E:IsSecretValue(castGUID) and castGUID or nil
+			if not name then
+				return
+			end
+
+			self._castID = not E:IsSecretValue(castGUID) and castGUID or nil
+			-- Cast times are secret while spell casts are restricted, arithmetic on them would
+			-- throw. The duration object still drives the sweep, the spark needs the numbers.
+			if E:IsSecretValue(startMS) or E:IsSecretValue(endMS) then
+				root.ring:StartRingFromDuration(UnitCastingDuration and UnitCastingDuration("player"))
+				root.spark:Hide()
+			else
 				root.ring:StartRing(GetTime() - startMS * 0.001, (endMS - startMS) * 0.001)
 				if db.sparkEnable then
 					root.spark:Show()
@@ -257,14 +277,22 @@ function module:CreateCastRing()
 			or event == "UNIT_SPELLCAST_EMPOWER_START"
 			or event == "UNIT_SPELLCAST_EMPOWER_UPDATE"
 		then
-			local name, _, _, startMS, endMS, _, _, _, _, numStages = UnitChannelInfo("player")
-			if
-				name
-				and not E:IsSecretValue(startMS)
-				and not E:IsSecretValue(endMS)
-				and not E:IsSecretValue(numStages)
-			then
-				self._castID = nil
+			local name, _, _, startMS, endMS, _, _, _, isEmpowered, numStages = UnitChannelInfo("player")
+			if not name then
+				return
+			end
+
+			self._castID = nil
+			if E:IsSecretValue(startMS) or E:IsSecretValue(endMS) then
+				local duration
+				if isEmpowered then
+					duration = UnitEmpoweredChannelDuration and UnitEmpoweredChannelDuration("player", true)
+				else
+					duration = UnitChannelDuration and UnitChannelDuration("player")
+				end
+				root.ring:StartRingFromDuration(duration)
+				root.spark:Hide()
+			else
 				if numStages and numStages > 0 then
 					local holdMS = GetUnitEmpowerHoldAtMaxTime("player")
 					if holdMS and not E:IsSecretValue(holdMS) then
