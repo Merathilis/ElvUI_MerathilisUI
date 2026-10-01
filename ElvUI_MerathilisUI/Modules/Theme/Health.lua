@@ -1,7 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Theme") ---@class Theme
 
-local select = select
+local select, wipe = select, wipe
 local UnitClass = UnitClass
 local UnitGUID = UnitGUID
 local UnitIsCharmed = UnitIsCharmed
@@ -14,8 +14,30 @@ local UnitPlayerControlled = UnitPlayerControlled
 local UnitReaction = UnitReaction
 local UnitTreatAsPlayerForDisplay = UnitTreatAsPlayerForDisplay
 
+-- Players seen while their unit info was readable, for the moments it turns secret.
+-- Capped, a long session in cities or battlegrounds would otherwise keep every GUID.
 module.knownUnitClass = module.knownUnitClass or {}
 module.knownIsPlayer = module.knownIsPlayer or {}
+
+local CACHE_LIMIT = 500
+local cacheSize = 0
+
+local function RememberPlayer(guid, classToken)
+	if not module.knownIsPlayer[guid] then
+		if cacheSize >= CACHE_LIMIT then
+			wipe(module.knownIsPlayer)
+			wipe(module.knownUnitClass)
+			cacheSize = 0
+		end
+
+		module.knownIsPlayer[guid] = true
+		cacheSize = cacheSize + 1
+	end
+
+	if classToken then
+		module.knownUnitClass[guid] = classToken
+	end
+end
 
 function module:GetHealthColor(frame, unit)
 	local guid = UnitGUID(unit)
@@ -28,7 +50,7 @@ function module:GetHealthColor(frame, unit)
 
 	if isPlayer then
 		if knownGUID then
-			self.knownIsPlayer[knownGUID] = true
+			RememberPlayer(knownGUID)
 		end
 	elseif knownGUID and self.knownIsPlayer[knownGUID] then
 		isPlayer = true
@@ -66,7 +88,7 @@ function module:GetHealthColor(frame, unit)
 		local classToken = select(2, UnitClass(unit))
 		if E:NotSecretValue(classToken) and classToken then
 			if knownGUID then
-				self.knownUnitClass[knownGUID] = classToken
+				RememberPlayer(knownGUID, classToken)
 			end
 			return "classColorMap", classToken
 		elseif knownGUID and self.knownUnitClass[knownGUID] then
