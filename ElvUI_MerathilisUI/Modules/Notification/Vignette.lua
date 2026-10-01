@@ -5,7 +5,7 @@ local _G = _G
 local format = format
 local GetTime = GetTime
 local strfind = strfind
-local date = date
+local floor = math.floor
 local utf8sub = string.utf8sub or utf8sub
 
 local GetAtlasInfo = C_Texture.GetAtlasInfo
@@ -51,7 +51,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(_, vignetteGUID, onMinimap)
 	end
 
 	local vignetteInfo = GetVignetteInfo(vignetteGUID)
-	if not vignetteInfo then
+	if not vignetteInfo or not vignetteInfo.name then
 		return
 	end
 
@@ -85,23 +85,21 @@ function module:VIGNETTE_MINIMAP_UPDATED(_, vignetteGUID, onMinimap)
 	self:Debug("Vignette-ID:", vignetteInfo.vignetteID, "Vignette-Name:", vignetteInfo.name)
 
 	if db.vignette.print then
-		local currentTime = E.db.chat.timeStampFormat == 1 and ("|cff00ff00[" .. date("%H:%M:%S") .. "]|r") or ""
 		local nameString
 		local position = mapID and GetVignettePosition(vignetteInfo.vignetteGUID, mapID)
 		if position then
 			local x, y = position:GetXY()
 			nameString = format(
-				"|Hworldmap:%d+:%d+:%d+|h[%s (%.1f, %.1f)%s]|h|r",
+				"|Hworldmap:%d:%d:%d|h[%s (%.1f, %.1f)]|h",
 				mapID,
-				x * 10000,
-				y * 10000,
+				floor(x * 10000),
+				floor(y * 10000),
 				vignetteInfo.name,
 				x * 100,
-				y * 100,
-				""
+				y * 100
 			)
 		end
-		F.Print(currentTime .. " -> " .. tex .. F.String.MERATHILISUI(nameString or vignetteInfo.name or ""))
+		F.Print(tex .. " " .. F.String.MERATHILISUI(nameString or vignetteInfo.name))
 	end
 
 	if not db.noSound then

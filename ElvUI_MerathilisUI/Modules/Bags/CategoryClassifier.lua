@@ -500,25 +500,22 @@ function module:GetCategories()
 	end
 
 	local db = module.db
-	local disabled = (db and db.disabledCategories) or {}
 	local cats = {}
 
 	local nameOverrides = db and db.categoryNameOverrides
 	for _, cat in ipairs(DEFAULT_CATEGORIES) do
-		if not disabled[cat.key] then
-			local override = nameOverrides and nameOverrides[cat.key]
-			if override then
-				-- Shallow copy so the rename doesn't mutate the shared
-				-- DEFAULT_CATEGORIES table itself.
-				local copy = {}
-				for k, v in pairs(cat) do
-					copy[k] = v
-				end
-				copy.name = override
-				tinsert(cats, copy)
-			else
-				tinsert(cats, cat)
+		local override = nameOverrides and nameOverrides[cat.key]
+		if override then
+			-- Shallow copy so the rename doesn't mutate the shared
+			-- DEFAULT_CATEGORIES table itself.
+			local copy = {}
+			for k, v in pairs(cat) do
+				copy[k] = v
 			end
+			copy.name = override
+			tinsert(cats, copy)
+		else
+			tinsert(cats, cat)
 		end
 	end
 
@@ -533,10 +530,8 @@ function module:GetCategories()
 		end
 
 		for _, uc in ipairs(userCats) do
-			if not disabled[uc.key] then
-				tinsert(cats, catchAllIndex, { key = uc.key, name = uc.name, isUser = true, icon = uc.icon or 134400 })
-				catchAllIndex = catchAllIndex + 1
-			end
+			tinsert(cats, catchAllIndex, { key = uc.key, name = uc.name, isUser = true, icon = uc.icon or 134400 })
+			catchAllIndex = catchAllIndex + 1
 		end
 	end
 
@@ -771,18 +766,6 @@ function module:ClearItemAssignment(itemID)
 	if db.itemAssignments then
 		db.itemAssignments[itemID] = nil
 	end
-end
-
-function module:IsCategoryDisabled(key)
-	local db = module.db
-	return db and db.disabledCategories and db.disabledCategories[key] or false
-end
-
-function module:SetCategoryDisabled(key, disabled)
-	local db = module.db
-	db.disabledCategories = db.disabledCategories or {}
-	db.disabledCategories[key] = disabled or nil
-	module:InvalidateCategoryCache()
 end
 
 local userCategorySeq = 0

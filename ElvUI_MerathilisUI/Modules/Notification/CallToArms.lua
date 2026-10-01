@@ -21,7 +21,7 @@ function module:LFG_UPDATE_RANDOM_INFO()
 		return
 	end
 
-	if IsInGroup(_G.LE_PARTY_CATEGORY) or IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then
+	if IsInGroup() then
 		return
 	end
 

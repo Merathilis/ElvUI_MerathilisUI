@@ -82,7 +82,7 @@ options.general = {
 			end,
 			set = function(info, value)
 				E.db.mui.lootSpecManager[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
+				LSM:ProfileUpdate()
 			end,
 			args = {
 				enable = {
@@ -144,6 +144,7 @@ options.general = {
 	},
 }
 
+F.MarkTabAsNew("gameMenu")
 options.gameMenu = {
 	order = 2,
 	type = "group",
@@ -172,6 +173,15 @@ options.gameMenu = {
 			type = "toggle",
 			name = L["Show Random Pets"],
 			desc = L["Shows random battle pets"],
+		},
+		animations = {
+			order = 2.5,
+			type = "toggle",
+			name = F.NewFeatureText(L["Fade In Content"]),
+			desc = L["Fades the info blocks in one after the other when the game menu opens."],
+			hidden = function()
+				return not E.db.mui.gameMenu.enable
+			end,
 		},
 		bgColor = {
 			order = 3,
@@ -209,6 +219,18 @@ options.gameMenu = {
 					order = 2,
 					type = "toggle",
 					name = L["Show Weekly Delves Keys"],
+				},
+				showGreatVault = {
+					order = 2.1,
+					type = "toggle",
+					name = F.NewFeatureText(L["Show Great Vault"]),
+					desc = L["Shows your Great Vault progress for raids, dungeons and the world."],
+				},
+				showClock = {
+					order = 2.2,
+					type = "toggle",
+					name = F.NewFeatureText(L["Show Clock"]),
+					desc = L["Shows the time, the date and the time until the weekly reset."],
 				},
 				mythic = {
 					order = 3,
@@ -668,7 +690,7 @@ options.raidInfo = {
 	end,
 	set = function(info, value)
 		E.db.mui.misc.raidInfo[info[#info]] = value
-		E:StaticPopup_Show("CONFIG_RL")
+		RIF:DatabaseUpdate()
 	end,
 	args = {
 		desc = {
@@ -798,6 +820,7 @@ options.raidInfo = {
 					end,
 					set = function(_, value)
 						E.db.mui.misc.raidInfo.hideInCombat = value
+						RIF:UpdateVisibility()
 					end,
 				},
 				roleIcons = {

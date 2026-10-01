@@ -27,7 +27,19 @@ function module:UpdateProfileForGradient()
 	end
 end
 
-function module:UpdateProfileForTheme() end
+-- Writes data into a profile of another addon's AceDB and makes it the active one.
+-- The addon refreshes through its own OnProfileChanged handler.
+function module:ApplyAceDBProfile(db, name, data)
+	if db:GetCurrentProfile() == name then
+		E:CopyTable(db.profile, data)
+		db.callbacks:Fire("OnProfileChanged", db, name)
+		return
+	end
+
+	db.sv.profiles = db.sv.profiles or {}
+	db.sv.profiles[name] = data
+	db:SetProfile(name)
+end
 
 function module:Initialize()
 	if self.Initialized then

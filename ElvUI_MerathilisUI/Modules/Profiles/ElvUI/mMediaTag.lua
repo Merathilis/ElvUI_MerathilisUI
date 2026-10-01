@@ -2,50 +2,35 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles")
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
-local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-
-if not IsAddOnLoaded("ElvUI_mMediaTag") then
-	return
-end
-
 function module:LoadmMediaTagProfile()
-	local db = E and E.db and E.db.mMediaTag
+	local db = E.db.mMediaTag
 
 	if not db then
 		return
 	end
 
 	db.general.greeting_message = false
-	db.portraits.enable = false
 	db.important_casts.enable = true
+	db.important_casts.anchor = "BOTTOM"
 	db.nameplates.target.changeColor = true
 	db.nameplates.target.changeTexture = true
 	db.nameplates.target.texture = "mMediaTag A4"
 	db.phase_icon.enable = true
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true
-	db.important_casts.enable = true
-	db.important_casts.anchor = "BOTTOM"
 
+	-- Single fields only, replacing the unit tables would drop mMediaTag's other settings
 	db.portraits.enable = true
-	db.portraits.player = {
-		cast = true,
-		point = {
-			point = "RIGHT",
-			relativePoint = "LEFT",
-			x = -5,
-			y = 15,
-		},
-	}
-	db.portraits.target = {
-		cast = true,
-		point = {
-			point = "LEFT",
-			relativePoint = "RIGHT",
-			x = 5,
-			y = 15,
-		},
-	}
+	db.portraits.player.cast = true
+	db.portraits.player.point.point = "RIGHT"
+	db.portraits.player.point.relativePoint = "LEFT"
+	db.portraits.player.point.x = -5
+	db.portraits.player.point.y = 15
+	db.portraits.target.cast = true
+	db.portraits.target.point.point = "LEFT"
+	db.portraits.target.point.relativePoint = "RIGHT"
+	db.portraits.target.point.x = 5
+	db.portraits.target.point.y = 15
 	db.portraits.focus.enable = false
 	db.portraits.targettarget.enable = false
 	db.portraits.pet.enable = false
@@ -58,6 +43,11 @@ function module:LoadmMediaTagProfile()
 end
 
 function module:ApplymMediaTagProfile()
+	if not E:IsAddOnEnabled("ElvUI_mMediaTag") then
+		F.Developer.LogWarning("mMediaTag is not enabled. Will not apply profile.")
+		return
+	end
+
 	Splash:Wrap("Applying mMediaTag Profile ...", function()
 		self:LoadmMediaTagProfile()
 

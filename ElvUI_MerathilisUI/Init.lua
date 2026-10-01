@@ -8,7 +8,7 @@ local L = E.Libs.ACL:GetLocale("ElvUI", E.global.general.locale)
 
 local _G = _G
 local next = next
-local format, gsub = string.format, string.gsub
+local format = string.format
 local print = print
 local strfind, strmatch = string.find, string.match
 local collectgarbage = collectgarbage
@@ -92,7 +92,6 @@ do
 	MER.DiscordURL = "https://discord.gg/28We6esE9v"
 	MER.WebsiteURL = "https://merathilisui.com"
 	MER.Title = format("|cffffffff%s|r|cffff7d0a%s|r ", "Merathilis", "UI")
-	MER.PlainTitle = gsub(MER.Title, "|c........([^|]+)|r", "%1")
 end
 
 -- Modules
@@ -128,16 +127,12 @@ MER.Modules.Skins = MER:NewModule("MER_Skins", "AceHook-3.0", "AceEvent-3.0", "A
 MER.Modules.SplashScreen = MER:NewModule("MER_SplashScreen", "AceTimer-3.0")
 MER.Modules.Style = MER:NewModule("MER_Style", "AceHook-3.0")
 MER.Modules.Theme = MER:NewModule("MER_Theme", "AceHook-3.0")
-MER.Modules.Tooltip = MER:NewModule("MER_Tooltip", "AceHook-3.0", "AceEvent-3.0")
 MER.Modules.Tracker = MER:NewModule("MER_Tracker", "AceEvent-3.0")
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
 
 -- Pre register Datatexts
 MER.DatatextString = "|CFF6559F1m|r|CFFA037E9M|r|CFFDD14E0T|r-Datatexts"
-
--- Pre-register libs into ElvUI
-E:AddLib("LDD", "LibDropDown")
 
 _G.MerathilisUI_OnAddonCompartmentClick = function()
 	E:ToggleOptions()

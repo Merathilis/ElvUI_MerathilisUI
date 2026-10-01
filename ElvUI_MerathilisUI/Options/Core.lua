@@ -18,13 +18,13 @@ module.callOnInit = {}
 module.options = {
 	general = {
 		order = 101,
-		name = F.cOption(L["General"], "gradient"),
+		name = L["General"],
 		icon = I.Media.Icons.Categories.OptionsHome,
 		args = {},
 	},
 	modules = {
 		order = 102,
-		name = F.cOption(L["Modules"], "gradient"),
+		name = L["Modules"],
 		icon = I.Media.Icons.Categories.Config,
 		args = {
 			info = {
@@ -36,31 +36,31 @@ module.options = {
 	},
 	misc = {
 		order = 103,
-		name = F.cOption(L["Misc"], "gradient"),
+		name = L["Misc"],
 		icon = I.Media.Icons.Categories.More,
 		args = {},
 	},
 	skins = {
 		order = 104,
-		name = F.cOption(L["Skins/AddOns"], "gradient"),
+		name = L["Skins/AddOns"],
 		icon = I.Media.Icons.Categories.Bill,
 		args = {},
 	},
 	profiles = {
 		order = 105,
-		name = F.cOption(L["Profiles"], "gradient"),
+		name = L["Profiles"],
 		icon = I.Media.Icons.Categories.System,
 		args = {},
 	},
 	advanced = {
 		order = 111,
-		name = F.cOption(L["Advanced Settings"], "gradient"),
+		name = L["Advanced Settings"],
 		icon = I.Media.Icons.Categories.Tips,
 		args = {},
 	},
 	information = {
 		order = 112,
-		name = F.cOption(L["Information"], "gradient"),
+		name = L["Information"],
 		icon = I.Media.Icons.Categories.Save,
 		args = {},
 	},
@@ -209,6 +209,259 @@ function module.RequirementsDisabled(requirements)
 	return function()
 		return not MER:HasRequirements(requirements)
 	end
+end
+
+---Settings of the Interrupt Ready castbar indicator, shared by UnitFrames and NamePlates
+---@param order number
+---@param getDB function returns the settings table
+---@param update function refresh after a change
+---@param requirementsDisabled function disabled check of the owning module
+---@param previewKey string settings key under E.db.mui ("unitframes", "nameplates") for the sample castbar
+---@param extraArgs table? more options, merged into the group's args
+---@return table option
+function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled, previewKey, extraArgs)
+	-- Own disabled replaces the group's, so the children repeat the requirement
+	local function Disabled()
+		return requirementsDisabled() or not getDB().enable
+	end
+
+	local group = {
+		order = order,
+		type = "group",
+		name = L["Interrupt Ready"],
+		guiInline = true,
+		get = function(info)
+			return getDB()[info[#info]]
+		end,
+		set = function(info, value)
+			getDB()[info[#info]] = value
+			update()
+		end,
+		disabled = requirementsDisabled,
+		args = {
+			desc = {
+				order = 1,
+				type = "description",
+				dialogControl = "MERNewFeatureLabel",
+				name = F.NewFeatureTrailingText(
+					L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."]
+				),
+			},
+			preview = {
+				order = 1.5,
+				type = "description",
+				dialogControl = "MERInterruptReadyPreview",
+				name = previewKey,
+				width = "full",
+			},
+			enable = {
+				order = 2,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			tint = {
+				order = 3,
+				type = "toggle",
+				name = L["Cooldown Color"],
+				desc = L["Colors the filled part of the castbar while your interrupt is on cooldown."],
+				disabled = Disabled,
+			},
+			window = {
+				order = 4,
+				type = "toggle",
+				name = L["Ready Window"],
+				desc = L["Colors the rest of the cast from the moment your interrupt is ready again."],
+				disabled = Disabled,
+			},
+			tick = {
+				order = 5,
+				type = "toggle",
+				name = L["Ready Tick"],
+				desc = L["A thin line at the moment your interrupt is ready again."],
+				disabled = Disabled,
+			},
+			tickColor = {
+				order = 6,
+				type = "color",
+				name = L["Tick Color"],
+				hasAlpha = false,
+				disabled = function()
+					return Disabled() or not getDB().tick
+				end,
+				get = function()
+					local color = getDB().tickColor
+					return color.r, color.g, color.b, nil, 1, 1, 1, nil
+				end,
+				set = function(_, r, g, b)
+					local color = getDB().tickColor
+					color.r, color.g, color.b = r, g, b
+					update()
+				end,
+			},
+		},
+	}
+
+	if extraArgs then
+		for key, option in pairs(extraArgs) do
+			if option.disabled == nil then
+				option.disabled = Disabled
+			end
+			group.args[key] = option
+		end
+	end
+
+	return group
+end
+
+---Settings of the Execute Line on the health bar, shared by UnitFrames and NamePlates
+---@param order number
+---@param getDB function returns the settings table
+---@param update function refresh after a change
+---@param requirementsDisabled function disabled check of the owning module
+---@param extraArgs table? more options, merged into the group's args
+---@return table option
+function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, extraArgs)
+	-- Own disabled replaces the group's, so the children repeat the requirement
+	local function Disabled()
+		return requirementsDisabled() or not getDB().enable
+	end
+
+	local group = {
+		order = order,
+		type = "group",
+		name = L["Execute Line"],
+		guiInline = true,
+		get = function(info)
+			return getDB()[info[#info]]
+		end,
+		set = function(info, value)
+			getDB()[info[#info]] = value
+			update()
+		end,
+		disabled = requirementsDisabled,
+		args = {
+			desc = {
+				order = 1,
+				type = "description",
+				dialogControl = "MERNewFeatureLabel",
+				name = F.NewFeatureTrailingText(
+					L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."]
+				),
+			},
+			enable = {
+				order = 2,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			hostileOnly = {
+				order = 3,
+				type = "toggle",
+				name = L["Hostile Units Only"],
+				desc = L["Only shows the line on units you can attack."],
+				disabled = Disabled,
+			},
+			percent = {
+				order = 4,
+				type = "range",
+				name = L["Health Percent"],
+				min = 1,
+				max = 90,
+				step = 1,
+				disabled = Disabled,
+			},
+			width = {
+				order = 5,
+				type = "range",
+				name = L["Width"],
+				min = 1,
+				max = 6,
+				step = 1,
+				disabled = Disabled,
+			},
+			colorMode = {
+				order = 6,
+				type = "select",
+				name = L["Color"],
+				values = {
+					CLASS = L["Class Color"],
+					CUSTOM = L["Custom"],
+				},
+				disabled = Disabled,
+			},
+			customColor = {
+				order = 7,
+				type = "color",
+				name = L["Custom Color"],
+				hasAlpha = false,
+				disabled = function()
+					return Disabled() or getDB().colorMode ~= "CUSTOM"
+				end,
+				get = function()
+					local color = getDB().customColor
+					local dr, dg, db = F.String.HexToRGB("#00c0fa")
+					return color.r, color.g, color.b, nil, dr, dg, db, nil
+				end,
+				set = function(_, r, g, b)
+					local color = getDB().customColor
+					color.r, color.g, color.b = r, g, b
+					update()
+				end,
+			},
+			glow = {
+				order = 9,
+				type = "toggle",
+				name = L["Glow"],
+				desc = L["A soft glow around the line."],
+				disabled = Disabled,
+			},
+			pulse = {
+				order = 10,
+				type = "toggle",
+				name = L["Pulse"],
+				desc = L["The glow slowly pulses."],
+				disabled = function()
+					return Disabled() or not getDB().glow
+				end,
+			},
+			notches = {
+				order = 11,
+				type = "toggle",
+				name = L["Markers"],
+				desc = L["Small arrows at both ends of the line that point at the health bar."],
+				disabled = Disabled,
+			},
+			zone = {
+				order = 12,
+				type = "toggle",
+				name = L["Execute Range"],
+				desc = L["Tints the part of the health bar below the line, fading in towards the line."],
+				disabled = Disabled,
+			},
+			zoneAlpha = {
+				order = 13,
+				type = "range",
+				name = L["Range Opacity"],
+				min = 0.05,
+				max = 0.8,
+				step = 0.05,
+				isPercent = true,
+				disabled = function()
+					return Disabled() or not getDB().zone
+				end,
+			},
+		},
+	}
+
+	if extraArgs then
+		for key, option in pairs(extraArgs) do
+			if option.disabled == nil then
+				option.disabled = Disabled
+			end
+			group.args[key] = option
+		end
+	end
+
+	return group
 end
 
 function module:AddInlineRequirementsDesc(options, othersGroup, othersDesc, requirements)

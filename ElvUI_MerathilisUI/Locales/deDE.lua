@@ -19,7 +19,6 @@ L["Y-Offset"] = "Y-Versatz"
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
-L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = "von Merathilis (|cFF00c0faEU-Shattrath|r)"
 L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] =
 	" unterstützt nicht diese Spielversion, bitte deinstalliere mein Plugin und frage nicht nach Support. Danke!"
 L["AFK"] = "AFK"
@@ -82,6 +81,13 @@ L["Toys: "] = "Spielzeuge: "
 L["Current Keystone: "] = "Aktueller Schlüsselstein: "
 L["M+ Score: "] = "M+ Wertung: "
 L["Show Weekly Delves Keys"] = "Zeige wöchentliche Tiefenschlüssel"
+L["Fade In Content"] = "Inhalte einblenden"
+L["Fades the info blocks in one after the other when the game menu opens."] = "Blendet die Infoblöcke beim Öffnen des Spielmenüs nacheinander ein."
+L["Show Great Vault"] = "Großes Gewölbe anzeigen"
+L["Shows your Great Vault progress for raids, dungeons and the world."] = "Zeigt deinen Fortschritt im Großen Gewölbe für Schlachtzüge, Dungeons und Welt."
+L["Show Clock"] = "Uhr anzeigen"
+L["Shows the time, the date and the time until the weekly reset."] = "Zeigt Uhrzeit, Datum und die Zeit bis zum wöchentlichen Reset."
+L["Weekly reset in %s"] = "Wöchentlicher Reset in %s"
 L["Mythic+"] = true -- no need to translate
 L["Show Mythic+ Infos"] = "Zeige M+ Infos"
 L["Show Mythic+ Score"] = "Zeige M+ Wertung"
@@ -253,7 +259,6 @@ L["Assign to Category"] = "Kategorie zuweisen"
 L["Categorized Bags"] = "Kategorisierte Taschen"
 L["Category Header Height"] = "Höhe der Kategorie-Überschrift"
 L["Clear Assignment"] = "Zuweisung entfernen"
-L["Enter a name for the new category:"] = "Gib einen Namen für die neue Kategorie ein:"
 L["Enter a spell/item/currency ID, or a texture path/ID, for the category icon:"] =
 	"Gib eine Zauber-/Item-/Währungs-ID oder einen Texturpfad/-ID für das Kategorie-Icon ein:"
 L["Enter a new name:"] = "Gib einen neuen Namen ein:"
@@ -269,14 +274,11 @@ L["BoU"] = "BoU"
 L["BoA"] = "BoA"
 L["Backpack"] = "Rucksack"
 L["Bag %d"] = "Tasche %d"
-L["Click to switch to bag view."] = "Klicken, um zur Taschen-Ansicht zu wechseln."
-L["Click to switch to category view."] = "Klicken, um zur Kategorie-Ansicht zu wechseln."
 L["All Items"] = "Alle Items"
 L["OneBag"] = "OneBag"
 L["MultiBag"] = "MultiBag"
 L["Inventory"] = "Inventar"
 L["Categories"] = "Kategorien"
-L["The Armory"] = "Die Rüstkammer"
 L["Equipment"] = "Ausrüstung"
 L["Ungroup %s"] = "%s entkoppeln"
 L["Disband Group"] = "Gruppe auflösen"
@@ -325,7 +327,6 @@ L["Create"] = "Erstellen"
 L["Position"] = "Position"
 L["Item Spacing (Horizontal)"] = "Symbolabstand (horizontal)"
 L["Item Spacing (Vertical)"] = "Symbolabstand (vertikal)"
-L["Junk"] = "Ramsch"
 L["Middle Click:"] = "Mittelklick:"
 L["Miscellaneous"] = "Sonstiges"
 L["No gray items to sell."] = "Keine grauen Gegenstände zum Verkaufen."
@@ -347,7 +348,6 @@ L["Clear Recent on Close"] = "Beim Schließen leeren"
 L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."] = "Leert die Liste „Kürzlich“ jedes Mal, wenn du die Taschen schließt, statt sie zu behalten, bis du sie selbst leerst."
 L["Recent Items Limit"] = "Limit für „Kürzlich“"
 L["How many items the Recent Items list keeps at most; the oldest drops out first."] = "Wie viele Einträge die Liste „Kürzlich“ höchstens behält; der älteste fällt zuerst heraus."
-L["Recipes"] = "Rezepte"
 L["Item Set Gear"] = "Set-Ausrüstung"
 L["Gear Enhancements"] = "Ausrüstungsverbesserungen"
 L["Professions"] = "Berufe"
@@ -434,12 +434,9 @@ L["Trade Goods"] = "Handwerksgüter"
 L["Use / equip item"] = "Gegenstand benutzen/anlegen"
 L["Vendor Grays"] = "Grauwaren verkaufen"
 L["Vendored gray items for: %s"] = "Graue Gegenstände verkauft für: %s"
-L["View: By Bag"] = "Ansicht: Nach Tasche"
-L["View: By Category"] = "Ansicht: Nach Kategorie"
 L["Weapons & Trinkets"] = "Waffen & Schmuck"
 L["You must be at a vendor."] = "Du musst bei einem Händler sein."
 L["You must be at the bank."] = "Du musst bei der Bank sein."
-L["Auto Deposit"] = "Automatisch einlagern"
 L["Replace Blizzard's native Equipment Manager pane with a custom MerathilisUI gear-set panel."] =
 	"Ersetzt Blizzards native Ausrüstungsverwaltung durch ein eigenes MerathilisUI-Set-Panel."
 L["Class Codex"] = true
@@ -463,13 +460,14 @@ L["Delete equipment set '%s'?"] = "Ausrüstungsset '%s' löschen?"
 L["Change Icon"] = "Symbol ändern"
 L["Assign to Spec"] = "Spezialisierung zuweisen"
 L["Unassigned"] = "Nicht zugewiesen"
-L["Missing Items:"] = "Fehlende Gegenstände:"
 L["+ New Set"] = "+ Neues Set"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
 
 L["Custom Texture"] = "Benutzerdefinierte Textur"
+L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"] =
+	"Du kannst eine File-ID oder einen Pfad angeben.\nFile-ID als Beispiel.\niconFileID: 3547163\n\nBereits eine Option, hier als Beispiel für einen Pfad.\nPfad: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"
 L["Raid Icon"] = "Schlachtzugsymbol"
 L["Change the default raid icons."] = "Ändert das Standard Schlachtzugsymbol"
 L["Highlight"] = "Leuchten"
@@ -479,7 +477,6 @@ L["Cooldown Manager"] = "Cooldown Manager"
 L["Tooltip"] = "Tooltip"
 
 -- Cooldowns
-L["Cooldown Flash"] = "Abklingzeiten Aufleuchten"
 L["Spell List"] = "Zauberliste"
 
 -- GMOTD
@@ -570,6 +567,8 @@ L["Quality of Life"] = "Komfort"
 L["Choose the modules you want to use. Changes are applied on the reload at the end of the installer and can be changed anytime in the options."] = "Wähle die Module aus, die Du nutzen möchtest. Die Änderungen werden beim Neuladen am Ende der Installation übernommen und können jederzeit in den Optionen geändert werden."
 L["You are now finished with the installation process."] = "Die Installation ist abgeschlossen."
 L["Features, the full changelog and downloads can be found on the website %s."] = "Alle Features, das komplette Changelog und Downloads findest Du auf der Webseite %s."
+L["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"] =
+	true -- no need to translate
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
@@ -588,7 +587,6 @@ L["Enable/Disable"] = "Aktiviere/Deaktiviere"
 L["decor."] = "Dekor"
 L["Backdrop Color"] = "Hintergrundfarbe"
 L["Character Frame"] = "Charakterfenster"
-L["Merchant Frame"] = "Handelsfenster"
 L["Item Upgrade"] = "Gegenstandsaufwertung"
 L["Trade"] = "Handeln"
 L["Misc"] = "Sonstiges"
@@ -630,7 +628,6 @@ L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 
 -- Friends List
 L["Default"] = "Standard"
-L["Square"] = "Quadrat"
 L["Level"] = "Stufe"
 
 -- Advanced Settings
@@ -697,7 +694,6 @@ L["Control the Saturation value of HSL for the Normal color."] = true
 
 -- LootSpecManager
 L["LootSpecManager"] = "Loot Spec Manager"
-L["LootSpecManagerTip"] = "Wechsle automatisch deine Beute-Spezialisierung. Befehl: /lsm"
 L["LootSpecManagerTips"] =
 	"|nBasierend auf LootSpecManager: Wechselt automatisch deine Beutespezifikation zwischen den Bossen. Unterstützt Raids und M+."
 L["LootSpecManagerRaidStart"] = "Boss gepullt. Spezialisierung geändert."
@@ -739,23 +735,12 @@ L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 L["Skins/AddOns"] = true -- no need to translate
 L["Profiles"] = "Profile"
 L["BigWigs"] = true -- no need to translate
-L["Shadow & Light"] = "|cff9482c9Shadow & Light|r"
 L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen und anwenden für "
 
 -- Changelog
 L["Changelog"] = "Änderungen"
 
 -- Compatibility
-L["Compatibility Check"] = "Kompatibilitätsprüfung"
-L["There are many modules from different addons or ElvUI plugins, but several of them are almost the same functionality."] =
-	"Es gibt viele Module von verschiedenen Addons oder ElvUI-Plugins, aber einige davon haben fast die gleiche Funktionalität."
-L["Have a good time with %s!"] = "Viel Spaß mit %s!"
-L["Choose the module you would like to |cff00ff00use|r"] =
-	"Wähle das Modul aus, das Du |cff00ff00verwenden|r möchtest."
-L["If you find the %s module conflicts with another addon, alert me via Discord."] =
-	"Wenn Du feststellst, dass das %s Modul mit einem anderen Addon in Konflikt steht, benachrichtige mich über Discord."
-L["You can disable/enable compatibility check via the option in the bottom of [MerathilisUI]-[Information]."] =
-	"Du kannst die Kompatibilitätsprüfung über die Option unten in [MerathilisUI]-[Informationen] deaktivieren/aktivieren."
 L["Complete"] = "Komplett"
 
 -- Profiles
@@ -794,59 +779,6 @@ L["Before you submit a bug, please enable debug mode with %s and test it one mor
 L["If you get an error, open %s and paste its content into your report."] = "Wenn du einen Fehler bekommst, öffne %s und füge den Inhalt in deine Meldung ein."
 L["Error"] = "Fehler"
 L["Warning"] = "Warnung"
-
--- Abbreviate
-L["[ABBR] Heroic"] = "H"
-L["[ABBR] Mythic"] = "M"
-L["[ABBR] Normal"] = "N"
-L["[ABBR] Normal Scaling Party"] = "NSP"
-L["[ABBR] Officer"] = "O"
-L["[ABBR] Operation: Floodgate"] = "FLOOD"
-L["[ABBR] Operation: Mechagon - Workshop"] = "WORK"
-L["[ABBR] Party"] = "P"
-L["[ABBR] Party Leader"] = "PL"
-L["[ABBR] Path of Ascension"] = "PoA"
-L["[ABBR] Priory of the Sacred Flame"] = "PSF"
-L["[ABBR] Quest"] = "Quest"
-L["[ABBR] Raid"] = "R"
-L["[ABBR] Raid Finder"] = "RF"
-L["[ABBR] Raid Leader"] = "RL"
-L["[ABBR] Raid Warning"] = "RW"
-L["[ABBR] Roll"] = "RL"
-L["[ABBR] Say"] = "S"
-L["[ABBR] Scenario"] = "Scen"
-L["[ABBR] Shadowlands"] = "SL"
-L["[ABBR] Shoulders"] = "Schultern"
-L["[ABBR] Story"] = "Story"
-L["[ABBR] Tazavesh: So'leah's Gambit"] = "GMBT"
-L["[ABBR] Tazavesh: Streets of Wonder"] = "STRT"
-L["[ABBR] Teeming Island"] = "Teeming"
-L["[ABBR] The Dawnbreaker"] = "DAWN"
-L["[ABBR] The MOTHERLODE!!"] = "ML"
-L["[ABBR] The Rookery"] = "ROOK"
-L["[ABBR] The Stonevault"] = "SV"
-L["[ABBR] The War Within"] = "TWW"
-L["[ABBR] The War Within Keystone Hero: Season One"] = "S1 Schlüsselsteinheld"
-L["[ABBR] The War Within Keystone Hero: Season Three"] = "S3 Schlüsselsteinheld"
-L["[ABBR] The War Within Keystone Hero: Season Two"] = "S2 Schlüsselsteinheld"
-L["[ABBR] The War Within Keystone Legend: Season Three"] = "S3 Schlüsselsteinlegende"
-L["[ABBR] The War Within Keystone Master: Season One"] = "S1 Schlüsselsteinmeister"
-L["[ABBR] The War Within Keystone Master: Season Three"] = "S3 Schlüsselsteinmeister"
-L["[ABBR] The War Within Keystone Master: Season Two"] = "S2 Schlüsselsteinmeister"
-L["[ABBR] Theater of Pain"] = "TOP"
-L["[ABBR] Timewalking"] = "TW"
-L["[ABBR] Torghast"] = "Torghast"
-L["[ABBR] Trinket"] = "Schmuckstück"
-L["[ABBR] Turn In"] = "TURNIN"
-L["[ABBR] Visions of N'Zoth"] = "Visions"
-L["[ABBR] Waist"] = "Gürtel"
-L["[ABBR] Warfronts"] = "WF"
-L["[ABBR] Whisper"] = "Whispers"
-L["[ABBR] MER Emote"] = "ME"
-L["[ABBR] World"] = "W"
-L["[ABBR] World Boss"] = "WB"
-L["[ABBR] Wrist"] = "Handgelenk"
-L["[ABBR] Yell"] = "S"
 
 -- Buff Reminder
 L["Buff Reminder"] = "Buff-Erinnerung"
@@ -974,7 +906,6 @@ L["Only show the ring while you're holding a mouse button to turn or move the ca
 -- Loot Roll
 L["Loot Roll"] = true
 L["Can't Roll"] = "Kann nicht würfeln"
-L["Example"] = "Beispiel"
 L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] =
 	"Ersetzt ElvUIs Bedarf/Gier/Passen-Loot-Roll-Fenster durch eine eigene, verschiebbare Leiste."
 L["Show/hide a fake roll bar to preview your settings."] =
@@ -1099,7 +1030,6 @@ L["Shows the durability of your most damaged item."] = "Zeigt die Haltbarkeit de
 L["Pinned to the bottom of the sidebar, lights up while the chat is scrolled up."] = "Am unteren Rand der Seitenleiste fixiert, leuchtet auf, solange der Chat hochgescrollt ist."
 L["Durability Warning"] = "Haltbarkeitswarnung"
 L["The durability counter turns red at or below this value."] = "Der Haltbarkeitszähler wird ab diesem Wert rot."
-L["Battle.net"] = true
 L["World of Warcraft"] = true
 L["Online"] = true
 L["ElvUI Chat"] = "ElvUI-Chat"
@@ -1230,3 +1160,78 @@ L["Open the %s Status Report window that shows necessary information for debuggi
 L["Equipment Flyout"] = "Ausrüstungsauswahl"
 L["Shows the item level on the items in the merchant and trade windows."] = "Zeigt die Gegenstandsstufe der Gegenstände im Händler- und Handelsfenster."
 L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."] = "Die Gegenstandsstufe im Ausrüstungsmenü, in der Verschrottungsmaschine und in den Gildennachrichten gehört zu WindTools (Item > Item Level, Misc)."
+
+-- DataTexts
+L["Settings for the MerathilisUI datatexts. Add them to a panel in ElvUI's DataTexts options."] = "Einstellungen für die MerathilisUI-Infotexte. Hinzufügen kannst du sie in den ElvUI-Infotext-Optionen zu einem Panel."
+L["Show Icons"] = "Symbole anzeigen"
+L["White Text"] = "Weißer Text"
+L["Shows the values in white instead of ElvUI's value color."] = "Zeigt die Werte in Weiß statt in ElvUIs Wertfarbe."
+L["White Icon"] = "Weißes Symbol"
+L["Keeps the durability icon white instead of coloring it like the durability."] = "Lässt das Haltbarkeitssymbol weiß, statt es wie die Haltbarkeit einzufärben."
+L["Repair Mount"] = "Reparatur-Reittier"
+L["Summoned with a right click on the datatext."] = "Wird mit einem Rechtsklick auf den Infotext beschworen."
+L["Colored Durability"] = "Farbige Haltbarkeit"
+L["Colors the durability below the thresholds. Turned off, it only turns orange below 15%."] = "Färbt die Haltbarkeit unterhalb der Schwellen ein. Ausgeschaltet wird sie nur unter 15% orange."
+L["Warning Color"] = "Warnfarbe"
+L["Critical"] = "Kritisch"
+L["Critical Color"] = "Kritische Farbe"
+L["Permoks Account Manager"] = true
+
+-- NamePlates
+L["Target Arrows"] = "Zielpfeile"
+L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."] = "Animierte Pfeile neben der Namensplakette deines Ziels. Solange sie aktiv sind, ersetzen sie die Pfeile der ElvUI-Zielanzeige, deren Leuchten bleibt."
+L["Side Arrows"] = "Seitliche Pfeile"
+L["Top Arrow"] = "Pfeil oben"
+L["Slide In"] = "Einschieben"
+L["Bounce"] = "Wippen"
+L["Arrow Texture"] = "Pfeiltextur"
+L["Hover Highlight"] = "Mouseover-Hervorhebung"
+L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."] = "Gestaltet die Hervorhebung auf der Lebensleiste der Namensplakette unter der Maus neu. Benötigt die Hervorhebungs-Option der ElvUI-Namensplaketten."
+L["Fade In"] = "Einblenden"
+L["Additive Blend"] = "Additive Überblendung"
+L["Brightens the health bar instead of laying the texture over it."] = "Hellt die Lebensleiste auf, statt die Textur darüberzulegen."
+L["Focus Highlight"] = "Fokus-Hervorhebung"
+L["Lays a texture over the health bar of your focus target's nameplate."] = "Legt eine Textur über die Lebensleiste der Namensplakette deines Fokusziels."
+L["Raid Marker Color"] = "Schlachtzugsmarker-Farbe"
+L["Tints the health bar of a nameplate with a raid marker in the color of that marker."] = "Färbt die Lebensleiste einer Namensplakette mit Schlachtzugsmarker in der Farbe dieses Markers."
+L["Enemy Forces"] = "Feindliche Streitkräfte"
+L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."] = "Zeigt während eines Mythisch+-Schlüsselsteinlaufs neben der Lebensleiste, wie viel ein Gegner zur Anforderung der feindlichen Streitkräfte beiträgt."
+
+-- Interrupt Ready
+L["Interrupt Ready"] = "Unterbrechung bereit"
+L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."] = "Färbt die Zauberleiste feindlicher Einheiten ein, solange deine Unterbrechung abklingt, und markiert den Moment, ab dem sie wieder bereit ist. Die Farben sind die Unterbrechungs-Einträge der Zauberleisten-Farben in den Theme-Optionen."
+L["Cooldown Color"] = "Abklingfarbe"
+L["Colors the filled part of the castbar while your interrupt is on cooldown."] = "Färbt den gefüllten Teil der Zauberleiste, solange deine Unterbrechung abklingt."
+L["Ready Window"] = "Bereit-Fenster"
+L["Colors the rest of the cast from the moment your interrupt is ready again."] = "Färbt den Rest des Zaubers ab dem Moment, in dem deine Unterbrechung wieder bereit ist."
+L["Ready Tick"] = "Bereit-Markierung"
+L["A thin line at the moment your interrupt is ready again."] = "Eine dünne Linie an dem Moment, in dem deine Unterbrechung wieder bereit ist."
+L["Tick Color"] = "Markierungsfarbe"
+L["Units"] = "Einheiten"
+L["Interrupt on Cooldown"] = "Unterbrechung klingt ab"
+L["Interrupt Ready Soon"] = "Unterbrechung bald bereit"
+
+-- Cast on You
+L["Cast on You"] = "Zauber auf dich"
+L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = "Markiert die Zauberleiste feindlicher Einheiten, solange ihr Zauber dich zum Ziel hat. Kanalisierte Zauber werden nicht markiert."
+L["Castbar Border"] = "Rahmen der Zauberleiste"
+L["A colored border around the castbar."] = "Ein farbiger Rahmen um die Zauberleiste."
+L["Border Size"] = "Rahmengröße"
+L["Castbar Color"] = "Farbe der Zauberleiste"
+L["Colors the filled part of the castbar. The Interrupt Ready colors stay on top."] = "Färbt den gefüllten Teil der Zauberleiste. Die Farben von Unterbrechung bereit liegen darüber."
+
+-- Execute Line
+L["Execute Line"] = "Hinrichtungslinie"
+L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."] = "Eine Linie auf der Lebensleiste beim eingestellten Lebensprozentwert, damit du auf einen Blick siehst, wann eine Einheit in den Bereich deiner Hinrichtungsfähigkeiten kommt."
+L["Hostile Units Only"] = "Nur feindliche Einheiten"
+L["Only shows the line on units you can attack."] = "Zeigt die Linie nur bei Einheiten, die du angreifen kannst."
+L["Health Percent"] = "Lebensprozent"
+L["Glow"] = "Leuchten"
+L["A soft glow around the line."] = "Ein weiches Leuchten um die Linie."
+L["Pulse"] = "Pulsieren"
+L["The glow slowly pulses."] = "Das Leuchten pulsiert langsam."
+L["Markers"] = "Markierungen"
+L["Small arrows at both ends of the line that point at the health bar."] = "Kleine Pfeile an beiden Enden der Linie, die auf die Lebensleiste zeigen."
+L["Execute Range"] = "Hinrichtungsbereich"
+L["Tints the part of the health bar below the line, fading in towards the line."] = "Färbt den Teil der Lebensleiste unterhalb der Linie ein, zur Linie hin kräftiger werdend."
+L["Range Opacity"] = "Deckkraft des Bereichs"

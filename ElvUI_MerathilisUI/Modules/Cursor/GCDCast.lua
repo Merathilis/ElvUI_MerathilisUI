@@ -6,9 +6,13 @@ local rad, cos, sin = math.rad, math.cos, math.sin
 local CreateFrame = CreateFrame
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
-local GetSpellCooldown = C_Spell and C_Spell.GetSpellCooldown or GetSpellCooldown
-local UnitCastingInfo = UnitCastingInfo or CastingInfo
-local UnitChannelInfo = UnitChannelInfo or ChannelInfo
+local GetSpellCooldown = C_Spell.GetSpellCooldown
+local GetSpellCooldownDuration = C_Spell.GetSpellCooldownDuration
+local UnitCastingInfo = UnitCastingInfo
+local UnitChannelInfo = UnitChannelInfo
+local UnitCastingDuration = UnitCastingDuration
+local UnitChannelDuration = UnitChannelDuration
+local UnitEmpoweredChannelDuration = UnitEmpoweredChannelDuration
 local GetUnitEmpowerHoldAtMaxTime = GetUnitEmpowerHoldAtMaxTime
 
 local Enum_OnUpdateMode_RunWhenVisible = Enum.OnUpdateMode and Enum.OnUpdateMode.RunWhenVisible
@@ -36,12 +40,6 @@ function module:CreateGCDRing()
 	root.ring.idleHidden = true
 	root.ring.fg:Hide() -- the GCD ring only appears while actually sweeping
 
-	root:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
-
 	root:SetScript("OnEvent", function(_, event, unit)
 		if unit ~= "player" then
 			return
@@ -58,10 +56,18 @@ function module:CreateGCDRing()
 			return
 		end
 
-		-- Cooldown values are secret while cooldowns are restricted (M+, raid encounters),
-		-- comparing them would throw, so the ring just skips that GCD
 		local cdData = GetSpellCooldown(GCD_REFERENCE_SPELL)
-		if not cdData or E:IsSecretValue(cdData.duration) or E:IsSecretValue(cdData.startTime) then
+		if not cdData then
+			return
+		end
+
+		-- Cooldown values are secret while cooldowns are restricted (M+, raid encounters),
+		-- comparing them would throw. The duration object still drives the sweep, and as it
+		-- clears on a zero GCD it also covers the failed/interrupted/stop events.
+		if E:IsSecretValue(cdData.duration) or E:IsSecretValue(cdData.startTime) then
+			if GetSpellCooldownDuration then
+				root.ring:StartRingFromDuration(GetSpellCooldownDuration(GCD_REFERENCE_SPELL))
+			end
 			return
 		end
 
@@ -84,6 +90,16 @@ function module:CreateGCDRing()
 
 	root:Hide()
 	self.gcdRoot = root
+end
+
+-- Disable() unregisters the ring events, so they are registered on every Enable()
+function module:RegisterGCDEvents()
+	local root = self.gcdRoot
+	root:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
 end
 
 function module:CreateGCDMover()
@@ -216,20 +232,6 @@ function module:CreateCastRing()
 
 	root._castID = nil
 
-	root:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_DELAYED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_START", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_UPDATE", "player")
-	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_STOP", "player")
-	if UnitChannelInfo and GetUnitEmpowerHoldAtMaxTime then
-		root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_START", "player")
-		root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_UPDATE", "player")
-		root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_STOP", "player")
-	end
-
 	root:SetScript("OnEvent", function(self, event, unit, castID)
 		if unit ~= "player" then
 			return
@@ -253,9 +255,17 @@ function module:CreateCastRing()
 
 		if event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_DELAYED" then
 			local name, _, _, startMS, endMS, _, castGUID = UnitCastingInfo("player")
-			-- Cast times are secret while spell casts are restricted, arithmetic on them would throw
-			if name and not E:IsSecretValue(startMS) and not E:IsSecretValue(endMS) then
-				self._castID = not E:IsSecretValue(castGUID) and castGUID or nil
+			if not name then
+				return
+			end
+
+			self._castID = not E:IsSecretValue(castGUID) and castGUID or nil
+			-- Cast times are secret while spell casts are restricted, arithmetic on them would
+			-- throw. The duration object still drives the sweep, the spark needs the numbers.
+			if E:IsSecretValue(startMS) or E:IsSecretValue(endMS) then
+				root.ring:StartRingFromDuration(UnitCastingDuration and UnitCastingDuration("player"))
+				root.spark:Hide()
+			else
 				root.ring:StartRing(GetTime() - startMS * 0.001, (endMS - startMS) * 0.001)
 				if db.sparkEnable then
 					root.spark:Show()
@@ -267,15 +277,23 @@ function module:CreateCastRing()
 			or event == "UNIT_SPELLCAST_EMPOWER_START"
 			or event == "UNIT_SPELLCAST_EMPOWER_UPDATE"
 		then
-			local name, _, _, startMS, endMS, _, _, _, _, numStages = UnitChannelInfo("player")
-			if
-				name
-				and not E:IsSecretValue(startMS)
-				and not E:IsSecretValue(endMS)
-				and not E:IsSecretValue(numStages)
-			then
-				self._castID = nil
-				if numStages and numStages > 0 and GetUnitEmpowerHoldAtMaxTime then
+			local name, _, _, startMS, endMS, _, _, _, isEmpowered, numStages = UnitChannelInfo("player")
+			if not name then
+				return
+			end
+
+			self._castID = nil
+			if E:IsSecretValue(startMS) or E:IsSecretValue(endMS) then
+				local duration
+				if isEmpowered then
+					duration = UnitEmpoweredChannelDuration and UnitEmpoweredChannelDuration("player", true)
+				else
+					duration = UnitChannelDuration and UnitChannelDuration("player")
+				end
+				root.ring:StartRingFromDuration(duration)
+				root.spark:Hide()
+			else
+				if numStages and numStages > 0 then
 					local holdMS = GetUnitEmpowerHoldAtMaxTime("player")
 					if holdMS and not E:IsSecretValue(holdMS) then
 						endMS = endMS + holdMS
@@ -303,6 +321,22 @@ function module:CreateCastRing()
 
 	root:Hide()
 	self.castRoot = root
+end
+
+-- Disable() unregisters the ring events, so they are registered on every Enable()
+function module:RegisterCastEvents()
+	local root = self.castRoot
+	root:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_DELAYED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_START", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_UPDATE", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_STOP", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_START", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_UPDATE", "player")
+	root:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_STOP", "player")
 end
 
 function module:CreateCastMover()

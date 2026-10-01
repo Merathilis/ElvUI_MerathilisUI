@@ -26,7 +26,7 @@ function module:LoadDetailsProfile()
 
 	-- Load on all characters
 	Details.always_use_profile = true
-	Details.always_use_profile_name = main
+	Details.always_use_profile_name = I.ProfileNames.Default
 end
 
 function module:ApplyDetailsProfile()

@@ -146,6 +146,13 @@ local function UpdateSelectedTabs(object)
 		handler:RegisterEvent("CURRENT_SPELL_CAST_CHANGED")
 	end
 
+	-- The tabs are secure buttons, Enable/Disable is blocked in combat. HandleTabs
+	-- redoes this on PLAYER_REGEN_ENABLED.
+	if InCombatLockdown() then
+		handler:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+
 	for index = 1, #tabs[object] do
 		local tab = tabs[object][index]
 		if tab.spellID and C_Spell_IsCurrentSpell(tab.spellID) then

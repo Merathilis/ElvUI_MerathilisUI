@@ -59,7 +59,8 @@ end
 
 -------------------------------------------------------------------------------
 --  Ring factory (shared by the cursor ring, GCD ring and cast ring)
---  Static display: ring:fg:Show(). Sweeping countdown: ring:StartRing(elapsed, max).
+--  Static display: ring:fg:Show(). Sweeping countdown: ring:StartRing(elapsed, max),
+--  or ring:StartRingFromDuration(durationObject) when the timing is secret.
 -------------------------------------------------------------------------------
 function module:CreateRing(parent, radius)
 	local ring = CreateFrame("Frame", nil, parent)
@@ -103,6 +104,18 @@ function module:CreateRing(parent, radius)
 		self.maxDuration = maxDuration
 		self.fg:Hide()
 		self.cd:SetCooldown(GetTime() - self.duration, maxDuration)
+		self.cd:Show()
+	end
+
+	-- For secret timings: the Cooldown widget takes the duration object and ends the
+	-- sweep by itself (a zero duration clears it), nothing here can read the numbers
+	function ring:StartRingFromDuration(durationObject)
+		if not durationObject or not self.cd.SetCooldownFromDurationObject then
+			return
+		end
+		self.duration, self.maxDuration = 0, 0
+		self.fg:Hide()
+		self.cd:SetCooldownFromDurationObject(durationObject, true)
 		self.cd:Show()
 	end
 
@@ -470,6 +483,8 @@ function module:Enable()
 	self:CreateCursorFrame()
 	self:CreateGCDRing()
 	self:CreateCastRing()
+	self:RegisterGCDEvents()
+	self:RegisterCastEvents()
 	self:InstallMouselookHooks()
 
 	self.tracker:SetScript("OnUpdate", function(_, elapsed)

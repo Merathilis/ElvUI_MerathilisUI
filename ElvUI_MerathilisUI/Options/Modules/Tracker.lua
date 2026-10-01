@@ -5,9 +5,6 @@ local LSM = E.Libs.LSM
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("tracker")
-F.MarkTabAsNew("bloodlust")
-
 local function DB()
 	return E.db.mui.tracker
 end

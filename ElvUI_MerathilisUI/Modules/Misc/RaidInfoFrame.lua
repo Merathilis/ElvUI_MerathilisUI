@@ -58,6 +58,8 @@ function module:UpdateVisibility()
 	else
 		self.frame:UnregisterEvent("PLAYER_REGEN_DISABLED")
 		self.frame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+		-- Turned off while faded out in combat, nothing would fade it back in
+		self.frame:SetAlpha(1)
 	end
 end
 
@@ -118,10 +120,8 @@ function module:Create()
 	self:UpdateSpacing()
 	self:UpdateBackdrop()
 	self:Update()
-	self:UpdateVisibility()
+	self:RegisterEvents()
 
-	frame:RegisterEvent("GROUP_ROSTER_UPDATE")
-	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	frame:SetScript("OnEvent", function(_, event)
 		local db = F.GetDBFromPath("mui.misc.raidInfo")
 		if db.hideInCombat then
@@ -136,7 +136,18 @@ function module:Create()
 	end)
 end
 
+function module:RegisterEvents()
+	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
+	self.frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:UpdateVisibility()
+end
+
+-- The option setters below also run while the frame was never built (turned off at login)
 function module:UpdateIcons()
+	if not self.frame then
+		return
+	end
+
 	local theme = E.db.mui.elvUIIcons.roleIcons.theme
 
 	if self.frame.tankIcon then
@@ -151,6 +162,10 @@ function module:UpdateIcons()
 end
 
 function module:UpdateSize()
+	if not self.frame then
+		return
+	end
+
 	local size = self.db.size
 	local font = F.GetFontPath(I.Fonts.Primary)
 
@@ -166,6 +181,10 @@ function module:UpdateSize()
 end
 
 function module:UpdateSpacing()
+	if not self.frame then
+		return
+	end
+
 	local spacing = self.db.spacing
 	local padding = self.db.padding
 
@@ -182,6 +201,10 @@ function module:UpdateSpacing()
 end
 
 function module:UpdateBackdrop()
+	if not self.frame then
+		return
+	end
+
 	local c = self.db.backdropColor
 	self.frame:SetBackdropColor(c.r, c.g, c.b, c.a)
 end
@@ -258,13 +281,34 @@ function module:Update()
 end
 
 function module:Enable()
-	self:Create()
+	if not self.frame then
+		self:Create()
+		return
+	end
+
+	-- Turned on again or switched to another profile: apply its settings
+	self:UpdateIcons()
+	self:UpdateSize()
+	self:UpdateSpacing()
+	self:UpdateBackdrop()
+	self:RegisterEvents()
+	self:Update()
 end
 
+function module:Disable()
+	if self.frame then
+		self.frame:UnregisterAllEvents()
+		self.frame:Hide()
+	end
+end
+
+-- Also runs for the enable toggle and on profile switches, so both apply without a reload
 function module:DatabaseUpdate()
 	self.db = F.GetDBFromPath("mui.misc.raidInfo")
 	if MER:HasRequirements(I.Requirements.RaidInfoFrame) and self.db and self.db.enable then
 		self:Enable()
+	else
+		self:Disable()
 	end
 end
 

@@ -122,7 +122,7 @@ function module:BagSync()
 		SkinBagSyncFrame(name, modules)
 	end
 
-	local ExtTip = BagSync:GetModule("ExtTip")
+	local ExtTip = BagSync:GetModule("ExtTip", true)
 	if ExtTip then
 		F:SecureHook(ExtTip, "EnsureTip", function(self)
 			TT:SetStyle(self.extTip)

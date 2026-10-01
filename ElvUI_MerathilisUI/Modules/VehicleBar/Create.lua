@@ -120,8 +120,31 @@ function module:CreateVigorSegments()
 	local darkTexture = LSM:Fetch("statusbar", self.vdb.darkTexture)
 	-- local normalTexture = LSM:Fetch("statusbar", self.vdb.normalTexture)
 
+	-- Frames can't be freed, so every segment is built once and reused
+	local pool = self.vigorBar.segmentPool or {}
+	self.vigorBar.segmentPool = pool
+
 	for i = 1, maxCharges do
-		local segment = CreateFrame("StatusBar", "MER_VigorBar_Segment" .. i, self.vigorBar)
+		local segment = pool[i]
+		if not segment then
+			segment = CreateFrame("StatusBar", "MER_VigorBar_Segment" .. i, self.vigorBar)
+
+			local bg = segment:CreateTexture(nil, "BACKGROUND")
+			bg:SetAllPoints()
+			bg:SetColorTexture(0, 0, 0, 0.5)
+
+			local border = CreateFrame("Frame", nil, segment, "BackdropTemplate")
+			border:SetPoint("TOPLEFT", -1, 1)
+			border:SetPoint("BOTTOMRIGHT", 1, -1)
+			border:SetBackdrop({
+				edgeFile = E.media.blankTex,
+				edgeSize = E.twoPixelsPlease and 2 or 1,
+			})
+			border:SetBackdropBorderColor(0, 0, 0)
+
+			pool[i] = segment
+		end
+
 		segment:SetSize(segmentWidth, height)
 		segment:SetStatusBarTexture(darkTexture)
 		segment:GetStatusBarTexture():SetHorizTile(false)
@@ -138,21 +161,7 @@ function module:CreateVigorSegments()
 			segment:SetStatusBarColor(r, g, b)
 		end
 
-		-- Background
-		local bg = segment:CreateTexture(nil, "BACKGROUND")
-		bg:SetAllPoints()
-		bg:SetColorTexture(0, 0, 0, 0.5)
-
-		-- Border
-		local border = CreateFrame("Frame", nil, segment, "BackdropTemplate")
-		border:SetPoint("TOPLEFT", -1, 1)
-		border:SetPoint("BOTTOMRIGHT", 1, -1)
-		border:SetBackdrop({
-			edgeFile = E.media.blankTex,
-			edgeSize = E.twoPixelsPlease and 2 or 1,
-		})
-		border:SetBackdropBorderColor(0, 0, 0)
-
+		segment:ClearAllPoints()
 		if i == 1 then
 			segment:SetPoint("LEFT", self.vigorBar, "LEFT", self.spacing, 0)
 		else
@@ -160,8 +169,13 @@ function module:CreateVigorSegments()
 		end
 
 		segment:SetMinMaxValues(0, 1)
+		segment:Show()
 
 		tinsert(segments, segment)
+	end
+
+	for i = maxCharges + 1, #pool do
+		pool[i]:Hide()
 	end
 
 	self.vigorBar.segments = segments

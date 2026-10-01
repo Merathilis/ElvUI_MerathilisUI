@@ -10,7 +10,7 @@
 ## Dependencies: ElvUI, ElvUI_WindTools
 ## Group: ElvUI
 ## OptionalDeps: SharedMedia, ElvUI_mMediaTag, Details, BigWigs, WorldQuestTab
-## X-Version: 7.37
+## X-Version: 7.38
 ## X-Credits: Simpy, fang2hou, Benik, Azilroka, Darth Predator, fgprodigal, Blinkii, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
 ## X-ElvUIVersion: 15.26
 ## X-Curse-Project-Name: MerathilisUI
@@ -19,7 +19,6 @@
 ## X-Wago-ID: VBNBZVNx
 ## X-Flavor: Mainline
 
-Libs/Libs.xml
 Init.lua
 Locales\Load_Locales.xml
 Core\Load_Core.xml

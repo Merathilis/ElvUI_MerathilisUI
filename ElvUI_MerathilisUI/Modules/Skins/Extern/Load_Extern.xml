@@ -10,9 +10,8 @@
 	<Script file="GlobalIgnoreList.lua"/>
 	<Script file="KeystoneLoot.lua"/>
 	<Script file="ls_Toasts.lua"/>
-	<Script file="MountRoutePlanner.lua"/>
-	<Script file="ParagonReputation.lua"/>
 	<Script file="Pawn.lua"/>
+	<Script file="PermoksAccountManager.lua"/>
 	<Script file="WIM.lua"/>
 	<Script file="WowLua.lua"/>
 </Ui>

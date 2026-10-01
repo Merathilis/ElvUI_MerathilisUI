@@ -203,14 +203,15 @@ end
 --]]
 ----------------------------------
 
-function module:GetSelectedIndices(descending)
+-- Highest index first, so removing a mail never moves the ones still in the queue
+function module:GetSelectedIndices()
 	local list = {}
 	for index in pairs(selectedIndices) do
 		list[#list + 1] = index
 	end
-	tsort(list, descending and function(a, b)
+	tsort(list, function(a, b)
 		return a > b
-	end or nil)
+	end)
 	return list
 end
 
@@ -219,7 +220,9 @@ function module:OpenSelectedMail()
 		return
 	end
 
-	local queue = module:GetSelectedIndices(false)
+	-- An emptied mail without text is removed, which moves every later mail up by one;
+	-- an ascending queue opened the wrong mails after that
+	local queue = module:GetSelectedIndices()
 	if #queue == 0 then
 		F.Print(L["No mail selected."])
 		return
@@ -248,7 +251,7 @@ function module:DeleteSelectedConfirmed()
 		return
 	end
 
-	local queue = module:GetSelectedIndices(true)
+	local queue = module:GetSelectedIndices()
 	wipe(selectedIndices)
 
 	module:ProcessMailQueue(queue, function(index)

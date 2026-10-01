@@ -62,10 +62,10 @@ function module.ItemLevel_UpdateTradeTarget(index)
 	module.ItemLevel_Update(_G["TradeRecipientItem" .. index], GetTradeTargetItemLink(index))
 end
 
--- The hooks are only installed while the module is enabled on load; they check the setting on
--- every call, so turning it off works without a reload
+-- Always installed, they check the setting on every call, so turning it on or off (also by a
+-- profile switch) works without a reload
 function module:Initialize()
-	if not IsEnabled() or self.initialized then
+	if self.initialized then
 		return
 	end
 

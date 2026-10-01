@@ -3,9 +3,12 @@ local module = MER:GetModule("MER_Profiles") ---@class Profiles
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
 function module:LoadLSProfile()
-	local profileName = I.ProfileNames.Default
+	local _, LC = unpack(_G.ls_Toasts)
+	if not (LC and LC.db) then
+		return
+	end
 
-	LS_TOASTS_GLOBAL_CONFIG.profiles[profileName] = {
+	self:ApplyAceDBProfile(LC.db, I.ProfileNames.Default, {
 		["anchors"] = {
 			[1] = {
 				["point"] = {
@@ -101,7 +104,7 @@ function module:LoadLSProfile()
 				["left_click"] = false,
 			},
 		},
-	}
+	})
 end
 
 function module:ApplyLSProfile()
@@ -111,12 +114,7 @@ function module:ApplyLSProfile()
 	end
 
 	Splash:Wrap("Applying ls_Toasts Profile ...", function()
-		local LE, LC = unpack(_G.ls_Toasts)
-		LE:RegisterCallback("ToastCreated", self.LoadLSProfile)
-
-		if LC and LC.db and LC.db.profile then
-			LC.db.profile.skin = "MerathilisUI"
-		end
+		self:LoadLSProfile()
 
 		E:UpdateMedia()
 		E:UpdateFontTemplates()

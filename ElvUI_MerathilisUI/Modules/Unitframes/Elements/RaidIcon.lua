@@ -7,16 +7,13 @@ function module:Configure_RaidIcon(frame)
 	end
 
 	local RI = frame.RaidTargetIndicator
-	local db = frame.db
-
-	if RI.Replace then
+	if not RI or RI.Replace then
 		return
 	end
 
-	if db.raidicon.enable then
-		RI:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\RaidIcons\UI-RaidTargetingIcons]])
-	end
-
+	-- Also while ElvUI's raid icon is off: the texture is locked below, turning the
+	-- icon on later would otherwise keep the default one
+	RI:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\RaidIcons\UI-RaidTargetingIcons]])
 	RI.Replace = true
 	RI.SetTexture = E.noop
 end

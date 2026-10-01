@@ -17,26 +17,11 @@ V.skins = {
 		cap = true,
 		wim = true,
 		wowLua = true,
-		mrp = true,
 		klf = true,
-		paragonReputation = true,
 		classCodex = true,
+		pam = true,
 		bw = {
 			enable = true,
-			queueTimer = {
-				enable = true,
-				smooth = true,
-				spark = true,
-				colorLeft = { r = 0.32941, g = 0.52157, b = 0.93333, a = 1 },
-				colorRight = { r = 0.25882, g = 0.84314, b = 0.86667, a = 1 },
-				countDown = {
-					name = I.Fonts.Primary,
-					size = 16,
-					style = "SHADOWOUTLINE",
-					offsetX = 0,
-					offsetY = -3,
-				},
-			},
 			normalBar = {
 				smooth = true,
 				spark = true,

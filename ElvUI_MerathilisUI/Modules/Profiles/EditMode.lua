@@ -2,16 +2,19 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles") ---@class Profiles
 
 local _G = _G
+local InCombatLockdown = InCombatLockdown
+local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
 
 function module:ToggleEditMode()
-	if not _G.EditModeManagerFrame then
+	-- Edit Mode can't be entered in combat
+	if not _G.EditModeManagerFrame or InCombatLockdown() then
 		return
 	end
 
 	if not _G.EditModeManagerFrame:IsShown() then
-		_G.EditModeManagerFrame:Show()
+		ShowUIPanel(_G.EditModeManagerFrame)
 	else
-		_G.EditModeManagerFrame:Hide()
+		HideUIPanel(_G.EditModeManagerFrame)
 	end
 end
 

@@ -3,9 +3,34 @@ local module = MER:GetModule("MER_UnitFrames")
 local UF = E:GetModule("UnitFrames")
 
 local hooksecurefunc = hooksecurefunc
+local ipairs = ipairs
 
+-- Every unit and group frame gets the same mouseover highlight
+local HIGHLIGHT_UPDATES = {
+	"Update_PlayerFrame",
+	"Update_TargetFrame",
+	"Update_TargetTargetFrame",
+	"Update_PetFrame",
+	"Update_FocusFrame",
+	"Update_FocusTargetFrame",
+	"Update_PartyFrames",
+	"Update_RaidFrames",
+	"Update_BossFrames",
+}
+
+local function Highlight_OnEnter(frame)
+	if E.db.mui.unitframes.highlight then
+		frame.MER_Highlight:Show()
+	end
+end
+
+local function Highlight_OnLeave(frame)
+	frame.MER_Highlight:Hide()
+end
+
+-- ElvUI's update functions run again and again, the highlight is only built once
 function module:CreateHighlight(frame)
-	if not frame then
+	if not frame or frame.MER_Highlight then
 		return
 	end
 	if not E.db.mui.unitframes.highlight then
@@ -19,14 +44,10 @@ function module:CreateHighlight(frame)
 	hl:SetVertexColor(1, 1, 0.6, 1)
 	hl:SetBlendMode("ADD")
 	hl:Hide()
-	frame.Highlight = hl
+	frame.MER_Highlight = hl
 
-	frame:HookScript("OnEnter", function()
-		frame.Highlight:Show()
-	end)
-	frame:HookScript("OnLeave", function()
-		frame.Highlight:Hide()
-	end)
+	frame:HookScript("OnEnter", Highlight_OnEnter)
+	frame:HookScript("OnLeave", Highlight_OnLeave)
 end
 
 function module:Initialize()
@@ -34,28 +55,32 @@ function module:Initialize()
 		return
 	end
 
-	-- Player
-	hooksecurefunc(UF, "Update_PlayerFrame", module.Update_PlayerFrame)
-	-- Target
-	hooksecurefunc(UF, "Update_TargetFrame", module.Update_TargetFrame)
-	-- TargetTarget
-	hooksecurefunc(UF, "Update_TargetTargetFrame", module.Update_TargetTargetFrame)
-	-- Pet
-	hooksecurefunc(UF, "Update_PetFrame", module.Update_PetFrame)
-	-- Focus
-	hooksecurefunc(UF, "Update_FocusFrame", module.Update_FocusFrame)
-	-- FocusTarget
-	hooksecurefunc(UF, "Update_FocusTargetFrame", module.Update_FocusTargetFrame)
-	-- Party
-	hooksecurefunc(UF, "Update_PartyFrames", module.Update_PartyFrames)
-	-- Raid
-	hooksecurefunc(UF, "Update_RaidFrames", module.Update_RaidFrames)
-	-- Boss
-	hooksecurefunc(UF, "Update_BossFrames", module.Update_BossFrames)
+	-- Highlight
+	local function UpdateFrame(_, frame)
+		module:CreateHighlight(frame)
+	end
+	for _, update in ipairs(HIGHLIGHT_UPDATES) do
+		hooksecurefunc(UF, update, UpdateFrame)
+	end
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 	-- Faction Indicator
 	module:FactionIndicator()
+	-- Interrupt Ready
+	module:InterruptReady()
+	-- Execute Line
+	module:ExecuteLine()
+end
+
+-- The settings are read on every configure, the frames that exist just need a refresh
+function module:ProfileUpdate()
+	if not E.private.unitframe.enable then
+		return
+	end
+
+	module:UpdateFactionIndicators()
+	module:UpdateInterruptReady()
+	module:UpdateExecuteLines()
 end
 
 MER:RegisterModule(module:GetName())
