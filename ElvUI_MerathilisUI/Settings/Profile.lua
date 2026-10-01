@@ -36,6 +36,9 @@ P.gameMenu = {
 	showMythicScore = true,
 	mythicHistoryLimit = 4,
 	showRandomPets = true,
+	showGreatVault = true,
+	showClock = true,
+	animations = true,
 }
 
 P.datatexts = {
