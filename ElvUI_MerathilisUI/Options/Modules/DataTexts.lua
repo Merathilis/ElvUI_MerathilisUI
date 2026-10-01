@@ -6,8 +6,6 @@ local GetMountInfoByID = C_MountJournal.GetMountInfoByID
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("datatexts")
-
 -- Mounts with a repair vendor, offered for the right click on the datatext
 local REPAIR_MOUNTS = {
 	2237, -- Grizzly Hills Packmaster
