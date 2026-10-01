@@ -111,10 +111,10 @@ local function UpdateClock(holder)
 	local timeText = GameTime_GetTime and GameTime_GetTime(true) or date("%H:%M")
 	holder.time:SetText(F.String.GradientClass(timeText))
 
-	local info
+	local dateText
 	local now = C_DateAndTime_GetCurrentCalendarTime and C_DateAndTime_GetCurrentCalendarTime()
 	if now and CALENDAR_WEEKDAY_NAMES and CALENDAR_FULLDATE_MONTH_NAMES then
-		info = format(
+		dateText = format(
 			FULLDATE,
 			CALENDAR_WEEKDAY_NAMES[now.weekday],
 			CALENDAR_FULLDATE_MONTH_NAMES[now.month],
@@ -122,15 +122,18 @@ local function UpdateClock(holder)
 			now.year
 		)
 	else
-		info = date("%d.%m.%Y")
+		dateText = date("%d.%m.%Y")
 	end
+	holder.date:SetText(dateText)
 
 	local reset = C_DateAndTime_GetSecondsUntilWeeklyReset and C_DateAndTime_GetSecondsUntilWeeklyReset()
 	if reset and reset > 0 then
-		info = info .. "   -   " .. format(L["Weekly reset in %s"], SecondsToTime(reset, true, false, 2))
+		holder.reset:SetText(
+			format(L["Weekly reset in %s"], F.String.MERATHILISUI(SecondsToTime(reset, true, false, 2)))
+		)
+	else
+		holder.reset:SetText("")
 	end
-
-	holder.info:SetText(info)
 end
 
 local function Clock_OnUpdate(holder, elapsed)
@@ -227,22 +230,6 @@ function module:CreateGameMenuUI()
 	topPanel.factionLogo:Size(186, 186)
 	topPanel.factionLogo:SetTexture(I.General.MediaPath .. "Textures\\ClassBanner\\CLASS-" .. E.myclass)
 
-	-- Clock, date and weekly reset below the class banner
-	local clockHolder = CreateFrame("Frame", nil, mainFrame)
-	clockHolder:Size(600, 50)
-	clockHolder:Point("TOP", topPanel, "BOTTOM", 0, -12)
-
-	clockHolder.time = clockHolder:CreateFontString(nil, "OVERLAY")
-	clockHolder.time:FontTemplate(nil, 26, "SHADOWOUTLINE")
-	clockHolder.time:Point("TOP", clockHolder, "TOP")
-
-	clockHolder.info = clockHolder:CreateFontString(nil, "OVERLAY")
-	clockHolder.info:FontTemplate(nil, 13, "SHADOWOUTLINE")
-	clockHolder.info:Point("TOP", clockHolder.time, "BOTTOM", 0, -4)
-	clockHolder.info:SetTextColor(0.8, 0.8, 0.8, 1)
-
-	clockHolder:SetScript("OnUpdate", Clock_OnUpdate)
-
 	-- Top left holder (collections)
 	local topTextHolderLeft = CreateFrame("Frame", nil, topPanel)
 	topTextHolderLeft:Point("LEFT", topPanel, "BOTTOMLEFT", 5, 0)
@@ -284,6 +271,27 @@ function module:CreateGameMenuUI()
 	topTextHolderRight:Point("RIGHT", topPanel, "BOTTOMRIGHT", -5, 0)
 	topTextHolderRight:Width(E.screenWidth * 0.5)
 	topTextHolderRight:Height(E.screenHeight * (1 / 4) - 20)
+
+	-- Clock, date and weekly reset, mirrors the collections block; the delves keys go below it
+	local clockHolder = CreateFrame("Frame", nil, topPanel)
+	clockHolder:Size(400, 80)
+	clockHolder:Point("TOPRIGHT", topTextHolderRight, -OUTER_SPACING, OUTER_SPACING)
+
+	clockHolder.time = clockHolder:CreateFontString(nil, "OVERLAY")
+	clockHolder.time:FontTemplate(nil, 24, "SHADOWOUTLINE")
+	clockHolder.time:Point("TOPRIGHT", clockHolder, "TOPRIGHT")
+
+	clockHolder.date = clockHolder:CreateFontString(nil, "OVERLAY")
+	clockHolder.date:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	clockHolder.date:Point("TOPRIGHT", clockHolder.time, "BOTTOMRIGHT", 0, m(-6))
+	clockHolder.date:SetTextColor(1, 1, 1, 1)
+
+	clockHolder.reset = clockHolder:CreateFontString(nil, "OVERLAY")
+	clockHolder.reset:FontTemplate(nil, 16, "SHADOWOUTLINE")
+	clockHolder.reset:Point("TOPRIGHT", clockHolder.date, "BOTTOMRIGHT", 0, m(-1))
+	clockHolder.reset:SetTextColor(1, 1, 1, 1)
+
+	clockHolder:SetScript("OnUpdate", Clock_OnUpdate)
 
 	if db.showWeeklyDevles then
 		local delves = topTextHolderRight:CreateFontString(nil, "ARTWORK")
@@ -736,6 +744,17 @@ function module:GameMenu_OnShow()
 	if db.showClock then
 		clockHolder.elapsed = 0
 		UpdateClock(clockHolder)
+	end
+
+	-- Both share the top right corner, the delves keys follow the clock
+	local delves = self.topTextHolderRight.delves
+	if delves then
+		delves:ClearAllPoints()
+		if db.showClock then
+			delves:Point("TOPRIGHT", clockHolder.reset, "BOTTOMRIGHT", 0, m(-6))
+		else
+			delves:Point("TOPRIGHT", self.topTextHolderRight, -OUTER_SPACING, OUTER_SPACING)
+		end
 	end
 
 	for _, frame in ipairs(self.fadeFrames) do
