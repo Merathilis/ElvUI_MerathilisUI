@@ -9,5 +9,7 @@ MER.Changelog[739] = {
 	NEW = {
 		"[Options]: The start page shows the newest changes, rotating tips and a status line next to the logo.",
 	},
-	IMPROVEMENTS = {},
+	IMPROVEMENTS = {
+		"[Style]: Turning the MerathilisUI style on or off no longer asks for a reload, it applies right away.",
+	},
 }
