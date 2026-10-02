@@ -82,6 +82,14 @@ local tips = {
 	},
 	{ text = L["Buff Reminder shows icons for the raid buffs you are missing."], path = { "modules", "buffReminder" } },
 	{
+		text = L["HoverCast casts your spells on the unit frame or unit under your mouse and replaces Clique."],
+		path = { "modules", "hoverCast" },
+	},
+	{
+		text = L["HoverCast's Quickbind binds a spell in one step: hover it and press a key or click."],
+		path = { "modules", "hoverCast" },
+	},
+	{
 		text = L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."],
 		path = { "modules", "nameplates", "general" },
 	},

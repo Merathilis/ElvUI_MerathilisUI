@@ -521,6 +521,8 @@ L["Cursor puts a colored ring around your mouse cursor, optionally with a GCD an
 L["The Chat Sidebar gives quick access to friends, guild, copy chat and M+ portals."] = true
 L["Loot Roll replaces the roll frames with a movable bar. Its Test button shows a preview."] = true
 L["Buff Reminder shows icons for the raid buffs you are missing."] = true
+L["HoverCast casts your spells on the unit frame or unit under your mouse and replaces Clique."] = true
+L["HoverCast's Quickbind binds a spell in one step: hover it and press a key or click."] = true
 L["Singing Sockets adds a selection tool to the socketing frame."] = true
 L["The Game Menu can show random battle pets."] = true
 L["Type /mer install to run the installer again, e.g. to reapply the MerathilisUI profile."] = true
