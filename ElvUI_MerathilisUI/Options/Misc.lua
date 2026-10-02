@@ -179,6 +179,10 @@ options.gameMenu = {
 			type = "toggle",
 			name = L["Fade In Content"],
 			desc = L["Fades the info blocks in one after the other when the game menu opens."],
+			-- Read every time the menu opens, no reload needed
+			set = function(info, value)
+				E.db.mui.gameMenu[info[#info]] = value
+			end,
 			hidden = function()
 				return not E.db.mui.gameMenu.enable
 			end,
@@ -232,11 +236,15 @@ options.gameMenu = {
 					type = "toggle",
 					name = L["Show Clock"],
 					desc = L["Shows the time, the date and the time until the weekly reset."],
+					-- The clock is always built, it is only shown or hidden when the menu opens
+					set = function(info, value)
+						E.db.mui.gameMenu[info[#info]] = value
+					end,
 				},
 				mythic = {
 					order = 3,
 					type = "group",
-					name = "|cffFF0000WIP|r" .. " " .. L["Mythic+"],
+					name = L["Mythic+"],
 					hidden = E.Forever,
 					args = {
 						showMythicKey = {

@@ -100,12 +100,6 @@ function MER:InitializeModules()
 			self.initialized = true
 			F.Event.TriggerEvent("MER.Initialized")
 
-			F.Event.RunNextFrame(function()
-				self.DelayedWorldEntered = true
-
-				F.Developer.PrintDelayedMessages()
-			end, 5)
-
 			F.Event.ContinueOutOfCombat(function()
 				self.initializedSafe = true
 				F.Event.TriggerEvent("MER.InitializedSafe")

@@ -285,6 +285,8 @@ local function ShowTip(card, index, instant)
 	card.tipElapsed = 0
 
 	if instant then
+		-- A stopped fade-out never swaps its pending tip in, so drop it
+		card.nextTipIndex = nil
 		card.tipFadeOut:Stop()
 		card.tipFadeIn:Stop()
 		card.tipButton:SetAlpha(1)
