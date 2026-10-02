@@ -48,16 +48,26 @@ L["Login Message"] = "Сообщение загрузки"
 L["Information"] = "Информация"
 L["Support & Downloads"] = "Поддержка и загрузки"
 L["Tukui"] = true
-L["Github"] = true
 L["Website"] = true
-L["MerathilisUI Discord"] = true
-L["CurseForge"] = true
 L["Coding"] = "Кодирование"
 L["Testing & Inspiration"] = "Тестирование и вдохновение"
 L["Development Version"] = "Дев. версия"
-L["Here you can download the latest development version."] =
-	"Здесь вы можете скачать последнюю версию разработки."
-L["Donations"] = "Пожертвования"
+L["Join the community"] = true
+L["Report bugs and suggestions"] = true
+L["Via the CurseForge app"] = true
+L["Via the Wago app"] = true
+L["Latest development build"] = true
+L["Found a Bug?"] = true
+L["Support the Project"] = true
+L["MerathilisUI is free and I work on it in my spare time. If you enjoy it, you can support its development here."] = true
+L["Monthly support"] = true
+L["Monthly or one-time"] = true
+L["Buy me a coffee"] = true
+L["One-time donation"] = true
+L["Thank You!"] = true
+L["Patrons"] = true
+L["Home of ElvUI"] = true
+L["ElvUI support and community"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] =

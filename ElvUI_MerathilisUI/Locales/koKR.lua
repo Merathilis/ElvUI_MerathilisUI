@@ -54,16 +54,26 @@ L["Login Message"] = "로그인 메세지 표시"
 L["Information"] = "정보"
 L["Support & Downloads"] = "지원 및 다운로드"
 L["Tukui"] = "Tukui"
-L["Github"] = "GitHub"
 L["Website"] = true
-L["MerathilisUI Discord"] = true
-L["CurseForge"] = "CurseForge"
 L["Coding"] = "코딩"
 L["Testing & Inspiration"] = "테스트 및 영감"
 L["Development Version"] = "개발 버전"
-L["Here you can download the latest development version."] =
-	"최신 개발 버전을 여기에서 다운로드할 수 있습니다"
-L["Donations"] = "후원"
+L["Join the community"] = true
+L["Report bugs and suggestions"] = true
+L["Via the CurseForge app"] = true
+L["Via the Wago app"] = true
+L["Latest development build"] = true
+L["Found a Bug?"] = true
+L["Support the Project"] = true
+L["MerathilisUI is free and I work on it in my spare time. If you enjoy it, you can support its development here."] = true
+L["Monthly support"] = true
+L["Monthly or one-time"] = true
+L["Buy me a coffee"] = true
+L["One-time donation"] = true
+L["Thank You!"] = true
+L["Patrons"] = true
+L["Home of ElvUI"] = true
+L["ElvUI support and community"] = true
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] =

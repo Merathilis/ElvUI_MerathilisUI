@@ -49,16 +49,27 @@ L["Login Message"] = "Login Nachricht"
 L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"
 L["Tukui"] = true -- no need to translate
-L["Github"] = true -- no need to translate
 L["Website"] = "Webseite"
-L["MerathilisUI Discord"] = true -- no need to translate
-L["CurseForge"] = true -- no need to translate
 L["Coding"] = true -- no need to translate
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = "Entwicklungsversion"
-L["Here you can download the latest development version."] =
-	"Hier findest du den Download zu meiner Development Version."
-L["Donations"] = "Spenden"
+L["Join the community"] = "Tritt der Community bei"
+L["Report bugs and suggestions"] = "Fehler und Vorschläge melden"
+L["Via the CurseForge app"] = "Über die CurseForge App"
+L["Via the Wago app"] = "Über die Wago App"
+L["Latest development build"] = "Aktueller Entwicklungsstand"
+L["Found a Bug?"] = "Einen Fehler gefunden?"
+L["Support the Project"] = "Unterstütze das Projekt"
+L["MerathilisUI is free and I work on it in my spare time. If you enjoy it, you can support its development here."] =
+	"MerathilisUI ist kostenlos und ich arbeite in meiner Freizeit daran. Wenn es dir gefällt, kannst du die Entwicklung hier unterstützen."
+L["Monthly support"] = "Monatliche Unterstützung"
+L["Monthly or one-time"] = "Monatlich oder einmalig"
+L["Buy me a coffee"] = "Spendier mir einen Kaffee"
+L["One-time donation"] = "Einmalige Spende"
+L["Thank You!"] = "Vielen Dank!"
+L["Patrons"] = true
+L["Home of ElvUI"] = "Die Heimat von ElvUI"
+L["ElvUI support and community"] = "ElvUI Support und Community"
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] =
