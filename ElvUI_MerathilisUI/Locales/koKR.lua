@@ -331,60 +331,62 @@ L["Sat"] = "토요일"
 
 -- Install
 L["|cffff7d0aMerathilisUI|r Installation"] = "|cffff7d0aMerathilisUI|r 설치"
-L["Chat Set"] = "채팅 설정"
+L["Step %d of %d"] = true
+L["Welcome"] = true
+L["Welcome to %s"] = true
+L["This installer sets up MerathilisUI in a few steps. Everything can be changed later in the options."] = true
+L["Version %s for ElvUI %s"] = true
+L["Import Existing"] = true
+L["Import Existing takes over the MerathilisUI profile %s and the settings of %s, for example from your main character."] = true
+L["Use the MerathilisUI profile %s (layout %s) and the settings of %s for this character? The UI reloads afterwards."] = true
+L["Skip"] = true
+L["Closes the installer without changing anything. It does not open again by itself, run it anytime with /mer install."] = true
+L["Recommended"] = true
+L["MerathilisUI changes a lot of ElvUI settings. A new profile keeps your current one untouched, so you can switch back anytime."] = true
+L["Creates a fresh profile for this character and installs MerathilisUI into it."] = true
+L["Use Current Profile"] = true
+L["Installs MerathilisUI into %s. Your changes in this profile get overwritten."] = true
+L["Name for the new profile"] = true
+L["A profile with that name already exists."] = true
+L["Choose how big the interface is. Auto Scale picks the pixel perfect size for your resolution."] = true
+L["Pixel perfect for %s"] = true
+L["More room on the screen"] = true
+L["A balanced size"] = true
+L["Easier to read"] = true
+L["Applies the complete MerathilisUI layout: general look, chat, datatexts, action bars, nameplates and unit frames. Pick the unit frame style you like."] = true
+L["Class colored health bars with a soft gradient."] = true
+L["Dark health bars with the class color on their backdrop."] = true
+L["Recommended game settings (CVars)"] = true
+L["Changes a few World of Warcraft settings, for example the camera distance, nameplates and chat. They are tailored to the author of MerathilisUI and not needed for the layout."] = true
+L["Overwrites the layout settings of the current profile."] = true
+L["Installing ..."] = true
+L["Enable All"] = true
+L["Disable All"] = true
+L["%d of %d enabled"] = true
+L["Shows a styled bar for vehicles and skyriding, with vigor and speed."] = true
+L["Shows toasts for new mail, invites, guild events, the Great Vault and more."] = true
+L["Shows the name, guild and level of the unit under your mouse right next to the cursor."] = true
+L["Blizzard's Edit Mode places a few frames ElvUI does not move. Import the MerathilisUI Edit Mode layout in two steps."] = true
+L["Copy the Layout String"] = true
+L["Opens a window with the string. Select it with CTRL+A and copy it with CTRL+C."] = true
+L["Pick Import in the layout dropdown, paste the string with CTRL+V, give it a name and click Import."] = true
+L["String copied"] = true
+L["AddOn Profiles"] = true
+L["MerathilisUI brings matching profiles for these AddOns. Click an AddOn to apply its profile."] = true
+L["Click to apply the profile"] = true
+L["Profile applied"] = true
+L["%d applied"] = true
+L["Settings only the developer of MerathilisUI uses."] = true
+L["UI scale, chat bubbles, ElvUI user tags and a few module settings."] = true
+L["Applied"] = true
+L["Summary"] = true
+L["Skipped"] = true
+L["Finish & Reload"] = true
 L["ActionBars"] = "행동 단축바"
-L["ActionBars Set"] = "행동단축바 설정 적용됨"
-L["DataTexts Set"] = "데이터 텍스트 설정 적용됨"
-L["UnitFrames Set"] = "유닛 프레임 설정 적용됨"
-L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."] =
-	"MerathilisUI |cff00c0fa버전|r %s에 오신 것을 환영합니다 (ElvUI 버전: %s)"
-L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] =
-	"계속 버튼을 누르면 현재 ElvUI 설치에 MerathilisUI가 적용됩니다.\r\r|cffff8000팁: 결과가 마음에 들지 않을 경우를 대비해 새 프로필에 적용하는 것이 좋습니다.|r"
 
-L["This part of the installation process sets up your chat fonts and colors."] =
-	"설치 과정의 이 단계에서는 대화창의 글꼴과 색상을 설정합니다"
-L["This part of the installation changes the default ElvUI look."] =
-	"설치 과정의 이 단계에서는 ElvUI의 기본 디자인을 변경합니다"
-L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] =
-	"설치 과정의 이 단계에서는 MerathilisUI 데이터 텍스트를 채웁니다.\r|cffff8000ElvUI의 데이터 텍스트는 변경되지 않습니다|r"
-L["This part of the installation process will reposition your Actionbars and will enable backdrops"] =
-	"설치 과정의 이 단계에서는 행동 단축바의 위치를 조정하고 배경을 활성화합니다"
-L["This part of the installation process will change your NamePlates."] =
-	"설치 과정의 이 단계에서는 이름표를 변경합니다"
-L["This part of the installation process will reposition your Unitframes."] =
-	"설치 과정의 이 단계에서는 유닛 프레임의 위치를 조정합니다"
-L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] =
-	"이 단계에서는 월드 오브 워크래프트의 몇 가지 기본 옵션을 변경합니다. 이러한 설정은 %s 작성자의 개인적인 사용을 위한 것이며, 이 애드온의 작동에 필수적인 설정은 아닙니다"
-L["Please click the button below to apply the new layout."] =
-	"새로운 레이아웃을 적용하려면 아래 버튼을 클릭하세요"
-L["Please click the button below to setup your chat windows."] =
-	"대화창을 설정하려면 아래 버튼을 클릭하세요"
-L["Please click the button below to setup your actionbars."] =
-	"행동 단축바를 설정하려면 아래 버튼을 클릭하세요"
-L["Please click the button below to setup your datatexts."] =
-	"데이터 텍스트를 설정하려면 아래 버튼을 클릭하세요"
-L["Please click the button below to setup your NamePlates."] =
-	"이름표를 설정하려면 아래 버튼을 클릭하세요"
-L["Please click the button below to setup your Unitframes."] =
-	"유닛 프레임을 설정하려면 아래 버튼을 클릭하세요"
-L["Plugins"] = "플러그인"
-L["This part of the installation process will apply changes to ElvUI Plugins"] =
-	"설치 과정의 이 부분은 ElvUI 플러그인에 변경 사항을 적용합니다."
-L["Important Plugins"] = "중요 플러그인"
 
 L["DataTexts"] = "정보문자"
-L["Setup Chat"] = "대화창 설치"
-L["General Layout"] = "전체 레이아웃"
-L["Setup ActionBars"] = "행동 단축바 설정"
-L["Setup NamePlates"] = "이름표 설정"
-L["Setup Datatexts"] = "데이터 텍스트 설정"
 L["EditMode"] = true
-L["Step 1:"] = true
-L["Step 2:"] = true
-L["Click the first button for the import.\nUse CTRL+A to select the whole string and then CTRL+C to copy the string from the popup."] =
-	true
-L["Enter Edit Mode and select Import on the Dropdown.\nUse CTRL+V to paste string, then pick a name and click import."] =
-	true
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =
@@ -584,6 +586,23 @@ L["Loot Roll replaces the roll frames with a movable bar. Its Test button shows 
 L["Buff Reminder shows icons for the raid buffs you are missing."] = true
 L["Singing Sockets adds a selection tool to the socketing frame."] = true
 L["The Game Menu can show random battle pets."] = true
+L["Type /mer install to run the installer again, e.g. to reapply the MerathilisUI profile."] = true
+L["Type /mlr to preview the Loot Roll bar with test rolls."] = true
+L["Type /lsm to open the LootSpecManager. It switches your loot spec per boss in raids and Mythic+."] = true
+L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."] = true
+L["In Mythic+, the nameplates can show how much Enemy Forces each enemy is worth."] = true
+L["Cast on You marks the castbar of enemies whose cast targets you."] = true
+L["Categorized Bags sorts your bags into groups like equipment, consumables and quest items."] = true
+L["The Armory warns you about missing enchants and sockets on your gear."] = true
+L["Mail adds checkboxes to open or delete several mails at once and saves recipient lists."] = true
+L["Right-click the Durability/Ilevel datatext to summon your repair mount."] = true
+L["The Minimap Buttons bar adds a Great Vault button and your M+ portals next to the Minimap."] = true
+L["The Location Panel above the Minimap can show your coordinates. Click it to open the World Map."] = true
+L["The Specialization Bar switches your spec with a left click and your loot spec with a right click."] = true
+L["Auras can add a collapse button to your buffs that hides long-lasting ones until they are about to expire."] = true
+L["Item Level shows the item level on items in the merchant and trade windows."] = true
+L["The Raid Info Frame lists the players in your raid by role."] = true
+L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = true
 
 -- Compatibility
 L["Complete"] = "완료"
@@ -615,7 +634,7 @@ L["After you stop debuging, %s will reenable the addons automatically."] =
 	"디버깅을 중지하면 %s이(가) 애드온을 자동으로 다시 활성화합니다."
 L["Before you submit a bug, please enable debug mode with %s and test it one more time."] =
 	"버그를 제출하기 전에 %s을(를) 사용하여 디버그 모드를 활성화하고 한 번 더 테스트하십시오."
-L["If you get an error, open %s and paste its content into your report."] = true
+L["If you get an error, open the Status Report with %s, click %s and paste the text into your report."] = true
 L["Error"] = "오류"
 L["Warning"] = "경고"
 
@@ -632,7 +651,6 @@ L["Level"] = true
 
 -- Automatically added missing keys
 L[" Raid Info Frame"] = " Raid Info Frame"
-L[" install complete."] = " install complete."
 L["%day%-%month%-%year%"] = "%day%-%month%-%year%"
 L[".\n\n"] = ".\n\n"
 L["Abbreviates the enchant strings."] = "Abbreviates the enchant strings."
@@ -642,7 +660,6 @@ L["Addon Skins"] = "Addon Skins"
 L["Addons"] = "Addons"
 L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."] =
 	"Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."
-L["Adjust the UI Scale to fit your screen."] = "Adjust the UI Scale to fit your screen."
 L["Anchor Point"] = "Anchor Point"
 L["Are you sure you want to import this string?"] = "Are you sure you want to import this string?"
 L["Arena"] = "Arena"
@@ -668,8 +685,6 @@ L["Boss"] = "Boss"
 L["Button Size"] = "Button Size"
 L["Button Width"] = "Button Width"
 L["Buttons"] = "Buttons"
-L["CVars"] = "CVars"
-L["CVars Set"] = "CVars Set"
 L["Capping"] = "Capping"
 L["Change the Skyriding Bar's height."] = "Change the Skyriding Bar's height."
 L["Changelog Popup"] = "Changelog Popup"
@@ -910,7 +925,6 @@ L["Export the setting of %s that stored in ElvUI Private database."] =
 L["Export the setting of %s that stored in ElvUI Profile database."] =
 	"Export the setting of %s that stored in ElvUI Profile database."
 L["Faction"] = "Faction"
-L["Finished"] = "Finished"
 L["Fixes"] = "Fixes"
 L["Focus"] = "Focus"
 L["Friends"] = "Friends"
@@ -939,17 +953,12 @@ L["IconSearchTip"] = "IconSearchTip"
 L["If you simply want to share the same private settings across all characters, it is recommended to set the same private profile for them in ElvUI > Profiles > Private."] =
 	"If you simply want to share the same private settings across all characters, it is recommended to set the same private profile for them in ElvUI > Profiles > Private."
 L["Import"] = "Import"
-L["Import String"] = "Import String"
 L["Import and export your %s settings."] = "Import and export your %s settings."
-L["Importance: |cff07D400High|r"] = "Importance: |cff07D400High|r"
-L["Importance: |cffD3CF00Medium|r"] = "Importance: |cffD3CF00Medium|r"
-L["Importance: |cffFF0000Low|r"] = "Importance: |cffFF0000Low|r"
 L["Improvements"] = "Improvements"
 L["Install"] = "Install"
 L["Installation Complete"] = "Installation Complete"
 L["It will override your %s setting."] = "It will override your %s setting."
 L["Item Level Font"] = "Item Level Font"
-L["Keep Current"] = "Keep Current"
 L["KeystoneLoot"] = "KeystoneLoot"
 L["LEFT"] = "LEFT"
 L["LOW"] = "LOW"
@@ -974,11 +983,8 @@ L["MerathilisUI saves all data in ElvUI Profile and Private database."] =
 L["Mouse Over"] = "Mouse Over"
 L["Mouseover"] = "Mouseover"
 L["N/A"] = "N/A"
-L["NamePlates Set"] = "NamePlates Set"
 L["New"] = "New"
 L["New Profile"] = "New Profile"
-L["New Profile will create a fresh profile for this character."] =
-	"New Profile will create a fresh profile for this character."
 L["Next Time"] = "Next Time"
 L["No Guild"] = "No Guild"
 L["Normal Texture"] = "Normal Texture"
@@ -999,21 +1005,11 @@ L["Interface"] = true
 L["Combat"] = true
 L["Quality of Life"] = true
 L["Choose the modules you want to use. Changes are applied on the reload at the end of the installer and can be changed anytime in the options."] = true
-L["You are now finished with the installation process."] = true
 L["Features, the full changelog and downloads can be found on the website %s."] = true
-L["Please click the button below so you can setup variables and ReloadUI."] =
-	"Please click the button below so you can setup variables and ReloadUI."
-L["Please click the button below to apply the UI Scale."] = "Please click the button below to apply the UI Scale."
-L["Please click the button below to setup your CVars."] = "Please click the button below to setup your CVars."
-L["Please click the button below to setup your Profile Settings."] =
-	"Please click the button below to setup your Profile Settings."
-L["Please press the continue button to go onto the next step."] =
-	"Please press the continue button to go onto the next step."
 L["Please set the ID first."] = "Please set the ID first."
 L["Profession"] = "Profession"
 L["Profile"] = "Profile"
 L["Profile Created"] = "Profile Created"
-L["Profile Settings Setup"] = "Profile Settings Setup"
 L["Quest"] = "Quest"
 L["RIGHT"] = "RIGHT"
 L["Race"] = "Race"
@@ -1050,7 +1046,6 @@ L["Shows a warning when you're missing an enchant."] = "Shows a warning when you
 L["Shows a warning when you're missing sockets on your necklace."] =
 	"Shows a warning when you're missing sockets on your necklace."
 L["Shows random battle pets"] = "Shows random battle pets"
-L["Skip Process"] = "Skip Process"
 L["Small"] = "Small"
 L["So if you set ElvUI Profile and Private these |cffff0000TWO|r databases to the same across multiple character, the setting of MerathilisUI will be synced."] =
 	"So if you set ElvUI Profile and Private these |cffff0000TWO|r databases to the same across multiple character, the setting of MerathilisUI will be synced."
@@ -1113,13 +1108,10 @@ L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n
 	"You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"
 L["You have %s pending calendar |4invite:invites;."] = "You have %s pending calendar |4invite:invites;."
 L["You have %s pending guild |4event:events;."] = "You have %s pending guild |4event:events;."
-L["Your current Profile is: "] = "Your current Profile is: "
 L["is looking for members"] = "is looking for members"
 L["joined a group"] = "joined a group"
 L["ls_Toasts"] = "ls_Toasts"
 L["ncHoverName by Nightcracker"] = "ncHoverName by Nightcracker"
-L["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"] =
-	"|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"
 --
 
 -- Buff Reminder

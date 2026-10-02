@@ -154,8 +154,9 @@ options.name = {
 					name = newSignIgnored
 						.. " "
 						.. format(
-							L["If you get an error, open %s and paste its content into your report."],
-							"|cff00ff00/muidev log|r"
+							L["If you get an error, open the Status Report with %s, click %s and paste the text into your report."],
+							"|cff00ff00/mui status|r",
+							"|cff00ff00Copy Report|r"
 						),
 					width = "full",
 				},

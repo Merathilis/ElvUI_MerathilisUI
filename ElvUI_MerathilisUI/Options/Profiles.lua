@@ -14,27 +14,6 @@ local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local Ok = F.GetIconString(I.Media.Icons.Ok, 14, 14)
 local No = F.GetIconString(I.Media.Icons.No, 14, 14)
 
--- addon, label, MER_Profiles method that applies the profile
-local SupportedProfiles = {
-	{ "BigWigs", "BigWigs", "ApplyBigWigsProfile" },
-	{ "Capping", "Capping", "ApplyCappingProfile" },
-	{ "Details", "Details", "ApplyDetailsProfile" },
-	{ "ls_Toasts", "ls_Toasts", "ApplyLSProfile" },
-	{ "PermoksAccountManager", "PermoksAccountManager", "ApplyPermoksAccountManagerProfile" },
-	{ "SkironCooldownManager", "SkironCooldownManager", "ApplySkironCooldownManagerProfile" },
-	{ "TomTom", "TomTom", "ApplyTomTomProfile" },
-	{
-		"ElvUI_mMediaTag",
-		"|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r",
-		"ApplymMediaTagProfile",
-	},
-	{
-		"ElvUI_WindTools",
-		"|cff1784d1ElvUI|r |cff5385edW|r|cff5094eai|r|cff4da4e7n|r|cff4ab4e4d|r|cff47c0e1T|r|cff44cbdfo|r|cff41d7ddo|r|cff41d7ddl|r|cff41d7dds|r",
-		"ApplyWindToolsProfile",
-	},
-}
-
 -- "DEFAULT" in the override tables means "keep the font / outline the profile uses"
 local OutlineValues = E:CopyTable({ DEFAULT = L["Default"] }, MER.Values.FontFlags)
 
@@ -178,7 +157,7 @@ options.addons = {
 	},
 }
 
-for index, v in ipairs(SupportedProfiles) do
+for index, v in ipairs(I.AddOnProfiles) do
 	local addon, addonName, applyMethod = unpack(v)
 
 	local iconTexture = GetAddOnMetadata(addon, "IconTexture")

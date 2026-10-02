@@ -114,12 +114,8 @@ do
 	end
 end
 
+-- Also without a MerathilisUI profile, the report shows that as a problem
 function MER:ShowStatusReport()
-	if not F.IsMERProfile() then
-		F.Print("You are not using a " .. MER.Title .. " Profile")
-		return
-	end
-
 	self:GetModule("MER_Misc"):StatusReportShow()
 end
 

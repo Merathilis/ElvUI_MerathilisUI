@@ -18,7 +18,7 @@ local Type, Version = "MERHomeHeader", 1
 local floor, max, min = math.floor, math.max, math.min
 local format, gsub = string.format, string.gsub
 local ipairs, mod, pairs, random, tostring, unpack, wipe = ipairs, mod, pairs, math.random, tostring, unpack, wipe
-local sort, tconcat = table.sort, table.concat
+local sort, tconcat, tremove = table.sort, table.concat, table.remove
 local CreateFrame, UIParent = CreateFrame, UIParent
 local GameTooltip = GameTooltip
 local PlaySound = PlaySound
@@ -45,13 +45,21 @@ local COLOR_LINK_HOVER = { 1, 1, 1 }
 
 local tipIcon = format("|T%s:14:14|t", I.Media.Icons.Categories.Tips)
 
--- "Did you know?" tips; `path` is the option group the tip links to
+-- "Did you know?" tips; `path` is the option group the tip links to,
+-- `retailOnly` drops the tip on WoW Forever, where that feature is off
 local tips = {
 	{ text = L["Type /mer status to open the Status Report. Post it when you report a bug."] },
 	{
 		text = L["/muidebug on turns off all other addons except ElvUI, WindTools, MerathilisUI and BugSack. /muidebug off turns them back on."],
 	},
 	{ text = L["Type /mer changelog to read what changed in every version."], path = { "information", "changelog" } },
+	{ text = L["Type /mer install to run the installer again, e.g. to reapply the MerathilisUI profile."] },
+	{ text = L["Type /mlr to preview the Loot Roll bar with test rolls."], path = { "modules", "lootRoll" } },
+	{
+		text = L["Type /lsm to open the LootSpecManager. It switches your loot spec per boss in raids and Mythic+."],
+		path = { "misc", "general" },
+		retailOnly = true,
+	},
 	{
 		text = L["Movement Alert shows the cooldown of your movement spells while they are not ready."],
 		path = { "modules", "movementAlert" },
@@ -74,11 +82,73 @@ local tips = {
 	},
 	{ text = L["Buff Reminder shows icons for the raid buffs you are missing."], path = { "modules", "buffReminder" } },
 	{
+		text = L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."],
+		path = { "modules", "nameplates", "general" },
+	},
+	{
+		text = L["In Mythic+, the nameplates can show how much Enemy Forces each enemy is worth."],
+		path = { "modules", "nameplates", "general" },
+	},
+	{
+		text = L["Cast on You marks the castbar of enemies whose cast targets you."],
+		path = { "modules", "nameplates", "general" },
+	},
+	{
+		text = L["Categorized Bags sorts your bags into groups like equipment, consumables and quest items."],
+		path = { "modules", "bags", "categorizedBags" },
+	},
+	{
+		text = L["The Armory warns you about missing enchants and sockets on your gear."],
+		path = { "modules", "armory" },
+		retailOnly = true,
+	},
+	{
+		text = L["Mail adds checkboxes to open or delete several mails at once and saves recipient lists."],
+		path = { "modules", "mail" },
+	},
+	{
+		text = L["Right-click the Durability/Ilevel datatext to summon your repair mount."],
+		path = { "modules", "datatexts" },
+	},
+	{
+		text = L["The Minimap Buttons bar adds a Great Vault button and your M+ portals next to the Minimap."],
+		path = { "modules", "maps" },
+		retailOnly = true,
+	},
+	{
+		text = L["The Location Panel above the Minimap can show your coordinates. Click it to open the World Map."],
+		path = { "modules", "maps" },
+	},
+	{
+		text = L["The Specialization Bar switches your spec with a left click and your loot spec with a right click."],
+		path = { "modules", "actionbars" },
+		retailOnly = true,
+	},
+	{
+		text = L["Auras can add a collapse button to your buffs that hides long-lasting ones until they are about to expire."],
+		path = { "modules", "auras" },
+	},
+	{
+		text = L["Item Level shows the item level on items in the merchant and trade windows."],
+		path = { "modules", "itemLevel" },
+	},
+	{
 		text = L["Singing Sockets adds a selection tool to the socketing frame."],
 		path = { "misc", "singingSockets" },
+		retailOnly = true,
 	},
 	{ text = L["The Game Menu can show random battle pets."], path = { "misc", "gameMenu" } },
+	{ text = L["The Raid Info Frame lists the players in your raid by role."], path = { "misc", "raidInfo" } },
+	{ text = L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."], path = { "misc", "tags" } },
 }
+
+if E.Forever then
+	for i = #tips, 1, -1 do
+		if tips[i].retailOnly then
+			tremove(tips, i)
+		end
+	end
+end
 
 local sectionIcons = {
 	NEW = F.GetIconString(I.Media.Icons.New, 12),
@@ -232,7 +302,9 @@ end
 
 local function StepTip(card, delta)
 	local index = card.nextTipIndex or card.tipIndex
-	ShowTip(card, mod(index - 1 + delta, #tips) + 1)
+	-- Lua's % (floored), not WoW's mod (math.fmod), which stays negative and
+	-- would step from the first tip to index -1 instead of the last one
+	ShowTip(card, (index - 1 + delta) % #tips + 1)
 end
 
 local function TipFadeOut_OnFinished(group)

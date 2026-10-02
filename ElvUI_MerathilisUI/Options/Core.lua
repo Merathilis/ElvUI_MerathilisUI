@@ -634,9 +634,6 @@ function module:OptionsCallback()
 					E:ToggleOptions()
 					MISC.StatusReportToggled = true
 				end,
-				disabled = function()
-					return not F.IsMERProfile()
-				end,
 			},
 			discordButton = {
 				order = 5,
