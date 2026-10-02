@@ -764,6 +764,8 @@ L["Cursor puts a colored ring around your mouse cursor, optionally with a GCD an
 L["The Chat Sidebar gives quick access to friends, guild, copy chat and M+ portals."] = "Die Chat-Sidebar bietet schnellen Zugriff auf Freunde, Gilde, Chat kopieren und M+-Portale."
 L["Loot Roll replaces the roll frames with a movable bar. Its Test button shows a preview."] = "Loot Roll ersetzt die Würfelfenster durch eine verschiebbare Leiste. Der Test-Button zeigt eine Vorschau."
 L["Buff Reminder shows icons for the raid buffs you are missing."] = "Buff Reminder zeigt Symbole für die Raidbuffs, die dir fehlen."
+L["HoverCast casts your spells on the unit frame or unit under your mouse and replaces Clique."] = "HoverCast wirkt deine Zauber auf das Einheitenfenster oder die Einheit unter deiner Maus und ersetzt Clique."
+L["HoverCast's Quickbind binds a spell in one step: hover it and press a key or click."] = "Die Schnellbelegung von HoverCast belegt einen Zauber in einem Schritt: Maus darauf und Taste drücken oder klicken."
 L["Singing Sockets adds a selection tool to the socketing frame."] = "Singing Sockets fügt dem Sockelfenster eine Auswahlhilfe hinzu."
 L["The Game Menu can show random battle pets."] = "Das Spielmenü kann zufällige Kampfhaustiere zeigen."
 L["Type /mer install to run the installer again, e.g. to reapply the MerathilisUI profile."] = "Mit /mer install startest du den Installer erneut, z. B. um das MerathilisUI-Profil neu anzuwenden."
