@@ -49,16 +49,27 @@ L["Login Message"] = "Login Nachricht"
 L["Information"] = "Informationen"
 L["Support & Downloads"] = "Unterstützung & Downloads"
 L["Tukui"] = true -- no need to translate
-L["Github"] = true -- no need to translate
 L["Website"] = "Webseite"
-L["MerathilisUI Discord"] = true -- no need to translate
-L["CurseForge"] = true -- no need to translate
 L["Coding"] = true -- no need to translate
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["Development Version"] = "Entwicklungsversion"
-L["Here you can download the latest development version."] =
-	"Hier findest du den Download zu meiner Development Version."
-L["Donations"] = "Spenden"
+L["Join the community"] = "Tritt der Community bei"
+L["Report bugs and suggestions"] = "Fehler und Vorschläge melden"
+L["Via the CurseForge app"] = "Über die CurseForge App"
+L["Via the Wago app"] = "Über die Wago App"
+L["Latest development build"] = "Aktueller Entwicklungsstand"
+L["Found a Bug?"] = "Einen Fehler gefunden?"
+L["Support the Project"] = "Unterstütze das Projekt"
+L["MerathilisUI is free and I work on it in my spare time. If you enjoy it, you can support its development here."] =
+	"MerathilisUI ist kostenlos und ich arbeite in meiner Freizeit daran. Wenn es dir gefällt, kannst du die Entwicklung hier unterstützen."
+L["Monthly support"] = "Monatliche Unterstützung"
+L["Monthly or one-time"] = "Monatlich oder einmalig"
+L["Buy me a coffee"] = "Spendier mir einen Kaffee"
+L["One-time donation"] = "Einmalige Spende"
+L["Thank You!"] = "Vielen Dank!"
+L["Patrons"] = true
+L["Home of ElvUI"] = "Die Heimat von ElvUI"
+L["ElvUI support and community"] = "ElvUI Support und Community"
 
 -- Modules
 L["Here you find the options for all the different |cffffffffMerathilis|r|cffff8000UI|r modules."] =
@@ -1268,3 +1279,77 @@ L["Small arrows at both ends of the line that point at the health bar."] = "Klei
 L["Execute Range"] = "Hinrichtungsbereich"
 L["Tints the part of the health bar below the line, fading in towards the line."] = "Färbt den Teil der Lebensleiste unterhalb der Linie ein, zur Linie hin kräftiger werdend."
 L["Range Opacity"] = "Deckkraft des Bereichs"
+
+-- HoverCast
+L["HoverCast"] = true
+L["%s is disabled while %s is loaded, both bind clicks on the same unit frames."] =
+	"%s ist deaktiviert, solange %s geladen ist, da beide Klicks auf denselben Einheitenfenstern belegen."
+L["Always casts your highest rank."] = "Wirkt immer deinen höchsten Rang."
+L["Target Unit"] = "Zieleinheit"
+L["Context Menu"] = "Kontextmenü"
+L["Trinket 1"] = "Schmuckstück 1"
+L["Trinket 2"] = "Schmuckstück 2"
+L["Dynamic Rez"] = "Dynamische Wiederbelebung"
+L["Unknown Macro"] = "Unbekanntes Makro"
+L["Unknown Item"] = "Unbekannter Gegenstand"
+L["Dispels"] = "Bannzauber"
+L["Externals"] = "Externe Zauber"
+L["Right Click"] = "Rechtsklick"
+L["Middle Click"] = "Mittelklick"
+L["Mouse 4"] = "Maustaste 4"
+L["Mouse 5"] = "Maustaste 5"
+L["Wheel Up"] = "Mausrad hoch"
+L["Wheel Down"] = "Mausrad runter"
+L["Not Bound"] = "Nicht belegt"
+L["Press a key, click, or scroll..."] = "Drücke eine Taste, klicke oder scrolle..."
+L["Left-click to set keybind.\nRight-click to clear."] =
+	"Linksklick zum Festlegen der Tastenbelegung.\nRechtsklick zum Löschen."
+L["Conflicting Keybind"] = "Konflikt bei Tastenbelegung"
+L["%s is also assigned to:"] = "%s ist auch zugewiesen an:"
+L["Not currently talented"] = "Derzeit nicht erlernt"
+L["Global Bindings"] = "Globale Belegungen"
+L["Spec Bindings"] = "Spezialisierungsbelegungen"
+L["Macros"] = "Makros"
+L["Add Global Binding"] = "Globale Belegung hinzufügen"
+L["Add New"] = "Neu hinzufügen"
+L["Quickbind"] = "Schnellbelegung"
+L["Quickbind: hover a spell, press a key"] = "Schnellbelegung: Zauber mit der Maus berühren, Taste drücken"
+L["Done"] = "Fertig"
+L["Global Options"] = "Globale Optionen"
+L["Enable Click Casting"] = "Klick-Zaubern aktivieren"
+L['Please disable the addon "Clique" to use this feature.'] =
+	'Bitte deaktiviere das Addon "Clique", um diese Funktion zu nutzen.'
+L["Trigger Bindings on Down"] = "Belegungen beim Drücken auslösen"
+L["Mouseover Frames"] = "Fenster bei Mouseover"
+L["All Unit Frames"] = "Alle Einheitenfenster"
+L["ElvUI Group Frames"] = "ElvUI Gruppenfenster"
+L["Per-Spell Options"] = "Optionen pro Zauber"
+L["Spell"] = "Zauber"
+L["Macro"] = "Makro"
+L["Item"] = "Gegenstand"
+L["Action"] = "Aktion"
+L["Preset"] = "Voreinstellung"
+L["Keybind"] = "Tastenbelegung"
+L["Enable Dynamic Rez"] = "Dynamische Wiederbelebung aktivieren"
+L["Only Cast Out of Combat"] = "Nur außerhalb des Kampfes wirken"
+L["Only Open Menu Out of Combat"] = "Menü nur außerhalb des Kampfes öffnen"
+L["Only Target Out of Combat"] = "Nur außerhalb des Kampfes anvisieren"
+L["Active In"] = "Aktiv in"
+L["Solo"] = true
+L["PvP"] = true
+L["All"] = "Alle"
+L["Active while you are not in a group."] = "Aktiv, wenn du in keiner Gruppe bist."
+L["Active in a PvE party."] = "Aktiv in einer PvE-Gruppe."
+L["Active in a PvE raid."] = "Aktiv in einem PvE-Schlachtzug."
+L["Active in battlegrounds and arenas."] = "Aktiv auf Schlachtfeldern und in Arenen."
+L["Cast On"] = "Wirken auf"
+L["Frames"] = "Fenster"
+L["Frames and Mouseover"] = "Fenster und Mouseover"
+L["Hovercast is not available for unmodified left/right click"] =
+	"Hovercast ist für unmodifizierten Links-/Rechtsklick nicht verfügbar"
+L["Unit Types"] = "Einheitentypen"
+L["Enemy"] = "Gegner"
+L["Friendly"] = "Freundlich"
+L["Disabling both disables this binding."] = "Sind beide aus, ist diese Belegung deaktiviert."
+L["Select a binding from either sidebar to edit its options"] =
+	"Wähle links oder rechts eine Belegung aus, um ihre Optionen zu bearbeiten"

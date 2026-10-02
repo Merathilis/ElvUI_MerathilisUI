@@ -4,6 +4,7 @@
 -   [Fix]: Bags: Dragging an item onto the + slot of Pinned Items pins it again instead of breaking its category assignment, and Recent Items no longer offers + slots or a manual item order.
 -   [Fix]: Status Report: Opens without a MerathilisUI profile as well, detects the Mac client again and lists BugGrabber correctly.
 -   [Fix]: Status Report: The pixel perfect UI scale no longer shows up as a warning because of rounding, and the scale values are shortened to three decimals.
+-   [New]: HoverCast: New click-casting module (Modules > HoverCast) as a replacement for Clique: global and per-spec bindings for spells, macros and items on the ElvUI unit frames, optional mouseover casting on nameplates and units in the world, presets for dispels, externals, trinkets and a dynamic resurrect, Quickbind, out-of-combat and content (Solo/Party/Raid/PvP) filters and Friendly/Enemy splits on one key.
 -   [New]: Options: The start page shows the newest changes, rotating tips and a status line next to the logo.
 -   [Improvement]: Game Menu: The Show Clock and Fade In Content options apply without a reload.
 -   [Improvement]: Game Menu: The Mythic+ options are no longer marked as work in progress.

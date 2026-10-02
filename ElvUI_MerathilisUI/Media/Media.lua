@@ -67,6 +67,18 @@ F.AddMedia("icon", "Complete")
 F.AddMedia("icon", "Discord")
 F.AddMedia("icon", "Github")
 
+-- Brand logos (rounded tiles) for the Information page
+F.AddMedia("icon", "Brands/CurseForge")
+F.AddMedia("icon", "Brands/Discord")
+F.AddMedia("icon", "Brands/GitHub")
+F.AddMedia("icon", "Brands/GitHubSponsors")
+F.AddMedia("icon", "Brands/KoFi")
+F.AddMedia("icon", "Brands/MerathilisUI")
+F.AddMedia("icon", "Brands/Patreon")
+F.AddMedia("icon", "Brands/PayPal")
+F.AddMedia("icon", "Brands/Tukui")
+F.AddMedia("icon", "Brands/Wago")
+
 F.AddMedia("icon", "Ok")
 F.AddMedia("icon", "No")
 
@@ -116,6 +128,7 @@ F.AddMedia("icon", "Minus")
 F.AddMedia("icon", "Plus")
 F.AddMedia("icon", "Forward")
 F.AddMedia("icon", "Install")
+F.AddMedia("icon", "Delete")
 
 F.AddMedia("icon", "Warning")
 F.AddMedia("icon", "Flash")

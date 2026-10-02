@@ -9,6 +9,7 @@ MER.Changelog[739] = {
 		"[Status Report]: The pixel perfect UI scale no longer shows up as a warning because of rounding, and the scale values are shortened to three decimals.",
 	},
 	NEW = {
+		"[HoverCast]: New click-casting module (Modules > HoverCast) as a replacement for Clique: global and per-spec bindings for spells, macros and items on the ElvUI unit frames, optional mouseover casting on nameplates and units in the world, presets for dispels, externals, trinkets and a dynamic resurrect, Quickbind, out-of-combat and content (Solo/Party/Raid/PvP) filters and Friendly/Enemy splits on one key.",
 		"[Options]: The start page shows the newest changes, rotating tips and a status line next to the logo.",
 	},
 	IMPROVEMENTS = {
