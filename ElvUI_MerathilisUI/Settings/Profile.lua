@@ -890,8 +890,8 @@ P.minimapButtons = {
 	enable = true,
 	point = "BOTTOMLEFT",
 	growth = "DOWN",
-	xOffset = -13,
-	yOffset = 52,
+	xOffset = -15,
+	yOffset = 78,
 	size = 20,
 	spacing = 2,
 
@@ -901,19 +901,26 @@ P.minimapButtons = {
 	mplusPortals = {
 		enable = true,
 	},
+	-- Collects the minimap buttons of other addons into a grid behind one bar button.
+	addonButtons = {
+		enable = true,
+		perRow = 6,
+		size = 26,
+		spacing = 3,
+		ignore = "",
+	},
 
 	-- Second bar for the Blizzard indicators, anchored and sized on its own.
 	elements = {
 		point = "TOPLEFT",
 		growth = "DOWN",
-		xOffset = -13,
+		xOffset = -15,
 		yOffset = -10,
 		size = 20,
 		spacing = 2,
 	},
-	-- Tracking stays off: ElvUI already places that icon on the Minimap.
 	tracking = {
-		enable = false,
+		enable = true,
 	},
 	calendar = {
 		enable = true,
@@ -1336,7 +1343,6 @@ P.scale = {
 	auctionHouse = {
 		scale = 1,
 	},
-
 
 	itemUpgrade = {
 		scale = 1,

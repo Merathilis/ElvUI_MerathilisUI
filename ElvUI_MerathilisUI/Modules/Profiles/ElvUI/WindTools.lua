@@ -54,8 +54,8 @@ function module:LoadWindToolsProfile()
 	private.maps.instanceDifficulty.difficulty.custom = true
 	private.maps.instanceDifficulty.enable = true
 	private.maps.instanceDifficulty.font.style = "SHADOWOUTLINE"
-	private.maps.minimapButtons.buttonsPerRow = 7
-	private.maps.minimapButtons.mouseOver = true
+	-- MerathilisUI collects the addon buttons itself (Minimap Buttons > Addon Buttons).
+	private.maps.minimapButtons.enable = false
 	private.maps.superTracker.enable = true
 	private.misc.autoToggleChatBubble = false
 	private.quest.objectiveTracker.enable = true

@@ -1,11 +1,17 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_MinimapButtons")
+local WS = W:GetModule("Skins")
 
 local _G = _G
-local ipairs, pairs, format = ipairs, pairs, string.format
-local max, sort, strfind = math.max, table.sort, string.find
+local ipairs, pairs, format, unpack = ipairs, pairs, string.format, unpack
+local ceil, floor, max, min = math.ceil, math.floor, math.max, math.min
+local sort, tinsert = table.sort, table.insert
+local gmatch, gsub, strfind, strlower, strtrim = string.gmatch, string.gsub, string.find, string.lower, strtrim
 
 local CreateFrame = CreateFrame
+local GetMouseFoci = GetMouseFoci
+local IsMouseButtonDown = IsMouseButtonDown
+local issecurevariable = issecurevariable
 local GetGameTime = GetGameTime
 local HasNewMail = HasNewMail
 local GetLatestThreeSenders = GetLatestThreeSenders
@@ -283,15 +289,21 @@ end
 -------------------------------------------------------------------------------
 -- Mythic+ Portals button (the flyout itself is shared, see F.PortalFlyout)
 -------------------------------------------------------------------------------
-local function TogglePortalFlyout(anchorBtn)
-	local edge = GrowsRight(anchorBtn.bar) and "LEFT" or "RIGHT"
+-- Flyouts hang below their button (above it on an upward bar) and open away from the minimap.
+local function GetFlyoutAnchor(btn)
+	local edge = GrowsRight(btn.bar) and "LEFT" or "RIGHT"
 	local gap = F.Dpi(4)
 
-	if GrowsUp(anchorBtn.bar) then
-		F.PortalFlyout.Toggle(anchorBtn, "BOTTOM" .. edge, "TOP" .. edge, 0, gap)
-	else
-		F.PortalFlyout.Toggle(anchorBtn, "TOP" .. edge, "BOTTOM" .. edge, 0, -gap)
+	if GrowsUp(btn.bar) then
+		return "BOTTOM" .. edge, "TOP" .. edge, 0, gap
 	end
+
+	return "TOP" .. edge, "BOTTOM" .. edge, 0, -gap
+end
+
+local function TogglePortalFlyout(anchorBtn)
+	local point, relativePoint, x, y = GetFlyoutAnchor(anchorBtn)
+	F.PortalFlyout.Toggle(anchorBtn, point, relativePoint, x, y)
 end
 
 local function CreatePortalButton(parent)
@@ -798,6 +810,509 @@ local function CreateCraftingButton(parent)
 end
 
 -------------------------------------------------------------------------------
+-- Addon buttons: the minimap buttons of other addons (LibDBIcon and friends)
+-- move off the Minimap into a grid that opens from the main bar. A collected
+-- button stays reparented for the rest of the session, so switching the
+-- collector off takes a reload.
+-------------------------------------------------------------------------------
+local LDB_PREFIX = "LibDBIcon10_"
+
+-- Addon frames that belong on the Minimap itself. Blizzard's own frames never
+-- get this far, see IsCollectable.
+local IGNORED_NAMES = {
+	ElvConfigToggle = true,
+	ElvUIConfigToggle = true,
+	ElvUI_ConsolidatedBuffs = true,
+	-- Replaces the expansion landing page button, a feature button rather than an addon button.
+	PlumberLandingPageMinimapButton = true,
+}
+
+-- Map pins and other overlays share the Minimap with the buttons.
+local IGNORED_PATTERNS = {
+	"^ElvUI",
+	"^MER_",
+	"^HandyNotes",
+	"^TomTom",
+	"^HereBeDragons",
+	"^Questie",
+	"^GatherMate",
+	"^GatherNote",
+	"^Archy",
+	"^ZGVMarker",
+	"^poiMinimap",
+	"Pin",
+	"POI",
+	"Node",
+}
+
+-- Ring, background and highlight of the round minimap button look.
+local JUNK_TEXTURE_IDS = {
+	[136430] = true, -- MiniMap-TrackingBorder
+	[136467] = true, -- UI-Minimap-Background
+	[136477] = true, -- UI-Minimap-ZoomButton-Highlight
+}
+
+-- A click into a menu or window one of the buttons opened keeps the grid open:
+-- those sit in the dialog strata or above.
+local POPUP_STRATA = { DIALOG = true, FULLSCREEN = true, FULLSCREEN_DIALOG = true, TOOLTIP = true }
+
+local _addonButtons = {}
+local _collected = {}
+local _userIgnored = {}
+-- Set around our own SetParent/SetPoint calls, so the hooks only answer the addon's.
+local _anchoring = false
+local _collectPending, _gridPending
+
+-- Another collector takes the same buttons, and two of them would fight over each one.
+function module:GetForeignCollector()
+	local wt = E.private.WT and E.private.WT.maps and E.private.WT.maps.minimapButtons
+	if wt and wt.enable then
+		return "WindTools"
+	end
+
+	local smb = _G.SquareMinimapButtons
+	if smb and smb.db and smb.db.Enable then
+		return "ProjectAzilroka"
+	end
+end
+
+local function IsJunkTexture(region)
+	if not region:IsObjectType("Texture") then
+		return false
+	end
+
+	local fileID = region:GetTextureFileID()
+	if fileID and JUNK_TEXTURE_IDS[fileID] then
+		return true
+	end
+
+	local tex = region:GetTexture()
+	return type(tex) == "string" and (strfind(tex, "Border") or strfind(tex, "Background")) ~= nil
+end
+
+local function MatchesIgnoreList(name)
+	if IGNORED_NAMES[name] then
+		return true
+	end
+
+	local lower = strlower(name)
+	for _, part in ipairs(_userIgnored) do
+		if strfind(lower, part, 1, true) then
+			return true
+		end
+	end
+
+	return false
+end
+
+local function IsCollectable(child)
+	if _collected[child] or child:IsForbidden() or child:IsProtected() then
+		return false
+	end
+
+	local name = child:GetName()
+	if not name or not child:IsObjectType("Button") or MatchesIgnoreList(name) then
+		return false
+	end
+
+	if strfind(name, "^" .. LDB_PREFIX) then
+		return true
+	end
+
+	-- Blizzard creates its frames from secure code, an addon's globals are tainted.
+	if issecurevariable(name) or strfind(name, "%d+$") then
+		return false
+	end
+
+	for _, pattern in ipairs(IGNORED_PATTERNS) do
+		if strfind(name, pattern) then
+			return false
+		end
+	end
+
+	-- Pins are small, real buttons are not. Only checked here, before the grid resizes them.
+	return (child:GetWidth() or 0) >= 20
+end
+
+local function GetButtonLabel(btn)
+	local label = gsub(btn:GetName(), "^" .. LDB_PREFIX, "")
+	label = gsub(label, "_?[Mm]ini[Mm]ap_?[Bb]utton$", "")
+	return strlower(label)
+end
+
+local function FindButtonIcon(btn)
+	local icon = btn.icon or btn.Icon
+	if icon and icon.IsObjectType and icon:IsObjectType("Texture") then
+		return icon
+	end
+
+	local highlight = btn:GetHighlightTexture()
+	for _, region in ipairs({ btn:GetRegions() }) do
+		if
+			region ~= highlight
+			and region:IsObjectType("Texture")
+			and region:IsShown()
+			and region:GetAlpha() > 0
+			and not IsJunkTexture(region)
+		then
+			return region
+		end
+	end
+end
+
+local function PlaceButton(btn)
+	local panel, slot = module.addonPanel, btn.merSlot
+	if not panel or not slot then
+		return
+	end
+
+	_anchoring = true
+	if btn:GetParent() ~= panel then
+		btn:SetParent(panel)
+	end
+	btn:ClearAllPoints()
+	btn:SetPoint("TOPLEFT", panel, "TOPLEFT", slot.x, slot.y)
+	_anchoring = false
+end
+
+local function SkinButton(btn)
+	for _, region in ipairs({ btn:GetRegions() }) do
+		if IsJunkTexture(region) then
+			region:SetAlpha(0)
+		end
+	end
+
+	-- LibDBIcon keeps its ring and background on named keys, and an addon may swap their art.
+	if btn.border and btn.border.SetAlpha then
+		btn.border:SetAlpha(0)
+	end
+	if btn.background and btn.background.SetAlpha then
+		btn.background:SetAlpha(0)
+	end
+
+	local highlight = btn:GetHighlightTexture()
+	if highlight then
+		highlight:SetAlpha(0)
+	end
+
+	-- Without a pushed texture the icon stays in place while the button is held down.
+	if btn:GetPushedTexture() then
+		btn:SetPushedTexture(E.ClearTexture)
+	end
+
+	local icon = FindButtonIcon(btn)
+	if icon then
+		icon:ClearAllPoints()
+		icon:SetPoint("TOPLEFT", btn, "TOPLEFT", 2, -2)
+		icon:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -2, 2)
+
+		-- LibDBIcon crops its icon again on every press. Other icons are cropped once,
+		-- unless they already show only part of their texture (sprite sheets).
+		if not btn.dataObject then
+			local left, top, _, _, _, _, right, bottom = icon:GetTexCoord()
+			if left == 0 and top == 0 and right == 1 and bottom == 1 then
+				icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+			end
+		end
+	end
+
+	local backdrop = CreateFrame("Frame", nil, btn)
+	backdrop:SetAllPoints()
+	backdrop:SetFrameLevel(max(btn:GetFrameLevel() - 1, 0))
+	backdrop:SetTemplate("Transparent")
+	btn.merBackdrop = backdrop
+
+	btn:HookScript("OnEnter", function(self)
+		local color = E.db.general.valuecolor
+		self.merBackdrop:SetBackdropBorderColor(color.r, color.g, color.b)
+	end)
+	btn:HookScript("OnLeave", function(self)
+		self.merBackdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	end)
+end
+
+local function QueueGridUpdate()
+	if _gridPending then
+		return
+	end
+
+	_gridPending = true
+	C_Timer.After(0, function()
+		_gridPending = nil
+		module:UpdateAddonGrid()
+		module:RefreshIndicators()
+	end)
+end
+
+local function HookButton(btn)
+	-- LibDBIcon re-anchors its buttons on the Minimap whenever it refreshes them.
+	hooksecurefunc(btn, "SetPoint", function(self)
+		if not _anchoring then
+			PlaceButton(self)
+		end
+	end)
+	hooksecurefunc(btn, "SetParent", function(self)
+		if not _anchoring then
+			PlaceButton(self)
+		end
+	end)
+
+	-- The addon's own Show/Hide (e.g. LibDBIcon's "hide minimap button") decides
+	-- whether the button takes a slot in the grid.
+	hooksecurefunc(btn, "Show", QueueGridUpdate)
+	hooksecurefunc(btn, "Hide", QueueGridUpdate)
+	hooksecurefunc(btn, "SetShown", QueueGridUpdate)
+
+	-- LibDBIcon's "show on mouseover" fades the button out once the cursor leaves the Minimap.
+	if btn.fadeOut then
+		hooksecurefunc(btn.fadeOut, "Play", function(anim)
+			anim:Stop()
+			btn:SetAlpha(1)
+		end)
+	end
+end
+
+local function CaptureButton(btn)
+	local panel = module.addonPanel
+
+	_collected[btn] = true
+	_addonButtons[#_addonButtons + 1] = btn
+	btn.merLabel = GetButtonLabel(btn)
+	btn.merSlot = { x = 0, y = 0 }
+
+	PlaceButton(btn)
+
+	-- LibDBIcon pins strata and level, so they are unlocked, set, and pinned again.
+	btn:SetFixedFrameStrata(false)
+	btn:SetFixedFrameLevel(false)
+	btn:SetFrameStrata("DIALOG")
+	btn:SetFrameLevel(panel:GetFrameLevel() + 2)
+	btn:SetFixedFrameStrata(true)
+	btn:SetFixedFrameLevel(true)
+
+	if btn.fadeOut then
+		btn.fadeOut:Stop()
+	end
+	btn:SetAlpha(1)
+
+	-- Dragging would move the button around the Minimap it no longer sits on.
+	if btn:HasScript("OnDragStart") then
+		btn:SetScript("OnDragStart", nil)
+		btn:SetScript("OnDragStop", nil)
+	end
+
+	SkinButton(btn)
+	HookButton(btn)
+end
+
+local function CollectAddonButtons()
+	if not module.addonCollectorActive then
+		return
+	end
+
+	local found = false
+	for _, child in ipairs({ Minimap:GetChildren() }) do
+		if IsCollectable(child) then
+			CaptureButton(child)
+			found = true
+		end
+	end
+
+	if found then
+		QueueGridUpdate()
+	end
+end
+
+-- Addons create their buttons at load or a little later, so every new addon
+-- triggers one batched scan.
+local function QueueCollect()
+	if _collectPending then
+		return
+	end
+
+	_collectPending = true
+	C_Timer.After(0.5, function()
+		_collectPending = nil
+		CollectAddonButtons()
+	end)
+end
+
+function module:UpdateAddonGrid()
+	local panel = self.addonPanel
+	local cfg = self.db and self.db.addonButtons
+	if not panel or not cfg then
+		return
+	end
+
+	local shown = {}
+	for _, btn in ipairs(_addonButtons) do
+		if btn:IsShown() then
+			shown[#shown + 1] = btn
+		end
+	end
+
+	sort(shown, function(a, b)
+		return a.merLabel < b.merLabel
+	end)
+
+	local count = #shown
+	local size, spacing, padding = F.Dpi(cfg.size), F.Dpi(cfg.spacing), F.Dpi(4)
+	local cols = max(min(count, cfg.perRow), 1)
+	local rows = max(ceil(count / cols), 1)
+
+	panel:SetSize(padding * 2 + cols * size + (cols - 1) * spacing, padding * 2 + rows * size + (rows - 1) * spacing)
+
+	for i, btn in ipairs(shown) do
+		local col = (i - 1) % cols
+		local row = floor((i - 1) / cols)
+
+		btn.merSlot.x = padding + col * (size + spacing)
+		btn.merSlot.y = -(padding + row * (size + spacing))
+		btn:SetSize(size, size)
+		PlaceButton(btn)
+	end
+
+	self.addonButtonCount = count
+	if count == 0 then
+		panel:Hide()
+	end
+end
+
+local function CloseOnClickOutside(panel)
+	if not (IsMouseButtonDown("LeftButton") or IsMouseButtonDown("RightButton")) then
+		return
+	end
+
+	if panel:IsMouseOver() or (module.addonToggle and module.addonToggle:IsMouseOver()) then
+		return
+	end
+
+	local focus = GetMouseFoci and GetMouseFoci()[1]
+	if focus and not focus:IsForbidden() and POPUP_STRATA[focus:GetFrameStrata()] then
+		return
+	end
+
+	panel:Hide()
+end
+
+local function CreateAddonPanel()
+	local panel = CreateFrame("Frame", "MER_MinimapAddonButtonsPanel", E.UIParent)
+	panel:SetSize(1, 1)
+	panel:SetFrameStrata("DIALOG")
+	panel:SetClampedToScreen(true)
+	panel:SetTemplate("Transparent")
+	panel:Hide()
+	WS:CreateShadow(panel)
+	tinsert(_G.UISpecialFrames, "MER_MinimapAddonButtonsPanel")
+
+	panel:SetScript("OnShow", function(self)
+		self:SetScript("OnUpdate", CloseOnClickOutside)
+	end)
+	panel:SetScript("OnHide", function(self)
+		self:SetScript("OnUpdate", nil)
+	end)
+
+	return panel
+end
+
+local function ToggleAddonPanel(btn)
+	local panel = module.addonPanel
+	if not panel then
+		return
+	end
+
+	if panel:IsShown() then
+		panel:Hide()
+		return
+	end
+
+	_G.GameTooltip:Hide()
+	module:UpdateAddonGrid()
+
+	local point, relativePoint, x, y = GetFlyoutAnchor(btn)
+	panel:ClearAllPoints()
+	panel:SetPoint(point, btn, relativePoint, x, y)
+	panel:Show()
+end
+
+local function CreateAddonButtonsToggle(parent)
+	local btn = CreateFrame("Button", "MER_MinimapAddonButtonsButton", parent)
+	btn:EnableMouse(true)
+	btn:SetTemplate("Transparent")
+
+	local icon = btn:CreateTexture(nil, "ARTWORK")
+	icon:SetTexture(I.Media.Icons.Categories.System)
+	icon:SetPoint("CENTER")
+	icon:SetVertexColor(0.85, 0.85, 0.85)
+	btn.Icon = icon
+
+	btn.UpdateIcon = function(self, size)
+		local iconSize = F.Round(size * 0.6)
+		self.Icon:SetSize(iconSize, iconSize)
+	end
+
+	btn.ShouldShow = function()
+		return module.addonCollectorActive and (module.addonButtonCount or 0) > 0
+	end
+
+	btn:SetScript("OnEnter", function(self)
+		self.Icon:SetVertexColor(1, 1, 1)
+		if module.addonPanel and module.addonPanel:IsShown() then
+			return
+		end
+		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		_G.GameTooltip:AddDoubleLine(L["Addon Buttons"], module.addonButtonCount or 0, nil, nil, nil, 1, 1, 1)
+		_G.GameTooltip:Show()
+	end)
+	btn:SetScript("OnLeave", function(self)
+		self.Icon:SetVertexColor(0.85, 0.85, 0.85)
+		_G.GameTooltip:Hide()
+	end)
+	btn:SetScript("OnClick", ToggleAddonPanel)
+
+	return btn
+end
+
+-- Runs once per session, as soon as the option is on. The first scan waits a
+-- moment so a foreign collector has set itself up and can be detected.
+function module:StartAddonCollector()
+	if self.addonCollectorStarted or not self.db.addonButtons.enable then
+		return
+	end
+	self.addonCollectorStarted = true
+
+	C_Timer.After(1, function()
+		local db = self.db
+		if not (db and db.enable and db.addonButtons.enable) or self:GetForeignCollector() then
+			self.addonCollectorStarted = nil
+			return
+		end
+
+		for part in gmatch(db.addonButtons.ignore or "", "[^,]+") do
+			part = strtrim(part)
+			if part ~= "" then
+				_userIgnored[#_userIgnored + 1] = strlower(part)
+			end
+		end
+
+		self.addonPanel = CreateAddonPanel()
+		self.addonCollectorActive = true
+
+		local watcher = CreateFrame("Frame")
+		watcher:RegisterEvent("ADDON_LOADED")
+		watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
+		watcher:SetScript("OnEvent", QueueCollect)
+
+		local LDBIcon = _G.LibStub and _G.LibStub("LibDBIcon-1.0", true)
+		if LDBIcon and LDBIcon.RegisterCallback then
+			LDBIcon.RegisterCallback(self, "LibDBIcon_IconCreated", QueueCollect)
+		end
+
+		CollectAddonButtons()
+	end)
+end
+
+-------------------------------------------------------------------------------
 -- Layout / lifecycle
 -------------------------------------------------------------------------------
 function module:UpdateLayout()
@@ -923,6 +1438,8 @@ function module:SettingsUpdate()
 	self:UpdateBlizzardIndicators()
 	self:UpdatePosition()
 	self:UpdateLayout()
+	self:UpdateAddonGrid()
+	self:StartAddonCollector()
 end
 
 local function CreateHolder(name)
@@ -943,6 +1460,7 @@ function module:CreateButtons()
 
 	self.greatVaultButton = CreateGreatVaultButton(holder)
 	self.portalButton = CreatePortalButton(holder)
+	self.addonToggle = CreateAddonButtonsToggle(holder)
 	self.trackingButton = CreateTrackingButton(elementHolder)
 	self.calendarButton = CreateCalendarButton(elementHolder)
 	self.compartmentButton = CreateCompartmentButton(elementHolder)
@@ -954,6 +1472,7 @@ function module:CreateButtons()
 	self.buttons = {
 		{ key = "greatVault", bar = "main", btn = self.greatVaultButton },
 		{ key = "mplusPortals", bar = "main", btn = self.portalButton },
+		{ key = "addonButtons", bar = "main", btn = self.addonToggle },
 		{ key = "tracking", bar = "elements", btn = self.trackingButton },
 		{ key = "calendar", bar = "elements", btn = self.calendarButton },
 		{ key = "addonCompartment", bar = "elements", btn = self.compartmentButton },
@@ -999,6 +1518,10 @@ function module:Disable()
 	self:UpdateBlizzardIndicators(true)
 	self.holder:Hide()
 	self.elementHolder:Hide()
+
+	if self.addonPanel then
+		self.addonPanel:Hide()
+	end
 end
 
 function module:Enable()

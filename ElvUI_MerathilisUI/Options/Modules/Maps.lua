@@ -3,6 +3,8 @@ local module = MER:GetModule("MER_Options") ---@class Options
 
 local options = module.options.modules.args
 
+F.MarkTabAsNew("maps")
+
 -- The Minimap button bars share one anchor/size/spacing block. getBar() returns
 -- the settings table of the bar the block belongs to; the toggles above it keep
 -- the group's own get/set, so the block brings its own.
@@ -414,6 +416,21 @@ options.maps = {
 							type = "toggle",
 							name = L["M+ Portals"],
 						},
+						addonButtons = {
+							order = 4,
+							type = "toggle",
+							name = F.NewFeatureText(L["Addon Buttons"]),
+							desc = L["Collects the minimap buttons of your addons into a grid that opens from this bar."]
+								.. "\n"
+								.. L["Switching it off requires a reload."],
+							set = function(info, value)
+								E.db.mui.minimapButtons[info[#info]].enable = value
+								F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
+								if not value and MER:GetModule("MER_MinimapButtons").addonCollectorActive then
+									E:StaticPopup_Show("CONFIG_RL")
+								end
+							end,
+						},
 						testGreatVaultPulse = {
 							order = 3,
 							type = "execute",
@@ -486,6 +503,88 @@ options.maps = {
 								.. L["Only shown while there is something to report."],
 						},
 					}, ElementBarDB),
+				},
+				addonButtonsGrid = {
+					order = 5,
+					type = "group",
+					inline = true,
+					name = L["Addon Buttons"],
+					disabled = function()
+						return MinimapButtonsDisabled() or not E.db.mui.minimapButtons.addonButtons.enable
+					end,
+					get = function(info)
+						return E.db.mui.minimapButtons.addonButtons[info[#info]]
+					end,
+					set = function(info, value)
+						E.db.mui.minimapButtons.addonButtons[info[#info]] = value
+						F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
+					end,
+					args = {
+						foreignCollector = {
+							order = 0,
+							type = "description",
+							name = function()
+								local addon = MER:GetModule("MER_MinimapButtons"):GetForeignCollector()
+								return addon
+										and F.String.Error(
+											format(L["%s already collects your minimap buttons, so this collector stays off."], addon)
+										)
+									or ""
+							end,
+							hidden = function()
+								return not MER:GetModule("MER_MinimapButtons"):GetForeignCollector()
+							end,
+						},
+						disableWindTools = {
+							order = 1,
+							type = "execute",
+							name = L["Disable WindTools Minimap Buttons"],
+							func = function()
+								E.private.WT.maps.minimapButtons.enable = false
+								E:StaticPopup_Show("PRIVATE_RL")
+							end,
+							hidden = function()
+								return MER:GetModule("MER_MinimapButtons"):GetForeignCollector() ~= "WindTools"
+							end,
+						},
+						perRow = {
+							order = 2,
+							type = "range",
+							name = L["Buttons Per Row"],
+							min = 1,
+							max = 12,
+							step = 1,
+						},
+						size = {
+							order = 3,
+							type = "range",
+							name = L["Size"],
+							min = 16,
+							max = 40,
+							step = 1,
+						},
+						spacing = {
+							order = 4,
+							type = "range",
+							name = L["Spacing"],
+							min = 0,
+							max = 10,
+							step = 1,
+						},
+						ignore = {
+							order = 5,
+							type = "input",
+							width = "full",
+							name = L["Ignored Buttons"],
+							desc = L["Names or parts of names of buttons that stay on the Minimap, separated by commas."]
+								.. "\n"
+								.. L["Requires a reload."],
+							set = function(info, value)
+								E.db.mui.minimapButtons.addonButtons[info[#info]] = value
+								E:StaticPopup_Show("CONFIG_RL")
+							end,
+						},
+					},
 				},
 			},
 		},

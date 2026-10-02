@@ -918,6 +918,18 @@ L["World"] = "Welt"
 L["Test Pulse"] = "Pulsieren testen"
 L["Briefly plays the Great Vault button's pulse animation, even without any unclaimed rewards."] =
 	"Spielt kurz die Pulsieren-Animation des Großes-Gewölbe-Buttons ab, auch ohne unabgeholte Belohnungen."
+L["Addon Buttons"] = "Addon-Buttons"
+L["Collects the minimap buttons of your addons into a grid that opens from this bar."] =
+	"Sammelt die Minimap-Buttons deiner Addons in einem Raster, das sich über diese Leiste öffnet."
+L["Switching it off requires a reload."] = "Zum Ausschalten ist ein Neuladen nötig."
+L["%s already collects your minimap buttons, so this collector stays off."] =
+	"%s sammelt deine Minimap-Buttons bereits, daher bleibt dieser Sammler aus."
+L["Disable WindTools Minimap Buttons"] = "WindTools Minimap-Buttons deaktivieren"
+L["Buttons Per Row"] = "Buttons pro Reihe"
+L["Ignored Buttons"] = "Ignorierte Buttons"
+L["Names or parts of names of buttons that stay on the Minimap, separated by commas."] =
+	"Namen oder Namensteile von Buttons, die auf der Minimap bleiben, durch Kommas getrennt."
+L["Requires a reload."] = "Erfordert ein Neuladen."
 L["Top Left"] = "Oben Links"
 L["Top"] = "Oben"
 L["Top Right"] = "Oben Rechts"
