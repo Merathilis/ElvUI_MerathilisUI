@@ -507,68 +507,68 @@ L["Sat"] = "Sa"
 
 -- Install
 L["|cffff7d0aMerathilisUI|r Installation"] = true -- no need to translate
+L["Step %d of %d"] = "Schritt %d von %d"
+L["Welcome"] = "Willkommen"
+L["Welcome to %s"] = "Willkommen bei %s"
+L["This installer sets up MerathilisUI in a few steps. Everything can be changed later in the options."] = "Diese Installation richtet MerathilisUI in wenigen Schritten ein. Alles lässt sich später in den Optionen ändern."
+L["Version %s for ElvUI %s"] = "Version %s für ElvUI %s"
+L["Import Existing"] = "Bestehendes übernehmen"
+L["Import Existing takes over the MerathilisUI profile %s and the settings of %s, for example from your main character."] = "„Bestehendes übernehmen“ übernimmt das MerathilisUI-Profil %s und die Einstellungen von %s, zum Beispiel von Deinem Hauptcharakter."
+L["Use the MerathilisUI profile %s (layout %s) and the settings of %s for this character? The UI reloads afterwards."] = "Das MerathilisUI-Profil %s (Layout %s) und die Einstellungen von %s für diesen Charakter übernehmen? Die Oberfläche wird danach neu geladen."
+L["Skip"] = "Überspringen"
+L["Closes the installer without changing anything. It does not open again by itself, run it anytime with /mer install."] = "Schließt die Installation, ohne etwas zu ändern. Sie öffnet sich nicht mehr von selbst, starte sie jederzeit mit /mer install."
+L["Recommended"] = "Empfohlen"
+L["MerathilisUI changes a lot of ElvUI settings. A new profile keeps your current one untouched, so you can switch back anytime."] = "MerathilisUI ändert viele ElvUI-Einstellungen. Ein neues Profil lässt Dein aktuelles unangetastet, sodass Du jederzeit zurückwechseln kannst."
+L["Creates a fresh profile for this character and installs MerathilisUI into it."] = "Erstellt ein neues Profil für diesen Charakter und installiert MerathilisUI darin."
+L["Use Current Profile"] = "Aktuelles Profil nutzen"
+L["Installs MerathilisUI into %s. Your changes in this profile get overwritten."] = "Installiert MerathilisUI in %s. Deine Änderungen in diesem Profil werden überschrieben."
+L["Name for the new profile"] = "Name für das neue Profil"
+L["A profile with that name already exists."] = "Ein Profil mit diesem Namen existiert bereits."
+L["Choose how big the interface is. Auto Scale picks the pixel perfect size for your resolution."] = "Wähle, wie groß die Oberfläche ist. Die automatische Skalierung wählt die pixelgenaue Größe für Deine Auflösung."
+L["Pixel perfect for %s"] = "Pixelgenau für %s"
+L["More room on the screen"] = "Mehr Platz auf dem Bildschirm"
+L["A balanced size"] = "Ausgewogene Größe"
+L["Easier to read"] = "Besser lesbar"
+L["Applies the complete MerathilisUI layout: general look, chat, datatexts, action bars, nameplates and unit frames. Pick the unit frame style you like."] = "Wendet das komplette MerathilisUI-Layout an: allgemeines Aussehen, Chat, Infotexte, Aktionsleisten, Namensplaketten und Einheitenfenster. Wähle den Stil der Einheitenfenster, der Dir gefällt."
+L["Class colored health bars with a soft gradient."] = "Lebensbalken in Klassenfarbe mit sanftem Farbverlauf."
+L["Dark health bars with the class color on their backdrop."] = "Dunkle Lebensbalken mit der Klassenfarbe im Hintergrund."
+L["Recommended game settings (CVars)"] = "Empfohlene Spieleinstellungen (CVars)"
+L["Changes a few World of Warcraft settings, for example the camera distance, nameplates and chat. They are tailored to the author of MerathilisUI and not needed for the layout."] = "Ändert ein paar World of Warcraft-Einstellungen, zum Beispiel Kameraentfernung, Namensplaketten und Chat. Sie sind auf den Autor von MerathilisUI zugeschnitten und für das Layout nicht nötig."
+L["Overwrites the layout settings of the current profile."] = "Überschreibt die Layout-Einstellungen des aktuellen Profils."
+L["Installing ..."] = "Installiere ..."
+L["Enable All"] = "Alle aktivieren"
+L["Disable All"] = "Alle deaktivieren"
+L["%d of %d enabled"] = "%d von %d aktiv"
+L["Shows a styled bar for vehicles and skyriding, with vigor and speed."] = "Zeigt eine gestaltete Leiste für Fahrzeuge und Himmelsreiten, mit Elan und Geschwindigkeit."
+L["Shows toasts for new mail, invites, guild events, the Great Vault and more."] = "Zeigt Benachrichtigungen für neue Post, Einladungen, Gildenereignisse, das Große Gewölbe und mehr."
+L["Shows the name, guild and level of the unit under your mouse right next to the cursor."] = "Zeigt Name, Gilde und Stufe der Einheit unter der Maus direkt neben dem Mauszeiger."
+L["Blizzard's Edit Mode places a few frames ElvUI does not move. Import the MerathilisUI Edit Mode layout in two steps."] = "Der Bearbeitungsmodus von Blizzard platziert ein paar Fenster, die ElvUI nicht verschiebt. Importiere das MerathilisUI-Layout dafür in zwei Schritten."
+L["Copy the Layout String"] = "Layout-Text kopieren"
+L["Opens a window with the string. Select it with CTRL+A and copy it with CTRL+C."] = "Öffnet ein Fenster mit dem Text. Markiere ihn mit STRG+A und kopiere ihn mit STRG+C."
+L["Pick Import in the layout dropdown, paste the string with CTRL+V, give it a name and click Import."] = "Wähle im Layout-Dropdown „Importieren“, füge den Text mit STRG+V ein, gib ihm einen Namen und klicke auf „Importieren“."
+L["String copied"] = "Text kopiert"
+L["AddOn Profiles"] = "AddOn-Profile"
+L["MerathilisUI brings matching profiles for these AddOns. Click an AddOn to apply its profile."] = "MerathilisUI bringt passende Profile für diese AddOns mit. Klicke auf ein AddOn, um sein Profil anzuwenden."
+L["Click to apply the profile"] = "Klicken, um das Profil anzuwenden"
+L["Profile applied"] = "Profil angewendet"
+L["%d applied"] = "%d angewendet"
+L["Settings only the developer of MerathilisUI uses."] = "Einstellungen, die nur der Entwickler von MerathilisUI nutzt."
+L["UI scale, chat bubbles, ElvUI user tags and a few module settings."] = "UI-Skalierung, Sprechblasen, ElvUI-Nutzer-Tags und ein paar Moduleinstellungen."
+L["Applied"] = "Angewendet"
+L["Summary"] = "Zusammenfassung"
+L["Skipped"] = "Übersprungen"
+L["Finish & Reload"] = "Fertig & neu laden"
 
-L["Chat Set"] = "Chat eingestellt"
 L["ActionBars"] = "Aktionsleisten"
-L["ActionBars Set"] = "Aktionsleisten eingestellt"
-L["DataTexts Set"] = "Infotexte eingestellt"
-L["UnitFrames Set"] = "Einheitenfenster eingestellt"
-L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."] =
-	"Willkommen zu MerathilisUI |cff00c0faVersion|r %s für ElvUI %s."
-L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] =
-	"Durch drücken der Weiter-Taste werden die MerathilisUI Änderungen in der vorhandenen ElvUI Installation angewandt.\r\r|cffff8000 TIPP: Es wäre gut, wenn Du die Änderungen in einem neuen Profil erstellst. Nur für den Fall, dass Du mit den Änderungen nicht zufrieden bist.|r"
 
-L["This part of the installation process sets up your chat fonts and colors."] =
-	"Dieser Teil des Installationsprozesses ändert die Chatschriftart und -farbe."
-L["This part of the installation changes the default ElvUI look."] =
-	"Dieser Teil der Installation ändert das standard Aussehen von ElvUI."
-L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] =
-	"Diese Einstellungen füllt die Infotexte.\r|cffff8000Die Einstellungen der Infotexte von ElvUI wird nicht verändert.|r"
-L["This part of the installation process will reposition your Actionbars and will enable backdrops"] =
-	"Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten."
-L["This part of the installation process will change your NamePlates."] =
-	"Dieser Teil der Installation ändert die Namensplaketten."
-L["This part of the installation process will reposition your Unitframes."] =
-	"Dieser Teil der Installation positioniert die Einheitenfenster."
 
-L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] =
-	"Dieser Schritt ändert ein paar World of Warcraft Standardoptionen. Diese Optionen sind zugeschnitten für die Anforderungen des Authors von %s und sind nicht notwendig damit dieses AddOn funktioniert."
-L["Please click the button below to apply the new layout."] =
-	"Bitte drücke die Taste unten, um das neue Layout anzuwenden."
-L["Please click the button below to setup your chat windows."] =
-	"Bitte drücke auf die Taste unten, um das Chatfenster einzustellen."
-L["Please click the button below to setup your actionbars."] =
-	"Bitte drücke auf die Taste unten, um die Aktionsleisten einzustellen."
-L["Please click the button below to setup your datatexts."] =
-	"Bitte drücke die Taste unten, um die Infotexte einzustellen."
-L["Please click the button below to setup your NamePlates."] =
-	"Bitte drücke die Taste unten, um die Namensplaketten einzustellen."
-L["Please click the button below to setup your Unitframes."] =
-	"Bitte drücke die Taste unten, um die Einheitenfenster einzustellen."
 L["DataTexts"] = "Infotexte"
-L["General Layout"] = "Allgemeines Layout"
-L["Setup ActionBars"] = "Aktionsleisten einstellen"
-L["Setup NamePlates"] = "Namensplaketten einstellen"
-L["Setup Datatexts"] = "Infotexte einstellen"
 L["EditMode"] = "Bearbeitungsmodus"
-L["Step 1:"] = "Schritt 1:"
-L["Step 2:"] = "Schritt 2:"
-L["Click the first button for the import.\nUse CTRL+A to select the whole string and then CTRL+C to copy the string from the popup."] =
-	"Klicke auf die erste Schaltfläche, um den Import zu starten.\nWähle mit STRG+A den gesamten Text aus und kopiere ihn dann mit STRG+C aus dem Popup-Fenster."
-L["Enter Edit Mode and select Import on the Dropdown.\nUse CTRL+V to paste string, then pick a name and click import."] =
-	"Wechsel in den Bearbeitungsmodus und wähle im Dropdown-Menü die Option „Importieren“ aus.\nFüge den Text mit STRG+V ein, wähle einen Namen aus und klicke auf „Importieren“."
-L["Plugins"] = "Plugins"
-L["This part of the installation process will apply changes to ElvUI Plugins"] =
-	"Dieser Teil des Installationsprozesses wird Änderungen an ElvUI Plugins anwenden."
-L["Important Plugins"] = "Wichtige Plugins"
 L["Interface"] = "Oberfläche"
 L["Combat"] = "Kampf"
 L["Quality of Life"] = "Komfort"
 L["Choose the modules you want to use. Changes are applied on the reload at the end of the installer and can be changed anytime in the options."] = "Wähle die Module aus, die Du nutzen möchtest. Die Änderungen werden beim Neuladen am Ende der Installation übernommen und können jederzeit in den Optionen geändert werden."
-L["You are now finished with the installation process."] = "Die Installation ist abgeschlossen."
 L["Features, the full changelog and downloads can be found on the website %s."] = "Alle Features, das komplette Changelog und Downloads findest Du auf der Webseite %s."
-L["|TInterface\\Addons\\ElvUI_MerathilisUI\\Media\\Icons\\Discord.tga:18:18:0:0:64:64|t |cffff7d0aMerathilisUI|r Discord"] =
-	true -- no need to translate
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] =

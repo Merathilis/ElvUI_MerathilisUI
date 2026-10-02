@@ -88,6 +88,28 @@ I.ProfileNames = {
 	["Development"] = MER.Title .. "Dev",
 }
 
+-- AddOns with a MerathilisUI profile: addon, label, MER_Profiles method that applies it
+-- Shared by the installer's AddOn page and Profiles > AddOns in the options
+I.AddOnProfiles = {
+	{ "BigWigs", "BigWigs", "ApplyBigWigsProfile" },
+	{ "Capping", "Capping", "ApplyCappingProfile" },
+	{ "Details", "Details", "ApplyDetailsProfile" },
+	{ "ls_Toasts", "ls_Toasts", "ApplyLSProfile" },
+	{ "PermoksAccountManager", "PermoksAccountManager", "ApplyPermoksAccountManagerProfile" },
+	{ "SkironCooldownManager", "SkironCooldownManager", "ApplySkironCooldownManagerProfile" },
+	{ "TomTom", "TomTom", "ApplyTomTomProfile" },
+	{
+		"ElvUI_mMediaTag",
+		"|CFF0294FFm|r|CFFBD26E5Media|r|CFFFF005DTag|r |CFF404040&|r  |CFFFF9D00Tools|r",
+		"ApplymMediaTagProfile",
+	},
+	{
+		"ElvUI_WindTools",
+		"|cff1784d1ElvUI|r |cff5385edW|r|cff5094eai|r|cff4da4e7n|r|cff4ab4e4d|r|cff47c0e1T|r|cff44cbdfo|r|cff41d7ddo|r|cff41d7ddl|r|cff41d7dds|r",
+		"ApplyWindToolsProfile",
+	},
+}
+
 -- Requirements per feature, checked by MER:HasRequirements (Core/Requirements.lua)
 I.Requirements = {
 	["GradientMode"] = {},

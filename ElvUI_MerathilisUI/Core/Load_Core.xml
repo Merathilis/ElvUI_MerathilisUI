@@ -8,6 +8,7 @@
 	<Script file="Core.lua"/>
 	<Script file="Commands.lua"/>
 	<Script file="Install.lua"/>
+	<Script file="Installer.lua"/>
 	<Script file="LoginLogo.lua"/>
 	<Script file="Staticpopup.lua"/>
 	<Script file="Tags.lua"/>
