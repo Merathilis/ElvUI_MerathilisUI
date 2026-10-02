@@ -8,7 +8,7 @@ local date = date
 local format = string.format
 local ipairs, pairs, next, type = ipairs, pairs, next, type
 local tonumber, tostring = tonumber, tostring
-local max = math.max
+local abs, max = math.abs, math.max
 local sort, tconcat, tinsert = sort, table.concat, tinsert
 local strfind, strlower = strfind, strlower
 
@@ -181,11 +181,12 @@ end
 local function BuildSettingsSection(sections)
 	local section = AddSection(sections, "Settings")
 
+	-- Compared with a tolerance, the saved value can differ in the last digits after a reload
 	local uiScale, bestScale = E.global.general.UIScale, E:PixelBestSize()
-	if uiScale == bestScale then
-		AddRow(section, "UI Scale", uiScale, GOOD)
+	if abs(uiScale - bestScale) < 0.001 then
+		AddRow(section, "UI Scale", format("%.3f", uiScale), GOOD)
 	else
-		local row = AddRow(section, "UI Scale", format("%s (pixel perfect: %s)", uiScale, bestScale), WARNING)
+		local row = AddRow(section, "UI Scale", format("%.3f (pixel perfect: %.3f)", uiScale, bestScale), WARNING)
 		row.tip = "Borders can look blurry or uneven. Use Auto Scale in ElvUI > General for the pixel perfect value."
 	end
 
