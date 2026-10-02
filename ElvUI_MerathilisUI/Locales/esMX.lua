@@ -497,6 +497,23 @@ L["Loot Roll replaces the roll frames with a movable bar. Its Test button shows 
 L["Buff Reminder shows icons for the raid buffs you are missing."] = true
 L["Singing Sockets adds a selection tool to the socketing frame."] = true
 L["The Game Menu can show random battle pets."] = true
+L["Type /mer install to run the installer again, e.g. to reapply the MerathilisUI profile."] = true
+L["Type /mlr to preview the Loot Roll bar with test rolls."] = true
+L["Type /lsm to open the LootSpecManager. It switches your loot spec per boss in raids and Mythic+."] = true
+L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."] = true
+L["In Mythic+, the nameplates can show how much Enemy Forces each enemy is worth."] = true
+L["Cast on You marks the castbar of enemies whose cast targets you."] = true
+L["Categorized Bags sorts your bags into groups like equipment, consumables and quest items."] = true
+L["The Armory warns you about missing enchants and sockets on your gear."] = true
+L["Mail adds checkboxes to open or delete several mails at once and saves recipient lists."] = true
+L["Right-click the Durability/Ilevel datatext to summon your repair mount."] = true
+L["The Minimap Buttons bar adds a Great Vault button and your M+ portals next to the Minimap."] = true
+L["The Location Panel above the Minimap can show your coordinates. Click it to open the World Map."] = true
+L["The Specialization Bar switches your spec with a left click and your loot spec with a right click."] = true
+L["Auras can add a collapse button to your buffs that hides long-lasting ones until they are about to expire."] = true
+L["Item Level shows the item level on items in the merchant and trade windows."] = true
+L["The Raid Info Frame lists the players in your raid by role."] = true
+L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = true
 
 -- Compatibility
 L["Complete"] = true
