@@ -63,7 +63,7 @@ local criticalColor = ThresholdColor("b")
 
 options.datatexts = {
 	type = "group",
-	name = module:AddCategorieIcon(L["DataTexts"], "Tool"),
+	name = module:AddCategorieIcon(L["DataTexts"], "datatexts"),
 	get = function(info)
 		return DB()[info[#info]]
 	end,

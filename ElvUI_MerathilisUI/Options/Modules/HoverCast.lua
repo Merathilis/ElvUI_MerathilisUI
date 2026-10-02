@@ -7,7 +7,7 @@ local options = module.options.modules.args
 -- the bindings are account-wide and live in E.global.mui.hoverCast
 options.hoverCast = {
 	type = "group",
-	name = module:AddCategorieIcon(L["HoverCast"], "Tool"),
+	name = module:AddCategorieIcon(L["HoverCast"], "hover_cast"),
 	args = {
 		page = {
 			order = 1,
