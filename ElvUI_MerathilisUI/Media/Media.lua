@@ -128,6 +128,7 @@ F.AddMedia("icon", "Minus")
 F.AddMedia("icon", "Plus")
 F.AddMedia("icon", "Forward")
 F.AddMedia("icon", "Install")
+F.AddMedia("icon", "Delete")
 
 F.AddMedia("icon", "Warning")
 F.AddMedia("icon", "Flash")

@@ -13,6 +13,7 @@
 	<Script file='NewFeatureLabel.lua' />
 	<Script file='HomeHeader.lua' />
 	<Script file='InfoCards.lua' />
+	<Script file='HoverCastPage.lua' />
 	<Script file='TabGroup.lua' />
 	<Script file='GroupTitle.lua' />
 	<Script file='TreeGroup.lua' />
