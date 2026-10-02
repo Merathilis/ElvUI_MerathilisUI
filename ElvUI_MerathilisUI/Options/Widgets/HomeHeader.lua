@@ -124,6 +124,14 @@ local tips = {
 		retailOnly = true,
 	},
 	{
+		text = L["Addon Buttons on the Minimap Buttons bar collects the minimap buttons of your addons into one grid."],
+		path = { "modules", "maps" },
+	},
+	{
+		text = L["Want an addon button to stay on the Minimap? Add its name to the Ignored Buttons of Addon Buttons."],
+		path = { "modules", "maps" },
+	},
+	{
 		text = L["The Location Panel above the Minimap can show your coordinates. Click it to open the World Map."],
 		path = { "modules", "maps" },
 	},

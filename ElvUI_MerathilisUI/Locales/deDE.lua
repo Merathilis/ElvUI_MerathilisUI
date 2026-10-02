@@ -779,6 +779,10 @@ L["The Armory warns you about missing enchants and sockets on your gear."] = "Da
 L["Mail adds checkboxes to open or delete several mails at once and saves recipient lists."] = "Das Post-Modul fügt Kontrollkästchen hinzu, um mehrere Briefe auf einmal zu öffnen oder zu löschen, und speichert Empfängerlisten."
 L["Right-click the Durability/Ilevel datatext to summon your repair mount."] = "Ein Rechtsklick auf den Haltbarkeit/Itemlevel-Infotext ruft dein Reparatur-Reittier."
 L["The Minimap Buttons bar adds a Great Vault button and your M+ portals next to the Minimap."] = "Die Minimap-Buttons-Leiste fügt neben der Minimap einen Button für das Große Gewölbe und deine M+-Portale hinzu."
+L["Addon Buttons on the Minimap Buttons bar collects the minimap buttons of your addons into one grid."] =
+	"Addon-Buttons in der Minimap-Buttons-Leiste sammelt die Minimap-Buttons deiner Addons in einem Raster."
+L["Want an addon button to stay on the Minimap? Add its name to the Ignored Buttons of Addon Buttons."] =
+	"Ein Addon-Button soll auf der Minimap bleiben? Trag seinen Namen bei den ignorierten Buttons von Addon-Buttons ein."
 L["The Location Panel above the Minimap can show your coordinates. Click it to open the World Map."] = "Das Standort-Panel über der Minimap kann deine Koordinaten zeigen. Ein Klick öffnet die Weltkarte."
 L["The Specialization Bar switches your spec with a left click and your loot spec with a right click."] = "Die Spezialisierungsleiste wechselt per Linksklick deine Spezialisierung und per Rechtsklick deine Beute-Spezialisierung."
 L["Auras can add a collapse button to your buffs that hides long-lasting ones until they are about to expire."] = "Stärkungszauber können einen Einklapp-Button bekommen, der lang anhaltende ausblendet, bis sie bald ablaufen."
