@@ -120,7 +120,7 @@ local bloodlustGet, bloodlustSet = Accessors(BloodlustDB)
 
 options.tracker = {
 	type = "group",
-	name = module:AddCategorieIcon(L["Tracker"], "Tool"),
+	name = module:AddCategorieIcon(L["Tracker"], "tracker"),
 	childGroups = "tab",
 	args = {
 		header = {

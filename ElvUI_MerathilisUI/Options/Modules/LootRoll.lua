@@ -50,7 +50,7 @@ end
 
 options.lootRoll = {
 	type = "group",
-	name = module:AddCategorieIcon(L["Loot Roll"], "bags"),
+	name = module:AddCategorieIcon(L["Loot Roll"], "loot_roll"),
 	args = {
 		header = {
 			order = 0,
