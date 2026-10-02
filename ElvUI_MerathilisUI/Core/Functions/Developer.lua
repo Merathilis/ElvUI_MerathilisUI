@@ -362,25 +362,6 @@ function F.Developer.InjectLogger(module)
 end
 
 -------------------------------------------------------------------------------
---  Delayed messages (printed once the UI is fully loaded)
--------------------------------------------------------------------------------
-do
-	local messages = {}
-
-	function F.Developer.PrintDelayedMessages()
-		for _, msg in ipairs(messages) do
-			F.Print(msg)
-		end
-
-		wipe(messages)
-	end
-
-	function F.Developer.AddDelayedMessage(str)
-		tinsert(messages, str)
-	end
-end
-
--------------------------------------------------------------------------------
 --  Text window
 --  Read-only copy window, used by the log and the status report.
 -------------------------------------------------------------------------------
