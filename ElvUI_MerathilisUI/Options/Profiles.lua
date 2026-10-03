@@ -6,9 +6,8 @@ local LSM = E.Libs.LSM
 local options = module.options.profiles.args
 
 local ipairs, unpack = ipairs, unpack
+local strfind, strlower = strfind, strlower
 
-local CreateSimpleTextureMarkup = CreateSimpleTextureMarkup
-local CreateAtlasMarkup = CreateAtlasMarkup
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 local Ok = F.GetIconString(I.Media.Icons.Ok, 14, 14)
@@ -167,22 +166,28 @@ for index, v in ipairs(I.AddOnProfiles) do
 		iconTexture = [[Interface\ICONS\INV_Misc_QuestionMark]]
 	end
 
-	if iconTexture then
-		addonName = CreateSimpleTextureMarkup(iconTexture, 14, 14) .. " " .. addonName
-	elseif iconAtlas then
-		addonName = CreateAtlasMarkup(iconAtlas, 14, 14) .. " " .. addonName
-	end
+	-- Spell icons get their built-in border cropped, like everywhere else in ElvUI
+	local imageCoords = iconTexture and strfind(strlower(iconTexture), "^interface[\\/]icons[\\/]") and E.TexCoords
+	-- Enabling an AddOn needs a reload, so the state at load time stays valid
+	local enabled = E:IsAddOnEnabled(addon)
 
 	options.addons.args[addon] = {
 		order = 3 + index,
 		type = "execute",
+		dialogControl = "MERLinkTile",
 		name = addonName,
 		desc = L["This will create and apply profile for "] .. addonName,
+		image = iconTexture,
+		imageCoords = imageCoords,
+		width = "relative",
+		relWidth = 0.333,
+		arg = {
+			subtitle = enabled and L["Create and apply the profile"] or L["AddOn is not enabled"],
+			atlas = not iconTexture and iconAtlas or nil,
+		},
 		func = function()
 			Profile[applyMethod](Profile)
 		end,
-		disabled = function()
-			return not E:IsAddOnEnabled(addon)
-		end,
+		disabled = not enabled,
 	}
 end

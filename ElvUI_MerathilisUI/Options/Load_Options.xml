@@ -8,6 +8,7 @@
 	<Script file='General.lua'/>
 	<Script file='Informations.lua'/>
 	<Script file='Misc.lua'/>
+	<Script file='Presets.lua'/>
 	<Script file='Profiles.lua'/>
 	<Script file='Skins.lua'/>
 

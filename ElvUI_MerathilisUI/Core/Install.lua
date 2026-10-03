@@ -1104,7 +1104,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["height"] = 20
 	E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
 	E.db["unitframe"]["units"]["player"]["RestIcon"]["enable"] = true
-	if E.db.mui.unitframes.restingIndicator then
+	if E.db.mui.unitframes.restingIndicator.enable then
 		E.db["unitframe"]["units"]["player"]["RestIcon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["RestIcon"]["yOffset"] = 30
 	else

@@ -10,6 +10,8 @@
 	<Script file="Install.lua"/>
 	<Script file="Installer.lua"/>
 	<Script file="LoginLogo.lua"/>
+	<Script file="Presets.lua"/>
+	<Include file="Presets\Load_Presets.xml"/>
 	<Script file="Staticpopup.lua"/>
 	<Script file="Tags.lua"/>
 	<Script file="Update.lua"/>

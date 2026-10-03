@@ -9,6 +9,13 @@ local function UnitFramesDisabled()
 	return not MER:HasRequirements(I.Requirements.UnitFrames)
 end
 
+local function RestingIndicatorDisabled()
+	return UnitFramesDisabled()
+		or not E.db.unitframe.units.player.enable
+		or not E.db.unitframe.units.player.RestIcon.enable
+		or not E.db.mui.unitframes.restingIndicator.enable
+end
+
 local function FactionIndicatorOptions(order, unit)
 	return {
 		order = order,
@@ -215,7 +222,7 @@ options.unitframes = {
 							end,
 							set = function(info, value)
 								E.db.mui.unitframes.restingIndicator[info[#info]] = value
-								E:StaticPopup_Show("CONFIG_RL")
+								MUF:UpdateRestingIndicator()
 							end,
 							disabled = function()
 								return UnitFramesDisabled()
@@ -227,6 +234,48 @@ options.unitframes = {
 									order = 1,
 									type = "toggle",
 									name = L["Enable"],
+								},
+								colorMode = {
+									order = 2,
+									type = "select",
+									name = L["Color"],
+									values = {
+										CLASS_GRADIENT = L["Class Gradient"],
+										CLASS = L["Class Color"],
+										CUSTOM = L["Custom Color"],
+										BLIZZARD = L["Blizzard"],
+									},
+									disabled = RestingIndicatorDisabled,
+								},
+								customColor = {
+									order = 3,
+									type = "color",
+									name = L["Custom Color"],
+									hasAlpha = false,
+									disabled = RestingIndicatorDisabled,
+									hidden = function()
+										return E.db.mui.unitframes.restingIndicator.colorMode ~= "CUSTOM"
+									end,
+									get = function(info)
+										local db = E.db.mui.unitframes.restingIndicator[info[#info]]
+										local default = P.unitframes.restingIndicator[info[#info]]
+										return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+									end,
+									set = function(info, r, g, b)
+										local db = E.db.mui.unitframes.restingIndicator[info[#info]]
+										db.r, db.g, db.b = r, g, b
+										MUF:UpdateRestingIndicator()
+									end,
+								},
+								speed = {
+									order = 4,
+									type = "range",
+									name = L["Animation Speed"],
+									min = 0.25,
+									max = 3,
+									step = 0.05,
+									isPercent = true,
+									disabled = RestingIndicatorDisabled,
 								},
 							},
 						},

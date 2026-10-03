@@ -727,7 +727,8 @@ local function ApplyScale(card)
 	RefreshPage()
 end
 
-local function WriteLayout(layout)
+-- The complete layout without any ElvUI update, also the base of the shipped presets
+function MER:ApplyLayoutBase(layout, withCVars)
 	E.db.mui.core.lastLayoutVersion = MER.DisplayVersion
 
 	MER:SetupLayout()
@@ -736,9 +737,13 @@ local function WriteLayout(layout)
 	MER:SetupActionbars()
 	MER:SetupNamePlates()
 	MER:SetupUnitframes(layout)
-	if state.cvars ~= false then
+	if withCVars then
 		MER:SetupCVars()
 	end
+end
+
+local function WriteLayout(layout)
+	MER:ApplyLayoutBase(layout, state.cvars ~= false)
 end
 
 -- All former layout steps at once, behind the splash screen, with one ElvUI update
