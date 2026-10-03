@@ -3,8 +3,10 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[739] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"[Auras]: Collapsing or expanding the buffs with the collapse button no longer resets the Vertical and Horizontal Spacing set in ElvUI.",
 		"[Bags]: Using or looting items in combat while the categorized bags are open no longer causes blocked actions; the counts keep updating and the bags rearrange after combat.",
 		"[Bags]: Dragging an item onto the + slot of Pinned Items pins it again instead of breaking its category assignment, and Recent Items no longer offers + slots or a manual item order.",
+		"[Installer]: With the MerathilisUI resting indicator turned off, the layout now places ElvUI's resting icon at its own spot on the player frame.",
 		"[Status Report]: Opens without a MerathilisUI profile as well, detects the Mac client again and lists BugGrabber correctly.",
 		"[Status Report]: The pixel perfect UI scale no longer shows up as a warning because of rounding, and the scale values are shortened to three decimals.",
 	},
@@ -12,6 +14,7 @@ MER.Changelog[739] = {
 		"[HoverCast]: New click-casting module (Modules > HoverCast) as a replacement for Clique: global and per-spec bindings for spells, macros and items on the ElvUI unit frames, optional mouseover casting on nameplates and units in the world, presets for dispels, externals, trinkets and a dynamic resurrect, Quickbind, out-of-combat and content (Solo/Party/Raid/PvP) filters and Friendly/Enemy splits on one key.",
 		"[Minimap Buttons]: New Addon Buttons button on the main bar: it collects the minimap buttons of your addons (LibDBIcon and others) into a grid with its own size, row and ignore settings. Stays off while the WindTools or ProjectAzilroka collector is enabled, the options offer a switch to turn off the WindTools one.",
 		"[Options]: The start page shows the newest changes, rotating tips and a status line next to the logo.",
+		"[Presets]: New Presets page (also /mer presets): apply a complete setup with a code from merathilisui.com/presets, pick one of the official presets (Gradient, Dark, Healer, Minimal, Compact) or export your own setup as a code to share it. A preset always becomes a new ElvUI profile, and the private settings of the character are backed up first.",
 	},
 	IMPROVEMENTS = {
 		"[Game Menu]: The Show Clock and Fade In Content options apply without a reload.",
@@ -20,6 +23,7 @@ MER.Changelog[739] = {
 		"[Location Panel]: Right-clicking the panel links your current location as a map pin in chat. A map pin you placed yourself stays in place.",
 		"[Minimap Buttons]: The Tracking button is enabled by default.",
 		"[Options]: Cursor, DataTexts, Loot Roll, Movement Alert and Tracker have their own category icons.",
+		"[Profiles]: The mMediaTag & Tools profile no longer changes the color and texture of the target nameplate.",
 		"[Status Report]: Reworked with a diagnostics section (Lua errors this session, MerathilisUI log, debug channels, debug mode), blocked features with their reason, tips on hover and clickable switches for Lua errors, taint log, log level and CPU profiling. Copy Report creates one text for bug reports with all loaded addons and the log, also available via /muidev status.",
 		"[Style]: Turning the MerathilisUI style on or off no longer asks for a reload, it applies right away.",
 	},
