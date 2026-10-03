@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[739] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "03.10.2026",
 	FIXES = {
 		"[Auras]: Collapsing or expanding the buffs with the collapse button no longer resets the Vertical and Horizontal Spacing set in ElvUI.",
 		"[Bags]: Using or looting items in combat while the categorized bags are open no longer causes blocked actions; the counts keep updating and the bags rearrange after combat.",
