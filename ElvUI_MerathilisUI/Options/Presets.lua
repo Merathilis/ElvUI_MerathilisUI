@@ -3,13 +3,12 @@ local module = MER:GetModule("MER_Options") ---@class Options
 
 local options = module.options.presets.args
 
-F.MarkTabAsNew("presets")
-
 local format, ipairs, strtrim, tconcat = format, ipairs, strtrim, table.concat
 
 local PRESETS_URL = MER.WebsiteURL .. "/presets"
-
 local COLOR_ERROR = "ff4d4d"
+
+F.MarkTabAsNew("presets")
 
 local function Highlight(text)
 	return E:RGBToHex(I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b) .. text .. "|r"
@@ -243,7 +242,11 @@ do
 				name = " ",
 				width = "full",
 			},
-			website = WebsiteTile(6, L["Find More Presets"], L["Browse the presets of the community on merathilisui.com"]),
+			website = WebsiteTile(
+				6,
+				L["Find More Presets"],
+				L["Browse the presets of the community on merathilisui.com"]
+			),
 		},
 	}
 end
