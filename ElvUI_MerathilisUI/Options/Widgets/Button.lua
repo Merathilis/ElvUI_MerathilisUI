@@ -3,28 +3,25 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 
 local Type = "MERButton"
-local Version = 1
+local Version = 2
 
 local pairs, type, unpack = pairs, type, unpack
 local CreateFrame, UIParent = CreateFrame, UIParent
 local PlaySound = PlaySound
 
--- Same box thickness/offset as MERSlider/MERDropdown/MEREditBox/MERColorPicker
--- (18px from the frame's top, 16px tall, 40px total frame height) so an
--- execute option sitting in the same AceConfig row as any of those lines up.
--- Unlike them, the button's own name is the box's content (there's no separate
--- label line above it), so the top offset just reads as breathing room above
--- a button that shares a row with a labeled control.
-local BOX_HEIGHT = 16
-local BOX_TOP_OFFSET = 18
-local FRAME_HEIGHT = 40
+-- The button's name is the box's content (no label line above it like
+-- MERSlider/MERDropdown/MEREditBox/MERColorPicker have), so the frame only
+-- pads the box evenly instead of reserving their 18px label offset. AceGUI's
+-- Flow layout lines up every widget in a row on its alignoffset and takes the
+-- tallest one as row height, so next to a labeled control the button still
+-- centers on that control's box, while a row of buttons only stays compact.
+local BOX_HEIGHT = 22
+local BOX_PADDING = 4
 
 -- Standalone variant via the option's `arg` (AceConfigDialog hands it over
 -- through SetCustomData after SetText): `arg = { boxWidth = 300, large = true }`
--- centers a box of that width in the row (give the option `width = "full"`)
--- without the label offset, `large` makes it taller with a bigger font.
-local STANDALONE_TOP_OFFSET = 4
-local STANDALONE_BOTTOM_PADDING = 4
+-- centers a box of that width in the row (give the option `width = "full"`),
+-- `large` makes it taller with a bigger font.
 local LARGE_BOX_HEIGHT = 30
 
 local COLOR_BOX = { 0.16, 0.16, 0.16, 1 }
@@ -54,22 +51,20 @@ local function UpdateLayout(self)
 	local box = self.box
 	local boxWidth = self.boxWidth
 	local boxHeight = self.large and LARGE_BOX_HEIGHT or BOX_HEIGHT
-	local topOffset = boxWidth and STANDALONE_TOP_OFFSET or BOX_TOP_OFFSET
 
 	box:ClearAllPoints()
 	box:SetHeight(boxHeight)
 	if boxWidth then
 		box:SetWidth(boxWidth)
-		box:SetPoint("TOP", self.frame, "TOP", 0, -topOffset)
-		self:SetHeight(topOffset + boxHeight + STANDALONE_BOTTOM_PADDING)
+		box:SetPoint("TOP", self.frame, "TOP", 0, -BOX_PADDING)
 	else
-		box:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, -topOffset)
-		box:SetPoint("TOPRIGHT", self.frame, "TOPRIGHT", 0, -topOffset)
-		self:SetHeight(FRAME_HEIGHT)
+		box:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, -BOX_PADDING)
+		box:SetPoint("TOPRIGHT", self.frame, "TOPRIGHT", 0, -BOX_PADDING)
 	end
+	self:SetHeight(boxHeight + (BOX_PADDING * 2))
 
 	self.text:SetFontObject(self.large and "GameFontHighlightMedium" or "GameFontHighlightSmall")
-	self.alignoffset = topOffset + (boxHeight / 2)
+	self.alignoffset = BOX_PADDING + (boxHeight / 2)
 end
 
 local function Box_OnEnter(frame)
@@ -165,8 +160,8 @@ local function Constructor()
 
 	local box = CreateFrame("Button", nil, frame)
 	box:SetHeight(BOX_HEIGHT)
-	box:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -BOX_TOP_OFFSET)
-	box:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -BOX_TOP_OFFSET)
+	box:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -BOX_PADDING)
+	box:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -BOX_PADDING)
 	-- ignoreUpdates=true keeps this out of E.frames, otherwise ElvUI's async
 	-- E:UpdateFrameTemplates() coroutine (triggered by any "requires reload" option,
 	-- e.g. Style's ForceRefresh) re-templates it a few frames later and wipes the
@@ -186,10 +181,9 @@ local function Constructor()
 		box = box,
 		text = text,
 		type = Type,
-		-- See MERSlider/MERDropdown/MEREditBox/MERColorPicker - matches their
-		-- alignoffset (BOX_TOP_OFFSET + BOX_HEIGHT / 2) so a button sitting next
-		-- to any of those in the same row lines up.
-		alignoffset = BOX_TOP_OFFSET + (BOX_HEIGHT / 2),
+		-- Box center, the Flow layout aligns it with the box center of
+		-- MERSlider/MERDropdown/MEREditBox/MERColorPicker in the same row.
+		alignoffset = BOX_PADDING + (BOX_HEIGHT / 2),
 	}
 	for method, func in pairs(methods) do
 		widget[method] = func
