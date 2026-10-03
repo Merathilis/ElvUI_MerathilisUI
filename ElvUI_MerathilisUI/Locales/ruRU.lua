@@ -26,6 +26,41 @@ L["Logout Timer"] = "Таймер выхода"
 L["SplashScreen"] = "Заставка"
 L["Enable/Disable the Splash Screen on Login."] =
 	"Включить/отключить заставку при входе в систему."
+
+-- Performance Tuning
+L["Performance Tuning"] = true
+L["Trades environment detail for a higher frame rate and a sharper image with one click."] = true
+L["Boost FPS & Clarity"] = true
+L["Adjusts your graphics settings for a higher frame rate and a sharper image. Textures stay on high."] = true
+L["Revert to Previous Settings"] = true
+L["Puts back the graphics settings you had before the tuning."] = true
+L["Show Details"] = true
+L["Hide Details"] = true
+L["What the Tuning Changes"] = true
+L["Performance tuning applied."] = true
+L["Previous graphics settings are back."] = true
+L["The tuning lowers the settings that cost a lot of FPS but add little to what you actually see in combat."] = true
+L["Your previous values are saved first, so the revert button can bring them back at any time."] = true
+L["Changed settings:"] = true
+L["Shadow Quality: Fair (balanced quality and FPS)"] = true
+L["Liquid Detail: Low"] = true
+L["Particle Density: Ultra (keeps important spell effects)"] = true
+L["SSAO (Ambient Occlusion): Disabled"] = true
+L["Depth Effects: Disabled"] = true
+L["Compute Effects: Disabled"] = true
+L["Outline Mode: Disabled"] = true
+L["Texture Resolution: High"] = true
+L["Spell Density: Essential"] = true
+L["Projected Textures: Enabled (needed for ground effects)"] = true
+L["View Distance: 1"] = true
+L["Environment Detail: 1"] = true
+L["Ground Clutter: 1"] = true
+L["Raid/Dungeon Settings: Same settings everywhere"] = true
+L["Resample Sharpening: Enabled (crisper image)"] = true
+L["Reverb: Disabled (spell and interrupt sound cues stay crisp)"] = true
+L["Contrast: +10 (if currently 55 or below)"] = true
+L["Character and world textures are left on high, only distant scenery, effects and post-processing are toned down."] = true
+
 L["Description"] = "Описание"
 L["General"] = "Общий"
 L["Modules"] = "Модули"

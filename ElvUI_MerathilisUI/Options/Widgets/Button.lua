@@ -5,7 +5,7 @@ local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 local Type = "MERButton"
 local Version = 1
 
-local pairs, unpack = pairs, unpack
+local pairs, type, unpack = pairs, type, unpack
 local CreateFrame, UIParent = CreateFrame, UIParent
 local PlaySound = PlaySound
 
@@ -18,6 +18,14 @@ local PlaySound = PlaySound
 local BOX_HEIGHT = 16
 local BOX_TOP_OFFSET = 18
 local FRAME_HEIGHT = 40
+
+-- Standalone variant via the option's `arg` (AceConfigDialog hands it over
+-- through SetCustomData after SetText): `arg = { boxWidth = 300, large = true }`
+-- centers a box of that width in the row (give the option `width = "full"`)
+-- without the label offset, `large` makes it taller with a bigger font.
+local STANDALONE_TOP_OFFSET = 4
+local STANDALONE_BOTTOM_PADDING = 4
+local LARGE_BOX_HEIGHT = 30
 
 local COLOR_BOX = { 0.16, 0.16, 0.16, 1 }
 -- Muted Accent tint instead of a flat gray, so hover reads as the same
@@ -40,6 +48,28 @@ local function UpdateVisual(self)
 
 	self.box.backdrop:SetBackdropColor(unpack(color))
 	self.text:SetTextColor(unpack(self.disabled and COLOR_TEXT_DISABLED or COLOR_TEXT_NORMAL))
+end
+
+local function UpdateLayout(self)
+	local box = self.box
+	local boxWidth = self.boxWidth
+	local boxHeight = self.large and LARGE_BOX_HEIGHT or BOX_HEIGHT
+	local topOffset = boxWidth and STANDALONE_TOP_OFFSET or BOX_TOP_OFFSET
+
+	box:ClearAllPoints()
+	box:SetHeight(boxHeight)
+	if boxWidth then
+		box:SetWidth(boxWidth)
+		box:SetPoint("TOP", self.frame, "TOP", 0, -topOffset)
+		self:SetHeight(topOffset + boxHeight + STANDALONE_BOTTOM_PADDING)
+	else
+		box:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, -topOffset)
+		box:SetPoint("TOPRIGHT", self.frame, "TOPRIGHT", 0, -topOffset)
+		self:SetHeight(FRAME_HEIGHT)
+	end
+
+	self.text:SetFontObject(self.large and "GameFontHighlightMedium" or "GameFontHighlightSmall")
+	self.alignoffset = topOffset + (boxHeight / 2)
 end
 
 local function Box_OnEnter(frame)
@@ -86,7 +116,9 @@ end
 local methods = {
 	["OnAcquire"] = function(self)
 		self:SetWidth(200)
-		self:SetHeight(FRAME_HEIGHT)
+		self.boxWidth = nil
+		self.large = nil
+		UpdateLayout(self)
 		self:SetDisabled(false)
 		self:SetAutoWidth(false)
 		self:SetText("")
@@ -104,6 +136,16 @@ local methods = {
 		if self.autoWidth then
 			self:SetWidth(self.text:GetStringWidth() + 30)
 		end
+	end,
+
+	["SetCustomData"] = function(self, data)
+		if type(data) ~= "table" then
+			return
+		end
+
+		self.boxWidth = data.boxWidth
+		self.large = data.large
+		UpdateLayout(self)
 	end,
 
 	["SetDisabled"] = function(self, disabled)
