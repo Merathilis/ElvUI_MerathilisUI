@@ -2,70 +2,140 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnitFrames")
 local UF = E:GetModule("UnitFrames")
 
-function module:Configure_RestingIndicator(frame)
-	if not frame.RestingIndicator then
-		return
-	end
-	local db = E.db.mui.unitframes.restingIndicator
-	if not db or not db.enable then
-		return
-	end
+local CreateColor = CreateColor
+local hooksecurefunc = hooksecurefunc
 
-	if not frame.RestingIndicator.MERHook then
-		if not frame.RestingIndicator.Holder then
-			frame.RestingIndicator.Holder = CreateFrame("Frame", "MER_PlayerRestLoop", E.UIParent)
-			frame.RestingIndicator.Holder:Size(24)
+--[[
+	Animated resting indicator
 
-			frame.RestingIndicator.Holder.RestTexture =
-				frame.RestingIndicator.Holder:CreateTexture("MER_PlayerRestLoopRestTexture", "ARTWORK")
-			frame.RestingIndicator.Holder.RestTexture:SetAllPoints(frame.RestingIndicator.Holder)
-			frame.RestingIndicator.Holder.RestTexture:SetTexture(
-				I.General.MediaPath .. "Textures\\UIUnitFrameRestingFlipBook.tga"
-			)
-			frame.RestingIndicator.Holder.RestTexture:Size(512)
-			frame.RestingIndicator.Holder.RestTexture:SetParentKey("MER_PlayerRestLoopFlipBook")
+	Draws a looping "Zzz" flipbook over the icon of ElvUI's RestingIndicator element.
+	ElvUI keeps owning the element (events, position, size, hide at max level, test
+	display), the loop only mirrors the icon's visibility and hides it by alpha.
+--]]
 
-			frame.RestingIndicator.Holder.PlayerRestLoopAnim = frame.RestingIndicator.Holder:CreateAnimationGroup()
-			frame.RestingIndicator.Holder.PlayerRestLoopAnim:SetLooping("REPEAT")
+local TEXTURE = I.General.MediaPath .. "Textures\\UIUnitFrameRestingFlipBook.tga"
+local BLIZZARD_ATLAS = "UI-HUD-UnitFrame-Player-Rest-Flipbook"
+local BASE_DURATION = 1.5
+-- The flipbook cells carry padding around the Zzz, so the loop is drawn larger than the icon
+local SIZE_RATIO = 1.6
+-- Cell size in pixels of the grayscale texture, the atlas derives it from rows and columns
+local CELL_SIZE = 60
 
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook =
-				frame.RestingIndicator.Holder.PlayerRestLoopAnim:CreateAnimation("FlipBook")
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook:SetFlipBookColumns(6)
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook:SetFlipBookRows(7)
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook:SetFlipBookFrames(42)
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook:SetFlipBookFrameHeight(60)
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook:SetFlipBookFrameWidth(60)
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook:SetChildKey("MER_PlayerRestLoopFlipBook")
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook:SetOrder(1)
-			frame.RestingIndicator.Holder.PlayerRestLoopFlipBook:SetDuration(1.5)
+local WHITE = CreateColor(1, 1, 1, 1)
+
+local function UpdateVisibility(icon)
+	local loop = icon.MER_RestLoop
+	if loop.enabled and icon:IsShown() then
+		loop:Show()
+		if not loop.Anim:IsPlaying() then
+			loop.Anim:Play()
 		end
-
-		frame.RestingIndicator.Holder:ClearAllPoints()
-		frame.RestingIndicator.Holder:SetParent(frame)
-		frame.RestingIndicator.Holder:Point("CENTER", frame.RestingIndicator, "CENTER", 0, 0)
-		frame.RestingIndicator.Holder:SetFrameLevel(frame:GetFrameLevel() + 50)
-		frame.RestingIndicator.Holder:SetScale(E.db.unitframe.units.player.RestIcon.size / 15)
-
-		hooksecurefunc(frame.RestingIndicator, "PostUpdate", function()
-			if frame.RestingIndicator:IsShown() then
-				frame.RestingIndicator.Holder:Show()
-				frame.RestingIndicator.Holder.PlayerRestLoopAnim:Play()
-			else
-				frame.RestingIndicator.Holder:Hide()
-				frame.RestingIndicator.Holder.PlayerRestLoopAnim:Stop()
-			end
-
-			if not _G["MER_PlayerRestLoopRestTexture"].Gradient then
-				_G["MER_PlayerRestLoopRestTexture"]:SetGradient("HORIZONTAL", F.GradientColors(E.myclass))
-				_G["MER_PlayerRestLoopRestTexture"].Gradient = true
-			end
-		end)
-
-		frame.RestingIndicator.MERHook = true
+	else
+		loop.Anim:Stop()
+		loop:Hide()
 	end
-
-	frame.RestingIndicator:SetTexture()
-	frame.RestingIndicator.Holder:SetScale(E.db.unitframe.units.player.RestIcon.size / 15)
 end
 
-hooksecurefunc(UF, "Configure_RestingIndicator", module.Configure_RestingIndicator)
+local function CreateLoop(icon)
+	local loop = icon:GetParent():CreateTexture(nil, "OVERLAY", nil, 1)
+	loop:Hide()
+
+	local anim = loop:CreateAnimationGroup()
+	anim:SetLooping("REPEAT")
+	loop.Anim = anim
+
+	local flipBook = anim:CreateAnimation("FlipBook")
+	flipBook:SetFlipBookRows(7)
+	flipBook:SetFlipBookColumns(6)
+	flipBook:SetFlipBookFrames(42)
+	loop.FlipBook = flipBook
+
+	icon.MER_RestLoop = loop
+
+	-- Covers oUF updates, ElvUI's max level hide, its test display and disabling the element
+	hooksecurefunc(icon, "Show", UpdateVisibility)
+	hooksecurefunc(icon, "Hide", UpdateVisibility)
+	hooksecurefunc(icon, "SetShown", UpdateVisibility)
+
+	return loop
+end
+
+local function ApplyStyle(loop, db)
+	local flipBook = loop.FlipBook
+
+	if db.colorMode == "BLIZZARD" then
+		loop:SetAtlas(BLIZZARD_ATLAS)
+		flipBook:SetFlipBookFrameWidth(0)
+		flipBook:SetFlipBookFrameHeight(0)
+		loop:SetGradient("HORIZONTAL", WHITE, WHITE)
+	else
+		loop:SetTexture(TEXTURE)
+		loop:SetTexCoord(0, 1, 0, 1)
+		flipBook:SetFlipBookFrameWidth(CELL_SIZE)
+		flipBook:SetFlipBookFrameHeight(CELL_SIZE)
+
+		if db.colorMode == "CLASS" then
+			local color = CreateColor(F.r, F.g, F.b, 1)
+			loop:SetGradient("HORIZONTAL", color, color)
+		elseif db.colorMode == "CUSTOM" then
+			local c = db.customColor
+			local color = CreateColor(c.r, c.g, c.b, 1)
+			loop:SetGradient("HORIZONTAL", color, color)
+		else
+			local left, right = F.GradientColors(E.myclass)
+			loop:SetGradient(
+				"HORIZONTAL",
+				CreateColor(left.r, left.g, left.b, 1),
+				CreateColor(right.r, right.g, right.b, 1)
+			)
+		end
+	end
+
+	flipBook:SetDuration(BASE_DURATION / (db.speed or 1))
+end
+
+function module:Configure_RestingIndicator(frame)
+	local icon = frame and frame.RestingIndicator
+	if not icon then
+		return
+	end
+
+	local db = E.db.mui.unitframes.restingIndicator
+	local iconDb = frame.db and frame.db.RestIcon
+	local loop = icon.MER_RestLoop
+
+	if not (db.enable and iconDb and iconDb.enable) then
+		if loop then
+			loop.enabled = false
+			icon:SetAlpha(1)
+			UpdateVisibility(icon)
+		end
+		return
+	end
+
+	loop = loop or CreateLoop(icon)
+	loop.enabled = true
+	icon:SetAlpha(0)
+
+	loop:Size(iconDb.size * SIZE_RATIO)
+	loop:ClearAllPoints()
+	loop:Point("CENTER", icon, "CENTER")
+
+	-- Flipbook settings only apply cleanly to a stopped animation
+	loop.Anim:Stop()
+	ApplyStyle(loop, db)
+	UpdateVisibility(icon)
+end
+
+function module:UpdateRestingIndicator()
+	module:Configure_RestingIndicator(UF.player)
+end
+
+function module:RestingIndicator()
+	hooksecurefunc(UF, "Configure_RestingIndicator", function(_, frame)
+		module:Configure_RestingIndicator(frame)
+	end)
+
+	-- ElvUI spawns its frames before our hooks exist
+	module:UpdateRestingIndicator()
+end

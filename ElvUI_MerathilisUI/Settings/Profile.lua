@@ -1018,6 +1018,9 @@ P.unitframes = {
 	highlight = true,
 	restingIndicator = {
 		enable = true,
+		colorMode = "CLASS_GRADIENT",
+		customColor = { r = 1, g = 1, b = 1 },
+		speed = 1,
 	},
 	factionIndicator = {
 		enable = true,
