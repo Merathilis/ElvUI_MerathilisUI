@@ -3,6 +3,8 @@ local module = MER:GetModule("MER_Options") ---@class Options
 
 local options = module.options.presets.args
 
+F.MarkTabAsNew("presets")
+
 local format, ipairs, strtrim, tconcat = format, ipairs, strtrim, table.concat
 
 local PRESETS_URL = MER.WebsiteURL .. "/presets"
