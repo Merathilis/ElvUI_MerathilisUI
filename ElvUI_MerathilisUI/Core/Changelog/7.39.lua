@@ -25,6 +25,7 @@ MER.Changelog[739] = {
 		"[Minimap Buttons]: The Tracking button is enabled by default.",
 		"[Options]: Cursor, DataTexts, Loot Roll, Movement Alert and Tracker have their own category icons.",
 		"[Profiles]: The mMediaTag & Tools profile no longer changes the color and texture of the target nameplate.",
+		"[Profiles]: The AddOn profiles in the options are shown as tiles with the AddOn icon and whether the AddOn is enabled.",
 		"[Resting Indicator]: New Color (class gradient, class color, custom color or Blizzard's original look) and Animation Speed options. All resting indicator options apply without a reload.",
 		"[Status Report]: Reworked with a diagnostics section (Lua errors this session, MerathilisUI log, debug channels, debug mode), blocked features with their reason, tips on hover and clickable switches for Lua errors, taint log, log level and CPU profiling. Copy Report creates one text for bug reports with all loaded addons and the log, also available via /muidev status.",
 		"[Style]: Turning the MerathilisUI style on or off no longer asks for a reload, it applies right away.",
