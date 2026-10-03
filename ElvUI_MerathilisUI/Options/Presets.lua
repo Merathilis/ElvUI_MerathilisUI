@@ -8,8 +8,6 @@ local format, ipairs, strtrim, tconcat = format, ipairs, strtrim, table.concat
 local PRESETS_URL = MER.WebsiteURL .. "/presets"
 local COLOR_ERROR = "ff4d4d"
 
-F.MarkTabAsNew("presets")
-
 local function Highlight(text)
 	return E:RGBToHex(I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b) .. text .. "|r"
 end

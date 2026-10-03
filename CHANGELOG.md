@@ -1,25 +1,3 @@
 ### Changes
 
--   [Fix]: Auras: Collapsing or expanding the buffs with the collapse button no longer resets the Vertical and Horizontal Spacing set in ElvUI.
--   [Fix]: Bags: Using or looting items in combat while the categorized bags are open no longer causes blocked actions; the counts keep updating and the bags rearrange after combat.
--   [Fix]: Bags: Dragging an item onto the + slot of Pinned Items pins it again instead of breaking its category assignment, and Recent Items no longer offers + slots or a manual item order.
--   [Fix]: Installer: With the MerathilisUI resting indicator turned off, the layout now places ElvUI's resting icon at its own spot on the player frame.
--   [Fix]: Resting Indicator: The animation no longer keeps running when ElvUI's resting icon is turned off, and it also shows during ElvUI's test display.
--   [Fix]: Status Report: Opens without a MerathilisUI profile as well, detects the Mac client again and lists BugGrabber correctly.
--   [Fix]: Status Report: The pixel perfect UI scale no longer shows up as a warning because of rounding, and the scale values are shortened to three decimals.
--   [New]: HoverCast: New click-casting module (Modules > HoverCast) as a replacement for Clique: global and per-spec bindings for spells, macros and items on the ElvUI unit frames, optional mouseover casting on nameplates and units in the world, presets for dispels, externals, trinkets and a dynamic resurrect, Quickbind, out-of-combat and content (Solo/Party/Raid/PvP) filters and Friendly/Enemy splits on one key.
--   [New]: Minimap Buttons: New Addon Buttons button on the main bar: it collects the minimap buttons of your addons (LibDBIcon and others) into a grid with its own size, row and ignore settings. Stays off while the WindTools or ProjectAzilroka collector is enabled, the options offer a switch to turn off the WindTools one.
--   [New]: Options: The start page shows the newest changes, rotating tips and a status line next to the logo.
--   [New]: Presets: New Presets page (also /mer presets): apply a complete setup with a code from merathilisui.com/presets, pick one of the official presets (Gradient, Dark, Healer, Minimal, Compact) or export your own setup as a code to share it. A preset always becomes a new ElvUI profile, and the private settings of the character are backed up first.
--   [Improvement]: Game Menu: The Show Clock and Fade In Content options apply without a reload.
--   [Improvement]: Game Menu: The Mythic+ options are no longer marked as work in progress.
--   [Improvement]: Installer: Reworked with a new look, a check mark for every applied step and fewer pages: the whole layout is one step with a Gradient or Dark preview, all AddOn profiles share one page and the last page sums up what was applied. Import Existing takes over the MerathilisUI profile and settings of another character, Skip no longer marks the profile as installed.
--   [Improvement]: Location Panel: Right-clicking the panel links your current location as a map pin in chat. A map pin you placed yourself stays in place.
--   [Improvement]: Minimap Buttons: The Tracking button is enabled by default.
--   [Improvement]: Options: Cursor, DataTexts, Loot Roll, Movement Alert and Tracker have their own category icons.
--   [Improvement]: Options: The Information page shows links, donations and Tukui as clickable tiles with logos, plus cards for bug reports, supporters and credits.
--   [Improvement]: Profiles: The mMediaTag & Tools profile no longer changes the color and texture of the target nameplate.
--   [Improvement]: Profiles: The AddOn profiles in the options are shown as tiles with the AddOn icon and whether the AddOn is enabled.
--   [Improvement]: Resting Indicator: New Color (class gradient, class color, custom color or Blizzard's original look) and Animation Speed options. All resting indicator options apply without a reload.
--   [Improvement]: Status Report: Reworked with a diagnostics section (Lua errors this session, MerathilisUI log, debug channels, debug mode), blocked features with their reason, tips on hover and clickable switches for Lua errors, taint log, log level and CPU profiling. Copy Report creates one text for bug reports with all loaded addons and the log, also available via /muidev status.
--   [Improvement]: Style: Turning the MerathilisUI style on or off no longer asks for a reload, it applies right away.
+-

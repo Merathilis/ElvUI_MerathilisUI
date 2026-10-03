@@ -17,5 +17,3 @@ options.hoverCast = {
 		},
 	},
 }
-
-F.MarkTabAsNew("hoverCast")

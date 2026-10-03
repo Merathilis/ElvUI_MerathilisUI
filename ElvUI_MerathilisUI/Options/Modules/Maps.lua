@@ -3,8 +3,6 @@ local module = MER:GetModule("MER_Options") ---@class Options
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("maps")
-
 -- The Minimap button bars share one anchor/size/spacing block. getBar() returns
 -- the settings table of the bar the block belongs to; the toggles above it keep
 -- the group's own get/set, so the block brings its own.
@@ -419,7 +417,7 @@ options.maps = {
 						addonButtons = {
 							order = 4,
 							type = "toggle",
-							name = F.NewFeatureText(L["Addon Buttons"]),
+							name = L["Addon Buttons"],
 							desc = L["Collects the minimap buttons of your addons into a grid that opens from this bar."]
 								.. "\n"
 								.. L["Switching it off requires a reload."],
