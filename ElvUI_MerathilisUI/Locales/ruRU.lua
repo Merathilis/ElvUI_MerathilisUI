@@ -395,10 +395,9 @@ L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external ad
 
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["Screen Shadow Overlay"] = "Наложение теней экрана"
+L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI look."] = true
 L["Enables/Disables a shadow overlay to darken the screen."] =
 	"Включает/отключает наложение теней для затемнения экрана."
-L["Enable/Disable"] = "Включить/Выключить"
-L["decor."] = "декор."
 L["Backdrop Color"] = "Цвет фона"
 L["Character Frame"] = "Рамка персонажа"
 L["Item Upgrade"] = "Улучшение предмета"
@@ -453,7 +452,6 @@ L["Animation Speed"] = true
 -- Raid Info Frame
 L["Raid Info Frame"] = true
 L[" provides a Raid Info Frame that shows a list of players per role in your raid."] = true
-L["Enable the Raid Info Frame."] = true
 L["Temporarily shows the frame even outside of a raid for easier customization."] = true
 L["Customization"] = true
 L["Set the size of the text and icons."] = true
@@ -1678,3 +1676,11 @@ L["Smaller unit frames and action buttons for 1080p and small screens."] = true
 L["Type /mer presets to pick a ready-made look. Every preset becomes a new ElvUI profile, so you can switch back at any time."] = true
 L["More presets from the community wait on merathilisui.com/presets. Copy a code and paste it under Presets > Import."] = true
 L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."] = true
+
+-- Option cards
+L["Scales the character, dressing room, inspect, talent and collection frames on their own, independent of the UI scale."] = true
+L["Shows the name, level, guild and target of the unit under your mouse cursor right next to it."] = true
+L["Shows small toast notifications for new mail, invites, guild events, paragon rewards and more."] = true
+L["Shows its own action bar while you are in a vehicle or skyriding."] = true
+L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."] = true
+L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."] = true

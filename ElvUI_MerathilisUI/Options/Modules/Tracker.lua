@@ -128,22 +128,12 @@ options.tracker = {
 			type = "header",
 			name = L["Tracker"],
 		},
-		desc = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters."]
-						.. "\n"
-						.. L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."],
-					fontSize = "medium",
-				},
-			},
-		},
+		desc = module.TextCard(
+			1,
+			L["Shows the shared battle res charges of your group and the time until the next charge during Mythic+ keys and raid boss encounters."]
+				.. "\n"
+				.. L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."]
+		),
 		test = {
 			order = 2,
 			type = "execute",

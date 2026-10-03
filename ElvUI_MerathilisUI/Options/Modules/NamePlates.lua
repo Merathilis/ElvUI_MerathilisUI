@@ -114,16 +114,11 @@ options.nameplates = {
 					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
 						requirements = module.RequirementsNotice(I.Requirements.NamePlates),
-						desc = {
+						enable = module.ToggleCard({
 							order = 1,
-							type = "description",
-							name = L["Shows the faction icon of players from the opposing faction."],
-						},
-						enable = {
-							order = 2,
-							type = "toggle",
 							name = L["Enable"],
-						},
+							desc = L["Shows the faction icon of players from the opposing faction."],
+						}),
 						style = {
 							order = 3,
 							type = "select",
@@ -184,16 +179,11 @@ options.nameplates = {
 					end,
 					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
-						desc = {
+						enable = module.ToggleCard({
 							order = 1,
-							type = "description",
-							name = L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."],
-						},
-						enable = {
-							order = 2,
-							type = "toggle",
 							name = L["Enable"],
-						},
+							desc = L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."],
+						}),
 						layout = {
 							order = 3,
 							type = "select",
@@ -277,16 +267,11 @@ options.nameplates = {
 					end,
 					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
-						desc = {
+						enable = module.ToggleCard({
 							order = 1,
-							type = "description",
-							name = L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."],
-						},
-						enable = {
-							order = 2,
-							type = "toggle",
 							name = L["Enable"],
-						},
+							desc = L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."],
+						}),
 						fade = {
 							order = 3,
 							type = "toggle",
@@ -352,22 +337,17 @@ options.nameplates = {
 					end,
 					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
-						desc = {
+						enable = module.ToggleCard({
 							order = 1,
-							type = "description",
-							name = L["Lays a texture over the health bar of your focus target's nameplate."],
-						},
+							name = L["Enable"],
+							desc = L["Lays a texture over the health bar of your focus target's nameplate."],
+						}),
 						preview = {
 							order = 1.5,
 							type = "description",
 							dialogControl = "MERNameplateHealthPreview",
 							name = "focusHighlight",
 							width = "full",
-						},
-						enable = {
-							order = 2,
-							type = "toggle",
-							name = L["Enable"],
 						},
 						texture = {
 							order = 3,
@@ -421,22 +401,17 @@ options.nameplates = {
 					end,
 					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
-						desc = {
+						enable = module.ToggleCard({
 							order = 1,
-							type = "description",
-							name = L["Tints the health bar of a nameplate with a raid marker in the color of that marker."],
-						},
+							name = L["Enable"],
+							desc = L["Tints the health bar of a nameplate with a raid marker in the color of that marker."],
+						}),
 						preview = {
 							order = 1.5,
 							type = "description",
 							dialogControl = "MERNameplateHealthPreview",
 							name = "markerColor",
 							width = "full",
-						},
-						enable = {
-							order = 2,
-							type = "toggle",
-							name = L["Enable"],
 						},
 						alpha = {
 							order = 3,
@@ -467,22 +442,17 @@ options.nameplates = {
 					end,
 					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
-						desc = {
+						enable = module.ToggleCard({
 							order = 1,
-							type = "description",
-							name = L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."],
-						},
+							name = L["Enable"],
+							desc = L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."],
+						}),
 						preview = {
 							order = 1.5,
 							type = "description",
 							dialogControl = "MERNameplateHealthPreview",
 							name = "enemyForces",
 							width = "full",
-						},
-						enable = {
-							order = 2,
-							type = "toggle",
-							name = L["Enable"],
 						},
 						format = {
 							order = 3,
@@ -568,22 +538,17 @@ options.nameplates = {
 					end,
 					disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
 					args = {
-						desc = {
+						enable = module.ToggleCard({
 							order = 1,
-							type = "description",
-							name = L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."],
-						},
+							name = L["Enable"],
+							desc = L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."],
+						}),
 						preview = {
 							order = 1.5,
 							type = "description",
 							dialogControl = "MERCastTargetPreview",
 							name = "nameplates",
 							width = "full",
-						},
-						enable = {
-							order = 2,
-							type = "toggle",
-							name = L["Enable"],
 						},
 						border = {
 							order = 3,

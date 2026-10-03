@@ -77,20 +77,10 @@ options.datatexts = {
 			type = "header",
 			name = L["DataTexts"],
 		},
-		desc = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Settings for the MerathilisUI datatexts. Add them to a panel in ElvUI's DataTexts options."],
-					fontSize = "medium",
-				},
-			},
-		},
+		desc = module.TextCard(
+			1,
+			L["Settings for the MerathilisUI datatexts. Add them to a panel in ElvUI's DataTexts options."]
+		),
 		durabilityIlevel = {
 			order = 2,
 			type = "group",

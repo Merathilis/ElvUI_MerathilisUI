@@ -149,12 +149,12 @@ options.buffReminder = {
 			type = "header",
 			name = L["Buff Reminder"],
 		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 2,
-			type = "toggle",
 			name = L["Enable"],
-			width = "full",
-		},
+			desc = L["Buff Reminder shows icons for the raid buffs you are missing."],
+			image = I.Media.Icons.Categories.buff_reminder,
+		}),
 		test = {
 			order = 3,
 			type = "execute",

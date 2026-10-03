@@ -143,32 +143,18 @@ options.maps = {
 			disabled = module.RequirementsDisabled(I.Requirements.Minimap),
 			args = {
 				requirements = module.RequirementsNotice(I.Requirements.Minimap),
-				desc = {
-					order = 0,
-					type = "group",
-					inline = true,
-					name = L["Description"],
-					args = {
-						feature = {
-							order = 1,
-							type = "description",
-							name = L["Shows the current zone in a panel above your Minimap. Left-click it to open the World Map, right-click to link your location in chat."],
-							fontSize = "medium",
-						},
-					},
-				},
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
+					desc = L["Shows the current zone in a panel above your Minimap. Left-click it to open the World Map, right-click to link your location in chat."],
+					image = I.Media.Icons.Categories.maps,
 					set = function(info, value)
 						E.db.mui.locationPanel[info[#info]] = value
 						F.Event.TriggerEvent("LocationPanel.DatabaseUpdate")
 					end,
-				},
-				clusterDisable = {
+				}),
+				clusterDisable = module.ToggleCard({
 					order = 2,
-					type = "toggle",
 					name = L["Disable ElvUI Cluster"],
 					desc = L["ElvUI's Minimap Cluster shows the zone text and the clock above the Minimap. Disable it so it does not overlap the panel."],
 					get = function()
@@ -179,10 +165,9 @@ options.maps = {
 						E:GetModule("Minimap"):UpdateSettings()
 						E:StaticPopup_Show("CONFIG_RL")
 					end,
-				},
-				hideLocationText = {
+				}, 0.5),
+				hideLocationText = module.ToggleCard({
 					order = 3,
-					type = "toggle",
 					name = L["Hide ElvUI Location Text"],
 					desc = L["Hides the zone text ElvUI shows on the Minimap, the panel shows it already."],
 					disabled = function()
@@ -196,7 +181,7 @@ options.maps = {
 						E.db.general.minimap.locationText = value and "HIDE" or "MOUSEOVER"
 						E:GetModule("Minimap"):UpdateSettings()
 					end,
-				},
+				}, 0.5),
 				spacer = {
 					order = 4,
 					type = "description",
@@ -363,29 +348,16 @@ options.maps = {
 				F.Event.TriggerEvent("MinimapButtons.SettingsUpdate")
 			end,
 			args = {
-				desc = {
-					order = 0,
-					type = "group",
-					inline = true,
-					name = L["Description"],
-					args = {
-						feature = {
-							order = 1,
-							type = "description",
-							name = L["Add a bar of extra buttons next to your Minimap."],
-							fontSize = "medium",
-						},
-					},
-				},
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
+					desc = L["Add a bar of extra buttons next to your Minimap."],
+					image = I.Media.Icons.Categories.maps,
 					set = function(info, value)
 						E.db.mui.minimapButtons[info[#info]] = value
 						MER:GetModule("MER_MinimapButtons"):DatabaseUpdate()
 					end,
-				},
+				}),
 				spacer = {
 					order = 2,
 					type = "description",

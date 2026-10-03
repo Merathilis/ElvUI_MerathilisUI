@@ -42,29 +42,16 @@ options.chat = {
 			end,
 			disabled = Disabled,
 			args = {
-				desc = {
-					order = 0,
-					type = "group",
-					inline = true,
-					name = L["Description"],
-					args = {
-						feature = {
-							order = 1,
-							type = "description",
-							name = L["Adds a slim icon bar inside a chat panel with quick access to friends, guild, copy chat, M+ portals and more."],
-							fontSize = "medium",
-						},
-						requirement = module.RequirementsNotice(I.Requirements.Chat, 2),
-					},
-				},
-				enable = {
+				requirement = module.RequirementsNotice(I.Requirements.Chat, 0),
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
+					desc = L["Adds a slim icon bar inside a chat panel with quick access to friends, guild, copy chat, M+ portals and more."],
+					image = I.Media.Icons.Categories.chat,
 					disabled = function()
 						return not MER:HasRequirements(I.Requirements.Chat)
 					end,
-				},
+				}),
 				spacer = {
 					order = 2,
 					type = "description",
@@ -251,46 +238,47 @@ options.chat = {
 								.. "\n"
 								.. L["Shift + drag an icon in the sidebar to change the order."],
 						},
-						friends = {
+						-- Cards with the icon the button has in the sidebar
+						friends = module.ToggleCard({
 							order = 1,
-							type = "toggle",
 							name = L["Friends"],
 							desc = L["Shows the number of friends online."],
-						},
-						guild = {
+							image = I.Media.Icons.Chat.friends,
+						}, 0.5),
+						guild = module.ToggleCard({
 							order = 2,
-							type = "toggle",
 							name = L["Guild"],
 							desc = L["Shows the number of guild members online."],
-						},
-						durability = {
+							image = I.Media.Icons.Chat.guild,
+						}, 0.5),
+						durability = module.ToggleCard({
 							order = 3,
-							type = "toggle",
 							name = L["Durability"],
 							desc = L["Shows the durability of your most damaged item."],
-						},
-						copy = {
+							image = I.Media.Icons.Chat.durability,
+						}, 0.5),
+						copy = module.ToggleCard({
 							order = 4,
-							type = "toggle",
 							name = L["Copy Chat"],
 							desc = L["Replaces ElvUI's copy button on the chat windows. Right-click opens the chat menu."],
-						},
-						portals = {
+							image = I.Media.Icons.Chat.copy,
+						}, 0.5),
+						portals = module.ToggleCard({
 							order = 5,
-							type = "toggle",
 							name = L["M+ Portals"],
-						},
-						voice = {
+							image = I.Media.Icons.Chat.portals,
+						}, 0.5),
+						voice = module.ToggleCard({
 							order = 6,
-							type = "toggle",
 							name = L["Voice / Channels"],
 							desc = L["Opens the channel list. Right-click mutes your microphone, middle-click your speakers."],
-						},
-						hideVoiceButtons = {
+							image = I.Media.Icons.Chat.voice,
+						}, 0.5),
+						hideVoiceButtons = module.ToggleCard({
 							order = 7,
-							type = "toggle",
 							name = L["Hide Voice Buttons"],
 							desc = L["Hides the voice buttons on the chat panel, the sidebar button takes their place."],
+							image = I.Media.Icons.Chat.voiceoff,
 							get = function(info)
 								return SidebarDB()[info[#info]]
 							end,
@@ -301,18 +289,18 @@ options.chat = {
 							disabled = function()
 								return Disabled() or not SidebarDB().buttons.voice
 							end,
-						},
-						settings = {
+						}, 0.5),
+						settings = module.ToggleCard({
 							order = 8,
-							type = "toggle",
 							name = L["Settings"],
-						},
-						scroll = {
+							image = I.Media.Icons.Chat.settings,
+						}, 0.5),
+						scroll = module.ToggleCard({
 							order = 9,
-							type = "toggle",
 							name = L["Scroll to Bottom"],
 							desc = L["Pinned to the bottom of the sidebar, lights up while the chat is scrolled up."],
-						},
+							image = I.Media.Icons.Chat.scroll,
+						}, 0.5),
 						durabilityWarning = {
 							order = 10,
 							type = "range",
@@ -361,15 +349,13 @@ options.chat = {
 				return not MER:HasRequirements(I.Requirements.Chat)
 			end,
 			args = {
-				lockSize = {
+				lockSize = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Lock Chat Size"],
 					desc = L["Hides the resize grip that shows in the corner of a chat panel while hovering it."],
-				},
-				combatLog = {
+				}, 0.5),
+				combatLog = module.ToggleCard({
 					order = 2,
-					type = "toggle",
 					name = L["Combat Log Filters"],
 					desc = L["Colors the active combat log filter in your class color and dims the others."],
 					get = function()
@@ -379,10 +365,9 @@ options.chat = {
 						ChatDB().combatLog.enable = value
 						MER:GetModule("MER_Chat"):UpdateCombatLog()
 					end,
-				},
-				underline = {
+				}, 0.5),
+				underline = module.ToggleCard({
 					order = 3,
-					type = "toggle",
 					name = L["Active Underline"],
 					desc = L["Marks the active tab with a line in your class color."],
 					get = function()
@@ -392,7 +377,7 @@ options.chat = {
 						ChatDB().tabs.underline = value
 						MER:GetModule("MER_Chat"):UpdateTabs()
 					end,
-				},
+				}, 0.5),
 			},
 		},
 		editBox = {
@@ -414,16 +399,11 @@ options.chat = {
 				return info[#info] ~= "enable" and not ChatDB().editBox.enable
 			end,
 			args = {
-				desc = {
-					order = 0,
-					type = "description",
-					name = L["Restyles the chat input box."],
-				},
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
-				},
+					desc = L["Restyles the chat input box."],
+				}),
 				editBoxPosition = {
 					order = 2,
 					type = "select",

@@ -135,24 +135,11 @@ options.cursor = {
 			type = "header",
 			name = L["Cursor"],
 		},
-		desc = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Show a colored ring around your mouse cursor, with an optional trail, GCD ring and cast-time ring."],
-					fontSize = "medium",
-				},
-			},
-		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 2,
-			type = "toggle",
 			name = L["Enable"],
+			desc = L["Show a colored ring around your mouse cursor, with an optional trail, GCD ring and cast-time ring."],
+			image = I.Media.Icons.Categories.cursor,
 			get = function()
 				return E.db.mui.cursor.enable
 			end,
@@ -161,7 +148,7 @@ options.cursor = {
 				E.db.mui.cursor.enable = value
 				Cursor:DatabaseUpdate()
 			end,
-		},
+		}),
 		spacer = {
 			order = 3,
 			type = "description",

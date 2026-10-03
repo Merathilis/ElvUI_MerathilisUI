@@ -32,30 +32,19 @@ options.Notification = {
 			type = "header",
 			name = L["Notification"],
 		},
-		credits = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "group",
-			name = L["Credits"],
-			guiInline = true,
-			args = {
-				tukui = {
-					order = 1,
-					type = "description",
-					name = "RealUI - Nibelheim, Gethe",
-				},
-			},
-		},
+			name = L["Enable"],
+			desc = L["Shows small toast notifications for new mail, invites, guild events, paragon rewards and more."],
+			image = I.Media.Icons.Categories.notifications,
+		}),
+		credits = module.CreditsCard(2, "RealUI - Nibelheim, Gethe"),
 		desc = {
-			order = 2,
+			order = 3,
 			type = "description",
 			fontSize = "small",
 			name = L["Here you can enable/disable the different notification types."],
 			disabled = Disabled,
-		},
-		enable = {
-			order = 3,
-			type = "toggle",
-			name = L["Enable"],
 		},
 		testNotification = {
 			order = 4,
@@ -145,17 +134,11 @@ options.Notification = {
 			end,
 			disabled = Disabled,
 			args = {
-				desc = {
-					order = 0,
-					type = "description",
-					fontSize = "small",
-					name = L["Track any currency by ID and get a toast once it nears its weekly or total cap."],
-				},
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
-				},
+					desc = L["Track any currency by ID and get a toast once it nears its weekly or total cap."],
+				}),
 				threshold = {
 					order = 2,
 					type = "range",

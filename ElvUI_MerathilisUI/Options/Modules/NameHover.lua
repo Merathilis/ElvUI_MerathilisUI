@@ -36,25 +36,13 @@ options.nameHover = {
 			type = "header",
 			name = L["Name Hover"],
 		},
-		credits = {
+		enable = module.ToggleCard({
 			order = 2,
-			type = "group",
-			name = L["Credits"],
-			guiInline = true,
-			args = {
-				tukui = {
-					order = 1,
-					type = "description",
-					name = L["ncHoverName by Nightcracker"],
-				},
-			},
-		},
-		enable = {
-			order = 2,
-			type = "toggle",
 			name = L["Enable"],
-			width = "full",
-		},
+			desc = L["Shows the name, level, guild and target of the unit under your mouse cursor right next to it."],
+			image = I.Media.Icons.Categories.name_hover,
+		}),
+		credits = module.CreditsCard(2.5, L["ncHoverName by Nightcracker"]),
 		textGroup = {
 			order = 3,
 			type = "group",

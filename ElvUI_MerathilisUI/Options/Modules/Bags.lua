@@ -43,9 +43,8 @@ options.bags = {
 				RefreshCategoryFrames()
 			end,
 			args = {
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
 					desc = L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."],
 					set = function(info, value)
@@ -54,7 +53,7 @@ options.bags = {
 						B:UpdateAllBagSlots(true)
 						RefreshCategoryFrames()
 					end,
-				},
+				}),
 				size = {
 					order = 2,
 					type = "range",
@@ -154,17 +153,16 @@ options.bags = {
 					type = "group",
 					name = L["General"],
 					args = {
-						enable = {
+						enable = module.ToggleCard({
 							order = 1,
-							type = "toggle",
 							name = L["Enable"],
 							desc = L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."],
+							image = I.Media.Icons.Categories.bags,
 							set = function(info, value)
 								E.db.mui.bags.categorizedBags[info[#info]] = value
 								E:StaticPopup_Show("CONFIG_RL")
 							end,
-							width = "full",
-						},
+						}),
 						hideEmptyCategories = {
 							order = 2,
 							type = "toggle",
@@ -566,13 +564,11 @@ options.bags = {
 								RefreshCategoryFrames()
 							end,
 							args = {
-								enable = {
+								enable = module.ToggleCard({
 									order = 1,
-									type = "toggle",
 									name = L["Enable"],
 									desc = L["Shows a bind-type indicator (BoE, BoU, ...) on items that aren't bound yet."],
-									width = "full",
-								},
+								}),
 								font = {
 									order = 2,
 									type = "group",

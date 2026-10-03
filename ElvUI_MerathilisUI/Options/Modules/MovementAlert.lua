@@ -231,6 +231,7 @@ local function BuildSpellArgs()
 	spellArgs.desc = {
 		order = 0,
 		type = "description",
+		dialogControl = "MERTextCard",
 		name = L["Movement spells of your class. Only spells your current specialization knows are shown."],
 		fontSize = "medium",
 	}
@@ -356,25 +357,12 @@ options.movementAlert = {
 			type = "header",
 			name = L["Movement Alert"],
 		},
-		desc = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Shows the cooldown of your class's movement spells while they are not available, a banner when Time Spiral lets you use one for free and a reminder when your Gateway Control Shard can be used."],
-					fontSize = "medium",
-				},
-			},
-		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 2,
-			type = "toggle",
 			name = L["Enable"],
-		},
+			desc = L["Shows the cooldown of your class's movement spells while they are not available, a banner when Time Spiral lets you use one for free and a reminder when your Gateway Control Shard can be used."],
+			image = I.Media.Icons.Categories.movement_alert,
+		}),
 		test = {
 			order = 3,
 			type = "execute",
@@ -561,17 +549,11 @@ options.movementAlert = {
 			get = timeSpiralGet,
 			set = timeSpiralSet,
 			args = {
-				desc = {
-					order = 0,
-					type = "description",
-					name = L["Shows a banner while one of your movement spells can be used for free after Time Spiral or a similar effect reset it."],
-					fontSize = "medium",
-				},
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
-				},
+					desc = L["Shows a banner while one of your movement spells can be used for free after Time Spiral or a similar effect reset it."],
+				}),
 				text = {
 					order = 2,
 					type = "input",
@@ -613,17 +595,11 @@ options.movementAlert = {
 			get = gatewayGet,
 			set = gatewaySet,
 			args = {
-				desc = {
-					order = 0,
-					type = "description",
-					name = L["Shows a reminder while the Gateway Control Shard in your bags can be used."],
-					fontSize = "medium",
-				},
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
-				},
+					desc = L["Shows a reminder while the Gateway Control Shard in your bags can be used."],
+				}),
 				combatOnly = {
 					order = 2,
 					type = "toggle",

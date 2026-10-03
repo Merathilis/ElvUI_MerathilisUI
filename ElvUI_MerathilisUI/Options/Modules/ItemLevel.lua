@@ -12,33 +12,15 @@ options.itemLevel = {
 			type = "header",
 			name = L["Item Level"],
 		},
-		desc = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Shows the item level on the items in the merchant and trade windows."],
-					fontSize = "medium",
-				},
-				windTools = {
-					order = 2,
-					type = "description",
-					name = F.String.Warning(
-						L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."]
-					),
-					fontSize = "medium",
-				},
-			},
-		},
-		enable = {
-			order = 2,
-			type = "toggle",
 			name = L["Enable"],
-			width = "full",
+			desc = L["Shows the item level on the items in the merchant and trade windows."]
+				.. "\n\n"
+				.. F.String.Warning(
+					L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."]
+				),
+			image = I.Media.Icons.Categories.item_level,
 			get = function()
 				return E.db.mui.itemLevel.enable
 			end,
@@ -46,6 +28,6 @@ options.itemLevel = {
 			set = function(_, value)
 				E.db.mui.itemLevel.enable = value
 			end,
-		},
+		}),
 	},
 }

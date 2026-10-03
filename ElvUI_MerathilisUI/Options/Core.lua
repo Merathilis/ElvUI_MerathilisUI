@@ -219,6 +219,50 @@ function module.RequirementsDisabled(requirements)
 	end
 end
 
+---Turns a toggle into a MERToggleCard (Options/Widgets/InfoCards.lua) with its
+---description as card body. Without `relWidth` the card takes the full width.
+---@param option table toggle option, `type` can be left out
+---@param relWidth number? share of the row, e.g. 0.5 for two cards per row
+---@return table option
+function module.ToggleCard(option, relWidth)
+	option.type = "toggle"
+	option.dialogControl = "MERToggleCard"
+	option.descStyle = "inline"
+	if relWidth then
+		option.width = "relative"
+		option.relWidth = relWidth
+	else
+		option.width = "full"
+	end
+
+	return option
+end
+
+---A description shown as MERTextCard (Options/Widgets/InfoCards.lua)
+---@param order number
+---@param text string|function card body
+---@param title string? title line above the body
+---@param icon string|number? texture in front of the title
+---@return table option
+function module.TextCard(order, text, title, icon)
+	return {
+		order = order,
+		type = "description",
+		dialogControl = "MERTextCard",
+		fontSize = "medium",
+		name = text,
+		arg = (title or icon) and { title = title, icon = icon } or nil,
+	}
+end
+
+---Credits of a module as MERTextCard
+---@param order number
+---@param text string
+---@return table option
+function module.CreditsCard(order, text)
+	return module.TextCard(order, text, L["Credits"])
+end
+
 ---Settings of the Interrupt Ready castbar indicator, shared by UnitFrames and NamePlates
 ---@param order number
 ---@param getDB function returns the settings table

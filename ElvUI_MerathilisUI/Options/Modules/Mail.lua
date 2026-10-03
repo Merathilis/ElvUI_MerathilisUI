@@ -13,25 +13,11 @@ options.mail = {
 			type = "header",
 			name = L["Mail"],
 		},
-		desc = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Add small extras to the Mail Frame."],
-					fontSize = "medium",
-				},
-			},
-		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 2,
-			type = "toggle",
 			name = L["Enable"],
-			width = "full",
+			desc = L["Add small extras to the Mail Frame."],
+			image = I.Media.Icons.Categories.mail,
 			get = function()
 				return E.db.mui.mail.enable
 			end,
@@ -39,7 +25,7 @@ options.mail = {
 				E.db.mui.mail.enable = value
 				Mail:UpdateEnabled()
 			end,
-		},
+		}),
 	},
 }
 
@@ -52,12 +38,10 @@ options.mail.args.selection = {
 		return not E.db.mui.mail.enable
 	end,
 	args = {
-		enable = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "toggle",
 			name = L["Enable"],
 			desc = L["Adds checkboxes to the inbox to open or delete multiple mails at once."],
-			width = "full",
 			get = function()
 				return E.db.mui.mail.selection.enable
 			end,
@@ -65,7 +49,7 @@ options.mail.args.selection = {
 				E.db.mui.mail.selection.enable = value
 				Mail:UpdateSelectionCheckboxes()
 			end,
-		},
+		}),
 	},
 }
 
@@ -122,6 +106,7 @@ do
 			desc = {
 				order = 1,
 				type = "description",
+				dialogControl = "MERTextCard",
 				name = L["Save recipient lists to send the same mail to multiple people at once from the mailbox."],
 				fontSize = "medium",
 			},

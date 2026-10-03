@@ -627,10 +627,9 @@ L["MER_ADDONSKINS_DESC"] = [[Diese Abschnitt ist dazu gedacht, um das Aussehen v
 
 Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn nicht geladen wurde.]]
 L["Screen Shadow Overlay"] = "Bildschirmschatten Overlay"
+L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI look."] = "Gestaltet die Blizzard-Fenster und die unterstützten AddOns im MerathilisUI-Look."
 L["Enables/Disables a shadow overlay to darken the screen."] =
 	"Aktiviert/Deaktiviert ein Schattenoverlay um den Bildschirm abzudunkeln."
-L["Enable/Disable"] = "Aktiviere/Deaktiviere"
-L["decor."] = "Dekor"
 L["Backdrop Color"] = "Hintergrundfarbe"
 L["Character Frame"] = "Charakterfenster"
 L["Item Upgrade"] = "Gegenstandsaufwertung"
@@ -757,7 +756,6 @@ L["Animation Speed"] = "Animations Geschwindigkeit"
 L["Raid Info Frame"] = "Raid Info Fenster"
 L[" provides a Raid Info Frame that shows a list of players per role in your raid."] =
 	" bietet ein Raid Info Fenster, das eine Liste von Spielern pro Rolle in deinem Raid anzeigt."
-L["Enable the Raid Info Frame."] = "Aktiviere das Raid Info Fenster."
 L["Temporarily shows the frame even outside of a raid for easier customization."] =
 	"Zeigt das Fenster vorübergehend auch außerhalb eines Raids an, um die Anpassung zu erleichtern."
 L["Customization"] = "Anpassung"
@@ -1455,3 +1453,11 @@ L["Smaller unit frames and action buttons for 1080p and small screens."] = "Klei
 L["Type /mer presets to pick a ready-made look. Every preset becomes a new ElvUI profile, so you can switch back at any time."] = "Mit /mer presets wählst du einen fertigen Look aus. Jedes Preset wird ein neues ElvUI-Profil, du kannst also jederzeit zurückwechseln."
 L["More presets from the community wait on merathilisui.com/presets. Copy a code and paste it under Presets > Import."] = "Weitere Presets der Community findest du auf merathilisui.com/presets. Kopiere einen Code und füge ihn unter Presets > Import ein."
 L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."] = "Presets > Export macht aus deinem Setup einen Code. Lade ihn mit ein paar Screenshots auf merathilisui.com hoch, um ihn zu teilen."
+
+-- Option cards
+L["Scales the character, dressing room, inspect, talent and collection frames on their own, independent of the UI scale."] = "Skaliert das Charakter-, Anprobe-, Betrachten-, Talent- und Sammlungsfenster unabhängig von der UI-Skalierung."
+L["Shows the name, level, guild and target of the unit under your mouse cursor right next to it."] = "Zeigt Name, Stufe, Gilde und Ziel der Einheit unter deinem Mauszeiger direkt daneben an."
+L["Shows small toast notifications for new mail, invites, guild events, paragon rewards and more."] = "Zeigt kleine Benachrichtigungen für neue Post, Einladungen, Gildenereignisse, Paragon-Belohnungen und mehr."
+L["Shows its own action bar while you are in a vehicle or skyriding."] = "Zeigt eine eigene Aktionsleiste, während du in einem Fahrzeug sitzt oder Himmelsreiten nutzt."
+L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."] = "Blendet die ElvUI-Aktionsleisten 1-3 aus, solange die Fahrzeugleiste angezeigt wird."
+L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."] = "Gestaltet Blizzards eingebaute Schadensanzeige im MerathilisUI-Look."

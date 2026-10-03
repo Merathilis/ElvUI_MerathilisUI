@@ -56,35 +56,21 @@ options.general = {
 			type = "header",
 			name = L["General"],
 		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "toggle",
-			name = L["Enable"],
-			width = "full",
-			get = function(info)
-				return E.private.mui.skins[info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-		},
-		general = {
+			name = L["Skins"],
+			desc = L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI look."],
+			image = I.Media.Icons.Categories.Bill,
+		}, 0.5),
+		shadowOverlay = module.ToggleCard({
 			order = 2,
-			type = "group",
-			name = L["General"],
+			name = L["Screen Shadow Overlay"],
+			desc = L["Enables/Disables a shadow overlay to darken the screen."],
+			image = I.Media.Icons.Categories.theme,
 			disabled = function()
 				return not E.private.mui.skins.enable
 			end,
-			args = {
-				shadowOverlay = {
-					order = 1,
-					type = "toggle",
-					name = L["Screen Shadow Overlay"],
-					desc = L["Enables/Disables a shadow overlay to darken the screen."],
-				},
-			},
-		},
+		}, 0.5),
 	},
 }
 
@@ -103,26 +89,16 @@ options.addonskins = {
 		return not E.private.mui.skins.enable
 	end,
 	args = {
-		info = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "description",
-			name = F.String.MERATHILISUI(L["MER_ADDONSKINS_DESC"]),
-			fontSize = "medium",
-		},
-		space = {
-			order = 2,
-			type = "description",
-			name = "",
-		},
-		enable = {
-			order = 3,
-			type = "toggle",
-			name = L["Enable"],
-		},
-		header = {
-			order = 4,
-			type = "header",
 			name = L["AddOnSkins"],
+			desc = F.String.MERATHILISUI(L["MER_ADDONSKINS_DESC"]),
+			image = I.Media.Icons.Categories.Bill,
+		}),
+		header = {
+			order = 2,
+			type = "header",
+			name = L["AddOns"],
 		},
 	},
 }
@@ -136,21 +112,25 @@ for index, v in ipairs(DecorAddons) do
 		iconTexture = [[Interface\ICONS\INV_Misc_QuestionMark]]
 	end
 
-	if iconTexture then
-		addonString = CreateSimpleTextureMarkup(iconTexture, 14, 14) .. " " .. addonString
-	elseif iconAtlas then
-		addonString = CreateAtlasMarkup(iconAtlas, 14, 14) .. " " .. addonString
-	end
-
-	options.addonskins.args[addonOption] = {
-		order = 4 + index,
-		type = "toggle",
+	options.addonskins.args[addonOption] = module.ToggleCard({
+		order = 2 + index,
 		name = addonString,
-		desc = format("%s " .. addonString .. " %s", L["Enable/Disable"], L["decor."]),
-		disabled = function()
-			return not DoesAddOnExist(addonName)
+		desc = function()
+			if not DoesAddOnExist(addonName) then
+				return L["Not Installed"]
+			end
+
+			local version = GetAddOnMetadata(addonName, "Version")
+			return version and format("%s %s", L["Version"], version) or ""
 		end,
-	}
+		image = iconTexture,
+		arg = { lines = 1, atlas = not iconTexture and iconAtlas or nil },
+		-- An own `disabled` replaces the group's, so it repeats the group condition
+		disabled = function()
+			return not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.enable)
+				or not DoesAddOnExist(addonName)
+		end,
+	}, 0.5)
 end
 
 options.Embed = {
@@ -168,27 +148,16 @@ options.Embed = {
 		return not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.enable)
 	end,
 	args = {
-		info = {
-			order = 1,
-			type = "description",
-			name = F.String.MERATHILISUI(L["With this option you can embed your Details into an own Panel."]),
-			fontSize = "medium",
-		},
 		header = {
 			order = 2,
 			type = "header",
 			name = L["Embed Settings"],
 		},
-		spacer1 = {
-			order = 3,
-			type = "description",
-			name = " ",
-		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 4,
-			type = "toggle",
 			name = L["Enable"],
-		},
+			desc = F.String.MERATHILISUI(L["With this option you can embed your Details into an own Panel."]),
+		}),
 		details = {
 			order = 5,
 			type = "execute",
@@ -328,16 +297,10 @@ options.advancedSettings = {
 					type = "header",
 					name = L["Details Skin"],
 				},
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
-					width = "full",
-				},
-				description = {
-					order = 2,
-					type = "description",
-					name = function()
+					desc = function()
 						if not DoesAddOnExist("Details") then
 							return C.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
 						end
@@ -347,13 +310,7 @@ options.advancedSettings = {
 							L["The options below is only for the Details look, NOT the Embeded."]
 						)
 					end,
-					fontSize = "medium",
-				},
-				spacer = {
-					order = 3,
-					type = "description",
-					name = " ",
-				},
+				}),
 				gradientBars = {
 					order = 4,
 					type = "toggle",
@@ -406,11 +363,11 @@ options.advancedSettings = {
 					type = "header",
 					name = F.cOption(L["Blizzard DamageMeter"], "orange"),
 				},
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
-				},
+					desc = L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."],
+				}),
 			},
 		},
 		weeklyRewards = {

@@ -25,13 +25,12 @@ options.auras = {
 			name = L["BUFFOPTIONS_LABEL"],
 		},
 		requirements = module.RequirementsNotice(I.Requirements.Auras, 1.5),
-		enable = {
+		enable = module.ToggleCard({
 			order = 2,
-			type = "toggle",
 			name = L["Collapse & Expand Button"],
 			disabled = module.RequirementsDisabled(I.Requirements.Auras),
 			desc = L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Collapsing shrinks the buffs down to a single row, keeping only the ones about to expire visible while long-lasting buffs are hidden."],
-			width = "full",
-		},
+			image = I.Media.Icons.Categories.auras,
+		}),
 	},
 }

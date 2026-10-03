@@ -213,27 +213,25 @@ options.name = {
 				F.Event.TriggerEvent("Style.DatabaseUpdate")
 			end,
 			args = {
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
 					desc = L["Enables the stripes/gradient look on the frames"],
-				},
+					image = I.Media.Icons.Categories.Gradient,
+				}),
 			},
 		},
-		splashScreen = {
+		splashScreen = module.ToggleCard({
 			order = 3,
-			type = "toggle",
 			name = L["SplashScreen"],
 			desc = L["Enable/Disable the Splash Screen on Login."],
-		},
-		AFK = {
+		}, 0.5),
+		AFK = module.ToggleCard({
 			order = 4,
-			type = "toggle",
 			name = L["AFK"],
 			desc = L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"],
 			disabled = module.RequirementsDisabled(I.Requirements.AFK),
-		},
+		}, 0.5),
 		afkRequirements = module.RequirementsNotice(I.Requirements.AFK, 5),
 	},
 }

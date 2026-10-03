@@ -392,8 +392,7 @@ L["MER_ADDONSKINS_DESC"] = [[此部分旨在修改一些外部插件外观.
 
 请注意，如果插件控制面板中未加载插件，其中一些选项将|cff636363被禁用|r.]]
 L["Screen Shadow Overlay"] = true
-L["Enable/Disable"] = "启用/禁用"
-L["decor."] = "装饰"
+L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI look."] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
 L["Backdrop Color"] = true
 L["Character Frame"] = true
@@ -448,7 +447,6 @@ L["Animation Speed"] = true
 -- Raid Info Frame
 L["Raid Info Frame"] = true
 L[" provides a Raid Info Frame that shows a list of players per role in your raid."] = true
-L["Enable the Raid Info Frame."] = true
 L["Temporarily shows the frame even outside of a raid for easier customization."] = true
 L["Customization"] = true
 L["Set the size of the text and icons."] = true
@@ -1666,3 +1664,11 @@ L["Smaller unit frames and action buttons for 1080p and small screens."] = true
 L["Type /mer presets to pick a ready-made look. Every preset becomes a new ElvUI profile, so you can switch back at any time."] = true
 L["More presets from the community wait on merathilisui.com/presets. Copy a code and paste it under Presets > Import."] = true
 L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."] = true
+
+-- Option cards
+L["Scales the character, dressing room, inspect, talent and collection frames on their own, independent of the UI scale."] = true
+L["Shows the name, level, guild and target of the unit under your mouse cursor right next to it."] = true
+L["Shows small toast notifications for new mail, invites, guild events, paragon rewards and more."] = true
+L["Shows its own action bar while you are in a vehicle or skyriding."] = true
+L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."] = true
+L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."] = true

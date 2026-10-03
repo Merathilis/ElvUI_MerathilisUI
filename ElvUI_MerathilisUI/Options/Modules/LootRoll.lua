@@ -57,24 +57,11 @@ options.lootRoll = {
 			type = "header",
 			name = L["Loot Roll"],
 		},
-		desc = {
-			order = 1,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."],
-					fontSize = "medium",
-				},
-			},
-		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 2,
-			type = "toggle",
 			name = L["Enable"],
+			desc = L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."],
+			image = I.Media.Icons.Categories.loot_roll,
 			get = function()
 				return E.db.mui.lootRoll.enable
 			end,
@@ -83,7 +70,7 @@ options.lootRoll = {
 				E.db.mui.lootRoll.enable = value
 				E:StaticPopup_Show("CONFIG_RL")
 			end,
-		},
+		}),
 		test = {
 			order = 3,
 			type = "execute",

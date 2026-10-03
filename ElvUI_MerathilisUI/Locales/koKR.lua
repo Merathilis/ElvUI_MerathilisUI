@@ -444,10 +444,9 @@ L["MER_ADDONSKINS_DESC"] = [[이 섹션은 외부 애드온의 외형을 수정�
 
 참고: 해당 애드온이 애드온 제어 패널에서 로드되지 않은 경우, 일부 옵션은 |cff636363비활성화|r됩니다.]]
 L["Screen Shadow Overlay"] = "화면 그림자 오버레이"
+L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI look."] = true
 L["Enables/Disables a shadow overlay to darken the screen."] =
 	"화면을 어둡게 만드는 그림자 오버레이를 활성화하거나 비활성화합니다"
-L["Enable/Disable"] = "활성화/비활성화"
-L["decor."] = "장식 요소"
 L["Backdrop Color"] = "배경 색상"
 L["Character Frame"] = "캐릭터 창"
 L["Item Upgrade"] = "아이템 강화"
@@ -508,7 +507,6 @@ L["Hide ElvUI Bars"] = "ElvUI 바 숨기기"
 L["Raid Info Frame"] = "공격대 정보 창"
 L[" provides a Raid Info Frame that shows a list of players per role in your raid."] =
 	"공격대에서 역할별로 플레이어 목록을 보여주는 공격대 정보 창을 제공합니다"
-L["Enable the Raid Info Frame."] = "공격대 정보 창을 활성화합니다"
 L["Temporarily shows the frame even outside of a raid for easier customization."] =
 	"공격대 외부에서도 일시적으로 창을 표시하여 사용자 설정을 쉽게 합니다"
 L["Customization"] = "사용자 설정"
@@ -1724,3 +1722,11 @@ L["Smaller unit frames and action buttons for 1080p and small screens."] = true
 L["Type /mer presets to pick a ready-made look. Every preset becomes a new ElvUI profile, so you can switch back at any time."] = true
 L["More presets from the community wait on merathilisui.com/presets. Copy a code and paste it under Presets > Import."] = true
 L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."] = true
+
+-- Option cards
+L["Scales the character, dressing room, inspect, talent and collection frames on their own, independent of the UI scale."] = true
+L["Shows the name, level, guild and target of the unit under your mouse cursor right next to it."] = true
+L["Shows small toast notifications for new mail, invites, guild events, paragon rewards and more."] = true
+L["Shows its own action bar while you are in a vehicle or skyriding."] = true
+L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."] = true
+L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."] = true

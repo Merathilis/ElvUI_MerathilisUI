@@ -6,6 +6,8 @@ local LSM = MER:GetModule("MER_Loot")
 
 local options = module.options.misc.args
 
+local format, pairs, sort, tconcat, tinsert = format, pairs, sort, table.concat, tinsert
+
 options.general = {
 	order = 1,
 	type = "group",
@@ -23,38 +25,29 @@ options.general = {
 			type = "header",
 			name = L["General"],
 		},
-		gmotd = {
+		gmotd = module.ToggleCard({
 			order = 2,
-			type = "toggle",
 			name = GUILD_MOTD_LABEL2,
 			desc = L["Display the Guild Message of the Day in an extra window, if updated."],
-		},
-		wowheadlinks = {
+		}, 0.5),
+		wowheadlinks = module.ToggleCard({
 			order = 5,
-			type = "toggle",
 			name = L["Wowhead Links"],
 			desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
-		},
-		tradeTabs = {
+		}, 0.5),
+		tradeTabs = module.ToggleCard({
 			order = 6,
-			type = "toggle",
 			name = L["Trade Tabs"],
 			desc = L["Enable Tabs on the Profession Frames"],
-		},
-		spacer = {
-			order = 7,
-			type = "description",
-			name = " ",
-		},
-		blockRequest = {
+		}, 0.5),
+		blockRequest = module.ToggleCard({
 			order = 8,
-			type = "toggle",
 			name = L["Block Join Requests"],
-			desc = L["|nIf checked, only popout join requests from friends and guild members."],
-		},
-		petFilterTab = {
+			-- The tooltip text starts with a line break, the card body doesn't need it
+			desc = (L["|nIf checked, only popout join requests from friends and guild members."]:gsub("^|n", "")),
+		}, 0.5),
+		petFilterTab = module.ToggleCard({
 			order = 9,
-			type = "toggle",
 			name = L["Pet Filter Tab"],
 			desc = L["Adds a filter tab to the Pet Journal, which allows you to filter pets by their type."],
 			get = function()
@@ -64,13 +57,12 @@ options.general = {
 				E.db.mui.misc.petFilterTab = value
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
-		},
-		auctionEnhanced = {
+		}, 0.5),
+		auctionEnhanced = module.ToggleCard({
 			order = 10,
-			type = "toggle",
 			name = L["Auction Enhanced"],
 			desc = L["Show the tertiary stats of equipments in auction house."],
-		},
+		}, 0.5),
 		lootSpecManager = {
 			order = 40,
 			type = "group",
@@ -85,11 +77,16 @@ options.general = {
 				LSM:ProfileUpdate()
 			end,
 			args = {
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
-				},
+					desc = (
+						L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."]:gsub(
+							"^|n",
+							""
+						)
+					),
+				}),
 				togglePanel = {
 					order = 2,
 					type = "execute",
@@ -117,11 +114,11 @@ options.general = {
 				E:StaticPopup_Show("PRIVATE_RL")
 			end,
 			args = {
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
-				},
+					desc = L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."],
+				}),
 				ShowHideVisual = {
 					order = 2,
 					type = "toggle",
@@ -161,12 +158,11 @@ options.gameMenu = {
 			type = "header",
 			name = L["Game Menu"],
 		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "toggle",
 			name = L["Enable"],
 			desc = L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"],
-		},
+		}),
 		showRandomPets = {
 			order = 2,
 			type = "toggle",
@@ -295,10 +291,10 @@ options.scale = {
 			name = L["Scale"],
 		},
 		requirements = module.RequirementsNotice(I.Requirements.AdditionalScaling, 0.5),
-		enable = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "toggle",
 			name = L["Enable"],
+			desc = L["Scales the character, dressing room, inspect, talent and collection frames on their own, independent of the UI scale."],
 			get = function(_)
 				return E.db.mui.scale.enable
 			end,
@@ -310,12 +306,7 @@ options.scale = {
 					E:StaticPopup_Show("CONFIG_RL")
 				end
 			end,
-		},
-		spacer = {
-			order = 2,
-			type = "description",
-			name = " ",
-		},
+		}),
 		characterGroup = {
 			order = 3,
 			type = "group",
@@ -639,21 +630,43 @@ options.tags = {
 	name = L["Tags"],
 	args = {
 		desc = {
-			order = 0,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Add more oUF tags. You can use them on UnitFrames configuration."],
-					fontSize = "medium",
-				},
-			},
+			order = 1,
+			type = "description",
+			dialogControl = "MERTextCard",
+			fontSize = "medium",
+			name = function()
+				-- Every tag Core/Tags.lua registers under our category, with its description
+				local tags = {}
+				for tagName, info in pairs(E.TagInfo) do
+					if info.category == MER.Title then
+						tinsert(
+							tags,
+							format("%s  %s", F.String.RGB("[" .. tagName .. "]", I.Colors.Accent), info.description)
+						)
+					end
+				end
+				sort(tags)
+
+				return L["Add more oUF tags. You can use them on UnitFrames configuration."]
+					.. "\n\n"
+					.. tconcat(tags, "\n")
+			end,
+			arg = { title = L["Tags"] },
+		},
+		previewHeader = {
+			order = 2,
+			type = "header",
+			name = _G.PREVIEW,
+		},
+		preview = {
+			order = 3,
+			type = "description",
+			dialogControl = "MERTagPreview",
+			name = "",
 		},
 	},
 }
+
 options.singingSockets = {
 	order = 10,
 	type = "group",
@@ -666,25 +679,11 @@ options.singingSockets = {
 		E:StaticPopup_Show("CONFIG_RL")
 	end,
 	args = {
-		desc = {
-			order = 0,
-			type = "group",
-			inline = true,
-			name = L["Description"],
-			args = {
-				feature = {
-					order = 1,
-					type = "description",
-					name = L["Adds a Singing sockets selection tool on the Socketing Frame."],
-					fontSize = "medium",
-				},
-			},
-		},
-		enable = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "toggle",
-			name = L["Enable"],
-		},
+			name = L["Singing Sockets"],
+			desc = L["Adds a Singing sockets selection tool on the Socketing Frame."],
+		}),
 	},
 }
 
@@ -700,33 +699,12 @@ options.raidInfo = {
 		RIF:DatabaseUpdate()
 	end,
 	args = {
-		desc = {
-			order = 0,
-			type = "description",
-			name = MER.Title
-				.. L[" provides a Raid Info Frame that shows a list of players per role in your raid."]
-				.. "\n\n",
-			fontSize = "medium",
-		},
-		credits = {
+		enable = module.ToggleCard({
 			order = 1,
-			type = "group",
-			name = L["Credits"],
-			guiInline = true,
-			args = {
-				toxiui = {
-					order = 1,
-					type = "description",
-					name = "|cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r",
-				},
-			},
-		},
-		enable = {
-			order = 2,
-			type = "toggle",
 			name = L["Enable"],
-			desc = L["Enable the Raid Info Frame."],
-		},
+			desc = MER.Title .. L[" provides a Raid Info Frame that shows a list of players per role in your raid."],
+		}),
+		credits = module.CreditsCard(2, "|cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r"),
 		toggle = {
 			order = 3,
 			type = "execute",

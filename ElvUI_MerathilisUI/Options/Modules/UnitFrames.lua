@@ -98,23 +98,16 @@ options.unitframes = {
 			type = "group",
 			name = L["General"],
 			args = {
-				raidIcons = {
+				raidIcons = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Raid Icon"],
 					desc = L["Change the default raid icons."],
-				},
-				highlight = {
+				}, 0.5),
+				highlight = module.ToggleCard({
 					order = 2,
-					type = "toggle",
 					name = L["Highlight"],
 					desc = L["Adds an own highlight to the Unitframes"],
-				},
-				spacer = {
-					order = 10,
-					type = "description",
-					name = "",
-				},
+				}, 0.5),
 				interruptReady = module.InterruptReadyOptions(
 					12,
 					function()

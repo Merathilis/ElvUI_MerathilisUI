@@ -34,30 +34,30 @@ options.core = {
 			type = "header",
 			name = L["General"],
 		},
-		loginMessage = {
+		loginMessage = module.ToggleCard({
 			order = 1,
-			type = "toggle",
 			name = L["Login Message"],
 			desc = L["The message will be shown in chat when you login."],
+			image = I.Media.Icons.Categories.chat,
 			get = function()
 				return E.global.mui.core.loginMsg
 			end,
 			set = function(_, value)
 				E.global.mui.core.loginMsg = value
 			end,
-		},
-		changlogPopup = {
+		}, 0.5),
+		changlogPopup = module.ToggleCard({
 			order = 2,
-			type = "toggle",
 			name = L["Changelog Popup"],
 			desc = L["Show the changelog popup rather than chat message after every update."],
-			get = function(info)
+			image = I.Media.Icons.Categories.Changelog,
+			get = function()
 				return E.global.mui.core.changlogPopup
 			end,
-			set = function(info, value)
+			set = function(_, value)
 				E.global.mui.core.changlogPopup = value
 			end,
-		},
+		}, 0.5),
 	},
 }
 
@@ -71,16 +71,10 @@ options.reset = {
 			type = "header",
 			name = L["Reset"],
 		},
-		desc = {
-			order = 1,
-			type = "description",
-			name = F.String.MERATHILISUI(L["This section will help reset specfic settings back to default."]),
-		},
-		spacer = {
-			order = 2,
-			type = "description",
-			name = " ",
-		},
+		desc = module.TextCard(
+			1,
+			F.String.MERATHILISUI(L["This section will help reset specfic settings back to default."])
+		),
 		general = {
 			order = 5,
 			type = "execute",
@@ -442,20 +436,7 @@ do
 		type = "group",
 		name = L["Profiles"],
 		args = {
-			desc = {
-				order = 1,
-				type = "group",
-				inline = true,
-				name = L["Description"],
-				args = {
-					feature = {
-						order = 1,
-						type = "description",
-						name = format(L["Import and export your %s settings."], MER.Title),
-						fontSize = "medium",
-					},
-				},
-			},
+			desc = module.TextCard(1, format(L["Import and export your %s settings."], MER.Title)),
 			textArea = {
 				order = 2,
 				type = "group",

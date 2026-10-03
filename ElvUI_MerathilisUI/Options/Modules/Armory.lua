@@ -37,25 +37,13 @@ options.armory = {
 			type = "header",
 			name = L["Armory"],
 		},
-		credits = {
+		enable = module.ToggleCard({
 			order = 2,
-			type = "group",
-			name = L["Credits"],
-			guiInline = true,
-			args = {
-				tukui = {
-					order = 1,
-					type = "description",
-					name = "|cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r",
-				},
-			},
-		},
-		enable = {
-			order = 3,
-			type = "toggle",
 			name = L["Enable"],
 			desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
-		},
+			image = I.Media.Icons.Categories.armory,
+		}),
+		credits = module.CreditsCard(3, "|cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r"),
 		general = {
 			order = 4,
 			type = "group",

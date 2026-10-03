@@ -54,28 +54,17 @@ options.vehicleBar = {
 			name = L["VehicleBar"],
 		},
 		requirements = module.RequirementsNotice(I.Requirements.VehicleBar, 1.5),
-		credits = {
-			order = 2,
-			type = "group",
-			name = L["Credits"],
-			guiInline = true,
-			args = {
-				toxiui = {
-					order = 1,
-					type = "description",
-					name = "|cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r",
-				},
-			},
-		},
+		credits = module.CreditsCard(2, "|cff1784d1ElvUI|r |cffffffffToxi|r|cff18a8ffUI|r"),
 		general = {
 			order = 3,
 			type = "group",
 			name = L["General"],
 			args = {
-				enable = {
+				enable = module.ToggleCard({
 					order = 1,
-					type = "toggle",
 					name = L["Enable"],
+					desc = L["Shows its own action bar while you are in a vehicle or skyriding."],
+					image = I.Media.Icons.Categories.vehicle,
 					get = function()
 						return E.db.mui.vehicleBar.enable
 					end,
@@ -83,11 +72,11 @@ options.vehicleBar = {
 						E.db.mui.vehicleBar.enable = value
 						Update()
 					end,
-				},
-				elvuiBars = {
+				}),
+				elvuiBars = module.ToggleCard({
 					order = 2,
-					type = "toggle",
 					name = L["Hide ElvUI Bars"],
+					desc = L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."],
 					disabled = ModuleDisabled,
 					get = function()
 						return E.db.mui.vehicleBar.hideElvUIBars
@@ -97,7 +86,7 @@ options.vehicleBar = {
 						E.db.mui.vehicleBar.hideElvUIBars = value
 						E:StaticPopup_Show("CONFIG_RL")
 					end,
-				},
+				}),
 			},
 		},
 		buttonGroup = {
