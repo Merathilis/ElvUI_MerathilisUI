@@ -128,7 +128,7 @@ end
 
 options.cursor = {
 	type = "group",
-	name = module:AddCategorieIcon(L["Cursor"], "Tool"),
+	name = module:AddCategorieIcon(L["Cursor"], "cursor"),
 	args = {
 		header = {
 			order = 0,

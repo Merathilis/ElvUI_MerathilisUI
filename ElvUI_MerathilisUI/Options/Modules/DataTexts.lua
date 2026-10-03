@@ -6,8 +6,6 @@ local GetMountInfoByID = C_MountJournal.GetMountInfoByID
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("datatexts")
-
 -- Mounts with a repair vendor, offered for the right click on the datatext
 local REPAIR_MOUNTS = {
 	2237, -- Grizzly Hills Packmaster
@@ -65,7 +63,7 @@ local criticalColor = ThresholdColor("b")
 
 options.datatexts = {
 	type = "group",
-	name = module:AddCategorieIcon(L["DataTexts"], "Tool"),
+	name = module:AddCategorieIcon(L["DataTexts"], "datatexts"),
 	get = function(info)
 		return DB()[info[#info]]
 	end,

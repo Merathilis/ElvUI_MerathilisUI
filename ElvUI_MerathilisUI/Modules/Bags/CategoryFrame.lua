@@ -900,7 +900,8 @@ local function Slot_UpdateCursor(self)
 end
 
 local function Slot_OnEnter(self)
-	if self.ownerFrame then
+	-- The window holds the secure slots, so its level is protected in combat too
+	if self.ownerFrame and not InCombatLockdown() then
 		self.ownerFrame:SetFrameLevel(self.ownerFrame:GetFrameLevel())
 	end
 
@@ -1520,6 +1521,7 @@ local function UpdateSlotVisual(btn, entry)
 	btn:SetID(entry.slotID)
 	btn.itemID = entry.itemID
 	btn.itemLink = entry.itemLink
+	btn.isMerged = entry.isMerged
 
 	SetItemButtonTexture(btn, entry.icon)
 
@@ -1662,6 +1664,51 @@ local function UpdateSlotVisual(btn, entry)
 
 	UpdateSlotCooldown(btn, entry.bagID, entry.slotID)
 	ApplySlotDim(btn)
+end
+
+-- The slots are secure buttons (see UpdateSlotVisual): in combat they can't be
+-- shown, hidden or moved, so a rebuild waits for the end of combat. Until then
+-- the slots on screen stay where they are and only follow their stack count
+-- and cooldown; a used up stack is shown as an empty slot. ItemButtonMixin's
+-- SetAlpha only covers icon and count, our own texts and border are cleared.
+local function UpdateShownSlotsInPlace()
+	for _, pool in ipairs(slotPools) do
+		for _, btn in ipairs(pool) do
+			if btn:IsShown() and btn.BagID and btn.SlotID then
+				local info = C_Container_GetContainerItemInfo(btn.BagID, btn.SlotID)
+				if info and info.itemID == btn.itemID then
+					if not btn.isMerged then
+						SetItemButtonCount(btn, info.stackCount)
+					end
+					UpdateSlotCooldown(btn, btn.BagID, btn.SlotID)
+				else
+					btn:SetAlpha(0)
+					btn.itemLevel:SetText("")
+					btn.bindType:SetText("")
+					btn:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				end
+			end
+		end
+	end
+end
+
+function module:DeferRefreshForCombat()
+	UpdateShownSlotsInPlace()
+
+	if not module.refreshAfterCombat then
+		module.refreshAfterCombat = true
+		module:RegisterEvent("PLAYER_REGEN_ENABLED", "OnCombatRefresh")
+	end
+end
+
+function module:OnCombatRefresh()
+	module:UnregisterEvent("PLAYER_REGEN_ENABLED")
+	module.refreshAfterCombat = nil
+
+	module:RefreshCategoryFrame()
+	if module.RefreshBankCategoryFrame then
+		module:RefreshBankCategoryFrame()
+	end
 end
 
 -------------------------------------------------------------------------------
@@ -3840,7 +3887,7 @@ end
 local function GetSectionOrderKey(section)
 	if
 		section.isBagSection
-		or section.isRecent
+		or section.key == module.RecentCategory.key
 		or section.subHeaders
 		or section.key == module.AllItemsCategory.key
 	then
@@ -4070,7 +4117,7 @@ local function RenderCategorySections(ctx, sections)
 		-- also close out each expansion/equipment-set sub-header's own row
 		-- below, not just the section's very last one.
 		local assignHandler, placeholderTooltip
-		if section.isPinned then
+		if section.key == module.PinnedCategory.key then
 			assignHandler = function(itemID)
 				if not module:IsItemPinned(itemID) then
 					module:TogglePinned(itemID)
@@ -4078,7 +4125,14 @@ local function RenderCategorySections(ctx, sections)
 				ctx.refresh()
 			end
 			placeholderTooltip = L["Drag an item here to pin it."]
-		elseif not (section.isRecent or section.isGroup or section.isBagSection or section.key == module.AllItemsCategory.key) then
+		elseif
+			not (
+				section.key == module.RecentCategory.key
+				or section.isGroup
+				or section.isBagSection
+				or section.key == module.AllItemsCategory.key
+			)
+		then
 			local categoryKey = section.key
 			assignHandler = function(itemID)
 				module:AssignItemToCategory(itemID, categoryKey)
@@ -4240,6 +4294,11 @@ module.RenderCategorySections = RenderCategorySections
 
 function module:RefreshCategoryFrame()
 	if not module.frame or not module.frame:IsShown() then
+		return
+	end
+
+	if InCombatLockdown() then
+		module:DeferRefreshForCombat()
 		return
 	end
 

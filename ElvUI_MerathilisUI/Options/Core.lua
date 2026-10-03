@@ -46,6 +46,14 @@ module.options = {
 		icon = I.Media.Icons.Categories.Bill,
 		args = {},
 	},
+	presets = {
+		order = 104.5,
+		name = L["Presets"],
+		icon = I.Media.Icons.Categories.presets,
+		args = {},
+		-- A preset can replace the installer, so it is reachable on a fresh profile too
+		alwaysShown = true,
+	},
 	profiles = {
 		order = 105,
 		name = L["Profiles"],
@@ -242,10 +250,7 @@ function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled
 			desc = {
 				order = 1,
 				type = "description",
-				dialogControl = "MERNewFeatureLabel",
-				name = F.NewFeatureTrailingText(
-					L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."]
-				),
+				name = L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."],
 			},
 			preview = {
 				order = 1.5,
@@ -343,10 +348,7 @@ function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, e
 			desc = {
 				order = 1,
 				type = "description",
-				dialogControl = "MERNewFeatureLabel",
-				name = F.NewFeatureTrailingText(
-					L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."]
-				),
+				name = L["A line on the health bar at the given health percent, so you see at a glance when a unit gets into the range of your execute abilities."],
 			},
 			enable = {
 				order = 2,
@@ -596,7 +598,8 @@ function module:OptionsCallback()
 			logo = {
 				order = 2,
 				type = "description",
-				dialogControl = "MERNewFeatureLabel",
+				-- Logo + description with the "What's New" card next to it
+				dialogControl = "MERHomeHeader",
 				name = function()
 					local text
 					if not F.IsMERProfile() then
@@ -639,9 +642,6 @@ function module:OptionsCallback()
 					E:ToggleOptions()
 					MISC.StatusReportToggled = true
 				end,
-				disabled = function()
-					return not F.IsMERProfile()
-				end,
 			},
 			discordButton = {
 				order = 5,
@@ -678,7 +678,7 @@ function module:OptionsCallback()
 			get = info.get,
 			set = info.set,
 			hidden = function() -- Only the start page is shown until the installer ran
-				return not F.IsMERProfile()
+				return not info.alwaysShown and not F.IsMERProfile()
 			end,
 		}
 	end

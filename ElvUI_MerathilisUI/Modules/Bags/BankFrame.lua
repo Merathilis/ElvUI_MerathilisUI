@@ -835,6 +835,12 @@ function module:RefreshBankCategoryFrame()
 		return
 	end
 
+	-- Secure slot buttons, see module:DeferRefreshForCombat
+	if InCombatLockdown() then
+		module:DeferRefreshForCombat()
+		return
+	end
+
 	local db = module.db
 	local f = module.bankFrame
 	module.TrimRecentItems()

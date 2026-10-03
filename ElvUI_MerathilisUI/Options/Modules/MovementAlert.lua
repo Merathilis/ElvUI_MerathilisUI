@@ -346,7 +346,7 @@ local gatewayGet, gatewaySet = Accessors("gateway")
 
 options.movementAlert = {
 	type = "group",
-	name = module:AddCategorieIcon(L["Movement Alert"], "Tool"),
+	name = module:AddCategorieIcon(L["Movement Alert"], "movement_alert"),
 	childGroups = "tab",
 	get = mainGet,
 	set = mainSet,

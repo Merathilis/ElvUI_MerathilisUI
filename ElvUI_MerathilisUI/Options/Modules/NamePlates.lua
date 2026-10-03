@@ -8,8 +8,6 @@ local pairs, tonumber, tsort = pairs, tonumber, table.sort
 
 local options = module.options.modules.args
 
-F.MarkTabAsNew("nameplates")
-
 -- Own disabled replaces the group's, so the children repeat the requirement
 local function FactionIndicatorDisabled()
 	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.factionIndicator.enable
@@ -189,8 +187,7 @@ options.nameplates = {
 						desc = {
 							order = 1,
 							type = "description",
-							dialogControl = "MERNewFeatureLabel",
-							name = F.NewFeatureTrailingText(L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."]),
+							name = L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."],
 						},
 						enable = {
 							order = 2,
@@ -277,8 +274,7 @@ options.nameplates = {
 						desc = {
 							order = 1,
 							type = "description",
-							dialogControl = "MERNewFeatureLabel",
-							name = F.NewFeatureTrailingText(L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."]),
+							name = L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."],
 						},
 						enable = {
 							order = 2,
@@ -347,8 +343,7 @@ options.nameplates = {
 						desc = {
 							order = 1,
 							type = "description",
-							dialogControl = "MERNewFeatureLabel",
-							name = F.NewFeatureTrailingText(L["Lays a texture over the health bar of your focus target's nameplate."]),
+							name = L["Lays a texture over the health bar of your focus target's nameplate."],
 						},
 						preview = {
 							order = 1.5,
@@ -411,8 +406,7 @@ options.nameplates = {
 						desc = {
 							order = 1,
 							type = "description",
-							dialogControl = "MERNewFeatureLabel",
-							name = F.NewFeatureTrailingText(L["Tints the health bar of a nameplate with a raid marker in the color of that marker."]),
+							name = L["Tints the health bar of a nameplate with a raid marker in the color of that marker."],
 						},
 						preview = {
 							order = 1.5,
@@ -457,8 +451,7 @@ options.nameplates = {
 						desc = {
 							order = 1,
 							type = "description",
-							dialogControl = "MERNewFeatureLabel",
-							name = F.NewFeatureTrailingText(L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."]),
+							name = L["During a Mythic+ keystone run, shows next to the health bar how much an enemy contributes to the Enemy Forces requirement."],
 						},
 						preview = {
 							order = 1.5,
@@ -559,8 +552,7 @@ options.nameplates = {
 						desc = {
 							order = 1,
 							type = "description",
-							dialogControl = "MERNewFeatureLabel",
-							name = F.NewFeatureTrailingText(L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."]),
+							name = L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."],
 						},
 						preview = {
 							order = 1.5,

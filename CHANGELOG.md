@@ -1,60 +1,25 @@
 ### Changes
 
--   [Fix]: AFK: Leaving the AFK screen stops its logout countdown again, before every AFK left a timer running until logout.
--   [Fix]: Armory: Demon Hunters get their class symbol in the character frame; the icon file was missing.
--   [Fix]: Bags: Switching to a profile with the categorized bags turned off (or on) applies right away, before the bags stayed as they were until a reload.
--   [Fix]: Bags: The equipment set icon in the bags follows a profile switch right away.
--   [Fix]: Buff Reminder: Turning the Buff Reminder on in the options or by a profile switch works right away, even when it was turned off at login.
--   [Fix]: Cursor: The GCD and cast rings work again after turning the Cursor module off and on or switching profiles, before they stayed empty until a reload.
--   [Fix]: DataTexts: The Durability/Ilevel datatext follows a changed value color right away and updates the item level after a gear change.
--   [Fix]: Item Level: Turning the item level on, also by a profile switch, works without a reload.
--   [Fix]: Loot Spec Manager: Turning it off now really stops the automatic loot spec changes and hides the Encounter Journal button, without a reload. A profile switch uses the settings of the new profile.
--   [Fix]: Mail: Open Selected no longer opens the wrong mails once a mail without text is removed after it was emptied.
--   [Fix]: Name Hover: Hovering a quest mob no longer throws a Lua error ("secret value") when its tooltip lines are restricted, e.g. in Mythic+.
--   [Fix]: Name Hover: The Mythic+ forces text no longer gets cut off with the Number or Both format.
--   [Fix]: NamePlates: Fixed the castbar spell name being cut off when ElvUI's "Name Length" was set
--   [Fix]: Notification: The "bags are full" toast no longer repeats on every bag change and follows its option without a reload.
--   [Fix]: Notification: Closing a toast with its close button frees the slot right away, so queued toasts show up.
--   [Fix]: Notification: Fixed the map link in the chat message for rares on the minimap.
--   [Fix]: Notification: The durability warning is no longer shown while notifications are disabled.
--   [Fix]: Profiles: The ls_Toasts, Capping and TomTom profiles are now actually applied and activated.
--   [Fix]: Profiles: The Details profile is now used on all characters as intended.
--   [Fix]: Profiles: The mMediaTag profile no longer wipes the other portrait settings.
--   [Fix]: Profiles: Profile buttons are only clickable while the addon is enabled.
--   [Fix]: Raid Info Frame: Turning it on in the options no longer throws Lua errors from the size and spacing options, and turning it on or off, also by a profile switch, works without a reload. Hide In Combat applies right away.
--   [Fix]: Skins: The BugSack skin no longer throws a Lua error with the latest WindTools, and the version line in the BugSack window is no longer added again on every open.
--   [Fix]: Skins: The Cooldown Manager is no longer skinned twice; MerathilisUI only adds its bar style and the reversed cooldown swipe on top of ElvUI's skin.
--   [Fix]: Skins: Details gradient names and bars no longer throw Lua errors with secret names in combat.
--   [Fix]: Skins: The BigWigs queue timer and keystone window, Paragon Reputation and Mount Route Planner are no longer skinned twice; WindTools handles them.
--   [Fix]: Status Report: Opening it no longer throws a Lua error when Details is enabled but not loaded.
--   [Fix]: Style: Turning the style off and on again (or switching to a profile that has it enabled) brings the look back without a reload.
--   [Fix]: Theme: Switching between two profiles that both use the gradient theme now applies the new profile's colors and textures.
--   [Fix]: Theme: Changing a gradient color in the options repaints group and raid frames with their current unit.
--   [Fix]: Tooltip: The achievement comparison no longer errors on restricted links.
--   [Fix]: Trade Tabs: Opening a profession or the trade window in combat no longer causes an "action blocked" message.
--   [Fix]: UnitFrames: The mouseover highlight is only created once per frame; it used to pile up textures and hooks on every frame update.
--   [Fix]: UnitFrames: The custom raid icons also apply when ElvUI's raid icon gets enabled later.
--   [Fix]: Vehicle Bar: Fixed the bar not switching to the vehicle or override actions (Lua error in the page handler since 7.37).
--   [Fix]: Vehicle Bar: Settings changes in combat are applied after combat instead of being blocked.
--   [Fix]: Wowhead Links: The link popup no longer clashes with other UI packs, and Ctrl+Click on achievements also works when the achievement window was loaded early.
--   [New]: DataTexts: The options of the Durability/Ilevel datatext are back: icons, white text and icon, the repair mount for the right click and colored durability thresholds.
--   [New]: Game Menu: The Great Vault progress, a clock with the date and the time until the weekly reset, and a staggered fade in of the info blocks.
--   [New]: NamePlates: Animated target arrows next to your target's nameplate (slide in, bounce or both, in class color by default). They replace the arrows of ElvUI's target indicator while enabled.
--   [New]: NamePlates: The mouseover highlight on the health bar can be restyled with a texture, class or custom color and a short fade in.
--   [New]: NamePlates: Execute Line: a line on the health bar of hostile nameplates at a health percent of your choice (20% by default), so you see when a unit gets into your execute range. Comes with a soft glow, small markers and a tinted execute range, each can be turned off, plus an optional pulse. Off by default.
--   [New]: NamePlates: Interrupt Ready on the castbars of hostile nameplates: while your interrupt is on cooldown the bar gets its own color, and the part of the cast after your interrupt is ready again is marked with a second color and a thin line.
--   [New]: NamePlates: Cast on You: the castbar of a hostile nameplate gets a colored border while its cast targets you, optionally the bar itself is colored too.
--   [New]: NamePlates: Focus Highlight: a texture over the health bar of your focus target's nameplate, with its own texture, color and opacity.
--   [New]: NamePlates: Raid Marker Color: the health bar of a nameplate with a raid marker is tinted in the color of that marker. Off by default.
--   [New]: NamePlates: Enemy Forces: during a Mythic+ run, the nameplate shows how much an enemy contributes to the Enemy Forces, as percent, number or both.
--   [New]: Skins: New skin for Permoks Account Manager: window borders, the category and page buttons and the close button in the MerathilisUI style.
--   [New]: UnitFrames: Execute Line on the health bar of the target, focus, boss and arena frames, the same line as on the nameplates, also off by default.
--   [New]: UnitFrames: Interrupt Ready on the castbars of the target, focus, boss and arena frames, the same indicator as on the nameplates.
--   [Improvement]: Core: Errors in features that load with a Blizzard addon (e.g. the Auction House or the Encounter Journal) are now reported instead of only being logged at debug level.
--   [Improvement]: Core: The addon is about 39 MB smaller, unused portraits, emotes, icons and textures were removed.
--   [Improvement]: Cursor: The GCD and cast rings now also show in Mythic+ and boss encounters, where cooldown and cast timings are restricted (the spark stays hidden there).
--   [Improvement]: Game Menu: The random NPC next to the menu is shown at the same size for every model and no longer gets cut off; seven new pets from patch 12.1 joined the rotation.
--   [Improvement]: Minimap Buttons: The Great Vault button now pulses like a highlighted world map pin while a reward is waiting, and the Mail and Crafting Orders buttons do the same while mail or a personal order is waiting.
--   [Improvement]: Options: The main categories in the options sidebar now have the same look as the module entries.
--   [Improvement]: Panels: The class color of the style panels now follows custom class colors.
--   [Improvement]: Theme: The castbar colors now include Interrupt on Cooldown and Interrupt Ready Soon, used by the new Interrupt Ready indicator and following the gradient mode.
+-   [Fix]: Auras: Collapsing or expanding the buffs with the collapse button no longer resets the Vertical and Horizontal Spacing set in ElvUI.
+-   [Fix]: Bags: Using or looting items in combat while the categorized bags are open no longer causes blocked actions; the counts keep updating and the bags rearrange after combat.
+-   [Fix]: Bags: Dragging an item onto the + slot of Pinned Items pins it again instead of breaking its category assignment, and Recent Items no longer offers + slots or a manual item order.
+-   [Fix]: Installer: With the MerathilisUI resting indicator turned off, the layout now places ElvUI's resting icon at its own spot on the player frame.
+-   [Fix]: Resting Indicator: The animation no longer keeps running when ElvUI's resting icon is turned off, and it also shows during ElvUI's test display.
+-   [Fix]: Status Report: Opens without a MerathilisUI profile as well, detects the Mac client again and lists BugGrabber correctly.
+-   [Fix]: Status Report: The pixel perfect UI scale no longer shows up as a warning because of rounding, and the scale values are shortened to three decimals.
+-   [New]: HoverCast: New click-casting module (Modules > HoverCast) as a replacement for Clique: global and per-spec bindings for spells, macros and items on the ElvUI unit frames, optional mouseover casting on nameplates and units in the world, presets for dispels, externals, trinkets and a dynamic resurrect, Quickbind, out-of-combat and content (Solo/Party/Raid/PvP) filters and Friendly/Enemy splits on one key.
+-   [New]: Minimap Buttons: New Addon Buttons button on the main bar: it collects the minimap buttons of your addons (LibDBIcon and others) into a grid with its own size, row and ignore settings. Stays off while the WindTools or ProjectAzilroka collector is enabled, the options offer a switch to turn off the WindTools one.
+-   [New]: Options: The start page shows the newest changes, rotating tips and a status line next to the logo.
+-   [New]: Presets: New Presets page (also /mer presets): apply a complete setup with a code from merathilisui.com/presets, pick one of the official presets (Gradient, Dark, Healer, Minimal, Compact) or export your own setup as a code to share it. A preset always becomes a new ElvUI profile, and the private settings of the character are backed up first.
+-   [Improvement]: Game Menu: The Show Clock and Fade In Content options apply without a reload.
+-   [Improvement]: Game Menu: The Mythic+ options are no longer marked as work in progress.
+-   [Improvement]: Installer: Reworked with a new look, a check mark for every applied step and fewer pages: the whole layout is one step with a Gradient or Dark preview, all AddOn profiles share one page and the last page sums up what was applied. Import Existing takes over the MerathilisUI profile and settings of another character, Skip no longer marks the profile as installed.
+-   [Improvement]: Location Panel: Right-clicking the panel links your current location as a map pin in chat. A map pin you placed yourself stays in place.
+-   [Improvement]: Minimap Buttons: The Tracking button is enabled by default.
+-   [Improvement]: Options: Cursor, DataTexts, Loot Roll, Movement Alert and Tracker have their own category icons.
+-   [Improvement]: Options: The Information page shows links, donations and Tukui as clickable tiles with logos, plus cards for bug reports, supporters and credits.
+-   [Improvement]: Profiles: The mMediaTag & Tools profile no longer changes the color and texture of the target nameplate.
+-   [Improvement]: Profiles: The AddOn profiles in the options are shown as tiles with the AddOn icon and whether the AddOn is enabled.
+-   [Improvement]: Resting Indicator: New Color (class gradient, class color, custom color or Blizzard's original look) and Animation Speed options. All resting indicator options apply without a reload.
+-   [Improvement]: Status Report: Reworked with a diagnostics section (Lua errors this session, MerathilisUI log, debug channels, debug mode), blocked features with their reason, tips on hover and clickable switches for Lua errors, taint log, log level and CPU profiling. Copy Report creates one text for bug reports with all loaded addons and the log, also available via /muidev status.
+-   [Improvement]: Style: Turning the MerathilisUI style on or off no longer asks for a reload, it applies right away.

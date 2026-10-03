@@ -144,7 +144,6 @@ options.general = {
 	},
 }
 
-F.MarkTabAsNew("gameMenu")
 options.gameMenu = {
 	order = 2,
 	type = "group",
@@ -177,8 +176,12 @@ options.gameMenu = {
 		animations = {
 			order = 2.5,
 			type = "toggle",
-			name = F.NewFeatureText(L["Fade In Content"]),
+			name = L["Fade In Content"],
 			desc = L["Fades the info blocks in one after the other when the game menu opens."],
+			-- Read every time the menu opens, no reload needed
+			set = function(info, value)
+				E.db.mui.gameMenu[info[#info]] = value
+			end,
 			hidden = function()
 				return not E.db.mui.gameMenu.enable
 			end,
@@ -223,19 +226,23 @@ options.gameMenu = {
 				showGreatVault = {
 					order = 2.1,
 					type = "toggle",
-					name = F.NewFeatureText(L["Show Great Vault"]),
+					name = L["Show Great Vault"],
 					desc = L["Shows your Great Vault progress for raids, dungeons and the world."],
 				},
 				showClock = {
 					order = 2.2,
 					type = "toggle",
-					name = F.NewFeatureText(L["Show Clock"]),
+					name = L["Show Clock"],
 					desc = L["Shows the time, the date and the time until the weekly reset."],
+					-- The clock is always built, it is only shown or hidden when the menu opens
+					set = function(info, value)
+						E.db.mui.gameMenu[info[#info]] = value
+					end,
 				},
 				mythic = {
 					order = 3,
 					type = "group",
-					name = "|cffFF0000WIP|r" .. " " .. L["Mythic+"],
+					name = L["Mythic+"],
 					args = {
 						showMythicKey = {
 							order = 1,

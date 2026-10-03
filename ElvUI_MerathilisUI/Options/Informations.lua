@@ -8,8 +8,6 @@ local format, gsub, strjoin, strsplit = string.format, string.gsub, strjoin, str
 local ipairs, mod, tonumber, tostring, unpack = ipairs, mod, tonumber, tostring, unpack
 local tconcat, tsort = table.concat, table.sort
 
-local newSignIgnored = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
-
 local function SortList(a, b)
 	return E:StripString(a) < E:StripString(b)
 end
@@ -49,184 +47,6 @@ local PATRONS = {
 tsort(PATRONS, SortList)
 local PATRONS_STRING = tconcat(PATRONS, ", ")
 
-options.name = {
-	order = 1,
-	type = "group",
-	name = module:AddCategorieIcon(L["Information"], "info"),
-	args = {
-		header = {
-			order = 0,
-			type = "header",
-			name = L["Information"],
-		},
-		support = {
-			order = 1,
-			type = "group",
-			name = L["Support & Downloads"],
-			guiInline = true,
-			args = {
-				curse = {
-					order = 1,
-					type = "execute",
-					name = L["CurseForge"],
-					func = function()
-						E:StaticPopup_Show(
-							"MERATHILISUI_EditBox",
-							nil,
-							nil,
-							"https://www.curseforge.com/wow/addons/merathilis-ui"
-						)
-					end,
-				},
-				development = {
-					order = 2,
-					type = "execute",
-					name = L["Development Version"],
-					desc = L["Here you can download the latest development version."],
-					func = function()
-						E:StaticPopup_Show(
-							"MERATHILISUI_EditBox",
-							nil,
-							nil,
-							"https://github.com/Merathilis/ElvUI_MerathilisUI/archive/refs/heads/development.zip"
-						)
-					end,
-				},
-				spacer = {
-					order = 3,
-					type = "description",
-					name = " ",
-				},
-				website = {
-					order = 4,
-					type = "execute",
-					name = L["Website"],
-					image = I.Media.Icons.Home,
-					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.WebsiteURL)
-					end,
-				},
-				discord = {
-					order = 5,
-					type = "execute",
-					name = L["MerathilisUI Discord"],
-					image = I.Media.Icons.Discord,
-					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.DiscordURL)
-					end,
-				},
-				git = {
-					order = 6,
-					type = "execute",
-					name = L["Github"],
-					image = I.Media.Icons.Github,
-					func = function()
-						E:StaticPopup_Show(
-							"MERATHILISUI_EditBox",
-							nil,
-							nil,
-							"https://github.com/Merathilis/ElvUI_MerathilisUI/issues"
-						)
-					end,
-				},
-				spacer1 = {
-					order = 7,
-					type = "description",
-					name = " ",
-				},
-				debugModeTip = {
-					order = 8,
-					type = "description",
-					fontSize = "medium",
-					name = newSignIgnored
-						.. " |cffe74c3c"
-						.. format(
-							L["Before you submit a bug, please enable debug mode with %s and test it one more time."],
-							"|cff00ff00/muidebug|r"
-						)
-						.. "|r",
-					width = "full",
-				},
-				logTip = {
-					order = 9,
-					type = "description",
-					fontSize = "medium",
-					name = newSignIgnored
-						.. " "
-						.. format(
-							L["If you get an error, open %s and paste its content into your report."],
-							"|cff00ff00/muidev log|r"
-						),
-					width = "full",
-				},
-			},
-		},
-		tukui = {
-			order = 2,
-			type = "group",
-			name = L["Tukui"],
-			guiInline = true,
-			args = {
-				tukui = {
-					order = 1,
-					type = "execute",
-					name = L["Tukui"],
-					image = I.General.MediaPath .. "Textures\\Tukui",
-					imageCoords = { 5 / 64, 59 / 64, 5 / 64, 59 / 64 },
-					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://tukui.org/")
-					end,
-				},
-				discord = {
-					order = 2,
-					type = "execute",
-					name = L["Tukui Discord Server"],
-					image = I.Media.Icons.Discord,
-					func = function()
-						E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, "https://discord.gg/xFWcfgE")
-					end,
-				},
-			},
-		},
-		testing = {
-			order = 3,
-			type = "group",
-			name = L["Testing & Inspiration"],
-			guiInline = true,
-			args = {
-				tukui = {
-					order = 1,
-					type = "description",
-					name = format(
-						"|cffffffff%s|r",
-						"Benik, Darth Predator, Rockxana, |TInterface/AddOns/ElvUI_MerathilisUI/Media/Textures/Tukui:15:15:0:0:64:64:5:59:5:59|t The Tukui Community"
-					),
-				},
-			},
-		},
-		donors = {
-			order = 4,
-			type = "group",
-			name = L["Donations"],
-			guiInline = true,
-			args = {
-				patron = {
-					order = 1,
-					type = "description",
-					fontSize = "medium",
-					name = format("|cffff005aPatrons: |r|cffffffff%s\n|r", PATRONS_STRING),
-				},
-				paypal = {
-					order = 2,
-					type = "description",
-					fontSize = "medium",
-					name = format("|cff009fffPayPal: |r|cffffffff%s\n|r", DONATOR_STRING),
-				},
-			},
-		},
-	},
-}
-
 local DEVELOPER = {
 	"|cff0070DEAzilroka|r",
 	"|cffd12727Blazeflack|r",
@@ -263,63 +83,236 @@ local DEVELOPER = {
 	"mcc1",
 }
 
-local nameString = strjoin(", ", unpack(DEVELOPER))
-
-options.name.args.coding = {
-	order = 6,
-	type = "group",
-	name = L["Coding"],
-	guiInline = true,
-	args = {
-		credits = {
-			order = 1,
-			type = "description",
-			name = format(
-				L["Many thanks to these wonderful persons for letting me use some of their code: %s."],
-				nameString
-			),
-		},
-	},
+local URL = {
+	website = MER.WebsiteURL,
+	discord = MER.DiscordURL,
+	issues = "https://github.com/Merathilis/ElvUI_MerathilisUI/issues",
+	curseforge = "https://www.curseforge.com/wow/addons/merathilis-ui",
+	wago = "https://addons.wago.io/addons/elvui-merathilisui",
+	development = "https://github.com/Merathilis/ElvUI_MerathilisUI/archive/refs/heads/development.zip",
+	patreon = "https://www.patreon.com/merathilisui",
+	sponsors = "https://github.com/sponsors/Merathilis",
+	kofi = "https://ko-fi.com/C0C2CR58G",
+	paypal = "https://paypal.me/merathilis",
+	tukui = "https://tukui.org/",
+	tukuiDiscord = "https://discord.gg/xFWcfgE",
 }
 
-options.name.args.localization = {
-	order = 7,
-	type = "group",
-	name = L["Localization"],
-	guiInline = true,
-	args = {},
+-- Brand colors, used for the hover border of the tiles and the supporter labels
+local COLOR = {
+	website = "ff7d0a",
+	discord = "5865f2",
+	curseforge = "f16537",
+	patreon = "ff424d",
+	sponsors = "ea4aaa",
+	kofi = "ff5e5c",
+	paypal = "009cde",
+	tukui = "ff7a1e",
+	warning = "ffb333",
 }
+
+-- Exact fractions would add up to a hair more than the row width in floating
+-- point and push the last tile into the next row
+local THIRD, QUARTER = 0.333, 0.25
+
+local BRAND = I.Media.Icons.Brands
+
+local function InlineIcon(icon)
+	return format("|T%s:16:16:0:0:64:64:0:64:0:64|t", icon)
+end
+
+local function Highlight(text)
+	return E:RGBToHex(I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b) .. text .. "|r"
+end
+
+local function ShowURL(url)
+	E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, url)
+end
+
+local function Header(order, name)
+	return {
+		order = order,
+		type = "header",
+		name = name,
+	}
+end
+
+local function Spacer(order)
+	return {
+		order = order,
+		type = "description",
+		name = " ",
+		width = "full",
+	}
+end
+
+-- A clickable tile with a logo; the link opens in the copy popup
+local function LinkTile(order, title, subtitle, icon, color, url, relWidth)
+	return {
+		order = order,
+		type = "execute",
+		dialogControl = "MERLinkTile",
+		name = title,
+		desc = url,
+		image = icon,
+		width = "relative",
+		relWidth = relWidth,
+		arg = { subtitle = subtitle, color = color },
+		func = function()
+			ShowURL(url)
+		end,
+	}
+end
+
+local function TextCard(order, title, icon, color, text)
+	return {
+		order = order,
+		type = "description",
+		dialogControl = "MERTextCard",
+		fontSize = "medium",
+		name = text,
+		arg = { title = title, icon = icon, color = color },
+	}
+end
+
+local args = {}
+
+options.name = {
+	order = 1,
+	type = "group",
+	name = module:AddCategorieIcon(L["Information"], "info"),
+	args = args,
+}
+
+-- Links
+args.linksHeader = Header(1, L["Support & Downloads"])
+args.website = LinkTile(2, L["Website"], "merathilisui.com", BRAND.MerathilisUI, COLOR.website, URL.website, THIRD)
+args.discord = LinkTile(3, "Discord", L["Join the community"], BRAND.Discord, COLOR.discord, URL.discord, THIRD)
+args.issues = LinkTile(4, "GitHub", L["Report bugs and suggestions"], BRAND.GitHub, nil, URL.issues, THIRD)
+args.curseforge =
+	LinkTile(5, "CurseForge", L["Via the CurseForge app"], BRAND.CurseForge, COLOR.curseforge, URL.curseforge, THIRD)
+args.wago = LinkTile(6, "Wago Addons", L["Via the Wago app"], BRAND.Wago, nil, URL.wago, THIRD)
+args.development = LinkTile(
+	7,
+	L["Development Version"],
+	L["Latest development build"],
+	BRAND.GitHub,
+	nil,
+	URL.development,
+	THIRD
+)
+args.bugReport = TextCard(
+	8,
+	L["Found a Bug?"],
+	I.Media.Icons.Warning,
+	COLOR.warning,
+	format(
+		L["Before you submit a bug, please enable debug mode with %s and test it one more time."],
+		Highlight("/muidebug")
+	)
+		.. "\n"
+		.. format(
+			L["If you get an error, open the Status Report with %s, click %s and paste the text into your report."],
+			Highlight("/mui status"),
+			Highlight("Copy Report")
+		)
+)
+
+-- Donations
+args.supportSpacer = Spacer(10)
+args.supportHeader = Header(11, L["Support the Project"])
+args.supportText = {
+	order = 12,
+	type = "description",
+	fontSize = "medium",
+	width = "full",
+	name = L["MerathilisUI is free and I work on it in my spare time. If you enjoy it, you can support its development here."]
+		.. "\n ",
+}
+args.patreon = LinkTile(13, "Patreon", L["Monthly support"], BRAND.Patreon, COLOR.patreon, URL.patreon, QUARTER)
+args.sponsors = LinkTile(
+	14,
+	"GitHub Sponsors",
+	L["Monthly or one-time"],
+	BRAND.GitHubSponsors,
+	COLOR.sponsors,
+	URL.sponsors,
+	QUARTER
+)
+args.kofi = LinkTile(15, "Ko-fi", L["Buy me a coffee"], BRAND.KoFi, COLOR.kofi, URL.kofi, QUARTER)
+args.paypal = LinkTile(16, "PayPal", L["One-time donation"], BRAND.PayPal, COLOR.paypal, URL.paypal, QUARTER)
+args.supporters = TextCard(
+	17,
+	L["Thank You!"],
+	I.Media.Icons.Favorite,
+	nil,
+	format(
+		"%s  |cff%s%s|r\n%s\n\n%s  |cff%s%s|r\n%s",
+		InlineIcon(BRAND.Patreon),
+		COLOR.patreon,
+		L["Patrons"],
+		PATRONS_STRING,
+		InlineIcon(BRAND.PayPal),
+		COLOR.paypal,
+		"PayPal",
+		DONATOR_STRING
+	)
+)
+
+-- Tukui
+args.tukuiSpacer = Spacer(20)
+args.tukuiHeader = Header(21, L["Tukui"])
+args.tukui = LinkTile(22, "Tukui", L["Home of ElvUI"], BRAND.Tukui, COLOR.tukui, URL.tukui, THIRD)
+args.tukuiDiscord = LinkTile(
+	23,
+	L["Tukui Discord Server"],
+	L["ElvUI support and community"],
+	BRAND.Discord,
+	COLOR.discord,
+	URL.tukuiDiscord,
+	THIRD
+)
+
+-- Credits
+args.creditsSpacer = Spacer(30)
+args.creditsHeader = Header(31, L["Credits"])
+args.testing = TextCard(
+	32,
+	L["Testing & Inspiration"],
+	nil,
+	nil,
+	"Benik, Darth Predator, Rockxana, " .. InlineIcon(BRAND.Tukui) .. " The Tukui Community"
+)
+args.coding = TextCard(
+	33,
+	L["Coding"],
+	nil,
+	nil,
+	format(
+		L["Many thanks to these wonderful persons for letting me use some of their code: %s."],
+		strjoin(", ", unpack(DEVELOPER))
+	)
+)
 
 do
-	local german = F.GetIconString(I.Media.Icons.German, 10, 20)
-	local russian = F.GetIconString(I.Media.Icons.Russian, 10, 20)
-	local korean = F.GetIconString(I.Media.Icons.Korean, 10, 20)
-
 	local localizationList = {
-		{ "Deutsch (deDE) " .. german, { "|cff00c0faDlarge|r" } },
-		{ "한국어 (koKR) " .. korean, { "Crazyyoungs @ GitHub" } },
-		{ "русский язык (ruRU) " .. russian, { "Hollicsh @ GitHub" } },
+		{ "Deutsch (deDE)", I.Media.Icons.German, { "|cff00c0faDlarge|r" } },
+		{ "한국어 (koKR)", I.Media.Icons.Korean, { "Crazyyoungs @ GitHub" } },
+		{ "русский язык (ruRU)", I.Media.Icons.Russian, { "Hollicsh @ GitHub" } },
 	}
 
-	local configOrder = 1
+	local lines = {}
 	for _, entry in ipairs(localizationList) do
-		local langName, credits = entry[1], entry[2]
-		options.name.args.localization.args[tostring(configOrder)] = {
-			order = configOrder,
-			type = "description",
-			name = C.StringByTemplate(langName, "blue-500"),
-		}
-		configOrder = configOrder + 1
-
-		for _, credit in ipairs(credits) do
-			options.name.args.localization.args[tostring(configOrder)] = {
-				order = configOrder,
-				type = "description",
-				name = "  - " .. credit,
-			}
-			configOrder = configOrder + 1
-		end
+		local language, flag, credits = unpack(entry)
+		lines[#lines + 1] = format(
+			"%s  %s:  %s",
+			F.GetIconString(flag, 10, 20),
+			C.StringByTemplate(language, "blue-500"),
+			tconcat(credits, ", ")
+		)
 	end
+
+	args.localization = TextCard(34, L["Localization"], nil, nil, tconcat(lines, "\n"))
 end
 
 options.changelog = {

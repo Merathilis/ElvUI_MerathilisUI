@@ -102,6 +102,25 @@ local function PrepareButton(button)
 	button:HookScript("OnLeave", Button_OnLeave)
 end
 
+-- Pulsing NEW badge after the label of a top level entry marked with
+-- F.MarkTabAsNew("<argsKey>"), the same side table TabGroup.lua reads. Tree
+-- buttons are reused for other entries on every refresh, so the badge is
+-- re-decided (and moved behind the current label) each time.
+local NEW_BADGE_SCALE = 0.75
+local NEW_BADGE_GAP = 2
+
+local function UpdateNewBadge(button)
+	local shouldShow = button.merActive and button.level == 1 and button.value and F.NewFeatureTabs[button.value]
+
+	local badge = F.SyncNewFeatureBadge(button, "merNewBadge", shouldShow, function()
+		return F.CreateNewFeatureBadge(button, nil, nil, nil, 0, 0, NEW_BADGE_SCALE)
+	end)
+	if badge then
+		badge:ClearAllPoints()
+		badge:SetPoint("LEFT", button.text, "LEFT", button.text:GetStringWidth() + NEW_BADGE_GAP, 0)
+	end
+end
+
 local function StyleButton(button)
 	PrepareButton(button)
 	button.merActive = true
@@ -126,6 +145,8 @@ local function StyleButton(button)
 	else
 		button.text:SetTextColor(unpack(COLOR_TEXT))
 	end
+
+	UpdateNewBadge(button)
 end
 
 local function RestoreButton(button)
@@ -140,6 +161,7 @@ local function RestoreButton(button)
 	button.merHover:Hide()
 	button.merFill:Hide()
 	button.merBar:Hide()
+	UpdateNewBadge(button)
 
 	-- Same font objects the stock UpdateButton picks per level. Put back
 	-- right here instead of waiting for the next RefreshTree: a released

@@ -104,6 +104,23 @@ function F.Developer.GetLogLevel()
 	return config and config.logLevel or LOG_LEVEL.WARNING
 end
 
+---@return string
+function F.Developer.GetLogLevelName()
+	return LEVEL_NAMES[F.Developer.GetLogLevel()] or "none"
+end
+
+---@param level number? 0 (none) to 4 (debug)
+---@return boolean success
+function F.Developer.SetLogLevel(level)
+	local config = GetConfig()
+	if not config or not level or level < LOG_LEVEL.NONE or level > LOG_LEVEL.DEBUG then
+		return false
+	end
+
+	config.logLevel = level
+	return true
+end
+
 -------------------------------------------------------------------------------
 --  Log buffer
 --  Every log line (printed or not) and every active debug channel line is kept
@@ -112,6 +129,12 @@ end
 -------------------------------------------------------------------------------
 local BUFFER_SIZE = 500
 local buffer = {}
+
+-- Errors and warnings since login, kept apart from the buffer so they survive its rotation
+local counts = {
+	[LOG_LEVEL.ERROR] = 0,
+	[LOG_LEVEL.WARNING] = 0,
+}
 
 local function ToText(value)
 	if issecretvalue and issecretvalue(value) then
@@ -147,6 +170,10 @@ end
 local function Emit(level, message)
 	Record(LEVEL_TAGS[level], message)
 
+	if counts[level] then
+		counts[level] = counts[level] + 1
+	end
+
 	if F.Developer.GetLogLevel() >= level then
 		print(format("%s%s %s", MER.Title, LEVEL_TAGS[level], message))
 	end
@@ -157,6 +184,7 @@ end
 function F.Developer.ThrowError(...)
 	local message = JoinArgs(...)
 	Record(LEVEL_TAGS[LOG_LEVEL.ERROR], message)
+	counts[LOG_LEVEL.ERROR] = counts[LOG_LEVEL.ERROR] + 1
 	_G.geterrorhandler()(format("%s|cffff2457[ERROR]|r\n%s", MER.Title, message))
 end
 
@@ -173,6 +201,29 @@ end
 ---@param ... any Message parts
 function F.Developer.LogDebug(...)
 	Emit(LOG_LEVEL.DEBUG, JoinArgs(...))
+end
+
+---Errors and warnings logged since login, and the lines currently buffered
+---@return number errors
+---@return number warnings
+---@return number lines
+function F.Developer.GetLogStats()
+	return counts[LOG_LEVEL.ERROR], counts[LOG_LEVEL.WARNING], #buffer
+end
+
+---The buffered log as plain text, one line per entry
+---@return string
+function F.Developer.GetLogText()
+	if #buffer == 0 then
+		return "(empty)"
+	end
+
+	local lines = {}
+	for i, line in ipairs(buffer) do
+		lines[i] = F.String.Strip(line)
+	end
+
+	return tconcat(lines, "\n")
 end
 
 -------------------------------------------------------------------------------
@@ -228,6 +279,21 @@ function F.Developer.SetDebugChannel(channel, state)
 	F.Event.TriggerEvent("MER.DebugChannelChanged", key, state)
 
 	return state
+end
+
+---Sorted names of the active debug channels
+---@return string[]
+function F.Developer.GetActiveChannels()
+	local channels = {}
+	local config = GetConfig()
+	if config then
+		for channel in pairs(config.channels) do
+			tinsert(channels, channel)
+		end
+		sort(channels)
+	end
+
+	return channels
 end
 
 -------------------------------------------------------------------------------
@@ -296,28 +362,10 @@ function F.Developer.InjectLogger(module)
 end
 
 -------------------------------------------------------------------------------
---  Delayed messages (printed once the UI is fully loaded)
+--  Text window
+--  Read-only copy window, used by the log and the status report.
 -------------------------------------------------------------------------------
-do
-	local messages = {}
-
-	function F.Developer.PrintDelayedMessages()
-		for _, msg in ipairs(messages) do
-			F.Print(msg)
-		end
-
-		wipe(messages)
-	end
-
-	function F.Developer.AddDelayedMessage(str)
-		tinsert(messages, str)
-	end
-end
-
--------------------------------------------------------------------------------
---  Log window
--------------------------------------------------------------------------------
-local logFrame
+local textFrame
 
 local function GetEnvironmentHeader()
 	local lines = {
@@ -335,23 +383,18 @@ local function GetEnvironmentHeader()
 			GetLocale(),
 			E.myclass or "?"
 		),
-		format("Log level: %s", LEVEL_NAMES[F.Developer.GetLogLevel()] or "none"),
+		format("Log level: %s", F.Developer.GetLogLevelName()),
 	}
 
-	local config = GetConfig()
-	if config and next(config.channels) then
-		local channels = {}
-		for channel in pairs(config.channels) do
-			tinsert(channels, channel)
-		end
-		sort(channels)
+	local channels = F.Developer.GetActiveChannels()
+	if #channels > 0 then
 		tinsert(lines, "Debug channels: " .. tconcat(channels, ", "))
 	end
 
 	return tconcat(lines, "\n")
 end
 
-local function CreateLogFrame()
+local function CreateTextFrame()
 	local frame = CreateFrame("Frame", "MER_DeveloperLogFrame", E.UIParent)
 	frame:SetSize(700, 450)
 	frame:SetPoint("CENTER")
@@ -369,7 +412,6 @@ local function CreateLogFrame()
 	frame.Header = frame:CreateFontString(nil, "OVERLAY")
 	frame.Header:FontTemplate(nil, 14, "OUTLINE")
 	frame.Header:SetPoint("TOP", 0, -8)
-	frame.Header:SetText(MER.Title .. "Log")
 
 	local close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", frame)
@@ -390,7 +432,7 @@ local function CreateLogFrame()
 	editBox:SetScript("OnEscapePressed", function()
 		frame:Hide()
 	end)
-	-- Read-only: restore the log text if something was typed into it
+	-- Read-only: restore the text if something was typed into it
 	editBox:SetScript("OnTextChanged", function(self, userInput)
 		if userInput then
 			self:SetText(frame.text)
@@ -403,22 +445,23 @@ local function CreateLogFrame()
 	return frame
 end
 
+---Show text in a read-only window, pre-selected for copying
+---@param title string
+---@param text string
+function F.Developer.ShowText(title, text)
+	textFrame = textFrame or CreateTextFrame()
+
+	textFrame.text = text
+	textFrame.Header:SetText(MER.Title .. title)
+	textFrame:Show()
+	textFrame:Raise()
+	textFrame.EditBox:SetText(text)
+	textFrame.EditBox:HighlightText()
+	textFrame.EditBox:SetFocus()
+end
+
 function F.Developer.ShowLog()
-	logFrame = logFrame or CreateLogFrame()
-
-	local lines = { GetEnvironmentHeader(), "" }
-	for i, line in ipairs(buffer) do
-		lines[i + 2] = F.String.Strip(line)
-	end
-	if #buffer == 0 then
-		tinsert(lines, "(empty)")
-	end
-
-	logFrame.text = tconcat(lines, "\n")
-	logFrame:Show()
-	logFrame.EditBox:SetText(logFrame.text)
-	logFrame.EditBox:HighlightText()
-	logFrame.EditBox:SetFocus()
+	F.Developer.ShowText("Log", GetEnvironmentHeader() .. "\n\n" .. F.Developer.GetLogText())
 end
 
 -------------------------------------------------------------------------------
@@ -427,6 +470,7 @@ end
 local function PrintUsage()
 	WF.PrintGradientLine()
 	F.Print("/muidev")
+	print("status               open the status report (copy it for bug reports)")
 	print("log                  open the log window (copy & paste it)")
 	print("clear                clear the log")
 	print("level [0-4|name]     show/set log level: none, error, warning, info, debug")
@@ -452,6 +496,10 @@ end
 
 local commands = {}
 
+function commands.status()
+	MER:ShowStatusReport()
+end
+
 function commands.log()
 	F.Developer.ShowLog()
 end
@@ -462,14 +510,12 @@ function commands.clear()
 end
 
 function commands.level(arg)
-	local config = GetConfig()
-	if arg and config then
+	if arg then
 		local level = tonumber(arg) or LOG_LEVEL[strupper(arg)]
-		if not level or level < LOG_LEVEL.NONE or level > LOG_LEVEL.DEBUG then
+		if not F.Developer.SetLogLevel(level) then
 			F.Print("Invalid log level:", arg)
 			return
 		end
-		config.logLevel = level
 	end
 
 	local level = F.Developer.GetLogLevel()
