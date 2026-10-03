@@ -12,9 +12,8 @@ function module:LoadmMediaTagProfile()
 	db.general.greeting_message = false
 	db.important_casts.enable = true
 	db.important_casts.anchor = "BOTTOM"
-	db.nameplates.target.changeColor = true
-	db.nameplates.target.changeTexture = true
-	db.nameplates.target.texture = "mMediaTag A4"
+	db.nameplates.target.changeColor = false
+	db.nameplates.target.changeTexture = false
 	db.phase_icon.enable = true
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true
