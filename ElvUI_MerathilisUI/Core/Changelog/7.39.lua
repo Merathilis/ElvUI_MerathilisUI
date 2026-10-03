@@ -24,6 +24,7 @@ MER.Changelog[739] = {
 		"[Location Panel]: Right-clicking the panel links your current location as a map pin in chat. A map pin you placed yourself stays in place.",
 		"[Minimap Buttons]: The Tracking button is enabled by default.",
 		"[Options]: Cursor, DataTexts, Loot Roll, Movement Alert and Tracker have their own category icons.",
+		"[Options]: The Information page shows links, donations and Tukui as clickable tiles with logos, plus cards for bug reports, supporters and credits.",
 		"[Profiles]: The mMediaTag & Tools profile no longer changes the color and texture of the target nameplate.",
 		"[Profiles]: The AddOn profiles in the options are shown as tiles with the AddOn icon and whether the AddOn is enabled.",
 		"[Resting Indicator]: New Color (class gradient, class color, custom color or Blizzard's original look) and Animation Speed options. All resting indicator options apply without a reload.",
