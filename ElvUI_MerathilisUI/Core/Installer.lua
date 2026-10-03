@@ -820,7 +820,7 @@ local moduleToggles = {
 		{
 			label = L["Location Panel"],
 			path = { "locationPanel", "enable" },
-			desc = L["The Location Panel above the Minimap can show your coordinates. Click it to open the World Map."],
+			desc = L["The Location Panel above the Minimap can show your coordinates. Left-click it to open the World Map, right-click to link your location in chat."],
 		},
 		{
 			label = L["Minimap Buttons"],
