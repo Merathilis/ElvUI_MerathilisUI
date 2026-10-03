@@ -177,7 +177,8 @@ do
 		frame:Hide()
 
 		local tile = CreateFrame("Button", nil, frame)
-		tile:SetPoint("TOPLEFT")
+		-- The backdrop sits 1px outside the tile, the scroll frame would clip it in the first column
+		tile:SetPoint("TOPLEFT", 1, 0)
 		tile:SetPoint("BOTTOMRIGHT", -GAP, ROW_GAP)
 		-- ignoreUpdates=true keeps it out of E.frames, so ElvUI's async template
 		-- sweep can't wipe the hover colors (see Button.lua)
@@ -256,7 +257,7 @@ do
 		local card = self.card
 		local width = frame.width or frame:GetWidth() or 0
 		local textLeft = ACCENT_WIDTH + PADDING
-		local textWidth = width - GAP - textLeft - PADDING
+		local textWidth = width - GAP - 1 - textLeft - PADDING
 
 		local top = PADDING
 		local hasTitle = card.title:GetText() and card.title:GetText() ~= ""
@@ -343,7 +344,8 @@ do
 		frame:Hide()
 
 		local card = CreateFrame("Frame", nil, frame)
-		card:SetPoint("TOPLEFT")
+		-- The backdrop sits 1px outside the card, the scroll frame would clip it
+		card:SetPoint("TOPLEFT", 1, 0)
 		card:SetPoint("BOTTOMRIGHT", -GAP, ROW_GAP)
 		card:CreateBackdrop("Transparent", nil, true)
 
@@ -425,7 +427,7 @@ do
 
 		local frame = self.frame
 		local card = self.card
-		local width = (frame.width or frame:GetWidth() or 0) - GAP
+		local width = (frame.width or frame:GetWidth() or 0) - GAP - 1
 		local previewHeight = floor(width / PREVIEW_RATIO + 0.5)
 
 		card.preview:SetHeight(previewHeight > 1 and previewHeight or 1)
@@ -533,7 +535,9 @@ do
 		frame:Hide()
 
 		local card = CreateFrame("Button", nil, frame)
-		card:SetPoint("TOPLEFT")
+		-- The backdrop sits 1px outside the card, the scroll frame would clip it
+		-- in the first column
+		card:SetPoint("TOPLEFT", 1, 0)
 		card:SetPoint("BOTTOMRIGHT", -GAP, ROW_GAP)
 		-- ignoreUpdates=true keeps it out of E.frames, so ElvUI's async template
 		-- sweep can't wipe the hover colors (see Button.lua)
