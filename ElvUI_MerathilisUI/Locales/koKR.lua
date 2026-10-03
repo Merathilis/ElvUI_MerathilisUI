@@ -575,6 +575,8 @@ L["Control the Saturation value of HSL for the Normal color."] = true
 L["Skins/AddOns"] = "스킨/애드온"
 L["Profiles"] = "프로필"
 L["BigWigs"] = "BigWigs"
+L["Create and apply the profile"] = true
+L["AddOn is not enabled"] = true
 L["This will create and apply profile for "] =
 	"이 설정은 다음 애드온에 대한 프로필을 생성하고 적용합니다: "
 

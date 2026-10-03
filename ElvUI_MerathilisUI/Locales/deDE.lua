@@ -746,6 +746,8 @@ L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
 L["Skins/AddOns"] = true -- no need to translate
 L["Profiles"] = "Profile"
 L["BigWigs"] = true -- no need to translate
+L["Create and apply the profile"] = "Profil erstellen und anwenden"
+L["AddOn is not enabled"] = "AddOn ist nicht aktiviert"
 L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen und anwenden für "
 
 -- Changelog

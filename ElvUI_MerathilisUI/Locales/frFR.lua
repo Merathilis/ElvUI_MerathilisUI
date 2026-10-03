@@ -505,6 +505,8 @@ L["Control the Saturation value of HSL for the Normal color."] = true
 L["Skins/AddOns"] = true
 L["Profiles"] = "Profiles"
 L["BigWigs"] = "BigWigs"
+L["Create and apply the profile"] = true
+L["AddOn is not enabled"] = true
 L["This will create and apply profile for "] = true
 
 -- Changelog

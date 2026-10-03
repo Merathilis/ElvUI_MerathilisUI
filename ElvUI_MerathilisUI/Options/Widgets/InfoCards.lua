@@ -1,11 +1,11 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
--- Card widgets for the Information and Presets pages, in the style of the installer cards:
+-- Card widgets for the Information, Presets and Profiles pages, in the style of the installer cards:
 --
 -- MERLinkTile (dialogControl of an "execute"): a clickable tile with a logo,
 -- title and subtitle. Give it `width = "relative"` + `relWidth` to put several
 -- tiles in one row; `arg = { subtitle = "...", color = "rrggbb" }` sets the
--- second line and the hover color (default: accent).
+-- second line and the hover color (default: accent), `arg.atlas` an atlas logo.
 --
 -- MERTextCard (dialogControl of a "description"): a full-width card with an
 -- accent strip, an optional title line and the description text as body.
@@ -163,6 +163,12 @@ do
 		["SetCustomData"] = function(self, data)
 			if type(data) ~= "table" then
 				return
+			end
+
+			-- An atlas can't go through the option's `image`, it replaces that here
+			if data.atlas then
+				self.tile.icon:SetAtlas(data.atlas)
+				self.tile.icon:Show()
 			end
 
 			self.tile.subtitle:SetText(data.subtitle or "")
