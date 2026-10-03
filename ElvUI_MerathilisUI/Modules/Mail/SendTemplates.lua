@@ -63,8 +63,7 @@ function module:CreateSendTemplatesUI()
 	end)
 	self.sendTemplatesButton = btn
 
-	local continueButton =
-		MS.CreateButton(SendMailFrame, 20, 20, true, "Interface\\RaidFrame\\ReadyCheck-Ready")
+	local continueButton = MS.CreateButton(SendMailFrame, 20, 20, true, "Interface\\RaidFrame\\ReadyCheck-Ready")
 	continueButton:SetPoint("RIGHT", _G.SendMailMoneyFrame, "LEFT", -6, 0)
 	continueButton:Hide()
 	continueButton:SetScript("OnClick", function()

@@ -23,7 +23,8 @@ end
 local pairs, unpack = pairs, unpack
 local hooksecurefunc = hooksecurefunc
 local CreateFont = CreateFont
-local GameFontNormal, GameFontHighlight, GameFontHighlightSmall = GameFontNormal, GameFontHighlight, GameFontHighlightSmall
+local GameFontNormal, GameFontHighlight, GameFontHighlightSmall =
+	GameFontNormal, GameFontHighlight, GameFontHighlightSmall
 
 -- Same shadow as GroupTitle.lua's inline groups, but a darker box so the
 -- navigation doesn't compete with the option groups next to it.

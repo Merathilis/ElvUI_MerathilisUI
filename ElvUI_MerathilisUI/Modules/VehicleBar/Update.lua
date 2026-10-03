@@ -9,7 +9,6 @@ local ipairs, pairs = ipairs, pairs
 local strsplit = strsplit
 local Round = Round
 
-
 local C_ActionBar_GetOverrideBarIndex = C_ActionBar.GetOverrideBarIndex
 local C_ActionBar_GetVehicleBarIndex = C_ActionBar.GetVehicleBarIndex
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo

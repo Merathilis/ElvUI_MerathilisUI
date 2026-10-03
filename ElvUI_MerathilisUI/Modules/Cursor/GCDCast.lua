@@ -71,7 +71,11 @@ function module:CreateGCDRing()
 			return
 		end
 
-		if event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_INTERRUPTED" or event == "UNIT_SPELLCAST_STOP" then
+		if
+			event == "UNIT_SPELLCAST_FAILED"
+			or event == "UNIT_SPELLCAST_INTERRUPTED"
+			or event == "UNIT_SPELLCAST_STOP"
+		then
 			if not cdData.duration or cdData.duration <= 0 then
 				root.ring:StopRing()
 			end

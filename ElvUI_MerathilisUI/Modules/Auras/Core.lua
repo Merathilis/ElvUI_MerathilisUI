@@ -36,7 +36,14 @@ local ROTATION = {
 -- currently visible row, so a corner anchor drifts away from the actual icons once more than
 -- one row is configured.
 local GROWTH_INFO = {
-	RIGHT_DOWN = { horizontal = true, expandDirection = "RIGHT", point = "RIGHT", relativePoint = "LEFT", x = -1, y = 0 },
+	RIGHT_DOWN = {
+		horizontal = true,
+		expandDirection = "RIGHT",
+		point = "RIGHT",
+		relativePoint = "LEFT",
+		x = -1,
+		y = 0,
+	},
 	RIGHT_UP = { horizontal = true, expandDirection = "RIGHT", point = "RIGHT", relativePoint = "LEFT", x = -1, y = 0 },
 	LEFT_DOWN = { horizontal = true, expandDirection = "LEFT", point = "LEFT", relativePoint = "RIGHT", x = 1, y = 0 },
 	LEFT_UP = { horizontal = true, expandDirection = "LEFT", point = "LEFT", relativePoint = "RIGHT", x = 1, y = 0 },
@@ -133,7 +140,8 @@ local function ApplyCollapsedState(header, collapsed)
 	if collapsed then
 		maxCount = header.numAuras or header.maxFrameCount
 		sortMethod = (E.AuraContainerSortMethod and E.AuraContainerSortMethod.TIME_REMAINING) or header.sortMethod
-		sortDirection = (E.AuraContainerSortDirection and E.AuraContainerSortDirection.ASCENDING) or header.sortDirection
+		sortDirection = (E.AuraContainerSortDirection and E.AuraContainerSortDirection.ASCENDING)
+			or header.sortDirection
 	else
 		maxCount = header.maxFrameCount
 		sortMethod = header.sortMethod

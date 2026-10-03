@@ -83,19 +83,9 @@ function module:CreateIcon(parent)
 end
 
 function module:CreateTrackerMover(frame, name, text, db)
-	E:CreateMover(
-		frame,
-		name,
-		MER.Title .. text,
-		nil,
-		nil,
-		nil,
-		"ALL,PARTY,RAID,MERATHILISUI",
-		function()
-			return not (module.db and module.db[db].enable)
-		end,
-		"mui,modules,tracker"
-	)
+	E:CreateMover(frame, name, MER.Title .. text, nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI", function()
+		return not (module.db and module.db[db].enable)
+	end, "mui,modules,tracker")
 end
 
 -------------------------------------------------------------------------------

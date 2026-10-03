@@ -64,7 +64,10 @@ local kickSpell
 local active = {} -- indicators of castbars that are casting right now
 
 local function IsSupported()
-	return C_CurveUtil_EvaluateColorValueFromBoolean and C_Spell_GetSpellCooldownDuration and UnitCastingDuration and true
+	return C_CurveUtil_EvaluateColorValueFromBoolean
+		and C_Spell_GetSpellCooldownDuration
+		and UnitCastingDuration
+		and true
 end
 
 local function RefreshKickSpell()

@@ -354,7 +354,6 @@ do
 
 		return bu
 	end
-
 end
 
 -- hook the skin functions from ElvUI

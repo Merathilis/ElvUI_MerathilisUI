@@ -144,7 +144,10 @@ function F.Presets.GetWarnings(data)
 	end
 
 	if VersionNumber(meta.mer) > VersionNumber(MER.Version) then
-		tinsert(warnings, format(L["Made with MerathilisUI %s, update the addon to get all of its settings."], meta.mer))
+		tinsert(
+			warnings,
+			format(L["Made with MerathilisUI %s, update the addon to get all of its settings."], meta.mer)
+		)
 	end
 
 	local width, height = GetPhysicalScreenSize()

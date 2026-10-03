@@ -1244,8 +1244,7 @@ function module:UpdateCharacterStats()
 				statFrame.onEnterFunc = nil
 				statFrame.UpdateTooltip = nil
 
-				local updateFunc = module.StatUpdateOverrides[stat.stat]
-					or _G.PAPERDOLL_STATINFO[stat.stat].updateFunc
+				local updateFunc = module.StatUpdateOverrides[stat.stat] or _G.PAPERDOLL_STATINFO[stat.stat].updateFunc
 				local ok = pcall(updateFunc, statFrame, "player")
 				if not ok then
 					if statFrame.Value then
@@ -1258,11 +1257,7 @@ function module:UpdateCharacterStats()
 				-- Compares the local hideAt, which mode 2 defaults to 0. A secret value can't be
 				-- compared, so the stat stays visible then.
 				local numericValue = statFrame.numericValue
-				if
-					(hideAt ~= nil)
-					and ((statMode == 1) or (statMode == 2))
-					and E:NotSecretValue(numericValue)
-				then
+				if (hideAt ~= nil) and ((statMode == 1) or (statMode == 2)) and E:NotSecretValue(numericValue) then
 					showStat = (hideAt ~= numericValue)
 				end
 
@@ -1504,7 +1499,6 @@ function module:UpdateBackground()
 	end
 
 	if module.db.background.enable then
-
 		if self.db.background.class then
 			self.frame.MERBackground.Texture:SetTexture(I.Media.Armory["MERATHILISUI-" .. E.myclass])
 		else

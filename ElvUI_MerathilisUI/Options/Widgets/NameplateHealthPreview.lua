@@ -85,7 +85,13 @@ local function Update(widget)
 		if shown then
 			bar:SetWidth(barWidth)
 			bar:ClearAllPoints()
-			bar:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", barX + (index - 1) * (barWidth + BAR_SPACING), -(ICON_SIZE + 4))
+			bar:SetPoint(
+				"TOPLEFT",
+				widget.frame,
+				"TOPLEFT",
+				barX + (index - 1) * (barWidth + BAR_SPACING),
+				-(ICON_SIZE + 4)
+			)
 
 			bar.fill:SetTexture(barTexture)
 			bar.fill:SetVertexColor(r, g, b, 1)

@@ -860,7 +860,8 @@ function module:MerathilisUI_Themes_GradientMode()
 		self:AddInlineDesc(tab, {
 			name = name,
 		}, {
-			name = format(L["Here you can change additional settings for the %s."], gradientTitle .. " Mode|r") .. "\n\n",
+			name = format(L["Here you can change additional settings for the %s."], gradientTitle .. " Mode|r")
+				.. "\n\n",
 		})
 
 		-- Spacer

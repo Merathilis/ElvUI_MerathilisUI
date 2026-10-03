@@ -402,7 +402,12 @@ end
 -- matching the rest of our class-colored accents (header divider,
 -- placeholder "+", selected/pinned sidebar rows).
 local function TintScrollThumb(scrollbar)
-	if scrollbar.Thumb and scrollbar.Thumb.backdrop and scrollbar:IsEnabled() and select(2, scrollbar:GetMinMaxValues()) ~= 0 then
+	if
+		scrollbar.Thumb
+		and scrollbar.Thumb.backdrop
+		and scrollbar:IsEnabled()
+		and select(2, scrollbar:GetMinMaxValues()) ~= 0
+	then
 		local cc = E.myClassColor
 		scrollbar.Thumb.backdrop:SetBackdropColor(cc.r, cc.g, cc.b)
 	end
@@ -695,7 +700,9 @@ local function Slot_OnClick(self, mouseButton, down)
 			-- Same order as Blizzard's own bags: a chat link (only when a
 			-- chat edit box is open), dress-up and the like win; otherwise
 			-- Shift+click splits the stack.
-			local itemLocation = self.BagID and self.SlotID and ItemLocation:CreateFromBagAndSlot(self.BagID, self.SlotID)
+			local itemLocation = self.BagID
+				and self.SlotID
+				and ItemLocation:CreateFromBagAndSlot(self.BagID, self.SlotID)
 			if
 				not HandleModifiedItemClick(self.itemLink, itemLocation)
 				and IsModifiedClick("SPLITSTACK")
@@ -721,13 +728,7 @@ local function Slot_OnClick(self, mouseButton, down)
 		-- otherwise); same attribute suppression as the Split Stack case, so
 		-- the secure dispatch doesn't deposit the item instead of just
 		-- opening the menu.
-		if
-			IsControlKeyDown()
-			and not CursorHasItem()
-			and module.isBankOpen
-			and self.BagID
-			and self.SlotID
-		then
+		if IsControlKeyDown() and not CursorHasItem() and module.isBankOpen and self.BagID and self.SlotID then
 			if not InCombatLockdown() then
 				self:SetAttribute("*type2", nil)
 
@@ -877,7 +878,12 @@ local function Slot_OnDragStop(self)
 	module.dragHoverOrderItemID = nil
 
 	if draggedID and targetID then
-		MoveItemInOrder(sectionKey, module.orderedSectionItems and module.orderedSectionItems[sectionKey], draggedID, targetID)
+		MoveItemInOrder(
+			sectionKey,
+			module.orderedSectionItems and module.orderedSectionItems[sectionKey],
+			draggedID,
+			targetID
+		)
 		RefreshOwnerFrame(self.ownerFrame)
 	end
 end
@@ -892,7 +898,13 @@ local function Slot_UpdateCursor(self)
 		return
 	end
 
-	if _G.MerchantFrame and _G.MerchantFrame:IsShown() and _G.MerchantFrame.selectedTab == 1 and self.BagID and self.SlotID then
+	if
+		_G.MerchantFrame
+		and _G.MerchantFrame:IsShown()
+		and _G.MerchantFrame.selectedTab == 1
+		and self.BagID
+		and self.SlotID
+	then
 		C_Container.ShowContainerSellCursor(self.BagID, self.SlotID)
 	else
 		ResetCursor()
@@ -916,7 +928,12 @@ local function Slot_OnEnter(self)
 		-- is held: the feature is invisible otherwise, and the hint is where
 		-- people look when they wonder why an item sits where it sits.
 		if self.orderKey then
-			GameTooltip:AddLine(L["Alt+Drag onto another item to move it there. Items stay in their bag slots."], 0.6, 0.6, 0.6)
+			GameTooltip:AddLine(
+				L["Alt+Drag onto another item to move it there. Items stay in their bag slots."],
+				0.6,
+				0.6,
+				0.6
+			)
 		end
 
 		GameTooltip:Show()
@@ -1095,171 +1112,171 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame)
 		)
 
 		local ok = pcall(btn.SetTemplate, btn, nil, true)
-	if not ok then
-		pcall(btn.SetTemplate, btn)
-	end
+		if not ok then
+			pcall(btn.SetTemplate, btn)
+		end
 
-	-- Blizzard's native button chrome (the slot-frame art behind the icon);
-	-- we draw our own flat border via SetTemplate instead, same as ElvUI.
-	btn:SetNormalTexture(E.ClearTexture)
+		-- Blizzard's native button chrome (the slot-frame art behind the icon);
+		-- we draw our own flat border via SetTemplate instead, same as ElvUI.
+		btn:SetNormalTexture(E.ClearTexture)
 
-	-- Same flat hover/pressed overlay ElvUI's own bag slots get; the hover
-	-- tint is applied per refresh in UpdateSlotVisual so option changes take
-	-- effect on already-pooled buttons.
-	pcall(btn.StyleButton, btn)
+		-- Same flat hover/pressed overlay ElvUI's own bag slots get; the hover
+		-- tint is applied per refresh in UpdateSlotVisual so option changes take
+		-- effect on already-pooled buttons.
+		pcall(btn.StyleButton, btn)
 
-	-- Blizzard's own native border square; we draw quality color via
-	-- SetTemplate/SetItemButtonQuality ourselves, same as ElvUI's own bags.
-	if btn.IconBorder then
-		btn.IconBorder:SetAlpha(0)
-	end
+		-- Blizzard's own native border square; we draw quality color via
+		-- SetTemplate/SetItemButtonQuality ourselves, same as ElvUI's own bags.
+		if btn.IconBorder then
+			btn.IconBorder:SetAlpha(0)
+		end
 
-	-- Inset the icon so it doesn't cover our own border, and crop it the
-	-- way ElvUI's own bags do instead of Blizzard's default icon framing.
-	if btn.icon then
-		btn.icon:SetInside()
-		btn.icon:SetTexCoords()
-	end
+		-- Inset the icon so it doesn't cover our own border, and crop it the
+		-- way ElvUI's own bags do instead of Blizzard's default icon framing.
+		if btn.icon then
+			btn.icon:SetInside()
+			btn.icon:SetTexCoords()
+		end
 
-	-- IconOverlay/IconOverlay2 (Azerite/Corrupted/Cosmetic/Conduit/Curio/Decor
-	-- item frames, set via SetItemButtonOverlay in UpdateSlotVisual) default
-	-- to a fixed 37px size from the template; inset them the same way as the
-	-- icon so they scale with our own user-configurable item size instead.
-	if btn.IconOverlay then
-		btn.IconOverlay:SetInside()
-	end
-	if btn.IconOverlay2 then
-		btn.IconOverlay2:SetInside()
-	end
+		-- IconOverlay/IconOverlay2 (Azerite/Corrupted/Cosmetic/Conduit/Curio/Decor
+		-- item frames, set via SetItemButtonOverlay in UpdateSlotVisual) default
+		-- to a fixed 37px size from the template; inset them the same way as the
+		-- icon so they scale with our own user-configurable item size instead.
+		if btn.IconOverlay then
+			btn.IconOverlay:SetInside()
+		end
+		if btn.IconOverlay2 then
+			btn.IconOverlay2:SetInside()
+		end
 
-	-- Defaults to shown until something hides it. Search doesn't use it (we
-	-- filter non-matching items out of the list entirely); it's the sort and
-	-- bag-hover dimming instead (ApplySlotDim), tinted like ElvUI's own bags.
-	if btn.searchOverlay then
-		btn.searchOverlay:SetColorTexture(0, 0, 0, 0.6)
-		btn.searchOverlay:Hide()
-	end
+		-- Defaults to shown until something hides it. Search doesn't use it (we
+		-- filter non-matching items out of the list entirely); it's the sort and
+		-- bag-hover dimming instead (ApplySlotDim), tinted like ElvUI's own bags.
+		if btn.searchOverlay then
+			btn.searchOverlay:SetColorTexture(0, 0, 0, 0.6)
+			btn.searchOverlay:Hide()
+		end
 
-	btn.itemLevel = btn:CreateFontString(nil, "OVERLAY")
-	btn.bindType = btn:CreateFontString(nil, "OVERLAY")
+		btn.itemLevel = btn:CreateFontString(nil, "OVERLAY")
+		btn.bindType = btn:CreateFontString(nil, "OVERLAY")
 
-	if btn.BattlepayItemTexture then
-		btn.BattlepayItemTexture:Hide()
-	end
+		if btn.BattlepayItemTexture then
+			btn.BattlepayItemTexture:Hide()
+		end
 
-	-- Re-texture Blizzard's built-in quest-item overlay with ElvUI's own
-	-- flat icon (same as ElvUI's own bags), filling the slot instead of
-	-- Blizzard's default small corner glow.
-	if btn.IconQuestTexture then
-		btn.IconQuestTexture:SetTexture(E.Media.Textures.BagQuestIcon)
-		btn.IconQuestTexture:SetTexCoord(0, 1, 0, 1)
-		btn.IconQuestTexture:SetInside()
-		btn.IconQuestTexture:Hide()
-	end
+		-- Re-texture Blizzard's built-in quest-item overlay with ElvUI's own
+		-- flat icon (same as ElvUI's own bags), filling the slot instead of
+		-- Blizzard's default small corner glow.
+		if btn.IconQuestTexture then
+			btn.IconQuestTexture:SetTexture(E.Media.Textures.BagQuestIcon)
+			btn.IconQuestTexture:SetTexCoord(0, 1, 0, 1)
+			btn.IconQuestTexture:SetInside()
+			btn.IconQuestTexture:Hide()
+		end
 
-	-- Junk (grey, sellable) marker - same atlas ElvUI's own bags use, sized
-	-- relative to the item's own size in UpdateSlotVisual since itemSize is
-	-- a user option here (ElvUI's bags use a fixed button size).
-	btn.JunkIcon = btn:CreateTexture(nil, "OVERLAY", nil, 2)
-	btn.JunkIcon:SetAtlas("bags-junkcoin", true)
-	btn.JunkIcon:Point("TOPRIGHT", -1, -1)
-	btn.JunkIcon:Hide()
+		-- Junk (grey, sellable) marker - same atlas ElvUI's own bags use, sized
+		-- relative to the item's own size in UpdateSlotVisual since itemSize is
+		-- a user option here (ElvUI's bags use a fixed button size).
+		btn.JunkIcon = btn:CreateTexture(nil, "OVERLAY", nil, 2)
+		btn.JunkIcon:SetAtlas("bags-junkcoin", true)
+		btn.JunkIcon:Point("TOPRIGHT", -1, -1)
+		btn.JunkIcon:Hide()
 
-	-- Warband marker for Warbound / Warbound-until-equipped items (same atlas
-	-- Blizzard's own currency UI uses for account-wide things).
-	btn.warboundIcon = btn:CreateTexture(nil, "OVERLAY", nil, 3)
-	btn.warboundIcon:SetAtlas("warbands-icon")
-	btn.warboundIcon:Point("TOPRIGHT", -1, -1)
-	btn.warboundIcon:Hide()
+		-- Warband marker for Warbound / Warbound-until-equipped items (same atlas
+		-- Blizzard's own currency UI uses for account-wide things).
+		btn.warboundIcon = btn:CreateTexture(nil, "OVERLAY", nil, 3)
+		btn.warboundIcon:SetAtlas("warbands-icon")
+		btn.warboundIcon:Point("TOPRIGHT", -1, -1)
+		btn.warboundIcon:Hide()
 
-	-- Pinned marker, so a pinned item is recognizable in its normal category
-	-- too (same atlas as the Pinned Items category icon).
-	btn.pinIcon = btn:CreateTexture(nil, "OVERLAY", nil, 3)
-	btn.pinIcon:SetAtlas(module.PinnedCategory.icon)
-	btn.pinIcon:Point("BOTTOMLEFT", 1, 1)
-	btn.pinIcon:Hide()
+		-- Pinned marker, so a pinned item is recognizable in its normal category
+		-- too (same atlas as the Pinned Items category icon).
+		btn.pinIcon = btn:CreateTexture(nil, "OVERLAY", nil, 3)
+		btn.pinIcon:SetAtlas(module.PinnedCategory.icon)
+		btn.pinIcon:Point("BOTTOMLEFT", 1, 1)
+		btn.pinIcon:Hide()
 
-	-- Pawn upgrade-arrow overlay (same as ElvUI's own bags) - Blizzard has no
-	-- reliable native API for this, so it's driven entirely by the Pawn
-	-- addon's own PawnShouldItemLinkHaveUpgradeArrowUnbudgeted, if installed.
-	-- Centered on the icon, clear of the item level text's default TOPLEFT
-	-- position. Font strings always draw above textures within the same
-	-- layer regardless of sublevel, so real z-order control over the item
-	-- level text isn't available here either way - this relies on staying
-	-- spatially clear of it instead.
-	btn.UpgradeIcon = btn:CreateTexture(nil, "OVERLAY", nil, 7)
-	btn.UpgradeIcon:SetTexture(E.Media.Textures.BagUpgradeIcon)
-	btn.UpgradeIcon:SetTexCoord(0, 1, 0, 1)
-	btn.UpgradeIcon:Point("CENTER")
-	btn.UpgradeIcon:Hide()
+		-- Pawn upgrade-arrow overlay (same as ElvUI's own bags) - Blizzard has no
+		-- reliable native API for this, so it's driven entirely by the Pawn
+		-- addon's own PawnShouldItemLinkHaveUpgradeArrowUnbudgeted, if installed.
+		-- Centered on the icon, clear of the item level text's default TOPLEFT
+		-- position. Font strings always draw above textures within the same
+		-- layer regardless of sublevel, so real z-order control over the item
+		-- level text isn't available here either way - this relies on staying
+		-- spatially clear of it instead.
+		btn.UpgradeIcon = btn:CreateTexture(nil, "OVERLAY", nil, 7)
+		btn.UpgradeIcon:SetTexture(E.Media.Textures.BagUpgradeIcon)
+		btn.UpgradeIcon:SetTexCoord(0, 1, 0, 1)
+		btn.UpgradeIcon:Point("CENTER")
+		btn.UpgradeIcon:Hide()
 
-	-- Equipment Manager set marker (parity with EquipManager.lua's own icon
-	-- on ElvUI's native bags) - texture/size/position/color applied fresh in
-	-- UpdateEquipSetIcon from the same E.db.mui.bags.equipmentManager options.
-	btn.equipIcon = btn:CreateTexture(nil, "OVERLAY")
-	btn.equipIcon:Hide()
+		-- Equipment Manager set marker (parity with EquipManager.lua's own icon
+		-- on ElvUI's native bags) - texture/size/position/color applied fresh in
+		-- UpdateEquipSetIcon from the same E.db.mui.bags.equipmentManager options.
+		btn.equipIcon = btn:CreateTexture(nil, "OVERLAY")
+		btn.equipIcon:Hide()
 
-	-- The mixin resolves bag/slot from a one-frame-per-bag hierarchy we don't
-	-- have (all pooled buttons share one parent), so its own OnUpdate and
-	-- event handling end up working from wrong data; strip those. OnEnter/
-	-- OnLeave get fully replaced (not hooked) since the mixin's own tooltip
-	-- logic fights ours the same way. OnClick is left untouched (native) so
-	-- its secure type/item dispatch keeps working; PreClick adds our own
-	-- Left/Middle handling alongside it without disturbing RightButton.
-	btn:SetScript("OnUpdate", nil)
-	btn:UnregisterAllEvents()
-	btn:SetScript("OnMouseDown", nil)
-	btn:SetScript("OnMouseUp", nil)
+		-- The mixin resolves bag/slot from a one-frame-per-bag hierarchy we don't
+		-- have (all pooled buttons share one parent), so its own OnUpdate and
+		-- event handling end up working from wrong data; strip those. OnEnter/
+		-- OnLeave get fully replaced (not hooked) since the mixin's own tooltip
+		-- logic fights ours the same way. OnClick is left untouched (native) so
+		-- its secure type/item dispatch keeps working; PreClick adds our own
+		-- Left/Middle handling alongside it without disturbing RightButton.
+		btn:SetScript("OnUpdate", nil)
+		btn:UnregisterAllEvents()
+		btn:SetScript("OnMouseDown", nil)
+		btn:SetScript("OnMouseUp", nil)
 
-	-- RightButtonDown too: the secure type/item dispatch needs the down-click
-	-- phase registered, not just Up. LeftButtonDown for the same reason, but
-	-- only acted on while a spell waits for an item target (Slot_OnClick).
-	btn:RegisterForClicks("AnyUp", "RightButtonDown", "LeftButtonDown")
-	btn:SetScript("PreClick", Slot_OnClick)
+		-- RightButtonDown too: the secure type/item dispatch needs the down-click
+		-- phase registered, not just Up. LeftButtonDown for the same reason, but
+		-- only acted on while a spell waits for an item target (Slot_OnClick).
+		btn:RegisterForClicks("AnyUp", "RightButtonDown", "LeftButtonDown")
+		btn:SetScript("PreClick", Slot_OnClick)
 
-	btn:RegisterForDrag("LeftButton")
-	btn:SetScript("OnDragStart", Slot_OnDrag)
-	btn:SetScript("OnDragStop", Slot_OnDragStop)
-	btn:SetScript("OnReceiveDrag", Slot_OnDrag)
+		btn:RegisterForDrag("LeftButton")
+		btn:SetScript("OnDragStart", Slot_OnDrag)
+		btn:SetScript("OnDragStop", Slot_OnDragStop)
+		btn:SetScript("OnReceiveDrag", Slot_OnDrag)
 
-	btn:SetScript("OnEnter", Slot_OnEnter)
-	btn:SetScript("OnLeave", Slot_OnLeave)
-	btn.UpdateTooltip = Slot_OnEnter
+		btn:SetScript("OnEnter", Slot_OnEnter)
+		btn:SetScript("OnLeave", Slot_OnLeave)
+		btn.UpdateTooltip = Slot_OnEnter
 
-	-- Slot_OnEnter needs to bump the frame level of whichever top-level frame
-	-- (bags or bank) this particular button actually belongs to.
-	btn.ownerFrame = getOwnerFrame()
+		-- Slot_OnEnter needs to bump the frame level of whichever top-level frame
+		-- (bags or bank) this particular button actually belongs to.
+		btn.ownerFrame = getOwnerFrame()
 
-	-- Pulsing glow for newly picked-up items (entry.isNew - the same flag
-	-- Recent Items uses), shown/colored in UpdateSlotVisual. Reuses ElvUI's
-	-- own bag glow texture and its one-shared-animation-per-frame technique
-	-- (cheaper than animating every slot individually, and keeps every glow
-	-- on the same frame pulsing in sync).
-	btn.newItemGlow = btn:CreateTexture(nil, "OVERLAY", nil, 1)
-	btn.newItemGlow:SetTexture(E.Media.Textures.BagNewItemGlow)
-	btn.newItemGlow:SetInside()
-	btn.newItemGlow:Hide()
+		-- Pulsing glow for newly picked-up items (entry.isNew - the same flag
+		-- Recent Items uses), shown/colored in UpdateSlotVisual. Reuses ElvUI's
+		-- own bag glow texture and its one-shared-animation-per-frame technique
+		-- (cheaper than animating every slot individually, and keeps every glow
+		-- on the same frame pulsing in sync).
+		btn.newItemGlow = btn:CreateTexture(nil, "OVERLAY", nil, 1)
+		btn.newItemGlow:SetTexture(E.Media.Textures.BagNewItemGlow)
+		btn.newItemGlow:SetInside()
+		btn.newItemGlow:Hide()
 
-	local ownerFrame = btn.ownerFrame
-	if not ownerFrame.NewItemGlow then
-		ownerFrame.NewItemGlow = CreateAnimationGroup(ownerFrame)
-		ownerFrame.NewItemGlow:SetLooping(true)
+		local ownerFrame = btn.ownerFrame
+		if not ownerFrame.NewItemGlow then
+			ownerFrame.NewItemGlow = CreateAnimationGroup(ownerFrame)
+			ownerFrame.NewItemGlow:SetLooping(true)
 
-		ownerFrame.NewItemGlow.Fade = ownerFrame.NewItemGlow:CreateAnimation("fade")
-		ownerFrame.NewItemGlow.Fade:SetDuration(0.7)
-		ownerFrame.NewItemGlow.Fade:SetChange(0)
-		ownerFrame.NewItemGlow.Fade:SetEasing("in")
-		ownerFrame.NewItemGlow.Fade:SetScript("OnFinished", NewItemGlowOnFinished)
-	end
-	ownerFrame.NewItemGlow.Fade:AddChild(btn.newItemGlow)
+			ownerFrame.NewItemGlow.Fade = ownerFrame.NewItemGlow:CreateAnimation("fade")
+			ownerFrame.NewItemGlow.Fade:SetDuration(0.7)
+			ownerFrame.NewItemGlow.Fade:SetChange(0)
+			ownerFrame.NewItemGlow.Fade:SetEasing("in")
+			ownerFrame.NewItemGlow.Fade:SetScript("OnFinished", NewItemGlowOnFinished)
+		end
+		ownerFrame.NewItemGlow.Fade:AddChild(btn.newItemGlow)
 
-	-- Same numeric cooldown-text/swipe-color treatment ElvUI's own bag slots
-	-- get, driven by the user's existing ElvUI > Cooldown > Bags settings.
-	-- RegisterCooldown is required, not automatic - ElvUI only applies its
-	-- cooldown text to frames it knows about.
-	if btn.Cooldown then
-		E:RegisterCooldown(btn.Cooldown, "bags")
-	end
+		-- Same numeric cooldown-text/swipe-color treatment ElvUI's own bag slots
+		-- get, driven by the user's existing ElvUI > Cooldown > Bags settings.
+		-- RegisterCooldown is required, not automatic - ElvUI only applies its
+		-- cooldown text to frames it knows about.
+		if btn.Cooldown then
+			E:RegisterCooldown(btn.Cooldown, "bags")
+		end
 
 		return btn
 	end
@@ -1529,10 +1546,7 @@ local function UpdateSlotVisual(btn, entry)
 
 	-- Locked (being moved/split) as before, plus optionally vendor trash, so
 	-- it reads as "sell me" at a glance; the junk coin icon stays either way.
-	SetItemButtonDesaturated(
-		btn,
-		entry.isLocked or (entry.isJunk and module.db.effects.desaturateJunk) or false
-	)
+	SetItemButtonDesaturated(btn, entry.isLocked or (entry.isJunk and module.db.effects.desaturateJunk) or false)
 
 	local countFont = module.db.itemCountFont
 	if btn.Count then
@@ -2095,7 +2109,11 @@ local function CreateSidebarPoolFor(getSidebarChild, getOwnerFrame, getOffsets)
 		return row
 	end
 
-	return { Acquire = AcquireSidebarRow, Release = ReleaseSidebarRowsFrom, SetupSidebarCategoryRow = SetupSidebarCategoryRow }
+	return {
+		Acquire = AcquireSidebarRow,
+		Release = ReleaseSidebarRowsFrom,
+		SetupSidebarCategoryRow = SetupSidebarCategoryRow,
+	}
 end
 
 -- Bundles one independent set of the four pools above for a single owning
@@ -2123,21 +2141,15 @@ local function CreatePoolSet(namePrefix, getContentChild, getSidebarChild, getOw
 	}
 end
 
-local bagPools = CreatePoolSet(
-	SLOT_NAME_PREFIX,
-	function()
-		return module.contentChild
-	end,
-	function()
-		return module.sidebarChild
-	end,
-	function()
-		return module.frame
-	end,
-	function()
-		return module.categoryOffsets
-	end
-)
+local bagPools = CreatePoolSet(SLOT_NAME_PREFIX, function()
+	return module.contentChild
+end, function()
+	return module.sidebarChild
+end, function()
+	return module.frame
+end, function()
+	return module.categoryOffsets
+end)
 
 -- BankFrame.lua builds its own pool set the same way, once its own frame's
 -- contentChild/sidebarChild/frame/offsets exist.
@@ -2530,8 +2542,8 @@ function module:ConstructFrame()
 	-- further down; only its scrollable sidebar row is replaced by this one.
 	f.pinnedRow = CreateFrame("Button", nil, f.sidebar)
 	f.pinnedRow:SetHeight(VIEW_MODE_ROW_HEIGHT)
-	f.pinnedRow:Point("TOPLEFT", f.sidebar, "TOPLEFT", 4, -18 - (#viewModeDefs) * VIEW_MODE_ROW_HEIGHT)
-	f.pinnedRow:Point("TOPRIGHT", f.sidebar, "TOPRIGHT", -4, -18 - (#viewModeDefs) * VIEW_MODE_ROW_HEIGHT)
+	f.pinnedRow:Point("TOPLEFT", f.sidebar, "TOPLEFT", 4, -18 - #viewModeDefs * VIEW_MODE_ROW_HEIGHT)
+	f.pinnedRow:Point("TOPRIGHT", f.sidebar, "TOPRIGHT", -4, -18 - #viewModeDefs * VIEW_MODE_ROW_HEIGHT)
 	f.pinnedRow:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
 
 	f.pinnedRow.icon = f.pinnedRow:CreateTexture(nil, "ARTWORK")
@@ -2772,13 +2784,31 @@ function module:ShowGoldTooltip(anchor)
 	end
 
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine(TooltipIcon("coin-gold") .. (_G.TOTAL or L["Total"]), E:FormatMoney(total, "SMART"), 1, 1, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(
+		TooltipIcon("coin-gold") .. (_G.TOTAL or L["Total"]),
+		E:FormatMoney(total, "SMART"),
+		1,
+		1,
+		1,
+		1,
+		1,
+		1
+	)
 
 	if _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
 		local warbandBankType = (Enum.BankType and Enum.BankType.Account) or 2
 		local ok, warbandGold = pcall(_G.C_Bank.FetchDepositedMoney, warbandBankType)
 		if ok and warbandGold then
-			GameTooltip:AddDoubleLine(TooltipIcon("warbands-icon") .. L["Warband Bank"], E:FormatMoney(warbandGold, "SMART"), 1, 1, 1, 1, 1, 1)
+			GameTooltip:AddDoubleLine(
+				TooltipIcon("warbands-icon") .. L["Warband Bank"],
+				E:FormatMoney(warbandGold, "SMART"),
+				1,
+				1,
+				1,
+				1,
+				1,
+				1
+			)
 		end
 	end
 
@@ -3174,7 +3204,9 @@ local function CollectItemsFromBags(bagIDList, scratch)
 						isRecent = module:IsRecentItem(info.itemID),
 						itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
 							or nil,
-						bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped) or nil,
+						bindText = module.db.itemInfo.enable
+								and GetBindText(info.hyperlink, info.isBound, isUntilEquipped)
+							or nil,
 						isWarbound = isWarbound,
 						subgroupName = subgroupName,
 						subgroupOrder = subgroupOrder,
@@ -3352,8 +3384,7 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 			if info and info.iconFileID and not (searching and info.isFiltered) then
 				scratch[bagID] = scratch[bagID] or {}
 
-				local questID, isActiveQuest, isJunk =
-					GetQuestAndJunkInfo(bagID, slotID, info.quality, info.hasNoValue)
+				local questID, isActiveQuest, isJunk = GetQuestAndJunkInfo(bagID, slotID, info.quality, info.hasNoValue)
 
 				local isWarbound, isUntilEquipped = GetWarboundInfo(info.hyperlink, bagID, slotID)
 
@@ -3373,9 +3404,9 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 					isLocked = info.isLocked,
 					isNew = isNew,
 					isRecent = module:IsRecentItem(info.itemID),
-					itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
+					itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality) or nil,
+					bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped)
 						or nil,
-					bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped) or nil,
 					isWarbound = isWarbound,
 					questID = questID,
 					isActiveQuest = isActiveQuest,
@@ -3548,7 +3579,12 @@ function module:ConstructBagBarPopout()
 				or numSlots
 
 			GameTooltip:SetOwner(self, "ANCHOR_TOP")
-			GameTooltip:AddLine(format("%s (%d/%d)", GetBagDisplayName(self.bagID), numSlots - freeSlots, numSlots), 1, 1, 1)
+			GameTooltip:AddLine(
+				format("%s (%d/%d)", GetBagDisplayName(self.bagID), numSlots - freeSlots, numSlots),
+				1,
+				1,
+				1
+			)
 			GameTooltip:Show()
 
 			module.hoveredBagID = self.bagID
@@ -3587,7 +3623,10 @@ function module:RefreshBagBarPopout()
 		end
 	end
 
-	f:Size(#BAG_IDS * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING) + BAG_BAR_SPACING, BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING * 2)
+	f:Size(
+		#BAG_IDS * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING) + BAG_BAR_SPACING,
+		BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING * 2
+	)
 end
 
 function module:ToggleBagBarPopout()
@@ -4200,9 +4239,18 @@ local function RenderCategorySections(ctx, sections)
 					subHeader:Point("TOPLEFT", ctx.contentChild, "TOPLEFT", 6, -rowStartY)
 					subHeader:Point("TOPRIGHT", ctx.contentChild, "TOPRIGHT", -6, -rowStartY)
 					subHeader.text:SetText(format("%s |cff999999(%d)|r", nextSubHeader.name, nextSubHeader.count))
-					SetSubHeaderIcon(subHeader, module.db.effects.subHeaderIcons and nextSubHeader.icon, nextSubHeader.isLogo)
+					SetSubHeaderIcon(
+						subHeader,
+						module.db.effects.subHeaderIcons and nextSubHeader.icon,
+						nextSubHeader.isLogo
+					)
 					local iconWidth = subHeader.icon:IsShown() and (subHeader.icon:GetWidth() + 4) or 0
-					subHeader.bg:Width(math.max(subHeader.text:GetStringWidth() + iconWidth + 48, (ctx.contentChild:GetWidth() - 12) * 0.5))
+					subHeader.bg:Width(
+						math.max(
+							subHeader.text:GetStringWidth() + iconWidth + 48,
+							(ctx.contentChild:GetWidth() - 12) * 0.5
+						)
+					)
 					rowStartY = rowStartY + subHeader:GetHeight() + 2
 
 					nextSubHeader = subHeaders[nextSubHeaderPos]
@@ -4666,13 +4714,7 @@ function module:ConstructAddCategoryFrame()
 
 		local col = (i - 1) % columns
 		local row = floor((i - 1) / columns)
-		btn:Point(
-			"TOPLEFT",
-			f.iconLabel,
-			"BOTTOMLEFT",
-			col * (buttonSize + spacing),
-			-6 - row * (buttonSize + spacing)
-		)
+		btn:Point("TOPLEFT", f.iconLabel, "BOTTOMLEFT", col * (buttonSize + spacing), -6 - row * (buttonSize + spacing))
 
 		f.iconButtons[i] = btn
 	end

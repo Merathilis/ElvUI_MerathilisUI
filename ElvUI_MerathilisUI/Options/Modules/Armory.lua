@@ -777,7 +777,12 @@ options.armory = {
 						end
 
 						local icon = F.GetIconString(GetItemIconByID(SOCKET_ITEM_ID), 14, 14, true)
-						return text .. "\n\n" .. L["Sockets can be added with "] .. icon .. " " .. F.String.Epic(itemName)
+						return text
+							.. "\n\n"
+							.. L["Sockets can be added with "]
+							.. icon
+							.. " "
+							.. F.String.Epic(itemName)
 					end,
 				},
 				abbreviateEnchantText = {

@@ -78,7 +78,6 @@ function MER:SetupCVars()
 	C_CVar_SetCVar("textToSpeech", 0)
 
 	C_CVar_SetCVar("taintLog", 0)
-
 end
 
 function MER:SetupChat()
@@ -215,7 +214,6 @@ function MER:SetupChat()
 
 		E:UpdateChat()
 	end
-
 end
 
 function MER:SetupLayout()
@@ -577,7 +575,6 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-40"
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
-
 end
 
 function MER:SetupActionbars()
@@ -773,7 +770,6 @@ function MER:SetupActionbars()
 	E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,UIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,UIParent,BOTTOM,304,140"
-
 end
 
 local NP_Auras = {
@@ -1026,7 +1022,6 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
-
 end
 
 function MER:SetupUnitframes(layout)
@@ -2110,7 +2105,6 @@ function MER:SetupUnitframes(layout)
 	elseif layout == "dark" then
 		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
-
 end
 
 function MER:SetupDts()
@@ -2138,7 +2132,6 @@ function MER:SetupDts()
 		"DurabilityIlevel",
 		"Gold",
 	}
-
 end
 
 function MER:DeveloperSettings()

@@ -1069,10 +1069,31 @@ AddStep({
 	end,
 	build = function(page)
 		page.cards = {
-			CreateCard(page, 180, 140, { tag = L["Recommended"], value = "", title = L["Auto Scale"], onClick = ApplyScale }),
-			CreateCard(page, 180, 140, { tag = "", value = "0.60", title = L["Small"], desc = L["More room on the screen"], onClick = ApplyScale }),
-			CreateCard(page, 180, 140, { tag = "", value = "0.80", title = L["Medium"], desc = L["A balanced size"], onClick = ApplyScale }),
-			CreateCard(page, 180, 140, { tag = "", value = "1.00", title = L["Large"], desc = L["Easier to read"], onClick = ApplyScale }),
+			CreateCard(
+				page,
+				180,
+				140,
+				{ tag = L["Recommended"], value = "", title = L["Auto Scale"], onClick = ApplyScale }
+			),
+			CreateCard(page, 180, 140, {
+				tag = "",
+				value = "0.60",
+				title = L["Small"],
+				desc = L["More room on the screen"],
+				onClick = ApplyScale,
+			}),
+			CreateCard(
+				page,
+				180,
+				140,
+				{ tag = "", value = "0.80", title = L["Medium"], desc = L["A balanced size"], onClick = ApplyScale }
+			),
+			CreateCard(
+				page,
+				180,
+				140,
+				{ tag = "", value = "1.00", title = L["Large"], desc = L["Easier to read"], onClick = ApplyScale }
+			),
 		}
 		page.cards[2].scaleValue = 0.6
 		page.cards[3].scaleValue = 0.8
@@ -1128,9 +1149,15 @@ AddStep({
 		})
 		LayoutRow(page, { page.gradient, page.dark }, 0)
 
-		page.cvars = CreateSwitch(page, L["Recommended game settings (CVars)"], 340, function(_, checked)
-			state.cvars = checked
-		end, L["Changes a few World of Warcraft settings, for example the camera distance, nameplates and chat. They are tailored to the author of MerathilisUI and not needed for the layout."])
+		page.cvars = CreateSwitch(
+			page,
+			L["Recommended game settings (CVars)"],
+			340,
+			function(_, checked)
+				state.cvars = checked
+			end,
+			L["Changes a few World of Warcraft settings, for example the camera distance, nameplates and chat. They are tailored to the author of MerathilisUI and not needed for the layout."]
+		)
 		page.cvars:SetPoint("TOPLEFT", page.gradient, "BOTTOMLEFT", 0, -16)
 
 		page.warning = CreateText(page, 11, COLOR_WARNING, "RIGHT")
@@ -1176,7 +1203,8 @@ AddStep({
 			header:SetText(group.name)
 
 			for row, toggle in ipairs(group) do
-				local switch = CreateSwitch(panel, toggle.label, columnWidth - PADDING * 2, ModuleToggle_OnToggle, toggle.desc)
+				local switch =
+					CreateSwitch(panel, toggle.label, columnWidth - PADDING * 2, ModuleToggle_OnToggle, toggle.desc)
 				switch:SetPoint("TOPLEFT", PADDING, -PADDING - 2 - row * 26)
 				switch.path = toggle.path
 				tinsert(page.switches, switch)
@@ -1322,7 +1350,10 @@ AddStep({
 	key = "finish",
 	title = L["Installation Complete"],
 	desc = function()
-		return format(L["Features, the full changelog and downloads can be found on the website %s."], "|cffff7d0amerathilisui.com|r")
+		return format(
+			L["Features, the full changelog and downloads can be found on the website %s."],
+			"|cffff7d0amerathilisui.com|r"
+		)
 	end,
 	build = function(page)
 		local summary = CreatePanel(page)

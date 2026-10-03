@@ -20,7 +20,13 @@ local MIN_HEIGHT, MAX_HEIGHT = 60, 1000
 
 local PANELS = {
 	{ name = "LeftChatPanel", width = "panelWidth", height = "panelHeight" },
-	{ name = "RightChatPanel", width = "panelWidthRight", height = "panelHeightRight", separate = true, optional = true },
+	{
+		name = "RightChatPanel",
+		width = "panelWidthRight",
+		height = "panelHeightRight",
+		separate = true,
+		optional = true,
+	},
 }
 
 -- The right panel is often left empty and without a backdrop (e.g. to hold a
@@ -167,7 +173,13 @@ function module:UpdateResizeGrips()
 				grip.growX, grip.growY = growX, growY
 				grip:SetFrameLevel(panel:GetFrameLevel() + 20)
 				grip:ClearAllPoints()
-				grip:Point(corner, panel, corner, strfind(corner, "LEFT") and 1 or -1, strfind(corner, "TOP") and -1 or 1)
+				grip:Point(
+					corner,
+					panel,
+					corner,
+					strfind(corner, "LEFT") and 1 or -1,
+					strfind(corner, "TOP") and -1 or 1
+				)
 				grip.Texture:SetTexCoord(unpack(TEXCOORDS[corner]))
 			end
 

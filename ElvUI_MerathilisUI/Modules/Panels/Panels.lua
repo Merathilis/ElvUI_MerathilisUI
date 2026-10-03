@@ -144,7 +144,8 @@ function module:CreatePanels()
 	bottomRightExtra:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 16)
 	bottomRightExtra:Hide()
 
-	local bottomRightExtraLine = CreateFrame("Frame", "MER_BottomRightStylePanel1", bottomRightExtra, "BackdropTemplate")
+	local bottomRightExtraLine =
+		CreateFrame("Frame", "MER_BottomRightStylePanel1", bottomRightExtra, "BackdropTemplate")
 	bottomRightExtraLine:Point("BOTTOM", bottomRightExtra, "TOP")
 
 	self.panelsCreated = true

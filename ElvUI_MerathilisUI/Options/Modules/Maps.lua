@@ -186,7 +186,8 @@ options.maps = {
 					name = L["Hide ElvUI Location Text"],
 					desc = L["Hides the zone text ElvUI shows on the Minimap, the panel shows it already."],
 					disabled = function()
-						return not MER:HasRequirements(I.Requirements.Minimap) or not E.db.general.minimap.clusterDisable
+						return not MER:HasRequirements(I.Requirements.Minimap)
+							or not E.db.general.minimap.clusterDisable
 					end,
 					get = function()
 						return E.db.general.minimap.locationText == "HIDE"
@@ -525,7 +526,10 @@ options.maps = {
 								local addon = MER:GetModule("MER_MinimapButtons"):GetForeignCollector()
 								return addon
 										and F.String.Error(
-											format(L["%s already collects your minimap buttons, so this collector stays off."], addon)
+											format(
+												L["%s already collects your minimap buttons, so this collector stays off."],
+												addon
+											)
 										)
 									or ""
 							end,

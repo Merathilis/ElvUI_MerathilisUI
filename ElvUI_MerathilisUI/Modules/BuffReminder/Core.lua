@@ -41,10 +41,7 @@ local C_PaperDollInfo_GetTemporaryEnchantmentInfo = C_PaperDollInfo.GetTemporary
 -------------------------------------------------------------------------------
 local function Known(id)
 	return id
-		and (
-			C_SpellBook_IsSpellKnown(id)
-			or C_SpellBook_IsSpellInSpellBook(id, Enum.SpellBookSpellBank.Player, false)
-		)
+		and (C_SpellBook_IsSpellKnown(id) or C_SpellBook_IsSpellInSpellBook(id, Enum.SpellBookSpellBank.Player, false))
 end
 
 local texCache = {}

@@ -3,7 +3,8 @@ local ES = E:GetModule("Skins")
 local LSM = E.LSM
 
 local _G = _G
-local ipairs, pairs, print, select, tonumber, tostring, type, unpack = ipairs, pairs, print, select, tonumber, tostring, type, unpack
+local ipairs, pairs, print, select, tonumber, tostring, type, unpack =
+	ipairs, pairs, print, select, tonumber, tostring, type, unpack
 local xpcall = xpcall
 local format, gmatch, gsub, match = string.format, string.gmatch, string.gsub, string.match
 local strfind, strjoin, strmatch, strsplit = strfind, strjoin, strmatch, strsplit

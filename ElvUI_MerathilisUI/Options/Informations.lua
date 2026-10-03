@@ -192,15 +192,8 @@ args.issues = LinkTile(4, "GitHub", L["Report bugs and suggestions"], BRAND.GitH
 args.curseforge =
 	LinkTile(5, "CurseForge", L["Via the CurseForge app"], BRAND.CurseForge, COLOR.curseforge, URL.curseforge, THIRD)
 args.wago = LinkTile(6, "Wago Addons", L["Via the Wago app"], BRAND.Wago, nil, URL.wago, THIRD)
-args.development = LinkTile(
-	7,
-	L["Development Version"],
-	L["Latest development build"],
-	BRAND.GitHub,
-	nil,
-	URL.development,
-	THIRD
-)
+args.development =
+	LinkTile(7, L["Development Version"], L["Latest development build"], BRAND.GitHub, nil, URL.development, THIRD)
 args.bugReport = TextCard(
 	8,
 	L["Found a Bug?"],

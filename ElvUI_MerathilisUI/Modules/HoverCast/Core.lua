@@ -485,7 +485,11 @@ local function AreComplementaryReactionBindings(a, b)
 	if not IsReactionBinding(a) or not IsReactionBinding(b) or a.key ~= b.key or a.harmfulSpell or b.harmfulSpell then
 		return false
 	end
-	if not ((a.type == "spell" and (b.type == "spell" or b.type == "item")) or (a.type == "item" and b.type == "spell")) then
+	if
+		not (
+			(a.type == "spell" and (b.type == "spell" or b.type == "item")) or (a.type == "item" and b.type == "spell")
+		)
+	then
 		return false
 	end
 	if
@@ -1097,7 +1101,8 @@ local function BuildBaseMacroText(binding)
 					if binding.oocOnly then
 						reactionConds[#reactionConds + 1] = "nocombat"
 					end
-					lines[#lines + 1] = SpellCastLine(binding, "[" .. tconcat(reactionConds, ",") .. guard .. "]", harmful)
+					lines[#lines + 1] =
+						SpellCastLine(binding, "[" .. tconcat(reactionConds, ",") .. guard .. "]", harmful)
 				end
 				AddReactionLine("help", false)
 				AddReactionLine("harm", true)
@@ -2350,9 +2355,7 @@ function module:ApplyBindings()
 
 	if #hoverSetLines > 0 or #kbClearLines > 0 then
 		local fbFailsafe = tconcat(kbClearLines, "\n")
-		header:SetAttribute(
-			"_onstate-mer_cc",
-			[[
+		header:SetAttribute("_onstate-mer_cc", [[
 			if newstate == "on" then
 				if not mer_hoveractive then
 					self:RunAttribute("mer_hover_set")
@@ -2364,8 +2367,7 @@ function module:ApplyBindings()
 				]] .. fbFailsafe .. [[
 
 			end
-		]]
-		)
+		]])
 		-- State values are deliberately non-numeric: the driver coerces with
 		-- tonumber(newValue) or newValue, so a "1; 0" driver would arrive as
 		-- NUMBER 1 and never match a quoted "1"

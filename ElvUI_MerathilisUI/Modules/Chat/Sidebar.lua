@@ -119,7 +119,16 @@ local function ClickHint(button, text)
 	elseif button == "MIDDLE" then
 		mouse = L["Middle Click:"]
 	end
-	_G.GameTooltip:AddDoubleLine(format("%s |cffffffff%s|r", F.Icon(MER.Media.Mouse[button]), mouse), text, 1, 1, 1, 1, 1, 1)
+	_G.GameTooltip:AddDoubleLine(
+		format("%s |cffffffff%s|r", F.Icon(MER.Media.Mouse[button]), mouse),
+		text,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1
+	)
 end
 
 -------------------------------------------------------------------------------
@@ -541,7 +550,11 @@ function module:OpenChatMenu(btn)
 	local menuButton = _G.ChatFrameMenuButton
 	if menuButton and menuButton.OpenMenu then
 		menuButton:ClearAllPoints()
-		menuButton:SetPoint(self.db.side == "RIGHT" and "TOPRIGHT" or "TOPLEFT", btn, self.db.side == "RIGHT" and "TOPLEFT" or "TOPRIGHT")
+		menuButton:SetPoint(
+			self.db.side == "RIGHT" and "TOPRIGHT" or "TOPLEFT",
+			btn,
+			self.db.side == "RIGHT" and "TOPLEFT" or "TOPRIGHT"
+		)
 		menuButton:OpenMenu()
 	end
 end

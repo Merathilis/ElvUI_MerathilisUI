@@ -402,8 +402,7 @@ function module:CreateEJButton()
 	hooksecurefunc("EncounterJournal_SetTab", function()
 		-- The journal instance on display; Blizzard sets it in EncounterJournal_DisplayInstance.
 		bu:SetShown(
-			module.db.enable
-				and (IsMythicPlusDungeon() or IsCurrentExpansionRaid(_G.EncounterJournal.instanceID))
+			module.db.enable and (IsMythicPlusDungeon() or IsCurrentExpansionRaid(_G.EncounterJournal.instanceID))
 		)
 	end)
 end

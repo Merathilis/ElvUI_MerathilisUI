@@ -242,11 +242,17 @@ options.nameplates = {
 							disabled = TargetArrowsDisabled,
 							values = COLOR_MODES,
 						},
-						customColor = CustomColorOption(8, function()
-							return E.db.mui.nameplates.targetArrows
-						end, P.nameplates.targetArrows, function()
-							MNP:UpdateTargetArrows()
-						end, TargetArrowsCustomColorDisabled),
+						customColor = CustomColorOption(
+							8,
+							function()
+								return E.db.mui.nameplates.targetArrows
+							end,
+							P.nameplates.targetArrows,
+							function()
+								MNP:UpdateTargetArrows()
+							end,
+							TargetArrowsCustomColorDisabled
+						),
 						arrow = {
 							order = 9,
 							type = "select",
@@ -319,11 +325,17 @@ options.nameplates = {
 							disabled = HighlightDisabled,
 							values = COLOR_MODES,
 						},
-						customColor = CustomColorOption(8, function()
-							return E.db.mui.nameplates.highlight
-						end, P.nameplates.highlight, function()
-							MNP:UpdateHighlights()
-						end, HighlightCustomColorDisabled),
+						customColor = CustomColorOption(
+							8,
+							function()
+								return E.db.mui.nameplates.highlight
+							end,
+							P.nameplates.highlight,
+							function()
+								MNP:UpdateHighlights()
+							end,
+							HighlightCustomColorDisabled
+						),
 					},
 				},
 				focusHighlight = {
@@ -382,11 +394,17 @@ options.nameplates = {
 							disabled = FocusHighlightDisabled,
 							values = COLOR_MODES,
 						},
-						customColor = CustomColorOption(6, function()
-							return E.db.mui.nameplates.focusHighlight
-						end, P.nameplates.focusHighlight, function()
-							MNP:UpdateFocusHighlights()
-						end, FocusHighlightCustomColorDisabled),
+						customColor = CustomColorOption(
+							6,
+							function()
+								return E.db.mui.nameplates.focusHighlight
+							end,
+							P.nameplates.focusHighlight,
+							function()
+								MNP:UpdateFocusHighlights()
+							end,
+							FocusHighlightCustomColorDisabled
+						),
 					},
 				},
 				markerColor = {
@@ -425,7 +443,8 @@ options.nameplates = {
 							type = "range",
 							name = L["Alpha"],
 							disabled = function()
-								return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.markerColor.enable
+								return not MER:HasRequirements(I.Requirements.NamePlates)
+									or not E.db.mui.nameplates.markerColor.enable
 							end,
 							min = 0.05,
 							max = 1,

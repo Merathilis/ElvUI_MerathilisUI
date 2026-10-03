@@ -383,7 +383,8 @@ local function UpdateCard(self)
 	local version, data = GetLatestChangelog()
 	self.changelogVersion = version
 
-	local title = format(L["What's New in %s"], F.String.MERATHILISUI(version and FormatVersion(version) or MER.Version))
+	local title =
+		format(L["What's New in %s"], F.String.MERATHILISUI(version and FormatVersion(version) or MER.Version))
 	card.title:SetText(sectionIcons.NEW .. " " .. title)
 
 	local releaseDate = data and data.RELEASE_DATE

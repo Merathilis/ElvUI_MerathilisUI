@@ -53,7 +53,8 @@ options.actionbars = {
 					type = "toggle",
 					name = L["Mouseover"],
 					disabled = function()
-						return not MER:HasRequirements(I.Requirements.ActionBars) or not E.db.mui.actionbars.specBar.enable
+						return not MER:HasRequirements(I.Requirements.ActionBars)
+							or not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 				size = {
@@ -64,7 +65,8 @@ options.actionbars = {
 					max = 60,
 					step = 1,
 					disabled = function()
-						return not MER:HasRequirements(I.Requirements.ActionBars) or not E.db.mui.actionbars.specBar.enable
+						return not MER:HasRequirements(I.Requirements.ActionBars)
+							or not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 				frameStrata = {
@@ -72,7 +74,8 @@ options.actionbars = {
 					type = "select",
 					name = L["Frame Strata"],
 					disabled = function()
-						return not MER:HasRequirements(I.Requirements.ActionBars) or not E.db.mui.actionbars.specBar.enable
+						return not MER:HasRequirements(I.Requirements.ActionBars)
+							or not E.db.mui.actionbars.specBar.enable
 					end,
 					values = {
 						BACKGROUND = L["BACKGROUND"],
@@ -89,7 +92,8 @@ options.actionbars = {
 					max = 256,
 					step = 1,
 					disabled = function()
-						return not MER:HasRequirements(I.Requirements.ActionBars) or not E.db.mui.actionbars.specBar.enable
+						return not MER:HasRequirements(I.Requirements.ActionBars)
+							or not E.db.mui.actionbars.specBar.enable
 					end,
 				},
 			},
