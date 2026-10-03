@@ -49,7 +49,7 @@ module.options = {
 	presets = {
 		order = 104.5,
 		name = L["Presets"],
-		icon = I.Media.Icons.Categories.Gradient,
+		icon = I.Media.Icons.Categories.presets,
 		args = {},
 		-- A preset can replace the installer, so it is reachable on a fresh profile too
 		alwaysShown = true,
