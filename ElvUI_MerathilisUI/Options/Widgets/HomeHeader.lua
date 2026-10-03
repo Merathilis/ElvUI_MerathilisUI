@@ -54,6 +54,18 @@ local tips = {
 	},
 	{ text = L["Type /mer changelog to read what changed in every version."], path = { "information", "changelog" } },
 	{ text = L["Type /mer install to run the installer again, e.g. to reapply the MerathilisUI profile."] },
+	{
+		text = L["Type /mer presets to pick a ready-made look. Every preset becomes a new ElvUI profile, so you can switch back at any time."],
+		path = { "presets", "official" },
+	},
+	{
+		text = L["More presets from the community wait on merathilisui.com/presets. Copy a code and paste it under Presets > Import."],
+		path = { "presets", "import" },
+	},
+	{
+		text = L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."],
+		path = { "presets", "export" },
+	},
 	{ text = L["Type /mlr to preview the Loot Roll bar with test rolls."], path = { "modules", "lootRoll" } },
 	{
 		text = L["Type /lsm to open the LootSpecManager. It switches your loot spec per boss in raids and Mythic+."],

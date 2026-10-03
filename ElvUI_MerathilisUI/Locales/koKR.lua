@@ -1684,3 +1684,6 @@ L["The MerathilisUI layout with dark health bars and the class color on their ba
 L["Bigger party and raid frames in the middle of the screen, close to your character."] = true
 L["Only the main action bar stays visible, the other bars show on mouseover. No chat backgrounds, chat bar or portraits."] = true
 L["Smaller unit frames and action buttons for 1080p and small screens."] = true
+L["Type /mer presets to pick a ready-made look. Every preset becomes a new ElvUI profile, so you can switch back at any time."] = true
+L["More presets from the community wait on merathilisui.com/presets. Copy a code and paste it under Presets > Import."] = true
+L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."] = true
