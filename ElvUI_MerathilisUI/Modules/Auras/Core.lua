@@ -140,10 +140,14 @@ local function ApplyCollapsedState(header, collapsed)
 		sortDirection = header.sortDirection
 	end
 
+	-- Pass ElvUI's own layout table along: Auras_UpdateGroup always calls SetAuraGroupLayout, and a
+	-- nil layout resets the group to the container defaults, dropping Vertical/Horizontal Spacing
+	local layout = E:Auras_UpdateLayout(header)
+
 	for key in next, header.active do
 		local data = header.filters and header.filters[key]
 		if data then
-			pcall(E.Auras_UpdateGroup, E, header, key, data, nil, maxCount, sortMethod, sortDirection)
+			pcall(E.Auras_UpdateGroup, E, header, key, data, layout, maxCount, sortMethod, sortDirection)
 		end
 	end
 
