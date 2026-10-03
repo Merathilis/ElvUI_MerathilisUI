@@ -154,7 +154,7 @@ options.maps = {
 						feature = {
 							order = 1,
 							type = "description",
-							name = L["Shows the current zone in a panel above your Minimap. Click it to open the World Map."],
+							name = L["Shows the current zone in a panel above your Minimap. Left-click it to open the World Map, right-click to link your location in chat."],
 							fontSize = "medium",
 						},
 					},

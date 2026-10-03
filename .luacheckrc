@@ -103,6 +103,7 @@ read_globals = {
 	"SendMailNameEditBox",
 	"SendMailSubjectEditBox",
 	"SOUNDKIT",
+	"UiMapPoint",
 
 	-- Old globals only read as a fallback behind the current API (`C_X.Y or Y`)
 	"CastingInfo",

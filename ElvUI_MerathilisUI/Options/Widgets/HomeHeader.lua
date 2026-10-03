@@ -132,7 +132,7 @@ local tips = {
 		path = { "modules", "maps" },
 	},
 	{
-		text = L["The Location Panel above the Minimap can show your coordinates. Click it to open the World Map."],
+		text = L["The Location Panel above the Minimap can show your coordinates. Left-click it to open the World Map, right-click to link your location in chat."],
 		path = { "modules", "maps" },
 	},
 	{

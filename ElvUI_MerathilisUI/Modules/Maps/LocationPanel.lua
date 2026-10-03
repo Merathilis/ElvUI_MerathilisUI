@@ -11,15 +11,22 @@ local GetSubZoneText = GetSubZoneText
 local GetZoneText = GetZoneText
 local HideUIPanel = HideUIPanel
 local InCombatLockdown = InCombatLockdown
+local PlaySound = PlaySound
 local C_Map = C_Map
 local C_PvP = C_PvP
+local C_SuperTrack = C_SuperTrack
+local ChatFrameUtil = ChatFrameUtil
+local UiMapPoint = UiMapPoint
 
 local COMBAT_ZONE = COMBAT_ZONE
 local CONTESTED_TERRITORY = CONTESTED_TERRITORY
 local FACTION_CONTROLLED_TERRITORY = FACTION_CONTROLLED_TERRITORY
 local FREE_FOR_ALL_TERRITORY = FREE_FOR_ALL_TERRITORY
+local MAP_PIN_INVALID_MAP = MAP_PIN_INVALID_MAP
 local NORMAL_FONT_COLOR = _G.NORMAL_FONT_COLOR
+local RED_FONT_COLOR = _G.RED_FONT_COLOR
 local SANCTUARY_TERRITORY = SANCTUARY_TERRITORY
+local SOUNDKIT = _G.SOUNDKIT
 local WORLDMAP_BUTTON = WORLDMAP_BUTTON
 
 local Minimap = _G.Minimap
@@ -188,13 +195,52 @@ function module:ShowTooltip()
 
 	tooltip:AddLine(" ")
 	tooltip:AddDoubleLine(L["Left Click"], WORLDMAP_BUTTON, 1, 1, 1, 0.8, 0.8, 0.8)
+	tooltip:AddDoubleLine(L["Right Click"], L["Link Location in Chat"], 1, 1, 1, 0.8, 0.8, 0.8)
 	tooltip:Show()
+end
+
+-- The map pin hyperlink only exists for the user waypoint, so the player's position
+-- becomes the waypoint for a moment. A pin the player had placed before is put back
+-- afterwards, together with its tracking state.
+function module:LinkLocation()
+	local mapID, x, y = mapInfo.mapID, mapInfo.x, mapInfo.y
+	if not (mapID and x and y and C_Map.CanSetUserWaypointOnMap(mapID)) then
+		_G.UIErrorsFrame:AddMessage(MAP_PIN_INVALID_MAP, RED_FONT_COLOR:GetRGBA())
+		return
+	end
+
+	local oldWaypoint = C_Map.GetUserWaypoint()
+	local wasTracked = C_SuperTrack.IsSuperTrackingUserWaypoint()
+
+	C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(mapID, x, y))
+	local link = C_Map.GetUserWaypointHyperlink()
+
+	if oldWaypoint then
+		C_Map.SetUserWaypoint(oldWaypoint)
+		C_SuperTrack.SetSuperTrackedUserWaypoint(wasTracked)
+	else
+		C_Map.ClearUserWaypoint()
+	end
+
+	if not link then
+		return
+	end
+
+	-- Adds the link to an open chat box, otherwise opens one with the link in it.
+	if not ChatFrameUtil.InsertLink(link) then
+		ChatFrameUtil.OpenChat(link)
+	end
+
+	PlaySound(SOUNDKIT.UI_MAP_WAYPOINT_CHAT_SHARE)
 end
 
 -- Goes through the C API instead of ToggleWorldMap(), so the map is not opened
 -- from addon code. Closing is only safe out of combat, Escape or M still work.
 local function Panel_OnMouseUp(_, button)
-	if button ~= "LeftButton" then
+	if button == "RightButton" then
+		module:LinkLocation()
+		return
+	elseif button ~= "LeftButton" then
 		return
 	end
 

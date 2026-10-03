@@ -783,7 +783,7 @@ L["Addon Buttons on the Minimap Buttons bar collects the minimap buttons of your
 	"Addon-Buttons in der Minimap-Buttons-Leiste sammelt die Minimap-Buttons deiner Addons in einem Raster."
 L["Want an addon button to stay on the Minimap? Add its name to the Ignored Buttons of Addon Buttons."] =
 	"Ein Addon-Button soll auf der Minimap bleiben? Trag seinen Namen bei den ignorierten Buttons von Addon-Buttons ein."
-L["The Location Panel above the Minimap can show your coordinates. Click it to open the World Map."] = "Das Standort-Panel über der Minimap kann deine Koordinaten zeigen. Ein Klick öffnet die Weltkarte."
+L["The Location Panel above the Minimap can show your coordinates. Left-click it to open the World Map, right-click to link your location in chat."] = "Das Standort-Panel über der Minimap kann deine Koordinaten zeigen. Ein Linksklick öffnet die Weltkarte, ein Rechtsklick verlinkt deinen Standort im Chat."
 L["The Specialization Bar switches your spec with a left click and your loot spec with a right click."] = "Die Spezialisierungsleiste wechselt per Linksklick deine Spezialisierung und per Rechtsklick deine Beute-Spezialisierung."
 L["Auras can add a collapse button to your buffs that hides long-lasting ones until they are about to expire."] = "Stärkungszauber können einen Einklapp-Button bekommen, der lang anhaltende ausblendet, bis sie bald ablaufen."
 L["Item Level shows the item level on items in the merchant and trade windows."] = "Das Modul Gegenstandsstufe zeigt die Stufe von Gegenständen im Händler- und Handelsfenster."
@@ -1135,7 +1135,8 @@ L["Replaced by the voice button of the MerathilisUI Chat Sidebar."] = "Ersetzt d
 L["Other Games / App"] = "Andere Spiele / App"
 
 L["Location Panel"] = "Standort-Panel"
-L["Shows the current zone in a panel above your Minimap. Click it to open the World Map."] = "Zeigt die aktuelle Zone in einem Panel über deiner Minimap an. Ein Klick öffnet die Weltkarte."
+L["Link Location in Chat"] = "Standort im Chat verlinken"
+L["Shows the current zone in a panel above your Minimap. Left-click it to open the World Map, right-click to link your location in chat."] = "Zeigt die aktuelle Zone in einem Panel über deiner Minimap an. Ein Linksklick öffnet die Weltkarte, ein Rechtsklick verlinkt deinen Standort im Chat."
 L["Disable ElvUI Cluster"] = "ElvUI-Cluster deaktivieren"
 L["ElvUI's Minimap Cluster shows the zone text and the clock above the Minimap. Disable it so it does not overlap the panel."] = "ElvUIs Minimap-Cluster zeigt Zonentext und Uhrzeit über der Minimap. Deaktiviere ihn, damit er das Panel nicht überdeckt."
 L["Opens Blizzard's addon list. Hidden while ElvUI's own option hides the addon compartment."] = "Öffnet Blizzards Addon-Liste. Ausgeblendet, solange ElvUIs eigene Option das Addon-Fach versteckt."
