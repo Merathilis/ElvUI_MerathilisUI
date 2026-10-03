@@ -46,6 +46,14 @@ module.options = {
 		icon = I.Media.Icons.Categories.Bill,
 		args = {},
 	},
+	presets = {
+		order = 104.5,
+		name = L["Presets"],
+		icon = I.Media.Icons.Categories.Gradient,
+		args = {},
+		-- A preset can replace the installer, so it is reachable on a fresh profile too
+		alwaysShown = true,
+	},
 	profiles = {
 		order = 105,
 		name = L["Profiles"],
@@ -670,7 +678,7 @@ function module:OptionsCallback()
 			get = info.get,
 			set = info.set,
 			hidden = function() -- Only the start page is shown until the installer ran
-				return not F.IsMERProfile()
+				return not info.alwaysShown and not F.IsMERProfile()
 			end,
 		}
 	end

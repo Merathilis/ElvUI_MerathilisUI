@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!-- Registration order is the order on the Presets page -->
+	<Script file="Layouts.lua"/>
+	<Script file="Healer.lua"/>
+	<Script file="Minimal.lua"/>
+	<Script file="Compact.lua"/>
+</Ui>

@@ -128,6 +128,8 @@ function MER:HandleChatCommand(msg)
 		self:OpenChangelog()
 	elseif category == "settings" then
 		E:ToggleOptions("mui")
+	elseif category == "presets" then
+		E:ToggleOptions("mui,presets")
 	elseif category == "status" or category == "info" then
 		self:ShowStatusReport()
 	elseif category == "install" or category == "i" then
@@ -136,7 +138,7 @@ function MER:HandleChatCommand(msg)
 		if not F.IsMERProfile() then
 			F.Print("You are not using a " .. MER.Title .. " profile. Please install " .. MER.Title .. " first.")
 		end
-		F.Print("Usage: /mer [changelog|cl] [install|i] [status|info] [settings]")
+		F.Print("Usage: /mer [changelog|cl] [install|i] [presets] [status|info] [settings]")
 		F.Print("Debugging: /muidebug [on|off], /muidev")
 	end
 end
