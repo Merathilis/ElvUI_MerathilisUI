@@ -282,6 +282,17 @@ options.reset = {
 				end)
 			end,
 		},
+		quickGrid = {
+			order = 21.5,
+			type = "execute",
+			name = L["Quick Grid"],
+			func = function()
+				-- The custom deck (private) and the key bindings stay, like other content
+				E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Quick Grid"], nil, function()
+					ResetProfile("quickGrid")
+				end)
+			end,
+		},
 		theme = {
 			order = 22,
 			type = "execute",
