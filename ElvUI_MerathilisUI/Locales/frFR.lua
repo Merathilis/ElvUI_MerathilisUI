@@ -1689,3 +1689,5 @@ L["Random favorite mount (top), hearthstone (right), Dalaran Hearthstone (left),
 L["Raid target icons on your target. Hold Shift while you release the key to place the matching world marker instead."] = true
 L["Both professions with their second ability, cooking, fishing and archaeology, always in the same place. The top left opens the professions book."] = true
 L["Eight places of your own for spells, items, toys, macros and mounts. Saved per character."] = true
+L["Quick Grid opens a grid of eight actions at your cursor while you hold a key: teleports, mounts, markers, professions or your own."] = true
+L["In the Quick Grid marker deck, hold Shift while you release the key to place a world marker instead of a target marker."] = true

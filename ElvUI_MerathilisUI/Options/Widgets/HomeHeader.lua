@@ -102,6 +102,14 @@ local tips = {
 		path = { "modules", "hoverCast" },
 	},
 	{
+		text = L["Quick Grid opens a grid of eight actions at your cursor while you hold a key: teleports, mounts, markers, professions or your own."],
+		path = { "modules", "quickGrid" },
+	},
+	{
+		text = L["In the Quick Grid marker deck, hold Shift while you release the key to place a world marker instead of a target marker."],
+		path = { "modules", "quickGrid" },
+	},
+	{
 		text = L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."],
 		path = { "modules", "nameplates", "general" },
 	},
