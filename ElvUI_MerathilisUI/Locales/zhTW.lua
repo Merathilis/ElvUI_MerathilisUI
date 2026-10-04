@@ -649,6 +649,7 @@ L["Arena"] = "競技場"
 L["Assist"] = "助理框架"
 L["Assist Target"] = "Assist Target"
 L["Auto Copy Private Profile"] = "Auto Copy Private Profile"
+L["Import / Export"] = true
 L["Auto Scale"] = "自動縮放"
 L["Automatically copy the selected private profile to a new character on first login."] =
 	"Automatically copy the selected private profile to a new character on first login."

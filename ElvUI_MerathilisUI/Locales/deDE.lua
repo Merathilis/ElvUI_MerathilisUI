@@ -1501,6 +1501,7 @@ L["Arena"] = "Arena"
 L["Assist"] = "Assistent"
 L["Assist Target"] = "Ziel des Assistenten"
 L["Auto Copy Private Profile"] = "Privates Profil automatisch kopieren"
+L["Import / Export"] = true
 L["Auto Scale"] = "Auto Skalierung"
 L["Automatically copy the selected private profile to a new character on first login."] = "Kopiert das ausgewählte private Profil beim ersten Einloggen automatisch auf einen neuen Charakter."
 L["BACKGROUND"] = "Hintergrund"

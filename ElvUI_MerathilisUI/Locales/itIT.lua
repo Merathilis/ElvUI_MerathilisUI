@@ -646,6 +646,7 @@ L["Arena"] = "Arena"
 L["Assist"] = "Assist"
 L["Assist Target"] = "Assist Target"
 L["Auto Copy Private Profile"] = "Auto Copy Private Profile"
+L["Import / Export"] = true
 L["Auto Scale"] = "Auto Scale"
 L["Automatically copy the selected private profile to a new character on first login."] =
 	"Automatically copy the selected private profile to a new character on first login."
