@@ -4,6 +4,7 @@ MER.Changelog[740] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
 		"[Core]: The checkmark in the profile update messages shows again.",
+		"[Notification]: The new mail toast plays a sound again.",
 		"[Skins]: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.",
 	},
 	NEW = {

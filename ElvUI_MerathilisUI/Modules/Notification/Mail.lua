@@ -4,7 +4,8 @@ local module = MER:GetModule("MER_Notification")
 local format = format
 local HasNewMail = HasNewMail
 local InCombatLockdown = InCombatLockdown
-local PlaySoundFile = PlaySoundFile
+local PlaySound = PlaySound
+local SOUNDKIT = SOUNDKIT
 local MAIL_LABEL = MAIL_LABEL
 local HAVE_MAIL = HAVE_MAIL
 
@@ -38,6 +39,6 @@ function module:UPDATE_PENDING_MAIL()
 	)
 
 	if not db.noSound then
-		PlaySoundFile([[Interface\AddOns\ElvUI_MerathilisUI\Media\Sounds\mail.mp3]])
+		PlaySound(SOUNDKIT.TELL_MESSAGE, "Master")
 	end
 end
