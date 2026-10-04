@@ -503,6 +503,17 @@ local function CreatePortalFlyout()
 	return flyout
 end
 
+-- Data access for other features that offer the same teleports (Quick Grid)
+function PortalFlyout.GetSeasonPortals()
+	return SEASON_PORTALS
+end
+
+-- type ("spell"/"item"), id and icon of the hearthstone slot, see ResolveHearthSlot
+PortalFlyout.ResolveHearthstone = ResolveHearthSlot
+
+-- type ("item"), id and icon of the Dalaran Hearthstone slot
+PortalFlyout.ResolveDalaranHearthstone = ResolveDalaranSlot
+
 function PortalFlyout.IsShown()
 	return _portalFlyout ~= nil and _portalFlyout:IsShown()
 end

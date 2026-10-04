@@ -1660,3 +1660,31 @@ L["Shows small toast notifications for new mail, invites, guild events, paragon 
 L["Shows its own action bar while you are in a vehicle or skyriding."] = true
 L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."] = true
 L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."] = true
+
+-- Quick Grid
+L["Quick Grid"] = true
+L["Hold a key and a grid of eight actions opens around your mouse cursor. Point in a direction and release the key to use that action. Releasing in the center or without moving the mouse cancels. Works in combat."] = true
+L["Open At"] = true
+L["Opens the grid under your mouse cursor or always in the middle of the screen."] = true
+L["Screen Center"] = true
+L["Tile Size"] = true
+L["Show Cooldowns"] = true
+L["Shows the cooldowns of spells, items and toys on their tiles."] = true
+L["Show Name"] = true
+L["Shows the name of the selected action below the grid."] = true
+L["Name Size"] = true
+L["Decks"] = true
+L["Hold this key to open the deck. The free modifier combinations of the key open it too, so a modifier can be pressed while the deck is open."] = true
+L["Custom Deck"] = true
+L["Drag a spell, item or macro onto a field, or type the name of a spell, macro, mount, toy or item. Empty a field to clear it."] = true
+L["The center cancels."] = true
+L["Could not find %s. Use the name of a spell, macro, mount, toy or item."] = true
+L["Teleports"] = true
+L["Travel"] = true
+L["Random Favorite Mount"] = true
+L["World Marker"] = true
+L["The Mythic+ dungeon teleports of the current season. Teleports you don't know yet are greyed out."] = true
+L["Random favorite mount (top), hearthstone (right), Dalaran Hearthstone (left), a vendor mount (bottom), an auction house mount (top right) and your first favorite mounts in the free corners."] = true
+L["Raid target icons on your target. Hold Shift while you release the key to place the matching world marker instead."] = true
+L["Both professions with their second ability, cooking, fishing and archaeology, always in the same place. The top left opens the professions book."] = true
+L["Eight places of your own for spells, items, toys, macros and mounts. Saved per character."] = true

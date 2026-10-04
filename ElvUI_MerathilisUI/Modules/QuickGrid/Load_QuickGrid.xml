@@ -1,0 +1,4 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Decks.lua"/>
+	<Script file="Core.lua"/>
+</Ui>

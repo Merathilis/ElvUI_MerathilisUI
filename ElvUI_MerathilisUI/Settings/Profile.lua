@@ -1217,6 +1217,23 @@ P.tracker = {
 	},
 }
 
+P.quickGrid = {
+	enable = false,
+	anchor = "CURSOR", -- CURSOR, CENTER
+	tileSize = 44,
+	spacing = 6,
+	showLabel = true,
+	labelSize = 14,
+	showCooldowns = true,
+	decks = {
+		teleports = true,
+		travel = true,
+		markers = true,
+		professions = true,
+		custom = true,
+	},
+}
+
 P.movementAlert = {
 	enable = false,
 	combatOnly = false,

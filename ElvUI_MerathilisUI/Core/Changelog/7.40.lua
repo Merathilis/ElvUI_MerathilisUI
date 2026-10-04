@@ -11,6 +11,7 @@ MER.Changelog[740] = {
 	NEW = {
 		"[ActionBars]: Brought back Blizzard's rotation frame on the Single-Button Assistant button, sized for ElvUI's square buttons, with an optional combat animation and class or custom colors.",
 		"[General]: Added Performance Tuning, a one-click graphics adjustment for a higher frame rate and a sharper image, with a revert button and a details card listing every change.",
+		"[Quick Grid]: New module: hold a key and a 3x3 grid of actions opens at your cursor, release it in a direction to use one, in combat too. Comes with decks for teleports, travel, markers and professions plus a custom one.",
 	},
 	IMPROVEMENTS = {
 		"[Locales]: The German translation is complete.",

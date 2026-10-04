@@ -69,3 +69,8 @@ V.skins = {
 		},
 	},
 }
+
+-- Quick Grid: the custom deck holds spells, so it is per character
+V.quickGrid = {
+	custom = {},
+}
