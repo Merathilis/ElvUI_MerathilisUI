@@ -16,5 +16,6 @@ MER.Changelog[740] = {
 		"[Locales]: Terms MerathilisUI shares with ElvUI show ElvUI's translation again instead of English or a different wording, in ElvUI too.",
 		"[Options]: Many option pages now use cards: module switches show their description and icon, credits and info texts sit in cards, and simple toggles are grouped into two-column grids.",
 		"[Options]: The Tags page shows a preview of the name gradient tag on sample unit frames.",
+		"[Options]: The two Profiles pages are merged: Import/Export and Auto Copy Private Profile moved from Advanced Settings into the main Profiles page, whose font tab is now called Fonts.",
 	},
 }
