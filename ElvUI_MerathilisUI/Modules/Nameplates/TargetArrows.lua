@@ -220,23 +220,65 @@ local function GetArrowColor(db)
 	return color.r, color.g, color.b
 end
 
-local function ConfigureArrow(element, arrow, db, anchor, r, g, b)
+-- The side arrows move out by the width of a castbar icon that sticks out next to them
+local function PlaceArrow(element, arrow)
+	local anchor, spacing = element.anchor, element.spacing
+	arrow:ClearAllPoints()
+
+	if arrow.key == "left" then
+		arrow:Point("RIGHT", anchor, "LEFT", -spacing - element.dodge.left, 0)
+	elseif arrow.key == "right" then
+		arrow:Point("LEFT", anchor, "RIGHT", spacing + element.dodge.right, 0)
+	else
+		arrow:Point("BOTTOM", anchor, "TOP", 0, spacing)
+	end
+end
+
+local function SetDodge(element, left, right)
+	if element.dodge.left == left and element.dodge.right == right then
+		return
+	end
+
+	element.dodge.left, element.dodge.right = left, right
+	PlaceArrow(element, element.arrows.left)
+	PlaceArrow(element, element.arrows.right)
+end
+
+local function UpdateDodge(element, castbar)
+	local button = castbar.Button
+	if not (button and button:IsShown()) then
+		SetDodge(element, 0, 0)
+		return
+	end
+
+	local health = element.anchor
+	local healthLeft, healthRight = health:GetLeft(), health:GetRight()
+	local _, healthY = health:GetCenter()
+	local buttonLeft, buttonRight = button:GetLeft(), button:GetRight()
+	local buttonTop, buttonBottom = button:GetTop(), button:GetBottom()
+	if not (healthLeft and healthY and buttonLeft and buttonTop) then
+		SetDodge(element, 0, 0)
+		return
+	end
+
+	-- Only an icon at the height of the arrows is in their way
+	local half = element.arrows.left:GetHeight() / 2
+	if buttonBottom >= healthY + half or buttonTop <= healthY - half then
+		SetDodge(element, 0, 0)
+		return
+	end
+
+	SetDodge(element, max(0, healthLeft - buttonLeft), max(0, buttonRight - healthRight))
+end
+
+local function ConfigureArrow(element, arrow, db, r, g, b)
 	local info = ARROWS[arrow.key]
 	local size = db.size
-	local spacing = db.spacing
 
 	arrow:SetTexture(E.Media.Arrows[db.arrow] or E.Media.Arrows.Arrow9)
 	arrow:SetVertexColor(r, g, b)
 	arrow:Size(size)
-	arrow:ClearAllPoints()
-
-	if arrow.key == "left" then
-		arrow:Point("RIGHT", anchor, "LEFT", -spacing, 0)
-	elseif arrow.key == "right" then
-		arrow:Point("LEFT", anchor, "RIGHT", spacing, 0)
-	else
-		arrow:Point("BOTTOM", anchor, "TOP", 0, spacing)
-	end
+	PlaceArrow(element, arrow)
 
 	local distance = size * 0.75
 	arrow.intro.offset:SetOffset(info.dirX * distance, info.dirY * distance)
@@ -273,16 +315,30 @@ function module:Configure_TargetArrows(nameplate)
 		end
 		element:SetScript("OnShow", Element_OnShow)
 		element:SetScript("OnHide", Element_OnHide)
+		element.dodge = { left = 0, right = 0 }
 		nameplate.MER_TargetArrows = element
+
+		-- A castbar only shows while the unit casts, its icon may cover an arrow
+		local castbar = nameplate.Castbar
+		if castbar then
+			castbar:HookScript("OnShow", function()
+				UpdateDodge(element, castbar)
+			end)
+			castbar:HookScript("OnHide", function()
+				SetDodge(element, 0, 0)
+			end)
+		end
 	end
 
 	element:SetFrameLevel(nameplate.Health:GetFrameLevel() + 5)
 	element.animation = db.animation
+	element.anchor = nameplate.Health
+	element.spacing = db.spacing
 
 	local r, g, b = GetArrowColor(db)
 	local layout = LAYOUTS[db.layout] or LAYOUTS.sides
 	for key, arrow in pairs(element.arrows) do
-		ConfigureArrow(element, arrow, db, nameplate.Health, r, g, b)
+		ConfigureArrow(element, arrow, db, r, g, b)
 		arrow:SetShown(layout[key] == true)
 	end
 

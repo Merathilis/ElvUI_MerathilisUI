@@ -985,9 +985,9 @@ P.nameplates = {
 		enable = true,
 		format = "PERCENT",
 		fontSize = 10,
-		position = "RIGHT",
-		xOffset = 4,
-		yOffset = 0,
+		position = "TOPRIGHT",
+		xOffset = 2,
+		yOffset = 7,
 		color = { r = 1, g = 1, b = 1 },
 	},
 	interruptReady = {
