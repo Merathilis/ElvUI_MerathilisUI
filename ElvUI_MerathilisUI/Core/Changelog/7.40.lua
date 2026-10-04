@@ -9,6 +9,7 @@ MER.Changelog[740] = {
 		"[Skins]: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.",
 	},
 	NEW = {
+		"[ActionBars]: Brought back Blizzard's rotation frame on the Single-Button Assistant button, sized for ElvUI's square buttons, with an optional combat animation and class or custom colors.",
 		"[General]: Added Performance Tuning, a one-click graphics adjustment for a higher frame rate and a sharper image, with a revert button and a details card listing every change.",
 	},
 	IMPROVEMENTS = {

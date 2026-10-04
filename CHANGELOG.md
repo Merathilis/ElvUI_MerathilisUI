@@ -4,6 +4,7 @@
 -   [Fix]: Misc: The search box in the icon picker shows a real title and tooltip instead of its internal names.
 -   [Fix]: Notification: The new mail toast plays a sound again.
 -   [Fix]: Skins: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.
+-   [New]: ActionBars: Brought back Blizzard's rotation frame on the Single-Button Assistant button, sized for ElvUI's square buttons, with an optional combat animation and class or custom colors.
 -   [New]: General: Added Performance Tuning, a one-click graphics adjustment for a higher frame rate and a sharper image, with a revert button and a details card listing every change.
 -   [Improvement]: Locales: The German translation is complete.
 -   [Improvement]: Locales: Terms MerathilisUI shares with ElvUI show ElvUI's translation again instead of English or a different wording, in ElvUI too.
