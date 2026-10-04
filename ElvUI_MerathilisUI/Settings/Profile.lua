@@ -788,6 +788,12 @@ P.actionbars = {
 		frameLevel = 1,
 		size = 20,
 	},
+	assistedRotation = {
+		enable = true,
+		animation = true,
+		colorMode = "DEFAULT",
+		customColor = { r = 1, g = 0.82, b = 0 },
+	},
 }
 
 P.vehicleBar = {

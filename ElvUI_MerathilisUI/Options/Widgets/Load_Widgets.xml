@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='GradientPreview.lua' />
 	<Script file='InterruptReadyPreview.lua' />
+	<Script file='AssistedRotationPreview.lua' />
 	<Script file='CastTargetPreview.lua' />
 	<Script file='NameplateHealthPreview.lua' />
 	<Script file='TagPreview.lua' />

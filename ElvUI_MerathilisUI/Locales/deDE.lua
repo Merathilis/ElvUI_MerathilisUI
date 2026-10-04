@@ -223,6 +223,10 @@ L["Text Font"] = "Text Schriftart"
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
+L["Single-Button Assistant"] = true
+L["Brings back Blizzard's rotation frame around its action button, which ElvUI's action bars leave out."] = "Bringt Blizzards Rotationsrahmen um die Aktionstaste zurück, den ElvUIs Aktionsleisten weglassen."
+L["Combat Animation"] = "Kampfanimation"
+L["Spins a glow around the frame while you are in combat."] = "Lässt im Kampf ein Leuchten um den Rahmen kreisen."
 
 -- Armory
 L["Armory"] = "Arsenal"

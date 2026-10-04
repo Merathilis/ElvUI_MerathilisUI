@@ -203,6 +203,10 @@ L["Text Font"] = true
 L["Specialization Bar"] = true
 L["Frame Strata"] = true
 L["Frame Level"] = true
+L["Single-Button Assistant"] = true
+L["Brings back Blizzard's rotation frame around its action button, which ElvUI's action bars leave out."] = true
+L["Combat Animation"] = true
+L["Spins a glow around the frame while you are in combat."] = true
 
 -- Armory
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true

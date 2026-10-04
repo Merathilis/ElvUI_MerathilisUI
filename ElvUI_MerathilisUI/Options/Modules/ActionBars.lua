@@ -6,6 +6,14 @@ local options = module.options.modules.args
 
 local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
+F.MarkTabAsNew("actionbars")
+
+local function AssistedRotationDisabled()
+	return not MER:HasRequirements(I.Requirements.ActionBars)
+		or not C_ActionBar.IsAssistedCombatAction
+		or not E.db.mui.actionbars.assistedRotation.enable
+end
+
 options.actionbars = {
 	type = "group",
 	name = module:AddCategorieIcon(L["ActionBars"], "actionbars"),
@@ -98,8 +106,82 @@ options.actionbars = {
 				},
 			},
 		},
-		colorModifiers = {
+		assistedRotation = {
 			order = 4,
+			type = "group",
+			-- Blizzard's localized name, the spell only exists for specs that have it
+			name = function()
+				local spellID = C_AssistedCombat and C_AssistedCombat.GetActionSpell()
+				return spellID and C_Spell.GetSpellName(spellID) or L["Single-Button Assistant"]
+			end,
+			guiInline = true,
+			disabled = function()
+				return not MER:HasRequirements(I.Requirements.ActionBars) or not C_ActionBar.IsAssistedCombatAction
+			end,
+			get = function(info)
+				return E.db.mui.actionbars.assistedRotation[info[#info]]
+			end,
+			set = function(info, value)
+				E.db.mui.actionbars.assistedRotation[info[#info]] = value
+				AB:AssistedRotation_Refresh()
+			end,
+			args = {
+				requirements = module.RequirementsNotice(I.Requirements.ActionBars),
+				enable = module.ToggleCard({
+					order = 1,
+					name = F.NewFeatureText(L["Enable"]),
+					desc = L["Brings back Blizzard's rotation frame around its action button, which ElvUI's action bars leave out."],
+					image = I.Media.Icons.Categories.actionbars,
+				}),
+				preview = {
+					order = 1.5,
+					type = "description",
+					dialogControl = "MERAssistedRotationPreview",
+					name = " ",
+					width = "full",
+				},
+				animation = {
+					order = 2,
+					type = "toggle",
+					name = L["Combat Animation"],
+					desc = L["Spins a glow around the frame while you are in combat."],
+					disabled = AssistedRotationDisabled,
+				},
+				colorMode = {
+					order = 3,
+					type = "select",
+					name = L["Color"],
+					disabled = AssistedRotationDisabled,
+					values = {
+						DEFAULT = L["Default"],
+						CLASS = L["Class Color"],
+						CUSTOM = L["Custom Color"],
+					},
+				},
+				customColor = {
+					order = 4,
+					type = "color",
+					name = L["Custom Color"],
+					hasAlpha = false,
+					disabled = AssistedRotationDisabled,
+					hidden = function()
+						return E.db.mui.actionbars.assistedRotation.colorMode ~= "CUSTOM"
+					end,
+					get = function(info)
+						local db = E.db.mui.actionbars.assistedRotation[info[#info]]
+						local default = P.actionbars.assistedRotation[info[#info]]
+						return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+					end,
+					set = function(info, r, g, b)
+						local db = E.db.mui.actionbars.assistedRotation[info[#info]]
+						db.r, db.g, db.b = r, g, b
+						AB:AssistedRotation_Refresh()
+					end,
+				},
+			},
+		},
+		colorModifiers = {
+			order = 5,
 			type = "group",
 			name = L["Color Modifier Keys"],
 			desc = L["Enabling this colors your modifier keys."],

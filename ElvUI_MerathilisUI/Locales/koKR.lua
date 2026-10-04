@@ -224,6 +224,10 @@ L["Credits"] = "제작자"
 L["Specialization Bar"] = "전문화 바"
 L["Frame Strata"] = "프레임 보임순서"
 L["Frame Level"] = "프레임 레벨"
+L["Single-Button Assistant"] = true
+L["Brings back Blizzard's rotation frame around its action button, which ElvUI's action bars leave out."] = true
+L["Combat Animation"] = true
+L["Spins a glow around the frame while you are in combat."] = true
 
 -- Armory
 L["Armory"] = "전투정보실"
