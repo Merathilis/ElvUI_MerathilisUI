@@ -19,7 +19,7 @@ L["Y-Offset"] = "DesplazamientoY"
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
 L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] = true
-L["AFK"] = "Away"
+L["AFK"] = "Ausente"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Logout Timer"] = true
 L["SplashScreen"] = true

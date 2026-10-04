@@ -13,8 +13,8 @@ L["Width"] = "Ширина"
 L["Height"] = "Высота"
 L["Alpha"] = "Прозрачность"
 L["Outline"] = "Контур"
-L["X-Offset"] = "X-смещение"
-L["Y-Offset"] = "Y-смещение"
+L["X-Offset"] = "Отступ по X"
+L["Y-Offset"] = "Отступ по Y"
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Плагин для |cffff7d0aElvUI|r от\nMerahilis."
@@ -62,7 +62,7 @@ L["Contrast: +10 (if currently 55 or below)"] = true
 L["Character and world textures are left on high, only distant scenery, effects and post-processing are toned down."] = true
 
 L["Description"] = "Описание"
-L["General"] = "Общий"
+L["General"] = "Общие"
 L["Modules"] = "Модули"
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI & ElvUI_WindTools. It adds:
 
@@ -207,8 +207,8 @@ L["Text Font"] = "Шрифт текста"
 
 -- Actionbars
 L["Specialization Bar"] = "Панель специализации"
-L["Frame Strata"] = "Слой фрейма"
-L["Frame Level"] = "Уровень фрейма"
+L["Frame Strata"] = "Слой рамки"
+L["Frame Level"] = "Уровень рамки"
 
 -- Armory
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
@@ -285,7 +285,7 @@ L["+ New Set"] = true
 
 -- Unitframes
 L["UnitFrames"] = "Рамки юнитов"
-L["Custom Texture"] = "Пользовательская текстура"
+L["Custom Texture"] = "Своя текстура"
 L["Raid Icon"] = "Значок рейда"
 L["Change the default raid icons."] = "Изменить стандартные значки рейдов."
 L["Highlight"] = "Выделение"
@@ -376,7 +376,7 @@ L["Summary"] = true
 L["Skipped"] = true
 L["Finish & Reload"] = true
 L["ActionBars"] = "Панели команд"
-L["DataTexts"] = "Инфо-тексты"
+L["DataTexts"] = "Инфотексты"
 L["EditMode"] = true
 
 -- Staticpopup
@@ -394,8 +394,8 @@ L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI loo
 L["Enables/Disables a shadow overlay to darken the screen."] =
 	"Включает/отключает наложение теней для затемнения экрана."
 L["Backdrop Color"] = "Цвет фона"
-L["Character Frame"] = "Рамка персонажа"
-L["Item Upgrade"] = "Улучшение предмета"
+L["Character Frame"] = "Окно персонажа"
+L["Item Upgrade"] = "Улучшение предметов"
 L["Trade"] = "Торговля"
 L["Misc"] = "Разное"
 L["%s is not loaded."] = "%s не загружен."
@@ -545,7 +545,7 @@ L["AddOn is not enabled"] = true
 L["This will create and apply profile for "] = "Это создаст и применит профиль для"
 
 -- Changelog
-L["Changelog"] = "Журнал изменений"
+L["Changelog"] = "Список изменений"
 L["What's New in %s"] = true
 L["Full Changelog"] = true
 L["In Development"] = true
@@ -1264,7 +1264,7 @@ L["Collapse Buffs"] = true
 L["Open"] = "Открыть"
 L["Open Selected"] = "Открыть выбранные"
 L["Delete Selected"] = "Удалить выбранные"
-L["Selection"] = "Выбор"
+L["Selection"] = "Выделение"
 L["Send Templates"] = "Шаблоны отправки"
 L["Continue"] = "Продолжить"
 L["No templates saved."] = "Нет сохранённых шаблонов."
@@ -1303,7 +1303,7 @@ L["Leather"] = "Кожа"
 L["Metal & Stone"] = "Металл и камень"
 L["Cooking"] = "Кулинария"
 L["Herb"] = "Трава"
-L["Enchanting"] = "Наложение чар"
+L["Enchanting"] = "Зачарование"
 L["Inscription"] = "Начертание"
 L["Jewelcrafting"] = "Ювелирное дело"
 L["Elemental"] = "Элементаль"

@@ -10,17 +10,17 @@ L["Please run through the installation process to set up the plugin.\n\n |cffff7
 	"플러그인을 설정하려면 설치 과정을 실행하세요.\n\n |cffff7d0a이 단계는 프로필의 모든 기능이 올바르게 구성되었는지 확인하는 데 필요합니다. 모든 단계를 적용할 필요는 없습니다.|r"
 L["Font"] = "글꼴"
 L["Size"] = "크기"
-L["Width"] = "너비"
-L["Height"] = "높이"
+L["Width"] = "가로 길이"
+L["Height"] = "세로 길이"
 L["Outline"] = "외곽선"
-L["X-Offset"] = "X 위치 이동"
-L["Y-Offset"] = "Y 위치 이동"
+L["X-Offset"] = "X 좌표"
+L["Y-Offset"] = "Y 좌표"
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "|cffff7d0aElvUI|r용 플러그인 - 제작자: Merathilis"
 L[" does not support this game version, please uninstall it and don't ask for support. Thanks!"] =
 	"현재 게임 버전을 지원하지 않습니다. 애드온을 삭제하시고 지원 요청은 삼가주시기 바랍니다. 감사합니다!"
-L["AFK"] = "자리비움"
+L["AFK"] = "자리 비움"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] =
 	"MUI AFK 화면을 사용/중지합니다. BenikUI가 로드된 경우 비활성화됩니다."
 L["Logout Timer"] = "자동 로그아웃 타이머"
@@ -82,7 +82,7 @@ L["Enables the stripes/gradient look on the frames"] =
 -- Core Options
 L["Tags"] = "태그"
 L["Info"] = "정보"
-L["Login Message"] = "로그인 메세지 표시"
+L["Login Message"] = "로그인 메시지 표시"
 
 -- Information
 L["Information"] = "정보"
@@ -120,7 +120,7 @@ L["Reset all %s modules."] = "모든 %s 모듈을 리셋합니다."
 L["BUFFOPTIONS_LABEL"] = "강화 및 약화 효과"
 
 -- GameMenu
-L["Game Menu"] = "ESC 시스템 패널"
+L["Game Menu"] = "게임 메뉴"
 L["Enable/Disable the MerathilisUI Style from the Blizzard Game Menu. (e.g. Pepe, Logo, Bars)"] =
 	"Blizzard 게임 메뉴에서 MerathilisUI 스타일을 사용/중지합니다 (예: 페페, 로고, 바 등)"
 L["Achievement Points: "] = "업적 점수:"
@@ -168,7 +168,7 @@ L["Auction House"] = "경매장"
 L["Transmog Frame"] = "형상변환 창"
 L["Add more oUF tags. You can use them on UnitFrames configuration."] =
 	"추가 oUF 태그를 제공합니다. 유닛 프레임 설정에서 사용 가능합니다"
-L["Custom Color"] = "사용자 지정 색상"
+L["Custom Color"] = "색상 개인설정"
 L["Trade Tabs"] = "제작 탭"
 L["Enable Tabs on the Profession Frames"] = "제작 전문 기술 창에 탭을 활성화합니다"
 L["Group Finder"] = "던전 및 공격대"
@@ -183,7 +183,7 @@ L["Adds a filter tab to the Pet Journal, which allows you to filter pets by thei
 	"애완동물 일지에 탭을 추가하여 종류별로 필터링할 수 있습니다"
 L["Auction Enhanced"] = true
 L["Show the tertiary stats of equipments in auction house."] = true
-L["Hide In Combat"] = "전투 중 숨기기"
+L["Hide In Combat"] = "전투시 숨김"
 L["Toggle"] = "표시 전환"
 
 -- Nameplates
@@ -218,11 +218,11 @@ L["Unknown or undiscovered currency ID."] = true
 L["You are close to the cap: %d / %d"] = true
 L["Title Font"] = "제목 글꼴"
 L["Text Font"] = "텍스트 글꼴"
-L["Credits"] = "제작진"
+L["Credits"] = "제작자"
 
 -- Actionbars
 L["Specialization Bar"] = "전문화 바"
-L["Frame Strata"] = "프레임 우선순위"
+L["Frame Strata"] = "프레임 보임순서"
 L["Frame Level"] = "프레임 레벨"
 
 -- Armory
@@ -279,7 +279,7 @@ L["Short Labels"] = "짧은 이름"
 L["Attribute Visibility"] = "속성 표시 여부"
 L["Background"] = "배경"
 L["Alpha"] = "투명도"
-L["Style"] = "스타일"
+L["Style"] = "디자인"
 L["Change the Background image."] = "배경 이미지를 변경합니다"
 L["Class Background"] = "직업별 배경"
 L["Use class specific backgrounds."] = "직업별로 고유 배경을 사용합니다"
@@ -328,15 +328,15 @@ L["+ New Set"] = true
 
 -- Unitframes
 L["UnitFrames"] = "유닛프레임"
-L["Individual Units"] = "개별 유닛"
-L["Group Units"] = "그룹 유닛"
+L["Individual Units"] = "개별 프레임[Individual Units]"
+L["Group Units"] = "그룹별 프레임[Group Units]"
 L["Resting Indicator"] = "휴식 상태 표시기"
 L["Custom Texture"] = "텍스처 개인설정"
 L["Raid Icon"] = "공격대 아이콘"
 L["Change the default raid icons."] = "기본 공격대 아이콘을 변경합니다"
 L["Highlight"] = "하이라이트"
 L["Adds an own highlight to the Unitframes"] = "유닛 프레임에 고유한 하이라이트 효과를 추가합니다"
-L["Auras"] = "오라"
+L["Auras"] = "오라 설정"
 
 -- Cooldowns
 L["Spell List"] = "주문 목록"
@@ -420,7 +420,7 @@ L["Applied"] = true
 L["Summary"] = true
 L["Skipped"] = true
 L["Finish & Reload"] = true
-L["ActionBars"] = "행동 단축바"
+L["ActionBars"] = "행동단축바"
 
 
 L["DataTexts"] = "정보문자"
@@ -442,7 +442,7 @@ L["Enables/Disables a shadow overlay to darken the screen."] =
 	"화면을 어둡게 만드는 그림자 오버레이를 활성화하거나 비활성화합니다"
 L["Backdrop Color"] = "배경 색상"
 L["Character Frame"] = "캐릭터 창"
-L["Item Upgrade"] = "아이템 강화"
+L["Item Upgrade"] = "아이템 강화 창"
 L["Trade"] = "거래"
 L["Misc"] = "기타"
 L["%s is not loaded."] = "%s가 로드되지 않았습니다"
@@ -457,18 +457,18 @@ L["Number of Windows"] = "창 개수"
 L["Window %d"] = true
 L["Reset Settings"] = "설정 초기화"
 L["Toggle Direction"] = "방향 전환"
-L["TOP"] = "상단"
-L["BOTTOM"] = "하단"
+L["TOP"] = "위쪽"
+L["BOTTOM"] = "아래쪽"
 L["Advanced Skin Settings"] = "고급 스킨 설정"
 L["Gradient Bars"] = "그라데이션 바"
 L["Open Details"] = "Details 열기"
-L["Fonts"] = "글자"
+L["Fonts"] = "글꼴"
 L["AddOns"] = "애드온"
 
 -- Panels
 L["Panels"] = "패널"
-L["Top Panel"] = "상단 패널"
-L["Bottom Panel"] = "하단 패널"
+L["Top Panel"] = "상단 패널 표시"
+L["Bottom Panel"] = "하단 패널 표시"
 L["Style Panels"] = "스타일 패널"
 L["Top Left Panel"] = "좌측 상단 패널"
 L["Top Left Extra Panel"] = "좌측 상단 보조 패널"
@@ -500,7 +500,7 @@ L[" provides a Raid Info Frame that shows a list of players per role in your rai
 	"공격대에서 역할별로 플레이어 목록을 보여주는 공격대 정보 창을 제공합니다"
 L["Temporarily shows the frame even outside of a raid for easier customization."] =
 	"공격대 외부에서도 일시적으로 창을 표시하여 사용자 설정을 쉽게 합니다"
-L["Customization"] = "사용자 설정"
+L["Customization"] = "사용자정의(개인설정)"
 L["Set the size of the text and icons."] = "텍스트와 아이콘의 크기를 설정합니다"
 L["Padding"] = "패딩"
 L["Set the outside padding of the frame."] = "프레임 외부 여백(패딩)을 설정합니다"
@@ -1338,7 +1338,7 @@ L["Metal & Stone"] = "금속 및 석재"
 L["Cooking"] = "요리"
 L["Herb"] = "약초"
 L["Enchanting"] = "마법부여"
-L["Inscription"] = "명문학"
+L["Inscription"] = "주문각인"
 L["Jewelcrafting"] = "보석세공"
 L["Elemental"] = "정령"
 L["Optional Reagents"] = "추가 재료"

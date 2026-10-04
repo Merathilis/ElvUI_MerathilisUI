@@ -278,8 +278,8 @@ L["Unassigned"] = true
 L["+ New Set"] = true
 
 -- Unitframes
-L["UnitFrames"] = "Cadre d'unité"
-L["Custom Texture"] = "Benutzerdefinierte Textur"
+L["UnitFrames"] = "Cadres d'unités"
+L["Custom Texture"] = "Texture personnalisée"
 L["Raid Icon"] = true
 L["Change the default raid icons."] = true
 L["Highlight"] = true

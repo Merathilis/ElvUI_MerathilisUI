@@ -527,7 +527,7 @@ L["Control the Saturation value of HSL for the Normal color."] = true
 
 -- Addons
 L["Skins/AddOns"] = true
-L["Profiles"] = "設定檔"
+L["Profiles"] = "配置"
 L["BigWigs"] = true
 L["Create and apply the profile"] = true
 L["AddOn is not enabled"] = true
@@ -1254,7 +1254,7 @@ L["Open Selected"] = "開啟已選"
 L["Delete Selected"] = "刪除已選"
 L["Selection"] = "選取"
 L["Send Templates"] = "寄送範本"
-L["Continue"] = "繼續"
+L["Continue"] = "下一步"
 L["No templates saved."] = "沒有已儲存的範本。"
 L["Template Name"] = "範本名稱"
 L["Recipients (one per line, or comma separated)"] = "收件人（每行一個，或以逗號分隔）"
@@ -1289,7 +1289,7 @@ L["Metal & Stone"] = "金屬與礦石"
 L["Cooking"] = "烹飪"
 L["Herb"] = "藥草"
 L["Enchanting"] = "附魔"
-L["Inscription"] = "銘文"
+L["Inscription"] = "銘文學"
 L["Jewelcrafting"] = "珠寶加工"
 L["Elemental"] = "元素"
 L["Optional Reagents"] = "額外材料"

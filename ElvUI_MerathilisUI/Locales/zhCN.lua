@@ -76,7 +76,7 @@ But if you install another Layout over mine, you must adjust it manually.
 L["Enables the stripes/gradient look on the frames"] = true
 
 -- Core Options
-L["Login Message"] = "登陆信息"
+L["Login Message"] = "登录信息"
 
 -- Information
 L["Information"] = "信息"
@@ -85,7 +85,7 @@ L["Tukui"] = true
 L["Website"] = true
 L["Coding"] = "代码"
 L["Testing & Inspiration"] = "测试与灵感"
-L["Development Version"] = "开发版本"
+L["Development Version"] = "开发版"
 L["Join the community"] = true
 L["Report bugs and suggestions"] = true
 L["Via the CurseForge app"] = true
@@ -371,7 +371,7 @@ L["Summary"] = true
 L["Skipped"] = true
 L["Finish & Reload"] = true
 L["ActionBars"] = "动作条"
-L["DataTexts"] = "数据文本"
+L["DataTexts"] = "信息文字"
 L["EditMode"] = true
 
 -- Staticpopup
@@ -407,8 +407,8 @@ L["BOTTOM"] = "下"
 L["Advanced Skin Settings"] = true
 L["Gradient Bars"] = true
 L["Open Details"] = true
-L["Frame Level"] = "框架层次"
-L["Frame Strata"] = "框架层级"
+L["Frame Level"] = "框体层次"
+L["Frame Strata"] = "框体层级"
 
 -- Panels
 L["Panels"] = "面板"
@@ -533,14 +533,14 @@ L["Control the Saturation value of HSL for the Normal color."] = true
 
 -- Addons
 L["Skins/AddOns"] = "皮肤/插件"
-L["Profiles"] = "配置文件"
+L["Profiles"] = "配置"
 L["BigWigs"] = true
 L["Create and apply the profile"] = true
 L["AddOn is not enabled"] = true
 L["This will create and apply profile for "] = "这将创建并应用配置文件"
 
 -- Changelog
-L["Changelog"] = "更新日志"
+L["Changelog"] = "更改记录"
 L["What's New in %s"] = true
 L["Full Changelog"] = true
 L["In Development"] = true
@@ -1258,7 +1258,7 @@ L["Open Selected"] = "打开选中"
 L["Delete Selected"] = "删除选中"
 L["Selection"] = "选择"
 L["Send Templates"] = "发送模板"
-L["Continue"] = "继续"
+L["Continue"] = "下一步"
 L["No templates saved."] = "没有已保存的模板。"
 L["Template Name"] = "模板名称"
 L["Recipients (one per line, or comma separated)"] = "收件人（每行一个，或用逗号分隔）"
@@ -1293,7 +1293,7 @@ L["Metal & Stone"] = "金属与矿石"
 L["Cooking"] = "烹饪"
 L["Herb"] = "草药"
 L["Enchanting"] = "附魔"
-L["Inscription"] = "秘学"
+L["Inscription"] = "铭文"
 L["Jewelcrafting"] = "珠宝加工"
 L["Elemental"] = "元素"
 L["Optional Reagents"] = "可选材料"
