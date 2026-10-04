@@ -13,6 +13,7 @@ MER.Changelog[740] = {
 	},
 	IMPROVEMENTS = {
 		"[Locales]: The German translation is complete.",
+		"[Locales]: Terms MerathilisUI shares with ElvUI show ElvUI's translation again instead of English or a different wording, in ElvUI too.",
 		"[Options]: Many option pages now use cards: module switches show their description and icon, credits and info texts sit in cards, and simple toggles are grouped into two-column grids.",
 		"[Options]: The Tags page shows a preview of the name gradient tag on sample unit frames.",
 	},
