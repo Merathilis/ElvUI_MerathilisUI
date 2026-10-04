@@ -1512,6 +1512,10 @@ L["Units"] = true
 L["Interrupt on Cooldown"] = true
 L["Interrupt Ready Soon"] = true
 
+-- Castbar Shield
+L["Castbar Shield"] = true
+L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."] = true
+
 -- Cast on You
 L["Cast on You"] = true
 L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = true

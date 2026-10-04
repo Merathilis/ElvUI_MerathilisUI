@@ -8,6 +8,8 @@ local pairs, tonumber, tsort = pairs, tonumber, table.sort
 
 local options = module.options.modules.args
 
+F.MarkTabAsNew("nameplates")
+
 -- Own disabled replaces the group's, so the children repeat the requirement
 local function FactionIndicatorDisabled()
 	return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.factionIndicator.enable
@@ -524,6 +526,28 @@ options.nameplates = {
 				end, function()
 					MNP:UpdateInterruptReady()
 				end, module.RequirementsDisabled(I.Requirements.NamePlates), "nameplates"),
+				castbarShield = module.CastbarShieldOptions(
+					4.5,
+					function()
+						return E.db.mui.nameplates.castbarShield
+					end,
+					function()
+						MNP:UpdateCastbarShield()
+					end,
+					module.RequirementsDisabled(I.Requirements.NamePlates),
+					"nameplates",
+					{
+						desc = {
+							order = 1,
+							type = "description",
+							dialogControl = "MERNewFeatureLabel",
+							name = F.NewFeatureTrailingText(
+								L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."]
+							),
+							width = "full",
+						},
+					}
+				),
 				castTarget = {
 					order = 5,
 					type = "group",

@@ -68,6 +68,8 @@ function module:Initialize()
 	module:FactionIndicator()
 	-- Interrupt Ready
 	module:InterruptReady()
+	-- Castbar Shield
+	module:CastbarShield()
 	-- Execute Line
 	module:ExecuteLine()
 	-- Resting Indicator
@@ -82,6 +84,7 @@ function module:ProfileUpdate()
 
 	module:UpdateFactionIndicators()
 	module:UpdateInterruptReady()
+	module:UpdateCastbarShield()
 	module:UpdateExecuteLines()
 	module:UpdateRestingIndicator()
 end

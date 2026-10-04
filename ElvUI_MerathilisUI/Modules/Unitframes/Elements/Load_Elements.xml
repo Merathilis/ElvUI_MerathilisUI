@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="CastbarShield.lua"/>
 	<Script file="FactionIndicator.lua"/>
 	<Script file="InterruptReady.lua"/>
 	<Script file="ExecuteLine.lua"/>

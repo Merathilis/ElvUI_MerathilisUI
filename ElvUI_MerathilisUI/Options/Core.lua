@@ -362,6 +362,101 @@ function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled
 	return group
 end
 
+---Settings of the shield icon on castbars of casts that can't be interrupted, shared by UnitFrames and NamePlates
+---@param order number
+---@param getDB function returns the settings table
+---@param update function refresh after a change
+---@param requirementsDisabled function disabled check of the owning module
+---@param previewKey string settings key under E.db.mui ("unitframes", "nameplates") for the sample castbar
+---@param extraArgs table? more options, merged into the group's args
+---@return table option
+function module.CastbarShieldOptions(order, getDB, update, requirementsDisabled, previewKey, extraArgs)
+	-- Own disabled replaces the group's, so the children repeat the requirement
+	local function Disabled()
+		return requirementsDisabled() or not getDB().enable
+	end
+
+	local group = {
+		order = order,
+		type = "group",
+		name = L["Castbar Shield"],
+		guiInline = true,
+		get = function(info)
+			return getDB()[info[#info]]
+		end,
+		set = function(info, value)
+			getDB()[info[#info]] = value
+			update()
+		end,
+		disabled = requirementsDisabled,
+		args = {
+			desc = {
+				order = 1,
+				type = "description",
+				name = L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."],
+			},
+			preview = {
+				order = 1.5,
+				type = "description",
+				dialogControl = "MERCastbarShieldPreview",
+				name = previewKey,
+				width = "full",
+			},
+			enable = {
+				order = 2,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			size = {
+				order = 3,
+				type = "range",
+				name = L["Size"],
+				min = 8,
+				max = 64,
+				step = 1,
+				disabled = Disabled,
+			},
+			anchorPoint = {
+				order = 4,
+				type = "select",
+				name = L["Anchor Point"],
+				values = I.Values.positionValues,
+				disabled = Disabled,
+			},
+			xOffset = {
+				order = 5,
+				type = "range",
+				name = L["X-Offset"],
+				min = -100,
+				max = 100,
+				step = 1,
+				disabled = Disabled,
+			},
+			yOffset = {
+				order = 6,
+				type = "range",
+				name = L["Y-Offset"],
+				min = -100,
+				max = 100,
+				step = 1,
+				disabled = Disabled,
+			},
+		},
+	}
+
+	if extraArgs then
+		for key, option in pairs(extraArgs) do
+			-- A replaced description keeps the group's disabled, like the built-in one
+			if option.disabled == nil and option.type ~= "description" then
+				option.disabled = Disabled
+			end
+			group.args[key] = option
+		end
+	end
+
+	return group
+end
+
 ---Settings of the Execute Line on the health bar, shared by UnitFrames and NamePlates
 ---@param order number
 ---@param getDB function returns the settings table

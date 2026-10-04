@@ -3,6 +3,7 @@
 	<Script file='InterruptReadyPreview.lua' />
 	<Script file='AssistedRotationPreview.lua' />
 	<Script file='CastTargetPreview.lua' />
+	<Script file='CastbarShieldPreview.lua' />
 	<Script file='NameplateHealthPreview.lua' />
 	<Script file='TagPreview.lua' />
 	<Script file='ToggleSwitch.lua' />

@@ -997,6 +997,13 @@ P.nameplates = {
 		tick = true,
 		tickColor = { r = 1, g = 1, b = 1 },
 	},
+	castbarShield = {
+		enable = true,
+		size = 16,
+		anchorPoint = "LEFT",
+		xOffset = 0,
+		yOffset = 0,
+	},
 	castTarget = {
 		enable = true,
 		border = true,
@@ -1045,6 +1052,19 @@ P.unitframes = {
 		window = true,
 		tick = true,
 		tickColor = { r = 1, g = 1, b = 1 },
+		units = {
+			target = true,
+			focus = true,
+			boss = true,
+			arena = true,
+		},
+	},
+	castbarShield = {
+		enable = true,
+		size = 24,
+		anchorPoint = "LEFT",
+		xOffset = 0,
+		yOffset = 0,
 		units = {
 			target = true,
 			focus = true,

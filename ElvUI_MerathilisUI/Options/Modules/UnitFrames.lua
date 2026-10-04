@@ -4,6 +4,8 @@ local MUF = MER:GetModule("MER_UnitFrames")
 
 local options = module.options.modules.args
 
+F.MarkTabAsNew("unitframes")
+
 -- Own disabled replaces the group's, so every own disabled repeats the requirement
 local function UnitFramesDisabled()
 	return not MER:HasRequirements(I.Requirements.UnitFrames)
@@ -135,6 +137,46 @@ options.unitframes = {
 							set = function(_, key, value)
 								E.db.mui.unitframes.interruptReady.units[key] = value
 								MUF:UpdateInterruptReady()
+							end,
+						},
+					}
+				),
+				castbarShield = module.CastbarShieldOptions(
+					12.5,
+					function()
+						return E.db.mui.unitframes.castbarShield
+					end,
+					function()
+						MUF:UpdateCastbarShield()
+					end,
+					UnitFramesDisabled,
+					"unitframes",
+					{
+						desc = {
+							order = 1,
+							type = "description",
+							dialogControl = "MERNewFeatureLabel",
+							name = F.NewFeatureTrailingText(
+								L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."]
+							),
+							width = "full",
+						},
+						units = {
+							order = 7,
+							type = "multiselect",
+							name = L["Units"],
+							values = {
+								target = L["Target"],
+								focus = L["Focus"],
+								boss = L["Boss"],
+								arena = L["Arena"],
+							},
+							get = function(_, key)
+								return E.db.mui.unitframes.castbarShield.units[key]
+							end,
+							set = function(_, key, value)
+								E.db.mui.unitframes.castbarShield.units[key] = value
+								MUF:UpdateCastbarShield()
 							end,
 						},
 					}
