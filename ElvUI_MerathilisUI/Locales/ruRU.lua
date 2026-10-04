@@ -141,7 +141,6 @@ L["Number of Mythic+ dungeons shown in the latest runs."] = true
 L["Show Random Pets"] = true
 
 -- Misc
-L["Misc"] = "Разное"
 L["has appeared on the MiniMap!"] = "появился на миникарте!"
 L["Name Hover"] = "Имя"
 L["MISC_PARAGON"] = "Paragon"
@@ -212,7 +211,6 @@ L["Frame Strata"] = "Слой фрейма"
 L["Frame Level"] = "Уровень фрейма"
 
 -- Armory
-L["Armory"] = true
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
 L["Enchant & Socket Strings"] = true
 L["Settings for strings displaying enchant and socket info from the items"] = true
@@ -243,13 +241,10 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Add enchant"] = true
 L["Attributes"] = true
 L["Background"] = true
-L["Alpha"] = true
 L["Style"] = true
 L["Change the Background image."] = true
 L["Class Background"] = true
 L["Use class specific backgrounds."] = true
-L["Hide Controls"] = true
-L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 L["Socket Panel"] = true
@@ -418,8 +413,6 @@ L["BOTTOM"] = true
 L["Advanced Skin Settings"] = true
 L["Gradient Bars"] = true
 L["Open Details"] = true
-L["Frame Level"] = true
-L["Frame Strata"] = true
 L["Fonts"] = true
 
 -- Panels
@@ -592,7 +585,6 @@ L["The Raid Info Frame lists the players in your raid by role."] = true
 L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = true
 
 -- Compatibility
-L["Complete"] = "Завершить"
 
 -- Debug
 L["Usage"] = "Использование"
@@ -728,7 +720,6 @@ L["Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHov
 L["Disable in Dungeons/Raids"] = "Disable in Dungeons/Raids"
 L["Durability/ Ilevel"] = "Durability/ Ilevel"
 L["ElvUI"] = "ElvUI"
-L["ElvUI_WindTools"] = "ElvUI_WindTools"
 L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] =
 	"Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."
 L["Enabling this colors your modifier keys."] = "Enabling this colors your modifier keys."
@@ -997,7 +988,6 @@ L["Note: This feature only copies the private profile once per character. It doe
 	"Note: This feature only copies the private profile once per character. It does not synchronize settings afterwards."
 L["Offset Y"] = "Offset Y"
 L["Ok"] = "Ok"
-L["OmniCD"] = "OmniCD"
 L["Open Changelog"] = "Open Changelog"
 L["Open Character Frame"] = "Open Character Frame"
 L["Other"] = "Other"
@@ -1241,13 +1231,10 @@ L["Loot Roll"] = true
 L["Can't Roll"] = true
 L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] = true
 L["Show/hide a fake roll bar to preview your settings."] = true
-L["Layout"] = true
 L["Grow Direction"] = true
 L["Down"] = true
 L["Up"] = true
 L["Max Bars"] = true
-L["Spacing"] = true
-L["Button Size"] = true
 L["Colors"] = true
 L["Color Border by Quality"] = true
 L["Color Name by Quality"] = true

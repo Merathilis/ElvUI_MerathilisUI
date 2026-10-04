@@ -143,7 +143,6 @@ L["Number of Mythic+ dungeons shown in the latest runs."] =
 L["Show Random Pets"] = "Zufällige Haustiere anzeigen"
 
 -- Misc
-L["Misc"] = "Verschiedenes"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Name Hover"] = "Namen MouseOver"
 L["MISC_PARAGON"] = "Paragon"
@@ -224,8 +223,6 @@ L["Text Font"] = "Text Schriftart"
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
-L["Frame Strata"] = "Fensterschicht"
-L["Frame Level"] = "Fensterebene"
 
 -- Armory
 L["Armory"] = "Arsenal"
@@ -260,12 +257,9 @@ L["Format"] = true -- no need to translate
 L["Decimal format"] = "Dezimalformat"
 L["Move Sockets"] = "Bewege Sockel"
 L["Crops and moves sockets above enchant text."] = "Verschiebt die Sockel über den Verzauberungstext"
-L["Hide Controls"] = "Verstecke Kamerakontrolle"
-L["Hides the camera controls when hovering the character model."] = "Versteckt die Kamera"
 L["Add enchant"] = "Füge Verzauberung hinzu"
 L["Attributes"] = "Attribute"
 L["Background"] = "Hintergrund"
-L["Alpha"] = true
 L["Style"] = "Stil"
 L["Change the Background image."] = "Ändere das Hintergrundbild."
 L["Class Background"] = "Klassen Hintergrund"
@@ -826,7 +820,6 @@ L["The Raid Info Frame lists the players in your raid by role."] = "Das Raid Inf
 L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = "MerathilisUI fügt zusätzliche oUF-Tags hinzu, die du in den UnitFrame-Optionen nutzen kannst."
 
 -- Compatibility
-L["Complete"] = "Komplett"
 
 -- Profiles
 L[" Apply"] = "Anwenden"

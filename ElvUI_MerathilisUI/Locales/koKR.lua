@@ -12,7 +12,6 @@ L["Font"] = "글꼴"
 L["Size"] = "크기"
 L["Width"] = "너비"
 L["Height"] = "높이"
-L["Alpha"] = "투명도"
 L["Outline"] = "외곽선"
 L["X-Offset"] = "X 위치 이동"
 L["Y-Offset"] = "Y 위치 이동"
@@ -147,7 +146,6 @@ L["Number of Mythic+ dungeons shown in the latest runs."] = "최근 진행한 �
 L["Show Random Pets"] = "무작위 애완동물 표시"
 
 -- Misc
-L["Misc"] = "기타"
 L["has appeared on the MiniMap!"] = "미니맵에 나타났습니다!"
 L["Name Hover"] = "이름 표시"
 L["MISC_PARAGON"] = "용사"
@@ -171,7 +169,6 @@ L["Transmog Frame"] = "형상변환 창"
 L["Add more oUF tags. You can use them on UnitFrames configuration."] =
 	"추가 oUF 태그를 제공합니다. 유닛 프레임 설정에서 사용 가능합니다"
 L["Custom Color"] = "사용자 지정 색상"
-L["Armory"] = "전투정보실"
 L["Trade Tabs"] = "제작 탭"
 L["Enable Tabs on the Profession Frames"] = "제작 전문 기술 창에 탭을 활성화합니다"
 L["Group Finder"] = "던전 및 공격대"
@@ -188,7 +185,6 @@ L["Auction Enhanced"] = true
 L["Show the tertiary stats of equipments in auction house."] = true
 L["Hide In Combat"] = "전투 중 숨기기"
 L["Toggle"] = "표시 전환"
-L["Fonts"] = true
 
 -- Nameplates
 L["NamePlates"] = "이름표"
@@ -272,9 +268,6 @@ L["Decimal format"] = "소수점 형식"
 L["Move Sockets"] = "소켓 위치 조정"
 L["Crops and moves sockets above enchant text."] =
 	"소켓을 잘라내어 마법부여 텍스트 위로 이동시킵니다"
-L["Hide Controls"] = "카메라 컨트롤 숨기기"
-L["Hides the camera controls when hovering the character model."] =
-	"캐릭터 모델에 마우스를 올리면 카메라 컨트롤을 숨깁니다"
 L["Add enchant"] = "마법부여 추가"
 L["Attributes"] = "속성"
 L["Background Bars"] = "배경 막대"
@@ -471,8 +464,6 @@ L["Gradient Bars"] = "그라데이션 바"
 L["Open Details"] = "Details 열기"
 L["Fonts"] = "글자"
 L["AddOns"] = "애드온"
-L["Frame Level"] = true
-L["Frame Strata"] = true
 
 -- Panels
 L["Panels"] = "패널"
@@ -525,16 +516,6 @@ L["|cffFFFFFFRight Click:|r Toggle Settings"] = "|cffFFFFFF우클릭:|r 설정 �
 L["MER_PROFILE_DESC"] = [[이 섹션에서는 일부 애드온을 위한 프로필을 생성합니다.
 
 |cffff0000경고:|r 기존 프로필이 덮어쓰이거나 삭제될 수 있습니다. MerathilisUI 프로필을 적용하고 싶지 않다면 아래 버튼을 누르지 마세요.]]
-L[" Apply"] = "적용"
-L[" Reset"] = "초기화"
-L["This group allows to update all fonts used in the "] =
-	"이 그룹에서는 다음 UI에 사용되는 모든 글꼴을 업데이트할 수 있습니다:"
-L["WARNING: Some fonts might still not look ideal! The results will not be ideal, but it should help you customize the fonts :)\n"] =
-	"경고: 일부 글꼴은 이상적으로 보이지 않을 수도 있습니다! 최상의 결과는 아니더라도 글꼴 사용자 설정에 도움이 될 수 있습니다 :)\n"
-L["Applies all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
-	"모든 |cffffffffMerathilis|r|cffff7d0aUI|r 글꼴 설정을 적용합니다"
-L["Resets all |cffffffffMerathilis|r|cffff7d0aUI|r font settings."] =
-	"모든 |cffffffffMerathilis|r|cffff7d0aUI|r 글꼴 설정을 초기화합니다"
 L["Changes are only applied to the ElvUI profile after clicking Apply."] = true
 L["Main Font"] = true
 L["Number Font"] = true
@@ -654,7 +635,6 @@ L["The Raid Info Frame lists the players in your raid by role."] = true
 L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = true
 
 -- Compatibility
-L["Complete"] = "완료"
 
 -- Profiles
 L[" Apply"] = "적용"
@@ -774,7 +754,6 @@ L["Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHov
 L["Disable in Dungeons/Raids"] = "Disable in Dungeons/Raids"
 L["Durability/ Ilevel"] = "Durability/ Ilevel"
 L["ElvUI"] = "ElvUI"
-L["ElvUI_WindTools"] = "ElvUI_WindTools"
 L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] =
 	"Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."
 L["Enabling this colors your modifier keys."] = "Enabling this colors your modifier keys."
@@ -1043,7 +1022,6 @@ L["Note: This feature only copies the private profile once per character. It doe
 	"Note: This feature only copies the private profile once per character. It does not synchronize settings afterwards."
 L["Offset Y"] = "Offset Y"
 L["Ok"] = "Ok"
-L["OmniCD"] = "OmniCD"
 L["Open Changelog"] = "Open Changelog"
 L["Open Character Frame"] = "Open Character Frame"
 L["Other"] = "Other"
@@ -1287,13 +1265,10 @@ L["Loot Roll"] = true
 L["Can't Roll"] = true
 L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] = true
 L["Show/hide a fake roll bar to preview your settings."] = true
-L["Layout"] = true
 L["Grow Direction"] = true
 L["Down"] = true
 L["Up"] = true
 L["Max Bars"] = true
-L["Spacing"] = true
-L["Button Size"] = true
 L["Colors"] = true
 L["Color Border by Quality"] = true
 L["Color Name by Quality"] = true
