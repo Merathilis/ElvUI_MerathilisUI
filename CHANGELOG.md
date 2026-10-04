@@ -6,9 +6,14 @@
 -   [Fix]: Skins: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.
 -   [New]: ActionBars: Brought back Blizzard's rotation frame on the Single-Button Assistant button, sized for ElvUI's square buttons, with an optional combat animation and class or custom colors.
 -   [New]: General: Added Performance Tuning, a one-click graphics adjustment for a higher frame rate and a sharper image, with a revert button and a details card listing every change.
+-   [New]: NamePlates: Castbar Shield: a shield icon on the castbars of hostile nameplates while their cast can't be interrupted, so you see at a glance whether you can kick it.
 -   [New]: Quick Grid: New module: hold a key and a 3x3 grid of actions opens at your cursor, release it in a direction to use one, in combat too. Comes with decks for teleports, travel, markers and professions plus a custom one.
+-   [New]: UnitFrames: Castbar Shield on the castbars of the target, focus, boss and arena frames, the same icon as on the nameplates.
+-   [Improvement]: Installer: The nameplate layout keeps its side elements apart: the raid marker sits above the name, the elite icon left of the level, the quest icon at the top right corner and the crowd control auras behind the target arrow.
 -   [Improvement]: Locales: The German translation is complete.
 -   [Improvement]: Locales: Terms MerathilisUI shares with ElvUI show ElvUI's translation again instead of English or a different wording, in ElvUI too.
+-   [Improvement]: NamePlates: Enemy Forces moved to the top right corner of the health bar, clear of the target arrow and the crowd control auras.
+-   [Improvement]: NamePlates: The target arrows move out of the way while a castbar icon would cover them.
 -   [Improvement]: Options: Many option pages now use cards: module switches show their description and icon, credits and info texts sit in cards, and simple toggles are grouped into two-column grids.
 -   [Improvement]: Options: The Tags page shows a preview of the name gradient tag on sample unit frames.
 -   [Improvement]: Options: The two Profiles pages are merged: Import/Export and Auto Copy Private Profile moved from Advanced Settings into the main Profiles page, whose font tab is now called Fonts.
