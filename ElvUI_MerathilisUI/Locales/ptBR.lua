@@ -929,8 +929,8 @@ L["How often the speed text is updated."] = "How often the speed text is updated
 L["I got it!"] = "I got it!"
 L["I want to sync setting of MerathilisUI!"] = "I want to sync setting of MerathilisUI!"
 L["Icon"] = "Icon"
-L["IconSearch"] = "IconSearch"
-L["IconSearchTip"] = "IconSearchTip"
+L["Icon Search"] = true
+L["Enter a spell ID or item ID to find its icon."] = true
 L["If you simply want to share the same private settings across all characters, it is recommended to set the same private profile for them in ElvUI > Profiles > Private."] =
 	"If you simply want to share the same private settings across all characters, it is recommended to set the same private profile for them in ElvUI > Profiles > Private."
 L["Import"] = "Import"
