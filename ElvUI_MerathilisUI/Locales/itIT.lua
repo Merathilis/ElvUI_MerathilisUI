@@ -60,7 +60,7 @@ L["Contrast: +10 (if currently 55 or below)"] = true
 L["Character and world textures are left on high, only distant scenery, effects and post-processing are toned down."] = true
 
 L["Description"] = true
-L["General"] = true
+L["General"] = "Generale"
 L["Modules"] = true
 L["MER_DESC"] = [=[|cffffffffMerathilis|r|cffff7d0aUI|r is an extension of ElvUI & ElvUI_WindTools. It adds:
 
@@ -368,7 +368,7 @@ L["Applied"] = true
 L["Summary"] = true
 L["Skipped"] = true
 L["Finish & Reload"] = true
-L["ActionBars"] = true
+L["ActionBars"] = "Barre Delle Azioni"
 L["DataTexts"] = true
 L["EditMode"] = true
 
@@ -604,7 +604,7 @@ L["Background Color"] = true
 L["Bags Full"] = true
 L["Class Gradient"] = true
 L["Class Text Font"] = true
-L["Credits"] = true
+L["Credits"] = "Crediti"
 L["Custom Color"] = true
 L["Default"] = true
 L["Font Color"] = true
@@ -615,7 +615,7 @@ L["Hide In Combat"] = true
 L["Individual Units"] = true
 L["Info"] = true
 L["Label Font"] = true
-L["Level"] = true
+L["Level"] = "Livello"
 L["Level Text"] = true
 L["Level Title Text"] = true
 L["Mailbox"] = true
@@ -651,7 +651,7 @@ L["Automatically copy the selected private profile to a new character on first l
 	"Automatically copy the selected private profile to a new character on first login."
 L["BACKGROUND"] = "BACKGROUND"
 L["BagSync"] = "BagSync"
-L["Bags"] = "Bags"
+L["Bags"] = "Borse"
 L["Bar Height"] = "Bar Height"
 L["Bar Settings"] = "Bar Settings"
 L["BigWigs is not installed or enabled."] = "BigWigs is not installed or enabled."
@@ -935,7 +935,7 @@ L["Import"] = "Import"
 L["Import and export your %s settings."] = "Import and export your %s settings."
 L["Improvements"] = "Improvements"
 L["Install"] = "Install"
-L["Installation Complete"] = "Installation Complete"
+L["Installation Complete"] = "Installazione Completata"
 L["It will override your %s setting."] = "It will override your %s setting."
 L["Item Level Font"] = "Item Level Font"
 L["KeystoneLoot"] = "KeystoneLoot"
@@ -952,7 +952,7 @@ L["Main Text Outline"] = "Main Text Outline"
 L["Main Text Size"] = "Main Text Size"
 L["Many thanks to these wonderful persons for letting me use some of their code: %s."] =
 	"Many thanks to these wonderful persons for letting me use some of their code: %s."
-L["Maps"] = "Maps"
+L["Maps"] = "Mappe"
 L["Mark as read, the changelog message will be hidden when you login next time."] =
 	"Mark as read, the changelog message will be hidden when you login next time."
 L["Mastery"] = "Mastery"
@@ -995,7 +995,7 @@ L["Raid 1"] = "Raid 1"
 L["Raid 2"] = "Raid 2"
 L["Raid 3"] = "Raid 3"
 L["Released"] = "Released"
-L["Reset"] = "Reset"
+L["Reset"] = "Reimposta"
 L["Reset Details check"] = "Reset Details check"
 L["Right Click:"] = "Right Click:"
 L["Run the installation process."] = "Run the installation process."
@@ -1070,7 +1070,7 @@ L["Use the WoW Key Bindings menu for the custom Hold to show bind. This modifier
 	"Use the WoW Key Bindings menu for the custom Hold to show bind. This modifier remains available for these hotkeys"
 L["Value Color"] = "Value Color"
 L["Versa"] = "Versa"
-L["Version"] = "Version"
+L["Version"] = "Versione"
 L["Vignette"] = "Vignette"
 L["Vignette ID"] = "Vignette ID"
 L["Vigor Bar"] = "Vigor Bar"
@@ -1226,7 +1226,7 @@ L["Show Item Level"] = true
 L["Color Status Bar by Quality"] = true
 L["Custom Status Bar Color"] = true
 L["Status Bar Texture"] = true
-L["Font Size"] = true
+L["Font Size"] = "Dimensione Carattere"
 L["Font Outline"] = true
 L["Rollers"] = true
 L["Show Rollers in Tooltip"] = true
@@ -1431,7 +1431,7 @@ L["Shows the cooldown of your class's movement spells while they are not availab
 L["Shows sample alerts for 20 seconds so you can check the look and position."] = true
 L["Combat Only"] = true
 L["Only show the cooldowns while you are in combat."] = true
-L["Display Mode"] = true
+L["Display Mode"] = "Modalità Visualizzazione"
 L["Text"] = true
 L["Bar"] = true
 L["Text Format"] = true
