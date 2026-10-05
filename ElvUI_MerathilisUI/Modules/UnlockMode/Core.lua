@@ -391,6 +391,7 @@ function module:EndSession()
 	self:StopSnap()
 	self:Select(nil)
 	self:UpdateAnchorLines()
+	self:HideEditModeHints()
 
 	if self.keyCatcher then
 		self.keyCatcher:Hide()
@@ -415,7 +416,8 @@ end
 -------------------------------------------------------------------------------
 --  ElvUI hooks
 -------------------------------------------------------------------------------
-function module:OnMoveModeToggled()
+-- which: ElvUI's layout filter (nil or "" for all)
+function module:OnMoveModeToggled(which)
 	if not self:IsActive() then
 		return
 	end
@@ -463,6 +465,7 @@ function module:OnMoveModeToggled()
 		self:Select(selected:IsShown() and selected or nil)
 	end
 	self:UpdateAnchorLines()
+	self:UpdateEditModeHints(which)
 end
 
 -- ElvUI's popup closes the mover mode on combat only while it is shown
@@ -482,8 +485,8 @@ function module:HookElvUI()
 	end
 	self.elvuiHooked = true
 
-	hooksecurefunc(E, "ToggleMoveMode", function()
-		module:OnMoveModeToggled()
+	hooksecurefunc(E, "ToggleMoveMode", function(_, which)
+		module:OnMoveModeToggled(which)
 	end)
 
 	hooksecurefunc(E, "CreateMover", function(_, _, name)

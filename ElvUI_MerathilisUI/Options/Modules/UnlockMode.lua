@@ -81,6 +81,12 @@ options.unlockMode = {
 					name = L["Small Movers on Top"],
 					desc = L["Small movers are drawn above big ones, so a mover inside another one can still be grabbed."],
 				},
+				editModeHints = {
+					order = 5,
+					type = "toggle",
+					name = L["Edit Mode Hints"],
+					desc = L["Marks the parts of the interface that Blizzard's Edit Mode places instead of ElvUI. A click on one closes the mover mode and opens the Edit Mode."],
+				},
 			},
 		},
 		snap = {

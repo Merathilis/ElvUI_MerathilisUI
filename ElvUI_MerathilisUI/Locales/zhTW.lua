@@ -1764,3 +1764,7 @@ L["%s is anchored to %s."] = true
 L["Alt-click another mover to anchor %s to it."] = true
 L["Select a mover, then Alt-click another one to anchor it there."] = true
 L["%s can't be anchored to %s, because %s already follows it."] = true
+L["Edit Mode Hints"] = true
+L["Marks the parts of the interface that Blizzard's Edit Mode places instead of ElvUI. A click on one closes the mover mode and opens the Edit Mode."] = true
+L["Placed by Blizzard's Edit Mode, not by ElvUI."] = true
+L["Click: open Blizzard's Edit Mode"] = true

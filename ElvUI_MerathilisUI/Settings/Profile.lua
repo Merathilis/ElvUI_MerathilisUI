@@ -1530,6 +1530,7 @@ P.unlockMode = {
 	showGrid = true,
 	gridAccent = true, -- center lines of the grid in the class color
 	sortBySize = true, -- small movers above big ones
+	editModeHints = true, -- marks what Blizzard's Edit Mode still places
 	keyboardNudge = true,
 	bigStep = 10, -- arrow keys with a modifier
 	anchorLines = true,
