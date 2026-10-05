@@ -8,6 +8,7 @@
 -   [New]: General: Added Performance Tuning, a one-click graphics adjustment for a higher frame rate and a sharper image, with a revert button and a details card listing every change.
 -   [New]: NamePlates: Castbar Shield: a shield icon on the castbars of hostile nameplates while their cast can't be interrupted, so you see at a glance whether you can kick it.
 -   [New]: Quick Grid: New module: hold a key and a 3x3 grid of actions opens at your cursor, release it in a direction to use one, in combat too. Comes with decks for teleports, travel, markers and professions plus a custom one.
+-   [New]: Tooltip: Shows the buffs of hovered players as icons on the tooltip, with position, icon size, icons per row and offset options. The new Tooltip options page also has the achievement link toggle.
 -   [New]: UnitFrames: Castbar Shield on the castbars of the target, focus, boss and arena frames, the same icon as on the nameplates.
 -   [Improvement]: Installer: The nameplate layout keeps its side elements apart: the raid marker sits above the name, the elite icon left of the level, the quest icon at the top right corner and the crowd control auras behind the target arrow.
 -   [Improvement]: Locales: The German translation is complete.
