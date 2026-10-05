@@ -417,40 +417,44 @@ function module:UpdateItemLevel()
 	end
 end
 
-function module:UpdateTitle()
+---Fills the name, title, level, spec and class texts. target holds those font strings and
+---the frameModel they are placed on, the options preview passes its own (defaults to module)
+function module:UpdateTitle(target)
+	target = target or self
+
 	-- Only re-apply fonts when settings changed (or first run)
-	if self._titleFontDirty ~= false then
-		self.nameText:SetFont(
+	if target._titleFontDirty ~= false then
+		target.nameText:SetFont(
 			LSM:Fetch("font", module.db.nameText.name),
 			module.db.nameText.size,
 			module.db.nameText.style
 		)
-		self.titleText:SetFont(
+		target.titleText:SetFont(
 			LSM:Fetch("font", module.db.titleText.name),
 			module.db.titleText.size,
 			module.db.titleText.style
 		)
-		self.levelTitleText:SetFont(
+		target.levelTitleText:SetFont(
 			LSM:Fetch("font", module.db.levelTitleText.name),
 			module.db.levelTitleText.size,
 			module.db.levelTitleText.style
 		)
-		self.levelText:SetFont(
+		target.levelText:SetFont(
 			LSM:Fetch("font", module.db.levelText.name),
 			module.db.levelText.size,
 			module.db.levelText.style
 		)
-		self.classText:SetFont(
+		target.classText:SetFont(
 			LSM:Fetch("font", module.db.classText.name),
 			module.db.classText.size,
 			module.db.classText.style
 		)
-		self.specIcon:SetFont(
+		target.specIcon:SetFont(
 			LSM:Fetch("font", module.db.specIcon.name),
 			module.db.specIcon.size,
 			module.db.specIcon.style
 		)
-		self._titleFontDirty = false
+		target._titleFontDirty = false
 	end
 
 	local titleId = GetCurrentTitle()
@@ -478,109 +482,109 @@ function module:UpdateTitle()
 	local classColorNormal = E.db.mui.themes.gradientMode.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
 
 	if module.db.nameText.fontColor == "GRADIENT" then
-		self.nameText:SetText(F.String.FastGradient(E.myname, 0, 0.6, 1, 0, 0.9, 1))
+		target.nameText:SetText(F.String.FastGradient(E.myname, 0, 0.6, 1, 0, 0.9, 1))
 	elseif module.db.nameText.fontColor == "CLASS" then
-		self.nameText:SetText(F.String.GradientClass(E.myname))
+		target.nameText:SetText(F.String.GradientClass(E.myname))
 	else
-		self.nameText:SetText(E.myname)
-		WF.SetFontColorWithDB(self.nameText, module.db.nameText.color)
+		target.nameText:SetText(E.myname)
+		WF.SetFontColorWithDB(target.nameText, module.db.nameText.color)
 	end
 
-	self.classSymbol:SetTexture(MER.ClassIcons[E.myclass])
+	target.classSymbol:SetTexture(MER.ClassIcons[E.myclass])
 
 	if module.db.titleText.fontColor == "GRADIENT" then
-		self.titleText:SetText(F.String.FastGradient(titleName, 0, 0.9, 1, 0, 0.6, 1))
+		target.titleText:SetText(F.String.FastGradient(titleName, 0, 0.9, 1, 0, 0.6, 1))
 	elseif module.db.titleText.fontColor == "CLASS" then
-		self.titleText:SetText(F.String.GradientClass(titleName))
+		target.titleText:SetText(F.String.GradientClass(titleName))
 	else
-		self.titleText:SetText(titleName)
-		WF.SetFontColorWithDB(self.titleText, module.db.titleText.color)
+		target.titleText:SetText(titleName)
+		WF.SetFontColorWithDB(target.titleText, module.db.titleText.color)
 	end
 
 	if module.db.levelTitleText.short then
-		self.levelTitleText:SetText("Lvl")
+		target.levelTitleText:SetText("Lvl")
 	else
-		self.levelTitleText:SetText("Level")
+		target.levelTitleText:SetText("Level")
 	end
 
-	self.levelText:SetText(level)
+	target.levelText:SetText(level)
 
 	local fontIcon = E.db.mui.armory.icons[primaryTalentTreeIdx] or E.db.mui.armory.icons[0]
 	if module.db.specIcon.fontColor == "CLASS" then
-		self.specIcon:SetText(F.String.RGB(fontIcon, classColorNormal))
+		target.specIcon:SetText(F.String.RGB(fontIcon, classColorNormal))
 	else
-		self.specIcon:SetText(fontIcon)
-		WF.SetFontColorWithDB(self.specIcon, module.db.specIcon.color)
+		target.specIcon:SetText(fontIcon)
+		WF.SetFontColorWithDB(target.specIcon, module.db.specIcon.color)
 	end
 
 	if module.db.classText.fontColor == "CLASS" then
-		self.classText:SetText(F.String.GradientClass(classNames[currentClass], nil, true))
+		target.classText:SetText(F.String.GradientClass(classNames[currentClass], nil, true))
 	else
-		self.classText:SetText(classNames[currentClass])
-		WF.SetFontColorWithDB(self.classText, module.db.classText.color)
+		target.classText:SetText(classNames[currentClass])
+		WF.SetFontColorWithDB(target.classText, module.db.classText.color)
 	end
 
-	self.nameText:ClearAllPoints()
-	self.nameText:Point("TOP", self.frameModel, module.db.nameText.offsetX, 59 + module.db.nameText.offsetY)
-	self.nameText:SetJustifyH("CENTER")
-	self.nameText:SetJustifyV("BOTTOM")
+	target.nameText:ClearAllPoints()
+	target.nameText:Point("TOP", target.frameModel, module.db.nameText.offsetX, 59 + module.db.nameText.offsetY)
+	target.nameText:SetJustifyH("CENTER")
+	target.nameText:SetJustifyV("BOTTOM")
 
-	self.classSymbol:ClearAllPoints()
-	self.classSymbol:SetSize(16, 16)
-	self.classSymbol:Point("RIGHT", self.nameText, "LEFT", -5, 0)
+	target.classSymbol:ClearAllPoints()
+	target.classSymbol:SetSize(16, 16)
+	target.classSymbol:Point("RIGHT", target.nameText, "LEFT", -5, 0)
 
-	self.titleText:ClearAllPoints()
-	self.titleText:Point("LEFT", self.nameText, "RIGHT", module.db.titleText.offsetX, module.db.titleText.offsetY)
-	self.titleText:SetJustifyH("LEFT")
-	self.titleText:SetJustifyV("BOTTOM")
+	target.titleText:ClearAllPoints()
+	target.titleText:Point("LEFT", target.nameText, "RIGHT", module.db.titleText.offsetX, module.db.titleText.offsetY)
+	target.titleText:SetJustifyH("LEFT")
+	target.titleText:SetJustifyV("BOTTOM")
 
 	local iconPadding = 10
 	local textPadding = 4
 
-	local leftWidth = self.levelText:GetStringWidth() + self.levelTitleText:GetStringWidth() + textPadding
-	local rightWidth = self.classText:GetStringWidth()
-	local iconWidth = self.specIcon:GetStringWidth() + (iconPadding * 2)
+	local leftWidth = target.levelText:GetStringWidth() + target.levelTitleText:GetStringWidth() + textPadding
+	local rightWidth = target.classText:GetStringWidth()
+	local iconWidth = target.specIcon:GetStringWidth() + (iconPadding * 2)
 	local totalWidth = leftWidth + rightWidth + iconWidth
 	local anchorWidth = totalWidth - (leftWidth + (iconWidth / 2))
 	local centerOffset = (totalWidth / 2) - anchorWidth
 
-	self.specIcon:ClearAllPoints()
-	self.specIcon:Point("TOP", module.frameModel, centerOffset, 30)
-	self.specIcon:SetJustifyH("CENTER")
-	self.specIcon:SetJustifyV("BOTTOM")
+	target.specIcon:ClearAllPoints()
+	target.specIcon:Point("TOP", target.frameModel, centerOffset, 30)
+	target.specIcon:SetJustifyH("CENTER")
+	target.specIcon:SetJustifyV("BOTTOM")
 
-	self.levelText:ClearAllPoints()
-	self.levelText:Point(
+	target.levelText:ClearAllPoints()
+	target.levelText:Point(
 		"BOTTOMRIGHT",
-		self.specIcon,
+		target.specIcon,
 		"BOTTOMLEFT",
 		(-iconPadding + module.db.levelText.offsetX),
 		module.db.levelText.offsetY
 	)
-	self.levelText:SetJustifyH("LEFT")
-	self.levelText:SetJustifyV("BOTTOM")
+	target.levelText:SetJustifyH("LEFT")
+	target.levelText:SetJustifyV("BOTTOM")
 
-	self.levelTitleText:ClearAllPoints()
-	self.levelTitleText:Point(
+	target.levelTitleText:ClearAllPoints()
+	target.levelTitleText:Point(
 		"BOTTOMRIGHT",
-		self.levelText,
+		target.levelText,
 		"BOTTOMLEFT",
 		(-textPadding + module.db.levelTitleText.offsetX),
 		module.db.levelTitleText.offsetY
 	)
-	self.levelTitleText:SetJustifyH("LEFT")
-	self.levelTitleText:SetJustifyV("BOTTOM")
+	target.levelTitleText:SetJustifyH("LEFT")
+	target.levelTitleText:SetJustifyV("BOTTOM")
 
-	self.classText:ClearAllPoints()
-	self.classText:Point(
+	target.classText:ClearAllPoints()
+	target.classText:Point(
 		"BOTTOMLEFT",
-		self.specIcon,
+		target.specIcon,
 		"BOTTOMRIGHT",
 		(iconPadding + module.db.classText.offsetX),
 		module.db.classText.offsetY
 	)
-	self.classText:SetJustifyH("RIGHT")
-	self.classText:SetJustifyV("BOTTOM")
+	target.classText:SetJustifyH("RIGHT")
+	target.classText:SetJustifyV("BOTTOM")
 end
 
 local ENCHANT_ABBREVS
@@ -609,6 +613,60 @@ function module:EnchantAbbreviate(str)
 	return utf8sub(short, 1, 18)
 end
 
+---Enchant or missing socket/enchant text of a slot, also used by the options preview
+---(Options/Widgets/ArmoryPreview.lua)
+---@param slotOptions table entry of module.characterSlots
+---@param slotInfo table from E:GetGearSlotInfo
+---@return string
+function module:GetSlotEnchantText(slotOptions, slotInfo)
+	if self.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
+		-- A missing socket wins over the enchant text. Slots that have their socket
+		-- (e.g. a socketed helm) still go through the enchant handling below.
+		local missingGemSlots = 0
+		if
+			self.db.pageInfo.missingSocketText
+			and slotOptions.needsSocket
+			and not E.TimerunningID
+			and (not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions))
+		then
+			missingGemSlots = 1 - #slotInfo.gems
+		end
+
+		if missingGemSlots > 0 then
+			local text = format(L["Add %d socket"], missingGemSlots)
+			local missingColor = {
+				F.String.FastColorGradientHex(missingGemSlots, module.colors.LIGHT_GREEN, module.colors.RED),
+			}
+			return F.String.RGB(text, missingColor)
+		elseif slotInfo.enchantColors and next(slotInfo.enchantColors) then
+			if slotInfo.enchantText and slotInfo.enchantText ~= "" then
+				local text = slotInfo.enchantTextShort
+				-- Strip color
+				text = F.String.StripColor(text)
+				if self.db.pageInfo.abbreviateEnchantText then
+					text = module:EnchantAbbreviate(slotInfo.enchantText)
+				end
+
+				if self.db.pageInfo.useEnchantClassColor then
+					return F.String.Class(text)
+				else
+					return text
+				end
+			end
+		elseif self.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
+			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
+				return F.String.Error(L["Add enchant"])
+			else
+				return ""
+			end
+		else
+			return ""
+		end
+	end
+
+	return ""
+end
+
 function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 	if which ~= "Character" then
 		return
@@ -628,52 +686,7 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 	end
 
 	-- Enchant/Socket Text Handling
-	if self.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
-		-- A missing socket wins over the enchant text. Slots that have their socket
-		-- (e.g. a socketed helm) still go through the enchant handling below.
-		local missingGemSlots = 0
-		if
-			self.db.pageInfo.missingSocketText
-			and slotOptions.needsSocket
-			and not E.TimerunningID
-			and (not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions))
-		then
-			missingGemSlots = 1 - #slotInfo.gems
-		end
-
-		if missingGemSlots > 0 then
-			local text = format(L["Add %d socket"], missingGemSlots)
-			local missingColor = {
-				F.String.FastColorGradientHex(missingGemSlots, module.colors.LIGHT_GREEN, module.colors.RED),
-			}
-			slotItem.enchantText:SetText(F.String.RGB(text, missingColor))
-		elseif slotInfo.enchantColors and next(slotInfo.enchantColors) then
-			if slotInfo.enchantText and slotInfo.enchantText ~= "" then
-				local text = slotInfo.enchantTextShort
-				-- Strip color
-				text = F.String.StripColor(text)
-				if self.db.pageInfo.abbreviateEnchantText then
-					text = module:EnchantAbbreviate(slotInfo.enchantText)
-				end
-
-				if self.db.pageInfo.useEnchantClassColor then
-					slotItem.enchantText:SetText(F.String.Class(text))
-				else
-					slotItem.enchantText:SetText(text)
-				end
-			end
-		elseif self.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
-			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
-				slotItem.enchantText:SetText(F.String.Error(L["Add enchant"]))
-			else
-				slotItem.enchantText:SetText("")
-			end
-		else
-			slotItem.enchantText:SetText("")
-		end
-	else
-		slotItem.enchantText:SetText("")
-	end
+	slotItem.enchantText:SetText(self:GetSlotEnchantText(slotOptions, slotInfo))
 
 	-- Hide Gradient (no item color to show it for)
 	if slotItem.MERGradient and not (slotInfo.itemLevelColors and next(slotInfo.itemLevelColors)) then

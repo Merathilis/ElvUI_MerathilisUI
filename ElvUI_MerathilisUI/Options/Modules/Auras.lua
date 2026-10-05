@@ -32,5 +32,6 @@ options.auras = {
 			desc = L["Adds Blizzard's Collapse/Expand arrow button back to ElvUI's Player Buffs. Collapsing shrinks the buffs down to a single row, keeping only the ones about to expire visible while long-lasting buffs are hidden."],
 			image = I.Media.Icons.Categories.auras,
 		}),
+		preview = module.PreviewOption(3, "MERAurasPreview", "auras"),
 	},
 }

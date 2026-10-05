@@ -54,6 +54,7 @@ options.bags = {
 						RefreshCategoryFrames()
 					end,
 				}),
+				preview = module.PreviewOption(1.5, "MERBagsPreview", "equipmentManager"),
 				size = {
 					order = 2,
 					type = "range",
@@ -163,6 +164,7 @@ options.bags = {
 								E:StaticPopup_Show("CONFIG_RL")
 							end,
 						}),
+						preview = module.PreviewOption(1.5, "MERBagsPreview", "categorized"),
 						hideEmptyCategories = {
 							order = 2,
 							type = "toggle",
@@ -308,6 +310,7 @@ options.bags = {
 					type = "group",
 					name = L["Sizes"],
 					args = {
+						preview = module.PreviewOption(0.5, "MERBagsPreview", "categorized"),
 						bagWindow = {
 							order = 1,
 							type = "group",
@@ -441,6 +444,7 @@ options.bags = {
 					type = "group",
 					name = L["Fonts"],
 					args = {
+						preview = module.PreviewOption(0.5, "MERBagsPreview", "categorized"),
 						itemCountFont = {
 							order = 1,
 							type = "group",
@@ -707,6 +711,7 @@ options.bags = {
 						RefreshCategoryFrames()
 					end,
 					args = {
+						preview = module.PreviewOption(0.5, "MERBagsPreview", "categorized"),
 						fade = {
 							order = 1,
 							type = "toggle",

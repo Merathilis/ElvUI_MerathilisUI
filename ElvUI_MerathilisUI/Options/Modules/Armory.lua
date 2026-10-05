@@ -276,6 +276,7 @@ options.armory = {
 					type = "description",
 					name = L["Settings for different font strings"],
 				},
+				preview = module.PreviewOption(0.5, "MERArmoryPreview", "header"),
 				nameText = {
 					order = 1,
 					type = "group",
@@ -741,6 +742,7 @@ options.armory = {
 					type = "description",
 					name = L["Settings for strings displaying enchant and socket info from the items"],
 				},
+				preview = module.PreviewOption(0.5, "MERArmoryPreview", "slots"),
 				enchantTextEnabled = {
 					order = 1,
 					type = "toggle",
@@ -867,6 +869,7 @@ options.armory = {
 					type = "description",
 					name = L["Settings for the Item Level next to your item slot"],
 				},
+				preview = module.PreviewOption(0.5, "MERArmoryPreview", "slots"),
 				itemLevelTextEnabled = {
 					order = 1,
 					type = "toggle",
@@ -946,6 +949,7 @@ options.armory = {
 					type = "description",
 					name = L["Settings for the color coming out of your item slot."],
 				},
+				preview = module.PreviewOption(0.5, "MERArmoryPreview", "slots"),
 				itemQualityGradientEnabled = {
 					order = 1,
 					type = "toggle",

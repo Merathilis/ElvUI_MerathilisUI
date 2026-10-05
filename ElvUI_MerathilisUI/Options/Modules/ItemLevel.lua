@@ -29,5 +29,6 @@ options.itemLevel = {
 				E.db.mui.itemLevel.enable = value
 			end,
 		}),
+		preview = module.PreviewOption(2, "MERItemLevelPreview", "itemLevel"),
 	},
 }

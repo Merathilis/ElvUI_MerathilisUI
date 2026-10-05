@@ -27,6 +27,11 @@
 	<Script file='LocationPanelPreview.lua' />
 	<Script file='ChatSidebarPreview.lua' />
 	<Script file='SpecBarPreview.lua' />
+	<Script file='ItemLevelPreview.lua' />
+	<Script file='MailPreview.lua' />
+	<Script file='AurasPreview.lua' />
+	<Script file='ArmoryPreview.lua' />
+	<Script file='BagsPreview.lua' />
 	<Script file='ToggleSwitch.lua' />
 	<Script file='Slider.lua' />
 	<Script file='Dropdown.lua' />

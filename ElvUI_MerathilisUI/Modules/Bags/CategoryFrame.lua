@@ -1478,6 +1478,30 @@ local function IsItemInEquipmentSet(bagID, slotID)
 	return false
 end
 
+---Size, spot, texture and color of the equipment set marker on a slot, also used by
+---the options preview (Options/Widgets/BagsPreview.lua)
+---@param icon Texture
+---@param db table E.db.mui.bags.equipmentManager
+function module.StyleEquipSetIcon(icon, db)
+	icon:Size(db.size)
+	icon:ClearAllPoints()
+	icon:Point(db.point, db.xOffset, db.yOffset)
+
+	if db.icon == "EQUIPMGR" then
+		icon:SetTexture([[Interface\PaperDollInfoFrame\PaperDollSidebarTabs]])
+		icon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
+	elseif db.icon == "CUSTOM" then
+		icon:SetTexture(db.customTexture)
+		icon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+	else
+		icon:SetTexture((EM and EM.equipmentmanager.iconLocations[db.icon]) or db.icon)
+		icon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+	end
+
+	local c = db.color
+	icon:SetVertexColor(c.r, c.g, c.b, c.a)
+end
+
 -- Parity with EquipManager.lua's own icon on ElvUI's native bags - reuses
 -- that module's icon/size/position/color options (E.db.mui.bags.equipmentManager)
 -- instead of duplicating a second set of settings for the same feature.
@@ -1494,23 +1518,7 @@ local function UpdateEquipSetIcon(btn, entry)
 		return
 	end
 
-	btn.equipIcon:Size(db.size)
-	btn.equipIcon:ClearAllPoints()
-	btn.equipIcon:Point(db.point, db.xOffset, db.yOffset)
-
-	if db.icon == "EQUIPMGR" then
-		btn.equipIcon:SetTexture([[Interface\PaperDollInfoFrame\PaperDollSidebarTabs]])
-		btn.equipIcon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
-	elseif db.icon == "CUSTOM" then
-		btn.equipIcon:SetTexture(db.customTexture)
-		btn.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
-	else
-		btn.equipIcon:SetTexture((EM and EM.equipmentmanager.iconLocations[db.icon]) or db.icon)
-		btn.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
-	end
-
-	local c = db.color
-	btn.equipIcon:SetVertexColor(c.r, c.g, c.b, c.a)
+	module.StyleEquipSetIcon(btn.equipIcon, db)
 	btn.equipIcon:Show()
 end
 
@@ -3016,6 +3024,11 @@ local function GetBindText(itemLink, isBound, isUntilEquipped)
 	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = API.GetItemInfo(itemLink)
 	return bindType and BIND_TEXT[bindType]
 end
+
+-- Shared with the options preview (Options/Widgets/BagsPreview.lua)
+module.GetDisplayItemLevel = GetDisplayItemLevel
+module.GetBindText = GetBindText
+module.PositionSlotText = PositionSlotText
 
 -- Same "sellable grey/Poor quality item" definition used for the Junk
 -- category and Vendor Grays (CategoryClassifier.lua/module:GetJunkValue).

@@ -50,6 +50,7 @@ options.mail.args.selection = {
 				Mail:UpdateSelectionCheckboxes()
 			end,
 		}),
+		preview = module.PreviewOption(2, "MERMailPreview", "mail"),
 	},
 }
 
