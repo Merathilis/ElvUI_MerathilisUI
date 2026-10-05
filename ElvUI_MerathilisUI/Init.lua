@@ -132,6 +132,7 @@ MER.Modules.Theme = MER:NewModule("MER_Theme", "AceHook-3.0")
 MER.Modules.Tooltip = MER:NewModule("MER_Tooltip")
 MER.Modules.Tracker = MER:NewModule("MER_Tracker", "AceEvent-3.0")
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+MER.Modules.UnlockMode = MER:NewModule("MER_UnlockMode", "AceEvent-3.0")
 MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
 
 -- Pre register Datatexts

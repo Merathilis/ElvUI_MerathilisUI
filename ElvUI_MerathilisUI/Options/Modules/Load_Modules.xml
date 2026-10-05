@@ -22,5 +22,6 @@
 	<Script file='Tooltip.lua'/>
 	<Script file='Tracker.lua'/>
 	<Script file='UnitFrames.lua'/>
+	<Script file='UnlockMode.lua'/>
 	<Script file='VehicleBar.lua'/>
 </Ui>

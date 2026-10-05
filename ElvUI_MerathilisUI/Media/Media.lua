@@ -84,6 +84,7 @@ F.AddMedia("icon", "Categories/theme")
 F.AddMedia("icon", "Categories/tooltip")
 F.AddMedia("icon", "Categories/tracker")
 F.AddMedia("icon", "Categories/unitframes")
+F.AddMedia("icon", "Categories/unlock_mode")
 F.AddMedia("icon", "Categories/vehicle")
 F.AddMedia("icon", "Categories/info")
 

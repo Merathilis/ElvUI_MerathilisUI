@@ -1523,3 +1523,19 @@ P.auras = {
 		expanded = true,
 	},
 }
+
+P.unlockMode = {
+	enable = true,
+	toolbar = true, -- replaces ElvUI's mover popup
+	showGrid = true,
+	gridAccent = true, -- center lines of the grid in the class color
+	sortBySize = true, -- small movers above big ones
+	keyboardNudge = true,
+	bigStep = 10, -- arrow keys with a modifier
+	snap = {
+		enable = true,
+		guides = true,
+		screen = true, -- also snap to the screen center and edges
+		distance = 8,
+	},
+}
