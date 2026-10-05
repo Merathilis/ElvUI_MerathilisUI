@@ -10,11 +10,12 @@ local min = math.min
 local CreateFrame, UIParent = CreateFrame, UIParent
 local SetRaidTargetIconTexture = SetRaidTargetIconTexture
 
--- Sample health bars that explain the Focus Highlight, the Raid Marker Color
--- and the Enemy Forces. Used as `dialogControl` on a description whose name is
--- the settings key under E.db.mui.nameplates ("focusHighlight", "markerColor"
--- or "enemyForces"): one bar with the focus texture, one bar per raid marker
--- with its tint, or one bar with the forces text.
+-- Sample health bars that explain the Hover Highlight, the Focus Highlight, the
+-- Raid Marker Color and the Enemy Forces. Used as `dialogControl` on a
+-- description whose name is the settings key under E.db.mui.nameplates
+-- ("highlight", "focusHighlight", "markerColor" or "enemyForces"): one bar with
+-- the highlight or focus texture, one bar per raid marker with its tint, or one
+-- bar with the forces text.
 
 local FORCES_SAMPLES = {
 	PERCENT = "+1.25%",
@@ -46,7 +47,8 @@ local function GetBaseColor()
 	return 0.8, 0.3, 0.21
 end
 
-local function GetFocusColor(db)
+-- Focus and hover highlight share the color modes
+local function GetHighlightColor(db)
 	if db.colorMode == "CUSTOM" then
 		return db.customColor.r, db.customColor.g, db.customColor.b
 	end
@@ -113,9 +115,13 @@ local function Update(widget)
 				text:ClearAllPoints()
 				text:SetPoint(E.InversePoints[db.position], bar, db.position, db.xOffset, db.yOffset)
 			else
-				local fr, fg, fb = GetFocusColor(db)
+				-- The hover highlight sets its alpha on the texture and may blend additive
+				local isHover = key == "highlight"
+				local fr, fg, fb = GetHighlightColor(db)
 				bar.focus:SetTexture(LSM:Fetch("statusbar", db.texture))
-				bar.focus:SetVertexColor(fr, fg, fb, db.alpha)
+				bar.focus:SetVertexColor(fr, fg, fb, isHover and 1 or db.alpha)
+				bar.focus:SetAlpha(isHover and db.alpha or 1)
+				bar.focus:SetBlendMode(isHover and db.additive and "ADD" or "BLEND")
 			end
 		end
 	end

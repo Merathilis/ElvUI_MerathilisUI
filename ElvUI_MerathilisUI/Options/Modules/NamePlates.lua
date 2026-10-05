@@ -121,6 +121,7 @@ options.nameplates = {
 							name = L["Enable"],
 							desc = L["Shows the faction icon of players from the opposing faction."],
 						}),
+						preview = module.PreviewOption(1.5, "MERFactionIndicatorPreview", "nameplates"),
 						style = {
 							order = 3,
 							type = "select",
@@ -186,6 +187,7 @@ options.nameplates = {
 							name = L["Enable"],
 							desc = L["Animated arrows next to the nameplate of your target. While enabled, they replace the arrows of ElvUI's target indicator, its glow stays."],
 						}),
+						preview = module.PreviewOption(1.5, "MERTargetArrowsPreview", "nameplates"),
 						layout = {
 							order = 3,
 							type = "select",
@@ -274,6 +276,7 @@ options.nameplates = {
 							name = L["Enable"],
 							desc = L["Restyles the highlight on the health bar of the nameplate under your mouse. Needs the Highlight option of ElvUI's nameplates."],
 						}),
+						preview = module.PreviewOption(1.5, "MERNameplateHealthPreview", "highlight"),
 						fade = {
 							order = 3,
 							type = "toggle",
@@ -622,7 +625,7 @@ options.nameplates = {
 					return E.db.mui.nameplates.executeLine
 				end, function()
 					MNP:UpdateExecuteLines()
-				end, module.RequirementsDisabled(I.Requirements.NamePlates)),
+				end, module.RequirementsDisabled(I.Requirements.NamePlates), "nameplates"),
 			},
 		},
 	},

@@ -81,20 +81,15 @@ end
 -------------------------------------------------------------------------------
 --  Frames
 -------------------------------------------------------------------------------
-function module:CreateBloodlustFrames()
-	if self.bloodlustFrame then
-		return
-	end
-
-	local frame = CreateFrame("Frame", "MER_TrackerBloodlust", E.UIParent)
+-- The widget itself, also built by the options preview (Options/Widgets/TrackerPreview.lua)
+function module:BuildBloodlustFrame(name, parent, fontName)
+	local frame = CreateFrame("Frame", name, parent)
 	frame:Size(40)
-	frame:Point("CENTER", E.UIParent, "CENTER", -46, 200)
-	frame:Hide()
 
 	frame.iconFrame = self:CreateIcon(frame)
 	frame.icon = frame.iconFrame.icon
 
-	frame.cooldown = self:CreateCountdown(frame, "MER_TrackerBloodlustFont")
+	frame.cooldown = self:CreateCountdown(frame, fontName)
 	frame.cooldown:SetInside(frame.iconFrame)
 	frame.cooldown:SetFrameLevel(frame.iconFrame:GetFrameLevel() + 2)
 
@@ -111,12 +106,24 @@ function module:CreateBloodlustFrames()
 	buff:SetFrameLevel(frame.overlay:GetFrameLevel() + 2)
 	buff:Hide()
 	buff.iconFrame = self:CreateIcon(buff)
-	buff.cooldown = self:CreateCountdown(buff, "MER_TrackerBloodlustFont")
+	buff.cooldown = self:CreateCountdown(buff, fontName)
 	buff.cooldown:SetInside(buff.iconFrame)
 	buff.cooldown:SetFrameLevel(buff.iconFrame:GetFrameLevel() + 2)
 	-- Starts bright and darkens while the buff runs out
 	buff.cooldown:SetReverse(true)
 	frame.buff = buff
+
+	return frame
+end
+
+function module:CreateBloodlustFrames()
+	if self.bloodlustFrame then
+		return
+	end
+
+	local frame = self:BuildBloodlustFrame("MER_TrackerBloodlust", E.UIParent, "MER_TrackerBloodlustFont")
+	frame:Point("CENTER", E.UIParent, "CENTER", -46, 200)
+	frame:Hide()
 
 	self.bloodlustFrame = frame
 
@@ -129,24 +136,28 @@ function module:CreateBloodlustFrames()
 	self:CreateTrackerMover(frame, "MER_TrackerBloodlustMover", L["Bloodlust"], "bloodlust")
 end
 
+---Applies the settings to a frame from BuildBloodlustFrame, also used by the options preview
+function module:LayoutBloodlustFrame(frame, font, db)
+	frame:Size(db.iconSize)
+	self.SetFont(font, db.font)
+	self.SetFont(frame.readyText, db.font)
+	frame.readyText:SetTextColor(db.color.r, db.color.g, db.color.b)
+	for _, cooldown in ipairs({ frame.cooldown, frame.buff.cooldown }) do
+		local text = cooldown:GetCountdownFontString()
+		if text then
+			text:SetFontObject(font)
+			text:SetTextColor(db.color.r, db.color.g, db.color.b)
+		end
+	end
+end
+
 function module:UpdateBloodlustLayout()
 	local frame = self.bloodlustFrame
 	if not frame then
 		return
 	end
 
-	local db = self.db.bloodlust
-	frame:Size(db.iconSize)
-	self.SetFont(lustFont, db.font)
-	self.SetFont(frame.readyText, db.font)
-	frame.readyText:SetTextColor(db.color.r, db.color.g, db.color.b)
-	for _, cooldown in ipairs({ frame.cooldown, frame.buff.cooldown }) do
-		local text = cooldown:GetCountdownFontString()
-		if text then
-			text:SetFontObject(lustFont)
-			text:SetTextColor(db.color.r, db.color.g, db.color.b)
-		end
-	end
+	self:LayoutBloodlustFrame(frame, lustFont, self.db.bloodlust)
 
 	-- Render the current state again with the new settings
 	self.bloodlustState = nil

@@ -81,6 +81,7 @@ options.lootRoll = {
 			end,
 			disabled = ModuleDisabled,
 		},
+		preview = module.PreviewOption(3.5, "MERLootRollPreview", "lootRoll"),
 		spacer = {
 			order = 4,
 			type = "description",

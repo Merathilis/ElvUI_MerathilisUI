@@ -1200,6 +1200,10 @@ local function BuildTestMissing(missing)
 	end
 end
 
+-- Shared with the options preview (Options/Widgets/BuffReminderPreview.lua)
+module.TestPreview = TEST_PREVIEW
+module.CreateIconGlow = CreateIconGlow
+
 function module:ToggleTestMode()
 	self.testMode = not self.testMode
 	if self._testModeTimer then

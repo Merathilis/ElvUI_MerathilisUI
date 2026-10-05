@@ -794,6 +794,31 @@ function module:Test()
 	end
 end
 
+-- Sample bars for the options preview (Options/Widgets/LootRollPreview.lua), kept out of the roll bar pool
+function module:CreatePreviewBars(parent)
+	module.db = E.db.mui.lootRoll
+
+	local bars = {}
+	for i in ipairs(testItems) do
+		local bar = module:CreateBar("Preview" .. i)
+		tremove(module.RollBars)
+		bar.isTest = true
+		bar:SetParent(parent)
+		bars[i] = bar
+	end
+
+	return bars
+end
+
+function module:UpdatePreviewBars(bars)
+	module.db = E.db.mui.lootRoll
+
+	for i, bar in ipairs(bars) do
+		module:LayoutBar(bar)
+		PopulateTestBar(bar, testItems[i])
+	end
+end
+
 MER:AddCommand("MLR", "/mlr", function()
 	module:Test()
 end)

@@ -87,6 +87,7 @@ options.datatexts = {
 			inline = true,
 			name = L["Durability/ Ilevel"],
 			args = {
+				preview = module.PreviewOption(0.5, "MERDurabilityPreview", "durabilityIlevel"),
 				icon = {
 					order = 1,
 					type = "toggle",

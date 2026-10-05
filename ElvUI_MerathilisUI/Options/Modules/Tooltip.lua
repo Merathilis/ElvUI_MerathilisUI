@@ -52,6 +52,7 @@ options.tooltip = {
 					name = F.NewFeatureText(L["Enable"]),
 					desc = L["Shows the buffs of the hovered unit as icons on the tooltip."],
 				}),
+				preview = module.PreviewOption(1.5, "MERTooltipBuffsPreview", "tooltip"),
 				playersOnly = {
 					order = 2,
 					type = "toggle",

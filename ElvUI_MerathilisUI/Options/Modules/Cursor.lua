@@ -149,6 +149,7 @@ options.cursor = {
 				Cursor:DatabaseUpdate()
 			end,
 		}),
+		preview = module.PreviewOption(2.5, "MERCursorPreview", "cursor"),
 		spacer = {
 			order = 3,
 			type = "description",

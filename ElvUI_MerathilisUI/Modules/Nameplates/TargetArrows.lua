@@ -317,6 +317,39 @@ local function ConfigureArrow(element, arrow, db, r, g, b)
 	arrow.bounce.move:SetOffset(-info.dirX * nudge, -info.dirY * nudge)
 end
 
+local function CreateElement(parent)
+	local element = CreateFrame("Frame", nil, parent)
+	element:SetAllPoints(parent)
+	element:Hide()
+	element.arrows = {}
+	for key in pairs(ARROWS) do
+		element.arrows[key] = CreateArrow(element, key)
+	end
+	element:SetScript("OnShow", Element_OnShow)
+	element:SetScript("OnHide", Element_OnHide)
+	element.dodge = { left = 0, right = 0 }
+
+	return element
+end
+
+local function ConfigureElement(element, anchor, db)
+	element.animation = db.animation
+	element.anchor = anchor
+	element.spacing = db.spacing
+
+	local r, g, b = GetArrowColor(db)
+	local layout = LAYOUTS[db.layout] or LAYOUTS.sides
+	for key, arrow in pairs(element.arrows) do
+		ConfigureArrow(element, arrow, db, r, g, b)
+		arrow:SetShown(layout[key] == true)
+	end
+
+	-- Replays the animation with the new settings on the current target
+	if element:IsShown() then
+		Element_OnShow(element)
+	end
+end
+
 function module:Configure_TargetArrows(nameplate)
 	if not nameplate or nameplate == NP.TestFrame or not nameplate.Health then
 		return
@@ -335,16 +368,7 @@ function module:Configure_TargetArrows(nameplate)
 
 	local element = nameplate.MER_TargetArrows
 	if not element then
-		element = CreateFrame("Frame", nil, nameplate.Health)
-		element:SetAllPoints(nameplate.Health)
-		element:Hide()
-		element.arrows = {}
-		for key in pairs(ARROWS) do
-			element.arrows[key] = CreateArrow(element, key)
-		end
-		element:SetScript("OnShow", Element_OnShow)
-		element:SetScript("OnHide", Element_OnHide)
-		element.dodge = { left = 0, right = 0 }
+		element = CreateElement(nameplate.Health)
 		nameplate.MER_TargetArrows = element
 
 		-- A castbar only shows while the unit casts, its icon may cover an arrow
@@ -360,21 +384,7 @@ function module:Configure_TargetArrows(nameplate)
 	end
 
 	element:SetFrameLevel(nameplate.Health:GetFrameLevel() + 5)
-	element.animation = db.animation
-	element.anchor = nameplate.Health
-	element.spacing = db.spacing
-
-	local r, g, b = GetArrowColor(db)
-	local layout = LAYOUTS[db.layout] or LAYOUTS.sides
-	for key, arrow in pairs(element.arrows) do
-		ConfigureArrow(element, arrow, db, r, g, b)
-		arrow:SetShown(layout[key] == true)
-	end
-
-	-- Replays the animation with the new settings on the current target
-	if element:IsShown() then
-		Element_OnShow(element)
-	end
+	ConfigureElement(element, nameplate.Health, db)
 
 	if not nameplate:IsElementEnabled("MER_TargetArrows") then
 		nameplate:EnableElement("MER_TargetArrows")
@@ -394,6 +404,23 @@ function module:UpdateTargetArrows()
 
 	for nameplate in pairs(NP.Plates) do
 		module:Configure_TargetArrows(nameplate)
+	end
+end
+
+-- Sample arrows around a bar for the options preview (Options/Widgets/TargetArrowsPreview.lua)
+function module:TargetArrows_CreatePreview(bar)
+	return CreateElement(bar)
+end
+
+function module:TargetArrows_UpdatePreview(element)
+	ConfigureElement(element, element:GetParent(), E.db.mui.nameplates.targetArrows)
+	element:Show()
+end
+
+-- Plays the animation again from the start
+function module:TargetArrows_ReplayPreview(element)
+	if element:IsShown() then
+		Element_OnShow(element)
 	end
 end
 

@@ -43,6 +43,7 @@ options.nameHover = {
 			image = I.Media.Icons.Categories.name_hover,
 		}),
 		credits = module.CreditsCard(2.5, L["ncHoverName by Nightcracker"]),
+		preview = module.PreviewOption(2.7, "MERNameHoverPreview", "nameHover"),
 		textGroup = {
 			order = 3,
 			type = "group",

@@ -182,6 +182,7 @@ options.maps = {
 						E:GetModule("Minimap"):UpdateSettings()
 					end,
 				}, 0.5),
+				preview = module.PreviewOption(3.5, "MERLocationPanelPreview", "locationPanel"),
 				spacer = {
 					order = 4,
 					type = "description",

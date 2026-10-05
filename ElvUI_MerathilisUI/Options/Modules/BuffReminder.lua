@@ -168,6 +168,7 @@ options.buffReminder = {
 				BR:ToggleTestMode()
 			end,
 		},
+		preview = module.PreviewOption(3.5, "MERBuffReminderPreview", "buffReminder"),
 		general = {
 			order = 4,
 			type = "group",

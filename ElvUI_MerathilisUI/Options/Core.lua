@@ -263,6 +263,21 @@ function module.CreditsCard(order, text)
 	return module.TextCard(order, text, L["Credits"])
 end
 
+---A live preview widget (Options/Widgets/*Preview.lua) as a full width row
+---@param order number
+---@param dialogControl string AceGUI type of the preview
+---@param key string tells the preview which settings to show
+---@return table option
+function module.PreviewOption(order, dialogControl, key)
+	return {
+		order = order,
+		type = "description",
+		dialogControl = dialogControl,
+		name = key,
+		width = "full",
+	}
+end
+
 ---Settings of the Interrupt Ready castbar indicator, shared by UnitFrames and NamePlates
 ---@param order number
 ---@param getDB function returns the settings table
@@ -462,9 +477,10 @@ end
 ---@param getDB function returns the settings table
 ---@param update function refresh after a change
 ---@param requirementsDisabled function disabled check of the owning module
+---@param previewKey string settings key under E.db.mui ("unitframes", "nameplates") for the sample health bar
 ---@param extraArgs table? more options, merged into the group's args
 ---@return table option
-function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, extraArgs)
+function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, previewKey, extraArgs)
 	-- Own disabled replaces the group's, so the children repeat the requirement
 	local function Disabled()
 		return requirementsDisabled() or not getDB().enable
@@ -494,6 +510,7 @@ function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, e
 				type = "toggle",
 				name = L["Enable"],
 			},
+			preview = module.PreviewOption(2.5, "MERExecuteLinePreview", previewKey),
 			hostileOnly = {
 				order = 3,
 				type = "toggle",

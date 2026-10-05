@@ -46,6 +46,7 @@ options.Notification = {
 			name = L["Here you can enable/disable the different notification types."],
 			disabled = Disabled,
 		},
+		preview = module.PreviewOption(3.5, "MERNotificationPreview", "notification"),
 		testNotification = {
 			order = 4,
 			type = "execute",

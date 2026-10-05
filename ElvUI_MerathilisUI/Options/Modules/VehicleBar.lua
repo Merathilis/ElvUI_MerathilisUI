@@ -73,6 +73,7 @@ options.vehicleBar = {
 						Update()
 					end,
 				}),
+				preview = module.PreviewOption(1.5, "MERVehicleBarPreview", "vehicleBar"),
 				elvuiBars = module.ToggleCard({
 					order = 2,
 					name = L["Hide ElvUI Bars"],
@@ -103,6 +104,7 @@ options.vehicleBar = {
 				Update()
 			end,
 			args = {
+				preview = module.PreviewOption(0.5, "MERVehicleBarPreview", "vehicleBar"),
 				buttonWidth = {
 					order = 1,
 					type = "range",
@@ -144,6 +146,7 @@ options.vehicleBar = {
 					type = "toggle",
 					name = L["Enable"],
 				},
+				preview = module.PreviewOption(1.5, "MERVehicleBarPreview", "vehicleBar"),
 				vigorBarBarHeader = {
 					order = 2,
 					type = "header",

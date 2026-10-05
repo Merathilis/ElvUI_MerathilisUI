@@ -42,6 +42,7 @@ local function FactionIndicatorOptions(order, unit)
 				type = "toggle",
 				name = L["Enable"],
 			},
+			preview = module.PreviewOption(1.5, "MERFactionIndicatorPreview", "unitframes:" .. unit),
 			size = {
 				order = 2,
 				type = "range",
@@ -110,6 +111,7 @@ options.unitframes = {
 					name = L["Highlight"],
 					desc = L["Adds an own highlight to the Unitframes"],
 				}, 0.5),
+				stylePreview = module.PreviewOption(3, "MERUnitFrameStylePreview", "unitframes"),
 				interruptReady = module.InterruptReadyOptions(
 					12,
 					function()
@@ -190,6 +192,7 @@ options.unitframes = {
 						MUF:UpdateExecuteLines()
 					end,
 					UnitFramesDisabled,
+					"unitframes",
 					{
 						units = {
 							order = 8,
@@ -234,6 +237,7 @@ options.unitframes = {
 							type = "toggle",
 							name = L["Enable"],
 						},
+						preview = module.PreviewOption(2.5, "MERFactionIndicatorPreview", "unitframes"),
 						style = {
 							order = 3,
 							type = "select",
@@ -283,6 +287,7 @@ options.unitframes = {
 									type = "toggle",
 									name = L["Enable"],
 								},
+								preview = module.PreviewOption(1.5, "MERRestingIndicatorPreview", "unitframes"),
 								colorMode = {
 									order = 2,
 									type = "select",

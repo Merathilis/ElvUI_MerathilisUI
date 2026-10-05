@@ -56,6 +56,7 @@ options.actionbars = {
 					desc = L["The Specialization Bar switches your spec with a left click and your loot spec with a right click."],
 					image = I.Media.Icons.Categories.actionbars,
 				}),
+				preview = module.PreviewOption(1.5, "MERSpecBarPreview", "specBar"),
 				mouseover = {
 					order = 2,
 					type = "toggle",

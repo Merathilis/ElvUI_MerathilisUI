@@ -52,6 +52,7 @@ options.chat = {
 						return not MER:HasRequirements(I.Requirements.Chat)
 					end,
 				}),
+				preview = module.PreviewOption(1.5, "MERChatSidebarPreview", "sidebar"),
 				spacer = {
 					order = 2,
 					type = "description",

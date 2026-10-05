@@ -62,6 +62,7 @@ options.panels = {
 			type = "header",
 			name = L["Panels"],
 		},
+		preview = module.PreviewOption(1.5, "MERPanelsPreview", "panels"),
 		color = {
 			order = 2,
 			type = "group",
