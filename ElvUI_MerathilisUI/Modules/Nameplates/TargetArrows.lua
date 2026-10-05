@@ -244,31 +244,60 @@ local function SetDodge(element, left, right)
 	PlaceArrow(element, element.arrows.right)
 end
 
-local function UpdateDodge(element, castbar)
-	local button = castbar.Button
-	if not (button and button:IsShown()) then
+-- Position of an anchor point inside a box, relative to the box center
+local POINT_OFFSETS = {
+	TOPLEFT = { -0.5, 0.5 },
+	TOP = { 0, 0.5 },
+	TOPRIGHT = { 0.5, 0.5 },
+	LEFT = { -0.5, 0 },
+	CENTER = { 0, 0 },
+	RIGHT = { 0.5, 0 },
+	BOTTOMLEFT = { -0.5, -0.5 },
+	BOTTOM = { 0, -0.5 },
+	BOTTOMRIGHT = { 0.5, -0.5 },
+}
+
+-- Nameplates are restricted regions that can't be measured, so the icon position is
+-- worked out from the same settings ElvUI lays it out with (Update_Castbar), in
+-- coordinates relative to the nameplate center where the health bar sits
+local function UpdateDodge(element, nameplate)
+	local plateDB = NP:PlateDB(nameplate)
+	local db = plateDB and plateDB.castbar
+	local plateWidth, plateHeight = nameplate.width, nameplate.height
+	if not (db and db.showIcon and plateWidth and plateHeight) then
 		SetDodge(element, 0, 0)
 		return
 	end
 
-	local health = element.anchor
-	local healthLeft, healthRight = health:GetLeft(), health:GetRight()
-	local _, healthY = health:GetCenter()
-	local buttonLeft, buttonRight = button:GetLeft(), button:GetRight()
-	local buttonTop, buttonBottom = button:GetTop(), button:GetBottom()
-	if not (healthLeft and healthY and buttonLeft and buttonTop) then
+	local anchor = POINT_OFFSETS[db.anchorPoint]
+	local inverse = POINT_OFFSETS[E.InversePoints[db.anchorPoint]]
+	if not (anchor and inverse) then
 		SetDodge(element, 0, 0)
 		return
 	end
+
+	local castbarX = anchor[1] * plateWidth + db.xOffset - inverse[1] * db.width
+	local castbarY = anchor[2] * plateHeight + db.yOffset - inverse[2] * db.height
+	local castbarBottom = castbarY - db.height / 2
+
+	local size = db.iconSize
+	local buttonLeft
+	if db.iconPosition == "RIGHT" then
+		buttonLeft = castbarX + db.width / 2 + db.iconOffsetX
+	else
+		buttonLeft = castbarX - db.width / 2 + db.iconOffsetX - size
+	end
+	local buttonBottom = castbarBottom + db.iconOffsetY
 
 	-- Only an icon at the height of the arrows is in their way
-	local half = element.arrows.left:GetHeight() / 2
-	if buttonBottom >= healthY + half or buttonTop <= healthY - half then
+	local half = E.db.mui.nameplates.targetArrows.size / 2
+	if buttonBottom >= half or buttonBottom + size <= -half then
 		SetDodge(element, 0, 0)
 		return
 	end
 
-	SetDodge(element, max(0, healthLeft - buttonLeft), max(0, buttonRight - healthRight))
+	local healthHalf = plateDB.health.width / 2
+	SetDodge(element, max(0, -healthHalf - buttonLeft), max(0, buttonLeft + size - healthHalf))
 end
 
 local function ConfigureArrow(element, arrow, db, r, g, b)
@@ -322,7 +351,7 @@ function module:Configure_TargetArrows(nameplate)
 		local castbar = nameplate.Castbar
 		if castbar then
 			castbar:HookScript("OnShow", function()
-				UpdateDodge(element, castbar)
+				UpdateDodge(element, nameplate)
 			end)
 			castbar:HookScript("OnHide", function()
 				SetDodge(element, 0, 0)
