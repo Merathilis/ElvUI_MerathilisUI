@@ -1531,6 +1531,7 @@ P.unlockMode = {
 	gridAccent = true, -- center lines of the grid in the class color
 	sortBySize = true, -- small movers above big ones
 	editModeHints = true, -- marks what Blizzard's Edit Mode still places
+	animation = true, -- unlock / lock animation when the mover mode opens and closes
 	keyboardNudge = true,
 	bigStep = 10, -- arrow keys with a modifier
 	anchorLines = true,

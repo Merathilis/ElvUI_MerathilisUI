@@ -1768,3 +1768,4 @@ L["Edit Mode Hints"] = true
 L["Marks the parts of the interface that Blizzard's Edit Mode places instead of ElvUI. A click on one closes the mover mode and opens the Edit Mode."] = true
 L["Placed by Blizzard's Edit Mode, not by ElvUI."] = true
 L["Click: open Blizzard's Edit Mode"] = true
+L["Plays a short unlock animation when the mover mode opens and a lock animation when it closes."] = true

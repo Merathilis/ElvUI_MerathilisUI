@@ -152,6 +152,10 @@ F.AddMedia("role", "ElvUIDPS")
 
 F.AddMedia("texture", "EmptyTex")
 F.AddMedia("texture", "GlowTex")
+F.AddMedia("texture", "UnlockMode/LockBody")
+F.AddMedia("texture", "UnlockMode/LockShackle")
+F.AddMedia("texture", "UnlockMode/Ring")
+F.AddMedia("texture", "UnlockMode/Glow")
 
 -- Fonts
 F.AddMedia("font", "Expressway.ttf", I.Fonts.Primary, nil, westAndRUBits)

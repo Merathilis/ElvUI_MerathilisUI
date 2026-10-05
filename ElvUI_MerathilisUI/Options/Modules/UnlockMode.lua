@@ -58,6 +58,12 @@ options.unlockMode = {
 			name = L["General"],
 			disabled = Disabled,
 			args = {
+				animation = {
+					order = 0,
+					type = "toggle",
+					name = L["Animation"],
+					desc = L["Plays a short unlock animation when the mover mode opens and a lock animation when it closes."],
+				},
 				toolbar = {
 					order = 1,
 					type = "toggle",

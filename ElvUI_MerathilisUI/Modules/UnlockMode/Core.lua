@@ -396,7 +396,11 @@ function module:EndSession()
 	if self.keyCatcher then
 		self.keyCatcher:Hide()
 	end
-	if self.toolbar then
+
+	-- The close animation hides the toolbar when it is done
+	if self.db.animation then
+		self:PlayAnimation("close")
+	elseif self.toolbar then
 		self.toolbar:Hide()
 	end
 end
@@ -428,8 +432,12 @@ function module:OnMoveModeToggled(which)
 	end
 
 	-- Also runs when the layout filter switches while the mode is open
-	if not self.snapshot then
+	local starting = not self.snapshot
+	if starting then
 		self:StartSession()
+	else
+		-- Movers the filter shows now must not keep a half faded alpha
+		self:FinishAnimation()
 	end
 
 	self:HookAllMovers()
@@ -466,6 +474,10 @@ function module:OnMoveModeToggled(which)
 	end
 	self:UpdateAnchorLines()
 	self:UpdateEditModeHints(which)
+
+	if starting and self.db.animation then
+		self:PlayAnimation("open")
+	end
 end
 
 -- ElvUI's popup closes the mover mode on combat only while it is shown
