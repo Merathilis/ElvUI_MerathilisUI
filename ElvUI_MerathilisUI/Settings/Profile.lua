@@ -734,6 +734,18 @@ P.armory = {
 
 P.tooltip = {
 	achievement = true,
+	buffs = {
+		enable = false,
+		playersOnly = true,
+		position = "TOP",
+		size = 20,
+		spacing = 2,
+		perRow = 10,
+		maxIcons = 16,
+		countFontSize = 10,
+		xOffset = 0,
+		yOffset = 0,
+	},
 }
 
 P.mail = {

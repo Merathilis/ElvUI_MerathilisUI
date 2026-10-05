@@ -1697,3 +1697,14 @@ L["In the Quick Grid marker deck, hold Shift while you release the key to place 
 L["Hold %s"] = true
 L["Hold the key"] = true
 L["Release the key"] = true
+
+-- Tooltip
+L["Achievement"] = true
+L["Buffs"] = true
+L["Players Only"] = true
+L["Icons Per Row"] = true
+L["Max Icons"] = true
+L["Stack Font Size"] = true
+L["Shows on achievement links who earned the achievement and whether you have completed it too."] = true
+L["Shows the buffs of the hovered unit as icons on the tooltip."] = true
+L["Only show buffs on the tooltip of players."] = true

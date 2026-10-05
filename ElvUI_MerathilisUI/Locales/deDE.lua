@@ -1756,3 +1756,14 @@ L["In the Quick Grid marker deck, hold Shift while you release the key to place 
 L["Hold %s"] = "%s halten"
 L["Hold the key"] = "Taste halten"
 L["Release the key"] = "Taste loslassen"
+
+-- Tooltip
+L["Achievement"] = "Erfolg"
+L["Buffs"] = "Stärkungszauber"
+L["Players Only"] = "Nur Spieler"
+L["Icons Per Row"] = "Symbole pro Reihe"
+L["Max Icons"] = "Maximale Symbole"
+L["Stack Font Size"] = "Schriftgröße der Stapel"
+L["Shows on achievement links who earned the achievement and whether you have completed it too."] = "Zeigt bei Erfolgslinks, wer den Erfolg errungen hat und ob du ihn ebenfalls abgeschlossen hast."
+L["Shows the buffs of the hovered unit as icons on the tooltip."] = "Zeigt die Stärkungszauber der Einheit unter der Maus als Symbole am Tooltip."
+L["Only show buffs on the tooltip of players."] = "Zeigt die Stärkungszauber nur im Tooltip von Spielern."
