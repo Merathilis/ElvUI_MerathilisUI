@@ -1727,7 +1727,7 @@ L["Only show buffs on the tooltip of players."] = true
 
 -- Unlock Mode
 L["Unlock Mode"] = true
-L["Extends ElvUI's mover mode: movers snap to each other with guide lines, a click selects a mover for the arrow keys and a toolbar shows your changes, which you can save or revert. The positions stay in ElvUI's profile."] = true
+L["Extends ElvUI's mover mode: movers snap to each other with guide lines, can be anchored to each other, a click selects a mover for the arrow keys and a toolbar shows your changes, which you can save or revert. The positions stay in ElvUI's profile."] = true
 L["Open Unlock Mode"] = true
 L["Opens ElvUI's mover mode with the additions of this page."] = true
 L["Toolbar"] = true
@@ -1769,3 +1769,14 @@ L["Shift+Right-click: hide"] = true
 L["%d change"] = true
 L["%d changes"] = true
 L["No changes"] = true
+L["Anchors"] = true
+L["Select a mover, then Alt-click another one: the selected mover is anchored to it and follows it from then on. The side is taken from where the mover sits. Dragging or nudging an anchored mover only changes its distance to the target. Alt-click the target again to detach it."] = true
+L["Anchor Lines"] = true
+L["Connects anchored movers with a line in the mover mode."] = true
+L["Detach All"] = true
+L["Detaches every anchored mover, it keeps its current place on the screen."] = true
+L["Detach"] = true
+L["%s is anchored to %s."] = true
+L["Alt-click another mover to anchor %s to it."] = true
+L["Select a mover, then Alt-click another one to anchor it there."] = true
+L["%s can't be anchored to %s, because %s already follows it."] = true

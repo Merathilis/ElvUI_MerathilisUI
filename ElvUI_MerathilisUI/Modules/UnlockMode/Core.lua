@@ -123,6 +123,11 @@ function module:Select(mover)
 	if E.MoverNudgeFrame then
 		E.MoverNudgeFrame:SetShown(mover ~= nil)
 	end
+
+	self:UpdateAnchorLines()
+	if self.toolbar then
+		self:UpdateToolbarAnchor()
+	end
 end
 
 function module:HandleKey(key)
@@ -202,9 +207,13 @@ local function OnMouseUp(mover, button)
 	end
 
 	-- ElvUI toggled its nudge window on this mouse up, the selection decides instead
+	local selected = module.selected
 	if module.dragging or GetTime() - (module.lastDragStop or 0) < DRAG_CLICK_GUARD then
-		module:Select(module.selected)
-	elseif module.selected == mover then
+		module:Select(selected)
+	elseif IsAltKeyDown() and selected and selected ~= mover then
+		module:ToggleAnchor(selected, mover)
+		module:Select(selected)
+	elseif selected == mover then
 		module:Select(nil)
 	else
 		module:Select(mover)
@@ -228,6 +237,11 @@ local function OnHide(mover)
 		module:Select(nil)
 	end
 	module:HideOverlay(mover, "MER_SnapOverlay")
+
+	-- Shift+Right-click hides a single mover, its anchor line goes with it
+	if E.ConfigurationMode and module:IsActive() then
+		module:UpdateAnchorLines()
+	end
 end
 
 function module:HookMover(mover)
@@ -312,7 +326,10 @@ end
 --  of this session can be thrown away again.
 -------------------------------------------------------------------------------
 function module:StartSession()
-	self.snapshot = { movers = E.db.movers and CopyTable(E.db.movers) }
+	self.snapshot = {
+		movers = E.db.movers and CopyTable(E.db.movers),
+		anchors = CopyTable(self.db.anchors),
+	}
 	self:UpdateChanges()
 end
 
@@ -350,6 +367,7 @@ function module:RevertChanges()
 	end
 
 	E.db.movers = self.snapshot.movers and CopyTable(self.snapshot.movers) or nil
+	self.db.anchors = CopyTable(self.snapshot.anchors)
 
 	-- Same steps as ElvUI's E:ResetMovers, for every mover
 	for name, holder in pairs(E.CreatedMovers) do
@@ -364,7 +382,7 @@ function module:RevertChanges()
 	if self.selected then
 		self:AttachNudge(self.selected)
 	end
-	self:UpdateChanges()
+	self:AnchorsChanged()
 end
 
 function module:EndSession()
@@ -372,6 +390,7 @@ function module:EndSession()
 	self.dragging = false
 	self:StopSnap()
 	self:Select(nil)
+	self:UpdateAnchorLines()
 
 	if self.keyCatcher then
 		self.keyCatcher:Hide()
@@ -443,6 +462,7 @@ function module:OnMoveModeToggled()
 	if selected then
 		self:Select(selected:IsShown() and selected or nil)
 	end
+	self:UpdateAnchorLines()
 end
 
 -- ElvUI's popup closes the mover mode on combat only while it is shown
@@ -471,19 +491,22 @@ function module:HookElvUI()
 		if holder and module:IsActive() then
 			module:HookMover(holder.mover)
 		end
+		module:ApplyAnchors(name)
 	end)
 
 	hooksecurefunc(E, "Grid_Create", function()
 		module:StyleGrid()
 	end)
 
-	hooksecurefunc(E, "SaveMoverPosition", function()
+	hooksecurefunc(E, "SaveMoverPosition", function(_, name)
+		module:KeepAnchor(name)
 		if module.snapshot then
 			module:UpdateChanges()
 		end
 	end)
 
-	hooksecurefunc(E, "ResetMovers", function()
+	hooksecurefunc(E, "ResetMovers", function(_, text)
+		module:DropAnchors(text)
 		if module.snapshot then
 			module:UpdateChanges()
 		end
@@ -495,8 +518,10 @@ function module:SettingsUpdate()
 		return
 	end
 
+	-- Anchors are positions, they are kept up also with the module turned off
+	self:HookElvUI()
+
 	if self:IsActive() then
-		self:HookElvUI()
 		self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	else
 		self:UnregisterEvent("PLAYER_REGEN_DISABLED")
@@ -509,16 +534,18 @@ end
 function module:Initialize()
 	self.db = E.db.mui.unlockMode
 	self:SettingsUpdate()
+	self:ApplyAnchors()
 end
 
 function module:ProfileUpdate()
+	self.db = E.db.mui.unlockMode
+	self:SettingsUpdate()
+	self:ApplyAnchors()
+
 	-- The positions of the new profile are no longer the ones in the snapshot
 	if self.snapshot then
 		self:StartSession()
 	end
-
-	self.db = E.db.mui.unlockMode
-	self:SettingsUpdate()
 end
 
 MER:RegisterModule(module:GetName())

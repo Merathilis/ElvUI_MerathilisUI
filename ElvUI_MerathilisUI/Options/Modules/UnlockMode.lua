@@ -2,6 +2,8 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 local UM = MER:GetModule("MER_UnlockMode")
 
+local next = next
+
 local options = module.options.modules.args
 
 F.MarkTabAsNew("unlockMode")
@@ -37,7 +39,7 @@ options.unlockMode = {
 		enable = module.ToggleCard({
 			order = 1,
 			name = L["Unlock Mode"],
-			desc = L["Extends ElvUI's mover mode: movers snap to each other with guide lines, a click selects a mover for the arrow keys and a toolbar shows your changes, which you can save or revert. The positions stay in ElvUI's profile."],
+			desc = L["Extends ElvUI's mover mode: movers snap to each other with guide lines, can be anchored to each other, a click selects a mover for the arrow keys and a toolbar shows your changes, which you can save or revert. The positions stay in ElvUI's profile."],
 			image = I.Media.Icons.Categories.unlock_mode,
 		}),
 		open = {
@@ -128,6 +130,39 @@ options.unlockMode = {
 					max = 30,
 					step = 1,
 					disabled = SnapDisabled,
+				},
+			},
+		},
+		anchors = {
+			order = 25,
+			type = "group",
+			name = L["Anchors"],
+			disabled = Disabled,
+			args = {
+				desc = {
+					order = 0,
+					type = "description",
+					fontSize = "medium",
+					name = L["Select a mover, then Alt-click another one: the selected mover is anchored to it and follows it from then on. The side is taken from where the mover sits. Dragging or nudging an anchored mover only changes its distance to the target. Alt-click the target again to detach it."],
+				},
+				anchorLines = {
+					order = 1,
+					type = "toggle",
+					name = L["Anchor Lines"],
+					desc = L["Connects anchored movers with a line in the mover mode."],
+				},
+				detachAll = {
+					order = 2,
+					type = "execute",
+					name = L["Detach All"],
+					desc = L["Detaches every anchored mover, it keeps its current place on the screen."],
+					confirm = true,
+					disabled = function()
+						return Disabled() or next(DB().anchors) == nil
+					end,
+					func = function()
+						UM:DetachAll()
+					end,
 				},
 			},
 		},

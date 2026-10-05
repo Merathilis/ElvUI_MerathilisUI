@@ -1532,6 +1532,8 @@ P.unlockMode = {
 	sortBySize = true, -- small movers above big ones
 	keyboardNudge = true,
 	bigStep = 10, -- arrow keys with a modifier
+	anchorLines = true,
+	anchors = {}, -- [child mover] = { target, point, relativePoint }
 	snap = {
 		enable = true,
 		guides = true,

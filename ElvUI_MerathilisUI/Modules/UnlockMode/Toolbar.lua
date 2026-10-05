@@ -198,14 +198,62 @@ function module:CreateToolbar()
 	end)
 	Place(save, 100, 4)
 
+	-- Anchor of the selected mover, text and detach button centered as one
+	local anchorRow = CreateFrame("Frame", nil, bar)
+	anchorRow:Height(ROW_HEIGHT)
+	anchorRow:SetPoint("TOP", bar, "TOP", 0, -(PADDING + ROW_HEIGHT + 6))
+	bar.anchorRow = anchorRow
+
+	local anchorText = CreateText(anchorRow)
+	anchorText:SetPoint("LEFT", anchorRow, "LEFT")
+	bar.anchorText = anchorText
+
+	local detach = CreateButton(anchorRow, L["Detach"], 70, function()
+		if module.selected then
+			module:Detach(module.selected.name)
+			module:AnchorsChanged()
+		end
+	end)
+	detach:SetPoint("LEFT", anchorText, "RIGHT", 8, 0)
+	bar.detach = detach
+
 	local hint = CreateText(bar, 11)
 	hint:SetTextColor(0.7, 0.7, 0.7)
 	hint:SetJustifyH("CENTER")
-	hint:SetPoint("TOP", bar, "TOP", 0, -(PADDING + ROW_HEIGHT + 6))
+	hint:SetPoint("TOP", anchorRow, "BOTTOM", 0, -4)
 	bar.hint = hint
 
 	bar.rowWidth = x + PADDING
-	bar:Height(PADDING * 2 + ROW_HEIGHT + 6 + HINT_HEIGHT)
+	bar:Height(PADDING * 2 + ROW_HEIGHT * 2 + 10 + HINT_HEIGHT)
+end
+
+local function MoverLabel(name)
+	local mover = _G[name]
+	return "|cffffffff" .. (mover and mover.textString or name) .. "|r"
+end
+
+function module:UpdateToolbarAnchor()
+	local bar = self.toolbar
+	local selected = self.selected
+	local anchor = selected and self:GetAnchor(selected.name)
+
+	if anchor then
+		bar.anchorText:SetText(format(L["%s is anchored to %s."], MoverLabel(selected.name), MoverLabel(anchor.target)))
+		bar.anchorText:SetTextColor(1, 0.82, 0)
+	elseif selected then
+		bar.anchorText:SetText(format(L["Alt-click another mover to anchor %s to it."], MoverLabel(selected.name)))
+		bar.anchorText:SetTextColor(0.7, 0.7, 0.7)
+	else
+		bar.anchorText:SetText(L["Select a mover, then Alt-click another one to anchor it there."])
+		bar.anchorText:SetTextColor(0.7, 0.7, 0.7)
+	end
+
+	bar.detach:SetShown(anchor ~= nil)
+	local width = bar.anchorText:GetStringWidth()
+	if anchor then
+		width = width + 8 + bar.detach:GetWidth()
+	end
+	bar.anchorRow:SetWidth(width)
 end
 
 local hintParts = {}
@@ -251,6 +299,7 @@ function module:ShowToolbar()
 	bar.snap:SetChecked(self.db.snap.enable)
 	bar.layout:GenerateMenu()
 	self:UpdateToolbarHint()
+	self:UpdateToolbarAnchor()
 	self:UpdateChanges()
 	bar:Show()
 end

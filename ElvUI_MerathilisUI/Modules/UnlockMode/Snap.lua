@@ -130,7 +130,8 @@ function module:CacheTargets(dragged)
 
 	for _, holder in pairs(E.CreatedMovers) do
 		local mover = holder.mover
-		if mover and mover ~= dragged and mover:IsShown() then
+		-- Movers anchored to the dragged one move along, their old place means nothing
+		if mover and mover ~= dragged and mover:IsShown() and not self:DependsOn(mover.name, dragged.name) then
 			local left, right, top, bottom = mover:GetLeft(), mover:GetRight(), mover:GetTop(), mover:GetBottom()
 			if left then
 				local target = targetPool[#targetPool] or {}
