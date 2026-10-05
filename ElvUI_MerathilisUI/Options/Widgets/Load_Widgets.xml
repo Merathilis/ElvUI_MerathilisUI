@@ -6,6 +6,7 @@
 	<Script file='CastbarShieldPreview.lua' />
 	<Script file='NameplateHealthPreview.lua' />
 	<Script file='TagPreview.lua' />
+	<Script file='QuickGridPreview.lua' />
 	<Script file='ToggleSwitch.lua' />
 	<Script file='Slider.lua' />
 	<Script file='Dropdown.lua' />

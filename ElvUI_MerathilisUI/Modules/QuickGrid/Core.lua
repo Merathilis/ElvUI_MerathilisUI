@@ -334,8 +334,14 @@ end
 --  View
 --  Insecure children of the protected grid: they only draw what the secure
 --  side does, so they may change at any time, in combat too.
+--
+--  A view is a table with `tiles` (1-8), `center` and `label`. The module is
+--  its own view; the options preview builds a second one with the same calls.
 -------------------------------------------------------------------------------
-local function CreateTile(parent)
+module.CELL_OFFSETS = CELL_OFFSETS
+module.GetSector = GetSector
+
+function module:CreateTile(parent)
 	local tile = CreateFrame("Frame", nil, parent)
 	tile:SetTemplate("Transparent", nil, true)
 	WS:CreateShadow(tile)
@@ -382,6 +388,26 @@ local function SetTileHighlight(tile, color)
 	end
 end
 
+-- Fills `target` with the tiles, center and label of a view on `parent`
+function module:CreateView(parent, target)
+	target.tiles = {}
+	for i = 1, self.NUM_CELLS do
+		target.tiles[i] = self:CreateTile(parent)
+	end
+
+	local center = self:CreateTile(parent)
+	center.icon:SetDesaturated(true)
+	center.icon:SetAlpha(0.35)
+	target.center = center
+
+	local label = parent:CreateFontString(nil, "OVERLAY")
+	label:SetPoint("TOP", parent, "BOTTOM", 0, -LABEL_GAP)
+	label:SetWordWrap(false)
+	target.label = label
+
+	return target
+end
+
 function module:CreateFrames()
 	if self.grid then
 		return
@@ -416,20 +442,7 @@ function module:CreateFrames()
 	end)
 	self.view = view
 
-	self.tiles = {}
-	for i = 1, self.NUM_CELLS do
-		self.tiles[i] = CreateTile(view)
-	end
-
-	local center = CreateTile(view)
-	center.icon:SetDesaturated(true)
-	center.icon:SetAlpha(0.35)
-	self.center = center
-
-	local label = view:CreateFontString(nil, "OVERLAY")
-	label:SetPoint("TOP", view, "BOTTOM", 0, -LABEL_GAP)
-	label:SetWordWrap(false)
-	self.label = label
+	self:CreateView(view, self)
 
 	self.bindingOwner = CreateFrame("Frame")
 end
@@ -467,7 +480,6 @@ function module:UpdateLayout()
 
 	local db = self.db
 	local size, spacing = db.tileSize, db.spacing
-	local step = size + spacing
 	local full = size * 3 + spacing * 2
 
 	local grid = self.grid
@@ -478,24 +490,33 @@ function module:UpdateLayout()
 	-- Room for the label below the grid
 	grid:SetAttribute("halfheight", full / 2 + LABEL_GAP * 2 + db.labelSize)
 
-	for i, tile in ipairs(self.tiles) do
+	self:LayoutView(self, db)
+end
+
+-- Tile size, spacing and label of a view, from the profile settings
+function module:LayoutView(view, db)
+	local size, spacing = db.tileSize, db.spacing
+	local step = size + spacing
+
+	for i, tile in ipairs(view.tiles) do
 		local offset = CELL_OFFSETS[i]
 		tile:SetSize(size, size)
 		tile:ClearAllPoints()
-		tile:SetPoint("CENTER", self.view, "CENTER", offset[1] * step, offset[2] * step)
+		tile:SetPoint("CENTER", tile:GetParent(), "CENTER", offset[1] * step, offset[2] * step)
 		tile.cooldown:SetShown(db.showCooldowns)
 	end
 
-	self.center:SetSize(size, size)
-	self.center:ClearAllPoints()
-	self.center:SetPoint("CENTER")
-	self.center.icon:ClearAllPoints()
-	self.center.icon:SetPoint("CENTER")
-	self.center.icon:SetSize(size * 0.6, size * 0.6)
-	self.center.cooldown:Hide()
+	local center = view.center
+	center:SetSize(size, size)
+	center:ClearAllPoints()
+	center:SetPoint("CENTER")
+	center.icon:ClearAllPoints()
+	center.icon:SetPoint("CENTER")
+	center.icon:SetSize(size * 0.6, size * 0.6)
+	center.cooldown:Hide()
 
-	self.label:SetFont(F.GetFontPath(I.Fonts.Primary), db.labelSize, "OUTLINE")
-	self.label:SetShown(db.showLabel)
+	view.label:SetFont(F.GetFontPath(I.Fonts.Primary), db.labelSize, "OUTLINE")
+	view.label:SetShown(db.showLabel)
 end
 
 -- Fills the view with a deck, right before the snippet shows the grid
@@ -506,11 +527,14 @@ function module:OpenDeck(key)
 		self:RefreshDeck(key)
 	end
 
-	local deck = self.Decks[key]
-	local cells = self.cells[key] or {}
 	self.deckKey = key
+	self:FillView(self, key, self.cells[key] or {})
+	self:Debug("open", key, InCombatLockdown() and "(combat)" or "")
+end
 
-	for i, tile in ipairs(self.tiles) do
+-- Puts the cells of a deck on the tiles of a view
+function module:FillView(view, key, cells)
+	for i, tile in ipairs(view.tiles) do
 		local entry = cells[i]
 		tile.entry = entry
 		if entry then
@@ -525,8 +549,7 @@ function module:OpenDeck(key)
 		end
 	end
 
-	self.center.icon:SetTexture(deck.icon)
-	self:Debug("open", key, InCombatLockdown() and "(combat)" or "")
+	view.center.icon:SetTexture(self.Decks[key].icon)
 end
 
 function module:OnGridShow()
@@ -596,10 +619,14 @@ end
 function module:ApplySelection(cell, world)
 	self.selected = cell
 	self.world = world
+	self:PaintView(self, self.deckKey, cell, world)
+end
 
+-- Highlight and label of a view for the selected cell, see ApplySelection
+function module:PaintView(view, key, cell, world)
 	local classColor = E:ClassColor(E.myclass, true)
 	local entry
-	for i, tile in ipairs(self.tiles) do
+	for i, tile in ipairs(view.tiles) do
 		local active = i == cell and tile.entry and not tile.entry.inactive
 		if active then
 			entry = tile.entry
@@ -613,9 +640,9 @@ function module:ApplySelection(cell, world)
 		SetTileHighlight(tile, active and classColor)
 	end
 
-	SetTileHighlight(self.center, cell == 0 and CANCEL_COLOR)
+	SetTileHighlight(view.center, cell == 0 and CANCEL_COLOR)
 
-	local label = self.label
+	local label = view.label
 	if entry then
 		local name = entry.name or ""
 		if world then
@@ -627,7 +654,7 @@ function module:ApplySelection(cell, world)
 		label:SetText(_G.CANCEL)
 		label:SetTextColor(CANCEL_COLOR.r, CANCEL_COLOR.g, CANCEL_COLOR.b)
 	else
-		label:SetText(self.Decks[self.deckKey].name)
+		label:SetText(self.Decks[key].name)
 		label:SetTextColor(classColor.r, classColor.g, classColor.b)
 	end
 end

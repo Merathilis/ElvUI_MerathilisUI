@@ -1753,3 +1753,6 @@ L["Both professions with their second ability, cooking, fishing and archaeology,
 L["Eight places of your own for spells, items, toys, macros and mounts. Saved per character."] = "Acht eigene Plätze für Zauber, Gegenstände, Spielzeuge, Makros und Reittiere. Wird pro Charakter gespeichert."
 L["Quick Grid opens a grid of eight actions at your cursor while you hold a key: teleports, mounts, markers, professions or your own."] = "Quick Grid öffnet am Mauszeiger ein Raster mit acht Aktionen, solange du eine Taste hältst: Teleporte, Reittiere, Marker, Berufe oder deine eigenen."
 L["In the Quick Grid marker deck, hold Shift while you release the key to place a world marker instead of a target marker."] = "Halte im Marker-Deck von Quick Grid beim Loslassen der Taste Shift gedrückt, um einen Weltmarker statt einer Zielmarkierung zu setzen."
+L["Hold %s"] = "%s halten"
+L["Hold the key"] = "Taste halten"
+L["Release the key"] = "Taste loslassen"

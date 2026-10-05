@@ -190,6 +190,16 @@ options.quickGrid = {
 			name = L["General"],
 			disabled = Disabled,
 			args = {
+				-- Inside the tab, not above it: the args above a tab group don't
+				-- scroll, a tall widget there squeezes the tabs and AceGUI's
+				-- auto height then grows the nested tab groups without end
+				preview = {
+					order = 0,
+					type = "description",
+					dialogControl = "MERQuickGridPreview",
+					name = "",
+					width = "full",
+				},
 				anchor = {
 					order = 1,
 					type = "select",
