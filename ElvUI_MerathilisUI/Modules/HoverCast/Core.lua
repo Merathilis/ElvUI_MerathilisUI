@@ -2520,6 +2520,11 @@ function module:IsBindingActive(binding)
 	return IsBindingActive(binding)
 end
 
+---@return string "friendly", "harmful", "both" or "none"
+function module:GetBindingUnitType(binding)
+	return GetBindingUnitType(binding)
+end
+
 function module:CtxEnabled(binding, ctx)
 	return CtxEnabled(binding, ctx)
 end

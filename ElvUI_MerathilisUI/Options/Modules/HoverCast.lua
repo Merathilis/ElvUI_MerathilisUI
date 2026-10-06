@@ -9,6 +9,7 @@ options.hoverCast = {
 	type = "group",
 	name = module:AddCategorieIcon(L["HoverCast"], "hover_cast"),
 	args = {
+		preview = module.PreviewOption(0, "MERHoverCastPreview", "hovercast"),
 		page = {
 			order = 1,
 			type = "description",

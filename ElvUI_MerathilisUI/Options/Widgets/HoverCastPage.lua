@@ -26,6 +26,8 @@ local COLOR_BOX_HOVER = { ACCENT[1] * 0.3, ACCENT[2] * 0.3, ACCENT[3] * 0.3, 1 }
 local COLOR_WARNING = { 1, 0.25, 0.15 }
 
 local MIN_HEIGHT = 420
+-- Room for the preview above the page (HEIGHT in HoverCastPreview.lua)
+local PREVIEW_HEIGHT = 130
 local TILE_H = 56
 local ICON_SZ = 36
 local ADD_BTN_H = 30
@@ -1870,7 +1872,7 @@ local function GetPageHeight()
 	if not height then
 		return 560
 	end
-	return max(MIN_HEIGHT, floor(height - 150))
+	return max(MIN_HEIGHT, floor(height - 150 - PREVIEW_HEIGHT))
 end
 
 local function QueueBuild(self)
