@@ -31,7 +31,9 @@
 	<Script file='MailPreview.lua' />
 	<Script file='AurasPreview.lua' />
 	<Script file='ArmoryPreview.lua' />
+	<Script file='ArmoryPanesPreview.lua' />
 	<Script file='BagsPreview.lua' />
+	<Script file='UnlockModePreview.lua' />
 	<Script file='ToggleSwitch.lua' />
 	<Script file='Slider.lua' />
 	<Script file='Dropdown.lua' />

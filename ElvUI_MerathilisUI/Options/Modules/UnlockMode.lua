@@ -52,6 +52,7 @@ options.unlockMode = {
 				E.ConfigurationToggled = true
 			end,
 		},
+		preview = module.PreviewOption(3, "MERUnlockModePreview", "screen"),
 		general = {
 			order = 10,
 			type = "group",

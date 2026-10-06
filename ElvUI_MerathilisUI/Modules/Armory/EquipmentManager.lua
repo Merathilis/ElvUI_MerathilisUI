@@ -426,6 +426,79 @@ function module:AcquireEquipmentTile(index)
 	return tile
 end
 
+---The gear sets with a name, in the order of the Equipment Manager
+---@return table sets { id, name, texture, numLost, specIcon }
+---@return number? activeSetID the equipped set
+function module:GetEquipmentSetList()
+	local activeSetID = nil
+	local sets = {}
+	for _, setID in ipairs(C_EquipmentSet.GetEquipmentSetIDs() or {}) do
+		local name, texture, _, isEquipped, _, _, _, numLost = C_EquipmentSet.GetEquipmentSetInfo(setID)
+		if name and name ~= "" then
+			local specIcon
+			local assignedSpec = C_EquipmentSet.GetEquipmentSetAssignedSpec(setID)
+			if assignedSpec then
+				local specID = C_SpecializationInfo.GetSpecializationInfo(assignedSpec)
+				specIcon = specID and select(4, GetSpecializationInfoByID(specID)) or nil
+			end
+
+			sets[#sets + 1] = {
+				id = setID,
+				name = name,
+				texture = texture,
+				numLost = numLost or 0,
+				specIcon = specIcon,
+			}
+			if isEquipped then
+				activeSetID = setID
+			end
+		end
+	end
+
+	return sets, activeSetID
+end
+
+---Font, text color, background and selection of a gear set tile. The options
+---preview passes its own tiles, they need _text, _bg and _selection
+---@param tile table
+---@param text string
+---@param state string? "active" (equipped), "incomplete", "new" (the + New Set tile) or nil
+---@param selected boolean?
+function module:StyleEquipmentTile(tile, text, state, selected)
+	local db = GetDB()
+	local r, g, b = GetAccentColor(db)
+
+	WF.SetFontWithDB(tile._text, db.font)
+	tile._text:SetText(text)
+	if state == "active" then
+		tile._text:SetTextColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B)
+		tile._text:SetShadowColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B, 1)
+		tile._text:SetShadowOffset(0, 0)
+	elseif state == "incomplete" then
+		tile._text:SetTextColor(INCOMPLETE_R, INCOMPLETE_G, INCOMPLETE_B)
+		tile._text:SetShadowColor(0, 0, 0, 0)
+	elseif state == "new" then
+		tile._text:SetTextColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B)
+		tile._text:SetShadowColor(0, 0, 0, 0)
+	else
+		tile._text:SetTextColor(1, 1, 1, 1)
+		tile._text:SetShadowColor(0, 0, 0, 0)
+	end
+
+	if state == "active" then
+		tile._bg:SetColorTexture(r, g, b, 0.5)
+	else
+		tile._bg:SetColorTexture(1, 1, 1, 0.05)
+	end
+
+	if selected then
+		tile._selection:SetColorTexture(r, g, b, 0.18)
+		tile._selection:Show()
+	else
+		tile._selection:Hide()
+	end
+end
+
 function module:RefreshEquipmentManagerPanel()
 	local db = GetDB()
 	local panel = self.equipmentPanel
@@ -435,98 +508,15 @@ function module:RefreshEquipmentManagerPanel()
 
 	panel.bg:SetShown(db.showBackdrop)
 
-	do
-		local statsHeaderFont = module.db.stats.headerFont
-		local headerLabel = L["Gear Sets"] or "Gear Sets"
-
-		WF.SetFontWithDB(panel.headerText, statsHeaderFont)
-
-		if statsHeaderFont.headerFontColor == "GRADIENT" then
-			panel.headerText:SetText(F.String.FastGradient(headerLabel, 0, 0.9, 1, 0, 0.6, 1))
-			F.Color.SetGradientRGB(panel.headerLeftLine, "HORIZONTAL", 0, 0.6, 1, 0, 0, 0.9, 1, 1)
-			F.Color.SetGradientRGB(panel.headerRightLine, "HORIZONTAL", 0, 0.9, 1, 1, 0, 0.6, 1, 0)
-		elseif statsHeaderFont.headerFontColor == "CLASS" then
-			local currentClass = E.myclass
-			local classColorMap = E.db.mui.themes.gradientMode.classColorMap
-			local classColorNormal = classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
-			local classColorShift = classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
-
-			panel.headerText:SetText(F.String.GradientClass(headerLabel))
-			F.Color.SetGradientRGB(
-				panel.headerLeftLine,
-				"HORIZONTAL",
-				classColorNormal.r,
-				classColorNormal.g,
-				classColorNormal.b,
-				0,
-				classColorShift.r,
-				classColorShift.g,
-				classColorShift.b,
-				1
-			)
-			F.Color.SetGradientRGB(
-				panel.headerRightLine,
-				"HORIZONTAL",
-				classColorShift.r,
-				classColorShift.g,
-				classColorShift.b,
-				1,
-				classColorNormal.r,
-				classColorNormal.g,
-				classColorNormal.b,
-				0
-			)
-		else
-			panel.headerText:SetText(headerLabel)
-			WF.SetFontColorWithDB(panel.headerText, statsHeaderFont.color)
-
-			local fontColor = statsHeaderFont.color
-			F.Color.SetGradientRGB(
-				panel.headerLeftLine,
-				"HORIZONTAL",
-				fontColor.r,
-				fontColor.g,
-				fontColor.b,
-				0,
-				fontColor.r,
-				fontColor.g,
-				fontColor.b,
-				fontColor.a
-			)
-			F.Color.SetGradientRGB(
-				panel.headerRightLine,
-				"HORIZONTAL",
-				fontColor.r,
-				fontColor.g,
-				fontColor.b,
-				fontColor.a,
-				fontColor.r,
-				fontColor.g,
-				fontColor.b,
-				0
-			)
-		end
-	end
+	panel.headerText:SetText(L["Gear Sets"] or "Gear Sets")
+	module:StyleCategoryHeader(panel.headerText, panel.headerLeftLine, panel.headerRightLine)
 
 	local scrollWidth = panel.scrollFrame:GetWidth()
 	if scrollWidth and scrollWidth > 0 then
 		panel.scrollChild:SetWidth(scrollWidth)
 	end
 
-	local r, g, b = GetAccentColor(db)
-
-	local setIDs = C_EquipmentSet.GetEquipmentSetIDs() or {}
-	local activeSetID = nil
-	local sets = {}
-	for _, setID in ipairs(setIDs) do
-		local name, texture, _, isEquipped, _, _, _, numLost = C_EquipmentSet.GetEquipmentSetInfo(setID)
-		if name and name ~= "" then
-			sets[#sets + 1] = { id = setID, name = name, texture = texture, numLost = numLost or 0 }
-			if isEquipped then
-				activeSetID = setID
-			end
-		end
-	end
+	local sets, activeSetID = module:GetEquipmentSetList()
 	panel.activeSetID = activeSetID
 	if not panel.selectedSetID and activeSetID then
 		panel.selectedSetID = activeSetID
@@ -539,46 +529,11 @@ function module:RefreshEquipmentManagerPanel()
 		tile._setName = setData.name
 		tile._incomplete = setData.numLost > 0
 
-		WF.SetFontWithDB(tile._text, db.font)
-		tile._text:SetText(setData.name)
-		if setData.id == activeSetID then
-			tile._text:SetTextColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B)
-			tile._text:SetShadowColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B, 1)
-			tile._text:SetShadowOffset(0, 0)
-		elseif tile._incomplete then
-			tile._text:SetTextColor(INCOMPLETE_R, INCOMPLETE_G, INCOMPLETE_B)
-			tile._text:SetShadowColor(0, 0, 0, 0)
-		else
-			tile._text:SetTextColor(1, 1, 1, 1)
-			tile._text:SetShadowColor(0, 0, 0, 0)
-		end
+		local state = (setData.id == activeSetID and "active") or (tile._incomplete and "incomplete") or nil
+		module:StyleEquipmentTile(tile, setData.name, state, setData.id == panel.selectedSetID)
 
-		if setData.id == activeSetID then
-			tile._bg:SetColorTexture(r, g, b, 0.5)
-		else
-			tile._bg:SetColorTexture(1, 1, 1, 0.05)
-		end
-
-		if setData.id == panel.selectedSetID then
-			tile._selection:SetColorTexture(r, g, b, 0.18)
-			tile._selection:Show()
-		else
-			tile._selection:Hide()
-		end
-
-		local assignedSpec = C_EquipmentSet.GetEquipmentSetAssignedSpec(setData.id)
-		if assignedSpec then
-			local specID = C_SpecializationInfo.GetSpecializationInfo(assignedSpec)
-			local specIcon = specID and select(4, GetSpecializationInfoByID(specID))
-			if specIcon then
-				tile._specIcon:SetTexture(specIcon)
-				tile._specIcon:Show()
-			else
-				tile._specIcon:Hide()
-			end
-		else
-			tile._specIcon:Hide()
-		end
+		tile._specIcon:SetTexture(setData.specIcon)
+		tile._specIcon:SetShown(setData.specIcon ~= nil)
 
 		tile:ClearAllPoints()
 		tile:SetPoint("TOPLEFT", panel.scrollChild, "TOPLEFT", 0, -yOffset)
@@ -591,12 +546,7 @@ function module:RefreshEquipmentManagerPanel()
 	newTile._setID = nil
 	newTile._setName = nil
 	newTile._incomplete = false
-	WF.SetFontWithDB(newTile._text, db.font)
-	newTile._text:SetText(L["+ New Set"] or "+ New Set")
-	newTile._text:SetTextColor(ACTIVE_CHECK_R, ACTIVE_CHECK_G, ACTIVE_CHECK_B)
-	newTile._text:SetShadowColor(0, 0, 0, 0)
-	newTile._bg:SetColorTexture(1, 1, 1, 0.05)
-	newTile._selection:Hide()
+	module:StyleEquipmentTile(newTile, L["+ New Set"] or "+ New Set", "new")
 	newTile._specIcon:Hide()
 	newTile:ClearAllPoints()
 	newTile:SetPoint("TOPLEFT", panel.scrollChild, "TOPLEFT", 0, -yOffset)

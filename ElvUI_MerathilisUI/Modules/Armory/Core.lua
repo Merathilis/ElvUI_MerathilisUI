@@ -364,14 +364,13 @@ function module:SetupFadeAnimation(obj, slot)
 	self:AddAnimation(obj.FadeIn, true, slot)
 end
 
-function module:UpdateItemLevel()
-	module.db = E.db.mui.armory
+---Writes the average item level into fontString with the font and color of the settings.
+---The options preview passes its own font string
+---@param fontString FontString
+function module:SetItemLevelText(fontString)
+	local db = module.db.stats
 
-	if not module.db or not module.frame:IsShown() then
-		return
-	end
-
-	WF.SetFontWithDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont)
+	WF.SetFontWithDB(fontString, db.itemLevelFont)
 
 	local itemLevelText
 
@@ -379,42 +378,45 @@ function module:UpdateItemLevel()
 	local minItemLevel = GetMinItemLevel()
 	local displayItemLevel = max(minItemLevel or 0, avgItemLevelEquipped)
 
-	if module.db.stats.showAvgItemLevel then
-		itemLevelText = format(
-			format("%s / %s", module.db.stats.itemLevelFormat, module.db.stats.itemLevelFormat),
-			displayItemLevel,
-			avgItemLevel
-		)
+	if db.showAvgItemLevel then
+		itemLevelText =
+			format(format("%s / %s", db.itemLevelFormat, db.itemLevelFormat), displayItemLevel, avgItemLevel)
 	else
-		itemLevelText = format(module.db.stats.itemLevelFormat, displayItemLevel)
+		itemLevelText = format(db.itemLevelFormat, displayItemLevel)
 	end
 
-	if module.db.stats.itemLevelFont.itemLevelFontColor == "GRADIENT" then
+	if db.itemLevelFont.itemLevelFontColor == "GRADIENT" then
 		local epicComplete = select(13, GetAchievementInfo(40147))
 
 		if epicComplete then
-			module.frame.ItemLevelText:SetText(F.String.FastGradient(itemLevelText, 0.78, 0.13, 0.57, 0.42, 0.08, 0.82))
+			fontString:SetText(F.String.FastGradient(itemLevelText, 0.78, 0.13, 0.57, 0.42, 0.08, 0.82))
 		else
 			local rareComplete = select(13, GetAchievementInfo(40146))
 
 			if rareComplete then
-				module.frame.ItemLevelText:SetText(
-					F.String.FastGradient(itemLevelText, 0.01, 0.78, 0.98, 0, 0.38, 0.90)
-				)
+				fontString:SetText(F.String.FastGradient(itemLevelText, 0.01, 0.78, 0.98, 0, 0.38, 0.90))
 			else
-				module.frame.ItemLevelText:SetText(
-					F.String.FastGradient(itemLevelText, 0.07, 0.90, 0.15, 0, 0.69, 0.11)
-				)
+				fontString:SetText(F.String.FastGradient(itemLevelText, 0.07, 0.90, 0.15, 0, 0.69, 0.11))
 			end
 		end
-	elseif module.db.stats.itemLevelFont.itemLevelFontColor == "VALUE" then
-		module.frame.ItemLevelText:SetText(F.String.ElvUIValue(itemLevelText))
-	elseif module.db.stats.itemLevelFont.itemLevelFontColor == "CUSTOM" then
-		module.frame.ItemLevelText:SetText(itemLevelText)
-		WF.SetFontColorWithDB(module.frame.ItemLevelText, module.db.stats.itemLevelFont.color)
+	elseif db.itemLevelFont.itemLevelFontColor == "VALUE" then
+		fontString:SetText(F.String.ElvUIValue(itemLevelText))
+	elseif db.itemLevelFont.itemLevelFontColor == "CUSTOM" then
+		fontString:SetText(itemLevelText)
+		WF.SetFontColorWithDB(fontString, db.itemLevelFont.color)
 	else
-		module.frame.ItemLevelText:SetText(itemLevelText)
+		fontString:SetText(itemLevelText)
 	end
+end
+
+function module:UpdateItemLevel()
+	module.db = E.db.mui.armory
+
+	if not module.db or not module.frame:IsShown() then
+		return
+	end
+
+	module:SetItemLevelText(module.frame.ItemLevelText)
 end
 
 ---Fills the name, title, level, spec and class texts. target holds those font strings and
@@ -873,38 +875,32 @@ function module:UpdatePageInfo(_, _, which)
 	module:UpdateItemLevel()
 end
 
-function module:UpdateCategoryHeader(frame, animationSlot)
-	if frame.StripTextures then
-		frame:StripTextures()
-	end
-	if frame.backdrop then
-		frame.backdrop:Kill()
-	end
-	if frame.Background then
-		frame.Background:Kill()
-	end
-
+---Font, text color and divider gradients of a stats category header, used by the
+---options preview on its own regions as well
+---@param title FontString
+---@param leftDivider Texture
+---@param rightDivider Texture
+function module:StyleCategoryHeader(title, leftDivider, rightDivider)
 	local currentClass = E.myclass
 	local classColorNormal = E.db.mui.themes.gradientMode.classColorMap[I.Enum.GradientMode.Color.NORMAL][currentClass]
 	local classColorShift = E.db.mui.themes.gradientMode.classColorMap[I.Enum.GradientMode.Color.SHIFT][currentClass]
 
 	-- Set custom font
-	WF.SetFontWithDB(frame.Title, module.db.stats.headerFont)
+	WF.SetFontWithDB(title, module.db.stats.headerFont)
 
-	local categoryHeader = F.String.StripColor(frame.Title:GetText())
+	local categoryHeader = F.String.StripColor(title:GetText())
 
 	-- Set color gradient
 	if module.db.stats.headerFont.headerFontColor == "GRADIENT" then
-		frame.Title:SetText(F.String.FastGradient(categoryHeader, 0, 0.9, 1, 0, 0.6, 1))
+		title:SetText(F.String.FastGradient(categoryHeader, 0, 0.9, 1, 0, 0.6, 1))
 	elseif module.db.stats.headerFont.headerFontColor == "CLASS" then
-		frame.Title:SetText(F.String.GradientClass(categoryHeader))
+		title:SetText(F.String.GradientClass(categoryHeader))
 	else
-		frame.Title:SetText(categoryHeader)
-		WF.SetFontColorWithDB(frame.Title, module.db.stats.headerFont.color)
+		title:SetText(categoryHeader)
+		WF.SetFontColorWithDB(title, module.db.stats.headerFont.color)
 	end
 
-	-- Create left divider
-	local leftDivider = frame.Title.MERLeftDivider or frame:CreateTexture(nil, "ARTWORK")
+	-- Left divider
 	leftDivider:SetHeight(2)
 	leftDivider:SetTexture(E.media.blankTex)
 	leftDivider:SetVertexColor(1, 1, 1, 1)
@@ -940,8 +936,7 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 		)
 	end
 
-	-- Create right divider
-	local rightDivider = frame.Title.MERRightDivider or frame:CreateTexture(nil, "ARTWORK")
+	-- Right divider
 	rightDivider:SetHeight(2)
 	rightDivider:SetTexture(E.media.blankTex)
 	rightDivider:SetVertexColor(1, 1, 1, 1)
@@ -976,6 +971,22 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 			0
 		)
 	end
+end
+
+function module:UpdateCategoryHeader(frame, animationSlot)
+	if frame.StripTextures then
+		frame:StripTextures()
+	end
+	if frame.backdrop then
+		frame.backdrop:Kill()
+	end
+	if frame.Background then
+		frame.Background:Kill()
+	end
+
+	local leftDivider = frame.Title.MERLeftDivider or frame:CreateTexture(nil, "ARTWORK")
+	local rightDivider = frame.Title.MERRightDivider or frame:CreateTexture(nil, "ARTWORK")
+	module:StyleCategoryHeader(frame.Title, leftDivider, rightDivider)
 
 	-- Setup Animations
 	self:SetupGrowAnimation(leftDivider, animationSlot)
@@ -1500,6 +1511,23 @@ local function ControlFrame_OnShow(frame)
 	end
 end
 
+---Background image and alpha of the settings, the options preview passes its own texture
+---@param texture Texture
+function module:SetBackgroundTexture(texture)
+	local db = module.db.background
+	if db.enable then
+		if db.class then
+			texture:SetTexture(I.Media.Armory["MERATHILISUI-" .. E.myclass])
+		else
+			texture:SetTexture(I.Media.Armory["BG" .. db.style])
+		end
+		texture:SetVertexColor(1, 1, 1, db.alpha)
+	else
+		texture:SetTexture(nil)
+		texture:SetVertexColor(0, 0, 0, 0)
+	end
+end
+
 local controlsHooked = false
 function module:UpdateBackground()
 	-- Hooked once and checked on every show, so the toggle works without a reload
@@ -1511,40 +1539,28 @@ function module:UpdateBackground()
 		end
 	end
 
-	if module.db.background.enable then
-		if self.db.background.class then
-			self.frame.MERBackground.Texture:SetTexture(I.Media.Armory["MERATHILISUI-" .. E.myclass])
-		else
-			self.frame.MERBackground.Texture:SetTexture(I.Media.Armory["BG" .. self.db.background.style])
-		end
-		self.frame.MERBackground.Texture:SetVertexColor(1, 1, 1, self.db.background.alpha)
+	module:SetBackgroundTexture(self.frame.MERBackground.Texture)
+end
+
+local WHITE = CreateColor(1, 1, 1, 1)
+
+---Color of a decorative line, the options preview passes its own texture
+---@param texture Texture
+function module:SetLineColor(texture)
+	-- Reset gradient
+	texture:SetGradient("HORIZONTAL", WHITE, WHITE)
+
+	if module.db.lines.enable then
+		local classColor = E:ClassColor(E.myclass, true)
+		texture:SetColorTexture(classColor.r, classColor.g, classColor.b, module.db.lines.alpha)
 	else
-		self.frame.MERBackground.Texture:SetTexture(nil)
-		self.frame.MERBackground.Texture:SetVertexColor(0, 0, 0, 0)
+		texture:SetColorTexture(0, 0, 0, 0)
 	end
 end
 
 function module:UpdateLineColors()
-	local orientation = "HORIZONTAL"
-	local white = CreateColor(1, 1, 1, 1)
-
-	local top = module.frame.topLine.Texture
-	local bottom = module.frame.bottomLine.Texture
-
-	-- Reset gradient
-	top:SetGradient(orientation, white, white)
-	bottom:SetGradient(orientation, white, white)
-
-	if module.db.lines.enable then
-		local alpha = module.db.lines.alpha
-
-		local classColor = E:ClassColor(E.myclass, true)
-		top:SetColorTexture(classColor.r, classColor.g, classColor.b, alpha)
-		bottom:SetColorTexture(classColor.r, classColor.g, classColor.b, alpha)
-	else
-		top:SetColorTexture(0, 0, 0, 0)
-		bottom:SetColorTexture(0, 0, 0, 0)
-	end
+	module:SetLineColor(module.frame.topLine.Texture)
+	module:SetLineColor(module.frame.bottomLine.Texture)
 end
 
 function module:UpdateLines()

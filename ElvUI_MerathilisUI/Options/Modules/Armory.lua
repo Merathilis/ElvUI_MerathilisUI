@@ -49,6 +49,7 @@ options.armory = {
 			type = "group",
 			name = L["General"],
 			args = {
+				preview = module.PreviewOption(0, "MERArmoryPreview", "frame"),
 				backgroundGroup = {
 					order = 1,
 					type = "group",
@@ -168,6 +169,7 @@ options.armory = {
 				return not E.db.general.itemLevel.displayCharacterInfo
 			end,
 			args = {
+				preview = module.PreviewOption(0, "MERArmoryPreview", "frame"),
 				showAvgItemLevel = {
 					order = 1,
 					type = "toggle",
@@ -1015,6 +1017,7 @@ options.armory = {
 					type = "description",
 					name = format(L["Settings for the custom %s Armory decorative lines."], MER.Title),
 				},
+				preview = module.PreviewOption(0.5, "MERArmoryPreview", "frame"),
 				enable = {
 					order = 1,
 					type = "toggle",
@@ -1057,6 +1060,7 @@ options.armory = {
 				return not E.db.general.itemLevel.displayCharacterInfo
 			end,
 			args = {
+				preview = module.PreviewOption(0, "MERArmoryPreview", "stats"),
 				alternatingBackgroundEnabled = {
 					order = 1,
 					type = "toggle",
@@ -1288,6 +1292,7 @@ options.armory = {
 					name = L["Enable"],
 					desc = L["Show the socket panel at the bottom of the character sheet."],
 				},
+				preview = module.PreviewOption(1.5, "MERArmoryPanesPreview", "sockets"),
 				appearance = {
 					order = 2,
 					type = "group",
@@ -1441,6 +1446,7 @@ options.armory = {
 				return not E.db.general.itemLevel.displayCharacterInfo
 			end,
 			args = {
+				preview = module.PreviewOption(0, "MERArmoryPanesPreview", "gearsets"),
 				enable = {
 					order = 1,
 					type = "toggle",
