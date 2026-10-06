@@ -639,6 +639,17 @@ L["The Raid Info Frame lists the players in your raid by role."] = true
 L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = true
 
 -- Compatibility
+L["Compatibility Check"] = true
+L["Shared Features Found"] = true
+L["Some of your ElvUI plugins offer the same features as %s. Running both can cause errors or a doubled look, so turn off the one you don't want to use."] = true
+L["Later"] = true
+L["Features left on for both won't be asked about again. Apply reloads the UI when something was turned off."] = true
+L["No shared features with your other ElvUI plugins found."] = true
+L["%d shared |4feature:features;"] = true
+L["Details Embed"] = true
+L["After login, checks if another ElvUI plugin has the same features turned on and lets you choose which one to keep."] = true
+L["Check Now"] = true
+L["Runs the compatibility check now, including the features you kept on for both."] = true
 
 -- Profiles
 L[" Apply"] = "적용"

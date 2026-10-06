@@ -824,6 +824,17 @@ L["The Raid Info Frame lists the players in your raid by role."] = "Das Raid Inf
 L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = "MerathilisUI fügt zusätzliche oUF-Tags hinzu, die du in den UnitFrame-Optionen nutzen kannst."
 
 -- Compatibility
+L["Compatibility Check"] = "Kompatibilitätsprüfung"
+L["Shared Features Found"] = "Gemeinsame Funktionen gefunden"
+L["Some of your ElvUI plugins offer the same features as %s. Running both can cause errors or a doubled look, so turn off the one you don't want to use."] = "Einige deiner ElvUI-Plugins bieten dieselben Funktionen wie %s. Beide gleichzeitig können Fehler oder eine doppelte Darstellung verursachen, schalte also die aus, die du nicht nutzen möchtest."
+L["Later"] = "Später"
+L["Features left on for both won't be asked about again. Apply reloads the UI when something was turned off."] = "Funktionen, die bei beiden an bleiben, werden nicht erneut abgefragt. Übernehmen lädt das UI neu, wenn etwas ausgeschaltet wurde."
+L["No shared features with your other ElvUI plugins found."] = "Keine gemeinsamen Funktionen mit deinen anderen ElvUI-Plugins gefunden."
+L["%d shared |4feature:features;"] = "%d gemeinsame |4Funktion:Funktionen;"
+L["Details Embed"] = "Details-Einbettung"
+L["After login, checks if another ElvUI plugin has the same features turned on and lets you choose which one to keep."] = "Prüft nach dem Login, ob ein anderes ElvUI-Plugin dieselben Funktionen eingeschaltet hat, und lässt dich wählen, welche du behältst."
+L["Check Now"] = "Jetzt prüfen"
+L["Runs the compatibility check now, including the features you kept on for both."] = "Startet die Kompatibilitätsprüfung jetzt, auch für Funktionen, die du bei beiden an gelassen hast."
 
 -- Profiles
 L[" Apply"] = "Anwenden"

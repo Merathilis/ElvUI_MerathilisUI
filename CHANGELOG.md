@@ -6,6 +6,7 @@
 -   [Fix]: Notification: The new mail toast plays a sound again.
 -   [Fix]: Skins: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.
 -   [New]: ActionBars: Brought back Blizzard's rotation frame on the Single-Button Assistant button, sized for ElvUI's square buttons, with an optional combat animation and class or custom colors.
+-   [New]: Compatibility Check: After login MerathilisUI checks if Shadow & Light, BenikUI, ToxiUI, Eltruism, mMediaTag & Tools, LuckyoneUI, WindTools or ProjectAzilroka have the same features turned on, and lets you choose per feature which one stays on. It can be turned off or started again under Advanced Settings.
 -   [New]: General: Added Performance Tuning, a one-click graphics adjustment for a higher frame rate and a sharper image, with a revert button and a details card listing every change.
 -   [New]: NamePlates: Castbar Shield: a shield icon on the castbars of hostile nameplates while their cast can't be interrupted, so you see at a glance whether you can kick it.
 -   [New]: Quick Grid: New module: hold a key and a 3x3 grid of actions opens at your cursor, release it in a direction to use one, in combat too. Comes with decks for teleports, travel, markers and professions plus a custom one.
