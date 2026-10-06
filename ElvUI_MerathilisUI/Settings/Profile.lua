@@ -909,7 +909,7 @@ P.minimapButtons = {
 	point = "BOTTOMLEFT",
 	growth = "DOWN",
 	xOffset = -15,
-	yOffset = 78,
+	yOffset = 80,
 	size = 20,
 	spacing = 2,
 
