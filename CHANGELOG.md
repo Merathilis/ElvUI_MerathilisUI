@@ -1,6 +1,7 @@
 ### Changes
 
 -   [Fix]: Core: The checkmark in the profile update messages shows again.
+-   [Fix]: Installer: The changelog popup no longer opens on top of the installer on a fresh install.
 -   [Fix]: Misc: The search box in the icon picker shows a real title and tooltip instead of its internal names.
 -   [Fix]: Notification: The new mail toast plays a sound again.
 -   [Fix]: Skins: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.
