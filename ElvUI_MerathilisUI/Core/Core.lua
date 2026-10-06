@@ -148,6 +148,11 @@ function MER:CheckElvUIVersion()
 end
 
 function MER:ChangelogReadAlert()
+	-- The installer is queued or open, a fresh install marks the changelog as read when it finishes
+	if E.db.mui.core.installed == nil then
+		return
+	end
+
 	local readVer = E.global.mui and E.global.mui.changelogRead and tonumber(E.global.mui.changelogRead) or 0
 	local currentVer = MER.Version and tonumber(MER.Version) or 0
 

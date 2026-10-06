@@ -558,6 +558,10 @@ local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.core.installed = true
 	E.private.mui.general.install_complete = MER.Version
+	-- A fresh install has nothing to catch up on, updaters still get the changelog
+	if not E.global.mui.changelogRead then
+		E.global.mui.changelogRead = MER.Version
+	end
 
 	C_UI_Reload()
 end
