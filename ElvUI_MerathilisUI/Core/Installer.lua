@@ -17,9 +17,11 @@ local strtrim, strupper, tonumber, tostring, type, unpack = strtrim, strupper, t
 local geterrorhandler, xpcall = geterrorhandler, xpcall
 local tinsert, wipe = table.insert, table.wipe
 
+local CanAutoSetGamePadCursorControl = CanAutoSetGamePadCursorControl
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
 local PlaySound = PlaySound
+local SetGamePadCursorControl = SetGamePadCursorControl
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local C_UI_Reload = C_UI.Reload
 local ACCEPT, CANCEL, OKAY = ACCEPT, CANCEL, OKAY
@@ -431,7 +433,21 @@ local function Installer_OnHide(frame)
 	ResetState()
 end
 
+-- Same open edge as Blizzard's ShowUIPanel: brings up the gamepad pointer, the installer
+-- can't be used without one. A controller UI addon drives its own cursor, so it is left alone.
+local function RaiseGamePadCursor()
+	if _G.ConsolePort or not CanAutoSetGamePadCursorControl or not SetGamePadCursorControl then
+		return
+	end
+
+	if CanAutoSetGamePadCursorControl(true) then
+		SetGamePadCursorControl(true)
+	end
+end
+
 local function SetupFrame(frame)
+	-- Every page runs this, only the first one of our installer opens it
+	local opening = not (frame.merHeader and frame.merHeader:IsShown())
 	frame:SetSize(FRAME_WIDTH, FRAME_HEIGHT)
 
 	if not frame.merHeader then
@@ -458,6 +474,10 @@ local function SetupFrame(frame)
 		frame.merHeader = header
 		frame.merBody = body
 		frame:HookScript("OnHide", Installer_OnHide)
+	end
+
+	if opening then
+		RaiseGamePadCursor()
 	end
 
 	frame.merHeader:Show()

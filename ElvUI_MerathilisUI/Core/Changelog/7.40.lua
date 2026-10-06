@@ -20,6 +20,7 @@ MER.Changelog[740] = {
 	},
 	IMPROVEMENTS = {
 		"[Installer]: The nameplate layout keeps its side elements apart: the raid marker sits above the name, the elite icon left of the level, the quest icon at the top right corner and the crowd control auras behind the target arrow.",
+		"[Installer]: Opening the installer with a controller brings up the gamepad cursor right away.",
 		"[Locales]: The German translation is complete.",
 		"[Locales]: Terms MerathilisUI shares with ElvUI show ElvUI's translation again instead of English or a different wording, in ElvUI too.",
 		"[NamePlates]: Enemy Forces moved to the top right corner of the health bar, clear of the target arrow and the crowd control auras.",
