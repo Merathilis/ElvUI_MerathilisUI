@@ -5476,7 +5476,26 @@ end
 -- unregister side actually needs the reference count.
 local bagEventOwners = {}
 
+-- The cursor and item targeting events only matter while a window shows the
+-- slots: CURSOR_CHANGED fires on every cursor icon change and
+-- CURRENT_SPELL_CAST_CHANGED on every cast
+local CURSOR_EVENTS = {
+	CURSOR_CHANGED = "OnCursorChanged",
+	CURRENT_SPELL_CAST_CHANGED = "OnItemContextChanged",
+	UPDATE_SPELL_TARGET_ITEM_CONTEXT = "OnItemContextChanged",
+}
+
 function module:RegisterBagEventsFor(owner)
+	if not next(bagEventOwners) then
+		for event, method in pairs(CURSOR_EVENTS) do
+			module:RegisterEvent(event, method)
+		end
+
+		-- Whatever changed while no window was open
+		module:OnCursorChanged()
+		module.EvaluateItemContext()
+	end
+
 	bagEventOwners[owner] = true
 	if not eventFrame then
 		eventFrame = CreateFrame("Frame")
@@ -5489,7 +5508,14 @@ end
 
 function module:UnregisterBagEventsFor(owner)
 	bagEventOwners[owner] = nil
-	if not next(bagEventOwners) and eventFrame then
+	if next(bagEventOwners) then
+		return
+	end
+
+	for event in pairs(CURSOR_EVENTS) do
+		module:UnregisterEvent(event)
+	end
+	if eventFrame then
 		eventFrame:UnregisterAllEvents()
 	end
 end
@@ -5561,7 +5587,8 @@ end
 -------------------------------------------------------------------------------
 -- Hooks and events are set up once, the first time a profile with the
 -- categorized bags turned on is active (at login or after a profile switch).
--- The handlers check db.enable themselves.
+-- The handlers check db.enable themselves. The cursor events come and go
+-- with the windows, see RegisterBagEventsFor.
 local function SetupHooks()
 	if module.hooksSetUp then
 		return
@@ -5571,9 +5598,6 @@ local function SetupHooks()
 	module:SecureHook(B, "OpenBags", "OnElvUIBagsOpened")
 	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
 	module:SecureHook("GameTooltip_SetDefaultAnchor", "OnGameTooltipDefaultAnchor")
-	module:RegisterEvent("CURSOR_CHANGED", "OnCursorChanged")
-	module:RegisterEvent("CURRENT_SPELL_CAST_CHANGED", "OnItemContextChanged")
-	module:RegisterEvent("UPDATE_SPELL_TARGET_ITEM_CONTEXT", "OnItemContextChanged")
 
 	-- Registered even when duplicate merging is off: the option can be
 	-- flipped at any time, and a missed open/close would leave the panel
