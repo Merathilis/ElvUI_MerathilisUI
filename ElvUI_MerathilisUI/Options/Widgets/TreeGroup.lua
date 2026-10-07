@@ -104,14 +104,34 @@ local function PrepareButton(button)
 end
 
 -- Pulsing NEW badge after the label of a top level entry marked with
--- F.MarkTabAsNew("<argsKey>"), the same side table TabGroup.lua reads. Tree
+-- F.MarkTabAsNew("<argsKey>"), the same side table TabGroup.lua reads. An
+-- entry also gets it when one of its direct child tabs is marked (e.g.
+-- "Modules" while "actionbars" is new), so the badge leads to the new tab
+-- without a second call that has to be removed again at release. Tree
 -- buttons are reused for other entries on every refresh, so the badge is
 -- re-decided (and moved behind the current label) each time.
 local NEW_BADGE_SCALE = 0.75
 local NEW_BADGE_GAP = 2
 
+local function IsEntryNew(key)
+	if F.NewFeatureTabs[key] then
+		return true
+	end
+
+	local group = MER:GetModule("MER_Options").options[key]
+	if group and group.args then
+		for childKey in pairs(group.args) do
+			if F.NewFeatureTabs[childKey] then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
 local function UpdateNewBadge(button)
-	local shouldShow = button.merActive and button.level == 1 and button.value and F.NewFeatureTabs[button.value]
+	local shouldShow = button.merActive and button.level == 1 and button.value and IsEntryNew(button.value)
 
 	local badge = F.SyncNewFeatureBadge(button, "merNewBadge", shouldShow, function()
 		return F.CreateNewFeatureBadge(button, nil, nil, nil, 0, 0, NEW_BADGE_SCALE)
