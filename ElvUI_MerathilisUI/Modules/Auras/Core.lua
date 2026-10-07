@@ -183,15 +183,11 @@ function module:CheckOverflow()
 		return
 	end
 
-	-- Runs on its own repeating timer, independent of Refresh() - without this check, disabling
-	-- the feature (Refresh Hides the button once) gets undone by the next tick re-showing it,
-	-- since this had no idea the feature was just turned off.
+	-- Also runs from the button hook, which stays installed once the feature was turned off
 	if not GetDB().enable then
 		btn:Hide()
 		return
 	end
-
-	UpdateButtonLayout(header)
 
 	if header.forceShowAuras then
 		btn:Hide()
@@ -269,16 +265,36 @@ function module:SetupHeader(header)
 	UpdateButtonLayout(header)
 	ApplyCollapsedState(header, not GetDB().expanded)
 
-	self:ScheduleRepeatingTimer("CheckOverflow", 0.5)
+	-- The container only ever adds buttons to its pool (once per new aura frame, plus on a
+	-- settings update), so the overflow can only change right then; no need to poll for it
+	if E.Auras_UpdateButton then
+		hooksecurefunc(E, "Auras_UpdateButton", function(_, container)
+			if container == A.BuffFrame then
+				module:CheckOverflow()
+			end
+		end)
+	end
 end
 
 function module:Refresh()
 	local db = GetDB()
 	local header = A.BuffFrame
 
+	-- Hooked on first enable only, a disabled feature costs nothing
+	if db.enable and not self.headerHooked then
+		self.headerHooked = true
+		hooksecurefunc(A, "UpdateHeader", function(_, updated)
+			if updated == A.BuffFrame then
+				module:Refresh()
+			end
+		end)
+	end
+
 	if not header or not db.enable then
 		if header and header.collapseButton then
-			ApplyCollapsedState(header, false)
+			if header.collapsed then
+				ApplyCollapsedState(header, false)
+			end
 			header.collapseButton:Hide()
 		end
 		return
@@ -292,18 +308,16 @@ function module:Refresh()
 		UpdateButtonLayout(header)
 		ApplyCollapsedState(header, not db.expanded)
 	end
+
+	self:CheckOverflow()
 end
 
 function module:Initialize()
-	hooksecurefunc(A, "UpdateHeader", function(_, header)
-		if header == A.BuffFrame then
-			module:Refresh()
-		end
-	end)
+	self:Refresh()
+end
 
-	if A.BuffFrame then
-		self:Refresh()
-	end
+function module:ProfileUpdate()
+	self:Refresh()
 end
 
 MER:RegisterModule(module:GetName())
