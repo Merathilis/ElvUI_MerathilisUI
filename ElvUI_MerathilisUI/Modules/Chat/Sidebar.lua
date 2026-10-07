@@ -15,6 +15,7 @@ local GetCursorPosition = GetCursorPosition
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetNumGuildMembers = GetNumGuildMembers
 local GetTime = GetTime
+local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local IsShiftKeyDown = IsShiftKeyDown
@@ -41,7 +42,6 @@ local TAB_GAP = 1
 
 local ICON_ALPHA_HOVER = 1
 local DIVIDER_ALPHA = 0.8
-local UPDATE_THROTTLE = 0.1
 local FADE_SPEED = 5
 local GUILD_ROSTER_THROTTLE = 15
 
@@ -365,6 +365,7 @@ end
 local function Button_OnEnter(btn)
 	btn.hovered = true
 	module:ColorButton(btn)
+	module:UpdateSidebarFade()
 
 	local info = btn.info
 	if info.hideTooltip and info.hideTooltip() then
@@ -387,6 +388,7 @@ local function Button_OnLeave(btn)
 	btn.hovered = nil
 	module:ColorButton(btn)
 	_G.GameTooltip:Hide()
+	module:UpdateSidebarFade()
 end
 
 local function Button_OnClick(btn, mouseButton)
@@ -657,7 +659,13 @@ end
 -- Blizzard puts its own voice buttons back on every state change, so they are
 -- faded out and made click-through instead of hidden.
 function module:UpdateBlizzardVoiceButtons()
-	local hidden = self:IsActive() and self.db.buttons.voice and self.db.hideVoiceButtons
+	local hidden = self:IsActive() and self.db.buttons.voice and self.db.hideVoiceButtons or nil
+
+	-- Only hand them back once after hiding them, never touch ElvUI's state otherwise
+	if not hidden and not self.voiceButtonsHidden then
+		return
+	end
+	self.voiceButtonsHidden = hidden
 
 	for _, name in ipairs(VOICE_BUTTONS) do
 		local button = _G[name]
@@ -750,43 +758,101 @@ end
 -------------------------------------------------------------------------------
 -- Sidebar frame
 -------------------------------------------------------------------------------
--- One throttled tick drives the mouseover fade and the scroll button, which
--- lights up while the target window is scrolled away from the newest line.
-local function Sidebar_OnUpdate(bar, elapsed)
-	local db = module.db
-
-	if db.visibility == "MOUSEOVER" then
-		local target = (bar:IsMouseOver() or F.PortalFlyout.IsShown()) and 1 or 0
-		local alpha = bar.holder:GetAlpha()
-		if alpha ~= target then
-			local step = elapsed * FADE_SPEED
-			alpha = target > alpha and min(target, alpha + step) or max(target, alpha - step)
-			bar.holder:SetAlpha(alpha)
-		end
-	end
-
-	bar.elapsed = (bar.elapsed or 0) + elapsed
-	if bar.elapsed < UPDATE_THROTTLE then
+-- Mouseover mode: re-evaluated whenever the cursor enters or leaves the bar or
+-- one of its buttons, and when the portal flyout closes. Leaving the bar for a
+-- button still counts as over it, so the gaps between buttons do not flicker.
+function module:UpdateSidebarFade()
+	local bar = self.bar
+	if not bar or self.db.visibility ~= "MOUSEOVER" then
 		return
 	end
-	bar.elapsed = 0
 
-	local scroll = module.buttons.scroll
-	if scroll and scroll:IsShown() then
-		local chat = GetTargetChat(db)
-		local highlighted = chat and chat.AtBottom and not chat:AtBottom() or nil
-		if highlighted ~= scroll.highlighted then
-			scroll.highlighted = highlighted
-			module:ColorButton(scroll)
+	local shown = bar:IsMouseOver() or F.PortalFlyout.IsShown()
+	if shown == bar.fadeShown then
+		return
+	end
+	bar.fadeShown = shown
+
+	local holder = bar.holder
+	local alpha = holder:GetAlpha()
+	if shown then
+		E:UIFrameFadeIn(holder, (1 - alpha) / FADE_SPEED, alpha, 1)
+	else
+		E:UIFrameFadeOut(holder, alpha / FADE_SPEED, alpha, 0)
+	end
+end
+
+local function Sidebar_OnHoverChanged()
+	module:UpdateSidebarFade()
+end
+
+-- The scroll button lights up while the target window is scrolled away from
+-- the newest line. Scrolling, switching tabs and moving windows update it.
+function module:UpdateScrollHighlight()
+	local scroll = self.buttons.scroll
+	if not scroll or not scroll:IsShown() then
+		return
+	end
+
+	local chat = GetTargetChat(self.db)
+	local highlighted = chat and chat.AtBottom and not chat:AtBottom() or nil
+	if highlighted ~= scroll.highlighted then
+		scroll.highlighted = highlighted
+		self:ColorButton(scroll)
+	end
+end
+
+local function Chat_OnScrollChanged(chat)
+	if module:IsActive() and chat == GetTargetChat(module.db) then
+		module:UpdateScrollHighlight()
+	end
+end
+
+-- SetScrollOffset is the only setter of a chat window's scroll position, besides Clear.
+-- Hooked windows are kept here instead of in a field on Blizzard's frame.
+local scrollHooked = setmetatable({}, { __mode = "k" })
+
+local function HookChatScroll(chat)
+	if chat and not scrollHooked[chat] and chat.SetScrollOffset then
+		scrollHooked[chat] = true
+		hooksecurefunc(chat, "SetScrollOffset", Chat_OnScrollChanged)
+		if chat.Clear then
+			hooksecurefunc(chat, "Clear", Chat_OnScrollChanged)
 		end
 	end
+end
+
+-- Installed on first activation only
+function module:HookScrollHighlight()
+	if self.scrollHooked then
+		return
+	end
+	self.scrollHooked = true
+
+	for _, frameName in ipairs(_G.CHAT_FRAMES) do
+		HookChatScroll(_G[frameName])
+	end
+
+	-- Temporary windows (whispers) are styled by ElvUI when they open
+	hooksecurefunc(CH, "StyleChat", function(_, chat)
+		HookChatScroll(chat)
+	end)
+
+	hooksecurefunc("FCFDock_SelectWindow", function()
+		if module:IsActive() then
+			module:UpdateScrollHighlight()
+		end
+	end)
 end
 
 function module:CreateSidebar()
 	local bar = CreateFrame("Frame", "MER_ChatSidebar", E.UIParent)
 	bar:EnableMouse(false)
-	bar:SetScript("OnUpdate", Sidebar_OnUpdate)
+	bar:SetScript("OnEnter", Sidebar_OnHoverChanged)
+	bar:SetScript("OnLeave", Sidebar_OnHoverChanged)
 	self.bar = bar
+
+	F.PortalFlyout.RegisterOnHide(Sidebar_OnHoverChanged)
 
 	-- Only shown while the sidebar sits outside the panel as its own block.
 	bar:CreateBackdrop("Transparent", nil, nil, nil, nil, nil, nil, true)
@@ -872,7 +938,13 @@ function module:UpdateSidebar()
 
 	self:UpdateDivider(isLeft)
 
-	bar.holder:SetAlpha(db.visibility == "MOUSEOVER" and 0 or 1)
+	-- Motion only, clicks still reach whatever is below the bar
+	local mouseover = db.visibility == "MOUSEOVER"
+	E:UIFrameFadeRemoveFrame(bar.holder)
+	bar.holder:SetAlpha(mouseover and 0 or 1)
+	bar.fadeShown = nil
+	bar:SetMouseMotionEnabled(mouseover)
+	bar:SetMouseClickEnabled(false)
 
 	-- Stack from the top, scroll button pinned to the bottom. Whatever no longer
 	-- fits the panel height is left out instead of spilling over the edge.
@@ -928,6 +1000,8 @@ function module:UpdateSidebar()
 	if db.buttons.scroll then
 		scroll:Point("BOTTOM", bar, "BOTTOM", 0, spacing)
 	end
+
+	self:UpdateScrollHighlight()
 end
 
 -------------------------------------------------------------------------------
@@ -1017,7 +1091,14 @@ function module:PostToggleChatButton(_, button)
 end
 
 function module:PostPositionChat(_, chat)
-	if not self:IsActive() or not IsInside(self.db) then
+	if not self:IsActive() then
+		return
+	end
+
+	-- The panel may hold another window now
+	self:UpdateScrollHighlight()
+
+	if not IsInside(self.db) then
 		return
 	end
 
@@ -1044,12 +1125,14 @@ function module:SettingsUpdate()
 	end
 
 	local active = self:IsActive()
+	self:SetLayoutHooks(active)
 
 	if active then
 		if not self.bar then
 			self:CreateSidebar()
 		end
 
+		self:HookScrollHighlight()
 		self:UpdateSidebar()
 		self.bar:Show()
 
@@ -1081,13 +1164,29 @@ function module:SettingsUpdate()
 	end
 end
 
-function module:InitializeSidebar()
-	self:SecureHook(LO, "RepositionChatDataPanels", "PostRepositionChatDataPanels")
-	self:SecureHook(CH, "PositionChat", "PostPositionChat")
-	self:SecureHook(CH, "ToggleChatButton", "PostToggleChatButton")
-	self:SecureHook(CH, "UpdateEditboxAnchors", "PostUpdateEditboxAnchors")
-	self:SecureHook(CH, "RepositionOverflowButton", "UpdateBlizzardVoiceButtons")
+-- The layout hooks only exist while the sidebar is active
+function module:SetLayoutHooks(active)
+	if active == (self.layoutHooked or false) then
+		return
+	end
+	self.layoutHooked = active
 
+	if active then
+		self:SecureHook(LO, "RepositionChatDataPanels", "PostRepositionChatDataPanels")
+		self:SecureHook(CH, "PositionChat", "PostPositionChat")
+		self:SecureHook(CH, "ToggleChatButton", "PostToggleChatButton")
+		self:SecureHook(CH, "UpdateEditboxAnchors", "PostUpdateEditboxAnchors")
+		self:SecureHook(CH, "RepositionOverflowButton", "UpdateBlizzardVoiceButtons")
+	else
+		self:Unhook(LO, "RepositionChatDataPanels")
+		self:Unhook(CH, "PositionChat")
+		self:Unhook(CH, "ToggleChatButton")
+		self:Unhook(CH, "UpdateEditboxAnchors")
+		self:Unhook(CH, "RepositionOverflowButton")
+	end
+end
+
+function module:InitializeSidebar()
 	F.Event.RegisterCallback("ChatSidebar.SettingsUpdate", self.SettingsUpdate, self)
 
 	self.sidebarInitialized = true

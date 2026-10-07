@@ -7,13 +7,13 @@ local _G = _G
 local ipairs, pairs, setmetatable, tonumber, unpack = ipairs, pairs, setmetatable, tonumber, unpack
 
 local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
 local GetChannelName = GetChannelName
 
 local ACCENT_WIDTH = 2
 local BADGE_PADDING = 4
 local BADGE_ALPHA = 0.9
 local FADE_DURATION = 0.2
-local COUNT_THROTTLE = 0.05
 local COUNT_ALPHA = 0.6
 -- Remaining characters (ElvUI counts down from 255) below which the counter
 -- turns orange, then red.
@@ -66,17 +66,8 @@ end
 
 -- ElvUI's remaining-characters counter sits on the edit box itself, below
 -- our layers, so the top layer shows a copy of it and warns near the limit.
--- ElvUI updates its counter from a script hook we can't follow, so the copy
--- is synced on a light tick that only runs while the box is open.
-local function Top_OnUpdate(top, elapsed)
-	top.elapsed = (top.elapsed or 0) + elapsed
-	if top.elapsed < COUNT_THROTTLE then
-		return
-	end
-	top.elapsed = 0
-
-	local source = top.countSource
-	local text = source and source:GetText()
+-- ElvUI only ever writes it through SetText, so the copy follows that call.
+local function SyncCount(top, text)
 	if text == top.lastCount then
 		return
 	end
@@ -144,8 +135,9 @@ local function CreateOverlay(editbox)
 		count:SetAllPoints(source)
 		count:SetJustifyH("CENTER")
 		top.count = count
-		top.countSource = source
-		top:SetScript("OnUpdate", Top_OnUpdate)
+		hooksecurefunc(source, "SetText", function(_, text)
+			SyncCount(top, text)
+		end)
 	end
 
 	-- Class colored glow, only there while the box is open anyway.
@@ -266,6 +258,7 @@ function module:StyleEditBox(editbox, fromHeader)
 			top.count:SetFont(font, size, flags)
 		end
 		top.lastCount = nil
+		SyncCount(top, source:GetText())
 		source:SetAlpha(0)
 	end
 
@@ -345,6 +338,11 @@ function module:UpdateEditBoxes()
 
 	-- Boxes that were never styled yet pick it up on their next header update.
 	if IsEnabled() then
+		-- Hooked on first enable only
+		if not self:IsHooked(CH, "ChatEdit_UpdateHeader") then
+			self:SecureHook(CH, "ChatEdit_UpdateHeader", "PostEditBoxHeader")
+		end
+
 		for _, frameName in ipairs(_G.CHAT_FRAMES) do
 			local chat = _G[frameName]
 			local editbox = chat and chat.editBox
@@ -356,6 +354,5 @@ function module:UpdateEditBoxes()
 end
 
 function module:InitializeEditBox()
-	self:SecureHook(CH, "ChatEdit_UpdateHeader", "PostEditBoxHeader")
 	self.editBoxInitialized = true
 end
