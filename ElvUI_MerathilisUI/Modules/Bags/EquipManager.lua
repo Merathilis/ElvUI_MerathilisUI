@@ -169,6 +169,11 @@ function module:UpdateItemDisplay()
 end
 
 function module:Initialize()
+	-- No slot refresh at login: ElvUI fills the slots on the first open anyway, and its
+	-- refresh asks Pawn for upgrade arrows before Pawn is initialized
+	local db = F.GetDBFromPath("mui.bags.equipmentManager") or E.db.mui.bags.equipmentManager
+	self.lastEnabled = db.enable and true or false
+
 	self:UpdateItemDisplay()
 end
 
