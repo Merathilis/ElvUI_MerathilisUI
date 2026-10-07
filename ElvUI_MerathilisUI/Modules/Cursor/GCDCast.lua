@@ -128,17 +128,27 @@ function module:CreateGCDMover()
 	self.gcdMoverAnchor = anchor
 end
 
+-- Built and listening to casts only while the ring is turned on
 function module:ApplyGCD()
-	local root = self.gcdRoot
 	local db = self.db and self.db.gcd
-	if not root or not db then
+	if not db then
 		return
 	end
 
+	local root = self.gcdRoot
 	if not db.enable then
-		root:Hide()
+		if root then
+			root:Hide()
+			root:UnregisterAllEvents()
+		end
 		return
 	end
+
+	if not root then
+		self:CreateGCDRing()
+		root = self.gcdRoot
+	end
+	self:RegisterGCDEvents()
 
 	local radius = db.radius or 21
 	root.ring:SetRingRadius(radius)
@@ -365,17 +375,27 @@ function module:CreateCastMover()
 	self.castMoverAnchor = anchor
 end
 
+-- Built and listening to casts only while the ring is turned on
 function module:ApplyCast()
-	local root = self.castRoot
 	local db = self.db and self.db.castCircle
-	if not root or not db then
+	if not db then
 		return
 	end
 
+	local root = self.castRoot
 	if not db.enable then
-		root:Hide()
+		if root then
+			root:Hide()
+			root:UnregisterAllEvents()
+		end
 		return
 	end
+
+	if not root then
+		self:CreateCastRing()
+		root = self.castRoot
+	end
+	self:RegisterCastEvents()
 
 	local radius = db.radius or 30
 	root.ring:SetRingRadius(radius)
