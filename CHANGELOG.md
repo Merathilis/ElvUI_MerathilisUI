@@ -1,5 +1,6 @@
 ### Changes
 
+-   [Fix]: AFK: The chat shows on screen again, the realm time in 12-hour format shows the right AM/PM and the logout timer no longer restarts when your status changes while away.
 -   [Fix]: Core: The checkmark in the profile update messages shows again.
 -   [Fix]: Installer: The changelog popup no longer opens on top of the installer on a fresh install.
 -   [Fix]: Misc: The search box in the icon picker shows a real title and tooltip instead of its internal names.
@@ -13,6 +14,7 @@
 -   [New]: Tooltip: Shows the buffs of hovered players as icons on the tooltip, with position, icon size, icons per row and offset options. The new Tooltip options page also has the achievement link toggle.
 -   [New]: UnitFrames: Castbar Shield on the castbars of the target, focus, boss and arena frames, the same icon as on the nameplates.
 -   [New]: Unlock Mode: New module that extends ElvUI's mover mode with an unlock animation: movers snap to the edges and centers of other movers and the screen with guide lines, Alt-click anchors the selected mover to another one so it follows it, a click selects a mover for pixel-exact arrow key nudging, small movers stay above big ones, the parts still placed by Blizzard's Edit Mode are marked and open it on click, and a toolbar replaces ElvUI's mover window with the layout filter, grid, snapping and a count of your changes, which you can revert before you lock.
+-   [Improvement]: AFK: The AFK screen got more atmosphere: a vignette darkens the world, the panel slides in and the player model fades in, a bar counts down to the logout, and the sleeping model wakes up for a random emote now and then, with rising Z's and changing speech bubble lines while it sleeps.
 -   [Improvement]: Installer: The nameplate layout keeps its side elements apart: the raid marker sits above the name, the elite icon left of the level, the quest icon at the top right corner and the crowd control auras behind the target arrow.
 -   [Improvement]: Installer: Opening the installer with a controller brings up the gamepad cursor right away.
 -   [Improvement]: Locales: The German translation is complete.

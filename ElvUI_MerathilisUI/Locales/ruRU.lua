@@ -23,6 +23,12 @@ L["AFK"] = "АФК"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] =
 	"Включить/отключить экран MUI AFK. Отключено, если загружен BenikUI"
 L["Logout Timer"] = "Таймер выхода"
+L["AFK ... maybe!?"] = true
+L["Just five more minutes..."] = true
+L["Do not disturb!"] = true
+L["Dreaming of loot..."] = true
+L["Brb, getting coffee"] = true
+L["Counting sheep..."] = true
 L["SplashScreen"] = "Заставка"
 L["Enable/Disable the Splash Screen on Login."] =
 	"Включить/отключить заставку при входе в систему."

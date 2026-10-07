@@ -22,6 +22,12 @@ L[" does not support this game version, please uninstall it and don't ask for su
 L["AFK"] = "ABS"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Logout Timer"] = true
+L["AFK ... maybe!?"] = true
+L["Just five more minutes..."] = true
+L["Do not disturb!"] = true
+L["Dreaming of loot..."] = true
+L["Brb, getting coffee"] = true
+L["Counting sheep..."] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 

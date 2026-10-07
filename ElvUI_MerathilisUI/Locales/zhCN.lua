@@ -23,6 +23,12 @@ L["AFK"] = "离开"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] =
 	"启用/禁用MUI AFK屏幕。如果加载了BenikUI，则禁用"
 L["Logout Timer"] = "登出计时器"
+L["AFK ... maybe!?"] = true
+L["Just five more minutes..."] = true
+L["Do not disturb!"] = true
+L["Dreaming of loot..."] = true
+L["Brb, getting coffee"] = true
+L["Counting sheep..."] = true
 L["SplashScreen"] = "闪屏"
 L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启动画面."
 

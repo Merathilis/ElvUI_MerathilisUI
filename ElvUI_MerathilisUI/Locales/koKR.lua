@@ -24,6 +24,12 @@ L["AFK"] = "자리 비움"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] =
 	"MUI AFK 화면을 사용/중지합니다. BenikUI가 로드된 경우 비활성화됩니다."
 L["Logout Timer"] = "자동 로그아웃 타이머"
+L["AFK ... maybe!?"] = true
+L["Just five more minutes..."] = true
+L["Do not disturb!"] = true
+L["Dreaming of loot..."] = true
+L["Brb, getting coffee"] = true
+L["Counting sheep..."] = true
 L["SplashScreen"] = "로그인 화면"
 L["Enable/Disable the Splash Screen on Login."] = "로그인 시 스플래시 화면을 표시/숨깁니다."
 
