@@ -359,7 +359,7 @@ function module:TradeTabs()
 	handler:RegisterEvent("TRADE_SKILL_CLOSE")
 	handler:RegisterEvent("TRADE_SHOW")
 	handler:RegisterEvent("SKILL_LINES_CHANGED")
-	handler:RegisterEvent("CURRENT_SPELL_CAST_CHANGED")
+	-- CURRENT_SPELL_CAST_CHANGED follows the tabs, see UpdateSelectedTabs
 end
 
 module:AddCallback("TradeTabs")
