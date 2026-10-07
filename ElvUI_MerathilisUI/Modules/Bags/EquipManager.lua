@@ -7,7 +7,6 @@ local B = E:GetModule("Bags")
 	https://github.com/Shadow-and-Light/shadow-and-light/blob/dev/ElvUI_SLE/modules/bags/baginfo.lua
 --]]
 
-local _G = _G
 local next = next
 local strmatch = strmatch
 
@@ -65,11 +64,10 @@ function B:UpdateSet(slot)
 		return
 	end
 
-	local isInSet = slot.isEquipment and IsSlotInEquipmentSet(slot)
-
-	if isInSet then
-		local db = module.db or E.db.mui.bags.equipmentManager
-		slot.equipIcon:SetShown(db and db.enable)
+	-- The tooltip scan is the expensive part, a disabled indicator skips it
+	local db = module.db or E.db.mui.bags.equipmentManager
+	if db and db.enable and slot.isEquipment and IsSlotInEquipmentSet(slot) then
+		slot.equipIcon:Show()
 	else
 		B:HideSet(slot, true)
 	end
@@ -101,8 +99,57 @@ local function updateSettings(slot)
 	icon:SetVertexColor(c.r, c.g, c.b, c.a)
 end
 
+function module:UpdateSlot(frame, bagID, slotID)
+	local bag = frame.Bags[bagID]
+	local slot = bag and bag[slotID]
+	if not slot then
+		return
+	end
+
+	local db = module.db
+	if not db.enable then
+		B:HideSet(slot)
+		return
+	end
+
+	-- Created on the first update with the indicator enabled
+	if not slot.equipIcon then
+		slot.equipIcon = slot:CreateTexture(nil, "OVERLAY")
+		updateSettings(slot)
+		slot.equipIcon:Hide()
+	end
+
+	if slot.isEquipment then
+		B:UpdateSet(slot)
+
+		if not E:IsEventRegisteredForObject("EQUIPMENT_SETS_CHANGED", slot) then
+			E:RegisterEventForObject("EQUIPMENT_SETS_CHANGED", slot, B.UpdateSet)
+		end
+	else
+		B:HideSet(slot)
+	end
+end
+
+-- Hooked on first enable only; afterwards UpdateSlot checks the setting itself, so a
+-- disabled indicator hides its icons and drops the set events on the next slot update
 function module:UpdateItemDisplay()
 	if not E.private.bags.enable then
+		return
+	end
+
+	module.db = F.GetDBFromPath("mui.bags.equipmentManager") or E.db.mui.bags.equipmentManager
+
+	local enabled = module.db.enable and true or false
+	if enabled and not self.slotHooked then
+		self.slotHooked = true
+		hooksecurefunc(B, "UpdateSlot", module.UpdateSlot)
+	end
+
+	-- Turned on or off: every slot shows or drops its indicator right away
+	local toggled = self.slotHooked and enabled ~= self.lastEnabled
+	self.lastEnabled = enabled
+	if toggled then
+		B:UpdateAllBagSlots()
 		return
 	end
 
@@ -121,53 +168,7 @@ function module:UpdateItemDisplay()
 	end
 end
 
-function module:ConstructContainerButton(f, bagID, slotID)
-	if not f then
-		return
-	end
-
-	local slotName = B:GetBagSlotInfo(f, bagID, slotID)
-	local slot = _G[slotName]
-	if not slot then
-		return
-	end
-
-	module.db = F.GetDBFromPath("mui.bags.equipmentManager") or E.db.mui.bags.equipmentManager
-
-	if not slot.equipIcon then
-		slot.equipIcon = slot:CreateTexture(nil, "OVERLAY")
-		updateSettings(slot)
-		slot.equipIcon:Hide()
-	end
-end
--- File-level hooks (must run before/during bag construction, not only in Initialize)
-hooksecurefunc(B, "ConstructContainerButton", module.ConstructContainerButton)
-
-function module:UpdateSlot(frame, bagID, slotID)
-	local bag = frame.Bags[bagID]
-	local slot = bag and bag[slotID]
-	if not slot or not slot.equipIcon then
-		return
-	end
-
-	if slot.isEquipment then
-		B:UpdateSet(slot)
-
-		if not E:IsEventRegisteredForObject("EQUIPMENT_SETS_CHANGED", slot) then
-			E:RegisterEventForObject("EQUIPMENT_SETS_CHANGED", slot, B.UpdateSet)
-		end
-	else
-		B:HideSet(slot)
-	end
-end
-hooksecurefunc(B, "UpdateSlot", module.UpdateSlot)
-
 function module:Initialize()
-	if not E.private.bags.enable then
-		return
-	end
-
-	module.db = F.GetDBFromPath("mui.bags.equipmentManager") or E.db.mui.bags.equipmentManager
 	self:UpdateItemDisplay()
 end
 
@@ -181,7 +182,9 @@ function module:ProfileUpdate()
 	end
 
 	self:UpdateItemDisplay()
-	B:UpdateAllBagSlots()
+	if self.slotHooked then
+		B:UpdateAllBagSlots()
+	end
 end
 
 MER:RegisterModule(module:GetName())

@@ -5424,7 +5424,8 @@ function module:StartSortSpinner(frame)
 	module:PokeSortSpinner()
 end
 
-local eventFrame = CreateFrame("Frame")
+-- Created when a bag window first opens
+local eventFrame
 local BAG_REFRESH_EVENTS = { "BAG_UPDATE", "BAG_UPDATE_DELAYED", "ITEM_LOCK_CHANGED", "EQUIPMENT_SETS_CHANGED" }
 
 -- RefreshCategoryFrame()/RefreshBankCategoryFrame() are full rebuilds (every
@@ -5457,7 +5458,7 @@ local function DoThrottledRefresh()
 	end
 end
 
-eventFrame:SetScript("OnEvent", function()
+local function OnBagEvent()
 	if module.sortingBags then
 		module:PokeSortSpinner()
 	end
@@ -5466,7 +5467,7 @@ eventFrame:SetScript("OnEvent", function()
 		refreshPending = true
 		E:Delay(0.15, DoThrottledRefresh)
 	end
-end)
+end
 
 -- `owner` is "bag" or "bank" - a plain RegisterEvent/UnregisterAllEvents per
 -- frame would have one frame's close kill live refresh for the other, still-
@@ -5477,6 +5478,10 @@ local bagEventOwners = {}
 
 function module:RegisterBagEventsFor(owner)
 	bagEventOwners[owner] = true
+	if not eventFrame then
+		eventFrame = CreateFrame("Frame")
+		eventFrame:SetScript("OnEvent", OnBagEvent)
+	end
 	for _, event in ipairs(BAG_REFRESH_EVENTS) do
 		eventFrame:RegisterEvent(event)
 	end
@@ -5484,7 +5489,7 @@ end
 
 function module:UnregisterBagEventsFor(owner)
 	bagEventOwners[owner] = nil
-	if not next(bagEventOwners) then
+	if not next(bagEventOwners) and eventFrame then
 		eventFrame:UnregisterAllEvents()
 	end
 end
