@@ -1,4 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Tooltip")
 
 local format = format
 local find = string.find
@@ -6,6 +7,7 @@ local select = select
 local type = type
 
 local GetAchievementInfo = GetAchievementInfo
+local hooksecurefunc = hooksecurefunc
 local UnitGUID = UnitGUID
 
 local function SetHyperlink(tooltip, refString)
@@ -49,5 +51,13 @@ local function SetHyperlink(tooltip, refString)
 	tooltip:Show()
 end
 
-hooksecurefunc(GameTooltip, "SetHyperlink", SetHyperlink)
-hooksecurefunc(ItemRefTooltip, "SetHyperlink", SetHyperlink)
+-- Hooked on first enable only, the hook checks the setting from then on
+function module:InitializeAchievement()
+	if self.achievementHooked or not E.db.mui.tooltip.achievement then
+		return
+	end
+	self.achievementHooked = true
+
+	hooksecurefunc(GameTooltip, "SetHyperlink", SetHyperlink)
+	hooksecurefunc(ItemRefTooltip, "SetHyperlink", SetHyperlink)
+end

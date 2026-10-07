@@ -27,6 +27,7 @@ options.itemLevel = {
 			-- Checked on every update, the next open merchant or trade window follows it
 			set = function(_, value)
 				E.db.mui.itemLevel.enable = value
+				MER:GetModule("MER_ItemLevel"):UpdateHooks()
 			end,
 		}),
 		preview = module.PreviewOption(2, "MERItemLevelPreview", "itemLevel"),

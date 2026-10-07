@@ -294,6 +294,7 @@ function module:RefreshDeck(key)
 
 	if InCombatLockdown() then
 		self.pendingRefresh = true
+		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
 	end
 
@@ -475,6 +476,7 @@ end
 function module:UpdateLayout()
 	if InCombatLockdown() then
 		self.pendingLayout = true
+		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
 	end
 
@@ -736,7 +738,10 @@ function module:UPDATE_BINDINGS()
 	self:ApplyBindings()
 end
 
+-- Only registered while something waits for the end of combat
 function module:PLAYER_REGEN_ENABLED()
+	self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+
 	if self.pendingEnable then
 		self.pendingEnable = nil
 		self:SettingsUpdate()
@@ -810,6 +815,7 @@ function module:SettingsUpdate()
 	-- Secure frames, attributes and bindings can only change out of combat
 	if InCombatLockdown() then
 		self.pendingEnable = true
+		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
 	end
 
@@ -825,8 +831,7 @@ function module:Initialize()
 	self.buttons = {}
 	self.cells = {}
 
-	-- Also catches a /reload in combat before the module could set itself up
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	-- A /reload in combat defers the setup to PLAYER_REGEN_ENABLED
 	self:SettingsUpdate()
 end
 

@@ -176,6 +176,8 @@ local function OnTooltipSetUnit(tt)
 end
 
 function module:UpdateBuffs()
+	self:InitializeBuffs()
+
 	local container = self.buffContainer
 	if not container then
 		return
@@ -201,11 +203,17 @@ function module:UpdateBuffs()
 	end
 end
 
+-- Registered on first enable only, the post call checks the setting from then on
 function module:InitializeBuffs()
+	if self.buffsHooked or not GetDB().enable then
+		return
+	end
+
 	-- AuraContainers are a 12.1 widget, ElvUI's helpers for them only exist where it does
 	if not (E.Auras_Create and TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall) then
 		return
 	end
 
+	self.buffsHooked = true
 	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetUnit)
 end

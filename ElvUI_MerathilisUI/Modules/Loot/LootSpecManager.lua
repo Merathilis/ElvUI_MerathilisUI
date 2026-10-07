@@ -355,7 +355,8 @@ end
 
 function module:UpdateData()
 	if module.Data.Raid[1] and next(module.Data.Raid[1].encounters) and next(module.Data.MythicPlus) then
-		module:UnregisterEvent("UPDATE_INSTANCE_INFO", module.UpdateData)
+		module.dataReady = true
+		module:UnregisterEvent("UPDATE_INSTANCE_INFO")
 
 		if module.CurrentTier then
 			E:Delay(1, EJ_SelectTier, module.CurrentTier)
@@ -407,25 +408,45 @@ function module:CreateEJButton()
 	end)
 end
 
+-- Events, the raid info request and the journal button only exist while enabled
+function module:UpdateEnabled()
+	if module.db.enable then
+		if module.active then
+			return
+		end
+		module.active = true
+
+		if not module.dataReady then
+			RequestRaidInfo()
+			module:RegisterEvent("UPDATE_INSTANCE_INFO", module.UpdateData)
+		end
+		module:RegisterEvent("ENCOUNTER_START", module.EncounterStart)
+		module:RegisterEvent("CHALLENGE_MODE_START", module.MythicPlusStart)
+
+		if not module.ejButtonQueued then
+			module.ejButtonQueued = true
+			F.Event.ContinueOnAddOnLoaded("Blizzard_EncounterJournal", module.CreateEJButton)
+		end
+	elseif module.active then
+		module.active = nil
+		module:UnregisterAllEvents()
+	end
+end
+
 function module:Initialize()
 	if type(E.db.mui.lootSpecManager) ~= "table" then
 		E.db.mui.lootSpecManager = CopyTable(P.lootSpecManager)
 	end
 
 	module.db = E.db.mui.lootSpecManager
-
-	RequestRaidInfo()
-	module:RegisterEvent("UPDATE_INSTANCE_INFO", module.UpdateData)
-	module:RegisterEvent("ENCOUNTER_START", module.EncounterStart)
-	module:RegisterEvent("CHALLENGE_MODE_START", module.MythicPlusStart)
-	local misc = MER:GetModule("MER_Misc")
-	misc:AddCallbackForAddon("Blizzard_EncounterJournal", module.CreateEJButton)
+	module:UpdateEnabled()
 end
 
--- The enable toggle and profile switches apply right away: the event handlers,
--- the journal button and /lsm check db.enable themselves
+-- The enable toggle and profile switches apply right away; the journal button
+-- and /lsm check db.enable themselves
 function module:ProfileUpdate()
 	module.db = E.db.mui.lootSpecManager
+	module:UpdateEnabled()
 
 	if module.GUI then
 		if module.db.enable then

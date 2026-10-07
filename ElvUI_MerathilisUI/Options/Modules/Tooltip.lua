@@ -32,6 +32,7 @@ options.tooltip = {
 			end,
 			set = function(_, value)
 				E.db.mui.tooltip.achievement = value
+				MER:GetModule("MER_Tooltip"):InitializeAchievement()
 			end,
 		}),
 		buffs = {
