@@ -31,12 +31,14 @@ options.theme = {
 }
 
 function module:MerathilisUI_Themes_GradientMode()
+	local gradientTitle = "|cffff97f6G|r|cfff8b0f2ra|r|cfff5c6f1di|r|cfff3d9f1en|r|cffffeafdt"
+
 	-- Create Tab
 	options.theme.args.gradientMode = {
 		order = self:GetOrder(),
 		type = "group",
 		childGroups = "tab",
-		name = L["Gradient Mode"],
+		name = gradientTitle .. " Mode|r",
 		get = function(info)
 			return E.db.mui.themes.gradientMode[info[#info]]
 		end,
