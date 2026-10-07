@@ -24,6 +24,9 @@ local TOOLBAR_SLIDE = 40
 
 local OPEN_DURATION = 1.4
 local CLOSE_DURATION = 0.8
+-- Longest step of a single frame. Closing or opening the options window right
+-- next to the animation stalls a frame for longer than the whole animation.
+local MAX_STEP = 0.05
 
 -------------------------------------------------------------------------------
 --  Easing
@@ -194,7 +197,7 @@ end
 
 function module:StepAnimation(elapsed)
 	local frame = self.animation
-	frame.time = frame.time + elapsed
+	frame.time = frame.time + min(elapsed, MAX_STEP)
 
 	local opening = frame.kind == "open"
 	local duration = opening and OPEN_DURATION or CLOSE_DURATION
@@ -233,6 +236,22 @@ function module:FinishAnimation()
 	wipe(frame.fades)
 	frame.kind = nil
 	frame:Hide()
+
+	local onFinish = frame.onFinish
+	if onFinish then
+		frame.onFinish = nil
+		onFinish()
+	end
+end
+
+-- Runs func once the running animation is done, or right away without one
+function module:AfterAnimation(func)
+	local frame = self.animation
+	if frame and frame.kind then
+		frame.onFinish = func
+	else
+		func()
+	end
 end
 
 function module:PlayAnimation(kind)

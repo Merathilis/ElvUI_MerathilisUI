@@ -411,9 +411,12 @@ function module:CloseMoveMode()
 
 	if E.ConfigurationToggled then
 		E.ConfigurationToggled = nil
-		if _G.C_AddOns.IsAddOnLoaded("ElvUI_Options") then
-			E:Config_OpenWindow()
-		end
+		-- Building the options window stalls the game, the close animation would be skipped
+		self:AfterAnimation(function()
+			if not E.ConfigurationMode and not InCombatLockdown() and _G.C_AddOns.IsAddOnLoaded("ElvUI_Options") then
+				E:Config_OpenWindow()
+			end
+		end)
 	end
 end
 
