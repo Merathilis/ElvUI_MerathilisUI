@@ -16,6 +16,7 @@ local InCombatLockdown = InCombatLockdown
 local PlaySoundFile = PlaySoundFile
 local UnitAffectingCombat = UnitAffectingCombat
 
+local C_DurationUtil = C_DurationUtil
 local C_Item_GetItemCount = C_Item.GetItemCount
 local C_Item_IsUsableItem = C_Item.IsUsableItem
 local C_Spell = C_Spell
@@ -417,6 +418,16 @@ countdownFont:SetFont(E.media.normFont, 20, "OUTLINE")
 
 local slots = {}
 
+-- The engine fills the bar from the duration, no per-frame updates needed.
+-- Set with the first slot, checking the widget method needs a status bar.
+local BAR_TIMER_SUPPORTED
+
+local function Countdown_OnDone(countdown)
+	if countdown.slot.entry then
+		module:RequestUpdate()
+	end
+end
+
 local function CreateSlot(parent)
 	local slot = CreateFrame("Frame", nil, parent)
 
@@ -439,6 +450,12 @@ local function CreateSlot(parent)
 	slot.bar:CreateBackdrop("Transparent")
 	WS:CreateShadow(slot.bar.backdrop)
 	slot.bar:SetMinMaxValues(0, 1)
+	if BAR_TIMER_SUPPORTED == nil then
+		BAR_TIMER_SUPPORTED = (slot.bar.SetTimerDuration and C_DurationUtil and C_DurationUtil.CreateDuration)
+				and Enum.StatusBarTimerDirection
+				and true
+			or false
+	end
 	slot.barIconFrame = CreateFrame("Frame", nil, slot.bar)
 	slot.barIconFrame:SetTemplate()
 	WS:CreateShadow(slot.barIconFrame)
@@ -465,6 +482,10 @@ local function CreateSlot(parent)
 	end
 	slot.countdownText = slot.countdown.GetCountdownFontString and slot.countdown:GetCountdownFontString()
 
+	-- The end of a cooldown has no reliable event, the widget reports it instead
+	slot.countdown.slot = slot
+	slot.countdown:SetScript("OnCooldownDone", Countdown_OnDone)
+
 	slot:Hide()
 	return slot
 end
@@ -490,6 +511,26 @@ end
 local function UpdateBarValue(slot)
 	local timer = slot.timer
 	if not timer or not slot.bar:IsShown() then
+		return
+	end
+
+	if BAR_TIMER_SUPPORTED then
+		local duration = timer.duration
+		if not duration and timer.start then
+			slot.barDuration = slot.barDuration or C_DurationUtil.CreateDuration()
+			slot.barDuration:SetTimeFromStart(timer.start, timer.length)
+			duration = slot.barDuration
+		end
+		if duration then
+			-- A secret duration is refused from addon code, the bar stays empty then
+			pcall(
+				slot.bar.SetTimerDuration,
+				slot.bar,
+				duration,
+				Enum.StatusBarInterpolation.Immediate,
+				Enum.StatusBarTimerDirection.RemainingTime
+			)
+		end
 		return
 	end
 
@@ -634,7 +675,8 @@ local function RenderSlot(slot, entry, timer, alpha)
 			slot.countdownText:SetJustifyH("CENTER")
 			slot.countdownText:SetPoint("CENTER", slot.bar, "CENTER")
 		end
-		slot.countdown:SetShown(db.bar.showTime)
+		-- Hidden by alpha only: a hidden cooldown would not report its end
+		slot.countdown:SetAlpha(db.bar.showTime and 1 or 0)
 	else
 		local textFormat = db.textFormat
 		if textFormat ~= "TIME" then
@@ -646,8 +688,9 @@ local function RenderSlot(slot, entry, timer, alpha)
 	end
 
 	if mode ~= "BAR" then
-		slot.countdown:SetShown(hasNumber)
+		slot.countdown:SetAlpha(1)
 	end
+	slot.countdown:SetShown(hasNumber)
 
 	slot:SetAlpha(alpha or 1)
 	slot:Show()
@@ -655,12 +698,17 @@ end
 
 -- Ticker pass for a slot that already shows this spell: the countdown keeps
 -- running on its own, only the bar fill and the visibility need a refresh.
+-- Only used for the bar fill on clients without StatusBar timers.
 local function RefreshSlot(slot, alpha)
 	UpdateBarValue(slot)
 	slot:SetAlpha(alpha or 1)
 end
 
 local function HideSlot(slot)
+	if not slot.entry and not slot:IsShown() then
+		return
+	end
+
 	slot.entry = nil
 	slot.timer = nil
 	slot.countdown:Clear()
@@ -764,10 +812,15 @@ function module:UpdateMovementAlert(fromTicker)
 	self.shownCount = count
 	if count > 0 then
 		self:LayoutSlots(count)
-		self.anchor:SetScript("OnUpdate", OnUpdate)
-	else
-		self.anchor:SetScript("OnUpdate", nil)
 	end
+	self:UpdatePolling(count > 0)
+end
+
+-- Countdown, swipe, bar and the end of a cooldown are all driven by the engine.
+-- Only a bar without StatusBar timer support is filled by hand.
+function module:UpdatePolling(shown)
+	local poll = shown and not BAR_TIMER_SUPPORTED and self.db.displayMode == "BAR"
+	self.anchor:SetScript("OnUpdate", poll and OnUpdate or nil)
 end
 
 function module:RequestUpdate()
@@ -815,7 +868,7 @@ function module:UpdateTestMode(fromTicker)
 		HideSlot(slots[i])
 	end
 	self:LayoutSlots(1)
-	self.anchor:SetScript("OnUpdate", OnUpdate)
+	self:UpdatePolling(true)
 
 	if self.db.timeSpiral.enable then
 		self:ShowTimeSpiral(true)
