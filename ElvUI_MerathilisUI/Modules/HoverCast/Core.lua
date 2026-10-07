@@ -2632,6 +2632,23 @@ end
 -- Toggles click-casting with a full register/restore sweep: enabling installs
 -- the global hook + registers owned/external frames; disabling returns EVERY
 -- touched frame to native click behavior. Defers to PLAYER_REGEN_ENABLED in combat.
+-- Registered only while HoverCast is on, a disabled install reacts to nothing
+local EVENTS =
+	{ "PLAYER_REGEN_ENABLED", "PLAYER_SPECIALIZATION_CHANGED", "GROUP_ROSTER_UPDATE", "PLAYER_ENTERING_WORLD" }
+
+local function SetEventsRegistered(registered)
+	for _, event in ipairs(EVENTS) do
+		if registered then
+			module:RegisterEvent(event, "OnEvent")
+		else
+			module:UnregisterEvent(event)
+		end
+	end
+	if not registered then
+		module:UnregisterEvent("SPELLS_CHANGED")
+	end
+end
+
 function module:SetEnabled(enabled)
 	local cc = GetClickCastDB()
 	if not cc then
@@ -2644,12 +2661,15 @@ function module:SetEnabled(enabled)
 	if InCombatLockdown() then
 		pendingSetEnabled = enabled
 		pendingApply = true
+		-- Carries the deferred sweep, also while disabled
+		self:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
 		return
 	end
 	if enabled then
 		if IsCliqueLoaded() then
 			return
 		end
+		SetEventsRegistered(true)
 		SetupClickCastFramesHook()
 		for frame in pairs(ownedFrames) do
 			if not registeredFrames[frame] then
@@ -2676,6 +2696,7 @@ function module:SetEnabled(enabled)
 		for _, frame in ipairs(list) do
 			DoUnregisterFrame(frame)
 		end
+		SetEventsRegistered(false)
 	end
 end
 
@@ -2843,11 +2864,6 @@ function module:Initialize()
 	header:SetAttribute("mer_hover_set", "")
 	header:SetAttribute("mer_hover_clear", "")
 
-	self:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
-	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED", "OnEvent")
-	self:RegisterEvent("GROUP_ROSTER_UPDATE", "OnEvent")
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
-
 	HookElvUIClickRegistration()
 
 	ccInitialized = true
@@ -2855,6 +2871,7 @@ function module:Initialize()
 	-- Only touches frames when enabled: a disabled install registers nothing,
 	-- so clicks stay as they are. Enabling later runs the same sweep via SetEnabled.
 	if cc.enabled then
+		SetEventsRegistered(true)
 		SetupClickCastFramesHook()
 		for _, frame in ipairs(regQueue) do
 			DoRegisterFrame(frame)
