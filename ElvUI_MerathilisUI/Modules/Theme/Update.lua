@@ -57,11 +57,19 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 			end
 		end
 
+		-- Calculated into the frame's own colors, never into the shared color map entries above
 		if frame.colorMap == nil then
+			local multiplier = self.db.backgroundMultiplier
 			frame.normalColor = frame.currentColor
-			frame.shiftColor = F.Color.CalculateShift(self.db.saturationBoost, frame.normalColor)
-			frame.normalColorBG = F.Color.CalculateMultiplier(self.db.backgroundMultiplier, frame.normalColor)
-			frame.shiftColorBG = F.Color.CalculateMultiplier(self.db.backgroundMultiplier, frame.shiftColor)
+			frame.calcShiftColor =
+				F.Color.CalculateShift(self.db.saturationBoost, frame.normalColor, frame.calcShiftColor)
+			frame.calcNormalColorBG =
+				F.Color.CalculateMultiplier(multiplier, frame.normalColor, frame.calcNormalColorBG)
+			frame.calcShiftColorBG =
+				F.Color.CalculateMultiplier(multiplier, frame.calcShiftColor, frame.calcShiftColorBG)
+			frame.shiftColor = frame.calcShiftColor
+			frame.normalColorBG = frame.calcNormalColorBG
+			frame.shiftColorBG = frame.calcShiftColorBG
 		end
 	end
 

@@ -2,7 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Event = {}
 
 local next, pairs, pcall, select, type, unpack = next, pairs, pcall, select, type, unpack
-local rawset = rawset
+local rawset, wipe = rawset, wipe
 local securecallfunction = securecallfunction
 local secureexecuterange = secureexecuterange
 
@@ -173,13 +173,29 @@ do
 		securecallfunction(func, owner, ...)
 	end
 
-	-- Snapshot so callbacks can (un)register during dispatch; keys are owners and must be kept as-is
-	local function copyCallbacks(callbacks)
-		local copy = {}
+	-- Snapshot so callbacks can (un)register during dispatch; keys are owners and must be kept as-is.
+	-- The snapshot tables are reused per nesting depth (a callback can trigger another event), so
+	-- a dispatch allocates nothing. secureexecuterange reports callback errors without unwinding,
+	-- so the release after it always runs, like Blizzard's CallbackRegistry relies on too.
+	local snapshots, snapshotDepth = {}, 0
+
+	local function SnapshotCallbacks(callbacks)
+		snapshotDepth = snapshotDepth + 1
+		local copy = snapshots[snapshotDepth]
+		if not copy then
+			copy = {}
+			snapshots[snapshotDepth] = copy
+		end
+
 		for owner, callback in pairs(callbacks) do
 			copy[owner] = callback
 		end
 		return copy
+	end
+
+	local function ReleaseSnapshot(copy)
+		wipe(copy)
+		snapshotDepth = snapshotDepth - 1
 	end
 
 	function F.Event.TriggerEvent(event, ...)
@@ -189,12 +205,16 @@ do
 
 		local closures = GetCallbacksByEvent(callbackType.CLOSURE, event)
 		if closures and next(closures) then
-			secureexecuterange(copyCallbacks(closures), CallbackRegistryExecuteClosurePair, ...)
+			local copy = SnapshotCallbacks(closures)
+			secureexecuterange(copy, CallbackRegistryExecuteClosurePair, ...)
+			ReleaseSnapshot(copy)
 		end
 
 		local funcs = GetCallbacksByEvent(callbackType.FUNCTION, event)
 		if funcs and next(funcs) then
-			secureexecuterange(copyCallbacks(funcs), CallbackRegistryExecuteOwnerPair, ...)
+			local copy = SnapshotCallbacks(funcs)
+			secureexecuterange(copy, CallbackRegistryExecuteOwnerPair, ...)
+			ReleaseSnapshot(copy)
 		end
 	end
 
