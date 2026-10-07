@@ -17,7 +17,6 @@ local C_SpellBook_IsSpellKnownOrInSpellBook = C_SpellBook and C_SpellBook.IsSpel
 
 local MAX_ARENA_FRAMES = 5
 local MAX_BOSS_FRAMES = 8
-local ALPHA_THROTTLE = 0.1
 
 --[[
 	Interrupt Ready
@@ -216,18 +215,6 @@ local function UpdateLayout(ir)
 	end
 end
 
-local function Clip_OnUpdate(clip, elapsed)
-	clip.elapsed = (clip.elapsed or 0) + elapsed
-	if clip.elapsed < ALPHA_THROTTLE then
-		return
-	end
-	clip.elapsed = 0
-
-	if kickSpell then
-		UpdateAlpha(clip.ir)
-	end
-end
-
 -- Colors and toggles, also reapplied to running casts when the settings change
 local function ApplyStyle(ir)
 	local castbar = ir.castbar
@@ -245,11 +232,100 @@ local function ApplyStyle(ir)
 	ir.tick:SetShown(db.tick)
 end
 
-local function Hide(ir)
+-------------------------------------------------------------------------------
+-- Events: created with the first indicator; the cooldown events are only
+-- registered while a cast is tracked
+-------------------------------------------------------------------------------
+local eventFrame, kickWatch
+local Hide
+
+-- The interrupt coming back has no reliable event, a hidden cooldown widget
+-- bound to the kick cooldown reports it instead
+local function WatchKick()
+	local cooldown = kickSpell and C_Spell_GetSpellCooldownDuration(kickSpell, true)
+	if cooldown and kickWatch.SetCooldownFromDurationObject then
+		kickWatch:SetCooldownFromDurationObject(cooldown)
+	else
+		kickWatch:Clear()
+	end
+end
+
+local function OnKickReady()
+	for ir in pairs(active) do
+		UpdateAlpha(ir)
+	end
+end
+
+local function SetCooldownEvents(enabled)
+	if enabled then
+		eventFrame:RegisterEvent("SPELL_UPDATE_COOLDOWN")
+		WatchKick()
+	else
+		eventFrame:UnregisterEvent("SPELL_UPDATE_COOLDOWN")
+		kickWatch:Clear()
+	end
+end
+
+local function EnsureEvents()
+	if eventFrame then
+		return
+	end
+
+	eventFrame = CreateFrame("Frame")
+	eventFrame:RegisterEvent("PLAYER_LOGIN")
+	eventFrame:RegisterEvent("SPELLS_CHANGED")
+	eventFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+	eventFrame:RegisterUnitEvent("UNIT_PET", "player")
+	eventFrame:SetScript("OnEvent", function(_, event)
+		if event == "SPELL_UPDATE_COOLDOWN" then
+			if kickSpell then
+				for ir in pairs(active) do
+					UpdateGeometry(ir)
+					UpdateAlpha(ir)
+				end
+				WatchKick()
+			end
+			return
+		end
+
+		RefreshKickSpell()
+		if not kickSpell then
+			for ir in pairs(active) do
+				Hide(ir)
+			end
+		end
+	end)
+
+	-- Shown at zero alpha: a hidden cooldown would not report its end
+	kickWatch = CreateFrame("Cooldown", nil, E.UIParent)
+	kickWatch:SetSize(1, 1)
+	kickWatch:SetPoint("CENTER")
+	kickWatch:SetAlpha(0)
+	kickWatch:SetDrawSwipe(false)
+	kickWatch:SetDrawEdge(false)
+	kickWatch:SetDrawBling(false)
+	kickWatch:SetHideCountdownNumbers(true)
+	kickWatch.noCooldownCount = true -- OmniCC
+	kickWatch.noOCC = true
+	kickWatch:SetScript("OnCooldownDone", OnKickReady)
+
+	-- Indicators can be created after login
+	RefreshKickSpell()
+end
+
+function Hide(ir)
+	if not active[ir] and not ir.clip:IsShown() then
+		return
+	end
+
 	active[ir] = nil
 	ir.tint:Hide()
 	ir.window:Hide()
 	ir.clip:Hide()
+
+	if not next(active) then
+		SetCooldownEvents(false)
+	end
 end
 
 local function Start(ir, unit)
@@ -275,14 +351,18 @@ local function Start(ir, unit)
 	UpdateGeometry(ir)
 	ApplyStyle(ir)
 
-	ir.clip.elapsed = 0
 	ir.clip:Show()
 	UpdateAlpha(ir)
 
+	if not next(active) then
+		SetCooldownEvents(true)
+	end
 	active[ir] = true
 end
 
 local function Create(castbar)
+	EnsureEvents()
+
 	local ir = { castbar = castbar }
 
 	-- On the castbar itself so the cast text stays on top
@@ -299,9 +379,7 @@ local function Create(castbar)
 	ir.clip:SetAllPoints(castbar)
 	ir.clip:SetClipsChildren(true)
 	ir.clip:SetFrameLevel(castbar:GetFrameLevel() + 1)
-	ir.clip:SetScript("OnUpdate", Clip_OnUpdate)
 	ir.clip:Hide()
-	ir.clip.ir = ir
 
 	ir.positioner = CreateFrame("StatusBar", nil, ir.clip)
 	ir.positioner:SetAllPoints(castbar)
@@ -386,33 +464,6 @@ F.Event.RegisterCallback("MER_Theme.SettingsUpdate", function()
 		ApplyStyle(ir)
 	end
 end, "MER_InterruptReady")
-
-do
-	local frame = CreateFrame("Frame")
-	frame:RegisterEvent("PLAYER_LOGIN")
-	frame:RegisterEvent("SPELLS_CHANGED")
-	frame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
-	frame:RegisterUnitEvent("UNIT_PET", "player")
-	frame:RegisterEvent("SPELL_UPDATE_COOLDOWN")
-	frame:SetScript("OnEvent", function(_, event)
-		if event == "SPELL_UPDATE_COOLDOWN" then
-			if kickSpell then
-				for ir in pairs(active) do
-					UpdateGeometry(ir)
-					UpdateAlpha(ir)
-				end
-			end
-			return
-		end
-
-		RefreshKickSpell()
-		if not kickSpell then
-			for ir in pairs(active) do
-				Hide(ir)
-			end
-		end
-	end)
-end
 
 -- Unitframe integration
 local UNITS = {
