@@ -1978,12 +1978,7 @@ function module:Disable()
 	self:DisableSocketPanel()
 	self:DisableEquipmentManagerSkin()
 
-	F.Event.UnregisterFrameEventAndCallback("UNIT_NAME_UPDATE", self)
-	F.Event.UnregisterFrameEventAndCallback("UNIT_LEVEL", self)
-	F.Event.UnregisterFrameEventAndCallback("PLAYER_PVP_RANK_CHANGED", self)
-	F.Event.UnregisterFrameEventAndCallback("PLAYER_AVG_ITEM_LEVEL_UPDATE", self)
-	F.Event.UnregisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self)
-	F.Event.UnregisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self)
+	self:SetShownEventsRegistered(false)
 end
 
 function module:Enable()
@@ -2009,31 +2004,49 @@ function module:Enable()
 	self:SecureHook(M, "ToggleItemLevelInfo", F.Event.GenerateClosure(self.ElvOptionsCheck, self))
 	self:SecureHook(_G, "PaperDollFrame_UpdateStats", "OnPaperDollUpdateStats")
 
-	-- Register Events
-	F.Event.RegisterFrameEventAndCallback("UNIT_NAME_UPDATE", self.HandleEvent, self, "UNIT_NAME_UPDATE")
-	F.Event.RegisterFrameEventAndCallback("UNIT_LEVEL", self.HandleEvent, self, "UNIT_LEVEL")
-	F.Event.RegisterFrameEventAndCallback("PLAYER_PVP_RANK_CHANGED", self.HandleEvent, self, "PLAYER_PVP_RANK_CHANGED")
-	F.Event.RegisterFrameEventAndCallback(
-		"PLAYER_AVG_ITEM_LEVEL_UPDATE",
-		self.HandleEvent,
-		self,
-		"PLAYER_AVG_ITEM_LEVEL_UPDATE"
-	)
-	F.Event.RegisterFrameEventAndCallback("PLAYER_TALENT_UPDATE", self.HandleEvent, self, "PLAYER_TALENT_UPDATE")
-	F.Event.RegisterFrameEventAndCallback("PLAYER_REGEN_ENABLED", self.HandleEvent, self, "PLAYER_REGEN_ENABLED")
-
-	-- Hook Blizzard OnShow
-	self:SecureHookScript(self.frame, "OnShow", "OpenCharacterArmory")
-	-- Closes the gem flyout and drops the socket panel's bag/equipment events while closed
-	self:SecureHookScript(self.frame, "OnHide", "SocketPanelOnHide")
+	-- Hook Blizzard OnShow, the events are registered while the frame is open
+	self:SecureHookScript(self.frame, "OnShow", "OnArmoryShow")
+	-- Closes the gem flyout and drops the socket panel's and our own events while closed
+	self:SecureHookScript(self.frame, "OnHide", "OnArmoryHide")
 
 	-- Check ElvUI Options
 	self:ElvOptionsCheck()
 
 	-- Update instantly if frame is currently open
 	if self.frame:IsShown() then
+		self:SetShownEventsRegistered(true)
 		self:UpdateCharacterArmory()
 	end
+end
+
+-- Only needed while the character frame is open: UNIT_NAME_UPDATE alone fires for every nameplate
+local SHOWN_EVENTS = {
+	"UNIT_NAME_UPDATE",
+	"UNIT_LEVEL",
+	"PLAYER_PVP_RANK_CHANGED",
+	"PLAYER_AVG_ITEM_LEVEL_UPDATE",
+	"PLAYER_TALENT_UPDATE",
+	"PLAYER_REGEN_ENABLED",
+}
+
+function module:SetShownEventsRegistered(registered)
+	for _, event in ipairs(SHOWN_EVENTS) do
+		if registered then
+			F.Event.RegisterFrameEventAndCallback(event, self.HandleEvent, self, event)
+		else
+			F.Event.UnregisterFrameEventAndCallback(event, self)
+		end
+	end
+end
+
+function module:OnArmoryShow()
+	self:SetShownEventsRegistered(true)
+	self:OpenCharacterArmory()
+end
+
+function module:OnArmoryHide()
+	self:SetShownEventsRegistered(false)
+	self:SocketPanelOnHide()
 end
 
 function module:DatabaseUpdate()
