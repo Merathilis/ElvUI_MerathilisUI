@@ -38,7 +38,7 @@ function module:MerathilisUI_Themes_GradientMode()
 		order = self:GetOrder(),
 		type = "group",
 		childGroups = "tab",
-		name = gradientTitle .. " Mode|r",
+		name = L["Gradient Mode"],
 		get = function(info)
 			return E.db.mui.themes.gradientMode[info[#info]]
 		end,
