@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_BuffReminder")
 local S = MER:GetModule("MER_Skins")
 
 local pairs, ipairs = pairs, ipairs
-local wipe = wipe
+local strfind, wipe = strfind, wipe
 local floor, max = math.floor, math.max
 
 local CreateFrame = CreateFrame
@@ -1238,10 +1238,12 @@ function module:Refresh()
 
 	-- Turned off in the options or by a profile switch: clear what is shown
 	if not db.enable then
+		self:SetEventsRegistered(false)
 		HideAllIcons()
 		iconAnchor:Hide()
 		return
 	end
+	self:SetEventsRegistered(true)
 
 	if self.testMode then
 		entriesInUse = 0
@@ -1348,9 +1350,12 @@ local EVENTS = {
 	"SPELLS_CHANGED",
 }
 
+-- Only the player and the group matter, nameplates, target and focus fire this constantly
 function module:UNIT_AURA(_, unit)
 	if unit == "player" then
 		InvalidateBagCounts()
+	elseif not (strfind(unit, "^party") or strfind(unit, "^raid")) then
+		return
 	end
 	self:RequestRefresh()
 end
@@ -1409,9 +1414,21 @@ function module:SetupAnchor()
 		nil,
 		"mui,modules,buffReminder"
 	)
+end
+
+-- Registered only while the module is on
+function module:SetEventsRegistered(registered)
+	if (self.eventsRegistered or false) == registered then
+		return
+	end
+	self.eventsRegistered = registered
 
 	for _, event in ipairs(EVENTS) do
-		self:RegisterEvent(event)
+		if registered then
+			self:RegisterEvent(event)
+		else
+			self:UnregisterEvent(event)
+		end
 	end
 end
 
@@ -1422,6 +1439,7 @@ function module:Initialize()
 	-- (RequestRefresh does nothing in combat)
 	if module.db.enable then
 		self:SetupAnchor()
+		self:SetEventsRegistered(true)
 	end
 
 	self:RequestRefresh()
