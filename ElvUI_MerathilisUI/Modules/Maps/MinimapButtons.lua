@@ -1485,15 +1485,12 @@ function module:CreateButtons()
 		entry.btn.bar = entry.bar
 	end
 
+	-- Events are registered by StartIndicatorWatch while the module is enabled
 	local watcher = CreateFrame("Frame")
-	watcher:RegisterEvent("UPDATE_PENDING_MAIL")
-	watcher:RegisterEvent("MAIL_INBOX_UPDATE")
-	watcher:RegisterEvent("MAIL_CLOSED")
-	watcher:RegisterEvent("CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS")
-	watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
 	watcher:SetScript("OnEvent", function()
 		module:RefreshIndicators()
 	end)
+	self.indicatorWatcher = watcher
 
 	-- The compartment collects its addons on PLAYER_ENTERING_WORLD, possibly after our watcher ran.
 	local compartment = _G.AddonCompartmentFrame
@@ -1502,12 +1499,52 @@ function module:CreateButtons()
 			module:RefreshIndicators()
 		end)
 	end
+end
 
-	-- Nothing fires when the date rolls over, so the calendar icon is checked on
-	-- a slow ticker instead.
-	self.calendarTicker = C_Timer.NewTicker(60, function()
-		module:RefreshIndicators()
+local INDICATOR_EVENTS = {
+	"UPDATE_PENDING_MAIL",
+	"MAIL_INBOX_UPDATE",
+	"MAIL_CLOSED",
+	"CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS",
+	"PLAYER_ENTERING_WORLD",
+}
+
+-- Nothing fires when the date rolls over, so one timer is set to just past the
+-- next (realm time) midnight for the calendar icon.
+function module:ScheduleDayRollover()
+	if self.dayRolloverTimer then
+		self.dayRolloverTimer:Cancel()
+	end
+
+	local now = C_DateAndTime.GetCurrentCalendarTime()
+	local seconds = now and ((23 - now.hour) * 3600 + (60 - now.minute) * 60) or 3600
+	self.dayRolloverTimer = C_Timer.NewTimer(seconds + 5, function()
+		self.dayRolloverTimer = nil
+		self:RefreshIndicators()
+		self:ScheduleDayRollover()
 	end)
+end
+
+function module:StartIndicatorWatch()
+	local watcher = self.indicatorWatcher
+	if not watcher then
+		return
+	end
+
+	for _, event in ipairs(INDICATOR_EVENTS) do
+		watcher:RegisterEvent(event)
+	end
+	self:ScheduleDayRollover()
+end
+
+function module:StopIndicatorWatch()
+	if self.indicatorWatcher then
+		self.indicatorWatcher:UnregisterAllEvents()
+	end
+	if self.dayRolloverTimer then
+		self.dayRolloverTimer:Cancel()
+		self.dayRolloverTimer = nil
+	end
 end
 
 function module:Disable()
@@ -1516,6 +1553,7 @@ function module:Disable()
 	end
 
 	self:UpdateBlizzardIndicators(true)
+	self:StopIndicatorWatch()
 	self.holder:Hide()
 	self.elementHolder:Hide()
 
@@ -1534,6 +1572,7 @@ function module:Enable()
 	if self.holder then
 		self.holder:Show()
 		self.elementHolder:Show()
+		self:StartIndicatorWatch()
 	end
 end
 
