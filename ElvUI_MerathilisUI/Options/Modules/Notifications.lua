@@ -25,6 +25,7 @@ options.Notification = {
 		if info[#info] == "enable" and value then
 			E:StaticPopup_Show("CONFIG_RL")
 		end
+		MER:GetModule("MER_Notification"):UpdateEvents()
 	end,
 	args = {
 		header = {
@@ -132,6 +133,7 @@ options.Notification = {
 			end,
 			set = function(info, value)
 				E.db.mui.notification.currencyWarning[info[#info]] = value
+				MER:GetModule("MER_Notification"):UpdateEvents()
 			end,
 			disabled = Disabled,
 			args = {
@@ -161,6 +163,7 @@ options.Notification = {
 			end,
 			set = function(info, value)
 				E.db.mui.notification.vignette[info[#info]] = value
+				MER:GetModule("MER_Notification"):UpdateEvents()
 			end,
 			disabled = Disabled,
 			args = {
@@ -367,6 +370,7 @@ do
 					local currencyInfo = id and C_CurrencyInfo.GetCurrencyInfo(id)
 					if currencyInfo and currencyInfo.name and currencyInfo.name ~= "" then
 						E.db.mui.notification.currencyWarning.list[id] = true
+						MER:GetModule("MER_Notification"):UpdateEvents()
 					else
 						F.Print(L["Unknown or undiscovered currency ID."])
 					end
@@ -410,6 +414,7 @@ do
 					if selectedKey then
 						E.db.mui.notification.currencyWarning.list[selectedKey] = nil
 						selectedKey = nil
+						MER:GetModule("MER_Notification"):UpdateEvents()
 					end
 				end,
 			},

@@ -334,21 +334,81 @@ function module:Initialize()
 		"mui,modules,Notification"
 	)
 
-	self:RegisterEvent("UPDATE_PENDING_MAIL")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
-	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
-	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
-	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
-	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
-	self:RegisterEvent("LFG_UPDATE_RANDOM_INFO")
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
-	self:RegisterEvent("QUEST_ACCEPTED")
-	self:RegisterEvent("WEEKLY_REWARDS_UPDATE")
-	self:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
-	self:RegisterEvent("BAG_UPDATE_DELAYED")
-
 	self.lastMinimapRare = { time = 0, id = nil }
+
+	-- One-time calendar check after login, the handler unregisters itself
+	local db = E.db.mui.notification
+	if db.invites or db.guildEvents then
+		self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	end
+
+	self.initialized = true
+	self:UpdateEvents()
+end
+
+-- Each event only while the notification that needs it is turned on
+local EVENT_TOGGLES = {
+	PLAYER_REGEN_ENABLED = function()
+		return true
+	end,
+	UPDATE_INVENTORY_DURABILITY = function()
+		return true
+	end,
+	UPDATE_PENDING_MAIL = function(db)
+		return db.mail
+	end,
+	CALENDAR_UPDATE_PENDING_INVITES = function(db)
+		return db.invites or db.guildEvents
+	end,
+	CALENDAR_UPDATE_GUILD_EVENTS = function(db)
+		return db.guildEvents
+	end,
+	VIGNETTE_MINIMAP_UPDATED = function(db)
+		return db.vignette and db.vignette.enable
+	end,
+	SOCIAL_QUEUE_UPDATE = function(db)
+		return db.quickJoin
+	end,
+	LFG_UPDATE_RANDOM_INFO = function(db)
+		return db.callToArms
+	end,
+	QUEST_ACCEPTED = function(db)
+		return db.paragon
+	end,
+	WEEKLY_REWARDS_UPDATE = function(db)
+		return db.greatVault
+	end,
+	CURRENCY_DISPLAY_UPDATE = function(db)
+		local warning = db.currencyWarning
+		return warning and warning.enable and next(warning.list)
+	end,
+	BAG_UPDATE_DELAYED = function(db)
+		return db.bags
+	end,
+}
+
+local EVENT_HANDLERS = {
+	SOCIAL_QUEUE_UPDATE = "SocialQueueEvent",
+}
+
+-- Called after Initialize and whenever a notification setting changed
+function module:UpdateEvents()
+	if not self.initialized then
+		return
+	end
+
+	local db = E.db.mui.notification
+	for event, isNeeded in pairs(EVENT_TOGGLES) do
+		if db.enable and isNeeded(db) then
+			self:RegisterEvent(event, EVENT_HANDLERS[event])
+		else
+			self:UnregisterEvent(event)
+		end
+	end
+end
+
+function module:ProfileUpdate()
+	self:UpdateEvents()
 end
 
 MER:RegisterModule(module:GetName())
