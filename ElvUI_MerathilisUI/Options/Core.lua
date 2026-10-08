@@ -15,6 +15,20 @@ module.enabledState = F.Enum({ "YES", "NO", "FORCE_DISABLED" })
 module.orderIndex = 1
 module.callOnInit = {}
 
+-- The option tables are built when ElvUI's options load for the first time, not at login:
+-- every options file hands its body over as a builder. Post builders run after the tree
+-- is assembled, on every OptionsCallback.
+module.builders = {}
+module.postBuilders = {}
+
+function module:AddOptions(builder)
+	tinsert(self.builders, builder)
+end
+
+function module:AddOptionsPostBuild(func)
+	tinsert(self.postBuilders, func)
+end
+
 module.options = {
 	general = {
 		order = 101,
@@ -77,6 +91,19 @@ module.options = {
 -- Error handler
 local function errorhandler(err)
 	return _G.geterrorhandler()(err)
+end
+
+function module:BuildOptions()
+	for index, builder in ipairs(self.builders) do
+		xpcall(builder, errorhandler)
+		self.builders[index] = nil
+	end
+
+	-- Registered by the builders through AddCallback
+	for index, func in next, self.callOnInit do
+		xpcall(func, errorhandler, self)
+		self.callOnInit[index] = nil
+	end
 end
 
 function module:GetFontColorGetter(profileDB, defaultDB, customKey)
@@ -734,6 +761,8 @@ function module:AddCallback(name, func)
 end
 
 function module:OptionsCallback()
+	self:BuildOptions()
+
 	local icon = F.GetIconString(I.Media.Textures.pepeSmall, 14)
 	E.Options.name = format("%s + %s %s |cFF00c0fa%s|r", E.Options.name, icon, MER.Title, MER.DisplayVersion)
 
@@ -840,6 +869,10 @@ function module:OptionsCallback()
 	end
 
 	self:ApplyCustomWidgets(E.Options.args.mui.args)
+
+	for _, func in ipairs(self.postBuilders) do
+		xpcall(func, errorhandler, self)
+	end
 end
 
 -- Redirects MER's own toggle/range/select/input/color/execute/header args to custom
@@ -901,11 +934,7 @@ function module:Initialize()
 		return
 	end
 
-	for index, func in next, self.callOnInit do
-		xpcall(func, errorhandler, self)
-		self.callOnInit[index] = nil
-	end
-
+	-- The options themselves are built by OptionsCallback, see BuildOptions
 	self.Initialized = true
 end
 

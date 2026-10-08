@@ -1,408 +1,412 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
-local Skins = MER:GetModule("MER_Skins") ---@type Skins
-local C = W.Utilities.Color
 
-local options = module.options.skins.args
+-- Built on the first open of the options, see module:AddOptions in Options/Core.lua
+module:AddOptions(function()
+	local Skins = MER:GetModule("MER_Skins") ---@type Skins
+	local C = W.Utilities.Color
 
-local _G = _G
-local ipairs, unpack = ipairs, unpack
-local format = string.format
+	local options = module.options.skins.args
 
-local DoesAddOnExist = C_AddOns.DoesAddOnExist
-local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+	local _G = _G
+	local ipairs, unpack = ipairs, unpack
+	local format = string.format
 
-local DecorAddons = {
-	{ "BagSync", L["BagSync"], "bSync" },
-	{ "BugSack", L["BugSack"], "bugSack" },
-	{ "Capping", L["Capping"], "cap" },
-	{ "ClassCodex", L["Class Codex"], "classCodex" },
-	{ "Clique", L["Clique"], "cl" },
-	{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
-	{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
-	{ "Pawn", L["Pawn"], "pawn" },
-	{ "PermoksAccountManager", L["Permoks Account Manager"], "pam" },
-	{ "ls_Toasts", L["ls_Toasts"], "ls" },
-	{ "WIM", L["WIM"], "wim" },
-	{ "WowLua", L["WowLua"], "wowLua" },
-}
+	local DoesAddOnExist = C_AddOns.DoesAddOnExist
+	local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
-local function UpdateToggleDirection()
-	Skins:RefreshToggleDirection()
-end
+	local DecorAddons = {
+		{ "BagSync", L["BagSync"], "bSync" },
+		{ "BugSack", L["BugSack"], "bugSack" },
+		{ "Capping", L["Capping"], "cap" },
+		{ "ClassCodex", L["Class Codex"], "classCodex" },
+		{ "Clique", L["Clique"], "cl" },
+		{ "GlobalIgnoreList", L["GlobalIgnoreList"], "gil" },
+		{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
+		{ "Pawn", L["Pawn"], "pawn" },
+		{ "PermoksAccountManager", L["Permoks Account Manager"], "pam" },
+		{ "ls_Toasts", L["ls_Toasts"], "ls" },
+		{ "WIM", L["WIM"], "wim" },
+		{ "WowLua", L["WowLua"], "wowLua" },
+	}
 
-local function ApplyEmbedLayout()
-	Skins:ResetDetailsAnchor(true)
-end
-
-local function ResetEmbedDefaults()
-	StaticPopup_Show("RESET_DETAILS")
-end
-
-options.general = {
-	order = 1,
-	type = "group",
-	name = module:AddCategorieIcon(L["General"], "OptionsHome"),
-	get = function(info)
-		return E.private.mui.skins[info[#info]]
-	end,
-	set = function(info, value)
-		E.private.mui.skins[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
-	end,
-	args = {
-		header = {
-			order = 0,
-			type = "header",
-			name = L["General"],
-		},
-		enable = module.ToggleCard({
-			order = 1,
-			name = L["Skins"],
-			desc = L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI look."],
-			image = I.Media.Icons.Categories.Bill,
-		}, 0.5),
-		shadowOverlay = module.ToggleCard({
-			order = 2,
-			name = L["Screen Shadow Overlay"],
-			desc = L["Enables/Disables a shadow overlay to darken the screen."],
-			image = I.Media.Icons.Categories.theme,
-			disabled = function()
-				return not E.private.mui.skins.enable
-			end,
-		}, 0.5),
-	},
-}
-
-options.addonskins = {
-	order = 6,
-	type = "group",
-	name = L["AddOnSkins"],
-	get = function(info)
-		return E.private.mui.skins.addonSkins[info[#info]]
-	end,
-	set = function(info, value)
-		E.private.mui.skins.addonSkins[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
-	end,
-	disabled = function()
-		return not E.private.mui.skins.enable
-	end,
-	args = {
-		enable = module.ToggleCard({
-			order = 1,
-			name = L["AddOnSkins"],
-			desc = F.String.MERATHILISUI(L["MER_ADDONSKINS_DESC"]),
-			image = I.Media.Icons.Categories.Bill,
-		}),
-		header = {
-			order = 2,
-			type = "header",
-			name = L["AddOns"],
-		},
-	},
-}
-
-for index, v in ipairs(DecorAddons) do
-	local addonName, addonString, addonOption = unpack(v)
-	local iconTexture = GetAddOnMetadata(addonName, "IconTexture")
-	local iconAtlas = GetAddOnMetadata(addonName, "IconAtlas")
-
-	if not iconTexture and not iconAtlas then
-		iconTexture = [[Interface\ICONS\INV_Misc_QuestionMark]]
+	local function UpdateToggleDirection()
+		Skins:RefreshToggleDirection()
 	end
 
-	options.addonskins.args[addonOption] = module.ToggleCard({
-		order = 2 + index,
-		name = addonString,
-		desc = function()
-			if not DoesAddOnExist(addonName) then
-				return L["Not Installed"]
-			end
+	local function ApplyEmbedLayout()
+		Skins:ResetDetailsAnchor(true)
+	end
 
-			local version = GetAddOnMetadata(addonName, "Version")
-			return version and format("%s %s", L["Version"], version) or ""
-		end,
-		image = iconTexture,
-		arg = { lines = 1, atlas = not iconTexture and iconAtlas or nil },
-		-- An own `disabled` replaces the group's, so it repeats the group condition
-		disabled = function()
-			return not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.enable)
-				or not DoesAddOnExist(addonName)
-		end,
-	}, 0.5)
-end
+	local function ResetEmbedDefaults()
+		StaticPopup_Show("RESET_DETAILS")
+	end
 
-options.Embed = {
-	order = 9,
-	type = "group",
-	name = L["Embed Settings"],
-	get = function(info)
-		return E.private.mui.skins.embed[info[#info]]
-	end,
-	set = function(info, value)
-		E.private.mui.skins.embed[info[#info]] = value
-		E:StaticPopup_Show("PRIVATE_RL")
-	end,
-	disabled = function()
-		return not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.enable)
-	end,
-	args = {
-		header = {
-			order = 2,
-			type = "header",
-			name = L["Embed Settings"],
-		},
-		enable = module.ToggleCard({
-			order = 4,
-			name = L["Enable"],
-			desc = F.String.MERATHILISUI(L["With this option you can embed your Details into an own Panel."]),
-		}),
-		details = {
-			order = 5,
-			type = "execute",
-			name = L["Reset Settings"],
-			func = function()
-				ResetEmbedDefaults()
-			end,
-			disabled = function()
-				return not E.private.mui.skins.embed.enable
-			end,
-		},
-		toggleDirection = {
-			order = 6,
-			type = "select",
-			name = L["Toggle Direction"],
-			disabled = function()
-				return not E.private.mui.skins.embed.enable
-			end,
-			set = function(_, value)
-				E.private.mui.skins.embed.toggleDirection = value
-				UpdateToggleDirection()
-			end,
-			values = {
-				[1] = L["LEFT"],
-				[2] = L["RIGHT"],
-				[3] = L["TOP"],
-				[4] = L["BOTTOM"],
-				[5] = _G.DISABLE,
-			},
-		},
-		mouseOver = {
-			order = 7,
-			type = "toggle",
-			name = L["Mouse Over"],
-			disabled = function()
-				return not E.private.mui.skins.embed.enable
-			end,
-		},
-		windows = {
-			order = 8,
-			type = "range",
-			name = L["Number of Windows"],
-			min = 1,
-			max = 5,
-			step = 1,
-			disabled = function()
-				return not E.private.mui.skins.embed.enable
-			end,
-			get = function()
-				return E.private.mui.skins.embed.windows
-			end,
-			set = function(_, value)
-				E.private.mui.skins.embed.windows = value
-				ApplyEmbedLayout()
-			end,
-		},
-		spacer2 = {
-			order = 9,
-			type = "description",
-			name = " ",
-		},
-	},
-}
-
-for winIndex = 1, 5 do
-	options.Embed.args["windowSize" .. winIndex] = {
-		order = 9 + winIndex,
+	options.general = {
+		order = 1,
 		type = "group",
-		inline = true,
-		name = format(L["Window %d"], winIndex),
-		hidden = function()
-			return winIndex > E.private.mui.skins.embed.windows
+		name = module:AddCategorieIcon(L["General"], "OptionsHome"),
+		get = function(info)
+			return E.private.mui.skins[info[#info]]
 		end,
-		disabled = function()
-			return not E.private.mui.skins.embed.enable
+		set = function(info, value)
+			E.private.mui.skins[info[#info]] = value
+			E:StaticPopup_Show("PRIVATE_RL")
 		end,
 		args = {
-			width = {
-				order = 1,
-				type = "range",
-				name = L["Width"],
-				min = 100,
-				max = 1000,
-				step = 1,
-				get = function()
-					return E.private.mui.skins.embed.sizes[winIndex].width
-				end,
-				set = function(_, value)
-					E.private.mui.skins.embed.sizes[winIndex].width = value
-					ApplyEmbedLayout()
-				end,
+			header = {
+				order = 0,
+				type = "header",
+				name = L["General"],
 			},
-			height = {
+			enable = module.ToggleCard({
+				order = 1,
+				name = L["Skins"],
+				desc = L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI look."],
+				image = I.Media.Icons.Categories.Bill,
+			}, 0.5),
+			shadowOverlay = module.ToggleCard({
 				order = 2,
-				type = "range",
-				name = L["Height"],
-				min = 100,
-				max = 1000,
-				step = 1,
-				get = function()
-					return E.private.mui.skins.embed.sizes[winIndex].height
+				name = L["Screen Shadow Overlay"],
+				desc = L["Enables/Disables a shadow overlay to darken the screen."],
+				image = I.Media.Icons.Categories.theme,
+				disabled = function()
+					return not E.private.mui.skins.enable
 				end,
-				set = function(_, value)
-					E.private.mui.skins.embed.sizes[winIndex].height = value
-					ApplyEmbedLayout()
-				end,
+			}, 0.5),
+		},
+	}
+
+	options.addonskins = {
+		order = 6,
+		type = "group",
+		name = L["AddOnSkins"],
+		get = function(info)
+			return E.private.mui.skins.addonSkins[info[#info]]
+		end,
+		set = function(info, value)
+			E.private.mui.skins.addonSkins[info[#info]] = value
+			E:StaticPopup_Show("PRIVATE_RL")
+		end,
+		disabled = function()
+			return not E.private.mui.skins.enable
+		end,
+		args = {
+			enable = module.ToggleCard({
+				order = 1,
+				name = L["AddOnSkins"],
+				desc = F.String.MERATHILISUI(L["MER_ADDONSKINS_DESC"]),
+				image = I.Media.Icons.Categories.Bill,
+			}),
+			header = {
+				order = 2,
+				type = "header",
+				name = L["AddOns"],
 			},
 		},
 	}
-end
 
-options.advancedSettings = {
-	order = 10,
-	type = "group",
-	name = L["Advanced Skin Settings"],
-	disabled = function()
-		return not E.private.mui.skins.enable
-	end,
-	args = {
-		dtSkin = {
-			order = 1,
-			type = "group",
-			name = L["Details Skin"],
-			get = function(info)
-				return E.private.mui.skins.addonSkins.dt[info[#info]]
+	for index, v in ipairs(DecorAddons) do
+		local addonName, addonString, addonOption = unpack(v)
+		local iconTexture = GetAddOnMetadata(addonName, "IconTexture")
+		local iconAtlas = GetAddOnMetadata(addonName, "IconAtlas")
+
+		if not iconTexture and not iconAtlas then
+			iconTexture = [[Interface\ICONS\INV_Misc_QuestionMark]]
+		end
+
+		options.addonskins.args[addonOption] = module.ToggleCard({
+			order = 2 + index,
+			name = addonString,
+			desc = function()
+				if not DoesAddOnExist(addonName) then
+					return L["Not Installed"]
+				end
+
+				local version = GetAddOnMetadata(addonName, "Version")
+				return version and format("%s %s", L["Version"], version) or ""
 			end,
-			set = function(info, value)
-				E.private.mui.skins.addonSkins.dt[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
+			image = iconTexture,
+			arg = { lines = 1, atlas = not iconTexture and iconAtlas or nil },
+			-- An own `disabled` replaces the group's, so it repeats the group condition
+			disabled = function()
+				return not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.enable)
+					or not DoesAddOnExist(addonName)
+			end,
+		}, 0.5)
+	end
+
+	options.Embed = {
+		order = 9,
+		type = "group",
+		name = L["Embed Settings"],
+		get = function(info)
+			return E.private.mui.skins.embed[info[#info]]
+		end,
+		set = function(info, value)
+			E.private.mui.skins.embed[info[#info]] = value
+			E:StaticPopup_Show("PRIVATE_RL")
+		end,
+		disabled = function()
+			return not (E.private.mui.skins.enable and E.private.mui.skins.addonSkins.enable)
+		end,
+		args = {
+			header = {
+				order = 2,
+				type = "header",
+				name = L["Embed Settings"],
+			},
+			enable = module.ToggleCard({
+				order = 4,
+				name = L["Enable"],
+				desc = F.String.MERATHILISUI(L["With this option you can embed your Details into an own Panel."]),
+			}),
+			details = {
+				order = 5,
+				type = "execute",
+				name = L["Reset Settings"],
+				func = function()
+					ResetEmbedDefaults()
+				end,
+				disabled = function()
+					return not E.private.mui.skins.embed.enable
+				end,
+			},
+			toggleDirection = {
+				order = 6,
+				type = "select",
+				name = L["Toggle Direction"],
+				disabled = function()
+					return not E.private.mui.skins.embed.enable
+				end,
+				set = function(_, value)
+					E.private.mui.skins.embed.toggleDirection = value
+					UpdateToggleDirection()
+				end,
+				values = {
+					[1] = L["LEFT"],
+					[2] = L["RIGHT"],
+					[3] = L["TOP"],
+					[4] = L["BOTTOM"],
+					[5] = _G.DISABLE,
+				},
+			},
+			mouseOver = {
+				order = 7,
+				type = "toggle",
+				name = L["Mouse Over"],
+				disabled = function()
+					return not E.private.mui.skins.embed.enable
+				end,
+			},
+			windows = {
+				order = 8,
+				type = "range",
+				name = L["Number of Windows"],
+				min = 1,
+				max = 5,
+				step = 1,
+				disabled = function()
+					return not E.private.mui.skins.embed.enable
+				end,
+				get = function()
+					return E.private.mui.skins.embed.windows
+				end,
+				set = function(_, value)
+					E.private.mui.skins.embed.windows = value
+					ApplyEmbedLayout()
+				end,
+			},
+			spacer2 = {
+				order = 9,
+				type = "description",
+				name = " ",
+			},
+		},
+	}
+
+	for winIndex = 1, 5 do
+		options.Embed.args["windowSize" .. winIndex] = {
+			order = 9 + winIndex,
+			type = "group",
+			inline = true,
+			name = format(L["Window %d"], winIndex),
+			hidden = function()
+				return winIndex > E.private.mui.skins.embed.windows
 			end,
 			disabled = function()
-				return not DoesAddOnExist("Details")
+				return not E.private.mui.skins.embed.enable
 			end,
 			args = {
-				header = {
-					order = 0,
-					type = "header",
-					name = L["Details Skin"],
-				},
-				enable = module.ToggleCard({
-					order = 1,
-					name = L["Enable"],
-					desc = function()
-						if not DoesAddOnExist("Details") then
-							return C.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
-						end
-
-						return format(
-							"|cfffff400%s",
-							L["The options below is only for the Details look, NOT the Embeded."]
-						)
-					end,
-				}),
-				gradientBars = {
-					order = 4,
-					type = "toggle",
-					name = L["Gradient Bars"],
-					disabled = function()
-						return not E.private.mui.skins.addonSkins.dt.enable
-					end,
-				},
-				gradientName = {
-					order = 5,
-					type = "toggle",
-					name = L["Gradient Name"],
-					disabled = function()
-						return not E.private.mui.skins.addonSkins.dt.enable
-					end,
-				},
-				spacer1 = {
-					order = 6,
-					type = "description",
-					name = " ",
-				},
-				detailsIcons = {
-					order = 7,
-					type = "execute",
-					name = F.cOption(L["Open Details"], "gradient"),
-					disabled = function()
-						return not E:IsAddOnEnabled("Details")
-					end,
-					func = function()
-						local instance = _G.Details:GetInstance(1)
-						_G.Details:OpenOptionsWindow(instance)
-					end,
-				},
-			},
-		},
-		damageMeter = {
-			order = 2,
-			type = "group",
-			name = L["Blizzard DamageMeter"],
-			get = function(info)
-				return E.private.mui.skins.blizzard.damageMeter[info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.blizzard.damageMeter[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			args = {
-				header = {
-					order = 0,
-					type = "header",
-					name = F.cOption(L["Blizzard DamageMeter"], "orange"),
-				},
-				enable = module.ToggleCard({
-					order = 1,
-					name = L["Enable"],
-					desc = L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."],
-				}),
-			},
-		},
-		weeklyRewards = {
-			order = 3,
-			type = "group",
-			name = L["Weekly Rewards"],
-			get = function(info)
-				return E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]]
-			end,
-			set = function(info, value)
-				E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]] = value
-				E:StaticPopup_Show("PRIVATE_RL")
-			end,
-			args = {
-				header = {
-					order = 0,
-					type = "header",
-					name = F.cOption(L["Weekly Rewards"], "orange"),
-				},
-				size = {
+				width = {
 					order = 1,
 					type = "range",
-					name = L["Size"],
-					min = 6,
-					max = 24,
+					name = L["Width"],
+					min = 100,
+					max = 1000,
 					step = 1,
+					get = function()
+						return E.private.mui.skins.embed.sizes[winIndex].width
+					end,
+					set = function(_, value)
+						E.private.mui.skins.embed.sizes[winIndex].width = value
+						ApplyEmbedLayout()
+					end,
 				},
-				style = {
+				height = {
 					order = 2,
-					type = "select",
-					name = L["Outline"],
-					values = MER.Values.FontFlags,
-					sortByValue = true,
+					type = "range",
+					name = L["Height"],
+					min = 100,
+					max = 1000,
+					step = 1,
+					get = function()
+						return E.private.mui.skins.embed.sizes[winIndex].height
+					end,
+					set = function(_, value)
+						E.private.mui.skins.embed.sizes[winIndex].height = value
+						ApplyEmbedLayout()
+					end,
+				},
+			},
+		}
+	end
+
+	options.advancedSettings = {
+		order = 10,
+		type = "group",
+		name = L["Advanced Skin Settings"],
+		disabled = function()
+			return not E.private.mui.skins.enable
+		end,
+		args = {
+			dtSkin = {
+				order = 1,
+				type = "group",
+				name = L["Details Skin"],
+				get = function(info)
+					return E.private.mui.skins.addonSkins.dt[info[#info]]
+				end,
+				set = function(info, value)
+					E.private.mui.skins.addonSkins.dt[info[#info]] = value
+					E:StaticPopup_Show("PRIVATE_RL")
+				end,
+				disabled = function()
+					return not DoesAddOnExist("Details")
+				end,
+				args = {
+					header = {
+						order = 0,
+						type = "header",
+						name = L["Details Skin"],
+					},
+					enable = module.ToggleCard({
+						order = 1,
+						name = L["Enable"],
+						desc = function()
+							if not DoesAddOnExist("Details") then
+								return C.StringByTemplate(format(L["%s is not loaded."], L["Details"]), "danger")
+							end
+
+							return format(
+								"|cfffff400%s",
+								L["The options below is only for the Details look, NOT the Embeded."]
+							)
+						end,
+					}),
+					gradientBars = {
+						order = 4,
+						type = "toggle",
+						name = L["Gradient Bars"],
+						disabled = function()
+							return not E.private.mui.skins.addonSkins.dt.enable
+						end,
+					},
+					gradientName = {
+						order = 5,
+						type = "toggle",
+						name = L["Gradient Name"],
+						disabled = function()
+							return not E.private.mui.skins.addonSkins.dt.enable
+						end,
+					},
+					spacer1 = {
+						order = 6,
+						type = "description",
+						name = " ",
+					},
+					detailsIcons = {
+						order = 7,
+						type = "execute",
+						name = F.cOption(L["Open Details"], "gradient"),
+						disabled = function()
+							return not E:IsAddOnEnabled("Details")
+						end,
+						func = function()
+							local instance = _G.Details:GetInstance(1)
+							_G.Details:OpenOptionsWindow(instance)
+						end,
+					},
+				},
+			},
+			damageMeter = {
+				order = 2,
+				type = "group",
+				name = L["Blizzard DamageMeter"],
+				get = function(info)
+					return E.private.mui.skins.blizzard.damageMeter[info[#info]]
+				end,
+				set = function(info, value)
+					E.private.mui.skins.blizzard.damageMeter[info[#info]] = value
+					E:StaticPopup_Show("PRIVATE_RL")
+				end,
+				args = {
+					header = {
+						order = 0,
+						type = "header",
+						name = F.cOption(L["Blizzard DamageMeter"], "orange"),
+					},
+					enable = module.ToggleCard({
+						order = 1,
+						name = L["Enable"],
+						desc = L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."],
+					}),
+				},
+			},
+			weeklyRewards = {
+				order = 3,
+				type = "group",
+				name = L["Weekly Rewards"],
+				get = function(info)
+					return E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]]
+				end,
+				set = function(info, value)
+					E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]] = value
+					E:StaticPopup_Show("PRIVATE_RL")
+				end,
+				args = {
+					header = {
+						order = 0,
+						type = "header",
+						name = F.cOption(L["Weekly Rewards"], "orange"),
+					},
+					size = {
+						order = 1,
+						type = "range",
+						name = L["Size"],
+						min = 6,
+						max = 24,
+						step = 1,
+					},
+					style = {
+						order = 2,
+						type = "select",
+						name = L["Outline"],
+						values = MER.Values.FontFlags,
+						sortByValue = true,
+					},
 				},
 			},
 		},
-	},
-}
+	}
+end)
