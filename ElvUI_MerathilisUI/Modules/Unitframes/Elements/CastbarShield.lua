@@ -70,7 +70,7 @@ local function Start(cs, unit)
 		return
 	end
 
-	ApplyStyle(cs)
+	-- Size and position come from Configure, a cast only shows the icon
 	UpdateAlpha(cs)
 	cs.frame:Show()
 end
@@ -140,7 +140,7 @@ function CS:Configure(castbar, getDB, enabled)
 
 	if not enabled then
 		Hide(cs)
-	elseif cs.frame:IsShown() then
+	else
 		ApplyStyle(cs)
 	end
 end

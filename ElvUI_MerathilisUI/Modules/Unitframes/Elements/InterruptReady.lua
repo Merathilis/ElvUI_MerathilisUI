@@ -215,20 +215,28 @@ local function UpdateLayout(ir)
 	end
 end
 
--- Colors and toggles, also reapplied to running casts when the settings change
+-- Bumped by a settings or Theme change, every indicator restyles on its next cast
+local styleVersion = 0
+
+-- Colors and toggles, also reapplied to running casts when the settings change. The colors
+-- only change with the settings or a new fill region, not with every cast.
 local function ApplyStyle(ir)
 	local castbar = ir.castbar
 	local db = ir.getDB()
 
 	-- A texture change on the castbar can hand out a new fill region
-	ir.tint:SetAllPoints(castbar:GetStatusBarTexture())
-	ApplyColor(ir.tint, castbar, "INTERRUPTCD")
+	local fill = castbar:GetStatusBarTexture()
+	if ir.styledVersion ~= styleVersion or ir.styledFill ~= fill then
+		ir.styledVersion, ir.styledFill = styleVersion, fill
+
+		ir.tint:SetAllPoints(fill)
+		ApplyColor(ir.tint, castbar, "INTERRUPTCD")
+		ApplyColor(ir.window, castbar, "INTERRUPTSOON")
+		ir.tick:SetVertexColor(db.tickColor.r, db.tickColor.g, db.tickColor.b, 1)
+	end
+
 	ir.tint:SetShown(db.tint)
-
-	ApplyColor(ir.window, castbar, "INTERRUPTSOON")
 	ir.window:SetShown(db.window)
-
-	ir.tick:SetVertexColor(db.tickColor.r, db.tickColor.g, db.tickColor.b, 1)
 	ir.tick:SetShown(db.tick)
 end
 
@@ -450,6 +458,7 @@ function IR:Configure(castbar, getDB, enabled)
 
 	ir.getDB = getDB
 	ir.enabled = enabled
+	styleVersion = styleVersion + 1
 
 	if not enabled then
 		Hide(ir)
@@ -460,9 +469,15 @@ end
 
 -- Changed Theme castbar colors reach running casts right away
 F.Event.RegisterCallback("MER_Theme.SettingsUpdate", function()
+	styleVersion = styleVersion + 1
 	for ir in pairs(active) do
 		ApplyStyle(ir)
 	end
+end, "MER_InterruptReady")
+
+-- Turning the gradient mode on or off changes how the colors are drawn
+F.Event.RegisterCallback("MER_Theme.DatabaseUpdate", function()
+	styleVersion = styleVersion + 1
 end, "MER_InterruptReady")
 
 -- Unitframe integration
