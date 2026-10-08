@@ -4,6 +4,7 @@ MER.Changelog[740] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
 		"[AFK]: The chat shows on screen again, the realm time in 12-hour format shows the right AM/PM and the logout timer no longer restarts when your status changes while away.",
+		"[Bags]: Opening the categorized bags right after logging in no longer shows Pawn errors while Pawn is still loading.",
 		"[Core]: The checkmark in the profile update messages shows again.",
 		"[Core]: Switching, copying or resetting a profile updates all MerathilisUI modules again right away instead of after a reload, without errors from the settings of the previous profile.",
 		"[Installer]: The changelog popup no longer opens on top of the installer on a fresh install.",
