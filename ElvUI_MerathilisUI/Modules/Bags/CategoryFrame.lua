@@ -1419,13 +1419,20 @@ end
 -- Pawn's own upgrade check can return nil ("not enough data yet", e.g. right
 -- after login/reload before Pawn has scanned the player's equipped gear) -
 -- ElvUI's own bags handle this the same way, by polling every 0.5s via
--- OnUpdate until Pawn has an actual true/false answer.
+-- OnUpdate until Pawn has an actual true/false answer. Capped at about ten seconds per
+-- slot, the next refresh of the window asks again anyway.
 local UpdateUpgradeIcon
 
 local function UpgradeCheck_OnUpdate(self, elapsed)
 	self.upgradeCheckElapsed = (self.upgradeCheckElapsed or 0) + elapsed
 	if self.upgradeCheckElapsed >= 0.5 then
 		self.upgradeCheckElapsed = 0
+		self.upgradeCheckTries = (self.upgradeCheckTries or 0) + 1
+		-- 20 tries, no extra file local: this file is at the 200 locals limit
+		if self.upgradeCheckTries >= 20 then
+			self:SetScript("OnUpdate", nil)
+			return
+		end
 		UpdateUpgradeIcon(self)
 	end
 end
@@ -1448,11 +1455,18 @@ function UpdateUpgradeIcon(btn)
 		return
 	end
 
-	local isUpgrade = _G.PawnShouldItemLinkHaveUpgradeArrowUnbudgeted(itemLink, true)
+	-- Pawn prints an error for every call before it is initialized, that counts as "ask later"
+	local isUpgrade
+	if _G.PawnIsInitialized then
+		isUpgrade = _G.PawnShouldItemLinkHaveUpgradeArrowUnbudgeted(itemLink, true)
+	end
 	if isUpgrade == nil then
 		btn.UpgradeIcon:Hide()
-		btn.upgradeCheckElapsed = 0
-		btn:SetScript("OnUpdate", UpgradeCheck_OnUpdate)
+		if not btn:GetScript("OnUpdate") then
+			btn.upgradeCheckElapsed = 0
+			btn.upgradeCheckTries = 0
+			btn:SetScript("OnUpdate", UpgradeCheck_OnUpdate)
+		end
 	else
 		btn.UpgradeIcon:SetShown(isUpgrade)
 		btn:SetScript("OnUpdate", nil)
