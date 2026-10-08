@@ -197,11 +197,34 @@ function module:AssistedRotation_Refresh()
 		UpdateColor(frame)
 	end
 
+	-- With the feature off this pass hides every frame, afterwards nothing listens anymore
 	for button in next, LAB:GetAllButtons() do
 		self:AssistedRotation_UpdateButton(nil, button)
 	end
 
+	self:AssistedRotation_SetActive(E.db.mui.actionbars.assistedRotation.enable)
 	self:AssistedRotation_UpdateCombat()
+end
+
+-- The button callback fires after every content change of every action button, so it and the
+-- combat events are only there while the feature is on
+function module:AssistedRotation_SetActive(active)
+	active = active and true or false
+	if active == (self.assistedRotationActive or false) then
+		return
+	end
+	self.assistedRotationActive = active
+
+	if active then
+		-- fires after every content change, which covers paging, stances and dragging the spell around
+		LAB.RegisterCallback(self, "OnButtonUpdate", "AssistedRotation_UpdateButton")
+		self:RegisterEvent("PLAYER_REGEN_ENABLED", "AssistedRotation_UpdateCombat")
+		self:RegisterEvent("PLAYER_REGEN_DISABLED", "AssistedRotation_UpdateCombat")
+	else
+		LAB.UnregisterCallback(self, "OnButtonUpdate")
+		self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+		self:UnregisterEvent("PLAYER_REGEN_DISABLED")
+	end
 end
 
 function module:CreateAssistedRotation()
@@ -209,10 +232,6 @@ function module:CreateAssistedRotation()
 		return
 	end
 
-	-- fires after every content change, which covers paging, stances and dragging the spell around
-	LAB.RegisterCallback(self, "OnButtonUpdate", "AssistedRotation_UpdateButton")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED", "AssistedRotation_UpdateCombat")
-	self:RegisterEvent("PLAYER_REGEN_DISABLED", "AssistedRotation_UpdateCombat")
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.AssistedRotation_Refresh, self)
 
 	-- ElvUI's bars exist already, so catch the buttons that were updated before us
