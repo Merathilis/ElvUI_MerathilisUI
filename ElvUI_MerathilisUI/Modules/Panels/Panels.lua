@@ -155,7 +155,31 @@ function module:CreatePanels()
 	self:Resize()
 end
 
+-- The frames are only built once at least one panel is turned on
+local function AnyPanelEnabled()
+	local db = E.db.mui.panels
+	if db.topPanel or db.bottomPanel then
+		return true
+	end
+
+	for _, enabled in pairs(db.stylePanels) do
+		if enabled then
+			return true
+		end
+	end
+
+	return false
+end
+
 function module:UpdatePanels()
+	if not self.panelsCreated then
+		-- CreatePanels runs UpdatePanels again once the frames exist
+		if AnyPanelEnabled() then
+			self:CreatePanels()
+		end
+		return
+	end
+
 	local db = E.db.mui.panels
 	local style = db.stylePanels
 
@@ -188,6 +212,10 @@ function module:UpdatePanels()
 end
 
 function module:UpdateColors()
+	if not self.panelsCreated then
+		return
+	end
+
 	local db = E.db.mui.panels
 	local panelSize = db.panelSize or 427
 	local color = GetPanelColor()
@@ -212,6 +240,10 @@ function module:UpdateColors()
 end
 
 function module:Resize()
+	if not self.panelsCreated then
+		return
+	end
+
 	local db = E.db.mui.panels
 	local panelSize = db.panelSize or 427
 	local topPanelHeight = db.topPanelHeight or 15
@@ -239,7 +271,8 @@ end
 
 -- Visibility, color and size are all read from the profile, so a switch just re-applies them
 function module:ProfileUpdate()
-	if not _G.MER_TopPanel then
+	if not self.panelsCreated then
+		self:UpdatePanels()
 		return
 	end
 
@@ -249,7 +282,7 @@ function module:ProfileUpdate()
 end
 
 function module:Initialize()
-	self:CreatePanels()
+	self:UpdatePanels()
 end
 
 MER:RegisterModule(module:GetName())
