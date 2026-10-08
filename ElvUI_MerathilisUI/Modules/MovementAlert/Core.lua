@@ -1092,7 +1092,9 @@ function module:CreateFrames()
 		nil,
 		"ALL,SOLO,MERATHILISUI",
 		function()
-			return not (module.db and module.db.enable and module.db.timeSpiral.enable)
+			-- The current profile, module.db can be the old one during a profile switch
+			local db = E.db.mui.movementAlert
+			return not (db and db.enable and db.timeSpiral.enable)
 		end,
 		"mui,modules,movementAlert"
 	)
@@ -1105,7 +1107,8 @@ function module:CreateFrames()
 		nil,
 		"ALL,SOLO,MERATHILISUI",
 		function()
-			return not (module.db and module.db.enable and module.db.gateway.enable)
+			local db = E.db.mui.movementAlert
+			return not (db and db.enable and db.gateway.enable)
 		end,
 		"mui,modules,movementAlert"
 	)

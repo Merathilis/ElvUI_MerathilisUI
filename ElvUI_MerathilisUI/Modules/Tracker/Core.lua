@@ -82,9 +82,12 @@ function module:CreateIcon(parent)
 	return iconFrame
 end
 
+-- ElvUI asks this while it repositions the movers on a profile switch, before ProfileUpdate
+-- ran: module.db can still be the old profile then, with its defaults stripped by AceDB
 function module:CreateTrackerMover(frame, name, text, db)
 	E:CreateMover(frame, name, MER.Title .. text, nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI", function()
-		return not (module.db and module.db[db].enable)
+		local trackerDB = E.db.mui.tracker
+		return not (trackerDB and trackerDB[db] and trackerDB[db].enable)
 	end, "mui,modules,tracker")
 end
 

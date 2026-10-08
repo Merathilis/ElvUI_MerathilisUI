@@ -494,6 +494,14 @@ function module:PLAYER_REGEN_DISABLED()
 	end
 end
 
+-- ElvUI can call the hooked functions at any time, also in the middle of a profile switch
+-- before this module's ProfileUpdate ran. AceDB strips the defaults (like the empty anchors
+-- table) from the old profile then, so they always read the current one.
+function module:SyncDB()
+	self.db = E.db.mui.unlockMode
+	return self.db
+end
+
 function module:HookElvUI()
 	if self.elvuiHooked then
 		return
@@ -501,10 +509,12 @@ function module:HookElvUI()
 	self.elvuiHooked = true
 
 	hooksecurefunc(E, "ToggleMoveMode", function(_, which)
+		module:SyncDB()
 		module:OnMoveModeToggled(which)
 	end)
 
 	hooksecurefunc(E, "CreateMover", function(_, _, name)
+		module:SyncDB()
 		local holder = E.CreatedMovers[name]
 		if holder and module:IsActive() then
 			module:HookMover(holder.mover)
@@ -517,6 +527,7 @@ function module:HookElvUI()
 	end)
 
 	hooksecurefunc(E, "SaveMoverPosition", function(_, name)
+		module:SyncDB()
 		module:KeepAnchor(name)
 		if module.snapshot then
 			module:UpdateChanges()
@@ -524,6 +535,7 @@ function module:HookElvUI()
 	end)
 
 	hooksecurefunc(E, "ResetMovers", function(_, text)
+		module:SyncDB()
 		module:DropAnchors(text)
 		if module.snapshot then
 			module:UpdateChanges()
