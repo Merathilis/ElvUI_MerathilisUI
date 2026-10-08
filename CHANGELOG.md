@@ -4,6 +4,7 @@
 -   [Fix]: Core: The checkmark in the profile update messages shows again.
 -   [Fix]: Installer: The changelog popup no longer opens on top of the installer on a fresh install.
 -   [Fix]: Misc: The search box in the icon picker shows a real title and tooltip instead of its internal names.
+-   [Fix]: Name Hover: Hovering a unit no longer rebuilds the whole text, quest lines and tooltip scan many times a second, only when you move to another unit.
 -   [Fix]: Notification: The new mail toast plays a sound again.
 -   [Fix]: Skins: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.
 -   [New]: ActionBars: Brought back Blizzard's rotation frame on the Single-Button Assistant button, sized for ElvUI's square buttons, with an optional combat animation and class or custom colors.

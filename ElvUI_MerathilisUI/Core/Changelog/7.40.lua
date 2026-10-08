@@ -7,6 +7,7 @@ MER.Changelog[740] = {
 		"[Core]: The checkmark in the profile update messages shows again.",
 		"[Installer]: The changelog popup no longer opens on top of the installer on a fresh install.",
 		"[Misc]: The search box in the icon picker shows a real title and tooltip instead of its internal names.",
+		"[Name Hover]: Hovering a unit no longer rebuilds the whole text, quest lines and tooltip scan many times a second, only when you move to another unit.",
 		"[Notification]: The new mail toast plays a sound again.",
 		"[Skins]: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.",
 	},
