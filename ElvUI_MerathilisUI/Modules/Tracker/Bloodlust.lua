@@ -32,6 +32,11 @@ local SATED_DEBUFFS = {
 	390435, -- Exhaustion (Fury of the Aspects)
 }
 
+local SATED_LOOKUP = {}
+for _, spellID in ipairs(SATED_DEBUFFS) do
+	SATED_LOOKUP[spellID] = true
+end
+
 local LOCKOUT_DURATION = 600
 local BUFF_DURATION = 40
 -- Auras are resent after a loading screen, a lockout found in that window is an
@@ -76,6 +81,37 @@ end
 
 local function Readable(value)
 	return value ~= nil and not module.IsSecret(value)
+end
+
+-- The player's auras change all the time in combat; only an added lockout or the removal of
+-- the known one needs the lookup over every lockout debuff. Anything secret is scanned.
+local function MayChangeSated(info)
+	if not Readable(info) or module.IsSecret(info.isFullUpdate) or info.isFullUpdate then
+		return true
+	end
+
+	local added = info.addedAuras
+	if added then
+		for i = 1, #added do
+			local spellID = added[i].spellId
+			if not Readable(spellID) or SATED_LOOKUP[spellID] then
+				return true
+			end
+		end
+	end
+
+	local removed = info.removedAuraInstanceIDs
+	if removed and module.satedAura then
+		local satedID = module.satedInstanceID
+		for i = 1, #removed do
+			local instanceID = removed[i]
+			if not satedID or not Readable(instanceID) or instanceID == satedID then
+				return true
+			end
+		end
+	end
+
+	return false
 end
 
 -------------------------------------------------------------------------------
@@ -195,6 +231,10 @@ function module:RefreshSated()
 end
 
 function module:OnPlayerAura(updateInfo)
+	if not MayChangeSated(updateInfo) then
+		return
+	end
+
 	local wasSated = self.satedAura ~= nil
 	self:RefreshSated()
 
