@@ -344,28 +344,37 @@ do
 		F.Event.RegisterOnceFrameEventAndCallback("PLAYER_REGEN_ENABLED", callback)
 	end
 
-	function F.Event.ContinueAfter(cmp, callback)
-		if cmp() == true then
-			callback()
-			return
-		end
-
-		local checkWrapper
-		checkWrapper = function()
-			if cmp() == true then
-				callback()
-				return
-			end
-
-			C_Timer_After(0.2, checkWrapper)
-		end
-
-		C_Timer_After(0.2, checkWrapper)
-	end
-
 	do
 		local elvUpdating = false
 		local elvUFUpdating = false
+
+		-- Callbacks waiting for ElvUI's update; run where the update ends instead of polling for it
+		local waiting = {}
+		local coroutineHooked = false
+
+		-- Older ElvUI builds run their mass updates as coroutines on this frame
+		local function elvCoroutinesRunning()
+			return E.CoroutineFrame and E.CoroutineFrame:IsShown()
+		end
+
+		local function IsIdle()
+			return not (elvUpdating or elvUFUpdating or elvCoroutinesRunning())
+		end
+
+		local function RunWaiting()
+			if not IsIdle() or #waiting == 0 then
+				return
+			end
+
+			-- A callback may queue another one or start an update, so the list is taken first
+			local count = #waiting
+			local callbacks = { unpack(waiting, 1, count) }
+			wipe(waiting)
+			-- One failing callback must not take the others or ElvUI's UpdateEnd down with it
+			for i = 1, count do
+				securecallfunction(callbacks[i])
+			end
+		end
 
 		MER:RawHook(E, "UpdateStart", function(...)
 			elvUpdating = true
@@ -375,6 +384,7 @@ do
 		MER:RawHook(E, "UpdateEnd", function(...)
 			MER.hooks[E]["UpdateEnd"](...)
 			elvUpdating = false
+			RunWaiting()
 		end)
 
 		local eUF = E:GetModule("UnitFrames")
@@ -382,17 +392,21 @@ do
 			elvUFUpdating = true
 			MER.hooks[eUF]["Update_AllFrames"](...)
 			elvUFUpdating = false
+			RunWaiting()
 		end)
 
-		-- ElvUIs mass updates are coroutines now, they outlive the calls that queued them
-		local function elvCoroutinesRunning()
-			return E.CoroutineFrame and E.CoroutineFrame:IsShown()
-		end
-
 		function F.Event.ContinueAfterElvUIUpdate(callback)
-			F.Event.ContinueAfter(function()
-				return not (elvUpdating or elvUFUpdating or elvCoroutinesRunning())
-			end, callback)
+			if IsIdle() then
+				callback()
+				return
+			end
+
+			if not coroutineHooked and E.CoroutineFrame then
+				coroutineHooked = true
+				E.CoroutineFrame:HookScript("OnHide", RunWaiting)
+			end
+
+			waiting[#waiting + 1] = callback
 		end
 	end
 
