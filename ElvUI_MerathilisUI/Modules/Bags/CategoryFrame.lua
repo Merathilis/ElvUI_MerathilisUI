@@ -3158,15 +3158,52 @@ local function GroupBySubgroup(items, nestByExpansion)
 	return result, subHeaders
 end
 
+-- Item entries are recycled per scratch table: a refresh rebuilds every section from scratch,
+-- so the entries of the previous one are free again. Bag and bank use separate scratch tables
+-- and therefore separate pools, both windows can be open at once.
+-- This file's main chunk is at Lua's limit of 200 locals, so the helpers live on the module.
+do
+	local entryPools = setmetatable({}, { __mode = "k" })
+
+	function module.ResetItemEntryPool(scratch)
+		local pool = entryPools[scratch]
+		if not pool then
+			pool = { used = 0 }
+			entryPools[scratch] = pool
+		end
+		pool.used = 0
+		return pool
+	end
+
+	function module.AcquireItemEntry(pool)
+		local used = pool.used + 1
+		pool.used = used
+
+		local entry = pool[used]
+		if entry then
+			wipe(entry)
+		else
+			entry = {}
+			pool[used] = entry
+		end
+		return entry
+	end
+
+	-- Reused for every refresh instead of a new lookup table each time
+	module.categoryLookup = {}
+end
+
 local function CollectItemsFromBags(bagIDList, scratch)
 	for k in pairs(scratch) do
 		wipe(scratch[k])
 	end
+	local pool = module.ResetItemEntryPool(scratch)
 
 	local searching = module.searchText and module.searchText ~= ""
 	C_Container_SetItemSearch(searching and module.searchText or "")
 
-	local catByKey = {}
+	local catByKey = module.categoryLookup
+	wipe(catByKey)
 	for _, cat in ipairs(module:GetCategories()) do
 		catByKey[cat.key] = cat
 	end
@@ -3204,31 +3241,31 @@ local function CollectItemsFromBags(bagIDList, scratch)
 						MarkItemRecent(info.itemID)
 					end
 
-					tinsert(scratch[key], {
-						bagID = bagID,
-						slotID = slotID,
-						itemID = info.itemID,
-						itemLink = info.hyperlink,
-						icon = info.iconFileID,
-						count = info.stackCount,
-						quality = info.quality,
-						isLocked = info.isLocked,
-						isNew = isNew,
-						isRecent = module:IsRecentItem(info.itemID),
-						itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
-							or nil,
-						bindText = module.db.itemInfo.enable
-								and GetBindText(info.hyperlink, info.isBound, isUntilEquipped)
-							or nil,
-						isWarbound = isWarbound,
-						subgroupName = subgroupName,
-						subgroupOrder = subgroupOrder,
-						subgroupIcon = subgroupIcon,
-						subgroupIconIsLogo = subgroupIconIsLogo,
-						questID = questID,
-						isActiveQuest = isActiveQuest,
-						isJunk = isJunk,
-					})
+					local entry = module.AcquireItemEntry(pool)
+					entry.bagID = bagID
+					entry.slotID = slotID
+					entry.itemID = info.itemID
+					entry.itemLink = info.hyperlink
+					entry.icon = info.iconFileID
+					entry.count = info.stackCount
+					entry.quality = info.quality
+					entry.isLocked = info.isLocked
+					entry.isNew = isNew
+					entry.isRecent = module:IsRecentItem(info.itemID)
+					entry.itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
+						or nil
+					entry.bindText = module.db.itemInfo.enable
+							and GetBindText(info.hyperlink, info.isBound, isUntilEquipped)
+						or nil
+					entry.isWarbound = isWarbound
+					entry.subgroupName = subgroupName
+					entry.subgroupOrder = subgroupOrder
+					entry.subgroupIcon = subgroupIcon
+					entry.subgroupIconIsLogo = subgroupIconIsLogo
+					entry.questID = questID
+					entry.isActiveQuest = isActiveQuest
+					entry.isJunk = isJunk
+					tinsert(scratch[key], entry)
 				end
 			end
 		end
@@ -3384,6 +3421,7 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 	for k in pairs(scratch) do
 		wipe(scratch[k])
 	end
+	local pool = module.ResetItemEntryPool(scratch)
 
 	local searching = module.searchText and module.searchText ~= ""
 	C_Container_SetItemSearch(searching and module.searchText or "")
@@ -3406,28 +3444,30 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 					MarkItemRecent(info.itemID)
 				end
 
-				tinsert(scratch[bagID], {
-					bagID = bagID,
-					slotID = slotID,
-					itemID = info.itemID,
-					itemLink = info.hyperlink,
-					icon = info.iconFileID,
-					count = info.stackCount,
-					quality = info.quality,
-					isLocked = info.isLocked,
-					isNew = isNew,
-					isRecent = module:IsRecentItem(info.itemID),
-					itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality) or nil,
-					bindText = module.db.itemInfo.enable and GetBindText(info.hyperlink, info.isBound, isUntilEquipped)
-						or nil,
-					isWarbound = isWarbound,
-					questID = questID,
-					isActiveQuest = isActiveQuest,
-					isJunk = isJunk,
-					-- Only used to check the "Hide in All Items" flag below,
-					-- not shown/used anywhere in the bag-grouped view itself.
-					categoryKey = module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink),
-				})
+				local entry = module.AcquireItemEntry(pool)
+				entry.bagID = bagID
+				entry.slotID = slotID
+				entry.itemID = info.itemID
+				entry.itemLink = info.hyperlink
+				entry.icon = info.iconFileID
+				entry.count = info.stackCount
+				entry.quality = info.quality
+				entry.isLocked = info.isLocked
+				entry.isNew = isNew
+				entry.isRecent = module:IsRecentItem(info.itemID)
+				entry.itemLevel = module.db.itemLevel.enable and GetDisplayItemLevel(info.hyperlink, info.quality)
+					or nil
+				entry.bindText = module.db.itemInfo.enable
+						and GetBindText(info.hyperlink, info.isBound, isUntilEquipped)
+					or nil
+				entry.isWarbound = isWarbound
+				entry.questID = questID
+				entry.isActiveQuest = isActiveQuest
+				entry.isJunk = isJunk
+				-- Only used to check the "Hide in All Items" flag below,
+				-- not shown/used anywhere in the bag-grouped view itself.
+				entry.categoryKey = module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink)
+				tinsert(scratch[bagID], entry)
 			end
 		end
 	end

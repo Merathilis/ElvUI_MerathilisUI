@@ -13,8 +13,16 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 		eR, eG, eB = nil, nil, nil
 	end
 
-	if frame.currentColor == nil then
-		frame.currentColor = eB ~= nil and CreateColor(eR, eG, eB, 1) or CreateColor(0, 0, 0, 1)
+	if frame.currentColor == nil or frame.resetCurrentColor then
+		if frame.currentColor == nil then
+			frame.currentColor = CreateColor(0, 0, 0, 1)
+		end
+		if eB ~= nil then
+			frame.currentColor:SetRGBA(eR, eG, eB, 1)
+		else
+			frame.currentColor:SetRGBA(0, 0, 0, 1)
+		end
+		frame.resetCurrentColor = nil
 		colorChanged = true
 	end
 

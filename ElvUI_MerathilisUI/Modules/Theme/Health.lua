@@ -125,7 +125,8 @@ function module:PostUpdateHealthColor(frame, unit, eR, eG, eB)
 		frame.lastColorGUID = guid
 		frame.colorMap = nil
 		frame.colorEntry = nil
-		frame.currentColor = nil
+		-- Reset in place, the color object itself is kept for the next unit
+		frame.resetCurrentColor = true
 		frame.normalColor = nil
 		frame.shiftColor = nil
 		frame.normalColorBG = nil

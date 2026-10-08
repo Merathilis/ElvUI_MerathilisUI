@@ -381,31 +381,46 @@ local WEAPON_ENCHANT_SLOTS = {
 -------------------------------------------------------------------------------
 --  Aura reading helpers
 -------------------------------------------------------------------------------
+-- Single-id variants, so a check for one spell needs no wrapper table on every refresh
+local function PlayerHasAura(id)
+	local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
+	return ok and result ~= nil
+end
+
 local function PlayerHasAuraByID(ids)
 	for _, id in ipairs(ids) do
-		local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
-		if ok and result ~= nil then
+		if PlayerHasAura(id) then
 			return true
 		end
 	end
 	return false
 end
 
+-- nil: aura not found, otherwise whether it counts (a buff about to run out does not)
+local function PlayerAuraWithDuration(id, showUnder)
+	local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
+	if not ok or result == nil then
+		return nil
+	end
+
+	local dur, exp = result.duration, result.expirationTime
+	if
+		dur
+		and exp
+		and not E:IsSecretValue(dur)
+		and not E:IsSecretValue(exp)
+		and IsUnderDuration(dur, exp, showUnder)
+	then
+		return false
+	end
+	return true
+end
+
 local function PlayerHasAuraByIDWithDuration(ids, showUnder)
 	for _, id in ipairs(ids) do
-		local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
-		if ok and result ~= nil then
-			local dur, exp = result.duration, result.expirationTime
-			if
-				dur
-				and exp
-				and not E:IsSecretValue(dur)
-				and not E:IsSecretValue(exp)
-				and IsUnderDuration(dur, exp, showUnder)
-			then
-				return false
-			end
-			return true
+		local counts = PlayerAuraWithDuration(id, showUnder)
+		if counts ~= nil then
+			return counts
 		end
 	end
 	return false
@@ -920,7 +935,7 @@ local function CollectClassSpecials(missing, playerClass, co)
 	if playerClass == "ROGUE" then
 		local haveLethal, haveNonLethal = false, false
 		for _, p in ipairs(ROGUE_POISONS) do
-			if PlayerHasAuraByID({ p.castSpell }) then
+			if PlayerHasAura(p.castSpell) then
 				if p.cat == "lethal" then
 					haveLethal = true
 				else
@@ -930,7 +945,7 @@ local function CollectClassSpecials(missing, playerClass, co)
 		end
 		for _, p in ipairs(ROGUE_POISONS) do
 			local already = (p.cat == "lethal" and haveLethal) or (p.cat == "nonlethal" and haveNonLethal)
-			if co.enabled[p.key] and Known(p.castSpell) and not already and not PlayerHasAuraByID({ p.castSpell }) then
+			if co.enabled[p.key] and Known(p.castSpell) and not already and not PlayerHasAura(p.castSpell) then
 				local e = AcquireEntry()
 				e.mode = "spell"
 				e.spellID = p.castSpell
@@ -991,7 +1006,7 @@ local function CollectConsumables(missing, playerClass, co)
 	if co.enabled.flask then
 		local missingFlask = true
 		for id in pairs(FLASK_BUFF_ID_SET) do
-			if PlayerHasAuraByIDWithDuration({ id }, module.db.showUnder) then
+			if PlayerAuraWithDuration(id, module.db.showUnder) then
 				missingFlask = false
 				break
 			end
