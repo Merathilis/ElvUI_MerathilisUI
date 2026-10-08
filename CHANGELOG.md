@@ -2,6 +2,7 @@
 
 -   [Fix]: AFK: The chat shows on screen again, the realm time in 12-hour format shows the right AM/PM and the logout timer no longer restarts when your status changes while away.
 -   [Fix]: Core: The checkmark in the profile update messages shows again.
+-   [Fix]: Core: Switching, copying or resetting a profile updates all MerathilisUI modules again right away instead of after a reload, without errors from the settings of the previous profile.
 -   [Fix]: Installer: The changelog popup no longer opens on top of the installer on a fresh install.
 -   [Fix]: Misc: The search box in the icon picker shows a real title and tooltip instead of its internal names.
 -   [Fix]: Name Hover: Hovering a unit no longer rebuilds the whole text, quest lines and tooltip scan many times a second, only when you move to another unit.
