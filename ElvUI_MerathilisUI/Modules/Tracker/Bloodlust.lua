@@ -43,8 +43,8 @@ local BUFF_DURATION = 40
 -- old one and must not be mistaken for a fresh lust.
 local ZONE_GUARD = 1.5
 
-local lustFont = CreateFont("MER_TrackerBloodlustFont")
-lustFont:SetFont(E.media.normFont, 14, "OUTLINE")
+-- Created with the frames, see CreateBloodlustFrames
+local lustFont
 
 -------------------------------------------------------------------------------
 --  Helpers
@@ -156,6 +156,9 @@ function module:CreateBloodlustFrames()
 	if self.bloodlustFrame then
 		return
 	end
+
+	lustFont = CreateFont("MER_TrackerBloodlustFont")
+	lustFont:SetFont(E.media.normFont, 14, "OUTLINE")
 
 	local frame = self:BuildBloodlustFrame("MER_TrackerBloodlust", E.UIParent, "MER_TrackerBloodlustFont")
 	frame:Point("CENTER", E.UIParent, "CENTER", -46, 200)

@@ -24,10 +24,9 @@ local C_ToyBox_IsToyUsable = C_ToyBox.IsToyUsable
 
 local tabs, spells = {}, {}
 
-local handler = CreateFrame("Frame")
-handler:SetScript("OnEvent", function(self, event)
-	self[event](self, event)
-end)
+-- Holds the event methods below; becomes the event frame itself when the tabs are turned on,
+-- so a disabled feature creates no frame (see module:TradeTabs)
+local handler = {}
 
 local function FilterIcons()
 	local buttonList = {
@@ -354,6 +353,15 @@ function module:TradeTabs()
 	if not E.db.mui.misc.tradeTabs then
 		return
 	end
+
+	local methods = handler
+	handler = CreateFrame("Frame")
+	for key, method in pairs(methods) do
+		handler[key] = method
+	end
+	handler:SetScript("OnEvent", function(self, event)
+		self[event](self, event)
+	end)
 
 	handler:RegisterEvent("TRADE_SKILL_SHOW")
 	handler:RegisterEvent("TRADE_SKILL_CLOSE")

@@ -413,8 +413,8 @@ end
 -------------------------------------------------------------------------------
 --  Display
 -------------------------------------------------------------------------------
-local countdownFont = CreateFont("MER_MovementAlertCountdownFont")
-countdownFont:SetFont(E.media.normFont, 20, "OUTLINE")
+-- Created with the frames, see CreateFrames
+local countdownFont
 
 local slots = {}
 
@@ -1064,6 +1064,9 @@ function module:CreateFrames()
 	if self.anchor then
 		return
 	end
+
+	countdownFont = CreateFont("MER_MovementAlertCountdownFont")
+	countdownFont:SetFont(E.media.normFont, 20, "OUTLINE")
 
 	self.anchor = CreateFrame("Frame", "MER_MovementAlert", E.UIParent)
 	self.anchor:Size(200, 32)

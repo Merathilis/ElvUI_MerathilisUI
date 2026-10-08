@@ -15,8 +15,8 @@ local BREZ_SPELL_ID = 20484
 local POLL_INTERVAL = 0.5
 local TEST_RECHARGE = 90
 
-local timeFont = CreateFont("MER_TrackerBattleResFont")
-timeFont:SetFont(E.media.normFont, 14, "OUTLINE")
+-- Created with the frames, see CreateBattleResFrames
+local timeFont
 
 -------------------------------------------------------------------------------
 --  Frames
@@ -49,6 +49,9 @@ function module:CreateBattleResFrames()
 	if self.battleResFrame then
 		return
 	end
+
+	timeFont = CreateFont("MER_TrackerBattleResFont")
+	timeFont:SetFont(E.media.normFont, 14, "OUTLINE")
 
 	local frame = self:BuildBattleResFrame("MER_TrackerBattleRes", E.UIParent, "MER_TrackerBattleResFont")
 	frame:Point("CENTER", E.UIParent, "CENTER", 0, 200)

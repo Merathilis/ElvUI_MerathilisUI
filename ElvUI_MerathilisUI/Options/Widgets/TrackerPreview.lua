@@ -23,11 +23,9 @@ local LOCKOUT_DURATION, LOCKOUT_ELAPSED = 600, 140
 local BUFF_DURATION, BUFF_ELAPSED = 40, 12
 local SATED_SPELL = 57724 -- Sated
 
--- Own font objects, the countdown numbers of the real trackers keep theirs
-local battleResFont = CreateFont("MER_TrackerPreviewBattleResFont")
-battleResFont:SetFont(E.media.normFont, 14, "OUTLINE")
-local bloodlustFont = CreateFont("MER_TrackerPreviewBloodlustFont")
-bloodlustFont:SetFont(E.media.normFont, 14, "OUTLINE")
+-- Own font objects, the countdown numbers of the real trackers keep theirs. Created with the
+-- first preview, not at login.
+local battleResFont, bloodlustFont
 
 local function GetTracker()
 	return MER:GetModule("MER_Tracker")
@@ -36,6 +34,13 @@ end
 local function Build(widget)
 	local tracker = GetTracker()
 	local frame = widget.frame
+
+	if not battleResFont then
+		battleResFont = CreateFont("MER_TrackerPreviewBattleResFont")
+		battleResFont:SetFont(E.media.normFont, 14, "OUTLINE")
+		bloodlustFont = CreateFont("MER_TrackerPreviewBloodlustFont")
+		bloodlustFont:SetFont(E.media.normFont, 14, "OUTLINE")
+	end
 
 	widget.battleRes = {
 		tracker:BuildBattleResFrame(nil, frame, "MER_TrackerPreviewBattleResFont"),
