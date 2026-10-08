@@ -376,9 +376,13 @@ do
 			end
 		end
 
-		MER:RawHook(E, "UpdateStart", function(...)
-			elvUpdating = true
-			MER.hooks[E]["UpdateStart"](...)
+		-- Only E:UpdateAll's own UpdateStart() is closed by an UpdateEnd. ElvUI's theme setup
+		-- calls UpdateStart(true) on its own, that one must not leave the flag set.
+		MER:RawHook(E, "UpdateStart", function(self, skipUpdateDB, ...)
+			if not skipUpdateDB then
+				elvUpdating = true
+			end
+			MER.hooks[E]["UpdateStart"](self, skipUpdateDB, ...)
 		end)
 
 		MER:RawHook(E, "UpdateEnd", function(...)
