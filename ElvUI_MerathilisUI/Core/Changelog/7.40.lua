@@ -25,7 +25,7 @@ MER.Changelog[740] = {
 	IMPROVEMENTS = {
 		"[AFK]: The AFK screen got more atmosphere: a vignette darkens the world, the panel slides in and the player model fades in, a bar counts down to the logout, and the sleeping model wakes up for a random emote now and then, with rising Z's and changing speech bubble lines while it sleeps.",
 		"[Chat]: The resize grips on the chat panels only show while you hover their corner.",
-		"[General]: Lower CPU use: features you turned off no longer register any events, hooks or timers, and the Vehicle Bar vigor bar, the buff collapse button, Chat Sidebar, Movement Alert, Interrupt Ready, Minimap Buttons, Notifications and the equipment set icon in the bags react to game events instead of checking on a timer.",
+		"[General]: Lower CPU use: features you turned off no longer register any events, hooks or timers, and the Vehicle Bar vigor bar, the buff collapse button, Chat Sidebar, Movement Alert, Interrupt Ready, Minimap Buttons, Notifications and the equipment set icon in the bags react to game events instead of checking on a timer. The option pages are only built the first time you open the options, which saves memory and loading time at login.",
 		"[Installer]: The nameplate layout keeps its side elements apart: the raid marker sits above the name, the elite icon left of the level, the quest icon at the top right corner and the crowd control auras behind the target arrow.",
 		"[Installer]: Opening the installer with a controller brings up the gamepad cursor right away.",
 		"[Locales]: The German translation is complete.",
