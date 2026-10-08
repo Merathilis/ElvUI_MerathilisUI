@@ -188,9 +188,10 @@ function MER:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("PLAYER_LOGIN")
 
-	E.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
-	E.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
-	E.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
+	-- The profile callbacks come from ElvUI's AceDB, E.callbacks never fires them
+	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
+	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
+	E.data.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
 end
 
 function MER:AutoCopyPrivateProfile()
