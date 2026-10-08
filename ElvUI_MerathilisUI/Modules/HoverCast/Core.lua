@@ -2656,6 +2656,17 @@ function module:SetEnabled(enabled)
 	end
 	cc.enabled = enabled
 	if not ccInitialized then
+		if not enabled then
+			return
+		end
+		-- The secure frames can only be built out of combat
+		if InCombatLockdown() then
+			pendingSetEnabled = true
+			self:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
+			return
+		end
+		-- First enable: the setup builds the frames and runs the enable sweep itself
+		self:SetupHoverCast()
 		return
 	end
 	if InCombatLockdown() then
@@ -2806,7 +2817,15 @@ end
 -------------------------------------------------------------------------------
 --  Init
 -------------------------------------------------------------------------------
+-- A disabled install builds nothing: no secure frames, hooks or events until the first enable
 function module:Initialize()
+	local cc = GetClickCastDB()
+	if cc and cc.enabled then
+		self:SetupHoverCast()
+	end
+end
+
+function module:SetupHoverCast()
 	if ccInitialized then
 		return
 	end
