@@ -694,6 +694,7 @@ L["Character"] = "Character"
 L["Chat"] = "Chat"
 L["Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."] =
 	"Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."
+L["AussyLoot"] = true
 L["Class Codex"] = true
 L["Class Color"] = "Class Color"
 L["Classification"] = "Classification"

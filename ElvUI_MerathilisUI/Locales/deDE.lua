@@ -489,6 +489,7 @@ L["You must be at a vendor."] = "Du musst bei einem Händler sein."
 L["You must be at the bank."] = "Du musst bei der Bank sein."
 L["Replace Blizzard's native Equipment Manager pane with a custom MerathilisUI gear-set panel."] =
 	"Ersetzt Blizzards native Ausrüstungsverwaltung durch ein eigenes MerathilisUI-Set-Panel."
+L["AussyLoot"] = true
 L["Class Codex"] = true
 L["Class Color"] = "Klassenfarbe"
 L["Use your class color for the selected/equipped set accents instead of the accent color below."] =

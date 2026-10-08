@@ -48,6 +48,7 @@ local SOUND_CLICK = 852 -- SOUNDKIT.IG_MAINMENU_OPTION
 -- true counts as on, turning a side off sets all of its paths to false. Paths start
 -- at `E` (db.* / private.*), or at `root()` for plugins with their own SavedVariables.
 -- `retail` marks MerathilisUI features that are off on WoW Forever anyway.
+-- `addon` limits a check to when that addon is loaded too (skins of other addons).
 local ARMORY = "db.mui.armory.enable"
 local ADDON_BUTTONS = "db.mui.minimapButtons.addonButtons.enable"
 local DAMAGE_METER = "private.mui.skins.blizzard.damageMeter.enable"
@@ -297,6 +298,13 @@ local plugins = {
 				mine = { "db.mui.nameplates.interruptReady.enable", "db.mui.unitframes.interruptReady.enable" },
 				theirs = "db.mMediaTag.interrupt_on_cd.enable",
 			},
+			{
+				feature = L["AussyLoot"],
+				theirFeature = L["AussyLoot"],
+				mine = "private.mui.skins.addonSkins.aussyLoot",
+				theirs = "db.mMediaTag.skins.aussyloot.enable",
+				addon = "AussyLoot",
+			},
 		},
 	},
 	{
@@ -410,6 +418,7 @@ local function CollectConflicts(includeKept)
 				for _, check in ipairs(plugin.checks) do
 					if
 						not (check.retail and E.Forever)
+						and (not check.addon or IsAddOnLoaded(check.addon))
 						and (includeKept or not kept[check.key])
 						and IsOn(E, check.mine)
 						and IsOn(root, check.theirs)

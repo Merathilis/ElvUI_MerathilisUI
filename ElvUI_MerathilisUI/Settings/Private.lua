@@ -8,6 +8,7 @@ V.skins = {
 	shadowOverlay = false,
 	addonSkins = {
 		enable = true,
+		aussyLoot = true,
 		bSync = true,
 		bugSack = true,
 		ls = true,

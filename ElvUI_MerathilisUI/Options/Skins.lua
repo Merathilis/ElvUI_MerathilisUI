@@ -16,6 +16,7 @@ module:AddOptions(function()
 	local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
 	local DecorAddons = {
+		{ "AussyLoot", L["AussyLoot"], "aussyLoot" },
 		{ "BagSync", L["BagSync"], "bSync" },
 		{ "BugSack", L["BugSack"], "bugSack" },
 		{ "Capping", L["Capping"], "cap" },
