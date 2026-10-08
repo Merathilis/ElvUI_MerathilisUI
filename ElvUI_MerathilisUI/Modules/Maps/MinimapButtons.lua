@@ -10,7 +10,6 @@ local gmatch, gsub, strfind, strlower, strtrim = string.gmatch, string.gsub, str
 
 local CreateFrame = CreateFrame
 local GetMouseFoci = GetMouseFoci
-local IsMouseButtonDown = IsMouseButtonDown
 local issecurevariable = issecurevariable
 local GetGameTime = GetGameTime
 local HasNewMail = HasNewMail
@@ -1178,8 +1177,9 @@ function module:UpdateAddonGrid()
 	end
 end
 
-local function CloseOnClickOutside(panel)
-	if not (IsMouseButtonDown("LeftButton") or IsMouseButtonDown("RightButton")) then
+-- GLOBAL_MOUSE_DOWN while the panel is open: only a real click is checked, nothing polls
+local function CloseOnClickOutside(panel, _, button)
+	if button ~= "LeftButton" and button ~= "RightButton" then
 		return
 	end
 
@@ -1205,11 +1205,12 @@ local function CreateAddonPanel()
 	WS:CreateShadow(panel)
 	tinsert(_G.UISpecialFrames, "MER_MinimapAddonButtonsPanel")
 
+	panel:SetScript("OnEvent", CloseOnClickOutside)
 	panel:SetScript("OnShow", function(self)
-		self:SetScript("OnUpdate", CloseOnClickOutside)
+		self:RegisterEvent("GLOBAL_MOUSE_DOWN")
 	end)
 	panel:SetScript("OnHide", function(self)
-		self:SetScript("OnUpdate", nil)
+		self:UnregisterEvent("GLOBAL_MOUSE_DOWN")
 	end)
 
 	return panel

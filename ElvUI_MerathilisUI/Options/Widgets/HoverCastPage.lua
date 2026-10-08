@@ -13,7 +13,6 @@ local format, tconcat = string.format, table.concat
 
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
-local IsMouseButtonDown = IsMouseButtonDown
 local PlaySound = PlaySound
 local UIParent = UIParent
 local C_Timer_After = C_Timer.After
@@ -154,14 +153,16 @@ local function CreatePopup(parent, width, height, offset)
 	return popup
 end
 
--- Closes a popup on a left click anywhere outside of it and its opener
+-- Closes a popup on a left click anywhere outside of it and its opener. Listens to clicks while
+-- shown instead of polling the mouse buttons; the OnHide of the callers unregisters it.
 local function AutoClose(popup, opener)
+	popup:SetScript("OnEvent", function(p, _, button)
+		if button == "LeftButton" and not p:IsMouseOver() and not opener:IsMouseOver() then
+			p:Hide()
+		end
+	end)
 	popup:SetScript("OnShow", function(p)
-		p:SetScript("OnUpdate", function(m)
-			if not m:IsMouseOver() and not opener:IsMouseOver() and IsMouseButtonDown("LeftButton") then
-				m:Hide()
-			end
-		end)
+		p:RegisterEvent("GLOBAL_MOUSE_DOWN")
 	end)
 end
 
@@ -525,7 +526,7 @@ local function BuildDropdown(owner, parent, width, opts)
 
 		AutoClose(list, box)
 		list:SetScript("OnHide", function(p)
-			p:SetScript("OnUpdate", nil)
+			p:UnregisterEvent("GLOBAL_MOUSE_DOWN")
 			if owner.dropdownList == p then
 				owner.dropdownList = nil
 			end
@@ -981,7 +982,7 @@ local function OpenPickerPopup(self, opener, sidebar, side, modes, startMode, fi
 
 	AutoClose(popup, opener)
 	popup:SetScript("OnHide", function(p)
-		p:SetScript("OnUpdate", nil)
+		p:UnregisterEvent("GLOBAL_MOUSE_DOWN")
 		HideTip()
 		if self.gridPopup == p then
 			self.gridPopup = nil
