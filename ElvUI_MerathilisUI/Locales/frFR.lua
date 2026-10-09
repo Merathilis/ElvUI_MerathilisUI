@@ -1538,7 +1538,7 @@ L["Shows a shield icon on the castbar of hostile units while their cast can't be
 
 -- Rounded Corners
 L["Rounded Corners"] = true
-L["Rounds the corners of the health, power and class bars, including their border."] = true
+L["Rounds the corners of the health, power, class and cast bars, including their border."] = true
 
 -- Cast on You
 L["Cast on You"] = true

@@ -1055,6 +1055,7 @@ P.unitframes = {
 			boss = true,
 			arena = true,
 			classbar = true,
+			castbar = true,
 		},
 	},
 	restingIndicator = {

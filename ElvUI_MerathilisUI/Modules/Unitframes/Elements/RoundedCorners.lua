@@ -8,10 +8,12 @@ local hooksecurefunc = hooksecurefunc
 local ipairs = ipairs
 local max = math.max
 local pairs = pairs
+local unpack = unpack
 local wipe = wipe
 
 --[[
-	Rounded corners for the health, power and class bars of the single units and the party, raid, boss and arena frames
+	Rounded corners for the health, power, class and cast bars
+	of the single units and the party, raid, boss and arena frames
 
 	ElvUI's pixel border is hidden and replaced by an own shell around the bar:
 	a rounded border, a rounded background on top of it and a rounded mask on every bar texture.
@@ -99,18 +101,61 @@ local function Shell_SetBackgroundColor(shell, r, g, b)
 	shell.bg:SetVertexColor(r, g, b, 1)
 end
 
+-- A template on the frame itself (the castbar icon) keeps its children visible:
+-- its colors are cleared instead of its alpha
+local function ClearTemplate(backdrop, shell)
+	shell.clearing = true
+	backdrop:SetBackdropColor(0, 0, 0, 0)
+	backdrop:SetBackdropBorderColor(0, 0, 0, 0)
+	shell.clearing = nil
+
+	-- ElvUI's extra border lines without thin borders
+	if backdrop.iborder then
+		backdrop.iborder:SetAlpha(0)
+	end
+	if backdrop.oborder then
+		backdrop.oborder:SetAlpha(0)
+	end
+end
+
+local function RestoreTemplate(backdrop, shell)
+	shell.clearing = true
+	backdrop:SetBackdropColor(unpack(shell.bgColor))
+	backdrop:SetBackdropBorderColor(unpack(shell.borderColor))
+	shell.clearing = nil
+
+	if backdrop.iborder then
+		backdrop.iborder:SetAlpha(1)
+	end
+	if backdrop.oborder then
+		backdrop.oborder:SetAlpha(1)
+	end
+end
+
 -- Follows ElvUI's backdrop colors, e.g. the threat border
-local function Backdrop_SetBackdropColor(backdrop, r, g, b)
+local function Backdrop_SetBackdropColor(backdrop, r, g, b, a)
 	local shell = backdrop.MER_RoundedShell
-	if shell then
-		Shell_SetBackgroundColor(shell, r, g, b)
+	if not shell or shell.clearing then
+		return
+	end
+
+	shell.bgColor = { r, g, b, a }
+	Shell_SetBackgroundColor(shell, r, g, b)
+	if shell.clears and shell.active then
+		ClearTemplate(backdrop, shell)
 	end
 end
 
 local function Backdrop_SetBackdropBorderColor(backdrop, r, g, b, a)
 	local shell = backdrop.MER_RoundedShell
-	if shell then
-		shell.border:SetVertexColor(r, g, b, a)
+	if not shell or shell.clearing then
+		return
+	end
+
+	shell.borderColor = { r, g, b, a }
+	shell.border:SetVertexColor(r, g, b, a)
+	if shell.clears and shell.active then
+		ClearTemplate(backdrop, shell)
 	end
 end
 
@@ -123,8 +168,7 @@ local function Backdrop_OnHide(backdrop)
 	backdrop.MER_RoundedShell:Hide()
 end
 
-local function CreateShell(bar)
-	local backdrop = bar.backdrop
+local function CreateShell(backdrop)
 	-- Below the backdrop: in mini mode the class bar buttons put their bg on the backdrop itself
 	local shell = CreateFrame("Frame", nil, backdrop:GetParent())
 	shell:SetFrameLevel(max(backdrop:GetFrameLevel() - 1, 0))
@@ -160,23 +204,36 @@ local function LayoutShell(shell, border, flat)
 	LayoutMask(shell.bgMask, shell, border, flat)
 end
 
--- Replaces the backdrop of a frame with the rounded shell, same rect as ElvUI's backdrop
-local function ApplyShell(bar, flat)
-	local backdrop = bar.backdrop
+-- Replaces the backdrop of a frame with the rounded shell, same rect as ElvUI's backdrop.
+-- clears: the template sits on the frame itself, see ClearTemplate
+local function ApplyShell(bar, flat, backdrop, clears)
+	backdrop = backdrop or bar.backdrop
 	if not backdrop then
 		return
 	end
 
-	local shell = backdrop.MER_RoundedShell or CreateShell(bar)
+	local shell = backdrop.MER_RoundedShell or CreateShell(backdrop)
 	shell:ClearAllPoints()
 	shell:SetAllPoints(backdrop)
 	shell:SetShown(backdrop:IsShown())
 
 	LayoutShell(shell, E.mult, flat)
 
-	Shell_SetBackgroundColor(shell, backdrop:GetBackdropColor())
-	shell.border:SetVertexColor(backdrop:GetBackdropBorderColor())
-	backdrop:SetAlpha(0)
+	-- A cleared template reads back as invisible, its colors are the ones seen before
+	if not shell.active then
+		shell.bgColor = { backdrop:GetBackdropColor() }
+		shell.borderColor = { backdrop:GetBackdropBorderColor() }
+	end
+	Shell_SetBackgroundColor(shell, unpack(shell.bgColor))
+	shell.border:SetVertexColor(unpack(shell.borderColor))
+
+	shell.clears = clears
+	shell.active = true
+	if clears then
+		ClearTemplate(backdrop, shell)
+	else
+		backdrop:SetAlpha(0)
+	end
 	bar.MER_RoundedBackdrop = backdrop
 end
 
@@ -199,8 +256,14 @@ local function Disable(bar)
 
 	local backdrop = bar.MER_RoundedBackdrop
 	if backdrop then
-		backdrop.MER_RoundedShell:Hide()
-		backdrop:SetAlpha(1)
+		local shell = backdrop.MER_RoundedShell
+		shell:Hide()
+		shell.active = nil
+		if shell.clears then
+			RestoreTemplate(backdrop, shell)
+		else
+			backdrop:SetAlpha(1)
+		end
 		bar.MER_RoundedBackdrop = nil
 	end
 
@@ -317,6 +380,37 @@ local function DisableClassBars(frame)
 	end
 end
 
+-- Every texture on the castbar: fill, bg, the shield and latency overlays, the spark,
+-- the tick lines and the Interrupt Ready tint and window
+local function ApplyCastbar(castbar)
+	Disable(castbar)
+	ApplyShell(castbar)
+
+	local textures = {}
+	for _, region in ipairs({ castbar:GetRegions() }) do
+		if region:GetObjectType() == "Texture" then
+			textures[#textures + 1] = region
+		end
+	end
+	MaskTextures(castbar, castbar, textures)
+
+	-- The icon's template is on its own frame, the icon a texture of it
+	local icon = castbar.ButtonIcon
+	local button = icon and icon.bg
+	if button then
+		Disable(button)
+		ApplyShell(button, nil, button, true)
+		MaskTextures(button, icon, { icon })
+	end
+end
+
+local function DisableCastbar(castbar)
+	Disable(castbar)
+	if castbar.ButtonIcon then
+		Disable(castbar.ButtonIcon.bg)
+	end
+end
+
 -- An attached power bar shares the border with the health bar, they round as one block
 local function IsPowerAttached(frame)
 	return frame.USE_POWERBAR
@@ -368,6 +462,14 @@ function module:Configure_RoundedCorners(frame)
 		end
 	end
 
+	if frame.Castbar then
+		if enabled and db.units.castbar then
+			ApplyCastbar(frame.Castbar)
+		else
+			DisableCastbar(frame.Castbar)
+		end
+	end
+
 	if frame.ClassBar then
 		if enabled and db.units.classbar then
 			for _, key in ipairs(CLASS_BARS) do
@@ -395,6 +497,7 @@ function module:RoundedCorners()
 	hooksecurefunc(UF, "Configure_HealthBar", Configure)
 	hooksecurefunc(UF, "Configure_Power", Configure)
 	hooksecurefunc(UF, "Configure_ClassBar", Configure)
+	hooksecurefunc(UF, "Configure_Castbar", Configure)
 
 	-- ElvUI spawns its frames before our hooks exist
 	module:UpdateRoundedCorners()

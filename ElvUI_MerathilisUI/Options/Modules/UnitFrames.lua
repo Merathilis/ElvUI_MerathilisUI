@@ -235,7 +235,7 @@ module:AddOptions(function()
 								type = "description",
 								dialogControl = "MERNewFeatureLabel",
 								name = F.NewFeatureTrailingText(
-									L["Rounds the corners of the health, power and class bars, including their border."]
+									L["Rounds the corners of the health, power, class and cast bars, including their border."]
 								),
 								width = "full",
 							},
@@ -260,6 +260,7 @@ module:AddOptions(function()
 									boss = L["Boss"],
 									arena = L["Arena"],
 									classbar = L["Class Bar"],
+									castbar = L["Cast Bar"],
 								},
 								get = function(_, key)
 									return E.db.mui.unitframes.roundedCorners.units[key]
