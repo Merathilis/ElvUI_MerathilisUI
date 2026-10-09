@@ -74,6 +74,8 @@ function module:Initialize()
 	module:ExecuteLine()
 	-- Resting Indicator
 	module:RestingIndicator()
+	-- Rounded Corners
+	module:RoundedCorners()
 end
 
 -- The settings are read on every configure, the frames that exist just need a refresh
@@ -87,6 +89,7 @@ function module:ProfileUpdate()
 	module:UpdateCastbarShield()
 	module:UpdateExecuteLines()
 	module:UpdateRestingIndicator()
+	module:UpdateRoundedCorners()
 end
 
 MER:RegisterModule(module:GetName())

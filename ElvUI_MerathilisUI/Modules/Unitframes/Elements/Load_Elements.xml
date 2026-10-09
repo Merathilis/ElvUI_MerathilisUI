@@ -5,4 +5,5 @@
 	<Script file="ExecuteLine.lua"/>
 	<Script file="RaidIcon.lua"/>
 	<Script file="RestingIndicator.lua"/>
+	<Script file="RoundedCorners.lua"/>
 </Ui>

@@ -1041,6 +1041,20 @@ P.nameplates = {
 P.unitframes = {
 	raidIcons = true,
 	highlight = true,
+	roundedCorners = {
+		enable = false,
+		units = {
+			player = true,
+			target = true,
+			focus = true,
+			targettarget = true,
+			pet = true,
+			pettarget = true,
+			party = true,
+			raid = true,
+			classbar = true,
+		},
+	},
 	restingIndicator = {
 		enable = true,
 		colorMode = "CLASS_GRADIENT",

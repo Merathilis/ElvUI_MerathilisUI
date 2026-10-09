@@ -1537,6 +1537,10 @@ L["Interrupt Ready Soon"] = true
 L["Castbar Shield"] = true
 L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."] = true
 
+-- Rounded Corners
+L["Rounded Corners"] = true
+L["Rounds the corners of the health, power and class bars, including their border."] = true
+
 -- Cast on You
 L["Cast on You"] = true
 L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = true

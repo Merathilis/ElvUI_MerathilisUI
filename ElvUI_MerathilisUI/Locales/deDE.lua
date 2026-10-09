@@ -1328,6 +1328,10 @@ L["Interrupt Ready Soon"] = "Unterbrechung bald bereit"
 L["Castbar Shield"] = "Zauberleisten-Schild"
 L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."] = "Zeigt ein Schild-Symbol auf der Zauberleiste feindlicher Einheiten, solange ihr Zauber nicht unterbrochen werden kann."
 
+-- Rounded Corners
+L["Rounded Corners"] = "Abgerundete Ecken"
+L["Rounds the corners of the health, power and class bars, including their border."] = "Rundet die Ecken der Lebens-, Ressourcen- und Klassenleiste samt Rahmen ab."
+
 -- Cast on You
 L["Cast on You"] = "Zauber auf dich"
 L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = "Markiert die Zauberleiste feindlicher Einheiten, solange ihr Zauber dich zum Ziel hat. Kanalisierte Zauber werden nicht markiert."

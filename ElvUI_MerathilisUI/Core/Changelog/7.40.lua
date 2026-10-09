@@ -22,6 +22,7 @@ MER.Changelog[740] = {
 		"[Skins]: Added a skin for AussyLoot: its window, menus, popups and drop alert get the ElvUI backdrop and shadow and use the ElvUI font, while its own theme colors stay. If the mMediaTag & Tools AussyLoot skin is turned on too, the Compatibility Check lets you choose which one stays.",
 		"[Tooltip]: Shows the buffs of hovered players as icons on the tooltip, with position, icon size, icons per row and offset options. The new Tooltip options page also has the achievement link toggle.",
 		"[UnitFrames]: Castbar Shield on the castbars of the target, focus, boss and arena frames, the same icon as on the nameplates.",
+		"[UnitFrames]: Rounded Corners: the health, power and class bars of the player, target, focus, target of target, pet, pet target, party and raid frames get rounded corners and a rounded border. An attached power bar is rounded together with the health bar as one block.",
 		"[Unlock Mode]: New module that extends ElvUI's mover mode with an unlock animation: movers snap to the edges and centers of other movers and the screen with guide lines, Alt-click anchors the selected mover to another one so it follows it, a click selects a mover for pixel-exact arrow key nudging, small movers stay above big ones, the parts still placed by Blizzard's Edit Mode are marked and open it on click, and a toolbar replaces ElvUI's mover window with the layout filter, grid, snapping and a count of your changes, which you can revert before you lock.",
 	},
 	IMPROVEMENTS = {

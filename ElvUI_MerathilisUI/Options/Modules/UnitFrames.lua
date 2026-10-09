@@ -217,6 +217,61 @@ module:AddOptions(function()
 							},
 						}
 					),
+					roundedCorners = {
+						order = 13.5,
+						type = "group",
+						name = L["Rounded Corners"],
+						guiInline = true,
+						get = function(info)
+							return E.db.mui.unitframes.roundedCorners[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.unitframes.roundedCorners[info[#info]] = value
+							MUF:UpdateRoundedCorners()
+						end,
+						args = {
+							desc = {
+								order = 1,
+								type = "description",
+								dialogControl = "MERNewFeatureLabel",
+								name = F.NewFeatureTrailingText(
+									L["Rounds the corners of the health, power and class bars, including their border."]
+								),
+								width = "full",
+							},
+							enable = {
+								order = 2,
+								type = "toggle",
+								name = L["Enable"],
+							},
+							units = {
+								order = 3,
+								type = "multiselect",
+								name = L["Units"],
+								values = {
+									player = L["Player"],
+									target = L["Target"],
+									focus = L["Focus"],
+									targettarget = L["TargetTarget"],
+									pet = L["Pet"],
+									pettarget = L["PetTarget"],
+									party = L["Party"],
+									raid = L["Raid"],
+									classbar = L["Class Bar"],
+								},
+								get = function(_, key)
+									return E.db.mui.unitframes.roundedCorners.units[key]
+								end,
+								set = function(_, key, value)
+									E.db.mui.unitframes.roundedCorners.units[key] = value
+									MUF:UpdateRoundedCorners()
+								end,
+								disabled = function()
+									return UnitFramesDisabled() or not E.db.mui.unitframes.roundedCorners.enable
+								end,
+							},
+						},
+					},
 					factionIndicator = {
 						order = 11,
 						type = "group",
