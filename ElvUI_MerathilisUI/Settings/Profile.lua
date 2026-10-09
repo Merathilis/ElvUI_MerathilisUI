@@ -1052,6 +1052,8 @@ P.unitframes = {
 			pettarget = true,
 			party = true,
 			raid = true,
+			boss = true,
+			arena = true,
 			classbar = true,
 		},
 	},

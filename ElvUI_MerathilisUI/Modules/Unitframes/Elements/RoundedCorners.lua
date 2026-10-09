@@ -11,7 +11,7 @@ local pairs = pairs
 local wipe = wipe
 
 --[[
-	Rounded corners for the health, power and class bars of the single units and the party and raid frames
+	Rounded corners for the health, power and class bars of the single units and the party, raid, boss and arena frames
 
 	ElvUI's pixel border is hidden and replaced by an own shell around the bar:
 	a rounded border, a rounded background on top of it and a rounded mask on every bar texture.
@@ -339,6 +339,8 @@ local UNITS = {
 	raid1 = "raid",
 	raid2 = "raid",
 	raid3 = "raid",
+	boss = "boss",
+	arena = "arena",
 }
 
 function module:Configure_RoundedCorners(frame)

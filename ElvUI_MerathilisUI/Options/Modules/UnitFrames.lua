@@ -257,6 +257,8 @@ module:AddOptions(function()
 									pettarget = L["PetTarget"],
 									party = L["Party"],
 									raid = L["Raid"],
+									boss = L["Boss"],
+									arena = L["Arena"],
 									classbar = L["Class Bar"],
 								},
 								get = function(_, key)
