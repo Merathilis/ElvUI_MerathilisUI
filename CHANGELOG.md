@@ -8,6 +8,7 @@
 -   [Fix]: Misc: The search box in the icon picker shows a real title and tooltip instead of its internal names.
 -   [Fix]: Name Hover: Hovering a unit no longer rebuilds the whole text, quest lines and tooltip scan many times a second, only when you move to another unit.
 -   [Fix]: Notification: The new mail toast plays a sound again.
+-   [Fix]: Profiles: Applying the MerathilisUI profile for Capping no longer causes a blocked action error, the profile now takes effect after the reload it asks for.
 -   [Fix]: Skins: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.
 -   [New]: ActionBars: Brought back Blizzard's rotation frame on the Single-Button Assistant button, sized for ElvUI's square buttons, with an optional combat animation and class or custom colors.
 -   [New]: Compatibility Check: After login MerathilisUI checks if Shadow & Light, BenikUI, ToxiUI, Eltruism, mMediaTag & Tools, LuckyoneUI, WindTools or ProjectAzilroka have the same features turned on, and lets you choose per feature which one stays on. It can be turned off or started again under Advanced Settings.

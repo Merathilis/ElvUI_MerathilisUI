@@ -11,6 +11,7 @@ MER.Changelog[740] = {
 		"[Misc]: The search box in the icon picker shows a real title and tooltip instead of its internal names.",
 		"[Name Hover]: Hovering a unit no longer rebuilds the whole text, quest lines and tooltip scan many times a second, only when you move to another unit.",
 		"[Notification]: The new mail toast plays a sound again.",
+		"[Profiles]: Applying the MerathilisUI profile for Capping no longer causes a blocked action error, the profile now takes effect after the reload it asks for.",
 		"[Skins]: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.",
 	},
 	NEW = {
