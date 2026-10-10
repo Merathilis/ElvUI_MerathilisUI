@@ -140,6 +140,15 @@ local DEFAULT_CATEGORIES = {
 		types = { CLASS_HOUSING },
 		icon = 7726459,
 	},
+	-- Only exists while the Junk Marker is on (GetCategories). No item class
+	-- matches it: it collects grey items and whatever the player marked, see
+	-- ClassifyItem and JunkMarker.lua.
+	{
+		key = "JUNK",
+		name = L["Junk"],
+		isJunk = true,
+		icon = 133784,
+	},
 	{
 		key = "MISC",
 		name = L["Miscellaneous"],
@@ -503,9 +512,13 @@ function module:GetCategories()
 	local cats = {}
 
 	local nameOverrides = db and db.categoryNameOverrides
+	local junkEnabled = module:IsJunkMarkerEnabled()
 	for _, cat in ipairs(DEFAULT_CATEGORIES) do
 		local override = nameOverrides and nameOverrides[cat.key]
-		if override then
+		-- Junk is left out entirely while the Junk Marker is off, assignments
+		-- to it stay saved for later
+		local available = junkEnabled or not cat.isJunk
+		if available and override then
 			-- Shallow copy so the rename doesn't mutate the shared
 			-- DEFAULT_CATEGORIES table itself.
 			local copy = {}
@@ -514,7 +527,7 @@ function module:GetCategories()
 			end
 			copy.name = override
 			tinsert(cats, copy)
-		else
+		elseif available then
 			tinsert(cats, cat)
 		end
 	end
@@ -672,7 +685,7 @@ function module:GetEquipmentSetIcon(name)
 	return name and equipmentSetIconMap[name]
 end
 
-function module:ClassifyItem(bagID, slotID, itemID, itemLink)
+function module:ClassifyItem(bagID, slotID, itemID, itemLink, quality)
 	if not itemLink then
 		return nil
 	end
@@ -700,6 +713,12 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink)
 				end
 			end
 		end
+	end
+
+	-- Grey items go to Junk while the Junk Marker is on. An explicit
+	-- assignment (marked items included) already returned above.
+	if module:IsJunkMarkerEnabled() and module:IsJunkItem(itemID, quality) then
+		return module.JUNK_KEY
 	end
 
 	local _, _, _, equipLoc, _, classID = C_Item_GetItemInfoInstant(itemLink)

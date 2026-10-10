@@ -9,6 +9,9 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
+	F.MarkTabAsNew("displayModes")
+	F.MarkTabAsNew("junkMarker")
+
 	-- Repaints the categorized bag and bank windows, both skip it while closed
 	-- Own disabled replaces the group's, so the requirement is repeated there
 	local function BagsDisabled()
@@ -834,6 +837,194 @@ module:AddOptions(function()
 								isPercent = true,
 								disabled = function()
 									return BagsDisabled() or not E.db.mui.bags.categorizedBags.effects.customBackground
+								end,
+							},
+						},
+					},
+					displayModes = {
+						order = 5,
+						type = "group",
+						name = L["Display"],
+						args = {
+							displayMode = {
+								order = 1,
+								type = "select",
+								name = L["Bag Window"],
+								desc = L["Grid shows item icons, List one row per item with sortable columns, Compact packs the categories side by side. Also switchable from the title bar."],
+								values = {
+									GRID = L["Grid"],
+									LIST = L["List"],
+									COMPACT = L["Compact"],
+								},
+							},
+							bankDisplayMode = {
+								order = 2,
+								type = "select",
+								name = L["Bank Window"],
+								values = {
+									GRID = L["Grid"],
+									LIST = L["List"],
+									COMPACT = L["Compact"],
+								},
+							},
+							list = {
+								order = 3,
+								type = "group",
+								inline = true,
+								name = L["List"],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags.list[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.list[info[#info]] = value
+									RefreshCategoryFrames()
+								end,
+								args = {
+									rowHeight = {
+										order = 1,
+										type = "range",
+										name = L["Row Height"],
+										min = 16,
+										max = 32,
+										step = 1,
+									},
+									fontSize = {
+										order = 2,
+										type = "range",
+										name = L["Font Size"],
+										min = 8,
+										max = 16,
+										step = 1,
+									},
+									stripes = {
+										order = 3,
+										type = "toggle",
+										name = L["Alternating Row Background"],
+									},
+									sectionValue = {
+										order = 4,
+										type = "toggle",
+										name = L["Category Value"],
+										desc = L["Shows what the items of a category sell for next to its name."],
+									},
+									resetColumns = {
+										order = 5,
+										type = "execute",
+										name = L["Reset Columns"],
+										desc = L["Right-click a column header in the list to show, hide or move columns. Click a column to sort by it."],
+										func = function()
+											local db = E.db.mui.bags.categorizedBags.list
+											db.columns = nil
+											db.sortKey = nil
+											RefreshCategoryFrames()
+										end,
+									},
+								},
+							},
+						},
+					},
+					junkMarker = {
+						order = 6,
+						type = "group",
+						name = L["Junk Marker"],
+						get = function(info)
+							return E.db.mui.bags.categorizedBags.junkMarker[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.bags.categorizedBags.junkMarker[info[#info]] = value
+							BC:InvalidateCategoryCache()
+							BC:UpdateJunkAutoSell()
+							RefreshCategoryFrames()
+						end,
+						args = {
+							enable = {
+								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+								desc = L["Adds a Junk category for grey items and everything you mark as junk. The coin button in the title bar starts marking: click items to mark or unmark them. Sell Junk at a vendor sells all of it."],
+							},
+							autoSell = {
+								order = 2,
+								type = "toggle",
+								name = L["Auto Sell"],
+								desc = L["Sells all junk as soon as you open a vendor. Items that can still be refunded are never sold."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							sellSummary = {
+								order = 3,
+								type = "toggle",
+								name = L["Sale Summary"],
+								desc = L["Prints how many items were sold and for how much."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							sortByValue = {
+								order = 4,
+								type = "toggle",
+								name = L["Sort by Value"],
+								desc = L["Orders the Junk category by sell price, most valuable first."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							showInRecent = {
+								order = 5,
+								type = "toggle",
+								name = L["Show Junk in Recent Items"],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							separateSection = {
+								order = 6,
+								type = "toggle",
+								name = L["Junk Section in All Items / MultiBag"],
+								desc = L["Pulls the junk out of All Items and the bags in MultiBag into a Junk section of its own."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							atTop = {
+								order = 7,
+								type = "toggle",
+								name = L["Junk at the Top"],
+								desc = L["Shows the Junk section right below Pinned and Recent Items instead of at the end."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							coinCorner = {
+								order = 8,
+								type = "select",
+								name = L["Coin Icon Position"],
+								desc = L["Corner of the coin icon on junk items."],
+								values = {
+									TOPLEFT = L["Top Left"],
+									TOPRIGHT = L["Top Right"],
+									BOTTOMLEFT = L["Bottom Left"],
+									BOTTOMRIGHT = L["Bottom Right"],
+								},
+							},
+							resetMarks = {
+								order = 9,
+								type = "execute",
+								name = L["Reset Junk Marks"],
+								desc = L["Unmarks every item you marked as junk and makes all grey items junk again."],
+								confirm = true,
+								func = function()
+									local db = E.db.mui.bags.categorizedBags
+									if db.itemAssignments then
+										for itemID, key in pairs(db.itemAssignments) do
+											if key == BC.JUNK_KEY then
+												db.itemAssignments[itemID] = nil
+											end
+										end
+									end
+									db.junkExcluded = {}
+									RefreshCategoryFrames()
 								end,
 							},
 						},

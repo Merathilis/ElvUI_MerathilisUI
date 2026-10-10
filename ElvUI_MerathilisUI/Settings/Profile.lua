@@ -357,6 +357,29 @@ P.bags = {
 			backgroundAlpha = 0.8,
 		},
 		collapsedSections = {},
+		-- "GRID" | "LIST" | "COMPACT", per window
+		displayMode = "GRID",
+		bankDisplayMode = "GRID",
+		-- Column list, widths and sort live in here too once changed; they
+		-- have no defaults on purpose (AceDB would fill removed array entries
+		-- back in from a default list).
+		list = {
+			rowHeight = 22,
+			fontSize = 11,
+			stripes = true,
+			sectionValue = false,
+		},
+		junkMarker = {
+			enable = false,
+			autoSell = false,
+			sellSummary = true,
+			sortByValue = false,
+			showInRecent = true,
+			separateSection = false,
+			atTop = false,
+			coinCorner = "TOPRIGHT",
+		},
+		junkExcluded = {},
 	},
 }
 
