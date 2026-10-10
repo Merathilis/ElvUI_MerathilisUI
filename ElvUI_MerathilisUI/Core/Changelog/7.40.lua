@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[740] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "10.10.2026",
 	FIXES = {
 		"[AFK]: The chat shows on screen again, the realm time in 12-hour format shows the right AM/PM and the logout timer no longer restarts when your status changes while away.",
 		"[Bags]: No more Pawn errors right after logging in, neither from the equipment set indicator nor when opening the categorized bags while Pawn is still loading.",
