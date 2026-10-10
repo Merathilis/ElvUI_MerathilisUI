@@ -1539,6 +1539,7 @@ L["Shows a shield icon on the castbar of hostile units while their cast can't be
 -- Rounded Corners
 L["Rounded Corners"] = true
 L["Rounds the corners of the health, power, class and cast bars, including their border."] = true
+L["The MerathilisUI layout with rounded health, power, class and cast bars on all unit frames."] = true
 
 -- Cast on You
 L["Cast on You"] = true

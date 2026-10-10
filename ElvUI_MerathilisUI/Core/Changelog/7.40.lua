@@ -18,6 +18,7 @@ MER.Changelog[740] = {
 		"[Compatibility Check]: After login MerathilisUI checks if Shadow & Light, BenikUI, ToxiUI, Eltruism, mMediaTag & Tools, LuckyoneUI, WindTools or ProjectAzilroka have the same features turned on, and lets you choose per feature which one stays on. It can be turned off or started again under Advanced Settings.",
 		"[General]: Added Performance Tuning, a one-click graphics adjustment for a higher frame rate and a sharper image, with a revert button and a details card listing every change.",
 		"[NamePlates]: Castbar Shield: a shield icon on the castbars of hostile nameplates while their cast can't be interrupted, so you see at a glance whether you can kick it.",
+		"[Presets]: New official preset Rounded Corners: the MerathilisUI layout with rounded health, power, class and cast bars on all unit frames.",
 		"[Quick Grid]: New module: hold a key and a 3x3 grid of actions opens at your cursor, release it in a direction to use one, in combat too. Comes with decks for teleports, travel, markers and professions plus a custom one.",
 		"[Skins]: Added a skin for AussyLoot: its window, menus, popups and drop alert get the ElvUI backdrop and shadow and use the ElvUI font, while its own theme colors stay. If the mMediaTag & Tools AussyLoot skin is turned on too, the Compatibility Check lets you choose which one stays.",
 		"[Tooltip]: Shows the buffs of hovered players as icons on the tooltip, with position, icon size, icons per row and offset options. The new Tooltip options page also has the achievement link toggle.",

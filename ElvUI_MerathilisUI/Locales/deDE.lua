@@ -1331,6 +1331,7 @@ L["Shows a shield icon on the castbar of hostile units while their cast can't be
 -- Rounded Corners
 L["Rounded Corners"] = "Abgerundete Ecken"
 L["Rounds the corners of the health, power, class and cast bars, including their border."] = "Rundet die Ecken der Lebens-, Ressourcen-, Klassen- und Zauberleiste samt Rahmen ab."
+L["The MerathilisUI layout with rounded health, power, class and cast bars on all unit frames."] = "Das MerathilisUI-Layout mit abgerundeten Lebens-, Ressourcen-, Klassen- und Zauberleisten auf allen Einheitenfenstern."
 
 -- Cast on You
 L["Cast on You"] = "Zauber auf dich"
