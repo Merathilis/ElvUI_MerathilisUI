@@ -20,11 +20,6 @@ jobs:
             # Wago
             WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
 
-            # WoWInterface (addon id comes from "## X-WoWI-ID" in the TOC)
-            # WoWI has no alpha/beta channel, so test tags would replace the
-            # stable download there. Only hand the token to release tags.
-            WOWI_API_TOKEN: ${{ !contains(github.ref_name, 'alpha') && !contains(github.ref_name, 'beta') && secrets.WOWI_API_TOKEN || '' }}
-
             # GitHub
             # IMPORTANT: The packager expects exactly “GITHUB_OAUTH,” not GITHUB_API_TOKEN,
             # otherwise, the upload to GitHub Releases won't work.
@@ -33,7 +28,6 @@ jobs:
             # Project URLs - used for the Discord announcement
             CF_URL: https://www.curseforge.com/wow/addons/merathilis-ui
             WAGO_URL: https://addons.wago.io/addons/elvui-merathilisui
-            WOWI_URL: https://www.wowinterface.com/downloads/info24117
 
         steps:
             # ---------------------------------------------------------
@@ -64,7 +58,6 @@ jobs:
             # Package addon and upload to:
             #   - CurseForge
             #   - Wago
-            #   - WoWInterface
             #   - GitHub
             # ---------------------------------------------------------
             - name: BigWigs Packager
@@ -156,11 +149,6 @@ jobs:
                           "name": "CurseForge",
                           "value": "[Click Here](${{ env.CF_URL }})",
                           "inline": true
-                        },
-                        {
-                          "name": "WoWInterface",
-                          "value": "[Click Here](${{ env.WOWI_URL }})",
-                          "inline": true
                         }
                       ]
 
@@ -237,7 +225,7 @@ jobs:
                       --arg logo "$LOGO_URL" \
                       --rawfile notes DISCORD_NOTES.md \
                       --arg counts "$COUNTS" \
-                      --arg links "[CurseForge](${CF_URL}) · [Wago](${WAGO_URL}) · [WoWInterface](${WOWI_URL}) · [GitHub](${RELEASE_URL})" \
+                      --arg links "[CurseForge](${CF_URL}) · [Wago](${WAGO_URL}) · [GitHub](${RELEASE_URL})" \
                       --arg website "$WEBSITE_URL" \
                       '{
                           content: ("**Version " + $version + " is out, go check it out!**"),
