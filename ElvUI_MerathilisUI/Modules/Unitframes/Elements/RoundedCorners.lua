@@ -483,12 +483,21 @@ end
 
 -- oUF keeps every spawned frame, the group headers' children included
 function module:UpdateRoundedCorners()
+	-- The mask atlas is not known to exist on Forever
+	if E.Forever then
+		return
+	end
+
 	for _, frame in ipairs(ElvUF.objects) do
 		module:Configure_RoundedCorners(frame)
 	end
 end
 
 function module:RoundedCorners()
+	if E.Forever then
+		return
+	end
+
 	-- All run after ElvUI placed a bar; the power bar is placed after the health bar
 	-- and can change without a full update, the class bar changes with the spec
 	local function Configure(_, frame)

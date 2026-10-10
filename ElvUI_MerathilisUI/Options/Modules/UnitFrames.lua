@@ -222,6 +222,7 @@ module:AddOptions(function()
 						type = "group",
 						name = L["Rounded Corners"],
 						guiInline = true,
+						hidden = E.Forever,
 						get = function(info)
 							return E.db.mui.unitframes.roundedCorners[info[#info]]
 						end,

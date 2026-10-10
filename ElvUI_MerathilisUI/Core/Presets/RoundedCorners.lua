@@ -1,5 +1,10 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
+-- Rounded Corners is off on Forever, see Modules/UnitFrames/Elements/RoundedCorners.lua
+if E.Forever then
+	return
+end
+
 -- Cropped to the unit frames and action bars, at the width : height of the preset cards
 local PREVIEW_COORDS = { 0.28, 0.74, 0.655, 0.945 }
 
