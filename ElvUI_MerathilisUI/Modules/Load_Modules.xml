@@ -22,9 +22,11 @@
 	<Include file="Notification\Load_Notification.xml"/>
 	<Include file="Panels\Load_Panels.xml"/>
 	<Include file="Profiles\Load_Profiles.xml"/>
+	<Include file="QuickGrid\Load_QuickGrid.xml"/>
 	<Include file="Theme\Load_Theme.xml"/>
 	<Include file="Tooltip\Load_Tooltip.xml"/>
 	<Include file="Tracker\Load_Tracker.xml"/>
 	<Include file="Unitframes\Load_Unitframes.xml"/>
+	<Include file="UnlockMode\Load_UnlockMode.xml"/>
 	<Include file="VehicleBar\Load_VehicleBar.xml"/>
 </Ui>

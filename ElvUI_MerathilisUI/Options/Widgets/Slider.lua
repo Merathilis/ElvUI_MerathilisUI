@@ -47,15 +47,6 @@ local COLOR_VALUE_DISABLED = COLOR_TEXT_DISABLED
 local COLOR_VALUE_BOX_IDLE = { 0, 0, 0, 0 }
 local COLOR_VALUE_BOX_ACTIVE = { 0.16, 0.16, 0.16, 1 }
 
-local function Clamp(value, lo, hi)
-	if value < lo then
-		return lo
-	elseif value > hi then
-		return hi
-	end
-	return value
-end
-
 local function Round(value, step, minValue)
 	if step and step > 0 then
 		return floor((value - minValue) / step + 0.5) * step + minValue
@@ -105,7 +96,7 @@ local function UpdateVisual(self)
 
 	local minValue, maxValue = self.min or 0, self.max or 100
 	local range = maxValue - minValue
-	local percent = range > 0 and Clamp(((self.value or minValue) - minValue) / range, 0, 1) or 0
+	local percent = range > 0 and E:Clamp(((self.value or minValue) - minValue) / range, 0, 1) or 0
 
 	local trackWidth = track:GetWidth()
 	if trackWidth and trackWidth > 0 then
@@ -128,8 +119,8 @@ end
 
 local function CommitValue(self, value, fireChanged)
 	local minValue, maxValue = self.min or 0, self.max or 100
-	value = Clamp(value, minValue, maxValue)
-	value = Clamp(Round(value, self.step, minValue), minValue, maxValue)
+	value = E:Clamp(value, minValue, maxValue)
+	value = E:Clamp(Round(value, self.step, minValue), minValue, maxValue)
 
 	local changed = value ~= self.value
 	self.value = value
@@ -151,7 +142,7 @@ local function ValueFromCursorX(self, cursorX)
 	local scale = track:GetEffectiveScale()
 	local relativeX = cursorX / scale - left
 	local travel = max(width - KNOB_SIZE - (2 * KNOB_INSET), 0.0001)
-	local percent = Clamp((relativeX - KNOB_INSET - KNOB_SIZE / 2) / travel, 0, 1)
+	local percent = E:Clamp((relativeX - KNOB_INSET - KNOB_SIZE / 2) / travel, 0, 1)
 
 	local minValue, maxValue = self.min or 0, self.max or 100
 	return minValue + percent * (maxValue - minValue)
@@ -278,7 +269,7 @@ local methods = {
 
 	["SetValue"] = function(self, value)
 		local minValue = self.min or 0
-		value = Clamp(Round(tonumber(value) or minValue, self.step, minValue), minValue, self.max or 100)
+		value = E:Clamp(Round(tonumber(value) or minValue, self.step, minValue), minValue, self.max or 100)
 		self.value = value
 		UpdateVisual(self)
 	end,

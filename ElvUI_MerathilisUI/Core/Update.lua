@@ -6,7 +6,7 @@ local format = string.format
 
 local isFirstLine = true
 
-local DONE_ICON = format(" |T%s:0|t", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Textures\Complete.tga]])
+local DONE_ICON = format(" |T%s:0|t", [[Interface\AddOns\ElvUI_MerathilisUI\Media\Icons\Complete.tga]])
 
 ---@param text string
 ---@param from number

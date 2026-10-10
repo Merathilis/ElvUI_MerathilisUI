@@ -7,6 +7,7 @@ function module:Initialize()
 	end
 
 	self:CreateSpecBar()
+	self:CreateAssistedRotation()
 end
 
 MER:RegisterModule(module:GetName())

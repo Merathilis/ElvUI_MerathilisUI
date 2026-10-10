@@ -622,7 +622,8 @@ function module:ConstructBankFrame()
 		end)
 		f.footer.warbandGoldButton:SetScript("OnLeave", GameTooltip_Hide)
 
-		f.footer.withdrawButton = CreateFrame("Button", BANK_FRAME_NAME .. "WithdrawButton", f.footer, "UIPanelButtonTemplate")
+		f.footer.withdrawButton =
+			CreateFrame("Button", BANK_FRAME_NAME .. "WithdrawButton", f.footer, "UIPanelButtonTemplate")
 		f.footer.withdrawButton:Size(64, 20)
 		f.footer.withdrawButton:SetText(_G.WITHDRAW or L["Withdraw"])
 		f.footer.withdrawButton:Point("RIGHT", f.footer.warbandGoldText, "LEFT", -8, 0)
@@ -705,21 +706,15 @@ end
 -------------------------------------------------------------------------------
 --  Refresh
 -------------------------------------------------------------------------------
-local bankPools = CreatePoolSet(
-	BANK_SLOT_NAME_PREFIX,
-	function()
-		return module.bankContentChild
-	end,
-	function()
-		return module.bankSidebarChild
-	end,
-	function()
-		return module.bankFrame
-	end,
-	function()
-		return module.bankCategoryOffsets
-	end
-)
+local bankPools = CreatePoolSet(BANK_SLOT_NAME_PREFIX, function()
+	return module.bankContentChild
+end, function()
+	return module.bankSidebarChild
+end, function()
+	return module.bankFrame
+end, function()
+	return module.bankCategoryOffsets
+end)
 
 -- Tab rows/dividers live inside module.bankSidebarChild (the scrollable
 -- sidebar list), rendered fresh each refresh right before the category rows

@@ -1,3 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Achievement.lua"/>
+	<Script file="Buffs.lua"/>
+	<Script file="Core.lua"/>
 </Ui>

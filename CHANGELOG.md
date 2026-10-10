@@ -1,25 +1,38 @@
 ### Changes
 
--   [Fix]: Auras: Collapsing or expanding the buffs with the collapse button no longer resets the Vertical and Horizontal Spacing set in ElvUI.
--   [Fix]: Bags: Using or looting items in combat while the categorized bags are open no longer causes blocked actions; the counts keep updating and the bags rearrange after combat.
--   [Fix]: Bags: Dragging an item onto the + slot of Pinned Items pins it again instead of breaking its category assignment, and Recent Items no longer offers + slots or a manual item order.
--   [Fix]: Installer: With the MerathilisUI resting indicator turned off, the layout now places ElvUI's resting icon at its own spot on the player frame.
--   [Fix]: Resting Indicator: The animation no longer keeps running when ElvUI's resting icon is turned off, and it also shows during ElvUI's test display.
--   [Fix]: Status Report: Opens without a MerathilisUI profile as well, detects the Mac client again and lists BugGrabber correctly.
--   [Fix]: Status Report: The pixel perfect UI scale no longer shows up as a warning because of rounding, and the scale values are shortened to three decimals.
--   [New]: HoverCast: New click-casting module (Modules > HoverCast) as a replacement for Clique: global and per-spec bindings for spells, macros and items on the ElvUI unit frames, optional mouseover casting on nameplates and units in the world, presets for dispels, externals, trinkets and a dynamic resurrect, Quickbind, out-of-combat and content (Solo/Party/Raid/PvP) filters and Friendly/Enemy splits on one key.
--   [New]: Minimap Buttons: New Addon Buttons button on the main bar: it collects the minimap buttons of your addons (LibDBIcon and others) into a grid with its own size, row and ignore settings. Stays off while the WindTools or ProjectAzilroka collector is enabled, the options offer a switch to turn off the WindTools one.
--   [New]: Options: The start page shows the newest changes, rotating tips and a status line next to the logo.
--   [New]: Presets: New Presets page (also /mer presets): apply a complete setup with a code from merathilisui.com/presets, pick one of the official presets (Gradient, Dark, Healer, Minimal, Compact) or export your own setup as a code to share it. A preset always becomes a new ElvUI profile, and the private settings of the character are backed up first.
--   [Improvement]: Game Menu: The Show Clock and Fade In Content options apply without a reload.
--   [Improvement]: Game Menu: The Mythic+ options are no longer marked as work in progress.
--   [Improvement]: Installer: Reworked with a new look, a check mark for every applied step and fewer pages: the whole layout is one step with a Gradient or Dark preview, all AddOn profiles share one page and the last page sums up what was applied. Import Existing takes over the MerathilisUI profile and settings of another character, Skip no longer marks the profile as installed.
--   [Improvement]: Location Panel: Right-clicking the panel links your current location as a map pin in chat. A map pin you placed yourself stays in place.
--   [Improvement]: Minimap Buttons: The Tracking button is enabled by default.
--   [Improvement]: Options: Cursor, DataTexts, Loot Roll, Movement Alert and Tracker have their own category icons.
--   [Improvement]: Options: The Information page shows links, donations and Tukui as clickable tiles with logos, plus cards for bug reports, supporters and credits.
--   [Improvement]: Profiles: The mMediaTag & Tools profile no longer changes the color and texture of the target nameplate.
--   [Improvement]: Profiles: The AddOn profiles in the options are shown as tiles with the AddOn icon and whether the AddOn is enabled.
--   [Improvement]: Resting Indicator: New Color (class gradient, class color, custom color or Blizzard's original look) and Animation Speed options. All resting indicator options apply without a reload.
--   [Improvement]: Status Report: Reworked with a diagnostics section (Lua errors this session, MerathilisUI log, debug channels, debug mode), blocked features with their reason, tips on hover and clickable switches for Lua errors, taint log, log level and CPU profiling. Copy Report creates one text for bug reports with all loaded addons and the log, also available via /muidev status.
--   [Improvement]: Style: Turning the MerathilisUI style on or off no longer asks for a reload, it applies right away.
+-   [Fix]: AFK: The chat shows on screen again, the realm time in 12-hour format shows the right AM/PM and the logout timer no longer restarts when your status changes while away.
+-   [Fix]: Bags: No more Pawn errors right after logging in, neither from the equipment set indicator nor when opening the categorized bags while Pawn is still loading.
+-   [Fix]: Core: The checkmark in the profile update messages shows again.
+-   [Fix]: Core: Switching, copying or resetting a profile updates all MerathilisUI modules again right away instead of after a reload, without errors from the settings of the previous profile.
+-   [Fix]: Installer: The changelog popup no longer opens on top of the installer on a fresh install.
+-   [Fix]: Misc: The search box in the icon picker shows a real title and tooltip instead of its internal names.
+-   [Fix]: Name Hover: Hovering a unit no longer rebuilds the whole text, quest lines and tooltip scan many times a second, only when you move to another unit.
+-   [Fix]: Notification: The new mail toast plays a sound again.
+-   [Fix]: Profiles: Applying the MerathilisUI profile for Capping no longer causes a blocked action error, the profile now takes effect after the reload it asks for.
+-   [Fix]: Skins: The AddOnSkins toggles are now locked while Skins or AddOnSkins are disabled.
+-   [New]: ActionBars: Brought back Blizzard's rotation frame on the Single-Button Assistant button, sized for ElvUI's square buttons, with an optional combat animation and class or custom colors.
+-   [New]: Compatibility Check: After login MerathilisUI checks if Shadow & Light, BenikUI, ToxiUI, Eltruism, mMediaTag & Tools, LuckyoneUI, WindTools or ProjectAzilroka have the same features turned on, and lets you choose per feature which one stays on. It can be turned off or started again under Advanced Settings.
+-   [New]: General: Added Performance Tuning, a one-click graphics adjustment for a higher frame rate and a sharper image, with a revert button and a details card listing every change.
+-   [New]: General: MerathilisUI is now also released on WoWInterface.
+-   [New]: NamePlates: Castbar Shield: a shield icon on the castbars of hostile nameplates while their cast can't be interrupted, so you see at a glance whether you can kick it.
+-   [New]: Presets: New official preset Rounded Corners: the MerathilisUI layout with rounded health, power, class and cast bars on all unit frames.
+-   [New]: Quick Grid: New module: hold a key and a 3x3 grid of actions opens at your cursor, release it in a direction to use one, in combat too. Comes with decks for teleports, travel, markers and professions plus a custom one.
+-   [New]: Skins: Added a skin for AussyLoot: its window, menus, popups and drop alert get the ElvUI backdrop and shadow and use the ElvUI font, while its own theme colors stay. If the mMediaTag & Tools AussyLoot skin is turned on too, the Compatibility Check lets you choose which one stays.
+-   [New]: Tooltip: Shows the buffs of hovered players as icons on the tooltip, with position, icon size, icons per row and offset options. The new Tooltip options page also has the achievement link toggle.
+-   [New]: UnitFrames: Castbar Shield on the castbars of the target, focus, boss and arena frames, the same icon as on the nameplates.
+-   [New]: UnitFrames: Rounded Corners: the health, power, class and cast bars of the player, target, focus, target of target, pet, pet target, party, raid, boss and arena frames get rounded corners and a rounded border, the castbar icon too. An attached power bar is rounded together with the health bar as one block. Turned off by default.
+-   [New]: Unlock Mode: New module that extends ElvUI's mover mode with an unlock animation: movers snap to the edges and centers of other movers and the screen with guide lines, Alt-click anchors the selected mover to another one so it follows it, a click selects a mover for pixel-exact arrow key nudging, small movers stay above big ones, the parts still placed by Blizzard's Edit Mode are marked and open it on click, and a toolbar replaces ElvUI's mover window with the layout filter, grid, snapping and a count of your changes, which you can revert before you lock.
+-   [Improvement]: AFK: The AFK screen got more atmosphere: a vignette darkens the world, the panel slides in and the player model fades in, a bar counts down to the logout, and the sleeping model wakes up for a random emote now and then, with rising Z's and changing speech bubble lines while it sleeps.
+-   [Improvement]: Chat: The resize grips on the chat panels only show while you hover their corner.
+-   [Improvement]: Core: Font sizes, color shading and the option sliders use ElvUI's clamp function instead of their own copies.
+-   [Improvement]: General: Lower CPU use: features you turned off no longer register any events, hooks or timers, and the Vehicle Bar vigor bar, the buff collapse button, Chat Sidebar, Movement Alert, Interrupt Ready, Minimap Buttons, Notifications and the equipment set icon in the bags react to game events instead of checking on a timer. The option pages are only built the first time you open the options, which saves memory and loading time at login.
+-   [Improvement]: Installer: The nameplate layout keeps its side elements apart: the raid marker sits above the name, the elite icon left of the level, the quest icon at the top right corner and the crowd control auras behind the target arrow.
+-   [Improvement]: Installer: Opening the installer with a controller brings up the gamepad cursor right away.
+-   [Improvement]: Locales: The German translation is complete.
+-   [Improvement]: Locales: Terms MerathilisUI shares with ElvUI show ElvUI's translation again instead of English or a different wording, in ElvUI too.
+-   [Improvement]: NamePlates: Enemy Forces moved to the top right corner of the health bar, clear of the target arrow and the crowd control auras.
+-   [Improvement]: NamePlates: The target arrows move out of the way while a castbar icon would cover them.
+-   [Improvement]: Options: Many option pages now use cards: module switches show their description and icon, credits and info texts sit in cards, and simple toggles are grouped into two-column grids.
+-   [Improvement]: Options: The Tags page shows a preview of the name gradient tag on sample unit frames.
+-   [Improvement]: Options: The two Profiles pages are merged: Import/Export and Auto Copy Private Profile moved from Advanced Settings into the main Profiles page, whose font tab is now called Fonts.
+-   [Improvement]: Options: Most module pages show a live preview that follows your settings, among them the nameplate and unitframe elements, Cursor, Vehicle Bar, Panels, Tooltip buffs, Name Hover, Loot Roll, Movement Alert, Tracker, Buff Reminder, Location Panel, Chat Sidebar and the Specialization Bar.

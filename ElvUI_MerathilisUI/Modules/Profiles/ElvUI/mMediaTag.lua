@@ -14,6 +14,7 @@ function module:LoadmMediaTagProfile()
 	db.important_casts.anchor = "BOTTOM"
 	db.nameplates.target.changeColor = false
 	db.nameplates.target.changeTexture = false
+	db.nameplates.focus.enable = false -- MerathilisUI's NamePlates have their own Focus Highlight
 	db.phase_icon.enable = true
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true

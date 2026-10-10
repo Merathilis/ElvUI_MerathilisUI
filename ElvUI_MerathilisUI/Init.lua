@@ -123,13 +123,16 @@ MER.Modules.Options = MER:NewModule("MER_Options")
 MER.Modules.Panels = MER:NewModule("MER_Panels")
 MER.Modules.PetBattleScripts = MER:NewModule("MER_PetBattleScripts")
 MER.Modules.Profiles = MER:NewModule("MER_Profiles", "AceHook-3.0")
+MER.Modules.QuickGrid = MER:NewModule("MER_QuickGrid", "AceEvent-3.0")
 MER.Modules.RaidInfoFrame = MER:NewModule("MER_RaidInfoFrame")
 MER.Modules.Skins = MER:NewModule("MER_Skins", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MER.Modules.SplashScreen = MER:NewModule("MER_SplashScreen", "AceTimer-3.0")
 MER.Modules.Style = MER:NewModule("MER_Style", "AceHook-3.0")
 MER.Modules.Theme = MER:NewModule("MER_Theme", "AceHook-3.0")
+MER.Modules.Tooltip = MER:NewModule("MER_Tooltip")
 MER.Modules.Tracker = MER:NewModule("MER_Tracker", "AceEvent-3.0")
 MER.Modules.UnitFrames = MER:NewModule("MER_UnitFrames", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+MER.Modules.UnlockMode = MER:NewModule("MER_UnlockMode", "AceEvent-3.0")
 MER.Modules.VehicleBar = MER:NewModule("MER_VehicleBar", "AceHook-3.0")
 
 -- Pre register Datatexts
@@ -185,9 +188,10 @@ function MER:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("PLAYER_LOGIN")
 
-	E.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
-	E.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
-	E.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
+	-- The profile callbacks come from ElvUI's AceDB, E.callbacks never fires them
+	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateProfiles")
+	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateProfiles")
+	E.data.RegisterCallback(self, "OnProfileReset", "UpdateProfiles")
 end
 
 function MER:AutoCopyPrivateProfile()

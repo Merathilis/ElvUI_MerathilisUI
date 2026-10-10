@@ -7,6 +7,7 @@
 	<Script file="MarkerColor.lua"/>
 	<Script file="EnemyForces.lua"/>
 	<Script file="InterruptReady.lua"/>
+	<Script file="CastbarShield.lua"/>
 	<Script file="CastTarget.lua"/>
 	<Script file="ExecuteLine.lua"/>
 </Ui>

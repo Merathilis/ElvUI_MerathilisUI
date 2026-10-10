@@ -18,7 +18,6 @@ L["Alpha"] = true
 L["Outline"] = true
 L["Y-Offset"] = true
 L["X-Offset"] = true
-L["Y-Offset"] = true
 
 -- General Options
 L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
@@ -26,8 +25,49 @@ L[" does not support this game version, please uninstall it and don't ask for su
 L["AFK"] = "Away"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Logout Timer"] = true
+L["AFK ... maybe!?"] = true
+L["Just five more minutes..."] = true
+L["Do not disturb!"] = true
+L["Dreaming of loot..."] = true
+L["Brb, getting coffee"] = true
+L["Counting sheep..."] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
+
+-- Performance Tuning
+L["Performance Tuning"] = true
+L["Trades environment detail for a higher frame rate and a sharper image with one click."] = true
+L["Boost FPS & Clarity"] = true
+L["Adjusts your graphics settings for a higher frame rate and a sharper image. Textures stay on high."] = true
+L["Revert to Previous Settings"] = true
+L["Puts back the graphics settings you had before the tuning."] = true
+L["Show Details"] = true
+L["Hide Details"] = true
+L["What the Tuning Changes"] = true
+L["Performance tuning applied."] = true
+L["Previous graphics settings are back."] = true
+L["The tuning lowers the settings that cost a lot of FPS but add little to what you actually see in combat."] = true
+L["Your previous values are saved first, so the revert button can bring them back at any time."] = true
+L["Changed settings:"] = true
+L["Shadow Quality: Fair (balanced quality and FPS)"] = true
+L["Liquid Detail: Low"] = true
+L["Particle Density: Ultra (keeps important spell effects)"] = true
+L["SSAO (Ambient Occlusion): Disabled"] = true
+L["Depth Effects: Disabled"] = true
+L["Compute Effects: Disabled"] = true
+L["Outline Mode: Disabled"] = true
+L["Texture Resolution: High"] = true
+L["Spell Density: Essential"] = true
+L["Projected Textures: Enabled (needed for ground effects)"] = true
+L["View Distance: 1"] = true
+L["Environment Detail: 1"] = true
+L["Ground Clutter: 1"] = true
+L["Raid/Dungeon Settings: Same settings everywhere"] = true
+L["Resample Sharpening: Enabled (crisper image)"] = true
+L["Reverb: Disabled (spell and interrupt sound cues stay crisp)"] = true
+L["Contrast: +10 (if currently 55 or below)"] = true
+L["Character and world textures are left on high, only distant scenery, effects and post-processing are toned down."] = true
+
 L["Description"] = true
 L["General"] = true
 L["Modules"] = true
@@ -172,9 +212,12 @@ L["Text Font"] = true
 L["Specialization Bar"] = true
 L["Frame Strata"] = true
 L["Frame Level"] = true
+L["Single-Button Assistant"] = true
+L["Brings back Blizzard's rotation frame around its action button, which ElvUI's action bars leave out."] = true
+L["Combat Animation"] = true
+L["Spins a glow around the frame while you are in combat."] = true
 
 -- Armory
-L["Armory"] = true
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
 L["Enchant & Socket Strings"] = true
 L["Settings for strings displaying enchant and socket info from the items"] = true
@@ -205,13 +248,10 @@ L["Hides the camera controls when hovering the character model."] = true
 L["Add enchant"] = true
 L["Attributes"] = true
 L["Background"] = true
-L["Alpha"] = true
 L["Style"] = true
 L["Change the Background image."] = true
 L["Class Background"] = true
 L["Use class specific backgrounds."] = true
-L["Hide Controls"] = true
-L["Hides the camera controls when hovering the character model."] = true
 L["Animation"] = true
 L["Animation Multiplier"] = true
 L["Socket Panel"] = true
@@ -355,14 +395,12 @@ L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external ad
 
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["Screen Shadow Overlay"] = true
+L["Restyles the Blizzard frames and the supported AddOns in the MerathilisUI look."] = true
 L["Enables/Disables a shadow overlay to darken the screen."] = true
-L["Enable/Disable"] = true
-L["decor."] = true
 L["Backdrop Color"] = true
 L["Character Frame"] = true
 L["Item Upgrade"] = true
 L["Trade"] = true
-L["Misc"] = true
 L["%s is not loaded."] = true
 L["Left Color"] = true
 L["Right Color"] = true
@@ -378,8 +416,6 @@ L["BOTTOM"] = true
 L["Advanced Skin Settings"] = true
 L["Gradient Bars"] = true
 L["Open Details"] = true
-L["Frame Level"] = true
-L["Frame Strata"] = true
 
 -- Panels
 L["Panels"] = true
@@ -411,7 +447,6 @@ L["Animation Speed"] = true
 -- Raid Info Frame
 L["Raid Info Frame"] = true
 L[" provides a Raid Info Frame that shows a list of players per role in your raid."] = true
-L["Enable the Raid Info Frame."] = true
 L["Temporarily shows the frame even outside of a raid for easier customization."] = true
 L["Customization"] = true
 L["Set the size of the text and icons."] = true
@@ -539,7 +574,17 @@ L["The Raid Info Frame lists the players in your raid by role."] = true
 L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = true
 
 -- Compatibility
-L["Complete"] = true
+L["Compatibility Check"] = true
+L["Shared Features Found"] = true
+L["Some of your ElvUI plugins offer the same features as %s. Running both can cause errors or a doubled look, so turn off the one you don't want to use."] = true
+L["Later"] = true
+L["Features left on for both won't be asked about again. Apply reloads the UI when something was turned off."] = true
+L["No shared features with your other ElvUI plugins found."] = true
+L["%d shared |4feature:features;"] = true
+L["Details Embed"] = true
+L["After login, checks if another ElvUI plugin has the same features turned on and lets you choose which one to keep."] = true
+L["Check Now"] = true
+L["Runs the compatibility check now, including the features you kept on for both."] = true
 
 -- Profiles
 L[" Apply"] = true
@@ -626,6 +671,7 @@ L["Arena"] = "Arena"
 L["Assist"] = "Assist"
 L["Assist Target"] = "Assist Target"
 L["Auto Copy Private Profile"] = "Auto Copy Private Profile"
+L["Import / Export"] = true
 L["Auto Scale"] = "Auto Scale"
 L["Automatically copy the selected private profile to a new character on first login."] =
 	"Automatically copy the selected private profile to a new character on first login."
@@ -652,6 +698,7 @@ L["Character"] = "Character"
 L["Chat"] = "Chat"
 L["Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."] =
 	"Check the setting of ElvUI Private database in ElvUI Options -> Profiles -> Private (tab)."
+L["AussyLoot"] = true
 L["Class Codex"] = "Class Codex"
 L["Class Color"] = "Class Color"
 L["Classification"] = "Classification"
@@ -685,7 +732,6 @@ L["Disable NameHover inside dungeons, raids and scenarios.\nIf disabled, NameHov
 L["Disable in Dungeons/Raids"] = "Disable in Dungeons/Raids"
 L["Durability/ Ilevel"] = "Durability/ Ilevel"
 L["ElvUI"] = "ElvUI"
-L["ElvUI_WindTools"] = "ElvUI_WindTools"
 L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] =
 	"Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."
 L["Enabling this colors your modifier keys."] = "Enabling this colors your modifier keys."
@@ -911,8 +957,8 @@ L["How often the speed text is updated."] = "How often the speed text is updated
 L["I got it!"] = "I got it!"
 L["I want to sync setting of MerathilisUI!"] = "I want to sync setting of MerathilisUI!"
 L["Icon"] = "Icon"
-L["IconSearch"] = "IconSearch"
-L["IconSearchTip"] = "IconSearchTip"
+L["Icon Search"] = true
+L["Enter a spell ID or item ID to find its icon."] = true
 L["If you simply want to share the same private settings across all characters, it is recommended to set the same private profile for them in ElvUI > Profiles > Private."] =
 	"If you simply want to share the same private settings across all characters, it is recommended to set the same private profile for them in ElvUI > Profiles > Private."
 L["Import"] = "Import"
@@ -957,7 +1003,6 @@ L["Note: This feature only copies the private profile once per character. It doe
 	"Note: This feature only copies the private profile once per character. It does not synchronize settings afterwards."
 L["Offset Y"] = "Offset Y"
 L["Ok"] = "Ok"
-L["OmniCD"] = "OmniCD"
 L["Open Changelog"] = "Open Changelog"
 L["Open Character Frame"] = "Open Character Frame"
 L["Other"] = "Other"
@@ -1249,13 +1294,10 @@ L["Loot Roll"] = true
 L["Can't Roll"] = true
 L["Replaces ElvUI's Need/Greed/Pass loot roll frames with a custom, movable bar."] = true
 L["Show/hide a fake roll bar to preview your settings."] = true
-L["Layout"] = true
 L["Grow Direction"] = true
 L["Down"] = true
 L["Up"] = true
 L["Max Bars"] = true
-L["Spacing"] = true
-L["Button Size"] = true
 L["Colors"] = true
 L["Color Border by Quality"] = true
 L["Color Name by Quality"] = true
@@ -1491,6 +1533,15 @@ L["Units"] = true
 L["Interrupt on Cooldown"] = true
 L["Interrupt Ready Soon"] = true
 
+-- Castbar Shield
+L["Castbar Shield"] = true
+L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."] = true
+
+-- Rounded Corners
+L["Rounded Corners"] = true
+L["Rounds the corners of the health, power, class and cast bars, including their border."] = true
+L["The MerathilisUI layout with rounded health, power, class and cast bars on all unit frames."] = true
+
 -- Cast on You
 L["Cast on You"] = true
 L["Marks the castbar of hostile units while their cast targets you. Channeled spells are not marked."] = true
@@ -1630,3 +1681,116 @@ L["Smaller unit frames and action buttons for 1080p and small screens."] = true
 L["Type /mer presets to pick a ready-made look. Every preset becomes a new ElvUI profile, so you can switch back at any time."] = true
 L["More presets from the community wait on merathilisui.com/presets. Copy a code and paste it under Presets > Import."] = true
 L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."] = true
+
+-- Option cards
+L["Scales the character, dressing room, inspect, talent and collection frames on their own, independent of the UI scale."] = true
+L["Shows the name, level, guild and target of the unit under your mouse cursor right next to it."] = true
+L["Shows small toast notifications for new mail, invites, guild events, paragon rewards and more."] = true
+L["Shows its own action bar while you are in a vehicle or skyriding."] = true
+L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."] = true
+L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."] = true
+
+-- Quick Grid
+L["Quick Grid"] = true
+L["Hold a key and a grid of eight actions opens around your mouse cursor. Point in a direction and release the key to use that action. Releasing in the center or without moving the mouse cancels. Works in combat."] = true
+L["Open At"] = true
+L["Opens the grid under your mouse cursor or always in the middle of the screen."] = true
+L["Screen Center"] = true
+L["Tile Size"] = true
+L["Show Cooldowns"] = true
+L["Shows the cooldowns of spells, items and toys on their tiles."] = true
+L["Show Name"] = true
+L["Shows the name of the selected action below the grid."] = true
+L["Name Size"] = true
+L["Decks"] = true
+L["Hold this key to open the deck. The free modifier combinations of the key open it too, so a modifier can be pressed while the deck is open."] = true
+L["Custom Deck"] = true
+L["Drag a spell, item or macro onto a field, or type the name of a spell, macro, mount, toy or item. Empty a field to clear it."] = true
+L["The center cancels."] = true
+L["Could not find %s. Use the name of a spell, macro, mount, toy or item."] = true
+L["Teleports"] = true
+L["Travel"] = true
+L["Random Favorite Mount"] = true
+L["World Marker"] = true
+L["The Mythic+ dungeon teleports of the current season. Teleports you don't know yet are greyed out."] = true
+L["Random favorite mount (top), hearthstone (right), Dalaran Hearthstone (left), a vendor mount (bottom), an auction house mount (top right) and your first favorite mounts in the free corners."] = true
+L["Raid target icons on your target. Hold Shift while you release the key to place the matching world marker instead."] = true
+L["Both professions with their second ability, cooking, fishing and archaeology, always in the same place. The top left opens the professions book."] = true
+L["Eight places of your own for spells, items, toys, macros and mounts. Saved per character."] = true
+L["Quick Grid opens a grid of eight actions at your cursor while you hold a key: teleports, mounts, markers, professions or your own."] = true
+L["In the Quick Grid marker deck, hold Shift while you release the key to place a world marker instead of a target marker."] = true
+L["Hold %s"] = true
+L["Hold the key"] = true
+L["Release the key"] = true
+
+-- Tooltip
+L["Achievement"] = true
+L["Buffs"] = true
+L["Players Only"] = true
+L["Icons Per Row"] = true
+L["Max Icons"] = true
+L["Stack Font Size"] = true
+L["Shows on achievement links who earned the achievement and whether you have completed it too."] = true
+L["Shows the buffs of the hovered unit as icons on the tooltip."] = true
+L["Only show buffs on the tooltip of players."] = true
+
+-- Unlock Mode
+L["Unlock Mode"] = true
+L["Extends ElvUI's mover mode: movers snap to each other with guide lines, can be anchored to each other, a click selects a mover for the arrow keys and a toolbar shows your changes, which you can save or revert. The positions stay in ElvUI's profile."] = true
+L["Open Unlock Mode"] = true
+L["Opens ElvUI's mover mode with the additions of this page."] = true
+L["Toolbar"] = true
+L["Shows a toolbar at the top of the screen instead of ElvUI's mover window, with the layout filter, grid, snapping and your changes."] = true
+L["Show Grid"] = true
+L["Class Colored Grid"] = true
+L["Draws the center lines of the grid in your class color."] = true
+L["Small Movers on Top"] = true
+L["Small movers are drawn above big ones, so a mover inside another one can still be grabbed."] = true
+L["Snapping"] = true
+L["While you drag a mover, its edges and center snap to the edges and centers of the other movers. Hold Shift to drag freely. Replaces ElvUI's Sticky Frames as long as it is on."] = true
+L["Guide Lines"] = true
+L["Draws a line across the screen where the mover snapped."] = true
+L["Snap to Screen"] = true
+L["Also snaps to the center and the edges of the screen."] = true
+L["Snap Distance"] = true
+L["How close an edge has to come before it snaps, in pixels."] = true
+L["Keyboard"] = true
+L["Click a mover to select it, the arrow keys then move it by one pixel. Escape or another click on it clears the selection."] = true
+L["Arrow Keys"] = true
+L["Step with Modifier"] = true
+L["Pixels per key press while Shift, Ctrl or Alt is held."] = true
+L["Grid Size"] = true
+L["Number of grid cells across the screen, from 4 to 256."] = true
+L["Grid"] = true
+L["Snap"] = true
+L["Edges and centers snap to the other movers and to the screen while you drag. Hold Shift to drag freely."] = true
+L["Revert"] = true
+L["Puts every mover back where it was when the unlock mode opened."] = true
+L["Reset All"] = true
+L["Puts every mover back to its default position."] = true
+L["Save & Lock"] = true
+L["Click: select"] = true
+L["Arrow keys: nudge, with Shift %d px"] = true
+L["Shift while dragging: no snapping"] = true
+L["Right-click: settings"] = true
+L["Ctrl+Right-click: reset"] = true
+L["Shift+Right-click: hide"] = true
+L["%d change"] = true
+L["%d changes"] = true
+L["No changes"] = true
+L["Anchors"] = true
+L["Select a mover, then Alt-click another one: the selected mover is anchored to it and follows it from then on. The side is taken from where the mover sits. Dragging or nudging an anchored mover only changes its distance to the target. Alt-click the target again to detach it."] = true
+L["Anchor Lines"] = true
+L["Connects anchored movers with a line in the mover mode."] = true
+L["Detach All"] = true
+L["Detaches every anchored mover, it keeps its current place on the screen."] = true
+L["Detach"] = true
+L["%s is anchored to %s."] = true
+L["Alt-click another mover to anchor %s to it."] = true
+L["Select a mover, then Alt-click another one to anchor it there."] = true
+L["%s can't be anchored to %s, because %s already follows it."] = true
+L["Edit Mode Hints"] = true
+L["Marks the parts of the interface that Blizzard's Edit Mode places instead of ElvUI. A click on one closes the mover mode and opens the Edit Mode."] = true
+L["Placed by Blizzard's Edit Mode, not by ElvUI."] = true
+L["Click: open Blizzard's Edit Mode"] = true
+L["Plays a short unlock animation when the mover mode opens and a lock animation when it closes."] = true

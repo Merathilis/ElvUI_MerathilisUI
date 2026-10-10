@@ -12,7 +12,6 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitGUID = UnitGUID
 local C_StringUtil_WrapString = C_StringUtil.WrapString
 
-
 local function clamp255(x)
 	if type(x) ~= "number" then
 		return 255

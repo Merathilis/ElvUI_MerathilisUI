@@ -15,6 +15,20 @@ module.enabledState = F.Enum({ "YES", "NO", "FORCE_DISABLED" })
 module.orderIndex = 1
 module.callOnInit = {}
 
+-- The option tables are built when ElvUI's options load for the first time, not at login:
+-- every options file hands its body over as a builder. Post builders run after the tree
+-- is assembled, on every OptionsCallback.
+module.builders = {}
+module.postBuilders = {}
+
+function module:AddOptions(builder)
+	tinsert(self.builders, builder)
+end
+
+function module:AddOptionsPostBuild(func)
+	tinsert(self.postBuilders, func)
+end
+
 module.options = {
 	general = {
 		order = 101,
@@ -77,6 +91,19 @@ module.options = {
 -- Error handler
 local function errorhandler(err)
 	return _G.geterrorhandler()(err)
+end
+
+function module:BuildOptions()
+	for index, builder in ipairs(self.builders) do
+		xpcall(builder, errorhandler)
+		self.builders[index] = nil
+	end
+
+	-- Registered by the builders through AddCallback
+	for index, func in next, self.callOnInit do
+		xpcall(func, errorhandler, self)
+		self.callOnInit[index] = nil
+	end
 end
 
 function module:GetFontColorGetter(profileDB, defaultDB, customKey)
@@ -219,6 +246,65 @@ function module.RequirementsDisabled(requirements)
 	end
 end
 
+---Turns a toggle into a MERToggleCard (Options/Widgets/InfoCards.lua) with its
+---description as card body. Without `relWidth` the card takes the full width.
+---@param option table toggle option, `type` can be left out
+---@param relWidth number? share of the row, e.g. 0.5 for two cards per row
+---@return table option
+function module.ToggleCard(option, relWidth)
+	option.type = "toggle"
+	option.dialogControl = "MERToggleCard"
+	option.descStyle = "inline"
+	if relWidth then
+		option.width = "relative"
+		option.relWidth = relWidth
+	else
+		option.width = "full"
+	end
+
+	return option
+end
+
+---A description shown as MERTextCard (Options/Widgets/InfoCards.lua)
+---@param order number
+---@param text string|function card body
+---@param title string? title line above the body
+---@param icon string|number? texture in front of the title
+---@return table option
+function module.TextCard(order, text, title, icon)
+	return {
+		order = order,
+		type = "description",
+		dialogControl = "MERTextCard",
+		fontSize = "medium",
+		name = text,
+		arg = (title or icon) and { title = title, icon = icon } or nil,
+	}
+end
+
+---Credits of a module as MERTextCard
+---@param order number
+---@param text string
+---@return table option
+function module.CreditsCard(order, text)
+	return module.TextCard(order, text, L["Credits"])
+end
+
+---A live preview widget (Options/Widgets/*Preview.lua) as a full width row
+---@param order number
+---@param dialogControl string AceGUI type of the preview
+---@param key string tells the preview which settings to show
+---@return table option
+function module.PreviewOption(order, dialogControl, key)
+	return {
+		order = order,
+		type = "description",
+		dialogControl = dialogControl,
+		name = key,
+		width = "full",
+	}
+end
+
 ---Settings of the Interrupt Ready castbar indicator, shared by UnitFrames and NamePlates
 ---@param order number
 ---@param getDB function returns the settings table
@@ -318,14 +404,110 @@ function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled
 	return group
 end
 
+---Settings of the shield icon on castbars of casts that can't be interrupted, shared by UnitFrames and NamePlates
+---@param order number
+---@param getDB function returns the settings table
+---@param update function refresh after a change
+---@param requirementsDisabled function disabled check of the owning module
+---@param previewKey string settings key under E.db.mui ("unitframes", "nameplates") for the sample castbar
+---@param extraArgs table? more options, merged into the group's args
+---@return table option
+function module.CastbarShieldOptions(order, getDB, update, requirementsDisabled, previewKey, extraArgs)
+	-- Own disabled replaces the group's, so the children repeat the requirement
+	local function Disabled()
+		return requirementsDisabled() or not getDB().enable
+	end
+
+	local group = {
+		order = order,
+		type = "group",
+		name = L["Castbar Shield"],
+		guiInline = true,
+		get = function(info)
+			return getDB()[info[#info]]
+		end,
+		set = function(info, value)
+			getDB()[info[#info]] = value
+			update()
+		end,
+		disabled = requirementsDisabled,
+		args = {
+			desc = {
+				order = 1,
+				type = "description",
+				name = L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."],
+			},
+			preview = {
+				order = 1.5,
+				type = "description",
+				dialogControl = "MERCastbarShieldPreview",
+				name = previewKey,
+				width = "full",
+			},
+			enable = {
+				order = 2,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			size = {
+				order = 3,
+				type = "range",
+				name = L["Size"],
+				min = 8,
+				max = 64,
+				step = 1,
+				disabled = Disabled,
+			},
+			anchorPoint = {
+				order = 4,
+				type = "select",
+				name = L["Anchor Point"],
+				values = I.Values.positionValues,
+				disabled = Disabled,
+			},
+			xOffset = {
+				order = 5,
+				type = "range",
+				name = L["X-Offset"],
+				min = -100,
+				max = 100,
+				step = 1,
+				disabled = Disabled,
+			},
+			yOffset = {
+				order = 6,
+				type = "range",
+				name = L["Y-Offset"],
+				min = -100,
+				max = 100,
+				step = 1,
+				disabled = Disabled,
+			},
+		},
+	}
+
+	if extraArgs then
+		for key, option in pairs(extraArgs) do
+			-- A replaced description keeps the group's disabled, like the built-in one
+			if option.disabled == nil and option.type ~= "description" then
+				option.disabled = Disabled
+			end
+			group.args[key] = option
+		end
+	end
+
+	return group
+end
+
 ---Settings of the Execute Line on the health bar, shared by UnitFrames and NamePlates
 ---@param order number
 ---@param getDB function returns the settings table
 ---@param update function refresh after a change
 ---@param requirementsDisabled function disabled check of the owning module
+---@param previewKey string settings key under E.db.mui ("unitframes", "nameplates") for the sample health bar
 ---@param extraArgs table? more options, merged into the group's args
 ---@return table option
-function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, extraArgs)
+function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, previewKey, extraArgs)
 	-- Own disabled replaces the group's, so the children repeat the requirement
 	local function Disabled()
 		return requirementsDisabled() or not getDB().enable
@@ -355,6 +537,7 @@ function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, e
 				type = "toggle",
 				name = L["Enable"],
 			},
+			preview = module.PreviewOption(2.5, "MERExecuteLinePreview", previewKey),
 			hostileOnly = {
 				order = 3,
 				type = "toggle",
@@ -578,6 +761,8 @@ function module:AddCallback(name, func)
 end
 
 function module:OptionsCallback()
+	self:BuildOptions()
+
 	local icon = F.GetIconString(I.Media.Textures.pepeSmall, 14)
 	E.Options.name = format("%s + %s %s |cFF00c0fa%s|r", E.Options.name, icon, MER.Title, MER.DisplayVersion)
 
@@ -684,6 +869,10 @@ function module:OptionsCallback()
 	end
 
 	self:ApplyCustomWidgets(E.Options.args.mui.args)
+
+	for _, func in ipairs(self.postBuilders) do
+		xpcall(func, errorhandler, self)
+	end
 end
 
 -- Redirects MER's own toggle/range/select/input/color/execute/header args to custom
@@ -745,11 +934,7 @@ function module:Initialize()
 		return
 	end
 
-	for index, func in next, self.callOnInit do
-		xpcall(func, errorhandler, self)
-		self.callOnInit[index] = nil
-	end
-
+	-- The options themselves are built by OptionsCallback, see BuildOptions
 	self.Initialized = true
 end
 

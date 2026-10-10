@@ -68,10 +68,14 @@ function module:Initialize()
 	module:FactionIndicator()
 	-- Interrupt Ready
 	module:InterruptReady()
+	-- Castbar Shield
+	module:CastbarShield()
 	-- Execute Line
 	module:ExecuteLine()
 	-- Resting Indicator
 	module:RestingIndicator()
+	-- Rounded Corners
+	module:RoundedCorners()
 end
 
 -- The settings are read on every configure, the frames that exist just need a refresh
@@ -82,8 +86,10 @@ function module:ProfileUpdate()
 
 	module:UpdateFactionIndicators()
 	module:UpdateInterruptReady()
+	module:UpdateCastbarShield()
 	module:UpdateExecuteLines()
 	module:UpdateRestingIndicator()
+	module:UpdateRoundedCorners()
 end
 
 MER:RegisterModule(module:GetName())

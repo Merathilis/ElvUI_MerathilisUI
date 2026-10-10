@@ -3,7 +3,9 @@ local module = MER:GetModule("MER_Skins") ---@type Skins
 local WS = W:GetModule("Skins")
 
 local _G = _G
-local next = next
+local next, wipe = next, wipe
+
+local CreateColor = CreateColor
 
 local Details = _G.Details
 
@@ -30,6 +32,24 @@ local function GetActorClass(actor)
 	end
 end
 
+-- Details refreshes its rows several times a second in combat. The class colors are built
+-- once per class, other bars share two colors (SetGradient copies the values right away).
+local classGradients = {}
+local otherMin, otherMax = CreateColor(0, 0, 0, 0.9), CreateColor(0, 0, 0, 0.9)
+
+local function GetClassGradient(class)
+	local gradient = classGradients[class]
+	if not gradient then
+		local left, right = F.GradientColorsDetails(class)
+		gradient = {
+			CreateColor(left.r, left.g, left.b, left.a),
+			CreateColor(right.r, right.g, right.b, right.a),
+		}
+		classGradients[class] = gradient
+	end
+	return gradient[1], gradient[2]
+end
+
 local function SetBarGradient(row, r, g, b)
 	if E:IsSecretValue(r) then
 		return
@@ -37,13 +57,11 @@ local function SetBarGradient(row, r, g, b)
 
 	local class = GetActorClass(row.minha_tabela)
 	if class and classes[class] then
-		row.textura:SetGradient("Horizontal", F.GradientColorsDetails(class))
+		row.textura:SetGradient("Horizontal", GetClassGradient(class))
 	else
-		row.textura:SetGradient(
-			"Horizontal",
-			CreateColor(r - 0.5, g - 0.5, b - 0.5, 0.9),
-			CreateColor(r + 0.2, g + 0.2, b + 0.2, 0.9)
-		)
+		otherMin:SetRGBA(r - 0.5, g - 0.5, b - 0.5, 0.9)
+		otherMax:SetRGBA(r + 0.2, g + 0.2, b + 0.2, 0.9)
+		row.textura:SetGradient("Horizontal", otherMin, otherMax)
 	end
 end
 
@@ -62,7 +80,42 @@ local function GradientBars()
 	end)
 end
 
--- In combat Details shows secret names, those can't be stripped or shortened
+-- The finished gradient text per class and raw Details text, so a row refresh with the same
+-- name does no string work at all. Two caches for the shortened and the full name, capped.
+local NAME_CACHE_LIMIT = 300
+local nameCaches = { full = {}, short = {} }
+local nameCacheSize = 0
+
+local function GetCachedGradientName(rawText, class, shorten)
+	local cache = nameCaches[shorten and "short" or "full"]
+	local byClass = cache[class]
+	local result = byClass and byClass[rawText]
+	if result then
+		return result
+	end
+
+	local name = E:StripString(rawText)
+	if shorten then
+		name = F:ShortenString(name, 10, true)
+	end
+	result = F.GradientName(name, class)
+
+	if nameCacheSize >= NAME_CACHE_LIMIT then
+		wipe(nameCaches.full)
+		wipe(nameCaches.short)
+		nameCacheSize = 0
+	end
+	if not byClass then
+		byClass = {}
+		cache[class] = byClass
+	end
+	byClass[rawText] = result
+	nameCacheSize = nameCacheSize + 1
+
+	return result
+end
+
+-- In combat Details shows secret names, those can't be stripped, shortened or cached
 local function SetGradientName(line, db)
 	local fontString = line and line.lineText1
 	local class = line and GetActorClass(line.minha_tabela)
@@ -76,13 +129,11 @@ local function SetGradientName(line, db)
 			return
 		end
 
-		name = E:StripString(name)
-		if db.use_multi_fontstrings and db.use_auto_align_multi_fontstrings then
-			name = F:ShortenString(name, 10, true)
-		end
+		local shorten = db.use_multi_fontstrings and db.use_auto_align_multi_fontstrings
+		fontString:SetText(GetCachedGradientName(name, class, shorten))
+	else
+		fontString:SetText(F.GradientName(name, class))
 	end
-
-	fontString:SetText(F.GradientName(name, class))
 	fontString:SetShadowOffset(2, -2)
 end
 

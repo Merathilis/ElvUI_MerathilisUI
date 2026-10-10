@@ -184,10 +184,21 @@ local function ItemButton_OnEnter(self)
 	GameTooltip:Show()
 end
 
+-- Modifier changes only matter while the tooltip is up
 local function ItemButton_OnEvent(self, event)
 	if event == "MODIFIER_STATE_CHANGED" and self:IsMouseOver() then
 		ItemButton_OnEnter(self)
 	end
+end
+
+local function ItemButton_OnHoverEnter(self)
+	self:RegisterEvent("MODIFIER_STATE_CHANGED")
+	ItemButton_OnEnter(self)
+end
+
+local function ItemButton_OnLeave(self)
+	self:UnregisterEvent("MODIFIER_STATE_CHANGED")
+	GameTooltip_Hide()
 end
 
 local function ItemButton_OnClick(self)
@@ -253,11 +264,10 @@ function module:CreateBar(index)
 	bar.panel = panel
 
 	local button = CreateFrame("Button", nil, bar)
-	button:SetScript("OnEnter", ItemButton_OnEnter)
-	button:SetScript("OnLeave", GameTooltip_Hide)
+	button:SetScript("OnEnter", ItemButton_OnHoverEnter)
+	button:SetScript("OnLeave", ItemButton_OnLeave)
 	button:SetScript("OnClick", ItemButton_OnClick)
 	button:SetScript("OnEvent", ItemButton_OnEvent)
-	button:RegisterEvent("MODIFIER_STATE_CHANGED")
 	button:CreateBackdrop("Default")
 	button.parent = bar
 	bar.button = button
@@ -791,6 +801,31 @@ function module:Test()
 				)
 			end
 		end
+	end
+end
+
+-- Sample bars for the options preview (Options/Widgets/LootRollPreview.lua), kept out of the roll bar pool
+function module:CreatePreviewBars(parent)
+	module.db = E.db.mui.lootRoll
+
+	local bars = {}
+	for i in ipairs(testItems) do
+		local bar = module:CreateBar("Preview" .. i)
+		tremove(module.RollBars)
+		bar.isTest = true
+		bar:SetParent(parent)
+		bars[i] = bar
+	end
+
+	return bars
+end
+
+function module:UpdatePreviewBars(bars)
+	module.db = E.db.mui.lootRoll
+
+	for i, bar in ipairs(bars) do
+		module:LayoutBar(bar)
+		PopulateTestBar(bar, testItems[i])
 	end
 end
 

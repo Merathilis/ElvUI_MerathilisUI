@@ -17,9 +17,11 @@ local strtrim, strupper, tonumber, tostring, type, unpack = strtrim, strupper, t
 local geterrorhandler, xpcall = geterrorhandler, xpcall
 local tinsert, wipe = table.insert, table.wipe
 
+local CanAutoSetGamePadCursorControl = CanAutoSetGamePadCursorControl
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
 local PlaySound = PlaySound
+local SetGamePadCursorControl = SetGamePadCursorControl
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local C_UI_Reload = C_UI.Reload
 local ACCEPT, CANCEL, OKAY = ACCEPT, CANCEL, OKAY
@@ -431,7 +433,21 @@ local function Installer_OnHide(frame)
 	ResetState()
 end
 
+-- Same open edge as Blizzard's ShowUIPanel: brings up the gamepad pointer, the installer
+-- can't be used without one. A controller UI addon drives its own cursor, so it is left alone.
+local function RaiseGamePadCursor()
+	if _G.ConsolePort or not CanAutoSetGamePadCursorControl or not SetGamePadCursorControl then
+		return
+	end
+
+	if CanAutoSetGamePadCursorControl(true) then
+		SetGamePadCursorControl(true)
+	end
+end
+
 local function SetupFrame(frame)
+	-- Every page runs this, only the first one of our installer opens it
+	local opening = not (frame.merHeader and frame.merHeader:IsShown())
 	frame:SetSize(FRAME_WIDTH, FRAME_HEIGHT)
 
 	if not frame.merHeader then
@@ -458,6 +474,10 @@ local function SetupFrame(frame)
 		frame.merHeader = header
 		frame.merBody = body
 		frame:HookScript("OnHide", Installer_OnHide)
+	end
+
+	if opening then
+		RaiseGamePadCursor()
 	end
 
 	frame.merHeader:Show()
@@ -558,6 +578,10 @@ local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.core.installed = true
 	E.private.mui.general.install_complete = MER.Version
+	-- A fresh install has nothing to catch up on, updaters still get the changelog
+	if not E.global.mui.changelogRead then
+		E.global.mui.changelogRead = MER.Version
+	end
 
 	C_UI_Reload()
 end
@@ -1069,10 +1093,31 @@ AddStep({
 	end,
 	build = function(page)
 		page.cards = {
-			CreateCard(page, 180, 140, { tag = L["Recommended"], value = "", title = L["Auto Scale"], onClick = ApplyScale }),
-			CreateCard(page, 180, 140, { tag = "", value = "0.60", title = L["Small"], desc = L["More room on the screen"], onClick = ApplyScale }),
-			CreateCard(page, 180, 140, { tag = "", value = "0.80", title = L["Medium"], desc = L["A balanced size"], onClick = ApplyScale }),
-			CreateCard(page, 180, 140, { tag = "", value = "1.00", title = L["Large"], desc = L["Easier to read"], onClick = ApplyScale }),
+			CreateCard(
+				page,
+				180,
+				140,
+				{ tag = L["Recommended"], value = "", title = L["Auto Scale"], onClick = ApplyScale }
+			),
+			CreateCard(page, 180, 140, {
+				tag = "",
+				value = "0.60",
+				title = L["Small"],
+				desc = L["More room on the screen"],
+				onClick = ApplyScale,
+			}),
+			CreateCard(
+				page,
+				180,
+				140,
+				{ tag = "", value = "0.80", title = L["Medium"], desc = L["A balanced size"], onClick = ApplyScale }
+			),
+			CreateCard(
+				page,
+				180,
+				140,
+				{ tag = "", value = "1.00", title = L["Large"], desc = L["Easier to read"], onClick = ApplyScale }
+			),
 		}
 		page.cards[2].scaleValue = 0.6
 		page.cards[3].scaleValue = 0.8
@@ -1128,9 +1173,15 @@ AddStep({
 		})
 		LayoutRow(page, { page.gradient, page.dark }, 0)
 
-		page.cvars = CreateSwitch(page, L["Recommended game settings (CVars)"], 340, function(_, checked)
-			state.cvars = checked
-		end, L["Changes a few World of Warcraft settings, for example the camera distance, nameplates and chat. They are tailored to the author of MerathilisUI and not needed for the layout."])
+		page.cvars = CreateSwitch(
+			page,
+			L["Recommended game settings (CVars)"],
+			340,
+			function(_, checked)
+				state.cvars = checked
+			end,
+			L["Changes a few World of Warcraft settings, for example the camera distance, nameplates and chat. They are tailored to the author of MerathilisUI and not needed for the layout."]
+		)
 		page.cvars:SetPoint("TOPLEFT", page.gradient, "BOTTOMLEFT", 0, -16)
 
 		page.warning = CreateText(page, 11, COLOR_WARNING, "RIGHT")
@@ -1176,7 +1227,8 @@ AddStep({
 			header:SetText(group.name)
 
 			for row, toggle in ipairs(group) do
-				local switch = CreateSwitch(panel, toggle.label, columnWidth - PADDING * 2, ModuleToggle_OnToggle, toggle.desc)
+				local switch =
+					CreateSwitch(panel, toggle.label, columnWidth - PADDING * 2, ModuleToggle_OnToggle, toggle.desc)
 				switch:SetPoint("TOPLEFT", PADDING, -PADDING - 2 - row * 26)
 				switch.path = toggle.path
 				tinsert(page.switches, switch)
@@ -1322,7 +1374,10 @@ AddStep({
 	key = "finish",
 	title = L["Installation Complete"],
 	desc = function()
-		return format(L["Features, the full changelog and downloads can be found on the website %s."], "|cffff7d0amerathilisui.com|r")
+		return format(
+			L["Features, the full changelog and downloads can be found on the website %s."],
+			"|cffff7d0amerathilisui.com|r"
+		)
 	end,
 	build = function(page)
 		local summary = CreatePanel(page)

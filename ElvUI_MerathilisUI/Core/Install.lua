@@ -78,7 +78,6 @@ function MER:SetupCVars()
 	C_CVar_SetCVar("textToSpeech", 0)
 
 	C_CVar_SetCVar("taintLog", 0)
-
 end
 
 function MER:SetupChat()
@@ -215,7 +214,6 @@ function MER:SetupChat()
 
 		E:UpdateChat()
 	end
-
 end
 
 function MER:SetupLayout()
@@ -577,7 +575,6 @@ function MER:SetupLayout()
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-40"
 	E.db["movers"]["MinimapClusterMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,300,15"
-
 end
 
 function MER:SetupActionbars()
@@ -773,14 +770,13 @@ function MER:SetupActionbars()
 	E.db["movers"]["ZoneAbility"] = "BOTTOM,UIParent,BOTTOM,305,92"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,UIParent,TOPLEFT,4,-4"
 	E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,UIParent,BOTTOM,304,140"
-
 end
 
 local NP_Auras = {
 	height = 20,
 	keepSizeRatio = false,
 	size = 30,
-	xOffset = 10,
+	xOffset = 28,
 }
 
 local NP_Debuffs = {
@@ -886,6 +882,10 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontOutline"] = "SHADOWOUTLINE"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["raidTargetIndicator"]["position"] = "TOP"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["raidTargetIndicator"]["size"] = 18
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["raidTargetIndicator"]["xOffset"] = 0
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["raidTargetIndicator"]["yOffset"] = 3
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
@@ -918,6 +918,10 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontOutline"] = "SHADOWOUTLINE"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["raidTargetIndicator"]["position"] = "TOP"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["raidTargetIndicator"]["size"] = 18
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["raidTargetIndicator"]["xOffset"] = 0
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["raidTargetIndicator"]["yOffset"] = 3
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
@@ -950,22 +954,29 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconOffsetY"] = -1
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["position"] = "BOTTOMRIGHT"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 20
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["yOffset"] = 25
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["spacing"] = 5
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["position"] = "TOPRIGHT"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["size"] = 16
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["spacing"] = 4
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = -18
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["yOffset"] = -3
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["textXOffset"] = -5
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["textPosition"] = "RIGHT"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["textXOffset"] = 12
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["textYOffset"] = 0
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "SHADOWOUTLINE"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["raidTargetIndicator"]["position"] = "TOP"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["raidTargetIndicator"]["size"] = 18
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["raidTargetIndicator"]["xOffset"] = 0
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["raidTargetIndicator"]["yOffset"] = 3
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["position"] = "RIGHT"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["xOffset"] = 1
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["yOffset"] = 0
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["position"] = "TOPRIGHT"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["size"] = 14
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["xOffset"] = -29
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["yOffset"] = -10
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
@@ -1001,22 +1012,29 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["yOffset"] = -10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = "RIGHT"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 1
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 0
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = "TOPRIGHT"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["size"] = 14
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = -29
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = -10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = "BOTTOMRIGHT"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 20
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 25
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["spacing"] = 5
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = "TOPRIGHT"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["size"] = 16
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["spacing"] = 4
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = -18
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = -3
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "- GothamNarrow-Black"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["textXOffset"] = -5
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["textPosition"] = "RIGHT"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["textXOffset"] = 12
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["textYOffset"] = 0
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["enable"] = false
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontOutline"] = "SHADOWOUTLINE"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["raidTargetIndicator"]["position"] = "TOP"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["raidTargetIndicator"]["size"] = 18
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["raidTargetIndicator"]["xOffset"] = 0
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["raidTargetIndicator"]["yOffset"] = 3
 
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
@@ -1026,7 +1044,6 @@ function MER:SetupNamePlates()
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
-
 end
 
 function MER:SetupUnitframes(layout)
@@ -2110,7 +2127,6 @@ function MER:SetupUnitframes(layout)
 	elseif layout == "dark" then
 		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
-
 end
 
 function MER:SetupDts()
@@ -2138,7 +2154,6 @@ function MER:SetupDts()
 		"DurabilityIlevel",
 		"Gold",
 	}
-
 end
 
 function MER:DeveloperSettings()

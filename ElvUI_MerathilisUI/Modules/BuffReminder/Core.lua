@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_BuffReminder")
 local S = MER:GetModule("MER_Skins")
 
 local pairs, ipairs = pairs, ipairs
-local wipe = wipe
+local strfind, wipe = strfind, wipe
 local floor, max = math.floor, math.max
 
 local CreateFrame = CreateFrame
@@ -41,10 +41,7 @@ local C_PaperDollInfo_GetTemporaryEnchantmentInfo = C_PaperDollInfo.GetTemporary
 -------------------------------------------------------------------------------
 local function Known(id)
 	return id
-		and (
-			C_SpellBook_IsSpellKnown(id)
-			or C_SpellBook_IsSpellInSpellBook(id, Enum.SpellBookSpellBank.Player, false)
-		)
+		and (C_SpellBook_IsSpellKnown(id) or C_SpellBook_IsSpellInSpellBook(id, Enum.SpellBookSpellBank.Player, false))
 end
 
 local texCache = {}
@@ -384,31 +381,46 @@ local WEAPON_ENCHANT_SLOTS = {
 -------------------------------------------------------------------------------
 --  Aura reading helpers
 -------------------------------------------------------------------------------
+-- Single-id variants, so a check for one spell needs no wrapper table on every refresh
+local function PlayerHasAura(id)
+	local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
+	return ok and result ~= nil
+end
+
 local function PlayerHasAuraByID(ids)
 	for _, id in ipairs(ids) do
-		local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
-		if ok and result ~= nil then
+		if PlayerHasAura(id) then
 			return true
 		end
 	end
 	return false
 end
 
+-- nil: aura not found, otherwise whether it counts (a buff about to run out does not)
+local function PlayerAuraWithDuration(id, showUnder)
+	local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
+	if not ok or result == nil then
+		return nil
+	end
+
+	local dur, exp = result.duration, result.expirationTime
+	if
+		dur
+		and exp
+		and not E:IsSecretValue(dur)
+		and not E:IsSecretValue(exp)
+		and IsUnderDuration(dur, exp, showUnder)
+	then
+		return false
+	end
+	return true
+end
+
 local function PlayerHasAuraByIDWithDuration(ids, showUnder)
 	for _, id in ipairs(ids) do
-		local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
-		if ok and result ~= nil then
-			local dur, exp = result.duration, result.expirationTime
-			if
-				dur
-				and exp
-				and not E:IsSecretValue(dur)
-				and not E:IsSecretValue(exp)
-				and IsUnderDuration(dur, exp, showUnder)
-			then
-				return false
-			end
-			return true
+		local counts = PlayerAuraWithDuration(id, showUnder)
+		if counts ~= nil then
+			return counts
 		end
 	end
 	return false
@@ -923,7 +935,7 @@ local function CollectClassSpecials(missing, playerClass, co)
 	if playerClass == "ROGUE" then
 		local haveLethal, haveNonLethal = false, false
 		for _, p in ipairs(ROGUE_POISONS) do
-			if PlayerHasAuraByID({ p.castSpell }) then
+			if PlayerHasAura(p.castSpell) then
 				if p.cat == "lethal" then
 					haveLethal = true
 				else
@@ -933,7 +945,7 @@ local function CollectClassSpecials(missing, playerClass, co)
 		end
 		for _, p in ipairs(ROGUE_POISONS) do
 			local already = (p.cat == "lethal" and haveLethal) or (p.cat == "nonlethal" and haveNonLethal)
-			if co.enabled[p.key] and Known(p.castSpell) and not already and not PlayerHasAuraByID({ p.castSpell }) then
+			if co.enabled[p.key] and Known(p.castSpell) and not already and not PlayerHasAura(p.castSpell) then
 				local e = AcquireEntry()
 				e.mode = "spell"
 				e.spellID = p.castSpell
@@ -994,7 +1006,7 @@ local function CollectConsumables(missing, playerClass, co)
 	if co.enabled.flask then
 		local missingFlask = true
 		for id in pairs(FLASK_BUFF_ID_SET) do
-			if PlayerHasAuraByIDWithDuration({ id }, module.db.showUnder) then
+			if PlayerAuraWithDuration(id, module.db.showUnder) then
 				missingFlask = false
 				break
 			end
@@ -1203,6 +1215,10 @@ local function BuildTestMissing(missing)
 	end
 end
 
+-- Shared with the options preview (Options/Widgets/BuffReminderPreview.lua)
+module.TestPreview = TEST_PREVIEW
+module.CreateIconGlow = CreateIconGlow
+
 function module:ToggleTestMode()
 	self.testMode = not self.testMode
 	if self._testModeTimer then
@@ -1237,10 +1253,12 @@ function module:Refresh()
 
 	-- Turned off in the options or by a profile switch: clear what is shown
 	if not db.enable then
+		self:SetEventsRegistered(false)
 		HideAllIcons()
 		iconAnchor:Hide()
 		return
 	end
+	self:SetEventsRegistered(true)
 
 	if self.testMode then
 		entriesInUse = 0
@@ -1347,9 +1365,12 @@ local EVENTS = {
 	"SPELLS_CHANGED",
 }
 
+-- Only the player and the group matter, nameplates, target and focus fire this constantly
 function module:UNIT_AURA(_, unit)
 	if unit == "player" then
 		InvalidateBagCounts()
+	elseif not (strfind(unit, "^party") or strfind(unit, "^raid")) then
+		return
 	end
 	self:RequestRefresh()
 end
@@ -1408,9 +1429,21 @@ function module:SetupAnchor()
 		nil,
 		"mui,modules,buffReminder"
 	)
+end
+
+-- Registered only while the module is on
+function module:SetEventsRegistered(registered)
+	if (self.eventsRegistered or false) == registered then
+		return
+	end
+	self.eventsRegistered = registered
 
 	for _, event in ipairs(EVENTS) do
-		self:RegisterEvent(event)
+		if registered then
+			self:RegisterEvent(event)
+		else
+			self:UnregisterEvent(event)
+		end
 	end
 end
 
@@ -1421,6 +1454,7 @@ function module:Initialize()
 	-- (RequestRefresh does nothing in combat)
 	if module.db.enable then
 		self:SetupAnchor()
+		self:SetEventsRegistered(true)
 	end
 
 	self:RequestRefresh()

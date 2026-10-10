@@ -144,7 +144,10 @@ function F.Presets.GetWarnings(data)
 	end
 
 	if VersionNumber(meta.mer) > VersionNumber(MER.Version) then
-		tinsert(warnings, format(L["Made with MerathilisUI %s, update the addon to get all of its settings."], meta.mer))
+		tinsert(
+			warnings,
+			format(L["Made with MerathilisUI %s, update the addon to get all of its settings."], meta.mer)
+		)
 	end
 
 	local width, height = GetPhysicalScreenSize()
@@ -256,6 +259,9 @@ local function MarkInstalled(profile, private)
 
 	private.install_complete = E.version
 	GetSubTable(private, "mui", "general").install_complete = MER.Version
+	if not E.global.mui.changelogRead then
+		E.global.mui.changelogRead = MER.Version
+	end
 end
 
 -- Same way ElvUI imports a profile string (Distributor SetImportedProfile): the data
@@ -385,6 +391,9 @@ local function ApplyBuiltin(def)
 	E.db.mui.core.installed = true
 	E.private.install_complete = E.version
 	E.private.mui.general.install_complete = MER.Version
+	if not E.global.mui.changelogRead then
+		E.global.mui.changelogRead = MER.Version
+	end
 
 	C_UI_Reload()
 end

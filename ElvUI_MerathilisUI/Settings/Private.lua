@@ -8,6 +8,7 @@ V.skins = {
 	shadowOverlay = false,
 	addonSkins = {
 		enable = true,
+		aussyLoot = true,
 		bSync = true,
 		bugSack = true,
 		ls = true,
@@ -68,4 +69,9 @@ V.skins = {
 			[5] = { width = 340, height = 144 },
 		},
 	},
+}
+
+-- Quick Grid: the custom deck holds spells, so it is per character
+V.quickGrid = {
+	custom = {},
 }

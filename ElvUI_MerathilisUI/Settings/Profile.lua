@@ -734,6 +734,18 @@ P.armory = {
 
 P.tooltip = {
 	achievement = true,
+	buffs = {
+		enable = false,
+		playersOnly = true,
+		position = "TOP",
+		size = 20,
+		spacing = 2,
+		perRow = 10,
+		maxIcons = 16,
+		countFontSize = 10,
+		xOffset = 0,
+		yOffset = 0,
+	},
 }
 
 P.mail = {
@@ -787,6 +799,12 @@ P.actionbars = {
 		frameStrata = "BACKGROUND",
 		frameLevel = 1,
 		size = 20,
+	},
+	assistedRotation = {
+		enable = true,
+		animation = true,
+		colorMode = "DEFAULT",
+		customColor = { r = 1, g = 0.82, b = 0 },
 	},
 }
 
@@ -891,7 +909,7 @@ P.minimapButtons = {
 	point = "BOTTOMLEFT",
 	growth = "DOWN",
 	xOffset = -15,
-	yOffset = 78,
+	yOffset = 80,
 	size = 20,
 	spacing = 2,
 
@@ -979,9 +997,9 @@ P.nameplates = {
 		enable = true,
 		format = "PERCENT",
 		fontSize = 10,
-		position = "RIGHT",
-		xOffset = 4,
-		yOffset = 0,
+		position = "TOPRIGHT",
+		xOffset = 2,
+		yOffset = 7,
 		color = { r = 1, g = 1, b = 1 },
 	},
 	interruptReady = {
@@ -990,6 +1008,13 @@ P.nameplates = {
 		window = true,
 		tick = true,
 		tickColor = { r = 1, g = 1, b = 1 },
+	},
+	castbarShield = {
+		enable = true,
+		size = 16,
+		anchorPoint = "LEFT",
+		xOffset = 0,
+		yOffset = 0,
 	},
 	castTarget = {
 		enable = true,
@@ -1016,6 +1041,23 @@ P.nameplates = {
 P.unitframes = {
 	raidIcons = true,
 	highlight = true,
+	roundedCorners = {
+		enable = false,
+		units = {
+			player = true,
+			target = true,
+			focus = true,
+			targettarget = true,
+			pet = true,
+			pettarget = true,
+			party = true,
+			raid = true,
+			boss = true,
+			arena = true,
+			classbar = true,
+			castbar = true,
+		},
+	},
 	restingIndicator = {
 		enable = true,
 		colorMode = "CLASS_GRADIENT",
@@ -1039,6 +1081,19 @@ P.unitframes = {
 		window = true,
 		tick = true,
 		tickColor = { r = 1, g = 1, b = 1 },
+		units = {
+			target = true,
+			focus = true,
+			boss = true,
+			arena = true,
+		},
+	},
+	castbarShield = {
+		enable = true,
+		size = 24,
+		anchorPoint = "LEFT",
+		xOffset = 0,
+		yOffset = 0,
 		units = {
 			target = true,
 			focus = true,
@@ -1208,6 +1263,23 @@ P.tracker = {
 			style = "SHADOWOUTLINE",
 		},
 		color = { r = 1, g = 1, b = 1 },
+	},
+}
+
+P.quickGrid = {
+	enable = false,
+	anchor = "CURSOR", -- CURSOR, CENTER
+	tileSize = 44,
+	spacing = 6,
+	showLabel = true,
+	labelSize = 14,
+	showCooldowns = true,
+	decks = {
+		teleports = true,
+		travel = true,
+		markers = true,
+		professions = true,
+		custom = true,
 	},
 }
 
@@ -1466,5 +1538,25 @@ P.auras = {
 	buffsCollapse = {
 		enable = true,
 		expanded = true,
+	},
+}
+
+P.unlockMode = {
+	enable = true,
+	toolbar = true, -- replaces ElvUI's mover popup
+	showGrid = true,
+	gridAccent = true, -- center lines of the grid in the class color
+	sortBySize = true, -- small movers above big ones
+	editModeHints = true, -- marks what Blizzard's Edit Mode still places
+	animation = true, -- unlock / lock animation when the mover mode opens and closes
+	keyboardNudge = true,
+	bigStep = 10, -- arrow keys with a modifier
+	anchorLines = true,
+	anchors = {}, -- [child mover] = { target, point, relativePoint }
+	snap = {
+		enable = true,
+		guides = true,
+		screen = true, -- also snap to the screen center and edges
+		distance = 8,
 	},
 }

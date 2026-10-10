@@ -3,7 +3,7 @@ local S = E:GetModule("Skins") ---@type Skins
 local WS = W:GetModule("Skins")
 
 local _G = _G
-local ipairs, pcall = ipairs, pcall
+local ipairs, pcall, tinsert = ipairs, pcall, table.insert
 local ceil, floor, random = math.ceil, math.floor, math.random
 
 local CreateFrame = CreateFrame
@@ -41,6 +41,7 @@ local SEASON_PORTALS = {
 }
 
 local _portalFlyout, _portalFlyoutButtons, _hearthButtons
+local _onHideCallbacks = {}
 
 -- Spell cooldowns are secret while cooldowns are restricted (e.g. in an active key).
 -- Tainted code can't compare them or pass them to SetCooldown, so let the engine feed
@@ -479,6 +480,9 @@ local function CreatePortalFlyout()
 			btn.CastHighlight:Hide()
 		end
 		catcher:Hide()
+		for _, callback in ipairs(_onHideCallbacks) do
+			callback()
+		end
 	end)
 	-- The spellcast events are registered for the player only, the payload may be secret
 	flyout:SetScript("OnEvent", function(_, event, _, _, spellID)
@@ -503,8 +507,24 @@ local function CreatePortalFlyout()
 	return flyout
 end
 
+-- Data access for other features that offer the same teleports (Quick Grid)
+function PortalFlyout.GetSeasonPortals()
+	return SEASON_PORTALS
+end
+
+-- type ("spell"/"item"), id and icon of the hearthstone slot, see ResolveHearthSlot
+PortalFlyout.ResolveHearthstone = ResolveHearthSlot
+
+-- type ("item"), id and icon of the Dalaran Hearthstone slot
+PortalFlyout.ResolveDalaranHearthstone = ResolveDalaranSlot
+
 function PortalFlyout.IsShown()
 	return _portalFlyout ~= nil and _portalFlyout:IsShown()
+end
+
+-- For owners that follow the flyout's visibility (e.g. a mouseover fade)
+function PortalFlyout.RegisterOnHide(callback)
+	tinsert(_onHideCallbacks, callback)
 end
 
 function PortalFlyout.Hide()

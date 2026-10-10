@@ -92,5 +92,13 @@ Next version = released + 0.01 (e.g. 7.36 → 7.37, 7.39 → 7.40).
 6. Remove every `F.MarkTabAsNew(...)` call, every `F.NewFeatureText(...)` wrapper and every `F.NewFeatureTrailingText(...)` wrapper under `Options/` together with its `dialogControl = "MERNewFeatureLabel"` line (keep the wrapped text; `Options/Core.lua` has some in its shared option builders too, only the `MER_DESC` logo text keeps its badge, its `dialogControl = "MERHomeHeader"` stays as well): everything they marked has just been released. Leave the helper functions themselves in `Core/Functions/Core.lua`.
 7. Commit `📖 DOC: prep changelogs`, then ask before `git push origin development`.
    This push touches `Core/Changelog/`, so `.github/workflows/website.yml` rebuilds merathilisui.com with the released notes. Until then the site still shows the version as "In development" (it reads the `development` branch, which gets the release commit only with this push).
+8. Website feature cards: every entry of the **Website feature queue** below that shipped in this release gets a card in the website repo (`E:\GIT\merathilisui-website`, `src/data/features.ts`), placed first with `isNew: true`, written in the style of the existing cards. A `shot` only with a screenshot from the user (`public/media/features/<name>.webp`), otherwise leave it out and say so. Ask whether older cards should lose their `isNew`. Commit in the website repo, ask before pushing `main` (the push deploys the site), then remove the shipped entries from the queue.
+
+### Website feature queue
+
+Features the user wants announced on merathilisui.com once they are released:
+
+- Quick Grid (requested 2026-10-04): hold a key and a 3x3 grid of actions opens at the cursor; decks for teleports, travel, markers (Shift = world markers), professions and a custom deck; works in combat.
+- Rounded Corners preset (2026-10-10): already committed in the website repo as `517518d` (official preset on /presets + updated Rounded Corners card text), held back locally because its code needs 7.40. Only push the website's `main` with the 7.40 release, no new card needed.
 
 Finish with a short recap: version released, tag, links (Actions, CurseForge, Wago), and the new in-progress version.

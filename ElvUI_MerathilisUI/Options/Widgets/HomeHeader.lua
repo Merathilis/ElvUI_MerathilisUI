@@ -102,6 +102,14 @@ local tips = {
 		path = { "modules", "hoverCast" },
 	},
 	{
+		text = L["Quick Grid opens a grid of eight actions at your cursor while you hold a key: teleports, mounts, markers, professions or your own."],
+		path = { "modules", "quickGrid" },
+	},
+	{
+		text = L["In the Quick Grid marker deck, hold Shift while you release the key to place a world marker instead of a target marker."],
+		path = { "modules", "quickGrid" },
+	},
+	{
 		text = L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."],
 		path = { "modules", "nameplates", "general" },
 	},
@@ -383,7 +391,8 @@ local function UpdateCard(self)
 	local version, data = GetLatestChangelog()
 	self.changelogVersion = version
 
-	local title = format(L["What's New in %s"], F.String.MERATHILISUI(version and FormatVersion(version) or MER.Version))
+	local title =
+		format(L["What's New in %s"], F.String.MERATHILISUI(version and FormatVersion(version) or MER.Version))
 	card.title:SetText(sectionIcons.NEW .. " " .. title)
 
 	local releaseDate = data and data.RELEASE_DATE

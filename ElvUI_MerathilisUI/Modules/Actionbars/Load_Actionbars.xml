@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Actionbars.lua"/>
 	<Script file="SpecBar.lua"/>
+	<Script file="AssistedRotation.lua"/>
 </Ui>

@@ -18,14 +18,13 @@ function module:Initialize()
 	end
 
 	-- Sidebar, resize grips, tabs and the edit box style live on ElvUI's chat; the
-	-- combat log style rides on ElvUI's skin and checks that itself.
+	-- combat log style rides on ElvUI's skin and sets itself up in UpdateCombatLog.
 	if E.private.chat.enable then
 		self:InitializeSidebar()
 		self:InitializeResizeGrips()
 		self:InitializeEditBox()
 		self:InitializeTabs()
 	end
-	self:InitializeCombatLog()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)

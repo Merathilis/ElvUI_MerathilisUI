@@ -8,8 +8,8 @@ function module:LoadCappingProfile()
 		return
 	end
 
-	-- Capping reloads the UI itself when its profile changes
-	self:ApplyAceDBProfile(db, I.ProfileNames.Default, {
+	local name = I.ProfileNames.Default
+	local data = {
 		["outline"] = "OUTLINE",
 		["font"] = "MER_Expressway",
 		["lock"] = true,
@@ -28,7 +28,19 @@ function module:LoadCappingProfile()
 			nil,
 			0.35,
 		},
-	})
+	}
+
+	-- Capping calls ReloadUI() on every profile change, which is blocked here (no click
+	-- behind it), so its AceDB callbacks must not fire: the profile goes straight into
+	-- the saved variables and takes effect with the reload ApplyCappingProfile asks for
+	if db:GetCurrentProfile() == name then
+		E:CopyTable(db.profile, data)
+	else
+		db.sv.profiles = db.sv.profiles or {}
+		db.sv.profiles[name] = data
+		db.sv.profileKeys = db.sv.profileKeys or {}
+		db.sv.profileKeys[db.keys.char] = name
+	end
 end
 
 function module:ApplyCappingProfile()
@@ -48,6 +60,9 @@ function module:ApplyCappingProfile()
 			Splash:Hide()
 
 			F.Event.TriggerEvent("MER.DatabaseUpdate")
+
+			-- Capping reads its profile only at login, the popup's button is the click a reload needs
+			E:StaticPopup_Show("CONFIG_RL")
 		end, true)
 	end, true, "Capping")
 end

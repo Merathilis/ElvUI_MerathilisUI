@@ -13,8 +13,16 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 		eR, eG, eB = nil, nil, nil
 	end
 
-	if frame.currentColor == nil then
-		frame.currentColor = eB ~= nil and CreateColor(eR, eG, eB, 1) or CreateColor(0, 0, 0, 1)
+	if frame.currentColor == nil or frame.resetCurrentColor then
+		if frame.currentColor == nil then
+			frame.currentColor = CreateColor(0, 0, 0, 1)
+		end
+		if eB ~= nil then
+			frame.currentColor:SetRGBA(eR, eG, eB, 1)
+		else
+			frame.currentColor:SetRGBA(0, 0, 0, 1)
+		end
+		frame.resetCurrentColor = nil
 		colorChanged = true
 	end
 
@@ -57,11 +65,19 @@ function module:SetGradientColors(frame, valueChanged, eR, eG, eB, colorChanged,
 			end
 		end
 
+		-- Calculated into the frame's own colors, never into the shared color map entries above
 		if frame.colorMap == nil then
+			local multiplier = self.db.backgroundMultiplier
 			frame.normalColor = frame.currentColor
-			frame.shiftColor = F.Color.CalculateShift(self.db.saturationBoost, frame.normalColor)
-			frame.normalColorBG = F.Color.CalculateMultiplier(self.db.backgroundMultiplier, frame.normalColor)
-			frame.shiftColorBG = F.Color.CalculateMultiplier(self.db.backgroundMultiplier, frame.shiftColor)
+			frame.calcShiftColor =
+				F.Color.CalculateShift(self.db.saturationBoost, frame.normalColor, frame.calcShiftColor)
+			frame.calcNormalColorBG =
+				F.Color.CalculateMultiplier(multiplier, frame.normalColor, frame.calcNormalColorBG)
+			frame.calcShiftColorBG =
+				F.Color.CalculateMultiplier(multiplier, frame.calcShiftColor, frame.calcShiftColorBG)
+			frame.shiftColor = frame.calcShiftColor
+			frame.normalColorBG = frame.calcNormalColorBG
+			frame.shiftColorBG = frame.calcShiftColorBG
 		end
 	end
 

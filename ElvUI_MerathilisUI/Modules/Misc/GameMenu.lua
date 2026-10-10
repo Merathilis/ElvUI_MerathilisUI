@@ -778,9 +778,7 @@ local function UpdateGreatVault(self)
 
 		local last = activities[#activities]
 		if nextActivity then
-			row.progress:SetText(
-				F.String.MERATHILISUI(format("%d/%d", nextActivity.progress, nextActivity.threshold))
-			)
+			row.progress:SetText(F.String.MERATHILISUI(format("%d/%d", nextActivity.progress, nextActivity.threshold)))
 		elseif last then
 			-- Every slot is unlocked
 			row.progress:SetText(F.String.Good(format("%d/%d", last.progress, last.threshold)))

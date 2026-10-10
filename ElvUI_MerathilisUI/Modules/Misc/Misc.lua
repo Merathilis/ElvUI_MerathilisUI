@@ -56,7 +56,10 @@ end
 function module:Misc()
 	E.RegisterCallback(module, "RoleChanged", "SetRole")
 	module:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
-	module:RegisterEvent("GROUP_INVITE_CONFIRMATION", "BlockRequest")
+	-- The option asks for a reload
+	if E.db.mui.misc.blockRequest then
+		module:RegisterEvent("GROUP_INVITE_CONFIRMATION", "BlockRequest")
+	end
 end
 
 module:AddCallback("Misc")
