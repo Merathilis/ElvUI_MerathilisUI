@@ -7,8 +7,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("tooltip")
-
 	local function BuffsDB()
 		return E.db.mui.tooltip.buffs
 	end
@@ -53,7 +51,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Shows the buffs of the hovered unit as icons on the tooltip."],
 					}),
 					preview = module.PreviewOption(1.5, "MERTooltipBuffsPreview", "tooltip"),

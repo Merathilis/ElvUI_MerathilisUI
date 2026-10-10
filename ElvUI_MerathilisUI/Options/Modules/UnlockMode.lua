@@ -9,8 +9,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("unlockMode")
-
 	local function DB()
 		return E.db.mui.unlockMode
 	end

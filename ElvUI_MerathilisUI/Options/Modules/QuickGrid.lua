@@ -16,8 +16,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("quickGrid")
-
 	local function DB()
 		return E.db.mui.quickGrid
 	end
@@ -181,7 +179,7 @@ module:AddOptions(function()
 			header = {
 				order = 0,
 				type = "header",
-				name = F.NewFeatureText(L["Quick Grid"]),
+				name = L["Quick Grid"],
 			},
 			enable = module.ToggleCard({
 				order = 1,

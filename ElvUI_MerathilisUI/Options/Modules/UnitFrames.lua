@@ -7,8 +7,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("unitframes")
-
 	-- Own disabled replaces the group's, so every own disabled repeats the requirement
 	local function UnitFramesDisabled()
 		return not MER:HasRequirements(I.Requirements.UnitFrames)
@@ -160,10 +158,7 @@ module:AddOptions(function()
 							desc = {
 								order = 1,
 								type = "description",
-								dialogControl = "MERNewFeatureLabel",
-								name = F.NewFeatureTrailingText(
-									L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."]
-								),
+								name = L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."],
 								width = "full",
 							},
 							units = {
@@ -234,10 +229,7 @@ module:AddOptions(function()
 							desc = {
 								order = 1,
 								type = "description",
-								dialogControl = "MERNewFeatureLabel",
-								name = F.NewFeatureTrailingText(
-									L["Rounds the corners of the health, power, class and cast bars, including their border."]
-								),
+								name = L["Rounds the corners of the health, power, class and cast bars, including their border."],
 								width = "full",
 							},
 							enable = {

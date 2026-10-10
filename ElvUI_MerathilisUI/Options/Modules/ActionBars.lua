@@ -9,8 +9,6 @@ module:AddOptions(function()
 
 	local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
 
-	F.MarkTabAsNew("actionbars")
-
 	local function AssistedRotationDisabled()
 		return not MER:HasRequirements(I.Requirements.ActionBars)
 			or not C_ActionBar.IsAssistedCombatAction
@@ -133,7 +131,7 @@ module:AddOptions(function()
 					requirements = module.RequirementsNotice(I.Requirements.ActionBars),
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Brings back Blizzard's rotation frame around its action button, which ElvUI's action bars leave out."],
 						image = I.Media.Icons.Categories.actionbars,
 					}),

@@ -7,8 +7,6 @@ module:AddOptions(function()
 
 	local select = select
 
-	F.MarkTabAsNew("advanced")
-
 	-- Resets replace the whole table with a fresh copy of the defaults. Merging (E:CopyTable into the
 	-- current table) kept everything the user added on top, e.g. list entries or custom categories.
 	-- The reset popup reloads the UI afterwards, so no module keeps a reference to the old table.
@@ -59,7 +57,7 @@ module:AddOptions(function()
 			}, 0.5),
 			compatibilityCheck = module.ToggleCard({
 				order = 3,
-				name = F.NewFeatureText(L["Compatibility Check"]),
+				name = L["Compatibility Check"],
 				desc = L["After login, checks if another ElvUI plugin has the same features turned on and lets you choose which one to keep."],
 				image = I.Media.Icons.Categories.Config,
 				get = function()

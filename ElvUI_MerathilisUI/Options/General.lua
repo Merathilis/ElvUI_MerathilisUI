@@ -149,10 +149,7 @@ module:AddOptions(function()
 					desc = {
 						order = 1,
 						type = "description",
-						dialogControl = "MERNewFeatureLabel",
-						name = F.NewFeatureTrailingText(
-							L["Trades environment detail for a higher frame rate and a sharper image with one click."]
-						),
+						name = L["Trades environment detail for a higher frame rate and a sharper image with one click."],
 						width = "full",
 					},
 					apply = {

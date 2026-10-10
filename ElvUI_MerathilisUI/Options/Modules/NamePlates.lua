@@ -10,8 +10,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("nameplates")
-
 	-- Own disabled replaces the group's, so the children repeat the requirement
 	local function FactionIndicatorDisabled()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.factionIndicator.enable
@@ -545,10 +543,7 @@ module:AddOptions(function()
 							desc = {
 								order = 1,
 								type = "description",
-								dialogControl = "MERNewFeatureLabel",
-								name = F.NewFeatureTrailingText(
-									L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."]
-								),
+								name = L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."],
 								width = "full",
 							},
 						}
