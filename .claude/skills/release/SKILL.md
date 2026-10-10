@@ -98,5 +98,6 @@ Next version = released + 0.01 (e.g. 7.36 → 7.37, 7.39 → 7.40).
 
 Features the user wants announced on merathilisui.com once they are released:
 
-- Quick Grid (requested 2026-10-04): hold a key and a 3x3 grid of actions opens at the cursor; decks for teleports, travel, markers (Shift = world markers), professions and a custom deck; works in combat.
+- (empty)
+
 Finish with a short recap: version released, tag, links (Actions, CurseForge, Wago), and the new in-progress version.
