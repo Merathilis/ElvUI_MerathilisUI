@@ -114,19 +114,19 @@ local tips = {
 	},
 	{
 		text = L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."],
-		path = { "modules", "nameplates", "general" },
+		path = { "modules", "nameplates", "castbar" },
 	},
 	{
 		text = L["In Mythic+, the nameplates can show how much Enemy Forces each enemy is worth."],
-		path = { "modules", "nameplates", "general" },
+		path = { "modules", "nameplates", "indicators" },
 	},
 	{
 		text = L["Cast on You marks the castbar of enemies whose cast targets you."],
-		path = { "modules", "nameplates", "general" },
+		path = { "modules", "nameplates", "castbar" },
 	},
 	{
 		text = L["Neutral Name Only shows only the name of idle neutral NPCs and gives them their full nameplate back in combat."],
-		path = { "modules", "nameplates", "general" },
+		path = { "modules", "nameplates", "neutralNameOnly" },
 	},
 	{
 		text = L["Categorized Bags sorts your bags into groups like equipment, consumables and quest items."],

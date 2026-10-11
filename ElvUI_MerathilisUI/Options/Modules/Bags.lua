@@ -27,6 +27,9 @@ module:AddOptions(function()
 	options.bags = {
 		type = "group",
 		name = module:AddCategorieIcon(L["Bags"], "bags"),
+		-- One tab each, so Categorized Bags gets the full height instead of the
+		-- space left below the Equipment Manager
+		childGroups = "tab",
 		args = {
 			header = {
 				order = 0,
@@ -38,7 +41,6 @@ module:AddOptions(function()
 				order = 1,
 				type = "group",
 				name = L["Equipment Manager"],
-				guiInline = true,
 				disabled = BagsDisabled,
 				get = function(info)
 					return E.db.mui.bags.equipmentManager[info[#info]]
@@ -62,70 +64,87 @@ module:AddOptions(function()
 						end,
 					}),
 					preview = module.PreviewOption(1.5, "MERBagsPreview", "equipmentManager"),
-					size = {
+					-- Get/set come from the parent group, the keys stay flat in the db
+					position = {
 						order = 2,
-						type = "range",
-						name = L["Size"],
-						min = 8,
-						max = 64,
-						step = 1,
+						type = "group",
+						name = L["Position"],
+						guiInline = true,
+						args = {
+							size = {
+								order = 1,
+								type = "range",
+								name = L["Size"],
+								min = 8,
+								max = 64,
+								step = 1,
+							},
+							point = {
+								order = 2,
+								type = "select",
+								name = L["Anchor Point"],
+								values = I.Values.positionValues,
+							},
+							xOffset = {
+								order = 3,
+								type = "range",
+								name = L["X-Offset"],
+								min = -64,
+								max = 64,
+								step = 1,
+							},
+							yOffset = {
+								order = 4,
+								type = "range",
+								name = L["Y-Offset"],
+								min = -64,
+								max = 64,
+								step = 1,
+							},
+						},
 					},
-					point = {
+					style = {
 						order = 3,
-						type = "select",
-						name = L["Anchor Point"],
-						values = I.Values.positionValues,
-					},
-					xOffset = {
-						order = 4,
-						type = "range",
-						name = L["X-Offset"],
-						min = -64,
-						max = 64,
-						step = 1,
-					},
-					yOffset = {
-						order = 5,
-						type = "range",
-						name = L["Y-Offset"],
-						min = -64,
-						max = 64,
-						step = 1,
-					},
-					icon = {
-						order = 6,
-						type = "select",
+						type = "group",
 						name = L["Icon"],
-						values = function()
-							return EM.equipmentmanager.icons
-						end,
-					},
-					customTexture = {
-						order = 7,
-						type = "input",
-						name = L["Custom Texture"],
-						desc = L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"],
-						width = "double",
-						hidden = function()
-							return E.db.mui.bags.equipmentManager.icon ~= "CUSTOM"
-						end,
-					},
-					color = {
-						order = 8,
-						type = "color",
-						name = COLOR,
-						hasAlpha = true,
-						get = function(info)
-							local t = E.db.mui.bags.equipmentManager[info[#info]]
-							local d = P.bags.equipmentManager[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-						end,
-						set = function(info, r, g, b, a)
-							local t = E.db.mui.bags.equipmentManager[info[#info]]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							EM:UpdateItemDisplay()
-							RefreshCategoryFrames()
-						end,
+						guiInline = true,
+						args = {
+							icon = {
+								order = 1,
+								type = "select",
+								name = L["Icon"],
+								values = function()
+									return EM.equipmentmanager.icons
+								end,
+							},
+							color = {
+								order = 2,
+								type = "color",
+								name = COLOR,
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.mui.bags.equipmentManager[info[#info]]
+									local d = P.bags.equipmentManager[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+								end,
+								set = function(info, r, g, b, a)
+									local t = E.db.mui.bags.equipmentManager[info[#info]]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									EM:UpdateItemDisplay()
+									RefreshCategoryFrames()
+								end,
+							},
+							customTexture = {
+								order = 3,
+								type = "input",
+								name = L["Custom Texture"],
+								desc = L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"],
+								width = "double",
+								hidden = function()
+									return E.db.mui.bags.equipmentManager.icon ~= "CUSTOM"
+								end,
+							},
+						},
 					},
 				},
 			},

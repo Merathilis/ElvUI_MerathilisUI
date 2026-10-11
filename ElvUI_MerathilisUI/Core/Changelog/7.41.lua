@@ -13,6 +13,8 @@ MER.Changelog[741] = {
 		"[NamePlates]: Neutral Name Only - idle neutral NPCs only show their name, like the old ElvUI style filter. Targeted or in combat with you or your group, they get their full nameplate back. The name uses the gradient name tag.",
 	},
 	IMPROVEMENTS = {
+		"[Bags]: The options are split into an Equipment Manager and a Categorized Bags tab, so Categorized Bags gets the full window. The Equipment Manager settings are grouped into Position and Icon.",
+		"[NamePlates]: The options are split into the tabs Indicators, Highlight, Castbar, Health Bar and Neutral Name Only instead of one long page.",
 		"[Options]: More room on every options page: taller rows, more padding inside the option groups and a clear gap between them.",
 		"[Options]: The options window now opens at a size that fits your screen instead of a fixed 1024x768. A window you resized yourself keeps its size, Reposition Window switches back to the new default.",
 	},
