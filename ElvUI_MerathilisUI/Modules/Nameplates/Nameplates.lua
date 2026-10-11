@@ -13,6 +13,7 @@ function module:ProfileUpdate()
 	module:UpdateCastbarShield()
 	module:UpdateCastTargets()
 	module:UpdateExecuteLines()
+	module:UpdateNeutralNameOnly()
 end
 
 function module:Initialize()
@@ -30,6 +31,7 @@ function module:Initialize()
 	module:CastbarShield()
 	module:CastTarget()
 	module:ExecuteLine()
+	module:NeutralNameOnly()
 end
 
 MER:RegisterModule(module:GetName())

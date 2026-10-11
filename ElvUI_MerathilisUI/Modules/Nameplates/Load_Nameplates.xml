@@ -10,4 +10,5 @@
 	<Script file="CastbarShield.lua"/>
 	<Script file="CastTarget.lua"/>
 	<Script file="ExecuteLine.lua"/>
+	<Script file="NeutralNameOnly.lua"/>
 </Ui>

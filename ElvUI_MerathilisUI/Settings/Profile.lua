@@ -1059,6 +1059,12 @@ P.nameplates = {
 		colorMode = "CUSTOM",
 		customColor = F.Table.HexToRGB("#00c0fa"),
 	},
+	neutralNameOnly = {
+		enable = true,
+		target = true,
+		combat = true,
+		gradientName = true,
+	},
 }
 
 P.unitframes = {

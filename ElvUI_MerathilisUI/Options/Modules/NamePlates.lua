@@ -10,6 +10,8 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
+	F.MarkTabAsNew("nameplates")
+
 	-- Own disabled replaces the group's, so the children repeat the requirement
 	local function FactionIndicatorDisabled()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.factionIndicator.enable
@@ -45,6 +47,10 @@ module:AddOptions(function()
 
 	local function CastTargetDisabled()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.castTarget.enable
+	end
+
+	local function NeutralNameOnlyDisabled()
+		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.neutralNameOnly.enable
 	end
 
 	local COLOR_MODES = {
@@ -623,6 +629,48 @@ module:AddOptions(function()
 					end, function()
 						MNP:UpdateExecuteLines()
 					end, module.RequirementsDisabled(I.Requirements.NamePlates), "nameplates"),
+					neutralNameOnly = {
+						order = 7,
+						type = "group",
+						name = L["Neutral Name Only"],
+						guiInline = true,
+						get = function(info)
+							return E.db.mui.nameplates.neutralNameOnly[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.nameplates.neutralNameOnly[info[#info]] = value
+							MNP:UpdateNeutralNameOnly()
+						end,
+						disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = F.NewFeatureText(L["Enable"]),
+								desc = L["Neutral NPCs use the Friendly NPC settings of ElvUI's nameplates, by default only their name is shown."],
+							}),
+							target = {
+								order = 2,
+								type = "toggle",
+								name = L["Show on Target"],
+								desc = L["Shows the full nameplate while the unit is your target."],
+								disabled = NeutralNameOnlyDisabled,
+							},
+							combat = {
+								order = 3,
+								type = "toggle",
+								name = L["Show in Combat"],
+								desc = L["Shows the full nameplate while the unit fights you or your group."],
+								disabled = NeutralNameOnlyDisabled,
+							},
+							gradientName = {
+								order = 4,
+								type = "toggle",
+								name = L["Gradient Name"],
+								desc = L["Shows the name with the [name:MER:gradient] tag instead of the Friendly NPC name format."],
+								disabled = NeutralNameOnlyDisabled,
+							},
+						},
+					},
 				},
 			},
 		},

@@ -9,6 +9,7 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
+	F.MarkTabAsNew("bags")
 	F.MarkTabAsNew("displayModes")
 	F.MarkTabAsNew("junkMarker")
 
