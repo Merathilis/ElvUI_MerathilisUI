@@ -23,7 +23,7 @@ local LABEL_HEIGHT = 16
 -- a select option sitting in the same AceConfig row as a range option lines
 -- up automatically - see its alignoffset for the row-alignment mechanism.
 local TRACK_TOP_OFFSET = 18
-local FRAME_HEIGHT = 40
+local FRAME_HEIGHT = 46 -- 12px below the track, so stacked rows get some air
 
 -- Value readout, inline with the name label. Boxed like MEREditBox's input
 -- (same idle/hover backdrop treatment) but with no border drawn until the

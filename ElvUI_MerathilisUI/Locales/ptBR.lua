@@ -585,6 +585,10 @@ L["Auras can add a collapse button to your buffs that hides long-lasting ones un
 L["Item Level shows the item level on items in the merchant and trade windows."] = true
 L["The Raid Info Frame lists the players in your raid by role."] = true
 L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = true
+L["Categorized Bags can also show your items as a sortable list or as compact blocks. Switch it with the button in the bag's title bar."] = true
+L["The Junk Marker of Categorized Bags marks items as junk with a click, Sell Junk then sells all of them at a vendor."] = true
+L["Neutral Name Only shows only the name of idle neutral NPCs and gives them their full nameplate back in combat."] = true
+L["The options window opens at a size that fits your screen. Reposition Window at the bottom of the window brings it back to that size."] = true
 
 -- Compatibility
 L["Compatibility Check"] = true

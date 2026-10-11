@@ -16,7 +16,7 @@ local PlaySound = PlaySound
 -- tallest one as row height, so next to a labeled control the button still
 -- centers on that control's box, while a row of buttons only stays compact.
 local BOX_HEIGHT = 22
-local BOX_PADDING = 4
+local BOX_PADDING = 6
 
 -- Standalone variant via the option's `arg` (AceConfigDialog hands it over
 -- through SetCustomData after SetText): `arg = { boxWidth = 300, large = true }`

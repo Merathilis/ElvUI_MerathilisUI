@@ -10,13 +10,13 @@ local CreateFrame, UIParent = CreateFrame, UIParent
 local PlaySound = PlaySound
 
 -- Same box thickness/offset as MERSlider/MERDropdown (18px from the frame's
--- top, 16px tall, 40px total frame height) so an input option sitting in the
+-- top, 16px tall, 46px total frame height) so an input option sitting in the
 -- same AceConfig row as a range/select option lines up without any Blizzard-
 -- template offset math - all three widgets just agree on the same numbers.
 local BOX_HEIGHT = 16
 local BOX_TOP_OFFSET = 18
 local LABEL_HEIGHT = 16
-local FRAME_HEIGHT = 40
+local FRAME_HEIGHT = 46 -- 10px below the box, so stacked rows get some air
 local TEXT_INSET = 6
 
 local COLOR_BOX = { 0.16, 0.16, 0.16, 1 }

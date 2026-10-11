@@ -20,13 +20,16 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 -- Beyond the title color, our pages also get a clearer section look so inline
 -- groups don't blend into the option rows around them: a larger title font, a
 -- short accent bar in front of the title, a slightly lighter box and a small
--- shadow behind it. Everything is undone again on non-MerathilisUI pages.
+-- shadow behind it. The stock geometry is also quite tight (title glued to the
+-- box, 10px content inset, 3px to the next group), so our groups get more air
+-- around the title, inside the box and below it. Everything is undone again on
+-- non-MerathilisUI pages.
 local ACD = LibStub("AceConfigDialog-3.0-ElvUI", true)
 if not ACD or not ACD.FeedGroup then
 	return
 end
 
-local pairs, unpack = pairs, unpack
+local pairs, unpack, max = pairs, unpack, max
 local hooksecurefunc = hooksecurefunc
 local GameFontNormal = GameFontNormal
 
@@ -36,6 +39,85 @@ local TITLE_OFFSET = 12 -- stock title sits at x = 14, the accent bar takes its 
 local BAR_WIDTH, BAR_HEIGHT = 3, 14
 local COLOR_BACKDROP = { 0.12, 0.12, 0.12, 0.45 }
 local SHADOW_SIZE = 3
+
+-- Group geometry on our pages. Stock: title at y = 0, box from 17px below the
+-- top to 3px above the bottom, content inset 10px on every side.
+local GROUP_TOP = 6 -- above the title, or above the box of an untitled group
+local TITLE_HEIGHT = 18 -- stock titletext height
+local TITLE_GAP = 4 -- between the title and the box
+local GROUP_BOTTOM = 10 -- below the box, the gap to the next group
+local INSET_X, INSET_Y = 14, 12 -- content inset inside the box
+local STOCK_TITLE_X, STOCK_TOP, STOCK_BOTTOM, STOCK_INSET = 14, 17, 3, 10
+
+-- Box offset from the group's top, untitled groups skip the title row
+local function GetBoxTop(group)
+	local title = group.titletext:GetText()
+	if title and title ~= "" then
+		return GROUP_TOP + TITLE_HEIGHT + TITLE_GAP
+	end
+	return GROUP_TOP
+end
+
+local function ApplyGeometry(group)
+	local active = group.merActive
+	local titletext, content = group.titletext, group.content
+	local border = content:GetParent()
+
+	local titleX = active and TITLE_OFFSET or STOCK_TITLE_X
+	local titleY = active and GROUP_TOP or 0
+	local insetX = active and INSET_X or STOCK_INSET
+	local insetY = active and INSET_Y or STOCK_INSET
+
+	group.merBoxTop = active and GetBoxTop(group) or STOCK_TOP
+
+	titletext:ClearAllPoints()
+	titletext:SetPoint("TOPLEFT", titleX, -titleY)
+	titletext:SetPoint("TOPRIGHT", -STOCK_TITLE_X, -titleY)
+
+	border:ClearAllPoints()
+	border:SetPoint("TOPLEFT", 0, -group.merBoxTop)
+	border:SetPoint("BOTTOMRIGHT", -1, active and GROUP_BOTTOM or STOCK_BOTTOM)
+
+	content:ClearAllPoints()
+	content:SetPoint("TOPLEFT", insetX, -insetY)
+	content:SetPoint("BOTTOMRIGHT", -insetX, insetY)
+
+	-- content.width is what the Flow layout wraps rows at, redo it for the new inset
+	local width = group.frame.width or group.frame:GetWidth()
+	if width and width > 0 then
+		group:OnWidthSet(width)
+	end
+end
+
+-- The stock size methods hardcode the stock geometry (height + 40, content =
+-- size - 20), these take over for as long as the group is ours.
+local function Group_LayoutFinished(group, width, height)
+	if not group.merActive then
+		return group.merStockLayoutFinished(group, width, height)
+	end
+	if group.noAutoHeight then
+		return
+	end
+	group:SetHeight((height or 0) + group.merBoxTop + (INSET_Y * 2) + GROUP_BOTTOM)
+end
+
+local function Group_OnWidthSet(group, width)
+	if not group.merActive then
+		return group.merStockOnWidthSet(group, width)
+	end
+	local contentwidth = max(width - 1 - (INSET_X * 2), 0)
+	group.content:SetWidth(contentwidth)
+	group.content.width = contentwidth
+end
+
+local function Group_OnHeightSet(group, height)
+	if not group.merActive then
+		return group.merStockOnHeightSet(group, height)
+	end
+	local contentheight = max(height - group.merBoxTop - GROUP_BOTTOM - (INSET_Y * 2), 0)
+	group.content:SetHeight(contentheight)
+	group.content.height = contentheight
+end
 
 local function Group_OnSetTitle(group, title)
 	if not group.merActive then
@@ -49,6 +131,10 @@ local function Group_OnSetTitle(group, title)
 	if group.merAccentBar then
 		group.merAccentBar:SetShown(title ~= "")
 	end
+
+	-- AceConfigDialog sets the title before it adds the children, so the
+	-- layout that follows already uses the matching box offset.
+	ApplyGeometry(group)
 end
 
 -- Replaces ElvUI's S.Ace3_BackdropColor on the box while the group is ours.
@@ -101,7 +187,7 @@ end
 -- of how many different args groups it ends up serving over its pooled
 -- lifetime. Doesn't turn our look on or off by itself.
 local function PrepareGroup(group)
-	if group.merPrepared or not group.titletext then
+	if group.merPrepared or not group.titletext or not group.content then
 		return
 	end
 	group.merPrepared = true
@@ -115,7 +201,7 @@ local function PrepareGroup(group)
 	bar:Hide()
 	group.merAccentBar = bar
 
-	local border = group.content and group.content:GetParent()
+	local border = group.content:GetParent()
 	if border and border.SetBackdropColor then
 		border.merGroup = group
 		border.merOriginalBackdropCallback = border.callbackBackdropColor
@@ -127,13 +213,24 @@ local function PrepareGroup(group)
 	-- still needed for the actual text/layout. Checks group.merActive itself,
 	-- so it's a harmless no-op whenever this group isn't currently one of ours.
 	hooksecurefunc(group, "SetTitle", Group_OnSetTitle)
+
+	-- Widget methods live on the instance, so this survives the pooling too.
+	-- The replacements fall back to the stock ones while the group isn't ours.
+	group.merStockLayoutFinished = group.LayoutFinished
+	group.merStockOnWidthSet = group.OnWidthSet
+	group.merStockOnHeightSet = group.OnHeightSet
+	group.LayoutFinished = Group_LayoutFinished
+	group.OnWidthSet = Group_OnWidthSet
+	group.OnHeightSet = Group_OnHeightSet
 end
 
+-- Returns true when the group switched to our look and needs a new layout
 local function ApplyMerLook(group)
 	PrepareGroup(group)
-	if not group.titletext then
-		return
+	if not group.merPrepared then
+		return false
 	end
+	local switched = not group.merActive
 	group.merActive = true
 
 	-- Re-applied on every FeedGroup call, not just the first time this group
@@ -145,27 +242,29 @@ local function ApplyMerLook(group)
 	titletext:SetShadowColor(0, 0, 0, 1)
 	titletext:SetShadowOffset(1, -1)
 	titletext:SetTextColor(unpack(COLOR_TITLE))
-	titletext:SetPoint("TOPLEFT", TITLE_OFFSET, 0)
 	Group_OnSetTitle(group, titletext:GetText())
 
 	ApplyBorderLook(group)
+	return switched
 end
 
+-- Returns true when the group switched back and needs a new layout
 local function RestoreStockLook(group)
 	if not group.merActive then
-		return
+		return false
 	end
 	group.merActive = false
 
 	local titletext = group.titletext
 	titletext:SetFontObject(GameFontNormal)
-	titletext:SetPoint("TOPLEFT", 14, 0)
 	if group.merOriginalColor then
 		titletext:SetTextColor(unpack(group.merOriginalColor))
 	end
 	group.merAccentBar:Hide()
 
+	ApplyGeometry(group)
 	RestoreBorderLook(group)
+	return true
 end
 
 -- A page whose own args have no *non-inline* subgroup (true of most module
@@ -176,23 +275,35 @@ end
 -- not of the `container` this hook receives directly. Recurse into any
 -- container-shaped child (has its own `.children`) to find them regardless of
 -- how many wrapper layers deep they ended up.
+--
+-- A group that switched look was already laid out with the other geometry, so
+-- it and every container above it get laid out again. Children first, since a
+-- container's height comes from its children. Returns true if anything below
+-- `container` switched.
 local function WalkForInlineGroups(container, isMUI, depth)
 	if not container or not container.children or depth > 4 then
-		return
+		return false
 	end
 
+	local switched = false
 	for _, child in pairs(container.children) do
+		local childSwitched = false
+		if child.children then
+			childSwitched = WalkForInlineGroups(child, isMUI, depth + 1)
+		end
 		if child.type == "InlineGroup" then
 			if isMUI then
-				ApplyMerLook(child)
+				childSwitched = ApplyMerLook(child) or childSwitched
 			else
-				RestoreStockLook(child)
+				childSwitched = RestoreStockLook(child) or childSwitched
 			end
 		end
-		if child.children then
-			WalkForInlineGroups(child, isMUI, depth + 1)
+		if childSwitched and child.DoLayout then
+			child:DoLayout()
 		end
+		switched = switched or childSwitched
 	end
+	return switched
 end
 
 hooksecurefunc(ACD, "FeedGroup", function(_, _, _, container, _, path)
@@ -207,5 +318,7 @@ hooksecurefunc(ACD, "FeedGroup", function(_, _, _, container, _, path)
 	if not path or #path == 0 then
 		return
 	end
-	WalkForInlineGroups(container, path[1] == "mui", 0)
+	if WalkForInlineGroups(container, path[1] == "mui", 0) then
+		container:DoLayout()
+	end
 end)

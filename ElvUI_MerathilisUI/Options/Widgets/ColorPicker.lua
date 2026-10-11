@@ -10,12 +10,12 @@ local unpack, pairs = unpack, pairs
 local CreateFrame, UIParent = CreateFrame, UIParent
 
 -- Same box thickness/offset as MERSlider/MERDropdown/MEREditBox (18px from the
--- frame's top, 16px tall, 40px total frame height) so a color option sitting
+-- frame's top, 16px tall, 46px total frame height) so a color option sitting
 -- in the same AceConfig row as a range/select/input option lines up.
 local BOX_HEIGHT = 16
 local BOX_TOP_OFFSET = 18
 local LABEL_HEIGHT = 16
-local FRAME_HEIGHT = 40
+local FRAME_HEIGHT = 46 -- 10px below the box, so stacked rows get some air
 
 -- Same size/inset as MERSlider's knob so the swatch reads as part of the same
 -- control family instead of Blizzard's default color chip.

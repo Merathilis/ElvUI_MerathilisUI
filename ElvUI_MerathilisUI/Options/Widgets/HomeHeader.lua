@@ -66,6 +66,9 @@ local tips = {
 		text = L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."],
 		path = { "presets", "export" },
 	},
+	{
+		text = L["The options window opens at a size that fits your screen. Reposition Window at the bottom of the window brings it back to that size."],
+	},
 	{ text = L["Type /mlr to preview the Loot Roll bar with test rolls."], path = { "modules", "lootRoll" } },
 	{
 		text = L["Type /lsm to open the LootSpecManager. It switches your loot spec per boss in raids and Mythic+."],
@@ -122,8 +125,20 @@ local tips = {
 		path = { "modules", "nameplates", "general" },
 	},
 	{
+		text = L["Neutral Name Only shows only the name of idle neutral NPCs and gives them their full nameplate back in combat."],
+		path = { "modules", "nameplates", "general" },
+	},
+	{
 		text = L["Categorized Bags sorts your bags into groups like equipment, consumables and quest items."],
 		path = { "modules", "bags", "categorizedBags" },
+	},
+	{
+		text = L["Categorized Bags can also show your items as a sortable list or as compact blocks. Switch it with the button in the bag's title bar."],
+		path = { "modules", "bags", "categorizedBags", "displayModes" },
+	},
+	{
+		text = L["The Junk Marker of Categorized Bags marks items as junk with a click, Sell Junk then sells all of them at a vendor."],
+		path = { "modules", "bags", "categorizedBags", "junkMarker" },
 	},
 	{
 		text = L["The Armory warns you about missing enchants and sockets on your gear."],

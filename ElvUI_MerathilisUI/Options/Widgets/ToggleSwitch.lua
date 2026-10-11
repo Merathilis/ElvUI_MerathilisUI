@@ -14,6 +14,10 @@ local TRACK_WIDTH, TRACK_HEIGHT = 34, 16
 local KNOB_SIZE = 12
 local KNOB_INSET = 2
 
+-- The switch is centered vertically, the extra height is air above and below it
+local FRAME_HEIGHT = 30
+local DESC_HEIGHT = 34
+
 -- NEW badge of a label marked with F.NewFeatureText, the label keeps room for it
 local BADGE_SCALE = 0.6
 local BADGE_RESERVE = 28
@@ -143,7 +147,7 @@ local methods = {
 		if self.desc then
 			self.desc:SetWidth(width - 30)
 			if self.desc:GetText() and self.desc:GetText() ~= "" then
-				self:SetHeight(28 + self.desc:GetStringHeight())
+				self:SetHeight(DESC_HEIGHT + self.desc:GetStringHeight())
 			end
 		end
 	end,
@@ -218,13 +222,13 @@ local methods = {
 			end
 			self.desc:Show()
 			self.desc:SetText(desc)
-			self:SetHeight(28 + self.desc:GetStringHeight())
+			self:SetHeight(DESC_HEIGHT + self.desc:GetStringHeight())
 		else
 			if self.desc then
 				self.desc:SetText("")
 				self.desc:Hide()
 			end
-			self:SetHeight(24)
+			self:SetHeight(FRAME_HEIGHT)
 		end
 	end,
 

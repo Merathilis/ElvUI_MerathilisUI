@@ -5,6 +5,7 @@ local MISC = MER:GetModule("MER_Misc")
 local format, type, pairs, ipairs, next, tinsert, sort = format, type, pairs, ipairs, next, tinsert, sort
 local gsub, strlower, strtrim = gsub, strlower, strtrim
 local xpcall = xpcall
+local min, max, floor = min, max, floor
 
 local CreateTextureMarkup = CreateTextureMarkup
 
@@ -929,10 +930,40 @@ function module:ApplyCustomWidgets(argsTable)
 	end
 end
 
+-- ElvUI opens its options at a fixed 1024x768 until the window is moved or
+-- resized by hand (that size is saved in E.global). As long as nothing is
+-- saved, the default follows the screen instead. All in UI units, so a larger
+-- UI scale gets a proportionally smaller window. ElvUI's own 800x600 minimum
+-- and the screen minus 50 stay the bounds.
+local OPTIONS_WIDTH_RATIO, OPTIONS_HEIGHT_RATIO = 0.6, 0.75
+local OPTIONS_MAX_WIDTH, OPTIONS_MAX_HEIGHT = 1600, 1100
+
+function module:ScaleConfigDefaultSize()
+	local stockGetDefaultSize = E.Config_GetDefaultSize
+	local defaults = E.DF.global.general.AceGUI
+	if not stockGetDefaultSize or not defaults then
+		return
+	end
+
+	function E:Config_GetDefaultSize()
+		local width, height = self:Config_GetSize()
+		if width ~= defaults.width or height ~= defaults.height then
+			return stockGetDefaultSize(self)
+		end
+
+		local maxWidth, maxHeight = E.UIParent:GetSize()
+		width = min(max(maxWidth * OPTIONS_WIDTH_RATIO, defaults.width), OPTIONS_MAX_WIDTH)
+		height = min(max(maxHeight * OPTIONS_HEIGHT_RATIO, defaults.height), OPTIONS_MAX_HEIGHT)
+		return floor(min(maxWidth - 50, width)), floor(min(maxHeight - 50, height))
+	end
+end
+
 function module:Initialize()
 	if self.Initialized then
 		return
 	end
+
+	self:ScaleConfigDefaultSize()
 
 	-- The options themselves are built by OptionsCallback, see BuildOptions
 	self.Initialized = true

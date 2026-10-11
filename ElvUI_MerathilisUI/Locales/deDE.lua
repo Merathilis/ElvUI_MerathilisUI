@@ -829,6 +829,10 @@ L["Auras can add a collapse button to your buffs that hides long-lasting ones un
 L["Item Level shows the item level on items in the merchant and trade windows."] = "Das Modul Gegenstandsstufe zeigt die Stufe von Gegenständen im Händler- und Handelsfenster."
 L["The Raid Info Frame lists the players in your raid by role."] = "Das Raid Info Fenster listet die Spieler in deinem Schlachtzug nach Rolle auf."
 L["MerathilisUI adds extra oUF tags you can use in the UnitFrames options."] = "MerathilisUI fügt zusätzliche oUF-Tags hinzu, die du in den UnitFrame-Optionen nutzen kannst."
+L["Categorized Bags can also show your items as a sortable list or as compact blocks. Switch it with the button in the bag's title bar."] = "Die kategorisierten Taschen zeigen deine Gegenstände auch als sortierbare Liste oder als kompakte Blöcke. Umschalten kannst du über den Knopf in der Titelleiste der Tasche."
+L["The Junk Marker of Categorized Bags marks items as junk with a click, Sell Junk then sells all of them at a vendor."] = "Mit dem Junk Marker der kategorisierten Taschen markierst du Gegenstände per Klick als Schrott, Sell Junk verkauft sie dann alle beim Händler."
+L["Neutral Name Only shows only the name of idle neutral NPCs and gives them their full nameplate back in combat."] = "Neutral Name Only zeigt bei untätigen neutralen NPCs nur den Namen und gibt ihnen im Kampf die volle Namensplakette zurück."
+L["The options window opens at a size that fits your screen. Reposition Window at the bottom of the window brings it back to that size."] = "Das Optionsfenster öffnet sich in einer Größe, die zu deinem Bildschirm passt. Reposition Window unten im Fenster stellt diese Größe wieder her."
 
 -- Compatibility
 L["Compatibility Check"] = "Kompatibilitätsprüfung"

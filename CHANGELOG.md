@@ -6,3 +6,5 @@
 -   [New]: Bags: Categorized Bags - the display (Grid, List or Compact) can be switched for the bag and the bank window separately, from the new title bar button or the options.
 -   [New]: Bags: Categorized Bags - new Junk Marker (off by default): a Junk category for grey items and anything you mark, a title bar button to mark or unmark items with a click, and Sell Junk sells all of it at a vendor, optionally automatically. Items that can still be refunded are never sold.
 -   [New]: NamePlates: Neutral Name Only - idle neutral NPCs only show their name, like the old ElvUI style filter. Targeted or in combat with you or your group, they get their full nameplate back. The name uses the gradient name tag.
+-   [Improvement]: Options: More room on every options page: taller rows, more padding inside the option groups and a clear gap between them.
+-   [Improvement]: Options: The options window now opens at a size that fits your screen instead of a fixed 1024x768. A window you resized yourself keeps its size, Reposition Window switches back to the new default.
