@@ -98,6 +98,6 @@ Next version = released + 0.01 (e.g. 7.36 → 7.37, 7.39 → 7.40).
 
 Features the user wants announced on merathilisui.com once they are released:
 
-- (empty)
+- **Loadout Manager** (7.41, Retail only), icon `refresh`, suggested card text: "Equips your Equipment Manager gear set and loads your saved talent loadout on its own when you enter content. Assign them per instance, per difficulty or per content type (Dungeon, Mythic+, Raid, Timewalking, Delve, Arena, Battleground, Open World), for all specs or a single spec. Swaps due in combat wait until it ends, and a warning tells you not to move while talents change." Shot: the user's options page screenshot is already in the website repo as `public/media/features/loadout-manager.webp` (1176x518, untracked until the card is committed; alt: "Loadout Manager options: enable card, the DONT MOVE warning preview, general toggles, current context and the selected loadout pickers"), title `['Loadout', 'Manager']`, subtitle "The right gear and talents for every key and raid", tag "Combat".
 
 Finish with a short recap: version released, tag, links (Actions, CurseForge, Wago), and the new in-progress version.
