@@ -113,6 +113,21 @@ local tips = {
 		path = { "modules", "quickGrid" },
 	},
 	{
+		text = L["The Loadout Manager equips your gear set and loads your talent loadout on its own when you enter a dungeon, raid or other content. Type /lm to set it up."],
+		path = { "modules", "loadoutManager" },
+		retailOnly = true,
+	},
+	{
+		text = L["Loadout Manager assignments can be made for all specs or a single spec. A spec assignment wins over the All Specs one."],
+		path = { "modules", "loadoutManager" },
+		retailOnly = true,
+	},
+	{
+		text = L["Inside an instance, the Loadout Manager can save a loadout for just the difficulty you are in, e.g. only Mythic."],
+		path = { "modules", "loadoutManager" },
+		retailOnly = true,
+	},
+	{
 		text = L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."],
 		path = { "modules", "nameplates", "castbar" },
 	},

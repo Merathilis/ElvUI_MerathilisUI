@@ -9,6 +9,7 @@
 	<Script file='DataTexts.lua'/>
 	<Script file='HoverCast.lua'/>
 	<Script file='ItemLevel.lua'/>
+	<Script file='LoadoutManager.lua'/>
 	<Script file='LootRoll.lua'/>
 	<Script file='Mail.lua'/>
 	<Script file='Maps.lua'/>

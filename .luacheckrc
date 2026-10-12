@@ -35890,6 +35890,7 @@ read_globals = {
 			"SaveConfig",
 			"SetStarterBuildActive",
 			"SetUsesSharedActionBars",
+			"SwitchToLoadoutByName",
 			"UpdateLastSelectedSavedConfigID",
 			"ViewLoadout",
 		},
