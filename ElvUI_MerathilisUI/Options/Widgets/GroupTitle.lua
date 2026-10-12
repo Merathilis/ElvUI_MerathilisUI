@@ -126,6 +126,7 @@ local function Group_OnSetTitle(group, title)
 	title = title or ""
 	title = title:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 	group.titletext:SetText(title)
+	group.merBoxTop = GetBoxTop(group)
 
 	-- No bar for untitled groups, it would float above an empty title row.
 	if group.merAccentBar then
@@ -191,6 +192,10 @@ local function PrepareGroup(group)
 		return
 	end
 	group.merPrepared = true
+
+	-- The size handlers below read this, and they can fire before the first
+	-- ApplyGeometry (showing the accent bar triggers AceGUI's size callback).
+	group.merBoxTop = STOCK_TOP
 
 	group.merOriginalColor = { group.titletext:GetTextColor() }
 
