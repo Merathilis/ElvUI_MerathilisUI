@@ -12,3 +12,4 @@
 -   [Improvement]: NamePlates: The options are split into the tabs Indicators, Highlight, Castbar, Health Bar and Neutral Name Only instead of one long page.
 -   [Improvement]: Options: More room on every options page: taller rows, more padding inside the option groups and a clear gap between them.
 -   [Improvement]: Options: The options window now opens at a size that fits your screen instead of a fixed 1024x768. A window you resized yourself keeps its size, Reposition Window switches back to the new default.
+-   [Improvement]: VehicleBar: New option Hide While Skyriding (off by default): the vehicle bar stays hidden while skyriding and ElvUI's action bar 1 shows the skyriding abilities instead.
