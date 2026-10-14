@@ -997,6 +997,18 @@ P.nameplates = {
 		colorMode = "CLASS",
 		customColor = { r = 1, g = 1, b = 1 },
 	},
+	targetEmphasis = {
+		enable = true,
+		shade = true,
+		shadeAlpha = 0.35,
+		fade = true,
+		alpha = 0.6,
+		keepCasting = true,
+		pop = true,
+		popScale = 1.08,
+		combatOnly = false,
+		friendly = false,
+	},
 	highlight = {
 		enable = true,
 		texture = "MER_Stripes",

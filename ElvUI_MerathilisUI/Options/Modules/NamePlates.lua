@@ -23,6 +23,10 @@ module:AddOptions(function()
 		return TargetArrowsDisabled() or E.db.mui.nameplates.targetArrows.colorMode ~= "CUSTOM"
 	end
 
+	local function TargetEmphasisDisabled()
+		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.targetEmphasis.enable
+	end
+
 	local function HighlightDisabled()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.highlight.enable
 	end
@@ -260,6 +264,108 @@ module:AddOptions(function()
 								disabled = TargetArrowsDisabled,
 								values = arrowValues,
 								sorting = arrowSorting,
+							},
+						},
+					},
+					targetEmphasis = {
+						order = 2.5,
+						type = "group",
+						name = L["Target Emphasis"],
+						guiInline = true,
+						get = function(info)
+							return E.db.mui.nameplates.targetEmphasis[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.nameplates.targetEmphasis[info[#info]] = value
+							MNP:UpdateTargetEmphasis()
+						end,
+						disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = F.NewFeatureText(L["Enable"]),
+								desc = L["Makes the nameplate of your target stand out: while you have a target, the other nameplates fade and get a dark shade, the new target pops up once."],
+							}),
+							preview = module.PreviewOption(1.5, "MERTargetEmphasisPreview", "nameplates"),
+							shade = {
+								order = 3,
+								type = "toggle",
+								name = L["Shade Other Plates"],
+								desc = L["Lays a dark shade over the health bar of the nameplates that aren't your target."],
+								disabled = TargetEmphasisDisabled,
+							},
+							shadeAlpha = {
+								order = 4,
+								type = "range",
+								name = L["Shade Strength"],
+								disabled = function()
+									return TargetEmphasisDisabled() or not E.db.mui.nameplates.targetEmphasis.shade
+								end,
+								min = 0.05,
+								max = 0.9,
+								step = 0.05,
+								isPercent = true,
+							},
+							fade = {
+								order = 5,
+								type = "toggle",
+								name = L["Fade Other Plates"],
+								desc = L["Lowers the alpha of the nameplates that aren't your target. Plates that use the Visibility settings of ElvUI keep their own alpha."],
+								disabled = TargetEmphasisDisabled,
+							},
+							alpha = {
+								order = 6,
+								type = "range",
+								name = L["Alpha"],
+								disabled = function()
+									return TargetEmphasisDisabled() or not E.db.mui.nameplates.targetEmphasis.fade
+								end,
+								min = 0.1,
+								max = 1,
+								step = 0.05,
+								isPercent = true,
+							},
+							keepCasting = {
+								order = 7,
+								type = "toggle",
+								name = L["Keep Casting Units"],
+								desc = L["Units that are casting keep their full alpha, so their castbar stays easy to see."],
+								disabled = function()
+									return TargetEmphasisDisabled() or not E.db.mui.nameplates.targetEmphasis.fade
+								end,
+							},
+							pop = {
+								order = 8,
+								type = "toggle",
+								name = L["Pop on Target"],
+								desc = L["The nameplate of a new target grows for a moment."],
+								disabled = TargetEmphasisDisabled,
+							},
+							popScale = {
+								order = 9,
+								type = "range",
+								name = L["Pop Size"],
+								disabled = function()
+									return TargetEmphasisDisabled() or not E.db.mui.nameplates.targetEmphasis.pop
+								end,
+								min = 1.02,
+								max = 1.3,
+								step = 0.01,
+								isPercent = true,
+							},
+							combatOnly = {
+								order = 10,
+								type = "toggle",
+								name = L["Only In Combat"],
+								desc = L["Only fades and shades the other nameplates while you are in combat."],
+								disabled = TargetEmphasisDisabled,
+							},
+							friendly = {
+								order = 11,
+								type = "toggle",
+								name = L["Friendly Plates"],
+								desc = L["Also fades and shades the nameplates of friendly units."],
+								disabled = TargetEmphasisDisabled,
 							},
 						},
 					},

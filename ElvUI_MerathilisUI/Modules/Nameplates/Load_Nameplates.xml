@@ -2,6 +2,7 @@
 	<Script file="Nameplates.lua"/>
 	<Script file="FactionIndicator.lua"/>
 	<Script file="TargetArrows.lua"/>
+	<Script file="TargetEmphasis.lua"/>
 	<Script file="Highlight.lua"/>
 	<Script file="FocusHighlight.lua"/>
 	<Script file="MarkerColor.lua"/>
