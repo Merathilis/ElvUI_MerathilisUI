@@ -1550,6 +1550,33 @@ L["Interrupt Ready Soon"] = true
 L["Castbar Shield"] = true
 L["Shows a shield icon on the castbar of hostile units while their cast can't be interrupted."] = true
 
+-- Portraits
+L["Portraits"] = true
+L["Shows a portrait next to the unitframes, cut to a shape and framed by a ring in the unit's color."] = true
+L["Shape"] = true
+L["Drop"] = true
+L["Square"] = true
+L["Class color for players, reaction color for NPCs. Gradient uses the colors of the Gradient Theme."] = true
+L["Shadow"] = true
+L["Shadow Alpha"] = true
+L["Inner Shadow"] = true
+L["Darkens the portrait along the inside of the ring."] = true
+L["Marks boss, elite and rare NPCs on their portrait."] = true
+L["Dragon"] = true
+L["Badge"] = true
+L["Ring Color"] = true
+L["Show On"] = true
+L["Dragon Color"] = true
+L["Portrait Color"] = true
+L["Above the Ring"] = true
+L["Draws the dragon over the ring instead of behind it."] = true
+L["Unit"] = true
+L["Cast Icon"] = true
+L["Shows the spell icon instead of the portrait while the unit casts."] = true
+L["Mirror"] = true
+L["Flips the portrait and the shape, for frames on the right side."] = true
+L["Relative Point"] = true
+
 -- Rounded Corners
 L["Rounded Corners"] = true
 L["Rounds the corners of the health, power, class and cast bars, including their border."] = true

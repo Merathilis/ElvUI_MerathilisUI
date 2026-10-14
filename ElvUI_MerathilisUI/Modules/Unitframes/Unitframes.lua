@@ -76,6 +76,8 @@ function module:Initialize()
 	module:RestingIndicator()
 	-- Rounded Corners
 	module:RoundedCorners()
+	-- Portraits
+	module:Portraits()
 end
 
 -- The settings are read on every configure, the frames that exist just need a refresh
@@ -90,6 +92,7 @@ function module:ProfileUpdate()
 	module:UpdateExecuteLines()
 	module:UpdateRestingIndicator()
 	module:UpdateRoundedCorners()
+	module:UpdatePortraits()
 end
 
 MER:RegisterModule(module:GetName())

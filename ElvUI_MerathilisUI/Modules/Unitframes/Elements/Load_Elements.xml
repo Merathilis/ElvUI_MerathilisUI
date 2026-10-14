@@ -2,6 +2,7 @@
 	<Script file="CastbarShield.lua"/>
 	<Script file="FactionIndicator.lua"/>
 	<Script file="InterruptReady.lua"/>
+	<Script file="Portraits.lua"/>
 	<Script file="ExecuteLine.lua"/>
 	<Script file="RaidIcon.lua"/>
 	<Script file="RestingIndicator.lua"/>

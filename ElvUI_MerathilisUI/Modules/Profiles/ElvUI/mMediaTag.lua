@@ -19,24 +19,7 @@ function module:LoadmMediaTagProfile()
 	db.phase_icon.icon = "updates"
 	db.ready_check_icon.enable = true
 
-	-- Single fields only, replacing the unit tables would drop mMediaTag's other settings
-	db.portraits.enable = true
-	db.portraits.player.cast = true
-	db.portraits.player.point.point = "RIGHT"
-	db.portraits.player.point.relativePoint = "LEFT"
-	db.portraits.player.point.x = -5
-	db.portraits.player.point.y = 15
-	db.portraits.target.cast = true
-	db.portraits.target.point.point = "LEFT"
-	db.portraits.target.point.relativePoint = "RIGHT"
-	db.portraits.target.point.x = 5
-	db.portraits.target.point.y = 15
-	db.portraits.focus.enable = false
-	db.portraits.targettarget.enable = false
-	db.portraits.pet.enable = false
-	db.portraits.party.enable = false
-	db.portraits.boss.enable = false
-	db.portraits.arena.enable = false
+	db.portraits.enable = false -- MerathilisUI's UnitFrames have their own Portraits
 
 	db.lfg_invite_info.enable = true
 	db.lfg_invite_info.text.font = F.FontOverride(I.Fonts.Primary)

@@ -27,10 +27,7 @@ F.Presets.Register({
 		-- Runs after the WindTools and mMediaTag setup of the preset, so it overrides it
 		E.db.WT.social.chatBar.enable = false
 
-		local mMediaTag = E.db.mMediaTag
-		if mMediaTag and mMediaTag.portraits then
-			mMediaTag.portraits.enable = false
-		end
+		E.db.mui.unitframes.portraits.enable = false
 
 		-- The MerathilisUI resting indicator sits next to the portrait, ElvUI's own one on the frame
 		E.db.mui.unitframes.restingIndicator.enable = false

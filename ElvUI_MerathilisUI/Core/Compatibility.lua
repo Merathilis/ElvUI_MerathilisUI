@@ -299,6 +299,12 @@ local plugins = {
 				theirs = "db.mMediaTag.interrupt_on_cd.enable",
 			},
 			{
+				feature = L["Portraits"],
+				theirFeature = L["Portraits"],
+				mine = "db.mui.unitframes.portraits.enable",
+				theirs = "db.mMediaTag.portraits.enable",
+			},
+			{
 				feature = L["AussyLoot"],
 				theirFeature = L["AussyLoot"],
 				mine = "private.mui.skins.addonSkins.aussyLoot",

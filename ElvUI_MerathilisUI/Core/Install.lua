@@ -2122,9 +2122,12 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,524,269"
 	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,524,258"
 
+	-- The portrait rings follow the health bars: gradient colors or the flat class color
 	if layout == "gradient" then
+		E.db.mui.unitframes.portraits.colorMode = "GRADIENT"
 		MER:GetModule("MER_Theme"):Toggle("gradientMode", true)
 	elseif layout == "dark" then
+		E.db.mui.unitframes.portraits.colorMode = "CLASS"
 		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
 end

@@ -1,6 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.LSM or E.Libs.LSM
 
+local ipairs = ipairs
+
 local westAndRUBits = LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western
 local allLocaleBits = LSM.LOCALE_BIT_koKR + LSM.LOCALE_BIT_zhCN + LSM.LOCALE_BIT_zhTW + westAndRUBits
 
@@ -158,6 +160,13 @@ F.AddMedia("texture", "UnlockMode/LockBody")
 F.AddMedia("texture", "UnlockMode/LockShackle")
 F.AddMedia("texture", "UnlockMode/Ring")
 F.AddMedia("texture", "UnlockMode/Glow")
+
+-- UnitFrame Portraits: shape, ring, shadow and inner shade per style
+for _, style in ipairs({ "Drop", "DropMirror", "Circle", "Square" }) do
+	for _, part in ipairs({ "Mask", "Ring", "Shadow", "Inner" }) do
+		F.AddMedia("texture", "Portraits/" .. style .. part)
+	end
+end
 
 -- Fonts
 F.AddMedia("font", "Expressway.ttf", I.Fonts.Primary, nil, westAndRUBits)

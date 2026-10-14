@@ -36,6 +36,7 @@
 	<Script file='UnlockModePreview.lua' />
 	<Script file='HoverCastPreview.lua' />
 	<Script file='LoadoutManagerPreview.lua' />
+	<Script file='PortraitsPreview.lua' />
 	<Script file='ToggleSwitch.lua' />
 	<Script file='Slider.lua' />
 	<Script file='Dropdown.lua' />

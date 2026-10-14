@@ -1,7 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local C = W.Utilities.Color
 
-local print, tonumber = print, tonumber
+local print, tonumber, type = print, tonumber, type
 local format = string.format
 
 local isFirstLine = true
@@ -37,6 +37,34 @@ local function RemoveProfileKey(key)
 	end
 
 	return false
+end
+
+---Put mMediaTag's portrait settings back to its defaults and report whether its portraits were on
+---@return boolean wasEnabled
+local function ResetMediaTagPortraits()
+	local portraits = E.db.mMediaTag and E.db.mMediaTag.portraits
+	if type(portraits) ~= "table" then
+		return false
+	end
+
+	local wasEnabled = portraits.enable == true
+	local defaults = E.DF.profile.mMediaTag and E.DF.profile.mMediaTag.portraits
+
+	if defaults then
+		-- mMediaTag is loaded and reads these tables, so they are reset in place.
+		-- Values equal to the defaults are not saved, which clears them from the profile
+		E:CopyTable(portraits, defaults)
+
+		-- Its portraits are built already, a reload removes them
+		if wasEnabled then
+			E:Delay(2, E.StaticPopup_Show, E, "CONFIG_RL")
+		end
+	else
+		-- Not loaded: only the saved leftovers are there, its defaults come back on its next load
+		E.db.mMediaTag.portraits = nil
+	end
+
+	return wasEnabled
 end
 
 local function StampVersions()
@@ -97,6 +125,12 @@ function MER:UpdateScripts()
 		if restingIndicator then
 			restingIndicator.customClassColor = nil
 		end
+	end
+
+	-- MerathilisUI has its own Portraits now: the mMediaTag portrait settings our mMediaTag profile
+	-- wrote go back to mMediaTag's defaults (off), so only MerathilisUI's Portraits show
+	if profileVersion < 7.41 and ResetMediaTagPortraits() then
+		UpdateMessage(L["Portraits"] .. ": " .. L["Update Database"], profileVersion)
 	end
 
 	if not isFirstLine then
