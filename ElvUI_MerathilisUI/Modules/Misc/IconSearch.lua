@@ -116,8 +116,8 @@ function module:IconSearch_Setup()
 
 		local helpInfo = CreateFrame("Frame", nil, editbox)
 		helpInfo:SetOutside(editbox.searchIcon, 6, 6)
-		helpInfo.title = L["IconSearch"]
-		F.AddTooltip(helpInfo, "ANCHOR_RIGHT", L["IconSearchTip"], "info")
+		helpInfo.title = L["Icon Search"]
+		F.AddTooltip(helpInfo, "ANCHOR_RIGHT", L["Enter a spell ID or item ID to find its icon."], "info")
 
 		local resultFrame = CreateFrame("Frame", nil, self)
 		resultFrame:SetFrameStrata("HIGH")

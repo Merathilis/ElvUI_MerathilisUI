@@ -1,837 +1,1052 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
-local EM = MER:GetModule("MER_EquipManager") ---@class EquipmentManager
-local BC = MER:GetModule("MER_BagCategories") ---@class BagCategories
-local B = E:GetModule("Bags")
 
-local options = module.options.modules.args
+-- Built on the first open of the options, see module:AddOptions in Options/Core.lua
+module:AddOptions(function()
+	local EM = MER:GetModule("MER_EquipManager") ---@class EquipmentManager
+	local BC = MER:GetModule("MER_BagCategories") ---@class BagCategories
+	local B = E:GetModule("Bags")
 
--- Repaints the categorized bag and bank windows, both skip it while closed
--- Own disabled replaces the group's, so the requirement is repeated there
-local function BagsDisabled()
-	return not MER:HasRequirements(I.Requirements.Bags)
-end
+	local options = module.options.modules.args
 
-local function RefreshCategoryFrames()
-	BC:RefreshCategoryFrame()
-	BC:RefreshBankCategoryFrame()
-end
+	-- Repaints the categorized bag and bank windows, both skip it while closed
+	-- Own disabled replaces the group's, so the requirement is repeated there
+	local function BagsDisabled()
+		return not MER:HasRequirements(I.Requirements.Bags)
+	end
 
-options.bags = {
-	type = "group",
-	name = module:AddCategorieIcon(L["Bags"], "bags"),
-	args = {
-		header = {
-			order = 0,
-			type = "header",
-			name = L["Bags"],
-		},
-		requirements = module.RequirementsNotice(I.Requirements.Bags, 0.5),
-		equipmentManager = {
-			order = 1,
-			type = "group",
-			name = L["Equipment Manager"],
-			guiInline = true,
-			disabled = BagsDisabled,
-			get = function(info)
-				return E.db.mui.bags.equipmentManager[info[#info]]
-			end,
-			-- The categorized bags draw the same icon from these settings
-			set = function(info, value)
-				E.db.mui.bags.equipmentManager[info[#info]] = value
-				EM:UpdateItemDisplay()
-				RefreshCategoryFrames()
-			end,
-			args = {
-				enable = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."],
-					set = function(info, value)
-						E.db.mui.bags.equipmentManager[info[#info]] = value
-						B:UpdateLayouts()
-						B:UpdateAllBagSlots(true)
-						RefreshCategoryFrames()
-					end,
-				},
-				size = {
-					order = 2,
-					type = "range",
-					name = L["Size"],
-					min = 8,
-					max = 64,
-					step = 1,
-				},
-				point = {
-					order = 3,
-					type = "select",
-					name = L["Anchor Point"],
-					values = I.Values.positionValues,
-				},
-				xOffset = {
-					order = 4,
-					type = "range",
-					name = L["X-Offset"],
-					min = -64,
-					max = 64,
-					step = 1,
-				},
-				yOffset = {
-					order = 5,
-					type = "range",
-					name = L["Y-Offset"],
-					min = -64,
-					max = 64,
-					step = 1,
-				},
-				icon = {
-					order = 6,
-					type = "select",
-					name = L["Icon"],
-					values = function()
-						return EM.equipmentmanager.icons
-					end,
-				},
-				customTexture = {
-					order = 7,
-					type = "input",
-					name = L["Custom Texture"],
-					desc = L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"],
-					width = "double",
-					hidden = function()
-						return E.db.mui.bags.equipmentManager.icon ~= "CUSTOM"
-					end,
-				},
-				color = {
-					order = 8,
-					type = "color",
-					name = COLOR,
-					hasAlpha = true,
-					get = function(info)
-						local t = E.db.mui.bags.equipmentManager[info[#info]]
-						local d = P.bags.equipmentManager[info[#info]]
-						return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-					end,
-					set = function(info, r, g, b, a)
-						local t = E.db.mui.bags.equipmentManager[info[#info]]
-						t.r, t.g, t.b, t.a = r, g, b, a
-						EM:UpdateItemDisplay()
-						RefreshCategoryFrames()
-					end,
-				},
+	local function RefreshCategoryFrames()
+		BC:RefreshCategoryFrame()
+		BC:RefreshBankCategoryFrame()
+	end
+
+	options.bags = {
+		type = "group",
+		name = module:AddCategorieIcon(L["Bags"], "bags"),
+		-- One tab each, so Categorized Bags gets the full height instead of the
+		-- space left below the Equipment Manager
+		childGroups = "tab",
+		args = {
+			header = {
+				order = 0,
+				type = "header",
+				name = L["Bags"],
 			},
-		},
-		categorizedBags = {
-			order = 2,
-			type = "group",
-			name = L["Categorized Bags"],
-			childGroups = "tab",
-			disabled = BagsDisabled,
-			get = function(info)
-				return E.db.mui.bags.categorizedBags[info[#info]]
-			end,
-			set = function(info, value)
-				E.db.mui.bags.categorizedBags[info[#info]] = value
-
-				if BC.frame then
-					BC.frame:Size(E.db.mui.bags.categorizedBags.width, E.db.mui.bags.categorizedBags.height)
-					BC:RefreshCategoryFrame()
-				end
-
-				-- Most of these settings (empty categories, pinned/recent,
-				-- merging, nesting) drive both windows, so an open Bank has
-				-- to be repainted as well. Resizing first also restores the
-				-- configured height after Auto Height is switched back off.
-				if BC.bankFrame and BC.RefreshBankCategoryFrame then
-					BC.bankFrame:Size(E.db.mui.bags.categorizedBags.bankWidth, E.db.mui.bags.categorizedBags.bankHeight)
-					BC:RefreshBankCategoryFrame()
-				end
-			end,
-			args = {
-				general = {
-					order = 1,
-					type = "group",
-					name = L["General"],
-					args = {
-						enable = {
-							order = 1,
-							type = "toggle",
-							name = L["Enable"],
-							desc = L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."],
-							set = function(info, value)
-								E.db.mui.bags.categorizedBags[info[#info]] = value
-								E:StaticPopup_Show("CONFIG_RL")
-							end,
-							width = "full",
-						},
-						hideEmptyCategories = {
-							order = 2,
-							type = "toggle",
-							name = L["Hide Empty Categories"],
-						},
-						showPinned = {
-							order = 3,
-							type = "toggle",
-							name = L["Show Pinned Items"],
-						},
-						showRecent = {
-							order = 4,
-							type = "toggle",
-							name = L["Show Recent Items"],
-						},
-						alternatingRowBackground = {
-							order = 5,
-							type = "toggle",
-							name = L["Alternating Row Background"],
-							desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
-						},
-						autoSize = {
-							order = 6,
-							type = "toggle",
-							name = L["Auto Height"],
-							desc = L["Shrinks the bag and bank windows to fit their contents. The configured height becomes the maximum instead of a fixed size."],
-						},
-						nestByExpansion = {
-							order = 7,
-							type = "toggle",
-							name = L["Group by Expansion"],
-							desc = L["Splits categories like Consumables or Trade Goods into sub-headers per expansion, newest first."],
-						},
-						nestByEquipmentSet = {
-							order = 8,
-							type = "toggle",
-							name = L["Group by Equipment Set"],
-							desc = L["Splits the gear categories into sub-headers per Blizzard equipment set."],
-						},
-						mergeDuplicates = {
-							order = 9,
-							type = "toggle",
-							name = L["Merge Duplicate Stacks"],
-							desc = L["Shows identical items from several bag slots as one slot with the combined count. Gear is never merged, and merging pauses while a vendor, mailbox, trade, auction house or bank window is open, since those only ever take one stack at a time."],
-						},
-						clearRecentOnClose = {
-							order = 10,
-							type = "toggle",
-							name = L["Clear Recent on Close"],
-							desc = L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."],
-							disabled = function()
-								return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
-							end,
-						},
-						recentLimit = {
-							order = 11,
-							type = "range",
-							name = L["Recent Items Limit"],
-							desc = L["How many items the Recent Items list keeps at most; the oldest drops out first."],
-							min = 5,
-							max = 50,
-							step = 1,
-							disabled = function()
-								return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
-							end,
-						},
-						resetCurrencyOrder = {
-							order = 12,
-							type = "execute",
-							name = L["Reset Currency Order"],
-							desc = L["Puts the tracked currencies in the footer back into Blizzard's own order. Drag one currency onto another in the footer to reorder them."],
-							func = function()
-								BC.db.currencyOrder = {}
-
-								if BC.frame then
-									BC:UpdateFooter()
-								end
-							end,
-						},
-						resetCategoryGroups = {
-							order = 13,
-							type = "execute",
-							name = L["Reset Category Groups"],
-							desc = L['Restores any category group (e.g. "Equipment") you disbanded or removed a category from, removes the groups you created yourself and clears any group renames.'],
-							func = function()
-								local db = BC.db
-								db.ungroupedCategories = nil
-								db.disbandedGroups = nil
-								db.groupNameOverrides = nil
-								db.customGroups = nil
-								db.groupExtraMembers = nil
-
-								BC:InvalidateCategoryCache()
-								RefreshCategoryFrames()
-							end,
-						},
-						spinnerGroup = {
-							order = 14,
-							type = "group",
-							inline = true,
-							name = L["Sort Spinner"],
-							desc = L["Same spinner ElvUI's own bag frame shows while sorting."],
-							get = function(info)
-								return E.db.mui.bags.categorizedBags.spinner[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.bags.categorizedBags.spinner[info[#info]] = value
-							end,
-							args = {
-								enable = {
-									order = 1,
-									type = "toggle",
-									name = L["Enable"],
-								},
-								size = {
-									order = 2,
-									type = "range",
-									name = L["Size"],
-									min = 20,
-									max = 80,
-									step = 1,
-								},
-								color = {
-									order = 3,
-									type = "color",
-									name = COLOR,
-									get = function(info)
-										local t = E.db.mui.bags.categorizedBags.spinner[info[#info]]
-										local d = P.bags.categorizedBags.spinner[info[#info]]
-										return t.r, t.g, t.b, t.a, d.r, d.g, d.b
-									end,
-									set = function(info, r, g, b)
-										local t = E.db.mui.bags.categorizedBags.spinner[info[#info]]
-										t.r, t.g, t.b = r, g, b
-									end,
-								},
+			requirements = module.RequirementsNotice(I.Requirements.Bags, 0.5),
+			equipmentManager = {
+				order = 1,
+				type = "group",
+				name = L["Equipment Manager"],
+				disabled = BagsDisabled,
+				get = function(info)
+					return E.db.mui.bags.equipmentManager[info[#info]]
+				end,
+				-- The categorized bags draw the same icon from these settings
+				set = function(info, value)
+					E.db.mui.bags.equipmentManager[info[#info]] = value
+					EM:UpdateItemDisplay()
+					RefreshCategoryFrames()
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = L["Enable"],
+						desc = L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."],
+						set = function(info, value)
+							E.db.mui.bags.equipmentManager[info[#info]] = value
+							B:UpdateLayouts()
+							B:UpdateAllBagSlots(true)
+							RefreshCategoryFrames()
+						end,
+					}),
+					preview = module.PreviewOption(1.5, "MERBagsPreview", "equipmentManager"),
+					-- Get/set come from the parent group, the keys stay flat in the db
+					position = {
+						order = 2,
+						type = "group",
+						name = L["Position"],
+						guiInline = true,
+						args = {
+							size = {
+								order = 1,
+								type = "range",
+								name = L["Size"],
+								min = 8,
+								max = 64,
+								step = 1,
+							},
+							point = {
+								order = 2,
+								type = "select",
+								name = L["Anchor Point"],
+								values = I.Values.positionValues,
+							},
+							xOffset = {
+								order = 3,
+								type = "range",
+								name = L["X-Offset"],
+								min = -64,
+								max = 64,
+								step = 1,
+							},
+							yOffset = {
+								order = 4,
+								type = "range",
+								name = L["Y-Offset"],
+								min = -64,
+								max = 64,
+								step = 1,
 							},
 						},
 					},
-				},
-				sizes = {
-					order = 2,
-					type = "group",
-					name = L["Sizes"],
-					args = {
-						bagWindow = {
-							order = 1,
-							type = "group",
-							inline = true,
-							name = L["Bag Window"],
-							args = {
-								itemSize = {
-									order = 1,
-									type = "range",
-									name = L["Item Size"],
-									min = 24,
-									max = 48,
-									step = 1,
-								},
-								itemSpacingH = {
-									order = 2,
-									type = "range",
-									name = L["Item Spacing (Horizontal)"],
-									min = 0,
-									max = 10,
-									step = 1,
-								},
-								itemSpacingV = {
-									order = 3,
-									type = "range",
-									name = L["Item Spacing (Vertical)"],
-									min = 0,
-									max = 10,
-									step = 1,
-								},
-								sidebarWidth = {
-									order = 4,
-									type = "range",
-									name = L["Sidebar Width"],
-									min = 100,
-									max = 220,
-									step = 1,
-								},
-								sidebarRowHeight = {
-									order = 5,
-									type = "range",
-									name = L["Sidebar Row Height"],
-									min = 18,
-									max = 36,
-									step = 1,
-								},
-								headerHeight = {
-									order = 6,
-									type = "range",
-									name = L["Category Header Height"],
-									min = 16,
-									max = 32,
-									step = 1,
-								},
-								sectionSpacing = {
-									order = 7,
-									type = "range",
-									name = L["Spacing Between Categories"],
-									min = 0,
-									max = 32,
-									step = 1,
-								},
-								width = {
-									order = 8,
-									type = "range",
-									name = L["Width"],
-									min = 380,
-									max = 900,
-									step = 1,
-								},
-								height = {
-									order = 9,
-									type = "range",
-									name = L["Height"],
-									min = 300,
-									max = 800,
-									step = 1,
-								},
+					style = {
+						order = 3,
+						type = "group",
+						name = L["Icon"],
+						guiInline = true,
+						args = {
+							icon = {
+								order = 1,
+								type = "select",
+								name = L["Icon"],
+								values = function()
+									return EM.equipmentmanager.icons
+								end,
 							},
-						},
-						bankWindow = {
-							order = 2,
-							type = "group",
-							inline = true,
-							name = L["Bank Window"],
-							get = function(info)
-								return E.db.mui.bags.categorizedBags[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.bags.categorizedBags[info[#info]] = value
-
-								if BC.bankFrame then
-									BC.bankFrame:Size(
-										E.db.mui.bags.categorizedBags.bankWidth,
-										E.db.mui.bags.categorizedBags.bankHeight
-									)
-									BC:RefreshBankCategoryFrame()
-								end
-							end,
-							args = {
-								bankSidebarWidth = {
-									order = 1,
-									type = "range",
-									name = L["Sidebar Width"],
-									min = 100,
-									max = 220,
-									step = 1,
-								},
-								bankWidth = {
-									order = 2,
-									type = "range",
-									name = L["Width"],
-									min = 380,
-									max = 900,
-									step = 1,
-								},
-								bankHeight = {
-									order = 3,
-									type = "range",
-									name = L["Height"],
-									min = 300,
-									max = 800,
-									step = 1,
-								},
+							color = {
+								order = 2,
+								type = "color",
+								name = COLOR,
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.mui.bags.equipmentManager[info[#info]]
+									local d = P.bags.equipmentManager[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+								end,
+								set = function(info, r, g, b, a)
+									local t = E.db.mui.bags.equipmentManager[info[#info]]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									EM:UpdateItemDisplay()
+									RefreshCategoryFrames()
+								end,
 							},
-						},
-					},
-				},
-				fonts = {
-					order = 3,
-					type = "group",
-					name = L["Fonts"],
-					args = {
-						itemCountFont = {
-							order = 1,
-							type = "group",
-							inline = true,
-							name = L["Item Count"],
-							get = function(info)
-								return E.db.mui.bags.categorizedBags.itemCountFont[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.bags.categorizedBags.itemCountFont[info[#info]] = value
-								RefreshCategoryFrames()
-							end,
-							args = {
-								name = {
-									order = 1,
-									type = "select",
-									dialogControl = "LSM30_Font",
-									name = L["Font"],
-									values = E.LSM:HashTable("font"),
-								},
-								style = {
-									order = 2,
-									type = "select",
-									name = L["Outline"],
-									values = MER.Values.FontFlags,
-									sortByValue = true,
-								},
-								size = {
-									order = 3,
-									type = "range",
-									name = L["Size"],
-									min = 6,
-									max = 24,
-									step = 1,
-								},
-								position = {
-									order = 4,
-									type = "select",
-									name = L["Position"],
-									values = I.Values.positionValues,
-								},
+							customTexture = {
+								order = 3,
+								type = "input",
+								name = L["Custom Texture"],
+								desc = L["You can use a file id or path.\nFile id as an example.\niconFileID: 3547163\n\nAlready an option but showing as a path example.\nPath: Interface\\AddOns\\ElvUI_SLE\\media\\textures\\lock"],
+								width = "double",
+								hidden = function()
+									return E.db.mui.bags.equipmentManager.icon ~= "CUSTOM"
+								end,
 							},
-						},
-						itemLevel = {
-							order = 2,
-							type = "group",
-							inline = true,
-							name = L["Item Level"],
-							get = function(info)
-								return E.db.mui.bags.categorizedBags.itemLevel[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.bags.categorizedBags.itemLevel[info[#info]] = value
-								RefreshCategoryFrames()
-							end,
-							args = {
-								enable = {
-									order = 1,
-									type = "toggle",
-									name = L["Enable"],
-									width = "full",
-								},
-								font = {
-									order = 2,
-									type = "group",
-									inline = true,
-									name = L["Font"],
-									disabled = function()
-										return BagsDisabled() or not E.db.mui.bags.categorizedBags.itemLevel.enable
-									end,
-									get = function(info)
-										return E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]]
-									end,
-									set = function(info, value)
-										E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]] = value
-										RefreshCategoryFrames()
-									end,
-									args = {
-										name = {
-											order = 1,
-											type = "select",
-											dialogControl = "LSM30_Font",
-											name = L["Font"],
-											values = E.LSM:HashTable("font"),
-										},
-										style = {
-											order = 2,
-											type = "select",
-											name = L["Outline"],
-											values = MER.Values.FontFlags,
-											sortByValue = true,
-										},
-										size = {
-											order = 3,
-											type = "range",
-											name = L["Size"],
-											min = 6,
-											max = 24,
-											step = 1,
-										},
-										position = {
-											order = 4,
-											type = "select",
-											name = L["Position"],
-											values = I.Values.positionValues,
-										},
-									},
-								},
-							},
-						},
-						itemInfo = {
-							order = 3,
-							type = "group",
-							inline = true,
-							name = L["Item Info"],
-							get = function(info)
-								return E.db.mui.bags.categorizedBags.itemInfo[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.bags.categorizedBags.itemInfo[info[#info]] = value
-								RefreshCategoryFrames()
-							end,
-							args = {
-								enable = {
-									order = 1,
-									type = "toggle",
-									name = L["Enable"],
-									desc = L["Shows a bind-type indicator (BoE, BoU, ...) on items that aren't bound yet."],
-									width = "full",
-								},
-								font = {
-									order = 2,
-									type = "group",
-									inline = true,
-									name = L["Font"],
-									disabled = function()
-										return BagsDisabled() or not E.db.mui.bags.categorizedBags.itemInfo.enable
-									end,
-									get = function(info)
-										return E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]]
-									end,
-									set = function(info, value)
-										E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]] = value
-										RefreshCategoryFrames()
-									end,
-									args = {
-										name = {
-											order = 1,
-											type = "select",
-											dialogControl = "LSM30_Font",
-											name = L["Font"],
-											values = E.LSM:HashTable("font"),
-										},
-										style = {
-											order = 2,
-											type = "select",
-											name = L["Outline"],
-											values = MER.Values.FontFlags,
-											sortByValue = true,
-										},
-										size = {
-											order = 3,
-											type = "range",
-											name = L["Size"],
-											min = 6,
-											max = 24,
-											step = 1,
-										},
-										position = {
-											order = 4,
-											type = "select",
-											name = L["Position"],
-											values = I.Values.positionValues,
-										},
-									},
-								},
-							},
-						},
-						headerFont = {
-							order = 4,
-							type = "group",
-							inline = true,
-							name = L["Category Headers"],
-							get = function(info)
-								return E.db.mui.bags.categorizedBags.headerFont[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.bags.categorizedBags.headerFont[info[#info]] = value
-								RefreshCategoryFrames()
-							end,
-							args = {
-								name = {
-									order = 1,
-									type = "select",
-									dialogControl = "LSM30_Font",
-									name = L["Font"],
-									values = E.LSM:HashTable("font"),
-								},
-								style = {
-									order = 2,
-									type = "select",
-									name = L["Outline"],
-									values = MER.Values.FontFlags,
-									sortByValue = true,
-								},
-								size = {
-									order = 3,
-									type = "range",
-									name = L["Size"],
-									min = 8,
-									max = 24,
-									step = 1,
-								},
-							},
-						},
-						subHeaderFont = {
-							order = 5,
-							type = "group",
-							inline = true,
-							name = L["Sub-Headers"],
-							get = function(info)
-								return E.db.mui.bags.categorizedBags.subHeaderFont[info[#info]]
-							end,
-							set = function(info, value)
-								E.db.mui.bags.categorizedBags.subHeaderFont[info[#info]] = value
-								RefreshCategoryFrames()
-							end,
-							args = {
-								name = {
-									order = 1,
-									type = "select",
-									dialogControl = "LSM30_Font",
-									name = L["Font"],
-									values = E.LSM:HashTable("font"),
-								},
-								style = {
-									order = 2,
-									type = "select",
-									name = L["Outline"],
-									values = MER.Values.FontFlags,
-									sortByValue = true,
-								},
-								size = {
-									order = 3,
-									type = "range",
-									name = L["Size"],
-									min = 8,
-									max = 24,
-									step = 1,
-								},
-							},
-						},
-					},
-				},
-				effects = {
-					order = 4,
-					type = "group",
-					name = L["Effects"],
-					get = function(info)
-						return E.db.mui.bags.categorizedBags.effects[info[#info]]
-					end,
-					set = function(info, value)
-						E.db.mui.bags.categorizedBags.effects[info[#info]] = value
-						BC:ApplyBackgroundOpacity()
-
-						RefreshCategoryFrames()
-					end,
-					args = {
-						fade = {
-							order = 1,
-							type = "toggle",
-							name = L["Fade Windows"],
-							desc = L["Fades the bag and bank windows in when opened and out when closed."],
-						},
-						fadeDuration = {
-							order = 2,
-							type = "range",
-							name = L["Fade Duration"],
-							min = 0.05,
-							max = 0.5,
-							step = 0.01,
-							disabled = function()
-								return BagsDisabled() or not E.db.mui.bags.categorizedBags.effects.fade
-							end,
-						},
-						newItemGlow = {
-							order = 3,
-							type = "toggle",
-							name = L["New Item Glow"],
-							desc = L["Pulsing glow on newly picked-up items."],
-						},
-						newItemBadge = {
-							order = 4,
-							type = "toggle",
-							name = L["New Item Badge"],
-							desc = L["Shows a small NEW badge on newly picked-up items, in addition to the glow."],
-						},
-						placeholderAlpha = {
-							order = 5,
-							type = "range",
-							name = L["Empty Slot Opacity"],
-							desc = L['Opacity of the empty drop-target slots at the end of each category (the first "+" slot always stays fully visible).'],
-							min = 0,
-							max = 1,
-							step = 0.05,
-							isPercent = true,
-						},
-						dropTargetHighlight = {
-							order = 6,
-							type = "toggle",
-							name = L["Highlight Drop Targets"],
-							desc = L["Lights up the empty slots at the end of each category while an item is on the cursor, so it's clear where it can be dropped to assign it."],
-						},
-						hoverClassColor = {
-							order = 7,
-							type = "toggle",
-							name = L["Use Class Color"],
-							desc = L["Tints the item slot hover highlight in your class color."],
-						},
-						hoverColor = {
-							order = 8,
-							type = "color",
-							name = L["Hover Color"],
-							disabled = function()
-								return BagsDisabled() or E.db.mui.bags.categorizedBags.effects.hoverClassColor
-							end,
-							get = function(info)
-								local t = E.db.mui.bags.categorizedBags.effects[info[#info]]
-								local d = P.bags.categorizedBags.effects[info[#info]]
-								return t.r, t.g, t.b, 1, d.r, d.g, d.b
-							end,
-							set = function(info, r, g, b)
-								local t = E.db.mui.bags.categorizedBags.effects[info[#info]]
-								t.r, t.g, t.b = r, g, b
-
-								RefreshCategoryFrames()
-							end,
-						},
-						warboundMarker = {
-							order = 9,
-							type = "toggle",
-							name = L["Warbound Marker"],
-							desc = L["Shows a small Warband icon on items that are Warbound or Warbound until equipped."],
-						},
-						itemContextDim = {
-							order = 10,
-							type = "toggle",
-							name = L["Dim Unusable Items"],
-							desc = L["While a spell or window waits for an item (Disenchant, Milling, Prospecting, enchant scrolls, the scrapper...), darkens every item it can't be used on."],
-						},
-						desaturateJunk = {
-							order = 11,
-							type = "toggle",
-							name = L["Desaturate Junk"],
-							desc = L["Greys out grey-quality items, in addition to the coin icon they already get."],
-						},
-						pinMarker = {
-							order = 12,
-							type = "toggle",
-							name = L["Pinned Marker"],
-							desc = L["Shows a small pin icon on pinned items, also in their normal category."],
-						},
-						subHeaderIcons = {
-							order = 13,
-							type = "toggle",
-							name = L["Sub-Header Icons"],
-							desc = L["Shows the expansion logo or equipment set icon in front of the sub-headers."],
-						},
-						customBackground = {
-							order = 14,
-							type = "toggle",
-							name = L["Custom Window Opacity"],
-							desc = L["Overrides ElvUI's transparent backdrop opacity for the bag and bank windows."],
-						},
-						backgroundAlpha = {
-							order = 15,
-							type = "range",
-							name = L["Window Opacity"],
-							min = 0,
-							max = 1,
-							step = 0.05,
-							isPercent = true,
-							disabled = function()
-								return BagsDisabled() or not E.db.mui.bags.categorizedBags.effects.customBackground
-							end,
 						},
 					},
 				},
 			},
+			categorizedBags = {
+				order = 2,
+				type = "group",
+				name = L["Categorized Bags"],
+				childGroups = "tab",
+				disabled = BagsDisabled,
+				get = function(info)
+					return E.db.mui.bags.categorizedBags[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.bags.categorizedBags[info[#info]] = value
+
+					if BC.frame then
+						BC.frame:Size(E.db.mui.bags.categorizedBags.width, E.db.mui.bags.categorizedBags.height)
+						BC:RefreshCategoryFrame()
+					end
+
+					-- Most of these settings (empty categories, pinned/recent,
+					-- merging, nesting) drive both windows, so an open Bank has
+					-- to be repainted as well. Resizing first also restores the
+					-- configured height after Auto Height is switched back off.
+					if BC.bankFrame and BC.RefreshBankCategoryFrame then
+						BC.bankFrame:Size(
+							E.db.mui.bags.categorizedBags.bankWidth,
+							E.db.mui.bags.categorizedBags.bankHeight
+						)
+						BC:RefreshBankCategoryFrame()
+					end
+				end,
+				args = {
+					general = {
+						order = 1,
+						type = "group",
+						name = L["General"],
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = L["Enable"],
+								desc = L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."],
+								image = I.Media.Icons.Categories.bags,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags[info[#info]] = value
+									E:StaticPopup_Show("CONFIG_RL")
+								end,
+							}),
+							preview = module.PreviewOption(1.5, "MERBagsPreview", "categorized"),
+							hideEmptyCategories = {
+								order = 2,
+								type = "toggle",
+								name = L["Hide Empty Categories"],
+							},
+							showPinned = {
+								order = 3,
+								type = "toggle",
+								name = L["Show Pinned Items"],
+							},
+							showRecent = {
+								order = 4,
+								type = "toggle",
+								name = L["Show Recent Items"],
+							},
+							alternatingRowBackground = {
+								order = 5,
+								type = "toggle",
+								name = L["Alternating Row Background"],
+								desc = L["Shades every second sidebar category row, same as the Armory panel's alternating stat rows."],
+							},
+							autoSize = {
+								order = 6,
+								type = "toggle",
+								name = L["Auto Height"],
+								desc = L["Shrinks the bag and bank windows to fit their contents. The configured height becomes the maximum instead of a fixed size."],
+							},
+							nestByExpansion = {
+								order = 7,
+								type = "toggle",
+								name = L["Group by Expansion"],
+								desc = L["Splits categories like Consumables or Trade Goods into sub-headers per expansion, newest first."],
+							},
+							nestByEquipmentSet = {
+								order = 8,
+								type = "toggle",
+								name = L["Group by Equipment Set"],
+								desc = L["Splits the gear categories into sub-headers per Blizzard equipment set."],
+							},
+							mergeDuplicates = {
+								order = 9,
+								type = "toggle",
+								name = L["Merge Duplicate Stacks"],
+								desc = L["Shows identical items from several bag slots as one slot with the combined count. Gear is never merged, and merging pauses while a vendor, mailbox, trade, auction house or bank window is open, since those only ever take one stack at a time."],
+							},
+							clearRecentOnClose = {
+								order = 10,
+								type = "toggle",
+								name = L["Clear Recent on Close"],
+								desc = L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
+								end,
+							},
+							recentLimit = {
+								order = 11,
+								type = "range",
+								name = L["Recent Items Limit"],
+								desc = L["How many items the Recent Items list keeps at most; the oldest drops out first."],
+								min = 5,
+								max = 50,
+								step = 1,
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
+								end,
+							},
+							resetCurrencyOrder = {
+								order = 12,
+								type = "execute",
+								name = L["Reset Currency Order"],
+								desc = L["Puts the tracked currencies in the footer back into Blizzard's own order. Drag one currency onto another in the footer to reorder them."],
+								func = function()
+									BC.db.currencyOrder = {}
+
+									if BC.frame then
+										BC:UpdateFooter()
+									end
+								end,
+							},
+							resetCategoryGroups = {
+								order = 13,
+								type = "execute",
+								name = L["Reset Category Groups"],
+								desc = L['Restores any category group (e.g. "Equipment") you disbanded or removed a category from, removes the groups you created yourself and clears any group renames.'],
+								func = function()
+									local db = BC.db
+									db.ungroupedCategories = nil
+									db.disbandedGroups = nil
+									db.groupNameOverrides = nil
+									db.customGroups = nil
+									db.groupExtraMembers = nil
+
+									BC:InvalidateCategoryCache()
+									RefreshCategoryFrames()
+								end,
+							},
+							spinnerGroup = {
+								order = 14,
+								type = "group",
+								inline = true,
+								name = L["Sort Spinner"],
+								desc = L["Same spinner ElvUI's own bag frame shows while sorting."],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags.spinner[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.spinner[info[#info]] = value
+								end,
+								args = {
+									enable = {
+										order = 1,
+										type = "toggle",
+										name = L["Enable"],
+									},
+									size = {
+										order = 2,
+										type = "range",
+										name = L["Size"],
+										min = 20,
+										max = 80,
+										step = 1,
+									},
+									color = {
+										order = 3,
+										type = "color",
+										name = COLOR,
+										get = function(info)
+											local t = E.db.mui.bags.categorizedBags.spinner[info[#info]]
+											local d = P.bags.categorizedBags.spinner[info[#info]]
+											return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+										end,
+										set = function(info, r, g, b)
+											local t = E.db.mui.bags.categorizedBags.spinner[info[#info]]
+											t.r, t.g, t.b = r, g, b
+										end,
+									},
+								},
+							},
+						},
+					},
+					sizes = {
+						order = 2,
+						type = "group",
+						name = L["Sizes"],
+						args = {
+							preview = module.PreviewOption(0.5, "MERBagsPreview", "categorized"),
+							bagWindow = {
+								order = 1,
+								type = "group",
+								inline = true,
+								name = L["Bag Window"],
+								args = {
+									itemSize = {
+										order = 1,
+										type = "range",
+										name = L["Item Size"],
+										min = 24,
+										max = 48,
+										step = 1,
+									},
+									itemSpacingH = {
+										order = 2,
+										type = "range",
+										name = L["Item Spacing (Horizontal)"],
+										min = 0,
+										max = 10,
+										step = 1,
+									},
+									itemSpacingV = {
+										order = 3,
+										type = "range",
+										name = L["Item Spacing (Vertical)"],
+										min = 0,
+										max = 10,
+										step = 1,
+									},
+									sidebarWidth = {
+										order = 4,
+										type = "range",
+										name = L["Sidebar Width"],
+										min = 100,
+										max = 220,
+										step = 1,
+									},
+									sidebarRowHeight = {
+										order = 5,
+										type = "range",
+										name = L["Sidebar Row Height"],
+										min = 18,
+										max = 36,
+										step = 1,
+									},
+									headerHeight = {
+										order = 6,
+										type = "range",
+										name = L["Category Header Height"],
+										min = 16,
+										max = 32,
+										step = 1,
+									},
+									sectionSpacing = {
+										order = 7,
+										type = "range",
+										name = L["Spacing Between Categories"],
+										min = 0,
+										max = 32,
+										step = 1,
+									},
+									width = {
+										order = 8,
+										type = "range",
+										name = L["Width"],
+										min = 380,
+										max = 900,
+										step = 1,
+									},
+									height = {
+										order = 9,
+										type = "range",
+										name = L["Height"],
+										min = 300,
+										max = 800,
+										step = 1,
+									},
+								},
+							},
+							bankWindow = {
+								order = 2,
+								type = "group",
+								inline = true,
+								name = L["Bank Window"],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags[info[#info]] = value
+
+									if BC.bankFrame then
+										BC.bankFrame:Size(
+											E.db.mui.bags.categorizedBags.bankWidth,
+											E.db.mui.bags.categorizedBags.bankHeight
+										)
+										BC:RefreshBankCategoryFrame()
+									end
+								end,
+								args = {
+									bankSidebarWidth = {
+										order = 1,
+										type = "range",
+										name = L["Sidebar Width"],
+										min = 100,
+										max = 220,
+										step = 1,
+									},
+									bankWidth = {
+										order = 2,
+										type = "range",
+										name = L["Width"],
+										min = 380,
+										max = 900,
+										step = 1,
+									},
+									bankHeight = {
+										order = 3,
+										type = "range",
+										name = L["Height"],
+										min = 300,
+										max = 800,
+										step = 1,
+									},
+								},
+							},
+						},
+					},
+					fonts = {
+						order = 3,
+						type = "group",
+						name = L["Fonts"],
+						args = {
+							preview = module.PreviewOption(0.5, "MERBagsPreview", "categorized"),
+							itemCountFont = {
+								order = 1,
+								type = "group",
+								inline = true,
+								name = L["Item Count"],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags.itemCountFont[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.itemCountFont[info[#info]] = value
+									RefreshCategoryFrames()
+								end,
+								args = {
+									name = {
+										order = 1,
+										type = "select",
+										dialogControl = "LSM30_Font",
+										name = L["Font"],
+										values = E.LSM:HashTable("font"),
+									},
+									style = {
+										order = 2,
+										type = "select",
+										name = L["Outline"],
+										values = MER.Values.FontFlags,
+										sortByValue = true,
+									},
+									size = {
+										order = 3,
+										type = "range",
+										name = L["Size"],
+										min = 6,
+										max = 24,
+										step = 1,
+									},
+									position = {
+										order = 4,
+										type = "select",
+										name = L["Position"],
+										values = I.Values.positionValues,
+									},
+								},
+							},
+							itemLevel = {
+								order = 2,
+								type = "group",
+								inline = true,
+								name = L["Item Level"],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags.itemLevel[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.itemLevel[info[#info]] = value
+									RefreshCategoryFrames()
+								end,
+								args = {
+									enable = {
+										order = 1,
+										type = "toggle",
+										name = L["Enable"],
+										width = "full",
+									},
+									font = {
+										order = 2,
+										type = "group",
+										inline = true,
+										name = L["Font"],
+										disabled = function()
+											return BagsDisabled() or not E.db.mui.bags.categorizedBags.itemLevel.enable
+										end,
+										get = function(info)
+											return E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]]
+										end,
+										set = function(info, value)
+											E.db.mui.bags.categorizedBags.itemLevel.font[info[#info]] = value
+											RefreshCategoryFrames()
+										end,
+										args = {
+											name = {
+												order = 1,
+												type = "select",
+												dialogControl = "LSM30_Font",
+												name = L["Font"],
+												values = E.LSM:HashTable("font"),
+											},
+											style = {
+												order = 2,
+												type = "select",
+												name = L["Outline"],
+												values = MER.Values.FontFlags,
+												sortByValue = true,
+											},
+											size = {
+												order = 3,
+												type = "range",
+												name = L["Size"],
+												min = 6,
+												max = 24,
+												step = 1,
+											},
+											position = {
+												order = 4,
+												type = "select",
+												name = L["Position"],
+												values = I.Values.positionValues,
+											},
+										},
+									},
+								},
+							},
+							itemInfo = {
+								order = 3,
+								type = "group",
+								inline = true,
+								name = L["Item Info"],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags.itemInfo[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.itemInfo[info[#info]] = value
+									RefreshCategoryFrames()
+								end,
+								args = {
+									enable = module.ToggleCard({
+										order = 1,
+										name = L["Enable"],
+										desc = L["Shows a bind-type indicator (BoE, BoU, ...) on items that aren't bound yet."],
+									}),
+									font = {
+										order = 2,
+										type = "group",
+										inline = true,
+										name = L["Font"],
+										disabled = function()
+											return BagsDisabled() or not E.db.mui.bags.categorizedBags.itemInfo.enable
+										end,
+										get = function(info)
+											return E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]]
+										end,
+										set = function(info, value)
+											E.db.mui.bags.categorizedBags.itemInfo.font[info[#info]] = value
+											RefreshCategoryFrames()
+										end,
+										args = {
+											name = {
+												order = 1,
+												type = "select",
+												dialogControl = "LSM30_Font",
+												name = L["Font"],
+												values = E.LSM:HashTable("font"),
+											},
+											style = {
+												order = 2,
+												type = "select",
+												name = L["Outline"],
+												values = MER.Values.FontFlags,
+												sortByValue = true,
+											},
+											size = {
+												order = 3,
+												type = "range",
+												name = L["Size"],
+												min = 6,
+												max = 24,
+												step = 1,
+											},
+											position = {
+												order = 4,
+												type = "select",
+												name = L["Position"],
+												values = I.Values.positionValues,
+											},
+										},
+									},
+								},
+							},
+							headerFont = {
+								order = 4,
+								type = "group",
+								inline = true,
+								name = L["Category Headers"],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags.headerFont[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.headerFont[info[#info]] = value
+									RefreshCategoryFrames()
+								end,
+								args = {
+									name = {
+										order = 1,
+										type = "select",
+										dialogControl = "LSM30_Font",
+										name = L["Font"],
+										values = E.LSM:HashTable("font"),
+									},
+									style = {
+										order = 2,
+										type = "select",
+										name = L["Outline"],
+										values = MER.Values.FontFlags,
+										sortByValue = true,
+									},
+									size = {
+										order = 3,
+										type = "range",
+										name = L["Size"],
+										min = 8,
+										max = 24,
+										step = 1,
+									},
+								},
+							},
+							subHeaderFont = {
+								order = 5,
+								type = "group",
+								inline = true,
+								name = L["Sub-Headers"],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags.subHeaderFont[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.subHeaderFont[info[#info]] = value
+									RefreshCategoryFrames()
+								end,
+								args = {
+									name = {
+										order = 1,
+										type = "select",
+										dialogControl = "LSM30_Font",
+										name = L["Font"],
+										values = E.LSM:HashTable("font"),
+									},
+									style = {
+										order = 2,
+										type = "select",
+										name = L["Outline"],
+										values = MER.Values.FontFlags,
+										sortByValue = true,
+									},
+									size = {
+										order = 3,
+										type = "range",
+										name = L["Size"],
+										min = 8,
+										max = 24,
+										step = 1,
+									},
+								},
+							},
+						},
+					},
+					effects = {
+						order = 4,
+						type = "group",
+						name = L["Effects"],
+						get = function(info)
+							return E.db.mui.bags.categorizedBags.effects[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.bags.categorizedBags.effects[info[#info]] = value
+							BC:ApplyBackgroundOpacity()
+
+							RefreshCategoryFrames()
+						end,
+						args = {
+							preview = module.PreviewOption(0.5, "MERBagsPreview", "categorized"),
+							fade = {
+								order = 1,
+								type = "toggle",
+								name = L["Fade Windows"],
+								desc = L["Fades the bag and bank windows in when opened and out when closed."],
+							},
+							fadeDuration = {
+								order = 2,
+								type = "range",
+								name = L["Fade Duration"],
+								min = 0.05,
+								max = 0.5,
+								step = 0.01,
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.effects.fade
+								end,
+							},
+							newItemGlow = {
+								order = 3,
+								type = "toggle",
+								name = L["New Item Glow"],
+								desc = L["Pulsing glow on newly picked-up items."],
+							},
+							newItemBadge = {
+								order = 4,
+								type = "toggle",
+								name = L["New Item Badge"],
+								desc = L["Shows a small NEW badge on newly picked-up items, in addition to the glow."],
+							},
+							placeholderAlpha = {
+								order = 5,
+								type = "range",
+								name = L["Empty Slot Opacity"],
+								desc = L['Opacity of the empty drop-target slots at the end of each category (the first "+" slot always stays fully visible).'],
+								min = 0,
+								max = 1,
+								step = 0.05,
+								isPercent = true,
+							},
+							dropTargetHighlight = {
+								order = 6,
+								type = "toggle",
+								name = L["Highlight Drop Targets"],
+								desc = L["Lights up the empty slots at the end of each category while an item is on the cursor, so it's clear where it can be dropped to assign it."],
+							},
+							hoverClassColor = {
+								order = 7,
+								type = "toggle",
+								name = L["Use Class Color"],
+								desc = L["Tints the item slot hover highlight in your class color."],
+							},
+							hoverColor = {
+								order = 8,
+								type = "color",
+								name = L["Hover Color"],
+								disabled = function()
+									return BagsDisabled() or E.db.mui.bags.categorizedBags.effects.hoverClassColor
+								end,
+								get = function(info)
+									local t = E.db.mui.bags.categorizedBags.effects[info[#info]]
+									local d = P.bags.categorizedBags.effects[info[#info]]
+									return t.r, t.g, t.b, 1, d.r, d.g, d.b
+								end,
+								set = function(info, r, g, b)
+									local t = E.db.mui.bags.categorizedBags.effects[info[#info]]
+									t.r, t.g, t.b = r, g, b
+
+									RefreshCategoryFrames()
+								end,
+							},
+							warboundMarker = {
+								order = 9,
+								type = "toggle",
+								name = L["Warbound Marker"],
+								desc = L["Shows a small Warband icon on items that are Warbound or Warbound until equipped."],
+							},
+							itemContextDim = {
+								order = 10,
+								type = "toggle",
+								name = L["Dim Unusable Items"],
+								desc = L["While a spell or window waits for an item (Disenchant, Milling, Prospecting, enchant scrolls, the scrapper...), darkens every item it can't be used on."],
+							},
+							desaturateJunk = {
+								order = 11,
+								type = "toggle",
+								name = L["Desaturate Junk"],
+								desc = L["Greys out grey-quality items, in addition to the coin icon they already get."],
+							},
+							pinMarker = {
+								order = 12,
+								type = "toggle",
+								name = L["Pinned Marker"],
+								desc = L["Shows a small pin icon on pinned items, also in their normal category."],
+							},
+							subHeaderIcons = {
+								order = 13,
+								type = "toggle",
+								name = L["Sub-Header Icons"],
+								desc = L["Shows the expansion logo or equipment set icon in front of the sub-headers."],
+							},
+							customBackground = {
+								order = 14,
+								type = "toggle",
+								name = L["Custom Window Opacity"],
+								desc = L["Overrides ElvUI's transparent backdrop opacity for the bag and bank windows."],
+							},
+							backgroundAlpha = {
+								order = 15,
+								type = "range",
+								name = L["Window Opacity"],
+								min = 0,
+								max = 1,
+								step = 0.05,
+								isPercent = true,
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.effects.customBackground
+								end,
+							},
+						},
+					},
+					displayModes = {
+						order = 5,
+						type = "group",
+						name = L["Display"],
+						args = {
+							displayMode = {
+								order = 1,
+								type = "select",
+								name = L["Bag Window"],
+								desc = L["Grid shows item icons, List one row per item with sortable columns, Compact packs the categories side by side. Also switchable from the title bar."],
+								values = {
+									GRID = L["Grid"],
+									LIST = L["List"],
+									COMPACT = L["Compact"],
+								},
+							},
+							bankDisplayMode = {
+								order = 2,
+								type = "select",
+								name = L["Bank Window"],
+								values = {
+									GRID = L["Grid"],
+									LIST = L["List"],
+									COMPACT = L["Compact"],
+								},
+							},
+							list = {
+								order = 3,
+								type = "group",
+								inline = true,
+								name = L["List"],
+								get = function(info)
+									return E.db.mui.bags.categorizedBags.list[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.list[info[#info]] = value
+									RefreshCategoryFrames()
+								end,
+								args = {
+									rowHeight = {
+										order = 1,
+										type = "range",
+										name = L["Row Height"],
+										min = 16,
+										max = 32,
+										step = 1,
+									},
+									fontSize = {
+										order = 2,
+										type = "range",
+										name = L["Font Size"],
+										min = 8,
+										max = 16,
+										step = 1,
+									},
+									stripes = {
+										order = 3,
+										type = "toggle",
+										name = L["Alternating Row Background"],
+									},
+									sectionValue = {
+										order = 4,
+										type = "toggle",
+										name = L["Category Value"],
+										desc = L["Shows what the items of a category sell for next to its name."],
+									},
+									resetColumns = {
+										order = 5,
+										type = "execute",
+										name = L["Reset Columns"],
+										desc = L["Right-click a column header in the list to show, hide or move columns. Click a column to sort by it."],
+										func = function()
+											local db = E.db.mui.bags.categorizedBags.list
+											db.columns = nil
+											db.sortKey = nil
+											RefreshCategoryFrames()
+										end,
+									},
+								},
+							},
+						},
+					},
+					junkMarker = {
+						order = 6,
+						type = "group",
+						name = L["Junk Marker"],
+						get = function(info)
+							return E.db.mui.bags.categorizedBags.junkMarker[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.bags.categorizedBags.junkMarker[info[#info]] = value
+							BC:InvalidateCategoryCache()
+							BC:UpdateJunkAutoSell()
+							RefreshCategoryFrames()
+						end,
+						args = {
+							enable = {
+								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+								desc = L["Adds a Junk category for grey items and everything you mark as junk. The coin button in the title bar starts marking: click items to mark or unmark them. Sell Junk at a vendor sells all of it."],
+							},
+							autoSell = {
+								order = 2,
+								type = "toggle",
+								name = L["Auto Sell"],
+								desc = L["Sells all junk as soon as you open a vendor. Items that can still be refunded are never sold."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							sellSummary = {
+								order = 3,
+								type = "toggle",
+								name = L["Sale Summary"],
+								desc = L["Prints how many items were sold and for how much."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							sortByValue = {
+								order = 4,
+								type = "toggle",
+								name = L["Sort by Value"],
+								desc = L["Orders the Junk category by sell price, most valuable first."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							showInRecent = {
+								order = 5,
+								type = "toggle",
+								name = L["Show Junk in Recent Items"],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							separateSection = {
+								order = 6,
+								type = "toggle",
+								name = L["Junk Section in All Items / MultiBag"],
+								desc = L["Pulls the junk out of All Items and the bags in MultiBag into a Junk section of its own."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							atTop = {
+								order = 7,
+								type = "toggle",
+								name = L["Junk at the Top"],
+								desc = L["Shows the Junk section right below Pinned and Recent Items instead of at the end."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.junkMarker.enable
+								end,
+							},
+							coinCorner = {
+								order = 8,
+								type = "select",
+								name = L["Coin Icon Position"],
+								desc = L["Corner of the coin icon on junk items."],
+								values = {
+									TOPLEFT = L["Top Left"],
+									TOPRIGHT = L["Top Right"],
+									BOTTOMLEFT = L["Bottom Left"],
+									BOTTOMRIGHT = L["Bottom Right"],
+								},
+							},
+							resetMarks = {
+								order = 9,
+								type = "execute",
+								name = L["Reset Junk Marks"],
+								desc = L["Unmarks every item you marked as junk and makes all grey items junk again."],
+								confirm = true,
+								func = function()
+									local db = E.db.mui.bags.categorizedBags
+									if db.itemAssignments then
+										for itemID, key in pairs(db.itemAssignments) do
+											if key == BC.JUNK_KEY then
+												db.itemAssignments[itemID] = nil
+											end
+										end
+									end
+									db.junkExcluded = {}
+									RefreshCategoryFrames()
+								end,
+							},
+						},
+					},
+				},
+			},
 		},
-	},
-}
+	}
+end)

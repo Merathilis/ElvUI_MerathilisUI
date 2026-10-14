@@ -10,9 +10,7 @@ local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
 
 local GRIP_SIZE = 14
-local GRIP_ALPHA = 0.35
 local GRIP_ALPHA_HOVER = 0.9
-local UPDATE_THROTTLE = 0.1
 
 -- Same limits as ElvUI's own panel size sliders.
 local MIN_WIDTH, MAX_WIDTH = 50, 2000
@@ -20,7 +18,13 @@ local MIN_HEIGHT, MAX_HEIGHT = 60, 1000
 
 local PANELS = {
 	{ name = "LeftChatPanel", width = "panelWidth", height = "panelHeight" },
-	{ name = "RightChatPanel", width = "panelWidthRight", height = "panelHeightRight", separate = true, optional = true },
+	{
+		name = "RightChatPanel",
+		width = "panelWidthRight",
+		height = "panelHeightRight",
+		separate = true,
+		optional = true,
+	},
 }
 
 -- The right panel is often left empty and without a backdrop (e.g. to hold a
@@ -66,32 +70,18 @@ local function GetCursor(frame)
 	return x / scale, y / scale
 end
 
-local function Grip_OnUpdate(grip, elapsed)
-	if grip.sizing then
-		local x, y = GetCursor(grip.panel)
-		local width = floor(grip.startWidth + (x - grip.startX) * grip.growX + 0.5)
-		local height = floor(grip.startHeight + (y - grip.startY) * grip.growY + 0.5)
-		width = max(MIN_WIDTH, min(MAX_WIDTH, width))
-		height = max(MIN_HEIGHT, min(MAX_HEIGHT, height))
+-- Only runs while dragging
+local function Grip_OnUpdate(grip)
+	local x, y = GetCursor(grip.panel)
+	local width = floor(grip.startWidth + (x - grip.startX) * grip.growX + 0.5)
+	local height = floor(grip.startHeight + (y - grip.startY) * grip.growY + 0.5)
+	width = max(MIN_WIDTH, min(MAX_WIDTH, width))
+	height = max(MIN_HEIGHT, min(MAX_HEIGHT, height))
 
-		local widthKey, heightKey = GetSizeKeys(grip.entry)
-		if CH.db[widthKey] ~= width or CH.db[heightKey] ~= height then
-			CH.db[widthKey], CH.db[heightKey] = width, height
-			CH:PositionChats()
-		end
-		return
-	end
-
-	grip.elapsed = (grip.elapsed or 0) + elapsed
-	if grip.elapsed < UPDATE_THROTTLE then
-		return
-	end
-	grip.elapsed = 0
-
-	-- Only visible while the panel is hovered, to keep the corner clean.
-	local alpha = (grip:IsMouseOver() and GRIP_ALPHA_HOVER) or (grip.panel:IsMouseOver() and GRIP_ALPHA) or 0
-	if grip:GetAlpha() ~= alpha then
-		grip:SetAlpha(alpha)
+	local widthKey, heightKey = GetSizeKeys(grip.entry)
+	if CH.db[widthKey] ~= width or CH.db[heightKey] ~= height then
+		CH.db[widthKey], CH.db[heightKey] = width, height
+		CH:PositionChats()
 	end
 end
 
@@ -104,21 +94,36 @@ local function Grip_OnMouseDown(grip, button)
 	grip.startX, grip.startY = GetCursor(grip.panel)
 	grip.startWidth, grip.startHeight = CH.db[widthKey], CH.db[heightKey]
 	grip.sizing = true
+	grip:SetScript("OnUpdate", Grip_OnUpdate)
 end
 
-local function Grip_OnMouseUp(grip)
+local function StopSizing(grip)
 	grip.sizing = nil
+	grip:SetScript("OnUpdate", nil)
+end
+
+-- Only visible while the corner itself is hovered (or a drag is running), to keep it clean
+local function Grip_OnMouseUp(grip)
+	StopSizing(grip)
+	if not grip:IsMouseOver() then
+		grip:SetAlpha(0)
+	end
 end
 
 local function Grip_OnEnter(grip)
+	grip:SetAlpha(GRIP_ALPHA_HOVER)
+
 	local tooltip = _G.GameTooltip
 	tooltip:SetOwner(grip, "ANCHOR_TOP")
 	tooltip:AddLine(L["Drag to resize the chat panel"])
 	tooltip:Show()
 end
 
-local function Grip_OnLeave()
+local function Grip_OnLeave(grip)
 	_G.GameTooltip:Hide()
+	if not grip.sizing then
+		grip:SetAlpha(0)
+	end
 end
 
 function module:CreateResizeGrip(entry)
@@ -134,7 +139,6 @@ function module:CreateResizeGrip(entry)
 	texture:SetTexture(I.Media.Icons.Chat.resize)
 	grip.Texture = texture
 
-	grip:SetScript("OnUpdate", Grip_OnUpdate)
 	grip:SetScript("OnMouseDown", Grip_OnMouseDown)
 	grip:SetScript("OnMouseUp", Grip_OnMouseUp)
 	grip:SetScript("OnEnter", Grip_OnEnter)
@@ -149,6 +153,11 @@ function module:UpdateResizeGrips()
 	end
 
 	local enabled = not self.chatDB.lockSize
+
+	-- Hooked on first use only
+	if enabled and not self:IsHooked(CH, "PositionChats") then
+		self:SecureHook(CH, "PositionChats", "PostPositionChats")
+	end
 
 	for _, entry in ipairs(PANELS) do
 		local panel = _G[entry.name]
@@ -167,11 +176,18 @@ function module:UpdateResizeGrips()
 				grip.growX, grip.growY = growX, growY
 				grip:SetFrameLevel(panel:GetFrameLevel() + 20)
 				grip:ClearAllPoints()
-				grip:Point(corner, panel, corner, strfind(corner, "LEFT") and 1 or -1, strfind(corner, "TOP") and -1 or 1)
+				grip:Point(
+					corner,
+					panel,
+					corner,
+					strfind(corner, "LEFT") and 1 or -1,
+					strfind(corner, "TOP") and -1 or 1
+				)
 				grip.Texture:SetTexCoord(unpack(TEXCOORDS[corner]))
 			end
 
-			grip.sizing = nil
+			StopSizing(grip)
+			grip:SetAlpha(0)
 			grip:SetShown(enabled and IsPanelInUse(entry))
 		end
 	end
@@ -196,6 +212,4 @@ end
 function module:InitializeResizeGrips()
 	self.resizeGrips = {}
 	self.resizeInitialized = true
-
-	self:SecureHook(CH, "PositionChats", "PostPositionChats")
 end

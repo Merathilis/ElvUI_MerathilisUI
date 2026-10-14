@@ -4,4 +4,5 @@
 	<Script file="Healer.lua"/>
 	<Script file="Minimal.lua"/>
 	<Script file="Compact.lua"/>
+	<Script file="RoundedCorners.lua"/>
 </Ui>

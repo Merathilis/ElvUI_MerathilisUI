@@ -220,23 +220,94 @@ local function GetArrowColor(db)
 	return color.r, color.g, color.b
 end
 
-local function ConfigureArrow(element, arrow, db, anchor, r, g, b)
+-- The side arrows move out by the width of a castbar icon that sticks out next to them
+local function PlaceArrow(element, arrow)
+	local anchor, spacing = element.anchor, element.spacing
+	arrow:ClearAllPoints()
+
+	if arrow.key == "left" then
+		arrow:Point("RIGHT", anchor, "LEFT", -spacing - element.dodge.left, 0)
+	elseif arrow.key == "right" then
+		arrow:Point("LEFT", anchor, "RIGHT", spacing + element.dodge.right, 0)
+	else
+		arrow:Point("BOTTOM", anchor, "TOP", 0, spacing)
+	end
+end
+
+local function SetDodge(element, left, right)
+	if element.dodge.left == left and element.dodge.right == right then
+		return
+	end
+
+	element.dodge.left, element.dodge.right = left, right
+	PlaceArrow(element, element.arrows.left)
+	PlaceArrow(element, element.arrows.right)
+end
+
+-- Position of an anchor point inside a box, relative to the box center
+local POINT_OFFSETS = {
+	TOPLEFT = { -0.5, 0.5 },
+	TOP = { 0, 0.5 },
+	TOPRIGHT = { 0.5, 0.5 },
+	LEFT = { -0.5, 0 },
+	CENTER = { 0, 0 },
+	RIGHT = { 0.5, 0 },
+	BOTTOMLEFT = { -0.5, -0.5 },
+	BOTTOM = { 0, -0.5 },
+	BOTTOMRIGHT = { 0.5, -0.5 },
+}
+
+-- Nameplates are restricted regions that can't be measured, so the icon position is
+-- worked out from the same settings ElvUI lays it out with (Update_Castbar), in
+-- coordinates relative to the nameplate center where the health bar sits
+local function UpdateDodge(element, nameplate)
+	local plateDB = NP:PlateDB(nameplate)
+	local db = plateDB and plateDB.castbar
+	local plateWidth, plateHeight = nameplate.width, nameplate.height
+	if not (db and db.showIcon and plateWidth and plateHeight) then
+		SetDodge(element, 0, 0)
+		return
+	end
+
+	local anchor = POINT_OFFSETS[db.anchorPoint]
+	local inverse = POINT_OFFSETS[E.InversePoints[db.anchorPoint]]
+	if not (anchor and inverse) then
+		SetDodge(element, 0, 0)
+		return
+	end
+
+	local castbarX = anchor[1] * plateWidth + db.xOffset - inverse[1] * db.width
+	local castbarY = anchor[2] * plateHeight + db.yOffset - inverse[2] * db.height
+	local castbarBottom = castbarY - db.height / 2
+
+	local size = db.iconSize
+	local buttonLeft
+	if db.iconPosition == "RIGHT" then
+		buttonLeft = castbarX + db.width / 2 + db.iconOffsetX
+	else
+		buttonLeft = castbarX - db.width / 2 + db.iconOffsetX - size
+	end
+	local buttonBottom = castbarBottom + db.iconOffsetY
+
+	-- Only an icon at the height of the arrows is in their way
+	local half = E.db.mui.nameplates.targetArrows.size / 2
+	if buttonBottom >= half or buttonBottom + size <= -half then
+		SetDodge(element, 0, 0)
+		return
+	end
+
+	local healthHalf = plateDB.health.width / 2
+	SetDodge(element, max(0, -healthHalf - buttonLeft), max(0, buttonLeft + size - healthHalf))
+end
+
+local function ConfigureArrow(element, arrow, db, r, g, b)
 	local info = ARROWS[arrow.key]
 	local size = db.size
-	local spacing = db.spacing
 
 	arrow:SetTexture(E.Media.Arrows[db.arrow] or E.Media.Arrows.Arrow9)
 	arrow:SetVertexColor(r, g, b)
 	arrow:Size(size)
-	arrow:ClearAllPoints()
-
-	if arrow.key == "left" then
-		arrow:Point("RIGHT", anchor, "LEFT", -spacing, 0)
-	elseif arrow.key == "right" then
-		arrow:Point("LEFT", anchor, "RIGHT", spacing, 0)
-	else
-		arrow:Point("BOTTOM", anchor, "TOP", 0, spacing)
-	end
+	PlaceArrow(element, arrow)
 
 	local distance = size * 0.75
 	arrow.intro.offset:SetOffset(info.dirX * distance, info.dirY * distance)
@@ -244,6 +315,39 @@ local function ConfigureArrow(element, arrow, db, anchor, r, g, b)
 
 	local nudge = max(2, size * 0.2)
 	arrow.bounce.move:SetOffset(-info.dirX * nudge, -info.dirY * nudge)
+end
+
+local function CreateElement(parent)
+	local element = CreateFrame("Frame", nil, parent)
+	element:SetAllPoints(parent)
+	element:Hide()
+	element.arrows = {}
+	for key in pairs(ARROWS) do
+		element.arrows[key] = CreateArrow(element, key)
+	end
+	element:SetScript("OnShow", Element_OnShow)
+	element:SetScript("OnHide", Element_OnHide)
+	element.dodge = { left = 0, right = 0 }
+
+	return element
+end
+
+local function ConfigureElement(element, anchor, db)
+	element.animation = db.animation
+	element.anchor = anchor
+	element.spacing = db.spacing
+
+	local r, g, b = GetArrowColor(db)
+	local layout = LAYOUTS[db.layout] or LAYOUTS.sides
+	for key, arrow in pairs(element.arrows) do
+		ConfigureArrow(element, arrow, db, r, g, b)
+		arrow:SetShown(layout[key] == true)
+	end
+
+	-- Replays the animation with the new settings on the current target
+	if element:IsShown() then
+		Element_OnShow(element)
+	end
 end
 
 function module:Configure_TargetArrows(nameplate)
@@ -264,32 +368,23 @@ function module:Configure_TargetArrows(nameplate)
 
 	local element = nameplate.MER_TargetArrows
 	if not element then
-		element = CreateFrame("Frame", nil, nameplate.Health)
-		element:SetAllPoints(nameplate.Health)
-		element:Hide()
-		element.arrows = {}
-		for key in pairs(ARROWS) do
-			element.arrows[key] = CreateArrow(element, key)
-		end
-		element:SetScript("OnShow", Element_OnShow)
-		element:SetScript("OnHide", Element_OnHide)
+		element = CreateElement(nameplate.Health)
 		nameplate.MER_TargetArrows = element
+
+		-- A castbar only shows while the unit casts, its icon may cover an arrow
+		local castbar = nameplate.Castbar
+		if castbar then
+			castbar:HookScript("OnShow", function()
+				UpdateDodge(element, nameplate)
+			end)
+			castbar:HookScript("OnHide", function()
+				SetDodge(element, 0, 0)
+			end)
+		end
 	end
 
 	element:SetFrameLevel(nameplate.Health:GetFrameLevel() + 5)
-	element.animation = db.animation
-
-	local r, g, b = GetArrowColor(db)
-	local layout = LAYOUTS[db.layout] or LAYOUTS.sides
-	for key, arrow in pairs(element.arrows) do
-		ConfigureArrow(element, arrow, db, nameplate.Health, r, g, b)
-		arrow:SetShown(layout[key] == true)
-	end
-
-	-- Replays the animation with the new settings on the current target
-	if element:IsShown() then
-		Element_OnShow(element)
-	end
+	ConfigureElement(element, nameplate.Health, db)
 
 	if not nameplate:IsElementEnabled("MER_TargetArrows") then
 		nameplate:EnableElement("MER_TargetArrows")
@@ -309,6 +404,23 @@ function module:UpdateTargetArrows()
 
 	for nameplate in pairs(NP.Plates) do
 		module:Configure_TargetArrows(nameplate)
+	end
+end
+
+-- Sample arrows around a bar for the options preview (Options/Widgets/TargetArrowsPreview.lua)
+function module:TargetArrows_CreatePreview(bar)
+	return CreateElement(bar)
+end
+
+function module:TargetArrows_UpdatePreview(element)
+	ConfigureElement(element, element:GetParent(), E.db.mui.nameplates.targetArrows)
+	element:Show()
+end
+
+-- Plays the animation again from the start
+function module:TargetArrows_ReplayPreview(element)
+	if element:IsShown() then
+		Element_OnShow(element)
 	end
 end
 

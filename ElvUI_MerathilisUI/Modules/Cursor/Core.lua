@@ -295,22 +295,24 @@ function module:SpawnTrailDot(cx, cy)
 	dot:SetPoint("CENTER", self.trailContainer, "BOTTOMLEFT", cx / scale, cy / scale)
 	dot:Show()
 
-	self.trailActive[#self.trailActive + 1] = { tex = dot, life = TRAIL_DOT_DURATION }
+	-- The remaining life sits on the (own) texture, no table per spawned dot
+	dot.trailLife = TRAIL_DOT_DURATION
+	self.trailActive[#self.trailActive + 1] = dot
 end
 
 function module:UpdateTrail(elapsed)
 	local active = self.trailActive
 	for i = #active, 1, -1 do
-		local entry = active[i]
-		entry.life = entry.life - elapsed
-		if entry.life <= 0 then
-			entry.tex:Hide()
-			self.trailPool[#self.trailPool + 1] = entry.tex
+		local dot = active[i]
+		dot.trailLife = dot.trailLife - elapsed
+		if dot.trailLife <= 0 then
+			dot:Hide()
+			self.trailPool[#self.trailPool + 1] = dot
 			tremove(active, i)
 		else
-			local pct = entry.life / TRAIL_DOT_DURATION
-			entry.tex:SetAlpha(pct)
-			entry.tex:SetSize(18 * pct, 18 * pct)
+			local pct = dot.trailLife / TRAIL_DOT_DURATION
+			dot:SetAlpha(pct)
+			dot:SetSize(18 * pct, 18 * pct)
 		end
 	end
 end
@@ -320,9 +322,9 @@ function module:HideTrail()
 		return
 	end
 	for i = #self.trailActive, 1, -1 do
-		local entry = self.trailActive[i]
-		entry.tex:Hide()
-		self.trailPool[#self.trailPool + 1] = entry.tex
+		local dot = self.trailActive[i]
+		dot:Hide()
+		self.trailPool[#self.trailPool + 1] = dot
 		self.trailActive[i] = nil
 	end
 end
@@ -421,6 +423,33 @@ function module:UpdateVisibility()
 
 	self:UpdateGCDVisibility()
 	self:UpdateCastVisibility()
+	self:UpdateTracker()
+end
+
+local function Tracker_OnUpdate(_, elapsed)
+	module:TrackerOnUpdate(elapsed)
+end
+
+local function IsAttachedRing(root, rootDB)
+	return root and root:IsShown() and rootDB and rootDB.attached ~= false
+end
+
+-- The tracker only follows the cursor while something is attached to it: the
+-- ring while shown, the trail, or a GCD/cast ring that sits at the cursor
+function module:UpdateTracker()
+	local tracker = self.tracker
+	if not tracker then
+		return
+	end
+
+	local db = self.db
+	local needed = (self.ringFrame and self.ringFrame:IsShown())
+		or (db.trail and db.trail.enable)
+		or (self.trailActive and #self.trailActive > 0)
+		or IsAttachedRing(self.gcdRoot, db.gcd)
+		or IsAttachedRing(self.castRoot, db.castCircle)
+
+	tracker:SetScript("OnUpdate", needed and Tracker_OnUpdate or nil)
 end
 
 function module:SettingsApply()
@@ -481,15 +510,7 @@ function module:Enable()
 
 	self:CreateTracker()
 	self:CreateCursorFrame()
-	self:CreateGCDRing()
-	self:CreateCastRing()
-	self:RegisterGCDEvents()
-	self:RegisterCastEvents()
 	self:InstallMouselookHooks()
-
-	self.tracker:SetScript("OnUpdate", function(_, elapsed)
-		self:TrackerOnUpdate(elapsed)
-	end)
 
 	self:ApplyRing()
 	self:ApplyTrail()

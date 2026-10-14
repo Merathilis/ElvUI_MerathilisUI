@@ -6,29 +6,55 @@ local tinsert = table.insert
 
 local C_Timer_NewTicker = C_Timer.NewTicker
 
--- Disable() cancels both tickers, so they are (re)started whenever the bar is built or updated
-function module:StartVigorTickers()
+-- Everything below only runs while the vigor bar is visible (skyriding with the vehicle bar up)
+function module:StartVigorUpdates()
 	local vigorBar = self.vigorBar
+	self:StopVigorUpdates()
+
+	vigorBar:RegisterEvent("SPELL_UPDATE_CHARGES")
+
+	-- Speed has no event, it is polled at its own update rate
+	if self.vdb.showSpeedText then
+		vigorBar.speedTextTicker = C_Timer_NewTicker(self.vdb.speedTextUpdateRate, function()
+			self:UpdateSpeedText()
+		end)
+		self:UpdateSpeedText()
+	end
+
+	self:UpdateVigorSegments()
+end
+
+function module:StopVigorUpdates()
+	local vigorBar = self.vigorBar
+	if not vigorBar then
+		return
+	end
+
+	vigorBar:UnregisterAllEvents()
 	if vigorBar.vigorTicker then
 		vigorBar.vigorTicker:Cancel()
+		vigorBar.vigorTicker = nil
 	end
 	if vigorBar.speedTextTicker then
 		vigorBar.speedTextTicker:Cancel()
+		vigorBar.speedTextTicker = nil
 	end
+end
 
-	-- Smooth recharge animation (0.05s = 20fps, visually indistinguishable from per-frame)
-	vigorBar.vigorTicker = C_Timer_NewTicker(0.05, function()
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
-			self:UpdateVigorSegments()
+-- The recharge fill has no event either, so it only ticks while a charge refills
+-- (0.05s = 20fps, visually indistinguishable from per-frame)
+function module:UpdateRechargeTicker(recharging)
+	local vigorBar = self.vigorBar
+	if recharging and vigorBar:IsVisible() then
+		if not vigorBar.vigorTicker then
+			vigorBar.vigorTicker = C_Timer_NewTicker(0.05, function()
+				self:UpdateVigorSegments()
+			end)
 		end
-	end)
-
-	-- Speed text at its own update rate (cheaper than OnUpdate throttling)
-	vigorBar.speedTextTicker = C_Timer_NewTicker(self.vdb.speedTextUpdateRate, function()
-		if self:IsVigorAvailable() and self.vigorBar and self.vigorBar:IsShown() then
-			self:UpdateSpeedText()
-		end
-	end)
+	elseif vigorBar.vigorTicker then
+		vigorBar.vigorTicker:Cancel()
+		vigorBar.vigorTicker = nil
+	end
 end
 
 function module:CreateVigorBar()
@@ -59,22 +85,22 @@ function module:CreateVigorBar()
 		vigorBar.speedText:Hide()
 	end
 
-	vigorBar:Hide()
-
-	-- Register for spell charge updates
-	vigorBar:UnregisterAllEvents()
-	vigorBar:RegisterEvent("SPELL_UPDATE_CHARGES")
-	vigorBar:SetScript("OnEvent", function(_, event)
-		if event == "SPELL_UPDATE_CHARGES" and self:IsVigorAvailable() and self.vigorBar then
-			-- Only update segment values, don't recreate
-			self:UpdateVigorSegments()
-		end
-	end)
-
 	self.vigorBar = vigorBar
 	self.vigorBar.segments = {}
 
-	self:StartVigorTickers()
+	vigorBar:Hide()
+
+	-- Events and tickers only live while the bar is visible
+	vigorBar:SetScript("OnShow", function()
+		self:StartVigorUpdates()
+	end)
+	vigorBar:SetScript("OnHide", function()
+		self:StopVigorUpdates()
+	end)
+	vigorBar:SetScript("OnEvent", function()
+		-- Only update segment values, don't recreate
+		self:UpdateVigorSegments()
+	end)
 
 	self:CreateVigorSegments()
 	if not F.Table.IsEmpty(self.vigorBar.segments) then

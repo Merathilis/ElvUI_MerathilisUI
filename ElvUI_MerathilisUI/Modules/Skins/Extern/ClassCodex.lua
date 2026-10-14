@@ -6,6 +6,9 @@ local S = E:GetModule("Skins")
 local _G = _G
 local next = next
 
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+
 -- ClassCodexPanel and ClassCodexCompendium both anchor their section tabs as
 -- plain Buttons (CreateSideTab in Core/ClassCodex.lua and UI/AnchorPane.lua)
 -- using the QuestLog side-tab atlas, identified by .tabKey/.bg since neither
@@ -100,22 +103,59 @@ local function SkinFrame(frame)
 end
 
 -- Several ClassCodex frames are only created on demand (Compendium on first
--- /cc or minimap click, the talent icon when Blizzard_PlayerSpells loads), so
--- their global names don't exist yet at ADDON_LOADED. Poll for them instead.
+-- /cc or click, the widget with the character frame, the talent icon when
+-- Blizzard_PlayerSpells loads), so their global names don't exist yet at
+-- ADDON_LOADED. They are looked up again right after the actions that create
+-- them, until all of them were found.
+local pending = {}
+local watcher
+
+local function CheckPending()
+	for name, callback in next, pending do
+		local frame = _G[name]
+		if frame then
+			pending[name] = nil
+			callback(frame)
+		end
+	end
+
+	if not next(pending) and watcher then
+		watcher:UnregisterAllEvents()
+	end
+end
+
+-- ClassCodex builds the frame in the same click, slash command or OnShow
+local function CheckNextFrame()
+	if next(pending) then
+		C_Timer.After(0, CheckPending)
+	end
+end
+
 local function WatchForGlobal(name, callback)
 	local existing = _G[name]
 	if existing then
 		callback(existing)
+	else
+		pending[name] = callback
+	end
+end
+
+local function StartWatching()
+	if not next(pending) then
 		return
 	end
 
-	local ticker
-	ticker = C_Timer.NewTicker(0.5, function()
-		local frame = _G[name]
-		if frame then
-			ticker:Cancel()
-			callback(frame)
-		end
+	watcher = CreateFrame("Frame")
+	watcher:RegisterEvent("GLOBAL_MOUSE_UP")
+	watcher:SetScript("OnEvent", CheckNextFrame)
+
+	if _G.SlashCmdList.CLASSCODEX then
+		hooksecurefunc(_G.SlashCmdList, "CLASSCODEX", CheckNextFrame)
+	end
+	_G.PaperDollFrame:HookScript("OnShow", CheckNextFrame)
+	F.Event.ContinueOnAddOnLoaded("Blizzard_PlayerSpells", function()
+		CheckNextFrame()
+		_G.PlayerSpellsFrame:HookScript("OnShow", CheckNextFrame)
 	end)
 end
 
@@ -173,6 +213,7 @@ function module:ClassCodex()
 	WatchForGlobal("ClassCodexCompendium", SkinFrame)
 	WatchForGlobal("ClassCodexWidgetButton", SkinWidgetButton)
 	WatchForGlobal("ClassCodexTalentIcon", SkinTalentIcon)
+	StartWatching()
 end
 
 module:AddCallbackForAddon("ClassCodex")

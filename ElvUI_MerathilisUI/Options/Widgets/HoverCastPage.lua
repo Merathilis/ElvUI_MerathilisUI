@@ -13,7 +13,6 @@ local format, tconcat = string.format, table.concat
 
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
-local IsMouseButtonDown = IsMouseButtonDown
 local PlaySound = PlaySound
 local UIParent = UIParent
 local C_Timer_After = C_Timer.After
@@ -26,6 +25,8 @@ local COLOR_BOX_HOVER = { ACCENT[1] * 0.3, ACCENT[2] * 0.3, ACCENT[3] * 0.3, 1 }
 local COLOR_WARNING = { 1, 0.25, 0.15 }
 
 local MIN_HEIGHT = 420
+-- Room for the preview above the page (HEIGHT in HoverCastPreview.lua)
+local PREVIEW_HEIGHT = 130
 local TILE_H = 56
 local ICON_SZ = 36
 local ADD_BTN_H = 30
@@ -152,14 +153,16 @@ local function CreatePopup(parent, width, height, offset)
 	return popup
 end
 
--- Closes a popup on a left click anywhere outside of it and its opener
+-- Closes a popup on a left click anywhere outside of it and its opener. Listens to clicks while
+-- shown instead of polling the mouse buttons; the OnHide of the callers unregisters it.
 local function AutoClose(popup, opener)
+	popup:SetScript("OnEvent", function(p, _, button)
+		if button == "LeftButton" and not p:IsMouseOver() and not opener:IsMouseOver() then
+			p:Hide()
+		end
+	end)
 	popup:SetScript("OnShow", function(p)
-		p:SetScript("OnUpdate", function(m)
-			if not m:IsMouseOver() and not opener:IsMouseOver() and IsMouseButtonDown("LeftButton") then
-				m:Hide()
-			end
-		end)
+		p:RegisterEvent("GLOBAL_MOUSE_DOWN")
 	end)
 end
 
@@ -523,7 +526,7 @@ local function BuildDropdown(owner, parent, width, opts)
 
 		AutoClose(list, box)
 		list:SetScript("OnHide", function(p)
-			p:SetScript("OnUpdate", nil)
+			p:UnregisterEvent("GLOBAL_MOUSE_DOWN")
 			if owner.dropdownList == p then
 				owner.dropdownList = nil
 			end
@@ -979,7 +982,7 @@ local function OpenPickerPopup(self, opener, sidebar, side, modes, startMode, fi
 
 	AutoClose(popup, opener)
 	popup:SetScript("OnHide", function(p)
-		p:SetScript("OnUpdate", nil)
+		p:UnregisterEvent("GLOBAL_MOUSE_DOWN")
 		HideTip()
 		if self.gridPopup == p then
 			self.gridPopup = nil
@@ -1108,15 +1111,20 @@ local function OpenQuickbind(self, bound)
 		})
 	end
 
-	UpdateTabs = CreateModeTabs(popup, {
-		{ key = "spell", label = L["Spells"] },
-		{ key = "macro", label = L["Macros"] },
-		{ key = "item", label = L["Items"] },
-	}, tabTop, function(newMode)
-		mode = newMode
-		gridScroll:SetVerticalScroll(0)
-		Fill()
-	end)
+	UpdateTabs = CreateModeTabs(
+		popup,
+		{
+			{ key = "spell", label = L["Spells"] },
+			{ key = "macro", label = L["Macros"] },
+			{ key = "item", label = L["Items"] },
+		},
+		tabTop,
+		function(newMode)
+			mode = newMode
+			gridScroll:SetVerticalScroll(0)
+			Fill()
+		end
+	)
 	Fill()
 
 	local doneBtn = CreateFillButton(popup, 100, L["Done"], false, 11)
@@ -1222,44 +1230,42 @@ function BuildPage(self)
 			and gb.type ~= "trinket1"
 			and gb.type ~= "trinket2"
 			and gb.type ~= "dynamicrez"
-		BuildTile(
-			self,
-			leftChild,
-			leftY,
-			sidebarW,
-			gb,
-			isSel,
-			"global",
-			i,
-			canDelete and function(idx)
-				HC:RemoveGlobalBinding(idx)
-				HC.selSide, HC.selIndex = nil, nil
-				RebuildPage(self)
-			end or nil
-		)
+		BuildTile(self, leftChild, leftY, sidebarW, gb, isSel, "global", i, canDelete and function(idx)
+			HC:RemoveGlobalBinding(idx)
+			HC.selSide, HC.selIndex = nil, nil
+			RebuildPage(self)
+		end or nil)
 		leftY = leftY - TILE_H
 	end
 
 	local function OpenGlobalPicker(opener)
-		OpenPickerPopup(self, opener, leftOuter, "left", {
-			{ key = "macro", label = L["Macros"] },
-			{ key = "item", label = L["Items"] },
-		}, "macro", function(mode, gridChild, popup)
-			local items = mode == "macro" and MacroItems(true) or HC:GetEquippedItems()
-			PopulateGrid(gridChild, items, {
-				isDimmed = function(item)
-					return (item.macroName and bound.macros[item.macroName])
-						or (item.itemSlot and bound.items[item.itemSlot])
-				end,
-				onClick = function(item)
-					popup:Hide()
-					local binding = mode == "macro" and NewMacroBinding(item) or NewItemBinding(item)
-					HC:AddGlobalBinding(binding)
-					HC.selSide, HC.selIndex = "global", #HC:GetGlobalBindings()
-					RebuildPage(self)
-				end,
-			})
-		end)
+		OpenPickerPopup(
+			self,
+			opener,
+			leftOuter,
+			"left",
+			{
+				{ key = "macro", label = L["Macros"] },
+				{ key = "item", label = L["Items"] },
+			},
+			"macro",
+			function(mode, gridChild, popup)
+				local items = mode == "macro" and MacroItems(true) or HC:GetEquippedItems()
+				PopulateGrid(gridChild, items, {
+					isDimmed = function(item)
+						return (item.macroName and bound.macros[item.macroName])
+							or (item.itemSlot and bound.items[item.itemSlot])
+					end,
+					onClick = function(item)
+						popup:Hide()
+						local binding = mode == "macro" and NewMacroBinding(item) or NewItemBinding(item)
+						HC:AddGlobalBinding(binding)
+						HC.selSide, HC.selIndex = "global", #HC:GetGlobalBindings()
+						RebuildPage(self)
+					end,
+				})
+			end
+		)
 	end
 
 	local addGlobalBtn = CreateFillButton(leftChild, floor(sidebarW * 0.8), L["Add Global Binding"], true)
@@ -1292,53 +1298,61 @@ function BuildPage(self)
 	end
 
 	local function OpenSpecPicker(opener)
-		OpenPickerPopup(self, opener, rightOuter, "right", {
-			{ key = "spell", label = L["Spells"] },
-			{ key = "macro", label = L["Macros"] },
-			{ key = "item", label = L["Items"] },
-		}, "spell", function(mode, gridChild, popup)
-			local items
-			if mode == "spell" then
-				items = HC:GetClassSpells()
-			elseif mode == "macro" then
-				items = MacroItems(false)
-			else
-				items = HC:GetEquippedItems()
+		OpenPickerPopup(
+			self,
+			opener,
+			rightOuter,
+			"right",
+			{
+				{ key = "spell", label = L["Spells"] },
+				{ key = "macro", label = L["Macros"] },
+				{ key = "item", label = L["Items"] },
+			},
+			"spell",
+			function(mode, gridChild, popup)
+				local items
+				if mode == "spell" then
+					items = HC:GetClassSpells()
+				elseif mode == "macro" then
+					items = MacroItems(false)
+				else
+					items = HC:GetEquippedItems()
+				end
+				PopulateGrid(gridChild, items, {
+					isDimmed = function(item)
+						return (item.id and HC:IsSpellBound(bound.spells, item.id, item.name, item.lowRank))
+							or (item.macroName and bound.macros[item.macroName])
+							or (item.itemSlot and bound.items[item.itemSlot])
+					end,
+					-- A WoW Forever lower rank labels itself by its rank
+					labelText = function(item)
+						return item.lowRank and item.rankText or item.name
+					end,
+					onEnter = function(cell, item)
+						RankTip(cell, item)
+					end,
+					onLeave = function(_, item)
+						if item.lowRank or item.ranked then
+							HideTip()
+						end
+					end,
+					onClick = function(item)
+						popup:Hide()
+						local binding
+						if mode == "spell" then
+							binding = NewSpellBinding(item)
+						elseif mode == "macro" then
+							binding = NewMacroBinding(item)
+						else
+							binding = NewItemBinding(item)
+						end
+						HC:AddSpecBinding(binding)
+						HC.selSide, HC.selIndex = "spec", #HC:GetSpecBindings()
+						RebuildPage(self)
+					end,
+				})
 			end
-			PopulateGrid(gridChild, items, {
-				isDimmed = function(item)
-					return (item.id and HC:IsSpellBound(bound.spells, item.id, item.name, item.lowRank))
-						or (item.macroName and bound.macros[item.macroName])
-						or (item.itemSlot and bound.items[item.itemSlot])
-				end,
-				-- A WoW Forever lower rank labels itself by its rank
-				labelText = function(item)
-					return item.lowRank and item.rankText or item.name
-				end,
-				onEnter = function(cell, item)
-					RankTip(cell, item)
-				end,
-				onLeave = function(_, item)
-					if item.lowRank or item.ranked then
-						HideTip()
-					end
-				end,
-				onClick = function(item)
-					popup:Hide()
-					local binding
-					if mode == "spell" then
-						binding = NewSpellBinding(item)
-					elseif mode == "macro" then
-						binding = NewMacroBinding(item)
-					else
-						binding = NewItemBinding(item)
-					end
-					HC:AddSpecBinding(binding)
-					HC.selSide, HC.selIndex = "spec", #HC:GetSpecBindings()
-					RebuildPage(self)
-				end,
-			})
-		end)
+		)
 	end
 
 	local btnW = floor(sidebarW * 0.42)
@@ -1859,7 +1873,7 @@ local function GetPageHeight()
 	if not height then
 		return 560
 	end
-	return max(MIN_HEIGHT, floor(height - 150))
+	return max(MIN_HEIGHT, floor(height - 150 - PREVIEW_HEIGHT))
 end
 
 local function QueueBuild(self)

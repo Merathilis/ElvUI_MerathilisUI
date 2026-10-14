@@ -572,16 +572,12 @@ function module:ScanSocketGems()
 	self.socketGemDirty = false
 end
 
-function module:RebuildSocketPanel()
-	local db = GetDB()
-
-	if not db or not db.enable or not self.socketPanel then
-		return
-	end
-
-	wipe(self.socketRecords)
-	wipe(self.socketRelevantItems)
-
+---Fills records with one entry per socket of the equipped items. With track, the
+---items are remembered for ITEM_DATA_LOAD_RESULT and their data is requested;
+---the options preview reads the sockets without touching that bookkeeping
+---@param records table
+---@param track boolean?
+function module:CollectSocketRecords(records, track)
 	if GetItemNumSockets and GetItemGem then
 		for _, slotID in ipairs(SOCKET_SLOTS) do
 			local link = GetInventoryItemLink("player", slotID)
@@ -590,7 +586,7 @@ function module:RebuildSocketPanel()
 				-- a freshly-swapped item's socket count can be unavailable until its data
 				-- finishes loading, so we request it and re-scan once ITEM_DATA_LOAD_RESULT
 				-- fires for it (see OnSocketEvent) instead of waiting for the next full reopen.
-				if GetItemInfoInstant then
+				if track and GetItemInfoInstant then
 					local itemID = GetItemInfoInstant(link)
 					if itemID then
 						self.socketRelevantItems[itemID] = true
@@ -613,14 +609,14 @@ function module:RebuildSocketPanel()
 							if gemID then
 								gemLink = "item:" .. gemID
 
-								if not self.socketRequestedGemLoads[gemID] and RequestLoadItemDataByID then
+								if track and not self.socketRequestedGemLoads[gemID] and RequestLoadItemDataByID then
 									self.socketRequestedGemLoads[gemID] = true
 									RequestLoadItemDataByID(gemID)
 								end
 							end
 						end
 
-						if gemLink and GetItemInfoInstant then
+						if track and gemLink and GetItemInfoInstant then
 							local gemID = GetItemInfoInstant(gemLink)
 
 							if gemID then
@@ -628,7 +624,7 @@ function module:RebuildSocketPanel()
 							end
 						end
 
-						tinsert(self.socketRecords, {
+						tinsert(records, {
 							slot = slotID,
 							socketIndex = socketIndex,
 							gemLink = gemLink,
@@ -639,6 +635,26 @@ function module:RebuildSocketPanel()
 			end
 		end
 	end
+end
+
+---Text of a gem row in the flyout, its stats or its name
+---@param link string
+---@return string
+function module:GetGemStatText(link)
+	return GetGemStatText(link)
+end
+
+function module:RebuildSocketPanel()
+	local db = GetDB()
+
+	if not db or not db.enable or not self.socketPanel then
+		return
+	end
+
+	wipe(self.socketRecords)
+	wipe(self.socketRelevantItems)
+
+	self:CollectSocketRecords(self.socketRecords, true)
 
 	for _, button in ipairs(self.socketIconPool) do
 		button:Hide()

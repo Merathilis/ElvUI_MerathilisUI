@@ -8,6 +8,7 @@ V.skins = {
 	shadowOverlay = false,
 	addonSkins = {
 		enable = true,
+		aussyLoot = true,
 		bSync = true,
 		bugSack = true,
 		ls = true,
@@ -68,4 +69,35 @@ V.skins = {
 			[5] = { width = 340, height = 144 },
 		},
 	},
+}
+
+-- Quick Grid: the custom deck holds spells, so it is per character
+V.quickGrid = {
+	custom = {},
+}
+
+-- Loadout Manager: gear sets and talent loadouts are per character
+V.loadoutManager = {
+	-- Off until the user opts in; switching it on is what registers events
+	enable = false,
+	gearEnabled = true,
+	talentEnabled = true,
+	announce = true,
+	queueInCombat = true,
+	specSwap = true, -- re-run swaps when your specialization changes inside an instance
+	specWarning = true, -- the "DONT MOVE" panel while talents change
+
+	-- Gear mappings use Blizzard Equipment Manager set names
+	instanceSets = {}, -- [instanceID] = equipment set name
+	difficultySets = {}, -- ["instanceID:difficultyID"] = equipment set name
+	typeDefaults = {}, -- world/party/mplus/... = equipment set name
+
+	-- Talent mappings store { configID = number, name = string, specID = number }
+	talentInstanceSets = {},
+	talentDifficultySets = {},
+	talentTypeDefaults = {},
+
+	-- Spec layer: [specID] = the same six mapping tables as above.
+	-- The root tables above are the "All Specs" fallback layer.
+	specDefaults = {},
 }

@@ -3,7 +3,8 @@ local ES = E:GetModule("Skins")
 local LSM = E.LSM
 
 local _G = _G
-local ipairs, pairs, print, select, tonumber, tostring, type, unpack = ipairs, pairs, print, select, tonumber, tostring, type, unpack
+local ipairs, pairs, print, select, tonumber, tostring, type, unpack =
+	ipairs, pairs, print, select, tonumber, tostring, type, unpack
 local xpcall = xpcall
 local format, gmatch, gsub, match = string.format, string.gmatch, string.gsub, string.match
 local strfind, strjoin, strmatch, strsplit = strfind, strjoin, strmatch, strsplit
@@ -226,7 +227,7 @@ end
 function F.FontSize(value)
 	value = E.db.mui and E.db.mui.general and E.db.mui.general.fontScale and (value + E.db.mui.general.fontScale)
 		or value
-	return F.Clamp(value, 8, 64)
+	return E:Clamp(value, 8, 64)
 end
 
 function F.FontSizeScaled(value, clamp)
@@ -239,7 +240,7 @@ function F.FontSizeScaled(value, clamp)
 		or clamp
 	) or 0
 
-	return F.Clamp(F.Clamp(F.Round(value * perfectScale), clamp or 0, 64), 8, 64)
+	return E:Clamp(E:Clamp(F.Round(value * perfectScale), clamp or 0, 64), 8, 64)
 end
 
 function F.FontOverride(font)
@@ -297,16 +298,8 @@ function F.Position(anchor1, parent, anchor2, x, y, offset, negative)
 	return format("%s,%s,%s,%d,%d", anchor1, parent, anchor2, F.Dpi(x) + offsetX, F.Dpi(y))
 end
 
-function F.Clamp(value, s, b)
-	return min(max(value, s), b)
-end
-
-function F.ClampTo01(value)
-	return F.Clamp(value, 0, 1)
-end
-
 function F.ClampToHSL(h, s, l)
-	return h % 360, F.ClampTo01(s), F.ClampTo01(l)
+	return h % 360, E:Clamp(s), E:Clamp(l)
 end
 
 function F.ConvertFromHue(m1, m2, h)

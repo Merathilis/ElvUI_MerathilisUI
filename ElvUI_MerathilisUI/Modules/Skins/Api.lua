@@ -354,7 +354,6 @@ do
 
 		return bu
 	end
-
 end
 
 -- hook the skin functions from ElvUI
@@ -555,14 +554,20 @@ hooksecurefunc(S, "HandleTab", function(_, tab)
 	end
 end)
 
+-- Walks the children as varargs, a table of them on every tab switch would be garbage
+local function UpdateChildTabLines(...)
+	for i = 1, select("#", ...) do
+		local tab = select(i, ...)
+		if tab and tab.BottomLine then
+			UpdateTabLine(tab)
+		end
+	end
+end
+
 hooksecurefunc("PanelTemplates_SetTab", function(frame)
 	if not frame then
 		return
 	end
 
-	for _, tab in pairs({ frame:GetChildren() }) do
-		if tab and tab.BottomLine then
-			UpdateTabLine(tab)
-		end
-	end
+	UpdateChildTabLines(frame:GetChildren())
 end)

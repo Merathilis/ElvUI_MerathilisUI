@@ -13,13 +13,13 @@ local error, unpack = error, unpack
 local PlaySound = PlaySound
 
 -- Same box thickness/offset as MERSlider's track (18px from the frame's top,
--- 16px tall, 40px total frame height) so a select option sitting in the same
+-- 16px tall, 46px total frame height) so a select option sitting in the same
 -- AceConfig row as a range option lines up without any Blizzard-template
 -- offset math - both widgets just agree on the same numbers up front.
 local BOX_HEIGHT = 16
 local BOX_TOP_OFFSET = 18
 local LABEL_HEIGHT = 16
-local FRAME_HEIGHT = 40
+local FRAME_HEIGHT = 46 -- 10px below the box, so stacked rows get some air
 
 local COLOR_BOX = { 0.16, 0.16, 0.16, 1 }
 -- Muted Accent tint instead of a flat gray, so hover reads as the same

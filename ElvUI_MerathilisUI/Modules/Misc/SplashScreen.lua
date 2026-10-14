@@ -7,7 +7,12 @@ local CreateSimpleTextureMarkup = CreateSimpleTextureMarkup
 local CreateAtlasMarkup = CreateAtlasMarkup
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 
+-- Built on the first splash (installer, profile imports), not at login
 function module:CreateFrame()
+	if module.backgroundFade then
+		return
+	end
+
 	module.backgroundFade = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
 	module.backgroundFade:SetAllPoints(E.UIParent)
 	module.backgroundFade:SetFrameStrata("TOOLTIP")
@@ -58,13 +63,16 @@ function module:CreateFrame()
 end
 
 function module:Show(text)
+	module:CreateFrame()
 	module.backgroundFade.text:SetText(text)
 	module.backgroundFade:Show()
 end
 
 function module:Hide()
 	module:CancelAllTimers()
-	module.backgroundFade:Hide()
+	if module.backgroundFade then
+		module.backgroundFade:Hide()
+	end
 end
 
 function module:Wrap(text, func, manualHide, addon)
@@ -109,8 +117,6 @@ function module:Initialize()
 	if self.Initialized then
 		return
 	end
-
-	self:CreateFrame()
 
 	self.Initialized = true
 end

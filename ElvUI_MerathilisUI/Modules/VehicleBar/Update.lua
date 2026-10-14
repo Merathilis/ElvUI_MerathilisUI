@@ -9,7 +9,6 @@ local ipairs, pairs = ipairs, pairs
 local strsplit = strsplit
 local Round = Round
 
-
 local C_ActionBar_GetOverrideBarIndex = C_ActionBar.GetOverrideBarIndex
 local C_ActionBar_GetVehicleBarIndex = C_ActionBar.GetVehicleBarIndex
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
@@ -19,6 +18,7 @@ function module:UpdateVigorSegments()
 	local chargeInfo = self:GetSpellChargeInfo()
 
 	if not chargeInfo then
+		self:UpdateRechargeTicker(false)
 		return
 	end
 
@@ -55,6 +55,8 @@ function module:UpdateVigorSegments()
 			segment:Show()
 		end
 	end
+
+	self:UpdateRechargeTicker(currentCharges < maxCharges)
 end
 
 function module:UpdateSpeedText()
@@ -97,14 +99,15 @@ function module:UpdateVigorBar()
 		self.vigorBar.speedText:Hide()
 	end
 
-	-- Disable() cancelled both tickers; this also picks up a changed speed text rate
-	self:StartVigorTickers()
-
 	-- Rebuild the segments with the current size, colors and textures
 	self:CreateVigorSegments()
 
-	-- Update segment display
-	self:UpdateVigorSegments()
+	-- Update segment display, a restart while visible also picks up a changed speed text setting
+	if self.vigorBar:IsVisible() then
+		self:StartVigorUpdates()
+	else
+		self:UpdateVigorSegments()
+	end
 end
 
 function module:UpdateButtonLock()

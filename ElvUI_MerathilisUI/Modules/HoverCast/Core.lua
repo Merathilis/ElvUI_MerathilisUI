@@ -485,7 +485,11 @@ local function AreComplementaryReactionBindings(a, b)
 	if not IsReactionBinding(a) or not IsReactionBinding(b) or a.key ~= b.key or a.harmfulSpell or b.harmfulSpell then
 		return false
 	end
-	if not ((a.type == "spell" and (b.type == "spell" or b.type == "item")) or (a.type == "item" and b.type == "spell")) then
+	if
+		not (
+			(a.type == "spell" and (b.type == "spell" or b.type == "item")) or (a.type == "item" and b.type == "spell")
+		)
+	then
 		return false
 	end
 	if
@@ -1097,7 +1101,8 @@ local function BuildBaseMacroText(binding)
 					if binding.oocOnly then
 						reactionConds[#reactionConds + 1] = "nocombat"
 					end
-					lines[#lines + 1] = SpellCastLine(binding, "[" .. tconcat(reactionConds, ",") .. guard .. "]", harmful)
+					lines[#lines + 1] =
+						SpellCastLine(binding, "[" .. tconcat(reactionConds, ",") .. guard .. "]", harmful)
 				end
 				AddReactionLine("help", false)
 				AddReactionLine("harm", true)
@@ -2350,9 +2355,7 @@ function module:ApplyBindings()
 
 	if #hoverSetLines > 0 or #kbClearLines > 0 then
 		local fbFailsafe = tconcat(kbClearLines, "\n")
-		header:SetAttribute(
-			"_onstate-mer_cc",
-			[[
+		header:SetAttribute("_onstate-mer_cc", [[
 			if newstate == "on" then
 				if not mer_hoveractive then
 					self:RunAttribute("mer_hover_set")
@@ -2364,8 +2367,7 @@ function module:ApplyBindings()
 				]] .. fbFailsafe .. [[
 
 			end
-		]]
-		)
+		]])
 		-- State values are deliberately non-numeric: the driver coerces with
 		-- tonumber(newValue) or newValue, so a "1; 0" driver would arrive as
 		-- NUMBER 1 and never match a quoted "1"
@@ -2518,6 +2520,11 @@ function module:IsBindingActive(binding)
 	return IsBindingActive(binding)
 end
 
+---@return string "friendly", "harmful", "both" or "none"
+function module:GetBindingUnitType(binding)
+	return GetBindingUnitType(binding)
+end
+
 function module:CtxEnabled(binding, ctx)
 	return CtxEnabled(binding, ctx)
 end
@@ -2625,6 +2632,23 @@ end
 -- Toggles click-casting with a full register/restore sweep: enabling installs
 -- the global hook + registers owned/external frames; disabling returns EVERY
 -- touched frame to native click behavior. Defers to PLAYER_REGEN_ENABLED in combat.
+-- Registered only while HoverCast is on, a disabled install reacts to nothing
+local EVENTS =
+	{ "PLAYER_REGEN_ENABLED", "PLAYER_SPECIALIZATION_CHANGED", "GROUP_ROSTER_UPDATE", "PLAYER_ENTERING_WORLD" }
+
+local function SetEventsRegistered(registered)
+	for _, event in ipairs(EVENTS) do
+		if registered then
+			module:RegisterEvent(event, "OnEvent")
+		else
+			module:UnregisterEvent(event)
+		end
+	end
+	if not registered then
+		module:UnregisterEvent("SPELLS_CHANGED")
+	end
+end
+
 function module:SetEnabled(enabled)
 	local cc = GetClickCastDB()
 	if not cc then
@@ -2632,17 +2656,31 @@ function module:SetEnabled(enabled)
 	end
 	cc.enabled = enabled
 	if not ccInitialized then
+		if not enabled then
+			return
+		end
+		-- The secure frames can only be built out of combat
+		if InCombatLockdown() then
+			pendingSetEnabled = true
+			self:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
+			return
+		end
+		-- First enable: the setup builds the frames and runs the enable sweep itself
+		self:SetupHoverCast()
 		return
 	end
 	if InCombatLockdown() then
 		pendingSetEnabled = enabled
 		pendingApply = true
+		-- Carries the deferred sweep, also while disabled
+		self:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
 		return
 	end
 	if enabled then
 		if IsCliqueLoaded() then
 			return
 		end
+		SetEventsRegistered(true)
 		SetupClickCastFramesHook()
 		for frame in pairs(ownedFrames) do
 			if not registeredFrames[frame] then
@@ -2669,6 +2707,7 @@ function module:SetEnabled(enabled)
 		for _, frame in ipairs(list) do
 			DoUnregisterFrame(frame)
 		end
+		SetEventsRegistered(false)
 	end
 end
 
@@ -2778,7 +2817,15 @@ end
 -------------------------------------------------------------------------------
 --  Init
 -------------------------------------------------------------------------------
+-- A disabled install builds nothing: no secure frames, hooks or events until the first enable
 function module:Initialize()
+	local cc = GetClickCastDB()
+	if cc and cc.enabled then
+		self:SetupHoverCast()
+	end
+end
+
+function module:SetupHoverCast()
 	if ccInitialized then
 		return
 	end
@@ -2836,11 +2883,6 @@ function module:Initialize()
 	header:SetAttribute("mer_hover_set", "")
 	header:SetAttribute("mer_hover_clear", "")
 
-	self:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
-	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED", "OnEvent")
-	self:RegisterEvent("GROUP_ROSTER_UPDATE", "OnEvent")
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
-
 	HookElvUIClickRegistration()
 
 	ccInitialized = true
@@ -2848,6 +2890,7 @@ function module:Initialize()
 	-- Only touches frames when enabled: a disabled install registers nothing,
 	-- so clicks stay as they are. Enabling later runs the same sweep via SetEnabled.
 	if cc.enabled then
+		SetEventsRegistered(true)
 		SetupClickCastFramesHook()
 		for _, frame in ipairs(regQueue) do
 			DoRegisterFrame(frame)

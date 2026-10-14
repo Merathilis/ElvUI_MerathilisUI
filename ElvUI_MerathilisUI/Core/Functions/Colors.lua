@@ -138,6 +138,10 @@ function F.Color.EqualToRGB(aColor, r, g, b)
 	return F.AlmostEqual(aColor.r, r) and F.AlmostEqual(aColor.g, g) and F.AlmostEqual(aColor.b, b)
 end
 
+-- SetGradient copies the values right away, so two shared colors serve every call. It runs on
+-- each health/power update of the gradient theme, a new color per call would be garbage.
+local gradientMin, gradientMax = CreateColor(0, 0, 0, 1), CreateColor(0, 0, 0, 1)
+
 function F.Color.SetGradient(obj, orientation, minColor, maxColor)
 	if not obj then
 		return
@@ -150,19 +154,19 @@ function F.Color.SetGradient(obj, orientation, minColor, maxColor)
 		return
 	end
 
-	obj:SetGradient(
-		orientation,
-		CreateColor(minColor.r, minColor.g, minColor.b, minColor.a or 1),
-		CreateColor(maxColor.r, maxColor.g, maxColor.b, maxColor.a or 1)
-	)
+	gradientMin:SetRGBA(minColor.r, minColor.g, minColor.b, minColor.a or 1)
+	gradientMax:SetRGBA(maxColor.r, maxColor.g, maxColor.b, maxColor.a or 1)
+	obj:SetGradient(orientation, gradientMin, gradientMax)
 end
 
 function F.Color.SetGradientRGB(obj, orientation, r1, g1, b1, a1, r2, g2, b2, a2)
-	if not obj then
+	if not obj or not r1 or not g1 or not b1 or not r2 or not g2 or not b2 then
 		return
 	end
 
-	F.Color.SetGradient(obj, orientation, CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
+	gradientMin:SetRGBA(r1, g1, b1, a1 or 1)
+	gradientMax:SetRGBA(r2, g2, b2, a2 or 1)
+	obj:SetGradient(orientation, gradientMin, gradientMax)
 end
 
 function F.Color.UpdateGradient(obj, perc, minColor, maxColor)
@@ -259,15 +263,21 @@ do
 	end
 end
 
-function F.Color.CalculateMultiplier(multi, color)
+---@param out table? color to write into instead of creating a new one
+function F.Color.CalculateMultiplier(multi, color, out)
 	local r, g, b = F.CalculateMultiplierColor(multi, color.r, color.g, color.b)
+	if out then
+		out:SetRGBA(r, g, b, 1)
+		return out
+	end
 	return CreateColor(r, g, b, 1)
 end
 
 ---Shifted (darker) variant of a color for the gradient theme
 ---@param boost table? gradientMode.saturationBoost settings
 ---@param colorArray table
-function F.Color.CalculateShift(boost, colorArray)
+---@param out table? color to write into instead of creating a new one
+function F.Color.CalculateShift(boost, colorArray, out)
 	local modS, modL = 1, I.GradientMode.BackupMultiplier
 	if type(boost) == "table" and boost.enable then
 		modS, modL = boost.shiftSat, boost.shiftLight
@@ -275,5 +285,9 @@ function F.Color.CalculateShift(boost, colorArray)
 
 	local h, s, l = F.ConvertToHSL(colorArray.r, colorArray.g, colorArray.b)
 	local r, g, b = F.ConvertToRGB(F.ClampToHSL(h, s * modS, l * modL))
+	if out then
+		out:SetRGBA(r, g, b, 1)
+		return out
+	end
 	return CreateColor(r, g, b, 1)
 end

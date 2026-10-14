@@ -10,8 +10,10 @@ function module:ProfileUpdate()
 	module:UpdateMarkerColors()
 	module:UpdateEnemyForces()
 	module:UpdateInterruptReady()
+	module:UpdateCastbarShield()
 	module:UpdateCastTargets()
 	module:UpdateExecuteLines()
+	module:UpdateNeutralNameOnly()
 end
 
 function module:Initialize()
@@ -26,8 +28,10 @@ function module:Initialize()
 	module:MarkerColor()
 	module:EnemyForces()
 	module:InterruptReady()
+	module:CastbarShield()
 	module:CastTarget()
 	module:ExecuteLine()
+	module:NeutralNameOnly()
 end
 
 MER:RegisterModule(module:GetName())

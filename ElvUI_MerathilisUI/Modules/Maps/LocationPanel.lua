@@ -31,12 +31,12 @@ local WORLDMAP_BUTTON = WORLDMAP_BUTTON
 
 local Minimap = _G.Minimap
 local mapInfo = E.MapInfo
+local hooksecurefunc = hooksecurefunc
 
 -- Gap between the panel border, the coordinates and the zone text.
 local INSET = 3
 
 -- ElvUI only refreshes E.MapInfo while the player moves, so polling it is cheap.
-local COORDS_INTERVAL = 0.1
 
 -- Widest value each format can show; sizes the coordinate slots so the zone text
 -- does not shift while the numbers change.
@@ -125,7 +125,7 @@ end
 
 function module:UpdateCoords(force)
 	local panel = self.panel
-	if not panel or not self.db.coords then
+	if not panel or not self.active or not self.db.coords then
 		return
 	end
 
@@ -142,13 +142,9 @@ function module:UpdateCoords(force)
 	panel.coordY:SetText(y and format(fmt, y) or "-")
 end
 
-local function Panel_OnUpdate(panel, elapsed)
-	panel.elapsed = (panel.elapsed or 0) + elapsed
-	if panel.elapsed < COORDS_INTERVAL then
-		return
-	end
-
-	panel.elapsed = 0
+-- ElvUI only refreshes the shared map position while the player moves (falling and taxis
+-- included), so following its update needs no polling of our own
+local function OnCoordsUpdate()
 	module:UpdateCoords()
 end
 
@@ -299,7 +295,10 @@ function module:UpdateCoordsStyle()
 	panel.coordX:SetWidth(panel.coordWidth)
 	panel.coordY:SetWidth(panel.coordWidth)
 
-	panel:SetScript("OnUpdate", db.coords and Panel_OnUpdate or nil)
+	if db.coords and not self.coordsHooked then
+		self.coordsHooked = true
+		hooksecurefunc(E, "MapInfo_CoordsUpdate", OnCoordsUpdate)
+	end
 	self:UpdateCoords(true)
 end
 
@@ -375,7 +374,6 @@ function module:Disable()
 
 	self.active = nil
 	self.panel:UnregisterAllEvents()
-	self.panel:SetScript("OnUpdate", nil)
 	self.panel:Hide()
 end
 

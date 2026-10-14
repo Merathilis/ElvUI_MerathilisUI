@@ -112,6 +112,58 @@ local function OnLeave(self)
 	DT.tooltip:Hide()
 end
 
+---Text of the datatext, also drawn by the options preview (Options/Widgets/DurabilityPreview.lua)
+---@param db table E.db.mui.datatexts.durabilityIlevel
+---@param durability number lowest durability in percent
+---@param avgEquipped number? equipped item level
+---@return string
+function MER.DurabilityIlevelText(db, durability, avgEquipped)
+	local shieldIcon =
+		"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Datatext\\shield.tga:14:14:0:0:64:64:5:59:5:59"
+	local armorIcon =
+		"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Datatext\\armor.tga:14:14:0:0:64:64:5:59:5:59|t"
+	local text = db.icon and "%s %s  %s %s" or "%s%s | %s%s"
+	local colorDurability = nil
+
+	if db.colored.enable then
+		if durability <= db.colored.b.value then
+			colorDurability = db.colored.b.color
+		elseif durability <= db.colored.a.value then
+			colorDurability = db.colored.a.color
+		end
+	elseif durability <= 15 then
+		colorDurability = { r = 1, g = 0.78, b = 0, hex = "|CFFFFC900" }
+	end
+
+	if not db.whiteIcon and colorDurability then
+		shieldIcon = shieldIcon
+			.. ":"
+			.. tostring(F.RoundNumber(colorDurability.r * 255))
+			.. ":"
+			.. tostring(F.RoundNumber(colorDurability.g * 255))
+			.. ":"
+			.. tostring(F.RoundNumber(colorDurability.b * 255))
+			.. "|t"
+	else
+		shieldIcon = shieldIcon .. "|t"
+	end
+
+	armorIcon = db.icon and armorIcon or ""
+	local totalDurabilityString = format("%." .. E.db.general.decimalLength .. "f%%", durability)
+
+	shieldIcon = db.icon and shieldIcon or ""
+	local avgEquippedString = format("%." .. E.db.general.decimalLength .. "f", avgEquipped or 0)
+	text = format(
+		text,
+		shieldIcon,
+		colorText(totalDurabilityString, colorDurability),
+		armorIcon,
+		colorText(avgEquippedString)
+	)
+
+	return text
+end
+
 local function OnEvent(self)
 	local db = E.db.mui and E.db.mui.datatexts and E.db.mui.datatexts.durabilityIlevel
 	if not db then
@@ -141,52 +193,8 @@ local function OnEvent(self)
 		end
 	end
 
-	local shieldIcon =
-		"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Datatext\\shield.tga:14:14:0:0:64:64:5:59:5:59"
-	local armorIcon =
-		"|TInterface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Datatext\\armor.tga:14:14:0:0:64:64:5:59:5:59|t"
-	local text = db.icon and "%s %s  %s %s" or "%s%s | %s%s"
-	local colorDurability = nil
-
-	if db.colored.enable then
-		local durability = totalDurability or 0
-		if durability <= db.colored.b.value then
-			colorDurability = db.colored.b.color
-		elseif durability <= db.colored.a.value then
-			colorDurability = db.colored.a.color
-		end
-	elseif (totalDurability or 0) <= 15 then
-		colorDurability = { r = 1, g = 0.78, b = 0, hex = "|CFFFFC900" }
-	end
-
-	if not db.whiteIcon and colorDurability then
-		shieldIcon = shieldIcon
-			.. ":"
-			.. tostring(F.RoundNumber(colorDurability.r * 255))
-			.. ":"
-			.. tostring(F.RoundNumber(colorDurability.g * 255))
-			.. ":"
-			.. tostring(F.RoundNumber(colorDurability.b * 255))
-			.. "|t"
-	else
-		shieldIcon = shieldIcon .. "|t"
-	end
-
-	armorIcon = db.icon and armorIcon or ""
-	local totalDurabilityString = format("%." .. E.db.general.decimalLength .. "f%%", totalDurability or 0)
-
 	local _, avgEquipped = GetAverageItemLevel()
-	shieldIcon = db.icon and shieldIcon or ""
-	local avgEquippedString = format("%." .. E.db.general.decimalLength .. "f", avgEquipped or 0)
-	text = format(
-		text,
-		shieldIcon,
-		colorText(totalDurabilityString, colorDurability),
-		armorIcon,
-		colorText(avgEquippedString)
-	)
-
-	self.text:SetText(text)
+	self.text:SetText(MER.DurabilityIlevelText(db, totalDurability or 0, avgEquipped))
 end
 
 -- ElvUI calls this whenever the value color changes and runs OnEvent right after

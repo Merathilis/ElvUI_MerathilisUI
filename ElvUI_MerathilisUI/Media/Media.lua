@@ -1,6 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local LSM = E.LSM or E.Libs.LSM
 
+local ipairs = ipairs
+
 local westAndRUBits = LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western
 local allLocaleBits = LSM.LOCALE_BIT_koKR + LSM.LOCALE_BIT_zhCN + LSM.LOCALE_BIT_zhTW + westAndRUBits
 
@@ -27,45 +29,13 @@ MER.ClassIcons = {
 	["EVOKER"] = "Interface/AddOns/ElvUI_MerathilisUI/Media/Icons/ClassIcon/Evoker",
 }
 
-F.AddMedia("texture", "WidgetsTips")
-F.AddMedia("logo", "LogoSmall")
 F.AddMedia("logo", "Logo")
 
-F.AddMedia("icon", "Achievements")
-F.AddMedia("icon", "Bags")
-F.AddMedia("icon", "BlizzardShop")
-F.AddMedia("icon", "Character")
-F.AddMedia("icon", "Collections")
-F.AddMedia("icon", "EncounterJournal")
-F.AddMedia("icon", "GameMenu")
-F.AddMedia("icon", "Friends")
-F.AddMedia("icon", "GroupFinder")
-F.AddMedia("icon", "Guild")
 F.AddMedia("icon", "Home")
-F.AddMedia("icon", "MissionReports")
-F.AddMedia("icon", "Notification")
-F.AddMedia("icon", "Options")
-F.AddMedia("icon", "PetJournal")
-F.AddMedia("icon", "Profession")
-F.AddMedia("icon", "ScreenShot")
-F.AddMedia("icon", "Sound")
-F.AddMedia("icon", "SpellBook")
-F.AddMedia("icon", "Talents")
-F.AddMedia("icon", "ToyBox")
-F.AddMedia("icon", "Volume")
 
-F.AddMedia("icon", "Convert")
 F.AddMedia("icon", "Favorite")
-F.AddMedia("icon", "Information")
-F.AddMedia("icon", "Innovation")
 F.AddMedia("icon", "List")
-F.AddMedia("icon", "Media")
-F.AddMedia("icon", "Modules")
-F.AddMedia("icon", "Skins")
-F.AddMedia("icon", "Accept")
-F.AddMedia("icon", "Complete")
 F.AddMedia("icon", "Discord")
-F.AddMedia("icon", "Github")
 
 -- Brand logos (rounded tiles) for the Information page
 F.AddMedia("icon", "Brands/CurseForge")
@@ -90,7 +60,6 @@ F.AddMedia("icon", "Categories/Tips")
 F.AddMedia("icon", "Categories/Bill")
 F.AddMedia("icon", "Categories/Save")
 F.AddMedia("icon", "Categories/More")
-F.AddMedia("icon", "Categories/Tool")
 F.AddMedia("icon", "Categories/Gradient")
 F.AddMedia("icon", "Categories/Changelog")
 F.AddMedia("icon", "Categories/actionbars")
@@ -103,6 +72,7 @@ F.AddMedia("icon", "Categories/cursor")
 F.AddMedia("icon", "Categories/datatexts")
 F.AddMedia("icon", "Categories/hover_cast")
 F.AddMedia("icon", "Categories/item_level")
+F.AddMedia("icon", "Categories/loadout_manager")
 F.AddMedia("icon", "Categories/loot_roll")
 F.AddMedia("icon", "Categories/mail")
 F.AddMedia("icon", "Categories/maps")
@@ -112,9 +82,12 @@ F.AddMedia("icon", "Categories/nameplates")
 F.AddMedia("icon", "Categories/notifications")
 F.AddMedia("icon", "Categories/panels")
 F.AddMedia("icon", "Categories/presets")
+F.AddMedia("icon", "Categories/quick_grid")
 F.AddMedia("icon", "Categories/theme")
+F.AddMedia("icon", "Categories/tooltip")
 F.AddMedia("icon", "Categories/tracker")
 F.AddMedia("icon", "Categories/unitframes")
+F.AddMedia("icon", "Categories/unlock_mode")
 F.AddMedia("icon", "Categories/vehicle")
 F.AddMedia("icon", "Categories/info")
 
@@ -129,10 +102,6 @@ F.AddMedia("icon", "Chat/settings")
 F.AddMedia("icon", "Chat/scroll")
 F.AddMedia("icon", "Chat/resize")
 
-F.AddMedia("icon", "Lock")
-F.AddMedia("icon", "Unlock")
-F.AddMedia("icon", "Minus")
-F.AddMedia("icon", "Plus")
 F.AddMedia("icon", "Forward")
 F.AddMedia("icon", "Install")
 F.AddMedia("icon", "Delete")
@@ -141,47 +110,16 @@ F.AddMedia("icon", "Warning")
 F.AddMedia("icon", "Flash")
 F.AddMedia("icon", "New")
 
-F.AddMedia("icon", "Leader")
-
-F.AddMedia("icon", "m2")
-
 -- Flags
-F.AddMedia("icon", "American")
-F.AddMedia("icon", "Brazilian")
-F.AddMedia("icon", "French")
 F.AddMedia("icon", "German")
-F.AddMedia("icon", "Italian")
-F.AddMedia("icon", "Oceanic")
-F.AddMedia("icon", "Portuguese")
 F.AddMedia("icon", "Russian")
-F.AddMedia("icon", "Spanish")
 F.AddMedia("icon", "Korean")
 
-F.AddMedia("button", "Lock")
-F.AddMedia("button", "Unlock")
-F.AddMedia("button", "Minus")
-F.AddMedia("button", "Plus")
-F.AddMedia("button", "Forward")
-F.AddMedia("button", "Delete")
-F.AddMedia("button", "Setting")
-F.AddMedia("button", "Start")
-F.AddMedia("button", "End")
-F.AddMedia("button", "Discord")
-F.AddMedia("button", "Pin")
-F.AddMedia("button", "Undo")
-
 F.AddMedia("texture", "arrow")
-F.AddMedia("texture", "arrowUp")
 F.AddMedia("texture", "pepeSmall")
-F.AddMedia("texture", "pushed")
 
-F.AddMedia("texture", "PepeArt")
-
-F.AddMedia("texture", "PepoLove")
 F.AddMedia("texture", "PepoBedge")
-F.AddMedia("texture", "PepoOkaygeL")
-F.AddMedia("texture", "PepoStrongge")
-F.AddMedia("texture", "PepoWeirdge")
+F.AddMedia("texture", "AFKVignette")
 
 -- Role Icons
 F.AddMedia("role", "SunUITank")
@@ -204,10 +142,6 @@ F.AddMedia("role", "GravedTank")
 F.AddMedia("role", "GravedHealer")
 F.AddMedia("role", "GravedDPS")
 
-F.AddMedia("role", "MainTank")
-F.AddMedia("role", "MainHealer")
-F.AddMedia("role", "MainDPS")
-
 F.AddMedia("role", "WhiteTank")
 F.AddMedia("role", "WhiteHealer")
 F.AddMedia("role", "WhiteDPS")
@@ -220,18 +154,19 @@ F.AddMedia("role", "ElvUITank")
 F.AddMedia("role", "ElvUIHealer")
 F.AddMedia("role", "ElvUIDPS")
 
-F.AddMedia("role", "BlizzTank")
-F.AddMedia("role", "BlizzHealer")
-F.AddMedia("role", "BlizzDPS")
-
 F.AddMedia("texture", "EmptyTex")
 F.AddMedia("texture", "GlowTex")
+F.AddMedia("texture", "UnlockMode/LockBody")
+F.AddMedia("texture", "UnlockMode/LockShackle")
+F.AddMedia("texture", "UnlockMode/Ring")
+F.AddMedia("texture", "UnlockMode/Glow")
 
-F.AddMedia("texture", "Difficulty.tga")
-
-F.AddMedia("texture", "NoiseInner")
-F.AddMedia("texture", "ShadowInner")
-F.AddMedia("texture", "ShadowInnerSmall")
+-- UnitFrame Portraits: shape, ring, shadow and inner shade per style
+for _, style in ipairs({ "Drop", "DropMirror", "Circle", "Square" }) do
+	for _, part in ipairs({ "Mask", "Ring", "Shadow", "Inner" }) do
+		F.AddMedia("texture", "Portraits/" .. style .. part)
+	end
+end
 
 -- Fonts
 F.AddMedia("font", "Expressway.ttf", I.Fonts.Primary, nil, westAndRUBits)

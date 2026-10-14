@@ -224,7 +224,11 @@ end
 
 local function BuildCharacterSection(sections)
 	local section = AddSection(sections, "Character")
-	AddRow(section, "Character", format("Level %s %s %s", E.mylevel, E.myrace, englishClassName[E.myclass] or E.myclass))
+	AddRow(
+		section,
+		"Character",
+		format("Level %s %s %s", E.mylevel, E.myrace, englishClassName[E.myclass] or E.myclass)
+	)
 	AddRow(section, "Specialization", GetSpecName())
 	AddRow(section, "Faction", E.myfaction)
 	AddRow(section, "Zone", GetRealZoneText() or UNKNOWN)
@@ -305,7 +309,7 @@ local function BuildDiagnosticsSection(sections)
 
 	local taintLevel = tonumber(GetCVar("taintLog")) or 0
 	local taintLog = AddRow(section, "Taint Log", taintLevel > 0 and ("Level " .. taintLevel) or "Off")
-	taintLog.tip = "Writes blocked actions (\"Interface action failed\") to Logs/taint.log in the WoW folder. "
+	taintLog.tip = 'Writes blocked actions ("Interface action failed") to Logs/taint.log in the WoW folder. '
 		.. "Level 2 is very verbose, turn it off again when you are done."
 	taintLog.clickHint = "Next level (off, 1, 2)"
 	taintLog.onClick = function()

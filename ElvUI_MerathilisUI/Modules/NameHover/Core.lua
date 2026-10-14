@@ -275,7 +275,9 @@ local function UpdateFrameContents(f)
 
 	local headerText = module:CombineText(faction, classification, creatureType, race)
 
-	f.lastUnitGUID = not E:IsSecretValue(UnitGUID("mouseover"))
+	-- The GUID itself, the content refresh below only runs again for another unit
+	local guid = UnitGUID("mouseover")
+	f.lastUnitGUID = E:NotSecretValue(guid) and guid or nil
 
 	if nameIsSecret then
 		-- unitText carries a secret (anonymized) name and can't be joined via
@@ -527,6 +529,24 @@ function module:Initialize()
 	frame.refreshElapsed = 0
 	frame.blizzElapsed = 0
 
+	-- One function for every queued mouseover update instead of a new closure per event
+	local function RunQueuedUpdate()
+		frame.updateQueued = false
+
+		if module._disabledInInstance or not UnitExists("mouseover") then
+			UpdateBlizzTooltipAlpha()
+			HideBlizzTooltipIfStale()
+			frame:Hide()
+			return
+		end
+
+		UpdateBlizzTooltipAlpha()
+		UpdateFrameContents(frame)
+		if frame:IsShown() then
+			UpdateFramePosition(frame)
+		end
+	end
+
 	frame:SetScript("OnUpdate", function(self, elapsed)
 		-- Visibility every frame: hide when mouseover ends (critical)
 		if module._disabledInInstance or not UnitExists("mouseover") then
@@ -610,22 +630,7 @@ function module:Initialize()
 		end
 		self.updateQueued = true
 
-		C_Timer_After(0.01, function()
-			self.updateQueued = false
-
-			if module._disabledInInstance or not UnitExists("mouseover") then
-				UpdateBlizzTooltipAlpha()
-				HideBlizzTooltipIfStale()
-				self:Hide()
-				return
-			end
-
-			UpdateBlizzTooltipAlpha()
-			UpdateFrameContents(self)
-			if self:IsShown() then
-				UpdateFramePosition(self)
-			end
-		end)
+		C_Timer_After(0.01, RunQueuedUpdate)
 	end)
 
 	frame:RegisterEvent("UPDATE_MOUSEOVER_UNIT")

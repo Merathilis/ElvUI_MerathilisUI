@@ -357,6 +357,29 @@ P.bags = {
 			backgroundAlpha = 0.8,
 		},
 		collapsedSections = {},
+		-- "GRID" | "LIST" | "COMPACT", per window
+		displayMode = "GRID",
+		bankDisplayMode = "GRID",
+		-- Column list, widths and sort live in here too once changed; they
+		-- have no defaults on purpose (AceDB would fill removed array entries
+		-- back in from a default list).
+		list = {
+			rowHeight = 22,
+			fontSize = 11,
+			stripes = true,
+			sectionValue = false,
+		},
+		junkMarker = {
+			enable = false,
+			autoSell = false,
+			sellSummary = true,
+			sortByValue = false,
+			showInRecent = true,
+			separateSection = false,
+			atTop = false,
+			coinCorner = "TOPRIGHT",
+		},
+		junkExcluded = {},
 	},
 }
 
@@ -734,6 +757,18 @@ P.armory = {
 
 P.tooltip = {
 	achievement = true,
+	buffs = {
+		enable = false,
+		playersOnly = true,
+		position = "TOP",
+		size = 20,
+		spacing = 2,
+		perRow = 10,
+		maxIcons = 16,
+		countFontSize = 10,
+		xOffset = 0,
+		yOffset = 0,
+	},
 }
 
 P.mail = {
@@ -788,11 +823,18 @@ P.actionbars = {
 		frameLevel = 1,
 		size = 20,
 	},
+	assistedRotation = {
+		enable = true,
+		animation = true,
+		colorMode = "DEFAULT",
+		customColor = { r = 1, g = 0.82, b = 0 },
+	},
 }
 
 P.vehicleBar = {
 	enable = false,
 	hideElvUIBars = true,
+	hideWhileSkyriding = false,
 	buttonWidth = 34,
 	animations = true,
 	animationsMult = 1,
@@ -891,7 +933,7 @@ P.minimapButtons = {
 	point = "BOTTOMLEFT",
 	growth = "DOWN",
 	xOffset = -15,
-	yOffset = 78,
+	yOffset = 80,
 	size = 20,
 	spacing = 2,
 
@@ -979,9 +1021,9 @@ P.nameplates = {
 		enable = true,
 		format = "PERCENT",
 		fontSize = 10,
-		position = "RIGHT",
-		xOffset = 4,
-		yOffset = 0,
+		position = "TOPRIGHT",
+		xOffset = 2,
+		yOffset = 7,
 		color = { r = 1, g = 1, b = 1 },
 	},
 	interruptReady = {
@@ -990,6 +1032,13 @@ P.nameplates = {
 		window = true,
 		tick = true,
 		tickColor = { r = 1, g = 1, b = 1 },
+	},
+	castbarShield = {
+		enable = true,
+		size = 16,
+		anchorPoint = "LEFT",
+		xOffset = 0,
+		yOffset = 0,
 	},
 	castTarget = {
 		enable = true,
@@ -1011,11 +1060,34 @@ P.nameplates = {
 		colorMode = "CUSTOM",
 		customColor = F.Table.HexToRGB("#00c0fa"),
 	},
+	neutralNameOnly = {
+		enable = true,
+		target = true,
+		combat = true,
+		gradientName = true,
+	},
 }
 
 P.unitframes = {
 	raidIcons = true,
 	highlight = true,
+	roundedCorners = {
+		enable = false,
+		units = {
+			player = true,
+			target = true,
+			focus = true,
+			targettarget = true,
+			pet = true,
+			pettarget = true,
+			party = true,
+			raid = true,
+			boss = true,
+			arena = true,
+			classbar = true,
+			castbar = true,
+		},
+	},
 	restingIndicator = {
 		enable = true,
 		colorMode = "CLASS_GRADIENT",
@@ -1046,6 +1118,19 @@ P.unitframes = {
 			arena = true,
 		},
 	},
+	castbarShield = {
+		enable = true,
+		size = 24,
+		anchorPoint = "LEFT",
+		xOffset = 0,
+		yOffset = 0,
+		units = {
+			target = true,
+			focus = true,
+			boss = true,
+			arena = true,
+		},
+	},
 	executeLine = {
 		enable = false,
 		percent = 20,
@@ -1063,6 +1148,120 @@ P.unitframes = {
 			focus = true,
 			boss = true,
 			arena = false,
+		},
+	},
+	portraits = {
+		enable = true,
+		style = "Drop",
+		colorMode = "CLASS",
+		customColor = F.Table.HexToRGB("#00c0fa"),
+		backgroundColor = { r = 0.1, g = 0.1, b = 0.1 },
+		shadow = true,
+		shadowAlpha = 0.6,
+		innerShadow = true,
+		classification = {
+			enable = true,
+			style = "DRAGON",
+			types = {
+				boss = true,
+				elite = true,
+				rareelite = true,
+				rare = true,
+			},
+			dragonColor = "BLIZZARD",
+			dragonScale = 1,
+			dragonOnTop = true,
+			badgeSize = 22,
+			badgeXOffset = 5,
+			badgeYOffset = -5,
+			colors = {
+				boss = F.Table.HexToRGB("#ff3333"),
+				elite = F.Table.HexToRGB("#ffc829"),
+				rareelite = F.Table.HexToRGB("#b45cff"),
+				rare = F.Table.HexToRGB("#c8d0d8"),
+			},
+		},
+		units = {
+			player = {
+				enable = true,
+				size = 52,
+				mirror = false,
+				cast = true,
+				point = "RIGHT",
+				relativePoint = "LEFT",
+				xOffset = -2,
+				yOffset = 15,
+			},
+			target = {
+				enable = true,
+				size = 52,
+				mirror = true,
+				cast = true,
+				point = "LEFT",
+				relativePoint = "RIGHT",
+				xOffset = 2,
+				yOffset = 15,
+			},
+			focus = {
+				enable = false,
+				size = 40,
+				mirror = true,
+				cast = true,
+				point = "LEFT",
+				relativePoint = "RIGHT",
+				xOffset = 2,
+				yOffset = 0,
+			},
+			targettarget = {
+				enable = false,
+				size = 36,
+				mirror = true,
+				cast = false,
+				point = "LEFT",
+				relativePoint = "RIGHT",
+				xOffset = 2,
+				yOffset = 0,
+			},
+			pet = {
+				enable = false,
+				size = 36,
+				mirror = false,
+				cast = false,
+				point = "RIGHT",
+				relativePoint = "LEFT",
+				xOffset = -2,
+				yOffset = 0,
+			},
+			party = {
+				enable = false,
+				size = 40,
+				mirror = false,
+				cast = true,
+				point = "RIGHT",
+				relativePoint = "LEFT",
+				xOffset = -2,
+				yOffset = 0,
+			},
+			boss = {
+				enable = false,
+				size = 40,
+				mirror = true,
+				cast = true,
+				point = "LEFT",
+				relativePoint = "RIGHT",
+				xOffset = 2,
+				yOffset = 0,
+			},
+			arena = {
+				enable = false,
+				size = 40,
+				mirror = true,
+				cast = true,
+				point = "LEFT",
+				relativePoint = "RIGHT",
+				xOffset = 2,
+				yOffset = 0,
+			},
 		},
 	},
 }
@@ -1208,6 +1407,23 @@ P.tracker = {
 			style = "SHADOWOUTLINE",
 		},
 		color = { r = 1, g = 1, b = 1 },
+	},
+}
+
+P.quickGrid = {
+	enable = false,
+	anchor = "CURSOR", -- CURSOR, CENTER
+	tileSize = 44,
+	spacing = 6,
+	showLabel = true,
+	labelSize = 14,
+	showCooldowns = true,
+	decks = {
+		teleports = true,
+		travel = true,
+		markers = true,
+		professions = true,
+		custom = true,
 	},
 }
 
@@ -1466,5 +1682,25 @@ P.auras = {
 	buffsCollapse = {
 		enable = true,
 		expanded = true,
+	},
+}
+
+P.unlockMode = {
+	enable = true,
+	toolbar = true, -- replaces ElvUI's mover popup
+	showGrid = true,
+	gridAccent = true, -- center lines of the grid in the class color
+	sortBySize = true, -- small movers above big ones
+	editModeHints = true, -- marks what Blizzard's Edit Mode still places
+	animation = true, -- unlock / lock animation when the mover mode opens and closes
+	keyboardNudge = true,
+	bigStep = 10, -- arrow keys with a modifier
+	anchorLines = true,
+	anchors = {}, -- [child mover] = { target, point, relativePoint }
+	snap = {
+		enable = true,
+		guides = true,
+		screen = true, -- also snap to the screen center and edges
+		distance = 8,
 	},
 }

@@ -2,7 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 F.Event = {}
 
 local next, pairs, pcall, select, type, unpack = next, pairs, pcall, select, type, unpack
-local rawset = rawset
+local rawset, wipe = rawset, wipe
 local securecallfunction = securecallfunction
 local secureexecuterange = secureexecuterange
 
@@ -173,13 +173,29 @@ do
 		securecallfunction(func, owner, ...)
 	end
 
-	-- Snapshot so callbacks can (un)register during dispatch; keys are owners and must be kept as-is
-	local function copyCallbacks(callbacks)
-		local copy = {}
+	-- Snapshot so callbacks can (un)register during dispatch; keys are owners and must be kept as-is.
+	-- The snapshot tables are reused per nesting depth (a callback can trigger another event), so
+	-- a dispatch allocates nothing. secureexecuterange reports callback errors without unwinding,
+	-- so the release after it always runs, like Blizzard's CallbackRegistry relies on too.
+	local snapshots, snapshotDepth = {}, 0
+
+	local function SnapshotCallbacks(callbacks)
+		snapshotDepth = snapshotDepth + 1
+		local copy = snapshots[snapshotDepth]
+		if not copy then
+			copy = {}
+			snapshots[snapshotDepth] = copy
+		end
+
 		for owner, callback in pairs(callbacks) do
 			copy[owner] = callback
 		end
 		return copy
+	end
+
+	local function ReleaseSnapshot(copy)
+		wipe(copy)
+		snapshotDepth = snapshotDepth - 1
 	end
 
 	function F.Event.TriggerEvent(event, ...)
@@ -189,12 +205,16 @@ do
 
 		local closures = GetCallbacksByEvent(callbackType.CLOSURE, event)
 		if closures and next(closures) then
-			secureexecuterange(copyCallbacks(closures), CallbackRegistryExecuteClosurePair, ...)
+			local copy = SnapshotCallbacks(closures)
+			secureexecuterange(copy, CallbackRegistryExecuteClosurePair, ...)
+			ReleaseSnapshot(copy)
 		end
 
 		local funcs = GetCallbacksByEvent(callbackType.FUNCTION, event)
 		if funcs and next(funcs) then
-			secureexecuterange(copyCallbacks(funcs), CallbackRegistryExecuteOwnerPair, ...)
+			local copy = SnapshotCallbacks(funcs)
+			secureexecuterange(copy, CallbackRegistryExecuteOwnerPair, ...)
+			ReleaseSnapshot(copy)
 		end
 	end
 
@@ -324,37 +344,51 @@ do
 		F.Event.RegisterOnceFrameEventAndCallback("PLAYER_REGEN_ENABLED", callback)
 	end
 
-	function F.Event.ContinueAfter(cmp, callback)
-		if cmp() == true then
-			callback()
-			return
-		end
-
-		local checkWrapper
-		checkWrapper = function()
-			if cmp() == true then
-				callback()
-				return
-			end
-
-			C_Timer_After(0.2, checkWrapper)
-		end
-
-		C_Timer_After(0.2, checkWrapper)
-	end
-
 	do
 		local elvUpdating = false
 		local elvUFUpdating = false
 
-		MER:RawHook(E, "UpdateStart", function(...)
-			elvUpdating = true
-			MER.hooks[E]["UpdateStart"](...)
+		-- Callbacks waiting for ElvUI's update; run where the update ends instead of polling for it
+		local waiting = {}
+		local coroutineHooked = false
+
+		-- Older ElvUI builds run their mass updates as coroutines on this frame
+		local function elvCoroutinesRunning()
+			return E.CoroutineFrame and E.CoroutineFrame:IsShown()
+		end
+
+		local function IsIdle()
+			return not (elvUpdating or elvUFUpdating or elvCoroutinesRunning())
+		end
+
+		local function RunWaiting()
+			if not IsIdle() or #waiting == 0 then
+				return
+			end
+
+			-- A callback may queue another one or start an update, so the list is taken first
+			local count = #waiting
+			local callbacks = { unpack(waiting, 1, count) }
+			wipe(waiting)
+			-- One failing callback must not take the others or ElvUI's UpdateEnd down with it
+			for i = 1, count do
+				securecallfunction(callbacks[i])
+			end
+		end
+
+		-- Only E:UpdateAll's own UpdateStart() is closed by an UpdateEnd. ElvUI's theme setup
+		-- calls UpdateStart(true) on its own, that one must not leave the flag set.
+		MER:RawHook(E, "UpdateStart", function(self, skipUpdateDB, ...)
+			if not skipUpdateDB then
+				elvUpdating = true
+			end
+			MER.hooks[E]["UpdateStart"](self, skipUpdateDB, ...)
 		end)
 
 		MER:RawHook(E, "UpdateEnd", function(...)
 			MER.hooks[E]["UpdateEnd"](...)
 			elvUpdating = false
+			RunWaiting()
 		end)
 
 		local eUF = E:GetModule("UnitFrames")
@@ -362,17 +396,21 @@ do
 			elvUFUpdating = true
 			MER.hooks[eUF]["Update_AllFrames"](...)
 			elvUFUpdating = false
+			RunWaiting()
 		end)
 
-		-- ElvUIs mass updates are coroutines now, they outlive the calls that queued them
-		local function elvCoroutinesRunning()
-			return E.CoroutineFrame and E.CoroutineFrame:IsShown()
-		end
-
 		function F.Event.ContinueAfterElvUIUpdate(callback)
-			F.Event.ContinueAfter(function()
-				return not (elvUpdating or elvUFUpdating or elvCoroutinesRunning())
-			end, callback)
+			if IsIdle() then
+				callback()
+				return
+			end
+
+			if not coroutineHooked and E.CoroutineFrame then
+				coroutineHooked = true
+				E.CoroutineFrame:HookScript("OnHide", RunWaiting)
+			end
+
+			waiting[#waiting + 1] = callback
 		end
 	end
 

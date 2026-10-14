@@ -15,27 +15,22 @@ local BREZ_SPELL_ID = 20484
 local POLL_INTERVAL = 0.5
 local TEST_RECHARGE = 90
 
-local timeFont = CreateFont("MER_TrackerBattleResFont")
-timeFont:SetFont(E.media.normFont, 14, "OUTLINE")
+-- Created with the frames, see CreateBattleResFrames
+local timeFont
 
 -------------------------------------------------------------------------------
 --  Frames
 -------------------------------------------------------------------------------
-function module:CreateBattleResFrames()
-	if self.battleResFrame then
-		return
-	end
-
-	local frame = CreateFrame("Frame", "MER_TrackerBattleRes", E.UIParent)
+-- The widget itself, also built by the options preview (Options/Widgets/TrackerPreview.lua)
+function module:BuildBattleResFrame(name, parent, fontName)
+	local frame = CreateFrame("Frame", name, parent)
 	frame:Size(40)
-	frame:Point("CENTER", E.UIParent, "CENTER", 0, 200)
-	frame:Hide()
 
 	frame.iconFrame = self:CreateIcon(frame)
 	frame.icon = frame.iconFrame.icon
 	frame.icon:SetTexture(C_Spell.GetSpellTexture(BREZ_SPELL_ID) or 136080)
 
-	local cooldown = self:CreateCountdown(frame, "MER_TrackerBattleResFont")
+	local cooldown = self:CreateCountdown(frame, fontName)
 	cooldown:SetFrameLevel(frame.iconFrame:GetFrameLevel() + 2)
 	frame.cooldown = cooldown
 	frame.timeText = cooldown:GetCountdownFontString()
@@ -47,26 +42,36 @@ function module:CreateBattleResFrames()
 	frame.count = frame.overlay:CreateFontString(nil, "OVERLAY")
 	frame.separator = frame.overlay:CreateFontString(nil, "OVERLAY")
 
+	return frame
+end
+
+function module:CreateBattleResFrames()
+	if self.battleResFrame then
+		return
+	end
+
+	timeFont = CreateFont("MER_TrackerBattleResFont")
+	timeFont:SetFont(E.media.normFont, 14, "OUTLINE")
+
+	local frame = self:BuildBattleResFrame("MER_TrackerBattleRes", E.UIParent, "MER_TrackerBattleResFont")
+	frame:Point("CENTER", E.UIParent, "CENTER", 0, 200)
+	frame:Hide()
+
 	self.battleResFrame = frame
 	self:CreateTrackerMover(frame, "MER_TrackerBattleResMover", L["Battle Res"], "battleRes")
 end
 
-function module:UpdateBattleResLayout()
-	local frame = self.battleResFrame
-	if not frame then
-		return
-	end
-
-	local db = self.db.battleRes
+---Applies the settings to a frame from BuildBattleResFrame, also used by the options preview
+---@return boolean isText
+function module:LayoutBattleResFrame(frame, font, db)
 	local isText = db.displayMode == "TEXT"
-	self.battleResIsText = isText
 
 	self.SetFont(frame.count, db.countFont)
 	frame.count:SetTextColor(db.countColor.r, db.countColor.g, db.countColor.b)
 	self.SetFont(frame.separator, db.countFont)
-	self.SetFont(timeFont, db.timeFont)
+	self.SetFont(font, db.timeFont)
 	if frame.timeText then
-		frame.timeText:SetFontObject(timeFont)
+		frame.timeText:SetFontObject(font)
 		frame.timeText:SetTextColor(db.timeColor.r, db.timeColor.g, db.timeColor.b)
 	end
 
@@ -112,6 +117,17 @@ function module:UpdateBattleResLayout()
 			frame.timeText:Point("CENTER", frame, "CENTER", 0, 0)
 		end
 	end
+
+	return isText
+end
+
+function module:UpdateBattleResLayout()
+	local frame = self.battleResFrame
+	if not frame then
+		return
+	end
+
+	self.battleResIsText = self:LayoutBattleResFrame(frame, timeFont, self.db.battleRes)
 
 	-- Force the next poll to repaint with the new colors
 	self.lastCount = nil

@@ -66,6 +66,9 @@ local tips = {
 		text = L["Presets > Export turns your setup into a code. Upload it with a few screenshots on merathilisui.com to share it."],
 		path = { "presets", "export" },
 	},
+	{
+		text = L["The options window opens at a size that fits your screen. Reposition Window at the bottom of the window brings it back to that size."],
+	},
 	{ text = L["Type /mlr to preview the Loot Roll bar with test rolls."], path = { "modules", "lootRoll" } },
 	{
 		text = L["Type /lsm to open the LootSpecManager. It switches your loot spec per boss in raids and Mythic+."],
@@ -102,20 +105,55 @@ local tips = {
 		path = { "modules", "hoverCast" },
 	},
 	{
+		text = L["Quick Grid opens a grid of eight actions at your cursor while you hold a key: teleports, mounts, markers, professions or your own."],
+		path = { "modules", "quickGrid" },
+	},
+	{
+		text = L["In the Quick Grid marker deck, hold Shift while you release the key to place a world marker instead of a target marker."],
+		path = { "modules", "quickGrid" },
+	},
+	{
+		text = L["The Loadout Manager equips your gear set and loads your talent loadout on its own when you enter a dungeon, raid or other content. Type /lm to set it up."],
+		path = { "modules", "loadoutManager" },
+		retailOnly = true,
+	},
+	{
+		text = L["Loadout Manager assignments can be made for all specs or a single spec. A spec assignment wins over the All Specs one."],
+		path = { "modules", "loadoutManager" },
+		retailOnly = true,
+	},
+	{
+		text = L["Inside an instance, the Loadout Manager can save a loadout for just the difficulty you are in, e.g. only Mythic."],
+		path = { "modules", "loadoutManager" },
+		retailOnly = true,
+	},
+	{
 		text = L["Interrupt Ready colors enemy castbars while your interrupt is on cooldown and marks when it is ready again."],
-		path = { "modules", "nameplates", "general" },
+		path = { "modules", "nameplates", "castbar" },
 	},
 	{
 		text = L["In Mythic+, the nameplates can show how much Enemy Forces each enemy is worth."],
-		path = { "modules", "nameplates", "general" },
+		path = { "modules", "nameplates", "indicators" },
 	},
 	{
 		text = L["Cast on You marks the castbar of enemies whose cast targets you."],
-		path = { "modules", "nameplates", "general" },
+		path = { "modules", "nameplates", "castbar" },
+	},
+	{
+		text = L["Neutral Name Only shows only the name of idle neutral NPCs and gives them their full nameplate back in combat."],
+		path = { "modules", "nameplates", "neutralNameOnly" },
 	},
 	{
 		text = L["Categorized Bags sorts your bags into groups like equipment, consumables and quest items."],
 		path = { "modules", "bags", "categorizedBags" },
+	},
+	{
+		text = L["Categorized Bags can also show your items as a sortable list or as compact blocks. Switch it with the button in the bag's title bar."],
+		path = { "modules", "bags", "categorizedBags", "displayModes" },
+	},
+	{
+		text = L["The Junk Marker of Categorized Bags marks items as junk with a click, Sell Junk then sells all of them at a vendor."],
+		path = { "modules", "bags", "categorizedBags", "junkMarker" },
 	},
 	{
 		text = L["The Armory warns you about missing enchants and sockets on your gear."],
@@ -383,7 +421,8 @@ local function UpdateCard(self)
 	local version, data = GetLatestChangelog()
 	self.changelogVersion = version
 
-	local title = format(L["What's New in %s"], F.String.MERATHILISUI(version and FormatVersion(version) or MER.Version))
+	local title =
+		format(L["What's New in %s"], F.String.MERATHILISUI(version and FormatVersion(version) or MER.Version))
 	card.title:SetText(sectionIcons.NEW .. " " .. title)
 
 	local releaseDate = data and data.RELEASE_DATE

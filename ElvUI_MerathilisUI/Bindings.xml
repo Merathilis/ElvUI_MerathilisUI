@@ -6,4 +6,9 @@
 			MER_NameHover_SetInspectBindingState(false);
 		end
 	</Binding>
+	<Binding name="MER_QUICKGRID_TELEPORTS" header="MER_QUICKGRID" category="MerathilisUI" />
+	<Binding name="MER_QUICKGRID_TRAVEL" category="MerathilisUI" />
+	<Binding name="MER_QUICKGRID_MARKERS" category="MerathilisUI" />
+	<Binding name="MER_QUICKGRID_PROFESSIONS" category="MerathilisUI" />
+	<Binding name="MER_QUICKGRID_CUSTOM" category="MerathilisUI" />
 </Bindings>

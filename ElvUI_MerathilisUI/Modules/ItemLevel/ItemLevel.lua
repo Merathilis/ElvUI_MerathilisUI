@@ -62,10 +62,10 @@ function module.ItemLevel_UpdateTradeTarget(index)
 	module.ItemLevel_Update(_G["TradeRecipientItem" .. index], GetTradeTargetItemLink(index))
 end
 
--- Always installed, they check the setting on every call, so turning it on or off (also by a
--- profile switch) works without a reload
-function module:Initialize()
-	if self.initialized then
+-- Installed on first enable; from then on they check the setting on every call, so turning
+-- it off again (also by a profile switch) works without a reload
+function module:UpdateHooks()
+	if self.hooked or not IsEnabled() then
 		return
 	end
 
@@ -73,7 +73,15 @@ function module:Initialize()
 	hooksecurefunc("TradeFrame_UpdatePlayerItem", module.ItemLevel_UpdateTradePlayer)
 	hooksecurefunc("TradeFrame_UpdateTargetItem", module.ItemLevel_UpdateTradeTarget)
 
-	self.initialized = true
+	self.hooked = true
+end
+
+function module:Initialize()
+	self:UpdateHooks()
+end
+
+function module:ProfileUpdate()
+	self:UpdateHooks()
 end
 
 MER:RegisterModule(module:GetName())

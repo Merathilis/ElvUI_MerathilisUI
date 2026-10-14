@@ -35,6 +35,8 @@ local function IsSupported()
 	return PlayerIsSpellTarget and C_CurveUtil_EvaluateColorValueFromBoolean and true
 end
 
+-- The look only changes with the settings (Configure marks it) or a new fill region, so a cast
+-- start only shows the parts instead of anchoring everything again
 local function ApplyStyle(ct)
 	local castbar = ct.castbar
 	local db = GetDB()
@@ -42,6 +44,15 @@ local function ApplyStyle(ct)
 
 	-- A texture change on the castbar can hand out a new fill region
 	local barTexture = castbar:GetStatusBarTexture()
+	if not ct.styleDirty and ct.styledFill == barTexture then
+		ct.tint:SetShown(db.tint)
+		for _, side in pairs(BORDER_SIDES) do
+			ct.border[side]:SetShown(db.border)
+		end
+		return
+	end
+	ct.styleDirty, ct.styledFill = nil, barTexture
+
 	ct.tint:SetAllPoints(barTexture)
 	ct.tint:SetTexture(barTexture and barTexture:GetTexture() or E.media.normTex)
 	ct.tint:SetVertexColor(color.r, color.g, color.b, 1)
@@ -166,6 +177,7 @@ function module:Configure_CastTarget(nameplate)
 	end
 
 	ct.enabled = enabled
+	ct.styleDirty = true
 
 	if not enabled then
 		Hide(ct)

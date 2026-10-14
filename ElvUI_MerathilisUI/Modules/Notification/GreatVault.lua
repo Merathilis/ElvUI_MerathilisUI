@@ -40,5 +40,10 @@ function module:WEEKLY_REWARDS_UPDATE()
 		return
 	end
 
-	self:DisplayToast(L["Great Vault"], L["Your Great Vault has rewards ready to claim!"], ToggleGreatVault, GREAT_VAULT_ATLAS)
+	self:DisplayToast(
+		L["Great Vault"],
+		L["Your Great Vault has rewards ready to claim!"],
+		ToggleGreatVault,
+		GREAT_VAULT_ATLAS
+	)
 end

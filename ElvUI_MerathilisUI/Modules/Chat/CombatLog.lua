@@ -4,7 +4,6 @@ local module = MER:GetModule("MER_Chat")
 local _G = _G
 local ipairs = ipairs
 
-local C_AddOns = C_AddOns
 local hooksecurefunc = hooksecurefunc
 
 local INACTIVE_ALPHA = 0.6
@@ -47,6 +46,18 @@ local function ColorButton(button)
 end
 
 function module:UpdateCombatLog()
+	-- Hooked on the first enable only; afterwards this also restores Blizzard's colors
+	if not self.combatLogSetUp then
+		if not IsEnabled() then
+			return
+		end
+		self.combatLogSetUp = true
+		F.Event.ContinueOnAddOnLoaded("Blizzard_CombatLog", function()
+			module:SetupCombatLog()
+		end)
+		return
+	end
+
 	local filters = _G.Blizzard_CombatLog_Filters
 	if not filters then
 		return
@@ -73,18 +84,4 @@ function module:SetupCombatLog()
 	end)
 
 	self:UpdateCombatLog()
-end
-
-function module:InitializeCombatLog()
-	if C_AddOns.IsAddOnLoaded("Blizzard_CombatLog") then
-		self:SetupCombatLog()
-		return
-	end
-
-	self:RegisterEvent("ADDON_LOADED", function(_, addon)
-		if addon == "Blizzard_CombatLog" then
-			self:UnregisterEvent("ADDON_LOADED")
-			self:SetupCombatLog()
-		end
-	end)
 end
