@@ -15,6 +15,7 @@ MER.Changelog[741] = {
 		"[UnitFrames]: New Portraits for the player and target frames, on by default: the unit's portrait cut to a shape (Drop, Circle or Square) and framed by a ring in its class or reaction color (or the Gradient Theme colors), with a soft shadow and the spell icon while the unit casts. Boss, elite and rare NPCs are marked with the dragon of the Blizzard target frame (in its own colors, the classification color or the portrait color), a badge or a ring in their classification color. Focus, target of target, pet, party, boss and arena can be turned on in the options. The installer and the presets set the ring to the gradient colors for the Gradient layout and to the class color for the Dark layout, the Minimal preset turns the portraits off. The mMediaTag profile now turns off mMediaTag's own portraits.",
 	},
 	IMPROVEMENTS = {
+		"[VehicleBar]: New option Hide While Skyriding (off by default): the vehicle bar stays hidden while skyriding and ElvUI's action bar 1 shows the skyriding abilities instead.",
 		"[Bags]: The options are split into an Equipment Manager and a Categorized Bags tab, so Categorized Bags gets the full window. The Equipment Manager settings are grouped into Position and Icon.",
 		"[NamePlates]: The options are split into the tabs Indicators, Highlight, Castbar, Health Bar and Neutral Name Only instead of one long page.",
 		"[Options]: More room on every options page: taller rows, more padding inside the option groups and a clear gap between them.",

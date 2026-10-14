@@ -1777,6 +1777,8 @@ L["Shows the name, level, guild and target of the unit under your mouse cursor r
 L["Shows small toast notifications for new mail, invites, guild events, paragon rewards and more."] = true
 L["Shows its own action bar while you are in a vehicle or skyriding."] = true
 L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."] = true
+L["Hide While Skyriding"] = true
+L["Keeps the vehicle bar hidden while skyriding, ElvUI's action bar 1 shows the skyriding abilities instead. The Vigor Bar is attached to the vehicle bar and is hidden as well."] = true
 L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."] = true
 
 -- Quick Grid

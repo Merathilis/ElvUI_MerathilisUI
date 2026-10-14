@@ -91,6 +91,19 @@ module:AddOptions(function()
 							E:StaticPopup_Show("CONFIG_RL")
 						end,
 					}),
+					hideWhileSkyriding = module.ToggleCard({
+						order = 3,
+						name = F.NewFeatureText(L["Hide While Skyriding"]),
+						desc = L["Keeps the vehicle bar hidden while skyriding, ElvUI's action bar 1 shows the skyriding abilities instead. The Vigor Bar is attached to the vehicle bar and is hidden as well."],
+						disabled = ModuleDisabled,
+						get = function()
+							return E.db.mui.vehicleBar.hideWhileSkyriding
+						end,
+						set = function(_, value)
+							E.db.mui.vehicleBar.hideWhileSkyriding = value
+							Update()
+						end,
+					}),
 				},
 			},
 			buttonGroup = {

@@ -834,6 +834,7 @@ P.actionbars = {
 P.vehicleBar = {
 	enable = false,
 	hideElvUIBars = true,
+	hideWhileSkyriding = false,
 	buttonWidth = 34,
 	animations = true,
 	animationsMult = 1,

@@ -1525,6 +1525,8 @@ L["Shows the name, level, guild and target of the unit under your mouse cursor r
 L["Shows small toast notifications for new mail, invites, guild events, paragon rewards and more."] = "Zeigt kleine Benachrichtigungen für neue Post, Einladungen, Gildenereignisse, Paragon-Belohnungen und mehr."
 L["Shows its own action bar while you are in a vehicle or skyriding."] = "Zeigt eine eigene Aktionsleiste, während du in einem Fahrzeug sitzt oder Himmelsreiten nutzt."
 L["Hides ElvUI's action bars 1-3 while the vehicle bar is shown."] = "Blendet die ElvUI-Aktionsleisten 1-3 aus, solange die Fahrzeugleiste angezeigt wird."
+L["Hide While Skyriding"] = "Beim Himmelsreiten ausblenden"
+L["Keeps the vehicle bar hidden while skyriding, ElvUI's action bar 1 shows the skyriding abilities instead. The Vigor Bar is attached to the vehicle bar and is hidden as well."] = "Blendet die Fahrzeugleiste beim Himmelsreiten aus, stattdessen zeigt ElvUIs Aktionsleiste 1 die Himmelsreiten-Fähigkeiten. Die Elan-Leiste hängt an der Fahrzeugleiste und wird ebenfalls ausgeblendet."
 L["Restyles Blizzard's built-in damage meter in the MerathilisUI look."] = "Gestaltet Blizzards eingebaute Schadensanzeige im MerathilisUI-Look."
 
 -- Keys that had no German entry yet; values ElvUI translates itself are copied from ElvUI's deDE

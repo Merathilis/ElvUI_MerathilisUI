@@ -118,8 +118,9 @@ function module:Enable()
 
 	self:UpdateBar()
 
-	local visibility =
-		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", "[bonusbar:5]")
+	-- [bonusbar:5] is the skyriding bar; without it ElvUI's bar 1 pages to skyriding as usual
+	local skyriding = self.db.hideWhileSkyriding and "" or "[bonusbar:5]"
+	local visibility = format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s hide;", skyriding)
 
 	self:Hook(self.ab, "UpdateButtonConfig", function()
 		self:UpdateButtonLock()
@@ -150,7 +151,7 @@ function module:Enable()
 	RegisterStateDriver(
 		self.bar,
 		"visibility",
-		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", "[bonusbar:5]")
+		format("[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide", skyriding)
 	)
 
 	if self.db.hideElvUIBars then
