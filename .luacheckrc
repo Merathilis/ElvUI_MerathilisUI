@@ -105,6 +105,9 @@ read_globals = {
 	"SOUNDKIT",
 	"UiMapPoint",
 
+	-- Live API missing from the synced list (verified against wow-ui-source 12.1.5)
+	"PlayerIsSpellTarget",
+
 	-- Old globals only read as a fallback behind the current API (`C_X.Y or Y`)
 	"CastingInfo",
 	"ChannelInfo",
