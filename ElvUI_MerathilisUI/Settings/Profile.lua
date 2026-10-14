@@ -896,6 +896,13 @@ P.chat = {
 		animation = true,
 		glow = true,
 	},
+	copyChat = {
+		enable = true,
+		colors = true,
+		fontSize = 12,
+		width = 700,
+		height = 400,
+	},
 	sidebar = {
 		enable = true,
 		panel = "LEFT",

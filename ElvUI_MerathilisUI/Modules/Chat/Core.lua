@@ -10,6 +10,7 @@ function module:DatabaseUpdate()
 	self:UpdateCombatLog()
 	self:UpdateEditBoxes()
 	self:UpdateTabs()
+	self:UpdateCopyChat()
 end
 
 function module:Initialize()
@@ -24,6 +25,7 @@ function module:Initialize()
 		self:InitializeResizeGrips()
 		self:InitializeEditBox()
 		self:InitializeTabs()
+		self:InitializeCopyChat()
 	end
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))

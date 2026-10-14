@@ -481,8 +481,49 @@ module:AddOptions(function()
 					},
 				},
 			},
+			copyChat = {
+				order = 4,
+				type = "group",
+				guiInline = true,
+				name = L["Copy Chat"],
+				get = function(info)
+					return ChatDB().copyChat[info[#info]]
+				end,
+				set = function(info, value)
+					ChatDB().copyChat[info[#info]] = value
+					MER:GetModule("MER_Chat"):UpdateCopyChat()
+				end,
+				disabled = function(info)
+					if not MER:HasRequirements(I.Requirements.Chat) then
+						return true
+					end
+					return info[#info] ~= "enable" and not ChatDB().copyChat.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = F.NewFeatureText(L["Enable"]),
+						desc = L["Opens the chat history in a MerathilisUI window instead of ElvUI's copy frame. Used by the sidebar copy button and ElvUI's copy button on each chat."],
+					}),
+					colors = {
+						order = 2,
+						type = "toggle",
+						name = L["Colors"],
+						desc = L["Keeps the chat colors in the copied text. Turn it off to copy plain text."],
+					},
+					fontSize = {
+						order = 3,
+						type = "range",
+						name = L["Font Size"],
+						min = 8,
+						max = 20,
+						step = 1,
+					},
+				},
+			},
 		},
 	}
+	F.MarkTabAsNew("chat")
 
 	-------------------------------------------------------------------------------
 	-- ElvUI options our chat extensions take over are grayed out while they do,

@@ -4,5 +4,6 @@
 	<Script file="CombatLog.lua"/>
 	<Script file="EditBox.lua"/>
 	<Script file="Tabs.lua"/>
+	<Script file="CopyChat.lua"/>
 	<Script file="Core.lua"/>
 </Ui>
