@@ -1,4 +1,4 @@
-## Interface: 120100
+## Interface: 120105
 ## Author: Merathilis
 ## Version: @project-version@
 ## Title: |cFF1784d1ElvUI|r |cffffffffMerathilis|r|cffff7d0aUI|r
@@ -10,9 +10,9 @@
 ## Dependencies: ElvUI, ElvUI_WindTools
 ## Group: ElvUI
 ## OptionalDeps: SharedMedia, ElvUI_mMediaTag, Details, BigWigs, WorldQuestTab
-## X-Version: 7.40
+## X-Version: 7.41
 ## X-Credits: Simpy, fang2hou, Benik, Azilroka, Darth Predator, fgprodigal, Blinkii, Siweia, Solor, Elv, Toxi, Blazeflack & all AddOn Authors who inspired me.
-## X-ElvUIVersion: 15.26
+## X-ElvUIVersion: 16.00
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: 97589
 ## X-Wago-ID: VBNBZVNx

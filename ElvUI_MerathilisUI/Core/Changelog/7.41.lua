@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[741] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "14.10.2026",
 	FIXES = {
 		"[Bags]: With Merge Duplicate Stacks on, items no longer slip under the wrong expansion or equipment set sub-header next to a merged stack.",
 	},
