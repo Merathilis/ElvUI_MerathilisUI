@@ -998,7 +998,7 @@ P.nameplates = {
 		customColor = { r = 1, g = 1, b = 1 },
 	},
 	targetEmphasis = {
-		enable = true,
+		enable = false,
 		shade = true,
 		shadeAlpha = 0.35,
 		fade = true,
@@ -1006,6 +1006,9 @@ P.nameplates = {
 		keepCasting = true,
 		pop = true,
 		popScale = 1.08,
+		glow = true,
+		glowSize = 8,
+		glowPulse = false,
 		combatOnly = false,
 		friendly = false,
 	},

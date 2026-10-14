@@ -3,6 +3,7 @@ local module = MER:GetModule("MER_Nameplates")
 local NP = E:GetModule("NamePlates")
 local ElvUF = E.oUF
 
+local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local pairs = pairs
 local InCombatLockdown = InCombatLockdown
@@ -22,6 +23,9 @@ local UnitExists = UnitExists
 	Options: alpha / shadeAlpha / popScale (nil turns that part off), keepCasting,
 	  combatOnly, friendly
 
+	Next to it, ElvUI's border glow on the target gets wider, fades in and may
+	pulse (Configure_TargetGlow).
+
 	The plate alpha is left alone while ElvUI's Fader runs on a plate, it owns
 	the alpha then.
 --]]
@@ -29,6 +33,8 @@ local UnitExists = UnitExists
 local FADE_DURATION = 0.2
 local POP_GROW = 0.1
 local POP_SHRINK = 0.2
+local PULSE_DURATION = 0.9
+local PULSE_ALPHA = 0.4
 
 local HOSTILE = {
 	ENEMY_NPC = true,
@@ -276,6 +282,143 @@ function module:Configure_TargetEmphasis(nameplate)
 	end
 end
 
+-- ElvUI's border glow (TargetIndicator.Shadow, the Border styles): wider, fades in
+-- on a new target and may pulse. ElvUI hides and shows it on every update of the
+-- indicator, so OnShow is the moment the target changed. Its color stays ElvUI's.
+local BORDER_STYLES = {
+	style1 = true,
+	style5 = true,
+	style7 = true,
+}
+
+local ELVUI_GLOW_SIZE = 5
+local GLOW_FADE = 0.25
+
+local function Glow_OnShow(shadow)
+	if not shadow.MER_Enhanced then
+		return
+	end
+
+	shadow.MER_Pulse:Stop()
+	shadow.MER_Fade:Stop()
+	shadow.MER_Fade:Play()
+end
+
+-- The pulse takes over once the glow is fully in
+local function Fade_OnFinished(fade)
+	local shadow = fade.shadow
+	if shadow.MER_Enhanced and shadow.MER_PulseEnabled and shadow:IsShown() then
+		shadow.MER_Pulse:Play()
+	end
+end
+
+local function Glow_OnHide(shadow)
+	if shadow.MER_Pulse then
+		shadow.MER_Pulse:Stop()
+	end
+end
+
+-- An alpha animation replaces the alpha ElvUI sets on the glow, so both run up
+-- to that alpha, one after the other
+local function CreateGlowParts(shadow)
+	local fade = shadow:CreateAnimationGroup()
+	fade.shadow = shadow
+	fade:SetScript("OnFinished", Fade_OnFinished)
+	local fadeIn = fade:CreateAnimation("Alpha")
+	fadeIn:SetFromAlpha(0)
+	fadeIn:SetToAlpha(1)
+	fadeIn:SetDuration(GLOW_FADE)
+	fadeIn:SetSmoothing("OUT")
+	fade.alpha = fadeIn
+	shadow.MER_Fade = fade
+
+	local pulse = shadow:CreateAnimationGroup()
+	pulse:SetLooping("BOUNCE")
+	local breathe = pulse:CreateAnimation("Alpha")
+	breathe:SetDuration(PULSE_DURATION)
+	breathe:SetSmoothing("IN_OUT")
+	pulse.alpha = breathe
+	shadow.MER_Pulse = pulse
+
+	shadow:HookScript("OnShow", Glow_OnShow)
+	shadow:HookScript("OnHide", Glow_OnHide)
+end
+
+-- Returns true when the backdrop was set again, that drops the border color
+local function SetGlowSize(shadow, anchor, size)
+	-- Same spacing to the bar as ElvUI's own glow
+	local offset = size + (E.PixelMode and 1 or 3)
+	shadow:SetOutside(anchor, offset, offset, nil, true)
+
+	if (shadow.MER_Size or ELVUI_GLOW_SIZE) ~= size then
+		shadow.MER_Size = size
+		shadow:SetBackdrop({ edgeFile = E.Media.Textures.GlowTex, edgeSize = size })
+		return true
+	end
+end
+
+-- alpha: the glow's own alpha from ElvUI's glow color
+local function ConfigureGlow(shadow, anchor, db, alpha)
+	if not shadow.MER_Fade then
+		CreateGlowParts(shadow)
+	end
+
+	shadow.MER_Enhanced = true
+	shadow.MER_PulseEnabled = db.glowPulse
+
+	-- Both ends of the fade-in are relative to the alpha ElvUI wants
+	shadow.MER_Fade.alpha:SetToAlpha(alpha)
+	shadow.MER_Pulse.alpha:SetFromAlpha(alpha)
+	shadow.MER_Pulse.alpha:SetToAlpha(alpha * PULSE_ALPHA)
+
+	if not db.glowPulse then
+		shadow.MER_Pulse:Stop()
+	elseif shadow:IsShown() and not shadow.MER_Fade:IsPlaying() then
+		shadow.MER_Pulse:Play()
+	end
+
+	return SetGlowSize(shadow, anchor, db.glowSize)
+end
+
+local function ResetGlow(shadow, anchor)
+	if not shadow.MER_Enhanced then
+		return
+	end
+
+	shadow.MER_Enhanced = nil
+	shadow.MER_Fade:Stop()
+	shadow.MER_Pulse:Stop()
+	return SetGlowSize(shadow, anchor, ELVUI_GLOW_SIZE)
+end
+
+function module:Configure_TargetGlow(nameplate)
+	local indicator = nameplate and nameplate.TargetIndicator
+	local shadow = indicator and indicator.Shadow
+	if not shadow or nameplate == NP.TestFrame or not nameplate.Health then
+		return
+	end
+
+	local db = E.db.mui.nameplates.targetEmphasis
+	local enabled = db
+		and db.enable
+		and db.glow
+		and BORDER_STYLES[indicator.style]
+		and nameplate:IsElementEnabled("TargetIndicator")
+
+	local changed
+	if enabled then
+		local color = NP.db.colors.glowColor
+		changed = ConfigureGlow(shadow, nameplate.Health, db, color.a or 1)
+	else
+		changed = ResetGlow(shadow, nameplate.Health)
+	end
+
+	-- ElvUI sets the border color again when it shows the glow
+	if changed and nameplate.__unit and indicator.ForceUpdate and nameplate:IsElementEnabled("TargetIndicator") then
+		indicator:ForceUpdate()
+	end
+end
+
 function module:UpdateTargetEmphasis()
 	version = version + 1
 
@@ -285,6 +428,7 @@ function module:UpdateTargetEmphasis()
 
 	for nameplate in pairs(NP.Plates) do
 		module:Configure_TargetEmphasis(nameplate)
+		module:Configure_TargetGlow(nameplate)
 	end
 end
 
@@ -300,10 +444,48 @@ function module:TargetEmphasis_UpdatePreview(bar, element, isTarget, hasTarget, 
 	Apply(bar, element, isTarget, dim, dim and element.alpha ~= nil, animate)
 end
 
+-- Sample border glow around a bar for the options preview, like ElvUI's
+function module:TargetGlow_CreatePreview(bar)
+	local shadow = CreateFrame("Frame", nil, bar, "BackdropTemplate")
+	shadow:SetFrameLevel(bar:GetFrameLevel())
+	shadow:SetBackdrop({ edgeFile = E.Media.Textures.GlowTex, edgeSize = ELVUI_GLOW_SIZE })
+	shadow:Hide()
+
+	return shadow
+end
+
+function module:TargetGlow_UpdatePreview(shadow, bar, isTarget)
+	shadow:Hide()
+
+	-- Only ElvUI's Border styles have this glow
+	local style = NP.db.units.TARGET.glowStyle
+	if not BORDER_STYLES[style] then
+		return
+	end
+
+	local db = E.db.mui.nameplates.targetEmphasis
+	local color = NP.db.colors.glowColor
+	if db.enable and db.glow then
+		ConfigureGlow(shadow, bar, db, color.a or 1)
+	else
+		ResetGlow(shadow, bar)
+		SetGlowSize(shadow, bar, ELVUI_GLOW_SIZE)
+	end
+
+	shadow:SetBackdropBorderColor(color.r, color.g, color.b)
+	shadow:SetAlpha(color.a or 1)
+	shadow:SetShown(isTarget)
+end
+
 function module:TargetEmphasis()
 	-- Runs for every plate that gets a unit, also the name-only ones
 	hooksecurefunc(NP, "UpdatePlate", function(_, nameplate)
 		module:Configure_TargetEmphasis(nameplate)
+	end)
+
+	-- ElvUI lays its glow out again here, the wider one goes on top
+	hooksecurefunc(NP, "Update_TargetIndicator", function(_, nameplate)
+		module:Configure_TargetGlow(nameplate)
 	end)
 
 	-- Plates that already existed before the hook

@@ -1516,6 +1516,10 @@ L["Units that are casting keep their full alpha, so their castbar stays easy to 
 L["Pop on Target"] = true
 L["The nameplate of a new target grows for a moment."] = true
 L["Pop Size"] = true
+L["Stronger Border Glow"] = true
+L["Makes the border glow of ElvUI's target indicator wider and lets it fade in on a new target. Needs one of the Border styles as Target Glow Style, the color stays ElvUI's Glow Color."] = true
+L["Glow Size"] = true
+L["The border glow slowly pulses."] = true
 L["Only fades and shades the other nameplates while you are in combat."] = true
 L["Friendly Plates"] = true
 L["Also fades and shades the nameplates of friendly units."] = true

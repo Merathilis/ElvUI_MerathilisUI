@@ -353,6 +353,33 @@ module:AddOptions(function()
 								step = 0.01,
 								isPercent = true,
 							},
+							glow = {
+								order = 9.1,
+								type = "toggle",
+								name = L["Stronger Border Glow"],
+								desc = L["Makes the border glow of ElvUI's target indicator wider and lets it fade in on a new target. Needs one of the Border styles as Target Glow Style, the color stays ElvUI's Glow Color."],
+								disabled = TargetEmphasisDisabled,
+							},
+							glowSize = {
+								order = 9.2,
+								type = "range",
+								name = L["Glow Size"],
+								disabled = function()
+									return TargetEmphasisDisabled() or not E.db.mui.nameplates.targetEmphasis.glow
+								end,
+								min = 5,
+								max = 16,
+								step = 1,
+							},
+							glowPulse = {
+								order = 9.3,
+								type = "toggle",
+								name = L["Pulse"],
+								desc = L["The border glow slowly pulses."],
+								disabled = function()
+									return TargetEmphasisDisabled() or not E.db.mui.nameplates.targetEmphasis.glow
+								end,
+							},
 							combatOnly = {
 								order = 10,
 								type = "toggle",

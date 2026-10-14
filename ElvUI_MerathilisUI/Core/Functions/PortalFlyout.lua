@@ -142,6 +142,7 @@ local HEARTH_TOYS = {
 	265100, -- Corewarden's Hearthstone
 	142298, -- Astonishingly Scarlet Slippers
 	264367, -- Mushroom
+	281615, -- Shadeweaver's Hearthstone
 }
 local SHAMAN_ASTRAL_RECALL = 556
 local DALARAN_HS = 253629

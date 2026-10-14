@@ -7,11 +7,11 @@ local min = math.min
 -- Three sample nameplate health bars with the Target Emphasis. Used as
 -- `dialogControl` on a description named "nameplates". The target moves on to
 -- the next bar now and then, so the fade and the pop play like in the game.
--- Shade, alpha and pop come from the module itself.
+-- Shade, alpha, pop and ElvUI's border glow come from the module itself.
 
 local MAX_WIDTH = 140
 local SPACING = 16
-local HEIGHT = 60
+local HEIGHT = 70
 local NUM_BARS = 3
 local SWITCH_INTERVAL = 2.5
 local HEALTH = { 0.85, 0.6, 0.35 }
@@ -20,6 +20,7 @@ local function Apply(widget, animate)
 	local MNP = MER:GetModule("MER_Nameplates")
 	for index, bar in ipairs(widget.bars) do
 		MNP:TargetEmphasis_UpdatePreview(bar, bar.emphasis, index == widget.target, true, animate)
+		MNP:TargetGlow_UpdatePreview(bar.glow, bar, index == widget.target)
 	end
 end
 
@@ -44,6 +45,7 @@ local function Build(widget)
 	for index = 1, NUM_BARS do
 		local bar = Preview.CreateBar(widget.frame)
 		bar.emphasis = MNP:TargetEmphasis_CreatePreview(bar)
+		bar.glow = MNP:TargetGlow_CreatePreview(bar)
 		widget.bars[index] = bar
 	end
 
