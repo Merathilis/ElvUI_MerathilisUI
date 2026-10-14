@@ -323,8 +323,32 @@ module:AddOptions(function()
 									return Disabled() or not SidebarDB().buttons.durability
 								end,
 							},
-							resetOrder = {
+							portalDirection = {
 								order = 11,
+								type = "select",
+								name = L["Portal Direction"],
+								desc = L["Which way the M+ Portals flyout opens from its button. Automatic opens it over the chat text."],
+								values = {
+									AUTO = L["Automatic"],
+									UP = L["Up"],
+									DOWN = L["Down"],
+									LEFT = L["Left"],
+									RIGHT = L["Right"],
+								},
+								sorting = { "AUTO", "UP", "DOWN", "LEFT", "RIGHT" },
+								get = function(info)
+									return SidebarDB()[info[#info]]
+								end,
+								set = function(info, value)
+									SidebarDB()[info[#info]] = value
+									F.PortalFlyout.Hide()
+								end,
+								disabled = function()
+									return Disabled() or not SidebarDB().buttons.portals
+								end,
+							},
+							resetOrder = {
+								order = 12,
 								type = "execute",
 								name = L["Reset Order"],
 								func = function()

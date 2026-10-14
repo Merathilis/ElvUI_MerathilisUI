@@ -921,6 +921,7 @@ P.chat = {
 		hoverClassColor = true,
 		hoverColor = { r = 0, g = 0.75, b = 0.98 },
 		durabilityWarning = 30,
+		portalDirection = "AUTO",
 		hideVoiceButtons = true,
 		buttons = {
 			friends = true,
