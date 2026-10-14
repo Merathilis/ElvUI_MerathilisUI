@@ -380,6 +380,13 @@ module:AddOptions(function()
 									return TargetEmphasisDisabled() or not E.db.mui.nameplates.targetEmphasis.glow
 								end,
 							},
+							raise = {
+								order = 9.5,
+								type = "toggle",
+								name = L["Bring Target to Front"],
+								desc = L["Draws the nameplate of your target above the nameplates it overlaps."],
+								disabled = TargetEmphasisDisabled,
+							},
 							combatOnly = {
 								order = 10,
 								type = "toggle",

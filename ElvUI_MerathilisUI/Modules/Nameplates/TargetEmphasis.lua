@@ -6,6 +6,9 @@ local ElvUF = E.oUF
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local pairs = pairs
+local max = math.max
+local strfind = strfind
+local type = type
 local InCombatLockdown = InCombatLockdown
 local UnitExists = UnitExists
 
@@ -21,7 +24,7 @@ local UnitExists = UnitExists
 	  shade - Texture over the health bar, so name-only plates never show it
 	  pop   - AnimationGroup on the nameplate, a short scale bump
 	Options: alpha / shadeAlpha / popScale (nil turns that part off), keepCasting,
-	  combatOnly, friendly
+	  combatOnly, friendly, raise (target drawn above overlapping plates)
 
 	Next to it, ElvUI's border glow on the target gets wider, fades in and may
 	pulse (Configure_TargetGlow).
@@ -97,6 +100,7 @@ local function ConfigureParts(element, db)
 	element.keepCasting = db.keepCasting
 	element.combatOnly = db.combatOnly
 	element.friendly = db.friendly
+	element.raise = db.raise
 
 	if element.popScale then
 		local scale = element.popScale
@@ -122,6 +126,56 @@ local function Apply(owner, element, isTarget, dim, fade, animate)
 	end
 
 	element.isTarget = isTarget
+end
+
+-- ElvUI gives every plate the same fixed frame levels, so overlapping plates
+-- stack at random. Raising a frame shifts its children by the same amount, the
+-- *Level fields on RaisedElement are what ElvUI lays the parts out from again
+-- on every plate update, so they move along.
+local RAISE = 100
+local levelKeys
+
+local function ShiftLevels(nameplate, delta)
+	nameplate:SetFrameLevel(max(nameplate:GetFrameLevel() + delta, 0))
+
+	local raised = nameplate.RaisedElement
+	if not raised then
+		return
+	end
+
+	if not levelKeys then
+		levelKeys = {}
+		for key, value in pairs(raised) do
+			if type(key) == "string" and type(value) == "number" and strfind(key, "Level$") then
+				levelKeys[#levelKeys + 1] = key
+			end
+		end
+	end
+
+	for i = 1, #levelKeys do
+		local key = levelKeys[i]
+		if raised[key] then
+			raised[key] = raised[key] + delta
+		end
+	end
+end
+
+local function SetRaised(nameplate, element, raise)
+	raise = raise and true or false
+	if (element.raised or false) == raise then
+		return
+	end
+
+	element.raised = raise
+	ShiftLevels(nameplate, raise and RAISE or -RAISE)
+end
+
+-- A plate that loses its unit goes back down, the next unit may not be the target
+local function Plate_OnHide(nameplate)
+	local element = nameplate.MER_TargetEmphasis
+	if element and element.raised then
+		SetRaised(nameplate, element, false)
+	end
 end
 
 local function IsAffected(element, frameType)
@@ -165,6 +219,7 @@ local function Update(self, event)
 	end
 
 	Apply(self, element, isTarget, dim, fade, ANIMATED[event])
+	SetRaised(self, element, element.raise and isTarget)
 
 	if element.PostUpdate then
 		return element:PostUpdate(isTarget, dim)
@@ -194,6 +249,7 @@ local function Enable(self)
 end
 
 local function Reset(self, element)
+	SetRaised(self, element, false)
 	element.pop:Stop()
 	element.isTarget = nil
 	FadeTo(element.shade, 0, false)
@@ -253,6 +309,7 @@ function module:Configure_TargetEmphasis(nameplate)
 	if not element then
 		element = CreateParts(nameplate, nameplate.Health)
 		nameplate.MER_TargetEmphasis = element
+		nameplate:HookScript("OnHide", Plate_OnHide)
 
 		local castbar = nameplate.Castbar
 		if castbar then

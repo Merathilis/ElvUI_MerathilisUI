@@ -1009,6 +1009,7 @@ P.nameplates = {
 		glow = true,
 		glowSize = 8,
 		glowPulse = false,
+		raise = true,
 		combatOnly = false,
 		friendly = false,
 	},
