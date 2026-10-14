@@ -16,8 +16,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("loadoutManager")
-
 	-- The module owns the saved variables, the edit scope and the swap
 	-- machinery; this page drives it through the module API. Every label is a
 	-- function, so the module's NotifyChange (zone, spec, gear and talent
@@ -369,7 +367,7 @@ module:AddOptions(function()
 			header = {
 				order = 0,
 				type = "header",
-				name = F.NewFeatureText(L["Loadout Manager"]),
+				name = L["Loadout Manager"],
 			},
 			enable = module.ToggleCard({
 				order = 1,

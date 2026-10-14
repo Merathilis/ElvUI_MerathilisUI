@@ -10,9 +10,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("nameplates")
-	F.MarkTabAsNew("neutralNameOnly")
-
 	-- Own disabled replaces the group's, so the children repeat the requirement
 	local function FactionIndicatorDisabled()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.factionIndicator.enable
@@ -670,7 +667,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Neutral NPCs use the Friendly NPC settings of ElvUI's nameplates, by default only their name is shown."],
 					}),
 					target = {

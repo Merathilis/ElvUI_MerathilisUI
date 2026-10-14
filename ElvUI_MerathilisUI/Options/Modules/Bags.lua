@@ -9,10 +9,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("bags")
-	F.MarkTabAsNew("displayModes")
-	F.MarkTabAsNew("junkMarker")
-
 	-- Repaints the categorized bag and bank windows, both skip it while closed
 	-- Own disabled replaces the group's, so the requirement is repeated there
 	local function BagsDisabled()

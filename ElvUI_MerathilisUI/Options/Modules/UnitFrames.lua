@@ -7,9 +7,6 @@ module:AddOptions(function()
 
 	local options = module.options.modules.args
 
-	F.MarkTabAsNew("unitframes")
-	F.MarkTabAsNew("portraits")
-
 	-- Own disabled replaces the group's, so every own disabled repeats the requirement
 	local function UnitFramesDisabled()
 		return not MER:HasRequirements(I.Requirements.UnitFrames)
