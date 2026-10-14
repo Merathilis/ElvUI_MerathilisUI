@@ -835,4 +835,6 @@ module:AddOptions(function()
 			},
 		},
 	}
+	F.MarkTabAsNew("nameplates")
+	F.MarkTabAsNew("indicators")
 end)
