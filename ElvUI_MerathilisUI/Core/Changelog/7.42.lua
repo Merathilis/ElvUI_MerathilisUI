@@ -4,6 +4,7 @@ MER.Changelog[742] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
 		"[Armory]: The gray background bars of ElvUI's character skin showed up again behind the item level and the stats.",
+		"[NamePlates]: Nameplates that only show a widget (e.g. delve companions like Valeera, objects with a progress bar) no longer show a leftover name, level and health text.",
 	},
 	NEW = {
 		"[Chat]: Own Copy Chat window - opens at the newest lines with everything selected, can be moved and resized, keeps or strips the chat colors and shows raid icons as {star} etc. Used by the sidebar copy button and ElvUI's copy button on each chat.",
