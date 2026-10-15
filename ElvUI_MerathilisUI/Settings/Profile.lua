@@ -1061,7 +1061,7 @@ P.nameplates = {
 		enable = true,
 		size = 16,
 		anchorPoint = "LEFT",
-		xOffset = 0,
+		xOffset = 8,
 		yOffset = 0,
 	},
 	castTarget = {
