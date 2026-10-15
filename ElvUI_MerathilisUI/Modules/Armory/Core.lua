@@ -1020,16 +1020,21 @@ function module:UpdateCategoryHeader(frame, animationSlot)
 	frame.Title.MERRightDivider = rightDivider
 end
 
+-- leftGrad/rightGrad are the names of older ElvUI versions
+local elvuiStatGradients = { "leftGrad", "rightGrad", "leftGradient", "rightGradient" }
+
 function module:CleanupCharacterStat(frame)
 	-- Kill Blizzard and ElvUI Stuff
 	if frame.Background then
 		frame.Background:Kill()
 	end
-	if frame.leftGrad then
-		frame.leftGrad:Kill()
-	end
-	if frame.rightGrad then
-		frame.rightGrad:Kill()
+	-- ElvUI re-shows its gradients via SetShown on every stats update and SetAlpha has no
+	-- effect on a gradient texture, so park them on the hidden frame instead
+	for _, key in ipairs(elvuiStatGradients) do
+		local gradient = frame[key]
+		if gradient and gradient:GetParent() ~= E.HiddenFrame then
+			gradient:SetParent(E.HiddenFrame)
+		end
 	end
 end
 
