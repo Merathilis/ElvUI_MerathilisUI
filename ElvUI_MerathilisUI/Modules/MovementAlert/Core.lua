@@ -1196,7 +1196,13 @@ function module:SPELLS_CHANGED()
 	end
 end
 
-module.PLAYER_SPECIALIZATION_CHANGED = module.SPELLS_CHANGED
+function module:PLAYER_SPECIALIZATION_CHANGED(_, unit)
+	-- Also fires for group members
+	if not unit or unit == "player" then
+		self:SPELLS_CHANGED()
+	end
+end
+
 module.PLAYER_TALENT_UPDATE = module.SPELLS_CHANGED
 module.TRAIT_CONFIG_UPDATED = module.SPELLS_CHANGED
 module.UPDATE_SHAPESHIFT_FORM = module.RefreshSpells

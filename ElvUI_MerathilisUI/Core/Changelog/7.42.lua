@@ -12,5 +12,6 @@ MER.Changelog[742] = {
 	},
 	IMPROVEMENTS = {
 		"[Chat]: The M+ Portals flyout of the Chat Sidebar has a direction option (automatic, up, down, left, right).",
+		"[General]: The Spec Bar, Interrupt Ready, Bloodlust tracker and Movement Alert no longer refresh when a group member changes their specialization, only on your own.",
 	},
 }

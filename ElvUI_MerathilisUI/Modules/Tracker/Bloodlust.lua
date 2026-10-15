@@ -331,7 +331,12 @@ function module:PLAYER_DEAD()
 	self:UpdateBloodlust()
 end
 
-function module:PLAYER_SPECIALIZATION_CHANGED()
+function module:PLAYER_SPECIALIZATION_CHANGED(_, unit)
+	-- Also fires for group members
+	if unit and unit ~= "player" then
+		return
+	end
+
 	-- A spec swap can add or remove the character's own lust
 	self.lustIcon = nil
 	self.bloodlustState = nil
