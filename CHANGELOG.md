@@ -6,3 +6,4 @@
 -   [New]: NamePlates: Target Emphasis - while you have a target, the other nameplates fade and get a dark shade over their health bar, and a new target pops up for a moment. ElvUI's border glow on the target can be made wider, fades in and can pulse. The target's nameplate is drawn above the nameplates it overlaps. Casting units can keep their full alpha, everything can be limited to combat.
 -   [Improvement]: Chat: The M+ Portals flyout of the Chat Sidebar has a direction option (automatic, up, down, left, right).
 -   [Improvement]: General: The Spec Bar, Interrupt Ready, Bloodlust tracker and Movement Alert no longer refresh when a group member changes their specialization, only on your own.
+-   [Improvement]: NamePlates: The Castbar Shield now sits on the castbar itself instead of half over the castbar icon.
