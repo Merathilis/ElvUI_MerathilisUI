@@ -509,7 +509,7 @@ local function CountSearchHits(bagIDList)
 	for _, bagID in ipairs(bagIDList) do
 		for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
-			if info and info.iconFileID and not info.isFiltered then
+			if info and info.iconFileID and not module.IsSearchFiltered(info, bagID, slotID) then
 				hits = hits + 1
 			end
 		end
@@ -667,7 +667,7 @@ local function Slot_OnClick(self, mouseButton, down)
 			and self.BagID
 			and self.SlotID
 			and not IsModifiedClick()
-			and (SpellCanTargetItem() or SpellCanTargetItemID())
+			and (SpellCanTargetItem() or SpellCanTargetItemID() or module.QuickActionSpellFor(self))
 		then
 			-- A spell is waiting for an item target (Disenchant, Milling,
 			-- Prospecting, enchant scrolls, armor kits...). Blizzard's own
@@ -678,7 +678,11 @@ local function Slot_OnClick(self, mouseButton, down)
 			-- below, since the secure action fires on down OR up depending
 			-- on the player's key-down setting.
 			self:SetAttribute("type1", "macro")
-			self:SetAttribute("macrotext1", format("/use %d %d", self.BagID, self.SlotID))
+			-- Quick Actions mode casts its spell first (unless one already waits),
+			-- the /use then targets the item with it
+			local spellName = not (SpellCanTargetItem() or SpellCanTargetItemID()) and module.QuickActionSpellName(self)
+			local cast = spellName and format("/cast %s\n", spellName) or ""
+			self:SetAttribute("macrotext1", format("%s/use %d %d", cast, self.BagID, self.SlotID))
 			self.pendingTargetClick = true
 		elseif self.pendingTargetClick and not InCombatLockdown() then
 			-- Left over from a targeting press that was released somewhere
@@ -1165,6 +1169,11 @@ local function ApplySlotDim(btn)
 	end
 	if not dim and btn.ownerFrame == module.frame then
 		dim = module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID
+	end
+	-- Quick Actions mode (QuickActions.lua): everything but the items a spell
+	-- works on, which carry that spell's icon instead
+	if module.quickActionsMode or btn.quickSpellIcon then
+		dim = module.UpdateQuickActionMark(btn) or dim
 	end
 	btn.searchOverlay:SetShown(dim and true or false)
 end
@@ -2551,6 +2560,20 @@ function module:ConstructFrame()
 	f.junkMarkButton.activeTex:Hide()
 	f.junkMarkButton:Hide()
 
+	-- Quick Actions mode (QuickActions.lua); only shown while that option is
+	-- on, UpdateQuickActionsButton re-chains the Bag Bar button
+	f.quickActionsButton = CreateTitleButton("QuickActionsButton", 136244, function()
+		module:QuickActionsTooltip()
+	end, function()
+		module:SetQuickActionsMode(not module.quickActionsMode)
+	end)
+	f.quickActionsButton.tex:SetAtlas("cursor_cast_64")
+	f.quickActionsButton.activeTex = f.quickActionsButton:CreateTexture(nil, "ARTWORK")
+	f.quickActionsButton.activeTex:SetInside()
+	f.quickActionsButton.activeTex:SetColorTexture(E.myClassColor.r, E.myClassColor.g, E.myClassColor.b, 0.45)
+	f.quickActionsButton.activeTex:Hide()
+	f.quickActionsButton:Hide()
+
 	f.bagBarButton = CreateTitleButton("BagBarButton", E.Media.Textures.Backpack, L["Toggle Bag Bar"], function()
 		module:ToggleBagBarPopout()
 	end)
@@ -3158,6 +3181,49 @@ local function GetBindText(itemLink, isBound, isUntilEquipped)
 	return bindType and BIND_TEXT[bindType]
 end
 
+-- Bind keyword search (bags and bank): typing exactly BoP / BoE / WuE (any
+-- case) filters by bind type instead of the native tooltip search. Scoped in a
+-- do block, this file is close to Lua's 200-locals limit.
+do
+	local BIND_KEYWORDS = { bop = true, boe = true, wue = true }
+	local lastText, lastKeyword
+
+	local function ActiveKeyword()
+		local text = module.searchText
+		if text ~= lastText then
+			lastText = text
+			local k = strtrim(text or ""):lower()
+			lastKeyword = BIND_KEYWORDS[k] and k or nil
+		end
+		return lastKeyword
+	end
+
+	local function MatchesKeyword(k, info, bagID, slotID)
+		local isUntilEquipped = false
+		if not info.isBound then
+			isUntilEquipped = select(2, GetWarboundInfo(info.hyperlink, bagID, slotID))
+		end
+		if k == "wue" then
+			return isUntilEquipped
+		end
+		local bindType = info.hyperlink and select(14, API.GetItemInfo(info.hyperlink))
+		if k == "boe" then
+			return bindType == ITEMBIND_ON_EQUIP and not isUntilEquipped and not info.isBound
+		end
+		return bindType == Enum.ItemBind.OnAcquire
+	end
+
+	-- True when a slot is hidden by the active search: the bind keyword when
+	-- one is typed, the native item-search filter otherwise
+	function module.IsSearchFiltered(info, bagID, slotID)
+		local k = ActiveKeyword()
+		if not k then
+			return info.isFiltered
+		end
+		return not MatchesKeyword(k, info, bagID, slotID)
+	end
+end
+
 -- Shared with the options preview (Options/Widgets/BagsPreview.lua)
 module.GetDisplayItemLevel = GetDisplayItemLevel
 module.GetBindText = GetBindText
@@ -3348,7 +3414,7 @@ local function CollectItemsFromBags(bagIDList, scratch)
 		for slotID = 1, numSlots do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 
-			if info and info.iconFileID and not (searching and info.isFiltered) then
+			if info and info.iconFileID and not (searching and module.IsSearchFiltered(info, bagID, slotID)) then
 				local key = module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink, info.quality)
 				if key then
 					scratch[key] = scratch[key] or {}
@@ -3567,7 +3633,7 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 		for slotID = 1, numSlots do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 
-			if info and info.iconFileID and not (searching and info.isFiltered) then
+			if info and info.iconFileID and not (searching and module.IsSearchFiltered(info, bagID, slotID)) then
 				scratch[bagID] = scratch[bagID] or {}
 
 				local questID, isActiveQuest, isJunk =
@@ -4701,6 +4767,7 @@ function module:RefreshCategoryFrame()
 	SetTitleCount(f.titleCountText, usedSlots, totalSlots, CountSearchHits(BAG_IDS))
 	SetFillBar(f, usedSlots, totalSlots)
 	module:UpdateJunkMarkButton()
+	module:UpdateQuickActionsButton()
 
 	module:UpdateFooter()
 end
@@ -5453,6 +5520,7 @@ end
 function module:OnFrameHidden()
 	module:UnregisterBagEventsFor("bag")
 	module.junkMarkMode = nil
+	module:SetQuickActionsMode(false)
 
 	wipe(module.unmergedLinks)
 
@@ -5872,6 +5940,27 @@ local function SetupHooks()
 	end
 end
 
+-- Opens the bags with the character window and closes them with it. The hooks
+-- go in on first use only, so the option costs nothing while it stays off.
+function module:UpdateCharacterFrameHook()
+	local frame = _G.CharacterFrame
+	if not (frame and module.db.enable and module.db.openWithCharacter) or module.characterHooked then
+		return
+	end
+	module.characterHooked = true
+
+	frame:HookScript("OnShow", function()
+		if module.db.enable and module.db.openWithCharacter and not (module.frame and module.frame:IsShown()) then
+			module:ShowCategoryFrame()
+		end
+	end)
+	frame:HookScript("OnHide", function()
+		if module.db.enable and module.db.openWithCharacter then
+			module:HideCategoryFrame()
+		end
+	end)
+end
+
 -- One-time cleanup for a profile saved before Bank/Warband got their own
 -- frame: db.viewMode ("CATEGORY"/"ALL"/"BAG" now) could still hold a
 -- leftover "BANK"/"WARBAND" from back when this field also drove the bag
@@ -5897,6 +5986,7 @@ function module:Initialize()
 	MigrateViewMode(db)
 	SetupHooks()
 	module:UpdateJunkAutoSell()
+	module:UpdateCharacterFrameHook()
 end
 
 function module:ProfileUpdate()
@@ -5916,6 +6006,7 @@ function module:ProfileUpdate()
 
 	MigrateViewMode(db)
 	SetupHooks()
+	module:UpdateCharacterFrameHook()
 
 	if module.frame and module.frame:IsShown() then
 		module:RefreshCategoryFrame()

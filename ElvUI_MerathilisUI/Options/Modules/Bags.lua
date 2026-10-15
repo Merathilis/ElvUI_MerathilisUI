@@ -256,6 +256,31 @@ module:AddOptions(function()
 									return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
 								end,
 							},
+							openWithCharacter = {
+								order = 11.1,
+								type = "toggle",
+								name = L["Toggle with Character Window"],
+								desc = L["Opens the bags together with the character window and closes them again when it closes."],
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags[info[#info]] = value
+									BC:UpdateCharacterFrameHook()
+								end,
+							},
+							quickActions = {
+								order = 11.2,
+								type = "toggle",
+								name = L["Quick Actions"],
+								desc = L["Adds a title bar button that highlights the items Disenchant or Pick Lock can work on. Clicking a highlighted item casts the spell on it."],
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags[info[#info]] = value
+									if not value then
+										BC:SetQuickActionsMode(false)
+									end
+									if BC.frame and BC.frame:IsShown() then
+										BC:RefreshCategoryFrame()
+									end
+								end,
+							},
 							resetCurrencyOrder = {
 								order = 12,
 								type = "execute",

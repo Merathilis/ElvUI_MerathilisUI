@@ -2096,3 +2096,15 @@ L["Resets every Loadout Manager setting and removes all assignments of this char
 L["The Loadout Manager equips your gear set and loads your talent loadout on its own when you enter a dungeon, raid or other content. Type /lm to set it up."] = true
 L["Loadout Manager assignments can be made for all specs or a single spec. A spec assignment wins over the All Specs one."] = true
 L["Inside an instance, the Loadout Manager can save a loadout for just the difficulty you are in, e.g. only Mythic."] = true
+L["Clear Stuck Spell Targeting"] = true
+L["Before a binding casts, cancel any spell still waiting for a target (the glowing hand cursor left by a cast on a unit it can't take), so the press casts instead of being swallowed."] = true
+L["Talent loadout %s did not fully apply."] = true
+L["Talent loadout %s did not load."] = true
+L["Talent swap held: a talent change is in progress."] = true
+L["Talent swap held: you have unsaved talent changes."] = true
+L["Toggle with Character Window"] = true
+L["Opens the bags together with the character window and closes them again when it closes."] = true
+L["Quick Actions"] = true
+L["Adds a title bar button that highlights the items Disenchant or Pick Lock can work on. Clicking a highlighted item casts the spell on it."] = true
+L["Click to leave Quick Actions."] = true
+L["Highlights the items your spells can work on (%s). Click a highlighted item to cast the spell on it. Out of combat only."] = true

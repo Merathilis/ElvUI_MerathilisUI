@@ -2,6 +2,7 @@
     <Script file="CategoryClassifier.lua"/>
     <Script file="CategoryFrame.lua"/>
     <Script file="JunkMarker.lua"/>
+    <Script file="QuickActions.lua"/>
     <Script file="ListView.lua"/>
     <Script file="CompactView.lua"/>
     <Script file="BankFrame.lua"/>
