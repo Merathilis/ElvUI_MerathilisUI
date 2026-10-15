@@ -132,6 +132,11 @@ local function RestoreTemplate(backdrop, shell)
 	end
 end
 
+-- Kept in place, the threat border recolors on every threat change
+local function StoreColor(color, r, g, b, a)
+	color[1], color[2], color[3], color[4] = r, g, b, a
+end
+
 -- Follows ElvUI's backdrop colors, e.g. the threat border
 local function Backdrop_SetBackdropColor(backdrop, r, g, b, a)
 	local shell = backdrop.MER_RoundedShell
@@ -139,7 +144,7 @@ local function Backdrop_SetBackdropColor(backdrop, r, g, b, a)
 		return
 	end
 
-	shell.bgColor = { r, g, b, a }
+	StoreColor(shell.bgColor, r, g, b, a)
 	Shell_SetBackgroundColor(shell, r, g, b)
 	if shell.clears and shell.active then
 		ClearTemplate(backdrop, shell)
@@ -152,7 +157,7 @@ local function Backdrop_SetBackdropBorderColor(backdrop, r, g, b, a)
 		return
 	end
 
-	shell.borderColor = { r, g, b, a }
+	StoreColor(shell.borderColor, r, g, b, a)
 	shell.border:SetVertexColor(r, g, b, a)
 	if shell.clears and shell.active then
 		ClearTemplate(backdrop, shell)
@@ -184,6 +189,9 @@ local function CreateShell(backdrop)
 	shell.bg:SetTexture(E.media.blankTex)
 	shell.bgMask = CreateMask(shell)
 	shell.bg:AddMaskTexture(shell.bgMask)
+
+	shell.bgColor = {}
+	shell.borderColor = {}
 
 	backdrop.MER_RoundedShell = shell
 	hooksecurefunc(backdrop, "SetBackdropColor", Backdrop_SetBackdropColor)
@@ -221,8 +229,8 @@ local function ApplyShell(bar, flat, backdrop, clears)
 
 	-- A cleared template reads back as invisible, its colors are the ones seen before
 	if not shell.active then
-		shell.bgColor = { backdrop:GetBackdropColor() }
-		shell.borderColor = { backdrop:GetBackdropBorderColor() }
+		StoreColor(shell.bgColor, backdrop:GetBackdropColor())
+		StoreColor(shell.borderColor, backdrop:GetBackdropBorderColor())
 	end
 	Shell_SetBackgroundColor(shell, unpack(shell.bgColor))
 	shell.border:SetVertexColor(unpack(shell.borderColor))
@@ -437,15 +445,19 @@ local UNITS = {
 	arena = "arena",
 }
 
-function module:Configure_RoundedCorners(frame)
+-- Returns the settings and whether the frame's unit is rounded, nil for frames without an option
+local function GetSettings(frame)
 	local unit = frame and UNITS[frame.unitframeType]
 	if not unit then
 		return
 	end
 
 	local db = E.db.mui.unitframes.roundedCorners
-	local enabled = db.enable and db.units[unit]
+	return db, (db.enable and db.units[unit]) or false
+end
 
+-- Health and power together, the attached power bar decides the flat sides of both
+local function ConfigureBars(frame, enabled)
 	if not enabled then
 		Disable(frame.Health)
 		Disable(frame.Power)
@@ -461,7 +473,9 @@ function module:Configure_RoundedCorners(frame)
 			Disable(frame.Power)
 		end
 	end
+end
 
+local function ConfigureCastbar(frame, db, enabled)
 	if frame.Castbar then
 		if enabled and db.units.castbar then
 			ApplyCastbar(frame.Castbar)
@@ -469,7 +483,9 @@ function module:Configure_RoundedCorners(frame)
 			DisableCastbar(frame.Castbar)
 		end
 	end
+end
 
+local function ConfigureClassBars(frame, db, enabled)
 	if frame.ClassBar then
 		if enabled and db.units.classbar then
 			for _, key in ipairs(CLASS_BARS) do
@@ -479,6 +495,17 @@ function module:Configure_RoundedCorners(frame)
 			DisableClassBars(frame)
 		end
 	end
+end
+
+function module:Configure_RoundedCorners(frame)
+	local db, enabled = GetSettings(frame)
+	if not db then
+		return
+	end
+
+	ConfigureBars(frame, enabled)
+	ConfigureCastbar(frame, db, enabled)
+	ConfigureClassBars(frame, db, enabled)
 end
 
 -- oUF keeps every spawned frame, the group headers' children included
@@ -499,14 +526,31 @@ function module:RoundedCorners()
 	end
 
 	-- All run after ElvUI placed a bar; the power bar is placed after the health bar
-	-- and can change without a full update, the class bar changes with the spec
-	local function Configure(_, frame)
-		module:Configure_RoundedCorners(frame)
+	-- and can change without a full update, the class bar changes with the spec.
+	-- Each hook only redoes its own bar: ElvUI also runs these in combat whenever an
+	-- auto-hiding power or class bar shows or hides (e.g. combo points at zero).
+	local function ConfigureHealthPower(_, frame)
+		local db, enabled = GetSettings(frame)
+		if db then
+			ConfigureBars(frame, enabled)
+		end
 	end
-	hooksecurefunc(UF, "Configure_HealthBar", Configure)
-	hooksecurefunc(UF, "Configure_Power", Configure)
-	hooksecurefunc(UF, "Configure_ClassBar", Configure)
-	hooksecurefunc(UF, "Configure_Castbar", Configure)
+	hooksecurefunc(UF, "Configure_HealthBar", ConfigureHealthPower)
+	hooksecurefunc(UF, "Configure_Power", ConfigureHealthPower)
+
+	hooksecurefunc(UF, "Configure_ClassBar", function(_, frame)
+		local db, enabled = GetSettings(frame)
+		if db then
+			ConfigureClassBars(frame, db, enabled)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Castbar", function(_, frame)
+		local db, enabled = GetSettings(frame)
+		if db then
+			ConfigureCastbar(frame, db, enabled)
+		end
+	end)
 
 	-- ElvUI spawns its frames before our hooks exist
 	module:UpdateRoundedCorners()

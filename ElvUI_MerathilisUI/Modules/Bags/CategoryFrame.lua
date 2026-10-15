@@ -61,6 +61,7 @@ local API = {
 	IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip,
 	GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo,
 	GetBagItemTooltip = C_TooltipInfo.GetBagItem,
+	GetItemGUID = C_Item.GetItemGUID,
 }
 local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
 local C_MerchantFrame_SellAllJunkItems = C_MerchantFrame.SellAllJunkItems
@@ -1575,21 +1576,53 @@ end
 
 -- Same tooltip-scan EquipManager.lua uses for ElvUI's native bags
 -- (GetContainerItemEquipmentSetInfo is still unreliable).
+-- Every refresh asks this for each piece of gear, so the answer is kept per
+-- item GUID (it moves with the item) until the equipment sets change, see
+-- module.InvalidateEquipSetCache.
+module.equipSetCache = {}
+
+function module.InvalidateEquipSetCache()
+	wipe(module.equipSetCache)
+end
+
 local function IsItemInEquipmentSet(bagID, slotID)
+	local location = module.equipSetLocation
+	if not location and API.GetItemGUID and ItemLocation then
+		location = ItemLocation:CreateEmpty()
+		module.equipSetLocation = location
+	end
+
+	local guid
+	if location then
+		location:SetBagAndSlot(bagID, slotID)
+		guid = location:IsValid() and API.GetItemGUID(location)
+	end
+
+	local cache = module.equipSetCache
+	if guid and cache[guid] ~= nil then
+		return cache[guid]
+	end
+
 	local tooltipData = API.GetBagItemTooltip(bagID, slotID)
 	if not tooltipData or not tooltipData.lines then
 		return false
 	end
 
+	local inSet = false
 	local lines = tooltipData.lines
 	for i = 1, #lines do
 		local text = lines[i] and lines[i].leftText
 		if text and strmatch(text, MATCH_EQUIPMENT_SETS) then
-			return true
+			inSet = true
+			break
 		end
 	end
 
-	return false
+	if guid then
+		cache[guid] = inSet
+	end
+
+	return inSet
 end
 
 ---Size, spot, texture and color of the equipment set marker on a slot, also used by
@@ -5783,7 +5816,11 @@ local function DoThrottledRefresh()
 	end
 end
 
-local function OnBagEvent()
+local function OnBagEvent(_, event)
+	if event == "EQUIPMENT_SETS_CHANGED" then
+		module.InvalidateEquipSetCache()
+	end
+
 	if module.sortingBags then
 		module:PokeSortSpinner()
 	end
@@ -5819,6 +5856,7 @@ function module:RegisterBagEventsFor(owner)
 		-- Whatever changed while no window was open
 		module:OnCursorChanged()
 		module.EvaluateItemContext()
+		module.InvalidateEquipSetCache()
 	end
 
 	bagEventOwners[owner] = true

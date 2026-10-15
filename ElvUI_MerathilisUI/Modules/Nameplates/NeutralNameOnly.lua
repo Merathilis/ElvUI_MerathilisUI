@@ -4,8 +4,10 @@ local NP = E:GetModule("NamePlates")
 
 local hooksecurefunc = hooksecurefunc
 local pairs = pairs
+local pcall = pcall
 local strsub = strsub
 
+local C_NamePlate_GetNamePlateForUnit = C_NamePlate.GetNamePlateForUnit
 local CreateFrame = CreateFrame
 local UnitAffectingCombat = UnitAffectingCombat
 local UnitIsTapDenied = UnitIsTapDenied
@@ -118,13 +120,11 @@ local function OnEvent(_, event, unit)
 			return
 		end
 
-		for nameplate in pairs(NP.Plates) do
-			if nameplate.__unit == unit then
-				if IsNeutralPlate(nameplate) then
-					RefreshPlate(nameplate)
-				end
-				return
-			end
+		-- Same lookup ElvUI uses, guarded for restricted units
+		local success, plate = pcall(C_NamePlate_GetNamePlateForUnit, unit)
+		local nameplate = success and plate and plate.unitFrame
+		if nameplate and NP.Plates[nameplate] and IsNeutralPlate(nameplate) then
+			RefreshPlate(nameplate)
 		end
 	else
 		RefreshNeutralPlates()

@@ -21,9 +21,12 @@ MER.Changelog[742] = {
 		"[NamePlates]: Target Emphasis - while you have a target, the other nameplates fade and get a dark shade over their health bar, and a new target pops up for a moment. ElvUI's border glow on the target can be made wider, fades in and can pulse. The target's nameplate is drawn above the nameplates it overlaps. Casting units can keep their full alpha, everything can be limited to combat.",
 	},
 	IMPROVEMENTS = {
+		"[Bags]: Gear in the categorized bags no longer reads its tooltip on every bag update to find its equipment set, the answer is kept until the sets change.",
 		"[Chat]: The M+ Portals flyout of the Chat Sidebar has a direction option (automatic, up, down, left, right).",
 		"[General]: The Spec Bar, Interrupt Ready, Bloodlust tracker and Movement Alert no longer refresh when a group member changes their specialization, only on your own.",
 		"[Loadout Manager]: Automatic talent swaps now wait while a talent change is being applied or the talent window has unsaved changes, instead of failing or discarding them.",
+		"[NamePlates]: Neutral Name Only finds the nameplate of a unit directly instead of going through all nameplates on every combat flag change.",
 		"[NamePlates]: The Castbar Shield now sits on the castbar itself instead of half over the castbar icon.",
+		"[UnitFrames]: Rounded Corners only redo the bar ElvUI just changed, e.g. when an auto-hiding class bar shows or hides in combat, instead of the whole unitframe several times.",
 	},
 }
