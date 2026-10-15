@@ -615,6 +615,38 @@ local function RefreshOwnerFrame(ownerFrame)
 	end
 end
 
+-- Mirrors the EXPANDITEM branch of Blizzard's
+-- ContainerFrameItemButtonMixin:OnModifiedClick. A module method rather than
+-- a file local, this file is close to Lua 5.1's 200-locals limit. Returns
+-- true when one of the UIs opened.
+function module:OpenExpandItem(bagID, slotID)
+	if not bagID or not slotID then
+		return false
+	end
+
+	local itemLocation = ItemLocation:CreateFromBagAndSlot(bagID, slotID)
+	if not C_Item.DoesItemExist(itemLocation) then
+		return false
+	end
+
+	if C_AzeriteEmpoweredItem and OpenAzeriteEmpoweredItemUIFromItemLocation then
+		if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation) and C_Item.CanViewItemPowers(itemLocation) then
+			OpenAzeriteEmpoweredItemUIFromItemLocation(itemLocation)
+			return true
+		end
+	end
+
+	if C_AzeriteItem and OpenAzeriteEssenceUIFromItemLocation then
+		local heartItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
+		if heartItemLocation and heartItemLocation:IsEqualTo(itemLocation) then
+			OpenAzeriteEssenceUIFromItemLocation(itemLocation)
+			return true
+		end
+	end
+
+	return C_Container.SocketContainerItem(bagID, slotID) and true or false
+end
+
 -- Right-click "use" needs real secure type/item attributes on a
 -- SecureActionButtonTemplate button to avoid ADDON_ACTION_FORBIDDEN (see
 -- UpdateSlotVisual); a plain overlay on top to carry Left/Middle separately
@@ -675,6 +707,46 @@ local function Slot_OnClick(self, mouseButton, down)
 	if mouseButton == "LeftButton" and module.junkMarkMode and not IsModifiedClick() and not CursorHasItem() then
 		module:ToggleJunkMarkForSlot(self.BagID, self.SlotID)
 		RefreshOwnerFrame(self.ownerFrame)
+		return
+	end
+
+	-- Shift+Right-click (EXPANDITEM) opens the socketing UI, or the Azerite
+	-- trait/essence UI, the same way Blizzard's bags do. Checked before Split
+	-- Stack, which shares the Shift modifier by default; only an item that
+	-- actually opened one of those UIs swallows the click. Right-click runs
+	-- through here on both the down and the up phase: the UI is opened on
+	-- down, the secure dispatch is suppressed on both, as either may fire it.
+	local expandClick = self.pendingExpandClick
+	if mouseButton == "RightButton" and not down then
+		self.pendingExpandClick = nil
+	end
+
+	if
+		mouseButton == "RightButton"
+		and (
+			(not down and expandClick)
+			or (
+				down
+				and IsModifiedClick("EXPANDITEM")
+				and not CursorHasItem()
+				and module:OpenExpandItem(self.BagID, self.SlotID)
+			)
+		)
+	then
+		if down then
+			self.pendingExpandClick = true
+		end
+
+		if not InCombatLockdown() then
+			self:SetAttribute("*type2", nil)
+
+			C_Timer.After(0, function()
+				if not InCombatLockdown() then
+					self:SetAttribute("*type2", "macro")
+				end
+			end)
+		end
+
 		return
 	end
 
