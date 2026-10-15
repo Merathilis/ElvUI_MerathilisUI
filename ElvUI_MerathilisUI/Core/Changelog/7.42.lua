@@ -4,6 +4,7 @@ MER.Changelog[742] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
 		"[Armory]: The gray background bars of ElvUI's character skin showed up again behind the item level and the stats.",
+		"[Bags]: Shift+Right-click on an item with sockets now opens the socketing window, like in Blizzard's and ElvUI's bags.",
 		"[NamePlates]: Nameplates that only show a widget (e.g. delve companions like Valeera, objects with a progress bar) no longer show a leftover name, level and health text.",
 	},
 	NEW = {
