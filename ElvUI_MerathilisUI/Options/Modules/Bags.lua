@@ -281,17 +281,31 @@ module:AddOptions(function()
 									end
 								end,
 							},
-							resetCurrencyOrder = {
+							trackedCurrencies = {
 								order = 12,
+								type = "multiselect",
+								dialogControl = "MERDropdown",
+								name = L["Footer Currencies"],
+								desc = L["The currencies shown in the footer, per character and without Blizzard's limit of three. Ticking a currency in the Currency tab still adds it here. Drag one currency onto another in the footer to reorder them."],
+								width = 1.5,
+								values = function()
+									local values, order = BC:GetCurrencyOptionList()
+									return setmetatable(values, { order = order, itemType = "MERDropdownItemIcon" })
+								end,
+								get = function(_, key)
+									return BC:IsCurrencyTracked(key)
+								end,
+								set = function(_, key, value)
+									BC:SetCurrencyTracked(key, value)
+								end,
+							},
+							resetCurrencies = {
+								order = 12.1,
 								type = "execute",
-								name = L["Reset Currency Order"],
-								desc = L["Puts the tracked currencies in the footer back into Blizzard's own order. Drag one currency onto another in the footer to reorder them."],
+								name = L["Reset Currencies"],
+								desc = L["Replaces this character's footer currencies with the ones shown on the backpack in the Currency tab, in Blizzard's order."],
 								func = function()
-									BC.db.currencyOrder = {}
-
-									if BC.frame then
-										BC:UpdateFooter()
-									end
+									BC:ResetTrackedCurrencies()
 								end,
 							},
 							resetCategoryGroups = {

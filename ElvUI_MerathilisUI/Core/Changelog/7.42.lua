@@ -22,6 +22,7 @@ MER.Changelog[742] = {
 	},
 	IMPROVEMENTS = {
 		"[Bags]: Gear in the categorized bags no longer reads its tooltip on every bag update to find its equipment set, the answer is kept until the sets change.",
+		"[Bags]: The footer currencies are no longer limited to Blizzard's three. Pick any number of them per character in the options (grouped like the Currency tab, with icons), they wrap into more rows when needed. Ticking a currency in the Currency tab still adds it, Shift-click links it in chat.",
 		"[Chat]: The M+ Portals flyout of the Chat Sidebar has a direction option (automatic, up, down, left, right).",
 		"[General]: The Spec Bar, Interrupt Ready, Bloodlust tracker and Movement Alert no longer refresh when a group member changes their specialization, only on your own.",
 		"[Loadout Manager]: Automatic talent swaps now wait while a talent change is being applied or the talent window has unsaved changes, instead of failing or discarding them.",

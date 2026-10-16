@@ -59,11 +59,9 @@ local API = {
 	GetItemInfo = C_Item.GetItemInfo,
 	IsEquippableItem = C_Item.IsEquippableItem,
 	IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip,
-	GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo,
 	GetBagItemTooltip = C_TooltipInfo.GetBagItem,
 	GetItemGUID = C_Item.GetItemGUID,
 }
-local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
 local C_MerchantFrame_SellAllJunkItems = C_MerchantFrame.SellAllJunkItems
 
 local BAG_IDS = { 0, 1, 2, 3, 4 }
@@ -2325,102 +2323,6 @@ end)
 -- contentChild/sidebarChild/frame/offsets exist.
 module.CreatePoolSet = CreatePoolSet
 
--- Footer currency order: a list of currencyTypesIDs kept in db.currencyOrder.
--- Currencies the player starts watching later aren't in it yet and simply
--- follow in Blizzard's own order.
-local function GetOrderedCurrencies()
-	local order = module.db.currencyOrder or {}
-	local position = {}
-	for index, currencyID in ipairs(order) do
-		position[currencyID] = index
-	end
-
-	local watched = {}
-	for index = 1, MAX_WATCHED_TOKENS do
-		local info = API.GetBackpackCurrencyInfo(index)
-		if info and info.name then
-			tinsert(watched, {
-				index = index,
-				info = info,
-				position = position[info.currencyTypesID] or (#order + index),
-			})
-		end
-	end
-
-	tsort(watched, function(a, b)
-		return a.position < b.position
-	end)
-
-	return watched
-end
-
-local function MoveCurrency(draggedID, targetID)
-	if not draggedID or not targetID or draggedID == targetID then
-		return
-	end
-
-	local db = module.db
-
-	-- Seed from what is currently displayed, so the first drag reorders the
-	-- visible cluster instead of an empty list.
-	if not db.currencyOrder or #db.currencyOrder == 0 then
-		db.currencyOrder = {}
-		for _, entry in ipairs(GetOrderedCurrencies()) do
-			tinsert(db.currencyOrder, entry.info.currencyTypesID)
-		end
-	end
-
-	local order = db.currencyOrder
-	for index, currencyID in ipairs(order) do
-		if currencyID == draggedID then
-			tremove(order, index)
-			break
-		end
-	end
-
-	for index, currencyID in ipairs(order) do
-		if currencyID == targetID then
-			tinsert(order, index, draggedID)
-			return
-		end
-	end
-
-	tinsert(order, draggedID)
-end
-
-local function Currency_OnDragStart(self)
-	if InCombatLockdown() or not self.currencyID then
-		return
-	end
-
-	module.draggingCurrencyID = self.currencyID
-	self:SetAlpha(0.4)
-end
-
-local function Currency_OnDragStop(self)
-	self:SetAlpha(1)
-
-	local draggedID = module.draggingCurrencyID
-	local targetID = module.dragHoverCurrencyID
-	module.draggingCurrencyID = nil
-	module.dragHoverCurrencyID = nil
-
-	if draggedID and targetID then
-		MoveCurrency(draggedID, targetID)
-		module:UpdateFooter()
-	end
-end
-
-local function Currency_OnDragEnter(self)
-	if module.draggingCurrencyID then
-		module.dragHoverCurrencyID = self.currencyID
-	end
-end
-
-local function Currency_OnDragLeave()
-	module.dragHoverCurrencyID = nil
-end
-
 -------------------------------------------------------------------------------
 --  Frame construction
 -------------------------------------------------------------------------------
@@ -2840,7 +2742,8 @@ function module:ConstructFrame()
 
 	f.footer.goldText = f.footer:CreateFontString(nil, "OVERLAY")
 	f.footer.goldText:FontTemplate()
-	f.footer.goldText:Point("LEFT", 4, 0)
+	-- Centered on the bottom row, extra currency rows stack above it.
+	f.footer.goldText:Point("LEFT", f.footer, "BOTTOMLEFT", 4, 10)
 
 	-- Invisible hit-box over the gold text for the cross-character/Warband
 	-- tooltip - a FontString can't itself take mouse input.
@@ -2851,52 +2754,8 @@ function module:ConstructFrame()
 	end)
 	f.footer.goldButton:SetScript("OnLeave", GameTooltip_Hide)
 
-	-- Tracked currencies (same source as ElvUI's own bags: whatever the
-	-- player enabled "Show on Backpack" for via the default Currency tab),
-	-- shown icon + amount next to gold.
-	f.footer.currencyButtons = {}
-	for i = 1, MAX_WATCHED_TOKENS do
-		local btn = CreateFrame("Button", FRAME_NAME .. "Currency" .. i, f.footer, "BackpackTokenTemplate")
-		btn:Size(20)
-		pcall(btn.SetTemplate, btn)
-
-		-- The template's own OnEnter reads this index to show the matching
-		-- currency's tooltip (GetBackpackCurrencyInfo(id) below uses the same
-		-- index), same as ElvUI's own currency buttons.
-		btn:SetID(i)
-
-		local icon = btn.icon or btn.Icon
-		icon:SetInside()
-		icon:SetTexCoords()
-
-		btn.text = btn:CreateFontString(nil, "OVERLAY")
-		btn.text:FontTemplate()
-		btn:Hide()
-
-		-- Layered on top of (not replacing) whatever OnEnter/OnLeave the
-		-- template itself already wires up, so the tooltip works even if
-		-- that default behavior isn't hooked up outside its usual parent.
-		btn:HookScript("OnEnter", function(self)
-			if GameTooltip:IsForbidden() then
-				return
-			end
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetBackpackToken(self:GetID())
-			GameTooltip:Show()
-		end)
-		btn:HookScript("OnLeave", GameTooltip_Hide)
-
-		-- Drag one currency onto another to reorder the footer cluster, the
-		-- same interaction the sidebar categories already use. Blizzard's own
-		-- watch list stays untouched; only our display order moves.
-		btn:RegisterForDrag("LeftButton")
-		btn:SetScript("OnDragStart", Currency_OnDragStart)
-		btn:SetScript("OnDragStop", Currency_OnDragStop)
-		btn:HookScript("OnEnter", Currency_OnDragEnter)
-		btn:HookScript("OnLeave", Currency_OnDragLeave)
-
-		f.footer.currencyButtons[i] = btn
-	end
+	-- Tracked currencies (Currencies.lua), shown icon + amount next to gold.
+	module:CreateCurrencyButtons(f)
 
 	-- Manually apply Style
 	F.CreateStyle(f)
@@ -2911,17 +2770,6 @@ function module:ConstructFrame()
 			module:UpdateFooter()
 		end
 	end)
-
-	-- CURRENCY_DISPLAY_UPDATE only covers amount changes, not toggling a
-	-- currency's "Show on Backpack" watch state (same reason ElvUI's own
-	-- bags hook this directly instead of relying on that event alone).
-	if _G.TokenFrame then
-		hooksecurefunc(_G.TokenFrame, "SetTokenWatched", function()
-			if f:IsShown() then
-				module:UpdateFooter()
-			end
-		end)
-	end
 
 	return f
 end
@@ -3036,40 +2884,7 @@ function module:UpdateFooter()
 	module:UpdateGoldTracking()
 	f.footer.goldText:SetText(E:FormatMoney(GetMoney(), "SMART"))
 
-	-- Chained right-to-left off the footer's own right edge (independent of
-	-- goldText's width), so the whole currency cluster stays flush to the
-	-- right instead of trailing right after the gold amount.
-	local ordered = GetOrderedCurrencies()
-
-	local rightAnchor, rightAnchorPoint, rightPadding = f.footer, "RIGHT", -6
-	for i = 1, MAX_WATCHED_TOKENS do
-		local btn = f.footer.currencyButtons[i]
-		local entry = ordered[i]
-
-		if entry then
-			local info = entry.info
-			local icon = btn.icon or btn.Icon
-			icon:SetTexture(info.iconFileID)
-			btn.text:SetText(info.quantity)
-
-			-- The button's ID is Blizzard's watch index, not our display
-			-- position: the template's own tooltip (SetBackpackToken) reads
-			-- it, so it has to follow the currency, not the slot it sits in.
-			btn:SetID(entry.index)
-			btn.currencyID = info.currencyTypesID
-
-			btn:ClearAllPoints()
-			btn.text:ClearAllPoints()
-			btn.text:Point("RIGHT", rightAnchor, rightAnchorPoint, rightPadding, 0)
-			btn:Point("RIGHT", btn.text, "LEFT", -2, 0)
-			btn:Show()
-
-			rightAnchor, rightAnchorPoint, rightPadding = btn, "LEFT", -14
-		else
-			btn.currencyID = nil
-			btn:Hide()
-		end
-	end
+	module:UpdateCurrencies(f)
 end
 
 -------------------------------------------------------------------------------
@@ -4794,6 +4609,8 @@ function module:RefreshCategoryFrame()
 		end,
 	}, sections)
 
+	-- Before the auto height, extra currency rows grow the footer.
+	module:UpdateFooter()
 	ApplyAutoHeight(f, module.contentChild, module.sidebarChild, db.height)
 
 	f.titleText:SetText(L["Inventory"])
@@ -4801,8 +4618,6 @@ function module:RefreshCategoryFrame()
 	SetFillBar(f, usedSlots, totalSlots)
 	module:UpdateJunkMarkButton()
 	module:UpdateQuickActionsButton()
-
-	module:UpdateFooter()
 end
 
 -------------------------------------------------------------------------------

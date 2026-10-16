@@ -298,6 +298,7 @@ P.bags = {
 		bankHeight = 600,
 		categoryOrder = {},
 		currencyOrder = {},
+		currenciesByChar = {},
 		itemOrder = {},
 		userCategories = {},
 		itemAssignments = {},
