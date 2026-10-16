@@ -506,6 +506,30 @@ L["Hide ElvUI Bars"] = "ElvUI 바 숨기기"
 
 -- Raid Info Frame
 L["Raid Info Frame"] = "공격대 정보 창"
+L["Cinematics"] = true
+L["Media Player"] = true
+L["Open Media Player"] = true
+L["Browse the game's music by expansion and zone and play it as a playlist, or replay the cinematics. The search finds tracks, zones and cinematics. The game's own music pauses while a track plays."] = true
+L["Also opens with %s."] = true
+L["Back"] = true
+L["Battlegrounds & Arenas"] = true
+L["Click a track to play it, the zone's other tracks follow."] = true
+L["Dungeons"] = true
+L["Next"] = true
+L["Not downloaded"] = true
+L["Nothing found."] = true
+L["Now Playing:"] = true
+L["Other Music"] = true
+L["Previous"] = true
+L["Scenarios"] = true
+L["Search tracks, zones and cinematics"] = true
+L["Search: %s"] = true
+L["Stop"] = true
+L["Tracks"] = true
+L["Various"] = true
+L["Zones"] = true
+L["Cinematics can't be played in combat."] = true
+L["This cinematic is not available, it may still be downloading."] = true
 L[" provides a Raid Info Frame that shows a list of players per role in your raid."] =
 	"공격대에서 역할별로 플레이어 목록을 보여주는 공격대 정보 창을 제공합니다"
 L["Temporarily shows the frame even outside of a raid for easier customization."] =

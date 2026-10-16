@@ -764,6 +764,30 @@ L["Animation Speed"] = "Animations Geschwindigkeit"
 
 -- Raid Info Frame
 L["Raid Info Frame"] = "Raid Info Fenster"
+L["Cinematics"] = "Zwischensequenzen"
+L["Media Player"] = true
+L["Open Media Player"] = "Media Player öffnen"
+L["Browse the game's music by expansion and zone and play it as a playlist, or replay the cinematics. The search finds tracks, zones and cinematics. The game's own music pauses while a track plays."] = "Durchsuche die Musik des Spiels nach Erweiterung und Zone und spiele sie als Playlist ab, oder schau dir die Zwischensequenzen erneut an. Die Suche findet Tracks, Zonen und Zwischensequenzen. Die Spielmusik pausiert, solange ein Track läuft."
+L["Also opens with %s."] = "Öffnet sich auch mit %s."
+L["Back"] = "Zurück"
+L["Battlegrounds & Arenas"] = "Schlachtfelder & Arenen"
+L["Click a track to play it, the zone's other tracks follow."] = "Klicke auf einen Track, um ihn abzuspielen, die übrigen Tracks der Zone folgen."
+L["Dungeons"] = true
+L["Next"] = "Weiter"
+L["Not downloaded"] = "Nicht heruntergeladen"
+L["Nothing found."] = "Nichts gefunden."
+L["Now Playing:"] = "Läuft gerade:"
+L["Other Music"] = "Weitere Musik"
+L["Previous"] = "Vorheriger"
+L["Scenarios"] = "Szenarien"
+L["Search tracks, zones and cinematics"] = "Tracks, Zonen und Zwischensequenzen suchen"
+L["Search: %s"] = "Suche: %s"
+L["Stop"] = "Stopp"
+L["Tracks"] = true
+L["Various"] = "Verschiedenes"
+L["Zones"] = "Zonen"
+L["Cinematics can't be played in combat."] = "Zwischensequenzen können im Kampf nicht abgespielt werden."
+L["This cinematic is not available, it may still be downloading."] = "Diese Zwischensequenz ist nicht verfügbar, sie wird eventuell noch heruntergeladen."
 L[" provides a Raid Info Frame that shows a list of players per role in your raid."] =
 	" bietet ein Raid Info Fenster, das eine Liste von Spielern pro Rolle in deinem Raid anzeigt."
 L["Temporarily shows the frame even outside of a raid for easier customization."] =

@@ -19,6 +19,7 @@ MER.Changelog[742] = {
 		"[Bags]: Option to open and close the bags together with the character window.",
 		"[Chat]: Own Copy Chat window - opens at the newest lines with everything selected, can be moved and resized, keeps or strips the chat colors and shows raid icons as {star} etc. Used by the sidebar copy button and ElvUI's copy button on each chat.",
 		"[HoverCast]: Clear Stuck Spell Targeting (on by default) - a spell still waiting for a target no longer swallows the next press.",
+		"[Media Player]: New window (/muimedia or Modules > Media Player) to browse and play the game's music by expansion and zone, with a search over all tracks, zones and cinematics. A track plays as a playlist through the rest of its zone, the game music pauses meanwhile. Each expansion also lists its cinematics to replay them.",
 		"[NamePlates]: Target Emphasis - while you have a target, the other nameplates fade and get a dark shade over their health bar, and a new target pops up for a moment. ElvUI's border glow on the target can be made wider, fades in and can pulse. The target's nameplate is drawn above the nameplates it overlaps. Casting units can keep their full alpha, everything can be limited to combat.",
 	},
 	IMPROVEMENTS = {

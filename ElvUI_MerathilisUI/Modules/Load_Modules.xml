@@ -16,6 +16,7 @@
 	<Include file="Loot\Load_Loot.xml"/>
 	<Include file="Mail\Load_Mail.xml"/>
 	<Include file="Maps\Load_Maps.xml"/>
+	<Include file="MediaPlayer\Load_MediaPlayer.xml"/>
 	<Include file="Misc\Load_Misc.xml"/>
 	<Include file="MovementAlert\Load_MovementAlert.xml"/>
 	<Include file="NameHover\Load_NameHover.xml"/>

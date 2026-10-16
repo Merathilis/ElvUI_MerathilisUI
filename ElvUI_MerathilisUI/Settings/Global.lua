@@ -17,6 +17,10 @@ G.mail = {
 	quickAttachRecipients = {},
 }
 
+G.mediaPlayer = {
+	restoreMusic = false, -- game music was switched off for a track, switch it back on at the next login
+}
+
 G.developer = {
 	logLevel = 2,
 	channels = {},
