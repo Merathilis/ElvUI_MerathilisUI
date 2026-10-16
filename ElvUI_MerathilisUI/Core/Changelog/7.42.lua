@@ -11,6 +11,7 @@ MER.Changelog[742] = {
 		'[Loadout Manager]: No more false "item(s) missing" messages while the last items of a gear set are still being equipped.',
 		"[Loadout Manager]: A talent loadout no longer stays pending when combat starts before its load began, and a loadout that only partly applied is now reported.",
 		"[NamePlates]: Nameplates that only show a widget (e.g. delve companions like Valeera, objects with a progress bar) no longer show a leftover name, level and health text.",
+		"[Profiles]: The ls_Toasts profile places the toasts again. ls_Toasts now keeps its anchors per Edit Mode layout, the old position was ignored and the toasts ended up in the top left corner.",
 	},
 	NEW = {
 		"[Bags]: Quick Actions - an optional title bar button that highlights the items you can disenchant or pick, a click on one casts the spell on it.",
