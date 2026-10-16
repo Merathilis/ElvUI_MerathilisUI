@@ -292,8 +292,20 @@ module:AddOptions(function()
 								type = "toggle",
 								name = L["Enable"],
 							},
-							units = {
+							radius = {
 								order = 3,
+								type = "range",
+								name = L["Radius"],
+								desc = L["0 keeps the default subtle corners, any other value is the corner radius in pixels."],
+								min = 0,
+								max = 16,
+								step = 1,
+								disabled = function()
+									return UnitFramesDisabled() or not E.db.mui.unitframes.roundedCorners.enable
+								end,
+							},
+							units = {
+								order = 4,
 								type = "multiselect",
 								name = L["Units"],
 								values = {

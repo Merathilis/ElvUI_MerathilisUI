@@ -28,5 +28,6 @@ MER.Changelog[742] = {
 		"[NamePlates]: Neutral Name Only finds the nameplate of a unit directly instead of going through all nameplates on every combat flag change.",
 		"[NamePlates]: The Castbar Shield now sits on the castbar itself instead of half over the castbar icon.",
 		"[UnitFrames]: Rounded Corners only redo the bar ElvUI just changed, e.g. when an auto-hiding class bar shows or hides in combat, instead of the whole unitframe several times.",
+		"[UnitFrames]: Rounded Corners has a Radius slider (up to 16 pixels, 0 keeps the subtle default corners). With a radius set, the border is a real ring, so a transparent unitframe background stays see-through.",
 	},
 }

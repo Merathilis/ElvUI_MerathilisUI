@@ -1605,6 +1605,7 @@ L["Relative Point"] = true
 -- Rounded Corners
 L["Rounded Corners"] = true
 L["Rounds the corners of the health, power, class and cast bars, including their border."] = true
+L["0 keeps the default subtle corners, any other value is the corner radius in pixels."] = true
 L["The MerathilisUI layout with rounded health, power, class and cast bars on all unit frames."] = true
 
 -- Cast on You

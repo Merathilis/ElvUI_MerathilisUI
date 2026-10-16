@@ -1399,6 +1399,7 @@ L["Relative Point"] = "Relativer Punkt"
 -- Rounded Corners
 L["Rounded Corners"] = "Abgerundete Ecken"
 L["Rounds the corners of the health, power, class and cast bars, including their border."] = "Rundet die Ecken der Lebens-, Ressourcen-, Klassen- und Zauberleiste samt Rahmen ab."
+L["0 keeps the default subtle corners, any other value is the corner radius in pixels."] = "0 behält die dezenten Standard-Ecken, jeder andere Wert ist der Eckenradius in Pixeln."
 L["The MerathilisUI layout with rounded health, power, class and cast bars on all unit frames."] = "Das MerathilisUI-Layout mit abgerundeten Lebens-, Ressourcen-, Klassen- und Zauberleisten auf allen Einheitenfenstern."
 
 -- Cast on You

@@ -1099,6 +1099,7 @@ P.unitframes = {
 	highlight = true,
 	roundedCorners = {
 		enable = false,
+		radius = 0,
 		units = {
 			player = true,
 			target = true,
