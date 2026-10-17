@@ -549,12 +549,13 @@ local function Apply()
 		kept[check.key] = (keepMine and keepTheirs) or nil
 	end
 
-	frame:Hide()
-
-	-- Both sides only read their settings when they load
+	-- Both sides only read their settings when they load. Reload first, straight from the click:
+	-- on Forever it was blocked once the OnHide release of the rows ran before it
 	if changed then
 		C_UI_Reload()
 	end
+
+	frame:Hide()
 end
 
 local function CreateGroupHeader(index)

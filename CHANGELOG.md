@@ -4,6 +4,7 @@
 -   [Fix]: Bags: Shift+Right-click on an item with sockets now opens the socketing window, like in Blizzard's and ElvUI's bags.
 -   [Fix]: Buff Reminder: An enchanted off-hand no longer hides the reminder for an unenchanted main-hand weapon.
 -   [Fix]: Buff Reminder: The food reminder now also finds the feasts (Feast of Knowledge, Silvermoon Parade, Harandar Celebration), Bloodthistle-wrapped Cutlets and all Hearty foods in your bags.
+-   [Fix]: Compatibility Check: On WoW Forever, "Apply" no longer gets blocked by the game ("tried to call the protected function C_UI_Reload()") and reloads the UI again.
 -   [Fix]: HoverCast: A binding whose macro grew past WoW's 255 character limit (e.g. with Smart Rez) lost its own action. The macro is now shortened step by step instead, the action always stays.
 -   [Fix]: Loadout Manager: No more false "item(s) missing" messages while the last items of a gear set are still being equipped.
 -   [Fix]: Loadout Manager: A talent loadout no longer stays pending when combat starts before its load began, and a loadout that only partly applied is now reported.
