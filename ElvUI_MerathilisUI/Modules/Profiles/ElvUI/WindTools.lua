@@ -2,6 +2,75 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Profiles") ---@class Profiles
 local Splash = MER:GetModule("MER_SplashScreen") ---@class SplashScreen
 
+local ipairs, type = ipairs, type
+
+-- Every WindTools font table, so all modules share our primary font instead of WT's mixed defaults
+local profileFonts = {
+	"combat.combatAlert.font",
+	"item.extraItemsBar.bar1.countFont",
+	"item.extraItemsBar.bar1.bindFont",
+	"item.extraItemsBar.bar2.countFont",
+	"item.extraItemsBar.bar2.bindFont",
+	"item.extraItemsBar.bar3.countFont",
+	"item.extraItemsBar.bar3.bindFont",
+	"item.extraItemsBar.bar4.countFont",
+	"item.extraItemsBar.bar4.bindFont",
+	"item.extraItemsBar.bar5.countFont",
+	"item.extraItemsBar.bar5.bindFont",
+	"item.inspect.gemIcon.craftingTier",
+	"item.inspect.enchantIcon.craftingTier",
+	"item.inspect.slotText",
+	"item.inspect.levelText",
+	"item.inspect.itemNameText",
+	"item.inspect.statistics.text",
+	"item.itemLevel.flyout.font",
+	"item.itemLevel.scrappingMachine.font",
+	"maps.eventTracker.font",
+	"misc.gameBar.time.font",
+	"misc.gameBar.time.systemInfoFont",
+	"misc.gameBar.additionalText.font",
+	"quest.switchButtons.font",
+	"quest.preyHunt.progressWidget.stageText",
+	"quest.preyHunt.progressWidget.vignetteText",
+	"social.chatBar.font",
+	"social.friendList.nameFont",
+	"social.friendList.infoFont",
+}
+
+local privateFonts = {
+	"maps.instanceDifficulty.font",
+	"maps.superTracker.distanceText",
+	"misc.lfgList.partyKeystone.font",
+	"quest.objectiveTracker.header",
+	"quest.objectiveTracker.title",
+	"quest.objectiveTracker.info",
+	"quest.objectiveTracker.menuTitle.font",
+	"skins.bigWigsSkin.queueTimer.countDown",
+	"skins.ime.label",
+	"skins.ime.candidate",
+	"skins.actionStatus",
+	"skins.widgets.button.text.font",
+	"skins.widgets.tab.text.font",
+	"skins.widgets.treeGroupButton.text.font",
+	"skins.cooldownViewer.essential.chargeCountText",
+	"skins.cooldownViewer.utility.chargeCountText",
+	"skins.cooldownViewer.buffIcon.chargeCountText",
+	"skins.lossOfControl.abilityName.font",
+	"skins.lossOfControl.timeLeft.font",
+	"skins.damageMeter.bar.font.name",
+	"skins.damageMeter.bar.font.value",
+}
+
+-- Skips paths the installed WindTools version doesn't have (older builds, Forever)
+local function setFonts(dbRef, paths, font)
+	for _, path in ipairs(paths) do
+		local fontDB = F.GetDBFromPath(path, dbRef)
+		if type(fontDB) == "table" then
+			fontDB.name = font
+		end
+	end
+end
+
 function module:LoadWindToolsProfile()
 	local db = E.db.WT
 	local private = E.private.WT
@@ -74,6 +143,10 @@ function module:LoadWindToolsProfile()
 	private.unitFrames.roleIcon.roleIconStyle = "LYNUI"
 
 	global.core.loginMessage = false
+
+	local font = F.FontOverride(I.Fonts.Primary)
+	setFonts(db, profileFonts, font)
+	setFonts(private, privateFonts, font)
 
 	if not E.db.movers then
 		E.db.movers = {}

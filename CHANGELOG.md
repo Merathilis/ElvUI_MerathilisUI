@@ -23,5 +23,6 @@
 -   [Improvement]: Loadout Manager: Automatic talent swaps now wait while a talent change is being applied or the talent window has unsaved changes, instead of failing or discarding them.
 -   [Improvement]: NamePlates: Neutral Name Only finds the nameplate of a unit directly instead of going through all nameplates on every combat flag change.
 -   [Improvement]: NamePlates: The Castbar Shield now sits on the castbar itself instead of half over the castbar icon.
+-   [Improvement]: Profiles: The WindTools profile sets Expressway as the font of every WindTools module (Objective Tracker, Game Bar, Extra Items Bar, Inspect, Loss of Control and more) instead of WindTools' mix of fonts.
 -   [Improvement]: UnitFrames: Rounded Corners only redo the bar ElvUI just changed, e.g. when an auto-hiding class bar shows or hides in combat, instead of the whole unitframe several times.
 -   [Improvement]: UnitFrames: Rounded Corners has a Radius slider (up to 16 pixels, 0 keeps the subtle default corners). With a radius set, the border is a real ring, so a transparent unitframe background stays see-through.
