@@ -337,7 +337,20 @@ function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled
 			desc = {
 				order = 1,
 				type = "description",
-				name = L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."],
+				name = L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are ElvUI's Non-Interruptible and Interruptible castbar colors."],
+			},
+			elvuiColors = {
+				order = 1.6,
+				type = "execute",
+				name = L["ElvUI Castbar Colors"],
+				desc = L["Opens ElvUI's castbar colors, where you can change them."],
+				func = function()
+					if previewKey == "nameplates" then
+						E.Libs.AceConfigDialog:SelectGroup("ElvUI", "nameplates", "colorsGroup")
+					else
+						E.Libs.AceConfigDialog:SelectGroup("ElvUI", "unitframe", "allColorsGroup", "castBars")
+					end
+				end,
 			},
 			preview = {
 				order = 1.5,

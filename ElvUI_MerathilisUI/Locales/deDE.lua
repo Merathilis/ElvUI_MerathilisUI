@@ -1382,7 +1382,9 @@ L["During a Mythic+ keystone run, shows next to the health bar how much an enemy
 
 -- Interrupt Ready
 L["Interrupt Ready"] = "Unterbrechung bereit"
-L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."] = "Färbt die Zauberleiste feindlicher Einheiten ein, solange deine Unterbrechung abklingt, und markiert den Moment, ab dem sie wieder bereit ist. Die Farben sind die Unterbrechungs-Einträge der Zauberleisten-Farben in den Theme-Optionen."
+L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are ElvUI's Non-Interruptible and Interruptible castbar colors."] = "Färbt die Zauberleiste feindlicher Einheiten, solange deine Unterbrechung abklingt, und markiert den Moment, ab dem sie wieder bereit ist. Die Farben sind ElvUIs Zauberleistenfarben für nicht unterbrechbar und unterbrechbar."
+L["ElvUI Castbar Colors"] = "ElvUI Zauberleistenfarben"
+L["Opens ElvUI's castbar colors, where you can change them."] = "Öffnet ElvUIs Zauberleistenfarben, dort kannst du sie ändern."
 L["Cooldown Color"] = "Abklingfarbe"
 L["Colors the filled part of the castbar while your interrupt is on cooldown."] = "Färbt den gefüllten Teil der Zauberleiste, solange deine Unterbrechung abklingt."
 L["Ready Window"] = "Bereit-Fenster"
@@ -1392,7 +1394,6 @@ L["A thin line at the moment your interrupt is ready again."] = "Eine dünne Lin
 L["Tick Color"] = "Markierungsfarbe"
 L["Units"] = "Einheiten"
 L["Interrupt on Cooldown"] = "Unterbrechung klingt ab"
-L["Interrupt Ready Soon"] = "Unterbrechung bald bereit"
 
 -- Castbar Shield
 L["Castbar Shield"] = "Zauberleisten-Schild"

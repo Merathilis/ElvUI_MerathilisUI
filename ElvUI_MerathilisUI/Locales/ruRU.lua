@@ -1605,7 +1605,9 @@ L["During a Mythic+ keystone run, shows next to the health bar how much an enemy
 
 -- Interrupt Ready
 L["Interrupt Ready"] = true
-L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."] = true
+L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are ElvUI's Non-Interruptible and Interruptible castbar colors."] = true
+L["ElvUI Castbar Colors"] = true
+L["Opens ElvUI's castbar colors, where you can change them."] = true
 L["Cooldown Color"] = true
 L["Colors the filled part of the castbar while your interrupt is on cooldown."] = true
 L["Ready Window"] = true
@@ -1615,7 +1617,6 @@ L["A thin line at the moment your interrupt is ready again."] = true
 L["Tick Color"] = true
 L["Units"] = true
 L["Interrupt on Cooldown"] = true
-L["Interrupt Ready Soon"] = true
 
 -- Castbar Shield
 L["Castbar Shield"] = true

@@ -16,6 +16,12 @@ local function GetDB()
 	return E.db.mui.nameplates.interruptReady
 end
 
+-- A changed color runs NP:ConfigureAll and with it Update_Castbar, the hook below restyles the indicator
+local function GetColors()
+	local colors = E.db.nameplates.colors
+	return colors.castColor, colors.castNoInterruptColor
+end
+
 -- Plates get reused for friendly and hostile units, so this runs per unit
 function module:Configure_InterruptReady(nameplate)
 	if not nameplate or nameplate == NP.TestFrame or not nameplate.Castbar then
@@ -23,7 +29,7 @@ function module:Configure_InterruptReady(nameplate)
 	end
 
 	local db = GetDB()
-	MER.InterruptReady:Configure(nameplate.Castbar, GetDB, db.enable and ENEMY_TYPES[nameplate.frameType])
+	MER.InterruptReady:Configure(nameplate.Castbar, GetDB, GetColors, db.enable and ENEMY_TYPES[nameplate.frameType])
 end
 
 function module:UpdateInterruptReady()
