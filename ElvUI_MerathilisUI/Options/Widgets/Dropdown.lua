@@ -7,6 +7,7 @@ local Type = "MERDropdown"
 local Version = 1
 
 local pairs, ipairs, select, type, tostring, tonumber = pairs, ipairs, select, type, tostring, tonumber
+local getmetatable = getmetatable
 local tsort = table.sort
 local CreateFrame, UIParent = CreateFrame, UIParent
 local error, unpack = error, unpack
@@ -70,7 +71,9 @@ local function OnPulloutOpen(this)
 
 	if not self.multiselect then
 		for _, item in this:IterateItems() do
-			item:SetValue(item.userdata.value == value)
+			if item.SetValue then
+				item:SetValue(item.userdata.value == value)
+			end
 		end
 	end
 
@@ -87,10 +90,11 @@ end
 local function ShowMultiText(self)
 	local text
 	for _, widget in self.pullout:IterateItems() do
-		if widget.type == "Dropdown-Item-Toggle" then
-			if widget:GetValue() then
-				text = text and (text .. ", " .. widget:GetText()) or widget:GetText()
-			end
+		if widget.GetValue and widget:GetValue() then
+			-- Icon items show just their icon, a long list of names wouldn't fit.
+			local itemText = widget.iconText or widget:GetText()
+			local separator = widget.iconText and " " or ", "
+			text = text and (text .. separator .. itemText) or itemText
 		end
 	end
 	self:SetText(text)
@@ -269,6 +273,15 @@ local methods = {
 			return
 		end
 
+		-- AceConfig hands a multiselect only its values, so a values table can
+		-- carry its own display order and item type in its metatable. Order
+		-- entries of the form { header = text } become non-clickable headers.
+		local meta = type(order) ~= "table" and getmetatable(list)
+		if meta then
+			order = meta.order
+			itemType = itemType or meta.itemType
+		end
+
 		if type(order) ~= "table" then
 			if sortByValue then
 				for k, v in pairs(list) do
@@ -293,7 +306,11 @@ local methods = {
 			end
 		else
 			for _, key in ipairs(order) do
-				AddListItem(self, key, list[key], itemType)
+				if type(key) == "table" then
+					AddListItem(self, nil, key.header, "Dropdown-Item-Header")
+				else
+					AddListItem(self, key, list[key], itemType)
+				end
 			end
 		end
 
@@ -486,8 +503,10 @@ do
 			if icon then
 				self.icon:SetTexture(icon)
 				self.icon:Show()
+				self.iconText = "|T" .. icon .. ":14:14:0:0:64:64:5:59:5:59|t"
 			else
 				self.icon:Hide()
+				self.iconText = nil
 			end
 		end
 

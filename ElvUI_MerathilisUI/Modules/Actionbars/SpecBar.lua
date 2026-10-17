@@ -135,7 +135,7 @@ function module:CreateSpecBar()
 	specBar:SetScript("OnLeave", SpecBar_OnLeave)
 
 	-- Register events once on the bar instead of once per button
-	specBar:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+	specBar:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
 	specBar:RegisterEvent("PLAYER_ENTERING_WORLD")
 	specBar:RegisterEvent("PLAYER_LOOT_SPEC_UPDATED")
 	specBar:SetScript("OnEvent", SpecBar_OnEvent)

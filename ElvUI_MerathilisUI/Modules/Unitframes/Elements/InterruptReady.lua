@@ -282,7 +282,7 @@ local function EnsureEvents()
 	eventFrame = CreateFrame("Frame")
 	eventFrame:RegisterEvent("PLAYER_LOGIN")
 	eventFrame:RegisterEvent("SPELLS_CHANGED")
-	eventFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+	eventFrame:RegisterUnitEvent("PLAYER_SPECIALIZATION_CHANGED", "player")
 	eventFrame:RegisterUnitEvent("UNIT_PET", "player")
 	eventFrame:SetScript("OnEvent", function(_, event)
 		if event == "SPELL_UPDATE_COOLDOWN" then

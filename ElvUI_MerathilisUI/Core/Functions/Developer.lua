@@ -226,6 +226,10 @@ function F.Developer.GetLogText()
 	return tconcat(lines, "\n")
 end
 
+function F.Developer.ClearLog()
+	wipe(buffer)
+end
+
 -------------------------------------------------------------------------------
 --  Debug channels
 --  Targeted, opt-in tracing for a single feature, independent of the log level:
@@ -294,6 +298,12 @@ function F.Developer.GetActiveChannels()
 	end
 
 	return channels
+end
+
+---Channels seen so far (injected loggers and Debug calls), lowercase key -> display name
+---@return table<string, string>
+function F.Developer.GetKnownChannels()
+	return knownChannels
 end
 
 -------------------------------------------------------------------------------
@@ -505,7 +515,7 @@ function commands.log()
 end
 
 function commands.clear()
-	wipe(buffer)
+	F.Developer.ClearLog()
 	F.Print("Log cleared")
 end
 

@@ -323,8 +323,32 @@ module:AddOptions(function()
 									return Disabled() or not SidebarDB().buttons.durability
 								end,
 							},
-							resetOrder = {
+							portalDirection = {
 								order = 11,
+								type = "select",
+								name = L["Portal Direction"],
+								desc = L["Which way the M+ Portals flyout opens from its button. Automatic opens it over the chat text."],
+								values = {
+									AUTO = L["Automatic"],
+									UP = L["Up"],
+									DOWN = L["Down"],
+									LEFT = L["Left"],
+									RIGHT = L["Right"],
+								},
+								sorting = { "AUTO", "UP", "DOWN", "LEFT", "RIGHT" },
+								get = function(info)
+									return SidebarDB()[info[#info]]
+								end,
+								set = function(info, value)
+									SidebarDB()[info[#info]] = value
+									F.PortalFlyout.Hide()
+								end,
+								disabled = function()
+									return Disabled() or not SidebarDB().buttons.portals
+								end,
+							},
+							resetOrder = {
+								order = 12,
 								type = "execute",
 								name = L["Reset Order"],
 								func = function()
@@ -481,8 +505,49 @@ module:AddOptions(function()
 					},
 				},
 			},
+			copyChat = {
+				order = 4,
+				type = "group",
+				guiInline = true,
+				name = L["Copy Chat"],
+				get = function(info)
+					return ChatDB().copyChat[info[#info]]
+				end,
+				set = function(info, value)
+					ChatDB().copyChat[info[#info]] = value
+					MER:GetModule("MER_Chat"):UpdateCopyChat()
+				end,
+				disabled = function(info)
+					if not MER:HasRequirements(I.Requirements.Chat) then
+						return true
+					end
+					return info[#info] ~= "enable" and not ChatDB().copyChat.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = F.NewFeatureText(L["Enable"]),
+						desc = L["Opens the chat history in a MerathilisUI window instead of ElvUI's copy frame. Used by the sidebar copy button and ElvUI's copy button on each chat."],
+					}),
+					colors = {
+						order = 2,
+						type = "toggle",
+						name = L["Colors"],
+						desc = L["Keeps the chat colors in the copied text. Turn it off to copy plain text."],
+					},
+					fontSize = {
+						order = 3,
+						type = "range",
+						name = L["Font Size"],
+						min = 8,
+						max = 20,
+						step = 1,
+					},
+				},
+			},
 		},
 	}
+	F.MarkTabAsNew("chat")
 
 	-------------------------------------------------------------------------------
 	-- ElvUI options our chat extensions take over are grayed out while they do,

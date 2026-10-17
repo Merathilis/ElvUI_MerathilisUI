@@ -10,6 +10,7 @@
 	<Script file='QuickGridPreview.lua' />
 	<Script file='FactionIndicatorPreview.lua' />
 	<Script file='TargetArrowsPreview.lua' />
+	<Script file='TargetEmphasisPreview.lua' />
 	<Script file='ExecuteLinePreview.lua' />
 	<Script file='RestingIndicatorPreview.lua' />
 	<Script file='UnitFrameStylePreview.lua' />

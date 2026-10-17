@@ -13,6 +13,7 @@
 	<Script file='LootRoll.lua'/>
 	<Script file='Mail.lua'/>
 	<Script file='Maps.lua'/>
+	<Script file='MediaPlayer.lua'/>
 	<Script file='MovementAlert.lua'/>
 	<Script file='NameHover.lua'/>
 	<Script file='NamePlates.lua'/>

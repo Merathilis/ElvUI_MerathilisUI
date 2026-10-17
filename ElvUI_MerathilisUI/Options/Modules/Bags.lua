@@ -256,17 +256,56 @@ module:AddOptions(function()
 									return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
 								end,
 							},
-							resetCurrencyOrder = {
-								order = 12,
-								type = "execute",
-								name = L["Reset Currency Order"],
-								desc = L["Puts the tracked currencies in the footer back into Blizzard's own order. Drag one currency onto another in the footer to reorder them."],
-								func = function()
-									BC.db.currencyOrder = {}
-
-									if BC.frame then
-										BC:UpdateFooter()
+							openWithCharacter = {
+								order = 11.1,
+								type = "toggle",
+								name = L["Toggle with Character Window"],
+								desc = L["Opens the bags together with the character window and closes them again when it closes."],
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags[info[#info]] = value
+									BC:UpdateCharacterFrameHook()
+								end,
+							},
+							quickActions = {
+								order = 11.2,
+								type = "toggle",
+								name = L["Quick Actions"],
+								desc = L["Adds a title bar button that highlights the items Disenchant or Pick Lock can work on. Clicking a highlighted item casts the spell on it."],
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags[info[#info]] = value
+									if not value then
+										BC:SetQuickActionsMode(false)
 									end
+									if BC.frame and BC.frame:IsShown() then
+										BC:RefreshCategoryFrame()
+									end
+								end,
+							},
+							trackedCurrencies = {
+								order = 12,
+								type = "multiselect",
+								dialogControl = "MERDropdown",
+								name = L["Footer Currencies"],
+								desc = L["The currencies shown in the footer, per character and without Blizzard's limit of three. Ticking a currency in the Currency tab still adds it here. Drag one currency onto another in the footer to reorder them."],
+								width = 1.5,
+								values = function()
+									local values, order = BC:GetCurrencyOptionList()
+									return setmetatable(values, { order = order, itemType = "MERDropdownItemIcon" })
+								end,
+								get = function(_, key)
+									return BC:IsCurrencyTracked(key)
+								end,
+								set = function(_, key, value)
+									BC:SetCurrencyTracked(key, value)
+								end,
+							},
+							resetCurrencies = {
+								order = 12.1,
+								type = "execute",
+								name = L["Reset Currencies"],
+								desc = L["Replaces this character's footer currencies with the ones shown on the backpack in the Currency tab, in Blizzard's order."],
+								func = function()
+									BC:ResetTrackedCurrencies()
 								end,
 							},
 							resetCategoryGroups = {

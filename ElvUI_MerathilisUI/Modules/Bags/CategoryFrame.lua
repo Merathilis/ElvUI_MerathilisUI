@@ -59,10 +59,9 @@ local API = {
 	GetItemInfo = C_Item.GetItemInfo,
 	IsEquippableItem = C_Item.IsEquippableItem,
 	IsBoundToAccountUntilEquip = C_Item.IsBoundToAccountUntilEquip,
-	GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo,
 	GetBagItemTooltip = C_TooltipInfo.GetBagItem,
+	GetItemGUID = C_Item.GetItemGUID,
 }
-local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
 local C_MerchantFrame_SellAllJunkItems = C_MerchantFrame.SellAllJunkItems
 
 local BAG_IDS = { 0, 1, 2, 3, 4 }
@@ -509,7 +508,7 @@ local function CountSearchHits(bagIDList)
 	for _, bagID in ipairs(bagIDList) do
 		for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
-			if info and info.iconFileID and not info.isFiltered then
+			if info and info.iconFileID and not module.IsSearchFiltered(info, bagID, slotID) then
 				hits = hits + 1
 			end
 		end
@@ -615,6 +614,38 @@ local function RefreshOwnerFrame(ownerFrame)
 	end
 end
 
+-- Mirrors the EXPANDITEM branch of Blizzard's
+-- ContainerFrameItemButtonMixin:OnModifiedClick. A module method rather than
+-- a file local, this file is close to Lua 5.1's 200-locals limit. Returns
+-- true when one of the UIs opened.
+function module:OpenExpandItem(bagID, slotID)
+	if not bagID or not slotID then
+		return false
+	end
+
+	local itemLocation = ItemLocation:CreateFromBagAndSlot(bagID, slotID)
+	if not C_Item.DoesItemExist(itemLocation) then
+		return false
+	end
+
+	if C_AzeriteEmpoweredItem and OpenAzeriteEmpoweredItemUIFromItemLocation then
+		if C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation) and C_Item.CanViewItemPowers(itemLocation) then
+			OpenAzeriteEmpoweredItemUIFromItemLocation(itemLocation)
+			return true
+		end
+	end
+
+	if C_AzeriteItem and OpenAzeriteEssenceUIFromItemLocation then
+		local heartItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
+		if heartItemLocation and heartItemLocation:IsEqualTo(itemLocation) then
+			OpenAzeriteEssenceUIFromItemLocation(itemLocation)
+			return true
+		end
+	end
+
+	return C_Container.SocketContainerItem(bagID, slotID) and true or false
+end
+
 -- Right-click "use" needs real secure type/item attributes on a
 -- SecureActionButtonTemplate button to avoid ADDON_ACTION_FORBIDDEN (see
 -- UpdateSlotVisual); a plain overlay on top to carry Left/Middle separately
@@ -635,7 +666,7 @@ local function Slot_OnClick(self, mouseButton, down)
 			and self.BagID
 			and self.SlotID
 			and not IsModifiedClick()
-			and (SpellCanTargetItem() or SpellCanTargetItemID())
+			and (SpellCanTargetItem() or SpellCanTargetItemID() or module.QuickActionSpellFor(self))
 		then
 			-- A spell is waiting for an item target (Disenchant, Milling,
 			-- Prospecting, enchant scrolls, armor kits...). Blizzard's own
@@ -646,7 +677,11 @@ local function Slot_OnClick(self, mouseButton, down)
 			-- below, since the secure action fires on down OR up depending
 			-- on the player's key-down setting.
 			self:SetAttribute("type1", "macro")
-			self:SetAttribute("macrotext1", format("/use %d %d", self.BagID, self.SlotID))
+			-- Quick Actions mode casts its spell first (unless one already waits),
+			-- the /use then targets the item with it
+			local spellName = not (SpellCanTargetItem() or SpellCanTargetItemID()) and module.QuickActionSpellName(self)
+			local cast = spellName and format("/cast %s\n", spellName) or ""
+			self:SetAttribute("macrotext1", format("%s/use %d %d", cast, self.BagID, self.SlotID))
 			self.pendingTargetClick = true
 		elseif self.pendingTargetClick and not InCombatLockdown() then
 			-- Left over from a targeting press that was released somewhere
@@ -675,6 +710,46 @@ local function Slot_OnClick(self, mouseButton, down)
 	if mouseButton == "LeftButton" and module.junkMarkMode and not IsModifiedClick() and not CursorHasItem() then
 		module:ToggleJunkMarkForSlot(self.BagID, self.SlotID)
 		RefreshOwnerFrame(self.ownerFrame)
+		return
+	end
+
+	-- Shift+Right-click (EXPANDITEM) opens the socketing UI, or the Azerite
+	-- trait/essence UI, the same way Blizzard's bags do. Checked before Split
+	-- Stack, which shares the Shift modifier by default; only an item that
+	-- actually opened one of those UIs swallows the click. Right-click runs
+	-- through here on both the down and the up phase: the UI is opened on
+	-- down, the secure dispatch is suppressed on both, as either may fire it.
+	local expandClick = self.pendingExpandClick
+	if mouseButton == "RightButton" and not down then
+		self.pendingExpandClick = nil
+	end
+
+	if
+		mouseButton == "RightButton"
+		and (
+			(not down and expandClick)
+			or (
+				down
+				and IsModifiedClick("EXPANDITEM")
+				and not CursorHasItem()
+				and module:OpenExpandItem(self.BagID, self.SlotID)
+			)
+		)
+	then
+		if down then
+			self.pendingExpandClick = true
+		end
+
+		if not InCombatLockdown() then
+			self:SetAttribute("*type2", nil)
+
+			C_Timer.After(0, function()
+				if not InCombatLockdown() then
+					self:SetAttribute("*type2", "macro")
+				end
+			end)
+		end
+
 		return
 	end
 
@@ -1094,6 +1169,11 @@ local function ApplySlotDim(btn)
 	if not dim and btn.ownerFrame == module.frame then
 		dim = module.hoveredBagID ~= nil and btn.BagID ~= module.hoveredBagID
 	end
+	-- Quick Actions mode (QuickActions.lua): everything but the items a spell
+	-- works on, which carry that spell's icon instead
+	if module.quickActionsMode or btn.quickSpellIcon then
+		dim = module.UpdateQuickActionMark(btn) or dim
+	end
 	btn.searchOverlay:SetShown(dim and true or false)
 end
 
@@ -1494,21 +1574,53 @@ end
 
 -- Same tooltip-scan EquipManager.lua uses for ElvUI's native bags
 -- (GetContainerItemEquipmentSetInfo is still unreliable).
+-- Every refresh asks this for each piece of gear, so the answer is kept per
+-- item GUID (it moves with the item) until the equipment sets change, see
+-- module.InvalidateEquipSetCache.
+module.equipSetCache = {}
+
+function module.InvalidateEquipSetCache()
+	wipe(module.equipSetCache)
+end
+
 local function IsItemInEquipmentSet(bagID, slotID)
+	local location = module.equipSetLocation
+	if not location and API.GetItemGUID and ItemLocation then
+		location = ItemLocation:CreateEmpty()
+		module.equipSetLocation = location
+	end
+
+	local guid
+	if location then
+		location:SetBagAndSlot(bagID, slotID)
+		guid = location:IsValid() and API.GetItemGUID(location)
+	end
+
+	local cache = module.equipSetCache
+	if guid and cache[guid] ~= nil then
+		return cache[guid]
+	end
+
 	local tooltipData = API.GetBagItemTooltip(bagID, slotID)
 	if not tooltipData or not tooltipData.lines then
 		return false
 	end
 
+	local inSet = false
 	local lines = tooltipData.lines
 	for i = 1, #lines do
 		local text = lines[i] and lines[i].leftText
 		if text and strmatch(text, MATCH_EQUIPMENT_SETS) then
-			return true
+			inSet = true
+			break
 		end
 	end
 
-	return false
+	if guid then
+		cache[guid] = inSet
+	end
+
+	return inSet
 end
 
 ---Size, spot, texture and color of the equipment set marker on a slot, also used by
@@ -2211,102 +2323,6 @@ end)
 -- contentChild/sidebarChild/frame/offsets exist.
 module.CreatePoolSet = CreatePoolSet
 
--- Footer currency order: a list of currencyTypesIDs kept in db.currencyOrder.
--- Currencies the player starts watching later aren't in it yet and simply
--- follow in Blizzard's own order.
-local function GetOrderedCurrencies()
-	local order = module.db.currencyOrder or {}
-	local position = {}
-	for index, currencyID in ipairs(order) do
-		position[currencyID] = index
-	end
-
-	local watched = {}
-	for index = 1, MAX_WATCHED_TOKENS do
-		local info = API.GetBackpackCurrencyInfo(index)
-		if info and info.name then
-			tinsert(watched, {
-				index = index,
-				info = info,
-				position = position[info.currencyTypesID] or (#order + index),
-			})
-		end
-	end
-
-	tsort(watched, function(a, b)
-		return a.position < b.position
-	end)
-
-	return watched
-end
-
-local function MoveCurrency(draggedID, targetID)
-	if not draggedID or not targetID or draggedID == targetID then
-		return
-	end
-
-	local db = module.db
-
-	-- Seed from what is currently displayed, so the first drag reorders the
-	-- visible cluster instead of an empty list.
-	if not db.currencyOrder or #db.currencyOrder == 0 then
-		db.currencyOrder = {}
-		for _, entry in ipairs(GetOrderedCurrencies()) do
-			tinsert(db.currencyOrder, entry.info.currencyTypesID)
-		end
-	end
-
-	local order = db.currencyOrder
-	for index, currencyID in ipairs(order) do
-		if currencyID == draggedID then
-			tremove(order, index)
-			break
-		end
-	end
-
-	for index, currencyID in ipairs(order) do
-		if currencyID == targetID then
-			tinsert(order, index, draggedID)
-			return
-		end
-	end
-
-	tinsert(order, draggedID)
-end
-
-local function Currency_OnDragStart(self)
-	if InCombatLockdown() or not self.currencyID then
-		return
-	end
-
-	module.draggingCurrencyID = self.currencyID
-	self:SetAlpha(0.4)
-end
-
-local function Currency_OnDragStop(self)
-	self:SetAlpha(1)
-
-	local draggedID = module.draggingCurrencyID
-	local targetID = module.dragHoverCurrencyID
-	module.draggingCurrencyID = nil
-	module.dragHoverCurrencyID = nil
-
-	if draggedID and targetID then
-		MoveCurrency(draggedID, targetID)
-		module:UpdateFooter()
-	end
-end
-
-local function Currency_OnDragEnter(self)
-	if module.draggingCurrencyID then
-		module.dragHoverCurrencyID = self.currencyID
-	end
-end
-
-local function Currency_OnDragLeave()
-	module.dragHoverCurrencyID = nil
-end
-
 -------------------------------------------------------------------------------
 --  Frame construction
 -------------------------------------------------------------------------------
@@ -2478,6 +2494,20 @@ function module:ConstructFrame()
 	f.junkMarkButton.activeTex:SetColorTexture(E.myClassColor.r, E.myClassColor.g, E.myClassColor.b, 0.45)
 	f.junkMarkButton.activeTex:Hide()
 	f.junkMarkButton:Hide()
+
+	-- Quick Actions mode (QuickActions.lua); only shown while that option is
+	-- on, UpdateQuickActionsButton re-chains the Bag Bar button
+	f.quickActionsButton = CreateTitleButton("QuickActionsButton", 136244, function()
+		module:QuickActionsTooltip()
+	end, function()
+		module:SetQuickActionsMode(not module.quickActionsMode)
+	end)
+	f.quickActionsButton.tex:SetAtlas("cursor_cast_64")
+	f.quickActionsButton.activeTex = f.quickActionsButton:CreateTexture(nil, "ARTWORK")
+	f.quickActionsButton.activeTex:SetInside()
+	f.quickActionsButton.activeTex:SetColorTexture(E.myClassColor.r, E.myClassColor.g, E.myClassColor.b, 0.45)
+	f.quickActionsButton.activeTex:Hide()
+	f.quickActionsButton:Hide()
 
 	f.bagBarButton = CreateTitleButton("BagBarButton", E.Media.Textures.Backpack, L["Toggle Bag Bar"], function()
 		module:ToggleBagBarPopout()
@@ -2712,7 +2742,8 @@ function module:ConstructFrame()
 
 	f.footer.goldText = f.footer:CreateFontString(nil, "OVERLAY")
 	f.footer.goldText:FontTemplate()
-	f.footer.goldText:Point("LEFT", 4, 0)
+	-- Centered on the bottom row, extra currency rows stack above it.
+	f.footer.goldText:Point("LEFT", f.footer, "BOTTOMLEFT", 4, 10)
 
 	-- Invisible hit-box over the gold text for the cross-character/Warband
 	-- tooltip - a FontString can't itself take mouse input.
@@ -2723,52 +2754,8 @@ function module:ConstructFrame()
 	end)
 	f.footer.goldButton:SetScript("OnLeave", GameTooltip_Hide)
 
-	-- Tracked currencies (same source as ElvUI's own bags: whatever the
-	-- player enabled "Show on Backpack" for via the default Currency tab),
-	-- shown icon + amount next to gold.
-	f.footer.currencyButtons = {}
-	for i = 1, MAX_WATCHED_TOKENS do
-		local btn = CreateFrame("Button", FRAME_NAME .. "Currency" .. i, f.footer, "BackpackTokenTemplate")
-		btn:Size(20)
-		pcall(btn.SetTemplate, btn)
-
-		-- The template's own OnEnter reads this index to show the matching
-		-- currency's tooltip (GetBackpackCurrencyInfo(id) below uses the same
-		-- index), same as ElvUI's own currency buttons.
-		btn:SetID(i)
-
-		local icon = btn.icon or btn.Icon
-		icon:SetInside()
-		icon:SetTexCoords()
-
-		btn.text = btn:CreateFontString(nil, "OVERLAY")
-		btn.text:FontTemplate()
-		btn:Hide()
-
-		-- Layered on top of (not replacing) whatever OnEnter/OnLeave the
-		-- template itself already wires up, so the tooltip works even if
-		-- that default behavior isn't hooked up outside its usual parent.
-		btn:HookScript("OnEnter", function(self)
-			if GameTooltip:IsForbidden() then
-				return
-			end
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetBackpackToken(self:GetID())
-			GameTooltip:Show()
-		end)
-		btn:HookScript("OnLeave", GameTooltip_Hide)
-
-		-- Drag one currency onto another to reorder the footer cluster, the
-		-- same interaction the sidebar categories already use. Blizzard's own
-		-- watch list stays untouched; only our display order moves.
-		btn:RegisterForDrag("LeftButton")
-		btn:SetScript("OnDragStart", Currency_OnDragStart)
-		btn:SetScript("OnDragStop", Currency_OnDragStop)
-		btn:HookScript("OnEnter", Currency_OnDragEnter)
-		btn:HookScript("OnLeave", Currency_OnDragLeave)
-
-		f.footer.currencyButtons[i] = btn
-	end
+	-- Tracked currencies (Currencies.lua), shown icon + amount next to gold.
+	module:CreateCurrencyButtons(f)
 
 	-- Manually apply Style
 	F.CreateStyle(f)
@@ -2783,17 +2770,6 @@ function module:ConstructFrame()
 			module:UpdateFooter()
 		end
 	end)
-
-	-- CURRENCY_DISPLAY_UPDATE only covers amount changes, not toggling a
-	-- currency's "Show on Backpack" watch state (same reason ElvUI's own
-	-- bags hook this directly instead of relying on that event alone).
-	if _G.TokenFrame then
-		hooksecurefunc(_G.TokenFrame, "SetTokenWatched", function()
-			if f:IsShown() then
-				module:UpdateFooter()
-			end
-		end)
-	end
 
 	return f
 end
@@ -2908,40 +2884,7 @@ function module:UpdateFooter()
 	module:UpdateGoldTracking()
 	f.footer.goldText:SetText(E:FormatMoney(GetMoney(), "SMART"))
 
-	-- Chained right-to-left off the footer's own right edge (independent of
-	-- goldText's width), so the whole currency cluster stays flush to the
-	-- right instead of trailing right after the gold amount.
-	local ordered = GetOrderedCurrencies()
-
-	local rightAnchor, rightAnchorPoint, rightPadding = f.footer, "RIGHT", -6
-	for i = 1, MAX_WATCHED_TOKENS do
-		local btn = f.footer.currencyButtons[i]
-		local entry = ordered[i]
-
-		if entry then
-			local info = entry.info
-			local icon = btn.icon or btn.Icon
-			icon:SetTexture(info.iconFileID)
-			btn.text:SetText(info.quantity)
-
-			-- The button's ID is Blizzard's watch index, not our display
-			-- position: the template's own tooltip (SetBackpackToken) reads
-			-- it, so it has to follow the currency, not the slot it sits in.
-			btn:SetID(entry.index)
-			btn.currencyID = info.currencyTypesID
-
-			btn:ClearAllPoints()
-			btn.text:ClearAllPoints()
-			btn.text:Point("RIGHT", rightAnchor, rightAnchorPoint, rightPadding, 0)
-			btn:Point("RIGHT", btn.text, "LEFT", -2, 0)
-			btn:Show()
-
-			rightAnchor, rightAnchorPoint, rightPadding = btn, "LEFT", -14
-		else
-			btn.currencyID = nil
-			btn:Hide()
-		end
-	end
+	module:UpdateCurrencies(f)
 end
 
 -------------------------------------------------------------------------------
@@ -3084,6 +3027,49 @@ local function GetBindText(itemLink, isBound, isUntilEquipped)
 
 	local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = API.GetItemInfo(itemLink)
 	return bindType and BIND_TEXT[bindType]
+end
+
+-- Bind keyword search (bags and bank): typing exactly BoP / BoE / WuE (any
+-- case) filters by bind type instead of the native tooltip search. Scoped in a
+-- do block, this file is close to Lua's 200-locals limit.
+do
+	local BIND_KEYWORDS = { bop = true, boe = true, wue = true }
+	local lastText, lastKeyword
+
+	local function ActiveKeyword()
+		local text = module.searchText
+		if text ~= lastText then
+			lastText = text
+			local k = strtrim(text or ""):lower()
+			lastKeyword = BIND_KEYWORDS[k] and k or nil
+		end
+		return lastKeyword
+	end
+
+	local function MatchesKeyword(k, info, bagID, slotID)
+		local isUntilEquipped = false
+		if not info.isBound then
+			isUntilEquipped = select(2, GetWarboundInfo(info.hyperlink, bagID, slotID))
+		end
+		if k == "wue" then
+			return isUntilEquipped
+		end
+		local bindType = info.hyperlink and select(14, API.GetItemInfo(info.hyperlink))
+		if k == "boe" then
+			return bindType == ITEMBIND_ON_EQUIP and not isUntilEquipped and not info.isBound
+		end
+		return bindType == Enum.ItemBind.OnAcquire
+	end
+
+	-- True when a slot is hidden by the active search: the bind keyword when
+	-- one is typed, the native item-search filter otherwise
+	function module.IsSearchFiltered(info, bagID, slotID)
+		local k = ActiveKeyword()
+		if not k then
+			return info.isFiltered
+		end
+		return not MatchesKeyword(k, info, bagID, slotID)
+	end
 end
 
 -- Shared with the options preview (Options/Widgets/BagsPreview.lua)
@@ -3276,7 +3262,7 @@ local function CollectItemsFromBags(bagIDList, scratch)
 		for slotID = 1, numSlots do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 
-			if info and info.iconFileID and not (searching and info.isFiltered) then
+			if info and info.iconFileID and not (searching and module.IsSearchFiltered(info, bagID, slotID)) then
 				local key = module:ClassifyItem(bagID, slotID, info.itemID, info.hyperlink, info.quality)
 				if key then
 					scratch[key] = scratch[key] or {}
@@ -3495,7 +3481,7 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 		for slotID = 1, numSlots do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 
-			if info and info.iconFileID and not (searching and info.isFiltered) then
+			if info and info.iconFileID and not (searching and module.IsSearchFiltered(info, bagID, slotID)) then
 				scratch[bagID] = scratch[bagID] or {}
 
 				local questID, isActiveQuest, isJunk =
@@ -4623,14 +4609,15 @@ function module:RefreshCategoryFrame()
 		end,
 	}, sections)
 
+	-- Before the auto height, extra currency rows grow the footer.
+	module:UpdateFooter()
 	ApplyAutoHeight(f, module.contentChild, module.sidebarChild, db.height)
 
 	f.titleText:SetText(L["Inventory"])
 	SetTitleCount(f.titleCountText, usedSlots, totalSlots, CountSearchHits(BAG_IDS))
 	SetFillBar(f, usedSlots, totalSlots)
 	module:UpdateJunkMarkButton()
-
-	module:UpdateFooter()
+	module:UpdateQuickActionsButton()
 end
 
 -------------------------------------------------------------------------------
@@ -5381,6 +5368,7 @@ end
 function module:OnFrameHidden()
 	module:UnregisterBagEventsFor("bag")
 	module.junkMarkMode = nil
+	module:SetQuickActionsMode(false)
 
 	wipe(module.unmergedLinks)
 
@@ -5643,7 +5631,11 @@ local function DoThrottledRefresh()
 	end
 end
 
-local function OnBagEvent()
+local function OnBagEvent(_, event)
+	if event == "EQUIPMENT_SETS_CHANGED" then
+		module.InvalidateEquipSetCache()
+	end
+
 	if module.sortingBags then
 		module:PokeSortSpinner()
 	end
@@ -5679,6 +5671,7 @@ function module:RegisterBagEventsFor(owner)
 		-- Whatever changed while no window was open
 		module:OnCursorChanged()
 		module.EvaluateItemContext()
+		module.InvalidateEquipSetCache()
 	end
 
 	bagEventOwners[owner] = true
@@ -5800,6 +5793,27 @@ local function SetupHooks()
 	end
 end
 
+-- Opens the bags with the character window and closes them with it. The hooks
+-- go in on first use only, so the option costs nothing while it stays off.
+function module:UpdateCharacterFrameHook()
+	local frame = _G.CharacterFrame
+	if not (frame and module.db.enable and module.db.openWithCharacter) or module.characterHooked then
+		return
+	end
+	module.characterHooked = true
+
+	frame:HookScript("OnShow", function()
+		if module.db.enable and module.db.openWithCharacter and not (module.frame and module.frame:IsShown()) then
+			module:ShowCategoryFrame()
+		end
+	end)
+	frame:HookScript("OnHide", function()
+		if module.db.enable and module.db.openWithCharacter then
+			module:HideCategoryFrame()
+		end
+	end)
+end
+
 -- One-time cleanup for a profile saved before Bank/Warband got their own
 -- frame: db.viewMode ("CATEGORY"/"ALL"/"BAG" now) could still hold a
 -- leftover "BANK"/"WARBAND" from back when this field also drove the bag
@@ -5825,6 +5839,7 @@ function module:Initialize()
 	MigrateViewMode(db)
 	SetupHooks()
 	module:UpdateJunkAutoSell()
+	module:UpdateCharacterFrameHook()
 end
 
 function module:ProfileUpdate()
@@ -5844,6 +5859,7 @@ function module:ProfileUpdate()
 
 	MigrateViewMode(db)
 	SetupHooks()
+	module:UpdateCharacterFrameHook()
 
 	if module.frame and module.frame:IsShown() then
 		module:RefreshCategoryFrame()

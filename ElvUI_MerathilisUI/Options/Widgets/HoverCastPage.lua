@@ -1478,6 +1478,31 @@ function BuildPage(self)
 		centerY = centerY - ROW_H
 	end
 
+	-- Every binding's macro changes, so a switch re-applies them all
+	do
+		local row = MakeRow(centerY)
+		RowLabel(row, L["Clear Stuck Spell Targeting"])
+		RowToggle(row, function()
+			return cc.clearTargeting ~= false
+		end, function(v)
+			if v then
+				cc.clearTargeting = nil
+			else
+				cc.clearTargeting = false
+			end
+			HC:ApplyBindings()
+		end)
+		row:EnableMouse(true)
+		row:SetScript("OnEnter", function(frame)
+			ShowTip(
+				frame,
+				L["Before a binding casts, cancel any spell still waiting for a target (the glowing hand cursor left by a cast on a unit it can't take), so the press casts instead of being swallowed."]
+			)
+		end)
+		row:SetScript("OnLeave", HideTip)
+		centerY = centerY - ROW_H
+	end
+
 	do
 		local row = MakeRow(centerY)
 		RowLabel(row, L["Mouseover Frames"])

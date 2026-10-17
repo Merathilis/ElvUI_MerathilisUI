@@ -4,9 +4,12 @@ local UF = E:GetModule("UnitFrames")
 local ElvUF = E.oUF
 
 local CreateFrame = CreateFrame
+local floor = math.floor
+local format = format
 local hooksecurefunc = hooksecurefunc
 local ipairs = ipairs
 local max = math.max
+local min = math.min
 local pairs = pairs
 local unpack = unpack
 local wipe = wipe
@@ -19,10 +22,15 @@ local wipe = wipe
 	a rounded border, a rounded background on top of it and a rounded mask on every bar texture.
 
 	A texture takes at most 3 masks, so every shape is a single nine-slice mask.
-	Masks only slice atlases: the margins set on an own texture file are ignored and
-	the whole file gets stretched. The atlas corners keep their size on any bar width.
+	Radius 0: a Blizzard atlas with slice data, its corners keep their size on any bar width.
 	A mask scale below 1 only shrinks them and one above 1 does not grow them,
 	so the radius is the atlas' own.
+
+	Any other radius: own mask files (Media/Textures/Rounded). Each file is (2r + 1) texels square
+	and sliced at r texels, never bigger, the client shrinks the corners of a sliced texture
+	bigger than its region. A mask takes a new shape only while no texture carries it.
+	The border is a ring: the filled shape with the inverse of the background's shape cut out,
+	so the background may be see-through.
 --]]
 
 -- A filled rounded rect with slice data, most other rounded atlases are outlines or see-through
@@ -30,6 +38,13 @@ local MASK_ATLAS = "uitools-button-background-default"
 
 -- How far a flat side reaches past the bar, more than a corner of the atlas
 local FLAT_REACH = 16
+
+local MASK_PATH = I.General.MediaPath .. "Textures\\Rounded\\"
+local MAX_RADIUS = 16
+local STRETCHED = Enum.UITextureSliceMode.Stretched
+
+-- The round corners of a shape with a flat side, as in the file names (1 TL, 2 TR, 4 BL, 8 BR)
+local FLAT_CORNERS = { TOP = "-12", BOTTOM = "-3" }
 
 local PREDICTION_BARS = { "healingPlayer", "healingOther", "damageAbsorb", "healAbsorb" }
 
@@ -52,35 +67,97 @@ local SEGMENTED = {
 	Totems = true,
 }
 
+-- The shape is set by ShapeMask, MER_Textures holds every texture carrying the mask
 local function CreateMask(owner)
 	local mask = owner:CreateMaskTexture()
-	mask:SetAtlas(MASK_ATLAS, false, "TRILINEAR", true, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
 	mask:SetSnapToPixelGrid(false)
 	mask:SetTexelSnappingBias(0)
+	mask.MER_Textures = {}
 	return mask
 end
 
--- A flat side reaches past the anchor, its rounded corners are never visible
+local function AttachMask(texture, mask)
+	if not mask.MER_Textures[texture] then
+		texture:AddMaskTexture(mask)
+		mask.MER_Textures[texture] = true
+	end
+end
+
+local function DetachMask(texture, mask)
+	if mask.MER_Textures[texture] then
+		texture:RemoveMaskTexture(mask)
+		mask.MER_Textures[texture] = nil
+	end
+end
+
+-- r: the radius of the own files, nil for the atlas. A mask only takes a new shape while
+-- no texture carries it, so it comes off every texture and goes back on afterwards.
+local function ShapeMask(mask, r, flat, inverse)
+	local key = r and format("rounded-%s%d%s", inverse and "inv-" or "", r, FLAT_CORNERS[flat] or "") or MASK_ATLAS
+	if mask.MER_Shape == key then
+		return
+	end
+
+	for texture in pairs(mask.MER_Textures) do
+		texture:RemoveMaskTexture(mask)
+	end
+
+	if r then
+		local wrap = inverse and "CLAMPTOWHITE" or "CLAMPTOBLACKADDITIVE"
+		mask:SetTexture(MASK_PATH .. key, wrap, wrap)
+		mask:SetTextureSliceMargins(r, r, r, r)
+		mask:SetTextureSliceMode(STRETCHED)
+	else
+		mask:ClearTextureSlice()
+		mask:SetAtlas(MASK_ATLAS, false, "TRILINEAR", true, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	end
+	mask.MER_Shape = key
+
+	for texture in pairs(mask.MER_Textures) do
+		texture:AddMaskTexture(mask)
+	end
+end
+
+-- Atlas: a flat side reaches past the anchor, its rounded corners are never visible.
+-- Own files have square corners on the flat side.
 local function LayoutMask(mask, anchor, inset, flat)
-	local top = flat == "TOP" and FLAT_REACH or 0
-	local bottom = flat == "BOTTOM" and FLAT_REACH or 0
+	local reach = mask.MER_Shape == MASK_ATLAS and FLAT_REACH or 0
+	local top = flat == "TOP" and reach or 0
+	local bottom = flat == "BOTTOM" and reach or 0
 
 	mask:ClearAllPoints()
 	mask:SetPoint("TOPLEFT", anchor, "TOPLEFT", inset, top - inset)
 	mask:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -inset, inset - bottom)
 end
 
--- Remembers the mask on the texture, ElvUI reuses the same texture objects
-local function SetTextureMask(texture, mask)
-	if texture.MER_RoundedMask == mask then
+-- The outer radius for a shell and the one inside its border, nil for the atlas.
+-- A (2r + 1) file never gets bigger than the shape's short side.
+local function GetRadii(rect, border)
+	local radius = E.db.mui.unitframes.roundedCorners.radius
+	if not radius or radius <= 0 then
 		return
 	end
 
-	if texture.MER_RoundedMask then
-		texture:RemoveMaskTexture(texture.MER_RoundedMask)
+	local outer = min(radius, MAX_RADIUS)
+	local short = min(rect:GetWidth(), rect:GetHeight())
+	if short > 0 then
+		outer = min(outer, max(1, floor((short - 1) / 2)))
+	end
+	return outer, max(1, floor(outer - border + 0.5))
+end
+
+-- Remembers the mask on the texture, ElvUI reuses the same texture objects
+local function SetTextureMask(texture, mask)
+	local old = texture.MER_RoundedMask
+	if old == mask then
+		return
+	end
+
+	if old then
+		DetachMask(texture, old)
 	end
 	if mask then
-		texture:AddMaskTexture(mask)
+		AttachMask(texture, mask)
 	end
 	texture.MER_RoundedMask = mask
 end
@@ -96,9 +173,10 @@ local function GetMask(owner, anchor)
 	return mask
 end
 
--- The background covers the border's inside, a see-through one would let the border color in
-local function Shell_SetBackgroundColor(shell, r, g, b)
-	shell.bg:SetVertexColor(r, g, b, 1)
+-- Atlas: the background covers the border's inside, a see-through one would let the border color in.
+-- Own files cut the background's shape out of the border, the alpha stays.
+local function Shell_SetBackgroundColor(shell, r, g, b, a)
+	shell.bg:SetVertexColor(r, g, b, shell.ring and a or 1)
 end
 
 -- A template on the frame itself (the castbar icon) keeps its children visible:
@@ -132,6 +210,11 @@ local function RestoreTemplate(backdrop, shell)
 	end
 end
 
+-- Kept in place, the threat border recolors on every threat change
+local function StoreColor(color, r, g, b, a)
+	color[1], color[2], color[3], color[4] = r, g, b, a
+end
+
 -- Follows ElvUI's backdrop colors, e.g. the threat border
 local function Backdrop_SetBackdropColor(backdrop, r, g, b, a)
 	local shell = backdrop.MER_RoundedShell
@@ -139,8 +222,8 @@ local function Backdrop_SetBackdropColor(backdrop, r, g, b, a)
 		return
 	end
 
-	shell.bgColor = { r, g, b, a }
-	Shell_SetBackgroundColor(shell, r, g, b)
+	StoreColor(shell.bgColor, r, g, b, a)
+	Shell_SetBackgroundColor(shell, r, g, b, a)
 	if shell.clears and shell.active then
 		ClearTemplate(backdrop, shell)
 	end
@@ -152,7 +235,7 @@ local function Backdrop_SetBackdropBorderColor(backdrop, r, g, b, a)
 		return
 	end
 
-	shell.borderColor = { r, g, b, a }
+	StoreColor(shell.borderColor, r, g, b, a)
 	shell.border:SetVertexColor(r, g, b, a)
 	if shell.clears and shell.active then
 		ClearTemplate(backdrop, shell)
@@ -178,12 +261,17 @@ local function CreateShell(backdrop)
 	shell.border:SetTexture(E.media.blankTex)
 	shell.border:SetAllPoints()
 	shell.borderMask = CreateMask(shell)
-	shell.border:AddMaskTexture(shell.borderMask)
+	AttachMask(shell.border, shell.borderMask)
+	-- Own files only: the background's shape cut out of the border
+	shell.holeMask = CreateMask(shell)
 
 	shell.bg = shell:CreateTexture(nil, "BACKGROUND", nil, 1)
 	shell.bg:SetTexture(E.media.blankTex)
 	shell.bgMask = CreateMask(shell)
-	shell.bg:AddMaskTexture(shell.bgMask)
+	AttachMask(shell.bg, shell.bgMask)
+
+	shell.bgColor = {}
+	shell.borderColor = {}
 
 	backdrop.MER_RoundedShell = shell
 	hooksecurefunc(backdrop, "SetBackdropColor", Backdrop_SetBackdropColor)
@@ -194,14 +282,31 @@ local function CreateShell(backdrop)
 	return shell
 end
 
--- A flat side keeps its border line: the background stops short of it
+-- A flat side keeps its border line: the background stops short of it.
+-- Returns the radius inside the border for the bar textures, nil for the atlas.
 local function LayoutShell(shell, border, flat)
+	local outer, inner = GetRadii(shell, border)
+
+	ShapeMask(shell.borderMask, outer, flat)
 	LayoutMask(shell.borderMask, shell, 0, flat)
 
 	shell.bg:ClearAllPoints()
 	shell.bg:SetPoint("TOPLEFT", shell, "TOPLEFT", border, -border)
 	shell.bg:SetPoint("BOTTOMRIGHT", shell, "BOTTOMRIGHT", -border, border)
+	ShapeMask(shell.bgMask, inner, flat)
 	LayoutMask(shell.bgMask, shell, border, flat)
+
+	-- The hole has the background's exact shape and place, so border and body meet without a gap
+	shell.ring = outer ~= nil
+	if shell.ring then
+		ShapeMask(shell.holeMask, inner, flat, true)
+		LayoutMask(shell.holeMask, shell, border, flat)
+		AttachMask(shell.border, shell.holeMask)
+	else
+		DetachMask(shell.border, shell.holeMask)
+	end
+
+	return inner
 end
 
 -- Replaces the backdrop of a frame with the rounded shell, same rect as ElvUI's backdrop.
@@ -217,12 +322,12 @@ local function ApplyShell(bar, flat, backdrop, clears)
 	shell:SetAllPoints(backdrop)
 	shell:SetShown(backdrop:IsShown())
 
-	LayoutShell(shell, E.mult, flat)
+	bar.MER_RoundedRadius = LayoutShell(shell, E.mult, flat)
 
 	-- A cleared template reads back as invisible, its colors are the ones seen before
 	if not shell.active then
-		shell.bgColor = { backdrop:GetBackdropColor() }
-		shell.borderColor = { backdrop:GetBackdropBorderColor() }
+		StoreColor(shell.bgColor, backdrop:GetBackdropColor())
+		StoreColor(shell.borderColor, backdrop:GetBackdropBorderColor())
 	end
 	Shell_SetBackgroundColor(shell, unpack(shell.bgColor))
 	shell.border:SetVertexColor(unpack(shell.borderColor))
@@ -237,12 +342,14 @@ local function ApplyShell(bar, flat, backdrop, clears)
 	bar.MER_RoundedBackdrop = backdrop
 end
 
--- Every texture masked for a frame, so turning it off finds them again
+-- Every texture masked for a frame, so turning it off finds them again.
+-- The bar fills the shell's inside, its textures take the background's radius.
 local function MaskTextures(bar, anchor, textures, flat)
 	bar.MER_RoundedTextures = bar.MER_RoundedTextures or {}
 
 	for _, tex in ipairs(textures) do
 		local mask = GetMask(tex:GetParent(), anchor)
+		ShapeMask(mask, bar.MER_RoundedRadius, flat)
 		LayoutMask(mask, anchor, 0, flat)
 		SetTextureMask(tex, mask)
 		bar.MER_RoundedTextures[#bar.MER_RoundedTextures + 1] = tex
@@ -437,15 +544,19 @@ local UNITS = {
 	arena = "arena",
 }
 
-function module:Configure_RoundedCorners(frame)
+-- Returns the settings and whether the frame's unit is rounded, nil for frames without an option
+local function GetSettings(frame)
 	local unit = frame and UNITS[frame.unitframeType]
 	if not unit then
 		return
 	end
 
 	local db = E.db.mui.unitframes.roundedCorners
-	local enabled = db.enable and db.units[unit]
+	return db, (db.enable and db.units[unit]) or false
+end
 
+-- Health and power together, the attached power bar decides the flat sides of both
+local function ConfigureBars(frame, enabled)
 	if not enabled then
 		Disable(frame.Health)
 		Disable(frame.Power)
@@ -461,7 +572,9 @@ function module:Configure_RoundedCorners(frame)
 			Disable(frame.Power)
 		end
 	end
+end
 
+local function ConfigureCastbar(frame, db, enabled)
 	if frame.Castbar then
 		if enabled and db.units.castbar then
 			ApplyCastbar(frame.Castbar)
@@ -469,7 +582,9 @@ function module:Configure_RoundedCorners(frame)
 			DisableCastbar(frame.Castbar)
 		end
 	end
+end
 
+local function ConfigureClassBars(frame, db, enabled)
 	if frame.ClassBar then
 		if enabled and db.units.classbar then
 			for _, key in ipairs(CLASS_BARS) do
@@ -479,6 +594,17 @@ function module:Configure_RoundedCorners(frame)
 			DisableClassBars(frame)
 		end
 	end
+end
+
+function module:Configure_RoundedCorners(frame)
+	local db, enabled = GetSettings(frame)
+	if not db then
+		return
+	end
+
+	ConfigureBars(frame, enabled)
+	ConfigureCastbar(frame, db, enabled)
+	ConfigureClassBars(frame, db, enabled)
 end
 
 -- oUF keeps every spawned frame, the group headers' children included
@@ -499,14 +625,31 @@ function module:RoundedCorners()
 	end
 
 	-- All run after ElvUI placed a bar; the power bar is placed after the health bar
-	-- and can change without a full update, the class bar changes with the spec
-	local function Configure(_, frame)
-		module:Configure_RoundedCorners(frame)
+	-- and can change without a full update, the class bar changes with the spec.
+	-- Each hook only redoes its own bar: ElvUI also runs these in combat whenever an
+	-- auto-hiding power or class bar shows or hides (e.g. combo points at zero).
+	local function ConfigureHealthPower(_, frame)
+		local db, enabled = GetSettings(frame)
+		if db then
+			ConfigureBars(frame, enabled)
+		end
 	end
-	hooksecurefunc(UF, "Configure_HealthBar", Configure)
-	hooksecurefunc(UF, "Configure_Power", Configure)
-	hooksecurefunc(UF, "Configure_ClassBar", Configure)
-	hooksecurefunc(UF, "Configure_Castbar", Configure)
+	hooksecurefunc(UF, "Configure_HealthBar", ConfigureHealthPower)
+	hooksecurefunc(UF, "Configure_Power", ConfigureHealthPower)
+
+	hooksecurefunc(UF, "Configure_ClassBar", function(_, frame)
+		local db, enabled = GetSettings(frame)
+		if db then
+			ConfigureClassBars(frame, db, enabled)
+		end
+	end)
+
+	hooksecurefunc(UF, "Configure_Castbar", function(_, frame)
+		local db, enabled = GetSettings(frame)
+		if db then
+			ConfigureCastbar(frame, db, enabled)
+		end
+	end)
 
 	-- ElvUI spawns its frames before our hooks exist
 	module:UpdateRoundedCorners()

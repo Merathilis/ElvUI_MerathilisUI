@@ -482,4 +482,301 @@ module:AddOptions(function()
 			end,
 		}
 	end
+
+	-- Debug tools tutorial, only for the developer characters
+	if not F.IsDeveloper() then
+		return
+	end
+
+	local function Code(text)
+		return C.StringByTemplate(text, "emerald-400")
+	end
+
+	local function Muted(text)
+		return C.StringByTemplate(text, "gray-300")
+	end
+
+	local function Lines(...)
+		return tconcat({ ... }, "\n")
+	end
+
+	local LOG_LEVELS = {
+		[0] = "0 - None",
+		[1] = "1 - Error",
+		[2] = "2 - Warning (default)",
+		[3] = "3 - Info",
+		[4] = "4 - Debug",
+	}
+
+	local debugArgs = {}
+
+	options.debugTools = {
+		order = 3,
+		type = "group",
+		name = module:AddCategorieIcon("Debug Tools", "System"),
+		hidden = function()
+			return not F.IsDeveloper()
+		end,
+		args = debugArgs,
+	}
+
+	-- Overview
+	debugArgs.overviewHeader = Header(1, "Debug Tools")
+	debugArgs.overview = TextCard(
+		2,
+		"How It Fits Together",
+		I.Media.Icons.Categories.Tips,
+		nil,
+		Lines(
+			"Everything lives in " .. Code("Core/Functions/Developer.lua") .. ". There are three layers:",
+			" ",
+			Highlight("1. Log levels") .. " - general messages (error, warning, info, debug) from all modules.",
+			Highlight("2. Debug channels") .. " - opt-in tracing for one single module, independent of the log level.",
+			Highlight("3. Log buffer")
+				.. " - the last 500 lines, printed or not, ready to copy with "
+				.. Highlight("/muidev log")
+				.. ".",
+			" ",
+			"Log level and channels are stored in "
+				.. Code("E.global.mui.developer")
+				.. ", account wide, so they survive a "
+				.. Highlight("/reload")
+				.. " while you reproduce a bug."
+		)
+	)
+
+	-- Quick actions
+	debugArgs.actionsSpacer = Spacer(10)
+	debugArgs.actionsHeader = Header(11, "Quick Actions")
+	debugArgs.openLog = {
+		order = 12,
+		type = "execute",
+		name = "Open Log",
+		desc = "/muidev log - the buffered log with an environment header (versions, build, locale, class).",
+		width = "relative",
+		relWidth = THIRD,
+		func = function()
+			E:ToggleOptions()
+			F.Developer.ShowLog()
+		end,
+	}
+	debugArgs.clearLog = {
+		order = 13,
+		type = "execute",
+		name = "Clear Log",
+		desc = "/muidev clear - start with an empty buffer right before reproducing a bug.",
+		width = "relative",
+		relWidth = THIRD,
+		func = function()
+			F.Developer.ClearLog()
+			F.Print("Log cleared")
+		end,
+	}
+	debugArgs.statusReport = {
+		order = 14,
+		type = "execute",
+		name = "Status Report",
+		desc = "/mui status - the same window players use for bug reports.",
+		width = "relative",
+		relWidth = THIRD,
+		func = function()
+			E:ToggleOptions()
+			MER:ShowStatusReport()
+		end,
+	}
+	debugArgs.logStats = {
+		order = 15,
+		type = "description",
+		fontSize = "medium",
+		width = "full",
+		name = function()
+			local errors, warnings, lines = F.Developer.GetLogStats()
+			return Muted(
+				format("\nSince login: %d errors, %d warnings. Buffer: %d / 500 lines.\n ", errors, warnings, lines)
+			)
+		end,
+	}
+
+	-- Log level
+	debugArgs.levelSpacer = Spacer(20)
+	debugArgs.levelHeader = Header(21, "Log Level")
+	debugArgs.levelCard = TextCard(
+		22,
+		"What Gets Printed",
+		nil,
+		nil,
+		Lines(
+			"The level only decides what is printed to the chat. The buffer always records every line.",
+			" ",
+			Highlight("/muidev level")
+				.. " shows the current level, "
+				.. Highlight("/muidev level debug")
+				.. " or "
+				.. Highlight("/muidev level 4")
+				.. " sets it.",
+			"Errors go through the Lua error handler, so BugSack catches them with the " .. MER.Title .. " prefix.",
+			"Go back to " .. Highlight("Warning") .. " when you are done, Info and Debug are noisy."
+		)
+	)
+	debugArgs.logLevel = {
+		order = 23,
+		type = "select",
+		name = "Log Level",
+		values = LOG_LEVELS,
+		get = function()
+			return F.Developer.GetLogLevel()
+		end,
+		set = function(_, value)
+			F.Developer.SetLogLevel(value)
+		end,
+	}
+
+	-- Debug channels
+	debugArgs.channelSpacer = Spacer(30)
+	debugArgs.channelHeader = Header(31, "Debug Channels")
+	debugArgs.channelCard = TextCard(
+		32,
+		"Tracing One Module",
+		nil,
+		nil,
+		Lines(
+			"Every module gets "
+				.. Code("module:Log(level, ...)")
+				.. " and "
+				.. Code("module:Debug(...)")
+				.. " injected on load (Init.lua).",
+			"The channel is the module name without "
+				.. Code("MER_")
+				.. ", e.g. "
+				.. Code("MER_LootRoll")
+				.. " -> "
+				.. Highlight("LootRoll")
+				.. ". Names are case insensitive.",
+			" ",
+			Highlight("/muidev debug") .. " lists all known channels (green = active).",
+			Highlight("/muidev debug LootRoll")
+				.. " toggles one channel, "
+				.. Highlight("/muidev debug all")
+				.. " traces everything.",
+			" ",
+			"Arguments are only formatted while the channel is active, so Debug calls can stay in hot paths.",
+			"A channel only shows up here once its module was loaded or the channel logged something."
+		)
+	)
+	debugArgs.channelAll = {
+		order = 33,
+		type = "toggle",
+		name = "All Channels",
+		desc = "/muidev debug all",
+		get = function()
+			return F.Developer.IsDebugging("all")
+		end,
+		set = function(_, value)
+			F.Developer.SetDebugChannel("all", value)
+		end,
+	}
+	debugArgs.channels = {
+		order = 34,
+		type = "multiselect",
+		name = "Channels",
+		width = "full",
+		values = function()
+			local values = {}
+			for key, name in next, F.Developer.GetKnownChannels() do
+				values[key] = name
+			end
+			return values
+		end,
+		get = function(_, key)
+			return F.Developer.IsDebugging(key)
+		end,
+		set = function(_, key, value)
+			F.Developer.SetDebugChannel(key, value)
+		end,
+	}
+
+	-- Code usage
+	debugArgs.codeSpacer = Spacer(40)
+	debugArgs.codeHeader = Header(41, "In Code")
+	debugArgs.codeLogging = TextCard(
+		42,
+		"Logging",
+		nil,
+		nil,
+		Lines(
+			Code('self:Log("warning", "missing frame", name)') .. Muted("  -- inside a module"),
+			Code('self:Debug("sorted", count, "items")') .. Muted("  -- prints only with the channel on"),
+			Code('F.Developer.Debug("Bags", "slot", bagID, slotID)') .. Muted("  -- custom channel, outside modules"),
+			Code('F.Developer.LogInfo("...")') .. Muted("  -- also LogWarning, LogDebug, ThrowError"),
+			" ",
+			"All arguments are joined with spaces. nil, tables and secret values are safe, secrets show as "
+				.. Code("<secret>")
+				.. "."
+		)
+	)
+	debugArgs.codeChannels = TextCard(
+		43,
+		"Reacting to a Channel",
+		nil,
+		nil,
+		Lines(
+			"For debug-only visuals (overlays, test frames) check the channel instead of adding a db option:",
+			" ",
+			Code('if F.Developer.IsDebugging("Tracker") then ... end'),
+			Code('F.Event.RegisterCallback("MER.DebugChannelChanged", function(_, channel, state) ... end)'),
+			" ",
+			Muted("Examples: Tracker (test bars), LootRoll, GameMenu.")
+		)
+	)
+	debugArgs.codeInspect = TextCard(
+		44,
+		"Inspecting Values",
+		nil,
+		nil,
+		Lines(
+			Highlight("/muidev dump E.db.mui.bags") .. " evaluates any Lua expression.",
+			"With DevTool loaded the result opens there, otherwise it is pretty printed to the chat.",
+			"In code: " .. Code("F.Developer.Dump(value, name)") .. " or " .. Code("F.Developer.Print(value)") .. "."
+		)
+	)
+
+	-- Workflow
+	debugArgs.workflowSpacer = Spacer(50)
+	debugArgs.workflowHeader = Header(51, "Workflow")
+	debugArgs.workflowLive = TextCard(
+		52,
+		"Live-Only Bug",
+		I.Media.Icons.Warning,
+		COLOR.warning,
+		Lines(
+			"1. Add " .. Code("self:Debug(...)") .. " calls around the suspicious code path.",
+			"2. " .. Highlight("/muidev debug <Module>") .. " and " .. Highlight("/muidev clear") .. ".",
+			"3. Reproduce the bug.",
+			"4. " .. Highlight("/muidev log") .. ", copy everything and paste it to Claude.",
+			"5. Turn the channel off again. The Debug calls can stay in the code."
+		)
+	)
+	debugArgs.workflowConflict = TextCard(
+		53,
+		"Addon Conflict or Taint",
+		nil,
+		nil,
+		Lines(
+			Highlight("/muidebug on")
+				.. " disables every addon except ElvUI, "
+				.. MER.Title
+				.. ", WindTools, BugSack and DevTool, then reloads.",
+			Highlight("/muidebug off") .. " enables them again and turns Lua errors off.",
+			" ",
+			"The Status Report's Diagnostics rows are clickable: Show Lua Errors, Taint Log (off, 1, 2) and CPU Profiling.",
+			"The taint log ends up in " .. Code("World of Warcraft/_retail_/Logs/taint.log") .. ".",
+			"Blizzard's own helpers: "
+				.. Highlight("/fstack")
+				.. ", "
+				.. Highlight("/etrace")
+				.. ", "
+				.. Highlight("/tinspect")
+				.. "."
+		)
+	)
 end)

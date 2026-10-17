@@ -19,7 +19,7 @@ end
 -------------------------------------------------------------------------------
 
 local _G = _G
-local ipairs, pairs, pcall, xpcall, type = ipairs, pairs, pcall, xpcall, type
+local ipairs, pairs, pcall, xpcall, type, select = ipairs, pairs, pcall, xpcall, type, select
 local format, strjoin, strtrim, tostring, tonumber = format, strjoin, strtrim, tostring, tonumber
 local tinsert, tsort, tconcat, wipe = table.insert, table.sort, table.concat, wipe
 
@@ -27,8 +27,10 @@ local CreateFrame = CreateFrame
 local GetDifficultyInfo = GetDifficultyInfo
 local GetInstanceInfo = GetInstanceInfo
 local GetRealZoneText = GetRealZoneText
+local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
+local UnitCastingInfo = UnitCastingInfo
 local UnitClass = UnitClass
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local geterrorhandler = geterrorhandler
@@ -163,6 +165,15 @@ end
 local function Announce(msg)
 	if DB().announce then
 		Print(msg)
+	end
+end
+
+-- A button press always gets its answer, an automatic swap only with announce on
+local function Notify(request, msg)
+	if request.manual then
+		Print(msg)
+	else
+		Announce(msg)
 	end
 end
 
@@ -817,7 +828,7 @@ TryEquipSet = function(request)
 
 	request.setID, request.setName = info.setID, info.name
 	request.verifying = true
-	request.swapFinished = nil
+	request.swapFinished, request.settleTimer = nil, nil
 	UpdateRequestEvents()
 
 	local okCall, result = pcall(C_EquipmentSet.UseEquipmentSet, info.setID)
@@ -1199,13 +1210,17 @@ local function CompleteTalentRequest(request)
 	RequestRefresh()
 end
 
-local function CheckTalentCompletion(request)
+-- final: combat started, so the load ends here whatever the evidence says
+local function CheckTalentCompletion(request, final)
 	if not RequestIsCurrent(request) or not request.inFlight or request.callingLoad or request.commitFailed then
 		return
 	end
 
 	local activeID = C_ClassTalents.GetActiveConfigID()
 	if not activeID or HasStagedTalentChanges(activeID) == true then
+		if final then
+			FinishRequest(request)
+		end
 		return
 	end
 
@@ -1221,7 +1236,24 @@ local function CheckTalentCompletion(request)
 		and C_ClassTalents.GetLastSelectedSavedConfigID(request.specID) == request.configID
 	then
 		CompleteTalentRequest(request)
+	elseif matches == false and request.commitCastSucceeded and request.updatedAfterCast then
+		-- The commit went through and the active build updated since, yet it
+		-- still differs: part of the loadout could not be applied
+		Notify(request, format(L["Talent loadout %s did not fully apply."], Bad(request.loadoutName)))
+		FinishRequest(request)
+	elseif final then
+		FinishRequest(request)
 	end
+end
+
+-- A talent commit casting now (the talent UI's Apply, or an earlier load)
+-- refuses another load until it ends. The cast's spell can read secret.
+local function CommitCastRunning()
+	local spellID = select(9, UnitCastingInfo("player"))
+	if spellID == nil or issecretvalue(spellID) then
+		return false
+	end
+	return spellID == Constants.TraitConsts.COMMIT_COMBAT_TRAIT_CONFIG_CHANGES_SPELL_ID
 end
 
 local function TalentCommitUpdated(request, configID)
@@ -1238,6 +1270,9 @@ local function TalentCommitUpdated(request, configID)
 	end
 
 	request.commitSignal = "active configuration update"
+	if request.commitCastSucceeded then
+		request.updatedAfterCast = true
+	end
 	ScheduleRequest(request, true)
 end
 
@@ -1379,13 +1414,26 @@ TryLoadTalentLoadout = function(request)
 		return
 	end
 
-	request.configID, request.specID = loadout.configID, loadout.specID
+	request.configID, request.specID, request.loadoutName = loadout.configID, loadout.specID, loadout.name
 	local selected = C_ClassTalents.GetLastSelectedSavedConfigID(loadout.specID) == loadout.configID
 	if blocker then
 		-- Nothing reads the talent tree while a check blocks the load. A
 		-- selected loadout is most likely in place already, so an automatic
 		-- swap holds it without a word; the comparison below settles it.
 		HoldTalentRequest(request, blocker, selected and not request.manual)
+		return
+	end
+
+	if CommitCastRunning() then
+		DeferRequest(request, L["Talent swap held: a talent change is in progress."], false, "availability")
+		return
+	end
+
+	-- The load drops changes staged in the talent UI without the confirmation
+	-- Blizzard's own loadout menu asks for, so an automatic swap waits, without
+	-- a word while its loadout is selected (most likely in place already).
+	if not request.manual and HasStagedTalentChanges(C_ClassTalents.GetActiveConfigID()) == true then
+		DeferRequest(request, L["Talent swap held: you have unsaved talent changes."], false, "availability", selected)
 		return
 	end
 
@@ -1422,8 +1470,7 @@ TryLoadTalentLoadout = function(request)
 	lastTalentRequest = request
 	request.callingLoad, request.inFlight = true, true
 	request.commitSignal, request.commitCastGUID, request.commitFailed = nil, nil, nil
-	request.commitCastSucceeded = nil
-	request.casting = nil
+	request.commitCastSucceeded, request.updatedAfterCast, request.casting = nil, nil, nil
 	UpdateRequestEvents()
 
 	local okLoad, loadError = pcall(C_ClassTalents.SwitchToLoadoutByName, loadout.name)
@@ -1605,10 +1652,28 @@ VerifyEquippedSet = function(request)
 		return
 	end
 
+	-- The set can read unworn for a moment after the swap finishes (its last
+	-- items still landing, which re-run this), so the verdict waits 1.5s from
+	-- the swap's end
 	local wanted = request.setName
 	local info = GetSetInfoByName(wanted)
-	if not request.swapFinished and (not info or not info.isEquipped) then
-		return
+	if not info or not info.isEquipped then
+		if not request.swapFinished then
+			return
+		end
+		local left = request.swapFinished + 1.5 - GetTime()
+		if left > 0 then
+			if not request.settleTimer then
+				request.settleTimer = true
+				C_Timer_After(left, function()
+					request.settleTimer = nil
+					if RequestIsCurrent(request) and request.verifying then
+						ScheduleRequest(request, true)
+					end
+				end)
+			end
+			return
+		end
 	end
 
 	request.verifying = nil
@@ -1842,6 +1907,17 @@ local function OnEvent(_, event, ...)
 		RequestRefresh()
 	elseif event == "PLAYER_REGEN_DISABLED" then
 		HideSpecChangeWarning()
+		local request = requests.talent
+		if request and request.inFlight and not request.casting and not request.callingLoad then
+			if not request.commitCastGUID then
+				-- Blizzard's queued load can refuse without a word; one that never
+				-- started its commit cast by the time combat starts did not happen
+				Notify(request, format(L["Talent loadout %s did not load."], Bad(request.loadoutName)))
+				FinishRequest(request)
+			else
+				CheckTalentCompletion(request, true)
+			end
+		end
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		CombatQueue.Drain()
 	elseif event == "CHALLENGE_MODE_START" then
@@ -1899,6 +1975,10 @@ local function OnEvent(_, event, ...)
 		or event == "UNIT_SPELLCAST_INTERRUPTED"
 	then
 		TalentCastEvent(event, ...)
+		-- The end of any cast an availability wait (gear held by a cast) waits on
+		if event == "UNIT_SPELLCAST_STOP" then
+			ResumeRequests("availability")
+		end
 	else
 		if
 			event == "EQUIPMENT_SETS_CHANGED"
@@ -1914,10 +1994,11 @@ local function OnEvent(_, event, ...)
 						return
 					end
 
-					if not setID or setID == request.setID then
-						request.swapFinished = true
-						ScheduleRequest(request, true)
-					end
+					-- Any finished swap settles the verify: ours, or another set's
+					-- that took over (the check then reports what did not equip).
+					-- Its time starts the verdict's short wait (VerifyEquippedSet).
+					request.swapFinished = request.swapFinished or GetTime()
+					ScheduleRequest(request, true)
 				elseif
 					event ~= "EQUIPMENT_SWAP_FINISHED"
 					and (request.verifying or request.waitReason == "catalog" or request.waitReason == "availability")
@@ -2052,14 +2133,16 @@ UpdateRequestEvents = function()
 	for _, event in ipairs(TALENT_REQUEST_EVENTS) do
 		SetEventState(event, talent)
 	end
+	-- Availability waits wake on movement, resting and the end of a cast
+	local availability = (gear and gear.waitReason == "availability")
+		or (talent and talent.waitReason == "availability")
+	local inFlight = talent and talent.inFlight
 	for _, event in ipairs(TALENT_CAST_EVENTS) do
-		SetEventState(event, talent and talent.inFlight, true)
+		SetEventState(event, inFlight or (availability and event == "UNIT_SPELLCAST_STOP"), true)
 	end
 
 	SetEventState("PLAYER_REGEN_DISABLED", talent)
 
-	local availability = (gear and gear.waitReason == "availability")
-		or (talent and talent.waitReason == "availability")
 	SetEventState("PLAYER_STOPPED_MOVING", availability)
 	SetEventState("PLAYER_UPDATE_RESTING", availability)
 	SetEventState("ADDON_RESTRICTION_STATE_CHANGED", talent and talent.waitReason == "restricted")

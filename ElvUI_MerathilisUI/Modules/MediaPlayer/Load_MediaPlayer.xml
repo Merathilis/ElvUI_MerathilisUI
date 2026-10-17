@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Core.lua"/>
+	<Script file="Data.lua"/>
+	<Script file="Movies.lua"/>
+	<Script file="Window.lua"/>
+</Ui>

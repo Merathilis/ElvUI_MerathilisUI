@@ -571,16 +571,28 @@ function module:OpenChatMenu(btn)
 end
 
 function module:TogglePortalFlyout(btn)
-	-- Opens over the chat text, growing away from the nearer screen edge.
+	-- Automatic opens over the chat text, growing away from the nearer screen edge.
 	local inward = self.db.side == "RIGHT" and "RIGHT" or "LEFT"
-	local outward = inward == "LEFT" and "RIGHT" or "LEFT"
 	local gap = F.Dpi(4)
-	local x = inward == "LEFT" and gap or -gap
+	local direction = self.db.portalDirection
+
+	-- Up / Down keep the edge on the sidebar side, so the flyout still reaches over the chat.
+	if direction == "UP" then
+		F.PortalFlyout.Toggle(btn, "BOTTOM" .. inward, "TOP" .. inward, 0, gap)
+		return
+	elseif direction == "DOWN" then
+		F.PortalFlyout.Toggle(btn, "TOP" .. inward, "BOTTOM" .. inward, 0, -gap)
+		return
+	end
+
+	local grow = (direction == "LEFT" or direction == "RIGHT") and direction or (inward == "LEFT" and "RIGHT" or "LEFT")
+	local point = grow == "RIGHT" and "LEFT" or "RIGHT"
+	local x = grow == "RIGHT" and gap or -gap
 
 	local _, centerY = btn:GetCenter()
 	local vertical = (centerY and centerY < E.UIParent:GetHeight() / 2) and "BOTTOM" or "TOP"
 
-	F.PortalFlyout.Toggle(btn, vertical .. inward, vertical .. outward, x, 0)
+	F.PortalFlyout.Toggle(btn, vertical .. point, vertical .. grow, x, 0)
 end
 
 -------------------------------------------------------------------------------

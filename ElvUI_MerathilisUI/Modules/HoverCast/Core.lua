@@ -1214,11 +1214,85 @@ local function BuildBaseMacroText(binding)
 	return nil
 end
 
+-- Clear Stuck Spell Targeting (cc.clearTargeting, on unless switched off). A
+-- cast on a unit the spell cannot take (a priest in Spirit of Redemption)
+-- leaves the spell waiting for a target, which swallows the next press. Each
+-- cast line this file writes is led by /stopspelltarget under the same
+-- conditions, so a press that is about to cast first drops a spell still
+-- waiting. The clear goes BEFORE the cast, never after it: a ground-targeted
+-- spell ignores @mouseover and opens its placement circle, which a clear after
+-- the cast would close at once. SpellStopTargeting is protected, so a secure
+-- macro line is the only way to reach it.
+local function ClearTargetingOn()
+	local cc = GetClickCastDB()
+	return not (cc and cc.clearTargeting == false)
+end
+
+-- Macro text -> the same text with its clears. ResolveBinding runs for every
+-- binding on every frame, so each repeat of an identical macro is one lookup.
+-- Wiped at every apply, so texts an edit retired do not pile up.
+local clearMemo = {}
+
+local function AddTargetingClears(text)
+	if not text or not ClearTargetingOn() then
+		return text
+	end
+	local hit = clearMemo[text]
+	if hit then
+		return hit
+	end
+	local out, seen = {}, {}
+	for line in (text .. "\n"):gmatch("([^\n]*)\n") do
+		local cond = line:match("^/cast%s+(%b[])") or line:match("^/use%s+(%b[])") or line:match("^/click%s+(%b[])")
+		-- One clear per condition set: a dispel list repeats the same
+		-- conditions on every line, and the first clear already covers them
+		if cond and not seen[cond] then
+			seen[cond] = true
+			out[#out + 1] = "/stopspelltarget " .. cond
+		end
+		out[#out + 1] = line
+	end
+	local result = tconcat(out, "\n")
+	clearMemo[text] = result
+	return result
+end
+
+-- Secure macro text is capped at 255 bytes: a binding macro past the cap does
+-- not run as written, and its own action is the line that goes. A HoverCast
+-- macro over the cap trades the mount guard on every conditional for one
+-- leading /stopmacro, which runs the same.
+local MACRO_MAX = 255
+local GUARD_STOP = "/stopmacro [mounted][flying]\n"
+
+local function FitMacro(text, hover)
+	if not text or #text <= MACRO_MAX then
+		return text
+	end
+	if hover then
+		local body = text:gsub("/stopmacro %[mounted%]%[flying%]\n", "")
+		body = body:gsub(",nomounted,noflying%]", "]")
+		local compact = GUARD_STOP .. body
+		if #compact <= MACRO_MAX then
+			return compact
+		end
+	end
+	return nil
+end
+
 -- Wraps base macrotext with Smart Rez: when binding.smartRez is set, dynamic-rez
 -- /cast lines are prepended (they fail their [dead] condition on a living unit,
--- so the macro falls through to the normal action).
+-- so the macro falls through to the normal action). Every result fits the
+-- macro cap: the clears go first, then Smart Rez itself, never the binding's
+-- own action.
 local function BuildMacroText(binding)
-	local base = BuildBaseMacroText(binding)
+	local hover = binding.hovercast and true or false
+	local plain = BuildBaseMacroText(binding)
+	-- A user macro body is theirs: only the lines this file writes get clears
+	local cleared = plain
+	if binding.type ~= "macro" then
+		cleared = AddTargetingClears(plain)
+	end
+	local base = FitMacro(cleared, hover) or FitMacro(plain, hover) or plain
 	if not binding.smartRez then
 		return base
 	end
@@ -1231,26 +1305,30 @@ local function BuildMacroText(binding)
 	if binding.type == "target" or binding.type == "menu" or binding.type == "dynamicrez" then
 		return base
 	end
-	local guard = binding.hovercast and MOUNT_GUARD or ""
+	local guard = hover and MOUNT_GUARD or ""
 	local rez = BuildRezLines(binding, guard)
 	if not rez or #rez == 0 then
 		return base
 	end
-	local rezText = tconcat(rez, "\n")
-
-	if base then
-		return rezText .. "\n" .. base
-	end
 	-- A plain spell binding produces no base macro (applied as a direct spell);
 	-- convert it to a macro so the rez lines can lead, then cast on the same unit.
-	if binding.type == "spell" then
-		local line = SpellCastLine(binding, "[@mouseover,exists,nodead" .. guard .. "]")
-		if not line then
-			return rezText
-		end
-		return rezText .. "\n" .. line
+	if not plain and binding.type == "spell" then
+		plain = SpellCastLine(binding, "[@mouseover,exists,nodead" .. guard .. "]")
+		cleared = AddTargetingClears(plain)
 	end
-	return rezText
+	local function Join(rezText, action)
+		if action then
+			return rezText .. "\n" .. action
+		end
+		return rezText
+	end
+	-- The richest form that fits: clears on every line, then on the action
+	-- only, then none
+	local rezText = tconcat(rez, "\n")
+	local text = FitMacro(Join(AddTargetingClears(rezText), cleared), hover)
+		or FitMacro(Join(rezText, cleared), hover)
+		or FitMacro(Join(rezText, plain), hover)
+	return text or base
 end
 
 function module:GetBindingIcon(b)
@@ -2209,6 +2287,7 @@ function module:ApplyBindings()
 
 	-- Self-heals non-canonical modifier-order keys before reading the active set
 	NormalizeSavedBindingKeys()
+	wipe(clearMemo)
 
 	local bindings = GetActiveBindings()
 	-- Fresh list becomes the burst list: any registration later this frame
@@ -2311,7 +2390,7 @@ function module:ApplyBindings()
 			if aType == "spell" then
 				mt = BuildMacroText(hb.b)
 				if not mt then
-					mt = SpellCastLine(hb.b, "[@mouseover" .. MOUNT_GUARD .. "]")
+					mt = AddTargetingClears(SpellCastLine(hb.b, "[@mouseover" .. MOUNT_GUARD .. "]"))
 						or ("/cast [@mouseover" .. MOUNT_GUARD .. "] ")
 				end
 			elseif aType == "macro" then
