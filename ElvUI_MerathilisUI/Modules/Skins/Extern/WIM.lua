@@ -1,9 +1,10 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Skins") ---@type Skins
 local S = E:GetModule("Skins")
+local WS = W:GetModule("Skins")
 
 local _G = _G
-local ipairs, unpack = ipairs, unpack
+local ipairs, pairs, type, unpack = ipairs, pairs, type, unpack
 local gsub = string.gsub
 
 local CreateFrame = CreateFrame
@@ -381,6 +382,293 @@ local function SkinMinimapButton()
 	button.__MERSkinned = true
 end
 
+--[[ Dropdown lists ]]
+
+-- WIM's context menus (minimap button, shortcut bar) and the option dropdowns use
+-- LibDropDownMenu. ElvUI hooks Blizzard's global dropdown functions for it, which the
+-- library never calls, so its lists keep the old dialog look without this.
+local function SkinDropDownBackdrop(backdrop)
+	if backdrop and not backdrop.__MERSkinned then
+		backdrop:SetTemplate("Transparent")
+		WS:CreateShadow(backdrop)
+		backdrop.__MERSkinned = true
+	end
+end
+
+local function SkinDropDownButton(button)
+	local name = button:GetName()
+
+	local highlight = _G[name .. "Highlight"]
+	if highlight then
+		highlight:SetTexture(E.media.normTex)
+		highlight:SetBlendMode("BLEND")
+		highlight:SetVertexColor(F.r, F.g, F.b, 0.3)
+	end
+
+	local expandArrow = _G[name .. "ExpandArrow"]
+	local arrow = expandArrow and expandArrow:GetRegions()
+	if arrow then
+		arrow:SetTexture(E.Media.Textures.ArrowUp)
+		arrow:SetRotation(S.ArrowRotation.right)
+		arrow:SetVertexColor(F.r, F.g, F.b)
+	end
+
+	local check = _G[name .. "Check"]
+	if check then
+		local box = CreateFrame("Frame", nil, button)
+		box:Size(12)
+		box:Point("CENTER", check)
+		box:SetTemplate()
+		box:Hide()
+		button.__MERCheckBox = box
+	end
+
+	button.__MERSkinned = true
+end
+
+-- The library sets the radio check art again for every entry, so this runs on each show
+local function UpdateDropDownChecks(button)
+	local name = button:GetName()
+	local check, uncheck = _G[name .. "Check"], _G[name .. "UnCheck"]
+	local box = button.__MERCheckBox
+	if not (check and uncheck and box) then
+		return
+	end
+
+	local checkable = check:IsShown() or uncheck:IsShown()
+	box:SetShown(checkable and not check:GetAtlas())
+	if not box:IsShown() then
+		return
+	end
+
+	check:SetTexture(E.media.normTex)
+	check:SetTexCoord(0, 1, 0, 1)
+	check:SetVertexColor(F.r, F.g, F.b)
+	check:SetInside(box)
+	check:SetDrawLayer("OVERLAY")
+	uncheck:SetTexture(E.ClearTexture)
+end
+
+local function DropDownList_OnShow(list)
+	local name = list:GetName()
+	SkinDropDownBackdrop(_G[name .. "Backdrop"])
+	SkinDropDownBackdrop(_G[name .. "MenuBackdrop"])
+
+	local index = 1
+	local button = _G[name .. "Button" .. index]
+	while button do
+		if not button.__MERSkinned then
+			SkinDropDownButton(button)
+		end
+		if button:IsShown() then
+			UpdateDropDownChecks(button)
+		end
+		index = index + 1
+		button = _G[name .. "Button" .. index]
+	end
+end
+
+local function HookDropDownLists(lib)
+	for level = 1, lib.UIDROPDOWNMENU_MAXLEVELS do
+		local list = _G["LibDropDownMenu_List" .. level]
+		if list and not list.__MERHooked then
+			list:HookScript("OnShow", DropDownList_OnShow)
+			list.__MERHooked = true
+		end
+	end
+end
+
+local function SkinDropDownLists()
+	local lib = _G.WIM.libs.DropDownMenu
+	if not lib then
+		return
+	end
+
+	HookDropDownLists(lib)
+	-- More levels get created on demand, the library calls this through its own table
+	hooksecurefunc(lib, "UIDropDownMenu_CreateFrames", function()
+		HookDropDownLists(lib)
+	end)
+end
+
+--[[ Options window ]]
+
+local function IsPanelButton(object)
+	return object.Left and object.Middle and object.Right
+end
+
+-- The option pages are built from WIM's own widget toolkit when a page is opened first,
+-- so each page is walked once it shows and its widgets get skinned by type.
+local function SkinOptionWidget(object)
+	local objectType = object:GetObjectType()
+
+	if objectType == "CheckButton" then
+		S:HandleCheckBox(object)
+	elseif objectType == "Slider" then
+		-- Scroll bars are sliders as well, they come with their scroll frame
+		if object.input then
+			object:SetBackdrop(nil)
+			S:HandleSliderFrame(object)
+			S:HandleEditBox(object.input)
+			object.input.__MERSkinned = true
+		end
+	elseif objectType == "EditBox" then
+		if IsPanelButton(object) then
+			S:HandleEditBox(object)
+		end
+	elseif objectType == "Button" then
+		local parent = object:GetParent()
+		if IsPanelButton(object) then
+			S:HandleButton(object)
+		elseif parent and parent.isCheckButton and parent.menu == object then
+			S:HandleNextPrevButton(object, "down")
+		end
+	elseif objectType == "ScrollFrame" then
+		local name = object:GetName()
+		local scrollBar = object.ScrollBar or (name and _G[name .. "ScrollBar"])
+		if scrollBar then
+			if scrollBar.GetThumb then
+				S:HandleTrimScrollBar(scrollBar)
+			else
+				S:HandleScrollBar(scrollBar)
+			end
+		end
+	elseif objectType == "Frame" then
+		if object.Button and object.Text and IsPanelButton(object) then
+			S:HandleDropDownBox(object, object:GetWidth(), nil, true)
+		elseif type(object.backdrop) == "table" and not object.backdrop.GetObjectType and object.backdrop.bg then
+			-- WIM's framed panels keep their border textures in a plain table named backdrop
+			for _, region in pairs(object.backdrop) do
+				region:SetAlpha(0)
+			end
+			module:CreateBDFrame(object, 0.25)
+		end
+	end
+
+	object.__MERSkinned = true
+end
+
+local function WalkOptionWidgets(frame)
+	if not frame.__MERSkinned then
+		SkinOptionWidget(frame)
+	end
+
+	for _, child in ipairs({ frame:GetChildren() }) do
+		WalkOptionWidgets(child)
+	end
+end
+
+local function SkinOptionsListButton(button)
+	local highlight = button:GetHighlightTexture()
+	if highlight then
+		highlight:SetColorTexture(F.r, F.g, F.b, 0.25)
+	end
+
+	button.__MERSkinned = true
+end
+
+local function SkinOptionsCategory(button)
+	-- WIM paints the category gradient again on every update
+	button.bg:SetAlpha(0)
+
+	button:CreateBackdrop("Transparent")
+	button.backdrop:ClearAllPoints()
+	button.backdrop:Point("TOPLEFT", 0, -1)
+	button.backdrop:Point("BOTTOMRIGHT", 0, 1)
+
+	local selected = button:CreateTexture(nil, "BORDER")
+	selected:SetTexture(E.media.normTex)
+	selected:SetVertexColor(F.r, F.g, F.b, 0.4)
+	selected:SetInside(button.backdrop)
+	button.__MERSelected = selected
+
+	SkinOptionsListButton(button)
+end
+
+local function SkinOptionsWindow(win)
+	win:SetBackdrop(nil)
+	module:SetBD(win)
+
+	win.title:ClearAllPoints()
+	win.title:Point("TOPLEFT", 18, -16)
+
+	S:HandleCloseButton(win.close)
+	win.close:SetHitRectInsets(0, 0, 0, 0)
+	win.close:Size(CLOSE_BUTTON_SIZE)
+	win.close:ClearAllPoints()
+	win.close:Point("TOPRIGHT", -4, -4)
+
+	win.__MERSkinned = true
+end
+
+local function Options_UpdateCategories()
+	local win = _G.WIM.options.frame
+	if not win then
+		return
+	end
+
+	if not win.__MERSkinned then
+		SkinOptionsWindow(win)
+	end
+
+	for _, button in ipairs(win.nav.category) do
+		if not button.__MERSkinned then
+			SkinOptionsCategory(button)
+		end
+		-- The open category is the disabled one
+		button.__MERSelected:SetShown(not button:IsEnabled())
+	end
+end
+
+local function WalkOptionsPage()
+	local page = _G.WIM.options.frame.container.frame
+	if page then
+		WalkOptionWidgets(page)
+	end
+end
+
+local function Options_UpdateSubCategories()
+	local win = _G.WIM.options.frame
+	if not win then
+		return
+	end
+
+	for _, button in ipairs(win.nav.sub.buttons) do
+		if not button.__MERSkinned then
+			SkinOptionsListButton(button)
+			-- A click builds the page first, refreshes the list and only then puts the page into
+			-- the container, so the refresh below still sees the previous page.
+			button:HookScript("OnClick", WalkOptionsPage)
+		end
+	end
+
+	WalkOptionsPage()
+
+	-- The scrolling dropdown of the check button menus, created with the first of them
+	local dropDown = _G.WIM_DropDownFrame
+	if dropDown and not dropDown.__MERSkinned then
+		SkinDropDownBackdrop(dropDown)
+		for _, button in ipairs(dropDown.buttons) do
+			SkinDropDownButton(button)
+		end
+		dropDown.__MERSkinned = true
+	end
+end
+
+-- Add / Edit Filter opens its own window, built like the options window
+local function SkinFilterWindow()
+	local win = _G.WIM3_FilterFrame
+	if not win then
+		return
+	end
+
+	if not win.__MERSkinned then
+		SkinOptionsWindow(win)
+	end
+
+	WalkOptionWidgets(win)
+end
+
 function module:WIM()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wim then
 		return
@@ -409,6 +697,15 @@ function module:WIM()
 
 	if WIM.Menu then
 		SkinMenu(WIM.Menu)
+	end
+
+	SkinDropDownLists()
+
+	-- The options window is created on its first open, these run whenever a category or page shows
+	hooksecurefunc(WIM.options, "UpdateCategories", Options_UpdateCategories)
+	hooksecurefunc(WIM.options, "UpdateSubCategories", Options_UpdateSubCategories)
+	if WIM.ShowFilterFrame then
+		hooksecurefunc(WIM, "ShowFilterFrame", SkinFilterWindow)
 	end
 
 	-- The minimap button is created once WIM's saved variables are loaded
