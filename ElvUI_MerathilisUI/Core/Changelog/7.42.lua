@@ -15,6 +15,7 @@ MER.Changelog[742] = {
 		"[Loadout Manager]: Entering an arena or other instance no longer skips the automatic swap when the spec event arrives before the zone change and Spec Swap is turned off.",
 		"[NamePlates]: Nameplates that only show a widget (e.g. delve companions like Valeera, objects with a progress bar) no longer show a leftover name, level and health text.",
 		"[Profiles]: The ls_Toasts profile places the toasts again. ls_Toasts now keeps its anchors per Edit Mode layout, the old position was ignored and the toasts ended up in the top left corner.",
+		"[Skins]: WIM: The close and scroll buttons of the message windows keep their look after a WIM option or skin change, and the minimap button gets skinned again.",
 	},
 	NEW = {
 		"[Bags]: Quick Actions - an optional title bar button that highlights the items you can disenchant or pick, a click on one casts the spell on it.",
@@ -36,6 +37,7 @@ MER.Changelog[742] = {
 		"[Profiles]: The WindTools profile sets Expressway as the font of every WindTools module (Objective Tracker, Game Bar, Extra Items Bar, Inspect, Loss of Control and more) instead of WindTools' mix of fonts.",
 		"[Skins]: The rows in the Encounter Journal's Traveler's Log and Item Sets now use a transparent background instead of ElvUI's dark one (needs ElvUI's Parchment Remover).",
 		"[Skins]: The zone and category headers in the World Map's quest log now use a transparent background instead of ElvUI's dark one.",
+		"[Skins]: WIM: Reworked skin - square class icons (a flat channel color for chat windows), flat tabs with a class colored line on the selected one, a skinned window menu and shortcut bar. The close button shows an arrow for hide and, with Shift held, a cross for close.",
 		"[UnitFrames]: Interrupt Ready (unitframes and nameplates) now uses ElvUI's Non-Interruptible color while your interrupt is on cooldown and ElvUI's Interruptible color for the ready window, a unit's own castbar custom color included. A button in the options opens ElvUI's castbar colors. The two interrupt colors in the Theme options are gone.",
 		"[UnitFrames]: Rounded Corners only redo the bar ElvUI just changed, e.g. when an auto-hiding class bar shows or hides in combat, instead of the whole unitframe several times.",
 		"[UnitFrames]: Rounded Corners has a Radius slider (up to 16 pixels, 0 keeps the subtle default corners). With a radius set, the border is a real ring, so a transparent unitframe background stays see-through.",
