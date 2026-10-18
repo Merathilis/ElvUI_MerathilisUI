@@ -515,7 +515,7 @@ function MER:SetupLayout()
 	E.db["databars"]["statusbar"] = "ElvUI Norm1"
 
 	E.db["databars"]["experience"]["enable"] = true
-	E.db["databars"]["experience"]["mouseover"] = false
+	E.db["databars"]["experience"]["mouseover"] = true
 	E.db["databars"]["experience"]["height"] = 9
 	E.db["databars"]["experience"]["fontSize"] = 9
 	E.db["databars"]["experience"]["font"] = "Expressway"
@@ -527,7 +527,7 @@ function MER:SetupLayout()
 	E.db["databars"]["experience"]["showBubbles"] = true
 
 	E.db["databars"]["reputation"]["enable"] = true
-	E.db["databars"]["reputation"]["mouseover"] = false
+	E.db["databars"]["reputation"]["mouseover"] = true
 	E.db["databars"]["reputation"]["font"] = "Expressway"
 	E.db["databars"]["reputation"]["fontSize"] = 9
 	E.db["databars"]["reputation"]["height"] = 9
@@ -542,6 +542,7 @@ function MER:SetupLayout()
 	E.db["databars"]["threat"]["height"] = 12
 	E.db["databars"]["threat"]["fontSize"] = 9
 	E.db["databars"]["threat"]["font"] = "Expressway"
+	E.db["databars"]["threat"]["mouseover"] = true
 
 	E.db["databars"]["honor"]["enable"] = true
 	E.db["databars"]["honor"]["width"] = 283
@@ -554,6 +555,7 @@ function MER:SetupLayout()
 	E.db["databars"]["honor"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["honor"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["honor"]["showBubbles"] = true
+	E.db["databars"]["honor"]["mouseover"] = true
 
 	E.db["databars"]["azerite"]["enable"] = true
 	E.db["databars"]["azerite"]["height"] = 9
@@ -561,7 +563,7 @@ function MER:SetupLayout()
 	E.db["databars"]["azerite"]["fontSize"] = 9
 	E.db["databars"]["azerite"]["width"] = 283
 	E.db["databars"]["azerite"]["hideInCombat"] = true
-	E.db["databars"]["azerite"]["mouseover"] = false
+	E.db["databars"]["azerite"]["mouseover"] = true
 	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["azerite"]["showBubbles"] = true
