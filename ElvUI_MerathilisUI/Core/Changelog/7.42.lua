@@ -39,6 +39,7 @@ MER.Changelog[742] = {
 		"[Skins]: The zone and category headers in the World Map's quest log now use a transparent background instead of ElvUI's dark one.",
 		"[Skins]: WIM: Reworked skin - square class icons (a flat channel color for chat windows), flat tabs with a class colored line on the selected one, a skinned window menu and shortcut bar. The close button shows an arrow for hide and, with Shift held, a cross for close.",
 		"[Skins]: WIM: The options window and the right-click menus (minimap button, shortcut bar) are skinned as well, including the check boxes, sliders, dropdowns and buttons on the option pages.",
+		"[Skins]: WIM: The History Viewer is skinned as well (character dropdown, conversation and date lists, search bar, view tabs and loading bar).",
 		"[UnitFrames]: Interrupt Ready (unitframes and nameplates) now uses ElvUI's Non-Interruptible color while your interrupt is on cooldown and ElvUI's Interruptible color for the ready window, a unit's own castbar custom color included. A button in the options opens ElvUI's castbar colors. The two interrupt colors in the Theme options are gone.",
 		"[UnitFrames]: Rounded Corners only redo the bar ElvUI just changed, e.g. when an auto-hiding class bar shows or hides in combat, instead of the whole unitframe several times.",
 		"[UnitFrames]: Rounded Corners has a Radius slider (up to 16 pixels, 0 keeps the subtle default corners). With a radius set, the border is a real ring, so a transparent unitframe background stays see-through.",

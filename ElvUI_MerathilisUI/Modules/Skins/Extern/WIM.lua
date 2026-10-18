@@ -493,6 +493,20 @@ end
 
 --[[ Options window ]]
 
+-- WIM's framed panels keep their border textures in a plain table named backdrop,
+-- so they never get ElvUI's CreateBackdrop, which would take that field for its frame.
+local function IsFramedPanel(object)
+	return type(object.backdrop) == "table" and not object.backdrop.GetObjectType and object.backdrop.bg
+end
+
+local function SkinFramedBackdrop(frame)
+	for _, region in pairs(frame.backdrop) do
+		region:SetAlpha(0)
+	end
+
+	return module:CreateBDFrame(frame, 0.25)
+end
+
 local function IsPanelButton(object)
 	return object.Left and object.Middle and object.Right
 end
@@ -536,12 +550,8 @@ local function SkinOptionWidget(object)
 	elseif objectType == "Frame" then
 		if object.Button and object.Text and IsPanelButton(object) then
 			S:HandleDropDownBox(object, object:GetWidth(), nil, true)
-		elseif type(object.backdrop) == "table" and not object.backdrop.GetObjectType and object.backdrop.bg then
-			-- WIM's framed panels keep their border textures in a plain table named backdrop
-			for _, region in pairs(object.backdrop) do
-				region:SetAlpha(0)
-			end
-			module:CreateBDFrame(object, 0.25)
+		elseif IsFramedPanel(object) then
+			SkinFramedBackdrop(object)
 		end
 	end
 
@@ -585,7 +595,7 @@ local function SkinOptionsCategory(button)
 	SkinOptionsListButton(button)
 end
 
-local function SkinOptionsWindow(win)
+local function SkinDialogWindow(win)
 	win:SetBackdrop(nil)
 	module:SetBD(win)
 
@@ -608,7 +618,7 @@ local function Options_UpdateCategories()
 	end
 
 	if not win.__MERSkinned then
-		SkinOptionsWindow(win)
+		SkinDialogWindow(win)
 	end
 
 	for _, button in ipairs(win.nav.category) do
@@ -663,10 +673,121 @@ local function SkinFilterWindow()
 	end
 
 	if not win.__MERSkinned then
-		SkinOptionsWindow(win)
+		SkinDialogWindow(win)
 	end
 
 	WalkOptionWidgets(win)
+end
+
+--[[ History viewer ]]
+
+local function SkinHistoryDeleteButton(button)
+	S:HandleCloseButton(button)
+	button:SetHitRectInsets(0, 0, 0, 0)
+end
+
+local function SkinHistoryListButton(button)
+	button:GetHighlightTexture():SetColorTexture(F.r, F.g, F.b, 0.25)
+	if button.delete then
+		SkinHistoryDeleteButton(button.delete)
+	end
+
+	button.__MERSkinned = true
+end
+
+local function SkinHistoryList(scroll)
+	for _, button in ipairs(scroll.buttons) do
+		if not button.__MERSkinned then
+			SkinHistoryListButton(button)
+		end
+	end
+end
+
+-- The user list adds rows when the window grows
+local function UserList_Update()
+	SkinHistoryList(_G.WIM3_HistoryFrame.nav.userList.scroll)
+end
+
+local function UpdateHistoryTabs(win)
+	for _, tab in ipairs(win.content.tabs) do
+		tab.__MERLine:SetShown(win.TAB == tab.index)
+	end
+end
+
+local function HistoryTab_OnClick()
+	UpdateHistoryTabs(_G.WIM3_HistoryFrame)
+end
+
+local function SkinHistoryWindow()
+	local win = _G.WIM3_HistoryFrame
+	if not win or win.__MERSkinned then
+		return
+	end
+
+	SkinDialogWindow(win)
+
+	-- Navigation: character dropdown, conversations, date filters
+	local nav = win.nav
+	S:HandleDropDownBox(nav.user, nav.user:GetWidth(), nil, true)
+	nav.border:SetWidth(1)
+
+	nav.filters.border:SetTexture(E.media.normTex)
+	nav.filters.border:SetVertexColor(F.r, F.g, F.b, 0.25)
+
+	SkinOptionWidget(nav.userList.scroll)
+	SkinOptionWidget(nav.filters.scroll)
+	SkinHistoryList(nav.userList.scroll)
+	SkinHistoryList(nav.filters.scroll)
+	hooksecurefunc(nav.userList.scroll, "update", UserList_Update)
+
+	-- Search bar
+	local search = win.search
+	search.bg:SetAlpha(0)
+	module:CreateBDFrame(search, 0.25)
+	local searchBG = SkinFramedBackdrop(search.text)
+	searchBG:Point("TOPLEFT", search.text, "TOPLEFT", -4, 2)
+	searchBG:Point("BOTTOMRIGHT", search.text, "BOTTOMRIGHT", 2, -2)
+	SkinHistoryDeleteButton(search.clear)
+
+	-- Content: message display, plain text view and the tabs below them
+	local content = win.content
+	module:CreateBDFrame(content, 0.25)
+
+	local chatFrame = content.chatFrame
+	S:HandleNextPrevButton(chatFrame.up, "up")
+	chatFrame.up:ClearAllPoints()
+	chatFrame.up:Point("TOPRIGHT", chatFrame, "TOPRIGHT", 24, 0)
+	S:HandleNextPrevButton(chatFrame.down, "down")
+	chatFrame.down:ClearAllPoints()
+	chatFrame.down:Point("BOTTOMRIGHT", chatFrame, "BOTTOMRIGHT", 24, 0)
+
+	SkinOptionWidget(content.textFrame)
+
+	for _, tab in ipairs(content.tabs) do
+		tab.bg:SetAlpha(0)
+		tab:CreateBackdrop("Transparent")
+
+		local line = tab:CreateTexture(nil, "OVERLAY")
+		line:SetTexture(E.media.normTex)
+		line:SetVertexColor(F.r, F.g, F.b)
+		line:Height(2)
+		line:Point("BOTTOMLEFT", tab.backdrop, "BOTTOMLEFT", 1, 1)
+		line:Point("BOTTOMRIGHT", tab.backdrop, "BOTTOMRIGHT", -1, 1)
+		tab.__MERLine = line
+
+		tab:HookScript("OnClick", HistoryTab_OnClick)
+	end
+	UpdateHistoryTabs(win)
+
+	-- Loading bar of long conversations
+	local progressBar = win.progressBar
+	SkinFramedBackdrop(progressBar)
+	SkinFramedBackdrop(progressBar.bar)
+	progressBar.bar.bg:SetTexture(E.media.normTex)
+	progressBar.bar.bg:SetVertexColor(F.r, F.g, F.b)
+	SkinHistoryDeleteButton(progressBar.delete)
+
+	win.__MERSkinned = true
 end
 
 function module:WIM()
@@ -706,6 +827,9 @@ function module:WIM()
 	hooksecurefunc(WIM.options, "UpdateSubCategories", Options_UpdateSubCategories)
 	if WIM.ShowFilterFrame then
 		hooksecurefunc(WIM, "ShowFilterFrame", SkinFilterWindow)
+	end
+	if WIM.ShowHistoryViewer then
+		hooksecurefunc(WIM, "ShowHistoryViewer", SkinHistoryWindow)
 	end
 
 	-- The minimap button is created once WIM's saved variables are loaded
