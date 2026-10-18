@@ -417,7 +417,8 @@ local function SkinDropDownButton(button)
 	if check then
 		local box = CreateFrame("Frame", nil, button)
 		box:Size(12)
-		box:Point("CENTER", check)
+		-- Where the library puts its 16px check art, the check itself gets anchored into the box
+		box:Point("LEFT", button, "LEFT", 2, 0)
 		box:SetTemplate()
 		box:Hide()
 		button.__MERCheckBox = box
@@ -790,6 +791,41 @@ local function SkinHistoryWindow()
 	win.__MERSkinned = true
 end
 
+--[[ Chat member list ]]
+
+local function ChatUserList_ApplySkin(list)
+	list:SetBackdrop(nil)
+end
+
+-- The "Users in <channel>" popup of chat windows, built like the window menu
+local function SkinChatUserList()
+	local list = _G.WIM3_ChatUserList
+	if not list or list.__MERSkinned then
+		return
+	end
+
+	module:SetBD(list)
+	ChatUserList_ApplySkin(list)
+	hooksecurefunc(list, "ApplySkin", ChatUserList_ApplySkin)
+
+	list.title:ClearAllPoints()
+	list.title:Point("TOPLEFT", 10, -8)
+	list.title:Point("TOPRIGHT", -10, -8)
+
+	local buttons = list.buttons
+	buttons[1]:ClearAllPoints()
+	buttons[1]:Point("TOPLEFT", 10, -28)
+	buttons[1]:Point("RIGHT", -26, 0)
+	for _, button in ipairs(buttons) do
+		button:GetHighlightTexture():SetColorTexture(F.r, F.g, F.b, 0.25)
+	end
+	list:Height(#buttons * buttons[1]:GetHeight() + 38)
+
+	SkinOptionWidget(list.scroll)
+
+	list.__MERSkinned = true
+end
+
 function module:WIM()
 	if not E.private.mui.skins.addonSkins.enable or not E.private.mui.skins.addonSkins.wim then
 		return
@@ -831,6 +867,13 @@ function module:WIM()
 	if WIM.ShowHistoryViewer then
 		hooksecurefunc(WIM, "ShowHistoryViewer", SkinHistoryWindow)
 	end
+
+	-- The chat member list is created once WIM is enabled
+	local chatOptions = WIM.modules and WIM.modules.ChatOptions
+	if chatOptions then
+		hooksecurefunc(chatOptions, "OnEnableWIM", SkinChatUserList)
+	end
+	SkinChatUserList()
 
 	-- The minimap button is created once WIM's saved variables are loaded
 	local minimapIcon = WIM.modules and WIM.modules.MinimapIcon
