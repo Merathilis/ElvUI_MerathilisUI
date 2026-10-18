@@ -31,6 +31,7 @@ MER.Changelog[742] = {
 		"[NamePlates]: Neutral Name Only finds the nameplate of a unit directly instead of going through all nameplates on every combat flag change.",
 		"[NamePlates]: The Castbar Shield now sits on the castbar itself instead of half over the castbar icon.",
 		"[Profiles]: The WindTools profile sets Expressway as the font of every WindTools module (Objective Tracker, Game Bar, Extra Items Bar, Inspect, Loss of Control and more) instead of WindTools' mix of fonts.",
+		"[Skins]: The rows in the Encounter Journal's Traveler's Log and Item Sets now use a transparent background instead of ElvUI's dark one (needs ElvUI's Parchment Remover).",
 		"[UnitFrames]: Interrupt Ready (unitframes and nameplates) now uses ElvUI's Non-Interruptible color while your interrupt is on cooldown and ElvUI's Interruptible color for the ready window, a unit's own castbar custom color included. A button in the options opens ElvUI's castbar colors. The two interrupt colors in the Theme options are gone.",
 		"[UnitFrames]: Rounded Corners only redo the bar ElvUI just changed, e.g. when an auto-hiding class bar shows or hides in combat, instead of the whole unitframe several times.",
 		"[UnitFrames]: Rounded Corners has a Radius slider (up to 16 pixels, 0 keeps the subtle default corners). With a radius set, the border is a real ring, so a transparent unitframe background stays see-through.",
