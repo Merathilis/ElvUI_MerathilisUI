@@ -4,9 +4,12 @@
 -   [Fix]: Bags: Shift+Right-click on an item with sockets now opens the socketing window, like in Blizzard's and ElvUI's bags.
 -   [Fix]: Buff Reminder: An enchanted off-hand no longer hides the reminder for an unenchanted main-hand weapon.
 -   [Fix]: Buff Reminder: The food reminder now also finds the feasts (Feast of Knowledge, Silvermoon Parade, Harandar Celebration), Bloodthistle-wrapped Cutlets and all Hearty foods in your bags.
+-   [Fix]: Buff Reminder: Housing plots and garrisons no longer count as instanced content, so instance-only reminders stay hidden there.
+-   [Fix]: Cursor: The GCD ring now also shows on WoW Forever.
 -   [Fix]: HoverCast: A binding whose macro grew past WoW's 255 character limit (e.g. with Smart Rez) lost its own action. The macro is now shortened step by step instead, the action always stays.
 -   [Fix]: Loadout Manager: No more false "item(s) missing" messages while the last items of a gear set are still being equipped.
 -   [Fix]: Loadout Manager: A talent loadout no longer stays pending when combat starts before its load began, and a loadout that only partly applied is now reported.
+-   [Fix]: Loadout Manager: Entering an arena or other instance no longer skips the automatic swap when the spec event arrives before the zone change and Spec Swap is turned off.
 -   [Fix]: NamePlates: Nameplates that only show a widget (e.g. delve companions like Valeera, objects with a progress bar) no longer show a leftover name, level and health text.
 -   [Fix]: Profiles: The ls_Toasts profile places the toasts again. ls_Toasts now keeps its anchors per Edit Mode layout, the old position was ignored and the toasts ended up in the top left corner.
 -   [New]: Bags: Quick Actions - an optional title bar button that highlights the items you can disenchant or pick, a click on one casts the spell on it.

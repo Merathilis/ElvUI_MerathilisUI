@@ -18,8 +18,9 @@ local GetUnitEmpowerHoldAtMaxTime = GetUnitEmpowerHoldAtMaxTime
 local Enum_OnUpdateMode_RunWhenVisible = Enum.OnUpdateMode and Enum.OnUpdateMode.RunWhenVisible
 
 -- Reference spell used purely to read the shared (global) cooldown timing;
--- any instant ability works, this one is always known.
-local GCD_REFERENCE_SPELL = 61304
+-- any instant ability works, this one is always known. 61304 returns nil on
+-- Forever, which uses Classic's 29515 instead.
+local GCD_REFERENCE_SPELL = E.Forever and 29515 or 61304
 
 -------------------------------------------------------------------------------
 --  GCD Ring
