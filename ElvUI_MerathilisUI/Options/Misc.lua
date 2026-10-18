@@ -5,6 +5,7 @@ local module = MER:GetModule("MER_Options") ---@class Options
 module:AddOptions(function()
 	local MI = MER:GetModule("MER_Misc")
 	local RIF = MER:GetModule("MER_RaidInfoFrame")
+	local GF = MER:GetModule("MER_GroupFinder")
 	local LSM = MER:GetModule("MER_Loot")
 
 	local options = module.options.misc.args
@@ -689,6 +690,127 @@ module:AddOptions(function()
 			}),
 		},
 	}
+
+	options.groupFinder = {
+		order = 6,
+		type = "group",
+		name = L["Group Finder"],
+		hidden = E.Forever,
+		get = function(info)
+			return E.db.mui.misc.groupFinder[info[#info]]
+		end,
+		set = function(info, value)
+			E.db.mui.misc.groupFinder[info[#info]] = value
+			GF:DatabaseUpdate()
+		end,
+		args = {
+			enable = module.ToggleCard({
+				order = 1,
+				name = F.NewFeatureText(L["Enable"]),
+				desc = L["Adds a few things to the Premade Groups list. Works together with the LFG List and Group Info features of WindTools."],
+			}),
+			credits = module.CreditsCard(2, "EllesmereUI"),
+			list = {
+				order = 3,
+				type = "group",
+				name = L["Group List"],
+				guiInline = true,
+				disabled = function()
+					return not E.db.mui.misc.groupFinder.enable
+				end,
+				args = {
+					leaver = {
+						order = 1,
+						type = "toggle",
+						name = L["Leaver Mark"],
+						desc = L["Keeps Blizzard's mark for players who left Mythic+ runs early visible above the role icons, also with the role icons of WindTools."],
+					},
+					missingRoles = {
+						order = 2,
+						type = "toggle",
+						name = L["Missing Roles"],
+						desc = L["Shows the roles a 5 player group still needs in its empty slots."],
+					},
+					nameColors = {
+						order = 3,
+						type = "toggle",
+						name = L["Group Name Colors"],
+						desc = L["Colors the names of groups that are new since your last search green, and those that declined you or that you are saved to red."],
+					},
+					memberTooltip = {
+						order = 4,
+						type = "toggle",
+						name = L["Members In Tooltip"],
+						desc = L["Lists the group members by role in the tooltip. With the Group Info tooltip of WindTools, only the names are added."],
+					},
+				},
+			},
+			applications = {
+				order = 4,
+				type = "group",
+				name = L["Mythic+ Applications"],
+				guiInline = true,
+				disabled = function()
+					return not E.db.mui.misc.groupFinder.enable
+				end,
+				get = function(info)
+					return E.db.mui.misc.groupFinder.applications[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.misc.groupFinder.applications[info[#info]] = value
+					GF:DatabaseUpdate()
+				end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Counts your Mythic+ applications and shows how they ended in a bar on the Premade Groups page."],
+					},
+					scope = {
+						order = 2,
+						type = "select",
+						name = L["Show"],
+						values = {
+							session = L["Session"],
+							character = L["Character"],
+							account = L["Account"],
+						},
+						disabled = function()
+							return not E.db.mui.misc.groupFinder.enable
+								or not E.db.mui.misc.groupFinder.applications.enable
+						end,
+					},
+					resetSession = {
+						order = 3,
+						type = "execute",
+						name = L["Reset Session"],
+						func = function()
+							GF:ResetApplications("session")
+						end,
+					},
+					resetCharacter = {
+						order = 4,
+						type = "execute",
+						name = L["Reset Character"],
+						func = function()
+							GF:ResetApplications("character")
+						end,
+					},
+					resetAccount = {
+						order = 5,
+						type = "execute",
+						name = L["Reset Account"],
+						confirm = true,
+						func = function()
+							GF:ResetApplications("account")
+						end,
+					},
+				},
+			},
+		},
+	}
+	F.MarkTabAsNew("groupFinder")
 
 	options.raidInfo = {
 		order = 11,

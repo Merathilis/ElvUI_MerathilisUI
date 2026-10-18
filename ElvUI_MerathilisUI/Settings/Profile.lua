@@ -399,6 +399,17 @@ P.misc = {
 		backdropColor = { r = 0, g = 0, b = 0, a = 0.5 },
 		hideInCombat = true,
 	},
+	groupFinder = {
+		enable = true,
+		leaver = true,
+		missingRoles = true,
+		nameColors = true,
+		memberTooltip = true,
+		applications = {
+			enable = true,
+			scope = "character",
+		},
+	},
 	petFilterTab = true,
 	copyMog = {
 		enable = true,

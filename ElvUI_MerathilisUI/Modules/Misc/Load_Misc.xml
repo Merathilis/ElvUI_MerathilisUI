@@ -8,6 +8,7 @@
 	<Script file="CopyMog.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
+	<Script file="GroupFinder.lua"/>
 	<Script file="IconSearch.lua"/>
 	<Script file="PetFilterTab.lua"/>
 	<Script file="RaidInfoFrame.lua"/>
