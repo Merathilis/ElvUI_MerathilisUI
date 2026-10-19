@@ -1205,7 +1205,7 @@ P.unitframes = {
 			},
 			dragonColor = "BLIZZARD",
 			dragonScale = 1,
-			dragonOnTop = true,
+			dragonOnTop = false,
 			badgeSize = 22,
 			badgeXOffset = 5,
 			badgeYOffset = -5,
