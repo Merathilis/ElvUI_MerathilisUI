@@ -167,7 +167,7 @@ module:AddOptions(function()
 							spotlight = {
 								order = 1,
 								type = "toggle",
-								name = L["Spotlight"],
+								name = F.NewFeatureText(L["Spotlight"]),
 								desc = L["A soft glow in your class color behind the character."],
 							},
 							spotlightAlpha = {
@@ -190,7 +190,7 @@ module:AddOptions(function()
 							shadow = {
 								order = 4,
 								type = "toggle",
-								name = L["Ground Shadow"],
+								name = F.NewFeatureText(L["Ground Shadow"]),
 								desc = L["A shadow under the feet of the character that follows the camera."],
 							},
 							shadowAlpha = {
@@ -213,7 +213,7 @@ module:AddOptions(function()
 							doubleClickReset = {
 								order = 7,
 								type = "toggle",
-								name = L["Double-Click Reset"],
+								name = F.NewFeatureText(L["Double-Click Reset"]),
 								desc = L["Double-click the character to reset its rotation, zoom and position."],
 								width = 1.2,
 							},
@@ -957,7 +957,7 @@ module:AddOptions(function()
 					upgradeBarEnabled = {
 						order = 2.5,
 						type = "toggle",
-						name = L["Upgrade Level"],
+						name = F.NewFeatureText(L["Upgrade Level"]),
 						desc = L["A bar next to the item icon shows the upgrade level of the item, e.g. 4 of 6 segments filled."],
 					},
 					spacer = {
@@ -1158,7 +1158,7 @@ module:AddOptions(function()
 					highlightSlots = {
 						order = 2.5,
 						type = "toggle",
-						name = L["Highlight Slots"],
+						name = F.NewFeatureText(L["Highlight Slots"]),
 						desc = L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."],
 					},
 					fontGroup = {
@@ -1628,4 +1628,9 @@ module:AddOptions(function()
 			end,
 		}
 	end
+
+	F.MarkTabAsNew("armory")
+	F.MarkTabAsNew("modelGroup")
+	F.MarkTabAsNew("slotItemLevelGroup")
+	F.MarkTabAsNew("attributesGroup")
 end)
