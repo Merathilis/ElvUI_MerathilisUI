@@ -954,6 +954,12 @@ module:AddOptions(function()
 						name = L["Sockets"],
 						desc = L["Toggle sockets & azerite traits"],
 					},
+					upgradeBarEnabled = {
+						order = 2.5,
+						type = "toggle",
+						name = L["Upgrade Level"],
+						desc = L["A bar next to the item icon shows the upgrade level of the item, e.g. 4 of 6 segments filled."],
+					},
 					spacer = {
 						order = 3,
 						type = "description",

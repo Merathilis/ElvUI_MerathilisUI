@@ -259,6 +259,8 @@ L["Toggling this on enables the Item Quality bars."] =
 	"Wenn Du diese Option aktivierst, werden die Gegenstands Qualitätsleisten aktiviert."
 L["Start Alpha"] = "Starttransparenz"
 L["End Alpha"] = "Endtranpsparenz"
+L["Upgrade Level"] = "Aufwertungsstufe"
+L["A bar next to the item icon shows the upgrade level of the item, e.g. 4 of 6 segments filled."] = "Eine Leiste neben dem Gegenstandssymbol zeigt die Aufwertungsstufe des Gegenstands, z. B. 4 von 6 Segmenten gefüllt."
 L["Model"] = "Modell"
 L["Spotlight"] = "Scheinwerfer"
 L["A soft glow in your class color behind the character."] = "Ein weicher Schein in Deiner Klassenfarbe hinter dem Charakter."

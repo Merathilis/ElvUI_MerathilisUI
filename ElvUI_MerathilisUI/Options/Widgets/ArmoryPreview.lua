@@ -19,8 +19,9 @@ local CR_VERSATILITY_DAMAGE_DONE = _G.CR_VERSATILITY_DAMAGE_DONE or 29
 -- The Armory on the character frame, drawn with the module's own functions.
 -- Used as `dialogControl` on a description whose name is the part to show:
 -- "slots" - your equipped items from the left column with the item level, the
--- enchant or missing socket/enchant text (GetSlotEnchantText) and the quality
--- gradient, placed like ElvUI places them on the character frame;
+-- enchant or missing socket/enchant text (GetSlotEnchantText), the quality
+-- gradient and the upgrade bar (SetUpgradeBar), placed like ElvUI places them on
+-- the character frame;
 -- "header" - name, title, level, spec icon and class text (UpdateTitle);
 -- "frame" - the background with the spotlight, the decorative lines and the item
 -- level with its category header (SetBackgroundTexture, SetLineColor, SetItemLevelText);
@@ -158,6 +159,7 @@ local function GetSlotSample(armory, slotName)
 		iLvl = info.iLvl,
 		color = { unpack(info.itemLevelColors) },
 		enchant = armory:GetSlotEnchantText(options, info),
+		upgrade = { armory:GetSlotUpgradeLevel(options.id) },
 	}
 end
 
@@ -210,6 +212,13 @@ local function UpdateSlots(widget)
 				b,
 				db.itemQualityGradientEndAlpha
 			)
+
+			if db.upgradeBarEnabled then
+				local current, maximum = unpack(sample.upgrade)
+				armory:SetUpgradeBar(slot, true, current, maximum)
+			else
+				armory:SetUpgradeBar(slot)
+			end
 		end
 	end
 end

@@ -584,6 +584,7 @@ P.armory = {
 		iconsEnabled = true,
 
 		moveSockets = false,
+		upgradeBarEnabled = true,
 
 		enchantTextEnabled = true,
 		abbreviateEnchantText = true,

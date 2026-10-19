@@ -40,6 +40,7 @@ local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpeci
 local GetItemInfo = C_Item.GetItemInfo
 local GetItemGem = C_Item.GetItemGem
 local GetItemStats = C_Item.GetItemStats
+local GetItemUpgradeInfo = C_Item.GetItemUpgradeInfo
 local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
 local OffhandHasShield = C_PaperDollInfo.OffhandHasShield
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
@@ -888,6 +889,84 @@ function module:GetSlotEnchantText(slotOptions, slotInfo)
 	return ""
 end
 
+local UPGRADE_SEGMENT_WIDTH = 3
+local UPGRADE_SEGMENT_GAP = 1
+-- Room between the icon and the bar, ElvUI's texts start further out
+local UPGRADE_BAR_OFFSET = 3
+local UPGRADE_EMPTY_ALPHA = 0.2
+
+---Upgrade level as a bar of segments along the inner edge of an item slot, filled
+---from the bottom. Colored like a traffic light by the progress (red, yellow, fully
+---upgraded green), the quality color would blend into the border and texts of the
+---slot. The options preview passes its own slot
+---@param slot Frame item slot the bar sits next to
+---@param isLeft boolean? slot of the left column, the bar goes on its right edge
+---@param current number? upgrade level, nil hides the bar
+---@param maximum number? highest upgrade level of the track
+function module:SetUpgradeBar(slot, isLeft, current, maximum)
+	local bar = slot.MERUpgradeBar
+
+	if not (current and maximum and maximum > 0) then
+		if bar then
+			bar:Hide()
+		end
+		return
+	end
+
+	if not bar then
+		bar = CreateFrame("Frame", nil, slot)
+		bar.segments = {}
+
+		if isLeft then
+			bar:SetPoint("TOPLEFT", slot, "TOPRIGHT", UPGRADE_BAR_OFFSET, 0)
+			bar:SetPoint("BOTTOMLEFT", slot, "BOTTOMRIGHT", UPGRADE_BAR_OFFSET, 0)
+		else
+			bar:SetPoint("TOPRIGHT", slot, "TOPLEFT", -UPGRADE_BAR_OFFSET, 0)
+			bar:SetPoint("BOTTOMRIGHT", slot, "BOTTOMLEFT", -UPGRADE_BAR_OFFSET, 0)
+		end
+		bar:SetWidth(UPGRADE_SEGMENT_WIDTH)
+
+		slot.MERUpgradeBar = bar
+	end
+
+	local segmentHeight = (slot:GetHeight() - (maximum - 1) * UPGRADE_SEGMENT_GAP) / maximum
+	-- Red at the start, yellow halfway, green once fully upgraded (module.colors)
+	local r, g, b = E:ColorGradient(current / maximum, 0.94, 0.33, 0.31, 1, 0.82, 0, 0.07, 0.9, 0.15)
+
+	for index = 1, max(maximum, #bar.segments) do
+		local segment = bar.segments[index]
+
+		if index <= maximum then
+			if not segment then
+				segment = bar:CreateTexture(nil, "OVERLAY")
+				segment:SetTexture(E.media.blankTex)
+				bar.segments[index] = segment
+			end
+
+			segment:ClearAllPoints()
+			segment:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, (index - 1) * (segmentHeight + UPGRADE_SEGMENT_GAP))
+			segment:SetSize(UPGRADE_SEGMENT_WIDTH, segmentHeight)
+			segment:SetVertexColor(r, g, b, index <= current and 1 or UPGRADE_EMPTY_ALPHA)
+			segment:Show()
+		elseif segment then
+			segment:Hide()
+		end
+	end
+
+	bar:Show()
+end
+
+---Upgrade level and maximum of an equipped item, nil for items without a track
+---@param slotId number
+---@return number?, number?
+function module:GetSlotUpgradeLevel(slotId)
+	local link = GetInventoryItemLink("player", slotId)
+	local info = link and GetItemUpgradeInfo(link)
+	if info then
+		return info.currentLevel, info.maxLevel
+	end
+end
+
 function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 	if which ~= "Character" then
 		return
@@ -1003,6 +1082,14 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		end
 
 		slotItem.MERGradient.lastStructuralSignature = structuralSignature
+	end
+
+	-- Upgrade Bar
+	if self.db.pageInfo.upgradeBarEnabled then
+		local current, maximum = self:GetSlotUpgradeLevel(slotId)
+		self:SetUpgradeBar(slotItem, slotOptions.direction == module.enumDirection.LEFT, current, maximum)
+	else
+		self:SetUpgradeBar(slotItem)
 	end
 
 	-- iLvL Text Handling
