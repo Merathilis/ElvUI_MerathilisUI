@@ -22,8 +22,8 @@ local CR_VERSATILITY_DAMAGE_DONE = _G.CR_VERSATILITY_DAMAGE_DONE or 29
 -- enchant or missing socket/enchant text (GetSlotEnchantText) and the quality
 -- gradient, placed like ElvUI places them on the character frame;
 -- "header" - name, title, level, spec icon and class text (UpdateTitle);
--- "frame" - the background, the decorative lines and the item level with its
--- category header (SetBackgroundTexture, SetLineColor, SetItemLevelText);
+-- "frame" - the background with the spotlight, the decorative lines and the item
+-- level with its category header (SetBackgroundTexture, SetLineColor, SetItemLevelText);
 -- "stats" - a stats category with a few rows (StyleCategoryHeader, UpdateCharacterStat).
 
 local SLOT_SIZE = 37
@@ -238,6 +238,15 @@ local function UpdateFrame(widget)
 	armory:SetBackgroundTexture(view.background)
 	view.background:SetTexCoord(0, 1, max(1 - height / width, 0), 1)
 
+	-- Spotlight of UpdateStage, centered where the model would stand
+	local stage = armory.db.model
+	view.spotlight:SetShown(stage.spotlight)
+	if stage.spotlight then
+		local classColor = E:ClassColor(E.myclass, true)
+		view.spotlight:SetSize(height * 0.9, height * 1.1)
+		view.spotlight:SetVertexColor(classColor.r, classColor.g, classColor.b, stage.spotlightAlpha)
+	end
+
 	local lineHeight = armory.db.lines.height
 	view.topLine:SetHeight(lineHeight)
 	view.bottomLine:SetHeight(lineHeight)
@@ -294,6 +303,9 @@ local function Build(widget)
 	frameView:SetPoint("TOP", frame, "TOP", 0, -8)
 	frameView.background = frameView:CreateTexture(nil, "BACKGROUND", nil, 1)
 	frameView.background:SetInside()
+	frameView.spotlight = frameView:CreateTexture(nil, "BACKGROUND", nil, 2)
+	frameView.spotlight:SetPoint("CENTER", frameView.background)
+	frameView.spotlight:SetTexture(I.Media.Textures.ArmorySpotlight)
 	frameView.topLine = frameView:CreateTexture(nil, "ARTWORK")
 	frameView.topLine:SetPoint("TOPLEFT", frameView.background)
 	frameView.topLine:SetPoint("TOPRIGHT", frameView.background)

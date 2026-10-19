@@ -431,6 +431,13 @@ P.armory = {
 		class = true,
 		hideControls = true,
 	},
+	model = {
+		spotlight = true,
+		spotlightAlpha = 0.3,
+		shadow = true,
+		shadowAlpha = 0.8,
+		doubleClickReset = true,
+	},
 	lines = {
 		enable = true,
 		alpha = 0.85,

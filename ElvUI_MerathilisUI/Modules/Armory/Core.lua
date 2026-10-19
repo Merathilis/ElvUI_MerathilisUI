@@ -6,11 +6,17 @@ local LSM = E.Libs.LSM
 
 local _G = _G
 local format, gsub, utf8sub = string.format, string.gsub, string.utf8sub
-local next, ipairs, pairs, pcall, select, max, unpack = next, ipairs, pairs, pcall, select, max, unpack
+local next, ipairs, pairs, pcall, select, max, min, unpack = next, ipairs, pairs, pcall, select, max, min, unpack
+local abs = math.abs
 local twipe, tsort = table.wipe, table.sort
 
 local CreateColor = CreateColor
 local CreateFrame = CreateFrame
+local ClampedPercentageBetween = ClampedPercentageBetween
+local GetCursorPosition = GetCursorPosition
+local GetTime = GetTime
+local Lerp = Lerp
+local PlaySound = PlaySound
 local GetInventoryItemID = GetInventoryItemID
 local GetInventoryItemLink = GetInventoryItemLink
 local InCombatLockdown = InCombatLockdown
@@ -1761,6 +1767,154 @@ function module:UpdateBackground()
 	module:SetBackgroundTexture(self.frame.MERBackground.Texture)
 end
 
+local SHADOW_ATLAS = "scoreboard-charactermodels-shadow"
+local SHADOW_OFFSET_Y = 9
+local DOUBLE_CLICK_TIME = 0.35
+-- Cursor travel between press and release that still counts as a click, not a turn
+local CLICK_TOLERANCE = 4
+
+-- First shown actor of the scene, the player or their shapeshift form
+local function GetSceneActor(scene)
+	for index = 1, scene:GetNumActors() do
+		local actor = scene:GetActorAtIndex(index)
+		if actor and actor:IsShown() then
+			return actor
+		end
+	end
+end
+
+-- Keeps the shadow under the feet while the camera turns, zooms or pans. Same
+-- projection as Blizzard's ModelSceneMixin:AddOrUpdateDropShadow, but with our own
+-- texture so the scene's actors and pools stay untouched
+local function Stage_OnUpdate(stage)
+	local scene = module.frameModel
+	local shadow = stage.Shadow
+	local actor = GetSceneActor(scene)
+
+	local x, y, depth
+	if actor then
+		local posX, posY, posZ = actor:GetPosition()
+		local scale = actor:GetScale()
+		x, y, depth = scene:Project3DPointTo2D(posX * scale, posY * scale, posZ * scale)
+	end
+
+	if not (x and y and depth) then
+		shadow:Hide()
+		return
+	end
+
+	depth = Lerp(0.05, 1, ClampedPercentageBetween(depth, 0.8, 1))
+	local inverseScale = scene:GetEffectiveScale() * depth
+
+	-- The actor's origin lies a bit behind the feet in the character sheet's camera angle,
+	-- the offset is in the shadow's own scale, so it shrinks and grows with the zoom
+	local offsetX, offsetY = (x / inverseScale) + 2, (y / inverseScale) - SHADOW_OFFSET_Y
+
+	-- The model is cut off at the edges of the scene, the shadow on the background is not.
+	-- It fades out while it moves past an edge (zoomed in, panned) and is gone once its
+	-- center leaves the scene
+	local sceneWidth, sceneHeight = scene:GetSize()
+	local centerX, centerY = offsetX * depth, offsetY * depth
+	local halfWidth, halfHeight = shadow:GetWidth() * depth * 0.5, shadow:GetHeight() * depth * 0.5
+	local visible =
+		min(min(centerX, sceneWidth - centerX) / halfWidth, min(centerY, sceneHeight - centerY) / halfHeight, 1)
+
+	if visible <= 0 then
+		shadow:Hide()
+		return
+	end
+
+	shadow:SetScale(depth)
+	shadow:ClearAllPoints()
+	shadow:SetPoint("CENTER", scene, "BOTTOMLEFT", offsetX, offsetY)
+	shadow:SetAlpha(module.db.model.shadowAlpha * visible)
+	shadow:Show()
+end
+
+---Spotlight in class color behind the character and a shadow under its feet. Both
+---live on the background frame, so they are drawn above the image and below the model
+function module:UpdateStage()
+	local db = self.db.model
+	local background = self.frame.MERBackground
+	local scene = self.frameModel
+	local stage = self.stage
+
+	if db.spotlight then
+		local spotlight = background.MERSpotlight
+		if not spotlight then
+			spotlight = background:CreateTexture(nil, "ARTWORK", nil, 1)
+			spotlight:SetTexture(I.Media.Textures.ArmorySpotlight)
+			background.MERSpotlight = spotlight
+		end
+
+		local width, height = scene:GetSize()
+		spotlight:ClearAllPoints()
+		spotlight:SetPoint("CENTER", scene, "CENTER", 0, -height * 0.05)
+		spotlight:SetSize(width * 1.4, height * 1.1)
+
+		local classColor = E:ClassColor(E.myclass, true)
+		spotlight:SetVertexColor(classColor.r, classColor.g, classColor.b, db.spotlightAlpha)
+		spotlight:Show()
+	elseif background.MERSpotlight then
+		background.MERSpotlight:Hide()
+	end
+
+	if db.shadow then
+		if not stage.Shadow then
+			stage.Shadow = background:CreateTexture(nil, "ARTWORK", nil, 2)
+			stage.Shadow:SetAtlas(SHADOW_ATLAS, true)
+		end
+		stage:SetScript("OnUpdate", Stage_OnUpdate)
+	else
+		stage:SetScript("OnUpdate", nil)
+		if stage.Shadow then
+			stage.Shadow:Hide()
+		end
+	end
+end
+
+function module:HideStage()
+	self.stage:SetScript("OnUpdate", nil)
+	if self.stage.Shadow then
+		self.stage.Shadow:Hide()
+	end
+	if self.frame.MERBackground.MERSpotlight then
+		self.frame.MERBackground.MERSpotlight:Hide()
+	end
+end
+
+local clickDownX, clickDownY, lastClickTime
+
+function module:OnModelMouseDown(_, button)
+	if button == "LeftButton" then
+		clickDownX, clickDownY = GetCursorPosition()
+	end
+end
+
+---Double-click on the model resets turn, zoom and pan like the reset button of the
+---camera controls. Blizzard sets the scene up again on every open of the frame
+function module:OnModelMouseUp(scene, button)
+	if button ~= "LeftButton" or not self.db.model.doubleClickReset then
+		return
+	end
+
+	-- A turn of the model is no click
+	local x, y = GetCursorPosition()
+	if not clickDownX or abs(x - clickDownX) > CLICK_TOLERANCE or abs(y - clickDownY) > CLICK_TOLERANCE then
+		lastClickTime = nil
+		return
+	end
+
+	local now = GetTime()
+	if lastClickTime and (now - lastClickTime) <= DOUBLE_CLICK_TIME then
+		lastClickTime = nil
+		scene:Reset()
+		PlaySound(SOUNDKIT.IG_INVENTORY_ROTATE_CHARACTER)
+	else
+		lastClickTime = now
+	end
+end
+
 local WHITE = CreateColor(1, 1, 1, 1)
 
 ---Color of a decorative line, the options preview passes its own texture
@@ -1826,6 +1980,7 @@ function module:UpdateCharacterArmory()
 	module:KillBlizzard()
 	module:SetupSlotReveal()
 	module:UpdateBackground()
+	module:UpdateStage()
 	module:UpdateLines()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
@@ -1860,6 +2015,8 @@ function module:CreateElements()
 	module.frameModel = _G.CharacterModelScene
 	module.frameName = module.frame:GetName()
 	module.frameHolder = CreateFrame("FRAME", nil, module.frameModel)
+	-- Only runs the shadow's OnUpdate, hides together with the model
+	module.stage = CreateFrame("Frame", nil, module.frameModel)
 
 	module.animationObjects = {}
 	module.statsObjects = {}
@@ -2201,6 +2358,7 @@ function module:Disable()
 	self:DisableEquipmentManagerSkin()
 	self:ClearStatSlotHighlight()
 	self:ResetSlotReveal()
+	self:HideStage()
 
 	self:SetShownEventsRegistered(false)
 end
@@ -2232,6 +2390,9 @@ function module:Enable()
 	self:SecureHookScript(self.frame, "OnShow", "OnArmoryShow")
 	-- Closes the gem flyout and drops the socket panel's and our own events while closed
 	self:SecureHookScript(self.frame, "OnHide", "OnArmoryHide")
+	-- Double-click on the model resets the camera
+	self:SecureHookScript(self.frameModel, "OnMouseDown", "OnModelMouseDown")
+	self:SecureHookScript(self.frameModel, "OnMouseUp", "OnModelMouseUp")
 
 	-- Check ElvUI Options
 	self:ElvOptionsCheck()

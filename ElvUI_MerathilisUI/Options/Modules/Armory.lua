@@ -152,6 +152,73 @@ module:AddOptions(function()
 							},
 						},
 					},
+					modelGroup = {
+						order = 3,
+						type = "group",
+						name = L["Model"],
+						get = function(info)
+							return E.db.mui.armory.model[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.armory.model[info[#info]] = value
+							Refresh()
+						end,
+						args = {
+							spotlight = {
+								order = 1,
+								type = "toggle",
+								name = L["Spotlight"],
+								desc = L["A soft glow in your class color behind the character."],
+							},
+							spotlightAlpha = {
+								order = 2,
+								type = "range",
+								name = L["Alpha"],
+								min = 0.05,
+								max = 1,
+								step = 0.01,
+								isPercent = true,
+								disabled = function()
+									return not E.db.mui.armory.model.spotlight
+								end,
+							},
+							spacer = {
+								order = 3,
+								type = "description",
+								name = "",
+							},
+							shadow = {
+								order = 4,
+								type = "toggle",
+								name = L["Ground Shadow"],
+								desc = L["A shadow under the feet of the character that follows the camera."],
+							},
+							shadowAlpha = {
+								order = 5,
+								type = "range",
+								name = L["Alpha"],
+								min = 0.1,
+								max = 1,
+								step = 0.01,
+								isPercent = true,
+								disabled = function()
+									return not E.db.mui.armory.model.shadow
+								end,
+							},
+							spacer2 = {
+								order = 6,
+								type = "description",
+								name = "",
+							},
+							doubleClickReset = {
+								order = 7,
+								type = "toggle",
+								name = L["Double-Click Reset"],
+								desc = L["Double-click the character to reset its rotation, zoom and position."],
+								width = 1.2,
+							},
+						},
+					},
 				},
 			},
 			itemLevelGroup = {

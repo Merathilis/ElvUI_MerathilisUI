@@ -121,6 +121,7 @@ F.AddMedia("texture", "pepeSmall")
 
 F.AddMedia("texture", "PepoBedge")
 F.AddMedia("texture", "AFKVignette")
+F.AddMedia("texture", "ArmorySpotlight")
 
 -- Role Icons
 F.AddMedia("role", "SunUITank")

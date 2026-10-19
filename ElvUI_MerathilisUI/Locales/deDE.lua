@@ -259,6 +259,13 @@ L["Toggling this on enables the Item Quality bars."] =
 	"Wenn Du diese Option aktivierst, werden die Gegenstands Qualitätsleisten aktiviert."
 L["Start Alpha"] = "Starttransparenz"
 L["End Alpha"] = "Endtranpsparenz"
+L["Model"] = "Modell"
+L["Spotlight"] = "Scheinwerfer"
+L["A soft glow in your class color behind the character."] = "Ein weicher Schein in Deiner Klassenfarbe hinter dem Charakter."
+L["Ground Shadow"] = "Bodenschatten"
+L["A shadow under the feet of the character that follows the camera."] = "Ein Schatten unter den Füßen des Charakters, der der Kamera folgt."
+L["Double-Click Reset"] = "Doppelklick zurücksetzen"
+L["Double-click the character to reset its rotation, zoom and position."] = "Doppelklick auf den Charakter setzt Drehung, Zoom und Position zurück."
 L["Highlight Slots"] = "Slots hervorheben"
 L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."] =
 	"Beim Überfahren eines Sekundär- oder Tertiärwerts werden die Gegenstandsslots ohne diesen Wert abgedunkelt, Edelsteine eingeschlossen."
