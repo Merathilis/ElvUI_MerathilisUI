@@ -6,6 +6,7 @@
 -   [Fix]: Buff Reminder: The food reminder now also finds the feasts (Feast of Knowledge, Silvermoon Parade, Harandar Celebration), Bloodthistle-wrapped Cutlets and all Hearty foods in your bags.
 -   [Fix]: Buff Reminder: Housing plots and garrisons no longer count as instanced content, so instance-only reminders stay hidden there.
 -   [Fix]: Cursor: The GCD ring now also shows on WoW Forever.
+-   [Fix]: Gradient Theme: Follower dungeon NPCs (e.g. the shaman and hunter) get their class color on the group frames and castbars again instead of the green friendly color.
 -   [Fix]: HoverCast: A binding whose macro grew past WoW's 255 character limit (e.g. with Smart Rez) lost its own action. The macro is now shortened step by step instead, the action always stays.
 -   [Fix]: Loadout Manager: No more false "item(s) missing" messages while the last items of a gear set are still being equipped.
 -   [Fix]: Loadout Manager: A talent loadout no longer stays pending when combat starts before its load began, and a loadout that only partly applied is now reported.

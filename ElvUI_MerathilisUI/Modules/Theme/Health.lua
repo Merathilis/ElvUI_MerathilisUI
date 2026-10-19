@@ -4,6 +4,7 @@ local module = MER:GetModule("MER_Theme") ---@class Theme
 local select, wipe = select, wipe
 local UnitClass = UnitClass
 local UnitGUID = UnitGUID
+local UnitInPartyIsAI = UnitInPartyIsAI
 local UnitIsCharmed = UnitIsCharmed
 local UnitIsConnected = UnitIsConnected
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
@@ -45,8 +46,11 @@ function module:GetHealthColor(frame, unit)
 
 	local unitIsPlayer = UnitIsPlayer(unit)
 	local treatAsPlayer = UnitTreatAsPlayerForDisplay(unit)
+	-- Follower dungeon NPCs are neither players nor always treated as such for display
+	local partyAI = UnitInPartyIsAI and UnitInPartyIsAI(unit)
 	local isPlayer = (E:NotSecretValue(unitIsPlayer) and unitIsPlayer)
 		or (E:NotSecretValue(treatAsPlayer) and treatAsPlayer)
+		or (E:NotSecretValue(partyAI) and partyAI)
 
 	if isPlayer then
 		if knownGUID then
