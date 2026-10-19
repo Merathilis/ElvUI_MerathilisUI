@@ -406,6 +406,90 @@ function module:SetupFadeAnimation(obj, slot)
 	self:AddAnimation(obj.FadeIn, true, slot)
 end
 
+---Same look for the flyouts around the character frame (gem flyout, Blizzard's item
+---swap flyout): ElvUI's transparent template, a line in the class gradient on top like
+---the stats headers and a short fade-in when it opens (FadeInFlyout)
+---@param frame Frame
+function module:StyleFlyout(frame)
+	if not frame.template then
+		frame:SetTemplate("Transparent")
+	end
+
+	local accent = frame.MERFlyoutAccent
+	if not accent then
+		accent = frame:CreateTexture(nil, "OVERLAY")
+		accent:SetTexture(E.media.blankTex)
+		accent:SetHeight(2)
+		accent:SetPoint("TOPLEFT", frame, "TOPLEFT", 1, -1)
+		accent:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -1)
+		frame.MERFlyoutAccent = accent
+		module.styledFlyouts[frame] = true
+	end
+
+	local classColorMap = E.db.mui.themes.gradientMode.classColorMap
+	local normal = classColorMap[I.Enum.GradientMode.Color.NORMAL][E.myclass]
+	local shift = classColorMap[I.Enum.GradientMode.Color.SHIFT][E.myclass]
+	accent:SetVertexColor(1, 1, 1, 1)
+	F.Color.SetGradientRGB(accent, "HORIZONTAL", shift.r, shift.g, shift.b, 1, normal.r, normal.g, normal.b, 1)
+	accent:Show()
+end
+
+---@param frame Frame a frame styled with StyleFlyout
+function module:FadeInFlyout(frame)
+	local fade = frame.MERFlyoutFade
+	if not fade then
+		fade = CreateAnimationGroup(frame)
+
+		fade.ResetFade = fade:CreateAnimation("Fade")
+		fade.ResetFade:SetDuration(0)
+		fade.ResetFade:SetChange(0)
+		fade.ResetFade:SetOrder(1)
+
+		fade.Fade = fade:CreateAnimation("Fade")
+		fade.Fade:SetEasing("inout-sinusoidal")
+		fade.Fade:SetChange(1)
+		fade.Fade:SetOrder(2)
+
+		frame.MERFlyoutFade = fade
+	end
+
+	if fade:IsPlaying() then
+		fade:Stop()
+	end
+
+	if self:AnimationsAllowed() then
+		fade.Fade:SetDuration(0.06 * module.db.animationsMult)
+		fade:Play()
+	else
+		-- A fade stopped halfway on the last open keeps its alpha
+		frame:SetAlpha(1)
+	end
+end
+
+---Removes the accent line from the flyouts again, the module is turned off
+function module:ResetFlyouts()
+	for frame in pairs(module.styledFlyouts) do
+		if frame.MERFlyoutFade and frame.MERFlyoutFade:IsPlaying() then
+			frame.MERFlyoutFade:Stop()
+		end
+		frame:SetAlpha(1)
+		frame.MERFlyoutAccent:Hide()
+	end
+end
+
+-- Blizzard's item swap flyout (Alt over a slot). ElvUI gives its button frame the
+-- transparent template in its own EquipmentFlyout_UpdateItems hook, which runs first
+function module:StyleEquipmentFlyout()
+	local flyout = _G.EquipmentFlyoutFrame
+	if flyout and flyout.buttonFrame then
+		self:StyleFlyout(flyout.buttonFrame)
+	end
+end
+
+function module:OnEquipmentFlyoutShow(flyout)
+	self:FadeInFlyout(flyout)
+end
+
 ---Fade-in of Blizzard's item slots when the character frame opens, row by row
 ---(slotRevealOrder). Only their alpha is touched, ResetSlotReveal puts it back
 function module:SetupSlotReveal()
@@ -2108,6 +2192,7 @@ function module:CreateElements()
 	module.animationObjects = {}
 	module.statsObjects = {}
 	module.slotObjects = {}
+	module.styledFlyouts = {}
 	module.statsCount = 1
 	module._titleFontDirty = true
 
@@ -2445,6 +2530,7 @@ function module:Disable()
 	self:DisableEquipmentManagerSkin()
 	self:ClearStatSlotHighlight()
 	self:ResetSlotReveal()
+	self:ResetFlyouts()
 	self:HideStage()
 
 	self:SetShownEventsRegistered(false)
@@ -2480,6 +2566,11 @@ function module:Enable()
 	-- Double-click on the model resets the camera
 	self:SecureHookScript(self.frameModel, "OnMouseDown", "OnModelMouseDown")
 	self:SecureHookScript(self.frameModel, "OnMouseUp", "OnModelMouseUp")
+	-- Shared flyout look for Blizzard's item swap flyout
+	if _G.EquipmentFlyoutFrame then
+		self:SecureHook("EquipmentFlyout_UpdateItems", "StyleEquipmentFlyout")
+		self:SecureHookScript(_G.EquipmentFlyoutFrame, "OnShow", "OnEquipmentFlyoutShow")
+	end
 
 	-- Check ElvUI Options
 	self:ElvOptionsCheck()

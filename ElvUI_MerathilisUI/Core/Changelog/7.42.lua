@@ -34,6 +34,7 @@ MER.Changelog[742] = {
 		"[NamePlates]: Target Emphasis - while you have a target, the other nameplates fade and get a dark shade over their health bar, and a new target pops up for a moment. ElvUI's border glow on the target can be made wider, fades in and can pulse. The target's nameplate is drawn above the nameplates it overlaps. Casting units can keep their full alpha, everything can be limited to combat.",
 	},
 	IMPROVEMENTS = {
+		"[Armory]: The gem flyout and the item swap flyout (Alt over a slot) share one look: transparent background, a line in the class gradient on top and a short fade-in when they open.",
 		"[Bags]: Gear in the categorized bags no longer reads its tooltip on every bag update to find its equipment set, the answer is kept until the sets change.",
 		"[Bags]: The footer currencies are no longer limited to Blizzard's three. Pick any number of them per character in the options (grouped like the Currency tab, with icons), they wrap into more rows when needed. Ticking a currency in the Currency tab still adds it, Shift-click links it in chat.",
 		"[Chat]: The M+ Portals flyout of the Chat Sidebar has a direction option (automatic, up, down, left, right).",

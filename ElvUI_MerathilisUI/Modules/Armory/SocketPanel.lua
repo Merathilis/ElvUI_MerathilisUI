@@ -797,7 +797,7 @@ function module:BuildSocketFlyout()
 		self:CloseSocketFlyout()
 	end)
 
-	local flyout = CreateFrame("Frame", "MER_ArmorySocketFlyout", E.UIParent)
+	local flyout = CreateFrame("Frame", "MER_ArmorySocketFlyout", E.UIParent, "BackdropTemplate")
 	flyout:SetFrameStrata("FULLSCREEN_DIALOG")
 	flyout:SetWidth(Scale(db.flyoutWidth))
 	flyout:SetHeight(Scale(db.rowHeight + 8))
@@ -837,13 +837,7 @@ function module:BuildSocketFlyout()
 		end
 	end)
 
-	local bg = flyout:CreateTexture(nil, "BACKGROUND")
-	bg:SetAllPoints()
-	bg:SetTexture(E.media.blankTex)
-	bg:SetVertexColor(0.06, 0.06, 0.06, 0.95)
-
-	CreateSimpleBorder(flyout)
-	SetBorderColor(flyout, 0.2, 0.2, 0.2, 1)
+	self:StyleFlyout(flyout)
 
 	self.socketFlyout = flyout
 	self.socketGemRows = {}
@@ -1024,7 +1018,10 @@ function module:OpenSocketFlyout(iconButton, targetSlot, targetSocketIndex, hove
 		self.socketCatcher:Show()
 	end
 
+	-- The accent follows the class colors of the theme options
+	self:StyleFlyout(self.socketFlyout)
 	self.socketFlyout:Show()
+	self:FadeInFlyout(self.socketFlyout)
 
 	if self.socketEvents then
 		self.socketEvents:RegisterEvent("PLAYER_REGEN_DISABLED")
