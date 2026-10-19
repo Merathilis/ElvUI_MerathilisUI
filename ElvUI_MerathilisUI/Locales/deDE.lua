@@ -1312,6 +1312,9 @@ L["Open the %s Status Report window that shows necessary information for debuggi
 L["Equipment Flyout"] = "Ausrüstungsauswahl"
 L["Shows the item level on the items in the merchant and trade windows."] = "Zeigt die Gegenstandsstufe der Gegenstände im Händler- und Handelsfenster."
 L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."] = "Die Gegenstandsstufe im Ausrüstungsmenü, in der Verschrottungsmaschine und in den Gildennachrichten gehört zu WindTools (Item > Item Level, Misc)."
+L["Uncollected Appearances"] = "Nicht gesammelte Vorlagen"
+L["Marks merchant items whose appearance you have not collected yet and can collect on this character."] = "Markiert Händlerwaren, deren Vorlage du noch nicht gesammelt hast und mit diesem Charakter sammeln kannst."
+L["Items you already know are tinted by WindTools (Item > Already Known)."] = "Bereits bekannte Gegenstände färbt WindTools ein (Item > Already Known)."
 
 -- DataTexts
 L["Settings for the MerathilisUI datatexts. Add them to a panel in ElvUI's DataTexts options."] = "Einstellungen für die MerathilisUI-Infotexte. Hinzufügen kannst du sie in den ElvUI-Infotext-Optionen zu einem Panel."

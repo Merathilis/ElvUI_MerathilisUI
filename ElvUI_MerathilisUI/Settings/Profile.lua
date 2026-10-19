@@ -1546,6 +1546,7 @@ P.panels = {
 
 P.itemLevel = {
 	enable = true,
+	appearance = true,
 }
 
 P.elvUIIcons = {

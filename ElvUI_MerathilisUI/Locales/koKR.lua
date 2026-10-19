@@ -259,6 +259,9 @@ L["Enchant Font"] = "마법부여 글꼴"
 L["Item Level"] = "아이템 레벨"
 L["Shows the item level on the items in the merchant and trade windows."] = true
 L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."] = true
+L["Uncollected Appearances"] = true
+L["Marks merchant items whose appearance you have not collected yet and can collect on this character."] = true
+L["Items you already know are tinted by WindTools (Item > Already Known)."] = true
 L["Settings for the Item Level next to your item slot"] =
 	"아이템 슬롯 옆에 표시되는 아이템 레벨 설정"
 L["Settings for the custom %s Armory decorative lines."] = true
