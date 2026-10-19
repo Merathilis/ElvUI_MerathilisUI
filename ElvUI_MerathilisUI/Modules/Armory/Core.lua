@@ -199,6 +199,29 @@ module.characterSlots = {
 	},]]
 }
 
+-- Row of each slot from the top for the fade-in on open, both columns appear
+-- in step and the weapons last
+module.slotRevealOrder = {
+	HeadSlot = 1,
+	NeckSlot = 2,
+	ShoulderSlot = 3,
+	BackSlot = 4,
+	ChestSlot = 5,
+	ShirtSlot = 6,
+	TabardSlot = 7,
+	WristSlot = 8,
+	HandsSlot = 1,
+	WaistSlot = 2,
+	LegsSlot = 3,
+	FeetSlot = 4,
+	Finger0Slot = 5,
+	Finger1Slot = 6,
+	Trinket0Slot = 7,
+	Trinket1Slot = 8,
+	MainHandSlot = 9,
+	SecondaryHandSlot = 9,
+}
+
 function module:GetPrimaryTalentIndex()
 	local primaryTalentTreeIdx = 0
 	local primaryTalentTree = C_SpecializationInfo_GetSpecialization()
@@ -290,6 +313,15 @@ function module:PlayAnimations()
 	for anim, _ in pairs(self.animationObjects) do
 		self:PlayAnimation(anim)
 	end
+
+	-- A stopped fade would leave the slots half visible
+	if self:AnimationsAllowed() then
+		for reveal in pairs(self.slotObjects) do
+			self:PlayAnimation(reveal)
+		end
+	else
+		self:ResetSlotReveal()
+	end
 end
 
 function module:SetupGrowAnimation(obj, hold)
@@ -362,6 +394,64 @@ function module:SetupFadeAnimation(obj, slot)
 	obj.FadeIn.Fade:SetOrder(3)
 
 	self:AddAnimation(obj.FadeIn, true, slot)
+end
+
+---Fade-in of Blizzard's item slots when the character frame opens, row by row
+---(slotRevealOrder). Only their alpha is touched, ResetSlotReveal puts it back
+function module:SetupSlotReveal()
+	local holdDuration, fadeDuration = 0.04, 0.35
+	local mult = module.db.animationsMult
+
+	for slot, order in pairs(module.slotRevealOrder) do
+		local slotFrame = _G["Character" .. slot]
+		if slotFrame then
+			local reveal = slotFrame.MERReveal
+
+			if not reveal then
+				reveal = CreateAnimationGroup(slotFrame)
+
+				reveal.ResetFade = reveal:CreateAnimation("Fade")
+				reveal.ResetFade:SetDuration(0)
+				reveal.ResetFade:SetChange(0)
+				reveal.ResetFade:SetOrder(1)
+
+				reveal.Hold = reveal:CreateAnimation("Sleep")
+				reveal.Hold:SetOrder(2)
+
+				reveal.Fade = reveal:CreateAnimation("Fade")
+				reveal.Fade:SetEasing("inout-sinusoidal")
+				reveal.Fade:SetChange(1)
+				reveal.Fade:SetOrder(3)
+
+				slotFrame.MERReveal = reveal
+				module.slotObjects[reveal] = slotFrame
+			end
+
+			reveal.Hold:SetDuration(order * holdDuration * mult)
+			reveal.Fade:SetDuration(fadeDuration * mult)
+		end
+	end
+end
+
+---Hides the slots right away so they do not flash before the delayed fade-in starts
+function module:PrepareSlotReveal()
+	if not self:AnimationsAllowed() then
+		return
+	end
+
+	for _, slotFrame in pairs(self.slotObjects) do
+		slotFrame:SetAlpha(0)
+	end
+end
+
+---Stops the fade-in and shows the slots fully, LibAnim's Stop keeps the alpha it reached
+function module:ResetSlotReveal()
+	for reveal, slotFrame in pairs(self.slotObjects) do
+		if reveal:IsPlaying() then
+			reveal:Stop()
+		end
+		slotFrame:SetAlpha(1)
+	end
 end
 
 ---Writes the average item level into fontString with the font and color of the settings.
@@ -1610,6 +1700,7 @@ function module:UpdateCharacterArmory()
 	self._titleFontDirty = true
 
 	module:KillBlizzard()
+	module:SetupSlotReveal()
 	module:UpdateBackground()
 	module:UpdateLines()
 	module:UpdateTitle()
@@ -1629,6 +1720,7 @@ end
 
 function module:OpenCharacterArmory()
 	module:UpdateCharacterArmory()
+	module:PrepareSlotReveal()
 	E:Delay(0.01, function()
 		module:PlayAnimations()
 	end)
@@ -1647,6 +1739,7 @@ function module:CreateElements()
 
 	module.animationObjects = {}
 	module.statsObjects = {}
+	module.slotObjects = {}
 	module.statsCount = 1
 	module._titleFontDirty = true
 
@@ -1982,6 +2075,7 @@ function module:Disable()
 	self:UnhookAll()
 	self:DisableSocketPanel()
 	self:DisableEquipmentManagerSkin()
+	self:ResetSlotReveal()
 
 	self:SetShownEventsRegistered(false)
 end
@@ -2052,6 +2146,7 @@ end
 function module:OnArmoryHide()
 	self:SetShownEventsRegistered(false)
 	self:SocketPanelOnHide()
+	self:ResetSlotReveal()
 end
 
 function module:DatabaseUpdate()

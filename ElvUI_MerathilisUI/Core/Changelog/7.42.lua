@@ -19,6 +19,7 @@ MER.Changelog[742] = {
 		"[Skins]: WIM: The close and scroll buttons of the message windows keep their look after a WIM option or skin change, and the minimap button gets skinned again.",
 	},
 	NEW = {
+		"[Armory]: The item slots fade in row by row when the character window opens, both columns together and the weapons last. Follows the Armory's animation settings.",
 		"[Bags]: Quick Actions - an optional title bar button that highlights the items you can disenchant or pick, a click on one casts the spell on it.",
 		"[Bags]: Typing bop, boe or wue into the bag or bank search filters by bind type.",
 		"[Bags]: Option to open and close the bags together with the character window.",
