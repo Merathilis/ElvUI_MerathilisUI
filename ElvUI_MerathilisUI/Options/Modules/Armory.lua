@@ -1082,6 +1082,12 @@ module:AddOptions(function()
 							return not E.db.mui.armory.stats.alternatingBackgroundEnabled
 						end,
 					},
+					highlightSlots = {
+						order = 2.5,
+						type = "toggle",
+						name = L["Highlight Slots"],
+						desc = L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."],
+					},
 					fontGroup = {
 						order = 3,
 						type = "group",

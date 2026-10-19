@@ -259,6 +259,9 @@ L["Toggling this on enables the Item Quality bars."] =
 	"Wenn Du diese Option aktivierst, werden die Gegenstands Qualitätsleisten aktiviert."
 L["Start Alpha"] = "Starttransparenz"
 L["End Alpha"] = "Endtranpsparenz"
+L["Highlight Slots"] = "Slots hervorheben"
+L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."] =
+	"Beim Überfahren eines Sekundär- oder Tertiärwerts werden die Gegenstandsslots ohne diesen Wert abgedunkelt, Edelsteine eingeschlossen."
 L["Slot Item Level"] = "Slot Gegenstandsstufe"
 L["Bags Item Level"] = "Taschen Gegenstandsstufe"
 L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] =

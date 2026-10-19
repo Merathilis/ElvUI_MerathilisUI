@@ -15,6 +15,7 @@
 -   [Fix]: Profiles: The ls_Toasts profile places the toasts again. ls_Toasts now keeps its anchors per Edit Mode layout, the old position was ignored and the toasts ended up in the top left corner.
 -   [Fix]: Skins: WIM: The close and scroll buttons of the message windows keep their look after a WIM option or skin change, and the minimap button gets skinned again.
 -   [New]: Armory: The item slots fade in row by row when the character window opens, both columns together and the weapons last. Follows the Armory's animation settings.
+-   [New]: Armory: Highlight Slots (on by default) - hovering a secondary or tertiary stat (e.g. Haste, Leech) in the stats dims the item slots that do not have it, gems included.
 -   [New]: Bags: Quick Actions - an optional title bar button that highlights the items you can disenchant or pick, a click on one casts the spell on it.
 -   [New]: Bags: Typing bop, boe or wue into the bag or bank search filters by bind type.
 -   [New]: Bags: Option to open and close the bags together with the character window.

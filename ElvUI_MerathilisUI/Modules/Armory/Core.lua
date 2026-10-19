@@ -12,6 +12,7 @@ local twipe, tsort = table.wipe, table.sort
 local CreateColor = CreateColor
 local CreateFrame = CreateFrame
 local GetInventoryItemID = GetInventoryItemID
+local GetInventoryItemLink = GetInventoryItemLink
 local InCombatLockdown = InCombatLockdown
 local GetSpecializationRole = GetSpecializationRole
 local GetCurrentTitle = GetCurrentTitle
@@ -31,6 +32,8 @@ local CreateAnimationGroup = CreateAnimationGroup -- ElvUI LibAnim
 local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
 local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local GetItemInfo = C_Item.GetItemInfo
+local GetItemGem = C_Item.GetItemGem
+local GetItemStats = C_Item.GetItemStats
 local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
 local OffhandHasShield = C_PaperDollInfo.OffhandHasShield
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
@@ -452,6 +455,126 @@ function module:ResetSlotReveal()
 		end
 		slotFrame:SetAlpha(1)
 	end
+end
+
+-- Stat rows of the character frame and the key C_Item.GetItemStats uses for them
+module.statHighlightKeys = {
+	CRITCHANCE = "ITEM_MOD_CRIT_RATING_SHORT",
+	HASTE = "ITEM_MOD_HASTE_RATING_SHORT",
+	MASTERY = "ITEM_MOD_MASTERY_RATING_SHORT",
+	VERSATILITY = "ITEM_MOD_VERSATILITY",
+	LIFESTEAL = "ITEM_MOD_CR_LIFESTEAL_SHORT",
+	AVOIDANCE = "ITEM_MOD_CR_AVOIDANCE_SHORT",
+	SPEED = "ITEM_MOD_CR_SPEED_SHORT",
+}
+
+local STAT_HIGHLIGHT_DIM_ALPHA = 0.25
+local slotStatCache = {}
+
+-- Adds the stats of an item or gem link to stats, false while its data is not loaded yet
+local function AddItemStats(stats, link)
+	local itemStats = GetItemStats(link)
+	if not itemStats then
+		return false
+	end
+
+	for key, value in pairs(itemStats) do
+		if type(value) == "number" and value > 0 then
+			stats[key] = (stats[key] or 0) + value
+		end
+	end
+
+	return true
+end
+
+---Stats of the item in a slot with its gems, kept until the item link changes
+---(a new gem changes the link as well)
+---@param slotId number
+---@return table?
+function module:GetSlotStats(slotId)
+	local link = GetInventoryItemLink("player", slotId)
+	if not link then
+		return
+	end
+
+	local cached = slotStatCache[slotId]
+	if cached and cached.link == link then
+		return cached.stats
+	end
+
+	local stats = {}
+	local complete = AddItemStats(stats, link)
+	for socketIndex = 1, 4 do
+		local _, gemLink = GetItemGem(link, socketIndex)
+		if gemLink and not AddItemStats(stats, gemLink) then
+			complete = false
+		end
+	end
+
+	-- Read again on the next hover until the item and gem data is there
+	if complete then
+		slotStatCache[slotId] = { link = link, stats = stats }
+	end
+
+	return stats
+end
+
+---Dims the item slots without the hovered stat
+---@param statFrame Frame stat row of the character frame
+function module:HighlightStatSlots(statFrame)
+	local db = self.db
+	local key = statFrame.stringId and module.statHighlightKeys[statFrame.stringId]
+	if not (key and db and db.enable and db.stats.highlightSlots) then
+		return
+	end
+
+	-- The fade-in would overwrite the alpha
+	self:ResetSlotReveal()
+
+	for slot, options in pairs(module.characterSlots) do
+		local slotFrame = _G["Character" .. slot]
+		if slotFrame then
+			local stats = self:GetSlotStats(options.id)
+			slotFrame:SetAlpha((stats and stats[key]) and 1 or STAT_HIGHLIGHT_DIM_ALPHA)
+		end
+	end
+
+	self.statSlotsHighlighted = true
+end
+
+function module:ClearStatSlotHighlight()
+	if not self.statSlotsHighlighted then
+		return
+	end
+	self.statSlotsHighlighted = nil
+
+	for slot in pairs(module.characterSlots) do
+		local slotFrame = _G["Character" .. slot]
+		if slotFrame then
+			slotFrame:SetAlpha(1)
+		end
+	end
+end
+
+local function StatFrame_OnEnter(frame)
+	module:HighlightStatSlots(frame)
+end
+
+local function StatFrame_OnLeave()
+	module:ClearStatSlotHighlight()
+end
+
+---The stat rows come from Blizzard's frame pool, each one is hooked once and
+---reads its current stat on hover
+---@param statFrame Frame
+function module:HookStatHighlight(statFrame)
+	if statFrame.MERHighlightHooked then
+		return
+	end
+
+	statFrame:HookScript("OnEnter", StatFrame_OnEnter)
+	statFrame:HookScript("OnLeave", StatFrame_OnLeave)
+	statFrame.MERHighlightHooked = true
 end
 
 ---Writes the average item level into fontString with the font and color of the settings.
@@ -1394,6 +1517,7 @@ function module:UpdateCharacterStats()
 					numStatInCat = numStatInCat + 1
 					module:UpdateCharacterStat(statFrame, (numStatInCat % 2) == 0)
 					module:SetupFadeAnimation(statFrame)
+					module:HookStatHighlight(statFrame)
 
 					lastAnchor = statFrame
 					statFrame = characterStatsPane.statsFramePool:Acquire()
@@ -2075,6 +2199,7 @@ function module:Disable()
 	self:UnhookAll()
 	self:DisableSocketPanel()
 	self:DisableEquipmentManagerSkin()
+	self:ClearStatSlotHighlight()
 	self:ResetSlotReveal()
 
 	self:SetShownEventsRegistered(false)
@@ -2146,6 +2271,7 @@ end
 function module:OnArmoryHide()
 	self:SetShownEventsRegistered(false)
 	self:SocketPanelOnHide()
+	self:ClearStatSlotHighlight()
 	self:ResetSlotReveal()
 end
 
