@@ -236,6 +236,17 @@ L["Settings for the color coming out of your item slot."] = true
 L["Toggling this on enables the Item Quality bars."] = true
 L["Start Alpha"] = true
 L["End Alpha"] = true
+L["Upgrade Level"] = true
+L["A bar next to the item icon shows the upgrade level of the item, e.g. 4 of 6 segments filled."] = true
+L["Model"] = true
+L["Spotlight"] = true
+L["A soft glow in your class color behind the character."] = true
+L["Ground Shadow"] = true
+L["A shadow under the feet of the character that follows the camera."] = true
+L["Double-Click Reset"] = true
+L["Double-click the character to reset its rotation, zoom and position."] = true
+L["Highlight Slots"] = true
+L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."] = true
 L["Slot Item Level"] = true
 L["Bags Item Level"] = true
 L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] = true
@@ -646,6 +657,9 @@ L["Warning"] = true
 -- Additional locale entries for consistency
 L["Shows the item level on the items in the merchant and trade windows."] = true
 L["The item level on the equipment flyout, the scrapping machine and in the guild news is part of WindTools (Item > Item Level, Misc)."] = true
+L["Uncollected Appearances"] = true
+L["Marks merchant items whose appearance you have not collected yet and can collect on this character."] = true
+L["Items you already know are tinted by WindTools (Item > Already Known)."] = true
 L["AddOnSkins"] = true
 L["AddOns"] = true
 L["Attribute Visibility"] = true
@@ -1591,7 +1605,9 @@ L["During a Mythic+ keystone run, shows next to the health bar how much an enemy
 
 -- Interrupt Ready
 L["Interrupt Ready"] = true
-L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are the interrupt entries of the Castbar Colors in the Theme options."] = true
+L["Colors the castbar of hostile units while your interrupt is on cooldown and marks the moment it is ready again. The colors are ElvUI's Non-Interruptible and Interruptible castbar colors."] = true
+L["ElvUI Castbar Colors"] = true
+L["Opens ElvUI's castbar colors, where you can change them."] = true
 L["Cooldown Color"] = true
 L["Colors the filled part of the castbar while your interrupt is on cooldown."] = true
 L["Ready Window"] = true
@@ -1601,7 +1617,6 @@ L["A thin line at the moment your interrupt is ready again."] = true
 L["Tick Color"] = true
 L["Units"] = true
 L["Interrupt on Cooldown"] = true
-L["Interrupt Ready Soon"] = true
 
 -- Castbar Shield
 L["Castbar Shield"] = true
@@ -2090,3 +2105,29 @@ L["Quick Actions"] = true
 L["Adds a title bar button that highlights the items Disenchant or Pick Lock can work on. Clicking a highlighted item casts the spell on it."] = true
 L["Click to leave Quick Actions."] = true
 L["Highlights the items your spells can work on (%s). Click a highlighted item to cast the spell on it. Out of combat only."] = true
+
+-- Group Finder
+L["Accepted"] = true
+L["Declined"] = true
+L["Delisted"] = true
+L["Cancelled"] = true
+L["Session"] = true
+L["Account"] = true
+L["Mythic+ Applications"] = true
+L["|cffFFFFFFClick:|r Switch between session, character and account"] = true
+L["No applications yet"] = true
+L["Members:"] = true
+L["Adds a few things to the Premade Groups list. Works together with the LFG List and Group Info features of WindTools."] = true
+L["Group List"] = true
+L["Leaver Mark"] = true
+L["Keeps Blizzard's mark for players who left Mythic+ runs early visible above the role icons, also with the role icons of WindTools."] = true
+L["Missing Roles"] = true
+L["Shows the roles a 5 player group still needs in its empty slots."] = true
+L["Group Name Colors"] = true
+L["Colors the names of groups that are new since your last search green, and those that declined you or that you are saved to red."] = true
+L["Members In Tooltip"] = true
+L["Lists the group members by role in the tooltip. With the Group Info tooltip of WindTools, only the names are added."] = true
+L["Counts your Mythic+ applications and shows how they ended in a bar on the Premade Groups page."] = true
+L["Reset Session"] = true
+L["Reset Character"] = true
+L["Reset Account"] = true

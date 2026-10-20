@@ -12,12 +12,19 @@ local LSM = E.Libs.LSM
 
 local _G = _G
 local format, gsub, utf8sub = string.format, string.gsub, string.utf8sub
-local next, ipairs, pairs, pcall, select, max, unpack = next, ipairs, pairs, pcall, select, max, unpack
+local next, ipairs, pairs, pcall, select, max, min, unpack = next, ipairs, pairs, pcall, select, max, min, unpack
+local abs = math.abs
 local twipe, tsort = table.wipe, table.sort
 
 local CreateColor = CreateColor
 local CreateFrame = CreateFrame
+local ClampedPercentageBetween = ClampedPercentageBetween
+local GetCursorPosition = GetCursorPosition
+local GetTime = GetTime
+local Lerp = Lerp
+local PlaySound = PlaySound
 local GetInventoryItemID = GetInventoryItemID
+local GetInventoryItemLink = GetInventoryItemLink
 local InCombatLockdown = InCombatLockdown
 local GetSpecializationRole = GetSpecializationRole
 local GetCurrentTitle = GetCurrentTitle
@@ -37,6 +44,9 @@ local CreateAnimationGroup = CreateAnimationGroup -- ElvUI LibAnim
 local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
 local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
 local GetItemInfo = C_Item.GetItemInfo
+local GetItemGem = C_Item.GetItemGem
+local GetItemStats = C_Item.GetItemStats
+local GetItemUpgradeInfo = C_Item.GetItemUpgradeInfo
 local GetMinItemLevel = C_PaperDollInfo.GetMinItemLevel
 local OffhandHasShield = C_PaperDollInfo.OffhandHasShield
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
@@ -205,6 +215,29 @@ module.characterSlots = {
 	},]]
 }
 
+-- Row of each slot from the top for the fade-in on open, both columns appear
+-- in step and the weapons last
+module.slotRevealOrder = {
+	HeadSlot = 1,
+	NeckSlot = 2,
+	ShoulderSlot = 3,
+	BackSlot = 4,
+	ChestSlot = 5,
+	ShirtSlot = 6,
+	TabardSlot = 7,
+	WristSlot = 8,
+	HandsSlot = 1,
+	WaistSlot = 2,
+	LegsSlot = 3,
+	FeetSlot = 4,
+	Finger0Slot = 5,
+	Finger1Slot = 6,
+	Trinket0Slot = 7,
+	Trinket1Slot = 8,
+	MainHandSlot = 9,
+	SecondaryHandSlot = 9,
+}
+
 function module:GetPrimaryTalentIndex()
 	local primaryTalentTreeIdx = 0
 	local primaryTalentTree = C_SpecializationInfo_GetSpecialization()
@@ -296,6 +329,15 @@ function module:PlayAnimations()
 	for anim, _ in pairs(self.animationObjects) do
 		self:PlayAnimation(anim)
 	end
+
+	-- A stopped fade would leave the slots half visible
+	if self:AnimationsAllowed() then
+		for reveal in pairs(self.slotObjects) do
+			self:PlayAnimation(reveal)
+		end
+	else
+		self:ResetSlotReveal()
+	end
 end
 
 function module:SetupGrowAnimation(obj, hold)
@@ -368,6 +410,268 @@ function module:SetupFadeAnimation(obj, slot)
 	obj.FadeIn.Fade:SetOrder(3)
 
 	self:AddAnimation(obj.FadeIn, true, slot)
+end
+
+---Same look for the flyouts around the character frame (gem flyout, Blizzard's item
+---swap flyout): ElvUI's transparent template, a line in the class gradient on top like
+---the stats headers and a short fade-in when it opens (FadeInFlyout)
+---@param frame Frame
+function module:StyleFlyout(frame)
+	if not frame.template then
+		frame:SetTemplate("Transparent")
+	end
+
+	local accent = frame.MERFlyoutAccent
+	if not accent then
+		accent = frame:CreateTexture(nil, "OVERLAY")
+		accent:SetTexture(E.media.blankTex)
+		accent:SetHeight(2)
+		accent:SetPoint("TOPLEFT", frame, "TOPLEFT", 1, -1)
+		accent:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -1)
+		frame.MERFlyoutAccent = accent
+		module.styledFlyouts[frame] = true
+	end
+
+	local classColorMap = E.db.mui.themes.gradientMode.classColorMap
+	local normal = classColorMap[I.Enum.GradientMode.Color.NORMAL][E.myclass]
+	local shift = classColorMap[I.Enum.GradientMode.Color.SHIFT][E.myclass]
+	accent:SetVertexColor(1, 1, 1, 1)
+	F.Color.SetGradientRGB(accent, "HORIZONTAL", shift.r, shift.g, shift.b, 1, normal.r, normal.g, normal.b, 1)
+	accent:Show()
+end
+
+---@param frame Frame a frame styled with StyleFlyout
+function module:FadeInFlyout(frame)
+	local fade = frame.MERFlyoutFade
+	if not fade then
+		fade = CreateAnimationGroup(frame)
+
+		fade.ResetFade = fade:CreateAnimation("Fade")
+		fade.ResetFade:SetDuration(0)
+		fade.ResetFade:SetChange(0)
+		fade.ResetFade:SetOrder(1)
+
+		fade.Fade = fade:CreateAnimation("Fade")
+		fade.Fade:SetEasing("inout-sinusoidal")
+		fade.Fade:SetChange(1)
+		fade.Fade:SetOrder(2)
+
+		frame.MERFlyoutFade = fade
+	end
+
+	if fade:IsPlaying() then
+		fade:Stop()
+	end
+
+	if self:AnimationsAllowed() then
+		fade.Fade:SetDuration(0.06 * module.db.animationsMult)
+		fade:Play()
+	else
+		-- A fade stopped halfway on the last open keeps its alpha
+		frame:SetAlpha(1)
+	end
+end
+
+---Removes the accent line from the flyouts again, the module is turned off
+function module:ResetFlyouts()
+	for frame in pairs(module.styledFlyouts) do
+		if frame.MERFlyoutFade and frame.MERFlyoutFade:IsPlaying() then
+			frame.MERFlyoutFade:Stop()
+		end
+		frame:SetAlpha(1)
+		frame.MERFlyoutAccent:Hide()
+	end
+end
+
+-- Blizzard's item swap flyout (Alt over a slot). ElvUI gives its button frame the
+-- transparent template in its own EquipmentFlyout_UpdateItems hook, which runs first
+function module:StyleEquipmentFlyout()
+	local flyout = _G.EquipmentFlyoutFrame
+	if flyout and flyout.buttonFrame then
+		self:StyleFlyout(flyout.buttonFrame)
+	end
+end
+
+function module:OnEquipmentFlyoutShow(flyout)
+	self:FadeInFlyout(flyout)
+end
+
+---Fade-in of Blizzard's item slots when the character frame opens, row by row
+---(slotRevealOrder). Only their alpha is touched, ResetSlotReveal puts it back
+function module:SetupSlotReveal()
+	local holdDuration, fadeDuration = 0.04, 0.35
+	local mult = module.db.animationsMult
+
+	for slot, order in pairs(module.slotRevealOrder) do
+		local slotFrame = _G["Character" .. slot]
+		if slotFrame then
+			local reveal = slotFrame.MERReveal
+
+			if not reveal then
+				reveal = CreateAnimationGroup(slotFrame)
+
+				reveal.ResetFade = reveal:CreateAnimation("Fade")
+				reveal.ResetFade:SetDuration(0)
+				reveal.ResetFade:SetChange(0)
+				reveal.ResetFade:SetOrder(1)
+
+				reveal.Hold = reveal:CreateAnimation("Sleep")
+				reveal.Hold:SetOrder(2)
+
+				reveal.Fade = reveal:CreateAnimation("Fade")
+				reveal.Fade:SetEasing("inout-sinusoidal")
+				reveal.Fade:SetChange(1)
+				reveal.Fade:SetOrder(3)
+
+				slotFrame.MERReveal = reveal
+				module.slotObjects[reveal] = slotFrame
+			end
+
+			reveal.Hold:SetDuration(order * holdDuration * mult)
+			reveal.Fade:SetDuration(fadeDuration * mult)
+		end
+	end
+end
+
+---Hides the slots right away so they do not flash before the delayed fade-in starts
+function module:PrepareSlotReveal()
+	if not self:AnimationsAllowed() then
+		return
+	end
+
+	for _, slotFrame in pairs(self.slotObjects) do
+		slotFrame:SetAlpha(0)
+	end
+end
+
+---Stops the fade-in and shows the slots fully, LibAnim's Stop keeps the alpha it reached
+function module:ResetSlotReveal()
+	for reveal, slotFrame in pairs(self.slotObjects) do
+		if reveal:IsPlaying() then
+			reveal:Stop()
+		end
+		slotFrame:SetAlpha(1)
+	end
+end
+
+-- Stat rows of the character frame and the key C_Item.GetItemStats uses for them
+module.statHighlightKeys = {
+	CRITCHANCE = "ITEM_MOD_CRIT_RATING_SHORT",
+	HASTE = "ITEM_MOD_HASTE_RATING_SHORT",
+	MASTERY = "ITEM_MOD_MASTERY_RATING_SHORT",
+	VERSATILITY = "ITEM_MOD_VERSATILITY",
+	LIFESTEAL = "ITEM_MOD_CR_LIFESTEAL_SHORT",
+	AVOIDANCE = "ITEM_MOD_CR_AVOIDANCE_SHORT",
+	SPEED = "ITEM_MOD_CR_SPEED_SHORT",
+}
+
+local STAT_HIGHLIGHT_DIM_ALPHA = 0.25
+local slotStatCache = {}
+
+-- Adds the stats of an item or gem link to stats, false while its data is not loaded yet
+local function AddItemStats(stats, link)
+	local itemStats = GetItemStats(link)
+	if not itemStats then
+		return false
+	end
+
+	for key, value in pairs(itemStats) do
+		if type(value) == "number" and value > 0 then
+			stats[key] = (stats[key] or 0) + value
+		end
+	end
+
+	return true
+end
+
+---Stats of the item in a slot with its gems, kept until the item link changes
+---(a new gem changes the link as well)
+---@param slotId number
+---@return table?
+function module:GetSlotStats(slotId)
+	local link = GetInventoryItemLink("player", slotId)
+	if not link then
+		return
+	end
+
+	local cached = slotStatCache[slotId]
+	if cached and cached.link == link then
+		return cached.stats
+	end
+
+	local stats = {}
+	local complete = AddItemStats(stats, link)
+	for socketIndex = 1, 4 do
+		local _, gemLink = GetItemGem(link, socketIndex)
+		if gemLink and not AddItemStats(stats, gemLink) then
+			complete = false
+		end
+	end
+
+	-- Read again on the next hover until the item and gem data is there
+	if complete then
+		slotStatCache[slotId] = { link = link, stats = stats }
+	end
+
+	return stats
+end
+
+---Dims the item slots without the hovered stat
+---@param statFrame Frame stat row of the character frame
+function module:HighlightStatSlots(statFrame)
+	local db = self.db
+	local key = statFrame.stringId and module.statHighlightKeys[statFrame.stringId]
+	if not (key and db and db.enable and db.stats.highlightSlots) then
+		return
+	end
+
+	-- The fade-in would overwrite the alpha
+	self:ResetSlotReveal()
+
+	for slot, options in pairs(module.characterSlots) do
+		local slotFrame = _G["Character" .. slot]
+		if slotFrame then
+			local stats = self:GetSlotStats(options.id)
+			slotFrame:SetAlpha((stats and stats[key]) and 1 or STAT_HIGHLIGHT_DIM_ALPHA)
+		end
+	end
+
+	self.statSlotsHighlighted = true
+end
+
+function module:ClearStatSlotHighlight()
+	if not self.statSlotsHighlighted then
+		return
+	end
+	self.statSlotsHighlighted = nil
+
+	for slot in pairs(module.characterSlots) do
+		local slotFrame = _G["Character" .. slot]
+		if slotFrame then
+			slotFrame:SetAlpha(1)
+		end
+	end
+end
+
+local function StatFrame_OnEnter(frame)
+	module:HighlightStatSlots(frame)
+end
+
+local function StatFrame_OnLeave()
+	module:ClearStatSlotHighlight()
+end
+
+---The stat rows come from Blizzard's frame pool, each one is hooked once and
+---reads its current stat on hover
+---@param statFrame Frame
+function module:HookStatHighlight(statFrame)
+	if statFrame.MERHighlightHooked then
+		return
+	end
+
+	statFrame:HookScript("OnEnter", StatFrame_OnEnter)
+	statFrame:HookScript("OnLeave", StatFrame_OnLeave)
+	statFrame.MERHighlightHooked = true
 end
 
 ---Writes the average item level into fontString with the font and color of the settings.
@@ -675,6 +979,84 @@ function module:GetSlotEnchantText(slotOptions, slotInfo)
 	return ""
 end
 
+local UPGRADE_SEGMENT_WIDTH = 3
+local UPGRADE_SEGMENT_GAP = 1
+-- Room between the icon and the bar, ElvUI's texts start further out
+local UPGRADE_BAR_OFFSET = 3
+local UPGRADE_EMPTY_ALPHA = 0.2
+
+---Upgrade level as a bar of segments along the inner edge of an item slot, filled
+---from the bottom. Colored like a traffic light by the progress (red, yellow, fully
+---upgraded green), the quality color would blend into the border and texts of the
+---slot. The options preview passes its own slot
+---@param slot Frame item slot the bar sits next to
+---@param isLeft boolean? slot of the left column, the bar goes on its right edge
+---@param current number? upgrade level, nil hides the bar
+---@param maximum number? highest upgrade level of the track
+function module:SetUpgradeBar(slot, isLeft, current, maximum)
+	local bar = slot.MERUpgradeBar
+
+	if not (current and maximum and maximum > 0) then
+		if bar then
+			bar:Hide()
+		end
+		return
+	end
+
+	if not bar then
+		bar = CreateFrame("Frame", nil, slot)
+		bar.segments = {}
+
+		if isLeft then
+			bar:SetPoint("TOPLEFT", slot, "TOPRIGHT", UPGRADE_BAR_OFFSET, 0)
+			bar:SetPoint("BOTTOMLEFT", slot, "BOTTOMRIGHT", UPGRADE_BAR_OFFSET, 0)
+		else
+			bar:SetPoint("TOPRIGHT", slot, "TOPLEFT", -UPGRADE_BAR_OFFSET, 0)
+			bar:SetPoint("BOTTOMRIGHT", slot, "BOTTOMLEFT", -UPGRADE_BAR_OFFSET, 0)
+		end
+		bar:SetWidth(UPGRADE_SEGMENT_WIDTH)
+
+		slot.MERUpgradeBar = bar
+	end
+
+	local segmentHeight = (slot:GetHeight() - (maximum - 1) * UPGRADE_SEGMENT_GAP) / maximum
+	-- Red at the start, yellow halfway, green once fully upgraded (module.colors)
+	local r, g, b = E:ColorGradient(current / maximum, 0.94, 0.33, 0.31, 1, 0.82, 0, 0.07, 0.9, 0.15)
+
+	for index = 1, max(maximum, #bar.segments) do
+		local segment = bar.segments[index]
+
+		if index <= maximum then
+			if not segment then
+				segment = bar:CreateTexture(nil, "OVERLAY")
+				segment:SetTexture(E.media.blankTex)
+				bar.segments[index] = segment
+			end
+
+			segment:ClearAllPoints()
+			segment:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, (index - 1) * (segmentHeight + UPGRADE_SEGMENT_GAP))
+			segment:SetSize(UPGRADE_SEGMENT_WIDTH, segmentHeight)
+			segment:SetVertexColor(r, g, b, index <= current and 1 or UPGRADE_EMPTY_ALPHA)
+			segment:Show()
+		elseif segment then
+			segment:Hide()
+		end
+	end
+
+	bar:Show()
+end
+
+---Upgrade level and maximum of an equipped item, nil for items without a track
+---@param slotId number
+---@return number?, number?
+function module:GetSlotUpgradeLevel(slotId)
+	local link = GetInventoryItemLink("player", slotId)
+	local info = link and GetItemUpgradeInfo(link)
+	if info then
+		return info.currentLevel, info.maxLevel
+	end
+end
+
 function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 	if which ~= "Character" then
 		return
@@ -790,6 +1172,14 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		end
 
 		slotItem.MERGradient.lastStructuralSignature = structuralSignature
+	end
+
+	-- Upgrade Bar
+	if self.db.pageInfo.upgradeBarEnabled then
+		local current, maximum = self:GetSlotUpgradeLevel(slotId)
+		self:SetUpgradeBar(slotItem, slotOptions.direction == module.enumDirection.LEFT, current, maximum)
+	else
+		self:SetUpgradeBar(slotItem)
 	end
 
 	-- iLvL Text Handling
@@ -1310,6 +1700,7 @@ function module:UpdateCharacterStats()
 					numStatInCat = numStatInCat + 1
 					module:UpdateCharacterStat(statFrame, (numStatInCat % 2) == 0)
 					module:SetupFadeAnimation(statFrame)
+					module:HookStatHighlight(statFrame)
 
 					lastAnchor = statFrame
 					statFrame = characterStatsPane.statsFramePool:Acquire()
@@ -1553,6 +1944,154 @@ function module:UpdateBackground()
 	module:SetBackgroundTexture(self.frame.MERBackground.Texture)
 end
 
+local SHADOW_ATLAS = "scoreboard-charactermodels-shadow"
+local SHADOW_OFFSET_Y = 9
+local DOUBLE_CLICK_TIME = 0.35
+-- Cursor travel between press and release that still counts as a click, not a turn
+local CLICK_TOLERANCE = 4
+
+-- First shown actor of the scene, the player or their shapeshift form
+local function GetSceneActor(scene)
+	for index = 1, scene:GetNumActors() do
+		local actor = scene:GetActorAtIndex(index)
+		if actor and actor:IsShown() then
+			return actor
+		end
+	end
+end
+
+-- Keeps the shadow under the feet while the camera turns, zooms or pans. Same
+-- projection as Blizzard's ModelSceneMixin:AddOrUpdateDropShadow, but with our own
+-- texture so the scene's actors and pools stay untouched
+local function Stage_OnUpdate(stage)
+	local scene = module.frameModel
+	local shadow = stage.Shadow
+	local actor = GetSceneActor(scene)
+
+	local x, y, depth
+	if actor then
+		local posX, posY, posZ = actor:GetPosition()
+		local scale = actor:GetScale()
+		x, y, depth = scene:Project3DPointTo2D(posX * scale, posY * scale, posZ * scale)
+	end
+
+	if not (x and y and depth) then
+		shadow:Hide()
+		return
+	end
+
+	depth = Lerp(0.05, 1, ClampedPercentageBetween(depth, 0.8, 1))
+	local inverseScale = scene:GetEffectiveScale() * depth
+
+	-- The actor's origin lies a bit behind the feet in the character sheet's camera angle,
+	-- the offset is in the shadow's own scale, so it shrinks and grows with the zoom
+	local offsetX, offsetY = (x / inverseScale) + 2, (y / inverseScale) - SHADOW_OFFSET_Y
+
+	-- The model is cut off at the edges of the scene, the shadow on the background is not.
+	-- It fades out while it moves past an edge (zoomed in, panned) and is gone once its
+	-- center leaves the scene
+	local sceneWidth, sceneHeight = scene:GetSize()
+	local centerX, centerY = offsetX * depth, offsetY * depth
+	local halfWidth, halfHeight = shadow:GetWidth() * depth * 0.5, shadow:GetHeight() * depth * 0.5
+	local visible =
+		min(min(centerX, sceneWidth - centerX) / halfWidth, min(centerY, sceneHeight - centerY) / halfHeight, 1)
+
+	if visible <= 0 then
+		shadow:Hide()
+		return
+	end
+
+	shadow:SetScale(depth)
+	shadow:ClearAllPoints()
+	shadow:SetPoint("CENTER", scene, "BOTTOMLEFT", offsetX, offsetY)
+	shadow:SetAlpha(module.db.model.shadowAlpha * visible)
+	shadow:Show()
+end
+
+---Spotlight in class color behind the character and a shadow under its feet. Both
+---live on the background frame, so they are drawn above the image and below the model
+function module:UpdateStage()
+	local db = self.db.model
+	local background = self.frame.MERBackground
+	local scene = self.frameModel
+	local stage = self.stage
+
+	if db.spotlight then
+		local spotlight = background.MERSpotlight
+		if not spotlight then
+			spotlight = background:CreateTexture(nil, "ARTWORK", nil, 1)
+			spotlight:SetTexture(I.Media.Textures.ArmorySpotlight)
+			background.MERSpotlight = spotlight
+		end
+
+		local width, height = scene:GetSize()
+		spotlight:ClearAllPoints()
+		spotlight:SetPoint("CENTER", scene, "CENTER", 0, -height * 0.05)
+		spotlight:SetSize(width * 1.4, height * 1.1)
+
+		local classColor = E:ClassColor(E.myclass, true)
+		spotlight:SetVertexColor(classColor.r, classColor.g, classColor.b, db.spotlightAlpha)
+		spotlight:Show()
+	elseif background.MERSpotlight then
+		background.MERSpotlight:Hide()
+	end
+
+	if db.shadow then
+		if not stage.Shadow then
+			stage.Shadow = background:CreateTexture(nil, "ARTWORK", nil, 2)
+			stage.Shadow:SetAtlas(SHADOW_ATLAS, true)
+		end
+		stage:SetScript("OnUpdate", Stage_OnUpdate)
+	else
+		stage:SetScript("OnUpdate", nil)
+		if stage.Shadow then
+			stage.Shadow:Hide()
+		end
+	end
+end
+
+function module:HideStage()
+	self.stage:SetScript("OnUpdate", nil)
+	if self.stage.Shadow then
+		self.stage.Shadow:Hide()
+	end
+	if self.frame.MERBackground.MERSpotlight then
+		self.frame.MERBackground.MERSpotlight:Hide()
+	end
+end
+
+local clickDownX, clickDownY, lastClickTime
+
+function module:OnModelMouseDown(_, button)
+	if button == "LeftButton" then
+		clickDownX, clickDownY = GetCursorPosition()
+	end
+end
+
+---Double-click on the model resets turn, zoom and pan like the reset button of the
+---camera controls. Blizzard sets the scene up again on every open of the frame
+function module:OnModelMouseUp(scene, button)
+	if button ~= "LeftButton" or not self.db.model.doubleClickReset then
+		return
+	end
+
+	-- A turn of the model is no click
+	local x, y = GetCursorPosition()
+	if not clickDownX or abs(x - clickDownX) > CLICK_TOLERANCE or abs(y - clickDownY) > CLICK_TOLERANCE then
+		lastClickTime = nil
+		return
+	end
+
+	local now = GetTime()
+	if lastClickTime and (now - lastClickTime) <= DOUBLE_CLICK_TIME then
+		lastClickTime = nil
+		scene:Reset()
+		PlaySound(SOUNDKIT.IG_INVENTORY_ROTATE_CHARACTER)
+	else
+		lastClickTime = now
+	end
+end
+
 local WHITE = CreateColor(1, 1, 1, 1)
 
 ---Color of a decorative line, the options preview passes its own texture
@@ -1616,7 +2155,9 @@ function module:UpdateCharacterArmory()
 	self._titleFontDirty = true
 
 	module:KillBlizzard()
+	module:SetupSlotReveal()
 	module:UpdateBackground()
+	module:UpdateStage()
 	module:UpdateLines()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
@@ -1635,6 +2176,7 @@ end
 
 function module:OpenCharacterArmory()
 	module:UpdateCharacterArmory()
+	module:PrepareSlotReveal()
 	E:Delay(0.01, function()
 		module:PlayAnimations()
 	end)
@@ -1650,9 +2192,13 @@ function module:CreateElements()
 	module.frameModel = _G.CharacterModelScene
 	module.frameName = module.frame:GetName()
 	module.frameHolder = CreateFrame("FRAME", nil, module.frameModel)
+	-- Only runs the shadow's OnUpdate, hides together with the model
+	module.stage = CreateFrame("Frame", nil, module.frameModel)
 
 	module.animationObjects = {}
 	module.statsObjects = {}
+	module.slotObjects = {}
+	module.styledFlyouts = {}
 	module.statsCount = 1
 	module._titleFontDirty = true
 
@@ -1988,6 +2534,10 @@ function module:Disable()
 	self:UnhookAll()
 	self:DisableSocketPanel()
 	self:DisableEquipmentManagerSkin()
+	self:ClearStatSlotHighlight()
+	self:ResetSlotReveal()
+	self:ResetFlyouts()
+	self:HideStage()
 
 	self:SetShownEventsRegistered(false)
 end
@@ -2019,6 +2569,14 @@ function module:Enable()
 	self:SecureHookScript(self.frame, "OnShow", "OnArmoryShow")
 	-- Closes the gem flyout and drops the socket panel's and our own events while closed
 	self:SecureHookScript(self.frame, "OnHide", "OnArmoryHide")
+	-- Double-click on the model resets the camera
+	self:SecureHookScript(self.frameModel, "OnMouseDown", "OnModelMouseDown")
+	self:SecureHookScript(self.frameModel, "OnMouseUp", "OnModelMouseUp")
+	-- Shared flyout look for Blizzard's item swap flyout
+	if _G.EquipmentFlyoutFrame then
+		self:SecureHook("EquipmentFlyout_UpdateItems", "StyleEquipmentFlyout")
+		self:SecureHookScript(_G.EquipmentFlyoutFrame, "OnShow", "OnEquipmentFlyoutShow")
+	end
 
 	-- Check ElvUI Options
 	self:ElvOptionsCheck()
@@ -2058,6 +2616,8 @@ end
 function module:OnArmoryHide()
 	self:SetShownEventsRegistered(false)
 	self:SocketPanelOnHide()
+	self:ClearStatSlotHighlight()
+	self:ResetSlotReveal()
 end
 
 function module:DatabaseUpdate()

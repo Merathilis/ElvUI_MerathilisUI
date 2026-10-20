@@ -23,11 +23,12 @@ local MAX_BOSS_FRAMES = 8
 
 	Shared by the MerathilisUI unitframe and nameplate castbars. While your
 	interrupt is on cooldown during an interruptible cast of a hostile unit:
-	- tint:   the filled part of the bar gets the Theme's "Interrupt on Cooldown" color
+	- tint:   the filled part of the bar gets ElvUI's "Non-Interruptible" castbar color
 	- window: the part of the bar after the moment your interrupt is ready again
-	          gets the Theme's "Interrupt Ready Soon" color
+	          gets ElvUI's "Interruptible" castbar color
 	- tick:   a thin line at that moment
-	Both colors follow the gradient mode when it is on.
+	The colors come from the UnitFrames or NamePlates settings of ElvUI, whichever
+	owns the castbar, a unitframe's own castbar custom color wins.
 
 	Secret-safe: cast and cooldown durations only go into StatusBars, the cast's
 	interruptible flag and the cooldown state only into *FromBoolean APIs. The
@@ -101,34 +102,10 @@ local function GetCastDuration(ir)
 	return UnitCastingDuration(unit)
 end
 
--- normal/shift of a castColorMap entry, from the gradient cache when it exists
-local function GetThemeColors(entry)
-	local fgMap = F.Color.GetMap("castColorMap")
-	local normal = fgMap and fgMap[I.Enum.GradientMode.Color.NORMAL][entry]
-	local shift = fgMap and fgMap[I.Enum.GradientMode.Color.SHIFT][entry]
-	if normal and shift then
-		return normal, shift
-	end
-
-	local db = E.db.mui.themes.gradientMode.castColorMap
-	return db[I.Enum.GradientMode.Color.NORMAL][entry], db[I.Enum.GradientMode.Color.SHIFT][entry]
-end
-
-local function ApplyColor(texture, castbar, entry)
+local function ApplyColor(texture, castbar, color)
 	local barTexture = castbar:GetStatusBarTexture()
 	texture:SetTexture(barTexture and barTexture:GetTexture() or E.media.normTex)
-
-	local normal, shift = GetThemeColors(entry)
-	if E.db.mui.themes.gradientMode.enable then
-		local fadeMode = castbar.fadeMode or "HORIZONTAL"
-		if castbar.fadeDirection == I.Enum.GradientMode.Direction.LEFT then
-			F.Color.SetGradient(texture, fadeMode, shift, normal)
-		else
-			F.Color.SetGradient(texture, fadeMode, normal, shift)
-		end
-	else
-		texture:SetVertexColor(normal.r, normal.g, normal.b, 1)
-	end
+	texture:SetVertexColor(color.r, color.g, color.b, color.a or 1)
 end
 
 -- Visible while the cast is interruptible and the interrupt is on cooldown
@@ -229,9 +206,11 @@ local function ApplyStyle(ir)
 	if ir.styledVersion ~= styleVersion or ir.styledFill ~= fill then
 		ir.styledVersion, ir.styledFill = styleVersion, fill
 
+		-- Your interrupt on cooldown makes the cast non-interruptible for you
+		local interruptible, notInterruptible = ir.getColors(castbar)
 		ir.tint:SetAllPoints(fill)
-		ApplyColor(ir.tint, castbar, "INTERRUPTCD")
-		ApplyColor(ir.window, castbar, "INTERRUPTSOON")
+		ApplyColor(ir.tint, castbar, notInterruptible)
+		ApplyColor(ir.window, castbar, interruptible)
 		ir.tick:SetVertexColor(db.tickColor.r, db.tickColor.g, db.tickColor.b, 1)
 	end
 
@@ -441,8 +420,9 @@ end
 ---Turns the indicator on a castbar on or off
 ---@param castbar table ElvUI castbar
 ---@param getDB function returns the settings table (tint, window, tick, tickColor)
+---@param getColors function returns ElvUI's interruptible and non-interruptible color of the castbar
 ---@param enabled boolean
-function IR:Configure(castbar, getDB, enabled)
+function IR:Configure(castbar, getDB, getColors, enabled)
 	if not castbar then
 		return
 	end
@@ -457,6 +437,7 @@ function IR:Configure(castbar, getDB, enabled)
 	end
 
 	ir.getDB = getDB
+	ir.getColors = getColors
 	ir.enabled = enabled
 	styleVersion = styleVersion + 1
 
@@ -466,19 +447,6 @@ function IR:Configure(castbar, getDB, enabled)
 		ApplyStyle(ir)
 	end
 end
-
--- Changed Theme castbar colors reach running casts right away
-F.Event.RegisterCallback("MER_Theme.SettingsUpdate", function()
-	styleVersion = styleVersion + 1
-	for ir in pairs(active) do
-		ApplyStyle(ir)
-	end
-end, "MER_InterruptReady")
-
--- Turning the gradient mode on or off changes how the colors are drawn
-F.Event.RegisterCallback("MER_Theme.DatabaseUpdate", function()
-	styleVersion = styleVersion + 1
-end, "MER_InterruptReady")
 
 -- Unitframe integration
 local UNITS = {
@@ -492,6 +460,18 @@ local function GetUnitFrameDB()
 	return E.db.mui.unitframes.interruptReady
 end
 
+-- A changed color runs Configure_Castbar, so the hook below restyles the indicator
+local function GetUnitFrameColors(castbar)
+	local colors = E.db.unitframe.colors
+	local frame = castbar.__owner
+	local custom = frame and frame.db and frame.db.castbar and frame.db.castbar.customColor
+	if custom and custom.enable then
+		return custom.color, custom.colorNoInterrupt or colors.castNoInterrupt
+	end
+
+	return colors.castColor, colors.castNoInterrupt
+end
+
 function module:Configure_InterruptReady(frame)
 	if not frame or not frame.Castbar then
 		return
@@ -503,7 +483,7 @@ function module:Configure_InterruptReady(frame)
 	end
 
 	local db = GetUnitFrameDB()
-	IR:Configure(frame.Castbar, GetUnitFrameDB, db.enable and db.units[unitType])
+	IR:Configure(frame.Castbar, GetUnitFrameDB, GetUnitFrameColors, db.enable and db.units[unitType])
 end
 
 function module:UpdateInterruptReady()

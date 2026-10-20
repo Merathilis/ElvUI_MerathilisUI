@@ -543,15 +543,12 @@ module:AddOptions(function()
 			}).args
 
 			-- Cast Colors
-			-- The interrupt entries are used by the Interrupt Ready indicator (UnitFrames, NamePlates)
 			local castNames = {
 				DEFAULT = L["Regular"],
 				NOINTERRUPT = L["Non-interruptible"],
-				INTERRUPTCD = L["Interrupt on Cooldown"],
-				INTERRUPTSOON = L["Interrupt Ready Soon"],
 			}
 
-			for _, cast in ipairs({ "DEFAULT", "NOINTERRUPT", "INTERRUPTCD", "INTERRUPTSOON" }) do
+			for _, cast in ipairs({ "DEFAULT", "NOINTERRUPT" }) do
 				do
 					local settingsName = castNames[cast]
 

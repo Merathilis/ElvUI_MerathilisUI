@@ -8,7 +8,8 @@ local GetItemInfo = C_Item.GetItemInfo
 
 -- Merchant rows with the item level on the item buttons, like the Item Level
 -- module draws it (bottom right, in the quality color). Used as `dialogControl`
--- on a description named "itemLevel". The samples are items you have equipped.
+-- on a description named "itemLevel". The samples are items you have equipped,
+-- the last one carries the uncollected appearance icon as an example.
 
 local HEIGHT = 60
 local NUM_ROWS = 3
@@ -19,6 +20,7 @@ local GAP = 12
 -- Head, chest, main hand, legs, shoulders, back
 local SAMPLE_SLOTS = { 1, 5, 16, 7, 3, 15 }
 local FALLBACK_ICON = 134400
+local APPEARANCE_ICON = "Interface\\MINIMAP\\TRACKING\\Transmogrifier"
 
 local function CreateRow(parent)
 	local row = CreateFrame("Frame", nil, parent)
@@ -37,6 +39,12 @@ local function CreateRow(parent)
 	row.iLvl = row.button:CreateFontString(nil, "OVERLAY")
 	row.iLvl:FontTemplate(nil, 11)
 	row.iLvl:SetPoint("BOTTOMRIGHT", 0, 0)
+
+	-- Same texture and spot as Appearance_Update
+	row.appearance = row.button:CreateTexture(nil, "OVERLAY", nil, 7)
+	row.appearance:SetTexture(APPEARANCE_ICON)
+	row.appearance:SetSize(16, 16)
+	row.appearance:SetPoint("TOPRIGHT", 2, 2)
 
 	row.name = row:CreateFontString(nil, "OVERLAY")
 	row.name:FontTemplate(nil, 12)
@@ -74,6 +82,7 @@ local function Build(widget)
 end
 
 local function Update(widget)
+	local db = E.db.mui.itemLevel
 	local samples = GetSamples()
 	local count = #samples
 	local total = count * ROW_WIDTH + (count - 1) * GAP
@@ -88,15 +97,16 @@ local function Update(widget)
 			row.name:SetTextColor(color.r, color.g, color.b)
 			row.iLvl:SetText(F.GetItemLevel(sample.link) or "")
 			row.iLvl:SetTextColor(color.r, color.g, color.b)
-			row.iLvl:SetShown(E.db.mui.itemLevel.enable)
+			row.iLvl:SetShown(db.enable)
+			row.appearance:SetShown(db.appearance and index == count)
 
 			row:ClearAllPoints()
 			row:SetPoint("LEFT", widget.frame, "CENTER", -total / 2 + (index - 1) * (ROW_WIDTH + GAP), 0)
 		end
 	end
 
-	-- Off, the item buttons look like Blizzard's: no number on them
-	Preview.SetEnabled(widget, E.db.mui.itemLevel.enable)
+	-- Both off, the item buttons look like Blizzard's: nothing on them
+	Preview.SetEnabled(widget, db.enable or db.appearance)
 end
 
 Preview.Register("MERItemLevelPreview", 1, HEIGHT, Build, Update)

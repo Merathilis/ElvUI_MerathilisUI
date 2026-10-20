@@ -6,7 +6,6 @@ local Type = "MERInterruptReadyPreview"
 local Version = 1
 
 local min = math.min
-local CreateColor = CreateColor
 local CreateFrame, UIParent = CreateFrame, UIParent
 
 -- Sample castbar that explains the Interrupt Ready indicator. Used as
@@ -25,21 +24,20 @@ local function GetDB(key)
 	return db and db.interruptReady
 end
 
-local function ApplyColor(texture, entry)
-	local theme = E.db.mui.themes.gradientMode
-	local normal = theme.castColorMap[I.Enum.GradientMode.Color.NORMAL][entry]
-	local shift = theme.castColorMap[I.Enum.GradientMode.Color.SHIFT][entry]
-
-	texture:SetColorTexture(1, 1, 1, 1)
-	if theme.enable then
-		texture:SetGradient(
-			"HORIZONTAL",
-			CreateColor(shift.r, shift.g, shift.b, 1),
-			CreateColor(normal.r, normal.g, normal.b, 1)
-		)
-	else
-		texture:SetVertexColor(normal.r, normal.g, normal.b, 1)
+-- ElvUI's interruptible and non-interruptible castbar color of that module
+local function GetColors(key)
+	if key == "nameplates" then
+		local colors = E.db.nameplates.colors
+		return colors.castColor, colors.castNoInterruptColor
 	end
+
+	local colors = E.db.unitframe.colors
+	return colors.castColor, colors.castNoInterrupt
+end
+
+local function ApplyColor(texture, color)
+	texture:SetTexture(E.media.normTex)
+	texture:SetVertexColor(color.r, color.g, color.b, color.a or 1)
 end
 
 local function Update(widget)
@@ -52,9 +50,10 @@ local function Update(widget)
 	widget.bar:SetWidth(width)
 
 	local castX, readyX = width * CAST, width * READY
+	local interruptible, notInterruptible = GetColors(widget._key)
 
 	widget.tint:SetWidth(castX)
-	ApplyColor(widget.tint, "INTERRUPTCD")
+	ApplyColor(widget.tint, notInterruptible)
 	widget.tint:SetShown(db.tint)
 	widget.tintLabel:SetShown(db.tint)
 	widget.tintLabel:ClearAllPoints()
@@ -63,7 +62,7 @@ local function Update(widget)
 	widget.window:ClearAllPoints()
 	widget.window:SetPoint("TOPLEFT", widget.bar, "TOPLEFT", readyX, 0)
 	widget.window:SetPoint("BOTTOMRIGHT", widget.bar, "BOTTOMRIGHT")
-	ApplyColor(widget.window, "INTERRUPTSOON")
+	ApplyColor(widget.window, interruptible)
 	widget.window:SetShown(db.window)
 	widget.windowLabel:SetShown(db.window)
 	widget.windowLabel:ClearAllPoints()

@@ -154,6 +154,73 @@ module:AddOptions(function()
 							},
 						},
 					},
+					modelGroup = {
+						order = 3,
+						type = "group",
+						name = L["Model"],
+						get = function(info)
+							return E.db.mui.armory.model[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.armory.model[info[#info]] = value
+							Refresh()
+						end,
+						args = {
+							spotlight = {
+								order = 1,
+								type = "toggle",
+								name = F.NewFeatureText(L["Spotlight"]),
+								desc = L["A soft glow in your class color behind the character."],
+							},
+							spotlightAlpha = {
+								order = 2,
+								type = "range",
+								name = L["Alpha"],
+								min = 0.05,
+								max = 1,
+								step = 0.01,
+								isPercent = true,
+								disabled = function()
+									return not E.db.mui.armory.model.spotlight
+								end,
+							},
+							spacer = {
+								order = 3,
+								type = "description",
+								name = "",
+							},
+							shadow = {
+								order = 4,
+								type = "toggle",
+								name = F.NewFeatureText(L["Ground Shadow"]),
+								desc = L["A shadow under the feet of the character that follows the camera."],
+							},
+							shadowAlpha = {
+								order = 5,
+								type = "range",
+								name = L["Alpha"],
+								min = 0.1,
+								max = 1,
+								step = 0.01,
+								isPercent = true,
+								disabled = function()
+									return not E.db.mui.armory.model.shadow
+								end,
+							},
+							spacer2 = {
+								order = 6,
+								type = "description",
+								name = "",
+							},
+							doubleClickReset = {
+								order = 7,
+								type = "toggle",
+								name = F.NewFeatureText(L["Double-Click Reset"]),
+								desc = L["Double-click the character to reset its rotation, zoom and position."],
+								width = 1.2,
+							},
+						},
+					},
 				},
 			},
 			itemLevelGroup = {
@@ -889,6 +956,12 @@ module:AddOptions(function()
 						name = L["Sockets"],
 						desc = L["Toggle sockets & azerite traits"],
 					},
+					upgradeBarEnabled = {
+						order = 2.5,
+						type = "toggle",
+						name = F.NewFeatureText(L["Upgrade Level"]),
+						desc = L["A bar next to the item icon shows the upgrade level of the item, e.g. 4 of 6 segments filled."],
+					},
 					spacer = {
 						order = 3,
 						type = "description",
@@ -1083,6 +1156,12 @@ module:AddOptions(function()
 						disabled = function()
 							return not E.db.mui.armory.stats.alternatingBackgroundEnabled
 						end,
+					},
+					highlightSlots = {
+						order = 2.5,
+						type = "toggle",
+						name = F.NewFeatureText(L["Highlight Slots"]),
+						desc = L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."],
 					},
 					fontGroup = {
 						order = 3,
@@ -1551,4 +1630,9 @@ module:AddOptions(function()
 			end,
 		}
 	end
+
+	F.MarkTabAsNew("armory")
+	F.MarkTabAsNew("modelGroup")
+	F.MarkTabAsNew("slotItemLevelGroup")
+	F.MarkTabAsNew("attributesGroup")
 end)

@@ -112,6 +112,9 @@ function module:LoadWindToolsProfile()
 	db.misc.automation.hideWorldMapAfterEnteringCombat = true
 	db.misc.gameBar.enable = true
 	db.misc.gameBar.hearthstone.left = "RANDOM"
+	db.misc.gameBar.timeAreaWidth = 95
+	db.misc.gameBar.timeAreaHeight = 40
+	db.misc.gameBar.buttonSize = 22
 	db.misc.spellActivationAlert.enable = true
 	db.quest.turnIn.enable = false
 	db.social.chatText.removeBrackets = true

@@ -4,6 +4,7 @@ local module = MER:GetModule("MER_Theme") ---@class Theme
 local select = select
 local UnitCanAttack = UnitCanAttack
 local UnitClass = UnitClass
+local UnitInPartyIsAI = UnitInPartyIsAI
 local UnitIsPlayer = UnitIsPlayer
 
 function module:GetCastbarColor(frame, unit, castFailed)
@@ -16,6 +17,9 @@ function module:GetCastbarColor(frame, unit, castFailed)
 
 	local notInterruptible = E:NotSecretValue(frame.notInterruptible) and frame.notInterruptible
 	local isPlayer = unit and UnitIsPlayer(unit)
+	if unit and not (E:NotSecretValue(isPlayer) and isPlayer) and UnitInPartyIsAI then
+		isPlayer = UnitInPartyIsAI(unit)
+	end
 	local canAttack = unit and unit ~= "player" and UnitCanAttack("player", unit)
 	local useClassColor, colorEntry
 

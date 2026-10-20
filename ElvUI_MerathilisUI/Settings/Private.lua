@@ -76,6 +76,13 @@ V.quickGrid = {
 	custom = {},
 }
 
+-- Group Finder: Mythic+ application counts of this character
+V.groupFinder = {
+	applications = {},
+	session = {}, -- kept across a reload or relog within a few minutes
+	sessionTime = 0,
+}
+
 -- Loadout Manager: gear sets and talent loadouts are per character
 V.loadoutManager = {
 	-- Off until the user opts in; switching it on is what registers events

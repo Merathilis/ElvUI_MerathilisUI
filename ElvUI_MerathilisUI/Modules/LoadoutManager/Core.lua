@@ -110,6 +110,9 @@ local lastTalentRequest
 local MAX_SWAP_RETRIES = 10
 local autoCheckSerial = 0
 local lastAutoInstanceKey = nil
+-- The spec automation last saw, apart from the context key: a spec event only
+-- counts when this changes.
+local lastSpecID = nil
 local GetCurrentSpecID, BuildAutoInstanceKey
 local TryEquipSet, TryLoadTalentLoadout, VerifyEquippedSet
 local RetryRequest, FinishRequest, CancelRequests, RequestIsCurrent
@@ -1625,6 +1628,12 @@ BuildAutoInstanceKey = function(ctx)
 		.. tostring(GetCurrentSpecID() or 0)
 end
 
+-- Start from where you are now: the next zone or spec event compares against it
+local function NoteCurrentContext()
+	lastAutoInstanceKey = BuildAutoInstanceKey(GetCurrentInstanceContext())
+	lastSpecID = GetCurrentSpecID()
+end
+
 local function HandlePossibleInstanceEntry()
 	local ctx = GetCurrentInstanceContext()
 	local key = BuildAutoInstanceKey(ctx)
@@ -1895,7 +1904,7 @@ local function OnEvent(_, event, ...)
 		local initialLogin, reloading = ...
 		if initialLogin or reloading then
 			CancelRequests()
-			lastAutoInstanceKey = BuildAutoInstanceKey(GetCurrentInstanceContext())
+			NoteCurrentContext()
 		else
 			HandlePossibleInstanceEntry()
 			ResumeRequests()
@@ -1947,10 +1956,12 @@ local function OnEvent(_, event, ...)
 			ResumeRequests("alive")
 		end
 	elseif event == "PLAYER_SPECIALIZATION_CHANGED" then
-		-- It also fires without a spec change (entering an arena, for one);
-		-- only a real change, which changes the context key, cancels a
-		-- pending check and re-runs it.
-		if ... == "player" and BuildAutoInstanceKey(GetCurrentInstanceContext()) ~= lastAutoInstanceKey then
+		-- It also fires without a spec change (entering an arena, for one):
+		-- only a new spec ID counts, so a spec event that lands before the
+		-- zone events of an entry never swallows the entry.
+		local specID = GetCurrentSpecID()
+		if ... == "player" and specID ~= lastSpecID then
+			lastSpecID = specID
 			CancelRequests()
 			UI.selectedTalent = nil
 
@@ -2315,7 +2326,7 @@ function module:SetEnabled(value)
 		UI.selectedTalent = nil
 	end
 
-	lastAutoInstanceKey = BuildAutoInstanceKey(GetCurrentInstanceContext())
+	NoteCurrentContext()
 	SetEventsEnabled(DB().enable)
 	RequestRefresh()
 end
@@ -2362,7 +2373,7 @@ end
 -- Reset to defaults, every assignment included
 function module:ResetAll()
 	CancelRequests()
-	lastAutoInstanceKey = BuildAutoInstanceKey(GetCurrentInstanceContext())
+	NoteCurrentContext()
 
 	local db = DB()
 	wipe(db)
@@ -2376,7 +2387,7 @@ end
 -- Disabled characters build no runtime: no frame, no events
 function module:Initialize()
 	if DB().enable then
-		lastAutoInstanceKey = BuildAutoInstanceKey(GetCurrentInstanceContext())
+		NoteCurrentContext()
 		SetEventsEnabled(true)
 	end
 end

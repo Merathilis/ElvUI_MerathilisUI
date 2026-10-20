@@ -156,15 +156,11 @@ P.themes = {
 				DEFAULT = F.Table.HexToRGB("#ffbf00"), -- cast def.
 				NOINTERRUPT = F.Table.HexToRGB("#8f8c8c"), -- cast non.
 				INTERRUPTED = F.Table.HexToRGB("#d94040"), -- cast was stopped
-				INTERRUPTCD = F.Table.HexToRGB("#8591b0"), -- interrupt is on cd, and will not come off cd during cast
-				INTERRUPTSOON = F.Table.HexToRGB("#de7000"), -- interrupt is on cd, but will be ready inside the cast
 			},
 			[I.Enum.GradientMode.Color.SHIFT] = { -- LEFT
 				DEFAULT = F.Table.HexToRGB("#ffad00"), -- cast def.
 				NOINTERRUPT = F.Table.HexToRGB("#737070"), -- cast non.
 				INTERRUPTED = F.Table.HexToRGB("#991f1f"), -- cast was stopped
-				INTERRUPTCD = F.Table.HexToRGB("#4f5c7a"), -- interrupt is on cd, and will not come off cd during cast
-				INTERRUPTSOON = F.Table.HexToRGB("#8f4700"), -- interrupt is on cd, but will be ready inside the cast
 			},
 		},
 
@@ -403,6 +399,17 @@ P.misc = {
 		backdropColor = { r = 0, g = 0, b = 0, a = 0.5 },
 		hideInCombat = true,
 	},
+	groupFinder = {
+		enable = true,
+		leaver = true,
+		missingRoles = true,
+		nameColors = true,
+		memberTooltip = true,
+		applications = {
+			enable = true,
+			scope = "character",
+		},
+	},
 	petFilterTab = true,
 	copyMog = {
 		enable = true,
@@ -423,6 +430,13 @@ P.armory = {
 		style = 2,
 		class = true,
 		hideControls = true,
+	},
+	model = {
+		spotlight = true,
+		spotlightAlpha = 0.3,
+		shadow = true,
+		shadowAlpha = 0.8,
+		doubleClickReset = true,
 	},
 	lines = {
 		enable = true,
@@ -474,6 +488,7 @@ P.armory = {
 
 		alternatingBackgroundEnabled = true, -- Enabled by default
 		alternatingBackgroundAlpha = 0.75,
+		highlightSlots = true,
 
 		-- Sets the mode for stats
 		-- 0 (Hide), 1 (Smart/Blizzard), 2 (Always Show if not 0), 3 (Always Show)
@@ -569,6 +584,7 @@ P.armory = {
 		iconsEnabled = true,
 
 		moveSockets = false,
+		upgradeBarEnabled = true,
 
 		enchantTextEnabled = true,
 		abbreviateEnchantText = true,
@@ -1198,7 +1214,7 @@ P.unitframes = {
 			},
 			dragonColor = "BLIZZARD",
 			dragonScale = 1,
-			dragonOnTop = true,
+			dragonOnTop = false,
 			badgeSize = 22,
 			badgeXOffset = 5,
 			badgeYOffset = -5,
@@ -1539,6 +1555,7 @@ P.panels = {
 
 P.itemLevel = {
 	enable = true,
+	appearance = true,
 }
 
 P.elvUIIcons = {

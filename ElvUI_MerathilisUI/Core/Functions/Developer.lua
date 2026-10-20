@@ -343,7 +343,9 @@ function F.Developer.InjectLogger(module)
 		return
 	end
 
-	local channel = gsub(module.name or "Unknown", "^MER_", "")
+	-- AceAddon names a module "<addon>_<module>" (module.name), the plain "MER_Armory"
+	-- is its moduleName. With module.name the channel never matched /muidev debug <name>
+	local channel = gsub(module.moduleName or module.name or "Unknown", "^MER_", "")
 	local prefix = format("|cffffbf00%s|r", channel)
 	knownChannels[strlower(channel)] = channel
 

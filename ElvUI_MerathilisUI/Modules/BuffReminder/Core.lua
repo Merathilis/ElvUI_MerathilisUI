@@ -88,6 +88,14 @@ local function GetSpecID()
 end
 
 local function InRealInstancedContent()
+	-- Garrisons and housing plots report as instances but belong to the open world
+	if C_Garrison and C_Garrison.IsOnGarrisonMap and C_Garrison.IsOnGarrisonMap() then
+		return false
+	end
+	if C_Housing and C_Housing.IsInsideHouseOrPlot and C_Housing.IsInsideHouseOrPlot() then
+		return false
+	end
+
 	local _, iType = IsInInstance()
 	return iType == "party" or iType == "raid" or iType == "scenario"
 end

@@ -2,7 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Actionbars")
 
 function module:Initialize()
-	if not E.private.actionbar.enable then
+	if not F.IsElvUIActionBarsEnabled() then
 		return
 	end
 
