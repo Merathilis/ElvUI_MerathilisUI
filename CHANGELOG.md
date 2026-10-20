@@ -38,6 +38,7 @@
 -   [Improvement]: Bags: The footer currencies are no longer limited to Blizzard's three. Pick any number of them per character in the options (grouped like the Currency tab, with icons), they wrap into more rows when needed. Ticking a currency in the Currency tab still adds it, Shift-click links it in chat.
 -   [Improvement]: Chat: The M+ Portals flyout of the Chat Sidebar has a direction option (automatic, up, down, left, right).
 -   [Improvement]: General: The Spec Bar, Interrupt Ready, Bloodlust tracker and Movement Alert no longer refresh when a group member changes their specialization, only on your own.
+-   [Improvement]: Installer: The experience, reputation, honor, threat and azerite bars are now shown on mouseover in the MerathilisUI layout.
 -   [Improvement]: Loadout Manager: Automatic talent swaps now wait while a talent change is being applied or the talent window has unsaved changes, instead of failing or discarding them.
 -   [Improvement]: NamePlates: Neutral Name Only finds the nameplate of a unit directly instead of going through all nameplates on every combat flag change.
 -   [Improvement]: NamePlates: The Castbar Shield now sits on the castbar itself instead of half over the castbar icon.
@@ -45,7 +46,10 @@
 -   [Improvement]: Options: Own color picker instead of Blizzard's: a color field with hue and opacity bars, hex and opacity inputs, the new and the current color side by side, quick picks for the option's default, your class and the accent color, plus favorites and recently used colors.
 -   [Improvement]: Options: Selects with only a few values (e.g. Grid, List, Compact or the grow directions) are now a segmented bar instead of a dropdown. Color modes with a custom color became one bar with a color dot per mode, a click on Custom opens the color picker right away.
 -   [Improvement]: Options: Buttons like Open or the resets on the Reset page are now cards with an icon and a short description, Test and the smaller resets inside the settings became compact buttons with an icon. Font settings on all pages moved into a small popup behind a row that shows the current font, size and outline.
+-   [Improvement]: Options: The live previews on the module pages are smaller and centered.
+-   [Improvement]: Profiles: The SkironCooldownManager profile got a few small updates.
 -   [Improvement]: Profiles: The WindTools profile sets Expressway as the font of every WindTools module (Objective Tracker, Game Bar, Extra Items Bar, Inspect, Loss of Control and more) instead of WindTools' mix of fonts.
+-   [Improvement]: Profiles: The WindTools profile gives the Game Bar a slightly larger time area and smaller buttons.
 -   [Improvement]: Skins: The rows in the Encounter Journal's Traveler's Log and Item Sets now use a transparent background instead of ElvUI's dark one (needs ElvUI's Parchment Remover).
 -   [Improvement]: Skins: The zone and category headers in the World Map's quest log now use a transparent background instead of ElvUI's dark one.
 -   [Improvement]: Skins: WIM: Reworked skin - square class icons (a flat channel color for chat windows), flat tabs with a class colored line on the selected one, a skinned window menu and shortcut bar. The close button shows an arrow for hide and, with Shift held, a cross for close.
@@ -53,5 +57,6 @@
 -   [Improvement]: Skins: WIM: The History Viewer is skinned as well (character dropdown, conversation and date lists, search bar, view tabs and loading bar).
 -   [Improvement]: Skins: WIM: The member list of chat windows (Users in ...) is skinned as well.
 -   [Improvement]: UnitFrames: Interrupt Ready (unitframes and nameplates) now uses ElvUI's Non-Interruptible color while your interrupt is on cooldown and ElvUI's Interruptible color for the ready window, a unit's own castbar custom color included. A button in the options opens ElvUI's castbar colors. The two interrupt colors in the Theme options are gone.
+-   [Improvement]: UnitFrames: Portraits: The classification dragon is now drawn behind the ring by default.
 -   [Improvement]: UnitFrames: Rounded Corners only redo the bar ElvUI just changed, e.g. when an auto-hiding class bar shows or hides in combat, instead of the whole unitframe several times.
 -   [Improvement]: UnitFrames: Rounded Corners has a Radius slider (up to 16 pixels, 0 keeps the subtle default corners). With a radius set, the border is a real ring, so a transparent unitframe background stays see-through.
