@@ -85,6 +85,8 @@ L["Enables the stripes/gradient look on the frames"] = true
 
 -- Core Options
 L["Login Message"] = "Login Nachricht"
+L["Show More Options"] = "Mehr Optionen anzeigen"
+L["Show Fewer Options"] = "Weniger Optionen anzeigen"
 
 -- Information
 L["Information"] = "Informationen"

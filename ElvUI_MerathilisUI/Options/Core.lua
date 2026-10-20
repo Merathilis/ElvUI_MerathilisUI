@@ -306,6 +306,127 @@ function module.PreviewOption(order, dialogControl, key)
 	}
 end
 
+-- Open state of module cards and "Show More Options" sections, keyed by id.
+-- Session only: everything starts closed again after a reload.
+local expandedSections = {}
+
+---@param id string
+---@return boolean
+function module.IsSectionExpanded(id)
+	return expandedSections[id] == true
+end
+
+---Opens or closes a collapsible section and redraws the options
+---@param id string
+function module.ToggleSectionExpanded(id)
+	expandedSections[id] = not expandedSections[id] or nil
+	E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
+end
+
+-- Keeps the option's own hidden state, adds "hidden while the section is closed"
+local function HideWhileCollapsed(option, id)
+	local hidden = option.hidden
+	option.hidden = function(...)
+		if not expandedSections[id] then
+			return true
+		end
+		if type(hidden) == "function" then
+			return hidden(...)
+		end
+		return hidden
+	end
+end
+
+---Turns an inline group into a collapsible module card (MERModuleCard in
+---Options/Widgets/Collapsible.lua): a header row with the group's name, `desc`
+---and `icon`, the other args only show while the card is open. With
+---`enableKey`, that toggle of the group moves into the header as its switch
+---(it keeps its own get/set/disabled); without a group `desc`, the toggle's
+---`desc` (or else a plain `args.desc` intro text) becomes the card description
+---and a NEW marker on its name moves to the title. Paths stay the same, the args remain direct children of the group.
+---Call module.LessCommon on the group's args first, so its link is hidden with
+---the rest of the card.
+---@param id string unique key of the card's open state
+---@param group table group option, `type` and `inline` can be left out
+---@param enableKey string? key of the toggle in `group.args` used as the switch
+---@return table group
+function module.ModuleCard(id, group, enableKey)
+	local args = group.args
+	local title, desc = group.name, group.desc
+
+	-- A plain intro text of the group becomes the card description
+	local intro = args.desc
+	if not desc and intro and intro.type == "description" and type(intro.name) == "string" then
+		desc = intro.name
+		args.desc = nil
+	end
+
+	for key, option in pairs(args) do
+		if key ~= enableKey then
+			HideWhileCollapsed(option, id)
+		end
+	end
+
+	local toggle = enableKey and args[enableKey]
+	if toggle then
+		desc = desc or toggle.desc
+		if type(toggle.name) == "string" and toggle.name:find(F.NewFeatureMarker, 1, true) then
+			title = F.NewFeatureText(title)
+		end
+	end
+
+	local header = toggle or { type = "description" }
+	header.order = 0
+	header.dialogControl = "MERModuleCard"
+	header.name = title
+	header.desc = nil
+	header.width = "full"
+	header.arg = { id = id, title = title, desc = desc, icon = group.icon, atlas = group.atlas }
+	args[enableKey or "cardHeader"] = header
+
+	-- A blank name keeps AceConfigDialog on an InlineGroup (the card box), an
+	-- empty one would give a SimpleGroup without a box. GroupTitle.lua treats a
+	-- blank title as untitled. The real name lives on in the header.
+	group.type = "group"
+	group.inline = true
+	group.guiInline = nil
+	group.name = " "
+	group.desc = nil
+	group.icon = nil
+	group.atlas = nil
+
+	return group
+end
+
+---Moves rarely needed options of a group behind a "Show More Options" link
+---(MERExpanderLink). The link sits after the last of them, so give them the
+---highest orders in their group.
+---@param args table args of the group
+---@param id string unique key of the section's open state
+---@param keys string[] keys in `args` to hide while the section is closed
+function module.LessCommon(args, id, keys)
+	local lastOrder = 0
+	for _, key in ipairs(keys) do
+		local option = args[key]
+		HideWhileCollapsed(option, id)
+		lastOrder = max(lastOrder, option.order or 0)
+	end
+
+	args[id .. "LessCommon"] = {
+		order = lastOrder + 0.01,
+		type = "execute",
+		dialogControl = "MERExpanderLink",
+		name = function()
+			return expandedSections[id] and L["Show Fewer Options"] or L["Show More Options"]
+		end,
+		width = "full",
+		arg = { id = id },
+		-- The link opens and closes, it never gets locked with its group
+		disabled = false,
+		func = function() end,
+	}
+end
+
 ---Settings of the Interrupt Ready castbar indicator, shared by UnitFrames and NamePlates
 ---@param order number
 ---@param getDB function returns the settings table
@@ -415,6 +536,8 @@ function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled
 		end
 	end
 
+	module.ModuleCard("interruptReady" .. previewKey, group, "enable")
+
 	return group
 end
 
@@ -509,6 +632,9 @@ function module.CastbarShieldOptions(order, getDB, update, requirementsDisabled,
 			group.args[key] = option
 		end
 	end
+
+	module.LessCommon(group.args, "castbarShield" .. previewKey .. "More", { "anchorPoint", "xOffset", "yOffset" })
+	module.ModuleCard("castbarShield" .. previewKey, group, "enable")
 
 	return group
 end
@@ -659,6 +785,8 @@ function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, p
 			group.args[key] = option
 		end
 	end
+
+	module.ModuleCard("executeLine" .. previewKey, group, "enable")
 
 	return group
 end

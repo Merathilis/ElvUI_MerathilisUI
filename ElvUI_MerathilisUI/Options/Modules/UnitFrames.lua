@@ -75,7 +75,7 @@ module:AddOptions(function()
 	end
 
 	local function FactionIndicatorOptions(order, unit)
-		return {
+		local group = {
 			order = order,
 			type = "group",
 			name = L["Faction Indicator"],
@@ -131,6 +131,11 @@ module:AddOptions(function()
 				},
 			},
 		}
+		module.LessCommon(group.args, "ufFactionIndicator" .. unit .. "More", { "position", "xOffset", "yOffset" })
+		group.desc = L["Shows the faction icon of players from the opposing faction."]
+		module.ModuleCard("ufFactionIndicator" .. unit, group, "enable")
+
+		return group
 	end
 
 	options.unitframes = {
@@ -837,4 +842,20 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	local portraitArgs = options.unitframes.args.portraits.args
+	module.LessCommon(
+		portraitArgs.style.args,
+		"ufPortraitStyle",
+		{ "backgroundColor", "shadow", "shadowAlpha", "innerShadow" }
+	)
+	module.LessCommon(portraitArgs.units.args, "ufPortraitUnits", { "point", "relativePoint", "xOffset", "yOffset" })
+	module.ModuleCard("ufPortraitClassification", portraitArgs.classification, "enable")
+
+	local generalArgs = options.unitframes.args.general.args
+	module.ModuleCard("ufRoundedCorners", generalArgs.roundedCorners, "enable")
+	module.ModuleCard("ufFactionIndicator", generalArgs.factionIndicator, "enable")
+
+	local playerArgs = options.unitframes.args.individualUnits.args.player.args
+	module.ModuleCard("ufRestingIndicator", playerArgs.restingIndicator, "enable")
 end)

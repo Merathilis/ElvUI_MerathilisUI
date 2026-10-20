@@ -87,6 +87,8 @@ L["Enables the stripes/gradient look on the frames"] =
 
 -- Core Options
 L["Tags"] = "태그"
+L["Show More Options"] = true
+L["Show Fewer Options"] = true
 L["Info"] = "정보"
 L["Login Message"] = "로그인 메시지 표시"
 

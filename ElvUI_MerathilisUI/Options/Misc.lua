@@ -67,12 +67,15 @@ module:AddOptions(function()
 				name = L["Auction Enhanced"],
 				desc = L["Show the tertiary stats of equipments in auction house."],
 			}, 0.5),
-			lootSpecManager = {
+			lootSpecManager = module.ModuleCard("miscLootSpecManager", {
 				order = 40,
-				type = "group",
 				name = L["LootSpecManager"],
-				desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
-				inline = true,
+				desc = (
+					L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."]:gsub(
+						"^|n",
+						""
+					)
+				),
 				get = function(info)
 					return E.db.mui.lootSpecManager[info[#info]]
 				end,
@@ -103,13 +106,11 @@ module:AddOptions(function()
 						end,
 					},
 				},
-			},
-			copyMog = {
+			}, "enable"),
+			copyMog = module.ModuleCard("miscCopyMog", {
 				order = 50,
-				type = "group",
 				name = L["Copy Transmog"],
 				desc = L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."],
-				inline = true,
 				get = function(info)
 					return E.db.mui.misc.copyMog[info[#info]]
 				end,
@@ -141,7 +142,7 @@ module:AddOptions(function()
 						end,
 					},
 				},
-			},
+			}, "enable"),
 		},
 	}
 
@@ -745,11 +746,10 @@ module:AddOptions(function()
 					},
 				},
 			},
-			applications = {
+			applications = module.ModuleCard("groupFinderApplications", {
 				order = 4,
-				type = "group",
 				name = L["Mythic+ Applications"],
-				guiInline = true,
+				desc = L["Counts your Mythic+ applications and shows how they ended in a bar on the Premade Groups page."],
 				disabled = function()
 					return not E.db.mui.misc.groupFinder.enable
 				end,
@@ -807,7 +807,7 @@ module:AddOptions(function()
 						end,
 					},
 				},
-			},
+			}, "enable"),
 		},
 	}
 	F.MarkTabAsNew("groupFinder")

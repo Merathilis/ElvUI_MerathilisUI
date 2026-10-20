@@ -580,7 +580,7 @@ module:AddOptions(function()
 								step = 1,
 							},
 							short = {
-								order = 9,
+								order = 5,
 								type = "toggle",
 								name = L["Short Display"],
 							},
@@ -1627,6 +1627,23 @@ module:AddOptions(function()
 				Refresh()
 			end,
 		}
+	end
+
+	-- The font strings of the header as cards, their offsets behind "Show More Options"
+	local headerArgs = options.armory.args.headerGroup.args
+	for key in pairs({
+		nameText = true,
+		titleText = true,
+		levelTitleText = true,
+		levelText = true,
+		specIcon = true,
+		classText = true,
+	}) do
+		local group = headerArgs[key]
+		if group.args.offsetX then
+			module.LessCommon(group.args, "armory" .. key .. "More", { "spacer", "offsetX", "offsetY" })
+		end
+		module.ModuleCard("armory" .. key, group)
 	end
 
 	F.MarkTabAsNew("armory")

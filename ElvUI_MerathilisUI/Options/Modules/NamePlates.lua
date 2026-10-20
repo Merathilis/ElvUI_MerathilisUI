@@ -835,6 +835,25 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	local indicators = options.nameplates.args.indicators.args
+	module.LessCommon(indicators.factionIndicator.args, "npFactionIndicatorMore", { "position", "xOffset", "yOffset" })
+	module.LessCommon(indicators.enemyForces.args, "npEnemyForcesMore", { "position", "xOffset", "yOffset" })
+	for key, id in pairs({
+		factionIndicator = "npFactionIndicator",
+		targetArrows = "npTargetArrows",
+		targetEmphasis = "npTargetEmphasis",
+		markerColor = "npMarkerColor",
+		enemyForces = "npEnemyForces",
+	}) do
+		module.ModuleCard(id, indicators[key], "enable")
+	end
+
+	local highlight = options.nameplates.args.highlight.args
+	module.ModuleCard("npHoverHighlight", highlight.highlight, "enable")
+	module.ModuleCard("npFocusHighlight", highlight.focusHighlight, "enable")
+	module.ModuleCard("npCastTarget", options.nameplates.args.castbar.args.castTarget, "enable")
+
 	F.MarkTabAsNew("nameplates")
 	F.MarkTabAsNew("indicators")
 end)

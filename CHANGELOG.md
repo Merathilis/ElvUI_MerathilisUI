@@ -38,6 +38,7 @@
 -   [Improvement]: Loadout Manager: Automatic talent swaps now wait while a talent change is being applied or the talent window has unsaved changes, instead of failing or discarding them.
 -   [Improvement]: NamePlates: Neutral Name Only finds the nameplate of a unit directly instead of going through all nameplates on every combat flag change.
 -   [Improvement]: NamePlates: The Castbar Shield now sits on the castbar itself instead of half over the castbar icon.
+-   [Improvement]: Options: Feature groups in the options (e.g. the nameplate indicators, the castbar and health bar features, Rounded Corners or the Armory header texts) are now collapsible cards with their on/off switch in the header, and rarely needed settings like anchor points and offsets sit behind a "Show More Options" link.
 -   [Improvement]: Profiles: The WindTools profile sets Expressway as the font of every WindTools module (Objective Tracker, Game Bar, Extra Items Bar, Inspect, Loss of Control and more) instead of WindTools' mix of fonts.
 -   [Improvement]: Skins: The rows in the Encounter Journal's Traveler's Log and Item Sets now use a transparent background instead of ElvUI's dark one (needs ElvUI's Parchment Remover).
 -   [Improvement]: Skins: The zone and category headers in the World Map's quest log now use a transparent background instead of ElvUI's dark one.
