@@ -1,4 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 local LSM = E.LSM or E.Libs.LSM
@@ -66,7 +67,7 @@ local function Update(widget)
 
 	local isMarkers = key == "markerColor"
 	local isForces = key == "enemyForces"
-	local width = min(widget.frame:GetWidth(), BAR_MAX_WIDTH)
+	local width = min(widget.stage:GetWidth(), BAR_MAX_WIDTH)
 	local barWidth = width
 	local barX = 0
 	if isMarkers then
@@ -89,7 +90,7 @@ local function Update(widget)
 			bar:ClearAllPoints()
 			bar:SetPoint(
 				"TOPLEFT",
-				widget.frame,
+				widget.stage,
 				"TOPLEFT",
 				barX + (index - 1) * (barWidth + BAR_SPACING),
 				-(ICON_SIZE + 4)
@@ -126,7 +127,7 @@ local function Update(widget)
 		end
 	end
 
-	widget.frame:SetAlpha(db.enable and 1 or 0.4)
+	widget.stage:SetAlpha(db.enable and 1 or 0.4)
 end
 
 local function CreateBar(parent, index)
@@ -187,7 +188,7 @@ local function Constructor()
 	end
 
 	widget.SetWidth = function(self, width)
-		self.frame:SetWidth(width)
+		module.Preview.SetStageWidth(self, width)
 		Update(self)
 	end
 
@@ -205,6 +206,8 @@ local function Constructor()
 	widget.SetJustifyV = function() end
 	widget.SetColor = function() end
 
+	-- Scaled down and centered like the other previews (Preview.lua)
+	module.Preview.Contain(widget)
 	return AceGUI:RegisterAsWidget(widget)
 end
 

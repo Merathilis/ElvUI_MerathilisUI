@@ -17,6 +17,60 @@ module.Preview = Preview
 
 local function Noop() end
 
+-- Every preview sits on a stage: its content scaled down a bit, never wider
+-- than STAGE_MAX_WIDTH and centered in the row. The previews draw on the
+-- stage (widget.stage, `widget.frame` inside the Register callbacks), the row
+-- itself (widget.frame) only takes the stage's scaled height.
+local STAGE_SCALE = 0.85
+local STAGE_MAX_WIDTH = 560
+
+---Puts the frame of a preview widget on a stage, see above. Call it at the
+---end of the constructor, before RegisterAsWidget; the preview then draws on
+---widget.stage and sizes it through Preview.SetStageWidth.
+---@param widget table
+---@return table widget
+function Preview.Contain(widget)
+	local stage = widget.frame
+	local row = CreateFrame("Frame", nil, UIParent)
+	row:Hide()
+
+	stage:SetParent(row)
+	stage:ClearAllPoints()
+	stage:SetPoint("TOP", row, "TOP")
+	stage:SetScale(STAGE_SCALE)
+	stage:Show()
+
+	-- The row follows every height the preview gives its stage
+	local stageSetHeight = stage.SetHeight
+	stage.SetHeight = function(frame, height)
+		stageSetHeight(frame, height)
+		row:SetHeight(height * STAGE_SCALE)
+	end
+	row:SetHeight(stage:GetHeight() * STAGE_SCALE)
+
+	widget.frame = row
+	widget.stage = stage
+
+	-- Widgets without an own SetWidth get their width through OnWidthSet
+	local onWidthSet = widget.OnWidthSet
+	widget.OnWidthSet = function(self, width)
+		self.stage:SetWidth(min(width / STAGE_SCALE, STAGE_MAX_WIDTH))
+		if onWidthSet then
+			onWidthSet(self, width)
+		end
+	end
+
+	return widget
+end
+
+---Width of the row, the stage gets its scaled share of it
+---@param widget table contained by Preview.Contain
+---@param width number
+function Preview.SetStageWidth(widget, width)
+	widget.frame:SetWidth(width)
+	widget.stage:SetWidth(min(width / STAGE_SCALE, STAGE_MAX_WIDTH))
+end
+
 ---Registers an AceGUI preview widget
 ---@param widgetType string AceGUI widget type
 ---@param version number
@@ -25,22 +79,26 @@ local function Noop() end
 ---@param update fun(widget: table, key: string) applies the settings of the key
 ---@param release? fun(widget: table) stops what the preview runs while shown
 function Preview.Register(widgetType, version, height, build, update, release)
-	local function Update(widget)
-		if widget._key then
-			update(widget, widget._key)
-		end
-	end
-
 	local function Constructor()
-		local frame = CreateFrame("Frame", nil, UIParent)
-		frame:SetHeight(height)
-		frame:Hide()
+		local stage = CreateFrame("Frame", nil, UIParent)
+		stage:SetHeight(height)
 
 		local widget = {
 			type = widgetType,
-			frame = frame,
+			frame = stage,
 		}
-		build(widget)
+
+		-- The callbacks see the stage as widget.frame, everything else they
+		-- read or store goes to the widget itself
+		local view = setmetatable({ frame = stage }, { __index = widget, __newindex = widget })
+		widget.view = view
+		build(view)
+
+		local function Update(self)
+			if self._key then
+				update(self.view, self._key)
+			end
+		end
 
 		widget.OnAcquire = function(self)
 			self.frame:Show()
@@ -48,7 +106,7 @@ function Preview.Register(widgetType, version, height, build, update, release)
 
 		widget.OnRelease = function(self)
 			if release then
-				release(self)
+				release(self.view)
 			end
 			self.frame:Hide()
 			self._key = nil
@@ -60,7 +118,7 @@ function Preview.Register(widgetType, version, height, build, update, release)
 		end
 
 		widget.SetWidth = function(self, width)
-			self.frame:SetWidth(width)
+			Preview.SetStageWidth(self, width)
 			Update(self)
 		end
 
@@ -76,6 +134,7 @@ function Preview.Register(widgetType, version, height, build, update, release)
 		widget.SetJustifyV = Noop
 		widget.SetColor = Noop
 
+		Preview.Contain(widget)
 		return AceGUI:RegisterAsWidget(widget)
 	end
 

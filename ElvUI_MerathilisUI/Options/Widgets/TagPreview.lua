@@ -1,4 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 local LSM = E.LSM or E.Libs.LSM
@@ -69,7 +70,7 @@ local function Update(widget)
 		r, g, b = healthColor.r, healthColor.g, healthColor.b
 	end
 
-	local width = (widget.frame.width or widget.frame:GetWidth() or 0) - GAP - 1 - PADDING * 2
+	local width = (widget.stage:GetWidth() or 0) - GAP - 1 - PADDING * 2
 	local barWidth = max(min(floor((width - SPACING * (COLUMNS - 1)) / COLUMNS), BAR_MAX_WIDTH), 1)
 
 	for index, sample in ipairs(GetSamples()) do
@@ -170,6 +171,8 @@ local function Constructor()
 	widget.SetJustifyV = function() end
 	widget.SetColor = function() end
 
+	-- Scaled down and centered like the other previews (Preview.lua)
+	module.Preview.Contain(widget)
 	return AceGUI:RegisterAsWidget(widget)
 end
 
