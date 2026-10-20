@@ -262,6 +262,12 @@ function module:ClearDependencyCache()
 end
 
 function module:SetupDependencies()
+	-- ElvUI leaves the addon list's own tooltip in Blizzard's look, give it the one of all other tooltips
+	local tooltip = _G.AddonTooltip
+	if tooltip and E.private.skins.blizzard.enable and E.private.skins.blizzard.tooltip then
+		E:GetModule("Tooltip"):SetStyle(tooltip)
+	end
+
 	-- Both globals are looked up on every call (row scripts), so the hooks see them all
 	hooksecurefunc("AddonList_Enable", OnAddonEnable)
 	hooksecurefunc("AddonTooltip_Update", OnTooltipUpdate)
