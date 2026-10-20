@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[742] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "20.10.2026",
 	FIXES = {
 		"[Armory]: The gray background bars of ElvUI's character skin showed up again behind the item level and the stats.",
 		"[Bags]: Shift+Right-click on an item with sockets now opens the socketing window, like in Blizzard's and ElvUI's bags.",
