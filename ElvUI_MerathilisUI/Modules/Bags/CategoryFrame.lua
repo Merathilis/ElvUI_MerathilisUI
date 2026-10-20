@@ -310,7 +310,8 @@ function module:OnGameTooltipDefaultAnchor(tt)
 	-- Anchor wasn't left at the default by ElvUI's own hook (e.g. combat/
 	-- action-bar visibility rules hid it, or something set an explicit
 	-- anchor of its own) - leave it alone rather than second-guessing that.
-	if tt:GetAnchorType() ~= "ANCHOR_NONE" then
+	-- The gamepad radial passes a plain frame without GetAnchorType.
+	if not tt.GetAnchorType or tt:GetAnchorType() ~= "ANCHOR_NONE" then
 		return
 	end
 

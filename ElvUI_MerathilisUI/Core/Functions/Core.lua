@@ -29,6 +29,12 @@ function F.IsMERProfile()
 	return not (not releaseVersion or releaseVersion == 0)
 end
 
+-- ElvUI skips its action bars while the gamepad UI is active (Blizzard's
+-- crossbar takes over), so the private toggle alone isn't enough.
+function F.IsElvUIActionBarsEnabled()
+	return E.private.actionbar.enable and not E.IsGamepadActive
+end
+
 function F.GetDBFromPath(path, dbRef)
 	local paths = { strsplit(".", path) }
 	local length = #paths

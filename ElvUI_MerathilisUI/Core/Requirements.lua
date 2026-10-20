@@ -28,7 +28,7 @@ local requirements = {
 		end,
 	},
 	[R.ELVUI_ACTIONBARS_ENABLED] = ElvUIModule(L["ActionBars"], function()
-		return E.private.actionbar.enable
+		return F.IsElvUIActionBarsEnabled()
 	end),
 	[R.ELVUI_UNITFRAMES_ENABLED] = ElvUIModule(L["UnitFrames"], function()
 		return E.private.unitframe.enable

@@ -112,7 +112,7 @@ function module:Disable()
 end
 
 function module:Enable()
-	if not self.Initialized and E.private.actionbar.enable then
+	if not self.Initialized and F.IsElvUIActionBarsEnabled() then
 		return
 	end
 
@@ -185,7 +185,7 @@ function module:DatabaseUpdate()
 		self.db = F.GetDBFromPath("mui.vehicleBar") or E.db.mui.vehicleBar
 		self.vdb = F.GetDBFromPath("mui.vehicleBar.vigorBar") or E.db.mui.vehicleBar.vigorBar
 
-		if self.db and self.db.enable and E.private.actionbar.enable then
+		if self.db and self.db.enable and F.IsElvUIActionBarsEnabled() then
 			self:Enable()
 		end
 	end)

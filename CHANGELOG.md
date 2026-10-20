@@ -2,11 +2,13 @@
 
 -   [Fix]: Armory: The gray background bars of ElvUI's character skin showed up again behind the item level and the stats.
 -   [Fix]: Bags: Shift+Right-click on an item with sockets now opens the socketing window, like in Blizzard's and ElvUI's bags.
+-   [Fix]: Bags: No more error when the gamepad radial menu shows a tooltip while the bags are open.
 -   [Fix]: Buff Reminder: An enchanted off-hand no longer hides the reminder for an unenchanted main-hand weapon.
 -   [Fix]: Buff Reminder: The food reminder now also finds the feasts (Feast of Knowledge, Silvermoon Parade, Harandar Celebration), Bloodthistle-wrapped Cutlets and all Hearty foods in your bags.
 -   [Fix]: Buff Reminder: Housing plots and garrisons no longer count as instanced content, so instance-only reminders stay hidden there.
 -   [Fix]: Cursor: The GCD ring now also shows on WoW Forever.
 -   [Fix]: Developer: Debug output of the modules shows up again with /muidev debug <module> (e.g. Armory), the channels had the wrong name.
+-   [Fix]: General: With the gamepad UI active (Blizzard's crossbar), the Vehicle Bar, Spec Bar, Assisted Rotation and the keybind colors stay off like ElvUI's action bars instead of running without them.
 -   [Fix]: Gradient Theme: Follower dungeon NPCs (e.g. the shaman and hunter) get their class color on the group frames and castbars again instead of the green friendly color.
 -   [Fix]: HoverCast: A binding whose macro grew past WoW's 255 character limit (e.g. with Smart Rez) lost its own action. The macro is now shortened step by step instead, the action always stays.
 -   [Fix]: Loadout Manager: No more false "item(s) missing" messages while the last items of a gear set are still being equipped.

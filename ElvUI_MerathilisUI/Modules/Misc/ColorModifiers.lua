@@ -90,7 +90,7 @@ end
 function module:DatabaseUpdate()
 	self.db = F.GetDBFromPath("mui.colorModifiers")
 
-	if not E.private.actionbar.enable then
+	if not F.IsElvUIActionBarsEnabled() then
 		return
 	end
 
