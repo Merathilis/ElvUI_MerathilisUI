@@ -15,6 +15,7 @@
 -   [Fix]: Loadout Manager: A talent loadout no longer stays pending when combat starts before its load began, and a loadout that only partly applied is now reported.
 -   [Fix]: Loadout Manager: Entering an arena or other instance no longer skips the automatic swap when the spec event arrives before the zone change and Spec Swap is turned off.
 -   [Fix]: NamePlates: Nameplates that only show a widget (e.g. delve companions like Valeera, objects with a progress bar) no longer show a leftover name, level and health text.
+-   [Fix]: NamePlates: Neutral Name Only no longer turns mobs into a name-only plate that are neutral to you but hostile towards you (red name).
 -   [Fix]: Profiles: The ls_Toasts profile places the toasts again. ls_Toasts now keeps its anchors per Edit Mode layout, the old position was ignored and the toasts ended up in the top left corner.
 -   [Fix]: Skins: WIM: The close and scroll buttons of the message windows keep their look after a WIM option or skin change, and the minimap button gets skinned again.
 -   [New]: Armory: The item slots fade in row by row when the character window opens, both columns together and the weapons last. Follows the Armory's animation settings.
