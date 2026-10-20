@@ -12,6 +12,7 @@ local format, next, pairs, sort, strfind, strlower, strtrim, tconcat, tinsert, u
 
 local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
+local IsAltKeyDown = IsAltKeyDown
 local GameTooltip = GameTooltip
 
 local DisableAddOn = C_AddOns.DisableAddOn
@@ -54,6 +55,7 @@ local function RefreshOptions()
 	E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
 	module:UpdateProfilePanel()
 end
+module.OnProfilesChanged = RefreshOptions
 
 --[[----------------------------------
 --	Locks
@@ -221,12 +223,14 @@ function module:RenameProfile(oldName, newName)
 
 	profiles[newName] = profiles[oldName]
 	profiles[oldName] = nil
+	self:RenameInstanceProfile(oldName, newName)
 	RefreshOptions()
 end
 
 ---@param name string
 function module:DeleteProfile(name)
 	self.db.profiles[name] = nil
+	self:RenameInstanceProfile(name, nil)
 	RefreshOptions()
 end
 
@@ -382,6 +386,11 @@ local function CreateLockButton(entry)
 	-- Moving onto the lock leaves the row, IsMouseOver keeps the lock shown then
 	entry:HookScript("OnEnter", OnRowHover)
 	entry:HookScript("OnLeave", OnRowHover)
+	entry:HookScript("OnClick", function(row, mouseButton)
+		if mouseButton == "LeftButton" and IsAltKeyDown() and module.db.enable then
+			module:OnRowAltClick(row)
+		end
+	end)
 
 	entry.MERLock = button
 end
@@ -514,6 +523,7 @@ function module:UpdateState()
 
 	self:UpdateStyle()
 	self:UpdateFilterButton()
+	self:UpdateInstanceProfiles()
 
 	RefreshList()
 end

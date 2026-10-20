@@ -10,6 +10,8 @@ local format, ipairs, next, select, strsub, tconcat, tinsert, unpack, wipe =
 	format, ipairs, next, select, strsub, table.concat, tinsert, unpack, wipe
 
 local hooksecurefunc = hooksecurefunc
+local IsAltKeyDown = IsAltKeyDown
+local IsShiftKeyDown = IsShiftKeyDown
 
 local DisableAddOn = C_AddOns.DisableAddOn
 local DoesAddOnExist = C_AddOns.DoesAddOnExist
@@ -126,6 +128,39 @@ E.PopupDialogs.MER_ADDON_DEPENDENTS = {
 	preferredIndex = 3,
 }
 
+-- Every addon that needs this one, directly or through another one, on or off
+local function CollectAllDependents(name, result, seen)
+	result, seen = result or {}, seen or { [name] = true }
+	for _, dependent in ipairs(GetDependents()[name] or {}) do
+		if not seen[dependent] then
+			seen[dependent] = true
+			tinsert(result, dependent)
+			CollectAllDependents(dependent, result, seen)
+		end
+	end
+
+	return result
+end
+
+-- Alt-click on a row that Blizzard switched: undone, the lock toggles instead
+local altHandledIndex
+
+---Alt-click on a locked row: its check button is disabled, so Blizzard switches
+---nothing and only the row's click arrives. Unlocks unless this click was handled.
+---@param entry Button AddonListEntryTemplate
+function module:OnRowAltClick(entry)
+	local index = entry:GetID()
+	if altHandledIndex == index then
+		altHandledIndex = nil
+		return
+	end
+
+	local name = GetAddOnName(index)
+	if self:IsLocked(name) then
+		self:SetLocked(name, false)
+	end
+end
+
 -- Runs after Blizzard switched a single addon by its check button
 local function OnAddonEnable(index, enabled)
 	local db = module.db
@@ -136,19 +171,49 @@ local function OnAddonEnable(index, enabled)
 	local character = GetListCharacter()
 	local name = GetAddOnName(index)
 
-	if enabled and db.enableDependencies then
-		local changed = false
-		for _, dep in ipairs(CollectDependencies(index)) do
-			if not IsEnabled(dep, character) then
-				EnableAddOn(dep, character)
-				changed = true
-			end
+	if IsAltKeyDown() then
+		if enabled then
+			DisableAddOn(index, character)
+		else
+			EnableAddOn(index, character)
 		end
 
-		if changed then
-			_G.AddonList_Update()
+		-- The row's own click hook runs right after this one and must not toggle again
+		altHandledIndex = index
+		F.Event.RunNextFrame(function()
+			altHandledIndex = nil
+		end)
+
+		module:SetLocked(name, not module:IsLocked(name))
+		return
+	end
+
+	local changed = false
+
+	-- Shift-click takes everything along that needs this addon
+	local switched = { name }
+	if IsShiftKeyDown() then
+		for _, dependent in ipairs(CollectAllDependents(name)) do
+			if enabled then
+				EnableAddOn(dependent, character)
+			else
+				DisableAddOn(dependent, character)
+			end
+			tinsert(switched, dependent)
+			changed = true
 		end
-	elseif not enabled and db.warnDependents then
+	end
+
+	if enabled and db.enableDependencies then
+		for _, addon in ipairs(switched) do
+			for _, dep in ipairs(CollectDependencies(addon)) do
+				if not IsEnabled(dep, character) then
+					EnableAddOn(dep, character)
+					changed = true
+				end
+			end
+		end
+	elseif not enabled and not changed and db.warnDependents then
 		local found = CollectEnabledDependents(name, character)
 		if next(found) then
 			local title = _G.C_AddOns.GetAddOnTitle(index)
@@ -159,6 +224,10 @@ local function OnAddonEnable(index, enabled)
 				{ dependents = found, character = character }
 			)
 		end
+	end
+
+	if changed then
+		_G.AddonList_Update()
 	end
 end
 
@@ -255,6 +324,10 @@ local function OnTooltipUpdate(owner)
 		local accent = module.colors.accent
 		tooltip:AddLine(L["Locked"], accent[1], accent[2], accent[3])
 	end
+
+	tooltip:AddLine(" ")
+	tooltip:AddLine(L["Alt-click: lock or unlock"], 0.6, 0.6, 0.6)
+	tooltip:AddLine(L["Shift-click: also switch the addons that need it"], 0.6, 0.6, 0.6)
 
 	tooltip:Show()
 end

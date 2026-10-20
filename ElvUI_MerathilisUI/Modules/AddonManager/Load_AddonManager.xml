@@ -5,4 +5,6 @@
 	<Script file="Dependencies.lua"/>
 	<Script file="Filter.lua"/>
 	<Script file="Bisect.lua"/>
+	<Script file="Exchange.lua"/>
+	<Script file="Instances.lua"/>
 </Ui>

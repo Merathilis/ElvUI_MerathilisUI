@@ -18,6 +18,7 @@ local HEADER_HEIGHT = 44
 local CARD_HEIGHT = 40
 local CARD_GAP = 6
 local SCROLLBAR_WIDTH = 20
+local IMPORT_WIDTH = 70
 
 local panel
 local cards = {}
@@ -30,6 +31,9 @@ local function CardMenu(owner, root)
 	end)
 	root:CreateButton(L["Rename"], function()
 		module:ShowRenameProfilePopup(name)
+	end)
+	root:CreateButton(L["Export"], function()
+		module:ShowExportPopup(name)
 	end)
 	root:CreateButton(_G.DELETE, function()
 		module:ShowDeleteProfilePopup(name)
@@ -158,17 +162,31 @@ local function CreatePanel(list)
 	end)
 	S:HandleCloseButton(panel.close)
 
-	-- Footer: save the current addons as a new profile
-	panel.save = module.CreateFlatButton(panel, L["Save Current As..."], PANEL_WIDTH - INSET * 2, 26, true, function()
-		module:ShowSaveProfilePopup()
+	-- Footer: save the current addons as a new profile, or import one
+	local footerWidth = PANEL_WIDTH - INSET * 2
+	panel.import = module.CreateFlatButton(panel, L["Import"], IMPORT_WIDTH, 26, false, function()
+		module:ShowImportPopup()
 	end)
-	panel.save:SetPoint("BOTTOM", 0, INSET)
+	panel.import:SetPoint("BOTTOMRIGHT", -INSET, INSET)
+	panel.import.tooltip = L["Adds a profile from an addon profile code."]
+
+	panel.save = module.CreateFlatButton(
+		panel,
+		L["Save Current As..."],
+		footerWidth - IMPORT_WIDTH - 6,
+		26,
+		true,
+		function()
+			module:ShowSaveProfilePopup()
+		end
+	)
+	panel.save:SetPoint("BOTTOMLEFT", INSET, INSET)
 
 	-- Above it the search for a faulty addon
-	panel.bisect = module.CreateFlatButton(panel, L["Find Faulty Addon"], PANEL_WIDTH - INSET * 2, 22, false, function()
+	panel.bisect = module.CreateFlatButton(panel, L["Find Faulty Addon"], footerWidth, 22, false, function()
 		module:ShowBisectStartPopup()
 	end)
-	panel.bisect:SetPoint("BOTTOM", panel.save, "TOP", 0, 6)
+	panel.bisect:SetPoint("BOTTOMLEFT", panel.save, "TOPLEFT", 0, 6)
 	panel.bisect.tooltip =
 		L["Turns off half of your addons per reload until the one behind a problem is found. Your addons come back at the end."]
 

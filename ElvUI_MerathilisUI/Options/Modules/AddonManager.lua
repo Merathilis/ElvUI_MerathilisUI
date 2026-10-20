@@ -214,7 +214,65 @@ module:AddOptions(function()
 							AM:ShowSaveProfilePopup()
 						end,
 					},
+					export = {
+						order = 7,
+						type = "execute",
+						name = L["Export"],
+						disabled = NoProfile,
+						func = function()
+							AM:ShowExportPopup(selectedProfile)
+						end,
+					},
+					import = {
+						order = 8,
+						type = "execute",
+						name = L["Import"],
+						func = function()
+							AM:ShowImportPopup()
+						end,
+					},
 				},
+			},
+			instanceProfiles = {
+				order = 4.5,
+				type = "group",
+				inline = true,
+				name = L["Instance Profiles"],
+				disabled = Disabled,
+				args = (function()
+					local args = {
+						desc = {
+							order = 0,
+							type = "description",
+							name = L["Entering one of these places offers to load its addon profile when your addons differ. Loading reloads the UI."],
+							width = "full",
+						},
+					}
+
+					for index, entry in ipairs(AM.instanceTypes) do
+						args[entry.key] = {
+							order = index,
+							type = "select",
+							name = entry.text,
+							values = function()
+								local values = { [""] = _G.NONE }
+								for _, name in ipairs(AM:GetProfileNames()) do
+									values[name] = name
+								end
+								return values
+							end,
+							get = function()
+								return db.instanceProfiles[entry.key] or ""
+							end,
+							set = function(_, value)
+								db.instanceProfiles[entry.key] = value ~= "" and value or nil
+								AM:UpdateInstanceProfiles()
+							end,
+						}
+					end
+
+					return args
+				end)(),
 			},
 			locked = {
 				order = 5,

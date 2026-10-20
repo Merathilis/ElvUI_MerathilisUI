@@ -31,6 +31,7 @@ G.addonManager = {
 		ElvUI_MerathilisUI = true,
 	},
 	profiles = {}, -- [name] = { [addon] = true }
+	instanceProfiles = {}, -- [IsInInstance type] = profile name
 }
 
 G.mail = {
