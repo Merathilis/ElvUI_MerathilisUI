@@ -147,4 +147,8 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	local buffs = options.tooltip.args.buffs
+	module.LessCommon(buffs.args, "tooltipBuffsMore", { "xOffset", "yOffset" })
+	module.ModuleCard("tooltipBuffs", buffs, "enable")
 end)

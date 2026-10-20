@@ -641,4 +641,6 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ModuleCard("movementAlertReady", options.movementAlert.args.general.args.alert, "enable")
 end)

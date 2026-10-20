@@ -439,4 +439,7 @@ module:AddOptions(function()
 			return E.db.mui.notification.textFont
 		end)
 	)
+
+	module.ModuleCard("notificationCurrencyWarning", options.Notification.args.currencyWarning, "enable")
+	module.ModuleCard("notificationVignette", options.Notification.args.vignette, "enable")
 end)

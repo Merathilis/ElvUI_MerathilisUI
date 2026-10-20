@@ -203,4 +203,6 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ModuleCard("dtColoredDurability", options.datatexts.args.durabilityIlevel.args.colored, "enable")
 end)

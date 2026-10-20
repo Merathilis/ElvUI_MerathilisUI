@@ -643,4 +643,9 @@ module:AddOptions(function()
 			end
 		end
 	end)
+
+	local chatArgs = options.chat.args
+	module.ModuleCard("chatSidebar", chatArgs.sidebar, "enable")
+	module.ModuleCard("chatEditBox", chatArgs.editBox, "enable")
+	module.ModuleCard("chatCopyChat", chatArgs.copyChat, "enable")
 end)

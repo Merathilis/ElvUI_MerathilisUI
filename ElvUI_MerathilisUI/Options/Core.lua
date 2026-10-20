@@ -381,7 +381,14 @@ function module.ModuleCard(id, group, enableKey)
 	header.name = title
 	header.desc = nil
 	header.width = "full"
-	header.arg = { id = id, title = title, desc = desc, icon = group.icon, atlas = group.atlas }
+	-- A name function reaches the header through AceConfigDialog, only text goes into arg
+	header.arg = {
+		id = id,
+		title = type(title) == "string" and title or nil,
+		desc = desc,
+		icon = group.icon,
+		atlas = group.atlas,
+	}
 	args[enableKey or "cardHeader"] = header
 
 	-- A blank name keeps AceConfigDialog on an InlineGroup (the card box), an

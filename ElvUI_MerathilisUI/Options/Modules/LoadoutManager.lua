@@ -786,4 +786,8 @@ module:AddOptions(function()
 		option.width = "relative"
 		option.relWidth = 0.33
 	end
+
+	local selectionArgs = options.loadoutManager.args.selection.args
+	module.ActionCard(selectionArgs.equipNow, { icon = I.Media.Icons.Categories.loadout_manager, relWidth = 0.5 })
+	module.ActionCard(selectionArgs.verify, { icon = I.Media.Icons.Ok, relWidth = 0.5 })
 end)

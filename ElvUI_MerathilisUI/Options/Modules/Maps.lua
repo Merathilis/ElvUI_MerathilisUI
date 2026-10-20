@@ -8,6 +8,7 @@ module:AddOptions(function()
 	-- The Minimap button bars share one anchor/size/spacing block. getBar() returns
 	-- the settings table of the bar the block belongs to; the toggles above it keep
 	-- the group's own get/set, so the block brings its own.
+	local barCount = 0
 	local function AddMinimapBarLayout(args, getBar)
 		local function get(info)
 			return getBar()[info[#info]]
@@ -100,6 +101,9 @@ module:AddOptions(function()
 		for key, option in pairs(layout) do
 			args[key] = option
 		end
+
+		barCount = barCount + 1
+		module.LessCommon(args, "minimapBar" .. barCount .. "More", { "point", "xOffset", "yOffset" })
 
 		return args
 	end
@@ -582,4 +586,7 @@ module:AddOptions(function()
 			return E.db.mui.locationPanel.font
 		end)
 	)
+
+	module.ModuleCard("mapsLocationPanel", options.maps.args.locationPanel, "enable")
+	module.ModuleCard("mapsMinimapButtons", options.maps.args.minimapButtons, "enable")
 end)

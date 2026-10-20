@@ -1106,4 +1106,8 @@ module:AddOptions(function()
 	module.CogGroup(fontArgs.itemInfo.args, "font", BagsFontSummary("itemInfo", "font"))
 	module.CogGroup(fontArgs, "headerFont", BagsFontSummary("headerFont"))
 	module.CogGroup(fontArgs, "subHeaderFont", BagsFontSummary("subHeaderFont"))
+
+	module.ModuleCard("bagsSortSpinner", options.bags.args.categorizedBags.args.general.args.spinnerGroup, "enable")
+	module.ModuleCard("bagsItemLevel", fontArgs.itemLevel, "enable")
+	module.ModuleCard("bagsItemInfo", fontArgs.itemInfo, "enable")
 end)

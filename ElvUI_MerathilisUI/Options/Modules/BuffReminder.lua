@@ -360,4 +360,6 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ModuleCard("buffReminderSound", options.buffReminder.args.sound, "enable")
 end)
