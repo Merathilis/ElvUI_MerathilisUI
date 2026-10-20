@@ -601,9 +601,23 @@ local function FontGroupSummary(group, inheritedGet)
 	end
 end
 
----Puts every inline font group (an LSM30_Font select among its args) of the
----options into a popup behind a module.CogGroup button, with font, size and
----outline as summary. Groups that already have a cog button are left alone.
+-- Font groups without a font select (only size and outline), marked by
+-- module.CogFontGroup. Kept apart from the options: AceConfigRegistry rejects
+-- unknown fields on an option.
+local cogFontGroups = setmetatable({}, { __mode = "k" })
+
+---Marks a group for module.ApplyCogFonts that has no font select of its own
+---@param group table
+---@return table group
+function module.CogFontGroup(group)
+	cogFontGroups[group] = true
+	return group
+end
+
+---Puts every inline font group (an LSM30_Font select among its args, or one
+---marked with module.CogFontGroup) of the options into a popup behind a
+---module.CogGroup button, with font, size and outline as summary. Groups that
+---already have a cog button are left alone.
 ---@param args table
 ---@param inheritedGet function? get of the enclosing groups
 ---@param parentInline boolean? the enclosing group is inline, AceConfigDialog shows its subgroups inline too
@@ -616,6 +630,9 @@ function module:ApplyCogFonts(args, inheritedGet, parentInline)
 			self:ApplyCogFonts(entry.args, get, inline)
 
 			if inline and not args[key .. "Cog"] then
+				if cogFontGroups[entry] then
+					fontGroups[key] = inheritedGet
+				end
 				for _, child in pairs(entry.args) do
 					if type(child) == "table" and IsFontSelect(child) then
 						fontGroups[key] = inheritedGet

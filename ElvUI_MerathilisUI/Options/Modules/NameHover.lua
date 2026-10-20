@@ -282,4 +282,25 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	-- Outline and size of each text in a popup (module.ApplyCogFonts)
+	local textArgs = options.nameHover.args.textGroup.args
+	for _, text in ipairs({
+		{ "mainText", L["Main Text"] },
+		{ "statusText", L["Status Text"] },
+		{ "headerText", L["Header Text"] },
+		{ "guildText", L["Guild Text"] },
+		{ "subText", L["Sub Text"] },
+	}) do
+		local key = text[1]
+		module.CogFontGroup(module.GroupOptions(textArgs, key .. "Font", text[2], { key .. "Outline", key .. "Size" }))
+	end
+	module.CogFontGroup(
+		module.GroupOptions(
+			options.nameHover.args.DungeonGroup.args,
+			"mythicPlusFont",
+			L["Enemy Forces Font"],
+			{ "mythicPlus_FontSize", "mythicPlusFontOutline" }
+		)
+	)
 end)
