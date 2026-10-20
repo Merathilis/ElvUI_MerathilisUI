@@ -102,6 +102,7 @@ do
 		local expanded = self.id and module.IsSectionExpanded(self.id)
 
 		header.hoverTex:SetShown(self.hover and true or false)
+		header.chevron:SetShown(not self.static)
 		header.chevron:SetRotation(expanded and S.ArrowRotation.down or S.ArrowRotation.right)
 		if self.hover then
 			header.chevron:SetVertexColor(unpack(COLOR_ACCENT))
@@ -135,7 +136,7 @@ do
 		local header = self.header
 		local expanded = self.id and module.IsSectionExpanded(self.id)
 
-		local textLeft = PADDING + CHEVRON_SIZE + PADDING
+		local textLeft = PADDING + (self.static and 0 or (CHEVRON_SIZE + PADDING))
 		header.icon:ClearAllPoints()
 		if header.icon:IsShown() then
 			header.icon:SetPoint("LEFT", textLeft, 0)
@@ -191,11 +192,21 @@ do
 		HideTooltip(self)
 	end
 
+	local Track_OnClick
+
 	local function Header_OnClick(header)
-		Section_OnClick(header.obj)
+		local self = header.obj
+		-- Without a body the whole row is the switch
+		if self.static then
+			if self.hasSwitch then
+				Track_OnClick(self.track)
+			end
+			return
+		end
+		Section_OnClick(self)
 	end
 
-	local function Track_OnClick(track)
+	function Track_OnClick(track)
 		local self = track.obj
 		if self.disabled then
 			return
@@ -226,6 +237,7 @@ do
 			self:SetWidth(200)
 			self.hover = nil
 			self.id = nil
+			self.static = nil
 			self.hasSwitch = nil
 			self.checked = nil
 			self.disabled = nil
@@ -301,6 +313,7 @@ do
 			end
 
 			self.id = data.id
+			self.static = data.static
 			if data.title then
 				SetTitle(self, data.title)
 			end

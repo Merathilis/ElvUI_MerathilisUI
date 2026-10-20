@@ -104,6 +104,11 @@ module:AddOptions(function()
 				keybind = KeybindOption(3, deck.binding),
 			},
 		}
+
+		-- A card per deck with its icon in the header, the keybind inside
+		deckArgs[key].name = deck.name
+		deckArgs[key].icon = deck.icon
+		module.ModuleCard("quickGridDeck" .. key, deckArgs[key], "enable")
 	end
 
 	-------------------------------------------------------------------------------

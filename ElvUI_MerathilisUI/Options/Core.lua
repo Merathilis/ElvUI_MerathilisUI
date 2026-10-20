@@ -382,12 +382,22 @@ function module.ModuleCard(id, group, enableKey)
 	header.desc = nil
 	header.width = "full"
 	-- A name function reaches the header through AceConfigDialog, only text goes into arg
+	-- A card with nothing but its switch has no body to open
+	local hasBody = false
+	for key in pairs(args) do
+		if key ~= enableKey then
+			hasBody = true
+			break
+		end
+	end
+
 	header.arg = {
 		id = id,
 		title = type(title) == "string" and title or nil,
 		desc = desc,
 		icon = group.icon,
 		atlas = group.atlas,
+		static = not hasBody,
 	}
 	args[enableKey or "cardHeader"] = header
 

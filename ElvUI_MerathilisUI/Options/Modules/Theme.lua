@@ -845,6 +845,18 @@ module:AddOptions(function()
 					set = directionSet("assisttarget"),
 				}
 			end
+
+			-- Every direction as a Left / Right bar
+			local directionOrder = { I.Enum.GradientMode.Direction.LEFT, I.Enum.GradientMode.Direction.RIGHT }
+			for _, entry in pairs(tab) do
+				if type(entry) == "table" and type(entry.args) == "table" then
+					for _, option in pairs(entry.args) do
+						if type(option) == "table" and option.values == directionValues then
+							module.Segmented(option, directionOrder)
+						end
+					end
+				end
+			end
 		end
 
 		-- Settings

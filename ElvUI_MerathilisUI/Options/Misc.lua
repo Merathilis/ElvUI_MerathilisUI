@@ -961,4 +961,7 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ModuleCard("miscGameMenuMythic", options.gameMenu.args.info.args.mythic, "showMythicKey")
+	module.ActionCard(options.raidInfo.args.toggle, { icon = I.Media.Icons.Categories.info, relWidth = 0.5 })
 end)
