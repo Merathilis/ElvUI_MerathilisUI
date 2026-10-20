@@ -1677,7 +1677,8 @@ module:AddOptions(function()
 		})
 	end
 
-	-- The font strings of the header as cards, their offsets behind "Show More Options"
+	-- The font strings of the header as cards, their offsets behind "Show More Options",
+	-- the font itself in a popup (module.ApplyCogFonts)
 	local headerArgs = options.armory.args.headerGroup.args
 	for key in pairs({
 		nameText = true,
@@ -1688,6 +1689,13 @@ module:AddOptions(function()
 		classText = true,
 	}) do
 		local group = headerArgs[key]
+		local fontKeys = {}
+		for _, fontKey in ipairs({ "name", "style", "size" }) do
+			if group.args[fontKey] then
+				fontKeys[#fontKeys + 1] = fontKey
+			end
+		end
+		module.GroupOptions(group.args, "font", L["Font"], fontKeys)
 		if group.args.offsetX then
 			module.LessCommon(group.args, "armory" .. key .. "More", { "spacer", "offsetX", "offsetY" })
 		end

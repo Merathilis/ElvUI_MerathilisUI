@@ -514,6 +514,113 @@ function module.FontSummary(getDB)
 	end
 end
 
+---Moves loose options of a group into a new inline subgroup, e.g. flat font
+---settings into a "Font" group that module.ApplyCogFonts then puts in a popup.
+---The options keep their keys; without own get/set they inherit the outer
+---group's ones through the new group, which has none.
+---@param args table args holding the options
+---@param groupKey string key of the new group
+---@param name string name of the new group
+---@param keys string[] keys of the options to move
+---@return table group
+function module.GroupOptions(args, groupKey, name, keys)
+	local group = { type = "group", inline = true, name = name, args = {} }
+	local order, disabled
+	for i, key in ipairs(keys) do
+		local option = args[key]
+		order = order and min(order, option.order or 0) or option.order
+		-- A disabled check all of them share also locks the group (and its cog button)
+		if i == 1 then
+			disabled = option.disabled
+		elseif option.disabled ~= disabled then
+			disabled = nil
+		end
+		group.args[key] = option
+		args[key] = nil
+	end
+	group.order = order
+	group.disabled = disabled
+	args[groupKey] = group
+	return group
+end
+
+local function IsFontSelect(entry)
+	return entry.type == "select"
+		and (entry.dialogControl == "LSM30_Font" or entry.itemControl == "MERDropdownItemFont")
+end
+
+-- Font, size and outline of a font group, read through its getters
+local function FontGroupSummary(group, inheritedGet)
+	local fields = {}
+	for key, entry in pairs(group.args) do
+		if type(entry) == "table" then
+			local rank
+			if IsFontSelect(entry) then
+				rank = 1
+			elseif entry.type == "range" and strlower(key):find("size") then
+				rank = 2
+			elseif
+				entry.type == "select" and (entry.values == MER.Values.FontFlags or strlower(key):find("outline"))
+			then
+				rank = 3
+			end
+			if rank then
+				fields[#fields + 1] = { key = key, entry = entry, rank = rank }
+			end
+		end
+	end
+	sort(fields, function(a, b)
+		return a.rank < b.rank
+	end)
+
+	return function()
+		local parts = {}
+		for _, field in ipairs(fields) do
+			local get = field.entry.get or group.get or inheritedGet
+			if type(get) == "function" then
+				local ok, value = pcall(get, { field.key })
+				if ok and value ~= nil and value ~= "" then
+					if field.rank == 3 then
+						value = MER.Values.FontFlags[value] or value
+					end
+					parts[#parts + 1] = tostring(value)
+				end
+			end
+		end
+		return table.concat(parts, ", ")
+	end
+end
+
+---Puts every inline font group (an LSM30_Font select among its args) of the
+---options into a popup behind a module.CogGroup button, with font, size and
+---outline as summary. Groups that already have a cog button are left alone.
+---@param args table
+---@param inheritedGet function? get of the enclosing groups
+---@param parentInline boolean? the enclosing group is inline, AceConfigDialog shows its subgroups inline too
+function module:ApplyCogFonts(args, inheritedGet, parentInline)
+	local fontGroups = {}
+	for key, entry in pairs(args) do
+		if type(entry) == "table" and entry.type == "group" and type(entry.args) == "table" then
+			local inline = parentInline or entry.inline or entry.guiInline or entry.dialogInline
+			local get = type(entry.get) == "function" and entry.get or inheritedGet
+			self:ApplyCogFonts(entry.args, get, inline)
+
+			if inline and not args[key .. "Cog"] then
+				for _, child in pairs(entry.args) do
+					if type(child) == "table" and IsFontSelect(child) then
+						fontGroups[key] = inheritedGet
+						break
+					end
+				end
+			end
+		end
+	end
+
+	for key, get in pairs(fontGroups) do
+		module.CogGroup(args, key, FontGroupSummary(args[key], get))
+	end
+end
+
 ---Shows a select with two to four short values as a MERSegmented bar
 ---(Options/Widgets/Segmented.lua) instead of a dropdown
 ---@param option table select option with static `values`
@@ -1180,6 +1287,8 @@ function module:OptionsCallback()
 		}
 	end
 
+	-- Before ApplyCustomWidgets, which turns the LSM30_Font selects into MERDropdowns
+	self:ApplyCogFonts(E.Options.args.mui.args)
 	self:ApplyCustomWidgets(E.Options.args.mui.args)
 
 	for _, func in ipairs(self.postBuilders) do
