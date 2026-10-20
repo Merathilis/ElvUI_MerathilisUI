@@ -42,6 +42,7 @@
 	<Script file='Slider.lua' />
 	<Script file='Dropdown.lua' />
 	<Script file='EditBox.lua' />
+	<Script file='ColorPickerPopup.lua' />
 	<Script file='ColorPicker.lua' />
 	<Script file='Button.lua' />
 	<Script file='TextLink.lua' />

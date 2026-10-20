@@ -86,6 +86,18 @@ L["Enables the stripes/gradient look on the frames"] = true
 L["Login Message"] = "Сообщение загрузки"
 L["Show More Options"] = true
 L["Show Fewer Options"] = true
+L["Color Picker"] = true
+L["Current"] = true
+L["Hex"] = true
+L["Opacity"] = true
+L["Quick Colors"] = true
+L["Favorites"] = true
+L["Recent Colors"] = true
+L["Click to go back to this color."] = true
+L["Right-click to add it to your favorites."] = true
+L["Right-click to remove it from your favorites."] = true
+L["Right-click a recent color to add it."] = true
+L["Colors you confirm show up here."] = true
 
 -- Information
 L["Information"] = "Информация"

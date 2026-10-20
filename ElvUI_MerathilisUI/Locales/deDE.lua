@@ -87,6 +87,18 @@ L["Enables the stripes/gradient look on the frames"] = true
 L["Login Message"] = "Login Nachricht"
 L["Show More Options"] = "Mehr Optionen anzeigen"
 L["Show Fewer Options"] = "Weniger Optionen anzeigen"
+L["Color Picker"] = "Farbwähler"
+L["Current"] = "Aktuell"
+L["Hex"] = true
+L["Opacity"] = "Deckkraft"
+L["Quick Colors"] = "Schnellfarben"
+L["Favorites"] = "Favoriten"
+L["Recent Colors"] = "Zuletzt verwendet"
+L["Click to go back to this color."] = "Klicken, um zu dieser Farbe zurückzukehren."
+L["Right-click to add it to your favorites."] = "Rechtsklick, um sie zu den Favoriten hinzuzufügen."
+L["Right-click to remove it from your favorites."] = "Rechtsklick, um sie aus den Favoriten zu entfernen."
+L["Right-click a recent color to add it."] = "Rechtsklick auf eine zuletzt verwendete Farbe fügt sie hinzu."
+L["Colors you confirm show up here."] = "Bestätigte Farben erscheinen hier."
 
 -- Information
 L["Information"] = "Informationen"

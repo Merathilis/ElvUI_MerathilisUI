@@ -25,6 +25,11 @@ G.groupFinder = {
 	applications = {}, -- Mythic+ application counts of the whole account
 }
 
+G.colorPicker = {
+	recent = {}, -- last confirmed colors of the options color picker
+	favorites = {},
+}
+
 G.developer = {
 	logLevel = 2,
 	channels = {},
