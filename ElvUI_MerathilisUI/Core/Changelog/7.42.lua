@@ -47,6 +47,7 @@ MER.Changelog[742] = {
 		"[NamePlates]: The Castbar Shield now sits on the castbar itself instead of half over the castbar icon.",
 		'[Options]: Feature groups in the options (e.g. the nameplate indicators, the castbar and health bar features, Rounded Corners or the Armory header texts) are now collapsible cards with their on/off switch in the header, and rarely needed settings like anchor points and offsets sit behind a "Show More Options" link.',
 		"[Options]: Own color picker instead of Blizzard's: a color field with hue and opacity bars, hex and opacity inputs, the new and the current color side by side, quick picks for the option's default, your class and the accent color, plus favorites and recently used colors.",
+		"[Options]: Selects with only a few values (e.g. Grid, List, Compact or the grow directions) are now a segmented bar instead of a dropdown. Color modes with a custom color became one bar with a color dot per mode, a click on Custom opens the color picker right away.",
 		"[Profiles]: The WindTools profile sets Expressway as the font of every WindTools module (Objective Tracker, Game Bar, Extra Items Bar, Inspect, Loss of Control and more) instead of WindTools' mix of fonts.",
 		"[Skins]: The rows in the Encounter Journal's Traveler's Log and Item Sets now use a transparent background instead of ElvUI's dark one (needs ElvUI's Parchment Remover).",
 		"[Skins]: The zone and category headers in the World Map's quest log now use a transparent background instead of ElvUI's dark one.",

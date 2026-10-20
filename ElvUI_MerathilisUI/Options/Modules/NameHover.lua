@@ -227,7 +227,7 @@ module:AddOptions(function()
 						name = L["Show Enemy Forces"],
 						desc = L["During a Mythic+ keystone run, show how much a hovered enemy contributes to the Enemy Forces requirement, below its name."],
 					},
-					mythicPlus_ContributionFormat = {
+					mythicPlus_ContributionFormat = module.Segmented({
 						order = 2,
 						type = "select",
 						name = L["Contribution Format"],
@@ -237,14 +237,14 @@ module:AddOptions(function()
 							["NUMBER"] = L["Number"],
 							["BOTH"] = L["Both"],
 						},
-					},
+					}, { "PERCENT", "NUMBER", "BOTH" }),
 					mythicPlus_ShowProgress = {
 						order = 3,
 						type = "toggle",
 						name = L["Show Pull Progress"],
 						desc = L["Also show the overall Enemy Forces progress next to the contribution: current / total"],
 					},
-					mythicPlus_ProgressFormat = {
+					mythicPlus_ProgressFormat = module.Segmented({
 						order = 4,
 						type = "select",
 						name = L["Progress Format"],
@@ -254,7 +254,7 @@ module:AddOptions(function()
 							["NUMBER"] = L["Number"],
 							["BOTH"] = L["Both"],
 						},
-					},
+					}, { "PERCENT", "NUMBER", "BOTH" }),
 					mythicPlus_FontSize = {
 						order = 5,
 						name = L["Font Size"],

@@ -782,11 +782,19 @@ local function Place(anchor)
 	end
 
 	local scale = anchor:GetEffectiveScale() / popup:GetEffectiveScale()
-	local bottom = (anchor:GetBottom() or 0) * scale
+	local left, bottom, top = anchor:GetLeft(), anchor:GetBottom(), anchor:GetTop()
+	if not left or not bottom or not top then
+		popup:SetPoint("CENTER")
+		return
+	end
+
+	-- A fixed screen position: the opener may get released (and reused
+	-- elsewhere) by the options rebuild while the popup stays open
+	left, bottom, top = left * scale, bottom * scale, top * scale
 	if bottom - popup:GetHeight() - 4 < 0 then
-		popup:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, 4)
+		popup:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", left, top + 4)
 	else
-		popup:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -4)
+		popup:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, bottom - 4)
 	end
 end
 

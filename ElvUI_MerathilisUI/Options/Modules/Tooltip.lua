@@ -62,7 +62,7 @@ module:AddOptions(function()
 						desc = L["Only show buffs on the tooltip of players."],
 						disabled = BuffsDisabled,
 					},
-					position = {
+					position = module.Segmented({
 						order = 3,
 						type = "select",
 						name = L["Position"],
@@ -73,7 +73,7 @@ module:AddOptions(function()
 							LEFT = L["Left"],
 							RIGHT = L["Right"],
 						},
-					},
+					}, { "BOTTOM", "TOP", "LEFT", "RIGHT" }),
 					spacer = {
 						order = 4,
 						type = "description",

@@ -427,6 +427,79 @@ function module.LessCommon(args, id, keys)
 	}
 end
 
+---Shows a select with two to four short values as a MERSegmented bar
+---(Options/Widgets/Segmented.lua) instead of a dropdown
+---@param option table select option with static `values`
+---@param order table values in the order of the bar
+---@param width number|string? AceConfig width, by default half a column per value
+---@return table option
+function module.Segmented(option, order, width)
+	option.dialogControl = "MERSegmented"
+	option.sorting = order
+	option.width = width or max(1, #order * 0.5)
+	return option
+end
+
+local function ClassColorChip()
+	local color = E:ClassColor(E.myclass, true)
+	return color.r, color.g, color.b
+end
+
+local function ValueColorChip()
+	return unpack(E.media.rgbvaluecolor)
+end
+
+-- Chips of the usual color modes, a site can add or replace them
+local COLOR_MODE_CHIPS = {
+	CLASS = ClassColorChip,
+	CLASS_GRADIENT = ClassColorChip,
+	VALUE = ValueColorChip,
+}
+
+---Turns a color mode select and its custom color option into one MERSegmented
+---bar: a chip in front of each mode shows its color, the custom mode's chip shows
+---the custom color and a click on it opens the color picker. The color option
+---itself gets hidden; it needs its own get/set, both are called with an info of
+---just its key.
+---@param args table args holding both options
+---@param selectKey string key of the select
+---@param colorKey string? key of the color option, nil for a mode without own color
+---@param order table values in the order of the bar
+---@param opts table? { custom = value with the own color (default "CUSTOM"), chips = { [value] = color }, width = ... }
+function module.ColorModeSelect(args, selectKey, colorKey, order, opts)
+	opts = opts or {}
+	local select, color = args[selectKey], colorKey and args[colorKey]
+
+	local chips = {}
+	for value, chip in pairs(COLOR_MODE_CHIPS) do
+		chips[value] = chip
+	end
+	if opts.chips then
+		for value, chip in pairs(opts.chips) do
+			chips[value] = chip
+		end
+	end
+
+	local pick
+	if color and color.get and color.set then
+		local info = { colorKey }
+		pick = {
+			value = opts.custom or "CUSTOM",
+			get = function()
+				return color.get(info)
+			end,
+			set = function(r, g, b, a)
+				color.set(info, r, g, b, a)
+			end,
+			hasAlpha = color.hasAlpha,
+		}
+		color.hidden = true
+	end
+
+	module.Segmented(select, order, opts.width)
+	select.arg = { chips = chips, pick = pick }
+end
+
 ---Settings of the Interrupt Ready castbar indicator, shared by UnitFrames and NamePlates
 ---@param order number
 ---@param getDB function returns the settings table
@@ -786,6 +859,7 @@ function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, p
 		end
 	end
 
+	module.ColorModeSelect(group.args, "colorMode", "customColor", { "CLASS", "CUSTOM" })
 	module.ModuleCard("executeLine" .. previewKey, group, "enable")
 
 	return group

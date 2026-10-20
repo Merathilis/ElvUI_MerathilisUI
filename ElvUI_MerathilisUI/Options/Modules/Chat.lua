@@ -66,7 +66,7 @@ module:AddOptions(function()
 						inline = true,
 						name = L["Layout"],
 						args = {
-							panel = {
+							panel = module.Segmented({
 								order = 1,
 								type = "select",
 								name = L["Chat Panel"],
@@ -74,8 +74,8 @@ module:AddOptions(function()
 									LEFT = L["Left Chat"],
 									RIGHT = L["Right Chat"],
 								},
-							},
-							side = {
+							}, { "LEFT", "RIGHT" }),
+							side = module.Segmented({
 								order = 2,
 								type = "select",
 								name = L["Side"],
@@ -84,8 +84,8 @@ module:AddOptions(function()
 									LEFT = L["Left"],
 									RIGHT = L["Right"],
 								},
-							},
-							attach = {
+							}, { "LEFT", "RIGHT" }),
+							attach = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Position"],
@@ -94,7 +94,7 @@ module:AddOptions(function()
 									INSIDE = L["Inside"],
 									OUTSIDE = L["Outside"],
 								},
-							},
+							}, { "INSIDE", "OUTSIDE" }),
 							attachSpacing = {
 								order = 4,
 								type = "range",
@@ -106,7 +106,7 @@ module:AddOptions(function()
 									return Disabled() or SidebarDB().attach ~= "OUTSIDE"
 								end,
 							},
-							visibility = {
+							visibility = module.Segmented({
 								order = 5,
 								type = "select",
 								name = L["Visibility"],
@@ -114,7 +114,7 @@ module:AddOptions(function()
 									ALWAYS = L["Always"],
 									MOUSEOVER = L["Mouseover"],
 								},
-							},
+							}, { "ALWAYS", "MOUSEOVER" }),
 							divider = {
 								order = 6,
 								type = "toggle",

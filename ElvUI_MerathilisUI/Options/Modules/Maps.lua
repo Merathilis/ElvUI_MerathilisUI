@@ -41,7 +41,7 @@ module:AddOptions(function()
 					BOTTOMRIGHT = L["Bottom Right"],
 				},
 			},
-			growth = {
+			growth = module.Segmented({
 				order = 22,
 				type = "select",
 				name = L["Growth Direction"],
@@ -54,7 +54,7 @@ module:AddOptions(function()
 					LEFT = L["Left"],
 					RIGHT = L["Right"],
 				},
-			},
+			}, { "DOWN", "UP", "LEFT", "RIGHT" }),
 			size = {
 				order = 23,
 				type = "range",
@@ -264,7 +264,7 @@ module:AddOptions(function()
 								name = L["Enable"],
 								desc = L["Shows your X coordinate left and your Y coordinate right of the zone text."],
 							},
-							coordsFormat = {
+							coordsFormat = module.Segmented({
 								order = 2,
 								type = "select",
 								name = L["Format"],
@@ -276,7 +276,7 @@ module:AddOptions(function()
 								disabled = function()
 									return LocationPanelDisabled() or not E.db.mui.locationPanel.coords
 								end,
-							},
+							}, { "%.0f", "%.1f", "%.2f" }),
 							coordsColor = {
 								order = 3,
 								type = "color",
@@ -567,4 +567,11 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ColorModeSelect(
+		options.maps.args.locationPanel.args,
+		"colorMode",
+		"customColor",
+		{ "PVP", "CLASS", "CUSTOM" }
+	)
 end)

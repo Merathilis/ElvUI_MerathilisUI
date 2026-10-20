@@ -364,7 +364,7 @@ module:AddOptions(function()
 								name = L["Enable"],
 							},
 							preview = module.PreviewOption(2.5, "MERFactionIndicatorPreview", "unitframes"),
-							style = {
+							style = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Style"],
@@ -375,7 +375,7 @@ module:AddOptions(function()
 								disabled = function()
 									return UnitFramesDisabled() or not E.db.mui.unitframes.factionIndicator.enable
 								end,
-							},
+							}, { "crest", "round" }),
 						},
 					},
 				},
@@ -411,7 +411,7 @@ module:AddOptions(function()
 						guiInline = true,
 						disabled = PortraitsDisabled,
 						args = {
-							style = {
+							style = module.Segmented({
 								order = 1,
 								type = "select",
 								name = L["Shape"],
@@ -420,7 +420,7 @@ module:AddOptions(function()
 									Circle = L["Circle"],
 									Square = L["Square"],
 								},
-							},
+							}, { "Drop", "Circle", "Square" }),
 							colorMode = {
 								order = 2,
 								type = "select",
@@ -486,7 +486,7 @@ module:AddOptions(function()
 								type = "toggle",
 								name = L["Enable"],
 							},
-							style = {
+							style = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Style"],
@@ -496,7 +496,7 @@ module:AddOptions(function()
 									RING = L["Ring Color"],
 								},
 								disabled = ClassificationDisabled,
-							},
+							}, { "DRAGON", "BADGE", "RING" }),
 							types = {
 								order = 4,
 								type = "multiselect",
@@ -516,7 +516,7 @@ module:AddOptions(function()
 								end,
 								disabled = ClassificationDisabled,
 							},
-							dragonColor = {
+							dragonColor = module.Segmented({
 								order = 5,
 								type = "select",
 								name = L["Dragon Color"],
@@ -529,7 +529,7 @@ module:AddOptions(function()
 									return ClassificationStyle() ~= "DRAGON"
 								end,
 								disabled = ClassificationDisabled,
-							},
+							}, { "BLIZZARD", "CLASSIFICATION", "UNIT" }),
 							dragonScale = {
 								order = 6,
 								type = "range",
@@ -856,6 +856,14 @@ module:AddOptions(function()
 	module.ModuleCard("ufRoundedCorners", generalArgs.roundedCorners, "enable")
 	module.ModuleCard("ufFactionIndicator", generalArgs.factionIndicator, "enable")
 
+	module.ColorModeSelect(portraitArgs.style.args, "colorMode", "customColor", { "CLASS", "GRADIENT", "CUSTOM" })
+
 	local playerArgs = options.unitframes.args.individualUnits.args.player.args
+	module.ColorModeSelect(
+		playerArgs.restingIndicator.args,
+		"colorMode",
+		"customColor",
+		{ "CLASS_GRADIENT", "CLASS", "BLIZZARD", "CUSTOM" }
+	)
 	module.ModuleCard("ufRestingIndicator", playerArgs.restingIndicator, "enable")
 end)

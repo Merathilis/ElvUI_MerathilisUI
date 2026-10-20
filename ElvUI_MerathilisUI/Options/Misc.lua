@@ -767,7 +767,7 @@ module:AddOptions(function()
 						name = L["Enable"],
 						desc = L["Counts your Mythic+ applications and shows how they ended in a bar on the Premade Groups page."],
 					},
-					scope = {
+					scope = module.Segmented({
 						order = 2,
 						type = "select",
 						name = L["Show"],
@@ -780,7 +780,7 @@ module:AddOptions(function()
 							return not E.db.mui.misc.groupFinder.enable
 								or not E.db.mui.misc.groupFinder.applications.enable
 						end,
-					},
+					}, { "session", "character", "account" }),
 					resetSession = {
 						order = 3,
 						type = "execute",

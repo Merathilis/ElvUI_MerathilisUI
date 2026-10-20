@@ -209,4 +209,11 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ColorModeSelect(
+		options.actionbars.args.assistedRotation.args,
+		"colorMode",
+		"customColor",
+		{ "DEFAULT", "CLASS", "CUSTOM" }
+	)
 end)

@@ -246,7 +246,7 @@ module:AddOptions(function()
 						name = L["Bags Item Level"],
 						desc = L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."],
 					},
-					itemLevelFormat = {
+					itemLevelFormat = module.Segmented({
 						order = 2,
 						type = "select",
 						name = L["Format"],
@@ -257,7 +257,7 @@ module:AddOptions(function()
 							["%.2f"] = "69.01",
 							["%.3f"] = "69.012",
 						},
-					},
+					}, { "%.0f", "%.1f", "%.2f", "%.3f" }),
 					spacer = {
 						order = 3,
 						type = "description",
@@ -1627,6 +1627,35 @@ module:AddOptions(function()
 				Refresh()
 			end,
 		}
+	end
+
+	-- Font colors as one bar each, the custom color opens the picker from it
+	local GRADIENT_CHIP = { 0, 0.75, 1 }
+	local fontColors = {
+		{
+			options.armory.args.itemLevelGroup.args.itemLevelFont.args,
+			"itemLevelFontColor",
+			{ "DEFAULT", "VALUE", "GRADIENT", "CUSTOM" },
+		},
+		{ options.armory.args.headerGroup.args.nameText.args, "fontColor", { "CLASS", "GRADIENT", "CUSTOM" } },
+		{ options.armory.args.headerGroup.args.titleText.args, "fontColor", { "CLASS", "GRADIENT", "CUSTOM" } },
+		{ options.armory.args.headerGroup.args.specIcon.args, "fontColor", { "CLASS", "GRADIENT", "CUSTOM" } },
+		{ options.armory.args.headerGroup.args.classText.args, "fontColor", { "CLASS", "CUSTOM" } },
+		{
+			options.armory.args.attributesGroup.args.fontGroup.args.headerFont.args,
+			"headerFontColor",
+			{ "CLASS", "GRADIENT", "CUSTOM" },
+		},
+		{
+			options.armory.args.attributesGroup.args.fontGroup.args.labelFont.args,
+			"labelFontColor",
+			{ "CLASS", "GRADIENT", "CUSTOM" },
+		},
+	}
+	for _, entry in ipairs(fontColors) do
+		module.ColorModeSelect(entry[1], entry[2], "color", entry[3], {
+			chips = { GRADIENT = GRADIENT_CHIP, DEFAULT = { 0.64, 0.21, 0.93 } },
+		})
 	end
 
 	-- The font strings of the header as cards, their offsets behind "Show More Options"

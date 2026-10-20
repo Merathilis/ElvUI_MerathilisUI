@@ -169,13 +169,13 @@ module:AddOptions(function()
 						guiInline = true,
 						disabled = BattleResDisabled,
 						args = {
-							visibility = {
+							visibility = module.Segmented({
 								order = 1,
 								type = "select",
 								name = L["Visibility"],
 								values = VISIBILITY,
-							},
-							displayMode = {
+							}, { "ICON", "TEXT" }),
+							displayMode = module.Segmented({
 								order = 2,
 								type = "select",
 								name = L["Display Mode"],
@@ -183,7 +183,7 @@ module:AddOptions(function()
 									ICON = L["Icon"],
 									TEXT = L["Text"],
 								},
-							},
+							}, { "ICON", "TEXT" }),
 							iconSize = {
 								order = 3,
 								type = "range",

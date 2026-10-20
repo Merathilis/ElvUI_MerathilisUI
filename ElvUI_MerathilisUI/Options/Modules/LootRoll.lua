@@ -91,7 +91,7 @@ module:AddOptions(function()
 				name = "",
 			},
 			layout = SettingsGroup(5, L["Layout"], {
-				growDirection = {
+				growDirection = module.Segmented({
 					order = 1,
 					type = "select",
 					name = L["Grow Direction"],
@@ -99,7 +99,7 @@ module:AddOptions(function()
 						DOWN = L["Down"],
 						UP = L["Up"],
 					},
-				},
+				}, { "DOWN", "UP" }),
 				maxBars = Range(2, L["Max Bars"], 1, 8),
 				spacing = Range(3, L["Spacing"], 0, 20),
 				width = Range(4, L["Width"], 180, 500),

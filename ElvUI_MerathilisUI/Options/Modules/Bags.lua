@@ -901,7 +901,7 @@ module:AddOptions(function()
 						type = "group",
 						name = L["Display"],
 						args = {
-							displayMode = {
+							displayMode = module.Segmented({
 								order = 1,
 								type = "select",
 								name = L["Bag Window"],
@@ -911,8 +911,8 @@ module:AddOptions(function()
 									LIST = L["List"],
 									COMPACT = L["Compact"],
 								},
-							},
-							bankDisplayMode = {
+							}, { "GRID", "LIST", "COMPACT" }),
+							bankDisplayMode = module.Segmented({
 								order = 2,
 								type = "select",
 								name = L["Bank Window"],
@@ -921,7 +921,7 @@ module:AddOptions(function()
 									LIST = L["List"],
 									COMPACT = L["Compact"],
 								},
-							},
+							}, { "GRID", "LIST", "COMPACT" }),
 							list = {
 								order = 3,
 								type = "group",

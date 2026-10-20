@@ -391,7 +391,7 @@ module:AddOptions(function()
 						name = L["Combat Only"],
 						desc = L["Only show the cooldowns while you are in combat."],
 					},
-					displayMode = {
+					displayMode = module.Segmented({
 						order = 2,
 						type = "select",
 						name = L["Display Mode"],
@@ -400,8 +400,8 @@ module:AddOptions(function()
 							ICON = L["Icon"],
 							BAR = L["Bar"],
 						},
-					},
-					textFormat = {
+					}, { "TEXT", "ICON", "BAR" }),
+					textFormat = module.Segmented({
 						order = 3,
 						type = "select",
 						name = L["Text Format"],
@@ -413,7 +413,7 @@ module:AddOptions(function()
 							TIME_NAME = L["Time + Name"],
 							TIME = L["Time only"],
 						},
-					},
+					}, { "NAME_TIME", "TIME_NAME", "TIME" }),
 					textWidth = {
 						order = 4,
 						type = "range",
@@ -449,7 +449,7 @@ module:AddOptions(function()
 						max = 30,
 						step = 1,
 					},
-					growDirection = {
+					growDirection = module.Segmented({
 						order = 8,
 						type = "select",
 						name = L["Grow Direction"],
@@ -457,7 +457,7 @@ module:AddOptions(function()
 							UP = L["Up"],
 							DOWN = L["Down"],
 						},
-					},
+					}, { "UP", "DOWN" }),
 					color = {
 						order = 9,
 						type = "group",

@@ -132,7 +132,7 @@ module:AddOptions(function()
 								desc = L["Shows the faction icon of players from the opposing faction."],
 							}),
 							preview = module.PreviewOption(1.5, "MERFactionIndicatorPreview", "nameplates"),
-							style = {
+							style = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Style"],
@@ -141,7 +141,7 @@ module:AddOptions(function()
 									crest = L["Crest"],
 									round = L["Round"],
 								},
-							},
+							}, { "crest", "round" }),
 							size = {
 								order = 4,
 								type = "range",
@@ -470,7 +470,7 @@ module:AddOptions(function()
 								name = "enemyForces",
 								width = "full",
 							},
-							format = {
+							format = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Contribution Format"],
@@ -481,7 +481,7 @@ module:AddOptions(function()
 									NUMBER = L["Number"],
 									BOTH = L["Both"],
 								},
-							},
+							}, { "PERCENT", "NUMBER", "BOTH" }),
 							fontSize = {
 								order = 4,
 								type = "range",

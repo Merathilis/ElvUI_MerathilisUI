@@ -203,7 +203,7 @@ module:AddOptions(function()
 						name = "",
 						width = "full",
 					},
-					anchor = {
+					anchor = module.Segmented({
 						order = 1,
 						type = "select",
 						name = L["Open At"],
@@ -212,7 +212,7 @@ module:AddOptions(function()
 							CURSOR = L["Cursor"],
 							CENTER = L["Screen Center"],
 						},
-					},
+					}, { "CURSOR", "CENTER" }),
 					tileSize = {
 						order = 2,
 						type = "range",
