@@ -1149,6 +1149,15 @@ function module:OptionsCallback()
 					E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.WebsiteURL)
 				end,
 			},
+			donateButton = {
+				order = 7,
+				type = "execute",
+				name = format("|T%s:18:18:0:0:64:64|t %s", I.Media.Icons.Favorite, F.String.Good(L["Donate"])),
+				customWidth = 140,
+				func = function()
+					E.Libs.AceConfigDialog:SelectGroup("ElvUI", "mui", "information", "name")
+				end,
+			},
 		},
 	}
 

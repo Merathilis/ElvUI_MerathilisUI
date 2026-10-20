@@ -104,6 +104,7 @@ L["Information"] = "信息"
 L["Support & Downloads"] = true
 L["Tukui"] = true
 L["Website"] = true
+L["Donate"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = "開發版"

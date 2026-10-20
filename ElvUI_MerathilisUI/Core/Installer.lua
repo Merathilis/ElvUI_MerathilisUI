@@ -1440,6 +1440,22 @@ AddStep({
 		)
 		page.discordButton:SetPoint("TOPRIGHT", page.website, "BOTTOMRIGHT", -2, -8)
 
+		page.donateButton = CreateButton(
+			page,
+			format("|T%s:16:16:0:0:64:64|t %s", I.Media.Icons.Favorite, F.String.Good(L["Donate"])),
+			154,
+			false,
+			function()
+				-- Opens the options on the Information page, which holds the "Support the Project" section
+				if E:Config_GetWindow() then
+					E.Libs.AceConfigDialog:SelectGroup("ElvUI", "mui", "information", "name")
+				else
+					E:ToggleOptions("mui,information,name")
+				end
+			end
+		)
+		page.donateButton:SetPoint("TOP", page.website, "BOTTOM", 0, -46)
+
 		page.finish = CreateButton(page, L["Finish & Reload"], 220, true, InstallComplete)
 		page.finish:SetPoint("BOTTOM", 0, 0)
 	end,

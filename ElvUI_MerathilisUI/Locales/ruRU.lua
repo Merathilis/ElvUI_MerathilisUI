@@ -106,6 +106,7 @@ L["Information"] = "Информация"
 L["Support & Downloads"] = "Поддержка и загрузки"
 L["Tukui"] = true
 L["Website"] = true
+L["Donate"] = true
 L["Coding"] = "Кодирование"
 L["Testing & Inspiration"] = "Тестирование и вдохновение"
 L["Development Version"] = "Дев. версия"

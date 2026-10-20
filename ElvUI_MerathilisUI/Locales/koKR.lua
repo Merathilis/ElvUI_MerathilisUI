@@ -111,6 +111,7 @@ L["Information"] = "정보"
 L["Support & Downloads"] = "지원 및 다운로드"
 L["Tukui"] = "Tukui"
 L["Website"] = true
+L["Donate"] = true
 L["Coding"] = "코딩"
 L["Testing & Inspiration"] = "테스트 및 영감"
 L["Development Version"] = "개발 버전"
