@@ -707,7 +707,7 @@ module:AddOptions(function()
 		args = {
 			enable = module.ToggleCard({
 				order = 1,
-				name = F.NewFeatureText(L["Enable"]),
+				name = L["Enable"],
 				desc = L["Adds a few things to the Premade Groups list. Works together with the LFG List and Group Info features of WindTools."],
 			}),
 			credits = module.CreditsCard(2, "EllesmereUI"),
@@ -810,7 +810,6 @@ module:AddOptions(function()
 			}, "enable"),
 		},
 	}
-	F.MarkTabAsNew("groupFinder")
 
 	options.raidInfo = {
 		order = 11,

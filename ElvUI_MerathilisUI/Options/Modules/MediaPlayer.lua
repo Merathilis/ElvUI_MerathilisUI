@@ -40,6 +40,4 @@ module:AddOptions(function()
 			}, { icon = I.Media.Icons.Categories.media_player, relWidth = 0.5 }),
 		},
 	}
-
-	F.MarkTabAsNew("mediaPlayer")
 end)

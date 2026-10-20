@@ -34,7 +34,7 @@ module:AddOptions(function()
 			}),
 			appearance = module.ToggleCard({
 				order = 2,
-				name = F.NewFeatureText(L["Uncollected Appearances"]),
+				name = L["Uncollected Appearances"],
 				desc = L["Marks merchant items whose appearance you have not collected yet and can collect on this character."]
 					.. "\n\n"
 					.. F.String.Warning(L["Items you already know are tinted by WindTools (Item > Already Known)."]),
@@ -51,6 +51,4 @@ module:AddOptions(function()
 			preview = module.PreviewOption(3, "MERItemLevelPreview", "itemLevel"),
 		},
 	}
-
-	F.MarkTabAsNew("itemLevel")
 end)

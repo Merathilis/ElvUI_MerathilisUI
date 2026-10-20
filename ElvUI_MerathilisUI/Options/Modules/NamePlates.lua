@@ -283,7 +283,7 @@ module:AddOptions(function()
 						args = {
 							enable = module.ToggleCard({
 								order = 1,
-								name = F.NewFeatureText(L["Enable"]),
+								name = L["Enable"],
 								desc = L["Makes the nameplate of your target stand out: while you have a target, the other nameplates fade and get a dark shade, the new target pops up once."],
 							}),
 							preview = module.PreviewOption(1.5, "MERTargetEmphasisPreview", "nameplates"),
@@ -853,7 +853,4 @@ module:AddOptions(function()
 	module.ModuleCard("npHoverHighlight", highlight.highlight, "enable")
 	module.ModuleCard("npFocusHighlight", highlight.focusHighlight, "enable")
 	module.ModuleCard("npCastTarget", options.nameplates.args.castbar.args.castTarget, "enable")
-
-	F.MarkTabAsNew("nameplates")
-	F.MarkTabAsNew("indicators")
 end)

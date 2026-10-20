@@ -526,7 +526,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Opens the chat history in a MerathilisUI window instead of ElvUI's copy frame. Used by the sidebar copy button and ElvUI's copy button on each chat."],
 					}),
 					colors = {
@@ -547,7 +547,6 @@ module:AddOptions(function()
 			},
 		},
 	}
-	F.MarkTabAsNew("chat")
 
 	-------------------------------------------------------------------------------
 	-- ElvUI options our chat extensions take over are grayed out while they do,

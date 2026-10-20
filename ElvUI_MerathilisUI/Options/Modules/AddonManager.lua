@@ -328,6 +328,4 @@ module:AddOptions(function()
 			},
 		},
 	}
-
-	F.MarkTabAsNew("addonManager")
 end)
