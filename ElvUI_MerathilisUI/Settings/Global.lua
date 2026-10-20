@@ -15,6 +15,9 @@ G.core = {
 G.addonManager = {
 	enable = false,
 	extendedSearch = true,
+	extendedTooltip = true, -- colored dependencies, optional ones, required by, author
+	enableDependencies = true, -- turning an addon on also turns on what it needs
+	warnDependents = true, -- turning off an addon others need asks about those
 	profilePanel = true, -- profile panel next to the addon list is open
 	-- width, height: size of the addon list after a resize, unset is Blizzard's size
 	-- [addon] = true, false keeps a default lock off

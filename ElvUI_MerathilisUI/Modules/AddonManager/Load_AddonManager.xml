@@ -2,4 +2,5 @@
 	<Script file="Core.lua"/>
 	<Script file="Style.lua"/>
 	<Script file="Panel.lua"/>
+	<Script file="Dependencies.lua"/>
 </Ui>

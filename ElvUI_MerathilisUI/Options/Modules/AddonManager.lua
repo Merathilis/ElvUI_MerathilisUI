@@ -75,6 +75,45 @@ module:AddOptions(function()
 					AM:UpdateState()
 				end,
 			}),
+			extendedTooltip = module.ToggleCard({
+				order = 3.1,
+				name = L["Extended Tooltip"],
+				desc = L["The addon tooltip colors the dependencies (green on, orange off, red not installed) and adds the optional ones, the addons that need it and the author."],
+				image = I.Media.Icons.Categories.addon_manager,
+				disabled = Disabled,
+				get = function()
+					return db.extendedTooltip
+				end,
+				set = function(_, value)
+					db.extendedTooltip = value
+				end,
+			}),
+			enableDependencies = module.ToggleCard({
+				order = 3.2,
+				name = L["Enable Dependencies"],
+				desc = L["Turning an addon on also turns on the addons it needs."],
+				image = I.Media.Icons.Categories.addon_manager,
+				disabled = Disabled,
+				get = function()
+					return db.enableDependencies
+				end,
+				set = function(_, value)
+					db.enableDependencies = value
+				end,
+			}),
+			warnDependents = module.ToggleCard({
+				order = 3.3,
+				name = L["Warn About Dependents"],
+				desc = L["Turning off an addon that others need asks whether those should be turned off as well."],
+				image = I.Media.Icons.Categories.addon_manager,
+				disabled = Disabled,
+				get = function()
+					return db.warnDependents
+				end,
+				set = function(_, value)
+					db.warnDependents = value
+				end,
+			}),
 			profiles = {
 				order = 4,
 				type = "group",

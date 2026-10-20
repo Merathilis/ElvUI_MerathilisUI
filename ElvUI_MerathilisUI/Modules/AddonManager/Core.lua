@@ -419,6 +419,8 @@ local function OnListUpdate()
 		return
 	end
 
+	module:ClearDependencyCache()
+
 	if module:EnforceLocks() then
 		updating = true
 		_G.AddonList_Update()
@@ -447,6 +449,7 @@ function module:SetupList()
 	hooksecurefunc("AddonList_Update", OnListUpdate)
 	list.SearchBox:HookScript("OnTextChanged", OnListUpdate)
 	_G.ScrollUtil.AddInitializedFrameCallback(list.ScrollBox, OnRowInitialized, self)
+	self:SetupDependencies()
 
 	-- The frame parts build on ElvUI's skin, so they wait for the first open
 	list:HookScript("OnShow", function()
