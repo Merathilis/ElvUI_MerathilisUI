@@ -299,7 +299,7 @@ module:AddOptions(function()
 									BC:SetCurrencyTracked(key, value)
 								end,
 							},
-							resetCurrencies = {
+							resetCurrencies = module.ResetButton({
 								order = 12.1,
 								type = "execute",
 								name = L["Reset Currencies"],
@@ -307,8 +307,8 @@ module:AddOptions(function()
 								func = function()
 									BC:ResetTrackedCurrencies()
 								end,
-							},
-							resetCategoryGroups = {
+							}),
+							resetCategoryGroups = module.ResetButton({
 								order = 13,
 								type = "execute",
 								name = L["Reset Category Groups"],
@@ -324,7 +324,7 @@ module:AddOptions(function()
 									BC:InvalidateCategoryCache()
 									RefreshCategoryFrames()
 								end,
-							},
+							}),
 							spinnerGroup = {
 								order = 14,
 								type = "group",
@@ -962,7 +962,7 @@ module:AddOptions(function()
 										name = L["Category Value"],
 										desc = L["Shows what the items of a category sell for next to its name."],
 									},
-									resetColumns = {
+									resetColumns = module.ResetButton({
 										order = 5,
 										type = "execute",
 										name = L["Reset Columns"],
@@ -973,7 +973,7 @@ module:AddOptions(function()
 											db.sortKey = nil
 											RefreshCategoryFrames()
 										end,
-									},
+									}),
 								},
 							},
 						},
@@ -1063,7 +1063,7 @@ module:AddOptions(function()
 									BOTTOMRIGHT = L["Bottom Right"],
 								},
 							},
-							resetMarks = {
+							resetMarks = module.ResetButton({
 								order = 9,
 								type = "execute",
 								name = L["Reset Junk Marks"],
@@ -1081,7 +1081,7 @@ module:AddOptions(function()
 									db.junkExcluded = {}
 									RefreshCategoryFrames()
 								end,
-							},
+							}),
 						},
 					},
 				},

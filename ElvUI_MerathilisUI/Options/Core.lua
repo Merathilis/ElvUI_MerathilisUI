@@ -449,13 +449,21 @@ end
 ---shows as tooltip)
 ---@param option table execute option, `type` can be left out
 ---@param opts table? { icon, atlas, desc (default: option.desc), lines (reserved description lines),
---- relWidth (share of the row, default 0.25), color ("rrggbb" hover color) }
+--- relWidth (share of the row, default 0.25), color ("rrggbb" hover color), compact (one-line button) }
 ---@return table option
 function module.ActionCard(option, opts)
 	opts = opts or {}
 	option.type = "execute"
 	option.dialogControl = "MERActionCard"
 	option.image = opts.icon or option.image
+
+	-- Compact: a one-line button in the option's own width, the description
+	-- stays its tooltip
+	if opts.compact then
+		option.arg = { compact = true, atlas = opts.atlas, color = opts.color }
+		return option
+	end
+
 	option.width = "relative"
 	option.relWidth = opts.relWidth or 0.25
 	option.arg = {
@@ -466,6 +474,16 @@ function module.ActionCard(option, opts)
 	}
 	option.desc = nil
 	return option
+end
+
+module.RESET_COLOR = "e05a5a"
+
+---A reset action as compact MERActionCard with ElvUI's reset icon and a red
+---hover, small enough for a dense group
+---@param option table execute option
+---@return table option
+function module.ResetButton(option)
+	return module.ActionCard(option, { compact = true, icon = E.Media.Textures.Reset, color = module.RESET_COLOR })
 end
 
 ---Moves an inline group into a popup (Options/Widgets/CogPopup.lua): the page

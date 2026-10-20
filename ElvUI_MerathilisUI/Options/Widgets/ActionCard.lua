@@ -7,6 +7,9 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 -- `arg = { desc = "...", lines = 2, atlas = "...", color = "rrggbb" }`: `lines`
 -- is the number of description lines every card in a row reserves (0 for
 -- none), `color` the hover color (default: accent), `image` the icon.
+-- `arg.compact` makes it a one-line button for dense groups instead: the row
+-- of a MERDropdown (label height above, box in the middle), small icon and
+-- title side by side, the description stays the option's tooltip.
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 
 local Type = "MERActionCard"
@@ -52,10 +55,58 @@ local function UpdateVisual(self)
 	card:SetAlpha(self.disabled and 0.5 or 1)
 end
 
+-- Same row as MERDropdown: box centered 26px from the top, 46px in total
+local COMPACT_TOP = 14
+local COMPACT_HEIGHT = 24
+local COMPACT_FRAME_HEIGHT = 46
+local COMPACT_ICON_SIZE = 14
+
+local function UpdateCompactLayout(self)
+	local card = self.card
+	local hasIcon = card.icon:IsShown()
+
+	card:ClearAllPoints()
+	card:SetPoint("TOPLEFT", 1, -COMPACT_TOP)
+	-- Same gap as the cards, so the next control in the row stays clear of it
+	card:SetPoint("TOPRIGHT", -GAP, -COMPACT_TOP)
+	card:SetHeight(COMPACT_HEIGHT)
+
+	card.icon:ClearAllPoints()
+	card.icon:SetSize(COMPACT_ICON_SIZE, COMPACT_ICON_SIZE)
+	card.icon:SetPoint("LEFT", 6, 0)
+
+	card.title:ClearAllPoints()
+	card.title:SetJustifyH(hasIcon and "LEFT" or "CENTER")
+	if hasIcon then
+		card.title:SetPoint("LEFT", card.icon, "RIGHT", 6, 0)
+	else
+		card.title:SetPoint("LEFT", 6, 0)
+	end
+	card.title:SetPoint("RIGHT", -6, 0)
+	card.desc:Hide()
+
+	self.alignoffset = COMPACT_TOP + COMPACT_HEIGHT / 2
+	self.frame:SetHeight(COMPACT_FRAME_HEIGHT)
+	self.frame.height = COMPACT_FRAME_HEIGHT
+end
+
 local function UpdateLayout(self)
+	if self.compact then
+		return UpdateCompactLayout(self)
+	end
+
 	local card = self.card
 	local desc = card.desc
 	local hasIcon = card.icon:IsShown()
+
+	card:ClearAllPoints()
+	card:SetPoint("TOPLEFT", 1, 0)
+	card:SetPoint("BOTTOMRIGHT", -GAP, ROW_GAP)
+	card.icon:ClearAllPoints()
+	card.icon:SetSize(ICON_SIZE, ICON_SIZE)
+	card.icon:SetPoint("TOP", 0, -PADDING)
+	card.title:SetJustifyH("CENTER")
+	self.alignoffset = nil
 
 	local descHeight = 0
 	if self.lines > 0 then
@@ -128,6 +179,7 @@ local methods = {
 		self.hover = nil
 		self.color = COLOR_ACCENT
 		self.lines = 0
+		self.compact = nil
 		self.card.desc:SetText("")
 		self:SetImage(nil)
 		self:SetText("")
@@ -187,6 +239,7 @@ local methods = {
 		if type(desc) == "function" then
 			desc = desc()
 		end
+		self.compact = data.compact
 		self.card.desc:SetText(desc or "")
 		self.lines = data.lines or (desc and desc ~= "" and DESC_LINES or 0)
 		self.color = data.color and { F.String.HexToRGB(data.color) } or COLOR_ACCENT

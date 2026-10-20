@@ -347,7 +347,7 @@ module:AddOptions(function()
 									return Disabled() or not SidebarDB().buttons.portals
 								end,
 							},
-							resetOrder = {
+							resetOrder = module.ResetButton({
 								order = 12,
 								type = "execute",
 								name = L["Reset Order"],
@@ -355,7 +355,7 @@ module:AddOptions(function()
 									SidebarDB().order = P.chat.sidebar.order
 									Update()
 								end,
-							},
+							}),
 						},
 					},
 				},

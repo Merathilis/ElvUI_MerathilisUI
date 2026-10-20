@@ -70,7 +70,7 @@ module:AddOptions(function()
 					)
 				end,
 				disabled = Disabled,
-			}, { icon = I.Media.Icons.Categories.notifications, relWidth = 0.5 }),
+			}, { icon = I.Media.Icons.Categories.notifications, compact = true }),
 			noSound = {
 				order = 5,
 				type = "toggle",

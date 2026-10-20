@@ -162,7 +162,7 @@ module:AddOptions(function()
 				name = L["Enable"],
 				desc = F.String.MERATHILISUI(L["With this option you can embed your Details into an own Panel."]),
 			}),
-			details = {
+			details = module.ResetButton({
 				order = 5,
 				type = "execute",
 				name = L["Reset Settings"],
@@ -172,7 +172,7 @@ module:AddOptions(function()
 				disabled = function()
 					return not E.private.mui.skins.embed.enable
 				end,
-			},
+			}),
 			toggleDirection = {
 				order = 6,
 				type = "select",

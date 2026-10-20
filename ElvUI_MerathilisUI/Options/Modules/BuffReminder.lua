@@ -169,7 +169,7 @@ module:AddOptions(function()
 				func = function()
 					BR:ToggleTestMode()
 				end,
-			}, { icon = I.Media.Icons.Categories.buff_reminder, relWidth = 0.5 }),
+			}, { icon = I.Media.Icons.Categories.buff_reminder, compact = true }),
 			preview = module.PreviewOption(3.5, "MERBuffReminderPreview", "buffReminder"),
 			general = {
 				order = 4,

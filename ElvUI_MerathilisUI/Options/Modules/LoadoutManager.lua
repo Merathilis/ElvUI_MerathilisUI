@@ -766,7 +766,7 @@ module:AddOptions(function()
 				args = TypeArgs(),
 			},
 
-			reset = {
+			reset = module.ResetButton({
 				order = 60,
 				type = "execute",
 				name = L["Reset"],
@@ -777,7 +777,7 @@ module:AddOptions(function()
 					pickedSaved = nil
 					Refresh()
 				end,
-			},
+			}),
 		},
 	}
 

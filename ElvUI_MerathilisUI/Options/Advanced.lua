@@ -440,7 +440,7 @@ module:AddOptions(function()
 	}
 
 	-- Every reset as a card with the module's icon, four per row
-	local RESET_COLOR = "e05a5a"
+	local RESET_COLOR = module.RESET_COLOR
 	local icons = I.Media.Icons.Categories
 	local resetIcons = {
 		general = icons.OptionsHome,

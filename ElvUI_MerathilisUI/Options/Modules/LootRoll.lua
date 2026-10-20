@@ -82,7 +82,7 @@ module:AddOptions(function()
 					LR:Test()
 				end,
 				disabled = ModuleDisabled,
-			}, { icon = I.Media.Icons.Categories.loot_roll, relWidth = 0.5 }),
+			}, { icon = I.Media.Icons.Categories.loot_roll, compact = true }),
 			preview = module.PreviewOption(3.5, "MERLootRollPreview", "lootRoll"),
 			spacer = {
 				order = 4,

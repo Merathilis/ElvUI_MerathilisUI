@@ -148,7 +148,7 @@ module:AddOptions(function()
 				func = function()
 					TR:ToggleTestMode()
 				end,
-			}, { icon = I.Media.Icons.Categories.tracker, relWidth = 0.5 }),
+			}, { icon = I.Media.Icons.Categories.tracker, compact = true }),
 			battleRes = {
 				order = 10,
 				type = "group",

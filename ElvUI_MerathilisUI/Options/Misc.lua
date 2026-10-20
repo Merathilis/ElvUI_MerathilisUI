@@ -781,23 +781,23 @@ module:AddOptions(function()
 								or not E.db.mui.misc.groupFinder.applications.enable
 						end,
 					}, { "session", "character", "account" }),
-					resetSession = {
+					resetSession = module.ResetButton({
 						order = 3,
 						type = "execute",
 						name = L["Reset Session"],
 						func = function()
 							GF:ResetApplications("session")
 						end,
-					},
-					resetCharacter = {
+					}),
+					resetCharacter = module.ResetButton({
 						order = 4,
 						type = "execute",
 						name = L["Reset Character"],
 						func = function()
 							GF:ResetApplications("character")
 						end,
-					},
-					resetAccount = {
+					}),
+					resetAccount = module.ResetButton({
 						order = 5,
 						type = "execute",
 						name = L["Reset Account"],
@@ -805,7 +805,7 @@ module:AddOptions(function()
 						func = function()
 							GF:ResetApplications("account")
 						end,
-					},
+					}),
 				},
 			}, "enable"),
 		},

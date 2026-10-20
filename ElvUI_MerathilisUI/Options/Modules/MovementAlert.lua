@@ -377,7 +377,7 @@ module:AddOptions(function()
 				func = function()
 					MA:ToggleTestMode()
 				end,
-			}, { icon = I.Media.Icons.Categories.movement_alert, relWidth = 0.5 }),
+			}, { icon = I.Media.Icons.Categories.movement_alert, compact = true }),
 			general = {
 				order = 10,
 				type = "group",
