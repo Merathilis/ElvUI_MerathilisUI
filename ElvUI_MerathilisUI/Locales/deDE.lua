@@ -2275,3 +2275,6 @@ L["Found it: %s causes the problem. Your addons are back."] = "Gefunden: %s veru
 L["No single addon causes the problem, it also happens with all suspects off (or only with several of them together). Your addons are back."] = "Kein einzelnes Addon verursacht das Problem, es tritt auch mit allen Verdächtigen aus auf (oder nur mit mehreren zusammen). Deine Addons sind wieder wie vorher."
 L["The search was stopped. Your addons are back."] = "Die Suche wurde abgebrochen. Deine Addons sind wieder wie vorher."
 L["%d of %d suspects on, about %d more |4step:steps; after this one.\n\nDoes the problem still happen?"] = "%d von %d Verdächtigen an, danach noch etwa %d |4Schritt:Schritte;.\n\nTritt das Problem noch auf?"
+L["These locked addons were off and are turned on again: %s\n\nReload the UI to load them?"] = "Diese gesperrten Addons waren aus und sind wieder eingeschaltet: %s\n\nUI neu laden, um sie zu laden?"
+L["Check At Login"] = "Beim Login prüfen"
+L["A locked addon that was turned off outside the game (e.g. on the character screen) is turned on again at login, and a reload is offered."] = "Ein gesperrtes Addon, das außerhalb des Spiels ausgeschaltet wurde (z. B. im Charakterbildschirm), wird beim Login wieder eingeschaltet und ein Neuladen angeboten."

@@ -231,6 +231,18 @@ module:AddOptions(function()
 							.. L["The lock in each row of the addon list does the same."],
 						width = "full",
 					},
+					lockWarning = {
+						order = 2,
+						type = "toggle",
+						name = L["Check At Login"],
+						desc = L["A locked addon that was turned off outside the game (e.g. on the character screen) is turned on again at login, and a reload is offered."],
+						get = function()
+							return db.lockWarning
+						end,
+						set = function(_, value)
+							db.lockWarning = value
+						end,
+					},
 					addons = {
 						order = 1,
 						type = "multiselect",

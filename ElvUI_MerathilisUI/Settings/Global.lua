@@ -19,6 +19,7 @@ G.addonManager = {
 	enableDependencies = true, -- turning an addon on also turns on what it needs
 	warnDependents = true, -- turning off an addon others need asks about those
 	showVersion = true, -- version behind the title in the list
+	lockWarning = true, -- locked addons found off at login are turned on again, with a reload popup
 	-- bisect: state of a running search for a faulty addon, kept between its reloads
 	profilePanel = true, -- profile panel next to the addon list is open
 	-- width, height: size of the addon list after a resize, unset is Blizzard's size

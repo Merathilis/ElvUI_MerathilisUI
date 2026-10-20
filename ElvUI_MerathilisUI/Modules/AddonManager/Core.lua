@@ -21,6 +21,7 @@ local GetAddOnEnableState = C_AddOns.GetAddOnEnableState
 local GetAddOnInfo = C_AddOns.GetAddOnInfo
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local GetAddOnName = C_AddOns.GetAddOnName
+local GetAddOnTitle = C_AddOns.GetAddOnTitle
 local GetNumAddOns = C_AddOns.GetNumAddOns
 local SaveAddOns = C_AddOns.SaveAddOns
 local C_UI_Reload = C_UI.Reload
@@ -98,6 +99,40 @@ function module:EnforceLocks()
 	end
 
 	return changed
+end
+
+E.PopupDialogs.MER_ADDON_LOCKED_RESTORED = {
+	text = L["These locked addons were off and are turned on again: %s\n\nReload the UI to load them?"],
+	button1 = _G.RELOADUI,
+	button2 = L["Later"],
+	OnAccept = C_UI_Reload,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = 1,
+	preferredIndex = 3,
+}
+
+---Locked addons turned off outside the game (character select) or by another
+---addon don't load. They are turned on again and a reload is offered.
+function module:CheckLocksAtLogin()
+	if not self.db.enable or not self.db.lockWarning then
+		return
+	end
+
+	local restored = {}
+	for name, locked in pairs(self.db.locked) do
+		if locked and DoesAddOnExist(name) and not IsEnabled(name, E.myguid) then
+			EnableAddOn(name, E.myguid)
+			local title = GetAddOnTitle(name)
+			tinsert(restored, title ~= "" and title or name)
+		end
+	end
+
+	if #restored > 0 then
+		sort(restored)
+		SaveAddOns()
+		E:StaticPopup_Show("MER_ADDON_LOCKED_RESTORED", tconcat(restored, ", "))
+	end
 end
 
 --[[----------------------------------
@@ -487,14 +522,16 @@ function module:Initialize()
 	self.db = E.global.mui.addonManager
 	self:UpdateState()
 
-	-- A running search for a faulty addon goes on after its reload, also with the module off
-	if self.db.bisect then
-		F.Event.RegisterOnceCallback("MER.InitializedSafe", function()
-			E:Delay(2, function()
+	F.Event.RegisterOnceCallback("MER.InitializedSafe", function()
+		E:Delay(2, function()
+			-- A running search for a faulty addon goes on after its reload, also with the module off
+			if self.db.bisect then
 				self:ResumeBisect()
-			end)
+			else
+				self:CheckLocksAtLogin()
+			end
 		end)
-	end
+	end)
 end
 
 MER:AddCommand("ADDONPROFILES", { "/muiaddons" }, function(msg)

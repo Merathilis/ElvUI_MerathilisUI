@@ -2215,3 +2215,6 @@ L["Found it: %s causes the problem. Your addons are back."] = true
 L["No single addon causes the problem, it also happens with all suspects off (or only with several of them together). Your addons are back."] = true
 L["The search was stopped. Your addons are back."] = true
 L["%d of %d suspects on, about %d more |4step:steps; after this one.\n\nDoes the problem still happen?"] = true
+L["These locked addons were off and are turned on again: %s\n\nReload the UI to load them?"] = true
+L["Check At Login"] = true
+L["A locked addon that was turned off outside the game (e.g. on the character screen) is turned on again at login, and a reload is offered."] = true
