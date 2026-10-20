@@ -1088,4 +1088,22 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	-- Every font of the categorized bags in a popup behind a button with a summary
+	local fontArgs = options.bags.args.categorizedBags.args.fonts.args
+	local function BagsFontSummary(...)
+		local path = { ... }
+		return module.FontSummary(function()
+			local db = E.db.mui.bags.categorizedBags
+			for _, key in ipairs(path) do
+				db = db and db[key]
+			end
+			return db
+		end)
+	end
+	module.CogGroup(fontArgs, "itemCountFont", BagsFontSummary("itemCountFont"))
+	module.CogGroup(fontArgs.itemLevel.args, "font", BagsFontSummary("itemLevel", "font"))
+	module.CogGroup(fontArgs.itemInfo.args, "font", BagsFontSummary("itemInfo", "font"))
+	module.CogGroup(fontArgs, "headerFont", BagsFontSummary("headerFont"))
+	module.CogGroup(fontArgs, "subHeaderFont", BagsFontSummary("subHeaderFont"))
 end)

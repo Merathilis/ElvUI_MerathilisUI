@@ -366,7 +366,7 @@ module:AddOptions(function()
 				desc = L["Shows the cooldown of your class's movement spells while they are not available, a banner when Time Spiral lets you use one for free and a reminder when your Gateway Control Shard can be used."],
 				image = I.Media.Icons.Categories.movement_alert,
 			}),
-			test = {
+			test = module.ActionCard({
 				order = 3,
 				type = "execute",
 				name = function()
@@ -377,7 +377,7 @@ module:AddOptions(function()
 				func = function()
 					MA:ToggleTestMode()
 				end,
-			},
+			}, { icon = I.Media.Icons.Categories.movement_alert, relWidth = 0.5 }),
 			general = {
 				order = 10,
 				type = "group",

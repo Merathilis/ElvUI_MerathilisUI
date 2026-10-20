@@ -43,16 +43,15 @@ module:AddOptions(function()
 				desc = L["Extends ElvUI's mover mode: movers snap to each other with guide lines, can be anchored to each other, a click selects a mover for the arrow keys and a toolbar shows your changes, which you can save or revert. The positions stay in ElvUI's profile."],
 				image = I.Media.Icons.Categories.unlock_mode,
 			}),
-			open = {
+			open = module.ActionCard({
 				order = 2,
-				type = "execute",
 				name = L["Open Unlock Mode"],
 				desc = L["Opens ElvUI's mover mode with the additions of this page."],
 				func = function()
 					E:ToggleMoveMode()
 					E.ConfigurationToggled = true
 				end,
-			},
+			}, { icon = I.Media.Icons.Categories.unlock_mode, relWidth = 0.5 }),
 			preview = module.PreviewOption(3, "MERUnlockModePreview", "screen"),
 			general = {
 				order = 10,

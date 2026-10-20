@@ -30,14 +30,14 @@ module:AddOptions(function()
 				fontSize = "medium",
 				width = "full",
 			},
-			open = {
+			open = module.ActionCard({
 				order = 2,
-				type = "execute",
 				name = L["Open Media Player"],
+				desc = L["Browse and play the game's music by expansion and zone, and replay the cinematics."],
 				func = function()
 					MP:OpenFromOptions()
 				end,
-			},
+			}, { icon = I.Media.Icons.Categories.media_player, relWidth = 0.5 }),
 		},
 	}
 

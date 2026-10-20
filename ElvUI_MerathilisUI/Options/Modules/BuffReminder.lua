@@ -158,19 +158,18 @@ module:AddOptions(function()
 				desc = L["Buff Reminder shows icons for the raid buffs you are missing."],
 				image = I.Media.Icons.Categories.buff_reminder,
 			}),
-			test = {
+			test = module.ActionCard({
 				order = 3,
 				type = "execute",
 				name = function()
 					return BR.testMode and L["Stop Test"] or L["Test"]
 				end,
 				desc = L["Shows a row of sample icons for 20 seconds so you can check scale, glow, text and position without needing to actually be missing anything in a raid."],
-				width = "full",
 				disabled = ModuleDisabled,
 				func = function()
 					BR:ToggleTestMode()
 				end,
-			},
+			}, { icon = I.Media.Icons.Categories.buff_reminder, relWidth = 0.5 }),
 			preview = module.PreviewOption(3.5, "MERBuffReminderPreview", "buffReminder"),
 			general = {
 				order = 4,

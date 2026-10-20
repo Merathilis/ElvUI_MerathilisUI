@@ -1629,6 +1629,25 @@ module:AddOptions(function()
 		}
 	end
 
+	-- Font settings in a popup behind a button with a summary
+	local armoryArgs = options.armory.args
+	for _, entry in ipairs({
+		{ armoryArgs.itemLevelGroup.args, "itemLevelFont", "stats", "itemLevelFont" },
+		{ armoryArgs.enchantGroup.args, "enchantFont", "pageInfo", "enchantFont" },
+		{ armoryArgs.slotItemLevelGroup.args, "iLvLFont", "pageInfo", "iLvLFont" },
+		{ armoryArgs.socketPanel.args, "font", "socketPanel", "font" },
+		{ armoryArgs.equipmentManager.args, "font", "equipmentManager", "font" },
+	}) do
+		local section, field = entry[3], entry[4]
+		module.CogGroup(
+			entry[1],
+			entry[2],
+			module.FontSummary(function()
+				return E.db.mui.armory[section][field]
+			end)
+		)
+	end
+
 	-- Font colors as one bar each, the custom color opens the picker from it
 	local GRADIENT_CHIP = { 0, 0.75, 1 }
 	local fontColors = {

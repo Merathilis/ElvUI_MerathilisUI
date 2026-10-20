@@ -99,6 +99,8 @@ L["Right-click to add it to your favorites."] = "Rechtsklick, um sie zu den Favo
 L["Right-click to remove it from your favorites."] = "Rechtsklick, um sie aus den Favoriten zu entfernen."
 L["Right-click a recent color to add it."] = "Rechtsklick auf eine zuletzt verwendete Farbe fügt sie hinzu."
 L["Colors you confirm show up here."] = "Bestätigte Farben erscheinen hier."
+L["Resets the settings of every MerathilisUI module to their defaults."] = "Setzt die Einstellungen aller MerathilisUI-Module auf ihre Standardwerte zurück."
+L["Browse and play the game's music by expansion and zone, and replay the cinematics."] = "Musik des Spiels nach Erweiterung und Zone durchsuchen und abspielen, Zwischensequenzen erneut ansehen."
 
 -- Information
 L["Information"] = "Informationen"

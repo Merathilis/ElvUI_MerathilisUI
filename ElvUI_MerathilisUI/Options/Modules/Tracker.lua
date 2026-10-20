@@ -137,7 +137,7 @@ module:AddOptions(function()
 					.. "\n"
 					.. L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."]
 			),
-			test = {
+			test = module.ActionCard({
 				order = 2,
 				type = "execute",
 				name = function()
@@ -148,7 +148,7 @@ module:AddOptions(function()
 				func = function()
 					TR:ToggleTestMode()
 				end,
-			},
+			}, { icon = I.Media.Icons.Categories.tracker, relWidth = 0.5 }),
 			battleRes = {
 				order = 10,
 				type = "group",

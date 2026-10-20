@@ -574,4 +574,12 @@ module:AddOptions(function()
 		"customColor",
 		{ "PVP", "CLASS", "CUSTOM" }
 	)
+
+	module.CogGroup(
+		options.maps.args.locationPanel.args,
+		"font",
+		module.FontSummary(function()
+			return E.db.mui.locationPanel.font
+		end)
+	)
 end)

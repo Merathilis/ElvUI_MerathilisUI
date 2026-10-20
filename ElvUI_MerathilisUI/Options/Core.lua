@@ -427,6 +427,86 @@ function module.LessCommon(args, id, keys)
 	}
 end
 
+---Turns an execute into a MERActionCard (Options/Widgets/ActionCard.lua): icon
+---on top, name as title, the description as muted text below it (it no longer
+---shows as tooltip)
+---@param option table execute option, `type` can be left out
+---@param opts table? { icon, atlas, desc (default: option.desc), lines (reserved description lines),
+--- relWidth (share of the row, default 0.25), color ("rrggbb" hover color) }
+---@return table option
+function module.ActionCard(option, opts)
+	opts = opts or {}
+	option.type = "execute"
+	option.dialogControl = "MERActionCard"
+	option.image = opts.icon or option.image
+	option.width = "relative"
+	option.relWidth = opts.relWidth or 0.25
+	option.arg = {
+		desc = opts.desc or option.desc,
+		lines = opts.lines,
+		atlas = opts.atlas,
+		color = opts.color,
+	}
+	option.desc = nil
+	return option
+end
+
+---Moves an inline group into a popup (Options/Widgets/CogPopup.lua): the page
+---shows a MERCogButton row with the group's name and a short summary instead,
+---a click opens the group's settings next to it. The group keeps its key, get,
+---set and disabled. It hides itself on the page only: `hidden` is inherited,
+---the args ask with their own key, so the popup still renders them.
+---@param args table args holding the group
+---@param key string key of the group
+---@param summary function? returns the text shown in the button's box
+---@param width number|string? AceConfig width of the button
+---@return table button
+function module.CogGroup(args, key, summary, width)
+	local group = args[key]
+	local button = {
+		order = group.order,
+		type = "execute",
+		dialogControl = "MERCogButton",
+		name = group.name,
+		hidden = group.hidden,
+		disabled = group.disabled,
+		width = width,
+		arg = { group = key, summary = summary },
+		func = function() end,
+	}
+
+	group.type = "group"
+	group.inline = true
+	group.guiInline = nil
+	group.hidden = function(info)
+		return info[#info] == key
+	end
+	args[key .. "Cog"] = button
+
+	return button
+end
+
+---Summary of a font settings table for module.CogGroup, e.g. "Expressway, 12, Outline"
+---@param getDB function returns the table with `name`, `size` and `style`
+---@return function summary
+function module.FontSummary(getDB)
+	return function()
+		local db = getDB()
+		if not db then
+			return ""
+		end
+
+		local style = db.style and MER.Values.FontFlags[db.style] or db.style
+		local parts = {}
+		for _, part in ipairs({ db.name, db.size, style }) do
+			if part and part ~= "" then
+				parts[#parts + 1] = tostring(part)
+			end
+		end
+		return table.concat(parts, ", ")
+	end
+end
+
 ---Shows a select with two to four short values as a MERSegmented bar
 ---(Options/Widgets/Segmented.lua) instead of a dropdown
 ---@param option table select option with static `values`

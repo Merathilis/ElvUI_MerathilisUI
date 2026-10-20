@@ -101,6 +101,8 @@ L["Right-click to add it to your favorites."] = true
 L["Right-click to remove it from your favorites."] = true
 L["Right-click a recent color to add it."] = true
 L["Colors you confirm show up here."] = true
+L["Resets the settings of every MerathilisUI module to their defaults."] = true
+L["Browse and play the game's music by expansion and zone, and replay the cinematics."] = true
 L["Info"] = "정보"
 L["Login Message"] = "로그인 메시지 표시"
 

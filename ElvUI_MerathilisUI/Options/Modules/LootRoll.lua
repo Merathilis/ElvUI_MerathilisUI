@@ -74,16 +74,15 @@ module:AddOptions(function()
 					E:StaticPopup_Show("CONFIG_RL")
 				end,
 			}),
-			test = {
+			test = module.ActionCard({
 				order = 3,
-				type = "execute",
 				name = L["Test"],
 				desc = L["Show/hide a fake roll bar to preview your settings."],
 				func = function()
 					LR:Test()
 				end,
 				disabled = ModuleDisabled,
-			},
+			}, { icon = I.Media.Icons.Categories.loot_roll, relWidth = 0.5 }),
 			preview = module.PreviewOption(3.5, "MERLootRollPreview", "lootRoll"),
 			spacer = {
 				order = 4,

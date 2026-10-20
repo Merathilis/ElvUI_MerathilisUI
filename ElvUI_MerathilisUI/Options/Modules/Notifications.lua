@@ -50,7 +50,7 @@ module:AddOptions(function()
 				disabled = Disabled,
 			},
 			preview = module.PreviewOption(3.5, "MERNotificationPreview", "notification"),
-			testNotification = {
+			testNotification = module.ActionCard({
 				order = 4,
 				type = "execute",
 				name = L["Test Notification"],
@@ -70,7 +70,7 @@ module:AddOptions(function()
 					)
 				end,
 				disabled = Disabled,
-			},
+			}, { icon = I.Media.Icons.Categories.notifications, relWidth = 0.5 }),
 			noSound = {
 				order = 5,
 				type = "toggle",
@@ -423,4 +423,20 @@ module:AddOptions(function()
 			},
 		}
 	end
+
+	local fontArgs = options.Notification.args.fontSettings.args
+	module.CogGroup(
+		fontArgs,
+		"titleFont",
+		module.FontSummary(function()
+			return E.db.mui.notification.titleFont
+		end)
+	)
+	module.CogGroup(
+		fontArgs,
+		"textFont",
+		module.FontSummary(function()
+			return E.db.mui.notification.textFont
+		end)
+	)
 end)

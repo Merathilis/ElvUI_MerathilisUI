@@ -47,6 +47,8 @@
 	<Script file='ColorPicker.lua' />
 	<Script file='Button.lua' />
 	<Script file='TextLink.lua' />
+	<Script file='ActionCard.lua' />
+	<Script file='CogPopup.lua' />
 	<Script file='Collapsible.lua' />
 	<Script file='SectionHeader.lua' />
 	<Script file='NewFeatureLabel.lua' />

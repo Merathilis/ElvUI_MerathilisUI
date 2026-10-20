@@ -438,4 +438,53 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	-- Every reset as a card with the module's icon, four per row
+	local RESET_COLOR = "e05a5a"
+	local icons = I.Media.Icons.Categories
+	local resetIcons = {
+		general = icons.OptionsHome,
+		gameMenu = icons.System,
+		scale = icons.More,
+		misc = icons.More,
+		actionbars = icons.actionbars,
+		chat = icons.chat,
+		nameplates = icons.nameplates,
+		colorModifiers = icons.actionbars,
+		armory = icons.armory,
+		bags = icons.bags,
+		buffReminder = icons.buff_reminder,
+		cursor = icons.cursor,
+		itemLevel = icons.item_level,
+		lootRoll = icons.loot_roll,
+		mail = icons.mail,
+		locationPanel = icons.maps,
+		minimapButtons = icons.maps,
+		movementAlert = icons.movement_alert,
+		nameHover = icons.name_hover,
+		notification = icons.notifications,
+		panels = icons.panels,
+		quickGrid = icons.quick_grid,
+		theme = icons.theme,
+		tracker = icons.tracker,
+		unitframes = icons.unitframes,
+		vehicleBar = icons.vehicle,
+		auras = icons.auras,
+		datatexts = icons.datatexts,
+		tooltip = icons.tooltip,
+		blizzard = icons.System,
+		addonSkins = icons.Config,
+		embed = icons.chat,
+	}
+	for key, option in pairs(options.reset.args) do
+		if option.type == "execute" and key ~= "resetAllModules" then
+			module.ActionCard(option, { icon = resetIcons[key] or icons.Config, color = RESET_COLOR })
+		end
+	end
+	module.ActionCard(options.reset.args.resetAllModules, {
+		icon = I.Media.Icons.Warning,
+		desc = L["Resets the settings of every MerathilisUI module to their defaults."],
+		relWidth = 1,
+		color = RESET_COLOR,
+	})
 end)
