@@ -12,6 +12,21 @@ G.core = {
 	},
 }
 
+G.addonManager = {
+	enable = false,
+	extendedSearch = true,
+	profilePanel = true, -- profile panel next to the addon list is open
+	-- width, height: size of the addon list after a resize, unset is Blizzard's size
+	-- [addon] = true, false keeps a default lock off
+	locked = {
+		ElvUI = true,
+		ElvUI_Libraries = true,
+		ElvUI_Options = true,
+		ElvUI_MerathilisUI = true,
+	},
+	profiles = {}, -- [name] = { [addon] = true }
+}
+
 G.mail = {
 	templates = {},
 	quickAttachRecipients = {},

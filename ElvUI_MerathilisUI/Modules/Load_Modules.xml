@@ -3,6 +3,7 @@
 	<Include file="Style\Load_Style.xml"/>
 
 	<Include file="Actionbars\Load_Actionbars.xml"/>
+	<Include file="AddonManager\Load_AddonManager.xml"/>
 	<Include file="Armory\Load_Armory.xml"/>
 	<Include file="Auras\Load_Auras.xml"/>
 	<Include file="Bags\Load_Bags.xml"/>

@@ -2188,6 +2188,9 @@ function MER:DeveloperSettings()
 	-- VehicleBar
 	E.db["mui"]["vehicleBar"]["enable"] = true
 
+	-- Addon Manager
+	E.global["mui"]["addonManager"]["enable"] = true
+
 	-- Unitframe Tags
 	E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
 		["font"] = "Expressway",

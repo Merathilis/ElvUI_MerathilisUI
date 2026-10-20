@@ -35,6 +35,7 @@ F.AddMedia("icon", "Home")
 
 F.AddMedia("icon", "Favorite")
 F.AddMedia("icon", "List")
+F.AddMedia("icon", "Lock")
 F.AddMedia("icon", "Discord")
 
 -- Brand logos (rounded tiles) for the Information page
@@ -63,6 +64,7 @@ F.AddMedia("icon", "Categories/More")
 F.AddMedia("icon", "Categories/Gradient")
 F.AddMedia("icon", "Categories/Changelog")
 F.AddMedia("icon", "Categories/actionbars")
+F.AddMedia("icon", "Categories/addon_manager")
 F.AddMedia("icon", "Categories/armory")
 F.AddMedia("icon", "Categories/auras")
 F.AddMedia("icon", "Categories/bags")

@@ -2152,3 +2152,35 @@ L["Counts your Mythic+ applications and shows how they ended in a bar on the Pre
 L["Reset Session"] = true
 L["Reset Character"] = true
 L["Reset Account"] = true
+
+-- Addon Manager
+L["Addon Manager"] = true
+L["Addon Profiles"] = true
+L["Adds addon profiles, locked addons and a wider search to the game's addon list (Game Menu > AddOns)."] = true
+L["Profiles also load with %s."] = true
+L["Gives the addon list a profile panel, a lock per addon, switches and a size grip in the look of these options."] = true
+L["Extended Search"] = true
+L["The search of the addon list also finds addons by their folder name, author and notes."] = true
+L["A profile remembers which addons are on. Loading it switches the addons of this character and reloads the UI, locked addons stay on."] = true
+L["Load"] = true
+L["Load this addon profile and reload the UI?"] = true
+L["Overwrite With Current"] = true
+L["Save Current As..."] = true
+L["Locked Addons"] = true
+L["A locked addon stays on: Disable All, a profile or a click in the list can't turn it off."] = true
+L["The lock in each row of the addon list does the same."] = true
+L["Covers this character and All Characters, not other characters picked in the list."] = true
+L["Addon profile %s saved."] = true
+L["There is no addon profile called %s."] = true
+L["There already is an addon profile called %s."] = true
+L["Name of the addon profile:"] = true
+L["Delete the addon profile %s?"] = true
+L["No profiles yet"] = true
+L["The Addon Manager is off, turn it on in the options under Modules."] = true
+L["Usage: /muiaddons <profile> loads an addon profile and reloads the UI."] = true
+L["Simple Addon Manager opens its own window from the Game Menu, so these additions only show in the game's own addon list."] = true
+L["Switches the addons of this character to the profile. Click Reload UI afterwards."] = true
+L["%d |4addon:addons;"] = true
+L["No profiles yet. Save the addons that are on right now as your first one."] = true
+L["Drag to resize"] = true
+L["Double-click to reset the size."] = true

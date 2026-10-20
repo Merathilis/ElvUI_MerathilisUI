@@ -18,6 +18,7 @@ local tinsert, wipe = table.insert, table.wipe
 local CreateFrame = CreateFrame
 local PlaySound = PlaySound
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+local DisableAddOn = C_AddOns.DisableAddOn
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_UI_Reload = C_UI.Reload
 local APPLY = APPLY
@@ -49,6 +50,8 @@ local SOUND_CLICK = 852 -- SOUNDKIT.IG_MAINMENU_OPTION
 -- at `E` (db.* / private.*), or at `root()` for plugins with their own SavedVariables.
 -- `retail` marks MerathilisUI features that are off on WoW Forever anyway.
 -- `addon` limits a check to when that addon is loaded too (skins of other addons).
+-- A `standalone` plugin is a whole addon: its side is on while it is loaded and
+-- turning it off disables the addon for this character.
 local ARMORY = "db.mui.armory.enable"
 local ADDON_BUTTONS = "db.mui.minimapButtons.addonButtons.enable"
 local DAMAGE_METER = "private.mui.skins.blizzard.damageMeter.enable"
@@ -343,6 +346,19 @@ local plugins = {
 		},
 	},
 	{
+		addon = "SimpleAddonManager",
+		name = "Simple Addon Manager",
+		standalone = true,
+		checks = {
+			{
+				feature = L["Addon Manager"],
+				theirFeature = L["Addon Manager"],
+				mine = "global.mui.addonManager.enable",
+				theirs = "SimpleAddonManager",
+			},
+		},
+	},
+	{
 		addon = "ProjectAzilroka",
 		name = "ProjectAzilroka",
 		root = function()
@@ -427,7 +443,7 @@ local function CollectConflicts(includeKept)
 						and (not check.addon or IsAddOnLoaded(check.addon))
 						and (includeKept or not kept[check.key])
 						and IsOn(E, check.mine)
-						and IsOn(root, check.theirs)
+						and (plugin.standalone or IsOn(root, check.theirs))
 					then
 						tinsert(conflicts, { plugin = plugin, check = check, root = root })
 					end
@@ -542,7 +558,11 @@ local function Apply()
 		end
 
 		if not keepTheirs then
-			TurnOff(conflict.root, check.theirs)
+			if conflict.plugin.standalone then
+				DisableAddOn(conflict.plugin.addon, E.myguid)
+			else
+				TurnOff(conflict.root, check.theirs)
+			end
 			changed = true
 		end
 
