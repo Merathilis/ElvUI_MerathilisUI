@@ -1,4 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 
 -- Sub-settings in a small popup instead of on the page, see module.CogGroup in
 -- Options/Core.lua for how a group gets there.
@@ -114,6 +115,7 @@ end
 local function Popup_OnHide()
 	ReleaseContainer()
 	current.path = nil
+	current.anchor = nil
 end
 
 local function BuildPopup()
@@ -198,10 +200,14 @@ end
 local function OpenPopup(path, title, anchor)
 	if not popup then
 		BuildPopup()
+		module.WatchClickOutside(popup, ClosePopup, function()
+			return current.anchor
+		end)
 	end
 
 	ReleaseContainer()
 	current.path = path
+	current.anchor = anchor
 	popup.title:SetText(title or "")
 
 	local container = AceGUI:Create("SimpleGroup")

@@ -798,6 +798,77 @@ local function Place(anchor)
 	end
 end
 
+--[[-----------------------------------------------------------------------------
+Click outside
+-------------------------------------------------------------------------------]]
+-- Our popups close on a click anywhere else, like a dropdown list. A click
+-- doesn't count as outside when it lands on one of our popups (the color
+-- picker opened from a cog popup), on an open dropdown list (its items sit
+-- outside the popup) or on the button that opened the popup (that one toggles
+-- it itself).
+local POPUP_NAMES = { MER_ColorPickerPopup = true, MER_CogPopup = true }
+
+local GetMouseFoci = GetMouseFoci
+local C_Timer_After = C_Timer.After
+
+local function IsInsideRelated(frame, anchor)
+	while frame do
+		if frame == anchor then
+			return true
+		end
+		local name = frame.GetName and frame:GetName()
+		if name and POPUP_NAMES[name] then
+			return true
+		end
+		local obj = frame.obj
+		if type(obj) == "table" and obj.type == "Dropdown-Pullout" then
+			return true
+		end
+		frame = frame.GetParent and frame:GetParent()
+	end
+	return false
+end
+
+local function ClickWatcher_OnEvent(watcher)
+	if not watcher.popup:IsShown() then
+		return
+	end
+
+	local foci = GetMouseFoci and GetMouseFoci() or {}
+	local anchor = watcher.getAnchor and watcher.getAnchor()
+	for _, focus in ipairs(foci) do
+		if IsInsideRelated(focus, anchor) then
+			return
+		end
+	end
+
+	watcher.onOutside()
+end
+
+---Closes `frame` through `onOutside` on a mouse click outside of it
+---@param frame Frame
+---@param onOutside function
+---@param getAnchor function? returns the frame that opened the popup
+function module.WatchClickOutside(frame, onOutside, getAnchor)
+	local watcher = CreateFrame("Frame")
+	watcher.popup = frame
+	watcher.onOutside = onOutside
+	watcher.getAnchor = getAnchor
+	watcher:SetScript("OnEvent", ClickWatcher_OnEvent)
+
+	-- One frame later, so the click that opened the popup doesn't close it again
+	frame:HookScript("OnShow", function()
+		C_Timer_After(0, function()
+			if frame:IsShown() then
+				watcher:RegisterEvent("GLOBAL_MOUSE_DOWN")
+			end
+		end)
+	end)
+	frame:HookScript("OnHide", function()
+		watcher:UnregisterEvent("GLOBAL_MOUSE_DOWN")
+	end)
+end
+
 module.ColorPickerPopup = {}
 
 ---@param owner table widget that opens the picker
@@ -806,6 +877,12 @@ module.ColorPickerPopup = {}
 function module.ColorPickerPopup.Open(owner, info, anchor)
 	if not popup then
 		BuildPopup()
+		-- A click elsewhere keeps the picked color, it is already applied live
+		module.WatchClickOutside(popup, function()
+			Finish(true)
+		end, function()
+			return state.anchor
+		end)
 	end
 
 	-- Another color option was still being picked: keep what it got so far
@@ -814,6 +891,7 @@ function module.ColorPickerPopup.Open(owner, info, anchor)
 	end
 
 	state.owner = owner
+	state.anchor = anchor
 	state.onChange = info.onChange
 	state.onConfirm = info.onConfirm
 	state.hasAlpha = info.hasAlpha

@@ -118,6 +118,10 @@ local function Segment_OnLeave(segment)
 	self:Fire("OnLeave")
 end
 
+-- The bar that currently shows a pick, so its chip follows the picker live.
+-- Picking a value rebuilds the page, the bar showing the pick changes then.
+local pickWidgets = setmetatable({}, { __mode = "k" })
+
 local function OpenPicker(self, segment)
 	local pick = self.pick
 	local r, g, b, a, dr, dg, db, da = pick.get()
@@ -130,7 +134,13 @@ local function OpenPicker(self, segment)
 		a = a,
 		hasAlpha = pick.hasAlpha,
 		default = dr and { dr, dg, db, da or 1 } or nil,
-		onChange = pick.set,
+		onChange = function(...)
+			pick.set(...)
+			local widget = pickWidgets[pick]
+			if widget and widget.pick == pick then
+				UpdateVisual(widget)
+			end
+		end,
 		onConfirm = function(...)
 			pick.set(...)
 			E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
@@ -273,6 +283,9 @@ local methods = {
 
 		self.chips = data.chips
 		self.pick = data.pick
+		if data.pick then
+			pickWidgets[data.pick] = self
+		end
 		UpdateVisual(self)
 		Layout(self)
 	end,
