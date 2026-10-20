@@ -361,6 +361,7 @@ local function InitEntry(entry)
 
 	UpdateLockButton(entry)
 	module:StyleEntry(entry, module.db.enable and module:IsLocked(GetAddOnName(entry:GetID())))
+	module:AddVersion(entry)
 end
 
 -- Runs after Blizzard's initializer (and ElvUI's hook on it) for every shown row
@@ -430,6 +431,8 @@ local function OnListUpdate()
 	if module.db.extendedSearch then
 		module:ExtendSearch()
 	end
+
+	module:ApplyFilter()
 end
 
 --[[----------------------------------
@@ -460,6 +463,7 @@ function module:SetupList()
 	end)
 
 	self:CreateProfilePanel(list)
+	self:CreateFilterButton(list)
 end
 
 ---Applies the enable toggle, hooks are only set the first time it is on
@@ -474,6 +478,7 @@ function module:UpdateState()
 	end
 
 	self:UpdateStyle()
+	self:UpdateFilterButton()
 
 	RefreshList()
 end
@@ -481,6 +486,15 @@ end
 function module:Initialize()
 	self.db = E.global.mui.addonManager
 	self:UpdateState()
+
+	-- A running search for a faulty addon goes on after its reload, also with the module off
+	if self.db.bisect then
+		F.Event.RegisterOnceCallback("MER.InitializedSafe", function()
+			E:Delay(2, function()
+				self:ResumeBisect()
+			end)
+		end)
+	end
 end
 
 MER:AddCommand("ADDONPROFILES", { "/muiaddons" }, function(msg)

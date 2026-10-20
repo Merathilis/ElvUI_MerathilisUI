@@ -164,9 +164,17 @@ local function CreatePanel(list)
 	end)
 	panel.save:SetPoint("BOTTOM", 0, INSET)
 
+	-- Above it the search for a faulty addon
+	panel.bisect = module.CreateFlatButton(panel, L["Find Faulty Addon"], PANEL_WIDTH - INSET * 2, 22, false, function()
+		module:ShowBisectStartPopup()
+	end)
+	panel.bisect:SetPoint("BOTTOM", panel.save, "TOP", 0, 6)
+	panel.bisect.tooltip =
+		L["Turns off half of your addons per reload until the one behind a problem is found. Your addons come back at the end."]
+
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", INSET, -HEADER_HEIGHT)
-	scroll:SetPoint("BOTTOMRIGHT", panel.save, "TOPRIGHT", 0, 10)
+	scroll:SetPoint("BOTTOMRIGHT", panel.bisect, "TOPRIGHT", 0, 10)
 	S:HandleScrollBar(scroll.ScrollBar)
 
 	local content = CreateFrame("Frame", nil, scroll)

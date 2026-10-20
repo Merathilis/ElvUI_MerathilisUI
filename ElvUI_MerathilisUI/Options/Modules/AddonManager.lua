@@ -75,6 +75,29 @@ module:AddOptions(function()
 					AM:UpdateState()
 				end,
 			}),
+			showVersion = module.ToggleCard({
+				order = 3.05,
+				name = L["Show Version"],
+				desc = L["Shows the version of each addon behind its title in the addon list."],
+				image = I.Media.Icons.Categories.addon_manager,
+				disabled = Disabled,
+				get = function()
+					return db.showVersion
+				end,
+				set = function(_, value)
+					db.showVersion = value
+					AM:UpdateState()
+				end,
+			}),
+			bisect = module.ActionCard({
+				order = 3.4,
+				name = L["Find Faulty Addon"],
+				desc = L["Turns off half of your addons per reload until the one behind a problem is found. Your addons come back at the end."],
+				disabled = Disabled,
+				func = function()
+					AM:ShowBisectStartPopup()
+				end,
+			}, { icon = I.Media.Icons.Categories.addon_manager, relWidth = 0.5 }),
 			extendedTooltip = module.ToggleCard({
 				order = 3.1,
 				name = L["Extended Tooltip"],

@@ -3,4 +3,6 @@
 	<Script file="Style.lua"/>
 	<Script file="Panel.lua"/>
 	<Script file="Dependencies.lua"/>
+	<Script file="Filter.lua"/>
+	<Script file="Bisect.lua"/>
 </Ui>

@@ -36,6 +36,7 @@ F.AddMedia("icon", "Home")
 F.AddMedia("icon", "Favorite")
 F.AddMedia("icon", "List")
 F.AddMedia("icon", "Lock")
+F.AddMedia("icon", "Filter")
 F.AddMedia("icon", "Discord")
 
 -- Brand logos (rounded tiles) for the Information page

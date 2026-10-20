@@ -45,6 +45,8 @@ local function GetListCharacter()
 	return E.myguid
 end
 
+module.GetListCharacter = GetListCharacter
+
 local function IsEnabled(addon, character)
 	return GetAddOnEnableState(addon, character) > ENABLE_STATE_NONE
 end
@@ -81,6 +83,7 @@ local function CollectDependencies(addon, result, seen)
 
 	return result
 end
+module.CollectDependencies = CollectDependencies
 
 ---Enabled addons that need this addon, directly or through another one
 ---@param name string
