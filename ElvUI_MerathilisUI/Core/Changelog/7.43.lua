@@ -8,6 +8,7 @@ MER.Changelog[743] = {
 	},
 	NEW = {
 		"[Movement Alert]: The bars can be attached above or below the player, target or focus unit frame and take over its width.",
+		"[UnitFrames]: Ping Icon - pings placed on a unit (attack, warning, on my way, assist) show up on its unitframe, for the player, target, focus, pet, party, raid, tank, assist and arena frames, until ElvUI ships its own version.",
 	},
 	IMPROVEMENTS = {
 		"[Notification]: Rare notifications now play a softer chime instead of the raid warning sound.",

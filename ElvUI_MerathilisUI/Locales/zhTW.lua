@@ -1553,6 +1553,8 @@ L["Shows a reminder while the Gateway Control Shard in your bags can be used."] 
 -- Faction Indicator
 L["Faction Indicator"] = true
 L["Shows the faction icon of players from the opposing faction."] = true
+L["Ping Icon"] = "信號圖示"
+L["Shows pings placed on a unit on its unitframe."] = true
 L["Crest"] = true
 L["Round"] = true
 L["TargetTarget"] = "目標的目標"

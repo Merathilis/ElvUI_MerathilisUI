@@ -1342,6 +1342,8 @@ L["Shows a reminder while the Gateway Control Shard in your bags can be used."] 
 -- Faction Indicator
 L["Faction Indicator"] = "Fraktionsanzeige"
 L["Shows the faction icon of players from the opposing faction."] = "Zeigt das Fraktionssymbol von Spielern der gegnerischen Fraktion an."
+L["Ping Icon"] = "Pingsymbol"
+L["Shows pings placed on a unit on its unitframe."] = "Zeigt Pings, die auf eine Einheit gesetzt wurden, an ihrem Einheitenfenster an."
 L["Crest"] = "Wappen"
 L["Round"] = "Rund"
 L["TargetTarget"] = "Ziel des Ziels"

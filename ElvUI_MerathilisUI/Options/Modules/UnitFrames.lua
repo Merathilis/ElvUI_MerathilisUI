@@ -12,6 +12,10 @@ module:AddOptions(function()
 		return not MER:HasRequirements(I.Requirements.UnitFrames)
 	end
 
+	local function PingIndicatorDisabled()
+		return UnitFramesDisabled() or not E.db.mui.unitframes.pingIndicator.enable
+	end
+
 	local function PortraitsDisabled()
 		return UnitFramesDisabled() or not E.db.mui.unitframes.portraits.enable
 	end
@@ -376,6 +380,92 @@ module:AddOptions(function()
 									return UnitFramesDisabled() or not E.db.mui.unitframes.factionIndicator.enable
 								end,
 							}, { "crest", "round" }),
+						},
+					},
+					pingIndicator = {
+						order = 11.5,
+						type = "group",
+						name = L["Ping Icon"],
+						guiInline = true,
+						get = function(info)
+							return E.db.mui.unitframes.pingIndicator[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.unitframes.pingIndicator[info[#info]] = value
+							MUF:UpdatePingIndicators()
+						end,
+						args = {
+							desc = {
+								order = 1,
+								type = "description",
+								name = L["Shows pings placed on a unit on its unitframe."],
+							},
+							enable = {
+								order = 2,
+								type = "toggle",
+								name = F.NewFeatureText(L["Enable"]),
+							},
+							size = {
+								order = 3,
+								type = "range",
+								name = L["Size"],
+								disabled = PingIndicatorDisabled,
+								min = 8,
+								max = 60,
+								step = 1,
+							},
+							position = {
+								order = 4,
+								type = "select",
+								name = L["Anchor Point"],
+								disabled = PingIndicatorDisabled,
+								values = I.Values.positionValues,
+							},
+							xOffset = {
+								order = 5,
+								type = "range",
+								name = L["X-Offset"],
+								disabled = PingIndicatorDisabled,
+								min = -100,
+								max = 100,
+								step = 1,
+							},
+							yOffset = {
+								order = 6,
+								type = "range",
+								name = L["Y-Offset"],
+								disabled = PingIndicatorDisabled,
+								min = -100,
+								max = 100,
+								step = 1,
+							},
+							units = {
+								order = 7,
+								type = "multiselect",
+								name = L["Units"],
+								disabled = PingIndicatorDisabled,
+								values = {
+									player = L["Player"],
+									target = L["Target"],
+									targettarget = L["TargetTarget"],
+									focus = L["Focus"],
+									focustarget = L["FocusTarget"],
+									pet = L["Pet"],
+									pettarget = L["PetTarget"],
+									party = L["Party"],
+									raid = L["Raid"],
+									tank = L["Tank"],
+									assist = L["Assist"],
+									arena = L["Arena"],
+								},
+								get = function(_, key)
+									return E.db.mui.unitframes.pingIndicator.units[key]
+								end,
+								set = function(_, key, value)
+									E.db.mui.unitframes.pingIndicator.units[key] = value
+									MUF:UpdatePingIndicators()
+								end,
+							},
 						},
 					},
 				},
@@ -855,6 +945,10 @@ module:AddOptions(function()
 	local generalArgs = options.unitframes.args.general.args
 	module.ModuleCard("ufRoundedCorners", generalArgs.roundedCorners, "enable")
 	module.ModuleCard("ufFactionIndicator", generalArgs.factionIndicator, "enable")
+
+	module.LessCommon(generalArgs.pingIndicator.args, "ufPingIndicatorMore", { "position", "xOffset", "yOffset" })
+	module.ModuleCard("ufPingIndicator", generalArgs.pingIndicator, "enable")
+	F.MarkTabAsNew("unitframes")
 
 	module.ColorModeSelect(portraitArgs.style.args, "colorMode", "customColor", { "CLASS", "GRADIENT", "CUSTOM" })
 

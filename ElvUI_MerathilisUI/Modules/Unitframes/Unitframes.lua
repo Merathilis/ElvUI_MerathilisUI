@@ -68,6 +68,8 @@ function module:Initialize()
 	module:FactionIndicator()
 	-- Interrupt Ready
 	module:InterruptReady()
+	-- Ping Indicator
+	module:PingIndicator()
 	-- Castbar Shield
 	module:CastbarShield()
 	-- Execute Line
@@ -88,6 +90,7 @@ function module:ProfileUpdate()
 
 	module:UpdateFactionIndicators()
 	module:UpdateInterruptReady()
+	module:UpdatePingIndicators()
 	module:UpdateCastbarShield()
 	module:UpdateExecuteLines()
 	module:UpdateRestingIndicator()
