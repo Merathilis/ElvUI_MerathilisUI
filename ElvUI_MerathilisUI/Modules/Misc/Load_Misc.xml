@@ -16,6 +16,7 @@
 	<Script file="SingingSockets.lua"/>
 	<Script file="SplashScreen.lua"/>
 	<Script file="TradeTabs.lua"/>
+	<Script file="TrainAll.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
 
 	<Include file="Scale\Load_Scale.xml"/>

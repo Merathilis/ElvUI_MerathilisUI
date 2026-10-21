@@ -199,6 +199,10 @@ L["Add more oUF tags. You can use them on UnitFrames configuration."] =
 
 L["Trade Tabs"] = "Berufe Tabs"
 L["Enable Tabs on the Profession Frames"] = "Aktiviere die Tabs in den Berufsfenstern"
+L["Train All"] = "Alles lernen"
+L["Adds a button to the trainer that learns everything available you can afford."] = "Fügt dem Lehrer einen Button hinzu, der alles Verfügbare lernt, das du dir leisten kannst."
+L["Learns %d available entries for %s."] = "Lernt %d verfügbare Einträge für %s."
+L["Nothing to learn that you can afford."] = "Nichts zu lernen, das du dir leisten kannst."
 L["Group Finder"] = "Gruppenfinder"
 L["Vendor"] = "Händler"
 L["Class Trainer"] = "Klassentrainer"

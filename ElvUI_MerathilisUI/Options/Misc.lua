@@ -44,6 +44,11 @@ module:AddOptions(function()
 				name = L["Trade Tabs"],
 				desc = L["Enable Tabs on the Profession Frames"],
 			}, 0.5),
+			trainAll = module.ToggleCard({
+				order = 7,
+				name = L["Train All"],
+				desc = L["Adds a button to the trainer that learns everything available you can afford."],
+			}, 0.5),
 			blockRequest = module.ToggleCard({
 				order = 8,
 				name = L["Block Join Requests"],
