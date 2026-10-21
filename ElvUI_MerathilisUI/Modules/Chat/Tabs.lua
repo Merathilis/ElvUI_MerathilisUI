@@ -6,9 +6,10 @@ local _G = _G
 local pairs, setmetatable = pairs, setmetatable
 
 local CreateFrame = CreateFrame
+local GetPhysicalScreenSize = GetPhysicalScreenSize
 
 -- Same look as the underline of the MerathilisUI options tabs: a flat 2px
--- bar on the tab's bottom edge, a little wider than the name.
+-- bar just above the tab's bottom edge, a little wider than the name.
 local UNDERLINE_HEIGHT = 2
 local UNDERLINE_PADDING = 4
 
@@ -34,8 +35,6 @@ local function CreateUnderline(tab)
 	-- names never have to be read.
 	local line = holder:CreateTexture(nil, "ARTWORK")
 	line:SetTexture(E.media.blankTex)
-	line:SetHeight(UNDERLINE_HEIGHT)
-	line:SetPoint("BOTTOM", tab, "BOTTOM", 0, 0)
 	line:SetPoint("LEFT", tab.Text, "LEFT", -UNDERLINE_PADDING, 0)
 	line:SetPoint("RIGHT", tab.Text, "RIGHT", UNDERLINE_PADDING, 0)
 	holder.line = line
@@ -56,8 +55,28 @@ function module:StyleChatTab(tab, selected)
 
 	holder = holder or CreateUnderline(tab)
 
+	-- Exactly UNDERLINE_HEIGHT screen pixels in the line's own effective scale
+	-- (E:Scale assumes UIParent's), so both snapped edges round the same way on
+	-- every tab. Set here so UI scale changes follow.
+	local line = holder.line
+	local _, screenHeight = GetPhysicalScreenSize()
+	local pixel = 768 / screenHeight / line:GetEffectiveScale()
+	line:SetHeight(UNDERLINE_HEIGHT * pixel)
+
+	-- Overflow tabs live in the dock's scroll child, a pixel below the dock's
+	-- clip edge, which cut the bottom row off. One pixel up keeps the line inside
+	-- on every tab, at the same distance to the name.
+	line:SetPoint("BOTTOM", tab, "BOTTOM", 0, pixel)
+
 	local cc = E.myClassColor
-	holder.line:SetVertexColor(cc.r, cc.g, cc.b, 1)
+	line:SetVertexColor(cc.r, cc.g, cc.b, 1)
+
+	-- ElvUI's SetTexture/SetVertexColor hooks turn pixel snapping off, so on tabs
+	-- sitting between pixel rows the line blurs over three rows and looks thicker.
+	-- Turned back on after the color, which would otherwise disable it again. Both
+	-- calls are needed: a bias of 0 (ElvUI's) leaves the snap without effect.
+	line:SetSnapToPixelGrid(true)
+	line:SetTexelSnappingBias(1)
 
 	holder:Show()
 end
