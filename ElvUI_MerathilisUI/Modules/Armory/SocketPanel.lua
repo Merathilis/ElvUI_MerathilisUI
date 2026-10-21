@@ -1001,6 +1001,9 @@ function module:OpenSocketFlyout(iconButton, targetSlot, targetSocketIndex, hove
 	-- as soon as the flyout opens.
 	self:StartSocketSlotGlow(targetSlot)
 
+	-- Always read the bags fresh: BAG_UPDATE_DELAYED can fire before freshly
+	-- looted items (e.g. from the mailbox) report their data, leaving the cache stale
+	self.socketGemDirty = true
 	self:PopulateSocketFlyout()
 
 	self.socketFlyout:ClearAllPoints()
