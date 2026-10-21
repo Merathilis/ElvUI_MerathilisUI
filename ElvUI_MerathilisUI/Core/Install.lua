@@ -352,7 +352,7 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["keepSizeRatio"] = false
 	E.db["auras"]["buffs"]["height"] = 28
 	E.db["auras"]["buffs"]["size"] = 36
-	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-272,-17"
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-275,-17"
 	E.db["auras"]["buffs"]["countFont"] = "- GothamNarrow-Black"
 	E.db["auras"]["buffs"]["countFontSize"] = 11
 	E.db["auras"]["buffs"]["countFontOutline"] = "SHADOWOUTLINE"
@@ -2117,8 +2117,8 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,268,326"
 	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,UIParent,BOTTOMLEFT,2,571"
 	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,UIParent,BOTTOMLEFT,2,626"
-	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-305,-305"
-	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-305,-305"
+	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-485,-305"
+	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-485,-305"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,UIParent,BOTTOMLEFT,0,808"
 	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-524,269"
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,524,269"
