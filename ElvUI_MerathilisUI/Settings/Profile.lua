@@ -1494,6 +1494,11 @@ P.movementAlert = {
 		texture = "ElvUI Norm",
 		showIcon = true,
 		showTime = true,
+		attachTo = "NONE", -- NONE, player, target, focus
+		attachPoint = "TOP", -- TOP, BOTTOM
+		matchWidth = true,
+		xOffset = 0,
+		yOffset = 0,
 	},
 	spells = {}, -- [spellID] = true/false, overrides the default state of a preset spell
 	customSpells = {}, -- [class] = { [spellID] = true }

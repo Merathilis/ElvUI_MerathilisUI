@@ -2188,6 +2188,16 @@ function MER:DeveloperSettings()
 	-- VehicleBar
 	E.db["mui"]["vehicleBar"]["enable"] = true
 
+	-- Movement Alert
+	E.db["mui"]["movementAlert"]["enable"] = true
+	E.db["mui"]["movementAlert"]["displayMode"] = "BAR"
+	E.db["mui"]["movementAlert"]["bar"]["attachTo"] = "player"
+	E.db["mui"]["movementAlert"]["bar"]["attachPoint"] = "BOTTOM"
+	E.db["mui"]["movementAlert"]["bar"]["matchWidth"] = true
+	E.db["mui"]["movementAlert"]["bar"]["xOffset"] = 0
+	E.db["mui"]["movementAlert"]["bar"]["yOffset"] = -30
+	E.db["mui"]["movementAlert"]["bar"]["height"] = 20
+
 	-- Addon Manager
 	E.global["mui"]["addonManager"]["enable"] = true
 
