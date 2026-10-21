@@ -683,7 +683,8 @@ function module:RebuildSocketPanel()
 	end
 
 	self.socketPanel:SetSize(max(iconSize, count * (iconSize + spacing) - spacing), iconSize)
-	self.socketPanel:Show()
+	-- Sits on top of the lower stat rows, which the stat picker needs while editing
+	self.socketPanel:SetShown(not self.statEditMode)
 end
 
 function module:CloseSocketSession()

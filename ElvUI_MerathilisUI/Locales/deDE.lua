@@ -294,6 +294,13 @@ L["Double-click the character to reset its rotation, zoom and position."] = "Dop
 L["Highlight Slots"] = "Slots hervorheben"
 L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."] =
 	"Beim Überfahren eines Sekundär- oder Tertiärwerts werden die Gegenstandsslots ohne diesen Wert abgedunkelt, Edelsteine eingeschlossen."
+L["Stat Picker"] = "Stat-Auswahl"
+L["Shows a cog button on the stats of the character frame. It switches to an edit mode where a click shows or hides a stat and dragging changes the order."] = "Zeigt ein Zahnrad bei den Werten im Charakterfenster. Es wechselt in einen Bearbeitungsmodus, in dem ein Klick einen Wert ein- oder ausblendet und Ziehen die Reihenfolge ändert."
+L["Restores the default order and visibility of all stats."] = "Stellt die Standard-Reihenfolge und -Sichtbarkeit aller Werte wieder her."
+L["Edit Stats"] = "Werte bearbeiten"
+L["Reset to Default"] = "Auf Standard zurücksetzen"
+L["Drag:"] = "Ziehen:"
+L["Change Order"] = "Reihenfolge ändern"
 L["Slot Item Level"] = "Slot Gegenstandsstufe"
 L["Bags Item Level"] = "Taschen Gegenstandsstufe"
 L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."] =

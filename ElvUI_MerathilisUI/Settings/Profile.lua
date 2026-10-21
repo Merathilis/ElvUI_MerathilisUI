@@ -489,6 +489,10 @@ P.armory = {
 		alternatingBackgroundEnabled = true, -- Enabled by default
 		alternatingBackgroundAlpha = 0.75,
 		highlightSlots = true,
+		pickerButton = true,
+
+		-- Stat order per category frame, saved by the stat picker
+		order = {},
 
 		-- Sets the mode for stats
 		-- 0 (Hide), 1 (Smart/Blizzard), 2 (Always Show if not 0), 3 (Always Show)

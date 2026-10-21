@@ -1161,6 +1161,21 @@ module:AddOptions(function()
 						name = L["Highlight Slots"],
 						desc = L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."],
 					},
+					pickerButton = {
+						order = 2.6,
+						type = "toggle",
+						name = L["Stat Picker"],
+						desc = L["Shows a cog button on the stats of the character frame. It switches to an edit mode where a click shows or hides a stat and dragging changes the order."],
+					},
+					resetPicker = {
+						order = 2.7,
+						type = "execute",
+						name = L["Reset Order"],
+						desc = L["Restores the default order and visibility of all stats."],
+						func = function()
+							Armory:ResetStatPicker()
+						end,
+					},
 					fontGroup = {
 						order = 3,
 						type = "group",

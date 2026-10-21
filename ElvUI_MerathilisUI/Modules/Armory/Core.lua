@@ -1516,6 +1516,38 @@ function module:UpdateCharacterStat(frame, showGradient)
 	end
 end
 
+local function ListContains(list, value)
+	for _, entry in ipairs(list) do
+		if entry == value then
+			return true
+		end
+	end
+	return false
+end
+
+---Smart mode (1) rules of a stat: primary stat, role, class and its own show function.
+---The value check against hideAt follows once the stat is updated.
+local function PassesSmartRules(stat, role, primaryStat)
+	if primaryStat then
+		if stat.primary and stat.primary ~= primaryStat then
+			return false
+		end
+		if stat.primaries and not ListContains(stat.primaries, primaryStat) then
+			return false
+		end
+	end
+	if stat.roles and not ListContains(stat.roles, role) then
+		return false
+	end
+	if stat.classes and not ListContains(stat.classes, E.myclass) then
+		return false
+	end
+	if stat.showFunc then
+		return stat.showFunc()
+	end
+	return true
+end
+
 function module:UpdateCharacterStats()
 	if not module.frame:IsShown() then
 		return
@@ -1553,7 +1585,12 @@ function module:UpdateCharacterStats()
 		primaryStat = select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
 	end
 
-	if level >= (MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY or 0) then
+	-- The stat picker adds the hidden stats that fit the spec, dimmed. Stats of other roles
+	-- would push the list past the bottom of the frame, those stay in the options, and the
+	-- item level makes room while editing.
+	local editMode = module.statEditMode
+
+	if level >= (MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY or 0) and not editMode then
 		module:CleanupCharacterStat(characterStatsPane.ItemLevelFrame)
 
 		local animationSlot = module:GetAnimationSlot(true)
@@ -1577,89 +1614,25 @@ function module:UpdateCharacterStats()
 	characterStatsPane.statsFramePool:ReleaseAll()
 	local statFrame = characterStatsPane.statsFramePool:Acquire()
 	local categories = module.StatCategories
+	local modes = module.db.stats.mode
+
+	module:ClearStatPickerRows()
 
 	for catIndex = 1, #categories do
 		local catFrame = characterStatsPane[categories[catIndex].categoryFrame]
 		local animationSlot = module:GetAnimationSlot(true)
 		local numStatInCat = 0
-		for statIndex = 1, #categories[catIndex].stats do
-			local stat = categories[catIndex].stats[statIndex]
-			local hideAt = stat.hideAt
-			local showStat = true
-			local statMode = 1
+		local stats = module:GetOrderedStats(catIndex)
+		for statIndex = 1, #stats do
+			local stat = stats[statIndex]
+			-- 0 (Hide), 1 (Smart), 2 (Always Show if not empty), 3 (Always Show), nil for unknown stats
+			local statMode = modes[stat.stat] and modes[stat.stat].mode
+			local passesRules = PassesSmartRules(stat, role, primaryStat)
+			local showStat = (statMode == 3) or (statMode == 2) or (statMode == 1 and passesRules)
 
-			-- Append ID string to stat frame
-			statFrame.stringId = stat.stat
-
-			if module.db.stats.mode[stat.stat] ~= nil then
-				statMode = module.db.stats.mode[stat.stat].mode
-			else
-				showStat = false
-			end
-
-			-- Mode 0 - Always Hide
-			if showStat and (statMode == 0) then
-				showStat = false
-			end
-
-			-- Mode 1 - Smart (uses cached primaryStat / role)
-			if showStat and (statMode == 1) then
-				if showStat and stat.primary and primaryStat then
-					if stat.primary ~= primaryStat then
-						showStat = false
-					end
-				end
-
-				if showStat and stat.primaries and primaryStat then
-					local foundPrimary = false
-					for _, primary in pairs(stat.primaries) do
-						if primaryStat == primary then
-							foundPrimary = true
-							break
-						end
-					end
-					showStat = foundPrimary
-				end
-
-				if showStat and stat.roles then
-					local foundRole = false
-					for _, statRole in pairs(stat.roles) do
-						if role == statRole then
-							foundRole = true
-							break
-						end
-					end
-					showStat = foundRole
-				end
-
-				if showStat and stat.classes then
-					local foundClass = false
-					for _, statClass in pairs(stat.classes) do
-						if E.myclass == statClass then
-							foundClass = true
-							break
-						end
-					end
-					showStat = foundClass
-				end
-
-				if showStat and stat.showFunc then
-					showStat = stat.showFunc()
-				end
-			end
-
-			-- Mode 2 - Always Show if not empty
-			if showStat and (statMode == 2) and (hideAt == nil) then
-				hideAt = 0
-			end
-
-			-- Mode 3 - Always Show
-			-- This is not needed here, just added here to make the logic more clearer
-			if showStat and (statMode == 3) then
-				showStat = true
-			end
-
-			if showStat then
+			if showStat or (editMode and statMode ~= nil and passesRules) then
+				-- Append ID string to stat frame
+				statFrame.stringId = stat.stat
 				statFrame.onEnterFunc = nil
 				statFrame.UpdateTooltip = nil
 
@@ -1670,17 +1643,23 @@ function module:UpdateCharacterStats()
 						statFrame.Value:SetText(F.String.Muted("N/A"))
 					end
 					statFrame.numericValue = nil
+					statFrame:Show()
 				end
 
-				-- Mode 1/2 - Validate hideAt value in Smart Mode/Always Show if not empty mode
-				-- Compares the local hideAt, which mode 2 defaults to 0. A secret value can't be
-				-- compared, so the stat stays visible then.
+				-- Mode 1 hides at the stat's hideAt value, mode 2 at its hideAt or 0. A secret
+				-- value can't be compared, so the stat stays visible then.
+				local hideAt = stat.hideAt
 				local numericValue = statFrame.numericValue
-				if (hideAt ~= nil) and ((statMode == 1) or (statMode == 2)) and E:NotSecretValue(numericValue) then
-					showStat = (hideAt ~= numericValue)
+				local valueKnown = E:NotSecretValue(numericValue)
+				local notEmpty = not (valueKnown and hideAt ~= nil and hideAt == numericValue)
+				if statMode == 1 then
+					showStat = showStat and notEmpty
+				elseif statMode == 2 then
+					showStat = not (valueKnown and (hideAt or 0) == numericValue)
 				end
 
-				if showStat then
+				-- Blizzard's update functions hide the row for stats the character can't have
+				if statFrame:IsShown() and (showStat or editMode) then
 					if numStatInCat == 0 then
 						if lastAnchor then
 							catFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, categoryYOffset)
@@ -1693,8 +1672,12 @@ function module:UpdateCharacterStats()
 
 					numStatInCat = numStatInCat + 1
 					module:UpdateCharacterStat(statFrame, (numStatInCat % 2) == 0)
+					module:SetStatRowDimmed(statFrame, editMode and not showStat)
 					module:SetupFadeAnimation(statFrame)
 					module:HookStatHighlight(statFrame)
+					if editMode then
+						module:AddStatPickerRow(statFrame, stat, catIndex, showStat, passesRules and notEmpty)
+					end
 
 					lastAnchor = statFrame
 					statFrame = characterStatsPane.statsFramePool:Acquire()
@@ -1712,6 +1695,7 @@ function module:UpdateCharacterStats()
 	end
 
 	characterStatsPane.statsFramePool:Release(statFrame)
+	module:UpdateStatPickerOverlay()
 end
 
 function module:UpdateAttackSpeed(statFrame, unit)
@@ -2155,6 +2139,7 @@ function module:UpdateCharacterArmory()
 	module:UpdateLines()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
+	module:UpdateStatPickerButton()
 	module:UpdateCharacterStats()
 	module:CreateTitleSearchBox()
 	module:EnableEquipmentManagerSkin()
@@ -2529,6 +2514,8 @@ function module:Disable()
 	self:DisableSocketPanel()
 	self:DisableEquipmentManagerSkin()
 	self:ClearStatSlotHighlight()
+	self:SetStatEditMode(false)
+	self:UpdateStatPickerButton()
 	self:ResetSlotReveal()
 	self:ResetFlyouts()
 	self:HideStage()
@@ -2612,12 +2599,14 @@ function module:OnArmoryHide()
 	self:SocketPanelOnHide()
 	self:ClearStatSlotHighlight()
 	self:ResetSlotReveal()
+	self:SetStatEditMode(false)
 end
 
 function module:DatabaseUpdate()
 	-- Set db
 	self.db = F.GetDBFromPath("mui.armory") or E.db.mui.armory
 	self._titleFontDirty = true
+	self:ClearOrderedStats()
 
 	-- Enable/Disable only out of combat
 	F.Event.ContinueOutOfCombat(function()
