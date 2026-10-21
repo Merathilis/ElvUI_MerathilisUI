@@ -275,6 +275,7 @@ L["Highlight Slots"] = true
 L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."] = true
 L["Stat Picker"] = true
 L["Shows a cog button on the stats of the character frame. It switches to an edit mode where a click shows or hides a stat and dragging changes the order."] = true
+L["Reset Stats"] = true
 L["Restores the default order and visibility of all stats."] = true
 L["Edit Stats"] = true
 L["Reset to Default"] = true

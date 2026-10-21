@@ -296,6 +296,7 @@ L["Hovering a secondary or tertiary stat dims the item slots that do not have it
 	"Beim Überfahren eines Sekundär- oder Tertiärwerts werden die Gegenstandsslots ohne diesen Wert abgedunkelt, Edelsteine eingeschlossen."
 L["Stat Picker"] = "Stat-Auswahl"
 L["Shows a cog button on the stats of the character frame. It switches to an edit mode where a click shows or hides a stat and dragging changes the order."] = "Zeigt ein Zahnrad bei den Werten im Charakterfenster. Es wechselt in einen Bearbeitungsmodus, in dem ein Klick einen Wert ein- oder ausblendet und Ziehen die Reihenfolge ändert."
+L["Reset Stats"] = "Werte zurücksetzen"
 L["Restores the default order and visibility of all stats."] = "Stellt die Standard-Reihenfolge und -Sichtbarkeit aller Werte wieder her."
 L["Edit Stats"] = "Werte bearbeiten"
 L["Reset to Default"] = "Auf Standard zurücksetzen"

@@ -1170,7 +1170,7 @@ module:AddOptions(function()
 					resetPicker = {
 						order = 2.7,
 						type = "execute",
-						name = L["Reset Order"],
+						name = L["Reset Stats"],
 						desc = L["Restores the default order and visibility of all stats."],
 						func = function()
 							Armory:ResetStatPicker()
