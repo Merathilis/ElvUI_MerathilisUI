@@ -5,19 +5,41 @@ local WS = W:GetModule("Skins")
 
 -- Credits RealUI
 local unpack, type, pcall = unpack, type, pcall
+local max, min = math.max, math.min
 local table = table
 local tinsert, tremove = table.insert, table.remove
 
 local CreateFrame = CreateFrame
 local UnitIsAFK = UnitIsAFK
 local GetAtlasInfo = C_Texture.GetAtlasInfo
+local GetTime = GetTime
 local PlaySound = PlaySound
 local After = C_Timer.After
 local CreateAnimationGroup = CreateAnimationGroup
 local SlashCmdList = SlashCmdList
 
-local bannerWidth = 255
-local bannerHeight = 68
+-- Card layout in the style of the options cards: accent strip on the left,
+-- icon top left, title and text as one block next to it, a timer bar at the
+-- bottom. The height follows the text.
+local TOAST_WIDTH = 290
+local PADDING = 10
+local ACCENT_WIDTH = 2
+local ICON_SIZE = 36
+local TEXT_GAP = 3
+local MAX_TEXT_LINES = 3
+local CLOSE_SIZE = 10
+local ARROW_SIZE = 12
+local TIMER_HEIGHT = 2
+local MIN_HEIGHT = ICON_SIZE + PADDING * 2
+-- Title and text keep clear of the close button and the click arrow
+local TEXT_RIGHT_INSET = PADDING + CLOSE_SIZE + 4
+local STACK_GAP = 6
+local SLIDE_OFFSET = 54
+
+local COLOR_ACCENT = { I.Colors.Accent.r, I.Colors.Accent.g, I.Colors.Accent.b }
+local COLOR_TEXT = { 0.8, 0.8, 0.8 }
+local COLOR_MUTED = { 0.62, 0.62, 0.62 }
+
 local max_active_toasts = 3
 local fadeout_delay = 5
 local toasts = {}
@@ -46,17 +68,17 @@ function module:SpawnToast(toast)
 
 	local YOffset
 	if E:GetScreenQuadrant(anchorFrame):find("TOP") then
-		YOffset = -54
+		YOffset = -SLIDE_OFFSET
 	else
-		YOffset = 54
+		YOffset = SLIDE_OFFSET
 	end
 
 	toast:ClearAllPoints()
 	if #activeToasts > 0 then
 		if E:GetScreenQuadrant(anchorFrame):find("TOP") then
-			toast:SetPoint("TOP", activeToasts[#activeToasts], "BOTTOM", 0, -4 - YOffset)
+			toast:SetPoint("TOP", activeToasts[#activeToasts], "BOTTOM", 0, -STACK_GAP - YOffset)
 		else
-			toast:SetPoint("BOTTOM", activeToasts[#activeToasts], "TOP", 0, 4 - YOffset)
+			toast:SetPoint("BOTTOM", activeToasts[#activeToasts], "TOP", 0, STACK_GAP - YOffset)
 		end
 	else
 		toast:SetPoint("TOP", anchorFrame, "TOP", 0, 1 - YOffset)
@@ -71,6 +93,7 @@ function module:SpawnToast(toast)
 	toast.AnimOut.AnimMove:SetOffset(0, -YOffset)
 	toast.AnimIn:Play()
 	toast.AnimOut:Play()
+	toast.timerStart = GetTime()
 
 	if E.db.mui.notification.noSound ~= true then
 		PlaySound(18019, "Master")
@@ -94,9 +117,9 @@ function module:RefreshToasts()
 			activeToast:SetPoint("TOP", anchorFrame, "TOP", 0, 1 - YOffset)
 		else
 			if E:GetScreenQuadrant(anchorFrame):find("TOP") then
-				activeToast:SetPoint("TOP", activeToasts[i - 1], "BOTTOM", 0, -4 - YOffset)
+				activeToast:SetPoint("TOP", activeToasts[i - 1], "BOTTOM", 0, -STACK_GAP - YOffset)
 			else
-				activeToast:SetPoint("BOTTOM", activeToasts[i - 1], "TOP", 0, 4 - YOffset)
+				activeToast:SetPoint("BOTTOM", activeToasts[i - 1], "TOP", 0, STACK_GAP - YOffset)
 			end
 		end
 	end
@@ -135,51 +158,187 @@ local function ToastButtonAnimOut_OnFinished(self)
 	module:HideToast(self:GetParent())
 end
 
+-- Text heights can come back as secret values (e.g. names from the social
+-- queue), those fall back to the given number of font lines
+local function GetTextHeight(fontString, fallbackLines)
+	local height = fontString:GetStringHeight()
+	if not height or E:IsSecretValue(height) then
+		local _, size = fontString:GetFont()
+		return (size or 12) * fallbackLines
+	end
+
+	return height
+end
+
+-- Hover reads like an options tile: accent border, tinted background, the
+-- close button shows up and the click arrow lights up
+function module:UpdateToastHover(toast)
+	local hover = toast.isHovered
+	local backdrop = toast.backdrop
+
+	-- Read every time, a changed ElvUI backdrop color applies to pooled toasts too
+	if hover then
+		backdrop:SetBackdropColor(COLOR_ACCENT[1] * 0.18, COLOR_ACCENT[2] * 0.18, COLOR_ACCENT[3] * 0.18, 0.9)
+		backdrop:SetBackdropBorderColor(COLOR_ACCENT[1], COLOR_ACCENT[2], COLOR_ACCENT[3], 1)
+	else
+		local bg = E.media.backdropfadecolor
+		backdrop:SetBackdropColor(bg[1], bg[2], bg[3], bg[4])
+		backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	end
+
+	toast.CloseButton:SetAlpha(hover and 1 or 0)
+	toast.arrow:SetShown(toast.clickFunc ~= nil)
+	toast.arrow:SetVertexColor(unpack(hover and COLOR_ACCENT or COLOR_MUTED))
+
+	-- The countdown starts over once the mouse leaves, so it stands full while hovered
+	toast.timer:SetAlpha(hover and 0.4 or 0.8)
+	if hover then
+		toast.timer:SetWidth(toast.timerWidth)
+		toast.timer:Show()
+	end
+end
+
+-- Sizes the toast to its text: title and text form one block that is centered
+-- next to the icon while it is shorter than the icon, otherwise the toast grows
+function module:LayoutToast(toast)
+	local title, text = toast.title, toast.text
+
+	local message = text:GetText()
+	local hasText = message ~= nil and (E:IsSecretValue(message) or message ~= "")
+
+	local contentHeight = GetTextHeight(title, 1)
+	if hasText then
+		local _, size = text:GetFont()
+		local maxHeight = (size or 12) * 1.25 * MAX_TEXT_LINES
+		contentHeight = contentHeight + TEXT_GAP + min(GetTextHeight(text, 1), maxHeight)
+	end
+	text:SetShown(hasText)
+
+	title:ClearAllPoints()
+	title:SetPoint("TOPLEFT", toast.icon, "TOPRIGHT", PADDING, -max(0, (ICON_SIZE - contentHeight) / 2))
+
+	toast:SetHeight(max(MIN_HEIGHT, contentHeight + PADDING * 2))
+	toast.timerWidth = TOAST_WIDTH - ACCENT_WIDTH - E.mult * 2
+end
+
+-- Frame and regions without animations or scripts, the options preview builds
+-- its example toast with this as well
+function module:BuildToastFrame(parent)
+	local toast = CreateFrame("Frame", nil, parent, "BackdropTemplate")
+	toast:SetSize(TOAST_WIDTH, MIN_HEIGHT)
+	toast:CreateBackdrop("Transparent")
+	WS:CreateBackdropShadow(toast, true)
+	toast:CreateCloseButton(CLOSE_SIZE)
+
+	local accent = toast:CreateTexture(nil, "ARTWORK")
+	accent:SetPoint("TOPLEFT", toast.backdrop, "TOPLEFT", E.mult, -E.mult)
+	accent:SetPoint("BOTTOMLEFT", toast.backdrop, "BOTTOMLEFT", E.mult, E.mult)
+	accent:SetWidth(ACCENT_WIDTH)
+	accent:SetColorTexture(COLOR_ACCENT[1], COLOR_ACCENT[2], COLOR_ACCENT[3], 1)
+	toast.accent = accent
+
+	local timer = toast:CreateTexture(nil, "ARTWORK")
+	timer:SetPoint("BOTTOMLEFT", accent, "BOTTOMRIGHT")
+	timer:SetHeight(TIMER_HEIGHT)
+	timer:SetColorTexture(COLOR_ACCENT[1], COLOR_ACCENT[2], COLOR_ACCENT[3], 1)
+	toast.timer = timer
+
+	local icon = toast:CreateTexture(nil, "OVERLAY")
+	icon:SetSize(ICON_SIZE, ICON_SIZE)
+	icon:SetPoint("TOPLEFT", toast, "TOPLEFT", PADDING + ACCENT_WIDTH, -PADDING)
+	S:CreateBG(icon)
+	toast.icon = icon
+
+	-- Fixed widths instead of a right anchor, so the heights are known before
+	-- the toast has its place on the screen
+	local textWidth = TOAST_WIDTH - (PADDING + ACCENT_WIDTH + ICON_SIZE + PADDING) - TEXT_RIGHT_INSET
+
+	local title = toast:CreateFontString(nil, "OVERLAY")
+	title:FontTemplate()
+	title:SetShadowOffset(1, -1)
+	title:SetWidth(textWidth)
+	title:SetJustifyH("LEFT")
+	title:SetJustifyV("TOP")
+	title:SetWordWrap(true)
+	title:SetMaxLines(2)
+	title:SetTextColor(1, 1, 1)
+	toast.title = title
+
+	local text = toast:CreateFontString(nil, "OVERLAY")
+	text:FontTemplate()
+	text:SetShadowOffset(1, -1)
+	text:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -TEXT_GAP)
+	text:SetWidth(textWidth)
+	text:SetJustifyH("LEFT")
+	text:SetJustifyV("TOP")
+	text:SetWordWrap(true)
+	text:SetMaxLines(MAX_TEXT_LINES)
+	text:SetTextColor(unpack(COLOR_TEXT))
+	toast.text = text
+
+	local arrow = toast:CreateTexture(nil, "OVERLAY")
+	arrow:SetSize(ARROW_SIZE, ARROW_SIZE)
+	arrow:SetPoint("BOTTOMRIGHT", toast, "BOTTOMRIGHT", -6, 6)
+	arrow:SetTexture(I.Media.Icons.Forward)
+	arrow:Hide()
+	toast.arrow = arrow
+
+	self:LayoutToast(toast)
+
+	return toast
+end
+
+local function Toast_OnUpdate(self)
+	if self.isHovered or not self.timerStart then
+		return
+	end
+
+	local width = self.timerWidth * (1 - (GetTime() - self.timerStart) / fadeout_delay)
+	if width > 0 then
+		self.timer:SetWidth(width)
+		self.timer:Show()
+	else
+		self.timer:Hide()
+	end
+end
+
+local function Toast_OnEnter(self)
+	self.isHovered = true
+	self.AnimOut:Stop()
+	module:UpdateToastHover(self)
+end
+
+local function Toast_OnLeave(self)
+	-- Moving onto the close button leaves the toast as well
+	if not self.isHovered or self:IsMouseOver() then
+		return
+	end
+
+	self.isHovered = nil
+	self.AnimOut:Play()
+	self.timerStart = GetTime()
+	module:UpdateToastHover(self)
+end
+
 function module:CreateToast()
 	local toast = tremove(toasts, 1)
 	if toast then
 		return toast
 	end
 
-	toast = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
+	toast = self:BuildToastFrame(E.UIParent)
 	toast:SetFrameStrata("HIGH")
-	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
-	toast:CreateBackdrop("Transparent")
-	WS:CreateBackdropShadow(toast, true)
-	toast:CreateCloseButton(10)
+
 	-- The button only hides the frame, the slot has to be given back as well
 	toast.CloseButton:HookScript("OnClick", function(button)
 		module:HideToast(button:GetParent())
 	end)
-
-	local icon = toast:CreateTexture(nil, "OVERLAY")
-	icon:SetSize(32, 32)
-	icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
-	S:CreateBG(icon)
-	toast.icon = icon
-
-	local sep = toast:CreateTexture(nil, "BACKGROUND")
-	sep:SetSize(2, bannerHeight)
-	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
-	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
-
-	local title = toast:CreateFontString(nil, "OVERLAY")
-	title:SetShadowOffset(1, -1)
-	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -5)
-	title:SetPoint("TOP", toast, "TOP", 0, 0)
-	title:SetJustifyH("LEFT")
-	title:SetNonSpaceWrap(true)
-	toast.title = title
-
-	local text = toast:CreateFontString(nil, "OVERLAY")
-	text:SetShadowOffset(1, -1)
-	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 17)
-	text:SetPoint("RIGHT", toast, -9, 0)
-	text:SetJustifyH("LEFT")
-	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
-	toast.text = text
+	-- Leaving the button past the toast's edge never reaches the toast itself
+	toast.CloseButton:HookScript("OnLeave", function(button)
+		Toast_OnLeave(button:GetParent())
+	end)
 
 	toast.AnimIn = CreateAnimationGroup(toast)
 
@@ -193,7 +352,7 @@ function module:CreateToast()
 	animInMove:SetOrder(1)
 	animInMove:SetDuration(0.5)
 	animInMove:SetEasing("Out")
-	animInMove:SetOffset(-bannerWidth, 0)
+	animInMove:SetOffset(-TOAST_WIDTH, 0)
 	toast.AnimIn.AnimMove = animInMove
 
 	toast.AnimOut = CreateAnimationGroup(toast)
@@ -213,18 +372,15 @@ function module:CreateToast()
 	animOutMove:SetOrder(2)
 	animOutMove:SetDuration(0.5)
 	animOutMove:SetEasing("In")
-	animOutMove:SetOffset(bannerWidth, 0)
+	animOutMove:SetOffset(TOAST_WIDTH, 0)
 	toast.AnimOut.AnimMove = animOutMove
 
 	toast.AnimOut.AnimAlpha:SetScript("OnFinished", ToastButtonAnimOut_OnFinished)
 
-	toast:SetScript("OnEnter", function(self)
-		self.AnimOut:Stop()
-	end)
-
-	toast:SetScript("OnLeave", function(self)
-		self.AnimOut:Play()
-	end)
+	-- Only runs while the toast is shown, pooled toasts are hidden
+	toast:SetScript("OnUpdate", Toast_OnUpdate)
+	toast:SetScript("OnEnter", Toast_OnEnter)
+	toast:SetScript("OnLeave", Toast_OnLeave)
 
 	toast:SetScript("OnMouseUp", function(self, button)
 		if button == "LeftButton" and self.clickFunc then
@@ -272,6 +428,11 @@ function module:DisplayToast(name, message, clickFunc, texture, ...)
 
 	toast.title:SetText(name)
 	toast.text:SetText(message)
+	self:LayoutToast(toast)
+
+	toast.isHovered = nil
+	toast.timerStart = nil
+	self:UpdateToastHover(toast)
 
 	local ok, err = pcall(function()
 		self:SpawnToast(toast)
@@ -320,7 +481,7 @@ function module:Initialize()
 	end
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
-	anchorFrame:Size(bannerWidth, 50)
+	anchorFrame:Size(TOAST_WIDTH, 50)
 	anchorFrame:Point("TOP", 0, -75)
 	E:CreateMover(
 		anchorFrame,

@@ -4,3 +4,4 @@
 -   [Fix]: Chat: The tab underline now has the same thickness on every tab - it was cut to a single pixel on tabs in the dock's scroll area and blurred on others.
 -   [New]: Movement Alert: The bars can be attached above or below the player, target or focus unit frame and take over its width.
 -   [Improvement]: Notification: Rare notifications now play a softer chime instead of the raid warning sound.
+-   [Improvement]: Notification: New toast design in the style of the options cards - accent strip, the text block sits next to the icon and the height follows the text, a bar shows the time left, and on hover the close button and a click hint appear.
