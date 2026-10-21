@@ -7,5 +7,7 @@ MER.Changelog[743] = {
 		"[Chat]: The tab underline now has the same thickness on every tab - it was cut to a single pixel on tabs in the dock's scroll area and blurred on others.",
 	},
 	NEW = {},
-	IMPROVEMENTS = {},
+	IMPROVEMENTS = {
+		"[Notification]: Rare notifications now play a softer chime instead of the raid warning sound.",
+	},
 }
