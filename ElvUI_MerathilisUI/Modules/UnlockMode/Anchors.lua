@@ -140,27 +140,46 @@ end
 -------------------------------------------------------------------------------
 --  Anchor / detach
 -------------------------------------------------------------------------------
-function module:Anchor(mover, target)
-	local name = mover.name
-	if self:DependsOn(target.name, name) then
-		F.Print(
-			format(
-				L["%s can't be anchored to %s, because %s already follows it."],
-				mover.textString,
-				target.textString,
-				target.textString
-			)
+-- False (with a chat note) when the target already follows the mover
+function module:CanAnchor(mover, target)
+	if not self:DependsOn(target.name, mover.name) then
+		return true
+	end
+
+	F.Print(
+		format(
+			L["%s can't be anchored to %s, because %s already follows it."],
+			mover.textString,
+			target.textString,
+			target.textString
 		)
+	)
+	return false
+end
+
+-- Without points the sides come from where the mover sits and it keeps its
+-- place; picked points are put on top of each other
+function module:Anchor(mover, target, point, relativePoint)
+	local name = mover.name
+	if not self:CanAnchor(mover, target) then
 		return
 	end
 
 	local x, y, oldPoint = E:CalculateMoverPoints(mover)
-	local point, relativePoint = ChoosePoints(mover, target)
+	local picked = point ~= nil
+	if not picked then
+		point, relativePoint = ChoosePoints(mover, target)
+	end
 	local anchor = { target = target.name, point = point, relativePoint = relativePoint }
 	self.db.anchors[name] = anchor
 
 	-- SetPoint refuses anchors the client sees as circular, the mover stays where it was then
-	local ok = pcall(self.AnchorFromCurrentPosition, self, name, mover, anchor)
+	local ok
+	if picked then
+		ok = pcall(self.SetAnchoredPoint, self, name, mover, anchor, 0, 0)
+	else
+		ok = pcall(self.AnchorFromCurrentPosition, self, name, mover, anchor)
+	end
 	if not ok then
 		self.db.anchors[name] = nil
 		mover:ClearAllPoints()

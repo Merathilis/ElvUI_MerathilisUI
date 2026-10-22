@@ -158,6 +158,12 @@ module:AddOptions(function()
 						fontSize = "medium",
 						name = L["Select a mover, then Alt-click another one: the selected mover is anchored to it and follows it from then on. The side is taken from where the mover sits. Dragging or nudging an anchored mover only changes its distance to the target. Alt-click the target again to detach it."],
 					},
+					pickDesc = {
+						order = 0.5,
+						type = "description",
+						fontSize = "medium",
+						name = L["Shift+Alt-click picks both points by hand instead: first one of nine on the selected mover, then one on the target. The two points are put on top of each other, Esc cancels."],
+					},
 					anchorLines = {
 						order = 1,
 						type = "toggle",

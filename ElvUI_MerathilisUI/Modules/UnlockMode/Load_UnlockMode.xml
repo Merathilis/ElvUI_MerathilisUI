@@ -2,6 +2,7 @@
 	<Script file="Core.lua"/>
 	<Script file="Snap.lua"/>
 	<Script file="Anchors.lua"/>
+	<Script file="PointPicker.lua"/>
 	<Script file="EditModeHints.lua"/>
 	<Script file="Animation.lua"/>
 	<Script file="Toolbar.lua"/>

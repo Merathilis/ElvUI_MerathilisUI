@@ -263,6 +263,7 @@ function module:UpdateToolbarHint()
 	wipe(hintParts)
 
 	tinsert(hintParts, L["Click: select"])
+	tinsert(hintParts, L["Shift+Alt-click: pick anchor points"])
 	if self.db.keyboardNudge then
 		tinsert(hintParts, format(L["Arrow keys: nudge, with Shift %d px"], self.db.bigStep))
 	end
