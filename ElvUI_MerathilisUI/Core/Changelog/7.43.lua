@@ -16,5 +16,6 @@ MER.Changelog[743] = {
 	IMPROVEMENTS = {
 		"[Notification]: Rare notifications now play a softer chime instead of the raid warning sound.",
 		"[Notification]: New toast design in the style of the options cards - accent strip, the text block sits next to the icon and the height follows the text, a bar shows the time left, and on hover the close button and a click hint appear.",
+		"[Skins]: KeystoneLoot skin updated for the reworked addon - the custom item panel and the Mythic+ group notification are skinned now, item icons get a quality colored border instead of a white one, and the side panels have a shadow.",
 	},
 }
