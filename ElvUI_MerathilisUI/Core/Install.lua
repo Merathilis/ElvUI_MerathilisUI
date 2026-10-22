@@ -834,7 +834,7 @@ function MER:SetupNamePlates()
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
-	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "- GothamNarrow-Black"
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "- GothamNarrow-Black"
@@ -855,7 +855,7 @@ function MER:SetupNamePlates()
 
 	-- Friendly Player
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "- GothamNarrow-Black"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["enable"] = true
@@ -891,7 +891,7 @@ function MER:SetupNamePlates()
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "- GothamNarrow-Black"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
@@ -927,7 +927,7 @@ function MER:SetupNamePlates()
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "- GothamNarrow-Black"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["enable"] = true
@@ -982,7 +982,7 @@ function MER:SetupNamePlates()
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "- GothamNarrow-Black"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
