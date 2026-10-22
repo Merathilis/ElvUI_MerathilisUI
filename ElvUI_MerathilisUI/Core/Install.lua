@@ -2170,7 +2170,7 @@ function MER:DeveloperSettings()
 
 	-- General
 	E.global["general"]["UIScale"] = E:PixelBestSize()
-	E.private["general"]["chatBubbles"] = "nobackdrop"
+	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.db["general"]["cropIcon"] = 0
 	E.db["general"]["autoRepair"] = "GUILD"
 	E.db["tooltip"]["showElvUIUsers"] = true
