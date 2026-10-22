@@ -4,6 +4,7 @@
 -   [Fix]: Chat: The tab underline now has the same thickness on every tab - it was cut to a single pixel on tabs in the dock's scroll area and blurred on others.
 -   [New]: Movement Alert: The bars can be attached above or below the player, target or focus unit frame and take over its width.
 -   [New]: Misc: Train All - a button at the trainer learns everything available you can afford in one click, new professions excluded.
+-   [New]: Misc: Queue Timer - a bar below the dungeon and battleground invite counts down the time left to accept, and takes the place of BigWigs' own dungeon timer.
 -   [New]: Armory: Stat Picker - a cog button on the character stats opens an edit mode: click a stat to show or hide it, drag it to change the order.
 -   [New]: UnitFrames: Ping Icon - pings placed on a unit (attack, warning, on my way, assist) show up on its unitframe, for the player, target, focus, pet, party, raid, tank, assist and arena frames, until ElvUI ships its own version.
 -   [Improvement]: Notification: Rare notifications now play a softer chime instead of the raid warning sound.

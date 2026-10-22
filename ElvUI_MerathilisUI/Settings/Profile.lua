@@ -387,6 +387,7 @@ P.misc = {
 	wowheadlinks = true,
 	tradeTabs = true,
 	trainAll = true,
+	queueTimer = true,
 	blockRequest = false,
 	singingSockets = {
 		enable = true,

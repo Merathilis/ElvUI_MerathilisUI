@@ -72,6 +72,11 @@ module:AddOptions(function()
 				name = L["Auction Enhanced"],
 				desc = L["Show the tertiary stats of equipments in auction house."],
 			}, 0.5),
+			queueTimer = module.ToggleCard({
+				order = 11,
+				name = L["Queue Timer"],
+				desc = L["Shows the time left to accept a dungeon or battleground invite in a bar below the invite."],
+			}, 0.5),
 			lootSpecManager = module.ModuleCard("miscLootSpecManager", {
 				order = 40,
 				name = L["LootSpecManager"],

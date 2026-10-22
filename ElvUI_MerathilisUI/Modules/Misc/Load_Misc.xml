@@ -11,6 +11,7 @@
 	<Script file="GroupFinder.lua"/>
 	<Script file="IconSearch.lua"/>
 	<Script file="PetFilterTab.lua"/>
+	<Script file="QueueTimer.lua"/>
 	<Script file="RaidInfoFrame.lua"/>
 	<Script file="StatusReport.lua"/>
 	<Script file="SingingSockets.lua"/>

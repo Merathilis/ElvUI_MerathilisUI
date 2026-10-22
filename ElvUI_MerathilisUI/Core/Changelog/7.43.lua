@@ -9,6 +9,7 @@ MER.Changelog[743] = {
 	NEW = {
 		"[Movement Alert]: The bars can be attached above or below the player, target or focus unit frame and take over its width.",
 		"[Misc]: Train All - a button at the trainer learns everything available you can afford in one click, new professions excluded.",
+		"[Misc]: Queue Timer - a bar below the dungeon and battleground invite counts down the time left to accept, and takes the place of BigWigs' own dungeon timer.",
 		"[Armory]: Stat Picker - a cog button on the character stats opens an edit mode: click a stat to show or hide it, drag it to change the order.",
 		"[UnitFrames]: Ping Icon - pings placed on a unit (attack, warning, on my way, assist) show up on its unitframe, for the player, target, focus, pet, party, raid, tank, assist and arena frames, until ElvUI ships its own version.",
 	},
