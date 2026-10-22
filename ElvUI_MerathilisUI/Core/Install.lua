@@ -1184,7 +1184,6 @@ function MER:SetupUnitframes(layout)
 		["text_format"] = "[classicon-flatborder][name:MER:gradient]",
 		["attachTextTo"] = "Frame",
 	}
-
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 		["font"] = "GothamNarrow-Black",
 		["fontOutline"] = "SHADOWOUTLINE",
@@ -1230,11 +1229,11 @@ function MER:SetupUnitframes(layout)
 		["font"] = "GothamNarrow-Black",
 		["fontOutline"] = "SHADOWOUTLINE",
 		["size"] = 11,
-		["justifyH"] = "LEFT",
+		["justifyH"] = "CENTER",
 		["text_format"] = "[group]",
 		["attachTextTo"] = "Frame",
 		["xOffset"] = 0,
-		["yOffset"] = -16,
+		["yOffset"] = 0,
 	}
 	E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
