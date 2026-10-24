@@ -978,16 +978,40 @@ local UPGRADE_SEGMENT_GAP = 1
 -- Room between the icon and the bar, ElvUI's texts start further out
 local UPGRADE_BAR_OFFSET = 3
 local UPGRADE_EMPTY_ALPHA = 0.2
+local UPGRADE_TRACK_TEXT_INSET = 2
+
+-- Upgrade track (trackStringID of C_Item.GetItemUpgradeInfo) to the item quality
+-- whose color it is shown in
+local UPGRADE_TRACK_QUALITY = {
+	[970] = 0, -- Explorer
+	[971] = 1, -- Adventurer
+	[972] = 2, -- Veteran
+	[973] = 3, -- Champion
+	[974] = 4, -- Hero
+	[978] = 5, -- Myth
+	[998] = 5, -- Awakened
+}
+
+---Color of an upgrade track, nil for tracks we don't know
+---@param trackID number?
+---@return number?, number?, number?
+function module:GetUpgradeTrackColor(trackID)
+	local quality = trackID and UPGRADE_TRACK_QUALITY[trackID]
+	if quality then
+		return E:GetItemQualityColor(quality)
+	end
+end
 
 ---Upgrade level as a bar of segments along the inner edge of an item slot, filled
----from the bottom. Colored like a traffic light by the progress (red, yellow, fully
----upgraded green), the quality color would blend into the border and texts of the
----slot. The options preview passes its own slot
+---from the bottom. Colored by the upgrade track (Adventurer to Myth) when that
+---option is on, otherwise and for unknown tracks like a traffic light by the
+---progress (red, yellow, fully upgraded green). The options preview passes its own slot
 ---@param slot Frame item slot the bar sits next to
 ---@param isLeft boolean? slot of the left column, the bar goes on its right edge
 ---@param current number? upgrade level, nil hides the bar
 ---@param maximum number? highest upgrade level of the track
-function module:SetUpgradeBar(slot, isLeft, current, maximum)
+---@param trackID number? trackStringID of the upgrade track
+function module:SetUpgradeBar(slot, isLeft, current, maximum, trackID)
 	local bar = slot.MERUpgradeBar
 
 	if not (current and maximum and maximum > 0) then
@@ -1014,8 +1038,14 @@ function module:SetUpgradeBar(slot, isLeft, current, maximum)
 	end
 
 	local segmentHeight = (slot:GetHeight() - (maximum - 1) * UPGRADE_SEGMENT_GAP) / maximum
-	-- Red at the start, yellow halfway, green once fully upgraded (module.colors)
-	local r, g, b = E:ColorGradient(current / maximum, 0.94, 0.33, 0.31, 1, 0.82, 0, 0.07, 0.9, 0.15)
+	local r, g, b
+	if self.db.pageInfo.upgradeTrackColor then
+		r, g, b = self:GetUpgradeTrackColor(trackID)
+	end
+	if not r then
+		-- Red at the start, yellow halfway, green once fully upgraded (module.colors)
+		r, g, b = E:ColorGradient(current / maximum, 0.94, 0.33, 0.31, 1, 0.82, 0, 0.07, 0.9, 0.15)
+	end
 
 	for index = 1, max(maximum, #bar.segments) do
 		local segment = bar.segments[index]
@@ -1040,14 +1070,64 @@ function module:SetUpgradeBar(slot, isLeft, current, maximum)
 	bar:Show()
 end
 
----Upgrade level and maximum of an equipped item, nil for items without a track
+---First letter of the upgrade track in the top corner of the item icon on the side
+---of the upgrade bar, e.g. "H" for Hero, in the color of the track. Next to the item
+---level ElvUI places the sockets, and the texts above both weapons meet. The letter
+---comes from the localized track name. The options preview passes its own slot
+---@param slot Frame item slot
+---@param isLeft boolean? slot of the left column, the letter goes in the top right corner
+---@param trackID number? trackStringID of the upgrade track, nil hides the letter
+---@param trackName string? localized name of the upgrade track
+function module:SetUpgradeTrackText(slot, isLeft, trackID, trackName)
+	local text = slot.MERUpgradeTrackText
+
+	if not (trackID and trackName and trackName ~= "") then
+		if text then
+			text:SetText("")
+		end
+		return
+	end
+
+	if not text then
+		text = slot:CreateFontString(nil, "OVERLAY")
+		if isLeft then
+			text:SetPoint("TOPRIGHT", slot, "TOPRIGHT", -UPGRADE_TRACK_TEXT_INSET, -UPGRADE_TRACK_TEXT_INSET)
+		else
+			text:SetPoint("TOPLEFT", slot, "TOPLEFT", UPGRADE_TRACK_TEXT_INSET, -UPGRADE_TRACK_TEXT_INSET)
+		end
+		slot.MERUpgradeTrackText = text
+	end
+
+	WF.SetFontWithDB(text, self.db.pageInfo.iLvLFont)
+	text:SetText(utf8sub(trackName, 1, 1))
+
+	local r, g, b = self:GetUpgradeTrackColor(trackID)
+	text:SetTextColor(r or 1, g or 1, b or 1)
+end
+
+---Upgrade level, maximum, track ID and localized track name of an equipped item,
+---nil for items without a track
 ---@param slotId number
----@return number?, number?
+---@return number?, number?, number?, string?
 function module:GetSlotUpgradeLevel(slotId)
 	local link = GetInventoryItemLink("player", slotId)
 	local info = link and GetItemUpgradeInfo(link)
 	if info then
-		return info.currentLevel, info.maxLevel
+		-- /muidev debug Armory, to check the track IDs of UPGRADE_TRACK_QUALITY
+		F.Developer.Debug(
+			"Armory",
+			"Slot",
+			slotId,
+			"trackStringID",
+			info.trackStringID,
+			"trackString",
+			info.trackString,
+			"level",
+			info.currentLevel,
+			"/",
+			info.maxLevel
+		)
+		return info.currentLevel, info.maxLevel, info.trackStringID, info.trackString
 	end
 end
 
@@ -1168,12 +1248,24 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		slotItem.MERGradient.lastStructuralSignature = structuralSignature
 	end
 
-	-- Upgrade Bar
-	if self.db.pageInfo.upgradeBarEnabled then
-		local current, maximum = self:GetSlotUpgradeLevel(slotId)
-		self:SetUpgradeBar(slotItem, slotOptions.direction == module.enumDirection.LEFT, current, maximum)
+	-- Upgrade Bar and Track
+	local pageInfo = self.db.pageInfo
+	local current, maximum, trackID, trackName
+	if pageInfo.upgradeBarEnabled or pageInfo.upgradeTrackText then
+		current, maximum, trackID, trackName = self:GetSlotUpgradeLevel(slotId)
+	end
+
+	local isLeft = slotOptions.direction == module.enumDirection.LEFT
+	if pageInfo.upgradeBarEnabled then
+		self:SetUpgradeBar(slotItem, isLeft, current, maximum, trackID)
 	else
 		self:SetUpgradeBar(slotItem)
+	end
+
+	if pageInfo.upgradeTrackText then
+		self:SetUpgradeTrackText(slotItem, isLeft, trackID, trackName)
+	else
+		self:SetUpgradeTrackText(slotItem)
 	end
 
 	-- iLvL Text Handling

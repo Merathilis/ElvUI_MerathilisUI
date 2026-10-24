@@ -960,6 +960,21 @@ module:AddOptions(function()
 						name = L["Upgrade Level"],
 						desc = L["A bar next to the item icon shows the upgrade level of the item, e.g. 4 of 6 segments filled."],
 					},
+					upgradeTrackColor = {
+						order = 2.6,
+						type = "toggle",
+						name = F.NewFeatureText(L["Upgrade Track Color"]),
+						desc = L["Colors the upgrade bar by the upgrade track of the item: Explorer gray, Adventurer white, Veteran green, Champion blue, Hero purple and Myth orange. Without it the bar goes from red to green with the upgrade level."],
+						disabled = function()
+							return not (E.db.mui.armory.enable and E.db.mui.armory.pageInfo.upgradeBarEnabled)
+						end,
+					},
+					upgradeTrackText = {
+						order = 2.7,
+						type = "toggle",
+						name = F.NewFeatureText(L["Upgrade Track"]),
+						desc = L["Shows the first letter of the upgrade track in the corner of the item icon, e.g. H for Hero, in the color of the track."],
+					},
 					spacer = {
 						order = 3,
 						type = "description",

@@ -591,6 +591,8 @@ P.armory = {
 
 		moveSockets = false,
 		upgradeBarEnabled = true,
+		upgradeTrackColor = true,
+		upgradeTrackText = true,
 
 		enchantTextEnabled = true,
 		abbreviateEnchantText = true,
