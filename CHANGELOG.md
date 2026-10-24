@@ -15,3 +15,6 @@
 -   [Improvement]: Skins: KeystoneLoot skin updated for the reworked addon - the custom item panel and the Mythic+ group notification are skinned now, item icons get a quality colored border instead of a white one, and the side panels have a shadow.
 -   [Improvement]: Unlock Mode: Shift+Alt-click picks the anchor points by hand - nine points on the selected mover, then nine on the target, and the two are put on top of each other. Plain Alt-click still takes the sides from where the mover sits.
 -   [Improvement]: Unlock Mode: The toolbar stands out from the movers - nearly opaque background, a border, glow and top strip in your accent color.
+-   [Improvement]: Unlock Mode: A filter box in the toolbar shows only the movers whose name contains every typed word.
+-   [Improvement]: Unlock Mode: Ctrl+mouse wheel over movers lying on top of each other brings the next one to the top and selects it.
+-   [Improvement]: Unlock Mode: Option pages of modules with a mover have a Show Mover button, which opens the mover mode with just that mover selected.

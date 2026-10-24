@@ -108,6 +108,27 @@ local function CreateGridSizeBox(parent)
 end
 
 -------------------------------------------------------------------------------
+--  Name filter box, filters while typing
+-------------------------------------------------------------------------------
+local FILTER_WIDTH = 130
+
+local function CreateFilterBox(parent)
+	local box = CreateFrame("EditBox", nil, parent, "SearchBoxTemplate")
+	box:Size(FILTER_WIDTH, ROW_HEIGHT - 4)
+	box:SetAutoFocus(false)
+	S:HandleEditBox(box)
+
+	box:HookScript("OnTextChanged", function(self)
+		module:SetFilter(self:GetText())
+	end)
+	box:SetScript("OnEnterPressed", EditBox_ClearFocus)
+
+	AddTooltip(box, L["Filter"], L["Shows only the movers whose name contains every typed word."])
+
+	return box
+end
+
+-------------------------------------------------------------------------------
 --  Toolbar
 -------------------------------------------------------------------------------
 function module:CreateToolbar()
@@ -162,6 +183,10 @@ function module:CreateToolbar()
 	layout:SetupMenu(E.ConfigMode_Initialize)
 	Place(layout, 150, SPACING + 4)
 	bar.layout = layout
+
+	local filter = CreateFilterBox(bar)
+	Place(filter, FILTER_WIDTH, SPACING)
+	bar.filter = filter
 
 	local grid, gridWidth = CreateCheckBox(bar, L["Grid"], function(checked)
 		module.db.showGrid = checked
@@ -286,6 +311,9 @@ function module:UpdateToolbarHint()
 	end
 	if self.db.snap.enable then
 		tinsert(hintParts, L["Shift while dragging: no snapping"])
+	end
+	if self.db.overlapCycle then
+		tinsert(hintParts, L["Ctrl+Mouse Wheel: cycle overlapping movers"])
 	end
 	tinsert(hintParts, L["Right-click: settings"])
 	tinsert(hintParts, L["Ctrl+Right-click: reset"])

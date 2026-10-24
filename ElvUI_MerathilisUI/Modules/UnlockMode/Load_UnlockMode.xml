@@ -4,6 +4,7 @@
 	<Script file="Anchors.lua"/>
 	<Script file="PointPicker.lua"/>
 	<Script file="EditModeHints.lua"/>
+	<Script file="Filter.lua"/>
 	<Script file="Animation.lua"/>
 	<Script file="Toolbar.lua"/>
 </Ui>

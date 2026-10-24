@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Options") ---@class Options
 local MISC = MER:GetModule("MER_Misc")
 
 local format, type, pairs, ipairs, next, tinsert, sort = format, type, pairs, ipairs, next, tinsert, sort
-local gsub, strlower, strtrim = gsub, strlower, strtrim
+local gmatch, gsub, strfind, strlower, strtrim = gmatch, gsub, strfind, strlower, strtrim
 local xpcall = xpcall
 local min, max, floor = min, max, floor
 
@@ -1332,12 +1332,58 @@ function module:OptionsCallback()
 		}
 	end
 
+	self:AddMoverButtons()
+
 	-- Before ApplyCustomWidgets, which turns the LSM30_Font selects into MERDropdowns
 	self:ApplyCogFonts(E.Options.args.mui.args)
 	self:ApplyCustomWidgets(E.Options.args.mui.args)
 
 	for _, func in ipairs(self.postBuilders) do
 		xpcall(func, errorhandler, self)
+	end
+end
+
+-- Every mover of ours names its options page (configString, "mui,modules,x"):
+-- that page gets a button that opens the mover mode on just this mover. Movers
+-- created after the options were built get none until the next reload.
+function module:AddMoverButtons()
+	local UM = MER:GetModule("MER_UnlockMode")
+	local pages = {}
+
+	for name, holder in pairs(E.CreatedMovers) do
+		local path = holder.configString
+		if type(path) == "string" and strfind(path, "^mui,") then
+			local group = E.Options
+			for key in gmatch(path, "[^,]+") do
+				group = group and group.args and group.args[key]
+			end
+
+			if group and group.args then
+				pages[group] = pages[group] or {}
+				tinsert(pages[group], name)
+			end
+		end
+	end
+
+	for group, names in pairs(pages) do
+		sort(names)
+		-- Right after the page's enable switch, else at the top
+		local base = group.args.enable and group.args.enable.order or 0
+		for index, name in ipairs(names) do
+			local text = gsub(E.CreatedMovers[name].mover.textString or name, "|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
+			group.args["MER_ShowMover_" .. name] = module.ActionCard({
+				order = base + index * 0.01,
+				name = #names > 1 and format("%s: %s", L["Show Mover"], text) or L["Show Mover"],
+				desc = format(L["Opens the mover mode with only the mover of %s."], text),
+				disabled = false,
+				hidden = function()
+					return E.CreatedMovers[name] == nil
+				end,
+				func = function()
+					UM:ShowMover(name)
+				end,
+			}, { icon = I.Media.Icons.Categories.unlock_mode, compact = true })
+		end
 	end
 end
 

@@ -88,6 +88,12 @@ module:AddOptions(function()
 						name = L["Small Movers on Top"],
 						desc = L["Small movers are drawn above big ones, so a mover inside another one can still be grabbed."],
 					},
+					overlapCycle = {
+						order = 4.5,
+						type = "toggle",
+						name = F.NewFeatureText(L["Cycle Overlapping Movers"]),
+						desc = L["Ctrl+mouse wheel over movers lying on top of each other brings the next one to the top and selects it."],
+					},
 					editModeHints = {
 						order = 5,
 						type = "toggle",
@@ -218,4 +224,6 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	F.MarkTabAsNew("unlockMode")
 end)

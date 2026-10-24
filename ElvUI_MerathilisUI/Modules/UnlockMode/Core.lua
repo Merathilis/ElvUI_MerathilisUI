@@ -273,6 +273,7 @@ function module:HookMover(mover)
 	mover:HookScript("OnMouseUp", OnMouseUp)
 	mover:HookScript("OnEnter", OnEnter)
 	mover:HookScript("OnHide", OnHide)
+	self:HookMoverWheel(mover)
 end
 
 function module:HookAllMovers()
@@ -408,6 +409,7 @@ function module:EndSession()
 	self.dragging = false
 	self:CancelPointPicker()
 	self:StopSnap()
+	self:ClearFilter()
 	self:Select(nil)
 	self:UpdateAnchorLines()
 	self:HideEditModeHints()
@@ -463,6 +465,8 @@ function module:OnMoveModeToggled(which)
 	end
 
 	self:HookAllMovers()
+	-- ElvUI just showed the movers of the layout, the name filter goes on top
+	self:ReapplyFilter()
 
 	if self.db.sortBySize then
 		self:SortMovers()

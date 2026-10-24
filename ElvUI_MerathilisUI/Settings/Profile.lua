@@ -1779,6 +1779,7 @@ P.unlockMode = {
 	animation = true, -- unlock / lock animation when the mover mode opens and closes
 	keyboardNudge = true,
 	bigStep = 10, -- arrow keys with a modifier
+	overlapCycle = true, -- Ctrl+mouse wheel brings the next of the overlapping movers to the top
 	anchorLines = true,
 	anchors = {}, -- [child mover] = { target, point, relativePoint }
 	snap = {
