@@ -2,6 +2,7 @@
 
 -   [Fix]: Armory: Gems taken from the mailbox now show up in the socket panel right away - the gem list is read fresh on every open and also covers the reagent bag.
 -   [Fix]: Chat: The tab underline now has the same thickness on every tab - it was cut to a single pixel on tabs in the dock's scroll area and blurred on others.
+-   [Fix]: HoverCast: Pressing a key on the binding page while combat starts no longer triggers a blocked action error.
 -   [New]: Movement Alert: The bars can be attached above or below the player, target or focus unit frame and take over its width.
 -   [New]: Misc: Train All - a button at the trainer learns everything available you can afford in one click, new professions excluded.
 -   [New]: Misc: Queue Timer - a bar below the dungeon and battleground invite counts down the time left to accept, and takes the place of BigWigs' own dungeon timer.

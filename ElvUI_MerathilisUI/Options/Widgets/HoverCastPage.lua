@@ -13,6 +13,7 @@ local format, tconcat = string.format, table.concat
 
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
+local InCombatLockdown = InCombatLockdown
 local PlaySound = PlaySound
 local UIParent = UIParent
 local C_Timer_After = C_Timer.After
@@ -607,6 +608,10 @@ local function BuildKeybindButton(parent, width, getCurrentKey, onKeySet, onKeyC
 	end)
 
 	kbBtn:SetScript("OnKeyDown", function(self, key)
+		-- SetPropagateKeyboardInput is blocked in combat on every frame
+		if InCombatLockdown() then
+			return
+		end
 		if not listening then
 			self:SetPropagateKeyboardInput(true)
 			return
@@ -1093,6 +1098,9 @@ local function OpenQuickbind(self, bound)
 			setup = function(cell, item)
 				cell:EnableKeyboard(false)
 				cell:SetScript("OnKeyDown", function(frame, key)
+					if InCombatLockdown() then
+						return
+					end
 					if HC.MODIFIER_KEYS[key] then
 						frame:SetPropagateKeyboardInput(true)
 						return

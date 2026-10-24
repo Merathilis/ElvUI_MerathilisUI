@@ -5,6 +5,7 @@ MER.Changelog[743] = {
 	FIXES = {
 		"[Armory]: Gems taken from the mailbox now show up in the socket panel right away - the gem list is read fresh on every open and also covers the reagent bag.",
 		"[Chat]: The tab underline now has the same thickness on every tab - it was cut to a single pixel on tabs in the dock's scroll area and blurred on others.",
+		"[HoverCast]: Pressing a key on the binding page while combat starts no longer triggers a blocked action error.",
 	},
 	NEW = {
 		"[Movement Alert]: The bars can be attached above or below the player, target or focus unit frame and take over its width.",
