@@ -1,6 +1,10 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Options") ---@class Options
 
+local ipairs, next, pairs, setmetatable = ipairs, next, pairs, setmetatable
+local format, strfind, tremove, wipe = format, strfind, tremove, wipe
+local hooksecurefunc = hooksecurefunc
+
 -- Built on the first open of the options, see module:AddOptions in Options/Core.lua
 module:AddOptions(function()
 	local BR = MER:GetModule("MER_BuffReminder")
@@ -122,7 +126,22 @@ module:AddOptions(function()
 		{ key = "shield_basic", name = L["Shield"] },
 	}
 
-	local raidBuffArgs = BuildSectionArgs("raidBuffs", RAID_BUFF_TOGGLES)
+	local raidBuffArgs, raidBuffsDisabled = BuildSectionArgs("raidBuffs", RAID_BUFF_TOGGLES)
+	raidBuffArgs.fromGroup = {
+		order = 2,
+		type = "toggle",
+		name = F.NewFeatureText(L["Missing Buffs From Group"]),
+		desc = L["Also shows the raid buffs a groupmate provides while you are missing them. These icons are only a hint, clicks go through them."],
+		width = "full",
+		disabled = raidBuffsDisabled,
+		get = function()
+			return E.db.mui.buffReminder.raidBuffs.fromGroup
+		end,
+		set = function(_, value)
+			E.db.mui.buffReminder.raidBuffs.fromGroup = value
+			BR:RequestRefresh()
+		end,
+	}
 	local auraArgs = BuildSectionArgs("auras", AURA_TOGGLES)
 	local consumableArgs, consumablesDisabled = BuildSectionArgs("consumables", CONSUMABLE_TOGGLES)
 	consumableArgs.showWithoutItem = {
@@ -140,6 +159,235 @@ module:AddOptions(function()
 			BR:RequestRefresh()
 		end,
 	}
+
+	-- Talent reminders: a form that adds one for the current spec, then one
+	-- inline group per saved reminder. Groups go by index into the saved list,
+	-- so they are rebuilt when the list or the profile changes.
+	local NOT_NEEDED_VALUES = {
+		never = L["Never"],
+		season = L["Current Season Instances"],
+		all = L["All Instances"],
+	}
+	local NOT_NEEDED_SORTING = { "never", "season", "all" }
+	local NOT_NEEDED_DESC = L["Reminds you to remove the talent in the instances you did not pick for it."]
+
+	local function TalentsDB()
+		return E.db.mui.buffReminder.talents
+	end
+
+	local function TalentsDisabled()
+		return ModuleDisabled() or not TalentsDB().enable
+	end
+
+	local function ReminderAt(index)
+		return TalentsDB().reminders[index]
+	end
+
+	local function IsCurrentSpec(reminder)
+		local _, specID = F.GetPlayerSpec()
+		return reminder.class == E.myclass and reminder.specID == specID
+	end
+
+	local function Ordered(values, order)
+		return setmetatable(values, { order = order })
+	end
+
+	local function TalentLabel(spellID)
+		local icon = C_Spell.GetSpellTexture(spellID) or 134400
+		return format("|T%s:16:16:0:0:64:64:5:59:5:59|t %s", icon, C_Spell.GetSpellName(spellID) or spellID)
+	end
+
+	local newSpell, newNotNeeded = nil, "never"
+	local newZones = {}
+	local talentArgs
+
+	local function RebuildTalentList()
+		for key in pairs(talentArgs) do
+			if strfind(key, "^reminder") then
+				talentArgs[key] = nil
+			end
+		end
+
+		for index in ipairs(TalentsDB().reminders) do
+			talentArgs["reminder" .. index] = {
+				order = 20 + index,
+				type = "group",
+				inline = true,
+				name = function()
+					local reminder = ReminderAt(index)
+					return reminder and TalentLabel(reminder.spellID) or ""
+				end,
+				hidden = function()
+					local reminder = ReminderAt(index)
+					return not (reminder and IsCurrentSpec(reminder))
+				end,
+				disabled = TalentsDisabled,
+				args = {
+					zones = {
+						order = 1,
+						type = "multiselect",
+						dialogControl = "MERDropdown",
+						name = L["Instances"],
+						width = 1.5,
+						values = function()
+							return Ordered(BR:GetTalentZoneChoices(ReminderAt(index)))
+						end,
+						get = function(_, key)
+							local reminder = ReminderAt(index)
+							return reminder and reminder.zones and reminder.zones[key]
+						end,
+						set = function(_, key, value)
+							local reminder = ReminderAt(index)
+							reminder.zones = reminder.zones or {}
+							reminder.zones[key] = value or nil
+							BR:RequestRefresh()
+						end,
+					},
+					notNeeded = {
+						order = 2,
+						type = "select",
+						name = L["Not Needed"],
+						desc = NOT_NEEDED_DESC,
+						values = NOT_NEEDED_VALUES,
+						sorting = NOT_NEEDED_SORTING,
+						get = function()
+							local reminder = ReminderAt(index)
+							return reminder and reminder.notNeeded or "never"
+						end,
+						set = function(_, value)
+							ReminderAt(index).notNeeded = value
+							BR:RequestRefresh()
+						end,
+					},
+					delete = {
+						order = 3,
+						type = "execute",
+						name = L["Delete"],
+						func = function()
+							tremove(TalentsDB().reminders, index)
+							RebuildTalentList()
+							BR:RequestRefresh()
+							E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
+						end,
+					},
+				},
+			}
+		end
+	end
+
+	local function AddTalentReminder()
+		local _, specID = F.GetPlayerSpec()
+		if not (newSpell and specID and next(newZones)) then
+			return
+		end
+
+		-- A talent already on the list of this spec takes the new instances
+		local reminders = TalentsDB().reminders
+		local reminder
+		for _, r in ipairs(reminders) do
+			if r.spellID == newSpell and IsCurrentSpec(r) then
+				reminder = r
+				break
+			end
+		end
+		if not reminder then
+			reminder = { spellID = newSpell, class = E.myclass, specID = specID, zones = {} }
+			reminders[#reminders + 1] = reminder
+		end
+		reminder.zones = reminder.zones or {}
+		for key in pairs(newZones) do
+			reminder.zones[key] = true
+		end
+		reminder.notNeeded = newNotNeeded
+
+		newSpell, newNotNeeded = nil, "never"
+		wipe(newZones)
+		RebuildTalentList()
+		BR:RequestRefresh()
+		E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
+	end
+
+	talentArgs = {
+		enable = {
+			order = 1,
+			type = "toggle",
+			name = F.NewFeatureText(L["Enable"]),
+			width = "full",
+			get = function()
+				return TalentsDB().enable
+			end,
+			set = function(_, value)
+				TalentsDB().enable = value
+				BR:RequestRefresh()
+			end,
+		},
+		desc = {
+			order = 2,
+			type = "description",
+			dialogControl = "MERTextCard",
+			name = L["Pick a talent of your current specialization and the instances you want it in. Inside them, an icon shows while the talent is not chosen. Reminders are saved per specialization."],
+			fontSize = "medium",
+		},
+		talent = {
+			order = 3,
+			type = "select",
+			name = L["Talent"],
+			width = 1.5,
+			disabled = TalentsDisabled,
+			values = function()
+				return Ordered(BR:GetTalentChoices())
+			end,
+			get = function()
+				return newSpell
+			end,
+			set = function(_, value)
+				newSpell = value
+			end,
+		},
+		zones = {
+			order = 4,
+			type = "multiselect",
+			dialogControl = "MERDropdown",
+			name = L["Instances"],
+			width = 1.5,
+			disabled = TalentsDisabled,
+			values = function()
+				return Ordered(BR:GetTalentZoneChoices())
+			end,
+			get = function(_, key)
+				return newZones[key]
+			end,
+			set = function(_, key, value)
+				newZones[key] = value or nil
+			end,
+		},
+		notNeeded = {
+			order = 5,
+			type = "select",
+			name = L["Not Needed"],
+			desc = NOT_NEEDED_DESC,
+			disabled = TalentsDisabled,
+			values = NOT_NEEDED_VALUES,
+			sorting = NOT_NEEDED_SORTING,
+			get = function()
+				return newNotNeeded
+			end,
+			set = function(_, value)
+				newNotNeeded = value
+			end,
+		},
+		add = {
+			order = 6,
+			type = "execute",
+			name = L["Add"],
+			disabled = function()
+				return TalentsDisabled() or not newSpell or not next(newZones)
+			end,
+			func = AddTalentReminder,
+		},
+	}
+	RebuildTalentList()
+	hooksecurefunc(BR, "ProfileUpdate", RebuildTalentList)
 
 	options.buffReminder = {
 		type = "group",
@@ -332,6 +580,15 @@ module:AddOptions(function()
 							return ModuleDisabled() or not E.db.mui.buffReminder.sound.enable
 						end,
 					},
+					talents = {
+						order = 5,
+						type = "toggle",
+						name = L["Talents"],
+						hidden = E.Forever,
+						disabled = function()
+							return ModuleDisabled() or not E.db.mui.buffReminder.sound.enable
+						end,
+					},
 				},
 			},
 			raidBuffs = {
@@ -358,8 +615,18 @@ module:AddOptions(function()
 				disabled = ModuleDisabled,
 				args = consumableArgs,
 			},
+			talents = {
+				order = 9,
+				type = "group",
+				name = L["Talent Reminders"],
+				guiInline = true,
+				hidden = E.Forever,
+				disabled = ModuleDisabled,
+				args = talentArgs,
+			},
 		},
 	}
 
 	module.ModuleCard("buffReminderSound", options.buffReminder.args.sound, "enable")
+	F.MarkTabAsNew("buffReminder")
 end)

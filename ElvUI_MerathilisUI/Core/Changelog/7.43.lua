@@ -8,10 +8,12 @@ MER.Changelog[743] = {
 		"[HoverCast]: Pressing a key on the binding page while combat starts no longer triggers a blocked action error.",
 	},
 	NEW = {
-		"[Movement Alert]: The bars can be attached above or below the player, target or focus unit frame and take over its width.",
+		"[Armory]: Stat Picker - a cog button on the character stats opens an edit mode: click a stat to show or hide it, drag it to change the order.",
+		"[Buff Reminder]: Missing Buffs From Group - optionally also shows the raid buffs a groupmate provides while you are missing them, as an info icon that clicks go through.",
+		"[Buff Reminder]: Talent Reminders - pick a talent and the instances you want it in, and an icon reminds you inside them while it is not chosen. Optionally it also reminds you to remove it again in the current season's other instances or in all of them. Saved per specialization, arenas and battlegrounds included.",
 		"[Misc]: Train All - a button at the trainer learns everything available you can afford in one click, new professions excluded.",
 		"[Misc]: Queue Timer - a bar below the dungeon and battleground invite counts down the time left to accept, and takes the place of BigWigs' own dungeon timer.",
-		"[Armory]: Stat Picker - a cog button on the character stats opens an edit mode: click a stat to show or hide it, drag it to change the order.",
+		"[Movement Alert]: The bars can be attached above or below the player, target or focus unit frame and take over its width.",
 		"[UnitFrames]: Ping Icon - pings placed on a unit (attack, warning, on my way, assist) show up on its unitframe, for the player, target, focus, pet, party, raid, tank, assist and arena frames, until ElvUI ships its own version.",
 	},
 	IMPROVEMENTS = {

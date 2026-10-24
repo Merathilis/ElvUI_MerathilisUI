@@ -1398,11 +1398,18 @@ P.buffReminder = {
 		raidBuffs = true,
 		auras = true,
 		consumables = true,
+		talents = true,
 		soundKitID = _G.SOUNDKIT and _G.SOUNDKIT.READY_CHECK or 8960,
 	},
 	raidBuffs = {
 		enable = true,
 		enabled = { motw = true, bshout = true, fort = true, ai = true, bronze = true, sky = true },
+		fromGroup = false, -- also remind of buffs a groupmate provides and you lack
+	},
+	talents = {
+		enable = true,
+		-- { spellID, class, specID, zones = { ["<instanceID>"|"arena"|"pvp"] = true }, notNeeded = "never"|"season"|"all" }
+		reminders = {},
 	},
 	auras = {
 		enable = true,

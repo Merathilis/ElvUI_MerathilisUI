@@ -2,8 +2,8 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_BuffReminder")
 local S = MER:GetModule("MER_Skins")
 
-local pairs, ipairs = pairs, ipairs
-local strfind, wipe = strfind, wipe
+local pairs, ipairs, tonumber, tostring = pairs, ipairs, tonumber, tostring
+local format, strfind, wipe, sort = format, strfind, wipe, sort
 local floor, max = math.floor, math.max
 
 local CreateFrame = CreateFrame
@@ -12,6 +12,8 @@ local InCombatLockdown = InCombatLockdown
 local UnitClass = UnitClass
 local UnitExists = UnitExists
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
+local UnitIsPlayer = UnitIsPlayer
+local UnitIsUnit = UnitIsUnit
 local UnitInRange = UnitInRange
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
@@ -22,6 +24,8 @@ local IsFlying = IsFlying
 local IsResting = IsResting
 local UnitInVehicle = UnitInVehicle
 local IsInInstance = IsInInstance
+local GetInstanceInfo = GetInstanceInfo
+local GetRealZoneText = GetRealZoneText
 local PlaySound = PlaySound
 
 local C_Spell_GetSpellTexture = C_Spell.GetSpellTexture
@@ -35,6 +39,10 @@ local C_Item_GetItemInfoInstant = C_Item.GetItemInfoInstant
 local C_SpellBook_IsSpellInSpellBook = C_SpellBook.IsSpellInSpellBook
 local C_SpellBook_IsSpellKnown = C_SpellBook.IsSpellKnown
 local C_PaperDollInfo_GetTemporaryEnchantmentInfo = C_PaperDollInfo.GetTemporaryEnchantmentInfo
+-- Talent reminders are Retail only, these namespaces may be missing on Forever
+local C_ChallengeMode_IsChallengeModeActive = C_ChallengeMode and C_ChallengeMode.IsChallengeModeActive
+local C_ClassTalents_GetActiveConfigID = C_ClassTalents and C_ClassTalents.GetActiveConfigID
+local C_Traits = C_Traits
 
 -------------------------------------------------------------------------------
 --  Basic helpers
@@ -599,6 +607,35 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 	return have, total
 end
 
+-- Classes of the other players in the group who are in range, so a buff they
+-- provide only counts while one of them could actually cast it on the player
+local groupClasses = {}
+local function AddGroupClass(unit)
+	if UnitExists(unit) and UnitIsPlayer(unit) and SafeUnitIsNotDead(unit) and SafeUnitInRange(unit) then
+		local _, class = UnitClass(unit)
+		if class ~= nil and not E:IsSecretValue(class) then
+			groupClasses[class] = true
+		end
+	end
+end
+
+local function BuildGroupClasses()
+	wipe(groupClasses)
+	if IsInRaid() then
+		for i = 1, GetNumGroupMembers() do
+			local unit = "raid" .. i
+			if not UnitIsUnit(unit, "player") then
+				AddGroupClass(unit)
+			end
+		end
+	elseif IsInGroup() then
+		for i = 1, GetNumSubgroupMembers() do
+			AddGroupClass("party" .. i)
+		end
+	end
+	return groupClasses
+end
+
 -------------------------------------------------------------------------------
 --  Weapon enchant / bag helpers
 -------------------------------------------------------------------------------
@@ -906,6 +943,22 @@ local function SetIconTexture(btn, texture)
 	btn._tooltipItem = nil
 end
 
+-- Info-only icons (a groupmate's buff, a talent) have nothing to click: left
+-- and right clicks go through to the world, the middle-click dismiss stays.
+-- Click routing is blocked in combat, Refresh never runs there.
+local function SetClickThrough(btn, on)
+	on = on or false
+	if btn._clickThrough == on or InCombatLockdown() then
+		return
+	end
+	btn._clickThrough = on
+	if on then
+		btn:SetPassThroughButtons("LeftButton", "RightButton")
+	else
+		btn:SetPassThroughButtons()
+	end
+end
+
 -------------------------------------------------------------------------------
 --  Missing-entry collection
 -------------------------------------------------------------------------------
@@ -920,6 +973,7 @@ local function AcquireEntry()
 	end
 	e.mode, e.spellID, e.itemID, e.macro, e.texture, e.label = nil, nil, nil, nil, nil, nil
 	e.dismissKey, e.bagCount, e.desaturated = nil, nil, false
+	e.tooltipSpell, e.clickThrough = nil, nil
 	return e
 end
 
@@ -928,14 +982,36 @@ local function CollectRaidBuffs(missing, playerClass, db)
 	if not rb.enable then
 		return
 	end
-	local inPvP = InPvPInstance()
+	if InPvPInstance() then
+		return
+	end
+
+	-- Only scanned when asked for and grouped, the default stays a plain loop
+	local classes = rb.fromGroup and (IsInGroup() or IsInRaid()) and BuildGroupClasses()
 	for _, buff in ipairs(RAID_BUFFS) do
-		if rb.enabled[buff.key] and buff.class == playerClass and Known(buff.castSpell) and not inPvP then
-			local groupHave, groupTotal = CountGroupBuffCoverage(buff.buffIDs, buff.benefit)
-			if groupTotal > 0 and groupHave < groupTotal then
+		if rb.enabled[buff.key] then
+			if buff.class == playerClass and Known(buff.castSpell) then
+				local groupHave, groupTotal = CountGroupBuffCoverage(buff.buffIDs, buff.benefit)
+				if groupTotal > 0 and groupHave < groupTotal then
+					local e = AcquireEntry()
+					e.mode = "spell"
+					e.spellID = buff.castSpell
+					e.label = ShortLabel(SpellName(buff.castSpell, buff.name))
+					e.dismissKey = "raidbuff:" .. buff.key
+					missing[#missing + 1] = e
+				end
+			elseif
+				classes
+				and classes[buff.class]
+				and UnitBenefits("player", buff.benefit)
+				and not PlayerHasAuraByID(buff.buffIDs)
+			then
+				-- A groupmate's buff: shown to be read, only they can cast it
 				local e = AcquireEntry()
-				e.mode = "spell"
-				e.spellID = buff.castSpell
+				e.mode = "texture"
+				e.texture = Tex(buff.castSpell)
+				e.tooltipSpell = buff.castSpell
+				e.clickThrough = true
 				e.label = ShortLabel(SpellName(buff.castSpell, buff.name))
 				e.dismissKey = "raidbuff:" .. buff.key
 				missing[#missing + 1] = e
@@ -1148,6 +1224,161 @@ local function CollectConsumables(missing, playerClass, co)
 end
 
 -------------------------------------------------------------------------------
+--  Talent reminders (Retail): a talent wanted in some instances, and
+--  optionally a hint to drop it again everywhere else
+-------------------------------------------------------------------------------
+-- The current season's instances by instance ID (8th return of
+-- GetInstanceInfo, locale-proof), plus arenas and battlegrounds by instance
+-- type. Rotated-out instances stay in saved reminders and still match. Keys
+-- are strings throughout: AceConfig sorts a multiselect's keys with
+-- table.sort, which fails on numbers mixed with "arena"/"pvp".
+local TALENT_ZONES = {
+	{ key = "3004", name = "The Venomous Abyss", raid = true },
+	{ key = "2813", name = "Murder Row" },
+	{ key = "2825", name = "Den of Nalorakk" },
+	{ key = "2859", name = "The Blinding Vale" },
+	{ key = "2923", name = "Voidscar Arena" },
+	{ key = "2993", name = "Altar of Fangs" },
+	{ key = "2521", name = "Ruby Life Pools" },
+	{ key = "1877", name = "Temple of Sethraliss" },
+	{ key = "1762", name = "Kings' Rest" },
+	{ key = "arena" },
+	{ key = "pvp" },
+}
+
+local SEASON_ZONE = {}
+for _, zone in ipairs(TALENT_ZONES) do
+	SEASON_ZONE[zone.key] = zone
+end
+
+local function CurrentTalentZone()
+	local _, instanceType, _, _, _, _, _, instanceID = GetInstanceInfo()
+	if instanceType == "arena" or instanceType == "pvp" then
+		return instanceType
+	end
+	return instanceID and tostring(instanceID)
+end
+
+-- Display name of a zone key, in the client's language
+function module:GetTalentZoneName(key)
+	if key == "arena" then
+		return _G.ARENA
+	elseif key == "pvp" then
+		return _G.BATTLEGROUND
+	end
+	local zone = SEASON_ZONE[key]
+	local name = GetRealZoneText(tonumber(key))
+	if not name or name == "" then
+		name = zone and zone.name or tostring(key)
+	end
+	if zone and zone.raid then
+		name = format("%s (%s)", name, _G.RAID)
+	end
+	return name
+end
+
+-- Zone choices for the options: the season list, the instance the player is
+-- in right now and every zone the given reminder already holds
+function module:GetTalentZoneChoices(reminder)
+	local values, order = {}, {}
+	local function Add(key)
+		if values[key] == nil then
+			values[key] = self:GetTalentZoneName(key)
+			order[#order + 1] = key
+		end
+	end
+
+	for _, zone in ipairs(TALENT_ZONES) do
+		Add(zone.key)
+	end
+	if InRealInstancedContent() then
+		Add(CurrentTalentZone())
+	end
+	if reminder and reminder.zones then
+		for key, on in pairs(reminder.zones) do
+			if on then
+				Add(key)
+			end
+		end
+	end
+	return values, order
+end
+
+-- Talents of the active loadout's class and spec tree (hero talents left out)
+function module:GetTalentChoices()
+	local values, order = {}, {}
+	local configID = C_ClassTalents_GetActiveConfigID and C_ClassTalents_GetActiveConfigID()
+	local configInfo = configID and C_Traits.GetConfigInfo(configID)
+	local treeID = configInfo and configInfo.treeIDs and configInfo.treeIDs[1]
+	local nodes = treeID and C_Traits.GetTreeNodes(treeID)
+	if not nodes then
+		return values, order
+	end
+
+	for _, nodeID in ipairs(nodes) do
+		local node = C_Traits.GetNodeInfo(configID, nodeID)
+		if node and node.ID ~= 0 and node.isVisible and not node.subTreeID then
+			for _, entryID in ipairs(node.entryIDs) do
+				local entry = C_Traits.GetEntryInfo(configID, entryID)
+				local definition = entry and entry.definitionID and C_Traits.GetDefinitionInfo(entry.definitionID)
+				local spellID = definition and definition.spellID
+				local name = spellID and SpellName(spellID)
+				if name and values[spellID] == nil then
+					values[spellID] = format("|T%s:14:14:0:0:64:64:5:59:5:59|t %s", Tex(spellID) or 134400, name)
+					order[#order + 1] = spellID
+				end
+			end
+		end
+	end
+
+	sort(order, function(a, b)
+		return SpellName(a) < SpellName(b)
+	end)
+	return values, order
+end
+
+local function CollectTalents(missing, playerClass, specID, db)
+	local tr = db.talents
+	-- Talents can not be changed inside a running key
+	if
+		E.Forever
+		or not tr.enable
+		or not specID
+		or (C_ChallengeMode_IsChallengeModeActive and C_ChallengeMode_IsChallengeModeActive())
+	then
+		return
+	end
+
+	local zoneKey = CurrentTalentZone()
+	local inSeasonZone = SEASON_ZONE[zoneKey] ~= nil
+	for _, reminder in ipairs(tr.reminders) do
+		local spellID = reminder.spellID
+		if spellID and reminder.class == playerClass and reminder.specID == specID then
+			local wanted = (reminder.zones and reminder.zones[zoneKey]) == true
+			local hasTalent = C_SpellBook_IsSpellKnown(spellID) == true
+			local notNeeded = reminder.notNeeded
+			local showNotNeeded = notNeeded == "all" or (notNeeded == "season" and inSeasonZone)
+
+			if wanted ~= hasTalent and (wanted or showNotNeeded) then
+				local e = AcquireEntry()
+				e.mode = "texture"
+				e.texture = Tex(spellID)
+				e.tooltipSpell = spellID
+				e.clickThrough = true
+				if wanted then
+					e.label = ShortLabel(SpellName(spellID))
+					e.dismissKey = "talent:" .. spellID
+				else
+					e.label = L["Not Needed"]
+					e.dismissKey = "talent:" .. spellID .. ":remove"
+				end
+				missing[#missing + 1] = e
+			end
+		end
+	end
+end
+
+-------------------------------------------------------------------------------
 --  Sounds
 -------------------------------------------------------------------------------
 local _soundPrev, _soundCur, _soundPrimed = {}, {}, false
@@ -1162,7 +1393,10 @@ local function HandleAppearSounds(missing)
 			_soundCur[dk] = true
 			if not played and _soundPrimed and not _soundPrev[dk] and db.sound.enable then
 				local prefix = dk:match("^(%a+):")
-				local key = prefix == "raidbuff" and "raidBuffs" or prefix == "aura" and "auras" or "consumables"
+				local key = prefix == "raidbuff" and "raidBuffs"
+					or prefix == "aura" and "auras"
+					or prefix == "talent" and "talents"
+					or "consumables"
 				-- One sound per refresh, a muted category must not swallow it
 				if db.sound[key] then
 					PlaySound(db.sound.soundKitID or 8960, "Master")
@@ -1216,7 +1450,9 @@ local function ApplyEntry(btn, e)
 		SetIconMacro(btn, e.macro, e.texture)
 	else
 		SetIconTexture(btn, e.texture)
+		btn._tooltipSpell = e.tooltipSpell
 	end
+	SetClickThrough(btn, e.clickThrough)
 
 	btn._label = e.label
 	btn._dismissKey = e.dismissKey
@@ -1348,8 +1584,11 @@ function module:Refresh()
 	local playerClass = GetPlayerClass()
 	local specID = GetSpecID()
 	local inInstance = InRealInstancedContent()
+	local inPvP = InPvPInstance()
 
-	if db.hideInOpenWorld and not inInstance then
+	-- Talent reminders also cover arenas and battlegrounds, the rest follows
+	-- Hide in Open World there
+	if db.hideInOpenWorld and not inInstance and not inPvP then
 		HideAllIcons()
 		return
 	end
@@ -1358,10 +1597,15 @@ function module:Refresh()
 	local missing = _refreshMissing
 	wipe(missing)
 
-	CollectRaidBuffs(missing, playerClass, db)
-	CollectAuras(missing, playerClass, specID, db)
-	if not InPvPInstance() then
-		CollectConsumables(missing, playerClass, db.consumables)
+	if inInstance or not db.hideInOpenWorld then
+		CollectRaidBuffs(missing, playerClass, db)
+		CollectAuras(missing, playerClass, specID, db)
+		if not inPvP then
+			CollectConsumables(missing, playerClass, db.consumables)
+		end
+	end
+	if inInstance or inPvP then
+		CollectTalents(missing, playerClass, specID, db)
 	end
 
 	HandleAppearSounds(missing)
@@ -1421,6 +1665,10 @@ local EVENTS = {
 	"PLAYER_TALENT_UPDATE",
 	"SPELLS_CHANGED",
 }
+-- A started key hides the talent reminders
+if not E.Forever then
+	EVENTS[#EVENTS + 1] = "CHALLENGE_MODE_START"
+end
 
 -- Only the player and the group matter, nameplates, target and focus fire this constantly
 function module:UNIT_AURA(_, unit)
@@ -1468,6 +1716,7 @@ end
 module.ZONE_CHANGED_NEW_AREA = module.RequestRefresh
 module.PLAYER_TALENT_UPDATE = module.RequestRefresh
 module.SPELLS_CHANGED = module.RequestRefresh
+module.CHALLENGE_MODE_START = module.RequestRefresh
 
 function module:SetupAnchor()
 	iconAnchor = CreateFrame("Frame", "MER_BuffReminderAnchor", E.UIParent)
