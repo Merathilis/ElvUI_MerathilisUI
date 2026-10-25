@@ -1902,6 +1902,8 @@ L["Icons Per Row"] = true
 L["Max Icons"] = true
 L["Stack Font Size"] = true
 L["Shows on achievement links who earned the achievement and whether you have completed it too."] = true
+L["Colors the upgrade level line of items by the upgrade track and shows the item level the item can still be upgraded to."] = true
+L["Up to %d"] = true
 L["Shows the buffs of the hovered unit as icons on the tooltip."] = true
 L["Only show buffs on the tooltip of players."] = true
 

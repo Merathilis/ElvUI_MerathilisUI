@@ -980,28 +980,6 @@ local UPGRADE_BAR_OFFSET = 3
 local UPGRADE_EMPTY_ALPHA = 0.2
 local UPGRADE_TRACK_TEXT_INSET = 2
 
--- Upgrade track (trackStringID of C_Item.GetItemUpgradeInfo) to the item quality
--- whose color it is shown in
-local UPGRADE_TRACK_QUALITY = {
-	[970] = 0, -- Explorer
-	[971] = 1, -- Adventurer
-	[972] = 2, -- Veteran
-	[973] = 3, -- Champion
-	[974] = 4, -- Hero
-	[978] = 5, -- Myth
-	[998] = 5, -- Awakened
-}
-
----Color of an upgrade track, nil for tracks we don't know
----@param trackID number?
----@return number?, number?, number?
-function module:GetUpgradeTrackColor(trackID)
-	local quality = trackID and UPGRADE_TRACK_QUALITY[trackID]
-	if quality then
-		return E:GetItemQualityColor(quality)
-	end
-end
-
 ---Upgrade level as a bar of segments along the inner edge of an item slot, filled
 ---from the bottom. Colored by the upgrade track (Adventurer to Myth) when that
 ---option is on, otherwise and for unknown tracks like a traffic light by the
@@ -1040,7 +1018,7 @@ function module:SetUpgradeBar(slot, isLeft, current, maximum, trackID)
 	local segmentHeight = (slot:GetHeight() - (maximum - 1) * UPGRADE_SEGMENT_GAP) / maximum
 	local r, g, b
 	if self.db.pageInfo.upgradeTrackColor then
-		r, g, b = self:GetUpgradeTrackColor(trackID)
+		r, g, b = F.GetUpgradeTrackColor(trackID)
 	end
 	if not r then
 		-- Red at the start, yellow halfway, green once fully upgraded (module.colors)
@@ -1101,7 +1079,7 @@ function module:SetUpgradeTrackText(slot, isLeft, trackID, trackName)
 	WF.SetFontWithDB(text, self.db.pageInfo.iLvLFont)
 	text:SetText(utf8sub(trackName, 1, 1))
 
-	local r, g, b = self:GetUpgradeTrackColor(trackID)
+	local r, g, b = F.GetUpgradeTrackColor(trackID)
 	text:SetTextColor(r or 1, g or 1, b or 1)
 end
 
@@ -1113,7 +1091,7 @@ function module:GetSlotUpgradeLevel(slotId)
 	local link = GetInventoryItemLink("player", slotId)
 	local info = link and GetItemUpgradeInfo(link)
 	if info then
-		-- /muidev debug Armory, to check the track IDs of UPGRADE_TRACK_QUALITY
+		-- /muidev debug Armory, to check the track IDs of F.GetUpgradeTrackColor
 		F.Developer.Debug(
 			"Armory",
 			"Slot",

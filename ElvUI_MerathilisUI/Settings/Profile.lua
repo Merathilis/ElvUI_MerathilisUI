@@ -784,6 +784,7 @@ P.armory = {
 
 P.tooltip = {
 	achievement = true,
+	upgradeTrack = true,
 	buffs = {
 		enable = false,
 		playersOnly = true,

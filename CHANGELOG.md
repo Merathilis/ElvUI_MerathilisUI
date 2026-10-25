@@ -10,6 +10,7 @@
 -   [New]: Misc: Train All - a button at the trainer learns everything available you can afford in one click, new professions excluded.
 -   [New]: Misc: Queue Timer - a bar below the dungeon and battleground invite counts down the time left to accept, and takes the place of BigWigs' own dungeon timer.
 -   [New]: Movement Alert: The bars can be attached above or below the player, target or focus unit frame and take over its width.
+-   [New]: Tooltip: Upgrade Track - the upgrade level line in item tooltips takes the color of the upgrade track (Explorer to Myth), and items that are not fully upgraded show the item level they can still reach.
 -   [New]: UnitFrames: Ping Icon - pings placed on a unit (attack, warning, on my way, assist) show up on its unitframe, for the player, target, focus, pet, party, raid, tank, assist and arena frames, until ElvUI ships its own version.
 -   [Improvement]: Notification: Rare notifications now play a softer chime instead of the raid warning sound.
 -   [Improvement]: Notification: New toast design in the style of the options cards - accent strip, the text block sits next to the icon and the height follows the text, a bar shows the time left, and on hover the close button and a click hint appear.

@@ -36,6 +36,19 @@ module:AddOptions(function()
 					MER:GetModule("MER_Tooltip"):InitializeAchievement()
 				end,
 			}),
+			upgradeTrack = module.ToggleCard({
+				order = 1.5,
+				name = F.NewFeatureText(L["Upgrade Track"]),
+				desc = L["Colors the upgrade level line of items by the upgrade track and shows the item level the item can still be upgraded to."],
+				hidden = E.Forever,
+				get = function()
+					return E.db.mui.tooltip.upgradeTrack
+				end,
+				set = function(_, value)
+					E.db.mui.tooltip.upgradeTrack = value
+					MER:GetModule("MER_Tooltip"):InitializeUpgradeTrack()
+				end,
+			}),
 			buffs = {
 				order = 2,
 				type = "group",

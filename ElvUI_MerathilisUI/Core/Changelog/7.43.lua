@@ -15,6 +15,7 @@ MER.Changelog[743] = {
 		"[Misc]: Train All - a button at the trainer learns everything available you can afford in one click, new professions excluded.",
 		"[Misc]: Queue Timer - a bar below the dungeon and battleground invite counts down the time left to accept, and takes the place of BigWigs' own dungeon timer.",
 		"[Movement Alert]: The bars can be attached above or below the player, target or focus unit frame and take over its width.",
+		"[Tooltip]: Upgrade Track - the upgrade level line in item tooltips takes the color of the upgrade track (Explorer to Myth), and items that are not fully upgraded show the item level they can still reach.",
 		"[UnitFrames]: Ping Icon - pings placed on a unit (attack, warning, on my way, assist) show up on its unitframe, for the player, target, focus, pet, party, raid, tank, assist and arena frames, until ElvUI ships its own version.",
 	},
 	IMPROVEMENTS = {
