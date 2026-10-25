@@ -5,6 +5,7 @@ local M = E:GetModule("Misc")
 
 local _G = _G
 local ipairs, max, pairs, setmetatable, unpack, wipe = ipairs, max, pairs, setmetatable, unpack, wipe
+local gsub, strfind = gsub, strfind
 
 local Ambiguate = Ambiguate
 local CreateFrame = CreateFrame
@@ -37,6 +38,16 @@ local SENDER_EVENTS = {
 	CHAT_MSG_RAID_LEADER = "group",
 	CHAT_MSG_INSTANCE_CHAT = "group",
 	CHAT_MSG_INSTANCE_CHAT_LEADER = "group",
+	CHAT_MSG_EMOTE = "player",
+	CHAT_MSG_MONSTER_EMOTE = "npc",
+	CHAT_MSG_MONSTER_WHISPER = "npc",
+}
+
+-- The client fills emote bubbles in itself, so their text only has to contain the
+-- chat line instead of matching it.
+local LOOSE_EVENTS = {
+	CHAT_MSG_EMOTE = true,
+	CHAT_MSG_MONSTER_EMOTE = true,
 }
 
 -- Blizzard's bubble switches, held at 0 inside instances when asked to.
@@ -208,6 +219,17 @@ end
 --  Speaker name
 -------------------------------------------------------------------------------
 
+-- Also used by the options preview.
+function module:ColorBubbleName(name, classFile, isNPC, gradient)
+	if gradient then
+		return F.GradientName(name, classFile or (isNPC and NPC_GRADIENT) or "PRIEST")
+	end
+
+	-- Same flat colors as ElvUI's own name
+	local color = classFile and E:ClassColor(classFile) or _G.RAID_CLASS_COLORS.PRIEST
+	return color:WrapTextInColorCode(name)
+end
+
 local function FormatName(entry, gradient)
 	local classFile
 	if entry.guid then
@@ -217,13 +239,37 @@ local function FormatName(entry, gradient)
 		end
 	end
 
-	if gradient then
-		return F.GradientName(entry.name, classFile or (entry.kind == "npc" and NPC_GRADIENT) or "PRIEST")
+	return module:ColorBubbleName(entry.name, classFile, entry.kind == "npc", gradient)
+end
+
+-- Exact first; a loose entry (emote) is found when the bubble's text contains it.
+local function MatchesEntry(text, line, entry)
+	return text == line or (entry.loose and strfind(text, line, 1, true) ~= nil)
+end
+
+local function FindEntry(text)
+	local entry = senders[text]
+	if entry then
+		return entry
 	end
 
-	-- Same flat colors as ElvUI's own name
-	local color = classFile and E:ClassColor(classFile) or _G.RAID_CLASS_COLORS.PRIEST
-	return color:WrapTextInColorCode(entry.name)
+	for line, candidate in pairs(senders) do
+		if candidate.loose and MatchesEntry(text, line, candidate) then
+			return candidate
+		end
+	end
+end
+
+-- ElvUI's bubble font when it replaces Blizzard's, else the one of ChatBubbleFont.
+-- Also used by the options preview.
+function module:SetBubbleNameFont(label, size)
+	local general = E.private.general
+	if general.replaceBubbleFont then
+		label:FontTemplate(general.chatBubbleFont, size, general.chatBubbleFontOutline)
+	else
+		local font, _, outline = _G.ChatBubbleFont:GetFont()
+		label:SetFont(font, size, outline or "")
+	end
 end
 
 local JUSTIFY_POINTS = {
@@ -238,9 +284,7 @@ local function LayoutName(bubble, label)
 	local overlay = overlays[bubble]
 	local anchor = overlay and overlay:IsShown() and overlay or bubble
 
-	-- ChatBubbleFont carries ElvUI's replaced bubble font when that option is on.
-	local font, _, outline = _G.ChatBubbleFont:GetFont()
-	label:FontTemplate(font, db.nameFontSize, outline)
+	module:SetBubbleNameFont(label, db.nameFontSize)
 	label:SetJustifyH(db.nameJustify)
 	-- Sized by its text, a long name can reach past a short bubble instead of being cut.
 	label:SetSize(0, 0)
@@ -298,7 +342,7 @@ function module:UpdateBubbleName(bubble, fromShow)
 	end
 
 	local db = GetDB()
-	local entry = text and senders[text]
+	local entry = text and FindEntry(text)
 	if entry and (entry.kind ~= "group" or db.groupNames) then
 		label:SetText(FormatName(entry, db.nameGradient))
 	end
@@ -349,19 +393,30 @@ local function CacheSender(event, text, sender, guid)
 		senderCount = 0
 	end
 
+	local name = Ambiguate(sender, "none")
+	-- NPC emotes come with a placeholder for the NPC's name.
+	if event == "CHAT_MSG_MONSTER_EMOTE" then
+		text = gsub(text, "%%s", name)
+	end
+
 	if not senders[text] then
 		senderCount = senderCount + 1
 	end
-	senders[text] = {
-		name = Ambiguate(sender, "none"),
+	local entry = {
+		name = name,
 		guid = E:NotSecretValue(guid) and guid and guid ~= "" and guid or nil,
 		kind = SENDER_EVENTS[event],
+		loose = LOOSE_EVENTS[event],
 	}
+	senders[text] = entry
 
 	-- The bubble can show up before the chat event that belongs to it.
 	for bubble in pairs(tracked) do
-		if not bubble:IsForbidden() and bubble:IsShown() and shownText[bubble] == text then
-			module:UpdateBubbleName(bubble)
+		if not bubble:IsForbidden() and bubble:IsShown() then
+			local shown = shownText[bubble]
+			if shown and MatchesEntry(shown, text, entry) then
+				module:UpdateBubbleName(bubble)
+			end
 		end
 	end
 end

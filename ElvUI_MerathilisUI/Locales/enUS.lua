@@ -1512,6 +1512,7 @@ L["Alignment"] = true
 L["Hide in Instances"] = true
 L["Chat bubbles can't be styled inside instances, so Blizzard's own show there. This turns them off while you are in an instance and back on when you leave."] = true
 L["Not available while WindTools' Auto Toggle Chat Bubble is enabled."] = true
+L["Guard"] = true
 
 -- Location Panel
 L["Location Panel"] = true

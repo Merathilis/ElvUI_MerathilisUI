@@ -569,6 +569,7 @@ module:AddOptions(function()
 						name = F.NewFeatureText(L["Enable"]),
 						desc = L["Gives ElvUI's chat bubbles the MerathilisUI look with a pixel perfect border, and styles the speaker's name."],
 					}),
+					preview = module.PreviewOption(1.5, "MERChatBubblesPreview", "bubbles"),
 					elvuiDisabled = {
 						order = 2,
 						type = "description",

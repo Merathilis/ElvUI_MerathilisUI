@@ -27,6 +27,7 @@
 	<Script file='BuffReminderPreview.lua' />
 	<Script file='LocationPanelPreview.lua' />
 	<Script file='ChatSidebarPreview.lua' />
+	<Script file='ChatBubblesPreview.lua' />
 	<Script file='SpecBarPreview.lua' />
 	<Script file='ItemLevelPreview.lua' />
 	<Script file='MailPreview.lua' />

@@ -1297,6 +1297,7 @@ L["Alignment"] = "Ausrichtung"
 L["Hide in Instances"] = "In Instanzen ausblenden"
 L["Chat bubbles can't be styled inside instances, so Blizzard's own show there. This turns them off while you are in an instance and back on when you leave."] = "Sprechblasen lassen sich in Instanzen nicht gestalten, dort erscheinen Blizzards eigene. Das schaltet sie aus, solange du in einer Instanz bist, und beim Verlassen wieder an."
 L["Not available while WindTools' Auto Toggle Chat Bubble is enabled."] = "Nicht verfügbar, solange WindTools' automatisches Umschalten der Sprechblasen aktiv ist."
+L["Guard"] = "Wache"
 
 L["Location Panel"] = "Standort-Panel"
 L["Link Location in Chat"] = "Standort im Chat verlinken"
