@@ -8,7 +8,7 @@ MER.Changelog[743] = {
 		"[HoverCast]: Pressing a key on the binding page while combat starts no longer triggers a blocked action error.",
 	},
 	NEW = {
-		"[Armory]: Stat Picker - a cog button on the character stats opens an edit mode: click a stat to show or hide it, drag it to change the order.",
+		"[Armory]: Stat Picker - a cog button on the character stats opens an edit mode: click a stat to show or hide it, drag it to change the order. A longer list scrolls inside the stats pane.",
 		"[Armory]: Upgrade Track - the first letter of an item's upgrade track (Explorer to Myth) shows in the corner of its icon in the track's color, and the upgrade bar takes that color as well. Both can be turned off under Slot Item Level.",
 		"[Buff Reminder]: Missing Buffs From Group - optionally also shows the raid buffs a groupmate provides while you are missing them, as an info icon that clicks go through.",
 		"[Buff Reminder]: Talent Reminders - pick a talent and the instances you want it in, and an icon reminds you inside them while it is not chosen. Optionally it also reminds you to remove it again in the current season's other instances or in all of them. Saved per specialization, arenas and battlegrounds included.",

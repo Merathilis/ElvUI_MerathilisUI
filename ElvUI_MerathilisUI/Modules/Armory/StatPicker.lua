@@ -1,16 +1,18 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory") ---@class Armory
+local S = E:GetModule("Skins")
 
 -- Stat picker of the character stats pane:
 -- * the cog button toggles an edit mode that shows every stat the character can have, hidden ones dimmed
 -- * a click on a row shows or hides it, dragging a row changes the order inside its category
 -- * a right click on a row resets its mode, a right click on the cog in edit mode resets all stats
+-- * a list longer than the pane scrolls with the mouse wheel, or when a dragged row nears an edge
 -- Visibility writes the same per-stat modes as the options, the order lives in stats.order per category.
 
 local _G = _G
 local format = string.format
 local ipairs, pairs = ipairs, pairs
-local abs = math.abs
+local abs, max, min = math.abs, math.max, math.min
 local tinsert, twipe = table.insert, table.wipe
 
 local CreateFrame = CreateFrame
@@ -21,6 +23,12 @@ local COG_TEXTURE = "Interface\\AddOns\\ElvUI_MerathilisUI\\Media\\Icons\\Chat\\
 local COG_SIZE = 14
 local HIDDEN_ALPHA = 0.3
 local DRAG_THRESHOLD = 4
+local SCROLL_STEP = 24 -- pixels per mouse wheel notch
+local SCROLL_PADDING = 6 -- free space below the last row when scrolled to the end
+local EDGE_SCROLL_ZONE = 18 -- dragging a row this close to the top or bottom scrolls the list
+local EDGE_SCROLL_SPEED = 240 -- pixels per second
+local SCROLLBAR_INSET = 4 -- space between the scroll bar and the right edge of the pane
+local SCROLLBAR_GAP = 4 -- space between the rows and the scroll bar
 
 local MODE_HIDE, MODE_SMART, MODE_ALWAYS = 0, 1, 3
 
@@ -28,6 +36,8 @@ local picker -- cog button and the edit overlay above the stat rows
 local rows = {} -- rows laid out in edit mode, top to bottom
 local orderedStats = {} -- [catIndex] = stats of the category in the saved order
 local drag -- { row, startY, moved, target, below }
+local scrollOffset = 0 -- how far the list is scrolled up in edit mode
+local Scroll
 
 ---Stats of a category in the saved order, stats missing from it keep their default spot at the end
 ---@param catIndex number
@@ -228,7 +238,7 @@ local function PlaceHighlight(texture, row)
 	texture:Show()
 end
 
-local function Overlay_OnUpdate(overlay)
+local function Overlay_OnUpdate(overlay, elapsed)
 	local y = GetCursorY(overlay)
 
 	if drag then
@@ -237,6 +247,13 @@ local function Overlay_OnUpdate(overlay)
 			_G.GameTooltip:Hide()
 		end
 		if drag.moved then
+			local top, bottom = overlay:GetTop(), overlay:GetBottom()
+			if top and y > top - EDGE_SCROLL_ZONE then
+				Scroll(-EDGE_SCROLL_SPEED * elapsed)
+			elseif bottom and y < bottom + EDGE_SCROLL_ZONE then
+				Scroll(EDGE_SCROLL_SPEED * elapsed)
+			end
+
 			drag.target, drag.below = GetDropTarget(y)
 			local line = overlay.DropLine
 			line:ClearAllPoints()
@@ -314,6 +331,30 @@ local function Overlay_OnHide(overlay)
 	if _G.GameTooltip:IsOwned(overlay) then
 		_G.GameTooltip:Hide()
 	end
+	picker.scrollBar:Hide()
+end
+
+local function Overlay_OnShow()
+	module:UpdateStatPickerOverlay()
+end
+
+local function Overlay_OnMouseWheel(_, delta)
+	if not drag then
+		Scroll(-delta * SCROLL_STEP)
+	end
+end
+
+---Moves the list, every other row hangs below the first category
+local function ApplyScroll()
+	local first = _G.CharacterStatsPane.AttributesCategory
+	first:ClearAllPoints()
+	first:Point("TOP", _G.CharacterStatsPane, "TOP", -(picker.shiftX or 0), -2 + scrollOffset)
+	picker.overlay.hoveredRow = nil
+end
+
+local function ScrollBar_OnScroll(_, percentage)
+	scrollOffset = percentage * (picker.maxScroll or 0)
+	ApplyScroll()
 end
 
 local function UpdateCogColor()
@@ -331,7 +372,7 @@ end
 local function Button_OnEnter(button)
 	UpdateCogColor()
 	local tooltip = _G.GameTooltip
-	tooltip:SetOwner(button, "ANCHOR_LEFT")
+	tooltip:SetOwner(button, "ANCHOR_RIGHT")
 	tooltip:AddLine(L["Edit Stats"], 1, 1, 1)
 	tooltip:AddLine(" ")
 	ClickHint("LEFT", module.statEditMode and _G.DONE or L["Edit Stats"])
@@ -369,12 +410,25 @@ local function CreatePicker()
 	overlay:SetAllPoints(pane)
 	overlay:SetFrameLevel(pane:GetFrameLevel() + 20)
 	overlay:EnableMouse(true)
+	overlay:EnableMouseWheel(true)
 	overlay:Hide()
 	overlay:SetScript("OnUpdate", Overlay_OnUpdate)
 	overlay:SetScript("OnMouseDown", Overlay_OnMouseDown)
 	overlay:SetScript("OnMouseUp", Overlay_OnMouseUp)
+	overlay:SetScript("OnMouseWheel", Overlay_OnMouseWheel)
+	overlay:SetScript("OnShow", Overlay_OnShow)
 	overlay:SetScript("OnHide", Overlay_OnHide)
 	picker.overlay = overlay
+
+	-- Sits right of the pane, outside its clipping, and follows the overlay's visibility
+	local scrollBar = CreateFrame("EventFrame", nil, pane:GetParent(), "MinimalScrollBar")
+	scrollBar:SetPoint("TOPRIGHT", pane, "TOPRIGHT", -SCROLLBAR_INSET, -2)
+	scrollBar:SetPoint("BOTTOMRIGHT", pane, "BOTTOMRIGHT", -SCROLLBAR_INSET, 2)
+	scrollBar:SetFrameLevel(pane:GetFrameLevel() + 30)
+	scrollBar:RegisterCallback("OnScroll", ScrollBar_OnScroll, picker)
+	scrollBar:Hide()
+	S:HandleTrimScrollBar(scrollBar)
+	picker.scrollBar = scrollBar
 
 	local color = E:ClassColor(E.myclass, true)
 
@@ -393,7 +447,7 @@ local function CreatePicker()
 
 	local button = CreateFrame("Button", nil, pane)
 	button:SetSize(COG_SIZE, COG_SIZE)
-	button:SetPoint("TOPRIGHT", pane, "TOPRIGHT", -2, -2)
+	button:SetPoint("TOPLEFT", pane, "TOPLEFT", 2, -2)
 	button:SetFrameLevel(pane:GetFrameLevel() + 30)
 	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	button:SetScript("OnEnter", Button_OnEnter)
@@ -409,22 +463,64 @@ local function CreatePicker()
 	UpdateCogColor()
 end
 
----The rows can reach below the stats pane, the overlay follows the last one so every row takes clicks
+---The full list can reach below the stats pane. While editing, the pane clips its children and the
+---list scrolls by moving the first category, every other row hangs below it.
 function module:UpdateStatPickerOverlay()
 	if not (picker and self.statEditMode) then
 		return
 	end
 
 	local pane = _G.CharacterStatsPane
-	local overlay = picker.overlay
 	local lastRow = rows[#rows]
-	overlay:ClearAllPoints()
-	overlay:SetPoint("TOPLEFT", pane, "TOPLEFT")
-	overlay:SetPoint("RIGHT", pane, "RIGHT")
+
+	local contentHeight = 0
 	if lastRow then
-		overlay:SetPoint("BOTTOM", lastRow.frame, "BOTTOM")
+		local top, bottom = pane.AttributesCategory:GetTop(), lastRow.frame:GetBottom()
+		if top and bottom then
+			contentHeight = top - bottom + SCROLL_PADDING
+		end
+	end
+
+	local viewHeight = pane:GetHeight()
+	local maxScroll = max(0, contentHeight - viewHeight)
+	scrollOffset = min(max(scrollOffset, 0), maxScroll)
+	picker.maxScroll = maxScroll
+
+	-- The scroll bar sits inside the pane, the list moves left until it clears the bar, but never
+	-- past the left edge of the pane. Measured from the unshifted spot, a rebuild resets the shift.
+	local scrollBar = picker.scrollBar
+	local shiftX = 0
+	local firstRow = rows[1] and rows[1].frame
+	if maxScroll > 0 and firstRow then
+		local paneLeft, paneRight = pane:GetLeft(), pane:GetRight()
+		local rowLeft, rowRight = firstRow:GetLeft(), firstRow:GetRight()
+		local paneCenter, listCenter = pane:GetCenter(), pane.AttributesCategory:GetCenter()
+		if paneLeft and rowLeft and paneCenter and listCenter then
+			local current = paneCenter - listCenter
+			rowLeft, rowRight = rowLeft + current, rowRight + current
+			local limit = paneRight - SCROLLBAR_INSET - scrollBar:GetWidth() - SCROLLBAR_GAP
+			shiftX = min(max(rowRight - limit, 0), max(rowLeft - paneLeft, 0))
+		end
+	end
+	picker.shiftX = shiftX
+	ApplyScroll()
+
+	if maxScroll > 0 then
+		scrollBar:SetVisibleExtentPercentage(viewHeight / contentHeight)
+		scrollBar:SetPanExtentPercentage(SCROLL_STEP / maxScroll)
+		scrollBar:SetScrollPercentage(scrollOffset / maxScroll, true)
+		scrollBar:Show()
 	else
-		overlay:SetPoint("BOTTOM", pane, "BOTTOM")
+		scrollBar:Hide()
+	end
+end
+
+---@param delta number pixels, positive moves the list up
+function Scroll(delta)
+	local maxScroll = picker.maxScroll or 0
+	if maxScroll > 0 then
+		-- the bar's OnScroll moves the list
+		picker.scrollBar:SetScrollPercentage(min(max(scrollOffset + delta, 0), maxScroll) / maxScroll, true)
 	end
 end
 
@@ -440,6 +536,7 @@ function module:SetStatEditMode(enabled)
 	end
 
 	self.statEditMode = enabled
+	scrollOffset = 0
 	if not enabled then
 		twipe(rows)
 	end
@@ -447,6 +544,18 @@ function module:SetStatEditMode(enabled)
 	if picker then
 		picker.overlay:SetShown(enabled)
 		UpdateCogColor()
+	end
+
+	-- The pane clips the scrolled list while editing, the old state comes back afterwards
+	local pane = _G.CharacterStatsPane
+	if pane then
+		if enabled then
+			self.statPaneClipped = pane:DoesClipChildren()
+			pane:SetClipsChildren(true)
+		elseif self.statPaneClipped ~= nil then
+			pane:SetClipsChildren(self.statPaneClipped)
+			self.statPaneClipped = nil
+		end
 	end
 
 	if enabled then
