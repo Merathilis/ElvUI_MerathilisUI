@@ -12,6 +12,7 @@
 -   [New]: Movement Alert: The bars can be attached above or below the player, target or focus unit frame and take over its width.
 -   [New]: Tooltip: Upgrade Track - the upgrade level line in item tooltips takes the color of the upgrade track (Explorer to Myth), and items that are not fully upgraded show the item level they can still reach.
 -   [New]: UnitFrames: Ping Icon - pings placed on a unit (attack, warning, on my way, assist) show up on its unitframe, for the player, target, focus, pet, party, raid, tank, assist and arena frames, until ElvUI ships its own version.
+-   [Improvement]: Armory: The item slots no longer fade in row by row when the character frame opens, they show right away.
 -   [Improvement]: Notification: Rare notifications now play a softer chime instead of the raid warning sound.
 -   [Improvement]: Notification: New toast design in the style of the options cards - accent strip, the text block sits next to the icon and the height follows the text, a bar shows the time left, and on hover the close button and a click hint appear.
 -   [Improvement]: Skins: KeystoneLoot skin updated for the reworked addon - the custom item panel and the Mythic+ group notification are skinned now, item icons get a quality colored border instead of a white one, and the side panels have a shadow.
