@@ -725,7 +725,7 @@ local function UpdateMythic(self, db)
 			local historyRun = history[#history - i + 1]
 			if historyRun and i <= historyLimit then
 				hasAny = true
-				local historyDungeonName = C_ChallengeMode_GetMapUIInfo(historyRun.mapChallengeModeID) or "Unknown"
+				local historyDungeonName = C_ChallengeMode_GetMapUIInfo(historyRun.mapChallengeModeID) or L["Unknown"]
 				local colorObj = C_ChallengeMode_GetKeystoneLevelRarityColor(historyRun.level)
 				local levelText = "+" .. historyRun.level
 				local levelColored = levelText
