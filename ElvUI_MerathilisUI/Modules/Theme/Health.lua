@@ -40,17 +40,24 @@ local function RememberPlayer(guid, classToken)
 	end
 end
 
+-- Runs on every health tick, so each unit API call is only made when its branch needs it
 function module:GetHealthColor(frame, unit)
 	local guid = UnitGUID(unit)
 	local knownGUID = E:NotSecretValue(guid) and guid or nil
 
-	local unitIsPlayer = UnitIsPlayer(unit)
-	local treatAsPlayer = UnitTreatAsPlayerForDisplay(unit)
+	local isPlayer = UnitIsPlayer(unit)
+	isPlayer = E:NotSecretValue(isPlayer) and isPlayer
+
+	if not isPlayer then
+		local treatAsPlayer = UnitTreatAsPlayerForDisplay(unit)
+		isPlayer = E:NotSecretValue(treatAsPlayer) and treatAsPlayer
+	end
+
 	-- Follower dungeon NPCs are neither players nor always treated as such for display
-	local partyAI = UnitInPartyIsAI and UnitInPartyIsAI(unit)
-	local isPlayer = (E:NotSecretValue(unitIsPlayer) and unitIsPlayer)
-		or (E:NotSecretValue(treatAsPlayer) and treatAsPlayer)
-		or (E:NotSecretValue(partyAI) and partyAI)
+	if not isPlayer and UnitInPartyIsAI then
+		local partyAI = UnitInPartyIsAI(unit)
+		isPlayer = E:NotSecretValue(partyAI) and partyAI
+	end
 
 	if isPlayer then
 		if knownGUID then
@@ -60,35 +67,38 @@ function module:GetHealthColor(frame, unit)
 		isPlayer = true
 	end
 
-	local isConnected = UnitIsConnected(unit)
-	local isDeadOrGhost = UnitIsDeadOrGhost(unit)
-	local isCharmed = UnitIsCharmed(unit)
-	local isEnemy = UnitIsEnemy("player", unit)
-	local playerControlled = UnitPlayerControlled(unit)
-	local tapDenied = UnitIsTapDenied(unit)
+	if isPlayer then
+		local isConnected = UnitIsConnected(unit)
+		if E:NotSecretValue(isConnected) and not isConnected then
+			return "specialColorMap", "DISCONNECTED"
+		end
+	end
 
-	if isPlayer and E:NotSecretValue(isConnected) and not isConnected then
-		return "specialColorMap", "DISCONNECTED"
-	elseif frame.unitDead == true then
+	-- frame.unitDead is set from UnitIsDeadOrGhost right before this is called
+	if frame.unitDead == true then
 		return "specialColorMap", "DEAD"
-	elseif
-		isPlayer
-		and E:NotSecretValue(isDeadOrGhost)
-		and not isDeadOrGhost
-		and E:NotSecretValue(isCharmed)
-		and isCharmed
-		and E:NotSecretValue(isEnemy)
-		and isEnemy
-	then
-		return "reactionColorMap", "BAD"
-	elseif
-		E:NotSecretValue(playerControlled)
-		and not playerControlled
-		and E:NotSecretValue(tapDenied)
-		and tapDenied
-	then
-		return "specialColorMap", "TAPPED"
-	elseif isPlayer then
+	end
+
+	if isPlayer then
+		local isCharmed = UnitIsCharmed(unit)
+		if E:NotSecretValue(isCharmed) and isCharmed then
+			local isEnemy = UnitIsEnemy("player", unit)
+			if E:NotSecretValue(isEnemy) and isEnemy then
+				return "reactionColorMap", "BAD"
+			end
+		end
+	else
+		-- Players and follower NPCs are never tap denied
+		local playerControlled = UnitPlayerControlled(unit)
+		if E:NotSecretValue(playerControlled) and not playerControlled then
+			local tapDenied = UnitIsTapDenied(unit)
+			if E:NotSecretValue(tapDenied) and tapDenied then
+				return "specialColorMap", "TAPPED"
+			end
+		end
+	end
+
+	if isPlayer then
 		local classToken = select(2, UnitClass(unit))
 		if E:NotSecretValue(classToken) and classToken then
 			if knownGUID then

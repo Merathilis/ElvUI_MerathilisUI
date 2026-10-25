@@ -14,6 +14,7 @@
 -   [Improvement]: Notification: Rare notifications now play a softer chime instead of the raid warning sound.
 -   [Improvement]: Notification: New toast design in the style of the options cards - accent strip, the text block sits next to the icon and the height follows the text, a bar shows the time left, and on hover the close button and a click hint appear.
 -   [Improvement]: Skins: KeystoneLoot skin updated for the reworked addon - the custom item panel and the Mythic+ group notification are skinned now, item icons get a quality colored border instead of a white one, and the side panels have a shadow.
+-   [Improvement]: Theme: Fewer unit API calls per health update for the gradient health colors.
 -   [Improvement]: Unlock Mode: Shift+Alt-click picks the anchor points by hand - nine points on the selected mover, then nine on the target, and the two are put on top of each other. Plain Alt-click still takes the sides from where the mover sits.
 -   [Improvement]: Unlock Mode: The toolbar stands out from the movers - nearly opaque background, a border, glow and top strip in your accent color.
 -   [Improvement]: Unlock Mode: A filter box in the toolbar shows only the movers whose name contains every typed word.
