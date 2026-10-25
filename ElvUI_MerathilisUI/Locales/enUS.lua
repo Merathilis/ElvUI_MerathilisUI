@@ -1500,6 +1500,18 @@ L["Hides the voice buttons on the chat panel, the sidebar button takes their pla
 L["Opens the channel list. Right-click mutes your microphone, middle-click your speakers."] = true
 L["Replaced by the voice button of the MerathilisUI Chat Sidebar."] = true
 L["Other Games / App"] = true
+L["Gives ElvUI's chat bubbles the MerathilisUI look with a pixel perfect border, and styles the speaker's name."] = true
+L["Needs ElvUI's chat bubble skin, see ElvUI > General > Cosmetic > Chat Bubbles."] = true
+L["The backdrop needs one of ElvUI's two backdrop styles, the name settings work with every style."] = true
+L["Speaker Name"] = true
+L["Needs ElvUI's Chat Bubble Names option."] = true
+L["Group Chat Names"] = true
+L["Also names the bubbles of party, raid and instance chat. ElvUI only names say, yell and NPC bubbles."] = true
+L["Shows the name in a class color gradient, NPCs in yellow."] = true
+L["Alignment"] = true
+L["Hide in Instances"] = true
+L["Chat bubbles can't be styled inside instances, so Blizzard's own show there. This turns them off while you are in an instance and back on when you leave."] = true
+L["Not available while WindTools' Auto Toggle Chat Bubble is enabled."] = true
 
 -- Location Panel
 L["Location Panel"] = true

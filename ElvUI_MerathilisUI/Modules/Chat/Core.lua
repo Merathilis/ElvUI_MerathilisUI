@@ -11,6 +11,7 @@ function module:DatabaseUpdate()
 	self:UpdateEditBoxes()
 	self:UpdateTabs()
 	self:UpdateCopyChat()
+	self:UpdateBubbles()
 end
 
 function module:Initialize()
@@ -27,6 +28,9 @@ function module:Initialize()
 		self:InitializeTabs()
 		self:InitializeCopyChat()
 	end
+
+	-- Chat bubbles belong to ElvUI's Misc module and work without ElvUI's chat.
+	self:InitializeBubbles()
 
 	F.Event.RegisterOnceCallback("MER.InitializedSafe", F.Event.GenerateClosure(self.DatabaseUpdate, self))
 	F.Event.RegisterCallback("MER.DatabaseUpdate", self.DatabaseUpdate, self)

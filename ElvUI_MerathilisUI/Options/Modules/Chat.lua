@@ -545,6 +545,156 @@ module:AddOptions(function()
 					},
 				},
 			},
+			bubbles = {
+				order = 5,
+				type = "group",
+				guiInline = true,
+				name = L["Chat Bubbles"],
+				get = function(info)
+					return ChatDB().bubbles[info[#info]]
+				end,
+				set = function(info, value)
+					ChatDB().bubbles[info[#info]] = value
+					MER:GetModule("MER_Chat"):UpdateBubbles()
+				end,
+				disabled = function(info)
+					if E.private.general.chatBubbles == "disabled" then
+						return true
+					end
+					return info[#info] ~= "enable" and not ChatDB().bubbles.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = F.NewFeatureText(L["Enable"]),
+						desc = L["Gives ElvUI's chat bubbles the MerathilisUI look with a pixel perfect border, and styles the speaker's name."],
+					}),
+					elvuiDisabled = {
+						order = 2,
+						type = "description",
+						name = F.cOption(
+							L["Needs ElvUI's chat bubble skin, see ElvUI > General > Cosmetic > Chat Bubbles."],
+							"orange"
+						),
+						hidden = function()
+							return E.private.general.chatBubbles ~= "disabled"
+						end,
+					},
+					style = {
+						order = 3,
+						type = "toggle",
+						name = L["MerathilisUI Style"],
+						desc = L["Transparent backdrop with the MerathilisUI stripes and gradient."],
+					},
+					shadow = {
+						order = 4,
+						type = "toggle",
+						name = L["Shadow"],
+					},
+					backdropHint = {
+						order = 5,
+						type = "description",
+						name = L["The backdrop needs one of ElvUI's two backdrop styles, the name settings work with every style."],
+						hidden = function()
+							local option = E.private.general.chatBubbles
+							return option == "backdrop" or option == "backdrop_noborder"
+						end,
+					},
+					name = {
+						order = 6,
+						type = "group",
+						inline = true,
+						name = L["Speaker Name"],
+						disabled = function()
+							local db = ChatDB().bubbles
+							return E.private.general.chatBubbles == "disabled"
+								or not db.enable
+								or not E.private.general.chatBubbleName
+						end,
+						args = {
+							nameHint = {
+								order = 0,
+								type = "description",
+								name = F.cOption(L["Needs ElvUI's Chat Bubble Names option."], "orange"),
+								hidden = function()
+									return E.private.general.chatBubbleName
+								end,
+							},
+							groupNames = {
+								order = 1,
+								type = "toggle",
+								name = L["Group Chat Names"],
+								desc = L["Also names the bubbles of party, raid and instance chat. ElvUI only names say, yell and NPC bubbles."],
+							},
+							nameGradient = {
+								order = 2,
+								type = "toggle",
+								name = L["Gradient Name"],
+								desc = L["Shows the name in a class color gradient, NPCs in yellow."],
+							},
+							nameJustify = module.Segmented({
+								order = 3,
+								type = "select",
+								name = L["Alignment"],
+								values = {
+									LEFT = L["Left"],
+									CENTER = L["Center"],
+									RIGHT = L["Right"],
+								},
+							}, { "LEFT", "CENTER", "RIGHT" }),
+							nameFontSize = {
+								order = 4,
+								type = "range",
+								name = L["Font Size"],
+								min = 6,
+								max = 24,
+								step = 1,
+							},
+							nameXOffset = {
+								order = 5,
+								type = "range",
+								name = L["X-Offset"],
+								min = -50,
+								max = 50,
+								step = 1,
+							},
+							nameYOffset = {
+								order = 6,
+								type = "range",
+								name = L["Y-Offset"],
+								min = -50,
+								max = 50,
+								step = 1,
+							},
+						},
+					},
+					hideInInstances = {
+						order = 7,
+						type = "toggle",
+						name = L["Hide in Instances"],
+						desc = function()
+							local text =
+								L["Chat bubbles can't be styled inside instances, so Blizzard's own show there. This turns them off while you are in an instance and back on when you leave."]
+							local wt = E.private.WT
+							if wt and wt.misc and wt.misc.autoToggleChatBubble then
+								text = text
+									.. "\n\n"
+									.. F.cOption(
+										L["Not available while WindTools' Auto Toggle Chat Bubble is enabled."],
+										"orange"
+									)
+							end
+							return text
+						end,
+						disabled = function()
+							local wt = E.private.WT
+							return E.private.general.chatBubbles == "disabled"
+								or not ChatDB().bubbles.enable
+								or (wt and wt.misc and wt.misc.autoToggleChatBubble)
+						end,
+					},
+				},
+			},
 		},
 	}
 
@@ -647,4 +797,6 @@ module:AddOptions(function()
 	module.ModuleCard("chatSidebar", chatArgs.sidebar, "enable")
 	module.ModuleCard("chatEditBox", chatArgs.editBox, "enable")
 	module.ModuleCard("chatCopyChat", chatArgs.copyChat, "enable")
+	module.ModuleCard("chatBubbles", chatArgs.bubbles, "enable")
+	F.MarkTabAsNew("chat")
 end)

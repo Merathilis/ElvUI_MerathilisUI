@@ -924,6 +924,18 @@ P.chat = {
 		animation = true,
 		glow = true,
 	},
+	bubbles = {
+		enable = true,
+		style = true,
+		shadow = true,
+		groupNames = true,
+		nameGradient = true,
+		nameJustify = "LEFT",
+		nameFontSize = 10,
+		nameXOffset = 0,
+		nameYOffset = 2,
+		hideInInstances = false,
+	},
 	copyChat = {
 		enable = true,
 		colors = true,
