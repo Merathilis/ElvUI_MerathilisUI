@@ -270,6 +270,16 @@ local BUTTONS = {
 		end,
 	},
 	{
+		key = "search",
+		label = L["Chat Search"],
+		isEnabled = function()
+			return module.chatDB.search.enable
+		end,
+		onClick = function()
+			module:ToggleChatSearch(GetTargetChat(module.db))
+		end,
+	},
+	{
 		key = "portals",
 		label = L["M+ Portals"],
 		onClick = function(btn)
@@ -985,7 +995,7 @@ function module:UpdateSidebar()
 			btn.Text:FontTemplate(nil, db.counterFontSize, "SHADOWOUTLINE")
 		end
 
-		local show = db.buttons[info.key]
+		local show = db.buttons[info.key] and (not info.isEnabled or info.isEnabled())
 		if show and not info.pinned then
 			local height = size + (btn.Text and counterHeight or 0)
 			if used + height > available then

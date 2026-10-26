@@ -5,6 +5,8 @@
 	<Script file="EditBox.lua"/>
 	<Script file="Tabs.lua"/>
 	<Script file="CopyChat.lua"/>
+	<Script file="Search.lua"/>
+	<Script file="Invite.lua"/>
 	<Script file="Bubbles.lua"/>
 	<Script file="Core.lua"/>
 </Ui>

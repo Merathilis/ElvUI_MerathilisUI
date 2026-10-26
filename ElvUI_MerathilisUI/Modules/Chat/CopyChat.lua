@@ -95,6 +95,14 @@ local function GetChatName(chatFrame)
 	local name = id and _G.FCF_GetChatWindowInfo and _G.FCF_GetChatWindowInfo(id)
 	return name ~= "" and name or nil
 end
+module.GetChatWindowName = GetChatName
+
+---Plain text of a chat line: links, textures and colors removed, raid icons as {star}
+---@param msg string
+---@return string
+function module.GetPlainChatLine(msg)
+	return StripColors(CleanLine(msg))
+end
 
 -------------------------------------------------------------------------------
 -- Window
@@ -102,7 +110,7 @@ end
 local window
 
 local function SaveSize(frame)
-	local db = GetDB()
+	local db = frame.getDB()
 	if db then
 		db.width = F.Round(frame:GetWidth())
 		db.height = F.Round(frame:GetHeight())
@@ -118,9 +126,6 @@ local function StopSizing(frame)
 end
 
 local function Window_OnHide(frame)
-	frame:StopMovingOrSizing()
-	frame.isSizing = nil
-
 	-- Drop the copied history, it is read again on the next open
 	frame.text = nil
 	frame.textBox:SetText("")
@@ -177,10 +182,16 @@ local function CreateColorsToggle(frame)
 	return checkBox
 end
 
-local function CreateWindow()
-	local db = GetDB()
+---Movable, resizable chat popup with a header (title, close button, class
+---colored line below it) and a resize grip. Shared by Copy Chat and Chat Search.
+---@param name string global frame name, also used to close it with Escape
+---@param getDB function returns the table holding width and height
+---@return table frame
+function module:CreateChatPopup(name, getDB)
+	local db = getDB()
 
-	local frame = CreateFrame("Frame", "MER_CopyChatFrame", E.UIParent)
+	local frame = CreateFrame("Frame", name, E.UIParent)
+	frame.getDB = getDB
 	frame:SetSize(db.width, db.height)
 	frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 60)
 	frame:SetFrameStrata("DIALOG")
@@ -193,10 +204,13 @@ local function CreateWindow()
 	frame:SetResizeBounds(MIN_WIDTH, MIN_HEIGHT)
 	frame:EnableMouse(true)
 	frame:Hide()
-	frame:SetScript("OnHide", Window_OnHide)
-	tinsert(_G.UISpecialFrames, frame:GetName())
+	frame:HookScript("OnHide", function(self)
+		self:StopMovingOrSizing()
+		self.isSizing = nil
+	end)
+	tinsert(_G.UISpecialFrames, name)
 
-	-- Header: drag handle, title, colors toggle, close button
+	-- Header: drag handle, title, close button
 	local header = CreateFrame("Frame", nil, frame)
 	header:SetPoint("TOPLEFT")
 	header:SetPoint("TOPRIGHT")
@@ -221,11 +235,9 @@ local function CreateWindow()
 	close:SetPoint("RIGHT", header, "RIGHT", 2, 0)
 	close:SetFrameLevel(header:GetFrameLevel() + 1)
 	S:HandleCloseButton(close)
+	frame.Close = close
 
-	local colors = CreateColorsToggle(header)
-	colors:SetPoint("RIGHT", close, "LEFT", -4, 0)
-	frame.Colors = colors
-	title:SetPoint("RIGHT", colors.label, "LEFT", -PADDING, 0)
+	title:SetPoint("RIGHT", close, "LEFT", -PADDING, 0)
 	title:SetWordWrap(false)
 
 	local cc = E.myClassColor
@@ -234,6 +246,21 @@ local function CreateWindow()
 	accent:SetPoint("TOPRIGHT", header, "BOTTOMRIGHT", -1, 0)
 	accent:SetHeight(1)
 	accent:SetColorTexture(cc.r, cc.g, cc.b, 0.8)
+
+	frame.Header = header
+	CreateGrip(frame)
+
+	return frame
+end
+
+local function CreateWindow()
+	local frame = module:CreateChatPopup("MER_CopyChatFrame", GetDB)
+	frame:HookScript("OnHide", Window_OnHide)
+
+	local colors = CreateColorsToggle(frame.Header)
+	colors:SetPoint("RIGHT", frame.Close, "LEFT", -4, 0)
+	frame.Colors = colors
+	frame.Title:SetPoint("RIGHT", colors.label, "LEFT", -PADDING, 0)
 
 	-- Text area: Blizzard's scrolling edit box brings scrolling and selection
 	local textBox = CreateFrame("Frame", nil, frame, "ScrollingEditBoxTemplate")
@@ -275,8 +302,6 @@ local function CreateWindow()
 	hint:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -(PADDING + GRIP_SIZE), PADDING / 2 + 2)
 	hint:SetTextColor(0.6, 0.6, 0.6)
 	hint:SetText(L["Press Ctrl+C to copy the selected text."])
-
-	CreateGrip(frame)
 
 	return frame
 end

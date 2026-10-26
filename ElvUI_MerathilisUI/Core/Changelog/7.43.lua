@@ -13,6 +13,8 @@ MER.Changelog[743] = {
 		"[Buff Reminder]: Missing Buffs From Group - optionally also shows the raid buffs a groupmate provides while you are missing them, as an info icon that clicks go through.",
 		"[Buff Reminder]: Talent Reminders - pick a talent and the instances you want it in, and an icon reminds you inside them while it is not chosen. Optionally it also reminds you to remove it again in the current season's other instances or in all of them. Saved per specialization, arenas and battlegrounds included.",
 		"[Chat]: Chat Bubbles - ElvUI's chat bubbles get the MerathilisUI style and a shadow on a border that is pixel perfect at any UI scale. The speaker's name can be shown as a class color gradient, positioned freely and also appears on party, raid, instance chat and emote bubbles. Optionally the bubbles are turned off inside instances, where they can't be styled.",
+		"[Chat]: Chat Search - a search button in the chat sidebar searches the chat window's history, newest matches first with the searched words highlighted. Clicking a match scrolls the chat to that line, Enter jumps to the newest one.",
+		"[Chat]: Invite Links - invite keywords (inv, invite by default) in whispers, guild, say, yell and chat channels become a link that invites the sender, and Alt-click on a player name in the chat invites that player.",
 		"[Misc]: Train All - a button at the trainer learns everything available you can afford in one click, new professions excluded.",
 		"[Misc]: Queue Timer - a bar below the dungeon and battleground invite counts down the time left to accept, and takes the place of BigWigs' own dungeon timer.",
 		"[Movement Alert]: The bars can be attached above or below the player, target or focus unit frame and take over its width.",

@@ -266,6 +266,15 @@ module:AddOptions(function()
 								desc = L["Replaces ElvUI's copy button on the chat windows. Right-click opens the chat menu."],
 								image = I.Media.Icons.Chat.copy,
 							}, 0.5),
+							search = module.ToggleCard({
+								order = 4.5,
+								name = F.NewFeatureText(L["Chat Search"]),
+								desc = L["Opens the chat search for the chat window next to the sidebar."],
+								image = I.Media.Icons.Chat.search,
+								disabled = function()
+									return Disabled() or not ChatDB().search.enable
+								end,
+							}, 0.5),
 							portals = module.ToggleCard({
 								order = 5,
 								name = L["M+ Portals"],
@@ -545,6 +554,78 @@ module:AddOptions(function()
 					},
 				},
 			},
+			search = {
+				order = 4.2,
+				type = "group",
+				guiInline = true,
+				name = L["Chat Search"],
+				get = function(info)
+					return ChatDB().search[info[#info]]
+				end,
+				set = function(info, value)
+					ChatDB().search[info[#info]] = value
+					MER:GetModule("MER_Chat"):UpdateChatSearch()
+					Update()
+				end,
+				disabled = function(info)
+					if not MER:HasRequirements(I.Requirements.Chat) then
+						return true
+					end
+					return info[#info] ~= "enable" and not ChatDB().search.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = F.NewFeatureText(L["Enable"]),
+						desc = L["Searches the history of a chat window, the newest matches first. Click a match to scroll the chat to it, Enter jumps to the newest one. Opened by the search button in the chat sidebar."],
+					}),
+					fontSize = {
+						order = 2,
+						type = "range",
+						name = L["Font Size"],
+						min = 8,
+						max = 20,
+						step = 1,
+					},
+				},
+			},
+			invite = {
+				order = 4.4,
+				type = "group",
+				guiInline = true,
+				name = L["Invite Links"],
+				get = function(info)
+					return ChatDB().invite[info[#info]]
+				end,
+				set = function(info, value)
+					ChatDB().invite[info[#info]] = value
+					MER:GetModule("MER_Chat"):UpdateInvite()
+				end,
+				disabled = function(info)
+					return info[#info] ~= "enable" and not ChatDB().invite.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = F.NewFeatureText(L["Enable"]),
+						desc = L["Turns invite keywords in whispers, guild, say, yell and chat channels into links. A click on the link invites the sender."],
+					}),
+					keywords = {
+						order = 2,
+						type = "input",
+						name = L["Keywords"],
+						desc = L["Comma separated list of words that become an invite link."],
+						width = "full",
+					},
+					altClick = {
+						order = 3,
+						type = "toggle",
+						name = L["Alt-Click Invite"],
+						desc = L["Alt-click a player name in the chat to invite that player."],
+						width = "full",
+					},
+				},
+			},
 			bubbles = {
 				order = 5,
 				type = "group",
@@ -798,6 +879,8 @@ module:AddOptions(function()
 	module.ModuleCard("chatSidebar", chatArgs.sidebar, "enable")
 	module.ModuleCard("chatEditBox", chatArgs.editBox, "enable")
 	module.ModuleCard("chatCopyChat", chatArgs.copyChat, "enable")
+	module.ModuleCard("chatSearch", chatArgs.search, "enable")
+	module.ModuleCard("chatInvite", chatArgs.invite, "enable")
 	module.ModuleCard("chatBubbles", chatArgs.bubbles, "enable")
 	F.MarkTabAsNew("chat")
 end)
