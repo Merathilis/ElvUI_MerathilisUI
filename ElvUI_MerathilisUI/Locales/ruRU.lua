@@ -239,6 +239,14 @@ L["Unknown or undiscovered currency ID."] = true
 L["You are close to the cap: %d / %d"] = true
 L["Title Font"] = "Шрифт заголовка"
 L["Text Font"] = "Шрифт текста"
+L["Chat Mentions"] = true
+L["Shows a toast when your name or one of your keywords comes up in chat. Click the toast to answer in the same channel."] = true
+L["Comma separated list of words that trigger a toast. %MYNAME% stands for your character name."] = true
+L["Channels"] = true
+L["Say / Yell"] = true
+L["Chat Channels"] = true
+L["General, Trade and custom channels."] = true
+L["Every whisper shows a toast, no keyword needed."] = true
 
 -- Actionbars
 L["Specialization Bar"] = "Панель специализации"

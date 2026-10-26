@@ -255,6 +255,14 @@ L["Unknown or undiscovered currency ID."] = "Unbekannte oder noch nicht entdeckt
 L["You are close to the cap: %d / %d"] = "Du näherst dich der Kappe: %d / %d"
 L["Title Font"] = "Titel Schriftart"
 L["Text Font"] = "Text Schriftart"
+L["Chat Mentions"] = "Chat-Erwähnungen"
+L["Shows a toast when your name or one of your keywords comes up in chat. Click the toast to answer in the same channel."] = "Zeigt eine Benachrichtigung, wenn dein Name oder eines deiner Stichwörter im Chat fällt. Ein Klick darauf antwortet im selben Kanal."
+L["Comma separated list of words that trigger a toast. %MYNAME% stands for your character name."] = "Durch Kommas getrennte Liste von Wörtern, die eine Benachrichtigung auslösen. %MYNAME% steht für den Namen deines Charakters."
+L["Channels"] = "Kanäle"
+L["Say / Yell"] = "Sagen / Schreien"
+L["Chat Channels"] = "Chatkanäle"
+L["General, Trade and custom channels."] = "Allgemein, Handel und eigene Kanäle."
+L["Every whisper shows a toast, no keyword needed."] = "Jedes Flüstern zeigt eine Benachrichtigung, auch ohne Stichwort."
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"

@@ -155,6 +155,92 @@ module:AddOptions(function()
 					},
 				},
 			},
+			mentions = {
+				order = 18,
+				type = "group",
+				name = L["Chat Mentions"],
+				guiInline = true,
+				get = function(info)
+					return E.db.mui.notification.mentions[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.notification.mentions[info[#info]] = value
+					MER:GetModule("MER_Notification"):UpdateEvents()
+				end,
+				disabled = Disabled,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = F.NewFeatureText(L["Enable"]),
+						desc = L["Shows a toast when your name or one of your keywords comes up in chat. Click the toast to answer in the same channel."],
+					}),
+					keywords = {
+						order = 2,
+						type = "input",
+						name = L["Keywords"],
+						desc = L["Comma separated list of words that trigger a toast. %MYNAME% stands for your character name."],
+						width = "full",
+						disabled = SectionDisabled("mentions"),
+					},
+					hideInCombat = {
+						order = 3,
+						type = "toggle",
+						name = L["Hide in Combat"],
+						disabled = SectionDisabled("mentions"),
+					},
+					channels = {
+						order = 4,
+						type = "group",
+						name = L["Channels"],
+						inline = true,
+						disabled = SectionDisabled("mentions"),
+						args = {
+							guild = {
+								order = 1,
+								type = "toggle",
+								name = _G.CHAT_MSG_GUILD,
+							},
+							officer = {
+								order = 2,
+								type = "toggle",
+								name = _G.CHAT_MSG_OFFICER,
+							},
+							party = {
+								order = 3,
+								type = "toggle",
+								name = _G.CHAT_MSG_PARTY,
+							},
+							raid = {
+								order = 4,
+								type = "toggle",
+								name = _G.CHAT_MSG_RAID,
+							},
+							instance = {
+								order = 5,
+								type = "toggle",
+								name = _G.INSTANCE_CHAT,
+							},
+							say = {
+								order = 6,
+								type = "toggle",
+								name = L["Say / Yell"],
+							},
+							channel = {
+								order = 7,
+								type = "toggle",
+								name = L["Chat Channels"],
+								desc = L["General, Trade and custom channels."],
+							},
+							whisper = {
+								order = 8,
+								type = "toggle",
+								name = _G.WHISPER,
+								desc = L["Every whisper shows a toast, no keyword needed."],
+							},
+						},
+					},
+				},
+			},
 			vignette = {
 				order = 20,
 				type = "group",
@@ -441,5 +527,7 @@ module:AddOptions(function()
 	)
 
 	module.ModuleCard("notificationCurrencyWarning", options.Notification.args.currencyWarning, "enable")
+	module.ModuleCard("notificationMentions", options.Notification.args.mentions, "enable")
 	module.ModuleCard("notificationVignette", options.Notification.args.vignette, "enable")
+	F.MarkTabAsNew("Notification")
 end)

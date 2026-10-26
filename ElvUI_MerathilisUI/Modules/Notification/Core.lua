@@ -566,6 +566,9 @@ function module:UpdateEvents()
 			self:UnregisterEvent(event)
 		end
 	end
+
+	-- Chat events follow their own channel toggles, see Mentions.lua
+	self:UpdateMentions()
 end
 
 function module:ProfileUpdate()
