@@ -1329,6 +1329,21 @@ L["Talent Reminders"] = true
 L["Talent"] = true
 L["Not Needed"] = true
 L["Never"] = true
+L["Raid Buff Check"] = true
+L["Vantus Rune"] = true
+L["Hide Fully Buffed"] = true
+L["Require Augment Rune"] = true
+L["Everyone is fully buffed."] = true
+L["Missing"] = true
+L["Expiring Soon"] = true
+L["%dm"] = true
+L["Food and runes cannot be read here (aura restriction). ? = unknown"] = true
+L["? = unknown (offline, dead or out of range)"] = true
+L["Raid Buff Check cannot be opened in combat."] = true
+L["Raid Buff Check is turned off, it can be enabled in the Buff Reminder options."] = true
+L["A window listing every group member's flask, food, augment rune, vantus rune and missing raid buffs. Opens with /buffcheck or the button below, out of combat only."] = true
+L["Open on Ready Check"] = true
+L["Opens the window on every ready check while you are the group leader or a raid assistant."] = true
 L["Current Season Instances"] = true
 L["All Instances"] = true
 L["Reminds you to remove the talent in the instances you did not pick for it."] = true

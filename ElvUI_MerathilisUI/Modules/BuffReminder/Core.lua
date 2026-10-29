@@ -428,8 +428,15 @@ local FOOD_ITEMS = {
 	{ key = "hearty_feast_of_knowledge", itemID = 275269, name = "Hearty Feast of Knowledge" },
 }
 
-local RUNE_BUFF_IDS = { 1264426, 453250, 1234969, 1242347, 393438, 347901 }
+-- Augment runes of the current expansion: Tidesworn (12.1), Void-Touched (12.0).
+-- Older runes (Ethereal, Soulgorged, Crystallization, Draconic, Veiled) count as missing.
+local RUNE_BUFF_IDS = { 1295329, 1264426 }
 local RUNE_ITEMS = { 259085, 243191 }
+
+-- Shared with the Raid Buff Check (RaidCheck.lua)
+module.RAID_BUFFS = RAID_BUFFS
+module.FLASK_BUFF_ID_SET = FLASK_BUFF_ID_SET
+module.RUNE_BUFF_IDS = RUNE_BUFF_IDS
 
 local WEAPON_ENCHANT_SLOTS = {
 	{ slot = 16, key = "mh", label = L["Main Hand"] },
@@ -1764,11 +1771,13 @@ function module:Initialize()
 	end
 
 	self:RequestRefresh()
+	self:UpdateRaidCheck()
 end
 
 function module:ProfileUpdate()
 	module.db = F.GetDBFromPath("mui.buffReminder") or E.db.mui.buffReminder
 	self:RequestRefresh()
+	self:UpdateRaidCheck()
 end
 
 MER:RegisterModule(module:GetName())

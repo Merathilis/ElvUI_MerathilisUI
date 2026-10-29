@@ -1490,6 +1490,12 @@ P.buffReminder = {
 		preferredFood = "last_used",
 		preferredWeaponEnchant = "last_used",
 	},
+	raidCheck = {
+		enable = false,
+		onReadyCheck = true, -- opens on a ready check while you lead or assist
+		onlyMissing = true,
+		runeRequired = true,
+	},
 }
 
 P.tracker = {

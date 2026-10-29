@@ -624,6 +624,55 @@ module:AddOptions(function()
 				disabled = ModuleDisabled,
 				args = talentArgs,
 			},
+			-- Independent of the reminder icons, so not disabled with the module
+			raidCheck = {
+				order = 10,
+				type = "group",
+				name = L["Raid Buff Check"],
+				guiInline = true,
+				hidden = E.Forever,
+				get = function(info)
+					return E.db.mui.buffReminder.raidCheck[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.buffReminder.raidCheck[info[#info]] = value
+					BR:UpdateRaidCheck()
+				end,
+				args = {
+					desc = {
+						order = 1,
+						type = "description",
+						dialogControl = "MERTextCard",
+						name = L["A window listing every group member's flask, food, augment rune, vantus rune and missing raid buffs. Opens with /buffcheck or the button below, out of combat only."],
+						fontSize = "medium",
+					},
+					enable = {
+						order = 2,
+						type = "toggle",
+						name = F.NewFeatureText(L["Enable"]),
+					},
+					onReadyCheck = {
+						order = 3,
+						type = "toggle",
+						name = L["Open on Ready Check"],
+						desc = L["Opens the window on every ready check while you are the group leader or a raid assistant."],
+						disabled = function()
+							return not E.db.mui.buffReminder.raidCheck.enable
+						end,
+					},
+					open = {
+						order = 4,
+						type = "execute",
+						name = L["Toggle"],
+						disabled = function()
+							return not E.db.mui.buffReminder.raidCheck.enable
+						end,
+						func = function()
+							BR:ToggleRaidCheck()
+						end,
+					},
+				},
+			},
 		},
 	}
 

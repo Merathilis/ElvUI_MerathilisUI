@@ -1,12 +1,14 @@
 ### Changes
 
 -   [Fix]: Armory: Gems taken from the mailbox now show up in the socket panel right away - the gem list is read fresh on every open and also covers the reagent bag.
+-   [Fix]: Buff Reminder: The augment rune reminder recognizes the Tidesworn Augment Rune, and runes of older expansions count as missing.
 -   [Fix]: Chat: The tab underline now has the same thickness on every tab - it was cut to a single pixel on tabs in the dock's scroll area and blurred on others.
 -   [Fix]: HoverCast: Pressing a key on the binding page while combat starts no longer triggers a blocked action error.
 -   [New]: Armory: Stat Picker - a cog button on the character stats opens an edit mode: click a stat to show or hide it, drag it to change the order. A longer list scrolls inside the stats pane.
 -   [New]: Armory: Upgrade Track - the first letter of an item's upgrade track (Explorer to Myth) shows in the corner of its icon in the track's color, and the upgrade bar takes that color as well. Both can be turned off under Slot Item Level.
 -   [New]: Buff Reminder: Missing Buffs From Group - optionally also shows the raid buffs a groupmate provides while you are missing them, as an info icon that clicks go through.
 -   [New]: Buff Reminder: Talent Reminders - pick a talent and the instances you want it in, and an icon reminds you inside them while it is not chosen. Optionally it also reminds you to remove it again in the current season's other instances or in all of them. Saved per specialization, arenas and battlegrounds included.
+-   [New]: Buff Reminder: Raid Buff Check - a window lists every group member's flask, food, augment rune, vantus rune and missing raid buffs, with totals and an option to hide everyone fully buffed. Opens with /buffcheck, from the options and optionally on every ready check while you lead or assist.
 -   [New]: Chat: Chat Bubbles - ElvUI's chat bubbles get the MerathilisUI style and a shadow on a border that is pixel perfect at any UI scale. The speaker's name can be shown as a class color gradient, positioned freely and also appears on party, raid, instance chat and emote bubbles. Optionally the bubbles are turned off inside instances, where they can't be styled.
 -   [New]: Chat: Chat Search - a search button in the chat sidebar searches the chat window's history, newest matches first with the searched words highlighted. Clicking a match scrolls the chat to that line, Enter jumps to the newest one.
 -   [New]: Chat: Invite Links - invite keywords (inv, invite by default) in whispers, guild, say, yell and chat channels become a link that invites the sender, and Alt-click on a player name in the chat invites that player.
