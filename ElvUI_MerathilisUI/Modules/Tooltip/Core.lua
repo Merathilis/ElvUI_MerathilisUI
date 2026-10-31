@@ -5,12 +5,14 @@ function module:Initialize()
 	self:InitializeBuffs()
 	self:InitializeAchievement()
 	self:InitializeUpgradeTrack()
+	self:InitializeMountSource()
 end
 
 function module:ProfileUpdate()
 	self:UpdateBuffs()
 	self:InitializeAchievement()
 	self:InitializeUpgradeTrack()
+	self:InitializeMountSource()
 end
 
 MER:RegisterModule(module:GetName())

@@ -20,6 +20,7 @@
 -   [New]: Movement Alert: The bars can be attached above or below the player, target or focus unit frame and take over its width.
 -   [New]: Notification: Chat Mentions - a toast pops up when your name or one of your keywords comes up in guild, officer, party, raid or instance chat, optionally also in say, yell, chat channels and for every whisper. Clicking it opens the chat to answer in the same channel.
 -   [New]: Tooltip: Upgrade Track - the upgrade level line in item tooltips takes the color of the upgrade track (Explorer to Myth), and items that are not fully upgraded show the item level they can still reach.
+-   [New]: Tooltip: Mount Source - the tooltip of a mounted player shows where the mount comes from without holding Ctrl, and optionally whether you own it yourself. Stays empty in combat, during encounters, in Mythic+ and in PvP matches, where Blizzard hides this from addons. Off by default.
 -   [New]: UnitFrames: Ping Icon - pings placed on a unit (attack, warning, on my way, assist) show up on its unitframe, for the player, target, focus, pet, party, raid, tank, assist and arena frames, until ElvUI ships its own version.
 -   [Improvement]: Armory: The item slots no longer fade in row by row when the character frame opens, they show right away.
 -   [Improvement]: Notification: Rare notifications now play a softer chime instead of the raid warning sound.
