@@ -4619,6 +4619,7 @@ function module:RefreshCategoryFrame()
 	SetFillBar(f, usedSlots, totalSlots)
 	module:UpdateJunkMarkButton()
 	module:UpdateQuickActionsButton()
+	module:OfflineSyncFrame(f)
 end
 
 -------------------------------------------------------------------------------
@@ -5832,6 +5833,9 @@ function module:Initialize()
 
 	module.searchText = ""
 	module.bankViewMode = module.bankViewMode or "BANK_ALL"
+
+	-- Account-wide and independent of the categorized bags, see Offline.lua
+	module:UpdateOffline()
 
 	if not db.enable then
 		return

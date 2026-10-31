@@ -34,6 +34,15 @@ G.addonManager = {
 	instanceProfiles = {}, -- [IsInInstance type] = profile name
 }
 
+G.bags = {
+	offline = {
+		enable = false,
+		tooltip = false,
+		tooltipScope = "ALL", -- ALL, CONNECTED
+		tooltipOwnFaction = false,
+	},
+}
+
 G.mail = {
 	templates = {},
 	quickAttachRecipients = {},

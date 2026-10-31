@@ -7,5 +7,7 @@
     <Script file="ListView.lua"/>
     <Script file="CompactView.lua"/>
     <Script file="BankFrame.lua"/>
+    <Script file="Offline.lua"/>
+    <Script file="OfflineView.lua"/>
     <Script file="EquipManager.lua"/>
 </Ui>

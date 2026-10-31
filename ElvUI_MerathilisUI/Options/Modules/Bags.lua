@@ -1084,6 +1084,67 @@ module:AddOptions(function()
 							}),
 						},
 					},
+					offlineBank = {
+						order = 7,
+						type = "group",
+						name = L["Offline Bank"],
+						-- Account-wide like the inventories it saves
+						get = function(info)
+							return E.global.mui.bags.offline[info[#info]]
+						end,
+						set = function(info, value)
+							E.global.mui.bags.offline[info[#info]] = value
+							BC:UpdateOffline()
+							RefreshCategoryFrames()
+						end,
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = L["Offline Bank"],
+								desc = L["Saves the bags, bank, equipment and mail of each character when you see them, plus the warband and guild bank. A button in the bag and bank title shows them anywhere and searches through all characters."],
+							}),
+							tooltip = module.ToggleCard({
+								order = 2,
+								name = L["Tooltip Item Counts"],
+								desc = L["Item tooltips list how many of that item each of your characters owns, plus the warband and guild bank."],
+							}),
+							tooltipOptions = {
+								order = 3,
+								type = "group",
+								inline = true,
+								name = L["Tooltip Item Counts"],
+								disabled = function()
+									return BagsDisabled() or not E.global.mui.bags.offline.tooltip
+								end,
+								args = {
+									tooltipScope = {
+										order = 1,
+										type = "select",
+										name = L["Characters"],
+										values = {
+											ALL = L["All Characters"],
+											CONNECTED = L["Connected Realms"],
+										},
+									},
+									tooltipOwnFaction = {
+										order = 2,
+										type = "toggle",
+										name = L["Own Faction Only"],
+									},
+								},
+							},
+							wipe = {
+								order = 4,
+								type = "execute",
+								name = L["Delete All Saved Data"],
+								confirm = true,
+								confirmText = L["Delete every saved inventory of all characters?"],
+								func = function()
+									BC.Offline.Wipe()
+								end,
+							},
+						},
+					},
 				},
 			},
 		},

@@ -996,6 +996,7 @@ function module:RefreshBankCategoryFrame()
 	SetFillBar(f, usedSlots, totalSlots)
 
 	module:UpdateBankFooter()
+	module:OfflineSyncFrame(f)
 end
 
 -------------------------------------------------------------------------------

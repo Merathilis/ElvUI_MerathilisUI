@@ -12,6 +12,8 @@ MER.Changelog[743] = {
 	NEW = {
 		"[Armory]: Stat Picker - a cog button on the character stats opens an edit mode: click a stat to show or hide it, drag it to change the order. A longer list scrolls inside the stats pane.",
 		"[Armory]: Upgrade Track - the first letter of an item's upgrade track (Explorer to Myth) shows in the corner of its icon in the track's color, and the upgrade bar takes that color as well. Both can be turned off under Slot Item Level.",
+		"[Bags]: Offline Bank - saves the bags, bank, equipment and mail of every character, plus the warband and guild bank. A button in the bag and bank title shows them anywhere and searches through all characters. Off by default.",
+		"[Bags]: Tooltip Item Counts - item tooltips list how many of that item each of your characters owns, optionally only on connected realms or your own faction. Off by default.",
 		"[Buff Reminder]: Missing Buffs From Group - optionally also shows the raid buffs a groupmate provides while you are missing them, as an info icon that clicks go through.",
 		"[Buff Reminder]: Talent Reminders - pick a talent and the instances you want it in, and an icon reminds you inside them while it is not chosen. Optionally it also reminds you to remove it again in the current season's other instances or in all of them. Saved per specialization, arenas and battlegrounds included.",
 		"[Buff Reminder]: Raid Buff Check - a window lists every group member's flask, food, augment rune, vantus rune and missing raid buffs, with totals and options to hide everyone fully buffed and to require augment or vantus runes. Opens with /buffcheck, from the options and optionally on every ready check while you lead or assist.",
