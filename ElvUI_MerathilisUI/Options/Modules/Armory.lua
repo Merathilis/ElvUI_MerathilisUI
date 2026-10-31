@@ -1179,7 +1179,7 @@ module:AddOptions(function()
 					pickerButton = {
 						order = 2.6,
 						type = "toggle",
-						name = L["Stat Picker"],
+						name = F.NewFeatureText(L["Stat Picker"]),
 						desc = L["Shows a cog button on the stats of the character frame. It switches to an edit mode where a click shows or hides a stat and dragging changes the order."],
 					},
 					resetPicker = {
@@ -1731,4 +1731,6 @@ module:AddOptions(function()
 		end
 		module.ModuleCard("armory" .. key, group)
 	end
+
+	F.MarkTabAsNew("armory")
 end)

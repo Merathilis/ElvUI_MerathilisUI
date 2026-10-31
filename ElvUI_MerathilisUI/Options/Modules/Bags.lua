@@ -1100,12 +1100,12 @@ module:AddOptions(function()
 						args = {
 							enable = module.ToggleCard({
 								order = 1,
-								name = L["Offline Bank"],
+								name = F.NewFeatureText(L["Offline Bank"]),
 								desc = L["Saves the bags, bank, equipment and mail of each character when you see them, plus the warband and guild bank. A button in the bag and bank title shows them anywhere and searches through all characters."],
 							}),
 							tooltip = module.ToggleCard({
 								order = 2,
-								name = L["Tooltip Item Counts"],
+								name = F.NewFeatureText(L["Tooltip Item Counts"]),
 								desc = L["Item tooltips list how many of that item each of your characters owns, plus the warband and guild bank."],
 							}),
 							tooltipOptions = {
@@ -1171,4 +1171,8 @@ module:AddOptions(function()
 	module.ModuleCard("bagsSortSpinner", options.bags.args.categorizedBags.args.general.args.spinnerGroup, "enable")
 	module.ModuleCard("bagsItemLevel", fontArgs.itemLevel, "enable")
 	module.ModuleCard("bagsItemInfo", fontArgs.itemInfo, "enable")
+
+	F.MarkTabAsNew("bags")
+	F.MarkTabAsNew("categorizedBags")
+	F.MarkTabAsNew("offlineBank")
 end)

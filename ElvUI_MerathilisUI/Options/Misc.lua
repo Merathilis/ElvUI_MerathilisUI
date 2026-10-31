@@ -46,7 +46,7 @@ module:AddOptions(function()
 			}, 0.5),
 			trainAll = module.ToggleCard({
 				order = 7,
-				name = L["Train All"],
+				name = F.NewFeatureText(L["Train All"]),
 				desc = L["Adds a button to the trainer that learns everything available you can afford."],
 			}, 0.5),
 			blockRequest = module.ToggleCard({
@@ -74,7 +74,7 @@ module:AddOptions(function()
 			}, 0.5),
 			queueTimer = module.ToggleCard({
 				order = 11,
-				name = L["Queue Timer"],
+				name = F.NewFeatureText(L["Queue Timer"]),
 				desc = L["Shows the time left to accept a dungeon or battleground invite in a bar below the invite."],
 			}, 0.5),
 			lootSpecManager = module.ModuleCard("miscLootSpecManager", {
@@ -973,4 +973,6 @@ module:AddOptions(function()
 
 	module.ModuleCard("miscGameMenuMythic", options.gameMenu.args.info.args.mythic, "showMythicKey")
 	module.ActionCard(options.raidInfo.args.toggle, { icon = I.Media.Icons.Categories.info, relWidth = 0.5 })
+
+	F.MarkTabAsNew("misc")
 end)
