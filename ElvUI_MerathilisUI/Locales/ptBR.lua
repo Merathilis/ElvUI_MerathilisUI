@@ -1273,6 +1273,7 @@ L["Raid Buff Check"] = true
 L["Vantus Rune"] = true
 L["Hide Fully Buffed"] = true
 L["Require Augment Rune"] = true
+L["Require Vantus Rune"] = true
 L["Everyone is fully buffed."] = true
 L["Missing"] = true
 L["Expiring Soon"] = true

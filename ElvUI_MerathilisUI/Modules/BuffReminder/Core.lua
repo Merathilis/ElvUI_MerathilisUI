@@ -1226,8 +1226,6 @@ local function CollectConsumables(missing, playerClass, co)
 			end
 		end
 	end
-
-	CollectClassSpecials(missing, playerClass, co)
 end
 
 -------------------------------------------------------------------------------
@@ -1593,8 +1591,8 @@ function module:Refresh()
 	local inInstance = InRealInstancedContent()
 	local inPvP = InPvPInstance()
 
-	-- Talent reminders also cover arenas and battlegrounds, the rest follows
-	-- Hide in Open World there
+	-- Talent reminders and class specials also cover arenas and battlegrounds,
+	-- the rest follows Hide in Open World there
 	if db.hideInOpenWorld and not inInstance and not inPvP then
 		HideAllIcons()
 		return
@@ -1610,6 +1608,11 @@ function module:Refresh()
 		if not inPvP then
 			CollectConsumables(missing, playerClass, db.consumables)
 		end
+	end
+	-- Poisons, rites, imbues and shields are the player's own spells, unlike
+	-- consumables they count in PvP too
+	if db.consumables.enable and (inInstance or inPvP or not db.hideInOpenWorld) then
+		CollectClassSpecials(missing, playerClass, db.consumables)
 	end
 	if inInstance or inPvP then
 		CollectTalents(missing, playerClass, specID, db)

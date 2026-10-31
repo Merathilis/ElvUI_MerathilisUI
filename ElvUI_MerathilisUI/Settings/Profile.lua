@@ -1495,6 +1495,7 @@ P.buffReminder = {
 		onReadyCheck = true, -- opens on a ready check while you lead or assist
 		onlyMissing = true,
 		runeRequired = true,
+		vantusRequired = false, -- a missing vantus rune makes a player not fully buffed
 	},
 }
 

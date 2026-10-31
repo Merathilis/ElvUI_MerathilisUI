@@ -48,7 +48,7 @@ local WELL_FED_ICON = 136000
 local EATING_ICON = 133950
 local AURA_SCAN_LIMIT = 255
 local EXPIRE_SOON = 600 -- under 10 minutes left shows the time instead of a check
-local TICK = 15 -- repaint interval for the countdowns while the window is open
+local TICK = 15 -- repaint interval while a countdown shows
 local TEX_YES = "Interface\\RaidFrame\\ReadyCheck-Ready"
 local TEX_NO = "Interface\\RaidFrame\\ReadyCheck-NotReady"
 -- Header icons come from items, the buff spells have no cached texture
@@ -121,11 +121,11 @@ local PADDING, HEADER_HEIGHT, COLUMN_HEIGHT = 8, 26, 20
 local ROW_HEIGHT, NAME_WIDTH, CELL_WIDTH, ICON_SIZE = 18, 110, 24, 14
 local BUFF_SLOTS, BUFF_STEP = 6, 16
 local CELLS = 4 -- flask, food, rune, vantus
-local RUNE_COLUMN = 3
+local RUNE_COLUMN, VANTUS_COLUMN = 3, 4
 local BLOCK_GAP = 12
 local ROWS_PER_BLOCK = 20
 local TOTAL_ROWS = 3 -- missing, expiring soon, unknown
-local MIN_WIDTH = 400
+local MIN_WIDTH = 400 -- fits the note line, the checkbox row can widen it
 local NOTE_HEIGHT = 18
 local CHECKBOX_HEIGHT = 24
 
@@ -135,24 +135,24 @@ local flaskIDs
 local rows, heads = {}, {}
 local units = {} -- display order
 local isMember = {} -- [unit] = true for listed group members
-local states = {} -- [unit] = last computed state
+local states = {} -- [unit] = last computed state, reused
 local shownUnits = {}
 local providers = {} -- [class] = true for connected members
-local dirty, flushPending = {}, false
+local dirty, flushPending, rosterDirty = {}, false, false
 local runeReadable, vantusReadable -- every ID of the list is non-secret, set on the first open
 local Render
 
--- Column geometry. The rune column drops out while Require Augment Rune is off,
--- SetColumns bumps columnsKey and rows, headers and totals re-place themselves.
+-- Column geometry. The rune and vantus columns drop out while their Require box
+-- is off, SetColumns bumps columnsKey and rows, headers and totals re-place themselves.
 local columnShown, columnX = { true, true, true, true }, {}
 local buffsX, blockWidth
 local columnsKey = 0
 
-local function SetColumns(runeShown)
-	if buffsX and columnShown[RUNE_COLUMN] == runeShown then
+local function SetColumns(runeShown, vantusShown)
+	if buffsX and columnShown[RUNE_COLUMN] == runeShown and columnShown[VANTUS_COLUMN] == vantusShown then
 		return
 	end
-	columnShown[RUNE_COLUMN] = runeShown
+	columnShown[RUNE_COLUMN], columnShown[VANTUS_COLUMN] = runeShown, vantusShown
 	local x = NAME_WIDTH
 	for k = 1, CELLS do
 		columnX[k] = x
@@ -164,7 +164,7 @@ local function SetColumns(runeShown)
 	blockWidth = buffsX + BUFF_SLOTS * BUFF_STEP + 2
 	columnsKey = columnsKey + 1
 end
-SetColumns(true)
+SetColumns(true, false)
 
 local function GetDB()
 	return module.db and module.db.raidCheck
@@ -529,6 +529,13 @@ local function CreateCheckBox(text, key)
 	return checkBox
 end
 
+local function StopWake()
+	if frame.wake then
+		frame.wake:Cancel()
+	end
+	frame.wake, frame.wakeAt = nil, nil
+end
+
 local function CreateWindow()
 	frame = CreateFrame("Frame", "MER_RaidBuffCheck", E.UIParent)
 	frame:SetFrameStrata("MEDIUM")
@@ -547,10 +554,7 @@ local function CreateWindow()
 	frame:SetScript("OnHide", function(self)
 		self:StopMovingOrSizing()
 		Listen(false)
-		if self.ticker then
-			self.ticker:Cancel()
-			self.ticker = nil
-		end
+		StopWake()
 	end)
 	tinsert(_G.UISpecialFrames, "MER_RaidBuffCheck")
 
@@ -573,6 +577,9 @@ local function CreateWindow()
 	frame.OnlyMissing:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", PADDING, NOTE_HEIGHT + (CHECKBOX_HEIGHT - 18) / 2)
 	frame.RuneRequired = CreateCheckBox(L["Require Augment Rune"], "runeRequired")
 	frame.RuneRequired:SetPoint("LEFT", frame.OnlyMissing.label, "RIGHT", 16, 0)
+	frame.VantusRequired = CreateCheckBox(L["Require Vantus Rune"], "vantusRequired")
+	frame.VantusRequired:SetPoint("LEFT", frame.RuneRequired.label, "RIGHT", 16, 0)
+	frame.CheckBoxes = { frame.OnlyMissing, frame.RuneRequired, frame.VantusRequired }
 
 	frame.Empty = CreateText(frame)
 	frame.Empty:SetPoint("TOPLEFT", frame, "TOPLEFT", PADDING + 4, -HEADER_HEIGHT - 8)
@@ -730,17 +737,18 @@ local function ComputeState(unit, restricted)
 end
 
 -- Missing, unknown and running out count, eating does not
-local function NotFullyBuffed(state, now, runeRequired)
+local function NotFullyBuffed(state, now, runeRequired, vantusRequired)
 	if runeRequired and (not state.rune or SoonLeft(state.rune, now)) then
+		return true
+	end
+	if vantusRequired and (not state.vantus or SoonLeft(state.vantus, now)) then
 		return true
 	end
 	return not state.flask
 		or not state.food
-		or not state.vantus
 		or state.missing > 0
 		or SoonLeft(state.flask, now)
 		or SoonLeft(state.food, now)
-		or SoonLeft(state.vantus, now)
 		or SoonLeft(state.buffsExp, now)
 end
 
@@ -789,10 +797,22 @@ local function PaintRow(row, unit, now)
 	end
 end
 
+-- Wide enough for the note line and the checkbox row, the labels follow the locale
+local function MinWidth()
+	local width = PADDING
+	for i, checkBox in ipairs(frame.CheckBoxes) do
+		if i > 1 then
+			width = width + 16
+		end
+		width = width + checkBox:GetWidth() + 4 + checkBox.label:GetStringWidth()
+	end
+	return max(MIN_WIDTH, width + PADDING)
+end
+
 local function Layout(n, numTotals)
 	local footer = 6 + CHECKBOX_HEIGHT + NOTE_HEIGHT
 	if n == 0 then
-		frame:SetSize(MIN_WIDTH, HEADER_HEIGHT + 2 + ROW_HEIGHT + footer)
+		frame:SetSize(MinWidth(), HEADER_HEIGHT + 2 + ROW_HEIGHT + footer)
 		return
 	end
 
@@ -823,7 +843,7 @@ local function Layout(n, numTotals)
 	end
 
 	frame:SetSize(
-		max(MIN_WIDTH, PADDING * 2 + blocks * blockWidth + (blocks - 1) * BLOCK_GAP),
+		max(MinWidth(), PADDING * 2 + blocks * blockWidth + (blocks - 1) * BLOCK_GAP),
 		HEADER_HEIGHT + 4 + COLUMN_HEIGHT + perBlock * ROW_HEIGHT + numTotals * ROW_HEIGHT + footer
 	)
 end
@@ -841,10 +861,32 @@ local function Tally(column, v, now)
 	end
 end
 
+-- The next time the drawing changes on its own: a countdown's next step, or a
+-- shown buff crossing into its last 10 minutes. One timer, re-armed only for
+-- an earlier time.
+local wakeAt
+local function Wake(v, now)
+	if type(v) ~= "number" then
+		return
+	end
+	local at = v - EXPIRE_SOON
+	if at <= now then
+		at = now + TICK
+	end
+	if not wakeAt or at < wakeAt then
+		wakeAt = at
+	end
+end
+
+local function OnWake()
+	frame.wake, frame.wakeAt = nil, nil
+	Render()
+end
+
 function Render()
 	local db = GetDB()
-	local onlyMissing, runeRequired = db.onlyMissing, db.runeRequired
-	SetColumns(runeRequired)
+	local onlyMissing, runeRequired, vantusRequired = db.onlyMissing, db.runeRequired, db.vantusRequired
+	SetColumns(runeRequired, vantusRequired)
 	local now = GetTime()
 
 	for t = 1, TOTAL_ROWS do
@@ -854,6 +896,7 @@ function Render()
 	end
 
 	wipe(shownUnits)
+	wakeAt = nil
 	for _, unit in ipairs(units) do
 		local state = states[unit]
 		if state then
@@ -869,7 +912,16 @@ function Render()
 			elseif SoonLeft(state.buffsExp, now) then
 				totals[2][5] = totals[2][5] + 1
 			end
-			if not onlyMissing or NotFullyBuffed(state, now, runeRequired) then
+			Wake(state.flask, now)
+			Wake(state.food, now)
+			if runeRequired then
+				Wake(state.rune, now)
+			end
+			if vantusRequired then
+				Wake(state.vantus, now)
+			end
+			Wake(state.buffsExp, now)
+			if not onlyMissing or NotFullyBuffed(state, now, runeRequired, vantusRequired) then
 				shownUnits[#shownUnits + 1] = unit
 			end
 		end
@@ -927,10 +979,18 @@ function Render()
 	frame.Empty:SetShown(n == 0)
 	frame.OnlyMissing:SetChecked(onlyMissing)
 	frame.RuneRequired:SetChecked(runeRequired)
+	frame.VantusRequired:SetChecked(vantusRequired)
 	if frame.restricted then
 		frame.Note:SetText(L["Food and runes cannot be read here (aura restriction). ? = unknown"])
 	else
 		frame.Note:SetText(L["? = unknown (offline, dead or out of range)"])
+	end
+	if wakeAt and (not frame.wakeAt or wakeAt < frame.wakeAt) then
+		if frame.wake then
+			frame.wake:Cancel()
+		end
+		frame.wake = C_Timer.NewTimer(wakeAt - now, OnWake)
+		frame.wakeAt = wakeAt
 	end
 end
 
@@ -941,17 +1001,25 @@ local function Rebuild()
 	CollectUnits()
 	local restricted = Restricted()
 	frame.restricted = restricted
-	wipe(states)
 	for _, unit in ipairs(units) do
 		ComputeState(unit, restricted)
 	end
 	Render()
 end
 
+-- Same-burst events end in one pass: a roster or connection change re-reads
+-- every member, aura changes only the members they named
 local function Flush()
 	flushPending = false
 	if not (frame and frame:IsShown()) or InCombatLockdown() then
 		wipe(dirty)
+		rosterDirty = false
+		return
+	end
+	if rosterDirty then
+		rosterDirty = false
+		wipe(dirty)
+		Rebuild()
 		return
 	end
 	local restricted = Restricted()
@@ -963,6 +1031,13 @@ local function Flush()
 	end
 	wipe(dirty)
 	Render()
+end
+
+local function Schedule()
+	if not flushPending then
+		flushPending = true
+		C_Timer.After(0.2, Flush)
+	end
 end
 
 -------------------------------------------------------------------------------
@@ -992,23 +1067,29 @@ local function Open()
 	frame:Show()
 	Listen(true)
 	Rebuild()
-	if not frame.ticker then
-		frame.ticker = C_Timer.NewTicker(TICK, Render)
-	end
 end
 
 events:SetScript("OnEvent", function(_, event, unit)
-	if event == "UNIT_AURA" or event == "UNIT_CONNECTION" then
+	if event == "UNIT_AURA" then
 		if not isMember[unit] then
 			return
 		end
 		dirty[unit] = true
-		if not flushPending then
-			flushPending = true
-			C_Timer.After(0.2, Flush)
+		Schedule()
+	elseif event == "UNIT_CONNECTION" then
+		-- Also who can provide the raid buffs
+		if not isMember[unit] then
+			return
 		end
+		rosterDirty = true
+		Schedule()
 	elseif event == "GROUP_ROSTER_UPDATE" then
-		Rebuild()
+		if not IsInGroup() then
+			frame:Hide()
+			return
+		end
+		rosterDirty = true
+		Schedule()
 	elseif event == "READY_CHECK" then
 		if CanLead() then
 			Open()
