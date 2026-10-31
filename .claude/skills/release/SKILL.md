@@ -15,7 +15,7 @@ Argument: optional target version (e.g. `7.36`). Without it, derive it (see Phas
 
 - Version lives in `ElvUI_MerathilisUI/ElvUI_MerathilisUI.toc` as `## X-Version: x.yz` (read by `Init.lua` into `MER.Version`). `## Version: @project-version@` is filled by the packager - never touch it.
 - Changelog key = version × 100 (`7.36` → `MER.Changelog[736]`).
-- In-progress changelog: `ElvUI_MerathilisUI/Core/Changelog/<version>.lua` (+ root `CHANGELOG.md`, which mirrors it as `-   [Fix]/[New]/[Improvement]: text` bullets under `### Changes`, order FIXES, NEW, IMPROVEMENTS). Both files must always contain the same entries.
+- In-progress changelog: `ElvUI_MerathilisUI/Core/Changelog/<version>.lua` - the only place patch notes are written. The game, merathilisui.com and the Discord announcement all read it. There is no `CHANGELOG.md` in the repo: `release.yml` writes one for the build, a notice linking to `merathilisui.com/changelog#v<version>`, which is all CurseForge, Wago and GitHub show.
 - Pushing a tag triggers `.github/workflows/release.yml` (BigWigs packager → CurseForge, Wago, GitHub release, Discord notification). The tag name is the version, e.g. `7.36`.
 - Branch flow: work happens on `development`; releases are `development` merged into `main`, tag on the merge commit. `beta`/`ptr` are **not** part of the release.
 - Commit prefixes: `📖 DOC:`, `🚀 RELEASE:` etc. No mention of source addons in commit messages.
@@ -33,11 +33,10 @@ Argument: optional target version (e.g. `7.36`). Without it, derive it (see Phas
 
 1. List all commits since the last tag: `git log <lastTag>..development --no-merges --format="%h %s"`.
 2. For each commit decide whether it is user-visible. Skip: `📖 DOC` commits, locale syncs, refactors without behaviour change, test/CI/meta commits, and anything whose effect was reverted later in the range. Look at the diff (`git show --stat`, then the relevant parts) when the subject alone is unclear.
-3. Compare against the entries already in `<version>.lua` and `CHANGELOG.md`:
+3. Compare against the entries already in `<version>.lua`:
    - list user-visible commits **without** an entry and draft an entry for each, in the existing style (`"Area: Module - what changed, from the player's point of view."`, category FIXES / NEW / IMPROVEMENTS),
-   - flag entries that no longer match the final state of the code (feature changed again later, option renamed, …),
-   - flag differences between the `.lua` file and `CHANGELOG.md`.
-4. Present the drafts to the user, apply what they approve to **both** files, and commit: `📖 DOC: Update <version> changelog`.
+   - flag entries that no longer match the final state of the code (feature changed again later, option renamed, …).
+4. Present the drafts to the user, apply what they approve, and commit: `📖 DOC: Update <version> changelog`.
 
 ## Phase 2 - Pre-release checks
 
@@ -66,6 +65,7 @@ Report findings; fix only after the user agrees.
 git checkout main
 git merge development          # no fast-forward flag needed; keep the existing merge style
 git tag -a <version> -m "<version>"
+git push origin development    # rebuilds the website, the release notice links to it
 git push origin main
 git push origin <version>
 git checkout development
@@ -80,19 +80,11 @@ git checkout development
 Next version = released + 0.01 (e.g. 7.36 → 7.37, 7.39 → 7.40).
 
 1. `git mv Core/Changelog/<version>.lua Core/Changelog/Previous/<version>.lua`.
-2. Keep the 5 newest files in `Previous/`: `git rm` the oldest ones.
-3. Create `Core/Changelog/<next>.lua` from `_template.lua` with `MER.Changelog[<next × 100>]`, `RELEASE_DATE = "TBD"`, empty tables.
-4. Update `Core/Changelog/Load_Changelog.xml`: drop removed files, point to `Previous\<version>.lua`, add `<next>.lua` last.
-5. Reset `CHANGELOG.md` to:
-   ```markdown
-   ### Changes
-
-   -
-   ```
-6. Remove every `F.MarkTabAsNew(...)` call, every `F.NewFeatureText(...)` wrapper and every `F.NewFeatureTrailingText(...)` wrapper under `Options/` together with its `dialogControl = "MERNewFeatureLabel"` line (keep the wrapped text; `Options/Core.lua` has some in its shared option builders too, only the `MER_DESC` logo text keeps its badge, its `dialogControl = "MERHomeHeader"` stays as well): everything they marked has just been released. Leave the helper functions themselves in `Core/Functions/Core.lua`.
-7. Commit `📖 DOC: prep changelogs`, then ask before `git push origin development`.
-   This push touches `Core/Changelog/`, so `.github/workflows/website.yml` rebuilds merathilisui.com with the released notes. Until then the site still shows the version as "In development" (it reads the `development` branch, which gets the release commit only with this push).
-8. Website feature cards: every entry of the **Website feature queue** below that shipped in this release gets a card in the website repo (`E:\GIT\merathilisui-website`, `src/data/features.ts`), placed first with `isNew: true`, written in the style of the existing cards. A `shot` only with a screenshot from the user (`public/media/features/<name>.webp`), otherwise leave it out and say so. Ask whether older cards should lose their `isNew`. Commit in the website repo, ask before pushing `main` (the push deploys the site), then remove the shipped entries from the queue.
+2. Create `Core/Changelog/<next>.lua` from `_template.lua` with `MER.Changelog[<next × 100>]`, `RELEASE_DATE = "TBD"`, empty tables.
+3. Update `Core/Changelog/Load_Changelog.xml`: load the 5 newest files of `Previous/`, point to `Previous\<version>.lua`, add `<next>.lua` last. Older files stay in `Previous/`, never delete them: the website is the only home of the patch notes and builds its history from that folder.
+4. Remove every `F.MarkTabAsNew(...)` call, every `F.NewFeatureText(...)` wrapper and every `F.NewFeatureTrailingText(...)` wrapper under `Options/` together with its `dialogControl = "MERNewFeatureLabel"` line (keep the wrapped text; `Options/Core.lua` has some in its shared option builders too, only the `MER_DESC` logo text keeps its badge, its `dialogControl = "MERHomeHeader"` stays as well): everything they marked has just been released. Leave the helper functions themselves in `Core/Functions/Core.lua`.
+5. Commit `📖 DOC: prep changelogs`, then ask before `git push origin development`.
+6. Website feature cards: every entry of the **Website feature queue** below that shipped in this release gets a card in the website repo (`E:\GIT\merathilisui-website`, `src/data/features.ts`), placed first with `isNew: true`, written in the style of the existing cards. A `shot` only with a screenshot from the user (`public/media/features/<name>.webp`), otherwise leave it out and say so. Ask whether older cards should lose their `isNew`. Commit in the website repo, ask before pushing `main` (the push deploys the site), then remove the shipped entries from the queue.
 
 ### Website feature queue
 
