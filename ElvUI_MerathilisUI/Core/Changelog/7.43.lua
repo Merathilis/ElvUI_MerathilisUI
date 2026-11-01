@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[743] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "01.11.2026",
 	FIXES = {
 		"[Armory]: Gems taken from the mailbox now show up in the socket panel right away - the gem list is read fresh on every open and also covers the reagent bag.",
 		"[Buff Reminder]: The augment rune reminder recognizes the Tidesworn Augment Rune, and runes of older expansions count as missing.",
