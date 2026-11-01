@@ -130,7 +130,7 @@ module:AddOptions(function()
 	raidBuffArgs.fromGroup = {
 		order = 2,
 		type = "toggle",
-		name = F.NewFeatureText(L["Missing Buffs From Group"]),
+		name = L["Missing Buffs From Group"],
 		desc = L["Also shows the raid buffs a groupmate provides while you are missing them. These icons are only a hint, clicks go through them."],
 		width = "full",
 		disabled = raidBuffsDisabled,
@@ -311,7 +311,7 @@ module:AddOptions(function()
 		enable = {
 			order = 1,
 			type = "toggle",
-			name = F.NewFeatureText(L["Enable"]),
+			name = L["Enable"],
 			width = "full",
 			get = function()
 				return TalentsDB().enable
@@ -649,7 +649,7 @@ module:AddOptions(function()
 					enable = {
 						order = 2,
 						type = "toggle",
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 					},
 					onReadyCheck = {
 						order = 3,
@@ -677,5 +677,4 @@ module:AddOptions(function()
 	}
 
 	module.ModuleCard("buffReminderSound", options.buffReminder.args.sound, "enable")
-	F.MarkTabAsNew("buffReminder")
 end)

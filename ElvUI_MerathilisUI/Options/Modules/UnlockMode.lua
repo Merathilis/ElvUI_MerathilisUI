@@ -91,7 +91,7 @@ module:AddOptions(function()
 					overlapCycle = {
 						order = 4.5,
 						type = "toggle",
-						name = F.NewFeatureText(L["Cycle Overlapping Movers"]),
+						name = L["Cycle Overlapping Movers"],
 						desc = L["Ctrl+mouse wheel over movers lying on top of each other brings the next one to the top and selects it."],
 					},
 					editModeHints = {
@@ -224,6 +224,4 @@ module:AddOptions(function()
 			},
 		},
 	}
-
-	F.MarkTabAsNew("unlockMode")
 end)

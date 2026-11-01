@@ -171,7 +171,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Shows a toast when your name or one of your keywords comes up in chat. Click the toast to answer in the same channel."],
 					}),
 					keywords = {
@@ -529,5 +529,4 @@ module:AddOptions(function()
 	module.ModuleCard("notificationCurrencyWarning", options.Notification.args.currencyWarning, "enable")
 	module.ModuleCard("notificationMentions", options.Notification.args.mentions, "enable")
 	module.ModuleCard("notificationVignette", options.Notification.args.vignette, "enable")
-	F.MarkTabAsNew("Notification")
 end)

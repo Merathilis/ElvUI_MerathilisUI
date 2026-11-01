@@ -50,7 +50,7 @@ module:AddOptions(function()
 			}, 0.5),
 			trainAll = module.ToggleCard({
 				order = 7,
-				name = F.NewFeatureText(L["Train All"]),
+				name = L["Train All"],
 				desc = L["Adds a button to the trainer that learns everything available you can afford."],
 			}, 0.5),
 			blockRequest = module.ToggleCard({
@@ -78,17 +78,17 @@ module:AddOptions(function()
 			}, 0.5),
 			queueTimer = module.ToggleCard({
 				order = 11,
-				name = F.NewFeatureText(L["Queue Timer"]),
+				name = L["Queue Timer"],
 				desc = L["Shows the time left to accept a dungeon or battleground invite in a bar below the invite."],
 			}, 0.5),
 			paragonBar = module.ToggleCard({
 				order = 12,
-				name = F.NewFeatureText(L["Paragon Progress"]),
+				name = L["Paragon Progress"],
 				desc = L["Reputation panel bars of paragon factions show the progress towards the next reward instead of a full bar."],
 			}, 0.5),
 			guildBest = module.ToggleCard({
 				order = 13,
-				name = F.NewFeatureText(L["Guild Best"]),
+				name = L["Guild Best"],
 				desc = L["Lists your guild's best keystone runs of the week in the Mythic+ window. Stays away while RaiderIO shows its own list there."],
 				hidden = E.Forever,
 			}, 0.5),
@@ -146,7 +146,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Turns combat logging on inside the chosen raids and dungeons and off again after you leave. A log you started yourself keeps running."],
 					}),
 					advanced = {
@@ -1063,6 +1063,4 @@ module:AddOptions(function()
 
 	module.ModuleCard("miscGameMenuMythic", options.gameMenu.args.info.args.mythic, "showMythicKey")
 	module.ActionCard(options.raidInfo.args.toggle, { icon = I.Media.Icons.Categories.info, relWidth = 0.5 })
-
-	F.MarkTabAsNew("misc")
 end)

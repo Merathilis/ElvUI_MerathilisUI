@@ -403,7 +403,7 @@ module:AddOptions(function()
 							enable = {
 								order = 2,
 								type = "toggle",
-								name = F.NewFeatureText(L["Enable"]),
+								name = L["Enable"],
 							},
 							size = {
 								order = 3,
@@ -948,7 +948,6 @@ module:AddOptions(function()
 
 	module.LessCommon(generalArgs.pingIndicator.args, "ufPingIndicatorMore", { "position", "xOffset", "yOffset" })
 	module.ModuleCard("ufPingIndicator", generalArgs.pingIndicator, "enable")
-	F.MarkTabAsNew("unitframes")
 
 	module.ColorModeSelect(portraitArgs.style.args, "colorMode", "customColor", { "CLASS", "GRADIENT", "CUSTOM" })
 

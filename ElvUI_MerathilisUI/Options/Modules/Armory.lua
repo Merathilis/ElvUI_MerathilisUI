@@ -963,7 +963,7 @@ module:AddOptions(function()
 					upgradeTrackColor = {
 						order = 2.6,
 						type = "toggle",
-						name = F.NewFeatureText(L["Upgrade Track Color"]),
+						name = L["Upgrade Track Color"],
 						desc = L["Colors the upgrade bar by the upgrade track of the item: Explorer gray, Adventurer white, Veteran green, Champion blue, Hero purple and Myth orange. Without it the bar goes from red to green with the upgrade level."],
 						disabled = function()
 							return not (E.db.mui.armory.enable and E.db.mui.armory.pageInfo.upgradeBarEnabled)
@@ -972,7 +972,7 @@ module:AddOptions(function()
 					upgradeTrackText = {
 						order = 2.7,
 						type = "toggle",
-						name = F.NewFeatureText(L["Upgrade Track"]),
+						name = L["Upgrade Track"],
 						desc = L["Shows the first letter of the upgrade track in the corner of the item icon, e.g. H for Hero, in the color of the track."],
 					},
 					spacer = {
@@ -1179,7 +1179,7 @@ module:AddOptions(function()
 					pickerButton = {
 						order = 2.6,
 						type = "toggle",
-						name = F.NewFeatureText(L["Stat Picker"]),
+						name = L["Stat Picker"],
 						desc = L["Shows a cog button on the stats of the character frame. It switches to an edit mode where a click shows or hides a stat and dragging changes the order."],
 					},
 					resetPicker = {
@@ -1731,6 +1731,4 @@ module:AddOptions(function()
 		end
 		module.ModuleCard("armory" .. key, group)
 	end
-
-	F.MarkTabAsNew("armory")
 end)

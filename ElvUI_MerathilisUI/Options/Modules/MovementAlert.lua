@@ -352,7 +352,6 @@ module:AddOptions(function()
 	local timeSpiralGet, timeSpiralSet = Accessors("timeSpiral")
 	local gatewayGet, gatewaySet = Accessors("gateway")
 
-	F.MarkTabAsNew("movementAlert")
 	options.movementAlert = {
 		type = "group",
 		name = module:AddCategorieIcon(L["Movement Alert"], "movement_alert"),

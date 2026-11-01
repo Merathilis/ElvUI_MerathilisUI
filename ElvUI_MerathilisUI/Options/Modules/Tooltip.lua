@@ -38,7 +38,7 @@ module:AddOptions(function()
 			}),
 			upgradeTrack = module.ToggleCard({
 				order = 1.5,
-				name = F.NewFeatureText(L["Upgrade Track"]),
+				name = L["Upgrade Track"],
 				desc = L["Colors the upgrade level line of items by the upgrade track and shows the item level the item can still be upgraded to."],
 				hidden = E.Forever,
 				get = function()
@@ -51,7 +51,7 @@ module:AddOptions(function()
 			}),
 			mountSource = module.ToggleCard({
 				order = 1.6,
-				name = F.NewFeatureText(L["Mount Source"]),
+				name = L["Mount Source"],
 				desc = L["Shows on the tooltip of a mounted player which mount it is and where it comes from. Blizzard hides this from addons in combat, during encounters, in Mythic+ and in PvP matches, so nothing shows there."],
 				get = function()
 					return E.db.mui.tooltip.mountSource
@@ -63,7 +63,7 @@ module:AddOptions(function()
 			}),
 			mountCollected = module.ToggleCard({
 				order = 1.7,
-				name = F.NewFeatureText(L["Mount Collected"]),
+				name = L["Mount Collected"],
 				desc = L["Also shows whether you own that mount yourself."],
 				disabled = function()
 					return not E.db.mui.tooltip.mountSource
@@ -190,6 +190,4 @@ module:AddOptions(function()
 	local buffs = options.tooltip.args.buffs
 	module.LessCommon(buffs.args, "tooltipBuffsMore", { "xOffset", "yOffset" })
 	module.ModuleCard("tooltipBuffs", buffs, "enable")
-
-	F.MarkTabAsNew("tooltip")
 end)

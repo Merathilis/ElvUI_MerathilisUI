@@ -268,7 +268,7 @@ module:AddOptions(function()
 							}, 0.5),
 							search = module.ToggleCard({
 								order = 4.5,
-								name = F.NewFeatureText(L["Chat Search"]),
+								name = L["Chat Search"],
 								desc = L["Opens the chat search for the chat window next to the sidebar."],
 								image = I.Media.Icons.Chat.search,
 								disabled = function()
@@ -576,7 +576,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Searches the history of a chat window, the newest matches first. Click a match to scroll the chat to it, Enter jumps to the newest one. Opened by the search button in the chat sidebar."],
 					}),
 					fontSize = {
@@ -607,7 +607,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Turns invite keywords in whispers, guild, say, yell and chat channels into links. A click on the link invites the sender."],
 					}),
 					keywords = {
@@ -647,7 +647,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Gives ElvUI's chat bubbles the MerathilisUI look with a pixel perfect border, and styles the speaker's name."],
 					}),
 					preview = module.PreviewOption(1.5, "MERChatBubblesPreview", "bubbles"),
@@ -882,5 +882,4 @@ module:AddOptions(function()
 	module.ModuleCard("chatSearch", chatArgs.search, "enable")
 	module.ModuleCard("chatInvite", chatArgs.invite, "enable")
 	module.ModuleCard("chatBubbles", chatArgs.bubbles, "enable")
-	F.MarkTabAsNew("chat")
 end)
