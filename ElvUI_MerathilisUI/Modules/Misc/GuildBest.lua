@@ -124,8 +124,9 @@ end
 
 -- Runs on every Blizzard update of the window, which also covers the leaders arriving after it opened
 local function Refresh()
-	-- RaiderIO's own panel sits in the same spot and only exists while its option is on
-	if _G.RaiderIO_GuildWeeklyFrame or not IsInGuild() then
+	-- RaiderIO's frame always exists once the addon runs, its option only shows or hides it
+	local raiderIO = _G.RaiderIO_GuildWeeklyFrame
+	if (raiderIO and raiderIO:IsShown()) or not IsInGuild() then
 		if panel then
 			panel:Hide()
 		end
