@@ -20,6 +20,7 @@ MER.Changelog[743] = {
 		"[Chat]: Chat Bubbles - ElvUI's chat bubbles get the MerathilisUI style and a shadow on a border that is pixel perfect at any UI scale. The speaker's name can be shown as a class color gradient, positioned freely and also appears on party, raid, instance chat and emote bubbles. Optionally the bubbles are turned off inside instances, where they can't be styled.",
 		"[Chat]: Chat Search - a search button in the chat sidebar searches the chat window's history, newest matches first with the searched words highlighted. Clicking a match scrolls the chat to that line, Enter jumps to the newest one.",
 		"[Chat]: Invite Links - invite keywords (inv, invite by default) in whispers, guild, say, yell and chat channels become a link that invites the sender, and Alt-click on a player name in the chat invites that player.",
+		"[DataTexts]: AddOn Usage - a new datatext shows how much of the client's frame time your addons take, the tooltip lists the ten most demanding ones and a click opens the AddOn list.",
 		"[Misc]: Train All - a button at the trainer learns everything available you can afford in one click, new professions excluded.",
 		"[Misc]: Auto Combat Log - combat logging turns on inside the raid difficulties and dungeons you pick and off again a minute after you leave, a log you started yourself keeps running. Off by default.",
 		"[Misc]: Guild Best - the Mythic+ window lists your guild's best keystone runs of the week, hovering a run shows the group. Stays away while RaiderIO shows its own list there.",
