@@ -86,6 +86,12 @@ module:AddOptions(function()
 				name = F.NewFeatureText(L["Paragon Progress"]),
 				desc = L["Reputation panel bars of paragon factions show the progress towards the next reward instead of a full bar."],
 			}, 0.5),
+			guildBest = module.ToggleCard({
+				order = 13,
+				name = F.NewFeatureText(L["Guild Best"]),
+				desc = L["Lists your guild's best keystone runs of the week in the Mythic+ window. Stays away while RaiderIO shows its own list there."],
+				hidden = E.Forever,
+			}, 0.5),
 			lootSpecManager = module.ModuleCard("miscLootSpecManager", {
 				order = 40,
 				name = L["LootSpecManager"],

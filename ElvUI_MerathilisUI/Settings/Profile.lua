@@ -389,6 +389,7 @@ P.misc = {
 	trainAll = true,
 	queueTimer = true,
 	paragonBar = true,
+	guildBest = true,
 	autoCombatLog = {
 		enable = false,
 		raidFinder = false,
