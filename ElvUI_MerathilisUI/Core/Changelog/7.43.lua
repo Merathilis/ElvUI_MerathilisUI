@@ -34,8 +34,10 @@ MER.Changelog[743] = {
 	},
 	IMPROVEMENTS = {
 		"[Armory]: The item slots no longer fade in row by row when the character frame opens, they show right away.",
+		"[Installer]: The MerathilisUI layout moves the arena and boss frames further to the left, centers the group number on the player frame and uses Expressway for the nameplate health text.",
 		"[Notification]: Rare notifications now play a softer chime instead of the raid warning sound.",
 		"[Notification]: New toast design in the style of the options cards - accent strip, the text block sits next to the icon and the height follows the text, a bar shows the time left, and on hover the close button and a click hint appear.",
+		"[Profiles]: The SkironCooldownManager profile got a few small updates.",
 		"[Skins]: KeystoneLoot skin updated for the reworked addon - the custom item panel and the Mythic+ group notification are skinned now, item icons get a quality colored border instead of a white one, and the side panels have a shadow.",
 		"[Theme]: Fewer unit API calls per health update for the gradient health colors.",
 		"[Unlock Mode]: Shift+Alt-click picks the anchor points by hand - nine points on the selected mover, then nine on the target, and the two are put on top of each other. Plain Alt-click still takes the sides from where the mover sits.",
