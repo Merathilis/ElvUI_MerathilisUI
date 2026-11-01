@@ -83,6 +83,11 @@ V.groupFinder = {
 	sessionTime = 0,
 }
 
+-- Auto Combat Log: whether the running log is ours to stop, has to survive a reload
+V.autoCombatLog = {
+	started = false,
+}
+
 -- Loadout Manager: gear sets and talent loadouts are per character
 V.loadoutManager = {
 	-- Off until the user opts in; switching it on is what registers events

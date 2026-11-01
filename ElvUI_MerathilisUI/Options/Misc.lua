@@ -12,6 +12,10 @@ module:AddOptions(function()
 
 	local format, pairs, sort, tconcat, tinsert = format, pairs, sort, table.concat, tinsert
 
+	local function AutoCombatLogDisabled()
+		return not E.db.mui.misc.autoCombatLog.enable
+	end
+
 	options.general = {
 		order = 1,
 		type = "group",
@@ -119,6 +123,81 @@ module:AddOptions(function()
 						disabled = function()
 							return not E.db.mui.lootSpecManager.enable
 						end,
+					},
+				},
+			}, "enable"),
+			autoCombatLog = module.ModuleCard("miscAutoCombatLog", {
+				order = 45,
+				name = L["Auto Combat Log"],
+				desc = L["Turns combat logging on inside the chosen raids and dungeons and off again after you leave. A log you started yourself keeps running."],
+				get = function(info)
+					return E.db.mui.misc.autoCombatLog[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.misc.autoCombatLog[info[#info]] = value
+					MI:AutoCombatLog()
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = F.NewFeatureText(L["Enable"]),
+						desc = L["Turns combat logging on inside the chosen raids and dungeons and off again after you leave. A log you started yourself keeps running."],
+					}),
+					advanced = {
+						order = 2,
+						type = "toggle",
+						name = _G.ADVANCED_COMBAT_LOGGING,
+						desc = L["Turns this game setting on before logging starts, log sites need it."],
+						disabled = AutoCombatLogDisabled,
+					},
+					raids = {
+						order = 3,
+						type = "group",
+						name = _G.RAIDS,
+						guiInline = true,
+						disabled = AutoCombatLogDisabled,
+						args = {
+							raidFinder = {
+								order = 1,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY3,
+							},
+							raidNormal = {
+								order = 2,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY1,
+							},
+							raidHeroic = {
+								order = 3,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY2,
+							},
+							raidMythic = {
+								order = 4,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY6,
+							},
+						},
+					},
+					dungeons = {
+						order = 4,
+						type = "group",
+						name = _G.DUNGEONS,
+						guiInline = true,
+						disabled = AutoCombatLogDisabled,
+						args = {
+							mythicDungeon = {
+								order = 1,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY6,
+							},
+							mythicPlus = {
+								order = 2,
+								type = "toggle",
+								name = L["Mythic+"],
+								hidden = E.Forever,
+							},
+						},
 					},
 				},
 			}, "enable"),

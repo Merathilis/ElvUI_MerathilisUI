@@ -389,6 +389,16 @@ P.misc = {
 	trainAll = true,
 	queueTimer = true,
 	paragonBar = true,
+	autoCombatLog = {
+		enable = false,
+		raidFinder = false,
+		raidNormal = true,
+		raidHeroic = true,
+		raidMythic = true,
+		mythicDungeon = false,
+		mythicPlus = true,
+		advanced = true,
+	},
 	blockRequest = false,
 	singingSockets = {
 		enable = true,
