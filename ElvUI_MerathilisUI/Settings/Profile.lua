@@ -388,6 +388,7 @@ P.misc = {
 	tradeTabs = true,
 	trainAll = true,
 	queueTimer = true,
+	paragonBar = true,
 	blockRequest = false,
 	singingSockets = {
 		enable = true,

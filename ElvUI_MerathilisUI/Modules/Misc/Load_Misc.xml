@@ -10,6 +10,7 @@
 	<Script file="Gmotd.lua"/>
 	<Script file="GroupFinder.lua"/>
 	<Script file="IconSearch.lua"/>
+	<Script file="ParagonBar.lua"/>
 	<Script file="PetFilterTab.lua"/>
 	<Script file="QueueTimer.lua"/>
 	<Script file="RaidInfoFrame.lua"/>

@@ -77,6 +77,11 @@ module:AddOptions(function()
 				name = F.NewFeatureText(L["Queue Timer"]),
 				desc = L["Shows the time left to accept a dungeon or battleground invite in a bar below the invite."],
 			}, 0.5),
+			paragonBar = module.ToggleCard({
+				order = 12,
+				name = F.NewFeatureText(L["Paragon Progress"]),
+				desc = L["Reputation panel bars of paragon factions show the progress towards the next reward instead of a full bar."],
+			}, 0.5),
 			lootSpecManager = module.ModuleCard("miscLootSpecManager", {
 				order = 40,
 				name = L["LootSpecManager"],
