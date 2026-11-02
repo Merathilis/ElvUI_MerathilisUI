@@ -2375,3 +2375,12 @@ L["Your addon profile for this kind of place is %s. Load it now? The UI reloads.
 L["Not Now"] = true
 L["Instance Profiles"] = true
 L["Entering one of these places offers to load its addon profile when your addons differ. Loading reloads the UI."] = true
+L["Warband Gold"] = true
+L["Auto Deposit/Withdraw Gold"] = true
+L["Opening the bank moves gold between the character and the warband bank until the character carries the set amount. Applies to all characters of the account."] = true
+L["Gold To Keep"] = true
+L["The gold every character keeps on hand. While this is empty no gold moves, 0 deposits everything."] = true
+L["Chat Message"] = true
+L["Prints every transfer to the chat."] = true
+L["Deposited %s to the warband bank."] = true
+L["Withdrew %s from the warband bank."] = true

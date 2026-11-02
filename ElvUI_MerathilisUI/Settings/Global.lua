@@ -41,6 +41,11 @@ G.bags = {
 		tooltipScope = "ALL", -- ALL, CONNECTED
 		tooltipOwnFaction = false,
 	},
+	autoGold = {
+		enable = false,
+		amount = nil, -- gold to keep on hand, unset moves nothing
+		chat = true,
+	},
 }
 
 G.mail = {

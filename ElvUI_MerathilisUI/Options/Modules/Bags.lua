@@ -1145,6 +1145,58 @@ module:AddOptions(function()
 							},
 						},
 					},
+					autoGold = {
+						order = 8,
+						type = "group",
+						name = L["Warband Gold"],
+						hidden = function()
+							return E.Forever
+						end,
+						-- Account-wide, so a shared profile never moves anyone's gold
+						get = function(info)
+							return E.global.mui.bags.autoGold[info[#info]]
+						end,
+						set = function(info, value)
+							E.global.mui.bags.autoGold[info[#info]] = value
+							BC:UpdateAutoGold()
+						end,
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = L["Auto Deposit/Withdraw Gold"],
+								desc = L["Opening the bank moves gold between the character and the warband bank until the character carries the set amount. Applies to all characters of the account."],
+							}),
+							amount = {
+								order = 2,
+								type = "input",
+								name = L["Gold To Keep"],
+								desc = L["The gold every character keeps on hand. While this is empty no gold moves, 0 deposits everything."],
+								disabled = function()
+									return BagsDisabled() or not E.global.mui.bags.autoGold.enable
+								end,
+								get = function()
+									local amount = E.global.mui.bags.autoGold.amount
+									return amount and tostring(amount) or ""
+								end,
+								set = function(_, value)
+									E.global.mui.bags.autoGold.amount = tonumber(value)
+									BC:UpdateAutoGold()
+								end,
+								validate = function(_, value)
+									return value == "" or strmatch(value, "^%d+$") ~= nil
+								end,
+							},
+							chat = {
+								order = 3,
+								type = "toggle",
+								name = L["Chat Message"],
+								desc = L["Prints every transfer to the chat."],
+								disabled = function()
+									return BagsDisabled() or not E.global.mui.bags.autoGold.enable
+								end,
+							},
+						},
+					},
 				},
 			},
 		},

@@ -9,5 +9,6 @@
     <Script file="BankFrame.lua"/>
     <Script file="Offline.lua"/>
     <Script file="OfflineView.lua"/>
+    <Script file="AutoGold.lua"/>
     <Script file="EquipManager.lua"/>
 </Ui>

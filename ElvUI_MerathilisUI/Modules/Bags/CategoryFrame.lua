@@ -5834,8 +5834,9 @@ function module:Initialize()
 	module.searchText = ""
 	module.bankViewMode = module.bankViewMode or "BANK_ALL"
 
-	-- Account-wide and independent of the categorized bags, see Offline.lua
+	-- Account-wide and independent of the categorized bags, see Offline.lua and AutoGold.lua
 	module:UpdateOffline()
+	module:UpdateAutoGold()
 
 	if not db.enable then
 		return
