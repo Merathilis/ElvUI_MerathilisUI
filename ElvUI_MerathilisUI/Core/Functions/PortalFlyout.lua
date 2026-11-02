@@ -144,6 +144,10 @@ local HEARTH_TOYS = {
 	264367, -- Mushroom
 	281615, -- Shadeweaver's Hearthstone
 }
+-- Toys are account-wide, but these only work on the listed races
+local HEARTH_TOY_RACES = {
+	[210455] = { Draenei = true, LightforgedDraenei = true }, -- Draenic Hologem
+}
 local SHAMAN_ASTRAL_RECALL = 556
 local DALARAN_HS = 253629
 local DALARAN_HS_FALLBACK = 140192
@@ -207,7 +211,8 @@ local function ResolveHearthSlot()
 
 	local owned = {}
 	for _, id in ipairs(HEARTH_TOYS) do
-		if PlayerHasToy and PlayerHasToy(id) then
+		local races = HEARTH_TOY_RACES[id]
+		if PlayerHasToy and PlayerHasToy(id) and (not races or races[E.myrace]) then
 			owned[#owned + 1] = id
 		end
 	end
