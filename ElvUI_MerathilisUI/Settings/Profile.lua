@@ -1120,6 +1120,12 @@ P.nameplates = {
 		enable = false,
 		alpha = 0.75,
 	},
+	castingColor = {
+		enable = false,
+		alpha = 0.75,
+		interruptible = { r = 0.31, g = 0.7, b = 1 },
+		uninterruptible = { r = 0.95, g = 0.57, b = 0 },
+	},
 	enemyForces = {
 		enable = true,
 		format = "PERCENT",

@@ -51,6 +51,30 @@ module:AddOptions(function()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.castTarget.enable
 	end
 
+	local function CastingColorDisabled()
+		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.castingColor.enable
+	end
+
+	local function CastingColorOption(order, key, name)
+		return {
+			order = order,
+			type = "color",
+			name = name,
+			hasAlpha = false,
+			disabled = CastingColorDisabled,
+			get = function()
+				local db = E.db.mui.nameplates.castingColor[key]
+				local default = P.nameplates.castingColor[key]
+				return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+			end,
+			set = function(_, r, g, b)
+				local db = E.db.mui.nameplates.castingColor[key]
+				db.r, db.g, db.b = r, g, b
+				MNP:UpdateCastingColors()
+			end,
+		}
+	end
+
 	local function NeutralNameOnlyDisabled()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.neutralNameOnly.enable
 	end
@@ -437,6 +461,46 @@ module:AddOptions(function()
 									return not MER:HasRequirements(I.Requirements.NamePlates)
 										or not E.db.mui.nameplates.markerColor.enable
 								end,
+								min = 0.05,
+								max = 1,
+								step = 0.05,
+								isPercent = true,
+							},
+						},
+					},
+					castingColor = {
+						order = 3.25,
+						type = "group",
+						name = L["Color Casting Enemies"],
+						guiInline = true,
+						get = function(info)
+							return E.db.mui.nameplates.castingColor[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.nameplates.castingColor[info[#info]] = value
+							MNP:UpdateCastingColors()
+						end,
+						disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = F.NewFeatureText(L["Enable"]),
+								desc = L["Enemy NPCs keep a health bar color after their first cast, so casters stay visible for the whole pull. Interruptible wins once a mob has shown both kinds. Needs ElvUI's nameplate castbar."],
+							}),
+							preview = {
+								order = 1.5,
+								type = "description",
+								dialogControl = "MERNameplateHealthPreview",
+								name = "castingColor",
+								width = "full",
+							},
+							interruptible = CastingColorOption(3, "interruptible", L["Interruptible"]),
+							uninterruptible = CastingColorOption(4, "uninterruptible", L["Non-Interruptible"]),
+							alpha = {
+								order = 5,
+								type = "range",
+								name = L["Alpha"],
+								disabled = CastingColorDisabled,
 								min = 0.05,
 								max = 1,
 								step = 0.05,
@@ -844,6 +908,7 @@ module:AddOptions(function()
 		targetArrows = "npTargetArrows",
 		targetEmphasis = "npTargetEmphasis",
 		markerColor = "npMarkerColor",
+		castingColor = "npCastingColor",
 		enemyForces = "npEnemyForces",
 	}) do
 		module.ModuleCard(id, indicators[key], "enable")
@@ -853,4 +918,7 @@ module:AddOptions(function()
 	module.ModuleCard("npHoverHighlight", highlight.highlight, "enable")
 	module.ModuleCard("npFocusHighlight", highlight.focusHighlight, "enable")
 	module.ModuleCard("npCastTarget", options.nameplates.args.castbar.args.castTarget, "enable")
+
+	F.MarkTabAsNew("nameplates")
+	F.MarkTabAsNew("indicators")
 end)

@@ -6,6 +6,7 @@
 	<Script file="Highlight.lua"/>
 	<Script file="FocusHighlight.lua"/>
 	<Script file="MarkerColor.lua"/>
+	<Script file="CastingColor.lua"/>
 	<Script file="EnemyForces.lua"/>
 	<Script file="InterruptReady.lua"/>
 	<Script file="CastbarShield.lua"/>
