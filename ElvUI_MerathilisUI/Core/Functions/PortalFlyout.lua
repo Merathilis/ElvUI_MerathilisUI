@@ -40,7 +40,23 @@ local SEASON_PORTALS = {
 	{ spellID = 1286831, short = "KR" }, -- Kings' Rest
 }
 
-local _portalFlyout, _portalFlyoutButtons, _hearthButtons
+-- Class and race travel spells plus travel items, in a row below the portals
+-- while the player knows or carries them. supersededBy hides an entry while
+-- the player knows its replacement.
+local TRAVEL_ENTRIES = {
+	{ spellID = 193753 }, -- Dreamwalk (Druid)
+	{ spellID = 18960, supersededBy = 193753 }, -- Teleport: Moonglade (Druid)
+	{ spellID = 50977 }, -- Death Gate (Death Knight)
+	{ spellID = 193759 }, -- Teleport: Hall of the Guardian (Mage)
+	{ spellID = 126892 }, -- Zen Pilgrimage (Monk)
+	{ spellID = 1238686 }, -- Rootwalking (Haranir)
+	{ itemID = 128353 }, -- Admiral's Compass
+}
+
+-- Cooldowns this short are the global cooldown, which the APIs also report
+local GCD_MAX = 2
+
+local _portalFlyout, _portalFlyoutButtons, _hearthButtons, _travelButtons
 local _onHideCallbacks = {}
 
 -- Spell cooldowns are secret while cooldowns are restricted (e.g. in an active key).
@@ -57,7 +73,7 @@ local function SetSpellCooldown(cooldown, spellID)
 		else
 			cooldown:Clear()
 		end
-	elseif cdInfo.startTime and cdInfo.duration and cdInfo.duration > 0 then
+	elseif cdInfo.startTime and cdInfo.duration and cdInfo.duration > GCD_MAX then
 		cooldown:SetCooldown(cdInfo.startTime, cdInfo.duration)
 	else
 		cooldown:Clear()
@@ -76,6 +92,15 @@ local function GetItemCooldown(itemID)
 	end
 
 	return start, duration
+end
+
+local function SetItemCooldown(cooldown, itemID)
+	local start, duration = GetItemCooldown(itemID)
+	if start and duration > GCD_MAX then
+		cooldown:SetCooldown(start, duration)
+	else
+		cooldown:Clear()
+	end
 end
 
 local function RefreshPortalButtons()
@@ -193,8 +218,7 @@ local function IsHearthOnCD(id)
 		return true
 	end
 	local start, duration = GetItemCooldown(id)
-	-- Ignore the global cooldown
-	return start ~= nil and duration > 1.5
+	return start ~= nil and duration > GCD_MAX
 end
 
 -- Slot 1: Shamans with Astral Recall known prefer it in protected instances or
@@ -263,12 +287,7 @@ local function RefreshHearthCooldowns()
 		if hsType == "spell" then
 			SetSpellCooldown(btn.Cooldown, id)
 		elseif hsType == "item" then
-			local start, duration = GetItemCooldown(id)
-			if start and duration > 0 then
-				btn.Cooldown:SetCooldown(start, duration)
-			else
-				btn.Cooldown:Clear()
-			end
+			SetItemCooldown(btn.Cooldown, id)
 		else
 			btn.Cooldown:Clear()
 		end
@@ -311,6 +330,66 @@ local function ResolveHearthButtons()
 	end
 
 	RefreshHearthCooldowns()
+end
+
+local function IsTravelEntryAvailable(entry)
+	if entry.itemID then
+		return (C_Item.GetItemCount(entry.itemID) or 0) > 0
+	end
+	if entry.supersededBy and C_SpellBook.IsSpellKnown(entry.supersededBy) then
+		return false
+	end
+	return C_SpellBook.IsSpellKnown(entry.spellID)
+end
+
+local function RefreshTravelCooldowns()
+	if not _travelButtons then
+		return
+	end
+
+	for _, btn in ipairs(_travelButtons) do
+		if btn:IsShown() then
+			if btn.itemID then
+				SetItemCooldown(btn.Cooldown, btn.itemID)
+			else
+				SetSpellCooldown(btn.Cooldown, btn.spellID)
+			end
+		end
+	end
+end
+
+-- One flyout button: icon, cooldown swipe and cast highlight
+local function CreateFlyoutButton(flyout, name, size)
+	local btn = CreateFrame("Button", name, flyout, "SecureActionButtonTemplate")
+	btn:SetSize(size, size)
+	btn:SetFrameStrata("DIALOG")
+	btn:SetTemplate("Default")
+
+	local icon = btn:CreateTexture(nil, "ARTWORK")
+	icon:SetPoint("TOPLEFT", 1, -1)
+	icon:SetPoint("BOTTOMRIGHT", -1, 1)
+	icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	btn.Icon = icon
+	S:HandleIcon(icon)
+
+	local cooldown = CreateFrame("Cooldown", nil, btn, "CooldownFrameTemplate")
+	cooldown:SetAllPoints(icon)
+	cooldown:SetHideCountdownNumbers(true)
+	cooldown:SetDrawBling(false)
+	btn.Cooldown = cooldown
+
+	local castHL = btn:CreateTexture(nil, "OVERLAY", nil, 1)
+	castHL:SetAllPoints(icon)
+	castHL:SetColorTexture(1, 1, 1, 0.4)
+	castHL:Hide()
+	btn.CastHighlight = castHL
+
+	btn:RegisterForClicks("AnyUp", "AnyDown")
+	btn:SetScript("OnLeave", function()
+		_G.GameTooltip:Hide()
+	end)
+
+	return btn
 end
 
 local function CreatePortalFlyout()
@@ -358,42 +437,20 @@ local function CreatePortalFlyout()
 		local col = (i - 1) % cols
 		local row = (i - 1 - col) / cols
 
-		local btn = CreateFrame("Button", "MER_PortalFlyoutButton" .. i, flyout, "SecureActionButtonTemplate")
-		btn:SetSize(btnSize, btnSize)
+		local btn = CreateFlyoutButton(flyout, "MER_PortalFlyoutButton" .. i, btnSize)
 		btn:SetPoint("TOPLEFT", padding + col * (btnSize + spacing), -(padding + row * (btnSize + spacing)))
-		btn:SetFrameStrata("DIALOG")
-		btn:SetTemplate("Default")
 		btn.spellID = entry.spellID
 
-		local icon = btn:CreateTexture(nil, "ARTWORK")
-		icon:SetPoint("TOPLEFT", 1, -1)
-		icon:SetPoint("BOTTOMRIGHT", -1, 1)
-		icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 		local spellInfo = C_Spell.GetSpellInfo(entry.spellID)
 		if spellInfo then
-			icon:SetTexture(spellInfo.iconID)
+			btn.Icon:SetTexture(spellInfo.iconID)
 		end
-		btn.Icon = icon
-		S:HandleIcon(icon)
-
-		local cooldown = CreateFrame("Cooldown", nil, btn, "CooldownFrameTemplate")
-		cooldown:SetAllPoints(icon)
-		cooldown:SetHideCountdownNumbers(true)
-		cooldown:SetDrawBling(false)
-		btn.Cooldown = cooldown
-
-		local castHL = btn:CreateTexture(nil, "OVERLAY", nil, 1)
-		castHL:SetAllPoints(icon)
-		castHL:SetColorTexture(1, 1, 1, 0.4)
-		castHL:Hide()
-		btn.CastHighlight = castHL
 
 		if entry.short then
 			local label = F.CreateFS(btn, 8, entry.short, false, "BOTTOM", 0, 2)
 			label:SetTextColor(1, 1, 1, 0.9)
 		end
 
-		btn:RegisterForClicks("AnyUp", "AnyDown")
 		btn:SetAttribute("type", "spell")
 		btn:SetAttribute("spell", entry.spellID)
 
@@ -402,41 +459,14 @@ local function CreatePortalFlyout()
 			_G.GameTooltip:SetSpellByID(self.spellID)
 			_G.GameTooltip:Show()
 		end)
-		btn:SetScript("OnLeave", function()
-			_G.GameTooltip:Hide()
-		end)
 
 		_portalFlyoutButtons[i] = btn
 	end
 
 	_hearthButtons = {}
 	for i = 1, hsCount do
-		local btn = CreateFrame("Button", "MER_PortalFlyoutHearth" .. i, flyout, "SecureActionButtonTemplate")
-		btn:SetSize(hsH, hsH)
+		local btn = CreateFlyoutButton(flyout, "MER_PortalFlyoutHearth" .. i, hsH)
 		btn:SetPoint("TOPLEFT", hsX, -(padding + (i - 1) * (hsH + spacing)))
-		btn:SetFrameStrata("DIALOG")
-		btn:SetTemplate("Default")
-
-		local icon = btn:CreateTexture(nil, "ARTWORK")
-		icon:SetPoint("TOPLEFT", 1, -1)
-		icon:SetPoint("BOTTOMRIGHT", -1, 1)
-		icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		btn.Icon = icon
-		S:HandleIcon(icon)
-
-		local cooldown = CreateFrame("Cooldown", nil, btn, "CooldownFrameTemplate")
-		cooldown:SetAllPoints(icon)
-		cooldown:SetHideCountdownNumbers(true)
-		cooldown:SetDrawBling(false)
-		btn.Cooldown = cooldown
-
-		local castHL = btn:CreateTexture(nil, "OVERLAY", nil, 1)
-		castHL:SetAllPoints(icon)
-		castHL:SetColorTexture(1, 1, 1, 0.4)
-		castHL:Hide()
-		btn.CastHighlight = castHL
-
-		btn:RegisterForClicks("AnyUp", "AnyDown")
 
 		btn:SetScript("OnEnter", function(self)
 			_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -448,9 +478,6 @@ local function CreatePortalFlyout()
 				_G.GameTooltip:AddLine(L["Housing Dashboard"])
 			end
 			_G.GameTooltip:Show()
-		end)
-		btn:SetScript("OnLeave", function()
-			_G.GameTooltip:Hide()
 		end)
 		btn:HookScript("PostClick", function(self)
 			if self.hsType == "housing" then
@@ -466,6 +493,60 @@ local function CreatePortalFlyout()
 		_hearthButtons[i] = btn
 	end
 
+	-- Travel row below the portals, only the available entries take a place
+	_travelButtons = {}
+	for i, entry in ipairs(TRAVEL_ENTRIES) do
+		local btn = CreateFlyoutButton(flyout, "MER_PortalFlyoutTravel" .. i, btnSize)
+		btn.entry = entry
+		btn.spellID, btn.itemID = entry.spellID, entry.itemID
+
+		if entry.itemID then
+			btn.Icon:SetTexture(C_Item.GetItemIconByID(entry.itemID) or 134414)
+			btn:SetAttribute("type", "macro")
+			btn:SetAttribute("macrotext", "/use item:" .. entry.itemID)
+			-- An item cast carries no spell ID to match, so the click marks it
+			btn:HookScript("PostClick", function(self)
+				self.CastHighlight:Show()
+			end)
+		else
+			local spellInfo = C_Spell.GetSpellInfo(entry.spellID)
+			btn.Icon:SetTexture(spellInfo and spellInfo.iconID or 134414)
+			btn:SetAttribute("type", "spell")
+			btn:SetAttribute("spell", entry.spellID)
+		end
+
+		btn:SetScript("OnEnter", function(self)
+			_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			if self.itemID then
+				_G.GameTooltip:SetItemByID(self.itemID)
+			else
+				_G.GameTooltip:SetSpellByID(self.spellID)
+			end
+			_G.GameTooltip:Show()
+		end)
+
+		btn:Hide()
+		_travelButtons[i] = btn
+	end
+
+	-- Out of combat only: the flyout opens out of combat and closes when it starts
+	local function LayoutTravelRow()
+		local shown = 0
+		for _, btn in ipairs(_travelButtons) do
+			local available = IsTravelEntryAvailable(btn.entry)
+			btn:SetShown(available)
+			if available then
+				local col = shown % cols
+				local row = rows + (shown - col) / cols
+				btn:ClearAllPoints()
+				btn:SetPoint("TOPLEFT", padding + col * (btnSize + spacing), -(padding + row * (btnSize + spacing)))
+				shown = shown + 1
+			end
+		end
+
+		flyout:SetHeight(height + ceil(shown / cols) * (btnSize + spacing))
+	end
+
 	flyout:SetScript("OnShow", function(self)
 		self:RegisterEvent("SPELL_UPDATE_COOLDOWN")
 		self:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
@@ -475,6 +556,8 @@ local function CreatePortalFlyout()
 		self:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTED", "player")
 		RefreshPortalButtons()
 		ResolveHearthButtons()
+		LayoutTravelRow()
+		RefreshTravelCooldowns()
 		catcher:Show()
 	end)
 	flyout:SetScript("OnHide", function(self)
@@ -483,6 +566,9 @@ local function CreatePortalFlyout()
 			btn.CastHighlight:Hide()
 		end
 		for _, btn in ipairs(_hearthButtons) do
+			btn.CastHighlight:Hide()
+		end
+		for _, btn in ipairs(_travelButtons) do
 			btn.CastHighlight:Hide()
 		end
 		catcher:Hide()
@@ -495,11 +581,19 @@ local function CreatePortalFlyout()
 		if event == "SPELL_UPDATE_COOLDOWN" then
 			RefreshPortalButtons()
 			RefreshHearthCooldowns()
+			RefreshTravelCooldowns()
 		else
 			-- The spell ID is secret while spell casts are restricted, no highlight then
 			local casting = (event == "UNIT_SPELLCAST_START" and not E:IsSecretValue(spellID)) and spellID or nil
 			for _, btn in ipairs(_portalFlyoutButtons) do
 				btn.CastHighlight:SetShown(casting ~= nil and casting == btn.spellID)
+			end
+			for _, btn in ipairs(_travelButtons) do
+				if btn.spellID then
+					btn.CastHighlight:SetShown(casting ~= nil and casting == btn.spellID)
+				elseif not casting then
+					btn.CastHighlight:Hide()
+				end
 			end
 			if not casting then
 				for _, btn in ipairs(_hearthButtons) do
