@@ -11,6 +11,7 @@ MER.Changelog[744] = {
 		"[Nameplates]: Color Casting Enemies - enemy NPCs keep a health bar color after their first cast, one for interruptible and one for non-interruptible casts, so casters stay visible for the whole pull. Off by default.",
 	},
 	IMPROVEMENTS = {
+		"[Maps]: The calendar button of the Minimap Buttons bar pulses Blizzard's invite notice while calendar invites are pending, like the Blizzard button it replaces. Clicking it dismisses the notice until the next invite.",
 		"[Bags]: The bind search also knows BoA, Soulbound and Warbound, takes item levels (bop=300, boe>=280, wue 290-300) and combines terms with and, or, not and parentheses.",
 		"[Misc]: The portal menu has a row for class and race teleports (Dreamwalk, Death Gate, Hall of the Guardian, Zen Pilgrimage, Rootwalking) and the Admiral's Compass, shown while you know or carry them.",
 	},
