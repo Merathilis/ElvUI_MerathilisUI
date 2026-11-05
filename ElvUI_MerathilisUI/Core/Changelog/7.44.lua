@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[744] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "05.11.2026",
 	FIXES = {
 		"[Chat]: No more error on login when ElvUI positions the chats before the chat settings of MerathilisUI were loaded.",
 		"[General]: A fresh install no longer loses default settings (e.g. the gradient colors) to the database migrations of old versions.",
