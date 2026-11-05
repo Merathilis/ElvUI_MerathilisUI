@@ -240,6 +240,41 @@ function module:SetForeverSlotStats(slotItem, slotId)
 	if text and text ~= "" then
 		slotItem.iLvlText:SetText(text)
 	end
+
+	self:AnchorForeverSlotText(slotItem, slotId)
+end
+
+-- Gap between the slot icon and its text, the same as ElvUI's enchant line above it
+-- (45px from the far edge of a 37px slot)
+local SLOT_TEXT_GAP = 8
+
+---ElvUI centers the item level 40px beside the slot, made for a short number: the longer
+---stats text ran into the icon. The side columns get it on the slot's inner edge instead,
+---on ElvUI's baseline, growing away from the icon. Weapons keep ElvUI's spot above the slot.
+---ElvUI anchors it again on its own settings changes, so this runs on every update
+---@param slotItem Button
+---@param slotId number
+function module:AnchorForeverSlotText(slotItem, slotId)
+	if WEAPON_SLOTS[slotId] or E.db.general.itemLevel.showOnItem then
+		return
+	end
+
+	local slotName = self:GetSlotNameByID(slotId)
+	local options = slotName and self.characterSlots[slotName]
+	if not options then
+		return
+	end
+
+	local text = slotItem.iLvlText
+	text:ClearAllPoints()
+	if options.direction == self.enumDirection.LEFT then
+		-- Left column, the text goes right of the slot
+		text:SetPoint("BOTTOMLEFT", slotItem, "BOTTOMRIGHT", SLOT_TEXT_GAP, 3)
+		text:SetJustifyH("LEFT")
+	else
+		text:SetPoint("BOTTOMRIGHT", slotItem, "BOTTOMLEFT", -SLOT_TEXT_GAP, 3)
+		text:SetJustifyH("RIGHT")
+	end
 end
 
 --------------------------------------------------------------------------------
