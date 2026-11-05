@@ -5,6 +5,7 @@ MER.Changelog[744] = {
 	FIXES = {
 		"[Misc]: The random hearthstone of the portal menu no longer picks the Draenic Hologem on characters that can't use it.",
 		"[Misc]: The portal menu no longer shows the global cooldown on its portals and hearthstones after every cast.",
+		"[Tracker]: The Visibility option of the Battle Res tracker is a working dropdown again.",
 	},
 	NEW = {
 		"[Bags]: Auto Deposit/Withdraw Gold - opening the bank moves gold between the character and the warband bank until the character carries the amount you set. Applies to all characters of the account. Off by default.",

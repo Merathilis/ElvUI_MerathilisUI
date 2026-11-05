@@ -169,12 +169,12 @@ module:AddOptions(function()
 						guiInline = true,
 						disabled = BattleResDisabled,
 						args = {
-							visibility = module.Segmented({
+							visibility = {
 								order = 1,
 								type = "select",
 								name = L["Visibility"],
 								values = VISIBILITY,
-							}, { "ICON", "TEXT" }),
+							},
 							displayMode = module.Segmented({
 								order = 2,
 								type = "select",
