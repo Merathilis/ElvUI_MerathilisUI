@@ -1,10 +1,8 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory") ---@class Armory
 
--- Forever ships its own Classic-style character frame, which the Armory does not support yet
-if E.Forever then
-	return
-end
+-- Forever ships its own Classic-style character frame: this file runs there too, Forever.lua
+-- adapts it (slot ids, title offsets, stats list) and the Retail-only parts are skipped below
 
 local M = E:GetModule("Misc")
 local S = E:GetModule("Skins")
@@ -230,6 +228,9 @@ module.slotIdToName = {}
 for slot, options in pairs(module.characterSlots) do
 	module.slotIdToName[options.id] = slot
 end
+
+-- Shirt and tabard, ElvUI gives them no item level or socket strings (Forever.lua swaps the tabard id)
+module.noInfoSlots = { [4] = true, [18] = true }
 
 function module:GetSlotNameByID(slotId)
 	return module.slotIdToName[slotId]
@@ -743,8 +744,17 @@ function module:UpdateTitle(target)
 		WF.SetFontColorWithDB(target.classText, module.db.classText.color)
 	end
 
+	-- The model scene sits a few pixels higher on Forever, which sets its own offsets
+	local nameOffsetY = target.nameOffsetY or 59
+	local levelOffsetY = target.levelOffsetY or 30
+
 	target.nameText:ClearAllPoints()
-	target.nameText:Point("TOP", target.frameModel, module.db.nameText.offsetX, 59 + module.db.nameText.offsetY)
+	target.nameText:Point(
+		"TOP",
+		target.frameModel,
+		module.db.nameText.offsetX,
+		nameOffsetY + module.db.nameText.offsetY
+	)
 	target.nameText:SetJustifyH("CENTER")
 	target.nameText:SetJustifyV("BOTTOM")
 
@@ -768,7 +778,7 @@ function module:UpdateTitle(target)
 	local centerOffset = (totalWidth / 2) - anchorWidth
 
 	target.specIcon:ClearAllPoints()
-	target.specIcon:Point("TOP", target.frameModel, centerOffset, 30)
+	target.specIcon:Point("TOP", target.frameModel, centerOffset, levelOffsetY)
 	target.specIcon:SetJustifyH("CENTER")
 	target.specIcon:SetJustifyV("BOTTOM")
 
@@ -808,16 +818,23 @@ end
 
 local ENCHANT_ABBREVS
 local function BuildEnchantAbbrevs()
-	ENCHANT_ABBREVS = {
-		[_G["SPELL_STAT" .. _G.LE_UNIT_STAT_STRENGTH .. "_NAME"]] = "Str.",
-		[_G["SPELL_STAT" .. _G.LE_UNIT_STAT_AGILITY .. "_NAME"]] = "Agi.",
-		[_G["SPELL_STAT" .. _G.LE_UNIT_STAT_INTELLECT .. "_NAME"]] = "Int.",
-		[_G["SPELL_STAT" .. _G.LE_UNIT_STAT_STAMINA .. "_NAME"]] = "Stam.",
-		[_G["STAT_VERSATILITY"]] = "Vers.",
-		[_G["STAT_CRITICAL_STRIKE"]] = "Crit.",
-		[_G["STAT_MASTERY"]] = "Mast.",
-		[_G["STAT_AVOIDANCE"]] = "Avoid.",
-	}
+	ENCHANT_ABBREVS = {}
+
+	-- Forever lacks some of these globals (no versatility, mastery or avoidance there)
+	local function Add(name, abbrev)
+		if name then
+			ENCHANT_ABBREVS[name] = abbrev
+		end
+	end
+
+	Add(_G["SPELL_STAT" .. _G.LE_UNIT_STAT_STRENGTH .. "_NAME"], "Str.")
+	Add(_G["SPELL_STAT" .. _G.LE_UNIT_STAT_AGILITY .. "_NAME"], "Agi.")
+	Add(_G["SPELL_STAT" .. _G.LE_UNIT_STAT_INTELLECT .. "_NAME"], "Int.")
+	Add(_G["SPELL_STAT" .. _G.LE_UNIT_STAT_STAMINA .. "_NAME"], "Stam.")
+	Add(_G.STAT_VERSATILITY, "Vers.")
+	Add(_G.STAT_CRITICAL_STRIKE, "Crit.")
+	Add(_G.STAT_MASTERY, "Mast.")
+	Add(_G.STAT_AVOIDANCE, "Avoid.")
 end
 
 function module:EnchantAbbreviate(str)
@@ -839,11 +856,18 @@ end
 ---@return string
 function module:GetSlotEnchantText(slotOptions, slotInfo)
 	if self.db.pageInfo.enchantTextEnabled and slotInfo.itemLevelColors and next(slotInfo.itemLevelColors) then
+		-- ElvUI only finds enchants behind the "Enchanted:" prefix, which Forever's lines lack
+		if E.Forever then
+			self:FillForeverEnchant(slotOptions.id, slotInfo)
+		end
+
 		-- A missing socket wins over the enchant text. Slots that have their socket
 		-- (e.g. a socketed helm) still go through the enchant handling below.
+		-- The missing socket/enchant rules are Retail's, Forever never warns.
 		local missingGemSlots = 0
 		if
-			self.db.pageInfo.missingSocketText
+			not E.Forever
+			and self.db.pageInfo.missingSocketText
 			and slotOptions.needsSocket
 			and not E.TimerunningID
 			and (not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions))
@@ -872,7 +896,12 @@ function module:GetSlotEnchantText(slotOptions, slotInfo)
 					return text
 				end
 			end
-		elseif self.db.pageInfo.missingEnchantText and slotOptions.needsEnchant and not E.TimerunningID then
+		elseif
+			not E.Forever
+			and self.db.pageInfo.missingEnchantText
+			and slotOptions.needsEnchant
+			and not E.TimerunningID
+		then
 			if not slotOptions.warningCondition or module:CheckMessageCondition(slotOptions) then
 				return F.String.Error(L["Add enchant"])
 			else
@@ -1139,29 +1168,36 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		slotItem.MERGradient.lastStructuralSignature = structuralSignature
 	end
 
-	-- Upgrade Bar and Track
+	-- Upgrade Bar and Track (Forever has no upgrade tracks)
 	local pageInfo = self.db.pageInfo
-	local current, maximum, trackID, trackName
-	if pageInfo.upgradeBarEnabled or pageInfo.upgradeTrackText then
-		current, maximum, trackID, trackName = self:GetSlotUpgradeLevel(slotId)
-	end
+	if not E.Forever then
+		local current, maximum, trackID, trackName
+		if pageInfo.upgradeBarEnabled or pageInfo.upgradeTrackText then
+			current, maximum, trackID, trackName = self:GetSlotUpgradeLevel(slotId)
+		end
 
-	local isLeft = slotOptions.direction == module.enumDirection.LEFT
-	if pageInfo.upgradeBarEnabled then
-		self:SetUpgradeBar(slotItem, isLeft, current, maximum, trackID)
-	else
-		self:SetUpgradeBar(slotItem)
-	end
+		local isLeft = slotOptions.direction == module.enumDirection.LEFT
+		if pageInfo.upgradeBarEnabled then
+			self:SetUpgradeBar(slotItem, isLeft, current, maximum, trackID)
+		else
+			self:SetUpgradeBar(slotItem)
+		end
 
-	if pageInfo.upgradeTrackText then
-		self:SetUpgradeTrackText(slotItem, isLeft, trackID, trackName)
-	else
-		self:SetUpgradeTrackText(slotItem)
+		if pageInfo.upgradeTrackText then
+			self:SetUpgradeTrackText(slotItem, isLeft, trackID, trackName)
+		else
+			self:SetUpgradeTrackText(slotItem)
+		end
 	end
 
 	-- iLvL Text Handling
 	if not self.db.pageInfo.itemLevelTextEnabled then
 		slotItem.iLvlText:SetText("")
+	end
+
+	-- Forever: the item's stats (weapons: their dps) in place of the item level
+	if E.Forever then
+		self:SetForeverSlotStats(slotItem, slotId)
 	end
 
 	-- Icons Handling (early-exit when slot textures no longer exist)
@@ -1190,10 +1226,11 @@ function module:UpdatePageInfo(_, _, which)
 	end
 
 	for slot, options in pairs(module.characterSlots) do
-		if (options.id ~= 4) and (options.id ~= 18) then
+		if not module.noInfoSlots[options.id] then
 			local slotFrame = _G["Character" .. slot]
 
-			if module.db.pageInfo.moveSockets then
+			-- Forever's middle weapon slot (BOTTOM) has no side to move them to, ElvUI's spot stays
+			if module.db.pageInfo.moveSockets and options.direction ~= module.enumDirection.BOTTOM then
 				local slotWidth, slotHeight = slotFrame:GetWidth(), slotFrame:GetHeight()
 
 				for i = 1, 3 do
@@ -2121,14 +2158,18 @@ function module:UpdateCharacterArmory()
 	module:UpdateLines()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
-	module:UpdateStatPickerButton()
 	module:UpdateCharacterStats()
 	module:CreateTitleSearchBox()
-	module:EnableEquipmentManagerSkin()
-	if module.equipmentPanel then
-		module:RefreshEquipmentManagerPanel()
+
+	-- Stat picker, gear sets and socket panel are Retail only (their files return on Forever)
+	if not E.Forever then
+		module:UpdateStatPickerButton()
+		module:EnableEquipmentManagerSkin()
+		if module.equipmentPanel then
+			module:RefreshEquipmentManagerPanel()
+		end
+		module:UpdateSocketPanel()
 	end
-	module:UpdateSocketPanel()
 
 	if module.frame and module.frame:IsShown() then
 		M:UpdateCharacterInfo()
@@ -2491,11 +2532,13 @@ function module:Disable()
 
 	self:CancelAllTimers()
 	self:UnhookAll()
-	self:DisableSocketPanel()
-	self:DisableEquipmentManagerSkin()
+	if not E.Forever then
+		self:DisableSocketPanel()
+		self:DisableEquipmentManagerSkin()
+		self:SetStatEditMode(false)
+		self:UpdateStatPickerButton()
+	end
 	self:ClearStatSlotHighlight()
-	self:SetStatEditMode(false)
-	self:UpdateStatPickerButton()
 	self:ResetFlyouts()
 	self:HideStage()
 
@@ -2511,11 +2554,17 @@ function module:Enable()
 	end
 
 	self:CreateElements()
-	self:EnableSocketPanel()
 
-	-- Our own stat list (see StatUpdateOverrides for the per-stat display
-	-- fixes) - must exist before the stats hook below can fire.
-	self:BuildStatCategories()
+	if E.Forever then
+		-- Blizzard's own stats list, restyled (Forever.lua)
+		self:EnableForever()
+	else
+		self:EnableSocketPanel()
+
+		-- Our own stat list (see StatUpdateOverrides for the per-stat display
+		-- fixes) - must exist before the stats hook below can fire.
+		self:BuildStatCategories()
+	end
 
 	-- Hook ElvUI Overrides (reuse module-level M reference)
 	self:SecureHook(M, "UpdateCharacterInfo", F.Event.GenerateClosure(self.UpdateItemLevel, self))
@@ -2575,16 +2624,20 @@ end
 
 function module:OnArmoryHide()
 	self:SetShownEventsRegistered(false)
-	self:SocketPanelOnHide()
 	self:ClearStatSlotHighlight()
-	self:SetStatEditMode(false)
+	if not E.Forever then
+		self:SocketPanelOnHide()
+		self:SetStatEditMode(false)
+	end
 end
 
 function module:DatabaseUpdate()
 	-- Set db
 	self.db = F.GetDBFromPath("mui.armory") or E.db.mui.armory
 	self._titleFontDirty = true
-	self:ClearOrderedStats()
+	if not E.Forever then
+		self:ClearOrderedStats()
+	end
 
 	-- Enable/Disable only out of combat
 	F.Event.ContinueOutOfCombat(function()

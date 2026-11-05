@@ -23,8 +23,6 @@ module:AddOptions(function()
 	options.armory = {
 		type = "group",
 		name = module:AddCategorieIcon(L["Armory"], "armory"),
-		-- Forever uses its own character frame, which the Armory does not support yet
-		hidden = E.Forever,
 		childGroups = "tab",
 		get = function(info)
 			return E.db.mui.armory[info[#info]]
@@ -977,6 +975,13 @@ module:AddOptions(function()
 						name = L["Upgrade Track"],
 						desc = L["Shows the first letter of the upgrade track in the corner of the item icon, e.g. H for Hero, in the color of the track."],
 					},
+					itemStatsText = {
+						order = 2.8,
+						type = "toggle",
+						name = L["Item Stats"],
+						desc = L["Shows the main and secondary stat of each item in place of its item level, weapons show their damage per second."],
+						hidden = not E.Forever,
+					},
 					spacer = {
 						order = 3,
 						type = "description",
@@ -1732,5 +1737,52 @@ module:AddOptions(function()
 			module.LessCommon(group.args, "armory" .. key .. "More", { "spacer", "offsetX", "offsetY" })
 		end
 		module.ModuleCard("armory" .. key, group)
+	end
+
+	-- Forever: the Armory runs on its own character frame there (Modules/Armory/Forever.lua).
+	-- Hidden are the Retail-only parts and the previews, which draw Retail's layout and stats
+	if E.Forever then
+		local function Hide(args, key)
+			if args[key] then
+				args[key].hidden = true
+			end
+		end
+
+		local function HidePreviews(args)
+			for _, option in pairs(args) do
+				if type(option) == "table" then
+					if
+						option.dialogControl == "MERArmoryPreview"
+						or option.dialogControl == "MERArmoryPanesPreview"
+					then
+						option.hidden = true
+					elseif option.args then
+						HidePreviews(option.args)
+					end
+				end
+			end
+		end
+		HidePreviews(armoryArgs)
+
+		-- The average item level lives in Blizzard's hidden stats pane on Forever
+		Hide(armoryArgs, "itemLevelGroup")
+		Hide(armoryArgs, "socketPanel")
+		Hide(armoryArgs, "equipmentManager")
+
+		local enchantArgs = armoryArgs.enchantGroup.args
+		Hide(enchantArgs, "missingEnchantText")
+		Hide(enchantArgs, "missingSocketText")
+
+		local slotArgs = armoryArgs.slotItemLevelGroup.args
+		Hide(slotArgs, "upgradeBarEnabled")
+		Hide(slotArgs, "upgradeTrackColor")
+		Hide(slotArgs, "upgradeTrackText")
+
+		-- Blizzard's own stats list stays, only its look is ours
+		local statArgs = armoryArgs.attributesGroup.args
+		Hide(statArgs, "highlightSlots")
+		Hide(statArgs, "pickerButton")
+		Hide(statArgs, "resetPicker")
+		Hide(statArgs, "statsGroup")
 	end
 end)

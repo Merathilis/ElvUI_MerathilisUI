@@ -600,6 +600,7 @@ P.armory = {
 	pageInfo = {
 		itemLevelTextEnabled = true,
 		iconsEnabled = true,
+		itemStatsText = true, -- Forever only
 
 		moveSockets = false,
 		upgradeBarEnabled = true,

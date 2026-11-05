@@ -1,7 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory") ---@class Armory
 
--- Forever ships its own Classic-style character frame, which the Armory does not support yet
+-- Retail only: Forever's character frame has no socket panel or gear set panel of ours (see Forever.lua)
 if E.Forever then
 	return
 end
