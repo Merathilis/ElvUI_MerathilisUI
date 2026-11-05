@@ -1718,6 +1718,7 @@ L["Warning Color"] = true
 L["Critical"] = true
 L["Critical Color"] = true
 L["Permoks Account Manager"] = true
+L["RestedXP Guides"] = true
 
 -- NamePlates
 L["Target Arrows"] = true

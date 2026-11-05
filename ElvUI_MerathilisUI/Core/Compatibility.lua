@@ -343,6 +343,12 @@ local plugins = {
 				mine = "private.mui.skins.addonSkins.bugSack",
 				theirs = "skins.BugSack",
 			},
+			{
+				feature = L["RestedXP Guides"],
+				theirFeature = L["RestedXP Guides"],
+				mine = "private.mui.skins.addonSkins.rxp",
+				theirs = "skins.RXPGuides",
+			},
 		},
 	},
 	{

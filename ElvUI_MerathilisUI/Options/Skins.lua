@@ -26,6 +26,7 @@ module:AddOptions(function()
 		{ "KeystoneLoot", L["KeystoneLoot"], "klf" },
 		{ "Pawn", L["Pawn"], "pawn" },
 		{ "PermoksAccountManager", L["Permoks Account Manager"], "pam" },
+		{ "RXPGuides", L["RestedXP Guides"], "rxp" },
 		{ "ls_Toasts", L["ls_Toasts"], "ls" },
 		{ "WIM", L["WIM"], "wim" },
 		{ "WowLua", L["WowLua"], "wowLua" },

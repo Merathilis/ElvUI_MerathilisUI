@@ -21,6 +21,7 @@ V.skins = {
 		klf = true,
 		classCodex = true,
 		pam = true,
+		rxp = true,
 		bw = {
 			enable = true,
 			normalBar = {

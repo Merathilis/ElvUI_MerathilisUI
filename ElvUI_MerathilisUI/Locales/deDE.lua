@@ -1508,6 +1508,7 @@ L["Warning Color"] = "Warnfarbe"
 L["Critical"] = "Kritisch"
 L["Critical Color"] = "Kritische Farbe"
 L["Permoks Account Manager"] = true
+L["RestedXP Guides"] = true
 
 -- NamePlates
 L["Target Arrows"] = "Zielpfeile"
