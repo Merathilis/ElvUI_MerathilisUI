@@ -3,12 +3,14 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[744] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
-		"[Compatibility Check]: On WoW Forever, \"Apply\" no longer gets blocked by the game (\"tried to call the protected function C_UI_Reload()\") and reloads the UI again.",
+		"[Chat]: No more error on login when ElvUI positions the chats before the chat settings of MerathilisUI were loaded.",
+		"[General]: A fresh install no longer loses default settings (e.g. the gradient colors) to the database migrations of old versions.",
 		"[Misc]: The random hearthstone of the portal menu no longer picks the Draenic Hologem on characters that can't use it.",
 		"[Misc]: The portal menu no longer shows the global cooldown on its portals and hearthstones after every cast.",
 		"[Tracker]: The Visibility option of the Battle Res tracker is a working dropdown again.",
 	},
 	NEW = {
+		"[General]: WoW Forever support - MerathilisUI now also loads on WoW Forever. Modules that rely on Retail-only features stay off there and their options are hidden: Armory, Spec Bar, Loot Spec Manager, Singing Sockets, Rounded Corners, Enemy Forces, the Great Vault, Call to Arms and Quick Join notifications and the Mythic+ and delve parts of the game menu, minimap buttons and chat sidebar.",
 		"[Bags]: Auto Deposit/Withdraw Gold - opening the bank moves gold between the character and the warband bank until the character carries the amount you set. Applies to all characters of the account. Off by default.",
 		"[Nameplates]: Color Casting Enemies - enemy NPCs keep a health bar color after their first cast, one for interruptible and one for non-interruptible casts, so casters stay visible for the whole pull. Off by default.",
 	},
