@@ -484,7 +484,7 @@ module:AddOptions(function()
 						args = {
 							enable = module.ToggleCard({
 								order = 1,
-								name = F.NewFeatureText(L["Enable"]),
+								name = L["Enable"],
 								desc = L["Enemy NPCs keep a health bar color after their first cast, so casters stay visible for the whole pull. Interruptible wins once a mob has shown both kinds. Needs ElvUI's nameplate castbar."],
 							}),
 							preview = {
@@ -919,7 +919,4 @@ module:AddOptions(function()
 	module.ModuleCard("npHoverHighlight", highlight.highlight, "enable")
 	module.ModuleCard("npFocusHighlight", highlight.focusHighlight, "enable")
 	module.ModuleCard("npCastTarget", options.nameplates.args.castbar.args.castTarget, "enable")
-
-	F.MarkTabAsNew("nameplates")
-	F.MarkTabAsNew("indicators")
 end)

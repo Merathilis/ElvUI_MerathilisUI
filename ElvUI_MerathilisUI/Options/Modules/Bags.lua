@@ -1163,7 +1163,7 @@ module:AddOptions(function()
 						args = {
 							enable = module.ToggleCard({
 								order = 1,
-								name = F.NewFeatureText(L["Auto Deposit/Withdraw Gold"]),
+								name = L["Auto Deposit/Withdraw Gold"],
 								desc = L["Opening the bank moves gold between the character and the warband bank until the character carries the set amount. Applies to all characters of the account."],
 							}),
 							amount = {
@@ -1223,8 +1223,4 @@ module:AddOptions(function()
 	module.ModuleCard("bagsSortSpinner", options.bags.args.categorizedBags.args.general.args.spinnerGroup, "enable")
 	module.ModuleCard("bagsItemLevel", fontArgs.itemLevel, "enable")
 	module.ModuleCard("bagsItemInfo", fontArgs.itemInfo, "enable")
-
-	F.MarkTabAsNew("bags")
-	F.MarkTabAsNew("categorizedBags")
-	F.MarkTabAsNew("autoGold")
 end)
