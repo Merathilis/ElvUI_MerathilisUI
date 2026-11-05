@@ -12,6 +12,10 @@ module:AddOptions(function()
 		return not MER:HasRequirements(I.Requirements.UnitFrames)
 	end
 
+	local function PingIndicatorDisabled()
+		return UnitFramesDisabled() or not E.db.mui.unitframes.pingIndicator.enable
+	end
+
 	local function PortraitsDisabled()
 		return UnitFramesDisabled() or not E.db.mui.unitframes.portraits.enable
 	end
@@ -75,7 +79,7 @@ module:AddOptions(function()
 	end
 
 	local function FactionIndicatorOptions(order, unit)
-		return {
+		local group = {
 			order = order,
 			type = "group",
 			name = L["Faction Indicator"],
@@ -131,6 +135,11 @@ module:AddOptions(function()
 				},
 			},
 		}
+		module.LessCommon(group.args, "ufFactionIndicator" .. unit .. "More", { "position", "xOffset", "yOffset" })
+		group.desc = L["Shows the faction icon of players from the opposing faction."]
+		module.ModuleCard("ufFactionIndicator" .. unit, group, "enable")
+
+		return group
 	end
 
 	options.unitframes = {
@@ -359,7 +368,7 @@ module:AddOptions(function()
 								name = L["Enable"],
 							},
 							preview = module.PreviewOption(2.5, "MERFactionIndicatorPreview", "unitframes"),
-							style = {
+							style = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Style"],
@@ -369,6 +378,92 @@ module:AddOptions(function()
 								},
 								disabled = function()
 									return UnitFramesDisabled() or not E.db.mui.unitframes.factionIndicator.enable
+								end,
+							}, { "crest", "round" }),
+						},
+					},
+					pingIndicator = {
+						order = 11.5,
+						type = "group",
+						name = L["Ping Icon"],
+						guiInline = true,
+						get = function(info)
+							return E.db.mui.unitframes.pingIndicator[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.unitframes.pingIndicator[info[#info]] = value
+							MUF:UpdatePingIndicators()
+						end,
+						args = {
+							desc = {
+								order = 1,
+								type = "description",
+								name = L["Shows pings placed on a unit on its unitframe."],
+							},
+							enable = {
+								order = 2,
+								type = "toggle",
+								name = L["Enable"],
+							},
+							size = {
+								order = 3,
+								type = "range",
+								name = L["Size"],
+								disabled = PingIndicatorDisabled,
+								min = 8,
+								max = 60,
+								step = 1,
+							},
+							position = {
+								order = 4,
+								type = "select",
+								name = L["Anchor Point"],
+								disabled = PingIndicatorDisabled,
+								values = I.Values.positionValues,
+							},
+							xOffset = {
+								order = 5,
+								type = "range",
+								name = L["X-Offset"],
+								disabled = PingIndicatorDisabled,
+								min = -100,
+								max = 100,
+								step = 1,
+							},
+							yOffset = {
+								order = 6,
+								type = "range",
+								name = L["Y-Offset"],
+								disabled = PingIndicatorDisabled,
+								min = -100,
+								max = 100,
+								step = 1,
+							},
+							units = {
+								order = 7,
+								type = "multiselect",
+								name = L["Units"],
+								disabled = PingIndicatorDisabled,
+								values = {
+									player = L["Player"],
+									target = L["Target"],
+									targettarget = L["TargetTarget"],
+									focus = L["Focus"],
+									focustarget = L["FocusTarget"],
+									pet = L["Pet"],
+									pettarget = L["PetTarget"],
+									party = L["Party"],
+									raid = L["Raid"],
+									tank = L["Tank"],
+									assist = L["Assist"],
+									arena = L["Arena"],
+								},
+								get = function(_, key)
+									return E.db.mui.unitframes.pingIndicator.units[key]
+								end,
+								set = function(_, key, value)
+									E.db.mui.unitframes.pingIndicator.units[key] = value
+									MUF:UpdatePingIndicators()
 								end,
 							},
 						},
@@ -406,7 +501,7 @@ module:AddOptions(function()
 						guiInline = true,
 						disabled = PortraitsDisabled,
 						args = {
-							style = {
+							style = module.Segmented({
 								order = 1,
 								type = "select",
 								name = L["Shape"],
@@ -415,7 +510,7 @@ module:AddOptions(function()
 									Circle = L["Circle"],
 									Square = L["Square"],
 								},
-							},
+							}, { "Drop", "Circle", "Square" }),
 							colorMode = {
 								order = 2,
 								type = "select",
@@ -481,7 +576,7 @@ module:AddOptions(function()
 								type = "toggle",
 								name = L["Enable"],
 							},
-							style = {
+							style = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Style"],
@@ -491,7 +586,7 @@ module:AddOptions(function()
 									RING = L["Ring Color"],
 								},
 								disabled = ClassificationDisabled,
-							},
+							}, { "DRAGON", "BADGE", "RING" }),
 							types = {
 								order = 4,
 								type = "multiselect",
@@ -511,7 +606,7 @@ module:AddOptions(function()
 								end,
 								disabled = ClassificationDisabled,
 							},
-							dragonColor = {
+							dragonColor = module.Segmented({
 								order = 5,
 								type = "select",
 								name = L["Dragon Color"],
@@ -524,7 +619,7 @@ module:AddOptions(function()
 									return ClassificationStyle() ~= "DRAGON"
 								end,
 								disabled = ClassificationDisabled,
-							},
+							}, { "BLIZZARD", "CLASSIFICATION", "UNIT" }),
 							dragonScale = {
 								order = 6,
 								type = "range",
@@ -837,4 +932,31 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	local portraitArgs = options.unitframes.args.portraits.args
+	module.LessCommon(
+		portraitArgs.style.args,
+		"ufPortraitStyle",
+		{ "backgroundColor", "shadow", "shadowAlpha", "innerShadow" }
+	)
+	module.LessCommon(portraitArgs.units.args, "ufPortraitUnits", { "point", "relativePoint", "xOffset", "yOffset" })
+	module.ModuleCard("ufPortraitClassification", portraitArgs.classification, "enable")
+
+	local generalArgs = options.unitframes.args.general.args
+	module.ModuleCard("ufRoundedCorners", generalArgs.roundedCorners, "enable")
+	module.ModuleCard("ufFactionIndicator", generalArgs.factionIndicator, "enable")
+
+	module.LessCommon(generalArgs.pingIndicator.args, "ufPingIndicatorMore", { "position", "xOffset", "yOffset" })
+	module.ModuleCard("ufPingIndicator", generalArgs.pingIndicator, "enable")
+
+	module.ColorModeSelect(portraitArgs.style.args, "colorMode", "customColor", { "CLASS", "GRADIENT", "CUSTOM" })
+
+	local playerArgs = options.unitframes.args.individualUnits.args.player.args
+	module.ColorModeSelect(
+		playerArgs.restingIndicator.args,
+		"colorMode",
+		"customColor",
+		{ "CLASS_GRADIENT", "CLASS", "BLIZZARD", "CUSTOM" }
+	)
+	module.ModuleCard("ufRestingIndicator", playerArgs.restingIndicator, "enable")
 end)

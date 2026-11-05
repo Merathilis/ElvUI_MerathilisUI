@@ -3,7 +3,7 @@ local module = MER:GetModule("MER_Options") ---@class Options
 local MISC = MER:GetModule("MER_Misc")
 
 local format, type, pairs, ipairs, next, tinsert, sort = format, type, pairs, ipairs, next, tinsert, sort
-local gsub, strlower, strtrim = gsub, strlower, strtrim
+local gmatch, gsub, strfind, strlower, strtrim = gmatch, gsub, strfind, strlower, strtrim
 local xpcall = xpcall
 local min, max, floor = min, max, floor
 
@@ -306,6 +306,439 @@ function module.PreviewOption(order, dialogControl, key)
 	}
 end
 
+-- Open state of module cards and "Show More Options" sections, keyed by id.
+-- Session only: everything starts closed again after a reload.
+local expandedSections = {}
+
+---@param id string
+---@return boolean
+function module.IsSectionExpanded(id)
+	return expandedSections[id] == true
+end
+
+---Opens or closes a collapsible section and redraws the options
+---@param id string
+function module.ToggleSectionExpanded(id)
+	expandedSections[id] = not expandedSections[id] or nil
+	E.Libs.AceConfigRegistry:NotifyChange("ElvUI")
+end
+
+-- Keeps the option's own hidden state, adds "hidden while the section is closed"
+local function HideWhileCollapsed(option, id)
+	local hidden = option.hidden
+	option.hidden = function(...)
+		if not expandedSections[id] then
+			return true
+		end
+		if type(hidden) == "function" then
+			return hidden(...)
+		end
+		return hidden
+	end
+end
+
+---Turns an inline group into a collapsible module card (MERModuleCard in
+---Options/Widgets/Collapsible.lua): a header row with the group's name, `desc`
+---and `icon`, the other args only show while the card is open. With
+---`enableKey`, that toggle of the group moves into the header as its switch
+---(it keeps its own get/set/disabled); without a group `desc`, the toggle's
+---`desc` (or else a plain `args.desc` intro text) becomes the card description
+---and a NEW marker on its name moves to the title. Paths stay the same, the args remain direct children of the group.
+---Call module.LessCommon on the group's args first, so its link is hidden with
+---the rest of the card.
+---@param id string unique key of the card's open state
+---@param group table group option, `type` and `inline` can be left out
+---@param enableKey string? key of the toggle in `group.args` used as the switch
+---@return table group
+function module.ModuleCard(id, group, enableKey)
+	local args = group.args
+	local title, desc = group.name, group.desc
+
+	-- A plain intro text of the group becomes the card description
+	local intro = args.desc
+	if not desc and intro and intro.type == "description" and type(intro.name) == "string" then
+		desc = intro.name
+		args.desc = nil
+	end
+
+	for key, option in pairs(args) do
+		if key ~= enableKey then
+			HideWhileCollapsed(option, id)
+		end
+	end
+
+	local toggle = enableKey and args[enableKey]
+	if toggle then
+		desc = desc or toggle.desc
+		if type(toggle.name) == "string" and toggle.name:find(F.NewFeatureMarker, 1, true) then
+			title = F.NewFeatureText(title)
+		end
+	end
+
+	local header = toggle or { type = "description" }
+	header.order = 0
+	header.dialogControl = "MERModuleCard"
+	header.name = title
+	header.desc = nil
+	header.width = "full"
+	-- A name function reaches the header through AceConfigDialog, only text goes into arg
+	-- A card with nothing but its switch has no body to open
+	local hasBody = false
+	for key in pairs(args) do
+		if key ~= enableKey then
+			hasBody = true
+			break
+		end
+	end
+
+	header.arg = {
+		id = id,
+		title = type(title) == "string" and title or nil,
+		desc = desc,
+		icon = group.icon,
+		atlas = group.atlas,
+		static = not hasBody,
+	}
+	args[enableKey or "cardHeader"] = header
+
+	-- A blank name keeps AceConfigDialog on an InlineGroup (the card box), an
+	-- empty one would give a SimpleGroup without a box. GroupTitle.lua treats a
+	-- blank title as untitled. The real name lives on in the header.
+	group.type = "group"
+	group.inline = true
+	group.guiInline = nil
+	group.name = " "
+	group.desc = nil
+	group.icon = nil
+	group.atlas = nil
+
+	return group
+end
+
+---Moves rarely needed options of a group behind a "Show More Options" link
+---(MERExpanderLink). The link sits after the last of them, so give them the
+---highest orders in their group.
+---@param args table args of the group
+---@param id string unique key of the section's open state
+---@param keys string[] keys in `args` to hide while the section is closed
+function module.LessCommon(args, id, keys)
+	local lastOrder = 0
+	for _, key in ipairs(keys) do
+		local option = args[key]
+		HideWhileCollapsed(option, id)
+		lastOrder = max(lastOrder, option.order or 0)
+	end
+
+	args[id .. "LessCommon"] = {
+		order = lastOrder + 0.01,
+		type = "execute",
+		dialogControl = "MERExpanderLink",
+		name = function()
+			return expandedSections[id] and L["Show Fewer Options"] or L["Show More Options"]
+		end,
+		width = "full",
+		arg = { id = id },
+		-- The link opens and closes, it never gets locked with its group
+		disabled = false,
+		func = function() end,
+	}
+end
+
+---Turns an execute into a MERActionCard (Options/Widgets/ActionCard.lua): icon
+---on top, name as title, the description as muted text below it (it no longer
+---shows as tooltip)
+---@param option table execute option, `type` can be left out
+---@param opts table? { icon, atlas, desc (default: option.desc), lines (reserved description lines),
+--- relWidth (share of the row, default 0.25), color ("rrggbb" hover color), compact (one-line button) }
+---@return table option
+function module.ActionCard(option, opts)
+	opts = opts or {}
+	option.type = "execute"
+	option.dialogControl = "MERActionCard"
+	option.image = opts.icon or option.image
+
+	-- Compact: a one-line button in the option's own width, the description
+	-- stays its tooltip
+	if opts.compact then
+		option.arg = { compact = true, atlas = opts.atlas, color = opts.color }
+		return option
+	end
+
+	option.width = "relative"
+	option.relWidth = opts.relWidth or 0.25
+	option.arg = {
+		desc = opts.desc or option.desc,
+		lines = opts.lines,
+		atlas = opts.atlas,
+		color = opts.color,
+	}
+	option.desc = nil
+	return option
+end
+
+module.RESET_COLOR = "e05a5a"
+
+---A reset action as compact MERActionCard with ElvUI's reset icon and a red
+---hover, small enough for a dense group
+---@param option table execute option
+---@return table option
+function module.ResetButton(option)
+	return module.ActionCard(option, { compact = true, icon = E.Media.Textures.Reset, color = module.RESET_COLOR })
+end
+
+---Moves an inline group into a popup (Options/Widgets/CogPopup.lua): the page
+---shows a MERCogButton row with the group's name and a short summary instead,
+---a click opens the group's settings next to it. The group keeps its key, get,
+---set and disabled. It hides itself on the page only: `hidden` is inherited,
+---the args ask with their own key, so the popup still renders them.
+---@param args table args holding the group
+---@param key string key of the group
+---@param summary function? returns the text shown in the button's box
+---@param width number|string? AceConfig width of the button
+---@return table button
+function module.CogGroup(args, key, summary, width)
+	local group = args[key]
+	local button = {
+		order = group.order,
+		type = "execute",
+		dialogControl = "MERCogButton",
+		name = group.name,
+		hidden = group.hidden,
+		disabled = group.disabled,
+		width = width,
+		arg = { group = key, summary = summary },
+		func = function() end,
+	}
+
+	group.type = "group"
+	group.inline = true
+	group.guiInline = nil
+	group.hidden = function(info)
+		return info[#info] == key
+	end
+	args[key .. "Cog"] = button
+
+	return button
+end
+
+---Summary of a font settings table for module.CogGroup, e.g. "Expressway, 12, Outline"
+---@param getDB function returns the table with `name`, `size` and `style`
+---@return function summary
+function module.FontSummary(getDB)
+	return function()
+		local db = getDB()
+		if not db then
+			return ""
+		end
+
+		local style = db.style and MER.Values.FontFlags[db.style] or db.style
+		local parts = {}
+		for _, part in ipairs({ db.name, db.size, style }) do
+			if part and part ~= "" then
+				parts[#parts + 1] = tostring(part)
+			end
+		end
+		return table.concat(parts, ", ")
+	end
+end
+
+---Moves loose options of a group into a new inline subgroup, e.g. flat font
+---settings into a "Font" group that module.ApplyCogFonts then puts in a popup.
+---The options keep their keys; without own get/set they inherit the outer
+---group's ones through the new group, which has none.
+---@param args table args holding the options
+---@param groupKey string key of the new group
+---@param name string name of the new group
+---@param keys string[] keys of the options to move
+---@return table group
+function module.GroupOptions(args, groupKey, name, keys)
+	local group = { type = "group", inline = true, name = name, args = {} }
+	local order, disabled
+	for i, key in ipairs(keys) do
+		local option = args[key]
+		order = order and min(order, option.order or 0) or option.order
+		-- A disabled check all of them share also locks the group (and its cog button)
+		if i == 1 then
+			disabled = option.disabled
+		elseif option.disabled ~= disabled then
+			disabled = nil
+		end
+		group.args[key] = option
+		args[key] = nil
+	end
+	group.order = order
+	group.disabled = disabled
+	args[groupKey] = group
+	return group
+end
+
+local function IsFontSelect(entry)
+	return entry.type == "select"
+		and (entry.dialogControl == "LSM30_Font" or entry.itemControl == "MERDropdownItemFont")
+end
+
+-- Font, size and outline of a font group, read through its getters
+local function FontGroupSummary(group, inheritedGet)
+	local fields = {}
+	for key, entry in pairs(group.args) do
+		if type(entry) == "table" then
+			local rank
+			if IsFontSelect(entry) then
+				rank = 1
+			elseif entry.type == "range" and strlower(key):find("size") then
+				rank = 2
+			elseif
+				entry.type == "select" and (entry.values == MER.Values.FontFlags or strlower(key):find("outline"))
+			then
+				rank = 3
+			end
+			if rank then
+				fields[#fields + 1] = { key = key, entry = entry, rank = rank }
+			end
+		end
+	end
+	sort(fields, function(a, b)
+		return a.rank < b.rank
+	end)
+
+	return function()
+		local parts = {}
+		for _, field in ipairs(fields) do
+			local get = field.entry.get or group.get or inheritedGet
+			if type(get) == "function" then
+				local ok, value = pcall(get, { field.key })
+				if ok and value ~= nil and value ~= "" then
+					if field.rank == 3 then
+						value = MER.Values.FontFlags[value] or value
+					end
+					parts[#parts + 1] = tostring(value)
+				end
+			end
+		end
+		return table.concat(parts, ", ")
+	end
+end
+
+-- Font groups without a font select (only size and outline), marked by
+-- module.CogFontGroup. Kept apart from the options: AceConfigRegistry rejects
+-- unknown fields on an option.
+local cogFontGroups = setmetatable({}, { __mode = "k" })
+
+---Marks a group for module.ApplyCogFonts that has no font select of its own
+---@param group table
+---@return table group
+function module.CogFontGroup(group)
+	cogFontGroups[group] = true
+	return group
+end
+
+---Puts every inline font group (an LSM30_Font select among its args, or one
+---marked with module.CogFontGroup) of the options into a popup behind a
+---module.CogGroup button, with font, size and outline as summary. Groups that
+---already have a cog button are left alone.
+---@param args table
+---@param inheritedGet function? get of the enclosing groups
+---@param parentInline boolean? the enclosing group is inline, AceConfigDialog shows its subgroups inline too
+function module:ApplyCogFonts(args, inheritedGet, parentInline)
+	local fontGroups = {}
+	for key, entry in pairs(args) do
+		if type(entry) == "table" and entry.type == "group" and type(entry.args) == "table" then
+			local inline = parentInline or entry.inline or entry.guiInline or entry.dialogInline
+			local get = type(entry.get) == "function" and entry.get or inheritedGet
+			self:ApplyCogFonts(entry.args, get, inline)
+
+			if inline and not args[key .. "Cog"] then
+				if cogFontGroups[entry] then
+					fontGroups[key] = inheritedGet
+				end
+				for _, child in pairs(entry.args) do
+					if type(child) == "table" and IsFontSelect(child) then
+						fontGroups[key] = inheritedGet
+						break
+					end
+				end
+			end
+		end
+	end
+
+	for key, get in pairs(fontGroups) do
+		module.CogGroup(args, key, FontGroupSummary(args[key], get))
+	end
+end
+
+---Shows a select with two to four short values as a MERSegmented bar
+---(Options/Widgets/Segmented.lua) instead of a dropdown
+---@param option table select option with static `values`
+---@param order table values in the order of the bar
+---@param width number|string? AceConfig width, by default half a column per value
+---@return table option
+function module.Segmented(option, order, width)
+	option.dialogControl = "MERSegmented"
+	option.sorting = order
+	option.width = width or max(1, #order * 0.5)
+	return option
+end
+
+local function ClassColorChip()
+	local color = E:ClassColor(E.myclass, true)
+	return color.r, color.g, color.b
+end
+
+local function ValueColorChip()
+	return unpack(E.media.rgbvaluecolor)
+end
+
+-- Chips of the usual color modes, a site can add or replace them
+local COLOR_MODE_CHIPS = {
+	CLASS = ClassColorChip,
+	CLASS_GRADIENT = ClassColorChip,
+	VALUE = ValueColorChip,
+}
+
+---Turns a color mode select and its custom color option into one MERSegmented
+---bar: a chip in front of each mode shows its color, the custom mode's chip shows
+---the custom color and a click on it opens the color picker. The color option
+---itself gets hidden; it needs its own get/set, both are called with an info of
+---just its key.
+---@param args table args holding both options
+---@param selectKey string key of the select
+---@param colorKey string? key of the color option, nil for a mode without own color
+---@param order table values in the order of the bar
+---@param opts table? { custom = value with the own color (default "CUSTOM"), chips = { [value] = color }, width = ... }
+function module.ColorModeSelect(args, selectKey, colorKey, order, opts)
+	opts = opts or {}
+	local select, color = args[selectKey], colorKey and args[colorKey]
+
+	local chips = {}
+	for value, chip in pairs(COLOR_MODE_CHIPS) do
+		chips[value] = chip
+	end
+	if opts.chips then
+		for value, chip in pairs(opts.chips) do
+			chips[value] = chip
+		end
+	end
+
+	local pick
+	if color and color.get and color.set then
+		local info = { colorKey }
+		pick = {
+			value = opts.custom or "CUSTOM",
+			get = function()
+				return color.get(info)
+			end,
+			set = function(r, g, b, a)
+				color.set(info, r, g, b, a)
+			end,
+			hasAlpha = color.hasAlpha,
+		}
+		color.hidden = true
+	end
+
+	module.Segmented(select, order, opts.width)
+	select.arg = { chips = chips, pick = pick }
+end
+
 ---Settings of the Interrupt Ready castbar indicator, shared by UnitFrames and NamePlates
 ---@param order number
 ---@param getDB function returns the settings table
@@ -415,6 +848,8 @@ function module.InterruptReadyOptions(order, getDB, update, requirementsDisabled
 		end
 	end
 
+	module.ModuleCard("interruptReady" .. previewKey, group, "enable")
+
 	return group
 end
 
@@ -509,6 +944,9 @@ function module.CastbarShieldOptions(order, getDB, update, requirementsDisabled,
 			group.args[key] = option
 		end
 	end
+
+	module.LessCommon(group.args, "castbarShield" .. previewKey .. "More", { "anchorPoint", "xOffset", "yOffset" })
+	module.ModuleCard("castbarShield" .. previewKey, group, "enable")
 
 	return group
 end
@@ -659,6 +1097,9 @@ function module.ExecuteLineOptions(order, getDB, update, requirementsDisabled, p
 			group.args[key] = option
 		end
 	end
+
+	module.ColorModeSelect(group.args, "colorMode", "customColor", { "CLASS", "CUSTOM" })
+	module.ModuleCard("executeLine" .. previewKey, group, "enable")
 
 	return group
 end
@@ -860,6 +1301,15 @@ function module:OptionsCallback()
 					E:StaticPopup_Show("MERATHILISUI_EditBox", nil, nil, MER.WebsiteURL)
 				end,
 			},
+			donateButton = {
+				order = 7,
+				type = "execute",
+				name = format("|T%s:18:18:0:0:64:64|t %s", I.Media.Icons.Favorite, F.String.Good(L["Donate"])),
+				customWidth = 140,
+				func = function()
+					E.Libs.AceConfigDialog:SelectGroup("ElvUI", "mui", "information", "name")
+				end,
+			},
 		},
 	}
 
@@ -882,10 +1332,58 @@ function module:OptionsCallback()
 		}
 	end
 
+	self:AddMoverButtons()
+
+	-- Before ApplyCustomWidgets, which turns the LSM30_Font selects into MERDropdowns
+	self:ApplyCogFonts(E.Options.args.mui.args)
 	self:ApplyCustomWidgets(E.Options.args.mui.args)
 
 	for _, func in ipairs(self.postBuilders) do
 		xpcall(func, errorhandler, self)
+	end
+end
+
+-- Every mover of ours names its options page (configString, "mui,modules,x"):
+-- that page gets a button that opens the mover mode on just this mover. Movers
+-- created after the options were built get none until the next reload.
+function module:AddMoverButtons()
+	local UM = MER:GetModule("MER_UnlockMode")
+	local pages = {}
+
+	for name, holder in pairs(E.CreatedMovers) do
+		local path = holder.configString
+		if type(path) == "string" and strfind(path, "^mui,") then
+			local group = E.Options
+			for key in gmatch(path, "[^,]+") do
+				group = group and group.args and group.args[key]
+			end
+
+			if group and group.args then
+				pages[group] = pages[group] or {}
+				tinsert(pages[group], name)
+			end
+		end
+	end
+
+	for group, names in pairs(pages) do
+		sort(names)
+		-- Right after the page's enable switch, else at the top
+		local base = group.args.enable and group.args.enable.order or 0
+		for index, name in ipairs(names) do
+			local text = gsub(E.CreatedMovers[name].mover.textString or name, "|c%x%x%x%x%x%x%x%x(.-)|r", "%1")
+			group.args["MER_ShowMover_" .. name] = module.ActionCard({
+				order = base + index * 0.01,
+				name = #names > 1 and format("%s: %s", L["Show Mover"], text) or L["Show Mover"],
+				desc = format(L["Opens the mover mode with only the mover of %s."], text),
+				disabled = false,
+				hidden = function()
+					return E.CreatedMovers[name] == nil
+				end,
+				func = function()
+					UM:ShowMover(name)
+				end,
+			}, { icon = I.Media.Icons.Categories.unlock_mode, compact = true })
+		end
 	end
 end
 

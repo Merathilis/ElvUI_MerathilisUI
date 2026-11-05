@@ -169,7 +169,7 @@ module:AddOptions(function()
 							spotlight = {
 								order = 1,
 								type = "toggle",
-								name = F.NewFeatureText(L["Spotlight"]),
+								name = L["Spotlight"],
 								desc = L["A soft glow in your class color behind the character."],
 							},
 							spotlightAlpha = {
@@ -192,7 +192,7 @@ module:AddOptions(function()
 							shadow = {
 								order = 4,
 								type = "toggle",
-								name = F.NewFeatureText(L["Ground Shadow"]),
+								name = L["Ground Shadow"],
 								desc = L["A shadow under the feet of the character that follows the camera."],
 							},
 							shadowAlpha = {
@@ -215,7 +215,7 @@ module:AddOptions(function()
 							doubleClickReset = {
 								order = 7,
 								type = "toggle",
-								name = F.NewFeatureText(L["Double-Click Reset"]),
+								name = L["Double-Click Reset"],
 								desc = L["Double-click the character to reset its rotation, zoom and position."],
 								width = 1.2,
 							},
@@ -248,7 +248,7 @@ module:AddOptions(function()
 						name = L["Bags Item Level"],
 						desc = L["Enabling this will show the maximum possible item level you can achieve with items currently in your bags."],
 					},
-					itemLevelFormat = {
+					itemLevelFormat = module.Segmented({
 						order = 2,
 						type = "select",
 						name = L["Format"],
@@ -259,7 +259,7 @@ module:AddOptions(function()
 							["%.2f"] = "69.01",
 							["%.3f"] = "69.012",
 						},
-					},
+					}, { "%.0f", "%.1f", "%.2f", "%.3f" }),
 					spacer = {
 						order = 3,
 						type = "description",
@@ -582,7 +582,7 @@ module:AddOptions(function()
 								step = 1,
 							},
 							short = {
-								order = 9,
+								order = 5,
 								type = "toggle",
 								name = L["Short Display"],
 							},
@@ -959,8 +959,23 @@ module:AddOptions(function()
 					upgradeBarEnabled = {
 						order = 2.5,
 						type = "toggle",
-						name = F.NewFeatureText(L["Upgrade Level"]),
+						name = L["Upgrade Level"],
 						desc = L["A bar next to the item icon shows the upgrade level of the item, e.g. 4 of 6 segments filled."],
+					},
+					upgradeTrackColor = {
+						order = 2.6,
+						type = "toggle",
+						name = L["Upgrade Track Color"],
+						desc = L["Colors the upgrade bar by the upgrade track of the item: Explorer gray, Adventurer white, Veteran green, Champion blue, Hero purple and Myth orange. Without it the bar goes from red to green with the upgrade level."],
+						disabled = function()
+							return not (E.db.mui.armory.enable and E.db.mui.armory.pageInfo.upgradeBarEnabled)
+						end,
+					},
+					upgradeTrackText = {
+						order = 2.7,
+						type = "toggle",
+						name = L["Upgrade Track"],
+						desc = L["Shows the first letter of the upgrade track in the corner of the item icon, e.g. H for Hero, in the color of the track."],
 					},
 					spacer = {
 						order = 3,
@@ -1160,8 +1175,23 @@ module:AddOptions(function()
 					highlightSlots = {
 						order = 2.5,
 						type = "toggle",
-						name = F.NewFeatureText(L["Highlight Slots"]),
+						name = L["Highlight Slots"],
 						desc = L["Hovering a secondary or tertiary stat dims the item slots that do not have it, gems included."],
+					},
+					pickerButton = {
+						order = 2.6,
+						type = "toggle",
+						name = L["Stat Picker"],
+						desc = L["Shows a cog button on the stats of the character frame. It switches to an edit mode where a click shows or hides a stat and dragging changes the order."],
+					},
+					resetPicker = {
+						order = 2.7,
+						type = "execute",
+						name = L["Reset Stats"],
+						desc = L["Restores the default order and visibility of all stats."],
+						func = function()
+							Armory:ResetStatPicker()
+						end,
 					},
 					fontGroup = {
 						order = 3,
@@ -1631,8 +1661,76 @@ module:AddOptions(function()
 		}
 	end
 
-	F.MarkTabAsNew("armory")
-	F.MarkTabAsNew("modelGroup")
-	F.MarkTabAsNew("slotItemLevelGroup")
-	F.MarkTabAsNew("attributesGroup")
+	-- Font settings in a popup behind a button with a summary
+	local armoryArgs = options.armory.args
+	for _, entry in ipairs({
+		{ armoryArgs.itemLevelGroup.args, "itemLevelFont", "stats", "itemLevelFont" },
+		{ armoryArgs.enchantGroup.args, "enchantFont", "pageInfo", "enchantFont" },
+		{ armoryArgs.slotItemLevelGroup.args, "iLvLFont", "pageInfo", "iLvLFont" },
+		{ armoryArgs.socketPanel.args, "font", "socketPanel", "font" },
+		{ armoryArgs.equipmentManager.args, "font", "equipmentManager", "font" },
+	}) do
+		local section, field = entry[3], entry[4]
+		module.CogGroup(
+			entry[1],
+			entry[2],
+			module.FontSummary(function()
+				return E.db.mui.armory[section][field]
+			end)
+		)
+	end
+
+	-- Font colors as one bar each, the custom color opens the picker from it
+	local GRADIENT_CHIP = { 0, 0.75, 1 }
+	local fontColors = {
+		{
+			options.armory.args.itemLevelGroup.args.itemLevelFont.args,
+			"itemLevelFontColor",
+			{ "DEFAULT", "VALUE", "GRADIENT", "CUSTOM" },
+		},
+		{ options.armory.args.headerGroup.args.nameText.args, "fontColor", { "CLASS", "GRADIENT", "CUSTOM" } },
+		{ options.armory.args.headerGroup.args.titleText.args, "fontColor", { "CLASS", "GRADIENT", "CUSTOM" } },
+		{ options.armory.args.headerGroup.args.specIcon.args, "fontColor", { "CLASS", "GRADIENT", "CUSTOM" } },
+		{ options.armory.args.headerGroup.args.classText.args, "fontColor", { "CLASS", "CUSTOM" } },
+		{
+			options.armory.args.attributesGroup.args.fontGroup.args.headerFont.args,
+			"headerFontColor",
+			{ "CLASS", "GRADIENT", "CUSTOM" },
+		},
+		{
+			options.armory.args.attributesGroup.args.fontGroup.args.labelFont.args,
+			"labelFontColor",
+			{ "CLASS", "GRADIENT", "CUSTOM" },
+		},
+	}
+	for _, entry in ipairs(fontColors) do
+		module.ColorModeSelect(entry[1], entry[2], "color", entry[3], {
+			chips = { GRADIENT = GRADIENT_CHIP, DEFAULT = { 0.64, 0.21, 0.93 } },
+		})
+	end
+
+	-- The font strings of the header as cards, their offsets behind "Show More Options",
+	-- the font itself in a popup (module.ApplyCogFonts)
+	local headerArgs = options.armory.args.headerGroup.args
+	for key in pairs({
+		nameText = true,
+		titleText = true,
+		levelTitleText = true,
+		levelText = true,
+		specIcon = true,
+		classText = true,
+	}) do
+		local group = headerArgs[key]
+		local fontKeys = {}
+		for _, fontKey in ipairs({ "name", "style", "size" }) do
+			if group.args[fontKey] then
+				fontKeys[#fontKeys + 1] = fontKey
+			end
+		end
+		module.GroupOptions(group.args, "font", L["Font"], fontKeys)
+		if group.args.offsetX then
+			module.LessCommon(group.args, "armory" .. key .. "More", { "spacer", "offsetX", "offsetY" })
+		end
+		module.ModuleCard("armory" .. key, group)
+	end
 end)

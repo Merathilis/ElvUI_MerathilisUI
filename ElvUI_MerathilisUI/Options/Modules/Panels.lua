@@ -197,4 +197,6 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ColorModeSelect(options.panels.args.color.args, "colorType", "customColor", { "DEFAULT", "CLASS", "CUSTOM" })
 end)

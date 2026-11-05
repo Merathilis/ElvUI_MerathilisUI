@@ -1,4 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 local LSM = E.LSM or E.Libs.LSM
@@ -11,11 +12,11 @@ local CreateFrame, UIParent = CreateFrame, UIParent
 local SetRaidTargetIconTexture = SetRaidTargetIconTexture
 
 -- Sample health bars that explain the Hover Highlight, the Focus Highlight, the
--- Raid Marker Color and the Enemy Forces. Used as `dialogControl` on a
--- description whose name is the settings key under E.db.mui.nameplates
--- ("highlight", "focusHighlight", "markerColor" or "enemyForces"): one bar with
--- the highlight or focus texture, one bar per raid marker with its tint, or one
--- bar with the forces text.
+-- Raid Marker Color, Color Casting Enemies and the Enemy Forces. Used as
+-- `dialogControl` on a description whose name is the settings key under
+-- E.db.mui.nameplates ("highlight", "focusHighlight", "markerColor", "castingColor"
+-- or "enemyForces"): one bar with the highlight or focus texture, one bar per
+-- raid marker or kind of cast with its tint, or one bar with the forces text.
 
 local FORCES_SAMPLES = {
 	PERCENT = "+1.25%",
@@ -65,12 +66,15 @@ local function Update(widget)
 	end
 
 	local isMarkers = key == "markerColor"
+	local isCasting = key == "castingColor"
 	local isForces = key == "enemyForces"
-	local width = min(widget.frame:GetWidth(), BAR_MAX_WIDTH)
+	local width = min(widget.stage:GetWidth(), BAR_MAX_WIDTH)
 	local barWidth = width
 	local barX = 0
 	if isMarkers then
 		barWidth = (width - BAR_SPACING * (NUM_MARKERS - 1)) / NUM_MARKERS
+	elseif isCasting then
+		barWidth = (width - BAR_SPACING) / 2
 	elseif isForces then
 		-- Room on both sides for a text next to the bar
 		barWidth = width * 0.5
@@ -81,7 +85,7 @@ local function Update(widget)
 	local barTexture = LSM:Fetch("statusbar", E.db.nameplates.statusbar)
 
 	for index, bar in ipairs(widget.bars) do
-		local shown = isMarkers or index == 1
+		local shown = isMarkers or index == 1 or (isCasting and index == 2)
 		bar:SetShown(shown)
 
 		if shown then
@@ -89,7 +93,7 @@ local function Update(widget)
 			bar:ClearAllPoints()
 			bar:SetPoint(
 				"TOPLEFT",
-				widget.frame,
+				widget.stage,
 				"TOPLEFT",
 				barX + (index - 1) * (barWidth + BAR_SPACING),
 				-(ICON_SIZE + 4)
@@ -99,14 +103,24 @@ local function Update(widget)
 			bar.fill:SetVertexColor(r, g, b, 1)
 			bar.fill:SetWidth(barWidth * HEALTH)
 
-			bar.tint:SetShown(isMarkers)
+			bar.tint:SetShown(isMarkers or isCasting)
 			bar.icon:SetShown(isMarkers)
-			bar.focus:SetShown(not isMarkers and not isForces)
-			bar.text:SetShown(isForces)
+			bar.focus:SetShown(not isMarkers and not isCasting and not isForces)
+			bar.text:SetShown(isCasting or isForces)
 
 			if isMarkers then
 				local color = MER.RaidMarkerColors[index]
 				bar.tint:SetColorTexture(color.r, color.g, color.b, db.alpha)
+			elseif isCasting then
+				local color = index == 1 and db.interruptible or db.uninterruptible
+				bar.tint:SetColorTexture(color.r, color.g, color.b, db.alpha)
+
+				local text = bar.text
+				text:SetFont(F.GetFontPath(), 10, "OUTLINE")
+				text:SetTextColor(1, 1, 1)
+				text:SetText(index == 1 and L["Interruptible"] or L["Non-Interruptible"])
+				text:ClearAllPoints()
+				text:SetPoint("CENTER", bar)
 			elseif isForces then
 				local text = bar.text
 				text:SetFont(LSM:Fetch("font", E.db.nameplates.font), db.fontSize, E.db.nameplates.fontOutline)
@@ -126,7 +140,7 @@ local function Update(widget)
 		end
 	end
 
-	widget.frame:SetAlpha(db.enable and 1 or 0.4)
+	widget.stage:SetAlpha(db.enable and 1 or 0.4)
 end
 
 local function CreateBar(parent, index)
@@ -187,7 +201,7 @@ local function Constructor()
 	end
 
 	widget.SetWidth = function(self, width)
-		self.frame:SetWidth(width)
+		module.Preview.SetStageWidth(self, width)
 		Update(self)
 	end
 
@@ -205,6 +219,8 @@ local function Constructor()
 	widget.SetJustifyV = function() end
 	widget.SetColor = function() end
 
+	-- Scaled down and centered like the other previews (Preview.lua)
+	module.Preview.Contain(widget)
 	return AceGUI:RegisterAsWidget(widget)
 end
 

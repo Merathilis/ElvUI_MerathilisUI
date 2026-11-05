@@ -291,3 +291,25 @@ function F.Color.CalculateShift(boost, colorArray, out)
 	end
 	return CreateColor(r, g, b, 1)
 end
+
+-- Upgrade track (trackStringID of C_Item.GetItemUpgradeInfo) to the item quality
+-- whose color it is shown in, shared by the Armory and the item tooltip
+local UpgradeTrackQuality = {
+	[970] = 0, -- Explorer
+	[971] = 1, -- Adventurer
+	[972] = 2, -- Veteran
+	[973] = 3, -- Champion
+	[974] = 4, -- Hero
+	[978] = 5, -- Myth
+	[998] = 5, -- Awakened
+}
+
+---Color of an upgrade track, nil for tracks we don't know
+---@param trackID number?
+---@return number?, number?, number?
+function F.GetUpgradeTrackColor(trackID)
+	local quality = trackID and UpgradeTrackQuality[trackID]
+	if quality then
+		return E:GetItemQualityColor(quality)
+	end
+end

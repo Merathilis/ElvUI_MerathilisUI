@@ -66,7 +66,7 @@ module:AddOptions(function()
 						inline = true,
 						name = L["Layout"],
 						args = {
-							panel = {
+							panel = module.Segmented({
 								order = 1,
 								type = "select",
 								name = L["Chat Panel"],
@@ -74,8 +74,8 @@ module:AddOptions(function()
 									LEFT = L["Left Chat"],
 									RIGHT = L["Right Chat"],
 								},
-							},
-							side = {
+							}, { "LEFT", "RIGHT" }),
+							side = module.Segmented({
 								order = 2,
 								type = "select",
 								name = L["Side"],
@@ -84,8 +84,8 @@ module:AddOptions(function()
 									LEFT = L["Left"],
 									RIGHT = L["Right"],
 								},
-							},
-							attach = {
+							}, { "LEFT", "RIGHT" }),
+							attach = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Position"],
@@ -94,7 +94,7 @@ module:AddOptions(function()
 									INSIDE = L["Inside"],
 									OUTSIDE = L["Outside"],
 								},
-							},
+							}, { "INSIDE", "OUTSIDE" }),
 							attachSpacing = {
 								order = 4,
 								type = "range",
@@ -106,7 +106,7 @@ module:AddOptions(function()
 									return Disabled() or SidebarDB().attach ~= "OUTSIDE"
 								end,
 							},
-							visibility = {
+							visibility = module.Segmented({
 								order = 5,
 								type = "select",
 								name = L["Visibility"],
@@ -114,7 +114,7 @@ module:AddOptions(function()
 									ALWAYS = L["Always"],
 									MOUSEOVER = L["Mouseover"],
 								},
-							},
+							}, { "ALWAYS", "MOUSEOVER" }),
 							divider = {
 								order = 6,
 								type = "toggle",
@@ -266,6 +266,15 @@ module:AddOptions(function()
 								desc = L["Replaces ElvUI's copy button on the chat windows. Right-click opens the chat menu."],
 								image = I.Media.Icons.Chat.copy,
 							}, 0.5),
+							search = module.ToggleCard({
+								order = 4.5,
+								name = L["Chat Search"],
+								desc = L["Opens the chat search for the chat window next to the sidebar."],
+								image = I.Media.Icons.Chat.search,
+								disabled = function()
+									return Disabled() or not ChatDB().search.enable
+								end,
+							}, 0.5),
 							portals = module.ToggleCard({
 								order = 5,
 								name = L["M+ Portals"],
@@ -347,7 +356,7 @@ module:AddOptions(function()
 									return Disabled() or not SidebarDB().buttons.portals
 								end,
 							},
-							resetOrder = {
+							resetOrder = module.ResetButton({
 								order = 12,
 								type = "execute",
 								name = L["Reset Order"],
@@ -355,7 +364,7 @@ module:AddOptions(function()
 									SidebarDB().order = P.chat.sidebar.order
 									Update()
 								end,
-							},
+							}),
 						},
 					},
 				},
@@ -526,7 +535,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Opens the chat history in a MerathilisUI window instead of ElvUI's copy frame. Used by the sidebar copy button and ElvUI's copy button on each chat."],
 					}),
 					colors = {
@@ -545,9 +554,231 @@ module:AddOptions(function()
 					},
 				},
 			},
+			search = {
+				order = 4.2,
+				type = "group",
+				guiInline = true,
+				name = L["Chat Search"],
+				get = function(info)
+					return ChatDB().search[info[#info]]
+				end,
+				set = function(info, value)
+					ChatDB().search[info[#info]] = value
+					MER:GetModule("MER_Chat"):UpdateChatSearch()
+					Update()
+				end,
+				disabled = function(info)
+					if not MER:HasRequirements(I.Requirements.Chat) then
+						return true
+					end
+					return info[#info] ~= "enable" and not ChatDB().search.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = L["Enable"],
+						desc = L["Searches the history of a chat window, the newest matches first. Click a match to scroll the chat to it, Enter jumps to the newest one. Opened by the search button in the chat sidebar."],
+					}),
+					fontSize = {
+						order = 2,
+						type = "range",
+						name = L["Font Size"],
+						min = 8,
+						max = 20,
+						step = 1,
+					},
+				},
+			},
+			invite = {
+				order = 4.4,
+				type = "group",
+				guiInline = true,
+				name = L["Invite Links"],
+				get = function(info)
+					return ChatDB().invite[info[#info]]
+				end,
+				set = function(info, value)
+					ChatDB().invite[info[#info]] = value
+					MER:GetModule("MER_Chat"):UpdateInvite()
+				end,
+				disabled = function(info)
+					return info[#info] ~= "enable" and not ChatDB().invite.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = L["Enable"],
+						desc = L["Turns invite keywords in whispers, guild, say, yell and chat channels into links. A click on the link invites the sender."],
+					}),
+					keywords = {
+						order = 2,
+						type = "input",
+						name = L["Keywords"],
+						desc = L["Comma separated list of words that become an invite link."],
+						width = "full",
+					},
+					altClick = {
+						order = 3,
+						type = "toggle",
+						name = L["Alt-Click Invite"],
+						desc = L["Alt-click a player name in the chat to invite that player."],
+						width = "full",
+					},
+				},
+			},
+			bubbles = {
+				order = 5,
+				type = "group",
+				guiInline = true,
+				name = L["Chat Bubbles"],
+				get = function(info)
+					return ChatDB().bubbles[info[#info]]
+				end,
+				set = function(info, value)
+					ChatDB().bubbles[info[#info]] = value
+					MER:GetModule("MER_Chat"):UpdateBubbles()
+				end,
+				disabled = function(info)
+					if E.private.general.chatBubbles == "disabled" then
+						return true
+					end
+					return info[#info] ~= "enable" and not ChatDB().bubbles.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = L["Enable"],
+						desc = L["Gives ElvUI's chat bubbles the MerathilisUI look with a pixel perfect border, and styles the speaker's name."],
+					}),
+					preview = module.PreviewOption(1.5, "MERChatBubblesPreview", "bubbles"),
+					elvuiDisabled = {
+						order = 2,
+						type = "description",
+						name = F.cOption(
+							L["Needs ElvUI's chat bubble skin, see ElvUI > General > Cosmetic > Chat Bubbles."],
+							"orange"
+						),
+						hidden = function()
+							return E.private.general.chatBubbles ~= "disabled"
+						end,
+					},
+					style = {
+						order = 3,
+						type = "toggle",
+						name = L["MerathilisUI Style"],
+						desc = L["Transparent backdrop with the MerathilisUI stripes and gradient."],
+					},
+					shadow = {
+						order = 4,
+						type = "toggle",
+						name = L["Shadow"],
+					},
+					backdropHint = {
+						order = 5,
+						type = "description",
+						name = L["The backdrop needs one of ElvUI's two backdrop styles, the name settings work with every style."],
+						hidden = function()
+							local option = E.private.general.chatBubbles
+							return option == "backdrop" or option == "backdrop_noborder"
+						end,
+					},
+					name = {
+						order = 6,
+						type = "group",
+						inline = true,
+						name = L["Speaker Name"],
+						disabled = function()
+							local db = ChatDB().bubbles
+							return E.private.general.chatBubbles == "disabled"
+								or not db.enable
+								or not E.private.general.chatBubbleName
+						end,
+						args = {
+							nameHint = {
+								order = 0,
+								type = "description",
+								name = F.cOption(L["Needs ElvUI's Chat Bubble Names option."], "orange"),
+								hidden = function()
+									return E.private.general.chatBubbleName
+								end,
+							},
+							groupNames = {
+								order = 1,
+								type = "toggle",
+								name = L["Group Chat Names"],
+								desc = L["Also names the bubbles of party, raid and instance chat. ElvUI only names say, yell and NPC bubbles."],
+							},
+							nameGradient = {
+								order = 2,
+								type = "toggle",
+								name = L["Gradient Name"],
+								desc = L["Shows the name in a class color gradient, NPCs in yellow."],
+							},
+							nameJustify = module.Segmented({
+								order = 3,
+								type = "select",
+								name = L["Alignment"],
+								values = {
+									LEFT = L["Left"],
+									CENTER = L["Center"],
+									RIGHT = L["Right"],
+								},
+							}, { "LEFT", "CENTER", "RIGHT" }),
+							nameFontSize = {
+								order = 4,
+								type = "range",
+								name = L["Font Size"],
+								min = 6,
+								max = 24,
+								step = 1,
+							},
+							nameXOffset = {
+								order = 5,
+								type = "range",
+								name = L["X-Offset"],
+								min = -50,
+								max = 50,
+								step = 1,
+							},
+							nameYOffset = {
+								order = 6,
+								type = "range",
+								name = L["Y-Offset"],
+								min = -50,
+								max = 50,
+								step = 1,
+							},
+						},
+					},
+					hideInInstances = {
+						order = 7,
+						type = "toggle",
+						name = L["Hide in Instances"],
+						desc = function()
+							local text =
+								L["Chat bubbles can't be styled inside instances, so Blizzard's own show there. This turns them off while you are in an instance and back on when you leave."]
+							local wt = E.private.WT
+							if wt and wt.misc and wt.misc.autoToggleChatBubble then
+								text = text
+									.. "\n\n"
+									.. F.cOption(
+										L["Not available while WindTools' Auto Toggle Chat Bubble is enabled."],
+										"orange"
+									)
+							end
+							return text
+						end,
+						disabled = function()
+							local wt = E.private.WT
+							return E.private.general.chatBubbles == "disabled"
+								or not ChatDB().bubbles.enable
+								or (wt and wt.misc and wt.misc.autoToggleChatBubble)
+						end,
+					},
+				},
+			},
 		},
 	}
-	F.MarkTabAsNew("chat")
 
 	-------------------------------------------------------------------------------
 	-- ElvUI options our chat extensions take over are grayed out while they do,
@@ -643,4 +874,12 @@ module:AddOptions(function()
 			end
 		end
 	end)
+
+	local chatArgs = options.chat.args
+	module.ModuleCard("chatSidebar", chatArgs.sidebar, "enable")
+	module.ModuleCard("chatEditBox", chatArgs.editBox, "enable")
+	module.ModuleCard("chatCopyChat", chatArgs.copyChat, "enable")
+	module.ModuleCard("chatSearch", chatArgs.search, "enable")
+	module.ModuleCard("chatInvite", chatArgs.invite, "enable")
+	module.ModuleCard("chatBubbles", chatArgs.bubbles, "enable")
 end)

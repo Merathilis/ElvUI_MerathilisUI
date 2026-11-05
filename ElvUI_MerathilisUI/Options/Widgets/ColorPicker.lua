@@ -1,5 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
+local module = MER:GetModule("MER_Options") ---@class Options
+
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 
 local Type = "MERColorPicker"
@@ -54,26 +56,6 @@ local function UpdateVisual(self)
 	self.label:SetTextColor(unpack(self.disabled and COLOR_TEXT_DISABLED or COLOR_TEXT_NORMAL))
 end
 
--- Mirrors ColorCallback from the stock AceGUI ColorPicker widget: the color
--- callback fires continuously while the picker is open (OnValueChanged), the
--- alpha callback is always the final call after it closes, whether by
--- confirming or cancelling, so that one commits (OnValueConfirmed).
-local function ColorCallback(self, r, g, b, a, isAlpha)
-	if not self.hasAlpha then
-		a = 1
-	end
-	if r == self.r and g == self.g and b == self.b and a == self.a then
-		return
-	end
-
-	self:SetColor(r, g, b, a)
-	if ColorPickerFrame:IsVisible() then
-		self:Fire("OnValueChanged", r, g, b, a)
-	elseif isAlpha then
-		self:Fire("OnValueConfirmed", r, g, b, a)
-	end
-end
-
 local function Box_OnEnter(frame)
 	local self = frame.obj
 	self.hover = true
@@ -88,49 +70,37 @@ local function Box_OnLeave(frame)
 	self:Fire("OnLeave")
 end
 
+-- Opens our own picker (ColorPickerPopup.lua): live changes go out as
+-- OnValueChanged, the final color (or the original one on cancel) as
+-- OnValueConfirmed, like the stock AceGUI ColorPicker does with Blizzard's.
 local function Box_OnClick(frame)
 	local self = frame.obj
 	if self.disabled then
 		return
 	end
 
-	ColorPickerFrame:Hide()
-	ColorPickerFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-	ColorPickerFrame:SetFrameLevel(frame:GetFrameLevel() + 10)
-	ColorPickerFrame:SetClampedToScreen(true)
-
-	-- Retail and Forever both have the 10.2.5 picker API
-	local r2, g2, b2, a2 = self.r, self.g, self.b, (self.a or 1)
-
-	ColorPickerFrame:SetupColorPickerAndShow({
-		swatchFunc = function()
-			local r, g, b = ColorPickerFrame:GetColorRGB()
-			local a = ColorPickerFrame:GetColorAlpha()
-			ColorCallback(self, r, g, b, a)
-		end,
-
-		hasOpacity = self.hasAlpha,
-		opacityFunc = function()
-			local r, g, b = ColorPickerFrame:GetColorRGB()
-			local a = ColorPickerFrame:GetColorAlpha()
-			ColorCallback(self, r, g, b, a, true)
-		end,
-		opacity = a2,
-
-		cancelFunc = function()
-			ColorCallback(self, r2, g2, b2, a2, true)
-		end,
-
-		r = r2,
-		g = g2,
-		b = b2,
-	})
-
 	AceGUI:ClearFocus()
+	module.ColorPickerPopup.Open(self, {
+		r = self.r,
+		g = self.g,
+		b = self.b,
+		a = self.a,
+		hasAlpha = self.hasAlpha,
+		default = self.default,
+		onChange = function(r, g, b, a)
+			self:SetColor(r, g, b, a)
+			self:Fire("OnValueChanged", r, g, b, a)
+		end,
+		onConfirm = function(r, g, b, a)
+			self:SetColor(r, g, b, a)
+			self:Fire("OnValueConfirmed", r, g, b, a)
+		end,
+	}, frame)
 end
 
 local methods = {
 	["OnAcquire"] = function(self)
+		self.default = nil
 		self:SetWidth(200)
 		self:SetHeight(FRAME_HEIGHT)
 		self:SetHasAlpha(false)
@@ -143,12 +113,22 @@ local methods = {
 		self.label:SetText(text or "")
 	end,
 
-	["SetColor"] = function(self, r, g, b, a)
+	-- ElvUI's color getters also return the default color (r, g, b, a, dr, dg, db, da),
+	-- the picker offers it as a quick color
+	["SetColor"] = function(self, r, g, b, a, dr, dg, db, da)
 		self.r = r or 0
 		self.g = g or 0
 		self.b = b or 0
 		self.a = a or 1
+		if dr and dg and db then
+			self.default = { dr, dg, db, da or 1 }
+		end
 		UpdateVisual(self)
+	end,
+
+	-- A released widget may come back for another option, the picker lets go of it
+	["OnRelease"] = function(self)
+		module.ColorPickerPopup.Detach(self)
 	end,
 
 	["SetHasAlpha"] = function(self, hasAlpha)

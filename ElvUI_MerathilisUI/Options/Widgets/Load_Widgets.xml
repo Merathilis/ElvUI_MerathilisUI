@@ -27,6 +27,7 @@
 	<Script file='BuffReminderPreview.lua' />
 	<Script file='LocationPanelPreview.lua' />
 	<Script file='ChatSidebarPreview.lua' />
+	<Script file='ChatBubblesPreview.lua' />
 	<Script file='SpecBarPreview.lua' />
 	<Script file='ItemLevelPreview.lua' />
 	<Script file='MailPreview.lua' />
@@ -41,10 +42,15 @@
 	<Script file='ToggleSwitch.lua' />
 	<Script file='Slider.lua' />
 	<Script file='Dropdown.lua' />
+	<Script file='Segmented.lua' />
 	<Script file='EditBox.lua' />
+	<Script file='ColorPickerPopup.lua' />
 	<Script file='ColorPicker.lua' />
 	<Script file='Button.lua' />
 	<Script file='TextLink.lua' />
+	<Script file='ActionCard.lua' />
+	<Script file='CogPopup.lua' />
+	<Script file='Collapsible.lua' />
 	<Script file='SectionHeader.lua' />
 	<Script file='NewFeatureLabel.lua' />
 	<Script file='HomeHeader.lua' />

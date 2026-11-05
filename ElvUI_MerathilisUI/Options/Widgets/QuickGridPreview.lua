@@ -1,4 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 local QG = MER:GetModule("MER_QuickGrid")
 
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
@@ -248,6 +249,8 @@ local function Constructor()
 	widget.SetJustifyV = function() end
 	widget.SetColor = function() end
 
+	-- Scaled down and centered like the other previews (Preview.lua)
+	module.Preview.Contain(widget)
 	return AceGUI:RegisterAsWidget(widget)
 end
 

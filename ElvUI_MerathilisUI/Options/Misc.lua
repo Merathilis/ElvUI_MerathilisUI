@@ -12,6 +12,10 @@ module:AddOptions(function()
 
 	local format, pairs, sort, tconcat, tinsert = format, pairs, sort, table.concat, tinsert
 
+	local function AutoCombatLogDisabled()
+		return not E.db.mui.misc.autoCombatLog.enable
+	end
+
 	options.general = {
 		order = 1,
 		type = "group",
@@ -44,6 +48,11 @@ module:AddOptions(function()
 				name = L["Trade Tabs"],
 				desc = L["Enable Tabs on the Profession Frames"],
 			}, 0.5),
+			trainAll = module.ToggleCard({
+				order = 7,
+				name = L["Train All"],
+				desc = L["Adds a button to the trainer that learns everything available you can afford."],
+			}, 0.5),
 			blockRequest = module.ToggleCard({
 				order = 8,
 				name = L["Block Join Requests"],
@@ -67,13 +76,32 @@ module:AddOptions(function()
 				name = L["Auction Enhanced"],
 				desc = L["Show the tertiary stats of equipments in auction house."],
 			}, 0.5),
-			lootSpecManager = {
+			queueTimer = module.ToggleCard({
+				order = 11,
+				name = L["Queue Timer"],
+				desc = L["Shows the time left to accept a dungeon or battleground invite in a bar below the invite."],
+			}, 0.5),
+			paragonBar = module.ToggleCard({
+				order = 12,
+				name = L["Paragon Progress"],
+				desc = L["Reputation panel bars of paragon factions show the progress towards the next reward instead of a full bar."],
+			}, 0.5),
+			guildBest = module.ToggleCard({
+				order = 13,
+				name = L["Guild Best"],
+				desc = L["Lists your guild's best keystone runs of the week in the Mythic+ window. Stays away while RaiderIO shows its own list there."],
+				hidden = E.Forever,
+			}, 0.5),
+			lootSpecManager = module.ModuleCard("miscLootSpecManager", {
 				order = 40,
-				type = "group",
 				name = L["LootSpecManager"],
 				hidden = E.Forever,
-				desc = L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."],
-				inline = true,
+				desc = (
+					L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."]:gsub(
+						"^|n",
+						""
+					)
+				),
 				get = function(info)
 					return E.db.mui.lootSpecManager[info[#info]]
 				end,
@@ -104,13 +132,86 @@ module:AddOptions(function()
 						end,
 					},
 				},
-			},
-			copyMog = {
+			}, "enable"),
+			autoCombatLog = module.ModuleCard("miscAutoCombatLog", {
+				order = 45,
+				name = L["Auto Combat Log"],
+				desc = L["Turns combat logging on inside the chosen raids and dungeons and off again after you leave. A log you started yourself keeps running."],
+				get = function(info)
+					return E.db.mui.misc.autoCombatLog[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.misc.autoCombatLog[info[#info]] = value
+					MI:AutoCombatLog()
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = L["Enable"],
+						desc = L["Turns combat logging on inside the chosen raids and dungeons and off again after you leave. A log you started yourself keeps running."],
+					}),
+					advanced = {
+						order = 2,
+						type = "toggle",
+						name = _G.ADVANCED_COMBAT_LOGGING,
+						desc = L["Turns this game setting on before logging starts, log sites need it."],
+						disabled = AutoCombatLogDisabled,
+					},
+					raids = {
+						order = 3,
+						type = "group",
+						name = _G.RAIDS,
+						guiInline = true,
+						disabled = AutoCombatLogDisabled,
+						args = {
+							raidFinder = {
+								order = 1,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY3,
+							},
+							raidNormal = {
+								order = 2,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY1,
+							},
+							raidHeroic = {
+								order = 3,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY2,
+							},
+							raidMythic = {
+								order = 4,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY6,
+							},
+						},
+					},
+					dungeons = {
+						order = 4,
+						type = "group",
+						name = _G.DUNGEONS,
+						guiInline = true,
+						disabled = AutoCombatLogDisabled,
+						args = {
+							mythicDungeon = {
+								order = 1,
+								type = "toggle",
+								name = _G.PLAYER_DIFFICULTY6,
+							},
+							mythicPlus = {
+								order = 2,
+								type = "toggle",
+								name = L["Mythic+"],
+								hidden = E.Forever,
+							},
+						},
+					},
+				},
+			}, "enable"),
+			copyMog = module.ModuleCard("miscCopyMog", {
 				order = 50,
-				type = "group",
 				name = L["Copy Transmog"],
 				desc = L["Adds a button to the character and inspect frame that allows you to copy a list of the currently transmogrified items."],
-				inline = true,
 				get = function(info)
 					return E.db.mui.misc.copyMog[info[#info]]
 				end,
@@ -142,7 +243,7 @@ module:AddOptions(function()
 						end,
 					},
 				},
-			},
+			}, "enable"),
 		},
 	}
 
@@ -710,7 +811,7 @@ module:AddOptions(function()
 		args = {
 			enable = module.ToggleCard({
 				order = 1,
-				name = F.NewFeatureText(L["Enable"]),
+				name = L["Enable"],
 				desc = L["Adds a few things to the Premade Groups list. Works together with the LFG List and Group Info features of WindTools."],
 			}),
 			credits = module.CreditsCard(2, "EllesmereUI"),
@@ -749,11 +850,10 @@ module:AddOptions(function()
 					},
 				},
 			},
-			applications = {
+			applications = module.ModuleCard("groupFinderApplications", {
 				order = 4,
-				type = "group",
 				name = L["Mythic+ Applications"],
-				guiInline = true,
+				desc = L["Counts your Mythic+ applications and shows how they ended in a bar on the Premade Groups page."],
 				disabled = function()
 					return not E.db.mui.misc.groupFinder.enable
 				end,
@@ -771,7 +871,7 @@ module:AddOptions(function()
 						name = L["Enable"],
 						desc = L["Counts your Mythic+ applications and shows how they ended in a bar on the Premade Groups page."],
 					},
-					scope = {
+					scope = module.Segmented({
 						order = 2,
 						type = "select",
 						name = L["Show"],
@@ -784,24 +884,24 @@ module:AddOptions(function()
 							return not E.db.mui.misc.groupFinder.enable
 								or not E.db.mui.misc.groupFinder.applications.enable
 						end,
-					},
-					resetSession = {
+					}, { "session", "character", "account" }),
+					resetSession = module.ResetButton({
 						order = 3,
 						type = "execute",
 						name = L["Reset Session"],
 						func = function()
 							GF:ResetApplications("session")
 						end,
-					},
-					resetCharacter = {
+					}),
+					resetCharacter = module.ResetButton({
 						order = 4,
 						type = "execute",
 						name = L["Reset Character"],
 						func = function()
 							GF:ResetApplications("character")
 						end,
-					},
-					resetAccount = {
+					}),
+					resetAccount = module.ResetButton({
 						order = 5,
 						type = "execute",
 						name = L["Reset Account"],
@@ -809,12 +909,11 @@ module:AddOptions(function()
 						func = function()
 							GF:ResetApplications("account")
 						end,
-					},
+					}),
 				},
-			},
+			}, "enable"),
 		},
 	}
-	F.MarkTabAsNew("groupFinder")
 
 	options.raidInfo = {
 		order = 11,
@@ -965,4 +1064,7 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ModuleCard("miscGameMenuMythic", options.gameMenu.args.info.args.mythic, "showMythicKey")
+	module.ActionCard(options.raidInfo.args.toggle, { icon = I.Media.Icons.Categories.info, relWidth = 0.5 })
 end)

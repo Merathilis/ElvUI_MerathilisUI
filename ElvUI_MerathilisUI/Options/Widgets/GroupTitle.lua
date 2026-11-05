@@ -29,7 +29,7 @@ if not ACD or not ACD.FeedGroup then
 	return
 end
 
-local pairs, unpack, max = pairs, unpack, max
+local pairs, unpack, max, strtrim = pairs, unpack, max, strtrim
 local hooksecurefunc = hooksecurefunc
 local GameFontNormal = GameFontNormal
 
@@ -50,9 +50,13 @@ local INSET_X, INSET_Y = 14, 12 -- content inset inside the box
 local STOCK_TITLE_X, STOCK_TOP, STOCK_BOTTOM, STOCK_INSET = 14, 17, 3, 10
 
 -- Box offset from the group's top, untitled groups skip the title row
+-- (module.ModuleCard uses a blank " " title for a box without a title row)
+local function HasTitle(title)
+	return title and strtrim(title) ~= ""
+end
+
 local function GetBoxTop(group)
-	local title = group.titletext:GetText()
-	if title and title ~= "" then
+	if HasTitle(group.titletext:GetText()) then
 		return GROUP_TOP + TITLE_HEIGHT + TITLE_GAP
 	end
 	return GROUP_TOP
@@ -130,7 +134,7 @@ local function Group_OnSetTitle(group, title)
 
 	-- No bar for untitled groups, it would float above an empty title row.
 	if group.merAccentBar then
-		group.merAccentBar:SetShown(title ~= "")
+		group.merAccentBar:SetShown(HasTitle(title) and true or false)
 	end
 
 	-- AceConfigDialog sets the title before it adds the children, so the

@@ -104,6 +104,11 @@ module:AddOptions(function()
 				keybind = KeybindOption(3, deck.binding),
 			},
 		}
+
+		-- A card per deck with its icon in the header, the keybind inside
+		deckArgs[key].name = deck.name
+		deckArgs[key].icon = deck.icon
+		module.ModuleCard("quickGridDeck" .. key, deckArgs[key], "enable")
 	end
 
 	-------------------------------------------------------------------------------
@@ -203,7 +208,7 @@ module:AddOptions(function()
 						name = "",
 						width = "full",
 					},
-					anchor = {
+					anchor = module.Segmented({
 						order = 1,
 						type = "select",
 						name = L["Open At"],
@@ -212,7 +217,7 @@ module:AddOptions(function()
 							CURSOR = L["Cursor"],
 							CENTER = L["Screen Center"],
 						},
-					},
+					}, { "CURSOR", "CENTER" }),
 					tileSize = {
 						order = 2,
 						type = "range",

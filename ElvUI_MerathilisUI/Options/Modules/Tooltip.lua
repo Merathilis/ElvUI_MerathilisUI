@@ -36,6 +36,45 @@ module:AddOptions(function()
 					MER:GetModule("MER_Tooltip"):InitializeAchievement()
 				end,
 			}),
+			upgradeTrack = module.ToggleCard({
+				order = 1.5,
+				name = L["Upgrade Track"],
+				desc = L["Colors the upgrade level line of items by the upgrade track and shows the item level the item can still be upgraded to."],
+				hidden = E.Forever,
+				get = function()
+					return E.db.mui.tooltip.upgradeTrack
+				end,
+				set = function(_, value)
+					E.db.mui.tooltip.upgradeTrack = value
+					MER:GetModule("MER_Tooltip"):InitializeUpgradeTrack()
+				end,
+			}),
+			mountSource = module.ToggleCard({
+				order = 1.6,
+				name = L["Mount Source"],
+				desc = L["Shows on the tooltip of a mounted player which mount it is and where it comes from. Blizzard hides this from addons in combat, during encounters, in Mythic+ and in PvP matches, so nothing shows there."],
+				get = function()
+					return E.db.mui.tooltip.mountSource
+				end,
+				set = function(_, value)
+					E.db.mui.tooltip.mountSource = value
+					MER:GetModule("MER_Tooltip"):InitializeMountSource()
+				end,
+			}),
+			mountCollected = module.ToggleCard({
+				order = 1.7,
+				name = L["Mount Collected"],
+				desc = L["Also shows whether you own that mount yourself."],
+				disabled = function()
+					return not E.db.mui.tooltip.mountSource
+				end,
+				get = function()
+					return E.db.mui.tooltip.mountCollected
+				end,
+				set = function(_, value)
+					E.db.mui.tooltip.mountCollected = value
+				end,
+			}),
 			buffs = {
 				order = 2,
 				type = "group",
@@ -62,7 +101,7 @@ module:AddOptions(function()
 						desc = L["Only show buffs on the tooltip of players."],
 						disabled = BuffsDisabled,
 					},
-					position = {
+					position = module.Segmented({
 						order = 3,
 						type = "select",
 						name = L["Position"],
@@ -73,7 +112,7 @@ module:AddOptions(function()
 							LEFT = L["Left"],
 							RIGHT = L["Right"],
 						},
-					},
+					}, { "BOTTOM", "TOP", "LEFT", "RIGHT" }),
 					spacer = {
 						order = 4,
 						type = "description",
@@ -147,4 +186,8 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	local buffs = options.tooltip.args.buffs
+	module.LessCommon(buffs.args, "tooltipBuffsMore", { "xOffset", "yOffset" })
+	module.ModuleCard("tooltipBuffs", buffs, "enable")
 end)

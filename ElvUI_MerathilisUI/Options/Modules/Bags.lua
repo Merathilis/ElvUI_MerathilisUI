@@ -299,7 +299,7 @@ module:AddOptions(function()
 									BC:SetCurrencyTracked(key, value)
 								end,
 							},
-							resetCurrencies = {
+							resetCurrencies = module.ResetButton({
 								order = 12.1,
 								type = "execute",
 								name = L["Reset Currencies"],
@@ -307,8 +307,8 @@ module:AddOptions(function()
 								func = function()
 									BC:ResetTrackedCurrencies()
 								end,
-							},
-							resetCategoryGroups = {
+							}),
+							resetCategoryGroups = module.ResetButton({
 								order = 13,
 								type = "execute",
 								name = L["Reset Category Groups"],
@@ -324,7 +324,7 @@ module:AddOptions(function()
 									BC:InvalidateCategoryCache()
 									RefreshCategoryFrames()
 								end,
-							},
+							}),
 							spinnerGroup = {
 								order = 14,
 								type = "group",
@@ -901,7 +901,7 @@ module:AddOptions(function()
 						type = "group",
 						name = L["Display"],
 						args = {
-							displayMode = {
+							displayMode = module.Segmented({
 								order = 1,
 								type = "select",
 								name = L["Bag Window"],
@@ -911,8 +911,8 @@ module:AddOptions(function()
 									LIST = L["List"],
 									COMPACT = L["Compact"],
 								},
-							},
-							bankDisplayMode = {
+							}, { "GRID", "LIST", "COMPACT" }),
+							bankDisplayMode = module.Segmented({
 								order = 2,
 								type = "select",
 								name = L["Bank Window"],
@@ -921,7 +921,7 @@ module:AddOptions(function()
 									LIST = L["List"],
 									COMPACT = L["Compact"],
 								},
-							},
+							}, { "GRID", "LIST", "COMPACT" }),
 							list = {
 								order = 3,
 								type = "group",
@@ -962,7 +962,7 @@ module:AddOptions(function()
 										name = L["Category Value"],
 										desc = L["Shows what the items of a category sell for next to its name."],
 									},
-									resetColumns = {
+									resetColumns = module.ResetButton({
 										order = 5,
 										type = "execute",
 										name = L["Reset Columns"],
@@ -973,7 +973,7 @@ module:AddOptions(function()
 											db.sortKey = nil
 											RefreshCategoryFrames()
 										end,
-									},
+									}),
 								},
 							},
 						},
@@ -1063,7 +1063,7 @@ module:AddOptions(function()
 									BOTTOMRIGHT = L["Bottom Right"],
 								},
 							},
-							resetMarks = {
+							resetMarks = module.ResetButton({
 								order = 9,
 								type = "execute",
 								name = L["Reset Junk Marks"],
@@ -1081,6 +1081,119 @@ module:AddOptions(function()
 									db.junkExcluded = {}
 									RefreshCategoryFrames()
 								end,
+							}),
+						},
+					},
+					offlineBank = {
+						order = 7,
+						type = "group",
+						name = L["Offline Bank"],
+						-- Account-wide like the inventories it saves
+						get = function(info)
+							return E.global.mui.bags.offline[info[#info]]
+						end,
+						set = function(info, value)
+							E.global.mui.bags.offline[info[#info]] = value
+							BC:UpdateOffline()
+							RefreshCategoryFrames()
+						end,
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = L["Offline Bank"],
+								desc = L["Saves the bags, bank, equipment and mail of each character when you see them, plus the warband and guild bank. A button in the bag and bank title shows them anywhere and searches through all characters."],
+							}),
+							tooltip = module.ToggleCard({
+								order = 2,
+								name = L["Tooltip Item Counts"],
+								desc = L["Item tooltips list how many of that item each of your characters owns, plus the warband and guild bank."],
+							}),
+							tooltipOptions = {
+								order = 3,
+								type = "group",
+								inline = true,
+								name = L["Tooltip Item Counts"],
+								disabled = function()
+									return BagsDisabled() or not E.global.mui.bags.offline.tooltip
+								end,
+								args = {
+									tooltipScope = {
+										order = 1,
+										type = "select",
+										name = L["Characters"],
+										values = {
+											ALL = L["All Characters"],
+											CONNECTED = L["Connected Realms"],
+										},
+									},
+									tooltipOwnFaction = {
+										order = 2,
+										type = "toggle",
+										name = L["Own Faction Only"],
+									},
+								},
+							},
+							wipe = {
+								order = 4,
+								type = "execute",
+								name = L["Delete All Saved Data"],
+								confirm = true,
+								confirmText = L["Delete every saved inventory of all characters?"],
+								func = function()
+									BC.Offline.Wipe()
+								end,
+							},
+						},
+					},
+					autoGold = {
+						order = 8,
+						type = "group",
+						name = L["Warband Gold"],
+						hidden = function()
+							return E.Forever
+						end,
+						-- Account-wide, so a shared profile never moves anyone's gold
+						get = function(info)
+							return E.global.mui.bags.autoGold[info[#info]]
+						end,
+						set = function(info, value)
+							E.global.mui.bags.autoGold[info[#info]] = value
+							BC:UpdateAutoGold()
+						end,
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = F.NewFeatureText(L["Auto Deposit/Withdraw Gold"]),
+								desc = L["Opening the bank moves gold between the character and the warband bank until the character carries the set amount. Applies to all characters of the account."],
+							}),
+							amount = {
+								order = 2,
+								type = "input",
+								name = L["Gold To Keep"],
+								desc = L["The gold every character keeps on hand. While this is empty no gold moves, 0 deposits everything."],
+								disabled = function()
+									return BagsDisabled() or not E.global.mui.bags.autoGold.enable
+								end,
+								get = function()
+									local amount = E.global.mui.bags.autoGold.amount
+									return amount and tostring(amount) or ""
+								end,
+								set = function(_, value)
+									E.global.mui.bags.autoGold.amount = tonumber(value)
+									BC:UpdateAutoGold()
+								end,
+								validate = function(_, value)
+									return value == "" or strmatch(value, "^%d+$") ~= nil
+								end,
+							},
+							chat = {
+								order = 3,
+								type = "toggle",
+								name = L["Chat Message"],
+								desc = L["Prints every transfer to the chat."],
+								disabled = function()
+									return BagsDisabled() or not E.global.mui.bags.autoGold.enable
+								end,
 							},
 						},
 					},
@@ -1088,4 +1201,30 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	-- Every font of the categorized bags in a popup behind a button with a summary
+	local fontArgs = options.bags.args.categorizedBags.args.fonts.args
+	local function BagsFontSummary(...)
+		local path = { ... }
+		return module.FontSummary(function()
+			local db = E.db.mui.bags.categorizedBags
+			for _, key in ipairs(path) do
+				db = db and db[key]
+			end
+			return db
+		end)
+	end
+	module.CogGroup(fontArgs, "itemCountFont", BagsFontSummary("itemCountFont"))
+	module.CogGroup(fontArgs.itemLevel.args, "font", BagsFontSummary("itemLevel", "font"))
+	module.CogGroup(fontArgs.itemInfo.args, "font", BagsFontSummary("itemInfo", "font"))
+	module.CogGroup(fontArgs, "headerFont", BagsFontSummary("headerFont"))
+	module.CogGroup(fontArgs, "subHeaderFont", BagsFontSummary("subHeaderFont"))
+
+	module.ModuleCard("bagsSortSpinner", options.bags.args.categorizedBags.args.general.args.spinnerGroup, "enable")
+	module.ModuleCard("bagsItemLevel", fontArgs.itemLevel, "enable")
+	module.ModuleCard("bagsItemInfo", fontArgs.itemInfo, "enable")
+
+	F.MarkTabAsNew("bags")
+	F.MarkTabAsNew("categorizedBags")
+	F.MarkTabAsNew("autoGold")
 end)

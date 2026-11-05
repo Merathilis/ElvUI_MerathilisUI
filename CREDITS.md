@@ -36,6 +36,7 @@
 -   IconPark from https://iconpark.oceanengine.com/official
 
     -   Media/Icons/Categories
+    -   Media/Icons/Chat/search.tga
 
 -   Icon made by Freepik from www.flaticon.com
     -   Media/Icons/Warning.tga

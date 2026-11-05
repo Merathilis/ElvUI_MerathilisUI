@@ -8,6 +8,7 @@ module:AddOptions(function()
 	-- The Minimap button bars share one anchor/size/spacing block. getBar() returns
 	-- the settings table of the bar the block belongs to; the toggles above it keep
 	-- the group's own get/set, so the block brings its own.
+	local barCount = 0
 	local function AddMinimapBarLayout(args, getBar)
 		local function get(info)
 			return getBar()[info[#info]]
@@ -41,7 +42,7 @@ module:AddOptions(function()
 					BOTTOMRIGHT = L["Bottom Right"],
 				},
 			},
-			growth = {
+			growth = module.Segmented({
 				order = 22,
 				type = "select",
 				name = L["Growth Direction"],
@@ -54,7 +55,7 @@ module:AddOptions(function()
 					LEFT = L["Left"],
 					RIGHT = L["Right"],
 				},
-			},
+			}, { "DOWN", "UP", "LEFT", "RIGHT" }),
 			size = {
 				order = 23,
 				type = "range",
@@ -100,6 +101,9 @@ module:AddOptions(function()
 		for key, option in pairs(layout) do
 			args[key] = option
 		end
+
+		barCount = barCount + 1
+		module.LessCommon(args, "minimapBar" .. barCount .. "More", { "point", "xOffset", "yOffset" })
 
 		return args
 	end
@@ -264,7 +268,7 @@ module:AddOptions(function()
 								name = L["Enable"],
 								desc = L["Shows your X coordinate left and your Y coordinate right of the zone text."],
 							},
-							coordsFormat = {
+							coordsFormat = module.Segmented({
 								order = 2,
 								type = "select",
 								name = L["Format"],
@@ -276,7 +280,7 @@ module:AddOptions(function()
 								disabled = function()
 									return LocationPanelDisabled() or not E.db.mui.locationPanel.coords
 								end,
-							},
+							}, { "%.0f", "%.1f", "%.2f" }),
 							coordsColor = {
 								order = 3,
 								type = "color",
@@ -570,4 +574,22 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ColorModeSelect(
+		options.maps.args.locationPanel.args,
+		"colorMode",
+		"customColor",
+		{ "PVP", "CLASS", "CUSTOM" }
+	)
+
+	module.CogGroup(
+		options.maps.args.locationPanel.args,
+		"font",
+		module.FontSummary(function()
+			return E.db.mui.locationPanel.font
+		end)
+	)
+
+	module.ModuleCard("mapsLocationPanel", options.maps.args.locationPanel, "enable")
+	module.ModuleCard("mapsMinimapButtons", options.maps.args.minimapButtons, "enable")
 end)

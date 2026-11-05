@@ -1,0 +1,10 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Core.lua"/>
+	<Script file="Style.lua"/>
+	<Script file="Panel.lua"/>
+	<Script file="Dependencies.lua"/>
+	<Script file="Filter.lua"/>
+	<Script file="Bisect.lua"/>
+	<Script file="Exchange.lua"/>
+	<Script file="Instances.lua"/>
+</Ui>

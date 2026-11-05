@@ -22,6 +22,8 @@ local SecondsToTime = SecondsToTime
 local ToggleCalendar = ToggleCalendar
 local hooksecurefunc = hooksecurefunc
 local C_AddOns = C_AddOns
+local C_Calendar = C_Calendar
+local C_GameRules = C_GameRules
 local C_WeeklyRewards = C_WeeklyRewards
 local C_Timer = C_Timer
 local C_Texture = C_Texture
@@ -31,6 +33,7 @@ local C_CraftingOrders = C_CraftingOrders
 local Enum = Enum
 
 local ADDONS = ADDONS
+local GAMETIME_TOOLTIP_CALENDAR_INVITES = GAMETIME_TOOLTIP_CALENDAR_INVITES
 local HAVE_MAIL = HAVE_MAIL
 local HAVE_MAIL_FROM = HAVE_MAIL_FROM
 local MAILFRAME_CRAFTING_ORDERS_TOOLTIP_TITLE = MAILFRAME_CRAFTING_ORDERS_TOOLTIP_TITLE
@@ -679,6 +682,10 @@ local function ShowCalendarTooltip(self)
 	_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 	_G.GameTooltip:AddLine(L["Calendar"])
 
+	if self.InviteNotice and self.InviteNotice:IsShown() then
+		_G.GameTooltip:AddLine(GAMETIME_TOOLTIP_CALENDAR_INVITES, 1, 1, 1, true)
+	end
+
 	-- Lockout reads can hand back secret values inside an active key or raid.
 	if not F.InProtectedInstance() then
 		if RequestRaidInfo then
@@ -701,9 +708,72 @@ local function ShowCalendarTooltip(self)
 	_G.GameTooltip:Show()
 end
 
+-- Muting GameTimeFrame also mutes its pending invite notice, so the button
+-- carries the same notice with Blizzard's rules (Blizzard_Minimap GameTime.lua):
+-- it shows when the pending count rises while the calendar is closed, a click
+-- dismisses it until another invite arrives, and it clears at zero pending.
+local INVITE_NOTICE_TEXTURE = [[Interface\Calendar\EventNotification]]
+local INVITE_GLOW_TEXTURE = [[Interface\Calendar\EventNotificationGlow]]
+
+local function CalendarInvitesAvailable()
+	if not (C_Calendar and C_Calendar.GetNumPendingInvites) then
+		return false
+	end
+
+	local rule = Enum.GameRule and Enum.GameRule.IngameCalendarDisabled
+	return not (rule and C_GameRules and C_GameRules.IsGameRuleActive and C_GameRules.IsGameRuleActive(rule))
+end
+
+local function CreateInviteNotice(btn)
+	-- Own raised child, so the pulse fades only the notice and draws over neighbouring buttons.
+	local invite = CreateFrame("Frame", nil, btn)
+	invite:SetAllPoints(btn.Icon)
+	invite:SetFrameLevel(btn:GetFrameLevel() + 5)
+	invite:Hide()
+
+	local glow = invite:CreateTexture(nil, "OVERLAY", nil, 1)
+	glow:SetTexture(INVITE_GLOW_TEXTURE)
+	glow:SetBlendMode("ADD")
+	glow:SetPoint("CENTER")
+	invite.Glow = glow
+
+	local notice = invite:CreateTexture(nil, "OVERLAY", nil, 2)
+	notice:SetTexture(INVITE_NOTICE_TEXTURE)
+	notice:SetTexCoord(0.03125, 0.6484375, 0.03125, 0.8671875)
+	notice:SetPoint("CENTER")
+	invite.Notice = notice
+
+	-- Blizzard's cosine flash: full to clear and back every two seconds.
+	local pulse = invite:CreateAnimationGroup()
+	pulse:SetLooping("BOUNCE")
+	local fade = pulse:CreateAnimation("Alpha")
+	fade:SetFromAlpha(1)
+	fade:SetToAlpha(0)
+	fade:SetDuration(1)
+	fade:SetSmoothing("IN_OUT")
+
+	invite:SetScript("OnShow", function()
+		pulse:Play()
+	end)
+	invite:SetScript("OnHide", function()
+		pulse:Stop()
+	end)
+
+	btn.InviteNotice = invite
+	btn.invitesSeen = 0
+end
+
 local function CreateCalendarButton(parent)
 	local day = GetCalendarDay()
-	local btn = CreateIndicatorButton(parent, "Calendar", CalendarAtlases(day), function()
+	local btn = CreateIndicatorButton(parent, "Calendar", CalendarAtlases(day), function(self)
+		local alerted = self.InviteNotice:IsShown()
+		self.InviteNotice:Hide()
+
+		-- The notice only asks for the calendar to be opened, never closed.
+		if alerted and _G.CalendarFrame and _G.CalendarFrame:IsShown() then
+			return
+		end
+
 		if ToggleCalendar then
 			ToggleCalendar()
 		end
@@ -711,6 +781,35 @@ local function CreateCalendarButton(parent)
 
 	btn.calendarDay = day
 	btn.ShowTooltip = ShowCalendarTooltip
+
+	CreateInviteNotice(btn)
+
+	-- The notice follows the icon size: Blizzard's 28x32 notice and 48x48 glow
+	-- around an 18px high icon, scaled to ours.
+	local baseUpdateIcon = btn.UpdateIcon
+	btn.UpdateIcon = function(self, size)
+		baseUpdateIcon(self, size)
+
+		local h = self.Icon:GetHeight()
+		self.InviteNotice.Notice:SetSize(h * 0.875, h)
+		self.InviteNotice.Glow:SetSize(h * 1.5, h * 1.5)
+	end
+
+	btn.RefreshInvites = function(self)
+		local pending = CalendarInvitesAvailable() and C_Calendar.GetNumPendingInvites() or 0
+
+		-- Answering an invite lowers the count, so the next new one alerts again.
+		if pending < self.invitesSeen then
+			self.invitesSeen = pending
+		end
+
+		if pending == 0 then
+			self.InviteNotice:Hide()
+		elseif pending > self.invitesSeen and not (_G.CalendarFrame and _G.CalendarFrame:IsShown()) then
+			self.invitesSeen = pending
+			self.InviteNotice:Show()
+		end
+	end
 
 	-- Swaps the icon over midnight; a no-op on every other tick.
 	btn.RefreshDay = function(self)
@@ -1373,6 +1472,9 @@ function module:RefreshIndicators()
 	end
 
 	local changed = self.calendarButton and self.calendarButton:RefreshDay() or false
+	if self.calendarButton then
+		self.calendarButton:RefreshInvites()
+	end
 
 	for _, entry in ipairs(self.buttons) do
 		local btn = entry.btn
@@ -1517,6 +1619,7 @@ local INDICATOR_EVENTS = {
 	"MAIL_INBOX_UPDATE",
 	"MAIL_CLOSED",
 	"CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS",
+	"CALENDAR_UPDATE_PENDING_INVITES",
 	"PLAYER_ENTERING_WORLD",
 }
 

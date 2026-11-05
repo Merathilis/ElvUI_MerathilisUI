@@ -74,16 +74,15 @@ module:AddOptions(function()
 					E:StaticPopup_Show("CONFIG_RL")
 				end,
 			}),
-			test = {
+			test = module.ActionCard({
 				order = 3,
-				type = "execute",
 				name = L["Test"],
 				desc = L["Show/hide a fake roll bar to preview your settings."],
 				func = function()
 					LR:Test()
 				end,
 				disabled = ModuleDisabled,
-			},
+			}, { icon = I.Media.Icons.Categories.loot_roll, compact = true }),
 			preview = module.PreviewOption(3.5, "MERLootRollPreview", "lootRoll"),
 			spacer = {
 				order = 4,
@@ -91,7 +90,7 @@ module:AddOptions(function()
 				name = "",
 			},
 			layout = SettingsGroup(5, L["Layout"], {
-				growDirection = {
+				growDirection = module.Segmented({
 					order = 1,
 					type = "select",
 					name = L["Grow Direction"],
@@ -99,7 +98,7 @@ module:AddOptions(function()
 						DOWN = L["Down"],
 						UP = L["Up"],
 					},
-				},
+				}, { "DOWN", "UP" }),
 				maxBars = Range(2, L["Max Bars"], 1, 8),
 				spacing = Range(3, L["Spacing"], 0, 20),
 				width = Range(4, L["Width"], 180, 500),

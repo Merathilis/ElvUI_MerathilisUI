@@ -43,16 +43,15 @@ module:AddOptions(function()
 				desc = L["Extends ElvUI's mover mode: movers snap to each other with guide lines, can be anchored to each other, a click selects a mover for the arrow keys and a toolbar shows your changes, which you can save or revert. The positions stay in ElvUI's profile."],
 				image = I.Media.Icons.Categories.unlock_mode,
 			}),
-			open = {
+			open = module.ActionCard({
 				order = 2,
-				type = "execute",
 				name = L["Open Unlock Mode"],
 				desc = L["Opens ElvUI's mover mode with the additions of this page."],
 				func = function()
 					E:ToggleMoveMode()
 					E.ConfigurationToggled = true
 				end,
-			},
+			}, { icon = I.Media.Icons.Categories.unlock_mode, relWidth = 0.5 }),
 			preview = module.PreviewOption(3, "MERUnlockModePreview", "screen"),
 			general = {
 				order = 10,
@@ -88,6 +87,12 @@ module:AddOptions(function()
 						type = "toggle",
 						name = L["Small Movers on Top"],
 						desc = L["Small movers are drawn above big ones, so a mover inside another one can still be grabbed."],
+					},
+					overlapCycle = {
+						order = 4.5,
+						type = "toggle",
+						name = L["Cycle Overlapping Movers"],
+						desc = L["Ctrl+mouse wheel over movers lying on top of each other brings the next one to the top and selects it."],
 					},
 					editModeHints = {
 						order = 5,
@@ -158,6 +163,12 @@ module:AddOptions(function()
 						type = "description",
 						fontSize = "medium",
 						name = L["Select a mover, then Alt-click another one: the selected mover is anchored to it and follows it from then on. The side is taken from where the mover sits. Dragging or nudging an anchored mover only changes its distance to the target. Alt-click the target again to detach it."],
+					},
+					pickDesc = {
+						order = 0.5,
+						type = "description",
+						fontSize = "medium",
+						name = L["Shift+Alt-click picks both points by hand instead: first one of nine on the selected mover, then one on the target. The two points are put on top of each other, Esc cancels."],
 					},
 					anchorLines = {
 						order = 1,

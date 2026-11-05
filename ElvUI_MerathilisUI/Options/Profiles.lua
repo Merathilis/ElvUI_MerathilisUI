@@ -311,6 +311,12 @@ module:AddOptions(function()
 				},
 			},
 		}
+
+		local exportArgs = options.importExport.args.textArea.args
+		module.ActionCard(exportArgs.importButton, { icon = I.Media.Icons.Install })
+		module.ActionCard(exportArgs.exportAllButton, { icon = I.Media.Icons.Categories.Save })
+		module.ActionCard(exportArgs.exportProfileButton, { icon = I.Media.Icons.Categories.Save })
+		module.ActionCard(exportArgs.exportPrivateButton, { icon = I.Media.Icons.Categories.Save })
 	end
 
 	options.importExport.args.autoCopyPrivateProfile = {

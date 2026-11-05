@@ -26,6 +26,10 @@ module:AddOptions(function()
 		return not DB().enable
 	end
 
+	local function IsAttached()
+		return DB().displayMode == "BAR" and DB().bar.attachTo ~= "NONE"
+	end
+
 	-- Own disabled replaces the group's, so every child repeats the module state. The
 	-- timeSpiral, gateway and alert sections have their own enable on top.
 	local function SectionDisabled(section)
@@ -366,7 +370,7 @@ module:AddOptions(function()
 				desc = L["Shows the cooldown of your class's movement spells while they are not available, a banner when Time Spiral lets you use one for free and a reminder when your Gateway Control Shard can be used."],
 				image = I.Media.Icons.Categories.movement_alert,
 			}),
-			test = {
+			test = module.ActionCard({
 				order = 3,
 				type = "execute",
 				name = function()
@@ -377,7 +381,7 @@ module:AddOptions(function()
 				func = function()
 					MA:ToggleTestMode()
 				end,
-			},
+			}, { icon = I.Media.Icons.Categories.movement_alert, compact = true }),
 			general = {
 				order = 10,
 				type = "group",
@@ -391,7 +395,7 @@ module:AddOptions(function()
 						name = L["Combat Only"],
 						desc = L["Only show the cooldowns while you are in combat."],
 					},
-					displayMode = {
+					displayMode = module.Segmented({
 						order = 2,
 						type = "select",
 						name = L["Display Mode"],
@@ -400,8 +404,8 @@ module:AddOptions(function()
 							ICON = L["Icon"],
 							BAR = L["Bar"],
 						},
-					},
-					textFormat = {
+					}, { "TEXT", "ICON", "BAR" }),
+					textFormat = module.Segmented({
 						order = 3,
 						type = "select",
 						name = L["Text Format"],
@@ -413,7 +417,7 @@ module:AddOptions(function()
 							TIME_NAME = L["Time + Name"],
 							TIME = L["Time only"],
 						},
-					},
+					}, { "NAME_TIME", "TIME_NAME", "TIME" }),
 					textWidth = {
 						order = 4,
 						type = "range",
@@ -449,7 +453,7 @@ module:AddOptions(function()
 						max = 30,
 						step = 1,
 					},
-					growDirection = {
+					growDirection = module.Segmented({
 						order = 8,
 						type = "select",
 						name = L["Grow Direction"],
@@ -457,7 +461,10 @@ module:AddOptions(function()
 							UP = L["Up"],
 							DOWN = L["Down"],
 						},
-					},
+						hidden = function()
+							return IsAttached()
+						end,
+					}, { "UP", "DOWN" }),
 					color = {
 						order = 9,
 						type = "group",
@@ -477,6 +484,61 @@ module:AddOptions(function()
 						get = barGet,
 						set = barSet,
 						args = {
+							attachTo = module.Segmented({
+								order = 0.1,
+								type = "select",
+								name = L["Attach To"],
+								desc = L["Places the bars at an ElvUI unit frame instead of their own mover."],
+								values = {
+									NONE = L["None"],
+									player = L["Player"],
+									target = L["Target"],
+									focus = L["Focus"],
+								},
+							}, { "NONE", "player", "target", "focus" }),
+							attachPoint = module.Segmented({
+								order = 0.2,
+								type = "select",
+								name = L["Position"],
+								hidden = function()
+									return not IsAttached()
+								end,
+								values = {
+									TOP = L["Above"],
+									BOTTOM = L["Below"],
+								},
+							}, { "TOP", "BOTTOM" }),
+							matchWidth = {
+								order = 0.3,
+								type = "toggle",
+								name = L["Match Frame Width"],
+								desc = L["The bars take the width of the unit frame."],
+								hidden = function()
+									return not IsAttached()
+								end,
+							},
+							xOffset = {
+								order = 0.4,
+								type = "range",
+								name = L["X-Offset"],
+								hidden = function()
+									return not IsAttached()
+								end,
+								min = -200,
+								max = 200,
+								step = 1,
+							},
+							yOffset = {
+								order = 0.5,
+								type = "range",
+								name = L["Y-Offset"],
+								hidden = function()
+									return not IsAttached()
+								end,
+								min = -200,
+								max = 200,
+								step = 1,
+							},
 							width = {
 								order = 1,
 								type = "range",
@@ -484,6 +546,9 @@ module:AddOptions(function()
 								min = 50,
 								max = 600,
 								step = 1,
+								disabled = function()
+									return Disabled() or (IsAttached() and DB().bar.matchWidth)
+								end,
 							},
 							height = {
 								order = 2,
@@ -641,4 +706,6 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ModuleCard("movementAlertReady", options.movementAlert.args.general.args.alert, "enable")
 end)

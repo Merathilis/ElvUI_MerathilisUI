@@ -210,4 +210,16 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	module.ColorModeSelect(
+		options.actionbars.args.assistedRotation.args,
+		"colorMode",
+		"customColor",
+		{ "DEFAULT", "CLASS", "CUSTOM" }
+	)
+
+	local actionbarArgs = options.actionbars.args
+	module.ModuleCard("abSpecBar", actionbarArgs.specBar, "enable")
+	module.ModuleCard("abAssistedRotation", actionbarArgs.assistedRotation, "enable")
+	module.ModuleCard("abColorModifiers", actionbarArgs.colorModifiers, "enable")
 end)

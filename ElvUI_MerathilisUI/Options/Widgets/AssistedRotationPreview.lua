@@ -1,4 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 local AB = MER:GetModule("MER_Actionbars")
 
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
@@ -38,7 +39,7 @@ local function Update(widget)
 		AB:AssistedRotation_UpdatePreview(sample.rotation, sample.inCombat)
 	end
 
-	widget.frame:SetAlpha(db.enable and 1 or 0.4)
+	widget.stage:SetAlpha(db.enable and 1 or 0.4)
 end
 
 local function CreateSample(parent, offsetX, text, inCombat)
@@ -92,7 +93,7 @@ local function Constructor()
 	end
 
 	widget.SetWidth = function(self, width)
-		self.frame:SetWidth(width)
+		module.Preview.SetStageWidth(self, width)
 	end
 
 	widget.SetLabel = function() end
@@ -104,6 +105,8 @@ local function Constructor()
 	widget.SetJustifyV = function() end
 	widget.SetColor = function() end
 
+	-- Scaled down and centered like the other previews (Preview.lua)
+	module.Preview.Contain(widget)
 	return AceGUI:RegisterAsWidget(widget)
 end
 

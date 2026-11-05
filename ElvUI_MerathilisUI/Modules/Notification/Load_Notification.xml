@@ -8,6 +8,7 @@
 	<Script file="GreatVault.lua"/>
 	<Script file="Guild.lua"/>
 	<Script file="Mail.lua"/>
+	<Script file="Mentions.lua"/>
 	<Script file="Quest.lua"/>
 	<Script file="SocialQueue.lua"/>
 	<Script file="Vignette.lua"/>

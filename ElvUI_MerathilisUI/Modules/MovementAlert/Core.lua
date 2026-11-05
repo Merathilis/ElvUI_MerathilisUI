@@ -1,6 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_MovementAlert")
 local WS = W:GetModule("Skins")
+local UF = E:GetModule("UnitFrames")
 local LSM = E.Libs.LSM
 
 local _G = _G
@@ -575,7 +576,7 @@ function module:StyleSlot(slot)
 	local iconWidth = barDB.showIcon and (barDB.height + 4) or 0
 	slot.bar:SetStatusBarTexture(LSM:Fetch("statusbar", barDB.texture))
 	slot.bar:SetStatusBarColor(r, g, b)
-	slot.bar:Size(barDB.width - iconWidth, barDB.height)
+	slot.bar:Size(max(self:GetBarWidth() - iconWidth, 1), barDB.height)
 	slot.bar:ClearAllPoints()
 	slot.bar:Point("RIGHT", slot, "RIGHT", 0, 0)
 	slot.barIconFrame:Size(barDB.height)
@@ -591,10 +592,101 @@ function module:GetSlotSize(mode)
 	if mode == "ICON" then
 		return db.iconSize, db.iconSize
 	elseif mode == "BAR" then
-		return db.bar.width, db.bar.height
+		return self:GetBarWidth(), db.bar.height
 	end
 
 	return db.textWidth, db.font.size + 8
+end
+
+-------------------------------------------------------------------------------
+--  Unit frame attachment
+--  In bar mode the alerts can sit on top of or below an ElvUI unit frame
+--  instead of their own mover, optionally spanning the frame's width.
+-------------------------------------------------------------------------------
+local ATTACH_UNITS = {
+	player = true,
+	target = true,
+	focus = true,
+}
+
+function module:GetAttachFrame()
+	local db = self.db
+	local unit = db.bar.attachTo
+	if db.displayMode ~= "BAR" or not ATTACH_UNITS[unit] or not E.private.unitframe.enable then
+		return
+	end
+
+	local frame = UF[unit]
+	local unitDB = UF.db and UF.db.units[unit]
+	if frame and unitDB and unitDB.enable then
+		return frame
+	end
+end
+
+function module:IsWidthMatched()
+	return self.attachFrame and self.db.bar.matchWidth
+end
+
+function module:GetBarWidth()
+	if self:IsWidthMatched() then
+		local width = self.anchor:GetWidth()
+		if width and width > 1 then
+			return floor(width + 0.5)
+		end
+	end
+
+	return self.db.bar.width
+end
+
+function module:GrowsUp()
+	if self.attachFrame then
+		return self.db.bar.attachPoint == "TOP"
+	end
+
+	return self.db.growDirection == "UP"
+end
+
+-- The anchor follows the unit frame's width through its own points, a change
+-- of the frame size only has to restyle the bars.
+local function Anchor_OnSizeChanged()
+	if not module:IsWidthMatched() then
+		return
+	end
+
+	module.styleVersion = (module.styleVersion or 0) + 1
+	for _, slot in ipairs(slots) do
+		module:StyleSlot(slot)
+	end
+end
+
+function module:UpdateAttachment()
+	local anchor = self.anchor
+	local frame = self:GetAttachFrame()
+	self.attachFrame = frame
+
+	anchor:ClearAllPoints()
+	if not frame then
+		anchor:SetScript("OnSizeChanged", nil)
+		anchor:SetPoint("CENTER", anchor.mover, "CENTER")
+		return
+	end
+
+	local db = self.db
+	local top = db.bar.attachPoint == "TOP"
+	local point, relativePoint = top and "BOTTOM" or "TOP", top and "TOP" or "BOTTOM"
+	local x = db.bar.xOffset
+	local y = (top and db.spacing or -db.spacing) + db.bar.yOffset
+
+	if db.bar.matchWidth then
+		-- The bar backdrop sits outside the bar, inset so its border lines up
+		local inset = E.Border
+		anchor:SetPoint(point .. "LEFT", frame, relativePoint .. "LEFT", inset + x, y)
+		anchor:SetPoint(point .. "RIGHT", frame, relativePoint .. "RIGHT", -inset + x, y)
+		anchor:SetScript("OnSizeChanged", Anchor_OnSizeChanged)
+	else
+		anchor:SetPoint(point, frame, relativePoint, x, y)
+		anchor:SetScript("OnSizeChanged", nil)
+	end
 end
 
 -- Label and countdown are two separate font strings, centered as one unit: the
@@ -718,7 +810,7 @@ end
 
 function module:LayoutSlots(count)
 	local spacing = self.db.spacing
-	local growUp = self.db.growDirection == "UP"
+	local growUp = self:GrowsUp()
 	for i = 1, count do
 		local slot = slots[i]
 		slot:ClearAllPoints()
@@ -1131,6 +1223,7 @@ function module:UpdateLayout()
 	end
 
 	local db = self.db
+	self:UpdateAttachment()
 	self.styleVersion = (self.styleVersion or 0) + 1
 	local width, height = self:GetSlotSize(db.displayMode)
 	self.anchor:Size(width, height)
@@ -1168,6 +1261,11 @@ local EVENTS = {
 function module:PLAYER_ENTERING_WORLD()
 	self.inCombat = UnitAffectingCombat("player")
 	self:HideTimeSpiral()
+	-- The unit frames may have been enabled or created since the last layout
+	if self.db.bar.attachTo ~= "NONE" then
+		self:UpdateMovers()
+		self:UpdateLayout()
+	end
 	self:RefreshSpells()
 	self:UpdateGateway()
 end
@@ -1255,7 +1353,7 @@ end
 
 function module:UpdateMovers()
 	local db = self.db
-	SetMoverEnabled("MER_MovementAlertMover", db.enable)
+	SetMoverEnabled("MER_MovementAlertMover", db.enable and not self:GetAttachFrame())
 	SetMoverEnabled("MER_MovementAlertTimeSpiralMover", db.enable and db.timeSpiral.enable)
 	SetMoverEnabled("MER_MovementAlertGatewayMover", db.enable and db.gateway.enable)
 end

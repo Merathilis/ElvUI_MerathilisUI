@@ -45,6 +45,8 @@ local InCombatLockdown = InCombatLockdown
 local HideUIPanel = HideUIPanel
 
 local GEM_CLASS = (Enum and Enum.ItemClass and Enum.ItemClass.Gem) or 3
+-- Includes the reagent bag: gems looted from the mailbox go there first
+local MAX_BAG_INDEX = _G.NUM_TOTAL_EQUIPPED_BAG_SLOTS or _G.NUM_BAG_SLOTS or 5
 
 local EMPTY_SOCKET_TEXTURE = "Interface\\ItemSocketingFrame\\UI-EmptySocket-Prismatic"
 
@@ -221,7 +223,7 @@ local function FindBagSlot(itemID)
 		return nil
 	end
 
-	local maxBag = _G.NUM_BAG_SLOTS or 5
+	local maxBag = MAX_BAG_INDEX
 
 	for bag = 0, maxBag do
 		local slots = GetContainerNumSlots(bag) or 0
@@ -529,7 +531,7 @@ function module:ScanSocketGems()
 	end
 
 	local seen = {}
-	local maxBag = _G.NUM_BAG_SLOTS or 5
+	local maxBag = MAX_BAG_INDEX
 
 	for bag = 0, maxBag do
 		local slots = GetContainerNumSlots(bag) or 0
@@ -686,7 +688,8 @@ function module:RebuildSocketPanel()
 	end
 
 	self.socketPanel:SetSize(max(iconSize, count * (iconSize + spacing) - spacing), iconSize)
-	self.socketPanel:Show()
+	-- Sits on top of the lower stat rows, which the stat picker needs while editing
+	self.socketPanel:SetShown(not self.statEditMode)
 end
 
 function module:CloseSocketSession()
@@ -1004,6 +1007,9 @@ function module:OpenSocketFlyout(iconButton, targetSlot, targetSocketIndex, hove
 	-- as soon as the flyout opens.
 	self:StartSocketSlotGlow(targetSlot)
 
+	-- Always read the bags fresh: BAG_UPDATE_DELAYED can fire before freshly
+	-- looted items (e.g. from the mailbox) report their data, leaving the cache stale
+	self.socketGemDirty = true
 	self:PopulateSocketFlyout()
 
 	self.socketFlyout:ClearAllPoints()

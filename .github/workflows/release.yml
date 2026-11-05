@@ -25,9 +25,10 @@ jobs:
             # otherwise, the upload to GitHub Releases won't work.
             GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
 
-            # Project URLs - used for the Discord announcement
+            # Project URLs - used for the changelog notice and the Discord announcement
             CF_URL: https://www.curseforge.com/wow/addons/merathilis-ui
             WAGO_URL: https://addons.wago.io/addons/elvui-merathilisui
+            WEBSITE_URL: https://merathilisui.com
 
         steps:
             # ---------------------------------------------------------
@@ -52,7 +53,23 @@ jobs:
               run: |
                   VERSION="${GITHUB_REF#refs/tags/}"
                   echo "RELEASE_VERSION=${VERSION}" >> "$GITHUB_ENV"
+                  echo "CHANGELOG_URL=${WEBSITE_URL}/changelog#v${VERSION}" >> "$GITHUB_ENV"
                   echo "Releasing version: ${VERSION}"
+
+            # ---------------------------------------------------------
+            # The patch notes live on the website only (built from
+            # Core/Changelog/*.lua). CurseForge, Wago and GitHub get this
+            # notice, written for the build as the manual changelog of
+            # .pkgmeta, so CHANGELOG.md is not part of the repository.
+            # ---------------------------------------------------------
+            - name: Write Changelog Notice
+              shell: bash
+              run: |
+                  cat > CHANGELOG.md <<EOF
+                  ### Changes
+
+                  The full changelog for this version is on our website: [merathilisui.com/changelog](${CHANGELOG_URL})
+                  EOF
 
             # ---------------------------------------------------------
             # Package addon and upload to:
@@ -170,7 +187,7 @@ jobs:
                   CHANNEL_ID: ${{ vars.DISCORD_CHANNEL_ID || '907240345346142219' }}
                   RELEASE_URL: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}
                   LOGO_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/media/logo.png
-                  WEBSITE_URL: https://merathilisui.com
+                  CHANGELOG_FILE: ElvUI_MerathilisUI/Core/Changelog/${{ github.ref_name }}.lua
               run: |
                   summary() {
                       echo "$1"
@@ -182,46 +199,51 @@ jobs:
                       exit 0
                   fi
 
+                  if [ ! -f "$CHANGELOG_FILE" ]; then
+                      echo "::warning::${CHANGELOG_FILE} not found, skipping Discord announcement"
+                      exit 0
+                  fi
+
                   API="https://discord.com/api/v10/channels/${CHANNEL_ID}/messages"
                   UA="DiscordBot (${{ github.server_url }}/${{ github.repository }}, 1.0)"
 
-                  # Group the "-   [Fix]: Module: text" lines by category (New first) and bold the module
+                  # Group the "[Module]: text" strings of the Lua changelog by category (New first),
+                  # bold the module and count per category, so a cut off list still shows the size of the release
                   awk '
                       { sub(/\r$/, "") }
-                      /^-[[:space:]]+\[(Fix|New|Improvement)\]:/ {
-                          cat = $0
-                          sub(/^-[[:space:]]+\[/, "", cat)
-                          sub(/\].*/, "", cat)
+                      /^[[:space:]]*FIXES[[:space:]]*=/ { cat = "Fix" }
+                      /^[[:space:]]*NEW[[:space:]]*=/ { cat = "New" }
+                      /^[[:space:]]*IMPROVEMENTS[[:space:]]*=/ { cat = "Improvement" }
+                      cat != "" && /^[[:space:]]*[\042\047]/ {
                           text = $0
-                          sub(/^-[[:space:]]+\[[^]]+\]:[[:space:]]*/, "", text)
-                          if (match(text, /^[^:]+: /)) {
-                              text = "**" substr(text, 1, RLENGTH - 2) ":** " substr(text, RLENGTH + 1)
+                          sub(/^[[:space:]]*[\042\047]/, "", text)
+                          sub(/[\042\047],?[[:space:]]*$/, "", text)
+                          gsub(/\\/, "", text)
+                          if (match(text, /^\[[^]]+\]: /)) {
+                              text = "**" substr(text, 2, RLENGTH - 4) ":** " substr(text, RLENGTH + 1)
                           }
                           lines[cat] = lines[cat] "• " text "\n"
+                          count[cat]++
                       }
                       END {
                           if (lines["New"] != "") printf "**✨ New**\n%s\n", lines["New"]
                           if (lines["Improvement"] != "") printf "**👌 Improvements**\n%s\n", lines["Improvement"]
                           if (lines["Fix"] != "") printf "**🐛 Fixes**\n%s", lines["Fix"]
+                          printf "✨ %d New · 👌 %d Improvements · 🐛 %d Fixes", count["New"], count["Improvement"], count["Fix"] > "DISCORD_COUNTS.txt"
                       }
-                  ' CHANGELOG.md > DISCORD_NOTES.md
-
-                  # Counts per category, so a cut off list still shows the size of the release
-                  NEW=$(grep -c '^-[[:space:]]*\[New\]' CHANGELOG.md || true)
-                  IMPROVEMENTS=$(grep -c '^-[[:space:]]*\[Improvement\]' CHANGELOG.md || true)
-                  FIXES=$(grep -c '^-[[:space:]]*\[Fix\]' CHANGELOG.md || true)
-                  COUNTS="✨ ${NEW} New · 👌 ${IMPROVEMENTS} Improvements · 🐛 ${FIXES} Fixes"
+                  ' "$CHANGELOG_FILE" > DISCORD_NOTES.md
+                  COUNTS=$(cat DISCORD_COUNTS.txt)
 
                   # Embed descriptions are capped at 4096 chars, cut at a line boundary
                   if [ "$(wc -m < DISCORD_NOTES.md)" -gt 3800 ]; then
                       awk '{ n += length($0) + 1; if (n > 3600) exit; print }' DISCORD_NOTES.md > DISCORD_NOTES.tmp
-                      printf '\n…\n[Full changelog](%s)\n' "$RELEASE_URL" >> DISCORD_NOTES.tmp
+                      printf '\n…\n[Full changelog](%s)\n' "$CHANGELOG_URL" >> DISCORD_NOTES.tmp
                       mv DISCORD_NOTES.tmp DISCORD_NOTES.md
                   fi
 
                   jq -n \
                       --arg version "$RELEASE_VERSION" \
-                      --arg url "$RELEASE_URL" \
+                      --arg url "$CHANGELOG_URL" \
                       --arg logo "$LOGO_URL" \
                       --rawfile notes DISCORD_NOTES.md \
                       --arg counts "$COUNTS" \

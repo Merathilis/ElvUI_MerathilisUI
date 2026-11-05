@@ -51,6 +51,30 @@ module:AddOptions(function()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.castTarget.enable
 	end
 
+	local function CastingColorDisabled()
+		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.castingColor.enable
+	end
+
+	local function CastingColorOption(order, key, name)
+		return {
+			order = order,
+			type = "color",
+			name = name,
+			hasAlpha = false,
+			disabled = CastingColorDisabled,
+			get = function()
+				local db = E.db.mui.nameplates.castingColor[key]
+				local default = P.nameplates.castingColor[key]
+				return db.r, db.g, db.b, nil, default.r, default.g, default.b, nil
+			end,
+			set = function(_, r, g, b)
+				local db = E.db.mui.nameplates.castingColor[key]
+				db.r, db.g, db.b = r, g, b
+				MNP:UpdateCastingColors()
+			end,
+		}
+	end
+
 	local function NeutralNameOnlyDisabled()
 		return not MER:HasRequirements(I.Requirements.NamePlates) or not E.db.mui.nameplates.neutralNameOnly.enable
 	end
@@ -132,7 +156,7 @@ module:AddOptions(function()
 								desc = L["Shows the faction icon of players from the opposing faction."],
 							}),
 							preview = module.PreviewOption(1.5, "MERFactionIndicatorPreview", "nameplates"),
-							style = {
+							style = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Style"],
@@ -141,7 +165,7 @@ module:AddOptions(function()
 									crest = L["Crest"],
 									round = L["Round"],
 								},
-							},
+							}, { "crest", "round" }),
 							size = {
 								order = 4,
 								type = "range",
@@ -283,7 +307,7 @@ module:AddOptions(function()
 						args = {
 							enable = module.ToggleCard({
 								order = 1,
-								name = F.NewFeatureText(L["Enable"]),
+								name = L["Enable"],
 								desc = L["Makes the nameplate of your target stand out: while you have a target, the other nameplates fade and get a dark shade, the new target pops up once."],
 							}),
 							preview = module.PreviewOption(1.5, "MERTargetEmphasisPreview", "nameplates"),
@@ -444,6 +468,46 @@ module:AddOptions(function()
 							},
 						},
 					},
+					castingColor = {
+						order = 3.25,
+						type = "group",
+						name = L["Color Casting Enemies"],
+						guiInline = true,
+						get = function(info)
+							return E.db.mui.nameplates.castingColor[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.nameplates.castingColor[info[#info]] = value
+							MNP:UpdateCastingColors()
+						end,
+						disabled = module.RequirementsDisabled(I.Requirements.NamePlates),
+						args = {
+							enable = module.ToggleCard({
+								order = 1,
+								name = F.NewFeatureText(L["Enable"]),
+								desc = L["Enemy NPCs keep a health bar color after their first cast, so casters stay visible for the whole pull. Interruptible wins once a mob has shown both kinds. Needs ElvUI's nameplate castbar."],
+							}),
+							preview = {
+								order = 1.5,
+								type = "description",
+								dialogControl = "MERNameplateHealthPreview",
+								name = "castingColor",
+								width = "full",
+							},
+							interruptible = CastingColorOption(3, "interruptible", L["Interruptible"]),
+							uninterruptible = CastingColorOption(4, "uninterruptible", L["Non-Interruptible"]),
+							alpha = {
+								order = 5,
+								type = "range",
+								name = L["Alpha"],
+								disabled = CastingColorDisabled,
+								min = 0.05,
+								max = 1,
+								step = 0.05,
+								isPercent = true,
+							},
+						},
+					},
 					enemyForces = {
 						order = 3.3,
 						type = "group",
@@ -471,7 +535,7 @@ module:AddOptions(function()
 								name = "enemyForces",
 								width = "full",
 							},
-							format = {
+							format = module.Segmented({
 								order = 3,
 								type = "select",
 								name = L["Contribution Format"],
@@ -482,7 +546,7 @@ module:AddOptions(function()
 									NUMBER = L["Number"],
 									BOTH = L["Both"],
 								},
-							},
+							}, { "PERCENT", "NUMBER", "BOTH" }),
 							fontSize = {
 								order = 4,
 								type = "range",
@@ -836,6 +900,26 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	local indicators = options.nameplates.args.indicators.args
+	module.LessCommon(indicators.factionIndicator.args, "npFactionIndicatorMore", { "position", "xOffset", "yOffset" })
+	module.LessCommon(indicators.enemyForces.args, "npEnemyForcesMore", { "position", "xOffset", "yOffset" })
+	for key, id in pairs({
+		factionIndicator = "npFactionIndicator",
+		targetArrows = "npTargetArrows",
+		targetEmphasis = "npTargetEmphasis",
+		markerColor = "npMarkerColor",
+		castingColor = "npCastingColor",
+		enemyForces = "npEnemyForces",
+	}) do
+		module.ModuleCard(id, indicators[key], "enable")
+	end
+
+	local highlight = options.nameplates.args.highlight.args
+	module.ModuleCard("npHoverHighlight", highlight.highlight, "enable")
+	module.ModuleCard("npFocusHighlight", highlight.focusHighlight, "enable")
+	module.ModuleCard("npCastTarget", options.nameplates.args.castbar.args.castTarget, "enable")
+
 	F.MarkTabAsNew("nameplates")
 	F.MarkTabAsNew("indicators")
 end)

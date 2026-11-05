@@ -650,7 +650,14 @@ function module:LFG_LIST_APPLICATION_STATUS_UPDATED(_, resultID, status, oldStat
 end
 
 function module:PLAYER_LOGOUT()
-	E.private.mui.groupFinder.sessionTime = time()
+	-- ElvUI's logout cleanup runs first and drops the whole table while it
+	-- still only holds defaults, so recreate it for the timestamp to be saved
+	local mui = E.private.mui
+	if not mui then
+		return
+	end
+	mui.groupFinder = mui.groupFinder or {}
+	mui.groupFinder.sessionTime = time()
 end
 
 -------------------------------------------------------------------------------

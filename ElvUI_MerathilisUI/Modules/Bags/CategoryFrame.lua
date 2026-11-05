@@ -3030,46 +3030,279 @@ local function GetBindText(itemLink, isBound, isUntilEquipped)
 	return bindType and BIND_TEXT[bindType]
 end
 
--- Bind keyword search (bags and bank): typing exactly BoP / BoE / WuE (any
--- case) filters by bind type instead of the native tooltip search. Scoped in a
--- do block, this file is close to Lua's 200-locals limit.
+-- Bind search (bags and bank): typing BoP / BoE / WuE / BoA / Soulbound /
+-- Warbound (any case) filters by bind type instead of the native tooltip
+-- search. A keyword can take an item level ("bop=300", "boe>=280", "wue
+-- 290-300") and terms combine with and / or / not (also & | !) and
+-- parentheses, terms side by side mean and. Anything else goes to the native
+-- search untouched. Scoped in a do block, this file is close to Lua's
+-- 200-locals limit.
 do
-	local BIND_KEYWORDS = { bop = true, boe = true, wue = true }
-	local lastText, lastKeyword
+	local BIND_KEYWORDS = {
+		bop = true,
+		boe = true,
+		wue = true,
+		boa = true,
+		soulbound = true,
+		warbound = true,
+	}
+	local OPERATORS = { ["="] = "=", ["=="] = "=", [">"] = ">", [">="] = ">=", ["<"] = "<", ["<="] = "<=" }
+	local MAX_DEPTH = 12
+	local ITEMBIND_TO_WOW_ACCOUNT = Enum.ItemBind.ToWoWAccount or 7
+	local lastText, lastQuery
 
-	local function ActiveKeyword()
+	-- nil for anything that isn't made of the known words and symbols only
+	local function Tokenize(text)
+		local tokens, i, n = {}, 1, #text
+		while i <= n do
+			local c = strsub(text, i, i)
+			if strfind(c, "^%s") then
+				i = i + 1
+			elseif c == "(" then
+				tokens[#tokens + 1] = { kind = "lp" }
+				i = i + 1
+			elseif c == ")" then
+				tokens[#tokens + 1] = { kind = "rp" }
+				i = i + 1
+			elseif c == "!" then
+				tokens[#tokens + 1] = { kind = "not" }
+				i = i + 1
+			elseif c == "&" or c == "|" then
+				tokens[#tokens + 1] = { kind = c == "&" and "and" or "or" }
+				i = i + (strsub(text, i + 1, i + 1) == c and 2 or 1)
+			elseif strfind(c, "^[<>=]") then
+				local op = strmatch(text, "^[<>=]=?", i)
+				if not OPERATORS[op] then
+					return nil
+				end
+				tokens[#tokens + 1] = { kind = "op", value = OPERATORS[op] }
+				i = i + #op
+			elseif strfind(c, "^%d") then
+				local low, high, after = strmatch(text, "^(%d+)%s*%-%s*(%d+)()", i)
+				if low then
+					tokens[#tokens + 1] = { kind = "range", low = tonumber(low), high = tonumber(high) }
+					i = after
+				else
+					local digits = strmatch(text, "^%d+", i)
+					tokens[#tokens + 1] = { kind = "num", value = tonumber(digits) }
+					i = i + #digits
+				end
+			elseif strfind(c, "^%a") then
+				local word = strmatch(text, "^%a+", i)
+				i = i + #word
+				if word == "and" or word == "or" or word == "not" then
+					tokens[#tokens + 1] = { kind = word }
+				elseif BIND_KEYWORDS[word] then
+					tokens[#tokens + 1] = { kind = "keyword", value = word }
+				else
+					return nil
+				end
+			else
+				return nil
+			end
+		end
+		return tokens
+	end
+
+	-- not binds tighter than and, and tighter than or. Returns the expression
+	-- tree, or nil when the text isn't a complete bind query.
+	local function Parse(text)
+		local tokens = Tokenize(strlower(strtrim(text or "")))
+		if not tokens or #tokens == 0 then
+			return nil
+		end
+
+		local pos = 1
+		local ParseOr
+
+		local function ParseTerm(depth)
+			local token = tokens[pos]
+			if not token then
+				return nil
+			end
+
+			if token.kind == "lp" then
+				if depth >= MAX_DEPTH then
+					return nil
+				end
+				pos = pos + 1
+				local inner = ParseOr(depth + 1)
+				if not inner or not tokens[pos] or tokens[pos].kind ~= "rp" then
+					return nil
+				end
+				pos = pos + 1
+				return inner
+			end
+
+			if token.kind ~= "keyword" then
+				return nil
+			end
+			pos = pos + 1
+
+			local node = { type = "term", keyword = token.value }
+			local nextToken = tokens[pos]
+			if nextToken and nextToken.kind == "op" then
+				local number = tokens[pos + 1]
+				if not number or number.kind ~= "num" then
+					return nil
+				end
+				node.op, node.low = nextToken.value, number.value
+				pos = pos + 2
+			elseif nextToken and nextToken.kind == "range" then
+				node.op = "-"
+				node.low, node.high = min(nextToken.low, nextToken.high), max(nextToken.low, nextToken.high)
+				pos = pos + 1
+			elseif nextToken and nextToken.kind == "num" then
+				node.op, node.low = "=", nextToken.value
+				pos = pos + 1
+			end
+			return node
+		end
+
+		local function ParseNot(depth)
+			local token = tokens[pos]
+			if token and token.kind == "not" then
+				if depth >= MAX_DEPTH then
+					return nil
+				end
+				pos = pos + 1
+				local operand = ParseNot(depth + 1)
+				return operand and { type = "not", a = operand }
+			end
+			return ParseTerm(depth)
+		end
+
+		local function ParseAnd(depth)
+			local left = ParseNot(depth)
+			while left and tokens[pos] do
+				local kind = tokens[pos].kind
+				if kind ~= "and" and kind ~= "keyword" and kind ~= "not" and kind ~= "lp" then
+					break
+				end
+				if kind == "and" then
+					pos = pos + 1
+				end
+				local right = ParseNot(depth)
+				left = right and { type = "and", a = left, b = right }
+			end
+			return left
+		end
+
+		ParseOr = function(depth)
+			local left = ParseAnd(depth)
+			while left and tokens[pos] and tokens[pos].kind == "or" do
+				pos = pos + 1
+				local right = ParseAnd(depth)
+				left = right and { type = "or", a = left, b = right }
+			end
+			return left
+		end
+
+		local root = ParseOr(0)
+		if root and pos == #tokens + 1 then
+			return root
+		end
+	end
+
+	local function ActiveQuery()
 		local text = module.searchText
 		if text ~= lastText then
 			lastText = text
-			local k = strtrim(text or ""):lower()
-			lastKeyword = BIND_KEYWORDS[k] and k or nil
+			lastQuery = Parse(text)
 		end
-		return lastKeyword
+		return lastQuery
 	end
 
-	local function MatchesKeyword(k, info, bagID, slotID)
-		local isUntilEquipped = false
-		if not info.isBound then
-			isUntilEquipped = select(2, GetWarboundInfo(info.hyperlink, bagID, slotID))
+	-- What the terms ask about the slot under test, the item level and the
+	-- warbound check only when a term needs them
+	local slot = {}
+
+	local function IsUntilEquipped()
+		if slot.untilEquipped == nil then
+			slot.untilEquipped = not slot.info.isBound
+					and select(2, GetWarboundInfo(slot.info.hyperlink, slot.bagID, slot.slotID))
+				or false
 		end
-		if k == "wue" then
-			return isUntilEquipped
-		end
-		local bindType = info.hyperlink and select(14, API.GetItemInfo(info.hyperlink))
-		if k == "boe" then
-			return bindType == ITEMBIND_ON_EQUIP and not isUntilEquipped and not info.isBound
-		end
-		return bindType == Enum.ItemBind.OnAcquire
+		return slot.untilEquipped
 	end
 
-	-- True when a slot is hidden by the active search: the bind keyword when
+	local function ItemLevelMatches(node)
+		if slot.itemLevel == nil then
+			slot.itemLevel = GetDisplayItemLevel(slot.info.hyperlink, slot.info.quality) or false
+		end
+
+		local itemLevel = slot.itemLevel
+		if not itemLevel then
+			return false
+		end
+
+		local op, low = node.op, node.low
+		if op == "=" then
+			return itemLevel == low
+		elseif op == ">" then
+			return itemLevel > low
+		elseif op == ">=" then
+			return itemLevel >= low
+		elseif op == "<" then
+			return itemLevel < low
+		elseif op == "<=" then
+			return itemLevel <= low
+		end
+		return itemLevel >= low and itemLevel <= node.high
+	end
+
+	local function TermMatches(node)
+		local keyword, bindType, isBound = node.keyword, slot.bindType, slot.info.isBound
+		local isAccount = bindType == ITEMBIND_TO_WOW_ACCOUNT
+			or bindType == ITEMBIND_TO_BNET_ACCOUNT
+			or bindType == ITEMBIND_TO_BNET_ACCOUNT_UNTIL_EQUIPPED
+
+		local match
+		if keyword == "bop" then
+			match = bindType == Enum.ItemBind.OnAcquire
+		elseif keyword == "boa" then
+			match = bindType == ITEMBIND_TO_WOW_ACCOUNT
+		elseif keyword == "soulbound" then
+			match = isBound and not isAccount
+		elseif keyword == "warbound" then
+			match = isBound and isAccount
+		elseif keyword == "wue" then
+			match = IsUntilEquipped()
+		else
+			match = bindType == ITEMBIND_ON_EQUIP and not isBound and not IsUntilEquipped()
+		end
+
+		if match and node.op then
+			match = ItemLevelMatches(node)
+		end
+		return match and true or false
+	end
+
+	local function Matches(node)
+		local nodeType = node.type
+		if nodeType == "term" then
+			return TermMatches(node)
+		elseif nodeType == "not" then
+			return not Matches(node.a)
+		elseif nodeType == "and" then
+			return Matches(node.a) and Matches(node.b)
+		end
+		return Matches(node.a) or Matches(node.b)
+	end
+
+	-- True when a slot is hidden by the active search: the bind query when
 	-- one is typed, the native item-search filter otherwise
 	function module.IsSearchFiltered(info, bagID, slotID)
-		local k = ActiveKeyword()
-		if not k then
+		local query = ActiveQuery()
+		if not query then
 			return info.isFiltered
 		end
-		return not MatchesKeyword(k, info, bagID, slotID)
+
+		slot.info, slot.bagID, slot.slotID = info, bagID, slotID
+		slot.bindType = info.hyperlink and select(14, API.GetItemInfo(info.hyperlink))
+		slot.untilEquipped, slot.itemLevel = nil, nil
+
+		return not Matches(query)
 	end
 end
 
@@ -4619,6 +4852,7 @@ function module:RefreshCategoryFrame()
 	SetFillBar(f, usedSlots, totalSlots)
 	module:UpdateJunkMarkButton()
 	module:UpdateQuickActionsButton()
+	module:OfflineSyncFrame(f)
 end
 
 -------------------------------------------------------------------------------
@@ -5832,6 +6066,10 @@ function module:Initialize()
 
 	module.searchText = ""
 	module.bankViewMode = module.bankViewMode or "BANK_ALL"
+
+	-- Account-wide and independent of the categorized bags, see Offline.lua and AutoGold.lua
+	module:UpdateOffline()
+	module:UpdateAutoGold()
 
 	if not db.enable then
 		return

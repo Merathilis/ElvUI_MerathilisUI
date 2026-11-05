@@ -131,6 +131,14 @@ function module:Select(mover)
 end
 
 function module:HandleKey(key)
+	if self.picking then
+		if key == "ESCAPE" then
+			self:CancelPointPicker()
+			return true
+		end
+		return false
+	end
+
 	local mover = self.selected
 	if not mover or not mover:IsShown() then
 		return false
@@ -202,13 +210,23 @@ local function OnDragStop(mover)
 end
 
 local function OnMouseUp(mover, button)
-	if not module:IsActive() or button ~= "LeftButton" or IsShiftKeyDown() then
+	if not module:IsActive() or button ~= "LeftButton" then
+		return
+	end
+
+	local selected = module.selected
+	local wasDrag = module.dragging or GetTime() - (module.lastDragStop or 0) < DRAG_CLICK_GUARD
+
+	-- ElvUI does nothing on Shift+Left-click, Shift+Alt picks the anchor points by hand
+	if IsShiftKeyDown() then
+		if IsAltKeyDown() and not wasDrag and selected and selected ~= mover then
+			module:OpenPointPicker(selected, mover)
+		end
 		return
 	end
 
 	-- ElvUI toggled its nudge window on this mouse up, the selection decides instead
-	local selected = module.selected
-	if module.dragging or GetTime() - (module.lastDragStop or 0) < DRAG_CLICK_GUARD then
+	if wasDrag then
 		module:Select(selected)
 	elseif IsAltKeyDown() and selected and selected ~= mover then
 		module:ToggleAnchor(selected, mover)
@@ -255,6 +273,7 @@ function module:HookMover(mover)
 	mover:HookScript("OnMouseUp", OnMouseUp)
 	mover:HookScript("OnEnter", OnEnter)
 	mover:HookScript("OnHide", OnHide)
+	self:HookMoverWheel(mover)
 end
 
 function module:HookAllMovers()
@@ -388,7 +407,9 @@ end
 function module:EndSession()
 	self.snapshot = nil
 	self.dragging = false
+	self:CancelPointPicker()
 	self:StopSnap()
+	self:ClearFilter()
 	self:Select(nil)
 	self:UpdateAnchorLines()
 	self:HideEditModeHints()
@@ -444,6 +465,8 @@ function module:OnMoveModeToggled(which)
 	end
 
 	self:HookAllMovers()
+	-- ElvUI just showed the movers of the layout, the name filter goes on top
+	self:ReapplyFilter()
 
 	if self.db.sortBySize then
 		self:SortMovers()

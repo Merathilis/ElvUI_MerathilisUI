@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='ActionBars.lua'/>
+	<Script file='AddonManager.lua'/>
 	<Script file='Armory.lua'/>
 	<Script file='Auras.lua'/>
 	<Script file='Bags.lua'/>

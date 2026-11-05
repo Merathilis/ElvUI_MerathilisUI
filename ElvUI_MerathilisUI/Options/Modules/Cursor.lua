@@ -214,4 +214,10 @@ module:AddOptions(function()
 			),
 		},
 	}
+
+	local cursorArgs = options.cursor.args
+	module.ModuleCard("cursorRing", cursorArgs.ring, "enable")
+	module.ModuleCard("cursorTrail", cursorArgs.trail, "enable")
+	module.ModuleCard("cursorGCD", cursorArgs.gcd, "enable")
+	module.ModuleCard("cursorCastCircle", cursorArgs.castCircle, "enable")
 end)

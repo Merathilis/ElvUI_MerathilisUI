@@ -235,4 +235,6 @@ module:AddOptions(function()
 			afkRequirements = module.RequirementsNotice(I.Requirements.AFK, 5),
 		},
 	}
+
+	module.ModuleCard("generalStyle", options.name.args.style, "enable")
 end)

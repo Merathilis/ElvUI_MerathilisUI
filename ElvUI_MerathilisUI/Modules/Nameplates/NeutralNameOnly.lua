@@ -47,9 +47,15 @@ local function IsActive(nameplate, db)
 	return db.combat and UnitAffectingCombat(unit) and not UnitIsTapDenied(unit) or false
 end
 
+-- Neutral both ways: some mobs are neutral to you but hostile towards you
+-- (reaction 4, repReaction 2), those keep their enemy plate
+local function IsNeutralUnit(nameplate)
+	return not nameplate.isPlayer and not nameplate.isEnemy and nameplate.reaction == 4 and nameplate.repReaction == 4
+end
+
 local function ShouldBeNameOnly(nameplate)
 	local db = GetDB()
-	if not db.enable or nameplate.isPlayer or nameplate.isEnemy or nameplate.reaction ~= 4 then
+	if not db.enable or not IsNeutralUnit(nameplate) then
 		return false
 	end
 
@@ -96,9 +102,7 @@ local function IsNeutralPlate(nameplate)
 		and nameplate.__unit
 		and not nameplate.widgetsOnly
 		and not nameplate.isGameObject
-		and not nameplate.isPlayer
-		and not nameplate.isEnemy
-		and nameplate.reaction == 4
+		and IsNeutralUnit(nameplate)
 end
 
 local function RefreshNeutralPlates()

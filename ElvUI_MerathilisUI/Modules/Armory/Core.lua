@@ -215,29 +215,6 @@ module.characterSlots = {
 	},]]
 }
 
--- Row of each slot from the top for the fade-in on open, both columns appear
--- in step and the weapons last
-module.slotRevealOrder = {
-	HeadSlot = 1,
-	NeckSlot = 2,
-	ShoulderSlot = 3,
-	BackSlot = 4,
-	ChestSlot = 5,
-	ShirtSlot = 6,
-	TabardSlot = 7,
-	WristSlot = 8,
-	HandsSlot = 1,
-	WaistSlot = 2,
-	LegsSlot = 3,
-	FeetSlot = 4,
-	Finger0Slot = 5,
-	Finger1Slot = 6,
-	Trinket0Slot = 7,
-	Trinket1Slot = 8,
-	MainHandSlot = 9,
-	SecondaryHandSlot = 9,
-}
-
 function module:GetPrimaryTalentIndex()
 	local primaryTalentTreeIdx = 0
 	local primaryTalentTree = C_SpecializationInfo_GetSpecialization()
@@ -328,15 +305,6 @@ function module:PlayAnimations()
 
 	for anim, _ in pairs(self.animationObjects) do
 		self:PlayAnimation(anim)
-	end
-
-	-- A stopped fade would leave the slots half visible
-	if self:AnimationsAllowed() then
-		for reveal in pairs(self.slotObjects) do
-			self:PlayAnimation(reveal)
-		end
-	else
-		self:ResetSlotReveal()
 	end
 end
 
@@ -496,64 +464,6 @@ function module:OnEquipmentFlyoutShow(flyout)
 	self:FadeInFlyout(flyout)
 end
 
----Fade-in of Blizzard's item slots when the character frame opens, row by row
----(slotRevealOrder). Only their alpha is touched, ResetSlotReveal puts it back
-function module:SetupSlotReveal()
-	local holdDuration, fadeDuration = 0.04, 0.35
-	local mult = module.db.animationsMult
-
-	for slot, order in pairs(module.slotRevealOrder) do
-		local slotFrame = _G["Character" .. slot]
-		if slotFrame then
-			local reveal = slotFrame.MERReveal
-
-			if not reveal then
-				reveal = CreateAnimationGroup(slotFrame)
-
-				reveal.ResetFade = reveal:CreateAnimation("Fade")
-				reveal.ResetFade:SetDuration(0)
-				reveal.ResetFade:SetChange(0)
-				reveal.ResetFade:SetOrder(1)
-
-				reveal.Hold = reveal:CreateAnimation("Sleep")
-				reveal.Hold:SetOrder(2)
-
-				reveal.Fade = reveal:CreateAnimation("Fade")
-				reveal.Fade:SetEasing("inout-sinusoidal")
-				reveal.Fade:SetChange(1)
-				reveal.Fade:SetOrder(3)
-
-				slotFrame.MERReveal = reveal
-				module.slotObjects[reveal] = slotFrame
-			end
-
-			reveal.Hold:SetDuration(order * holdDuration * mult)
-			reveal.Fade:SetDuration(fadeDuration * mult)
-		end
-	end
-end
-
----Hides the slots right away so they do not flash before the delayed fade-in starts
-function module:PrepareSlotReveal()
-	if not self:AnimationsAllowed() then
-		return
-	end
-
-	for _, slotFrame in pairs(self.slotObjects) do
-		slotFrame:SetAlpha(0)
-	end
-end
-
----Stops the fade-in and shows the slots fully, LibAnim's Stop keeps the alpha it reached
-function module:ResetSlotReveal()
-	for reveal, slotFrame in pairs(self.slotObjects) do
-		if reveal:IsPlaying() then
-			reveal:Stop()
-		end
-		slotFrame:SetAlpha(1)
-	end
-end
-
 -- Stat rows of the character frame and the key C_Item.GetItemStats uses for them
 module.statHighlightKeys = {
 	CRITCHANCE = "ITEM_MOD_CRIT_RATING_SHORT",
@@ -624,9 +534,6 @@ function module:HighlightStatSlots(statFrame)
 	if not (key and db and db.enable and db.stats.highlightSlots) then
 		return
 	end
-
-	-- The fade-in would overwrite the alpha
-	self:ResetSlotReveal()
 
 	for slot, options in pairs(module.characterSlots) do
 		local slotFrame = _G["Character" .. slot]
@@ -984,16 +891,18 @@ local UPGRADE_SEGMENT_GAP = 1
 -- Room between the icon and the bar, ElvUI's texts start further out
 local UPGRADE_BAR_OFFSET = 3
 local UPGRADE_EMPTY_ALPHA = 0.2
+local UPGRADE_TRACK_TEXT_INSET = 2
 
 ---Upgrade level as a bar of segments along the inner edge of an item slot, filled
----from the bottom. Colored like a traffic light by the progress (red, yellow, fully
----upgraded green), the quality color would blend into the border and texts of the
----slot. The options preview passes its own slot
+---from the bottom. Colored by the upgrade track (Adventurer to Myth) when that
+---option is on, otherwise and for unknown tracks like a traffic light by the
+---progress (red, yellow, fully upgraded green). The options preview passes its own slot
 ---@param slot Frame item slot the bar sits next to
 ---@param isLeft boolean? slot of the left column, the bar goes on its right edge
 ---@param current number? upgrade level, nil hides the bar
 ---@param maximum number? highest upgrade level of the track
-function module:SetUpgradeBar(slot, isLeft, current, maximum)
+---@param trackID number? trackStringID of the upgrade track
+function module:SetUpgradeBar(slot, isLeft, current, maximum, trackID)
 	local bar = slot.MERUpgradeBar
 
 	if not (current and maximum and maximum > 0) then
@@ -1020,8 +929,14 @@ function module:SetUpgradeBar(slot, isLeft, current, maximum)
 	end
 
 	local segmentHeight = (slot:GetHeight() - (maximum - 1) * UPGRADE_SEGMENT_GAP) / maximum
-	-- Red at the start, yellow halfway, green once fully upgraded (module.colors)
-	local r, g, b = E:ColorGradient(current / maximum, 0.94, 0.33, 0.31, 1, 0.82, 0, 0.07, 0.9, 0.15)
+	local r, g, b
+	if self.db.pageInfo.upgradeTrackColor then
+		r, g, b = F.GetUpgradeTrackColor(trackID)
+	end
+	if not r then
+		-- Red at the start, yellow halfway, green once fully upgraded (module.colors)
+		r, g, b = E:ColorGradient(current / maximum, 0.94, 0.33, 0.31, 1, 0.82, 0, 0.07, 0.9, 0.15)
+	end
 
 	for index = 1, max(maximum, #bar.segments) do
 		local segment = bar.segments[index]
@@ -1046,14 +961,64 @@ function module:SetUpgradeBar(slot, isLeft, current, maximum)
 	bar:Show()
 end
 
----Upgrade level and maximum of an equipped item, nil for items without a track
+---First letter of the upgrade track in the top corner of the item icon on the side
+---of the upgrade bar, e.g. "H" for Hero, in the color of the track. Next to the item
+---level ElvUI places the sockets, and the texts above both weapons meet. The letter
+---comes from the localized track name. The options preview passes its own slot
+---@param slot Frame item slot
+---@param isLeft boolean? slot of the left column, the letter goes in the top right corner
+---@param trackID number? trackStringID of the upgrade track, nil hides the letter
+---@param trackName string? localized name of the upgrade track
+function module:SetUpgradeTrackText(slot, isLeft, trackID, trackName)
+	local text = slot.MERUpgradeTrackText
+
+	if not (trackID and trackName and trackName ~= "") then
+		if text then
+			text:SetText("")
+		end
+		return
+	end
+
+	if not text then
+		text = slot:CreateFontString(nil, "OVERLAY")
+		if isLeft then
+			text:SetPoint("TOPRIGHT", slot, "TOPRIGHT", -UPGRADE_TRACK_TEXT_INSET, -UPGRADE_TRACK_TEXT_INSET)
+		else
+			text:SetPoint("TOPLEFT", slot, "TOPLEFT", UPGRADE_TRACK_TEXT_INSET, -UPGRADE_TRACK_TEXT_INSET)
+		end
+		slot.MERUpgradeTrackText = text
+	end
+
+	WF.SetFontWithDB(text, self.db.pageInfo.iLvLFont)
+	text:SetText(utf8sub(trackName, 1, 1))
+
+	local r, g, b = F.GetUpgradeTrackColor(trackID)
+	text:SetTextColor(r or 1, g or 1, b or 1)
+end
+
+---Upgrade level, maximum, track ID and localized track name of an equipped item,
+---nil for items without a track
 ---@param slotId number
----@return number?, number?
+---@return number?, number?, number?, string?
 function module:GetSlotUpgradeLevel(slotId)
 	local link = GetInventoryItemLink("player", slotId)
 	local info = link and GetItemUpgradeInfo(link)
 	if info then
-		return info.currentLevel, info.maxLevel
+		-- /muidev debug Armory, to check the track IDs of F.GetUpgradeTrackColor
+		F.Developer.Debug(
+			"Armory",
+			"Slot",
+			slotId,
+			"trackStringID",
+			info.trackStringID,
+			"trackString",
+			info.trackString,
+			"level",
+			info.currentLevel,
+			"/",
+			info.maxLevel
+		)
+		return info.currentLevel, info.maxLevel, info.trackStringID, info.trackString
 	end
 end
 
@@ -1174,12 +1139,24 @@ function module:UpdatePageStrings(_, slotId, _, slotItem, slotInfo, which)
 		slotItem.MERGradient.lastStructuralSignature = structuralSignature
 	end
 
-	-- Upgrade Bar
-	if self.db.pageInfo.upgradeBarEnabled then
-		local current, maximum = self:GetSlotUpgradeLevel(slotId)
-		self:SetUpgradeBar(slotItem, slotOptions.direction == module.enumDirection.LEFT, current, maximum)
+	-- Upgrade Bar and Track
+	local pageInfo = self.db.pageInfo
+	local current, maximum, trackID, trackName
+	if pageInfo.upgradeBarEnabled or pageInfo.upgradeTrackText then
+		current, maximum, trackID, trackName = self:GetSlotUpgradeLevel(slotId)
+	end
+
+	local isLeft = slotOptions.direction == module.enumDirection.LEFT
+	if pageInfo.upgradeBarEnabled then
+		self:SetUpgradeBar(slotItem, isLeft, current, maximum, trackID)
 	else
 		self:SetUpgradeBar(slotItem)
+	end
+
+	if pageInfo.upgradeTrackText then
+		self:SetUpgradeTrackText(slotItem, isLeft, trackID, trackName)
+	else
+		self:SetUpgradeTrackText(slotItem)
 	end
 
 	-- iLvL Text Handling
@@ -1522,6 +1499,38 @@ function module:UpdateCharacterStat(frame, showGradient)
 	end
 end
 
+local function ListContains(list, value)
+	for _, entry in ipairs(list) do
+		if entry == value then
+			return true
+		end
+	end
+	return false
+end
+
+---Smart mode (1) rules of a stat: primary stat, role, class and its own show function.
+---The value check against hideAt follows once the stat is updated.
+local function PassesSmartRules(stat, role, primaryStat)
+	if primaryStat then
+		if stat.primary and stat.primary ~= primaryStat then
+			return false
+		end
+		if stat.primaries and not ListContains(stat.primaries, primaryStat) then
+			return false
+		end
+	end
+	if stat.roles and not ListContains(stat.roles, role) then
+		return false
+	end
+	if stat.classes and not ListContains(stat.classes, E.myclass) then
+		return false
+	end
+	if stat.showFunc then
+		return stat.showFunc()
+	end
+	return true
+end
+
 function module:UpdateCharacterStats()
 	if not module.frame:IsShown() then
 		return
@@ -1559,7 +1568,12 @@ function module:UpdateCharacterStats()
 		primaryStat = select(6, C_SpecializationInfo_GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
 	end
 
-	if level >= (MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY or 0) then
+	-- The stat picker adds the hidden stats that fit the spec, dimmed. Stats of other roles
+	-- would push the list past the bottom of the frame, those stay in the options, and the
+	-- item level makes room while editing.
+	local editMode = module.statEditMode
+
+	if level >= (MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY or 0) and not editMode then
 		module:CleanupCharacterStat(characterStatsPane.ItemLevelFrame)
 
 		local animationSlot = module:GetAnimationSlot(true)
@@ -1583,89 +1597,25 @@ function module:UpdateCharacterStats()
 	characterStatsPane.statsFramePool:ReleaseAll()
 	local statFrame = characterStatsPane.statsFramePool:Acquire()
 	local categories = module.StatCategories
+	local modes = module.db.stats.mode
+
+	module:ClearStatPickerRows()
 
 	for catIndex = 1, #categories do
 		local catFrame = characterStatsPane[categories[catIndex].categoryFrame]
 		local animationSlot = module:GetAnimationSlot(true)
 		local numStatInCat = 0
-		for statIndex = 1, #categories[catIndex].stats do
-			local stat = categories[catIndex].stats[statIndex]
-			local hideAt = stat.hideAt
-			local showStat = true
-			local statMode = 1
+		local stats = module:GetOrderedStats(catIndex)
+		for statIndex = 1, #stats do
+			local stat = stats[statIndex]
+			-- 0 (Hide), 1 (Smart), 2 (Always Show if not empty), 3 (Always Show), nil for unknown stats
+			local statMode = modes[stat.stat] and modes[stat.stat].mode
+			local passesRules = PassesSmartRules(stat, role, primaryStat)
+			local showStat = (statMode == 3) or (statMode == 2) or (statMode == 1 and passesRules)
 
-			-- Append ID string to stat frame
-			statFrame.stringId = stat.stat
-
-			if module.db.stats.mode[stat.stat] ~= nil then
-				statMode = module.db.stats.mode[stat.stat].mode
-			else
-				showStat = false
-			end
-
-			-- Mode 0 - Always Hide
-			if showStat and (statMode == 0) then
-				showStat = false
-			end
-
-			-- Mode 1 - Smart (uses cached primaryStat / role)
-			if showStat and (statMode == 1) then
-				if showStat and stat.primary and primaryStat then
-					if stat.primary ~= primaryStat then
-						showStat = false
-					end
-				end
-
-				if showStat and stat.primaries and primaryStat then
-					local foundPrimary = false
-					for _, primary in pairs(stat.primaries) do
-						if primaryStat == primary then
-							foundPrimary = true
-							break
-						end
-					end
-					showStat = foundPrimary
-				end
-
-				if showStat and stat.roles then
-					local foundRole = false
-					for _, statRole in pairs(stat.roles) do
-						if role == statRole then
-							foundRole = true
-							break
-						end
-					end
-					showStat = foundRole
-				end
-
-				if showStat and stat.classes then
-					local foundClass = false
-					for _, statClass in pairs(stat.classes) do
-						if E.myclass == statClass then
-							foundClass = true
-							break
-						end
-					end
-					showStat = foundClass
-				end
-
-				if showStat and stat.showFunc then
-					showStat = stat.showFunc()
-				end
-			end
-
-			-- Mode 2 - Always Show if not empty
-			if showStat and (statMode == 2) and (hideAt == nil) then
-				hideAt = 0
-			end
-
-			-- Mode 3 - Always Show
-			-- This is not needed here, just added here to make the logic more clearer
-			if showStat and (statMode == 3) then
-				showStat = true
-			end
-
-			if showStat then
+			if showStat or (editMode and statMode ~= nil and passesRules) then
+				-- Append ID string to stat frame
+				statFrame.stringId = stat.stat
 				statFrame.onEnterFunc = nil
 				statFrame.UpdateTooltip = nil
 
@@ -1676,17 +1626,23 @@ function module:UpdateCharacterStats()
 						statFrame.Value:SetText(F.String.Muted("N/A"))
 					end
 					statFrame.numericValue = nil
+					statFrame:Show()
 				end
 
-				-- Mode 1/2 - Validate hideAt value in Smart Mode/Always Show if not empty mode
-				-- Compares the local hideAt, which mode 2 defaults to 0. A secret value can't be
-				-- compared, so the stat stays visible then.
+				-- Mode 1 hides at the stat's hideAt value, mode 2 at its hideAt or 0. A secret
+				-- value can't be compared, so the stat stays visible then.
+				local hideAt = stat.hideAt
 				local numericValue = statFrame.numericValue
-				if (hideAt ~= nil) and ((statMode == 1) or (statMode == 2)) and E:NotSecretValue(numericValue) then
-					showStat = (hideAt ~= numericValue)
+				local valueKnown = E:NotSecretValue(numericValue)
+				local notEmpty = not (valueKnown and hideAt ~= nil and hideAt == numericValue)
+				if statMode == 1 then
+					showStat = showStat and notEmpty
+				elseif statMode == 2 then
+					showStat = not (valueKnown and (hideAt or 0) == numericValue)
 				end
 
-				if showStat then
+				-- Blizzard's update functions hide the row for stats the character can't have
+				if statFrame:IsShown() and (showStat or editMode) then
 					if numStatInCat == 0 then
 						if lastAnchor then
 							catFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, categoryYOffset)
@@ -1699,8 +1655,12 @@ function module:UpdateCharacterStats()
 
 					numStatInCat = numStatInCat + 1
 					module:UpdateCharacterStat(statFrame, (numStatInCat % 2) == 0)
+					module:SetStatRowDimmed(statFrame, editMode and not showStat)
 					module:SetupFadeAnimation(statFrame)
 					module:HookStatHighlight(statFrame)
+					if editMode then
+						module:AddStatPickerRow(statFrame, stat, catIndex, showStat, passesRules and notEmpty)
+					end
 
 					lastAnchor = statFrame
 					statFrame = characterStatsPane.statsFramePool:Acquire()
@@ -1718,6 +1678,7 @@ function module:UpdateCharacterStats()
 	end
 
 	characterStatsPane.statsFramePool:Release(statFrame)
+	module:UpdateStatPickerOverlay()
 end
 
 function module:UpdateAttackSpeed(statFrame, unit)
@@ -2155,12 +2116,12 @@ function module:UpdateCharacterArmory()
 	self._titleFontDirty = true
 
 	module:KillBlizzard()
-	module:SetupSlotReveal()
 	module:UpdateBackground()
 	module:UpdateStage()
 	module:UpdateLines()
 	module:UpdateTitle()
 	module:UpdatePageInfo()
+	module:UpdateStatPickerButton()
 	module:UpdateCharacterStats()
 	module:CreateTitleSearchBox()
 	module:EnableEquipmentManagerSkin()
@@ -2176,7 +2137,6 @@ end
 
 function module:OpenCharacterArmory()
 	module:UpdateCharacterArmory()
-	module:PrepareSlotReveal()
 	E:Delay(0.01, function()
 		module:PlayAnimations()
 	end)
@@ -2197,7 +2157,6 @@ function module:CreateElements()
 
 	module.animationObjects = {}
 	module.statsObjects = {}
-	module.slotObjects = {}
 	module.styledFlyouts = {}
 	module.statsCount = 1
 	module._titleFontDirty = true
@@ -2535,7 +2494,8 @@ function module:Disable()
 	self:DisableSocketPanel()
 	self:DisableEquipmentManagerSkin()
 	self:ClearStatSlotHighlight()
-	self:ResetSlotReveal()
+	self:SetStatEditMode(false)
+	self:UpdateStatPickerButton()
 	self:ResetFlyouts()
 	self:HideStage()
 
@@ -2617,13 +2577,14 @@ function module:OnArmoryHide()
 	self:SetShownEventsRegistered(false)
 	self:SocketPanelOnHide()
 	self:ClearStatSlotHighlight()
-	self:ResetSlotReveal()
+	self:SetStatEditMode(false)
 end
 
 function module:DatabaseUpdate()
 	-- Set db
 	self.db = F.GetDBFromPath("mui.armory") or E.db.mui.armory
 	self._titleFontDirty = true
+	self:ClearOrderedStats()
 
 	-- Enable/Disable only out of combat
 	F.Event.ContinueOutOfCombat(function()

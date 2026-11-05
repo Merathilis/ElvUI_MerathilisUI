@@ -1,4 +1,5 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
+local module = MER:GetModule("MER_Options") ---@class Options
 
 local AceGUI = E.Libs.AceGUI or LibStub("AceGUI-3.0")
 
@@ -75,9 +76,9 @@ local function Update(widget)
 	local left = PADDING + (showIcon and height + 1 or 0)
 
 	local bar = widget.bar
-	local width = min(widget.frame:GetWidth() - left - PADDING, BAR_MAX_WIDTH)
+	local width = min(widget.stage:GetWidth() - left - PADDING, BAR_MAX_WIDTH)
 	bar:ClearAllPoints()
-	bar:SetPoint("LEFT", widget.frame, "LEFT", left, 0)
+	bar:SetPoint("LEFT", widget.stage, "LEFT", left, 0)
 	bar:SetSize(width, height)
 
 	local castX = width * CAST
@@ -94,7 +95,7 @@ local function Update(widget)
 	shield:ClearAllPoints()
 	shield:SetPoint("CENTER", bar, db.anchorPoint, db.xOffset, db.yOffset)
 
-	widget.frame:SetAlpha(db.enable and 1 or 0.4)
+	widget.stage:SetAlpha(db.enable and 1 or 0.4)
 end
 
 local function Constructor()
@@ -156,7 +157,7 @@ local function Constructor()
 	end
 
 	widget.SetWidth = function(self, width)
-		self.frame:SetWidth(width)
+		module.Preview.SetStageWidth(self, width)
 		Update(self)
 	end
 
@@ -174,6 +175,8 @@ local function Constructor()
 	widget.SetJustifyV = function() end
 	widget.SetColor = function() end
 
+	-- Scaled down and centered like the other previews (Preview.lua)
+	module.Preview.Contain(widget)
 	return AceGUI:RegisterAsWidget(widget)
 end
 

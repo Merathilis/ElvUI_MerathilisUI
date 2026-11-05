@@ -1,7 +1,6 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_UnlockMode")
 local S = E:GetModule("Skins")
-local WS = W:GetModule("Skins")
 
 -- Toolbar at the top of the screen that replaces ElvUI's mover popup: layout
 -- filter, grid, snapping, the changes of this session and save / revert.
@@ -21,6 +20,7 @@ local SPACING = 12
 local ROW_HEIGHT = 24
 local HINT_HEIGHT = 14
 local HINT_SEPARATOR = "  |cff666666|||r  "
+local GLOW_SIZE = 5
 
 local function AddTooltip(widget, title, text)
 	widget:HookScript("OnEnter", function(self)
@@ -108,6 +108,27 @@ local function CreateGridSizeBox(parent)
 end
 
 -------------------------------------------------------------------------------
+--  Name filter box, filters while typing
+-------------------------------------------------------------------------------
+local FILTER_WIDTH = 130
+
+local function CreateFilterBox(parent)
+	local box = CreateFrame("EditBox", nil, parent, "SearchBoxTemplate")
+	box:Size(FILTER_WIDTH, ROW_HEIGHT - 4)
+	box:SetAutoFocus(false)
+	S:HandleEditBox(box)
+
+	box:HookScript("OnTextChanged", function(self)
+		module:SetFilter(self:GetText())
+	end)
+	box:SetScript("OnEnterPressed", EditBox_ClearFocus)
+
+	AddTooltip(box, L["Filter"], L["Shows only the movers whose name contains every typed word."])
+
+	return box
+end
+
+-------------------------------------------------------------------------------
 --  Toolbar
 -------------------------------------------------------------------------------
 function module:CreateToolbar()
@@ -121,8 +142,25 @@ function module:CreateToolbar()
 	bar:RegisterForDrag("LeftButton")
 	bar:SetScript("OnDragStart", bar.StartMoving)
 	bar:SetScript("OnDragStop", bar.StopMovingOrSizing)
-	bar:CreateBackdrop("Transparent")
-	WS:CreateBackdropShadow(bar)
+	-- The movers use ElvUI's transparent template too, so the bar gets its own
+	-- colors to stand out: nearly opaque, accent border, glow and top strip.
+	-- ignoreUpdates keeps ElvUI's template sweep from resetting those colors.
+	bar:CreateBackdrop("Transparent", nil, true)
+	bar.backdrop:SetBackdropColor(0.05, 0.05, 0.05, 0.95)
+	bar.backdrop:SetBackdropBorderColor(F.r, F.g, F.b)
+
+	local glow = CreateFrame("Frame", nil, bar, "BackdropTemplate")
+	glow:SetFrameLevel(bar:GetFrameLevel())
+	glow:SetOutside(bar.backdrop, GLOW_SIZE, GLOW_SIZE)
+	glow:SetBackdrop({ edgeFile = E.LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = GLOW_SIZE + 1 })
+	glow:SetBackdropBorderColor(F.r, F.g, F.b, 0.7)
+
+	local strip = bar:CreateTexture(nil, "ARTWORK")
+	strip:SetPoint("TOPLEFT", bar.backdrop, "TOPLEFT", E.mult, -E.mult)
+	strip:SetPoint("TOPRIGHT", bar.backdrop, "TOPRIGHT", -E.mult, -E.mult)
+	strip:SetHeight(2)
+	strip:SetColorTexture(F.r, F.g, F.b)
+
 	bar:Point("TOP", E.UIParent, "TOP", 0, -110)
 	bar:Hide()
 	self.toolbar = bar
@@ -145,6 +183,10 @@ function module:CreateToolbar()
 	layout:SetupMenu(E.ConfigMode_Initialize)
 	Place(layout, 150, SPACING + 4)
 	bar.layout = layout
+
+	local filter = CreateFilterBox(bar)
+	Place(filter, FILTER_WIDTH, SPACING)
+	bar.filter = filter
 
 	local grid, gridWidth = CreateCheckBox(bar, L["Grid"], function(checked)
 		module.db.showGrid = checked
@@ -263,11 +305,15 @@ function module:UpdateToolbarHint()
 	wipe(hintParts)
 
 	tinsert(hintParts, L["Click: select"])
+	tinsert(hintParts, L["Shift+Alt-click: pick anchor points"])
 	if self.db.keyboardNudge then
 		tinsert(hintParts, format(L["Arrow keys: nudge, with Shift %d px"], self.db.bigStep))
 	end
 	if self.db.snap.enable then
 		tinsert(hintParts, L["Shift while dragging: no snapping"])
+	end
+	if self.db.overlapCycle then
+		tinsert(hintParts, L["Ctrl+Mouse Wheel: cycle overlapping movers"])
 	end
 	tinsert(hintParts, L["Right-click: settings"])
 	tinsert(hintParts, L["Ctrl+Right-click: reset"])

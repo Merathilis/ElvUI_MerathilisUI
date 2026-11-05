@@ -103,7 +103,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(_, vignetteGUID, onMinimap)
 	end
 
 	if not db.noSound then
-		PlaySound(_G.SOUNDKIT.RAID_WARNING)
+		PlaySound(_G.SOUNDKIT.UI_EVENT_SCHEDULER_CHIME or _G.SOUNDKIT.RAID_WARNING)
 	end
 
 	self.lastMinimapRare.time = time

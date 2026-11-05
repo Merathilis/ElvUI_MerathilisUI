@@ -386,6 +386,20 @@ P.misc = {
 	gmotd = true,
 	wowheadlinks = true,
 	tradeTabs = true,
+	trainAll = true,
+	queueTimer = true,
+	paragonBar = true,
+	guildBest = true,
+	autoCombatLog = {
+		enable = false,
+		raidFinder = false,
+		raidNormal = true,
+		raidHeroic = true,
+		raidMythic = true,
+		mythicDungeon = false,
+		mythicPlus = true,
+		advanced = true,
+	},
 	blockRequest = false,
 	singingSockets = {
 		enable = true,
@@ -489,6 +503,10 @@ P.armory = {
 		alternatingBackgroundEnabled = true, -- Enabled by default
 		alternatingBackgroundAlpha = 0.75,
 		highlightSlots = true,
+		pickerButton = true,
+
+		-- Stat order per category frame, saved by the stat picker
+		order = {},
 
 		-- Sets the mode for stats
 		-- 0 (Hide), 1 (Smart/Blizzard), 2 (Always Show if not 0), 3 (Always Show)
@@ -585,6 +603,8 @@ P.armory = {
 
 		moveSockets = false,
 		upgradeBarEnabled = true,
+		upgradeTrackColor = true,
+		upgradeTrackText = true,
 
 		enchantTextEnabled = true,
 		abbreviateEnchantText = true,
@@ -776,6 +796,9 @@ P.armory = {
 
 P.tooltip = {
 	achievement = true,
+	upgradeTrack = true,
+	mountSource = false,
+	mountCollected = true,
 	buffs = {
 		enable = false,
 		playersOnly = true,
@@ -808,6 +831,19 @@ P.notification = {
 	callToArms = false,
 	bags = true,
 	greatVault = true,
+	mentions = {
+		enable = true,
+		keywords = "%MYNAME%",
+		hideInCombat = true,
+		guild = true,
+		officer = true,
+		party = true,
+		raid = true,
+		instance = true,
+		say = false,
+		channel = false,
+		whisper = false,
+	},
 	currencyWarning = {
 		enable = true,
 		threshold = 90,
@@ -915,6 +951,18 @@ P.chat = {
 		animation = true,
 		glow = true,
 	},
+	bubbles = {
+		enable = true,
+		style = true,
+		shadow = true,
+		groupNames = true,
+		nameGradient = true,
+		nameJustify = "LEFT",
+		nameFontSize = 10,
+		nameXOffset = 0,
+		nameYOffset = 2,
+		hideInInstances = false,
+	},
 	copyChat = {
 		enable = true,
 		colors = true,
@@ -922,13 +970,24 @@ P.chat = {
 		width = 700,
 		height = 400,
 	},
+	search = {
+		enable = true,
+		fontSize = 12,
+		width = 560,
+		height = 360,
+	},
+	invite = {
+		enable = true,
+		keywords = "inv, invite",
+		altClick = true,
+	},
 	sidebar = {
 		enable = true,
 		panel = "LEFT",
 		side = "LEFT",
 		attach = "INSIDE",
 		attachSpacing = 3,
-		order = "friends,guild,durability,copy,portals,voice,settings",
+		order = "friends,guild,durability,copy,search,portals,voice,settings",
 		width = 28,
 		iconSize = 14,
 		spacing = 6,
@@ -947,6 +1006,7 @@ P.chat = {
 			guild = false,
 			durability = false,
 			copy = true,
+			search = true,
 			portals = true,
 			voice = true,
 			settings = true,
@@ -959,7 +1019,7 @@ P.minimapButtons = {
 	enable = true,
 	point = "BOTTOMLEFT",
 	growth = "DOWN",
-	xOffset = -15,
+	xOffset = -14,
 	yOffset = 80,
 	size = 20,
 	spacing = 2,
@@ -1060,6 +1120,12 @@ P.nameplates = {
 		enable = false,
 		alpha = 0.75,
 	},
+	castingColor = {
+		enable = false,
+		alpha = 0.75,
+		interruptible = { r = 0.31, g = 0.7, b = 1 },
+		uninterruptible = { r = 0.95, g = 0.57, b = 0 },
+	},
 	enemyForces = {
 		enable = true,
 		format = "PERCENT",
@@ -1159,6 +1225,27 @@ P.unitframes = {
 			target = true,
 			focus = true,
 			boss = true,
+			arena = true,
+		},
+	},
+	pingIndicator = {
+		enable = true,
+		size = 30,
+		position = "CENTER",
+		xOffset = 0,
+		yOffset = 0,
+		units = {
+			player = true,
+			target = true,
+			targettarget = true,
+			focus = true,
+			focustarget = true,
+			pet = true,
+			pettarget = true,
+			party = true,
+			raid = true,
+			tank = true,
+			assist = true,
 			arena = true,
 		},
 	},
@@ -1371,11 +1458,18 @@ P.buffReminder = {
 		raidBuffs = true,
 		auras = true,
 		consumables = true,
+		talents = true,
 		soundKitID = _G.SOUNDKIT and _G.SOUNDKIT.READY_CHECK or 8960,
 	},
 	raidBuffs = {
 		enable = true,
 		enabled = { motw = true, bshout = true, fort = true, ai = true, bronze = true, sky = true },
+		fromGroup = false, -- also remind of buffs a groupmate provides and you lack
+	},
+	talents = {
+		enable = true,
+		-- { spellID, class, specID, zones = { ["<instanceID>"|"arena"|"pvp"] = true }, notNeeded = "never"|"season"|"all" }
+		reminders = {},
 	},
 	auras = {
 		enable = true,
@@ -1415,6 +1509,13 @@ P.buffReminder = {
 		preferredFlask = "last_used",
 		preferredFood = "last_used",
 		preferredWeaponEnchant = "last_used",
+	},
+	raidCheck = {
+		enable = false,
+		onReadyCheck = true, -- opens on a ready check while you lead or assist
+		onlyMissing = true,
+		runeRequired = true,
+		vantusRequired = false, -- a missing vantus rune makes a player not fully buffed
 	},
 }
 
@@ -1494,6 +1595,11 @@ P.movementAlert = {
 		texture = "ElvUI Norm",
 		showIcon = true,
 		showTime = true,
+		attachTo = "NONE", -- NONE, player, target, focus
+		attachPoint = "TOP", -- TOP, BOTTOM
+		matchWidth = true,
+		xOffset = 0,
+		yOffset = 0,
 	},
 	spells = {}, -- [spellID] = true/false, overrides the default state of a preset spell
 	customSpells = {}, -- [class] = { [spellID] = true }
@@ -1740,6 +1846,7 @@ P.unlockMode = {
 	animation = true, -- unlock / lock animation when the mover mode opens and closes
 	keyboardNudge = true,
 	bigStep = 10, -- arrow keys with a modifier
+	overlapCycle = true, -- Ctrl+mouse wheel brings the next of the overlapping movers to the top
 	anchorLines = true,
 	anchors = {}, -- [child mover] = { target, point, relativePoint }
 	snap = {

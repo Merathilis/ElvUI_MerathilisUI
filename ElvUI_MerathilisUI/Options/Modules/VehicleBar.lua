@@ -304,4 +304,12 @@ module:AddOptions(function()
 			},
 		},
 	}
+
+	-- Speed text font in a popup (module.ApplyCogFonts)
+	module.GroupOptions(
+		options.vehicleBar.args.vigorBarGroup.args,
+		"speedTextFontGroup",
+		L["Font"],
+		{ "speedTextFont", "speedTextFontSize" }
+	)
 end)

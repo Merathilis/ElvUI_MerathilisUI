@@ -137,7 +137,7 @@ module:AddOptions(function()
 					.. "\n"
 					.. L["The Bloodlust tracker shows your Sated lockout, the active lust and optionally when a lust is ready again."]
 			),
-			test = {
+			test = module.ActionCard({
 				order = 2,
 				type = "execute",
 				name = function()
@@ -148,7 +148,7 @@ module:AddOptions(function()
 				func = function()
 					TR:ToggleTestMode()
 				end,
-			},
+			}, { icon = I.Media.Icons.Categories.tracker, compact = true }),
 			battleRes = {
 				order = 10,
 				type = "group",
@@ -177,7 +177,7 @@ module:AddOptions(function()
 								-- Raid encounters are the only option on Forever
 								hidden = E.Forever,
 							},
-							displayMode = {
+							displayMode = module.Segmented({
 								order = 2,
 								type = "select",
 								name = L["Display Mode"],
@@ -185,7 +185,7 @@ module:AddOptions(function()
 									ICON = L["Icon"],
 									TEXT = L["Text"],
 								},
-							},
+							}, { "ICON", "TEXT" }),
 							iconSize = {
 								order = 3,
 								type = "range",

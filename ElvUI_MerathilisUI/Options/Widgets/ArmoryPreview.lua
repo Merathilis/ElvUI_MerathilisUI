@@ -20,7 +20,8 @@ local CR_VERSATILITY_DAMAGE_DONE = _G.CR_VERSATILITY_DAMAGE_DONE or 29
 -- Used as `dialogControl` on a description whose name is the part to show:
 -- "slots" - your equipped items from the left column with the item level, the
 -- enchant or missing socket/enchant text (GetSlotEnchantText), the quality
--- gradient and the upgrade bar (SetUpgradeBar), placed like ElvUI places them on
+-- gradient, the upgrade bar (SetUpgradeBar) and the upgrade track letter on the icon
+-- (SetUpgradeTrackText), placed like ElvUI places them on
 -- the character frame;
 -- "header" - name, title, level, spec icon and class text (UpdateTitle);
 -- "frame" - the background with the spotlight, the decorative lines and the item
@@ -213,11 +214,17 @@ local function UpdateSlots(widget)
 				db.itemQualityGradientEndAlpha
 			)
 
+			local current, maximum, trackID, trackName = unpack(sample.upgrade)
 			if db.upgradeBarEnabled then
-				local current, maximum = unpack(sample.upgrade)
-				armory:SetUpgradeBar(slot, true, current, maximum)
+				armory:SetUpgradeBar(slot, true, current, maximum, trackID)
 			else
 				armory:SetUpgradeBar(slot)
+			end
+
+			if db.upgradeTrackText then
+				armory:SetUpgradeTrackText(slot, true, trackID, trackName)
+			else
+				armory:SetUpgradeTrackText(slot)
 			end
 		end
 	end
