@@ -8,6 +8,8 @@ local CH = E:GetModule("Chat")
 local _G = _G
 local ipairs, next = ipairs, next
 local tinsert = table.insert
+local format = string.format
+local debugprofilestop = debugprofilestop
 
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local FCF_SetWindowName = FCF_SetWindowName
@@ -429,6 +431,9 @@ function MER:SetupLayout()
 	E.db["bags"]["vendorGrays"]["enable"] = true
 	E.db["bags"]["vendorGrays"]["details"] = false
 	E.db["bags"]["spinner"]["color"] = I.Strings.Branding.ColorRGB
+
+	-- ElvUI's own layouts may turn the bag bar on, we don't use it
+	E.private["bags"]["bagBar"] = false
 
 	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,194"
 	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,194"
@@ -2123,6 +2128,8 @@ function MER:SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,524,269"
 	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,524,258"
 
+	-- DEBUG(Forever install lag): timings only print with the WindTools log level set to Debug
+	local debugStart = debugprofilestop()
 	-- The portrait rings follow the health bars: gradient colors or the flat class color
 	if layout == "gradient" then
 		E.db.mui.unitframes.portraits.colorMode = "GRADIENT"
@@ -2131,6 +2138,7 @@ function MER:SetupUnitframes(layout)
 		E.db.mui.unitframes.portraits.colorMode = "CLASS"
 		MER:GetModule("MER_Theme"):Toggle("darkMode", true)
 	end
+	WF.Developer.LogDebug(format("[Install] UnitFrames theme toggle: %.1f ms", debugprofilestop() - debugStart))
 end
 
 function MER:SetupDts()

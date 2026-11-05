@@ -11,6 +11,11 @@ local UnitSetRole = UnitSetRole
 local GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
 
 function module:SetRole()
+	-- Forever may have no specializations, which would clear the role on every update
+	if E.Forever then
+		return
+	end
+
 	local spec = F.GetPlayerSpec()
 	if UnitLevel("player") >= 10 and not InCombatLockdown() then
 		if spec == nil and UnitGroupRolesAssigned("player") ~= "NONE" then

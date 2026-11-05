@@ -3,6 +3,7 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[744] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"[Compatibility Check]: On WoW Forever, \"Apply\" no longer gets blocked by the game (\"tried to call the protected function C_UI_Reload()\") and reloads the UI again.",
 		"[Misc]: The random hearthstone of the portal menu no longer picks the Draenic Hologem on characters that can't use it.",
 		"[Misc]: The portal menu no longer shows the global cooldown on its portals and hearthstones after every cast.",
 		"[Tracker]: The Visibility option of the Battle Res tracker is a working dropdown again.",

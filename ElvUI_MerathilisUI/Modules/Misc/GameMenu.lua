@@ -18,15 +18,15 @@ local UnitLevel = UnitLevel
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local C_MountJournal_GetMountInfoByID = C_MountJournal.GetMountInfoByID
 local C_ToyBox_GetNumLearnedDisplayedToys = C_ToyBox.GetNumLearnedDisplayedToys
-local C_PetJournal_GetNumPets = C_PetJournal.GetNumPets
+local C_PetJournal_GetNumPets = C_PetJournal and C_PetJournal.GetNumPets
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
-local C_MythicPlus_GetOwnedKeystoneChallengeMapID = C_MythicPlus.GetOwnedKeystoneChallengeMapID
-local C_MythicPlus_GetOwnedKeystoneLevel = C_MythicPlus.GetOwnedKeystoneLevel
-local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
-local C_ChallengeMode_GetKeystoneLevelRarityColor = C_ChallengeMode.GetKeystoneLevelRarityColor
+local C_MythicPlus_GetOwnedKeystoneChallengeMapID = C_MythicPlus and C_MythicPlus.GetOwnedKeystoneChallengeMapID
+local C_MythicPlus_GetOwnedKeystoneLevel = C_MythicPlus and C_MythicPlus.GetOwnedKeystoneLevel
+local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode and C_ChallengeMode.GetMapUIInfo
+local C_ChallengeMode_GetKeystoneLevelRarityColor = C_ChallengeMode and C_ChallengeMode.GetKeystoneLevelRarityColor
 local C_PlayerInfo_GetPlayerMythicPlusRatingSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary
-local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode.GetDungeonScoreRarityColor
-local C_MythicPlus_GetRunHistory = C_MythicPlus.GetRunHistory
+local C_ChallengeMode_GetDungeonScoreRarityColor = C_ChallengeMode and C_ChallengeMode.GetDungeonScoreRarityColor
+local C_MythicPlus_GetRunHistory = C_MythicPlus and C_MythicPlus.GetRunHistory
 local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime and C_DateAndTime.GetCurrentCalendarTime
 local C_DateAndTime_GetSecondsUntilWeeklyReset = C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset
 local C_WeeklyRewards_GetActivities = C_WeeklyRewards and C_WeeklyRewards.GetActivities
@@ -39,7 +39,8 @@ local GameMenuFrame = _G.GameMenuFrame
 local CreateAnimationGroup = _G.CreateAnimationGroup
 
 local delvesKeys = { 91175, 91176, 91177, 91178 }
-local keyName = C_CurrencyInfo_GetCurrencyInfo(3028).name
+local keyCurrencyInfo = C_CurrencyInfo_GetCurrencyInfo(3028)
+local keyName = keyCurrencyInfo and keyCurrencyInfo.name or ""
 
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
@@ -402,7 +403,8 @@ function module:CreateGameMenuUI()
 
 	clockHolder:SetScript("OnUpdate", Clock_OnUpdate)
 
-	if db.showWeeklyDevles then
+	-- Delves and Mythic+ do not exist on Forever
+	if db.showWeeklyDevles and not E.Forever then
 		local delves = topTextHolderRight:CreateFontString(nil, "ARTWORK")
 		delves:FontTemplate(nil, 24, "SHADOWOUTLINE")
 		delves:Point("TOPRIGHT", topTextHolderRight, -OUTER_SPACING, OUTER_SPACING)
@@ -422,7 +424,7 @@ function module:CreateGameMenuUI()
 	bottomTextHolderLeft:Width(E.screenWidth * 0.5)
 	bottomTextHolderLeft:Height(E.screenHeight * (1 / 4) - 20)
 
-	if db.showMythicKey then
+	if db.showMythicKey and not E.Forever then
 		local mythic = bottomTextHolderLeft:CreateFontString(nil, "OVERLAY")
 		mythic:FontTemplate(nil, 24, "SHADOWOUTLINE")
 		mythic:Point("TOPLEFT", bottomTextHolderLeft, OUTER_SPACING, -OUTER_SPACING * 1.5)
@@ -634,7 +636,7 @@ local function UpdateCollections(self)
 	collections.mount:SetText(L["Mounts: "] .. F.String.MERATHILISUI(collectedMounts))
 	collections.toys:SetText(L["Toys: "] .. F.String.MERATHILISUI(C_ToyBox_GetNumLearnedDisplayedToys()))
 
-	local _, petsOwned = C_PetJournal_GetNumPets()
+	local petsOwned = C_PetJournal_GetNumPets and select(2, C_PetJournal_GetNumPets()) or 0
 	collections.pets:SetText(L["Pets: "] .. F.String.MERATHILISUI(petsOwned))
 	collections.achievs:SetText(
 		L["Achievement Points: "] .. F.String.MERATHILISUI(E:FormatLargeNumber(GetTotalAchievementPoints(), ","))

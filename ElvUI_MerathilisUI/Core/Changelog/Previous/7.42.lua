@@ -9,6 +9,7 @@ MER.Changelog[742] = {
 		"[Buff Reminder]: An enchanted off-hand no longer hides the reminder for an unenchanted main-hand weapon.",
 		"[Buff Reminder]: The food reminder now also finds the feasts (Feast of Knowledge, Silvermoon Parade, Harandar Celebration), Bloodthistle-wrapped Cutlets and all Hearty foods in your bags.",
 		"[Buff Reminder]: Housing plots and garrisons no longer count as instanced content, so instance-only reminders stay hidden there.",
+		'[Compatibility Check]: On WoW Forever, "Apply" no longer gets blocked by the game ("tried to call the protected function C_UI_Reload()") and reloads the UI again.',
 		"[Cursor]: The GCD ring now also shows on WoW Forever.",
 		"[Developer]: Debug output of the modules shows up again with /muidev debug <module> (e.g. Armory), the channels had the wrong name.",
 		"[General]: With the gamepad UI active (Blizzard's crossbar), the Vehicle Bar, Spec Bar, Assisted Rotation and the keybind colors stay off like ElvUI's action bars instead of running without them.",

@@ -1,6 +1,11 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Armory") ---@class Armory
 
+-- Forever ships its own Classic-style character frame, which the Armory does not support yet
+if E.Forever then
+	return
+end
+
 local _G = _G
 local ipairs, pairs, select, tonumber, type = ipairs, pairs, select, tonumber, type
 local strsplit = strsplit

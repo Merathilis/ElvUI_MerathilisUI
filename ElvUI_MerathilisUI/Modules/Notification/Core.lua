@@ -548,6 +548,13 @@ local EVENT_TOGGLES = {
 	end,
 }
 
+-- Quick Join, Call to Arms and the Great Vault are Retail-only systems
+local RETAIL_ONLY_EVENTS = {
+	SOCIAL_QUEUE_UPDATE = true,
+	LFG_UPDATE_RANDOM_INFO = true,
+	WEEKLY_REWARDS_UPDATE = true,
+}
+
 local EVENT_HANDLERS = {
 	SOCIAL_QUEUE_UPDATE = "SocialQueueEvent",
 }
@@ -560,7 +567,7 @@ function module:UpdateEvents()
 
 	local db = E.db.mui.notification
 	for event, isNeeded in pairs(EVENT_TOGGLES) do
-		if db.enable and isNeeded(db) then
+		if db.enable and not (E.Forever and RETAIL_ONLY_EVENTS[event]) and isNeeded(db) then
 			self:RegisterEvent(event, EVENT_HANDLERS[event])
 		else
 			self:UnregisterEvent(event)

@@ -8,8 +8,8 @@ local format = string.format
 
 local SocialQueueUtil_GetQueueName = SocialQueueUtil_GetQueueName
 local SocialQueueUtil_GetRelationshipInfo = SocialQueueUtil_GetRelationshipInfo
-local GetGroupMembers = C_SocialQueue.GetGroupMembers
-local GetGroupQueues = C_SocialQueue.GetGroupQueues
+local GetGroupMembers = C_SocialQueue and C_SocialQueue.GetGroupMembers
+local GetGroupQueues = C_SocialQueue and C_SocialQueue.GetGroupQueues
 local GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local GetActivityInfoTable = C_LFGList.GetActivityInfoTable
 local InCombatLockdown = InCombatLockdown

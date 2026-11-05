@@ -41,7 +41,8 @@ local versionString = GetAddOnMetadata(addon, "Version")
 local xVersionString = GetAddOnMetadata(addon, "X-Version")
 local metaFlavor = GetAddOnMetadata(addon, "X-Flavor")
 
-MER.MetaFlavor = metaFlavor
+-- Forever shares the Mainline client, so the TOC flavor alone cannot tell them apart
+MER.MetaFlavor = E.Forever and "Forever" or metaFlavor
 MER.ElvUIVersion = tonumber(E.version)
 MER.RequiredVersion = tonumber(GetAddOnMetadata(addon, "X-ElvUIVersion"))
 

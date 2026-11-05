@@ -177,6 +177,7 @@ module:AddOptions(function()
 				order = 11,
 				type = "execute",
 				name = L["Armory"],
+				hidden = E.Forever,
 				func = function()
 					E:StaticPopup_Show("MERATHILISUI_RESET_MODULE", L["Armory"], nil, function()
 						ResetProfile("armory")

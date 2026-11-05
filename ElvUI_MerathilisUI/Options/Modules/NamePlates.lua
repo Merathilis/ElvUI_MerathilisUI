@@ -512,6 +512,7 @@ module:AddOptions(function()
 						order = 3.3,
 						type = "group",
 						name = L["Enemy Forces"],
+						hidden = E.Forever,
 						guiInline = true,
 						get = function(info)
 							return E.db.mui.nameplates.enemyForces[info[#info]]

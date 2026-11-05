@@ -25,6 +25,7 @@ I.Colors = {
 
 I.MaxLevelTable = {
 	["Mainline"] = 90,
+	["Forever"] = 60,
 }
 
 I.MediaKeys = {

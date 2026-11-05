@@ -15,7 +15,8 @@ local _G = _G
 local abs, format, ipairs, max, next, pairs, strmatch = abs, format, ipairs, max, next, pairs, strmatch
 local strtrim, strupper, tonumber, tostring, type, unpack = strtrim, strupper, tonumber, tostring, type, unpack
 local geterrorhandler, xpcall = geterrorhandler, xpcall
-local tinsert, wipe = table.insert, table.wipe
+local debugprofilestop = debugprofilestop
+local tinsert, tremove, wipe = table.insert, table.remove, table.wipe
 
 local CanAutoSetGamePadCursorControl = CanAutoSetGamePadCursorControl
 local CreateFrame = CreateFrame
@@ -796,7 +797,10 @@ local function ApplyLayout(layout)
 		end
 
 		-- E:UpdateAll spreads the module updates over a few frames, wait until they started
+		-- DEBUG(Forever install lag): timings only print with the WindTools log level set to Debug
+		local debugStart = debugprofilestop()
 		E:UpdateAll()
+		WF.Developer.LogDebug(format("[Install] E:UpdateAll: %.1f ms", debugprofilestop() - debugStart))
 		F.Event.RunNextFrame(function()
 			F.Event.ContinueAfterElvUIUpdate(function()
 				Finish(true)
@@ -828,12 +832,14 @@ end
 ----------------------------------
 -- Modules that can be toggled on the installer's module page, one column per group
 -- Each entry is the path below E.db.mui, the last key is the toggle itself
+-- Entries with hidden = true are left out (modules that are off on this client)
 local moduleToggles = {
 	{
 		name = L["Interface"],
 		{
 			label = L["Armory"],
 			path = { "armory", "enable" },
+			hidden = E.Forever,
 			desc = L["The Armory warns you about missing enchants and sockets on your gear."],
 		},
 		{
@@ -924,6 +930,14 @@ local moduleToggles = {
 		},
 	},
 }
+
+for _, group in ipairs(moduleToggles) do
+	for i = #group, 1, -1 do
+		if group[i].hidden then
+			tremove(group, i)
+		end
+	end
+end
 
 local function GetToggleParent(path)
 	local db = E.db.mui

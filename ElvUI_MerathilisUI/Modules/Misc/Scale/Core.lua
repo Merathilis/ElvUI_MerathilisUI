@@ -19,7 +19,7 @@ function module:Scale()
 
 	module:SetElementScale("characterFrame", "CharacterFrame")
 	module:SetElementScale("dressingRoom", "DressUpFrame")
-	module:SetElementScale("groupFinder", "PVEFrame")
+	module:SetElementScale("groupFinder", E.Forever and "LFGParentFrame" or "PVEFrame")
 	module:SetElementScale("vendor", "MerchantFrame")
 	module:SetElementScale("gossip", "GossipFrame")
 	module:SetElementScale("quest", "QuestFrame")

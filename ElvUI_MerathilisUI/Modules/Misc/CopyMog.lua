@@ -12,7 +12,7 @@ local tinsert = table.insert
 local wipe = wipe
 
 local C_Item_GetItemInfo = C_Item.GetItemInfo
-local C_Transmog_CanHaveSecondaryAppearanceForSlotID = C_Transmog.CanHaveSecondaryAppearanceForSlotID
+local C_Transmog_CanHaveSecondaryAppearanceForSlotID = C_Transmog and C_Transmog.CanHaveSecondaryAppearanceForSlotID
 local C_TransmogCollection_GetAppearanceSourceDrops = C_TransmogCollection.GetAppearanceSourceDrops
 local C_TransmogCollection_GetIllusionStrings = C_TransmogCollection.GetIllusionStrings
 local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
@@ -147,7 +147,8 @@ function module:CopyMog_UpdateItemText(transmogInfoList)
 			end
 
 			if
-				C_Transmog_CanHaveSecondaryAppearanceForSlotID(slotID)
+				C_Transmog_CanHaveSecondaryAppearanceForSlotID
+				and C_Transmog_CanHaveSecondaryAppearanceForSlotID(slotID)
 				and secondaryAppearanceID ~= Constants.Transmog.NoTransmogID
 				and secondaryAppearanceID ~= appearanceID
 			then

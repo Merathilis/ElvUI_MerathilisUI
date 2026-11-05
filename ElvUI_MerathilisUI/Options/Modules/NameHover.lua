@@ -219,6 +219,7 @@ module:AddOptions(function()
 				type = "group",
 				disabled = Disabled,
 				name = L["Dungeon Info Options"],
+				hidden = E.Forever,
 				guiInline = true,
 				args = {
 					mythicPlus_ShowForces = {

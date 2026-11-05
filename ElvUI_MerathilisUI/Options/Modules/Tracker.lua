@@ -174,6 +174,8 @@ module:AddOptions(function()
 								type = "select",
 								name = L["Visibility"],
 								values = VISIBILITY,
+								-- Raid encounters are the only option on Forever
+								hidden = E.Forever,
 							},
 							displayMode = module.Segmented({
 								order = 2,
@@ -251,6 +253,8 @@ module:AddOptions(function()
 								type = "select",
 								name = L["Visibility"],
 								values = VISIBILITY,
+								-- Raid encounters are the only option on Forever
+								hidden = E.Forever,
 							},
 							iconSize = {
 								order = 2,

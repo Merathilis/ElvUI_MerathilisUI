@@ -95,6 +95,7 @@ module:AddOptions(function()
 			lootSpecManager = module.ModuleCard("miscLootSpecManager", {
 				order = 40,
 				name = L["LootSpecManager"],
+				hidden = E.Forever,
 				desc = (
 					L["|nBase on LootSpecManager, auto change your loot spec between bosses, support Raid and M+."]:gsub(
 						"^|n",
@@ -323,6 +324,7 @@ module:AddOptions(function()
 						order = 2,
 						type = "toggle",
 						name = L["Show Weekly Delves Keys"],
+						hidden = E.Forever,
 					},
 					showGreatVault = {
 						order = 2.1,
@@ -344,6 +346,7 @@ module:AddOptions(function()
 						order = 3,
 						type = "group",
 						name = L["Mythic+"],
+						hidden = E.Forever,
 						args = {
 							showMythicKey = {
 								order = 1,
@@ -776,6 +779,7 @@ module:AddOptions(function()
 		order = 10,
 		type = "group",
 		name = L["Singing Sockets"],
+		hidden = E.Forever,
 		get = function(info)
 			return E.db.mui.misc.singingSockets[info[#info]]
 		end,

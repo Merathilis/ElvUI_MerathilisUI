@@ -378,6 +378,7 @@ module:AddOptions(function()
 				order = 3,
 				type = "group",
 				name = L["Weekly Rewards"],
+				hidden = E.Forever,
 				get = function(info)
 					return E.private.mui.skins.blizzard.weeklyRewards.font[info[#info]]
 				end,

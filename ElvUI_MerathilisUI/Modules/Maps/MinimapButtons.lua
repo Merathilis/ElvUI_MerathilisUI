@@ -1561,18 +1561,21 @@ function module:CreateButtons()
 	self.holder = holder
 	self.elementHolder = elementHolder
 
-	self.greatVaultButton = CreateGreatVaultButton(holder)
-	self.portalButton = CreatePortalButton(holder)
+	-- Great Vault, M+ portals and crafting orders are Retail-only systems
+	if not E.Forever then
+		self.greatVaultButton = CreateGreatVaultButton(holder)
+		self.portalButton = CreatePortalButton(holder)
+		self.craftingButton = CreateCraftingButton(elementHolder)
+	end
 	self.addonToggle = CreateAddonButtonsToggle(holder)
 	self.trackingButton = CreateTrackingButton(elementHolder)
 	self.calendarButton = CreateCalendarButton(elementHolder)
 	self.compartmentButton = CreateCompartmentButton(elementHolder)
 	self.mailButton = CreateMailButton(elementHolder)
-	self.craftingButton = CreateCraftingButton(elementHolder)
 
 	-- Order within each bar. Mail and crafting orders sit last so the always-on
 	-- buttons keep their place when those two appear or vanish.
-	self.buttons = {
+	local buttons = {
 		{ key = "greatVault", bar = "main", btn = self.greatVaultButton },
 		{ key = "mplusPortals", bar = "main", btn = self.portalButton },
 		{ key = "addonButtons", bar = "main", btn = self.addonToggle },
@@ -1582,6 +1585,13 @@ function module:CreateButtons()
 		{ key = "mail", bar = "elements", btn = self.mailButton },
 		{ key = "craftingOrders", bar = "elements", btn = self.craftingButton },
 	}
+
+	self.buttons = {}
+	for _, entry in ipairs(buttons) do
+		if entry.btn then
+			tinsert(self.buttons, entry)
+		end
+	end
 
 	-- Each button knows its bar, so its menu or flyout can open the way that bar grows.
 	for _, entry in ipairs(self.buttons) do
@@ -1613,6 +1623,11 @@ local INDICATOR_EVENTS = {
 	"PLAYER_ENTERING_WORLD",
 }
 
+-- Crafting orders are a Retail-only system
+local RETAIL_ONLY_EVENTS = {
+	CRAFTINGORDERS_UPDATE_PERSONAL_ORDER_COUNTS = true,
+}
+
 -- Nothing fires when the date rolls over, so one timer is set to just past the
 -- next (realm time) midnight for the calendar icon.
 function module:ScheduleDayRollover()
@@ -1636,7 +1651,9 @@ function module:StartIndicatorWatch()
 	end
 
 	for _, event in ipairs(INDICATOR_EVENTS) do
-		watcher:RegisterEvent(event)
+		if not (E.Forever and RETAIL_ONLY_EVENTS[event]) then
+			watcher:RegisterEvent(event)
+		end
 	end
 	self:ScheduleDayRollover()
 end

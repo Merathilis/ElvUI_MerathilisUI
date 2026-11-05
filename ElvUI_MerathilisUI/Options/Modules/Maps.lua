@@ -375,6 +375,8 @@ module:AddOptions(function()
 						type = "group",
 						inline = true,
 						name = L["Buttons"],
+						-- Only holds the Great Vault and M+ portals, neither exists on Forever
+						hidden = E.Forever,
 						disabled = MinimapButtonsDisabled,
 						get = function(info)
 							return E.db.mui.minimapButtons[info[#info]].enable
@@ -476,6 +478,7 @@ module:AddOptions(function()
 								order = 5,
 								type = "toggle",
 								name = L["Crafting Orders"],
+								hidden = E.Forever,
 								desc = L["Replaces the Blizzard icon on your Minimap with one in this bar."]
 									.. "\n"
 									.. L["Only shown while there is something to report."],

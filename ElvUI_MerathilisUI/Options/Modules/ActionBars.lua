@@ -28,6 +28,7 @@ module:AddOptions(function()
 				order = 3,
 				type = "group",
 				name = L["Specialization Bar"],
+				hidden = E.Forever,
 				guiInline = true,
 				disabled = module.RequirementsDisabled(I.Requirements.ActionBars),
 				get = function(info)

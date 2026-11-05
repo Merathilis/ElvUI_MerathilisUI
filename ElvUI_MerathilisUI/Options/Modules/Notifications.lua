@@ -105,12 +105,14 @@ module:AddOptions(function()
 				order = 10,
 				type = "toggle",
 				name = L["Quick Join"],
+				hidden = E.Forever,
 				disabled = Disabled,
 			},
 			callToArms = {
 				order = 11,
 				type = "toggle",
 				name = _G.BATTLEGROUND_HOLIDAY,
+				hidden = E.Forever,
 				disabled = Disabled,
 			},
 			bags = {
@@ -123,6 +125,7 @@ module:AddOptions(function()
 				order = 13,
 				type = "toggle",
 				name = L["Great Vault"],
+				hidden = E.Forever,
 				disabled = Disabled,
 			},
 			currencyWarning = {

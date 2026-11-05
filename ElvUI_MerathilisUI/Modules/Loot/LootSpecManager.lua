@@ -2,6 +2,12 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_Loot") ---@class Loot
 local S = E:GetModule("Skins")
 local MS = MER:GetModule("MER_Skins")
+
+-- Loot specializations and the Encounter Journal do not exist on Forever
+if E.Forever then
+	return
+end
+
 local WS = W:GetModule("Skins")
 
 local _G = _G
