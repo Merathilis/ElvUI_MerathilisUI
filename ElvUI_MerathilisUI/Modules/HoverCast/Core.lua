@@ -673,24 +673,45 @@ end
 -- and SPELLS_CHANGED is their edge (it also fires on every zone-in and spell
 -- learn). Only the known/unknown pattern of the enabled spell bindings decides
 -- a key, so an event that leaves the pattern as applied re-applies nothing,
--- and the event is listened for only while an enabled spell binding exists.
+-- and the event is listened for only while an enabled spell binding (or a
+-- warlock's Dispels binding) exists.
+local COMMAND_DEMON_ID = 119898
+
+local function GetCommandDemonOverride()
+	return C_Spell.GetOverrideSpell and C_Spell.GetOverrideSpell(COMMAND_DEMON_ID) or nil
+end
+
 local knownSig = ""
 local sigParts = {}
+local watchCommandDemon = false
+
+local function AddSignatureParts(bindings)
+	local hasDispel = false
+	for _, b in ipairs(bindings) do
+		if b.key and IsBindingActive(b) then
+			if b.type == "spell" then
+				sigParts[#sigParts + 1] = IsBindingKnown(b) and "1" or "0"
+			elseif b.type == "dispel" then
+				hasDispel = true
+			end
+		end
+	end
+	return hasDispel
+end
+
 local function ComputeKnownSignature()
+	watchCommandDemon = false
 	local cc = GetClickCastDB()
 	if not cc or not cc.enabled then
 		return ""
 	end
 	wipe(sigParts)
-	for _, b in ipairs(GetSpecBindings()) do
-		if b.type == "spell" and b.key and IsBindingActive(b) then
-			sigParts[#sigParts + 1] = IsBindingKnown(b) and "1" or "0"
-		end
-	end
-	for _, b in ipairs(cc.globals) do
-		if b.type == "spell" and b.key and IsBindingActive(b) then
-			sigParts[#sigParts + 1] = IsBindingKnown(b) and "1" or "0"
-		end
+	local specDispel = AddSignatureParts(GetSpecBindings())
+	local globalDispel = AddSignatureParts(cc.globals)
+	-- The Dispels macro casts Command Demon only while it overrides to Singe Magic
+	if (specDispel or globalDispel) and E.myclass == "WARLOCK" then
+		watchCommandDemon = true
+		sigParts[#sigParts + 1] = "|" .. (GetCommandDemonOverride() or 0)
 	end
 	return tconcat(sigParts)
 end
@@ -1203,7 +1224,16 @@ local function BuildBaseMacroText(binding)
 		for _, sp in ipairs(ClassPresetSpells(spellList, pClass)) do
 			-- /cast resolves by localized name; the English sp.name would
 			-- silently fail on non-English clients
-			local castName = (C_Spell.GetSpellName and C_Spell.GetSpellName(sp.id)) or sp.name
+			local castID = sp.id
+			-- Singe Magic goes through Command Demon while that overrides to it
+			-- (Imp out or sacrificed): a sacrificed Imp's is reachable no other way
+			if sp.pet then
+				local commandName = C_Spell.GetSpellName(GetCommandDemonOverride() or COMMAND_DEMON_ID)
+				if commandName and commandName == C_Spell.GetSpellName(sp.id) then
+					castID = COMMAND_DEMON_ID
+				end
+			end
+			local castName = (C_Spell.GetSpellName and C_Spell.GetSpellName(castID)) or sp.name
 			lines[#lines + 1] = "/cast [@mouseover,exists,nodead" .. guard .. "] " .. castName
 		end
 		if #lines == 0 then
@@ -2300,6 +2330,11 @@ function module:ApplyBindings()
 	else
 		self:UnregisterEvent("SPELLS_CHANGED")
 	end
+	if watchCommandDemon then
+		self:RegisterEvent("UNIT_PET", "OnEvent")
+	else
+		self:UnregisterEvent("UNIT_PET")
+	end
 
 	local frameBindings = {}
 	local hoverBindings = {}
@@ -2725,6 +2760,7 @@ local function SetEventsRegistered(registered)
 	end
 	if not registered then
 		module:UnregisterEvent("SPELLS_CHANGED")
+		module:UnregisterEvent("UNIT_PET")
 	end
 end
 
@@ -2870,9 +2906,10 @@ function module:OnEvent(event, unit)
 		if not unit or unit == "player" then
 			ApplyOrDefer()
 		end
-	elseif event == "SPELLS_CHANGED" then
+	elseif event == "SPELLS_CHANGED" or (event == "UNIT_PET" and unit == "player") then
 		-- A talent or loadout swap that moved a bound spell in or out of the
-		-- book; the apply re-resolves which binding owns each key
+		-- book, or a pet swap that changed Command Demon's override; the apply
+		-- re-resolves which binding owns each key
 		if ComputeKnownSignature() ~= knownSig then
 			ApplyOrDefer()
 		end
