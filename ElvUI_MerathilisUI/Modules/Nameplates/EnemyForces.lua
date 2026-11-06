@@ -106,7 +106,10 @@ ElvUF:AddElement("MER_EnemyForces", Path, Enable, Disable)
 -- Nameplate integration
 -- Forever has no Mythic+
 local function IsSupported()
-	return not E.Forever and C_ChallengeMode_IsChallengeModeActive and C_ScenarioInfo_GetUnitCriteriaProgressValues and true
+	return not E.Forever
+		and C_ChallengeMode_IsChallengeModeActive
+		and C_ScenarioInfo_GetUnitCriteriaProgressValues
+		and true
 end
 
 function module:Configure_EnemyForces(nameplate)
