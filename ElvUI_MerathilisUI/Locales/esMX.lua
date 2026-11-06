@@ -1849,6 +1849,7 @@ L["%s is disabled while %s is loaded, both bind clicks on the same unit frames."
 L["Always casts your highest rank."] = true
 L["Target Unit"] = true
 L["Context Menu"] = true
+L["Actions"] = true
 L["Trinket 1"] = true
 L["Trinket 2"] = true
 L["Dynamic Rez"] = true

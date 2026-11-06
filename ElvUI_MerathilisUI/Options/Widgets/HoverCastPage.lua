@@ -213,7 +213,8 @@ end
 -- A row of mode tabs (Spells / Macros / Items) at the top of a picker popup
 local function CreateModeTabs(popup, modes, topY, onSelect)
 	local inner = POPUP_W - POPUP_INSET * 2
-	local tabW = floor(inner / #modes) - 2
+	-- The tabs and their 3px gaps fill the row exactly
+	local tabW = (inner - 3 * (#modes - 1)) / #modes
 	local tabs = {}
 	for i, mode in ipairs(modes) do
 		local tab = CreateFrame("Button", nil, popup)
@@ -698,6 +699,28 @@ local function NewMacroBinding(item, key)
 		hovercast = false,
 		hoverFriendly = true,
 		hoverEnemy = true,
+	}
+end
+
+-- Target Unit and Context Menu as extra bindings, e.g. a second key for the
+-- menu. customAction keeps a global one deletable, unlike the built-in pair.
+local function ActionItems()
+	local items = {}
+	for _, actionType in ipairs({ "target", "menu" }) do
+		local probe = { type = actionType }
+		items[#items + 1] =
+			{ actionType = actionType, name = HC:GetBindingName(probe), icon = HC:GetBindingIcon(probe) }
+	end
+	return items
+end
+
+local function NewActionBinding(item, global)
+	return {
+		type = item.actionType,
+		customAction = global or nil,
+		enabled = true,
+		oocOnly = false,
+		hovercast = false,
 	}
 end
 
@@ -1231,13 +1254,16 @@ function BuildPage(self)
 	for i, gb in ipairs(HC:GetGlobalBindings()) do
 		local isSel = selectedSide == "global" and selectedIndex == i
 		-- The built-in actions and presets stay, they can only be unbound
-		local canDelete = gb.type ~= "target"
-			and gb.type ~= "menu"
-			and gb.type ~= "dispel"
-			and gb.type ~= "external"
-			and gb.type ~= "trinket1"
-			and gb.type ~= "trinket2"
-			and gb.type ~= "dynamicrez"
+		local canDelete = gb.customAction
+			or (
+				gb.type ~= "target"
+				and gb.type ~= "menu"
+				and gb.type ~= "dispel"
+				and gb.type ~= "external"
+				and gb.type ~= "trinket1"
+				and gb.type ~= "trinket2"
+				and gb.type ~= "dynamicrez"
+			)
 		BuildTile(self, leftChild, leftY, sidebarW, gb, isSel, "global", i, canDelete and function(idx)
 			HC:RemoveGlobalBinding(idx)
 			HC.selSide, HC.selIndex = nil, nil
@@ -1255,10 +1281,18 @@ function BuildPage(self)
 			{
 				{ key = "macro", label = L["Macros"] },
 				{ key = "item", label = L["Items"] },
+				{ key = "action", label = L["Actions"] },
 			},
 			"macro",
 			function(mode, gridChild, popup)
-				local items = mode == "macro" and MacroItems(true) or HC:GetEquippedItems()
+				local items
+				if mode == "macro" then
+					items = MacroItems(true)
+				elseif mode == "item" then
+					items = HC:GetEquippedItems()
+				else
+					items = ActionItems()
+				end
 				PopulateGrid(gridChild, items, {
 					isDimmed = function(item)
 						return (item.macroName and bound.macros[item.macroName])
@@ -1266,7 +1300,14 @@ function BuildPage(self)
 					end,
 					onClick = function(item)
 						popup:Hide()
-						local binding = mode == "macro" and NewMacroBinding(item) or NewItemBinding(item)
+						local binding
+						if mode == "macro" then
+							binding = NewMacroBinding(item)
+						elseif mode == "item" then
+							binding = NewItemBinding(item)
+						else
+							binding = NewActionBinding(item, true)
+						end
 						HC:AddGlobalBinding(binding)
 						HC.selSide, HC.selIndex = "global", #HC:GetGlobalBindings()
 						RebuildPage(self)
@@ -1315,6 +1356,7 @@ function BuildPage(self)
 				{ key = "spell", label = L["Spells"] },
 				{ key = "macro", label = L["Macros"] },
 				{ key = "item", label = L["Items"] },
+				{ key = "action", label = L["Actions"] },
 			},
 			"spell",
 			function(mode, gridChild, popup)
@@ -1323,8 +1365,10 @@ function BuildPage(self)
 					items = HC:GetClassSpells()
 				elseif mode == "macro" then
 					items = MacroItems(false)
-				else
+				elseif mode == "item" then
 					items = HC:GetEquippedItems()
+				else
+					items = ActionItems()
 				end
 				PopulateGrid(gridChild, items, {
 					isDimmed = function(item)
@@ -1351,8 +1395,10 @@ function BuildPage(self)
 							binding = NewSpellBinding(item)
 						elseif mode == "macro" then
 							binding = NewMacroBinding(item)
-						else
+						elseif mode == "item" then
 							binding = NewItemBinding(item)
+						else
+							binding = NewActionBinding(item, false)
 						end
 						HC:AddSpecBinding(binding)
 						HC.selSide, HC.selIndex = "spec", #HC:GetSpecBindings()
