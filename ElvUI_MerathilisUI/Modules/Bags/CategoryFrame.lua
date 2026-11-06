@@ -4961,6 +4961,19 @@ function module:RefreshCategoryFrame()
 		end
 	end
 
+	-- The view rows count the items listed, so shown keys count there too,
+	-- while the keyring's slots stay out of the free slot count in the title.
+	local listedItems = usedSlots
+	if module:IsKeyringShown() then
+		local keyringID = module.KeyringContainer
+		for slotID = 1, C_Container_GetContainerNumSlots(keyringID) do
+			local info = C_Container_GetContainerItemInfo(keyringID, slotID)
+			if info and info.iconFileID then
+				listedItems = listedItems + 1
+			end
+		end
+	end
+
 	-- Fixed 3-row ALL/CATEGORY/BAG switcher - always all visible now that
 	-- Bank/Warband moved to their own separate frame, so (unlike before) this
 	-- never needs to reposition rows around a variable visible-row count.
@@ -4969,7 +4982,7 @@ function module:RefreshCategoryFrame()
 	for _, row in ipairs(f.viewModeRows) do
 		row.text:SetShown(not db.sidebarCollapsed)
 		row.count:SetShown(not db.sidebarCollapsed)
-		row.count:SetText(usedSlots)
+		row.count:SetText(listedItems)
 		local isSelected = row.viewModeKey == db.viewMode
 		row.selectedTex:SetShown(isSelected)
 		row.selectedBar:SetShown(isSelected)
