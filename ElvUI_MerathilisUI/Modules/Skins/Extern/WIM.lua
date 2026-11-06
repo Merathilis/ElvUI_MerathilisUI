@@ -317,33 +317,49 @@ local function SkinMenuButton(button)
 		HideRegion(button[key])
 	end
 
+	S:HandleCloseButton(button.close)
+	button.close:SetHitRectInsets(0, 0, 0, 0)
+
+	button.__MERSkinned = true
+end
+
+local function MenuButton_ApplySkin(button)
+	-- WIM sets the highlight from its menu skin on every skin pass
 	button:SetHighlightTexture(E.media.normTex)
 	local highlight = button:GetHighlightTexture()
 	highlight:SetVertexColor(F.r, F.g, F.b, 0.25)
+	highlight:SetBlendMode("BLEND")
+	highlight:SetTexCoord(0, 1, 0, 1)
+	highlight:ClearAllPoints()
 	highlight:SetAllPoints()
-
-	S:HandleCloseButton(button.close)
-	button.close:SetHitRectInsets(0, 0, 0, 0)
 end
 
+local function HideMenuArt(frame)
+	frame:SetBackdrop(nil)
+	-- WIM 3.19 paints the menu skin on an atlas texture and shows it again on every skin pass
+	if frame._atlasTexture then
+		frame._atlasTexture:SetAlpha(0)
+	end
+end
+
+-- WIM lays out titles and rows itself on every skin pass, so only its art is replaced here
 local function Menu_ApplySkin(menu)
+	HideMenuArt(menu)
+
 	for _, group in ipairs(menu.groups) do
-		group:SetBackdrop(nil)
+		HideMenuArt(group)
+
+		for _, button in ipairs(group.buttons) do
+			if not button.__MERSkinned then
+				SkinMenuButton(button)
+			end
+			MenuButton_ApplySkin(button)
+		end
 	end
 end
 
 local function SkinMenu(menu)
 	module:SetBD(menu)
-
-	for _, group in ipairs(menu.groups) do
-		group.title:ClearAllPoints()
-		group.title:Point("TOPLEFT", 10, -8)
-		group.title:Point("TOPRIGHT", -10, -8)
-
-		for _, button in ipairs(group.buttons) do
-			SkinMenuButton(button)
-		end
-	end
 
 	Menu_ApplySkin(menu)
 	hooksecurefunc(menu, "ApplySkin", Menu_ApplySkin)
@@ -858,9 +874,15 @@ function module:WIM()
 
 	SkinDropDownLists()
 
-	-- The options window is created on its first open, these run whenever a category or page shows
-	hooksecurefunc(WIM.options, "UpdateCategories", Options_UpdateCategories)
-	hooksecurefunc(WIM.options, "UpdateSubCategories", Options_UpdateSubCategories)
+	-- The options window is created on its first open, these run whenever a category or page shows.
+	-- WIM 3.19 dropped that window for a page in Blizzard's Settings panel, so only older versions have them.
+	local options = WIM.options
+	if options and options.UpdateCategories then
+		hooksecurefunc(options, "UpdateCategories", Options_UpdateCategories)
+	end
+	if options and options.UpdateSubCategories then
+		hooksecurefunc(options, "UpdateSubCategories", Options_UpdateSubCategories)
+	end
 	if WIM.ShowFilterFrame then
 		hooksecurefunc(WIM, "ShowFilterFrame", SkinFilterWindow)
 	end
