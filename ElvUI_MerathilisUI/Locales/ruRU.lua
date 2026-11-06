@@ -2422,3 +2422,4 @@ L["Deposited %s to the warband bank."] = true
 L["Withdrew %s from the warband bank."] = true
 L["Color Casting Enemies"] = true
 L["Enemy NPCs keep a health bar color after their first cast, so casters stay visible for the whole pull. Interruptible wins once a mob has shown both kinds. Needs ElvUI's nameplate castbar."] = true
+L["Show / hide keyring"] = true

@@ -35203,6 +35203,7 @@ read_globals = {
 			"SetActionBarPage",
 			"ShouldOverrideBarShowHealthBar",
 			"ShouldOverrideBarShowManaBar",
+			"ShouldShowKeyring", -- WoW Forever (verified against wow-ui-source forever)
 			"ToggleAutoCastPetAction",
 			"UnregisterActionUIButton",
 		},

@@ -280,6 +280,7 @@ P.bags = {
 		openWithCharacter = false,
 		quickActions = false,
 		hideEmptyCategories = true,
+		showKeyring = true,
 		mergeDuplicates = true,
 		autoSize = false,
 		nestByExpansion = true,

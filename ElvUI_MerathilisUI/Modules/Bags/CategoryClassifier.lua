@@ -31,6 +31,13 @@ local CLASS_HOUSING = 20
 local BagIndex = Enum.BagIndex
 module.ReagentContainer = BagIndex.ReagentBag or math.huge
 
+-- WoW Forever still has the keyring (bagID -1 there). Blizzard's own bag code
+-- checks C_ActionBar.ShouldShowKeyring() once at load, same as here. Stays
+-- nil on Retail, which turns every keyring branch below into a no-op.
+if E.Forever and C_ActionBar and C_ActionBar.ShouldShowKeyring and C_ActionBar.ShouldShowKeyring() then
+	module.KeyringContainer = BagIndex.Keyring or _G.KEYRING_CONTAINER
+end
+
 -- Character bank tabs - the bank is no longer a single flat container, it's
 -- 6 tab-bags, same unified Container API as regular bags just with different
 -- bagIDs.
@@ -74,7 +81,7 @@ local DEFAULT_CATEGORIES = {
 	{
 		key = "REAGENTBAG",
 		name = L["Reagent Bag"],
-		isReagentBag = true,
+		containerID = module.ReagentContainer,
 		icon = 132854,
 	},
 	{
@@ -157,6 +164,23 @@ local DEFAULT_CATEGORIES = {
 		icon = E.Media.Textures.Backpack,
 	},
 }
+
+-- Mirrors the keyring container the same way Reagent Bag mirrors its bag,
+-- right after it. Only listed while the keyring is toggled on (GetCategories).
+if module.KeyringContainer then
+	tinsert(DEFAULT_CATEGORIES, 2, {
+		key = "KEYRING",
+		name = _G.KEYRING,
+		containerID = module.KeyringContainer,
+		isKeyring = true,
+		icon = 134237, -- Interface/ICONS/INV_Misc_Key_03
+	})
+end
+
+-- Toggled from the keyring button in the bag bar popout (CategoryFrame.lua)
+function module:IsKeyringShown()
+	return module.KeyringContainer ~= nil and not (module.db and module.db.showKeyring == false)
+end
 
 -- Built-in category groups: several sidebar categories collapse into one
 -- combined content section, with their own indented rows underneath the
@@ -513,11 +537,13 @@ function module:GetCategories()
 
 	local nameOverrides = db and db.categoryNameOverrides
 	local junkEnabled = module:IsJunkMarkerEnabled()
+	local keyringShown = module:IsKeyringShown()
 	for _, cat in ipairs(DEFAULT_CATEGORIES) do
 		local override = nameOverrides and nameOverrides[cat.key]
 		-- Junk is left out entirely while the Junk Marker is off, assignments
 		-- to it stay saved for later
-		local available = junkEnabled or not cat.isJunk
+		-- The keyring category likewise only while the keyring is shown.
+		local available = (junkEnabled or not cat.isJunk) and (keyringShown or not cat.isKeyring)
 		if available and override then
 			-- Shallow copy so the rename doesn't mutate the shared
 			-- DEFAULT_CATEGORIES table itself.
@@ -690,9 +716,10 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink, quality)
 		return nil
 	end
 
-	if bagID == module.ReagentContainer then
+	-- Reagent Bag / Keyring: everything in that container goes to its category
+	if bagID and (bagID == module.ReagentContainer or bagID == module.KeyringContainer) then
 		for _, cat in ipairs(module:GetCategories()) do
-			if cat.isReagentBag then
+			if cat.containerID == bagID then
 				return cat.key
 			end
 		end
@@ -739,7 +766,7 @@ function module:ClassifyItem(bagID, slotID, itemID, itemLink, quality)
 	end
 
 	for _, cat in ipairs(module:GetCategories()) do
-		if cat.types and not cat.isReagentBag and not cat.isSetGear then
+		if cat.types and not cat.containerID and not cat.isSetGear then
 			local matched = false
 
 			for _, t in ipairs(cat.types) do

@@ -70,6 +70,20 @@ if module.ReagentContainer and module.ReagentContainer < math.huge then
 end
 module.BAG_IDS = BAG_IDS
 
+-- WoW Forever's keyring (CategoryClassifier.lua). Kept out of BAG_IDS: it
+-- only holds keys, so it stays out of the free slot count, the "Move to Bag"
+-- targets and the junk sweep - it only joins the bags whose items are shown.
+-- Stored on the module instead of a local, see the 200-locals note above.
+if module.KeyringContainer then
+	module.BAG_IDS_WITH_KEYRING = { unpack(BAG_IDS) }
+	tinsert(module.BAG_IDS_WITH_KEYRING, module.KeyringContainer)
+end
+
+-- The bags whose items the bag frame lists
+function module:GetShownBagIDs()
+	return module:IsKeyringShown() and module.BAG_IDS_WITH_KEYRING or BAG_IDS
+end
+
 local FRAME_NAME = "MER_BagCategoriesFrame"
 local SLOT_NAME_PREFIX = "MER_BagCategoriesSlot"
 local BANK_FRAME_NAME = "MER_BankCategoriesFrame"
@@ -220,7 +234,7 @@ function module:ClearRecentItems()
 end
 
 local function SnapshotNewItems()
-	SnapshotNewItemsForBags(BAG_IDS)
+	SnapshotNewItemsForBags(module:GetShownBagIDs())
 end
 
 local function SnapshotBankNewItems()
@@ -3558,7 +3572,7 @@ local function CollectItemsFromBags(bagIDList, scratch)
 end
 
 local function CollectItems()
-	return CollectItemsFromBags(BAG_IDS, categoryItemsScratch)
+	return CollectItemsFromBags(module:GetShownBagIDs(), categoryItemsScratch)
 end
 
 local function BuildCategorySectionsFrom(itemsByCategory)
@@ -3762,7 +3776,7 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 end
 
 local function CollectItemsByBag()
-	return CollectItemsByBagFrom(BAG_IDS, bagItemsScratch)
+	return CollectItemsByBagFrom(module:GetShownBagIDs(), bagItemsScratch)
 end
 
 -- Character/Warband bank tabs can have a custom icon/name set by the player
@@ -3809,6 +3823,10 @@ local function GetBagIcon(bagID)
 		return 132854
 	end
 
+	if bagID == module.KeyringContainer then
+		return 134237 -- Interface/ICONS/INV_Misc_Key_03
+	end
+
 	local bankInfo = GetBankTabInfo(bagID)
 	if bankInfo and bankInfo.icon then
 		return bankInfo.icon
@@ -3826,6 +3844,10 @@ local function GetBagDisplayName(bagID)
 
 	if bagID == module.ReagentContainer then
 		return L["Reagent Bag"]
+	end
+
+	if bagID == module.KeyringContainer then
+		return _G.KEYRING
 	end
 
 	local bankInfo = GetBankTabInfo(bagID)
@@ -3984,6 +4006,85 @@ function module:ConstructBagBarPopout()
 		f.buttons[i] = btn
 	end
 
+	-- Forever's keyring sits after the bags. A click shows or hides it in the
+	-- bag frame, a key on the cursor goes into the keyring instead.
+	if module.KeyringContainer then
+		local function Keyring_PutCursorItem()
+			if not CursorHasItem() then
+				return false
+			end
+
+			if _G.PutKeyInKeyRing then
+				_G.PutKeyInKeyRing()
+			end
+
+			return true
+		end
+
+		local function Keyring_OnEnter(self)
+			if module:IsKeyringShown() then
+				module.hoveredBagID = self.bagID
+				RefreshSlotDim()
+			end
+
+			if GameTooltip:IsForbidden() then
+				return
+			end
+
+			local numSlots = C_Container_GetContainerNumSlots(self.bagID)
+			local usedSlots = 0
+			for slotID = 1, numSlots do
+				local info = C_Container_GetContainerItemInfo(self.bagID, slotID)
+				if info and info.iconFileID then
+					usedSlots = usedSlots + 1
+				end
+			end
+
+			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+			GameTooltip:AddLine(format("%s (%d/%d)", _G.KEYRING, usedSlots, numSlots), 1, 1, 1)
+			GameTooltip:AddDoubleLine(L["Left Click:"], L["Show / hide keyring"], 1, 1, 1)
+			GameTooltip:Show()
+		end
+
+		local btn = CreateFrame("Button", nil, f)
+		btn:Size(BAG_BAR_BUTTON_SIZE, BAG_BAR_BUTTON_SIZE)
+		pcall(btn.SetTemplate, btn)
+		btn.bagID = module.KeyringContainer
+
+		btn.tex = btn:CreateTexture(nil, "ARTWORK")
+		btn.tex:SetInside()
+		btn.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		btn.tex:SetTexture(GetBagIcon(btn.bagID))
+
+		btn.count = btn:CreateFontString(nil, "OVERLAY")
+		btn.count:FontTemplate(nil, 10, "OUTLINE")
+		btn.count:Point("BOTTOMRIGHT", -1, 1)
+
+		btn:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
+
+		btn:SetScript("OnReceiveDrag", Keyring_PutCursorItem)
+		btn:SetScript("OnClick", function(self)
+			if Keyring_PutCursorItem() then
+				return
+			end
+
+			module.db.showKeyring = not module:IsKeyringShown()
+			module.hoveredBagID = nil
+			module:InvalidateCategoryCache()
+			module:RefreshCategoryFrame()
+			module:RefreshBagBarPopout()
+			Keyring_OnEnter(self)
+		end)
+		btn:SetScript("OnEnter", Keyring_OnEnter)
+		btn:SetScript("OnLeave", function()
+			GameTooltip_Hide()
+			module.hoveredBagID = nil
+			RefreshSlotDim()
+		end)
+
+		f.keyringButton = btn
+	end
+
 	module.bagBarPopout = f
 	return f
 end
@@ -4008,8 +4109,25 @@ function module:RefreshBagBarPopout()
 		end
 	end
 
+	local numButtons = #BAG_IDS
+	local keyring = f.keyringButton
+	if keyring then
+		numButtons = numButtons + 1
+
+		keyring:ClearAllPoints()
+		keyring:Point("LEFT", BAG_BAR_SPACING + #BAG_IDS * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING), 0)
+
+		local freeSlots = C_Container.GetContainerNumFreeSlots and C_Container.GetContainerNumFreeSlots(keyring.bagID)
+		keyring.count:SetText(freeSlots or "")
+
+		-- Greyed out while the keyring is hidden from the bag frame
+		local shown = module:IsKeyringShown()
+		keyring.tex:SetDesaturated(not shown)
+		keyring.tex:SetAlpha(shown and 1 or 0.5)
+	end
+
 	f:Size(
-		#BAG_IDS * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING) + BAG_BAR_SPACING,
+		numButtons * (BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING) + BAG_BAR_SPACING,
 		BAG_BAR_BUTTON_SIZE + BAG_BAR_SPACING * 2
 	)
 end
@@ -4103,7 +4221,7 @@ local function BuildBagSectionsFrom(bagIDList, itemsByBag, alwaysShow, skipSideb
 end
 
 local function BuildBagSections()
-	return BuildBagSectionsFrom(BAG_IDS, CollectItemsByBag())
+	return BuildBagSectionsFrom(module:GetShownBagIDs(), CollectItemsByBag())
 end
 
 -------------------------------------------------------------------------------
@@ -4196,7 +4314,7 @@ local function BuildFlatSectionsFrom(bagIDList, itemsByBag)
 end
 
 local function BuildFlatSections()
-	return BuildFlatSectionsFrom(BAG_IDS, CollectItemsByBag())
+	return BuildFlatSectionsFrom(module:GetShownBagIDs(), CollectItemsByBag())
 end
 
 -- Panels that hand over one bag slot at a time (mail, trade, auction house,
@@ -4492,6 +4610,13 @@ function module.GetSectionAssignHandler(ctx, section)
 		or section.isBagSection
 		or section.key == module.AllItemsCategory.key
 	then
+		return nil
+	end
+
+	-- Reagent Bag / Keyring follow their container, an assignment would only
+	-- pull other items in (same exclusion as the Assign to Category menu)
+	local cat = module:FindCategory(section.key)
+	if cat and cat.containerID then
 		return nil
 	end
 
@@ -4894,7 +5019,7 @@ function module:RefreshCategoryFrame()
 	ApplyAutoHeight(f, module.contentChild, module.sidebarChild, db.height)
 
 	f.titleText:SetText(L["Inventory"])
-	SetTitleCount(f.titleCountText, usedSlots, totalSlots, CountSearchHits(BAG_IDS))
+	SetTitleCount(f.titleCountText, usedSlots, totalSlots, CountSearchHits(module:GetShownBagIDs()))
 	SetFillBar(f, usedSlots, totalSlots)
 	module:UpdateJunkMarkButton()
 	module:UpdateQuickActionsButton()
@@ -5233,16 +5358,16 @@ end
 -- too, adding one needs an existing group - each submenu is skipped when
 -- there is nothing to put in it.
 local function AddGroupingSubmenus(rootDescription, key)
-	-- The reagent bag mirrors a physical container rather than a rule-based
-	-- category, so it stays out of groups on both ends.
+	-- The reagent bag and the keyring mirror a physical container rather than
+	-- a rule-based category, so they stay out of groups on both ends.
 	local ownCat = module:FindCategory(key)
-	if ownCat and ownCat.isReagentBag then
+	if ownCat and ownCat.containerID then
 		return
 	end
 
 	local freeCategories = {}
 	for _, cat in ipairs(module:GetCategories()) do
-		if cat.key ~= key and not cat.isReagentBag and not module:GetCategoryGroupForKey(cat.key) then
+		if cat.key ~= key and not cat.containerID and not module:GetCategoryGroupForKey(cat.key) then
 			tinsert(freeCategories, cat)
 		end
 	end
@@ -5420,7 +5545,7 @@ function module:OpenAssignMenu(slot)
 		end
 
 		for _, cat in ipairs(module:GetCategories()) do
-			if not cat.isReagentBag then
+			if not cat.containerID then
 				rootDescription:CreateButton(cat.name, function()
 					module:AssignItemToCategory(itemID, cat.key)
 					RefreshOwnerFrame(ownerFrame)
