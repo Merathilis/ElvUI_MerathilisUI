@@ -32,7 +32,6 @@ local BuildBagSectionsFrom = module.BuildBagSectionsFrom
 local BuildFlatSectionsFrom = module.BuildFlatSectionsFrom
 local GetBagIcon = module.GetBagIcon
 local GetBagDisplayName = module.GetBagDisplayName
-local ShowPurchaseBankTabPrompt = module.ShowPurchaseBankTabPrompt
 local SetCategoryIcon = module.SetCategoryIcon
 local SetTitleCount = module.SetTitleCount
 local SetFillBar = module.SetFillBar
@@ -171,9 +170,8 @@ local function BankTabRow_OnClick(self, mouseButton)
 		module.bankTabFilter = (module.bankTabFilter == value) and nil or value
 		module.bankViewMode = (def.bankType == WARBAND_BANK_TYPE) and "WARBAND_ALL" or "BANK_ALL"
 		module:RefreshBankCategoryFrame()
-	elseif state == "purchasable" then
-		ShowPurchaseBankTabPrompt(value)
 	end
+	-- "purchasable" clicks land on row.purchaseOverlay (see CreatePurchaseOverlay)
 end
 
 local function BankTabRow_OnEnter(self)
@@ -730,10 +728,42 @@ end)
 local bankTabRowPool = {}
 local bankTabDividerPool = {}
 
+local function PurchaseOverlay_OnEnter(self)
+	local row = self:GetParent()
+	row:LockHighlight()
+	BankTabRow_OnEnter(row)
+end
+
+local function PurchaseOverlay_OnLeave(self)
+	self:GetParent():UnlockHighlight()
+	GameTooltip_Hide()
+end
+
+-- C_Bank.PurchaseBankTab is restricted: called from addon code (e.g. our own
+-- StaticPopup's OnAccept) it is silently blocked. Blizzard ships a script-only
+-- template for addons whose OnClick opens their own CONFIRM_BUY_BANK_TAB popup
+-- from secure code, so the purchase goes through. The bank type comes from
+-- the 'overrideBankType' attribute. This overlay covers a "purchasable" row.
+local function CreatePurchaseOverlay(row)
+	local ok, overlay = pcall(CreateFrame, "Button", nil, row, "BankPanelPurchaseButtonScriptTemplate")
+	if not ok or not overlay then
+		return
+	end
+
+	overlay:SetAllPoints()
+	overlay:RegisterForClicks("LeftButtonUp")
+	overlay:SetScript("OnEnter", PurchaseOverlay_OnEnter)
+	overlay:SetScript("OnLeave", PurchaseOverlay_OnLeave)
+	overlay:Hide()
+
+	return overlay
+end
+
 local function AcquireBankTabRow(index)
 	local row = bankTabRowPool[index]
 	if not row then
 		row = CreateBankSidebarRowButton(module.bankSidebarChild)
+		row.purchaseOverlay = CreatePurchaseOverlay(row)
 		bankTabRowPool[index] = row
 	end
 	row:Show()
@@ -921,6 +951,16 @@ function module:RefreshBankCategoryFrame()
 			row:Point("TOPRIGHT", sidebarChild, "TOPRIGHT", 0, -tabY)
 
 			local state, value = GetBankTabSlotState(def.bagIDList, def.bankType, def.index)
+
+			local overlay = row.purchaseOverlay
+			if overlay then
+				if state == "purchasable" then
+					overlay:SetAttribute("overrideBankType", value)
+					overlay:Show()
+				else
+					overlay:Hide()
+				end
+			end
 
 			if state == "purchased" then
 				row.text:SetShown(not db.bankSidebarCollapsed)

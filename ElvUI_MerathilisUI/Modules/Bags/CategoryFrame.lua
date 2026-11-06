@@ -36,8 +36,6 @@ local BankAPI = {
 	AutoDeposit = C_Bank and C_Bank.AutoDepositItemsIntoBank,
 	CanView = C_Bank and C_Bank.CanViewBank,
 	FetchNumPurchasedTabs = C_Bank and C_Bank.FetchNumPurchasedBankTabs,
-	FetchNextPurchasableTabData = C_Bank and C_Bank.FetchNextPurchasableBankTabData,
-	PurchaseTab = C_Bank and C_Bank.PurchaseBankTab,
 	CanPurchaseTab = C_Bank and C_Bank.CanPurchaseBankTab,
 }
 local CHARACTER_BANK_TYPE = (Enum.BankType and Enum.BankType.Character) or 0
@@ -2958,31 +2956,6 @@ function module:AutoDepositToBank()
 	BankAPI.AutoDeposit(bankType)
 end
 
--- Confirmation prompt for buying the next bank tab (mirrors Blizzard's own
--- purchase flow, which also confirms before spending gold) - BankAPI.PurchaseTab
--- always targets "the next" tab, there's no per-tab selection, so this is
--- only ever offered for the one tab slot right after your last purchased one.
-local function ShowPurchaseBankTabPrompt(bankType)
-	if not BankAPI.FetchNextPurchasableTabData or not BankAPI.PurchaseTab then
-		return
-	end
-
-	local tabData = BankAPI.FetchNextPurchasableTabData(bankType)
-	if not tabData then
-		return
-	end
-
-	local message = format(
-		"%s\n\n%s\n\n%s: %s",
-		tabData.purchasePromptTitle or "",
-		tabData.purchasePromptBody or "",
-		L["Cost"],
-		E:FormatMoney(tabData.tabCost, "SMART")
-	)
-
-	StaticPopup_Show("MER_BAGCATEGORIES_PURCHASE_BANK_TAB", message, nil, { bankType = bankType })
-end
-
 -------------------------------------------------------------------------------
 --  Data collection + render
 -------------------------------------------------------------------------------
@@ -3866,7 +3839,7 @@ module.BAG_BAR_BUTTON_SIZE, module.BAG_BAR_SPACING = BAG_BAR_BUTTON_SIZE, BAG_BA
 
 -- Tri-state helper for a fixed-length bank/warband tab list (purchased / next
 -- purchasable / locked) - shared by the Bank frame's own sidebar tab rows
--- (BankFrame.lua). BankAPI.PurchaseTab always buys "the next" tab, there's no
+-- (BankFrame.lua). C_Bank.PurchaseBankTab always buys "the next" tab, there's no
 -- per-tab selection, so only the slot right after the last purchased one can
 -- ever be "purchasable"; anything further out stays "locked" until that one
 -- is bought (same one-step-at-a-time reveal Blizzard's own tab bar uses).
@@ -5171,21 +5144,6 @@ _G.StaticPopupDialogs["MER_BAGCATEGORIES_RENAME"] = {
 	hideOnEscape = true,
 }
 
-_G.StaticPopupDialogs["MER_BAGCATEGORIES_PURCHASE_BANK_TAB"] = {
-	text = "%s",
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = function(_, data)
-		if data and data.bankType and BankAPI.PurchaseTab then
-			BankAPI.PurchaseTab(data.bankType)
-		end
-	end,
-	timeout = 0,
-	whileDead = true,
-	hideOnEscape = true,
-	showAlert = true,
-}
-
 -- A modest, curated palette of long-stable, generic item-style icons for the
 -- Add Category grid (not a full icon browser); the custom ID input below the
 -- grid covers anything not in this set, via the same ResolveIconInput lookup
@@ -6314,7 +6272,6 @@ module.BuildFlatSectionsFrom = BuildFlatSectionsFrom
 module.BuildBagSectionsFrom = BuildBagSectionsFrom
 module.GetBagIcon = GetBagIcon
 module.GetBagDisplayName = GetBagDisplayName
-module.ShowPurchaseBankTabPrompt = ShowPurchaseBankTabPrompt
 module.SetCategoryIcon = SetCategoryIcon
 module.VIEW_MODE_ROW_HEIGHT = VIEW_MODE_ROW_HEIGHT
 module.COLLAPSED_SIDEBAR_WIDTH = COLLAPSED_SIDEBAR_WIDTH
