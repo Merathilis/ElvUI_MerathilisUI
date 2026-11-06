@@ -3875,6 +3875,41 @@ function module:ConstructBagBarPopout()
 		return module.bagBarPopout
 	end
 
+	-- Kept local to this function: the file is close to Lua 5.1's limit of
+	-- 200 locals per scope.
+	local function GetBagInventoryID(bagID)
+		if not bagID or bagID == 0 then
+			return nil
+		end
+
+		return C_Container.ContainerIDToInventoryID and C_Container.ContainerIDToInventoryID(bagID)
+	end
+
+	-- Returns true when there was an item on the cursor to place
+	local function BagBarButton_PutCursorItem(self)
+		if not (self.bagID and CursorHasItem()) then
+			return false
+		end
+
+		if self.bagID == 0 then
+			_G.PutItemInBackpack()
+		else
+			local invID = GetBagInventoryID(self.bagID)
+			if invID then
+				_G.PutItemInBag(invID)
+			end
+		end
+
+		return true
+	end
+
+	local function BagBarButton_OnDragStart(self)
+		local invID = GetBagInventoryID(self.bagID)
+		if invID then
+			_G.PickupBagFromSlot(invID)
+		end
+	end
+
 	local f = CreateFrame("Frame", "MER_BagCategoriesBagBar", E.UIParent)
 	f:SetFrameStrata("DIALOG")
 	pcall(f.SetTemplate, f, "Transparent")
@@ -3898,8 +3933,19 @@ function module:ConstructBagBarPopout()
 
 		btn:SetHighlightTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]], "ADD")
 
+		-- Same as Blizzard's bag slots: an item on the cursor goes into that
+		-- slot (a bag gets equipped / swapped in, anything else is put into
+		-- the bag), and an equipped bag can be dragged out.
+		btn:RegisterForDrag("LeftButton")
+		btn:SetScript("OnDragStart", BagBarButton_OnDragStart)
+		btn:SetScript("OnReceiveDrag", BagBarButton_PutCursorItem)
+
 		btn:SetScript("OnClick", function(self)
 			if not self.bagID then
+				return
+			end
+
+			if BagBarButton_PutCursorItem(self) then
 				return
 			end
 
@@ -5863,6 +5909,11 @@ local function DoThrottledRefresh()
 
 	if module.bankFrame and module.bankFrame:IsShown() and module.RefreshBankCategoryFrame then
 		module:RefreshBankCategoryFrame()
+	end
+
+	-- Bag icons and free slot counts (a bag swapped in from the popout)
+	if module.bagBarPopout and module.bagBarPopout:IsShown() then
+		module:RefreshBagBarPopout()
 	end
 end
 
