@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[745] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "07.11.2026",
 	FIXES = {
 		"[ActionBars]: The cooldown swipe now fully covers the icon. On UI scales that are not pixel perfect a thin strip of the icon showed next to the swipe, mostly on the left edge.",
 		"[Bags]: New bags can now be equipped through the bag bar of the categorized bags. Clicking or dropping an item on a bag slot now works like Blizzard's bag slots: a bag gets equipped or swapped in, an equipped bag can be dragged out, and the bar updates right away.",
