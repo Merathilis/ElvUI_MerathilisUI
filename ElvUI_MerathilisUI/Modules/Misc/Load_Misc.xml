@@ -10,6 +10,8 @@
 	<Script file="GameMenu.lua"/>
 	<Script file="Gmotd.lua"/>
 	<Script file="GroupFinder.lua"/>
+	<Script file="GroupFinderRegions.lua"/>
+	<Script file="GroupFinderFilter.lua"/>
 	<Script file="GuildBest.lua"/>
 	<Script file="IconSearch.lua"/>
 	<Script file="ParagonBar.lua"/>

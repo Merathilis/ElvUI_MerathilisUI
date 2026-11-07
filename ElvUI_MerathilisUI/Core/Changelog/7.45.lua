@@ -17,5 +17,9 @@ MER.Changelog[745] = {
 	IMPROVEMENTS = {
 		"[Quick Grid]: New Equipment Sets deck with the first eight sets of your Equipment Manager, the set you wear is marked. Equipment sets can also go into the custom deck by typing their name.",
 		"[Quick Grid]: On WoW Forever, spells now cast the highest rank you know instead of the rank they were added with.",
+		"[Bags]: The Offline Bank and the item counts in tooltips now also work on WoW Forever, with all nine bank bag slots and the keyring. Characters are told apart by their full name with surname.",
+		"[Group Finder]: New region tags after a group's activity show where its leader plays from: the region on US realms, the realm language on EU realms.",
+		"[Group Finder]: New filter expression, for example 'healer = 0 and score >= 2500 and hasbl'. Groups that don't match are dimmed in the Premade Groups list.",
+		"[Notifications]: Toasts and the Raid Buff Check names now draw Cyrillic, Korean and Chinese letters instead of boxes, also with fonts that lack them.",
 	},
 }

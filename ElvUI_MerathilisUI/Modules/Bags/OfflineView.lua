@@ -170,7 +170,15 @@ local function BuildListItems(v, list)
 	for pos, t in pairs(list) do
 		if t then
 			total = total + (t.size or 0)
-			local bagID = v.kind == "bags" and pos == #module.BAG_IDS + 1 and module.ReagentContainer or nil
+			-- Saved after the bags: the reagent bag, then WoW Forever's keyring (Offline.lua)
+			local bagID
+			if v.kind == "bags" then
+				if pos == #module.BAG_IDS + 1 then
+					bagID = module.ReagentContainer
+				elseif pos == #module.BAG_IDS + 2 then
+					bagID = module.KeyringContainer
+				end
+			end
 			for slot, s in pairs(t.items) do
 				used = used + 1
 				local item = MakeItem(s, t.counts[slot] or 1)
@@ -422,14 +430,17 @@ local function BuildPanel(v)
 
 	local previous
 	for _, def in ipairs(TABS) do
-		local tab = CreateTab(v, def)
-		if previous then
-			tab:Point("LEFT", previous, "RIGHT", 0, 0)
-		else
-			tab:Point("LEFT", v.bar, "LEFT", 4, 0)
+		-- WoW Forever has no warband bank
+		if not (def.kind == "warband" and not Offline.HasWarband()) then
+			local tab = CreateTab(v, def)
+			if previous then
+				tab:Point("LEFT", previous, "RIGHT", 0, 0)
+			else
+				tab:Point("LEFT", v.bar, "LEFT", 4, 0)
+			end
+			tinsert(v.tabs, tab)
+			previous = tab
 		end
-		tinsert(v.tabs, tab)
-		previous = tab
 	end
 
 	local back = CreateFrame("Button", nil, v.bar, "UIPanelCloseButton")
@@ -789,7 +800,7 @@ end
 
 ---Runs after every refresh of a window: the live refresh resets the title
 function module:OfflineSyncFrame(f)
-	if E.Forever or not (views[f] or Offline.Enabled()) then
+	if not (views[f] or Offline.Enabled()) then
 		return
 	end
 

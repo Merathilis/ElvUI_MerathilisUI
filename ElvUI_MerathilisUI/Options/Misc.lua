@@ -848,6 +848,67 @@ module:AddOptions(function()
 						name = L["Members In Tooltip"],
 						desc = L["Lists the group members by role in the tooltip. With the Group Info tooltip of WindTools, only the names are added."],
 					},
+					regionTags = {
+						order = 5,
+						type = "toggle",
+						name = L["Region Tags"],
+						desc = L["Shows where the group leader plays from after the activity: the region on US realms (NA, OCE, MEX, BRA), the realm language on EU realms (EN, DE, FR, ES, IT, PT, RU)."],
+					},
+				},
+			},
+			filter = {
+				order = 5,
+				type = "group",
+				name = L["Filter Expression"],
+				guiInline = true,
+				disabled = function()
+					return not E.db.mui.misc.groupFinder.enable
+				end,
+				args = {
+					desc = {
+						order = 1,
+						type = "description",
+						fontSize = "medium",
+						name = L["Groups that don't match the expression are dimmed. Words: tanks, healers, dps, members, tankopen, healeropen, dpsopen, score (leader rating), ilvl (required item level), age (minutes), friends, voice, hasbl, hasbr, myclass and class names such as mage or dk. Combine them with and, or, not, comparisons (= != < <= > >=), + - * / and brackets."]
+							.. "\n"
+							.. format(
+								L["Example: %s"],
+								"|cffffd100healer = 0 and score >= 2500 and (hasbl or myclass = 0)|r"
+							),
+					},
+					filterExpression = {
+						order = 2,
+						type = "input",
+						name = L["Expression"],
+						width = "full",
+						set = function(_, value)
+							local text = strtrim(value or "")
+							local test, bad = GF:CompileFilter(text)
+							if text ~= "" and not test then
+								F.Print(format(L["Could not read the filter expression at: %s"], tostring(bad)))
+							end
+							E.db.mui.misc.groupFinder.filterExpression = text
+							GF:DatabaseUpdate()
+						end,
+					},
+					status = {
+						order = 3,
+						type = "description",
+						fontSize = "medium",
+						name = function()
+							local text = E.db.mui.misc.groupFinder.filterExpression
+							if not text or text == "" then
+								return L["No filter set."]
+							end
+							local test, bad = GF:CompileFilter(text)
+							if test then
+								return "|cff40ff40" .. L["The expression is valid."] .. "|r"
+							end
+							return "|cffff4040"
+								.. format(L["Could not read the filter expression at: %s"], tostring(bad))
+								.. "|r"
+						end,
+					},
 				},
 			},
 			applications = module.ModuleCard("groupFinderApplications", {

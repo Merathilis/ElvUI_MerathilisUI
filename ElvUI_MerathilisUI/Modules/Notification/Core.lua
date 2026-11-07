@@ -253,9 +253,11 @@ function module:BuildToastFrame(parent)
 	-- the toast has its place on the screen
 	local textWidth = TOAST_WIDTH - (PADDING + ACCENT_WIDTH + ICON_SIZE + PADDING) - TEXT_RIGHT_INSET
 
+	-- Toasts show other players' names and messages: font families, so text in
+	-- scripts the font lacks still draws (Core/Functions/Fonts.lua)
+	local fonts = E.db.mui.notification
 	local title = toast:CreateFontString(nil, "OVERLAY")
-	title:FontTemplate()
-	title:SetShadowOffset(1, -1)
+	F.SetFontFamilyWithDB(title, fonts.titleFont)
 	title:SetWidth(textWidth)
 	title:SetJustifyH("LEFT")
 	title:SetJustifyV("TOP")
@@ -265,8 +267,7 @@ function module:BuildToastFrame(parent)
 	toast.title = title
 
 	local text = toast:CreateFontString(nil, "OVERLAY")
-	text:FontTemplate()
-	text:SetShadowOffset(1, -1)
+	F.SetFontFamilyWithDB(text, fonts.textFont)
 	text:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -TEXT_GAP)
 	text:SetWidth(textWidth)
 	text:SetJustifyH("LEFT")
@@ -401,8 +402,8 @@ function module:DisplayToast(name, message, clickFunc, texture, ...)
 
 	-- Toasts are reused, so the fonts are set every time to pick up option changes
 	local db = E.db.mui.notification
-	WF.SetFontWithDB(toast.title, db.titleFont)
-	WF.SetFontWithDB(toast.text, db.textFont)
+	F.SetFontFamilyWithDB(toast.title, db.titleFont)
+	F.SetFontFamilyWithDB(toast.text, db.textFont)
 
 	toast.clickFunc = type(clickFunc) == "function" and clickFunc or nil
 

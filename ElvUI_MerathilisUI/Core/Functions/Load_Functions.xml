@@ -4,6 +4,7 @@
 	<Script file="Colors.lua"/>
 	<Script file="Developer.lua"/>
 	<Script file="Event.lua"/>
+	<Script file="Fonts.lua"/>
 	<Script file="PortalFlyout.lua"/>
 	<Script file="Profiles.lua"/>
 	<Script file="Strings.lua"/>

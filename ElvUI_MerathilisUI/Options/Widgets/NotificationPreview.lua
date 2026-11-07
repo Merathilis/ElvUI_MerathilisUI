@@ -32,8 +32,8 @@ local function Update(widget)
 	local notification = MER:GetModule("MER_Notification")
 	local toast = widget.toast
 
-	WF.SetFontWithDB(toast.title, db.titleFont)
-	WF.SetFontWithDB(toast.text, db.textFont)
+	F.SetFontFamilyWithDB(toast.title, db.titleFont)
+	F.SetFontFamilyWithDB(toast.text, db.textFont)
 	notification:LayoutToast(toast)
 	notification:UpdateToastHover(toast)
 	toast.timer:SetWidth(toast.timerWidth * SAMPLE_TIMER)

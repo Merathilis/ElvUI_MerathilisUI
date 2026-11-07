@@ -283,14 +283,118 @@ local function LockedOut(activity, resultID)
 	return false
 end
 
+-------------------------------------------------------------------------------
+-- Region tags and filter expressions
+-------------------------------------------------------------------------------
+local LUST_CLASSES = { SHAMAN = true, MAGE = true, HUNTER = true, EVOKER = true }
+local BREZ_CLASSES = { DRUID = true, DEATHKNIGHT = true, WARLOCK = true, PALADIN = true }
+local filterValues = {}
+
+-- The leader's realm, the own one when the name has none
+local function LeaderRealm(info)
+	local leader = info.leaderName
+	if type(leader) ~= "string" or IsSecret(leader) then
+		return nil
+	end
+	return leader:match("%-(.+)$") or E.myrealm
+end
+
+function module:UpdateRegionTag(entry, info)
+	local data = self.db.regionTags and info and self:RegionOfRealm(LeaderRealm(info))
+	local tag = entry.MER_RegionTag
+	if not data then
+		if tag then
+			tag:Hide()
+		end
+		return
+	end
+
+	if not tag then
+		-- After the activity line, which sizes to its text
+		tag = entry:CreateFontString(nil, "ARTWORK")
+		tag:FontTemplate(nil, 10, "OUTLINE")
+		tag:SetPoint("LEFT", entry.ActivityName, "RIGHT", 4, 0)
+		entry.MER_RegionTag = tag
+	end
+	tag:SetText(data.tag)
+	tag:SetTextColor(data.r, data.g, data.b)
+	tag:Show()
+end
+
+-- The values a filter expression reads for one group, nil when any is secret
+function module:FilterValues(resultID, info)
+	local values = wipe(filterValues)
+	local counts = C_LFGList.GetSearchResultMemberCounts(resultID)
+	if type(counts) ~= "table" or IsSecret(counts) or (canaccesstable and not canaccesstable(counts)) then
+		return nil
+	end
+
+	local numbers = {
+		tanks = counts.TANK,
+		healers = counts.HEALER,
+		dps = counts.DAMAGER,
+		members = info.numMembers,
+		score = info.leaderOverallDungeonScore or 0,
+		ilvl = info.requiredItemLevel,
+		age = info.age,
+		friends = (info.numBNetFriends or 0) + (info.numCharFriends or 0) + (info.numGuildMates or 0),
+	}
+	for key, value in pairs(numbers) do
+		if IsSecret(value) then
+			return nil
+		end
+		values[key] = tonumber(value) or 0
+	end
+
+	values.age = values.age / 60 -- minutes
+	values.tankopen = max(0, FIVE_SLOTS.TANK - values.tanks)
+	values.healeropen = max(0, FIVE_SLOTS.HEALER - values.healers)
+	values.dpsopen = max(0, FIVE_SLOTS.DAMAGER - values.dps)
+
+	local voice = info.voiceChat
+	values.voice = (not IsSecret(voice) and type(voice) == "string" and voice ~= "") and 1 or 0
+
+	for i = 1, values.members do
+		local player = C_LFGList.GetSearchResultPlayerInfo(resultID, i)
+		local class = player and not IsSecret(player) and player.classFilename
+		if class and not IsSecret(class) then
+			values[class] = (values[class] or 0) + 1
+			if LUST_CLASSES[class] then
+				values.hasbl = 1
+			end
+			if BREZ_CLASSES[class] then
+				values.hasbr = 1
+			end
+		end
+	end
+	values.myclass = values[E.myclass] or 0
+	return values
+end
+
+-- Groups the expression leaves out are dimmed, Blizzard never sets the row's alpha
+function module:UpdateFilter(entry, resultID, info)
+	local test = self.filterTest
+	local matches = true
+	if test and info then
+		local values = self:FilterValues(resultID, info)
+		if values then
+			matches = test(values)
+		end
+	end
+	entry:SetAlpha(matches and 1 or 0.35)
+end
+
 function module:UpdateSearchEntry(entry)
 	local resultID = entry and entry.resultID
-	if not resultID or not self.db.nameColors or not entry.Name then
+	if not resultID then
 		return
 	end
 
 	local info = ResultInfo(resultID)
-	if not info then
+	self:UpdateRegionTag(entry, info)
+	self:UpdateFilter(entry, resultID, info)
+
+	if not self.db.nameColors or not entry.Name or not info then
 		return
 	end
 
@@ -679,6 +783,12 @@ function module:HookGroupFinder()
 	hooksecurefunc("LFGListSearchEntry_Update", function(entry)
 		if self.db and self.db.enable then
 			self:UpdateSearchEntry(entry)
+		elseif entry then
+			-- Turned off: rows lose the tag and the dimming on their next update
+			if entry.MER_RegionTag then
+				entry.MER_RegionTag:Hide()
+			end
+			entry:SetAlpha(1)
 		end
 	end)
 	hooksecurefunc("LFGListSearchPanel_UpdateResultList", function(panel)
@@ -722,6 +832,9 @@ function module:DatabaseUpdate()
 	if not self.db then
 		return
 	end
+
+	-- A broken expression filters nothing, the options show what could not be read
+	self.filterTest = self:CompileFilter(self.db.filterExpression)
 
 	local counting = self.db.enable and self.db.applications.enable
 	if counting then

@@ -68,11 +68,16 @@ local function Settings()
 end
 
 function Offline.Enabled()
-	return not E.Forever and Settings().enable
+	return Settings().enable
 end
 
 function Offline.CountsEnabled()
-	return not E.Forever and Settings().tooltip
+	return Settings().tooltip
+end
+
+-- WoW Forever has no warband bank
+function Offline.HasWarband()
+	return not E.Forever
 end
 
 local function Active()
@@ -121,10 +126,34 @@ function Offline.Store()
 	return db
 end
 
+-- Retail: "Name-Realm". WoW Forever: the GUID, a first name is not unique there
+-- (characters carry a surname), the GUID survives a rename too.
+local ownKey
 local function OwnKey()
-	return format("%s-%s", E.myname, E.myrealm)
+	if not ownKey then
+		if E.Forever then
+			ownKey = UnitGUID("player") -- stays unset until the game has it
+		else
+			ownKey = format("%s-%s", E.myname, E.myrealm)
+		end
+	end
+	return ownKey
 end
 Offline.CurrentKey = OwnKey
+
+-- The name the picker and the tooltip show, on WoW Forever with the surname,
+-- whatever the show-surname preference says
+local function OwnName()
+	if not E.Forever then
+		return E.myname
+	end
+	local first, surname = (UnitNameUnmodified or UnitName)("player")
+	if type(first) ~= "string" or type(surname) ~= "string" or surname == "" then
+		return first or E.myname
+	end
+	local consts = _G.Constants and _G.Constants.CharacterNameSeparatorConsts
+	return first .. (consts and consts.CHARACTERNAME_SURNAME_SEPARATOR or " ") .. surname
+end
 
 function Offline.Char(key)
 	return key and Offline.Store().chars[key]
@@ -195,7 +224,7 @@ local function MyEntry()
 		c = {}
 		chars[key] = c
 	end
-	c.name, c.realm, c.class, c.faction = E.myname, E.myrealm, select(2, UnitClass("player")), E.myfaction
+	c.name, c.realm, c.class, c.faction = OwnName(), E.myrealm, select(2, UnitClass("player")), E.myfaction
 	c.guild = GuildKey()
 
 	-- A rename keeps the GUID: the old entry goes and the bank moves over, the
@@ -289,14 +318,24 @@ local function BuildBagLists()
 		tinsert(BAGS, id)
 	end
 	tinsert(BAGS, module.ReagentContainer)
+	-- WoW Forever's keyring, after the reagent bag so the positions before it stay
+	if module.KeyringContainer then
+		tinsert(BAGS, module.KeyringContainer)
+	end
 	for i, id in ipairs(BAGS) do
 		BAG_POS[id] = i
 	end
-	for i, id in ipairs(module.BankBagIDs) do
-		CHAR_BANK[i], CHAR_POS[id] = id, i
+	-- WoW Forever's bank tabs are bags put into up to nine bank slots
+	for i = 1, E.Forever and 9 or 6 do
+		local id = Enum.BagIndex["CharacterBankTab_" .. i]
+		if id then
+			CHAR_BANK[i], CHAR_POS[id] = id, i
+		end
 	end
-	for i, id in ipairs(module.WarbandBagIDs) do
-		WARBAND_BANK[i], WARBAND_POS[id] = id, i
+	if Offline.HasWarband() then
+		for i, id in ipairs(module.WarbandBagIDs) do
+			WARBAND_BANK[i], WARBAND_POS[id] = id, i
+		end
 	end
 end
 
@@ -318,8 +357,9 @@ local function SaveList(list, ids, positions, field, owner, meta)
 				local data = meta[i]
 				new.name, new.icon = data and data.name, data and data.icon
 			end
-			-- Bag slots can be empty (false), unbought bank tabs just stay unsaved
-			if not new and not meta then
+			-- Bag slots can be empty (false), so can a bought WoW Forever bank tab
+			-- (a bag in a bank slot) without its bag. Unbought tabs stay unsaved.
+			if not new and (not meta or (E.Forever and meta[i])) then
 				new = false
 			end
 			if new ~= nil and not Same(list[i], new) then
@@ -399,7 +439,7 @@ local function SaveBanks()
 		c.bank = c.bank or {}
 		changed = SaveList(c.bank, CHAR_BANK, CHAR_POS, "bank", OwnKey(), Meta(BANK_TYPE_CHARACTER) or {})
 	end
-	if C_Bank.FetchBankLockedReason(BANK_TYPE_ACCOUNT) == nil then
+	if Offline.HasWarband() and C_Bank.FetchBankLockedReason(BANK_TYPE_ACCOUNT) == nil then
 		local warband = Offline.Warband()
 		warband.time = time()
 		warband.money = C_Bank.FetchDepositedMoney(BANK_TYPE_ACCOUNT)
@@ -483,8 +523,9 @@ local function Flush()
 	for what, saver in pairs(SAVERS) do
 		if pending[what] then
 			pending[what] = nil
-			-- A save queued just before both switches went off is dropped
-			if Active() then
+			-- A save queued just before both switches went off is dropped, so is
+			-- one before WoW Forever hands out the GUID the character is saved under
+			if Active() and OwnKey() then
 				saver()
 			end
 		end

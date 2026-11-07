@@ -353,7 +353,9 @@ local function CreateRow(index)
 		stripe:SetAllPoints(row)
 	end
 
-	row.name = CreateText(row)
+	-- A member's name: a font family, so names in scripts the font lacks still draw
+	row.name = row:CreateFontString(nil, "OVERLAY")
+	F.SetFontFamily(row.name, E.media.normFont, 11, "OUTLINE")
 	row.name:SetPoint("LEFT", row, "LEFT", 4, 0)
 	row.name:SetWidth(NAME_WIDTH - 6)
 	row.name:SetJustifyH("LEFT")
