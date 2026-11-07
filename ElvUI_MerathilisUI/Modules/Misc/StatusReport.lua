@@ -161,6 +161,9 @@ local function BuildAddOnSection(sections)
 	if not F.IsMERProfile() then
 		profile = AddRow(section, "Profile", "Not installed", ERROR)
 		profile.tip = "Most MerathilisUI features need its profile. Install it with /mui install."
+	elseif not layoutVersion or layoutVersion == 0 then
+		profile = AddRow(section, "Profile", "Installed without layout", WARNING)
+		profile.tip = "The installer was finished without the layout step. Apply it with /mui install if something looks off."
 	elseif layoutVersion ~= MER.DisplayVersion then
 		profile = AddRow(section, "Profile", format("Installed with %s", layoutVersion), WARNING)
 		profile.tip = "The profile is from an older version. If something looks off, reinstall it with /mui install."
