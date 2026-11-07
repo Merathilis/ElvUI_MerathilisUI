@@ -3658,7 +3658,9 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 			end
 		else
 			local items = itemsByCategory[cat.key] or {}
-			if #items > 0 or not db.hideEmptyCategories or cat.isUser then
+			-- The keyring stays listed while empty, it's a fixed container
+			-- like a bag rather than an item type that may or may not exist
+			if #items > 0 or not db.hideEmptyCategories or cat.isUser or cat.isKeyring then
 				local subHeaders
 				if NestsByExpansion(cat) or NestsByEquipmentSet(cat) then
 					items, subHeaders = GroupBySubgroup(items, NestsByExpansion(cat))
