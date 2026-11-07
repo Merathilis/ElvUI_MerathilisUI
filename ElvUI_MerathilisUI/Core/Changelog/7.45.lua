@@ -3,6 +3,7 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[745] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"[ActionBars]: The cooldown swipe now fully covers the icon. On UI scales that are not pixel perfect a thin strip of the icon showed next to the swipe, mostly on the left edge.",
 		"[Bags]: New bags can now be equipped through the bag bar of the categorized bags. Clicking or dropping an item on a bag slot now works like Blizzard's bag slots: a bag gets equipped or swapped in, an equipped bag can be dragged out, and the bar updates right away.",
 		"[Bags]: Buying a bank or Warband bank tab from the categorized bank works again. The game silently blocked the purchase after confirming, the row now opens Blizzard's own purchase dialog.",
 		"[HoverCast]: The Dispels binding of warlocks now casts Singe Magic through Command Demon, so it also works with a sacrificed Imp, and the bindings update when the pet changes.",
