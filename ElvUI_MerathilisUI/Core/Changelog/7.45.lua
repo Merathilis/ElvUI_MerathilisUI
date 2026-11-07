@@ -7,6 +7,7 @@ MER.Changelog[745] = {
 		"[Bags]: New bags can now be equipped through the bag bar of the categorized bags. Clicking or dropping an item on a bag slot now works like Blizzard's bag slots: a bag gets equipped or swapped in, an equipped bag can be dragged out, and the bar updates right away.",
 		"[Bags]: Buying a bank or Warband bank tab from the categorized bank works again. The game silently blocked the purchase after confirming, the row now opens Blizzard's own purchase dialog.",
 		"[HoverCast]: The Dispels binding of warlocks now casts Singe Magic through Command Demon, so it also works with a sacrificed Imp, and the bindings update when the pet changes.",
+		"[Installer]: Finishing the installer without applying any step no longer hides all MerathilisUI options and features.",
 		"[Skins]: Fixed a Lua error on login with WIM 3.19, which moved its options into Blizzard's Settings panel, and the minimap button menu showing an empty box instead of the conversations.",
 	},
 	NEW = {

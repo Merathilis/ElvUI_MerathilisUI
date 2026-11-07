@@ -265,6 +265,9 @@ local function GetStatusText()
 	local layoutVersion = E.db.mui.core.lastLayoutVersion
 	if not F.IsMERProfile() then
 		profile = F.String.Error(L["Not Installed"])
+	elseif not layoutVersion or layoutVersion == 0 then
+		-- Installer finished without the layout step
+		profile = F.String.Warning(L["Not Set"])
 	elseif layoutVersion ~= MER.DisplayVersion then
 		profile = F.String.Warning(layoutVersion)
 	else

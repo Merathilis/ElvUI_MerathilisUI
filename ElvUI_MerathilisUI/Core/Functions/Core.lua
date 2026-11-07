@@ -24,9 +24,15 @@ local GetBagItem = C_TooltipInfo.GetBagItem
 local GetHyperlink = C_TooltipInfo.GetHyperlink
 
 -- Profile
+-- A profile counts once the layout was applied or the installer was finished or
+-- skipped, else a run that skips every step would hide all options and features
 function F.IsMERProfile()
 	local releaseVersion = F.GetDBFromPath("mui.core.lastLayoutVersion")
-	return not (not releaseVersion or releaseVersion == 0)
+	if releaseVersion and releaseVersion ~= 0 then
+		return true
+	end
+
+	return F.GetDBFromPath("mui.core.installed") == true
 end
 
 -- ElvUI skips its action bars while the gamepad UI is active (Blizzard's
