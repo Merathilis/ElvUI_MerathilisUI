@@ -1570,6 +1570,7 @@ P.quickGrid = {
 		travel = true,
 		markers = true,
 		professions = true,
+		equipment = true,
 		custom = true,
 	},
 }

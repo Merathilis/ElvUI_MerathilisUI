@@ -75,7 +75,8 @@ local CANCEL_COLOR = { r = 0.85, g = 0.25, b = 0.25 }
 local MODIFIER_COMBOS = { "", "SHIFT-", "CTRL-", "ALT-", "CTRL-SHIFT-", "ALT-SHIFT-", "ALT-CTRL-", "ALT-CTRL-SHIFT-" }
 local MODIFIERS = { ALT = true, CTRL = true, SHIFT = true, META = true }
 
-local CELL_ATTRIBUTES = { "type", "spell", "item", "toy", "macro", "mount", "panel", "marker", "action" }
+local CELL_ATTRIBUTES =
+	{ "type", "spell", "item", "toy", "macro", "mount", "equipmentset", "panel", "marker", "action" }
 
 -- Runs in the restricted environment on every key down and up of a deck button.
 -- Must stay in sync with GetSector below.
@@ -273,6 +274,10 @@ local function WriteCell(button, index, entry)
 	elseif kind == "mount" then
 		Set("type", "quickGridMount")
 		Set("mount", entry.id)
+	elseif kind == "equipmentset" then
+		-- SecureTemplates' equipmentset action looks the set up by name
+		Set("type", "equipmentset")
+		Set("equipmentset", entry.name)
 	elseif kind == "panel" then
 		Set("type", "quickGridPanel")
 		Set("panel", entry.id)
@@ -724,6 +729,9 @@ local CONTENT_EVENTS = {
 	NEW_TOY_ADDED = { "travel", "custom" },
 	TOYS_UPDATED = { "travel", "custom" },
 	BAG_UPDATE_DELAYED = { "custom" },
+	EQUIPMENT_SETS_CHANGED = { "equipment", "custom" },
+	-- The worn set's mark
+	PLAYER_EQUIPMENT_CHANGED = { "equipment", "custom" },
 }
 
 function module:OnContentEvent(event)

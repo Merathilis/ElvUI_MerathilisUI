@@ -10,5 +10,6 @@
 	<Binding name="MER_QUICKGRID_TRAVEL" category="MerathilisUI" />
 	<Binding name="MER_QUICKGRID_MARKERS" category="MerathilisUI" />
 	<Binding name="MER_QUICKGRID_PROFESSIONS" category="MerathilisUI" />
+	<Binding name="MER_QUICKGRID_EQUIPMENT" category="MerathilisUI" />
 	<Binding name="MER_QUICKGRID_CUSTOM" category="MerathilisUI" />
 </Bindings>

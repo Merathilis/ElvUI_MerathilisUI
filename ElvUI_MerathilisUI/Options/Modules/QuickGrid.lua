@@ -130,7 +130,7 @@ module:AddOptions(function()
 	local customArgs = {
 		desc = module.TextCard(
 			1,
-			L["Drag a spell, item or macro onto a field, or type the name of a spell, macro, mount, toy or item. Empty a field to clear it."]
+			L["Drag a spell, item or macro onto a field, or type the name of a spell, macro, mount, toy, item or equipment set. Empty a field to clear it."]
 		),
 	}
 
@@ -159,7 +159,10 @@ module:AddOptions(function()
 					local slot = QG:ParseSlotText(text)
 					if not slot and text and text ~= "" then
 						F.Print(
-							format(L["Could not find %s. Use the name of a spell, macro, mount, toy or item."], text)
+							format(
+								L["Could not find %s. Use the name of a spell, macro, mount, toy, item or equipment set."],
+								text
+							)
 						)
 						return
 					end

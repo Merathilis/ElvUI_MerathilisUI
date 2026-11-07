@@ -6,6 +6,7 @@ local ipairs, tonumber, type = ipairs, tonumber, type
 local tremove = table.remove
 local strmatch, strlower, strtrim = strmatch, strlower, strtrim
 
+local C_EquipmentSet = C_EquipmentSet
 local C_Item = C_Item
 local C_MountJournal = C_MountJournal
 local C_Spell = C_Spell
@@ -24,7 +25,7 @@ local PlayerHasToy = PlayerHasToy
 --  the top: 1 = N, 2 = NE, 3 = E, 4 = SE, 5 = S, 6 = SW, 7 = W, 8 = NW.
 --
 --  A cell entry is { kind, id, icon, name, label, inactive }:
---    kind      spell, item, toy, macro, mount, marker or panel
+--    kind      spell, item, toy, macro, mount, equipmentset, marker or panel
 --    inactive  shown greyed out and does nothing (unknown spell, missing item)
 --  A nil entry leaves the cell empty.
 -------------------------------------------------------------------------------
@@ -34,6 +35,8 @@ local QUESTION_MARK = 134400
 local RANDOM_MOUNT_ICON = "Interface\\Icons\\ACHIEVEMENT_GUILDPERK_MOUNTUP"
 local PROFESSIONS_BOOK_ICON = "Interface\\Icons\\INV_Misc_Book_11"
 local RAID_TARGET_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_%d"
+-- Tile label of the equipment set you wear
+local EQUIPPED_MARK = "|TInterface\\Buttons\\UI-CheckBox-Check:16:16|t"
 
 -- World marker that matches raid target icon i (same order ElvUI's raid utility uses)
 local WORLD_MARKER_FOR_ICON = { 5, 6, 3, 2, 7, 1, 4, 8 }
@@ -45,12 +48,28 @@ local AUCTION_MOUNTS = { 2265, 1039 }
 -------------------------------------------------------------------------------
 --  Entry builders
 -------------------------------------------------------------------------------
+-- WoW Forever gives every spell rank its own id, so a stored id would keep
+-- casting the rank it was added with. Looking the spell up by name answers the
+-- highest rank, like /cast does; that one is used once it is known.
+local function TopRank(spellID, info)
+	if not E.Forever then
+		return spellID, info
+	end
+
+	local top = info.name and C_Spell.GetSpellInfo(info.name)
+	if top and top.spellID and top.spellID ~= spellID and C_SpellBook.IsSpellKnown(top.spellID) then
+		return top.spellID, top
+	end
+	return spellID, info
+end
+
 local function SpellEntry(spellID, requireKnown)
 	local info = C_Spell.GetSpellInfo(spellID)
 	if not info then
 		return
 	end
 
+	spellID, info = TopRank(spellID, info)
 	local known = not requireKnown or C_SpellBook.IsSpellKnown(spellID)
 	return {
 		kind = "spell",
@@ -114,6 +133,22 @@ local function MacroEntry(name)
 
 	local macroName, icon = GetMacroInfo(index)
 	return { kind = "macro", id = macroName, icon = icon, name = macroName }
+end
+
+-- Saved by set id: the custom slots are per character, like the sets themselves
+local function EquipmentSetEntry(setID)
+	local name, icon, _, isEquipped = C_EquipmentSet.GetEquipmentSetInfo(setID)
+	if not name then
+		return
+	end
+
+	return {
+		kind = "equipmentset",
+		id = setID,
+		icon = icon or QUESTION_MARK,
+		name = name,
+		label = isEquipped and EQUIPPED_MARK or nil,
+	}
 end
 
 -- type and id from the portal flyout's resolvers (hearthstone, Dalaran)
@@ -228,6 +263,21 @@ local function ResolveProfessions(cells)
 	}
 end
 
+-- The first eight sets in the Equipment Manager's own order
+local function ResolveEquipmentSets(cells)
+	local count = 0
+	for _, setID in ipairs(C_EquipmentSet.GetEquipmentSetIDs()) do
+		local entry = EquipmentSetEntry(setID)
+		if entry then
+			count = count + 1
+			cells[count] = entry
+			if count == module.NUM_CELLS then
+				break
+			end
+		end
+	end
+end
+
 function module:CustomSlotEntry(slot)
 	if type(slot) ~= "table" or not slot.kind then
 		return
@@ -243,6 +293,8 @@ function module:CustomSlotEntry(slot)
 		return MacroEntry(slot.id)
 	elseif slot.kind == "mount" then
 		return MountEntry(slot.id)
+	elseif slot.kind == "equipmentset" then
+		return EquipmentSetEntry(slot.id)
 	end
 end
 
@@ -253,7 +305,7 @@ local function ResolveCustom(cells)
 	end
 end
 
-module.DeckOrder = { "teleports", "travel", "markers", "professions", "custom" }
+module.DeckOrder = { "teleports", "travel", "markers", "professions", "equipment", "custom" }
 
 module.Decks = {
 	teleports = {
@@ -290,9 +342,19 @@ module.Decks = {
 		end,
 		resolve = ResolveProfessions,
 	},
+	equipment = {
+		name = L["Equipment Sets"],
+		desc = L["The first eight sets of your Equipment Manager, clockwise from the top in the manager's order. The set you wear is marked. Changing gear does not work in combat."],
+		icon = "Interface\\Icons\\INV_Chest_Chain_04",
+		binding = "MER_QUICKGRID_EQUIPMENT",
+		available = function()
+			return C_EquipmentSet ~= nil
+		end,
+		resolve = ResolveEquipmentSets,
+	},
 	custom = {
 		name = L["Custom"],
-		desc = L["Eight places of your own for spells, items, toys, macros and mounts. Saved per character."],
+		desc = L["Eight places of your own for spells, items, toys, macros, mounts and equipment sets. Saved per character."],
 		icon = "Interface\\Icons\\INV_Misc_Gear_01",
 		binding = "MER_QUICKGRID_CUSTOM",
 		resolve = ResolveCustom,
@@ -353,6 +415,11 @@ function module:ParseSlotText(text)
 	local macroIndex = GetMacroIndexByName(text)
 	if macroIndex and macroIndex > 0 then
 		return { kind = "macro", id = GetMacroInfo(macroIndex) }
+	end
+
+	local setID = C_EquipmentSet and C_EquipmentSet.GetEquipmentSetID(text)
+	if setID then
+		return { kind = "equipmentset", id = setID }
 	end
 
 	local spellInfo = C_Spell.GetSpellInfo(text)
