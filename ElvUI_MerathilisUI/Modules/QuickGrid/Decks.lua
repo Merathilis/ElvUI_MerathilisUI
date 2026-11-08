@@ -2,7 +2,7 @@ local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local module = MER:GetModule("MER_QuickGrid")
 
 local _G = _G
-local ipairs, tonumber, type = ipairs, tonumber, type
+local format, ipairs, tonumber, type = format, ipairs, tonumber, type
 local tremove = table.remove
 local strmatch, strlower, strtrim = strmatch, strlower, strtrim
 
@@ -63,21 +63,43 @@ local function TopRank(spellID, info)
 	return spellID, info
 end
 
-local function SpellEntry(spellID, requireKnown)
+-- pinned: a custom slot that keeps a lower rank (WoW Forever only), named with
+-- it since nothing else tells it from a slot that follows the highest rank
+local function SpellEntry(spellID, requireKnown, pinned)
 	local info = C_Spell.GetSpellInfo(spellID)
 	if not info then
 		return
 	end
 
-	spellID, info = TopRank(spellID, info)
+	local name
+	if pinned and E.Forever then
+		local rank = C_Spell.GetSpellSubtext and C_Spell.GetSpellSubtext(spellID)
+		name = (rank and rank ~= "") and format("%s (%s)", info.name, rank) or info.name
+	else
+		spellID, info = TopRank(spellID, info)
+		name = info.name
+	end
+
 	local known = not requireKnown or C_SpellBook.IsSpellKnown(spellID)
 	return {
 		kind = "spell",
 		id = spellID,
 		icon = info.iconID,
-		name = info.name,
+		name = name,
 		inactive = not known,
 	}
+end
+
+-- A spell slot to save; on WoW Forever a lower rank than the highest known one
+-- stays that rank
+local function SpellSlot(spellID)
+	if E.Forever then
+		local info = C_Spell.GetSpellInfo(spellID)
+		if info and TopRank(spellID, info) ~= spellID then
+			return { kind = "spell", id = spellID, rankPinned = true }
+		end
+	end
+	return { kind = "spell", id = spellID }
 end
 
 local function IsToy(itemID)
@@ -284,7 +306,7 @@ function module:CustomSlotEntry(slot)
 	end
 
 	if slot.kind == "spell" then
-		return SpellEntry(slot.id)
+		return SpellEntry(slot.id, nil, slot.rankPinned)
 	elseif slot.kind == "item" then
 		return ItemEntry(slot.id)
 	elseif slot.kind == "toy" then
@@ -409,7 +431,7 @@ function module:ParseSlotText(text)
 
 	local spellID = tonumber(strmatch(text, "spell:(%d+)"))
 	if spellID then
-		return { kind = "spell", id = spellID }
+		return SpellSlot(spellID)
 	end
 
 	local macroIndex = GetMacroIndexByName(text)
@@ -423,13 +445,18 @@ function module:ParseSlotText(text)
 	end
 
 	local spellInfo = C_Spell.GetSpellInfo(text)
+	if not spellInfo and E.Forever then
+		-- The options show a pinned rank as "Name (Rank 4)", the client looks it up as "Name(Rank 4)"
+		local spellName, rank = strmatch(text, "^(.-)%s*%((.+)%)$")
+		spellInfo = spellName and C_Spell.GetSpellInfo(format("%s(%s)", spellName, rank))
+	end
 	if spellInfo and spellInfo.spellID then
 		-- Mount spells are found by name too, but only summon through the journal
 		local mountID = C_MountJournal.GetMountFromSpell(spellInfo.spellID)
 		if mountID then
 			return { kind = "mount", id = mountID }
 		end
-		return { kind = "spell", id = spellInfo.spellID }
+		return SpellSlot(spellInfo.spellID)
 	end
 
 	local mountID = FindMountByName(text)
