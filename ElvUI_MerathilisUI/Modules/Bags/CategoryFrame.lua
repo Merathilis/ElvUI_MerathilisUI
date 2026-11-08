@@ -2551,7 +2551,7 @@ function module:ConstructFrame()
 		GameTooltip:AddLine(L["Changes the display order only - nothing moves in your bags."], 0.6, 0.6, 0.6)
 
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(L["Bank / Warband Bank (while open)"], 1, 0.82, 0)
+		GameTooltip:AddLine(E.Forever and L["Bank (while open)"] or L["Bank / Warband Bank (while open)"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Deposit / withdraw item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Ctrl + Right Click:"], L["Move to Bank Tab / Bag"], 1, 1, 1)
 
@@ -2868,7 +2868,8 @@ function module:ShowGoldTooltip(anchor)
 		1
 	)
 
-	if _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
+	-- WoW Forever has no warband bank
+	if not E.Forever and _G.C_Bank and _G.C_Bank.FetchDepositedMoney then
 		local warbandBankType = (Enum.BankType and Enum.BankType.Account) or 2
 		local ok, warbandGold = pcall(_G.C_Bank.FetchDepositedMoney, warbandBankType)
 		if ok and warbandGold then
@@ -3802,6 +3803,12 @@ local function GetBagIcon(bagID)
 		return 134237 -- Interface/ICONS/INV_Misc_Key_03
 	end
 
+	-- WoW Forever bank: the bag in that bank bag slot, the base bank has none
+	local isForeverBank, _, foreverIcon = module.GetForeverBankBagInfo(bagID)
+	if isForeverBank then
+		return foreverIcon or E.Media.Textures.Backpack
+	end
+
 	local bankInfo = GetBankTabInfo(bagID)
 	if bankInfo and bankInfo.icon then
 		return bankInfo.icon
@@ -3823,6 +3830,11 @@ local function GetBagDisplayName(bagID)
 
 	if bagID == module.KeyringContainer then
 		return _G.KEYRING
+	end
+
+	local isForeverBank, foreverName = module.GetForeverBankBagInfo(bagID)
+	if isForeverBank and foreverName then
+		return foreverName
 	end
 
 	local bankInfo = GetBankTabInfo(bagID)

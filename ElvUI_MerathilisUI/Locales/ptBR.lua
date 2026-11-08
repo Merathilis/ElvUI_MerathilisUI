@@ -870,6 +870,7 @@ L["Ctrl + Right Click:"] = true
 L["Move to Bank Tab / Bag"] = true
 L["Bag"] = true
 L["Bank / Warband Bank (while open)"] = true
+L["Bank (while open)"] = true
 L["Vendor (while open)"] = true
 L["Deposit / withdraw item"] = true
 L["Sell item"] = true

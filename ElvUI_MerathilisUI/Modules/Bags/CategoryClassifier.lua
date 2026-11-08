@@ -40,23 +40,51 @@ end
 
 -- Character bank tabs - the bank is no longer a single flat container, it's
 -- 6 tab-bags, same unified Container API as regular bags just with different
--- bagIDs.
+-- bagIDs. WoW Forever keeps the classic layout on the same API: the base bank
+-- (tab 1) plus up to eight bags put into bought bank bag slots (tabs 2-9).
+-- ForeverBankSlot maps such a bagID to its bank bag slot (1 = base bank).
 module.BankBagIDs = {}
 module.BankBagIDSet = {}
-for i = 1, 6 do
+module.ForeverBankSlot = {}
+for i = 1, E.Forever and 9 or 6 do
 	local id = BagIndex["CharacterBankTab_" .. i]
 	if id then
 		tinsert(module.BankBagIDs, id)
 		module.BankBagIDSet[id] = true
+		if E.Forever then
+			module.ForeverBankSlot[id] = i
+		end
 	end
+end
+
+-- WoW Forever: name and icon of a bank "tab", i.e. "Bank" for the base bank,
+-- else the bag in that bank bag slot (nil name/icon while the slot is empty).
+-- Returns nothing for any other bagID, callers fall back to their usual path.
+function module.GetForeverBankBagInfo(bagID)
+	local slot = module.ForeverBankSlot[bagID]
+	if not slot then
+		return
+	end
+	if slot == 1 then
+		return true, _G.BANK, nil
+	end
+
+	local container = BagIndex.Characterbanktab
+	local location = container and _G.ItemLocation:CreateFromBagAndSlot(container, slot)
+	if location and C_Item.DoesItemExist(location) then
+		return true, C_Item.GetItemName(location), C_Item.GetItemIcon(location)
+	end
+	return true, _G.BANK_BAG, nil
 end
 
 -- Warband/Account Bank tabs - same unified Container API, separate bagID
 -- range (12-16) from the character bank tabs above, reached through the same
 -- bank interaction session (there's no separate open/close event for it).
+-- WoW Forever has no warband bank (its enum still lists the IDs), so the list
+-- stays empty there and every warband view, row and button with it.
 module.WarbandBagIDs = {}
 module.WarbandBagIDSet = {}
-for i = 1, 5 do
+for i = 1, E.Forever and 0 or 5 do
 	local id = BagIndex["AccountBankTab_" .. i]
 	if id then
 		tinsert(module.WarbandBagIDs, id)

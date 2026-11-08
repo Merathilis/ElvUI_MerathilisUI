@@ -851,6 +851,7 @@ module:AddOptions(function()
 								type = "toggle",
 								name = L["Warbound Marker"],
 								desc = L["Shows a small Warband icon on items that are Warbound or Warbound until equipped."],
+								hidden = E.Forever, -- no warbands on WoW Forever
 							},
 							itemContextDim = {
 								order = 10,

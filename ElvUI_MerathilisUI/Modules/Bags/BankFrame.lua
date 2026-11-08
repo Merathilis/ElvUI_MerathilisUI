@@ -109,7 +109,8 @@ local function BuildBankModeDefs()
 	return defs
 end
 
--- One row def per possible physical tab slot (always the full 6/5-long list
+-- One row def per possible physical tab slot (always the full 6/5-long list,
+-- 9 bank bag slots and no warband tabs on WoW Forever,
 -- regardless of purchase status - GetBankTabSlotState resolves purchased/
 -- purchasable/locked per index at refresh time), plus a divider ahead of
 -- each tab block. Unlike the mode rows above, these render *inside* the
@@ -160,7 +161,8 @@ local function BankTabRow_OnClick(self, mouseButton)
 	local state, value = GetBankTabSlotState(def.bagIDList, def.bankType, def.index)
 
 	if mouseButton == "RightButton" then
-		if state == "purchased" then
+		-- WoW Forever's tabs are plain bags without tab settings
+		if state == "purchased" and not E.Forever then
 			B:BankTabs_ShowSettings(value)
 		end
 		return
@@ -198,11 +200,12 @@ local function BankTabRow_OnEnter(self)
 			0.6,
 			0.6
 		)
-		if _G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION then
+		if _G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION and not E.Forever then
 			GameTooltip:AddLine(_G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION, 0.6, 0.6, 0.6)
 		end
 	elseif state == "purchasable" then
-		GameTooltip:AddLine(L["Purchase Bank Tab"], 1, 1, 1)
+		-- WoW Forever buys a bank bag slot instead of a tab
+		GameTooltip:AddLine(E.Forever and _G.BANK_BAG_PURCHASE or L["Purchase Bank Tab"], 1, 1, 1)
 		local tabData = FetchNextPurchasableBankTabData and FetchNextPurchasableBankTabData(value)
 		if tabData then
 			GameTooltip:AddDoubleLine(L["Cost"], E:FormatMoney(tabData.tabCost, "SMART"), 1, 1, 1, 1, 1, 1)
@@ -383,7 +386,7 @@ function module:ConstructBankFrame()
 	f.titleCountText:Point("LEFT", f.titleText, "RIGHT", 6, 0)
 
 	f.helpButton = CreateTitleButton(f, "HelpButton", E.Media.Textures.Help, function()
-		GameTooltip:AddLine(L["Bank / Warband Bank (while open)"], 1, 0.82, 0)
+		GameTooltip:AddLine(E.Forever and L["Bank (while open)"] or L["Bank / Warband Bank (while open)"], 1, 0.82, 0)
 		GameTooltip:AddDoubleLine(L["Left Click:"], L["Pick up / move item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Right Click:"], L["Deposit / withdraw item"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Shift + Click:"], L["Split Stack"], 1, 1, 1)
@@ -663,6 +666,11 @@ function module:ConstructBankFrame()
 		module:AutoDepositToBank()
 	end)
 	pcall(S.HandleButton, S, f.footer.depositButton)
+
+	-- WoW Forever's bank has no auto deposit (no reagent bank either)
+	if E.Forever then
+		f.footer.depositButton:Hide()
+	end
 
 	F.CreateStyle(f)
 
