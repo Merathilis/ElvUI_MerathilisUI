@@ -91,10 +91,24 @@ local function CreateText(parent, size, color, justify)
 	return text
 end
 
+-- ElvUI's PluginInstallFrame sits in the TOOLTIP strata, the same as GameTooltip,
+-- so the tooltip has to be lifted above the owner's frame level or it renders behind the installer
+local tooltipLevel
+
 local function ShowTooltip(owner, text)
 	GameTooltip:SetOwner(owner, "ANCHOR_TOP", 0, 4)
 	GameTooltip:AddLine(text, 1, 1, 1, true)
+	tooltipLevel = tooltipLevel or GameTooltip:GetFrameLevel()
+	GameTooltip:SetFrameLevel(owner:GetFrameLevel() + 10)
 	GameTooltip:Show()
+end
+
+local function HideTooltip()
+	GameTooltip:Hide()
+	if tooltipLevel then
+		GameTooltip:SetFrameLevel(tooltipLevel)
+		tooltipLevel = nil
+	end
 end
 
 -- Centers a row of widgets in the page body, each keeps its own width
@@ -148,7 +162,7 @@ end
 local function Card_OnLeave(card)
 	card.hover = nil
 	Card_UpdateVisual(card)
-	GameTooltip:Hide()
+	HideTooltip()
 end
 
 local function Card_OnClick(card)
@@ -264,7 +278,7 @@ end
 local function Button_OnLeave(button)
 	button.hover = nil
 	Button_UpdateVisual(button)
-	GameTooltip:Hide()
+	HideTooltip()
 end
 
 local function Button_OnClick(button)
@@ -312,7 +326,7 @@ end
 
 local function Switch_OnLeave(switch)
 	switch.label:SetTextColor(1, 1, 1)
-	GameTooltip:Hide()
+	HideTooltip()
 end
 
 local function Switch_OnClick(switch)
