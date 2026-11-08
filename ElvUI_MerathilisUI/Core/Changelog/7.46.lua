@@ -8,5 +8,7 @@ MER.Changelog[746] = {
 	NEW = {
 		'[Tags]: New [name:MER:gradient:full] tag. It works like [name:MER:gradient], but on WoW Forever it shows the first name and the surname. On Retail it shows the name only. Your own name follows Blizzard\'s "My Surname" option.',
 	},
-	IMPROVEMENTS = {},
+	IMPROVEMENTS = {
+		"[Quick Grid]: On WoW Forever a custom slot can keep a lower spell rank. Drag that rank from the spellbook into the slot, and the slot shows its rank in the name. Other spell slots still cast the highest rank you know.",
+	},
 }
