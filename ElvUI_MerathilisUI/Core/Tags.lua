@@ -1,7 +1,9 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 
+local C_PlayerInfo = C_PlayerInfo
 local UnitClass = UnitClass
 local UnitName = UnitName
+local UnitNameUnmodified = UnitNameUnmodified
 local UnitInPartyIsAI = UnitInPartyIsAI
 local UnitIsPlayer = UnitIsPlayer
 local UnitReaction = UnitReaction
@@ -57,13 +59,32 @@ E:AddTagInfo("name:MER:gradient", MER.Title, "Displays the name in a class or re
 -- On WoW Forever the second UnitName return is the surname (Retail: the realm), joined the
 -- way Blizzard's Camelot NameUtil.FormatUnitNameForDisplay does. Secret parts can't be
 -- concatenated, so those units fall back to the first name only. Retail shows the first name.
+-- Your own name follows Blizzard's "My Surname" option like Blizzard's unit frames do:
+-- with it off, only the first name is shown.
+local function OwnSurnameHidden(name, surname)
+	local playerInfo = C_PlayerInfo
+	if not (playerInfo and playerInfo.ShouldDisplaySurname) or playerInfo.ShouldDisplaySurname() then
+		return false
+	end
+
+	local myName, mySurname = (UnitNameUnmodified or UnitName)("player")
+	return name == myName and surname == mySurname
+end
+
 E:AddTag("name:MER:gradient:full", NAME_EVENTS, function(unit)
 	local name, surname = UnitName(unit)
 	if not name then
 		return
 	end
 
-	if E.Forever and surname and E:NotSecretValue(name) and E:NotSecretValue(surname) and surname ~= "" then
+	if
+		E.Forever
+		and surname
+		and E:NotSecretValue(name)
+		and E:NotSecretValue(surname)
+		and surname ~= ""
+		and not OwnSurnameHidden(name, surname)
+	then
 		local consts = _G.Constants and _G.Constants.CharacterNameSeparatorConsts
 		name = name .. (consts and consts.CHARACTERNAME_SURNAME_SEPARATOR or " ") .. surname
 	end
