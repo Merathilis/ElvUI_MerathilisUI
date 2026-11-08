@@ -6,7 +6,7 @@ MER.Changelog[746] = {
 		"[Installer]: Tooltips on cards, buttons and switches no longer show up behind the installer window.",
 	},
 	NEW = {
-		"[Tags]: New [name:MER:gradient:full] tag. It works like [name:MER:gradient], but on WoW Forever it shows the first name and the surname. On Retail it shows the name only.",
+		'[Tags]: New [name:MER:gradient:full] tag. It works like [name:MER:gradient], but on WoW Forever it shows the first name and the surname. On Retail it shows the name only. Your own name follows Blizzard\'s "My Surname" option.',
 	},
 	IMPROVEMENTS = {},
 }
