@@ -3,7 +3,9 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[746] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"[Installer]: The combat text font and the time and count fonts of buffs and debuffs now really use GothamNarrow-Black. Before, they used a font name that does not exist and fell back to ElvUI's default font.",
 		"[Installer]: Tooltips on cards, buttons and switches no longer show up behind the installer window.",
+		"[Installer]: The nameplate layout now sets Expressway on every nameplate font (name, level, power text, castbar, quest icon, auras). Some of them used a font name that does not exist and fell back to ElvUI's default font.",
 	},
 	NEW = {
 		'[Tags]: New [name:MER:gradient:full] tag. It works like [name:MER:gradient], but on WoW Forever it shows the first name and the surname. On Retail it shows the name only. Your own name follows Blizzard\'s "My Surname" option.',
