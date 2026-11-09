@@ -7,6 +7,7 @@ MER.Changelog[746] = {
 		"[Installer]: Tooltips on cards, buttons and switches no longer show up behind the installer window.",
 		"[Installer]: The nameplate layout now sets Expressway on every nameplate font (name, level, power text, castbar, quest icon, auras). Some of them used a font name that does not exist and fell back to ElvUI's default font.",
 		"[Bags]: On WoW Forever the bank window now shows all nine bank slots (the base bank and eight bank bags) with the bag's own name and icon. The warband bank views, the warband gold, the deposit button and the tab settings on right-click are gone there, since WoW Forever has no warband bank.",
+		"[Bags]: The categorized bags now stay completely off while ElvUI's bags are disabled, for example when another bag addon is used. Before, opening the bank still opened our bag and bank windows next to the other addon.",
 	},
 	NEW = {
 		'[Tags]: New [name:MER:gradient:full] tag. It works like [name:MER:gradient], but on WoW Forever it shows the first name and the surname. On Retail it shows the name only. Your own name follows Blizzard\'s "My Surname" option.',

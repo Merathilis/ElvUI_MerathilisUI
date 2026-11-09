@@ -5828,7 +5828,7 @@ end
 function module:OnElvUIBagsOpened()
 	-- The hooks stay after a switch to a profile with the categorized bags off,
 	-- ElvUI's own bag frame is used then
-	if InCombatLockdown() or not module.db.enable then
+	if InCombatLockdown() or not module:IsCategorizedBagsActive() then
 		return
 	end
 
@@ -5852,7 +5852,7 @@ end
 -- bag frame is a related but independent concern (see the auto-open note
 -- below).
 function module:OnBankOpened()
-	if InCombatLockdown() or not module.db.enable or (#module.BankBagIDs == 0 and #module.WarbandBagIDs == 0) then
+	if InCombatLockdown() or not module:IsCategorizedBagsActive() or (#module.BankBagIDs == 0 and #module.WarbandBagIDs == 0) then
 		return
 	end
 
@@ -6159,10 +6159,18 @@ end
 -------------------------------------------------------------------------------
 --  Lifecycle
 -------------------------------------------------------------------------------
+-- The categorized bags sit on top of ElvUI's bag module: with ElvUI's bags
+-- turned off (another bag addon in use) none of our hooks or events may go
+-- in, or the bank event still pops our windows open next to that addon's.
+-- E.private needs a reload to change, so this can't flip mid-session.
+function module:IsCategorizedBagsActive()
+	return E.private.bags.enable and module.db and module.db.enable and true or false
+end
+
 -- Hooks and events are set up once, the first time a profile with the
 -- categorized bags turned on is active (at login or after a profile switch).
--- The handlers check db.enable themselves. The cursor events come and go
--- with the windows, see RegisterBagEventsFor.
+-- The handlers check IsCategorizedBagsActive themselves. The cursor events
+-- come and go with the windows, see RegisterBagEventsFor.
 local function SetupHooks()
 	if module.hooksSetUp then
 		return
@@ -6193,18 +6201,22 @@ end
 -- go in on first use only, so the option costs nothing while it stays off.
 function module:UpdateCharacterFrameHook()
 	local frame = _G.CharacterFrame
-	if not (frame and module.db.enable and module.db.openWithCharacter) or module.characterHooked then
+	if not (frame and module:IsCategorizedBagsActive() and module.db.openWithCharacter) or module.characterHooked then
 		return
 	end
 	module.characterHooked = true
 
 	frame:HookScript("OnShow", function()
-		if module.db.enable and module.db.openWithCharacter and not (module.frame and module.frame:IsShown()) then
+		if
+			module:IsCategorizedBagsActive()
+			and module.db.openWithCharacter
+			and not (module.frame and module.frame:IsShown())
+		then
 			module:ShowCategoryFrame()
 		end
 	end)
 	frame:HookScript("OnHide", function()
-		if module.db.enable and module.db.openWithCharacter then
+		if module:IsCategorizedBagsActive() and module.db.openWithCharacter then
 			module:HideCategoryFrame()
 		end
 	end)
@@ -6232,7 +6244,7 @@ function module:Initialize()
 	module:UpdateOffline()
 	module:UpdateAutoGold()
 
-	if not db.enable then
+	if not module:IsCategorizedBagsActive() then
 		return
 	end
 
@@ -6251,7 +6263,7 @@ function module:ProfileUpdate()
 	-- ElvUI's bag frame. Hiding our bank frame also ends the bank interaction.
 	module:UpdateJunkAutoSell()
 
-	if not db.enable then
+	if not module:IsCategorizedBagsActive() then
 		module:HideCategoryFrame()
 		module:HideBankFrame()
 		return

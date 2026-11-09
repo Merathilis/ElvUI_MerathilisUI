@@ -255,7 +255,7 @@ end
 -- shown yet while MERCHANT_SHOW is dispatched, hence the one-frame delay.
 function module:UpdateJunkAutoSell()
 	local db = module.db
-	local wanted = db and db.enable and module:IsJunkMarkerEnabled() and db.junkMarker.autoSell
+	local wanted = module:IsCategorizedBagsActive() and module:IsJunkMarkerEnabled() and db.junkMarker.autoSell
 
 	if wanted then
 		if not module.junkMerchantWatcher then
