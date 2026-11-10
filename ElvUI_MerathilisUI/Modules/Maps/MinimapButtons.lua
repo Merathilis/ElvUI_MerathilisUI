@@ -452,30 +452,76 @@ local function GetBlizzardTrackingButton()
 	return tracking and tracking.Button
 end
 
--- Drives Blizzard's own tracking dropdown and only re-anchors the finished menu
--- frame, so the whole filter list stays Blizzard's without us rebuilding it.
+-- Blizzard's menu manager closes an open menu on every mouse press outside of
+-- it, so a click on our button finds its menu already gone and would open it
+-- again. The button remembers that it opened the menu: a click that finds it
+-- closed was the one that closed it. Whatever else closed it clears the memory,
+-- a mouse release away from the button or the next time the button is entered.
+local menuWatch = CreateFrame("Frame")
+local menuOwners = {} -- [our button] = the Blizzard dropdown whose menu it opened
+
+local function IsMenuShown(dropdown)
+	return dropdown.menu and dropdown.menu:IsShown()
+end
+
+-- Only registered while a menu one of our buttons opened may still be open
+menuWatch:SetScript("OnEvent", function(self)
+	for btn, dropdown in pairs(menuOwners) do
+		if not IsMenuShown(dropdown) and not btn:IsMouseOver() then
+			menuOwners[btn] = nil
+		end
+	end
+	if not next(menuOwners) then
+		self:UnregisterEvent("GLOBAL_MOUSE_UP")
+	end
+end)
+
+-- Closed with Escape while the cursor was elsewhere
+local function ForgetClosedMenu(btn)
+	local dropdown = menuOwners[btn]
+	if dropdown and not IsMenuShown(dropdown) then
+		menuOwners[btn] = nil
+	end
+end
+
+-- Drives a Blizzard dropdown and only re-anchors the finished menu frame, so
+-- the whole list stays Blizzard's without us rebuilding it.
+local function ToggleBlizzardMenu(btn, dropdown)
+	if IsMenuShown(dropdown) then
+		dropdown:CloseMenu()
+		menuOwners[btn] = nil
+		return
+	end
+
+	-- The press of this click already closed the menu
+	if menuOwners[btn] then
+		menuOwners[btn] = nil
+		return
+	end
+
+	dropdown:OpenMenu()
+
+	local menu = dropdown.menu
+	if menu then
+		menuOwners[btn] = dropdown
+		menuWatch:RegisterEvent("GLOBAL_MOUSE_UP")
+
+		menu:ClearAllPoints()
+		if GrowsRight(btn.bar) then
+			menu:SetPoint("TOPLEFT", btn, "TOPRIGHT", F.Dpi(4), 0)
+		else
+			menu:SetPoint("TOPRIGHT", btn, "TOPLEFT", -F.Dpi(4), 0)
+		end
+	end
+end
+
 local function ToggleTrackingMenu(self)
 	local blizBtn = GetBlizzardTrackingButton()
 	if not blizBtn or not blizBtn.OpenMenu then
 		return
 	end
 
-	if blizBtn.menu and blizBtn.menu:IsShown() then
-		blizBtn:CloseMenu()
-		return
-	end
-
-	blizBtn:OpenMenu()
-
-	local menu = blizBtn.menu
-	if menu then
-		menu:ClearAllPoints()
-		if GrowsRight(self.bar) then
-			menu:SetPoint("TOPLEFT", self, "TOPRIGHT", F.Dpi(4), 0)
-		else
-			menu:SetPoint("TOPRIGHT", self, "TOPLEFT", -F.Dpi(4), 0)
-		end
-	end
+	ToggleBlizzardMenu(self, blizBtn)
 end
 
 -------------------------------------------------------------------------------
@@ -492,22 +538,7 @@ local function ToggleCompartmentMenu(self)
 		return
 	end
 
-	if compartment.menu and compartment.menu:IsShown() then
-		compartment:CloseMenu()
-		return
-	end
-
-	compartment:OpenMenu()
-
-	local menu = compartment.menu
-	if menu then
-		menu:ClearAllPoints()
-		if GrowsRight(self.bar) then
-			menu:SetPoint("TOPLEFT", self, "TOPRIGHT", F.Dpi(4), 0)
-		else
-			menu:SetPoint("TOPRIGHT", self, "TOPLEFT", -F.Dpi(4), 0)
-		end
-	end
+	ToggleBlizzardMenu(self, compartment)
 end
 
 local function CreateCompartmentButton(parent)
@@ -544,12 +575,14 @@ local function CreateCompartmentButton(parent)
 		_G.GameTooltip:Hide()
 	end)
 	btn:SetScript("OnClick", ToggleCompartmentMenu)
+	btn:HookScript("OnEnter", ForgetClosedMenu)
 
 	return btn
 end
 
 local function CreateTrackingButton(parent)
 	local btn = CreateIndicatorButton(parent, "Tracking", TRACKING_ATLAS, ToggleTrackingMenu)
+	btn:HookScript("OnEnter", ForgetClosedMenu)
 
 	btn.ShowTooltip = function(self)
 		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")

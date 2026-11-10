@@ -14,6 +14,7 @@ MER.Changelog[746] = {
 		'[HoverCast]: When an account macro and a character macro share a name, the binding now uses the one you picked. Character macros are marked with "(C)" in the binding list.',
 		'[HoverCast]: On WoW Forever the Dispels binding now casts one dispel per class (Priest: Dispel Magic, Druid: Remove Curse, Shaman: Cure Poison) and no longer shows "Spell is not ready yet" on every press. Bind the other dispels as normal spell bindings.',
 		"[HoverCast]: On WoW Forever a Druid's Dynamic Rez now casts Revive out of combat and keeps Rebirth for combat.",
+		"[Minimap Buttons]: A second click on the Tracking button or the Addons button now closes its menu. Before, the menu closed and opened again right away.",
 	},
 	NEW = {
 		"[Group Finder]: New option Group Notes (on by default). The note of a group now shows in its row in the Premade Groups list, after the play style. Blizzard only shows it in the tooltip.",
