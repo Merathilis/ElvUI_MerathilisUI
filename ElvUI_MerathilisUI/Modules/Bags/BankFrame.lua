@@ -141,9 +141,41 @@ local function BuildBankTabDefs()
 	return defs
 end
 
+-- WoW Forever: the bank bag slot behind a purchased tab row. Nil for the base
+-- bank, for a slot not bought yet and on Retail, whose tabs hold no bag.
+local function GetRowBankBagSlot(row)
+	local def = row.rowDef
+	if not (E.Forever and def and def.kind == "tab") then
+		return nil
+	end
+
+	local state, bagID = GetBankTabSlotState(def.bagIDList, def.bankType, def.index)
+	local slot = state == "purchased" and module.ForeverBankSlot[bagID]
+	return (slot and slot > 1) and slot or nil
+end
+
+-- Same call as Blizzard's bank bag buttons: with a bag on the cursor it is
+-- equipped into that slot (swapped with the bag already there), with an empty
+-- cursor the equipped bag is picked up. Returns true when the row has a slot.
+local function BankTabRow_PickupBag(self)
+	local slot = GetRowBankBagSlot(self)
+	local container = Enum.BagIndex.Characterbanktab
+	if not (slot and container) then
+		return false
+	end
+
+	C_Container.PickupContainerItem(container, slot)
+	return true
+end
+
 local function BankTabRow_OnClick(self, mouseButton)
 	local def = self.rowDef
 	if not def then
+		return
+	end
+
+	-- An item on the cursor goes into the bank bag slot instead of filtering
+	if mouseButton == "LeftButton" and _G.CursorHasItem() and BankTabRow_PickupBag(self) then
 		return
 	end
 
@@ -200,6 +232,9 @@ local function BankTabRow_OnEnter(self)
 			0.6,
 			0.6
 		)
+		if GetRowBankBagSlot(self) then
+			GameTooltip:AddLine(L["Drop a bag here to equip it"], 0.6, 0.6, 0.6)
+		end
 		if _G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION and not E.Forever then
 			GameTooltip:AddLine(_G.BANK_TAB_TOOLTIP_CLICK_INSTRUCTION, 0.6, 0.6, 0.6)
 		end
@@ -254,6 +289,13 @@ local function CreateBankSidebarRowButton(parent)
 	row.count:Point("RIGHT", -4, 0)
 
 	row:SetScript("OnClick", BankTabRow_OnClick)
+	-- WoW Forever: drop a bag on a bank bag row to equip it, drag the row to
+	-- take the equipped bag out
+	if E.Forever then
+		row:RegisterForDrag("LeftButton")
+		row:SetScript("OnDragStart", BankTabRow_PickupBag)
+		row:SetScript("OnReceiveDrag", BankTabRow_PickupBag)
+	end
 	row:SetScript("OnEnter", BankTabRow_OnEnter)
 	row:SetScript("OnLeave", GameTooltip_Hide)
 

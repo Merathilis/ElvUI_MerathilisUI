@@ -981,6 +981,7 @@ L["Bank Window"] = true
 L["Bag Window"] = true
 L["Sizes"] = true
 L["Click to filter by this tab"] = true
+L["Drop a bag here to equip it"] = true
 L["Click to clear the filter"] = true
 L["Purchase Bank Tab"] = true
 L["Click to purchase"] = true

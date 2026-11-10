@@ -5852,7 +5852,11 @@ end
 -- bag frame is a related but independent concern (see the auto-open note
 -- below).
 function module:OnBankOpened()
-	if InCombatLockdown() or not module:IsCategorizedBagsActive() or (#module.BankBagIDs == 0 and #module.WarbandBagIDs == 0) then
+	if
+		InCombatLockdown()
+		or not module:IsCategorizedBagsActive()
+		or (#module.BankBagIDs == 0 and #module.WarbandBagIDs == 0)
+	then
 		return
 	end
 
@@ -5990,7 +5994,14 @@ end
 
 -- Created when a bag window first opens
 local eventFrame
-local BAG_REFRESH_EVENTS = { "BAG_UPDATE", "BAG_UPDATE_DELAYED", "ITEM_LOCK_CHANGED", "EQUIPMENT_SETS_CHANGED" }
+-- BAG_CONTAINER_UPDATE: a bag was equipped, swapped or removed (bank bags too)
+local BAG_REFRESH_EVENTS = {
+	"BAG_UPDATE",
+	"BAG_UPDATE_DELAYED",
+	"BAG_CONTAINER_UPDATE",
+	"ITEM_LOCK_CHANGED",
+	"EQUIPMENT_SETS_CHANGED",
+}
 
 -- RefreshCategoryFrame()/RefreshBankCategoryFrame() are full rebuilds (every
 -- item re-classified into its category, every pooled header/sub-header/slot/
