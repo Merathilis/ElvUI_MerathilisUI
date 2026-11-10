@@ -131,21 +131,18 @@ local REZ_BY_CLASS = {
 
 -- WoW Forever: the vanilla spells. An entry's alts are its higher ranks and a
 -- rez slot lists every rank ID, rank 1 first; /cast by name casts the highest
--- rank the character knows. Each class's dispels run in priority order (the
--- first known line fires), Paladin is the only class with an external, and
--- there is no group rez and no Warlock entry.
+-- rank the character knows. Each class lists one dispel: a dispel casts even
+-- with nothing to remove and starts the GCD, so any later line would fail with
+-- "not ready" (the other dispels can be bound as spell bindings). Paladin is
+-- the only class with an external, and there is no group rez and no Warlock
+-- entry.
 if E.Forever then
 	DISPEL_SPELLS = {
 		{ id = 527, name = "Dispel Magic", class = "PRIEST", alts = { 988 } },
-		{ id = 552, name = "Abolish Disease", class = "PRIEST" },
-		{ id = 528, name = "Cure Disease", class = "PRIEST" },
 		{ id = 4987, name = "Cleanse", class = "PALADIN" },
 		{ id = 1152, name = "Purify", class = "PALADIN" }, -- before Cleanse is learned
 		{ id = 2782, name = "Remove Curse", class = "DRUID" },
-		{ id = 2893, name = "Abolish Poison", class = "DRUID" },
-		{ id = 8946, name = "Cure Poison", class = "DRUID" },
 		{ id = 526, name = "Cure Poison", class = "SHAMAN" },
-		{ id = 2870, name = "Cure Disease", class = "SHAMAN" },
 		{ id = 475, name = "Remove Lesser Curse", class = "MAGE" },
 		{ id = 19505, name = "Devour Magic", class = "WARLOCK", pet = true, alts = { 19731, 19734, 19736 } }, -- Felhunter
 	}
@@ -157,7 +154,10 @@ if E.Forever then
 		PRIEST = { single = { 2006, 2010, 10880, 10881, 20770 } },
 		PALADIN = { single = { 7328, 10322, 10324, 20772, 20773 } },
 		SHAMAN = { single = { 2008, 20609, 20610, 20776, 20777 } },
-		DRUID = { battle = { 20484, 20739, 20742, 20747, 20748 } },
+		DRUID = {
+			single = { 437138, 1237948, 1237949, 1237950, 1237951 }, -- Revive
+			battle = { 20484, 20739, 20742, 20747, 20748 },
+		},
 	}
 end
 
@@ -716,6 +716,50 @@ local function ComputeKnownSignature()
 	return tconcat(sigParts)
 end
 
+-- A macro binding's macro index, or nil. An account macro and a character
+-- macro may share a name, and GetMacroIndexByName then returns the account
+-- one, so the binding's own tab is searched first: the character macros when
+-- it was picked from them (macroChar), else the account macros. The name
+-- lookup stays the fallback, for a macro that has since moved to the other tab.
+local function GetBindingMacroIndex(b)
+	local name = b.macroName
+	if not name then
+		return nil
+	end
+	local numAccount, numChar = GetNumMacros()
+	local first, last = 1, numAccount or 0
+	if b.macroChar then
+		first, last = MAX_ACCOUNT_MACROS + 1, MAX_ACCOUNT_MACROS + (numChar or 0)
+	end
+	for i = first, last do
+		if GetMacroInfo(i) == name then
+			return i
+		end
+	end
+	local idx = GetMacroIndexByName(name)
+	if idx and idx > 0 then
+		return idx
+	end
+	return nil
+end
+
+-- A macro binding carries a copy of its macro's text, so UPDATE_MACROS is
+-- listened for only while an active binding is a macro, and re-applies only
+-- when one of the bound texts changed (the event also fires on login and on
+-- edits of unrelated macros).
+local macroSig = ""
+
+local function ComputeMacroSignature(bindings)
+	wipe(sigParts)
+	for _, b in ipairs(bindings) do
+		if b.type == "macro" then
+			local idx = GetBindingMacroIndex(b)
+			sigParts[#sigParts + 1] = (idx and GetMacroBody(idx) or "") .. "\001"
+		end
+	end
+	return tconcat(sigParts)
+end
+
 -------------------------------------------------------------------------------
 --  Key utilities
 -------------------------------------------------------------------------------
@@ -1156,12 +1200,8 @@ local function BuildBaseMacroText(binding)
 		end
 		return SpellCastLine(binding, "[" .. tconcat(conds, ",") .. guard .. "]")
 	elseif binding.type == "macro" then
-		local macroName = binding.macroName
-		if not macroName then
-			return nil
-		end
-		local idx = GetMacroIndexByName(macroName)
-		if not idx or idx == 0 then
+		local idx = GetBindingMacroIndex(binding)
+		if not idx then
 			return nil
 		end
 		local body = GetMacroBody(idx)
@@ -1417,8 +1457,8 @@ function module:GetBindingIcon(b)
 		end
 	end
 	if b.macroName then
-		local idx = GetMacroIndexByName(b.macroName)
-		if idx and idx > 0 then
+		local idx = GetBindingMacroIndex(b)
+		if idx then
 			local _, iconTex = GetMacroInfo(idx)
 			if iconTex then
 				return iconTex
@@ -1454,7 +1494,8 @@ function module:GetBindingName(b)
 		return b.spell or L["Unknown Spell"]
 	end
 	if b.type == "macro" then
-		return b.macroName or L["Unknown Macro"]
+		-- A character macro carries the picker's "(C)" mark
+		return b.macroName and ((b.macroChar and "(C) " or "") .. b.macroName) or L["Unknown Macro"]
 	end
 	if b.type == "item" then
 		if b.itemSlot then
@@ -1897,12 +1938,9 @@ local function ResolveBinding(b)
 		local rankID = PinnedRankID(b)
 		return "spell", rankID and tostring(rankID) or ResolveCastSpellName(b), nil
 	elseif b.type == "macro" then
-		local macroName = b.macroName
-		if macroName then
-			local idx = GetMacroIndexByName(macroName)
-			if idx and idx > 0 then
-				return "macro", nil, GetMacroBody(idx)
-			end
+		local idx = GetBindingMacroIndex(b)
+		if idx then
+			return "macro", nil, GetMacroBody(idx)
 		end
 		return nil, nil, nil
 	end
@@ -2335,6 +2373,12 @@ function module:ApplyBindings()
 	else
 		self:UnregisterEvent("UNIT_PET")
 	end
+	macroSig = ComputeMacroSignature(bindings)
+	if macroSig ~= "" then
+		self:RegisterEvent("UPDATE_MACROS", "OnEvent")
+	else
+		self:UnregisterEvent("UPDATE_MACROS")
+	end
 
 	local frameBindings = {}
 	local hoverBindings = {}
@@ -2761,6 +2805,7 @@ local function SetEventsRegistered(registered)
 	if not registered then
 		module:UnregisterEvent("SPELLS_CHANGED")
 		module:UnregisterEvent("UNIT_PET")
+		module:UnregisterEvent("UPDATE_MACROS")
 	end
 end
 
@@ -2911,6 +2956,11 @@ function module:OnEvent(event, unit)
 		-- book, or a pet swap that changed Command Demon's override; the apply
 		-- re-resolves which binding owns each key
 		if ComputeKnownSignature() ~= knownSig then
+			ApplyOrDefer()
+		end
+	elseif event == "UPDATE_MACROS" then
+		-- A bound macro was edited, renamed or deleted
+		if ComputeMacroSignature(GetActiveBindings()) ~= macroSig then
 			ApplyOrDefer()
 		end
 	elseif event == "GROUP_ROSTER_UPDATE" then

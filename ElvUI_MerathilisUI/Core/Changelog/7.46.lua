@@ -9,6 +9,11 @@ MER.Changelog[746] = {
 		"[Bags]: On WoW Forever the bank window now shows all nine bank slots (the base bank and eight bank bags) with the bag's own name and icon. The warband bank views, the warband gold, the deposit button and the tab settings on right-click are gone there, since WoW Forever has no warband bank.",
 		"[Bags]: The categorized bags now stay completely off while ElvUI's bags are disabled, for example when another bag addon is used. Before, opening the bank still opened our bag and bank windows next to the other addon.",
 		"[Bags]: On WoW Forever bank bags can be equipped and replaced again: drop a bag on a bank bag row in the sidebar (or click the row with the bag on the cursor) to put it into that slot, drag the row to take the bag out. Before, a new bag could only be put inside the bag already equipped.",
+		"[Bags]: The offline bank now saves your bank at every banker. Some bankers open the bank in a different way and were missed before.",
+		"[HoverCast]: A macro binding now picks up the macro's new text right away when you edit, rename or delete the macro. Before, the old text kept firing until the next reload or group change.",
+		'[HoverCast]: When an account macro and a character macro share a name, the binding now uses the one you picked. Character macros are marked with "(C)" in the binding list.',
+		'[HoverCast]: On WoW Forever the Dispels binding now casts one dispel per class (Priest: Dispel Magic, Druid: Remove Curse, Shaman: Cure Poison) and no longer shows "Spell is not ready yet" on every press. Bind the other dispels as normal spell bindings.',
+		"[HoverCast]: On WoW Forever a Druid's Dynamic Rez now casts Revive out of combat and keeps Rebirth for combat.",
 	},
 	NEW = {
 		'[Tags]: New [name:MER:gradient:full] tag. It works like [name:MER:gradient], but on WoW Forever it shows the first name and the surname. On Retail it shows the name only. Your own name follows Blizzard\'s "My Surname" option.',

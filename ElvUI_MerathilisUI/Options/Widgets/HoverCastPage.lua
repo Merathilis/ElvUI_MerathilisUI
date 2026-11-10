@@ -692,6 +692,9 @@ local function NewMacroBinding(item, key)
 	return {
 		type = "macro",
 		macroName = item.macroName,
+		-- Picked from the character macros: resolves there first when an
+		-- account macro has the same name
+		macroChar = item.macroChar,
 		icon = item.icon,
 		key = key,
 		enabled = true,
@@ -744,9 +747,16 @@ local function MacroItems(global)
 	local macros = global and HC:GetGlobalMacros() or HC:GetAllMacros()
 	for _, m in ipairs(macros) do
 		local prefix = m.isGlobal and "" or "(C) "
-		items[#items + 1] = { name = prefix .. m.name, icon = m.icon, macroName = m.name }
+		items[#items + 1] =
+			{ name = prefix .. m.name, icon = m.icon, macroName = m.name, macroChar = not m.isGlobal or nil }
 	end
 	return items
+end
+
+-- Bound-set key of a macro: an account and a character macro of one name are
+-- two entries
+local function MacroBoundKey(entry)
+	return (entry.macroChar and "C:" or "A:") .. entry.macroName
 end
 
 -------------------------------------------------------------------------------
@@ -1072,7 +1082,7 @@ local function OpenQuickbind(self, bound)
 		end
 		HC:AddSpecBinding(binding)
 		if item.macroName then
-			bound.macros[item.macroName] = true
+			bound.macros[MacroBoundKey(item)] = true
 		elseif item.itemSlot then
 			bound.items[item.itemSlot] = true
 		else
@@ -1095,7 +1105,7 @@ local function OpenQuickbind(self, bound)
 		PopulateGrid(gridChild, items, {
 			isDimmed = function(item)
 				return (item.id and HC:IsSpellBound(bound.spells, item.id, item.name, item.lowRank))
-					or (item.macroName and bound.macros[item.macroName])
+					or (item.macroName and bound.macros[MacroBoundKey(item)])
 					or (item.itemSlot and bound.items[item.itemSlot])
 			end,
 			-- A WoW Forever lower rank labels itself by its rank
@@ -1226,7 +1236,7 @@ function BuildPage(self)
 				bound.spells[HC:SpellBoundKey(b.spellID, b.spell, b.rankPinned)] = true
 			end
 			if b.macroName then
-				bound.macros[b.macroName] = true
+				bound.macros[MacroBoundKey(b)] = true
 			end
 			if b.itemSlot then
 				bound.items[b.itemSlot] = true
@@ -1295,7 +1305,7 @@ function BuildPage(self)
 				end
 				PopulateGrid(gridChild, items, {
 					isDimmed = function(item)
-						return (item.macroName and bound.macros[item.macroName])
+						return (item.macroName and bound.macros[MacroBoundKey(item)])
 							or (item.itemSlot and bound.items[item.itemSlot])
 					end,
 					onClick = function(item)
@@ -1373,7 +1383,7 @@ function BuildPage(self)
 				PopulateGrid(gridChild, items, {
 					isDimmed = function(item)
 						return (item.id and HC:IsSpellBound(bound.spells, item.id, item.name, item.lowRank))
-							or (item.macroName and bound.macros[item.macroName])
+							or (item.macroName and bound.macros[MacroBoundKey(item)])
 							or (item.itemSlot and bound.items[item.itemSlot])
 					end,
 					-- A WoW Forever lower rank labels itself by its rank

@@ -428,6 +428,19 @@ end
 
 local atBank, atCharBank, atMail, atGuildBank = false, false, false, false
 
+-- Banker interaction types, true for a character bank. Some bankers open it as
+-- CharacterBanker rather than Banker.
+local BANKERS = {}
+if PIT.Banker then
+	BANKERS[PIT.Banker] = true
+end
+if PIT.CharacterBanker then
+	BANKERS[PIT.CharacterBanker] = true
+end
+if PIT.AccountBanker then
+	BANKERS[PIT.AccountBanker] = false
+end
+
 local function SaveBanks()
 	if not atBank then
 		return
@@ -574,8 +587,8 @@ events:SetScript("OnEvent", function(_, event, arg)
 			Queue("guild")
 		end
 	elseif event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
-		if arg == PIT.Banker or arg == PIT.AccountBanker then
-			atBank, atCharBank = true, arg == PIT.Banker
+		if BANKERS[arg] ~= nil then
+			atBank, atCharBank = true, BANKERS[arg]
 			MarkAll(CHAR_BANK)
 			MarkAll(WARBAND_BANK)
 			Queue("bank")
@@ -587,7 +600,7 @@ events:SetScript("OnEvent", function(_, event, arg)
 			QueryGuildTabs()
 		end
 	elseif event == "PLAYER_INTERACTION_MANAGER_FRAME_HIDE" then
-		if arg == PIT.Banker or arg == PIT.AccountBanker or arg == PIT.MailInfo or arg == PIT.GuildBanker then
+		if BANKERS[arg] ~= nil or arg == PIT.MailInfo or arg == PIT.GuildBanker then
 			Flush() -- saved before the contents go unreadable
 			if arg == PIT.MailInfo then
 				atMail = false
