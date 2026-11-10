@@ -854,6 +854,12 @@ module:AddOptions(function()
 						name = L["Region Tags"],
 						desc = L["Shows where the group leader plays from after the activity: the region on US realms (NA, OCE, MEX, BRA), the realm language on EU realms (EN, DE, FR, ES, IT, PT, RU)."],
 					},
+					groupNotes = {
+						order = 6,
+						type = "toggle",
+						name = L["Group Notes"],
+						desc = L["Shows the note of a group in its row, after the play style. Blizzard only shows it in the tooltip."],
+					},
 				},
 			},
 			filter = {

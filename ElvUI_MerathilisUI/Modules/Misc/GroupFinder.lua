@@ -321,6 +321,51 @@ function module:UpdateRegionTag(entry, info)
 	tag:Show()
 end
 
+-- The group's note, which Blizzard only shows in the tooltip: one line after the
+-- play style text of the row's third line, cut off where the role icons start
+local NOTE_COLUMN = 176 -- the width Blizzard gives the name and the activity
+local NOTE_GAP = 6
+local NOTE_MIN_WIDTH = 40
+
+function module:UpdateNote(entry, info)
+	local note = entry.MER_Note
+	local playstyle = entry.Playstyle
+	local text = self.db.groupNotes and playstyle and playstyle:IsShown() and info and info.comment
+	if type(text) ~= "string" or IsSecret(text) or text == "" or IsSecret(info.censored) or info.censored then
+		text = nil
+	end
+
+	local used = text and playstyle:GetStringWidth() or 0
+	if IsSecret(used) then
+		text = nil
+	elseif used > 0 then
+		used = used + NOTE_GAP
+	end
+
+	if not text or NOTE_COLUMN - used < NOTE_MIN_WIDTH then
+		if note then
+			note:Hide()
+		end
+		return
+	end
+
+	if not note then
+		note = entry:CreateFontString(nil, "ARTWORK", "GameFontDisableSmallLeft")
+		note:SetHeight(15)
+		note:SetWordWrap(false)
+		local color = _G.LFG_LIST_COMMENT_FONT_COLOR
+		if color then
+			note:SetTextColor(color.r, color.g, color.b)
+		end
+		entry.MER_Note = note
+	end
+	note:ClearAllPoints()
+	note:SetPoint("LEFT", playstyle, "RIGHT", used > 0 and NOTE_GAP or 0, 0)
+	note:SetWidth(NOTE_COLUMN - used)
+	note:SetText(format(_G.LFG_LIST_COMMENT_FORMAT or "%s", text))
+	note:Show()
+end
+
 -- The values a filter expression reads for one group, nil when any is secret
 function module:FilterValues(resultID, info)
 	local values = wipe(filterValues)
@@ -392,6 +437,7 @@ function module:UpdateSearchEntry(entry)
 
 	local info = ResultInfo(resultID)
 	self:UpdateRegionTag(entry, info)
+	self:UpdateNote(entry, info)
 	self:UpdateFilter(entry, resultID, info)
 
 	if not self.db.nameColors or not entry.Name or not info then
@@ -784,9 +830,12 @@ function module:HookGroupFinder()
 		if self.db and self.db.enable then
 			self:UpdateSearchEntry(entry)
 		elseif entry then
-			-- Turned off: rows lose the tag and the dimming on their next update
+			-- Turned off: rows lose the tag, the note and the dimming on their next update
 			if entry.MER_RegionTag then
 				entry.MER_RegionTag:Hide()
+			end
+			if entry.MER_Note then
+				entry.MER_Note:Hide()
 			end
 			entry:SetAlpha(1)
 		end

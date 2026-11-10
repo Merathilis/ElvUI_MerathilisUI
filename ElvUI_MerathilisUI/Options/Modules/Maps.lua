@@ -396,6 +396,34 @@ module:AddOptions(function()
 								type = "toggle",
 								name = L["M+ Portals"],
 							},
+							otherHearthstones = {
+								order = 2.5,
+								type = "toggle",
+								name = L["Other Characters' Hearthstones"],
+								desc = L["Lists your other characters in the tooltip of the hearthstone button in the M+ Portals flyout: where each one is bound and when its hearthstone is ready again. A character shows up once it was logged in with this option on. Applies to your whole account."],
+								get = function()
+									return E.global.mui.hearthstones.enable
+								end,
+								set = function(_, value)
+									E.global.mui.hearthstones.enable = value
+									F.PortalFlyout.UpdateHearthstoneTracking()
+									F.PortalFlyout.SaveHearthstone()
+								end,
+							},
+							forgetHearthstones = {
+								order = 2.6,
+								type = "execute",
+								name = L["Forget Characters"],
+								desc = L["Clears the saved hearthstones of all characters, for example after deleting one. Each character is saved again the next time it logs in."],
+								confirm = true,
+								disabled = function()
+									return MinimapButtonsDisabled() or not E.global.mui.hearthstones.enable
+								end,
+								func = function()
+									wipe(E.global.mui.hearthstones.chars)
+									F.PortalFlyout.SaveHearthstone()
+								end,
+							},
 							addonButtons = {
 								order = 4,
 								type = "toggle",

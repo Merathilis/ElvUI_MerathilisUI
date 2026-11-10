@@ -61,6 +61,11 @@ G.groupFinder = {
 	applications = {}, -- Mythic+ application counts of the whole account
 }
 
+G.hearthstones = {
+	enable = false, -- other characters' hearthstones in the M+ Portals flyout
+	chars = {}, -- [GUID] = { name, realm, class, bind, readyAt }
+}
+
 G.colorPicker = {
 	recent = {}, -- last confirmed colors of the options color picker
 	favorites = {},

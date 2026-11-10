@@ -16,7 +16,10 @@ MER.Changelog[746] = {
 		"[HoverCast]: On WoW Forever a Druid's Dynamic Rez now casts Revive out of combat and keeps Rebirth for combat.",
 	},
 	NEW = {
+		"[Group Finder]: New option Group Notes (on by default). The note of a group now shows in its row in the Premade Groups list, after the play style. Blizzard only shows it in the tooltip.",
+		"[Minimap Buttons]: New option Other Characters' Hearthstones (off by default). The tooltip of the hearthstone button in the M+ Portals flyout lists your other characters, where each one is bound and when its hearthstone is ready again. A character shows up once it was logged in with the option on.",
 		'[Tags]: New [name:MER:gradient:full] tag. It works like [name:MER:gradient], but on WoW Forever it shows the first name and the surname. On Retail it shows the name only. Your own name follows Blizzard\'s "My Surname" option.',
+		"[Unlock Mode]: New option Auto Hide Toolbar (off by default). The toolbar fades out until the cursor reaches its place. It stays hidden while you drag a mover or while a mover is under the cursor, so movers below it can be reached.",
 	},
 	IMPROVEMENTS = {
 		"[Installer]: The count on nameplate quest icons now sits as a small badge in the bottom right corner of the icon. Before, it was next to the icon and covered the next quest icon when a unit belonged to more than one quest.",

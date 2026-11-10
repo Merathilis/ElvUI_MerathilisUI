@@ -3,10 +3,16 @@ local S = E:GetModule("Skins") ---@type Skins
 local WS = W:GetModule("Skins")
 
 local _G = _G
-local ipairs, pcall, tinsert = ipairs, pcall, table.insert
+local format, ipairs, pairs, pcall, type = format, ipairs, pairs, pcall, type
+local sort, tinsert, wipe = table.sort, table.insert, wipe
 local ceil, floor, random = math.ceil, math.floor, math.random
+local time = time
 
 local CreateFrame = CreateFrame
+local GetBindLocation = GetBindLocation
+local GetTime = GetTime
+local SecondsToTime = SecondsToTime
+local UnitGUID = UnitGUID
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local UnitClass = UnitClass
@@ -332,6 +338,109 @@ local function ResolveHearthButtons()
 	RefreshHearthCooldowns()
 end
 
+-------------------------------------------------------------------------------
+-- Hearthstones of the other characters: where each one is bound and when its
+-- hearthstone is ready again, account-wide in E.global.mui.hearthstones.chars
+-- by GUID. An item cooldown keeps running while logged out, so readyAt is a
+-- time() stamp (0 = ready). A character saves itself when the flyout opens,
+-- when its bind changes and at logout, nothing polls.
+-------------------------------------------------------------------------------
+local HEARTHSTONE_ITEM = 6948
+
+local function HearthDB()
+	return E.global.mui.hearthstones
+end
+
+function PortalFlyout.SaveHearthstone()
+	local db = HearthDB()
+	local guid = UnitGUID("player")
+	if not db.enable or not guid then
+		return
+	end
+
+	-- Unreadable right now (restricted): the last save stays
+	local start, duration = GetItemCooldown(HEARTHSTONE_ITEM)
+	if not start then
+		return
+	end
+	local remaining = duration > GCD_MAX and (start + duration - GetTime()) or 0
+
+	local entry = db.chars[guid]
+	if not entry then
+		entry = {}
+		db.chars[guid] = entry
+	end
+	entry.name, entry.realm, entry.class = E.myname, E.myrealm, E.myclass
+	entry.bind = GetBindLocation()
+	entry.readyAt = remaining > 0 and (time() + floor(remaining)) or 0
+end
+
+local hearthWatch = CreateFrame("Frame")
+hearthWatch:RegisterEvent("PLAYER_ENTERING_WORLD")
+hearthWatch:SetScript("OnEvent", function(self, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		-- Only to read the setting once the database is there
+		self:UnregisterEvent(event)
+		PortalFlyout.UpdateHearthstoneTracking()
+	else
+		PortalFlyout.SaveHearthstone()
+	end
+end)
+
+function PortalFlyout.UpdateHearthstoneTracking()
+	if HearthDB().enable then
+		hearthWatch:RegisterEvent("PLAYER_LOGOUT")
+		hearthWatch:RegisterEvent("HEARTHSTONE_BOUND")
+	else
+		hearthWatch:UnregisterEvent("PLAYER_LOGOUT")
+		hearthWatch:UnregisterEvent("HEARTHSTONE_BOUND")
+	end
+end
+
+local otherHearths = {}
+
+local function ByHearthName(a, b)
+	return a.name < b.name
+end
+
+local function AddOtherHearthstones(tooltip)
+	local db = HearthDB()
+	if not db.enable then
+		return
+	end
+
+	local own = UnitGUID("player")
+	wipe(otherHearths)
+	for guid, entry in pairs(db.chars) do
+		if guid ~= own and type(entry) == "table" and entry.name then
+			tinsert(otherHearths, entry)
+		end
+	end
+	if #otherHearths == 0 then
+		return
+	end
+	sort(otherHearths, ByHearthName)
+
+	tooltip:AddLine(" ")
+	tooltip:AddLine(L["Other Characters"], F.r, F.g, F.b)
+	local now = time()
+	for _, entry in ipairs(otherHearths) do
+		local color = E:ClassColor(entry.class)
+		local r, g, b = 1, 1, 1
+		if color then
+			r, g, b = color.r, color.g, color.b
+		end
+		local name = entry.realm and entry.realm ~= E.myrealm and (entry.name .. "-" .. entry.realm) or entry.name
+		local left = format("%s (%s)", name, entry.bind or _G.UNKNOWN)
+		local remaining = (entry.readyAt or 0) - now
+		if remaining > 0 then
+			tooltip:AddDoubleLine(left, SecondsToTime(remaining), r, g, b, 0.6, 0.6, 0.6)
+		else
+			tooltip:AddDoubleLine(left, L["Ready"], r, g, b, 0.3, 1, 0.3)
+		end
+	end
+end
+
 local function IsTravelEntryAvailable(entry)
 	if entry.itemID then
 		return (C_Item.GetItemCount(entry.itemID) or 0) > 0
@@ -477,6 +586,9 @@ local function CreatePortalFlyout()
 			else
 				_G.GameTooltip:AddLine(L["Housing Dashboard"])
 			end
+			if i == 1 then
+				AddOtherHearthstones(_G.GameTooltip)
+			end
 			_G.GameTooltip:Show()
 		end)
 		btn:HookScript("PostClick", function(self)
@@ -558,6 +670,7 @@ local function CreatePortalFlyout()
 		ResolveHearthButtons()
 		LayoutTravelRow()
 		RefreshTravelCooldowns()
+		PortalFlyout.SaveHearthstone()
 		catcher:Show()
 	end)
 	flyout:SetScript("OnHide", function(self)

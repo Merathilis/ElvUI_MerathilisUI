@@ -7,7 +7,8 @@ local S = E:GetModule("Skins")
 
 local _G = _G
 local format = format
-local max, tonumber = math.max, tonumber
+local ipairs, pairs = ipairs, pairs
+local max, min, tonumber = math.max, math.min, tonumber
 local tconcat, tinsert, wipe = table.concat, tinsert, wipe
 
 local CreateFrame = CreateFrame
@@ -267,6 +268,86 @@ function module:CreateToolbar()
 
 	bar.rowWidth = x + PADDING
 	bar:Height(PADDING * 2 + ROW_HEIGHT * 2 + 10 + HINT_HEIGHT)
+
+	-- Everything on the bar that takes the mouse, see the auto hide below
+	bar.mouseKids = { layout, filter, grid, gridSize, snap, revert, reset, save, detach }
+	bar.fade = 1
+	bar.autoHide = CreateFrame("Frame", nil, bar)
+end
+
+-------------------------------------------------------------------------------
+--  Auto hide: the bar fades out until the cursor reaches its place. It stays
+--  out while a mover is dragged and, as long as it is hidden, while a mover is
+--  under the cursor, so the movers below it can be reached. A hidden bar takes
+--  no mouse input.
+-------------------------------------------------------------------------------
+local FADE_PER_SECOND = 5
+
+local function SetBarMouse(bar, enabled)
+	if bar.mouseOn == enabled then
+		return
+	end
+	bar.mouseOn = enabled
+	bar:EnableMouse(enabled)
+	for _, kid in ipairs(bar.mouseKids) do
+		kid:EnableMouse(enabled)
+	end
+end
+
+local function MoverUnderCursor()
+	for _, holder in pairs(E.CreatedMovers) do
+		local mover = holder.mover
+		if mover and mover:IsShown() and mover:IsMouseOver() then
+			return true
+		end
+	end
+	return false
+end
+
+local function WantBarShown(bar)
+	if module.dragging then
+		return false
+	end
+	if bar.filter:HasFocus() or bar.gridSize:HasFocus() or bar.layout:IsMenuOpen() then
+		return true
+	end
+	if not bar:IsMouseOver() then
+		return false
+	end
+	-- Once it shows, its own controls win over the movers below
+	return bar.fade > 0 or not MoverUnderCursor()
+end
+
+-- Only runs while the mover mode is open with the option on
+local function AutoHide_OnUpdate(self, elapsed)
+	-- The open and close animation fade the bar themselves
+	local animation = module.animation
+	if animation and animation.kind then
+		return
+	end
+
+	local bar = self:GetParent()
+	local fade = bar.fade
+	local target = WantBarShown(bar) and 1 or 0
+	if fade ~= target then
+		local step = elapsed * FADE_PER_SECOND
+		fade = target > fade and min(1, fade + step) or max(0, fade - step)
+		bar.fade = fade
+		bar:SetAlpha(fade)
+	end
+	SetBarMouse(bar, fade > 0)
+end
+
+function module:UpdateToolbarAutoHide()
+	local bar = self.toolbar
+	if not bar then
+		return
+	end
+
+	bar.fade = 1
+	bar:SetAlpha(1)
+	SetBarMouse(bar, true)
+	bar.autoHide:SetScript("OnUpdate", self.db.toolbarAutoHide and AutoHide_OnUpdate or nil)
 end
 
 local function MoverLabel(name)
@@ -347,5 +428,6 @@ function module:ShowToolbar()
 	self:UpdateToolbarHint()
 	self:UpdateToolbarAnchor()
 	self:UpdateChanges()
+	self:UpdateToolbarAutoHide()
 	bar:Show()
 end

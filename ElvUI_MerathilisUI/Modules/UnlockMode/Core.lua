@@ -582,6 +582,10 @@ function module:SettingsUpdate()
 
 	-- Grid_Show only rebuilds the grid when its size changed, so recolor it here
 	self:StyleGrid()
+
+	if self.toolbar and self.toolbar:IsShown() then
+		self:UpdateToolbarAutoHide()
+	end
 end
 
 function module:Initialize()

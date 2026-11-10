@@ -159,7 +159,8 @@ local function SetToolbar(bar, progress, slide)
 	local point, relativeTo, relativePoint, x, y = unpack(bar.animPoint)
 	bar:ClearAllPoints()
 	bar:SetPoint(point, relativeTo, relativePoint, x, y + slide * (1 - progress))
-	bar:SetAlpha(progress)
+	-- An auto hidden bar (bar.fade, see the toolbar) stays hidden while it closes
+	bar:SetAlpha(progress * (bar.fade or 1))
 end
 
 -------------------------------------------------------------------------------

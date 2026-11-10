@@ -71,6 +71,15 @@ module:AddOptions(function()
 						name = L["Toolbar"],
 						desc = L["Shows a toolbar at the top of the screen instead of ElvUI's mover window, with the layout filter, grid, snapping and your changes."],
 					},
+					toolbarAutoHide = {
+						order = 1.5,
+						type = "toggle",
+						name = L["Auto Hide Toolbar"],
+						desc = L["Hides the toolbar until the cursor reaches its place. It stays hidden while you drag a mover or while a mover is under the cursor, so movers below it can be reached."],
+						disabled = function()
+							return Disabled() or not DB().toolbar
+						end,
+					},
 					showGrid = {
 						order = 2,
 						type = "toggle",
