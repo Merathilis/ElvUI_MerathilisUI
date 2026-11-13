@@ -2020,22 +2020,36 @@ end
 -- wildcards alone isn't enough (nil type1 falls through to Blizzard's native
 -- left-click-targets), so an unbound button gets inert type1/type2="none"
 -- instead. Bound buttons keep their own typeN from SetClickAttr.
+-- A plain left-click bound to Target (right-click bound to Menu) keeps working
+-- with a modifier held through the wildcard, routed via the proxy since a raw
+-- modified "target"/"togglemenu" is gated; a modifier binding of its own still
+-- wins over the wildcard.
 local function NeutralizeDefaultClicks(frame, bindings)
-	local b1, b2 = false, false
+	local b1, b2, leftTarget, rightMenu = false, false, false, false
 	for _, b in ipairs(bindings) do
 		if IsFrameBinding(b) and b.key then
 			local parsed = ParseKeyString(b.key)
 			if parsed.isMouseButton and parsed.modifiers == "" then
 				if parsed.buttonNum == 1 then
 					b1 = true
+					leftTarget = b.type == "target" and not b.oocOnly
 				elseif parsed.buttonNum == 2 then
 					b2 = true
+					rightMenu = b.type == "menu" and not b.oocOnly
 				end
 			end
 		end
 	end
-	frame:SetAttribute("*type1", nil)
-	frame:SetAttribute("*type2", nil)
+	if leftTarget then
+		frame:SetAttribute("*type1", "macro")
+		frame:SetAttribute("*macrotext1", "/click " .. GetSecureTargetProxy(frame):GetName())
+	else
+		frame:SetAttribute("*type1", nil)
+		frame:SetAttribute("*macrotext1", nil)
+	end
+	local menuMacro = rightMenu and GetSecureMenuMacro(frame)
+	frame:SetAttribute("*type2", menuMacro and "macro" or nil)
+	frame:SetAttribute("*macrotext2", menuMacro or nil)
 	frame:SetAttribute("*clickbutton2", nil)
 	if not b1 then
 		frame:SetAttribute("type1", "none")
@@ -2080,8 +2094,10 @@ local function DoRegisterFrame(frame)
 		originalAttrs[frame] = {
 			type1 = frame:GetAttribute("type1"),
 			starType1 = frame:GetAttribute("*type1"),
+			starMacro1 = frame:GetAttribute("*macrotext1"),
 			type2 = frame:GetAttribute("type2"),
 			starType2 = frame:GetAttribute("*type2"),
+			starMacro2 = frame:GetAttribute("*macrotext2"),
 			starClickButton2 = frame:GetAttribute("*clickbutton2"),
 			wheel = frame.IsMouseWheelEnabled and frame:IsMouseWheelEnabled() or false,
 		}
@@ -2163,14 +2179,18 @@ local function DoUnregisterFrame(frame)
 	if o then
 		frame:SetAttribute("type1", o.type1)
 		frame:SetAttribute("*type1", o.starType1)
+		frame:SetAttribute("*macrotext1", o.starMacro1)
 		frame:SetAttribute("type2", o.type2)
 		frame:SetAttribute("*type2", o.starType2)
+		frame:SetAttribute("*macrotext2", o.starMacro2)
 		frame:SetAttribute("*clickbutton2", o.starClickButton2)
 	else
 		frame:SetAttribute("type1", nil)
 		frame:SetAttribute("*type1", "target")
+		frame:SetAttribute("*macrotext1", nil)
 		frame:SetAttribute("type2", nil)
 		frame:SetAttribute("*type2", "togglemenu")
+		frame:SetAttribute("*macrotext2", nil)
 	end
 
 	-- Fully reverts click registration and removes our OnEnter/OnLeave wraps, so
