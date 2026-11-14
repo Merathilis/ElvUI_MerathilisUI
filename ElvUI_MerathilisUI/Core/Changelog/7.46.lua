@@ -15,6 +15,7 @@ MER.Changelog[746] = {
 		'[HoverCast]: On WoW Forever the Dispels binding now casts one dispel per class (Priest: Dispel Magic, Druid: Remove Curse, Shaman: Cure Poison) and no longer shows "Spell is not ready yet" on every press. Bind the other dispels as normal spell bindings.',
 		"[HoverCast]: On WoW Forever a Druid's Dynamic Rez now casts Revive out of combat and keeps Rebirth for combat.",
 		"[HoverCast]: Shift, Ctrl or Alt + click on a unit frame works again when left-click is bound to Target or right-click to Menu. Before, a modified click without its own binding did nothing.",
+		"[HoverCast]: A modified click on a party target or party pet frame now targets that unit, or opens its menu, instead of the party member. In a vehicle it now targets the vehicle like a plain click does.",
 		"[Minimap Buttons]: A second click on the Tracking button or the Addons button now closes its menu. Before, the menu closed and opened again right away.",
 	},
 	NEW = {

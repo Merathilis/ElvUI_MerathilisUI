@@ -1705,8 +1705,9 @@ end
 --  left/right click have one). Re-opening the menu from insecure Lua taints it,
 --  so its protected items (Set Focus, Follow) throw ADDON_ACTION_FORBIDDEN.
 --  These bindings route through a hidden child SecureActionButton instead,
---  whose own OnClick is not gated. "useparent-unit" resolves the unit from the
---  unit button, so header-managed frames whose unit changes work too. The
+--  whose own OnClick is not gated. "useparent-unit" (plus its unitsuffix and
+--  toggleForVehicle) resolves the unit from the unit button, so header-managed
+--  frames whose unit changes work too. The
 --  "click" secure action crashes on a Blizzard typo since 12.1, so the proxies
 --  are globally named and reached through a "/click <name>" macro.
 -------------------------------------------------------------------------------
@@ -1773,6 +1774,10 @@ local function CreateUnitProxy(frame, prefix, action)
 		proxy:SetAttribute("type" .. i, action)
 	end
 	proxy:SetAttribute("useparent-unit", true)
+	-- Resolve the unit like the frame does: its unit suffix (party target/pet
+	-- children) and its vehicle toggle (the vehicle while the unit rides one)
+	proxy:SetAttribute("useparent-unitsuffix", true)
+	proxy:SetAttribute("useparent-toggleForVehicle", true)
 	-- Act on the up-click regardless of the "cast on key down" CVar
 	proxy:SetAttribute("useOnKeyDown", false)
 	return proxy, proxyName
