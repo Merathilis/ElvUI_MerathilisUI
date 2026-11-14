@@ -692,6 +692,171 @@ function module:SendItemToAuctionHouse(bagID, slotID)
 	return true
 end
 
+-- Confirmation shared by the two refund cases below. The slot is checked
+-- again by item GUID on accept, it may hold something else by then.
+function module:ShowItemConfirm(text, bagID, slotID, onAccept)
+	if not E.PopupDialogs.MER_BAGS_ITEM_CONFIRM then
+		E.PopupDialogs.MER_BAGS_ITEM_CONFIRM = {
+			text = "%s",
+			button1 = _G.YES,
+			button2 = _G.NO,
+			OnAccept = function(_, data)
+				local location = ItemLocation:CreateFromBagAndSlot(data.bagID, data.slotID)
+				if C_Item.DoesItemExist(location) and C_Item.GetItemGUID(location) == data.guid then
+					data.onAccept(data.bagID, data.slotID)
+				end
+			end,
+			timeout = 0,
+			hideOnEscape = 1,
+		}
+	end
+
+	E:StaticPopup_Show("MER_BAGS_ITEM_CONFIRM", text, nil, {
+		bagID = bagID,
+		slotID = slotID,
+		guid = C_Item.GetItemGUID(ItemLocation:CreateFromBagAndSlot(bagID, slotID)),
+		onAccept = onAccept,
+	})
+end
+
+-- Mirrors ContainerFrame_GetExtendedPriceString: an item that can still be
+-- refunded is not sold on right-click at a merchant, Blizzard's bags ask
+-- first and then return it for its purchase price. Blizzard's own dialog
+-- reads the slot from fields on MerchantFrame, which we must not write, hence
+-- our own. Returns true when the dialog is up.
+function module:ConfirmRefundSale(bagID, slotID)
+	local info = C_Container.GetContainerItemPurchaseInfo(bagID, slotID, false)
+	if not info or not info.refundSeconds then
+		return false
+	end
+
+	local money, itemCount, currencyCount = info.money or 0, info.itemCount or 0, info.currencyCount or 0
+	if money == 0 and itemCount == 0 and currencyCount == 0 then
+		return false
+	end
+
+	local parts = {}
+	if money > 0 then
+		tinsert(parts, GetMoneyString(money))
+	end
+
+	for i = 1, itemCount do
+		local item = C_Container.GetContainerItemPurchaseItem(bagID, slotID, i, false)
+		if item and item.hyperlink then
+			tinsert(parts, format(ITEM_QUANTITY_TEMPLATE, item.itemCount or 0, item.hyperlink))
+		end
+	end
+
+	for i = 1, currencyCount do
+		local currency = C_Container.GetContainerItemPurchaseCurrency(bagID, slotID, i, false)
+		if currency and currency.name then
+			local amount = format(CURRENCY_QUANTITY_TEMPLATE, currency.currencyCount or 0, currency.name)
+			tinsert(parts, format("|T%s:0:0:0:-1|t %s", currency.iconFileID or 0, amount))
+		end
+	end
+
+	local question = format(
+		CONFIRM_REFUND_TOKEN_ITEM,
+		table.concat(parts, ", "),
+		info.hasEnchants and ("\n\n" .. CONFIRM_REFUND_ITEM_ENHANCEMENTS_LOST) or ""
+	)
+	local link = C_Container.GetContainerItemLink(bagID, slotID)
+
+	module:ShowItemConfirm(link and (link .. "\n\n" .. question) or question, bagID, slotID, function(bag, slot)
+		C_Container.ContainerRefundItemPurchase(bag, slot, false)
+	end)
+
+	return true
+end
+
+-- Blizzard's bags pass the bank they show to UseContainerItem, our secure
+-- "/use bag slot" macro can't. With the Warband bank in view a right-click on
+-- a bag item is therefore sent there from here, after the same "this ends the
+-- refund period" question Blizzard asks. Items the Warband bank doesn't take
+-- stay with the macro. Returns true when the click was handled.
+function module:DepositToWarbandBank(btn)
+	if
+		not module.isBankOpen
+		or btn.ownerFrame == module.bankFrame
+		or not (C_Bank and C_Bank.IsItemAllowedInBankType and C_Bank.CanUseBank)
+		or module:GetDisplayedBankType() ~= WARBAND_BANK_TYPE
+		or not C_Bank.CanUseBank(WARBAND_BANK_TYPE)
+	then
+		return false
+	end
+
+	local bagID, slotID = btn.BagID, btn.SlotID
+	local itemLocation = ItemLocation:CreateFromBagAndSlot(bagID, slotID)
+	if
+		not C_Item.DoesItemExist(itemLocation) or not C_Bank.IsItemAllowedInBankType(WARBAND_BANK_TYPE, itemLocation)
+	then
+		return false
+	end
+
+	if C_Item.CanBeRefunded(itemLocation) then
+		module:ShowItemConfirm(END_REFUND, bagID, slotID, function(bag, slot)
+			C_Container.UseContainerItem(bag, slot, nil, WARBAND_BANK_TYPE, false)
+		end)
+	else
+		C_Container.UseContainerItem(bagID, slotID, nil, WARBAND_BANK_TYPE, false)
+	end
+
+	return true
+end
+
+-- Shift+Right-click (AUTOLOOTTOGGLE) on a container opens it with auto loot
+-- switched around. Blizzard's bags treat that as a plain click.
+function module:IsLootToggleClick(btn)
+	if not IsModifiedClick("AUTOLOOTTOGGLE") or not btn.BagID or not btn.SlotID then
+		return false
+	end
+
+	local info = C_Container_GetContainerItemInfo(btn.BagID, btn.SlotID)
+	return info and info.hasLoot or false
+end
+
+-- Everything Blizzard's bags do with a right-click in plain Lua, before or
+-- instead of UseContainerItem (ContainerFrameItemButtonMixin:OnClick and
+-- ContainerFrameItemButton_OnClick). Our secure "/use bag slot" macro skips
+-- all of it, so it is decided here on the press. Returns true when the click
+-- is taken care of and the macro must not run. Suppressing the macro takes
+-- SetAttribute, so in combat only the socketing UI is left.
+function module:TakeOverRightClick(btn)
+	local bagID, slotID = btn.BagID, btn.SlotID
+	if not bagID or not slotID then
+		return false
+	end
+
+	if IsModifiedClick() and not module:IsLootToggleClick(btn) then
+		if IsModifiedClick("EXPANDITEM") and module:OpenExpandItem(bagID, slotID) then
+			return true
+		end
+
+		-- Split Stack and the bank's move menu have their own branches in
+		-- Slot_OnClick
+		if InCombatLockdown() or IsModifiedClick("SPLITSTACK") or (IsControlKeyDown() and module.isBankOpen) then
+			return false
+		end
+
+		-- A modified click never uses the item: dress-up, chat link and the
+		-- like, or nothing at all
+		HandleModifiedItemClick(btn.itemLink, ItemLocation:CreateFromBagAndSlot(bagID, slotID))
+		return true
+	end
+
+	if InCombatLockdown() then
+		return false
+	end
+
+	local merchant = _G.MerchantFrame
+	if merchant and merchant:IsShown() then
+		-- Nothing is sold while the buyback tab is open
+		return merchant.selectedTab == 2 or module:ConfirmRefundSale(bagID, slotID)
+	end
+
+	return module:SendItemToAuctionHouse(bagID, slotID) or module:DepositToWarbandBank(btn)
+end
+
 -- Right-click "use" needs real secure type/item attributes on a
 -- SecureActionButtonTemplate button to avoid ADDON_ACTION_FORBIDDEN (see
 -- UpdateSlotVisual); a plain overlay on top to carry Left/Middle separately
@@ -766,8 +931,8 @@ local function Slot_OnClick(self, mouseButton, down)
 	-- through here on both the down and the up phase: the UI is opened on
 	-- down, the secure dispatch is suppressed on both, as either may fire it.
 	--
-	-- A plain right-click with the auction house open takes the same route:
-	-- the item goes into the sell tab and must not be used or equipped.
+	-- The other right-clicks Blizzard's bags answer without using the item
+	-- take the same route, see module:TakeOverRightClick.
 	local expandClick = self.pendingExpandClick
 	if mouseButton == "RightButton" and not down then
 		self.pendingExpandClick = nil
@@ -775,17 +940,7 @@ local function Slot_OnClick(self, mouseButton, down)
 
 	if
 		mouseButton == "RightButton"
-		and (
-			(not down and expandClick)
-			or (
-				down
-				and not CursorHasItem()
-				and (
-					(IsModifiedClick("EXPANDITEM") and module:OpenExpandItem(self.BagID, self.SlotID))
-					or (not IsModifiedClick() and module:SendItemToAuctionHouse(self.BagID, self.SlotID))
-				)
-			)
-		)
+		and ((not down and expandClick) or (down and not CursorHasItem() and module:TakeOverRightClick(self)))
 	then
 		if down then
 			self.pendingExpandClick = true
@@ -808,7 +963,12 @@ local function Slot_OnClick(self, mouseButton, down)
 	-- first (see below). IsModifiedClick("SPLITSTACK") only checks the held
 	-- modifier key, not which mouse button - matched unconditionally it
 	-- swallowed Shift+Left-click links and Shift+Middle-click assigns.
-	if mouseButton == "RightButton" and IsModifiedClick("SPLITSTACK") and not CursorHasItem() then
+	if
+		mouseButton == "RightButton"
+		and IsModifiedClick("SPLITSTACK")
+		and not CursorHasItem()
+		and not module:IsLootToggleClick(self)
+	then
 		if not InCombatLockdown() then
 			self:SetAttribute("*type2", nil)
 
@@ -1778,7 +1938,9 @@ local function UpdateSlotVisual(btn, entry)
 	-- PreClick had handed the item to the cursor. With a profession spell
 	-- waiting for a target (Disenchant, Milling, an enchant scroll...) that
 	-- second action swallowed the targeting click, and a middle-click (pin)
-	-- used the item as well. "*" keeps it working with any modifier held.
+	-- used the item as well. "*" covers the modified clicks that do use the
+	-- item (auto loot toggle on a container, anything in combat); the others
+	-- are suppressed per click, see module:TakeOverRightClick.
 	if not InCombatLockdown() then
 		btn:SetAttribute("type", nil)
 		btn:SetAttribute("item", nil)
