@@ -27,6 +27,7 @@ MER.Changelog[746] = {
 		"[Unlock Mode]: New option Auto Hide Toolbar (off by default). The toolbar fades out until the cursor reaches its place. It stays hidden while you drag a mover or while a mover is under the cursor, so movers below it can be reached.",
 	},
 	IMPROVEMENTS = {
+		"[Installer]: The nameplate layout now shows friendly players as a name only, without the health bar, and the name is class colored.",
 		"[Installer]: The count on nameplate quest icons now sits as a small badge in the bottom right corner of the icon. Before, it was next to the icon and covered the next quest icon when a unit belonged to more than one quest.",
 		"[Quick Grid]: On WoW Forever a custom slot can keep a lower spell rank. Drag that rank from the spellbook into the slot, and the slot shows its rank in the name. Other spell slots still cast the highest rank you know.",
 	},
