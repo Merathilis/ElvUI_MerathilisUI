@@ -10,6 +10,7 @@ MER.Changelog[746] = {
 		"[Bags]: The categorized bags now stay completely off while ElvUI's bags are disabled, for example when another bag addon is used. Before, opening the bank still opened our bag and bank windows next to the other addon.",
 		"[Bags]: On WoW Forever bank bags can be equipped and replaced again: drop a bag on a bank bag row in the sidebar (or click the row with the bag on the cursor) to put it into that slot, drag the row to take the bag out. Before, a new bag could only be put inside the bag already equipped.",
 		"[Bags]: The offline bank now saves your bank at every banker. Some bankers open the bank in a different way and were missed before.",
+		"[Bags]: Right-clicking an item while the auction house is open puts it into the sell tab again, like Blizzard's own bags do. Before, the item was used or equipped instead.",
 		"[HoverCast]: A macro binding now picks up the macro's new text right away when you edit, rename or delete the macro. Before, the old text kept firing until the next reload or group change.",
 		'[HoverCast]: When an account macro and a character macro share a name, the binding now uses the one you picked. Character macros are marked with "(C)" in the binding list.',
 		'[HoverCast]: On WoW Forever the Dispels binding now casts one dispel per class (Priest: Dispel Magic, Druid: Remove Curse, Shaman: Cure Poison) and no longer shows "Spell is not ready yet" on every press. Bind the other dispels as normal spell bindings.',

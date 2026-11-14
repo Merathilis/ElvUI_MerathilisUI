@@ -659,6 +659,39 @@ function module:OpenExpandItem(bagID, slotID)
 	return C_Container.SocketContainerItem(bagID, slotID) and true or false
 end
 
+-- Mirrors the auction house branch of Blizzard's
+-- ContainerFrameItemButtonMixin:OnClick: with the auction house open a plain
+-- right-click puts the item into the sell tab instead of using it. That part
+-- is plain Lua in Blizzard's bags and never reaches UseContainerItem, so our
+-- secure "/use bag slot" macro doesn't cover it. Returns true when the auction
+-- house took the item; the caller then has to suppress the secure dispatch,
+-- which is why this stays out of the way in combat.
+function module:SendItemToAuctionHouse(bagID, slotID)
+	local auctionFrame = _G.AuctionHouseFrame
+	if not bagID or not slotID or InCombatLockdown() then
+		return false
+	end
+
+	if not auctionFrame or not auctionFrame:IsShown() or not auctionFrame.SetPostItem then
+		return false
+	end
+
+	local itemLocation = ItemLocation:CreateFromBagAndSlot(bagID, slotID)
+	if not itemLocation:IsValid() then
+		return false
+	end
+
+	-- Invalid items only go through on the listing pages, where the auction
+	-- house shows its own error for them.
+	local isValid = C_AuctionHouse.IsSellItemValid(itemLocation, false)
+	if not isValid and not (auctionFrame.IsListingAuctions and auctionFrame:IsListingAuctions()) then
+		return false
+	end
+
+	auctionFrame:SetPostItem(itemLocation)
+	return true
+end
+
 -- Right-click "use" needs real secure type/item attributes on a
 -- SecureActionButtonTemplate button to avoid ADDON_ACTION_FORBIDDEN (see
 -- UpdateSlotVisual); a plain overlay on top to carry Left/Middle separately
@@ -732,6 +765,9 @@ local function Slot_OnClick(self, mouseButton, down)
 	-- actually opened one of those UIs swallows the click. Right-click runs
 	-- through here on both the down and the up phase: the UI is opened on
 	-- down, the secure dispatch is suppressed on both, as either may fire it.
+	--
+	-- A plain right-click with the auction house open takes the same route:
+	-- the item goes into the sell tab and must not be used or equipped.
 	local expandClick = self.pendingExpandClick
 	if mouseButton == "RightButton" and not down then
 		self.pendingExpandClick = nil
@@ -743,9 +779,11 @@ local function Slot_OnClick(self, mouseButton, down)
 			(not down and expandClick)
 			or (
 				down
-				and IsModifiedClick("EXPANDITEM")
 				and not CursorHasItem()
-				and module:OpenExpandItem(self.BagID, self.SlotID)
+				and (
+					(IsModifiedClick("EXPANDITEM") and module:OpenExpandItem(self.BagID, self.SlotID))
+					or (not IsModifiedClick() and module:SendItemToAuctionHouse(self.BagID, self.SlotID))
+				)
 			)
 		)
 	then
