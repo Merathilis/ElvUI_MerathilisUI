@@ -1,7 +1,7 @@
 local MER = unpack(ElvUI_MerathilisUI)
 
 MER.Changelog[746] = {
-	RELEASE_DATE = "TBD",
+	RELEASE_DATE = "14.11.2026",
 	FIXES = {
 		"[Installer]: The combat text font and the time and count fonts of buffs and debuffs now really use GothamNarrow-Black. Before, they used a font name that does not exist and fell back to ElvUI's default font.",
 		"[Installer]: Tooltips on cards, buttons and switches no longer show up behind the installer window.",
