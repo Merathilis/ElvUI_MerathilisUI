@@ -16,6 +16,7 @@ V.skins = {
 		gil = true,
 		pawn = true,
 		cap = true,
+		qim = true,
 		wim = true,
 		wowLua = true,
 		klf = true,
