@@ -5728,6 +5728,13 @@ function module:FadeOutHide(f)
 		return
 	end
 
+	-- A close in the frame combat starts in (e.g. another addon closing the
+	-- bags on PLAYER_REGEN_DISABLED) can't wait for the fade, see OnCombatStart
+	if module.combatStartTime == GetTime() then
+		module:FinishFadeOut(f)
+		return
+	end
+
 	if f.fadingOut then
 		return
 	end
@@ -5743,6 +5750,33 @@ function module:FadeOutHide(f)
 			return
 		end
 		f:Hide()
+	end
+end
+
+-- Skips the fade and hides right away.
+function module:FinishFadeOut(f)
+	f.fadingOut = nil
+	if f.FadeObject then
+		f.FadeObject.finishedFunc = nil
+	end
+	E:UIFrameFadeRemoveFrame(f)
+	f:SetAlpha(1)
+	f:Hide()
+end
+
+-- PLAYER_REGEN_DISABLED fires right before the lockdown, the last moment our
+-- windows can still be hidden. A fade-out would end inside the lockdown and
+-- leave the window open, so one that is running is finished now, and
+-- FadeOutHide skips the fade for a close that comes later in this same frame
+-- (the order of the event handlers across addons is not fixed).
+function module:OnCombatStart()
+	module.combatStartTime = GetTime()
+
+	if module.frame and module.frame.fadingOut then
+		module:FinishFadeOut(module.frame)
+	end
+	if module.bankFrame and module.bankFrame.fadingOut then
+		module:FinishFadeOut(module.bankFrame)
 	end
 end
 
@@ -6229,6 +6263,7 @@ local function SetupHooks()
 	module:SecureHook(B, "OpenBags", "OnElvUIBagsOpened")
 	module:SecureHook(B, "CloseAllBags", "OnElvUIBagsClosed")
 	module:SecureHook("GameTooltip_SetDefaultAnchor", "OnGameTooltipDefaultAnchor")
+	module:RegisterEvent("PLAYER_REGEN_DISABLED", "OnCombatStart")
 
 	-- Registered even when duplicate merging is off: the option can be
 	-- flipped at any time, and a missed open/close would leave the panel
