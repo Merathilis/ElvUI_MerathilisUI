@@ -2216,6 +2216,9 @@ function MER:DeveloperSettings()
 	-- Addon Manager
 	E.global["mui"]["addonManager"]["enable"] = true
 
+	-- Bags
+	E.db["mui"]["bags"]["categorizedBags"]["recentNewOnly"] = true
+
 	-- Unitframe Tags
 	E.db["unitframe"]["units"]["raid1"]["customTexts"]["Elv"] = {
 		["font"] = "Expressway",
