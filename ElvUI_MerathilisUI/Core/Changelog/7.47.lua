@@ -12,6 +12,6 @@ MER.Changelog[747] = {
 	},
 	NEW = {},
 	IMPROVEMENTS = {
-		"[Locales]: The Korean translation is nearly complete, thanks to a community contribution.",
+		"[Locales]: The Korean translation is nearly complete, thanks to haslram.",
 	},
 }

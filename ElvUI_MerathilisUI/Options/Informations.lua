@@ -300,7 +300,7 @@ module:AddOptions(function()
 	do
 		local localizationList = {
 			{ "Deutsch (deDE)", I.Media.Icons.German, { "|cff00c0faDlarge|r" } },
-			{ "한국어 (koKR)", I.Media.Icons.Korean, { "Crazyyoungs @ GitHub" } },
+			{ "한국어 (koKR)", I.Media.Icons.Korean, { "Crazyyoungs @ GitHub", "haslram @ GitHub" } },
 			{ "русский язык (ruRU)", I.Media.Icons.Russian, { "Hollicsh @ GitHub" } },
 		}
 
