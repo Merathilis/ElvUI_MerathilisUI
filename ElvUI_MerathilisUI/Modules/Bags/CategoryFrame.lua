@@ -210,8 +210,55 @@ local function TrimRecentItems()
 	end
 end
 
+-- "New Items Only": an item that was already in the bags at the last pass
+-- (more of a stack you carry, spilling into a fresh slot) does not count as
+-- recent. Gear, mailbox and trade arrivals always do; traded items can land
+-- just after TRADE_CLOSED, so that grace lasts one pass. Kept as module
+-- fields: this file is at the 200 locals limit of Lua 5.1.
+do
+	local carried, nextCarried = {}, {}
+
+	-- Runs after each bag pass, so the next pass judges against this one
+	function module.UpdateCarriedItems()
+		module.recentTradeArrival = nil
+		if not (module.db and module.db.recentNewOnly) then
+			if module.carriedSeeded then
+				wipe(carried)
+				module.carriedSeeded = nil
+			end
+			return
+		end
+
+		wipe(nextCarried)
+		for _, bagID in ipairs(BAG_IDS) do
+			for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
+				local itemID = C_Container.GetContainerItemID(bagID, slotID)
+				if itemID then
+					nextCarried[itemID] = true
+				end
+			end
+		end
+		carried, nextCarried = nextCarried, carried
+		module.carriedSeeded = true
+	end
+
+	function module.WasCarriedBefore(itemID)
+		if not (module.carriedSeeded and carried[itemID] and module.db.recentNewOnly) then
+			return false
+		end
+
+		local panels = module.openItemPanels
+		if (panels and (panels.mail or panels.trade)) or module.recentTradeArrival then
+			return false
+		end
+
+		local maxStack = C_Item.GetItemMaxStackSizeByID(itemID)
+		return (maxStack and maxStack > 1) or false
+	end
+end
+
 local function MarkItemRecent(itemID)
-	if not itemID or recentItems[itemID] then
+	if not itemID or recentItems[itemID] or module.WasCarriedBefore(itemID) then
 		return
 	end
 
@@ -3746,7 +3793,9 @@ local function CollectItemsFromBags(bagIDList, scratch)
 end
 
 local function CollectItems()
-	return CollectItemsFromBags(module:GetShownBagIDs(), categoryItemsScratch)
+	local items = CollectItemsFromBags(module:GetShownBagIDs(), categoryItemsScratch)
+	module.UpdateCarriedItems()
+	return items
 end
 
 local function BuildCategorySectionsFrom(itemsByCategory)
@@ -3952,7 +4001,9 @@ local function CollectItemsByBagFrom(bagIDList, scratch)
 end
 
 local function CollectItemsByBag()
-	return CollectItemsByBagFrom(module:GetShownBagIDs(), bagItemsScratch)
+	local items = CollectItemsByBagFrom(module:GetShownBagIDs(), bagItemsScratch)
+	module.UpdateCarriedItems()
+	return items
 end
 
 -- Character/Warband bank tabs can have a custom icon/name set by the player
@@ -4543,6 +4594,11 @@ function module:OnItemPanelEvent(event)
 	local panel = ITEM_PANEL_EVENTS[event]
 	if panel then
 		module:SetItemPanelOpen(panel[1], panel[2])
+		-- New Items Only: traded items can land after the window closes. Set
+		-- after the refresh above, so the grace covers the pass that sees them.
+		if event == "TRADE_CLOSED" and module.db.recentNewOnly then
+			module.recentTradeArrival = true
+		end
 	end
 end
 
@@ -5136,21 +5192,31 @@ function module:RefreshCategoryFrame()
 	f.sidebar:Width(sidebarWidth)
 	f.addCategoryButton:SetShown(not db.sidebarCollapsed)
 
-	local totalSlots, usedSlots = 0, 0
+	local totalSlots, usedSlots, listedItems = 0, 0, 0
 	for _, bagID in ipairs(BAG_IDS) do
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
-		totalSlots = totalSlots + numSlots
+		-- Forever's quivers, ammo pouches and soul, herb or enchanting bags
+		-- only take their own kind of item, so their slots stay out of the
+		-- free slot count (the bag family is 0 for a normal bag)
+		local _, family = C_Container.GetContainerNumFreeSlots(bagID)
+		local special = E.Forever and family and family ~= 0
+		if not special then
+			totalSlots = totalSlots + numSlots
+		end
 		for slotID = 1, numSlots do
 			local info = C_Container_GetContainerItemInfo(bagID, slotID)
 			if info and info.iconFileID then
-				usedSlots = usedSlots + 1
+				listedItems = listedItems + 1
+				if not special then
+					usedSlots = usedSlots + 1
+				end
 			end
 		end
 	end
 
 	-- The view rows count the items listed, so shown keys count there too,
-	-- while the keyring's slots stay out of the free slot count in the title.
-	local listedItems = usedSlots
+	-- while the keyring's slots stay out of the free slot count in the title,
+	-- just like the special bags above.
 	if module:IsKeyringShown() then
 		local keyringID = module.KeyringContainer
 		for slotID = 1, C_Container_GetContainerNumSlots(keyringID) do
@@ -6229,12 +6295,14 @@ end
 -- Created when a bag window first opens
 local eventFrame
 -- BAG_CONTAINER_UPDATE: a bag was equipped, swapped or removed (bank bags too)
+-- BAG_UPDATE_COOLDOWN: only repaints the cooldowns, see OnBagEvent
 local BAG_REFRESH_EVENTS = {
 	"BAG_UPDATE",
 	"BAG_UPDATE_DELAYED",
 	"BAG_CONTAINER_UPDATE",
 	"ITEM_LOCK_CHANGED",
 	"EQUIPMENT_SETS_CHANGED",
+	"BAG_UPDATE_COOLDOWN",
 }
 
 -- RefreshCategoryFrame()/RefreshBankCategoryFrame() are full rebuilds (every
@@ -6272,7 +6340,34 @@ local function DoThrottledRefresh()
 	end
 end
 
+-- Using an item that is not consumed, or one that shares its cooldown with
+-- others (potions, healthstones), changes no slot, so no BAG_UPDATE follows
+-- and the swipes on screen would stay stale until the next rebuild. Blizzard's
+-- own bags repaint their cooldowns off BAG_UPDATE_COOLDOWN at frame level, our
+-- slots don't get that. Kept as module fields: this file is at the 200 locals
+-- limit of Lua 5.1.
+function module.RepaintShownCooldowns()
+	module.cooldownRepaintQueued = nil
+	for _, pool in ipairs(slotPools) do
+		for _, btn in ipairs(pool) do
+			if btn:IsShown() and btn.BagID and btn.SlotID then
+				UpdateSlotCooldown(btn, btn.BagID, btn.SlotID)
+			end
+		end
+	end
+end
+
 local function OnBagEvent(_, event)
+	-- Fires in bursts (once per item sharing the cooldown), so at most one
+	-- repaint per frame, and never a full rebuild
+	if event == "BAG_UPDATE_COOLDOWN" then
+		if not module.cooldownRepaintQueued then
+			module.cooldownRepaintQueued = true
+			C_Timer.After(0, module.RepaintShownCooldowns)
+		end
+		return
+	end
+
 	if event == "EQUIPMENT_SETS_CHANGED" then
 		module.InvalidateEquipSetCache()
 	end

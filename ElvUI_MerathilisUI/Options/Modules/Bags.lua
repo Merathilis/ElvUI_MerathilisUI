@@ -256,6 +256,15 @@ module:AddOptions(function()
 									return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
 								end,
 							},
+							recentNewOnly = {
+								order = 11.05,
+								type = "toggle",
+								name = L["New Items Only"],
+								desc = L["Only items you were not carrying before appear in Recent Items, so looting more of a stack you already have no longer adds it. Gear and items from the mailbox or a trade always appear."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.showRecent
+								end,
+							},
 							openWithCharacter = {
 								order = 11.1,
 								type = "toggle",

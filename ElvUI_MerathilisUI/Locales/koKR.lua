@@ -1116,6 +1116,8 @@ L["Shows identical items from several bag slots as one slot with the combined co
 L["Clear Recent on Close"] = "닫을 때 최근 아이템 비우기"
 L["Empties the Recent Items list whenever you close the bags, instead of keeping it until you clear it yourself."] =
 	"직접 비울 때까지 유지하는 대신, 가방을 닫을 때마다 최근 아이템 목록을 비웁니다."
+L["New Items Only"] = true
+L["Only items you were not carrying before appear in Recent Items, so looting more of a stack you already have no longer adds it. Gear and items from the mailbox or a trade always appear."] = true
 L["Recent Items Limit"] = "최근 아이템 최대 개수"
 L["How many items the Recent Items list keeps at most; the oldest drops out first."] =
 	"최근 아이템 목록에 유지할 최대 아이템 수입니다. 가장 오래된 것부터 제거됩니다."

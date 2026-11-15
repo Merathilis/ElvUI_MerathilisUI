@@ -277,6 +277,7 @@ P.bags = {
 		showRecent = true,
 		clearRecentOnClose = false,
 		recentLimit = 20,
+		recentNewOnly = false,
 		openWithCharacter = false,
 		quickActions = false,
 		hideEmptyCategories = true,

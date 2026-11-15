@@ -9,8 +9,12 @@ MER.Changelog[747] = {
 		"[Bags]: With the Warband bank in view, a right-click on a bag item now puts it into the Warband bank, and asks first when that would end the item's refund period.",
 		"[Bags]: Ctrl or Alt + right-click no longer uses or equips the item. Ctrl + right-click opens the dressing room, like in Blizzard's own bags.",
 		"[Bags]: Shift + right-click on a container opens it with auto loot switched around again, instead of doing nothing.",
+		"[Bags]: Item cooldowns now show on the bag slots as soon as an item is used with the bags open, also on the other items that share its cooldown, like potions.",
+		"[Bags]: On WoW Forever, quivers, ammo pouches and soul, herb or enchanting bags no longer count toward the free slots in the bag window's title.",
 	},
-	NEW = {},
+	NEW = {
+		"[Bags]: New Items Only option for Recent Items: looting more of a stack you already carry no longer adds it to the list. Gear and items from the mailbox or a trade always appear. Off by default.",
+	},
 	IMPROVEMENTS = {
 		"[Locales]: The Korean translation is nearly complete, thanks to haslram.",
 	},
