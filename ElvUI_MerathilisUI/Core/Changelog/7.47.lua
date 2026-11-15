@@ -11,5 +11,7 @@ MER.Changelog[747] = {
 		"[Bags]: Shift + right-click on a container opens it with auto loot switched around again, instead of doing nothing.",
 	},
 	NEW = {},
-	IMPROVEMENTS = {},
+	IMPROVEMENTS = {
+		"[Locales]: The Korean translation is nearly complete, thanks to a community contribution.",
+	},
 }
