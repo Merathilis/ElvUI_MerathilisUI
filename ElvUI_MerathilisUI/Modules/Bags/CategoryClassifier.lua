@@ -564,22 +564,31 @@ function module:GetCategories()
 	local cats = {}
 
 	local nameOverrides = db and db.categoryNameOverrides
+	local iconOverrides = db and db.categoryIconOverrides
 	local junkEnabled = module:IsJunkMarkerEnabled()
 	local keyringShown = module:IsKeyringShown()
 	for _, cat in ipairs(DEFAULT_CATEGORIES) do
 		local override = nameOverrides and nameOverrides[cat.key]
+		local iconOverride = iconOverrides and iconOverrides[cat.key]
 		-- Junk is left out entirely while the Junk Marker is off, assignments
 		-- to it stay saved for later
-		-- The keyring category likewise only while the keyring is shown.
-		local available = (junkEnabled or not cat.isJunk) and (keyringShown or not cat.isKeyring)
-		if available and override then
+		-- The keyring category likewise only while the keyring is shown, and
+		-- any category the player turned off (sidebar Delete, or the options).
+		local available = (junkEnabled or not cat.isJunk)
+			and (keyringShown or not cat.isKeyring)
+			and not module:IsCategoryOff(cat.key)
+		if available and (override or iconOverride) then
 			-- Shallow copy so the rename doesn't mutate the shared
 			-- DEFAULT_CATEGORIES table itself.
 			local copy = {}
 			for k, v in pairs(cat) do
 				copy[k] = v
 			end
-			copy.name = override
+			copy.name = override or cat.name
+			if iconOverride then
+				copy.icon = iconOverride
+				copy.isAtlas = module.IsAtlasIcon(iconOverride)
+			end
 			tinsert(cats, copy)
 		elseif available then
 			tinsert(cats, cat)
@@ -597,7 +606,13 @@ function module:GetCategories()
 		end
 
 		for _, uc in ipairs(userCats) do
-			tinsert(cats, catchAllIndex, { key = uc.key, name = uc.name, isUser = true, icon = uc.icon or 134400 })
+			tinsert(cats, catchAllIndex, {
+				key = uc.key,
+				name = uc.name,
+				isUser = true,
+				icon = uc.icon or 134400,
+				isAtlas = module.IsAtlasIcon(uc.icon),
+			})
 			catchAllIndex = catchAllIndex + 1
 		end
 	end
@@ -885,15 +900,102 @@ function module:RenameCategory(key, newName)
 end
 
 -- Only meaningful for a default (non-user) category - a user category's own
--- name isn't an "override" of anything, it's just deleted along with the
--- category via RemoveUserCategory.
-function module:ResetCategoryName(key)
+-- name and icon aren't an "override" of anything, they're just deleted along
+-- with the category via RemoveUserCategory.
+function module:HasCategoryOverrides(key)
 	local db = module.db
-	if db.categoryNameOverrides and db.categoryNameOverrides[key] then
+	return (db.categoryNameOverrides and db.categoryNameOverrides[key] ~= nil)
+		or (db.categoryIconOverrides and db.categoryIconOverrides[key] ~= nil)
+		or false
+end
+
+-- Puts a default category's own name and icon back
+function module:ResetCategory(key)
+	local db = module.db
+	if db.categoryNameOverrides then
 		db.categoryNameOverrides[key] = nil
-		module:InvalidateCategoryCache()
+	end
+	if db.categoryIconOverrides then
+		db.categoryIconOverrides[key] = nil
+	end
+	module:InvalidateCategoryCache()
+end
+
+-- A string icon is an atlas when the client knows it as one, anything else
+-- (fileID, texture path) is drawn as a plain texture.
+function module.IsAtlasIcon(icon)
+	return type(icon) == "string" and C_Texture.GetAtlasInfo(icon) ~= nil
+end
+
+-- "Change Icon" for any category: a user category keeps it on its own entry,
+-- a default one as an override by key (reset with ResetCategory).
+function module:ChangeCategoryIcon(key, icon)
+	if not key or not icon then
+		return
+	end
+
+	if module:SetUserCategoryIcon(key, icon) then
 		return true
 	end
+
+	local db = module.db
+	db.categoryIconOverrides = db.categoryIconOverrides or {}
+	db.categoryIconOverrides[key] = icon
+	module:InvalidateCategoryCache()
+	return true
+end
+
+-------------------------------------------------------------------------------
+--  Turning default categories off
+-------------------------------------------------------------------------------
+-- Delete on a default category only turns it off (db.disabledCategories), it
+-- comes back from the options. Its items fall through to the next matching
+-- category, or Miscellaneous. The catch-all has nowhere to fall through to,
+-- and Junk already comes and goes with the Junk Marker, so both stay on.
+function module:CanDisableCategory(key)
+	for _, cat in ipairs(DEFAULT_CATEGORIES) do
+		if cat.key == key then
+			return not cat.isCatchAll and not cat.isJunk
+		end
+	end
+	return false
+end
+
+function module:IsCategoryOff(key)
+	local db = module.db
+	return (db and db.disabledCategories and db.disabledCategories[key]) and true or false
+end
+
+function module:SetCategoryOff(key, off)
+	if off and not module:CanDisableCategory(key) then
+		return
+	end
+
+	local db = module.db
+	db.disabledCategories = db.disabledCategories or {}
+	db.disabledCategories[key] = off and true or nil
+	module:InvalidateCategoryCache()
+end
+
+-- The default categories that can be turned off, for the options list, with
+-- their current names and icons.
+function module:GetToggleableCategories()
+	local list = {}
+	local db = module.db
+	local nameOverrides = db and db.categoryNameOverrides
+	local iconOverrides = db and db.categoryIconOverrides
+	for _, cat in ipairs(DEFAULT_CATEGORIES) do
+		if module:CanDisableCategory(cat.key) then
+			local icon = iconOverrides and iconOverrides[cat.key]
+			tinsert(list, {
+				key = cat.key,
+				name = (nameOverrides and nameOverrides[cat.key]) or cat.name,
+				icon = icon or cat.icon,
+				isAtlas = (icon and module.IsAtlasIcon(icon)) or (not icon and cat.isAtlas) or false,
+			})
+		end
+	end
+	return list
 end
 
 function module:SetUserCategoryIcon(key, icon)

@@ -1132,7 +1132,6 @@ L["Alt+Drag onto another item to move it there. Items stay in their bag slots."]
 	"다른 아이템 위로 Alt+드래그하여 그 위치로 이동합니다. 아이템은 가방 칸에 그대로 남아 있습니다."
 L["Changes the display order only - nothing moves in your bags."] = "표시 순서만 변경하며, 가방 안에서 실제로 이동하지는 않습니다."
 L["Reorder items inside a category"] = "분류 안에서 아이템 순서 변경"
-L["Reset Name"] = "이름 초기화"
 L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."] =
 	"ElvUI의 가방 창을 분류 사이드바 보기(고정/최근 아이템, 사용자 지정 분류)로 교체합니다. 적용하려면 UI를 다시 불러와야 합니다."
 L["Show Pinned Items"] = "고정 아이템 표시"
@@ -2796,3 +2795,6 @@ L["Color Casting Enemies"] = "시전 중인 적 색상 지정"
 L["Enemy NPCs keep a health bar color after their first cast, so casters stay visible for the whole pull. Interruptible wins once a mob has shown both kinds. Needs ElvUI's nameplate castbar."] =
 	"적 NPC는 첫 시전 이후에도 생명력 바 색상을 유지하므로, 시전하는 적을 전투 내내 쉽게 알아볼 수 있습니다. 두 종류를 모두 보인 적은 차단 가능이 우선합니다. ElvUI 이름표 시전 바가 필요합니다."
 L["Show / hide keyring"] = "열쇠고리 표시 / 숨기기"
+L["Show in Sidebar"] = true
+L["Turns the category off. You can turn it on again in the options."] = true
+L["The built-in categories the bags sort items into. Items of a category that is off go to the next matching one, or Miscellaneous. Delete in a category's right-click menu turns it off as well."] = true

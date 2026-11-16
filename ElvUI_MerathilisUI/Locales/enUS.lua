@@ -978,7 +978,6 @@ L["Alt + Drag:"] = "Alt + Drag:"
 L["Alt+Drag onto another item to move it there. Items stay in their bag slots."] = "Alt+Drag onto another item to move it there. Items stay in their bag slots."
 L["Changes the display order only - nothing moves in your bags."] = "Changes the display order only - nothing moves in your bags."
 L["Reorder items inside a category"] = "Reorder items inside a category"
-L["Reset Name"] = "Reset Name"
 L["Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."] =
 	"Replaces ElvUI's bag frame with a category-sidebar view (Pinned/Recent items, custom categories). Requires a UI reload to take effect."
 L["Shift + Middle Click:"] = "Shift + Middle Click:"
@@ -2447,3 +2446,6 @@ L["Withdrew %s from the warband bank."] = true
 L["Color Casting Enemies"] = true
 L["Enemy NPCs keep a health bar color after their first cast, so casters stay visible for the whole pull. Interruptible wins once a mob has shown both kinds. Needs ElvUI's nameplate castbar."] = true
 L["Show / hide keyring"] = true
+L["Show in Sidebar"] = "Show in Sidebar"
+L["Turns the category off. You can turn it on again in the options."] = "Turns the category off. You can turn it on again in the options."
+L["The built-in categories the bags sort items into. Items of a category that is off go to the next matching one, or Miscellaneous. Delete in a category's right-click menu turns it off as well."] = "The built-in categories the bags sort items into. Items of a category that is off go to the next matching one, or Miscellaneous. Delete in a category's right-click menu turns it off as well."

@@ -2357,11 +2357,13 @@ local function Sidebar_OnClick(self, mouseButton)
 
 	if mouseButton == "LeftButton" then
 		module:ScrollToCategory(self.catKey, self.ownerFrame, self.getOffsets and self.getOffsets())
-	elseif
-		mouseButton == "RightButton"
-		and (self.isUser or self.isGroup or self.isGroupMember or not self.isPinnedOrRecent)
-	then
+	elseif mouseButton ~= "RightButton" then
+		return
+	elseif self.isUser or self.isGroup or self.isGroupMember or not self.isPinnedOrRecent then
 		module:OpenCategoryContextMenu(self)
+	elseif self.catKey == module.RecentCategory.key or self.catKey == module.AllItemsCategory.key then
+		-- Recent Items and All Items are sidebar entries of their own
+		module:OpenSidebarViewsMenu(self, self.ownerFrame == module.bankFrame)
 	end
 end
 
@@ -2898,7 +2900,12 @@ function module:ConstructFrame()
 		row.count:Point("RIGHT", -4, 0)
 
 		row.viewModeKey = def.key
-		row:SetScript("OnClick", function()
+		row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		row:SetScript("OnClick", function(self, mouseButton)
+			if mouseButton == "RightButton" then
+				module:OpenSidebarViewsMenu(self, false)
+				return
+			end
 			module.db.viewMode = def.key
 			module:RefreshCategoryFrame()
 			module:RefreshBagBarPopout()
@@ -2936,7 +2943,12 @@ function module:ConstructFrame()
 	f.pinnedRow.count:SetTextColor(0.6, 0.6, 0.6)
 	f.pinnedRow.count:Point("RIGHT", -4, 0)
 
-	f.pinnedRow:SetScript("OnClick", function()
+	f.pinnedRow:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	f.pinnedRow:SetScript("OnClick", function(self, mouseButton)
+		if mouseButton == "RightButton" then
+			module:OpenSidebarViewsMenu(self, false)
+			return
+		end
 		module:ScrollToCategory(module.PinnedCategory.key)
 	end)
 	f.pinnedRow:SetScript("OnEnter", Sidebar_OnEnter)
@@ -5227,12 +5239,12 @@ function module:RefreshCategoryFrame()
 		end
 	end
 
-	-- Fixed 3-row ALL/CATEGORY/BAG switcher - always all visible now that
-	-- Bank/Warband moved to their own separate frame, so (unlike before) this
-	-- never needs to reposition rows around a variable visible-row count.
-	-- All three modes just rearrange the SAME items, so they all show the
-	-- same total item count next to them.
+	-- ALL/CATEGORY/BAG switcher, minus the views hidden from the sidebar
+	-- (SidebarViews.lua). All three modes just rearrange the SAME items, so
+	-- they all show the same total item count next to them.
+	local fixedRows = {}
 	for _, row in ipairs(f.viewModeRows) do
+		tinsert(fixedRows, { frame = row, shown = module:IsSidebarViewShown(row.viewModeKey) })
 		row.text:SetShown(not db.sidebarCollapsed)
 		row.count:SetShown(not db.sidebarCollapsed)
 		row.count:SetText(listedItems)
@@ -5242,9 +5254,7 @@ function module:RefreshCategoryFrame()
 		module.SetSelectedRowTextColor(row, isSelected)
 	end
 
-	f.sidebarScroll:ClearAllPoints()
-	f.sidebarScroll:Point("TOPLEFT", 4, -18 - (#f.viewModeRows + 1) * VIEW_MODE_ROW_HEIGHT - 10)
-	f.sidebarScroll:Point("BOTTOMRIGHT", -SIDEBAR_SCROLLBAR_INSET, 4)
+	module.LayoutFixedSidebarRows(f, fixedRows, db.showPinned)
 	f.sidebarChild:Width(GetSidebarChildWidth(sidebarWidth))
 
 	f.pinnedRow.text:SetShown(not db.sidebarCollapsed)
@@ -5355,7 +5365,7 @@ _G.StaticPopupDialogs["MER_BAGCATEGORIES_ICON"] = {
 		if data and data.key and self.EditBox then
 			local icon = ResolveIconInput(self.EditBox:GetText())
 			if icon then
-				module:SetUserCategoryIcon(data.key, icon)
+				module:ChangeCategoryIcon(data.key, icon)
 				module:RefreshCategoryFrame()
 			end
 		end
@@ -5365,7 +5375,7 @@ _G.StaticPopupDialogs["MER_BAGCATEGORIES_ICON"] = {
 		if parent.data and parent.data.key then
 			local icon = ResolveIconInput(parent.EditBox:GetText())
 			if icon then
-				module:SetUserCategoryIcon(parent.data.key, icon)
+				module:ChangeCategoryIcon(parent.data.key, icon)
 				module:RefreshCategoryFrame()
 			end
 		end
@@ -5647,6 +5657,58 @@ local function AddGroupingSubmenus(rootDescription, key)
 	end
 end
 
+-- Rename / Change Icon / Reset / Delete, the same for every category, default
+-- ones included. A default category's name and icon are stored as overrides
+-- by key (Reset puts the defaults back), and Delete only turns it off - it
+-- comes back from the options. A user category is deleted for good.
+function module.AddCategoryEditEntries(rootDescription, key)
+	local cat = module:FindCategory(key)
+	local isUser = cat and cat.isUser
+
+	rootDescription:CreateButton(L["Rename"], function()
+		StaticPopup_Show("MER_BAGCATEGORIES_RENAME", nil, nil, { key = key })
+	end)
+
+	rootDescription:CreateButton(L["Change Icon"], function()
+		StaticPopup_Show("MER_BAGCATEGORIES_ICON", nil, nil, { key = key })
+	end)
+
+	if not isUser and module:HasCategoryOverrides(key) then
+		rootDescription:CreateButton(L["Reset"], function()
+			module:ResetCategory(key)
+			module:RefreshCategoryFrame()
+		end)
+	end
+
+	if isUser then
+		rootDescription:CreateButton(L["Delete"], function()
+			module:RemoveUserCategory(key)
+			module:RefreshCategoryFrame()
+		end)
+	elseif module:CanDisableCategory(key) then
+		local button = rootDescription:CreateButton(L["Delete"], function()
+			module:SetCategoryOff(key, true)
+			module:RefreshCategoryFrame()
+		end)
+		button:SetOnEnter(function(frame)
+			if GameTooltip:IsForbidden() then
+				return
+			end
+			GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
+			GameTooltip:AddLine(L["Delete"], 1, 1, 1)
+			GameTooltip:AddLine(
+				L["Turns the category off. You can turn it on again in the options."],
+				0.6,
+				0.6,
+				0.6,
+				true
+			)
+			GameTooltip:Show()
+		end)
+		button:SetOnLeave(GameTooltip_Hide)
+	end
+end
+
 function module:OpenCategoryContextMenu(row)
 	if not _G.MenuUtil or not _G.MenuUtil.CreateContextMenu then
 		return
@@ -5662,9 +5724,7 @@ function module:OpenCategoryContextMenu(row)
 		local memberCat = module:FindCategory(memberKey)
 
 		_G.MenuUtil.CreateContextMenu(row, function(_, rootDescription)
-			rootDescription:CreateButton(L["Rename"], function()
-				StaticPopup_Show("MER_BAGCATEGORIES_RENAME", nil, nil, { key = memberKey })
-			end)
+			module.AddCategoryEditEntries(rootDescription, memberKey)
 
 			rootDescription:CreateButton(format(L["Ungroup %s"], memberCat and memberCat.name or memberKey), function()
 				module:UngroupCategory(memberKey)
@@ -5714,18 +5774,7 @@ function module:OpenCategoryContextMenu(row)
 
 	if row.isUser then
 		_G.MenuUtil.CreateContextMenu(row, function(_, rootDescription)
-			rootDescription:CreateButton(L["Rename"], function()
-				StaticPopup_Show("MER_BAGCATEGORIES_RENAME", nil, nil, { key = key })
-			end)
-
-			rootDescription:CreateButton(L["Change Icon"], function()
-				StaticPopup_Show("MER_BAGCATEGORIES_ICON", nil, nil, { key = key })
-			end)
-
-			rootDescription:CreateButton(L["Delete"], function()
-				module:RemoveUserCategory(key)
-				module:RefreshCategoryFrame()
-			end)
+			module.AddCategoryEditEntries(rootDescription, key)
 
 			if module:GetItemOrder(key) then
 				rootDescription:CreateButton(L["Reset Item Order"], function()
@@ -5740,23 +5789,11 @@ function module:OpenCategoryContextMenu(row)
 		return
 	end
 
-	-- A default (built-in) category: no Change Icon/Delete (nothing to
-	-- delete, and default categories don't support a custom icon the way
-	-- user categories do), but Rename/Hide-in-All-Items are exactly as
-	-- meaningful here as they already are for a group - both are stored
-	-- generically by category key, not specially for groups.
-	local db = module.db
+	-- A default (built-in) category: Hide-in-All-Items is exactly as
+	-- meaningful here as it already is for a group - stored generically by
+	-- category key, not specially for groups.
 	_G.MenuUtil.CreateContextMenu(row, function(_, rootDescription)
-		rootDescription:CreateButton(L["Rename"], function()
-			StaticPopup_Show("MER_BAGCATEGORIES_RENAME", nil, nil, { key = key })
-		end)
-
-		if db.categoryNameOverrides and db.categoryNameOverrides[key] then
-			rootDescription:CreateButton(L["Reset Name"], function()
-				module:ResetCategoryName(key)
-				module:RefreshCategoryFrame()
-			end)
-		end
+		module.AddCategoryEditEntries(rootDescription, key)
 
 		if module:GetItemOrder(key) then
 			rootDescription:CreateButton(L["Reset Item Order"], function()
@@ -6042,6 +6079,9 @@ function module:ShowCategoryFrame()
 		module:FadeInFrame(module.frame)
 	end
 	module:RegisterBagEventsFor("bag")
+	-- The bag bar can still jump into a view hidden from the sidebar; the
+	-- next opening goes back to a listed one.
+	module:EnsureShownBagView()
 	module:RefreshCategoryFrame()
 	PlaySound(SOUNDKIT.IG_BACKPACK_OPEN or 862)
 end
@@ -6167,7 +6207,8 @@ function module:OnBankOpened()
 	-- Inhibitor grants remote Warband access without personal bank access at
 	-- that spot, so land on whichever bank the player can actually view.
 	local canViewCharacter = not BankAPI.CanView or BankAPI.CanView(CHARACTER_BANK_TYPE)
-	module.bankViewMode = (not canViewCharacter and #module.WarbandBagIDs > 0) and "WARBAND_ALL" or "BANK_ALL"
+	module.bankViewMode =
+		module:GetOpeningBankView((not canViewCharacter and #module.WarbandBagIDs > 0) and "WARBAND_ALL" or "BANK_ALL")
 
 	module:ShowBankFrame()
 

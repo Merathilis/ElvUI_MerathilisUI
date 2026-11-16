@@ -317,6 +317,33 @@ module:AddOptions(function()
 									BC:ResetTrackedCurrencies()
 								end,
 							}),
+							-- Delete on a default category in the sidebar turns
+							-- it off, this is where it comes back
+							shownCategories = {
+								order = 12.9,
+								type = "multiselect",
+								dialogControl = "MERDropdown",
+								name = L["Categories"],
+								desc = L["The built-in categories the bags sort items into. Items of a category that is off go to the next matching one, or Miscellaneous. Delete in a category's right-click menu turns it off as well."],
+								width = 1.5,
+								values = function()
+									local values, order = {}, {}
+									for _, cat in ipairs(BC:GetToggleableCategories()) do
+										local markup = cat.isAtlas and CreateAtlasMarkup(cat.icon, 14, 14)
+											or ("|T" .. cat.icon .. ":14:14:0:0:64:64:5:59:5:59|t")
+										values[cat.key] = markup .. " " .. cat.name
+										tinsert(order, cat.key)
+									end
+									return setmetatable(values, { order = order })
+								end,
+								get = function(_, key)
+									return not BC:IsCategoryOff(key)
+								end,
+								set = function(_, key, value)
+									BC:SetCategoryOff(key, not value)
+									RefreshCategoryFrames()
+								end,
+							},
 							resetCategoryGroups = module.ResetButton({
 								order = 13,
 								type = "execute",

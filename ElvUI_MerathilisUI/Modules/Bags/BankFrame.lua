@@ -179,7 +179,10 @@ local function BankTabRow_OnClick(self, mouseButton)
 		return
 	end
 
-	if def.kind == "mode" then
+	if def.kind == "mode" and mouseButton == "RightButton" then
+		module:OpenSidebarViewsMenu(self, true)
+		return
+	elseif def.kind == "mode" then
 		module.bankViewMode = def.bankViewMode
 		module.bankTabFilter = nil
 		module:RefreshBankCategoryFrame()
@@ -574,7 +577,12 @@ function module:ConstructBankFrame()
 	f.pinnedRow.count:SetTextColor(0.6, 0.6, 0.6)
 	f.pinnedRow.count:Point("RIGHT", -4, 0)
 
-	f.pinnedRow:SetScript("OnClick", function()
+	f.pinnedRow:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	f.pinnedRow:SetScript("OnClick", function(self, mouseButton)
+		if mouseButton == "RightButton" then
+			module:OpenSidebarViewsMenu(self, true)
+			return
+		end
 		module:ScrollToCategory(module.PinnedCategory.key, f, module.bankCategoryOffsets)
 	end)
 	f.pinnedRow:SetScript("OnEnter", function(self)
@@ -936,8 +944,10 @@ function module:RefreshBankCategoryFrame()
 	local bankItemCount = SumBagItems(module.BankBagIDs)
 	local warbandItemCount = SumBagItems(module.WarbandBagIDs)
 
+	local fixedRows = {}
 	for _, entry in ipairs(f.bankModeRows) do
 		local row, def = entry.frame, entry.def
+		tinsert(fixedRows, { frame = row, shown = module:IsSidebarViewShown(def.bankViewMode, true) })
 		row.text:SetShown(not db.bankSidebarCollapsed)
 		row.text:SetText(def.label)
 		row.icon:SetTexture(E.Media.Textures.Backpack)
@@ -970,11 +980,9 @@ function module:RefreshBankCategoryFrame()
 	f.sidebarHeaderText:SetShown(not db.bankSidebarCollapsed)
 
 	f.sidebarChild:Width(module.GetSidebarChildWidth(sidebarWidth))
-	-- Only the right inset moves with the collapsed state - TOPLEFT is fixed
-	-- forever after construction (the tab-list block above it never changes
-	-- row count), so this must NOT ClearAllPoints() first or it'd drop that
-	-- anchor entirely.
-	f.sidebarScroll:SetPoint("BOTTOMRIGHT", -module.SIDEBAR_SCROLLBAR_INSET, 4)
+	-- The mode rows minus the views hidden from the sidebar, then Pinned
+	-- Items; re-anchors the scrollable list below them (SidebarViews.lua).
+	module.LayoutFixedSidebarRows(f, fixedRows, db.showPinned)
 
 	-- Tab rows render into the same scrollable sidebarChild as the category
 	-- rows below them (RenderCategorySections continues right after, via
