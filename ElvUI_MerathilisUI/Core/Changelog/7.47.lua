@@ -15,6 +15,7 @@ MER.Changelog[747] = {
 	},
 	NEW = {
 		"[Bags]: New Items Only option for Recent Items: looting more of a stack you already carry no longer adds it to the list. Gear and items from the mailbox or a trade always appear. Off by default.",
+		"[Bags]: Anchor to Nearest Corner option: the bag and the bank window each hold the screen corner nearest to them, so a window near the bottom right grows up and to the left when it gets more items, instead of running off the screen. The corner is picked again when you move a window. On by default.",
 		"[Minimap Buttons]: Show as List option for the addon button panel: one column with each addon's name next to its icon, and the whole row can be hovered and clicked. Off by default.",
 	},
 	IMPROVEMENTS = {
