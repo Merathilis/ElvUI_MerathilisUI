@@ -1170,6 +1170,8 @@ L["%s already collects your minimap buttons, so this collector stays off."] =
 	"%s sammelt deine Minimap-Buttons bereits, daher bleibt dieser Sammler aus."
 L["Disable WindTools Minimap Buttons"] = "WindTools Minimap-Buttons deaktivieren"
 L["Buttons Per Row"] = "Buttons pro Reihe"
+L["Show as List"] = "Als Liste anzeigen"
+L["Shows the buttons in one column with each addon's name next to its icon."] = "Zeigt die Buttons in einer Spalte, mit dem Namen des Addons neben seinem Symbol."
 L["Ignored Buttons"] = "Ignorierte Buttons"
 L["Names or parts of names of buttons that stay on the Minimap, separated by commas."] =
 	"Namen oder Namensteile von Buttons, die auf der Minimap bleiben, durch Kommas getrennt."

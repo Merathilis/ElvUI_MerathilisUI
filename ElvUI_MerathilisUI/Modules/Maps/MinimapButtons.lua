@@ -1071,6 +1071,57 @@ local function GetButtonLabel(btn)
 	return strlower(label)
 end
 
+-- Readable name for the list layout: the LDB label when the addon has one,
+-- otherwise the frame name without the library prefix and button suffix.
+local function GetDisplayName(btn)
+	local data = btn.dataObject
+	local label = data and data.label
+	if type(label) == "string" and label ~= "" then
+		return label
+	end
+
+	local name = gsub(btn:GetName(), "^" .. LDB_PREFIX, "")
+	name = gsub(name, "^Lib_GPI_Minimap_", "")
+	name = gsub(name, "_?[Mm]ini[Mm]ap_?[Bb]utton$", "")
+	return name
+end
+
+local LIST_NAME_GAP = 6
+
+-- List layout: the name sits right of the icon and the button's hit rect is
+-- stretched over it, so the whole row hovers and clicks. Returns the text width.
+local function ShowListName(btn)
+	local fs = btn.merListName
+	if not fs then
+		fs = btn:CreateFontString(nil, "OVERLAY")
+		fs:FontTemplate(nil, 12)
+		fs:SetWordWrap(false)
+		fs:SetPoint("LEFT", btn, "RIGHT", LIST_NAME_GAP, 0)
+		btn.merListName = fs
+	end
+
+	fs:SetText(GetDisplayName(btn))
+	fs:Show()
+
+	if not btn.merHitRect then
+		btn.merHitRect = { btn:GetHitRectInsets() }
+	end
+
+	return fs:GetStringWidth()
+end
+
+local function HideListName(btn)
+	if btn.merListName then
+		btn.merListName:Hide()
+	end
+
+	local insets = btn.merHitRect
+	if insets then
+		btn:SetHitRectInsets(insets[1], insets[2], insets[3], insets[4])
+		btn.merHitRect = nil
+	end
+end
+
 local function FindButtonIcon(btn)
 	local icon = btn.icon or btn.Icon
 	if icon and icon.IsObjectType and icon:IsObjectType("Texture") then
@@ -1288,10 +1339,24 @@ function module:UpdateAddonGrid()
 
 	local count = #shown
 	local size, spacing, padding = F.Dpi(cfg.size), F.Dpi(cfg.spacing), F.Dpi(4)
-	local cols = max(min(count, cfg.perRow), 1)
-	local rows = max(ceil(count / cols), 1)
+	-- List layout: one column, every row as wide as the longest name
+	local asList = cfg.showAsList
+	local nameWidth = 0
+	if asList then
+		for _, btn in ipairs(shown) do
+			nameWidth = max(nameWidth, ShowListName(btn))
+		end
+		nameWidth = ceil(nameWidth)
+	end
 
-	panel:SetSize(padding * 2 + cols * size + (cols - 1) * spacing, padding * 2 + rows * size + (rows - 1) * spacing)
+	local cols = asList and 1 or max(min(count, cfg.perRow), 1)
+	local rows = max(ceil(count / cols), 1)
+	local width = padding * 2 + cols * size + (cols - 1) * spacing
+	if asList then
+		width = width + LIST_NAME_GAP + nameWidth + padding
+	end
+
+	panel:SetSize(width, padding * 2 + rows * size + (rows - 1) * spacing)
 
 	for i, btn in ipairs(shown) do
 		local col = (i - 1) % cols
@@ -1301,6 +1366,12 @@ function module:UpdateAddonGrid()
 		btn.merSlot.y = -(padding + row * (size + spacing))
 		btn:SetSize(size, size)
 		PlaceButton(btn)
+
+		if asList then
+			btn:SetHitRectInsets(0, -(LIST_NAME_GAP + nameWidth), 0, 0)
+		else
+			HideListName(btn)
+		end
 	end
 
 	self.addonButtonCount = count

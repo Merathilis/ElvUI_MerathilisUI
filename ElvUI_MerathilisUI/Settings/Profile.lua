@@ -1040,6 +1040,7 @@ P.minimapButtons = {
 	addonButtons = {
 		enable = true,
 		perRow = 6,
+		showAsList = false,
 		size = 26,
 		spacing = 3,
 		ignore = "",

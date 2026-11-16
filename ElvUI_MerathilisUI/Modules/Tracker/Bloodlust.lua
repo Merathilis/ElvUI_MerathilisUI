@@ -55,7 +55,10 @@ function module:GetLustIcon()
 	end
 
 	for _, spellID in ipairs(LUST_SPELLS) do
-		if C_SpellBook.IsSpellKnown(spellID) then
+		if
+			C_SpellBook.IsSpellKnown(spellID)
+			or C_SpellBook.IsSpellInSpellBook(spellID, Enum.SpellBookSpellBank.Player, false)
+		then
 			self.lustIcon = C_Spell.GetSpellTexture(spellID)
 			if self.lustIcon then
 				return self.lustIcon

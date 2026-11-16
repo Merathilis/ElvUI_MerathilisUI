@@ -559,6 +559,12 @@ module:AddOptions(function()
 									return MER:GetModule("MER_MinimapButtons"):GetForeignCollector() ~= "WindTools"
 								end,
 							},
+							showAsList = {
+								order = 1.5,
+								type = "toggle",
+								name = L["Show as List"],
+								desc = L["Shows the buttons in one column with each addon's name next to its icon."],
+							},
 							perRow = {
 								order = 2,
 								type = "range",
@@ -566,6 +572,11 @@ module:AddOptions(function()
 								min = 1,
 								max = 12,
 								step = 1,
+								disabled = function()
+									return MinimapButtonsDisabled()
+										or not E.db.mui.minimapButtons.addonButtons.enable
+										or E.db.mui.minimapButtons.addonButtons.showAsList
+								end,
 							},
 							size = {
 								order = 3,

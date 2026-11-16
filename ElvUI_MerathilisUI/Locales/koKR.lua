@@ -1559,6 +1559,8 @@ L["%s already collects your minimap buttons, so this collector stays off."] =
 	"%s이(가) 이미 미니맵 버튼을 모으고 있으므로 이 수집 기능은 꺼진 상태로 유지됩니다."
 L["Disable WindTools Minimap Buttons"] = "WindTools 미니맵 버튼 비활성화"
 L["Buttons Per Row"] = "한 줄당 버튼 수"
+L["Show as List"] = true
+L["Shows the buttons in one column with each addon's name next to its icon."] = true
 L["Ignored Buttons"] = "무시할 버튼"
 L["Names or parts of names of buttons that stay on the Minimap, separated by commas."] =
 	"미니맵에 남겨 둘 버튼의 이름 또는 이름의 일부이며, 쉼표로 구분합니다."
