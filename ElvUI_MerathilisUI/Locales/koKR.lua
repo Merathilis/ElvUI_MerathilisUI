@@ -1110,6 +1110,8 @@ L["Splits the gear categories into sub-headers per Blizzard equipment set."] = "
 L["Auto Height"] = "높이 자동 조절"
 L["Shrinks the bag and bank windows to fit their contents. The configured height becomes the maximum instead of a fixed size."] =
 	"가방과 은행 창을 내용물에 맞게 줄입니다. 설정된 높이는 고정 크기 대신 최대값이 됩니다."
+L["Anchor to Nearest Corner"] = true
+L["The bag and bank windows each hold the screen corner nearest to them, so they grow and shrink toward it when their size changes instead of running off the screen. The corner is picked again when you move a window."] = true
 L["Merge Duplicate Stacks"] = "중복 묶음 합치기"
 L["Shows identical items from several bag slots as one slot with the combined count. Gear is never merged, and merging pauses while a vendor, mailbox, trade, auction house or bank window is open, since those only ever take one stack at a time."] =
 	"여러 가방 칸의 동일한 아이템을 합산된 수량의 한 칸으로 표시합니다. 장비는 합치지 않으며, 상인, 우편함, 거래, 경매장, 은행 창이 열려 있는 동안에는 한 번에 한 묶음만 처리하므로 합치기가 일시 중지됩니다."

@@ -284,6 +284,7 @@ P.bags = {
 		showKeyring = true,
 		mergeDuplicates = true,
 		autoSize = false,
+		anchorToCorner = true,
 		nestByExpansion = true,
 		nestByEquipmentSet = true,
 		alternatingRowBackground = true,

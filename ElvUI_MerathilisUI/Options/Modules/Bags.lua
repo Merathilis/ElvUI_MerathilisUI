@@ -217,6 +217,18 @@ module:AddOptions(function()
 								name = L["Auto Height"],
 								desc = L["Shrinks the bag and bank windows to fit their contents. The configured height becomes the maximum instead of a fixed size."],
 							},
+							anchorToCorner = {
+								order = 6.5,
+								type = "toggle",
+								name = L["Anchor to Nearest Corner"],
+								desc = L["The bag and bank windows each hold the screen corner nearest to them, so they grow and shrink toward it when their size changes instead of running off the screen. The corner is picked again when you move a window."],
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags[info[#info]] = value
+									if BC.UpdateCornerAnchors then
+										BC:UpdateCornerAnchors()
+									end
+								end,
+							},
 							nestByExpansion = {
 								order = 7,
 								type = "toggle",
