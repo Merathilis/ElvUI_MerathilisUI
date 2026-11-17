@@ -2554,8 +2554,8 @@ L["If a swap is needed while you are in combat, hold it and apply it once combat
 	"전투 중 교체가 필요하면 보류했다가 전투가 끝나면 적용합니다."
 L["Re-Swap On Spec Change"] = "전문화 변경 시 다시 교체"
 L["Changing specialization inside an instance re-runs the swap for the new spec."] =
-L["Switching between your Primary and Secondary dual spec applies the gear assigned for the new one, anywhere."] = true
 	"인스턴스 안에서 전문화를 변경하면 새 전문화에 대해 교체를 다시 실행합니다."
+L["Switching between your Primary and Secondary dual spec applies the gear assigned for the new one, anywhere."] = true
 L["Talent-Change Warning"] = "특성 변경 경고"
 L["Show the DONT MOVE panel in the middle of the screen while a talent loadout is being applied."] =
 	"특성 구성을 적용하는 동안 화면 중앙에 움직이지 마세요 패널을 표시합니다."
@@ -2576,8 +2576,8 @@ L["The Equipment Manager set the Save buttons below assign. No gear set leaves t
 L["No gear set"] = "장비 세트 없음"
 L["Talent Loadout"] = "특성 구성"
 L["The talent loadout the Save buttons below assign. Only loadouts of your current specialization are listed. No talent loadout leaves the saved talents as they are, Clear removes both."] =
-L["The dual spec (Primary or Secondary) the Save buttons below assign: the swap switches to it. No talent loadout leaves the saved talents as they are, Clear removes both."] = true
 	"아래 저장 버튼이 지정하는 특성 구성입니다. 현재 전문화의 구성만 표시됩니다. 특성 구성을 지정하지 않으면 저장된 특성이 그대로 유지되며, 해제를 누르면 둘 다 제거됩니다."
+L["The dual spec (Primary or Secondary) the Save buttons below assign: the swap switches to it. No talent loadout leaves the saved talents as they are, Clear removes both."] = true
 L["No talent loadout"] = "특성 구성 없음"
 L["Assign For"] = "지정 대상"
 L["Which layer the Save buttons below write to and show. All Specs applies to every specialization, a spec overrides it for that spec only."] =
