@@ -39296,6 +39296,7 @@ read_globals = {
 			"GetActiveSpecGroup",
 			"GetAllSelectedPvpTalentIDs",
 			"GetClassIDFromSpecID",
+			"GetCombatConfigIDForSpecGroup", -- WoW Forever (verified against wow-ui-source forever)
 			"GetInspectSelectedPvpTalent",
 			"GetInspectSpecialization",
 			"GetNumSpecializationsForClassID",
@@ -39313,6 +39314,7 @@ read_globals = {
 			"IsInitialized",
 			"IsPvpTalentLocked",
 			"MatchesCurrentSpecSet",
+			"SetActiveSpecGroup", -- WoW Forever (verified against wow-ui-source forever)
 			"SetPetSpecialization",
 			"SetPvpTalentLocked",
 			"SetSpecialization",
@@ -39941,6 +39943,8 @@ read_globals = {
 			"GetConfigsByType",
 			"GetDefinitionInfo",
 			"GetEntryInfo",
+			"GetGroupCurrencyInfo", -- WoW Forever (verified against wow-ui-source forever)
+			"GetGroupDisplayInfoByTreeID", -- WoW Forever (verified against wow-ui-source forever)
 			"GetIncreasedTraitData",
 			"GetLoadoutSerializationVersion",
 			"GetNodeCost",

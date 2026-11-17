@@ -2554,6 +2554,7 @@ L["If a swap is needed while you are in combat, hold it and apply it once combat
 	"전투 중 교체가 필요하면 보류했다가 전투가 끝나면 적용합니다."
 L["Re-Swap On Spec Change"] = "전문화 변경 시 다시 교체"
 L["Changing specialization inside an instance re-runs the swap for the new spec."] =
+L["Switching between your Primary and Secondary dual spec applies the gear assigned for the new one, anywhere."] = true
 	"인스턴스 안에서 전문화를 변경하면 새 전문화에 대해 교체를 다시 실행합니다."
 L["Talent-Change Warning"] = "특성 변경 경고"
 L["Show the DONT MOVE panel in the middle of the screen while a talent loadout is being applied."] =
@@ -2575,6 +2576,7 @@ L["The Equipment Manager set the Save buttons below assign. No gear set leaves t
 L["No gear set"] = "장비 세트 없음"
 L["Talent Loadout"] = "특성 구성"
 L["The talent loadout the Save buttons below assign. Only loadouts of your current specialization are listed. No talent loadout leaves the saved talents as they are, Clear removes both."] =
+L["The dual spec (Primary or Secondary) the Save buttons below assign: the swap switches to it. No talent loadout leaves the saved talents as they are, Clear removes both."] = true
 	"아래 저장 버튼이 지정하는 특성 구성입니다. 현재 전문화의 구성만 표시됩니다. 특성 구성을 지정하지 않으면 저장된 특성이 그대로 유지되며, 해제를 누르면 둘 다 제거됩니다."
 L["No talent loadout"] = "특성 구성 없음"
 L["Assign For"] = "지정 대상"
@@ -2614,6 +2616,7 @@ L["Talent loadout %s did not fully apply."] = "특성 구성 %s이(가) 완전�
 L["Talent loadout %s did not load."] = "특성 구성 %s을(를) 불러오지 못했습니다."
 L["Talent swap held: a talent change is in progress."] = "특성 교체 보류: 특성 변경이 진행 중입니다."
 L["Talent swap held: you have unsaved talent changes."] = "특성 교체 보류: 저장하지 않은 특성 변경이 있습니다."
+L["Talent swap held: you are moving or casting."] = true
 L["Toggle with Character Window"] = "캐릭터 창과 함께 열기/닫기"
 L["Opens the bags together with the character window and closes them again when it closes."] =
 	"캐릭터 창과 함께 가방을 열고, 캐릭터 창을 닫으면 가방도 닫습니다."

@@ -18,6 +18,7 @@ MER.Changelog[747] = {
 		"[Bags]: Right-clicking a category in the bag sidebar now offers Rename, Change Icon and Delete for the built-in categories too. Delete turns a built-in category off, its items move to the next matching category, and the new Categories list in the options turns it on again. Reset brings back the original name and icon.",
 		"[Bags]: Right-clicking a view in the bag or bank sidebar (All Items, OneBag, MultiBag, the bank views, Pinned Items or Recent Items) opens a list to pick which of them the sidebar shows. Hiding the open view switches to the one the window opens on.",
 		"[Bags]: Anchor to Nearest Corner option: the bag and the bank window each hold the screen corner nearest to them, so a window near the bottom right grows up and to the left when it gets more items, instead of running off the screen. The corner is picked again when you move a window. On by default.",
+		"[Loadout Manager]: Now available on WoW Forever. The talent part switches between your Primary and Secondary dual spec, and gear can be assigned per dual spec. Switching dual spec yourself equips the gear assigned for it.",
 		"[Minimap Buttons]: Show as List option for the addon button panel: one column with each addon's name next to its icon, and the whole row can be hovered and clicked. Off by default.",
 	},
 	IMPROVEMENTS = {

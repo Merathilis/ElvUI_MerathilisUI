@@ -3,11 +3,6 @@ local module = MER:GetModule("MER_Options") ---@class Options
 
 -- Built on the first open of the options, see module:AddOptions in Options/Core.lua
 module:AddOptions(function()
-	-- The runtime is Retail only (talent loadouts, restriction API)
-	if E.Forever then
-		return
-	end
-
 	local LM = MER:GetModule("MER_LoadoutManager")
 
 	local ipairs, pairs, format, tostring, tonumber = ipairs, pairs, format, tostring, tonumber
@@ -74,6 +69,11 @@ module:AddOptions(function()
 	end
 
 	local TYPE_LAYOUT = { "party", "mplus", "raid", "timewalking", "scenario", "delve", "arena", "pvp", "world" }
+	-- WoW Forever has dungeons, raids and battlegrounds only. Its "specs" are
+	-- the two dual spec groups, and the talent picker switches between them.
+	if E.Forever then
+		TYPE_LAYOUT = { "party", "raid", "pvp", "world" }
+	end
 
 	local INSTANCE_KIND = {
 		party = L["Dungeon"],
@@ -435,7 +435,9 @@ module:AddOptions(function()
 						order = 4,
 						type = "toggle",
 						name = L["Re-Swap On Spec Change"],
-						desc = L["Changing specialization inside an instance re-runs the swap for the new spec."],
+						desc = E.Forever
+								and L["Switching between your Primary and Secondary dual spec applies the gear assigned for the new one, anywhere."]
+							or L["Changing specialization inside an instance re-runs the swap for the new spec."],
 						disabled = NotEnabled,
 						get = function()
 							return DB().specSwap
@@ -558,7 +560,9 @@ module:AddOptions(function()
 						order = 2,
 						type = "select",
 						name = L["Talent Loadout"],
-						desc = L["The talent loadout the Save buttons below assign. Only loadouts of your current specialization are listed. No talent loadout leaves the saved talents as they are, Clear removes both."],
+						desc = E.Forever
+								and L["The dual spec (Primary or Secondary) the Save buttons below assign: the swap switches to it. No talent loadout leaves the saved talents as they are, Clear removes both."]
+							or L["The talent loadout the Save buttons below assign. Only loadouts of your current specialization are listed. No talent loadout leaves the saved talents as they are, Clear removes both."],
 						values = function()
 							local values = { [NONE] = Grey(L["No talent loadout"]) }
 							for _, loadout in ipairs(LM:ListTalentLoadouts()) do
