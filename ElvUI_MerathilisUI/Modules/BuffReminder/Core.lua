@@ -1674,6 +1674,8 @@ local EVENTS = {
 	"GROUP_ROSTER_UPDATE",
 	"PLAYER_TALENT_UPDATE",
 	"SPELLS_CHANGED",
+	-- Refresh hides the icons while resting, so entering or leaving a rested area must repaint
+	"PLAYER_UPDATE_RESTING",
 }
 -- A started key hides the talent reminders
 if not E.Forever then
@@ -1727,6 +1729,7 @@ module.ZONE_CHANGED_NEW_AREA = module.RequestRefresh
 module.PLAYER_TALENT_UPDATE = module.RequestRefresh
 module.SPELLS_CHANGED = module.RequestRefresh
 module.CHALLENGE_MODE_START = module.RequestRefresh
+module.PLAYER_UPDATE_RESTING = module.RequestRefresh
 
 function module:SetupAnchor()
 	iconAnchor = CreateFrame("Frame", "MER_BuffReminderAnchor", E.UIParent)

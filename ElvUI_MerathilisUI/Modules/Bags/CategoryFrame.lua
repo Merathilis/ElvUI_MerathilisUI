@@ -628,8 +628,9 @@ local function Slot_SplitStack(self, split)
 		-- With "Merge Duplicate Stacks" the two halves would be shown as one
 		-- slot again right away, as if nothing happened. Keep this item's
 		-- stacks apart until the bags close (MergeDuplicateEntries).
-		if self.itemLink then
-			module.unmergedLinks[self.itemLink] = true
+		local mergeKey = module.GetItemMergeKey(self.itemLink)
+		if mergeKey then
+			module.unmergedLinks[mergeKey] = true
 		end
 
 		-- The category views show no empty bag slots, so there is nowhere
@@ -4634,6 +4635,17 @@ end
 -- until the bag window closes, so a split is actually visible.
 module.unmergedLinks = {}
 
+-- Crafted items carry the crafter's GUID in their link, so two stacks made by
+-- different players would never merge. The key drops that GUID but keeps the
+-- item's quality and bonuses. A module field: this file is at the 200 locals limit.
+function module.GetItemMergeKey(link)
+	if not link or not link:find(":Player-", 1, true) then
+		return link
+	end
+
+	return (link:gsub("(|Hitem:[^|]-):Player%-%d+%-%x+([:|])", "%1:%2", 1))
+end
+
 local function MergeDuplicateEntries(items)
 	if not module.db.mergeDuplicates or AnyItemPanelOpen() then
 		return items
@@ -4641,8 +4653,8 @@ local function MergeDuplicateEntries(items)
 
 	local seen, merged = {}, {}
 	for _, entry in ipairs(items) do
-		local key = entry.itemLink
-		if key and not API.IsEquippableItem(key) and not module.unmergedLinks[key] then
+		local key = module.GetItemMergeKey(entry.itemLink)
+		if key and not API.IsEquippableItem(entry.itemLink) and not module.unmergedLinks[key] then
 			local existing = seen[key]
 			if existing then
 				-- Copy on first duplicate: the entry itself is also painted

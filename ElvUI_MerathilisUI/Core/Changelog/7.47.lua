@@ -11,6 +11,8 @@ MER.Changelog[747] = {
 		"[Bags]: Shift + right-click on a container opens it with auto loot switched around again, instead of doing nothing.",
 		"[Bags]: Item cooldowns now show on the bag slots as soon as an item is used with the bags open, also on the other items that share its cooldown, like potions.",
 		"[Bags]: On WoW Forever, quivers, ammo pouches and soul, herb or enchanting bags no longer count toward the free slots in the bag window's title.",
+		"[Bags]: Merge Duplicate Stacks now also merges stacks of a crafted item that were made by different players.",
+		"[Buff Reminder]: The reminders now hide or show right away when you enter or leave a city or inn, instead of waiting for the next buff or zone change.",
 		"[Tracker]: The Bloodlust tracker also finds your own Bloodlust, Heroism, Time Warp or Fury of the Aspects when the game reports it only as a spellbook entry, instead of falling back to the faction icon.",
 	},
 	NEW = {
