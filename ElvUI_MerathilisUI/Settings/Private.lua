@@ -96,6 +96,7 @@ V.loadoutManager = {
 	enable = false,
 	gearEnabled = true,
 	talentEnabled = true,
+	askBeforeSwap = false, -- a Yes / No popup before every automatic swap
 	announce = true,
 	queueInCombat = true,
 	specSwap = true, -- re-run swaps when your specialization changes inside an instance

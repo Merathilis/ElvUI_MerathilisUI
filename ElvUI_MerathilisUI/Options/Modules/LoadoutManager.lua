@@ -418,6 +418,19 @@ module:AddOptions(function()
 							LM:SetChannelEnabled("talent", value)
 						end,
 					},
+					askBeforeSwap = {
+						order = 2.5,
+						type = "toggle",
+						name = L["Ask Before Swap"],
+						desc = L["Ask with a Yes / No popup before an automatic swap changes your gear or talents. No skips the swap until the next one."],
+						disabled = NotEnabled,
+						get = function()
+							return DB().askBeforeSwap
+						end,
+						set = function(_, value)
+							LM:SetAskBeforeSwap(value)
+						end,
+					},
 					queueInCombat = {
 						order = 3,
 						type = "toggle",

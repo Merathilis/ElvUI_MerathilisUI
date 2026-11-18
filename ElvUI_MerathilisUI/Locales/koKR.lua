@@ -2563,6 +2563,12 @@ L["Talent-Change Warning"] = "특성 변경 경고"
 L["Show the DONT MOVE panel in the middle of the screen while a talent loadout is being applied."] =
 	"특성 구성을 적용하는 동안 화면 중앙에 움직이지 마세요 패널을 표시합니다."
 L["Announce Swaps In Chat"] = "교체를 대화창에 알림"
+L["Ask Before Swap"] = true
+L["Ask with a Yes / No popup before an automatic swap changes your gear or talents. No skips the swap until the next one."] = true
+L["Swap your loadout for %s?"] = true
+L["Gear: %s"] = true
+L["Talents: %s"] = true
+L["Swap skipped for %s."] = true
 L["Print a chat line whenever gear or talents are applied."] = "장비나 특성이 적용될 때마다 대화창에 메시지를 출력합니다."
 L["Current Context"] = "현재 상황"
 L["Apply whatever is assigned for where you are standing, even while the Loadout Manager is off."] =

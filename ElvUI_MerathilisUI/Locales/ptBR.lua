@@ -2261,6 +2261,12 @@ L["Switching between your Primary and Secondary dual spec applies the gear assig
 L["Talent-Change Warning"] = true
 L["Show the DONT MOVE panel in the middle of the screen while a talent loadout is being applied."] = true
 L["Announce Swaps In Chat"] = true
+L["Ask Before Swap"] = true
+L["Ask with a Yes / No popup before an automatic swap changes your gear or talents. No skips the swap until the next one."] = true
+L["Swap your loadout for %s?"] = true
+L["Gear: %s"] = true
+L["Talents: %s"] = true
+L["Swap skipped for %s."] = true
 L["Print a chat line whenever gear or talents are applied."] = true
 L["Current Context"] = true
 L["Apply whatever is assigned for where you are standing, even while the Loadout Manager is off."] = true

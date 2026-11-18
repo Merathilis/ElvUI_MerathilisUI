@@ -23,6 +23,7 @@ MER.Changelog[747] = {
 		"[Bags]: Anchor to Nearest Corner option: the bag and the bank window each hold the screen corner nearest to them, so a window near the bottom right grows up and to the left when it gets more items, instead of running off the screen. The corner is picked again when you move a window. On by default.",
 		"[Buff Reminder]: Class buffs on WoW Forever: Mage armors, Demon Armor, Inner Fire, Shadowform, Lightning Shield, Hunter aspects and Trueshot Aura, Paladin blessings, auras and Righteous Fury, and Thorns. Righteous Fury and Thorns are off by default.",
 		"[Loadout Manager]: Now available on WoW Forever. The talent part switches between your Primary and Secondary dual spec, and gear can be assigned per dual spec. Switching dual spec yourself equips the gear assigned for it.",
+		"[Loadout Manager]: Ask Before Swap option: before an automatic swap changes your gear or talents, a Yes / No popup names the gear set and talent loadout. No skips the swap until the next one, and nothing is asked when everything is already in place. Off by default.",
 		"[Minimap Buttons]: Show as List option for the addon button panel: one column with each addon's name next to its icon, and the whole row can be hovered and clicked. Off by default.",
 	},
 	IMPROVEMENTS = {

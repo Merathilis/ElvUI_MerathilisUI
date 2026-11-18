@@ -748,8 +748,54 @@ FinishRequest = function(request)
 	UpdateRequestEvents()
 end
 
+-- -----------------------------------------------------------------------------
+-- Ask Before Swap: a Yes / No popup before an automatic swap. The open popup's
+-- token is the dialog's data, so a stale answer (a newer prompt, new intent)
+-- never runs. No and Escape skip the swap until the next one.
+-- -----------------------------------------------------------------------------
+local swapPrompt = nil
+
+local function CloseSwapPrompt()
+	local token = swapPrompt
+	if not token then
+		return
+	end
+
+	swapPrompt = nil
+	E:StaticPopup_Hide("MER_LOADOUT_SWAP_CONFIRM", token)
+end
+
+E.PopupDialogs.MER_LOADOUT_SWAP_CONFIRM = {
+	text = "%s",
+	button1 = _G.YES,
+	button2 = _G.NO,
+	OnAccept = function(_, token)
+		if not token or swapPrompt ~= token then
+			return
+		end
+
+		swapPrompt = nil
+		token.onYes()
+	end,
+	OnCancel = function(_, token, reason)
+		if not token or swapPrompt ~= token then
+			return
+		end
+
+		swapPrompt = nil
+		if reason == "clicked" and DB().announce then
+			Print(format(L["Swap skipped for %s."], token.where))
+		end
+	end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = 1,
+	preferredIndex = 3,
+}
+
 CancelRequests = function(automaticOnly)
 	autoCheckSerial = autoCheckSerial + 1
+	CloseSwapPrompt()
 	for _, kind in ipairs(REQUEST_KINDS) do
 		local request = requests[kind]
 		if request and (not automaticOnly or not request.manual) then
@@ -1583,7 +1629,7 @@ local function TryActivateSpecGroup(request)
 	-- The landing is matched against the group we left, and its events stay
 	-- registered until it lands (the module may be off for a button press).
 	lastSpecID = GetCurrentSpecID()
-	ownSwitch = { group = group, manual = request.manual, gearSet = request.gearAfter }
+	ownSwitch = { group = group, manual = request.manual, confirmed = request.confirmed, gearSet = request.gearAfter }
 	UpdateRequestEvents()
 
 	local okCall = pcall(C_SpecializationInfo.SetActiveSpecGroup, group)
@@ -1774,10 +1820,62 @@ local function SourceLabel(ctx, source, key)
 	return ctx.name
 end
 
+-- Whether equipping this set would change anything (the worn flag)
+local function GearNeedsSwap(setName)
+	local info = setName and GetSetInfoByName(strtrim(tostring(setName)))
+	return not (info and info.isEquipped)
+end
+
+-- Whether loading this talent loadout would change anything, so Ask Before
+-- Swap never asks about talents already in place. WoW Forever: the spec
+-- group. Retail: the applied tree against the loadout's while nothing blocks
+-- reading it, else the selected loadout. Unknown counts as a change.
+local function TalentNeedsSwap(stored)
+	local loadout = GetTalentLoadoutFromStored(NormalizeTalentStored(stored))
+	if not loadout then
+		return true
+	end
+
+	if IS_FOREVER then
+		local group = SpecGroupOf(loadout)
+		return group == nil or group ~= ActiveSpecGroup()
+	end
+
+	if TalentLoadBlocker() then
+		return C_ClassTalents.GetLastSelectedSavedConfigID(loadout.specID) ~= loadout.configID
+	end
+
+	local activeID = C_ClassTalents.GetActiveConfigID()
+	if HasStagedTalentChanges(activeID) ~= false then
+		return true
+	end
+
+	local target, active = GetTalentSelection(loadout.configID), GetTalentSelection(activeID)
+	return not (target and active and target == active)
+end
+
+local function ShowSwapPrompt(where, setName, talentStored, onYes)
+	CloseSwapPrompt()
+
+	local text = format(L["Swap your loadout for %s?"], Accent(where)) .. "\n"
+	if setName then
+		text = text .. "\n" .. format(L["Gear: %s"], Accent(setName))
+	end
+	if talentStored then
+		text = text .. "\n" .. format(L["Talents: %s"], Accent(TalentDisplayName(talentStored) or "?"))
+	end
+
+	local token = { where = where, onYes = onYes }
+	swapPrompt = token
+	E:StaticPopup_Show("MER_LOADOUT_SWAP_CONFIRM", text, nil, token)
+end
+
 -- gearOnly: a recheck after a WoW Forever spec group switch. It applies the
 -- new group's gear and never switches talents again (no ping-pong, and a
--- switch you made yourself is never undone).
-local function CheckAndSwap(manual, gearOnly)
+-- switch you made yourself is never undone). confirmed: Ask Before Swap's
+-- Yes (or the Yes that started this spec group switch).
+local CheckAndSwap
+CheckAndSwap = function(manual, gearOnly, confirmed)
 	local db = DB()
 	if not manual and not db.enable then
 		return
@@ -1820,30 +1918,49 @@ local function CheckAndSwap(manual, gearOnly)
 		return
 	end
 
+	-- Ask Before Swap: an automatic swap that would change something waits
+	-- for a Yes. Button presses never ask.
+	if not manual and not confirmed and db.askBeforeSwap then
+		local gearAsk = setName and not gearAfterSwitch and GearNeedsSwap(setName) and setName or nil
+		local talentAsk = talentStored and TalentNeedsSwap(talentStored) and talentStored or nil
+		if gearAsk or talentAsk then
+			local key = BuildAutoInstanceKey(ctx)
+			ShowSwapPrompt(ctx.inInstance and ctx.name or TypeLabel("world"), gearAsk, talentAsk, function()
+				-- Still where (and on the spec) you were asked
+				if key ~= BuildAutoInstanceKey(GetCurrentInstanceContext()) then
+					return
+				end
+				CheckAndSwap(false, gearOnly, true)
+			end)
+			return
+		end
+	end
+
 	if setName and not gearAfterSwitch then
 		TryEquipSet(BeginRequest("gear", setName, SourceLabel(ctx, gearSource, gearKey), manual))
 	end
 
 	if talentStored then
-		TryLoadTalentLoadout(
-			BeginRequest(
-				"talent",
-				StoreTalentLoadout(NormalizeTalentStored(talentStored)),
-				SourceLabel(ctx, talentSource, talentKey),
-				manual
-			)
+		local request = BeginRequest(
+			"talent",
+			StoreTalentLoadout(NormalizeTalentStored(talentStored)),
+			SourceLabel(ctx, talentSource, talentKey),
+			manual
 		)
+		request.confirmed = confirmed
+		TryLoadTalentLoadout(request)
 	end
 end
 
 -- opts (WoW Forever group switches): gearOnly, manual (a Check Now or Equip
--- Now switch: runs with the module off too)
+-- Now switch: runs with the module off too), confirmed (Ask Before Swap's Yes)
 local function QueueAutoCheck(opts)
 	autoCheckSerial = autoCheckSerial + 1
 	local serial = autoCheckSerial
 	local contextKey = BuildAutoInstanceKey(GetCurrentInstanceContext())
 	local manual = opts and opts.manual or false
 	local gearOnly = opts and opts.gearOnly
+	local confirmed = opts and opts.confirmed
 
 	C_Timer_After(0, function()
 		if serial ~= autoCheckSerial or not (DB().enable or manual) then
@@ -1853,7 +1970,7 @@ local function QueueAutoCheck(opts)
 			return
 		end
 
-		CheckAndSwap(manual, gearOnly)
+		CheckAndSwap(manual, gearOnly, confirmed)
 	end)
 end
 
@@ -2188,7 +2305,7 @@ local function OnSpecChanged()
 	elseif own then
 		-- Its assigned gear follows, without another switch
 		lastAutoInstanceKey = BuildAutoInstanceKey(ctx)
-		QueueAutoCheck({ gearOnly = true, manual = own.manual })
+		QueueAutoCheck({ gearOnly = true, manual = own.manual, confirmed = own.confirmed })
 	elseif IS_FOREVER and db.enable and db.specSwap then
 		-- A group you switched to yourself brings its gear, anywhere, and is
 		-- never switched back.
@@ -2665,6 +2782,13 @@ function module:SetQueueInCombat(value)
 				FinishRequest(request)
 			end
 		end
+	end
+end
+
+function module:SetAskBeforeSwap(value)
+	DB().askBeforeSwap = value and true or false
+	if not value then
+		CloseSwapPrompt()
 	end
 end
 
