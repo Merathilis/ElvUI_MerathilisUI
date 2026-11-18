@@ -1452,6 +1452,9 @@ L["Glow Color"] = "반짝임 색상"
 L["Sounds"] = "소리"
 L["Show Without Item"] = "아이템 없이도 표시"
 L["Missing Buffs From Group"] = "그룹원에게 부족한 버프"
+L["Aspect"] = true
+L["Blessing"] = true
+L["Aura"] = true
 L["Also shows the raid buffs a groupmate provides while you are missing them. These icons are only a hint, clicks go through them."] =
 	"내가 부족한 공격대 버프 중 그룹원이 제공하는 버프도 표시합니다. 이 아이콘은 안내용이며 클릭은 아이콘을 통과합니다."
 L["Talent Reminders"] = "특성 알림"

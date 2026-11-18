@@ -126,6 +126,23 @@ module:AddOptions(function()
 		{ key = "shield_basic", name = L["Shield"] },
 	}
 
+	-- WoW Forever lists its own buffs, named by the client
+	if E.Forever then
+		RAID_BUFF_TOGGLES = {}
+		for _, buff in ipairs(BR.RAID_BUFFS) do
+			RAID_BUFF_TOGGLES[#RAID_BUFF_TOGGLES + 1] =
+				{ key = buff.key, name = C_Spell.GetSpellName(buff.castSpell) or buff.name }
+		end
+
+		AURA_TOGGLES = {}
+		for _, aura in ipairs(BR.AURAS) do
+			AURA_TOGGLES[#AURA_TOGGLES + 1] = {
+				key = aura.key,
+				name = aura.label and L[aura.label] or C_Spell.GetSpellName(aura.castSpell) or aura.key,
+			}
+		end
+	end
+
 	local raidBuffArgs, raidBuffsDisabled = BuildSectionArgs("raidBuffs", RAID_BUFF_TOGGLES)
 	raidBuffArgs.fromGroup = {
 		order = 2,
@@ -576,6 +593,7 @@ module:AddOptions(function()
 						order = 4,
 						type = "toggle",
 						name = L["Consumables"],
+						hidden = E.Forever,
 						disabled = function()
 							return ModuleDisabled() or not E.db.mui.buffReminder.sound.enable
 						end,
@@ -612,6 +630,7 @@ module:AddOptions(function()
 				type = "group",
 				name = L["Consumables"],
 				guiInline = true,
+				hidden = E.Forever,
 				disabled = ModuleDisabled,
 				args = consumableArgs,
 			},

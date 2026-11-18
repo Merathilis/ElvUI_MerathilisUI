@@ -1471,7 +1471,8 @@ P.buffReminder = {
 	},
 	raidBuffs = {
 		enable = true,
-		enabled = { motw = true, bshout = true, fort = true, ai = true, bronze = true, sky = true },
+		-- spirit: Divine Spirit, WoW Forever only
+		enabled = { motw = true, bshout = true, fort = true, ai = true, bronze = true, sky = true, spirit = true },
 		fromGroup = false, -- also remind of buffs a groupmate provides and you lack
 	},
 	talents = {
@@ -1488,6 +1489,17 @@ P.buffReminder = {
 			def_stance = true,
 			shadowform = true,
 			devo_aura = true,
+			-- WoW Forever class buffs
+			thorns = false,
+			aspect = true,
+			trueshot = true,
+			blessing = true,
+			paladin_aura = true,
+			rfury = false,
+			inner_fire = true,
+			shaman_shield = true,
+			demon_armor = true,
+			mage_armor = true,
 		},
 	},
 	consumables = {

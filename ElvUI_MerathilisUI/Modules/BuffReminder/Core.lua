@@ -192,6 +192,89 @@ local RAID_BUFFS = {
 	{ key = "sky", class = "SHAMAN", name = "Skyfury", castSpell = 462854, buffIDs = { 462854 } },
 }
 
+-- WoW Forever has ranked spells: each buff is a family of its trainable ranks
+-- (single, lowest first), its group version and every other spell applying it
+-- (buffIDs). castSpell is rank 1, used for the label only, the click casts the
+-- highest known rank. The first four keep the Retail keys, so the profile
+-- switches are shared. selfCast: no target; talent: a groupmate of the class
+-- may not have it, so no "from group" hint.
+if E.Forever then
+	BUFF_BENEFICIARIES.intellect = {
+		DRUID = true,
+		HUNTER = true,
+		MAGE = true,
+		PALADIN = true,
+		PRIEST = true,
+		SHAMAN = true,
+		WARLOCK = true,
+	}
+
+	RAID_BUFFS = {
+		{
+			key = "motw",
+			class = "DRUID",
+			name = "Mark of the Wild",
+			castSpell = 1126,
+			single = { 1126, 5232, 6756, 5234, 8907, 9884, 9885 },
+			buffIDs = {
+				1126,
+				5232,
+				5234,
+				5286,
+				5287,
+				6756,
+				8907,
+				8908,
+				9884,
+				9885,
+				16878,
+				24752,
+				364163,
+				1291335,
+				1310503,
+				21849,
+				21850,
+			},
+		},
+		{
+			key = "bshout",
+			class = "WARRIOR",
+			name = "Battle Shout",
+			castSpell = 6673,
+			single = { 6673, 5242, 6192, 11549, 11550, 11551, 25289 },
+			buffIDs = { 6673, 5242, 6192, 11549, 11550, 11551, 25289, 9128, 24438, 25101, 26043, 26099, 27578 },
+			benefit = "attackPower",
+			selfCast = true,
+		},
+		{
+			key = "fort",
+			class = "PRIEST",
+			name = "Power Word: Fortitude",
+			castSpell = 1243,
+			single = { 1243, 1244, 1245, 2791, 10937, 10938 },
+			buffIDs = { 1243, 1244, 1245, 2791, 10937, 10938, 10939, 10940, 13864, 23947, 23948, 21562, 21564, 450086 },
+		},
+		{
+			key = "ai",
+			class = "MAGE",
+			name = "Arcane Intellect",
+			castSpell = 1459,
+			single = { 1459, 1460, 1461, 10156, 10157 },
+			buffIDs = { 1459, 1460, 1461, 10156, 10157, 13326, 16876, 364161, 23028 },
+			benefit = "intellect",
+		},
+		{
+			key = "spirit",
+			class = "PRIEST",
+			name = "Divine Spirit",
+			castSpell = 14752,
+			single = { 14752, 14818, 14819, 27841 },
+			buffIDs = { 14752, 14818, 14819, 16875, 27841, 27681 },
+			talent = true,
+		},
+	}
+end
+
 -------------------------------------------------------------------------------
 --  SPELL DATA -- Self Auras (stances / forms / self-buffs)
 -------------------------------------------------------------------------------
@@ -245,6 +328,104 @@ local AURAS = {
 		noPvP = true,
 	},
 }
+
+-- WoW Forever self buffs: each entry has lines of ranks (weakest first), and
+-- any rank of any line satisfies it. The click casts the highest known rank of
+-- the line last seen up, else of the last known line (lines are ordered so the
+-- last is the usual pick). also: other spells that count as up for the line
+-- of the same index (the Greater Blessings). own: only the player's own cast
+-- counts (another paladin's aura or hunter's pack aspect is not yours).
+-- label: a locale key for buffs whose lines have different names.
+if E.Forever then
+	AURAS = {
+		{ key = "thorns", class = "DRUID", castSpell = 467, lines = { { 467, 782, 1075, 8914, 9756, 9910 } } },
+		{
+			key = "aspect",
+			class = "HUNTER",
+			castSpell = 13165,
+			label = "Aspect",
+			own = true,
+			lines = {
+				{ 34074, 415423 },
+				{ 469145 },
+				{ 13159 },
+				{ 5118 },
+				{ 13163 },
+				{ 13161, 1299445, 1299446, 1299447 },
+				{ 20043, 20190 },
+				{ 13165, 14318, 14319, 14320, 14321, 14322, 25296 },
+			},
+		},
+		{
+			key = "trueshot",
+			class = "HUNTER",
+			castSpell = 19506,
+			lines = { { 1299346, 1299348, 19506, 20905, 20906 } },
+		},
+		{
+			key = "blessing",
+			class = "PALADIN",
+			castSpell = 19740,
+			label = "Blessing",
+			lines = {
+				{ 19742, 19850, 19852, 19853, 19854, 25290 },
+				{ 20217 },
+				{ 19740, 19834, 19835, 19836, 19837, 19838, 25291 },
+			},
+			also = { { 25894, 25918 }, { 25898, 1213408 }, { 25782, 25916 } },
+		},
+		{
+			key = "paladin_aura",
+			class = "PALADIN",
+			castSpell = 465,
+			label = "Aura",
+			own = true,
+			lines = {
+				{ 19891, 19899, 19900 },
+				{ 19888, 19897, 19898 },
+				{ 19876, 19895, 19896 },
+				{ 19746 },
+				{ 7294, 10298, 10299, 10300, 10301 },
+				{ 465, 10290, 643, 10291, 1032, 10292, 10293 },
+			},
+		},
+		{ key = "rfury", class = "PALADIN", castSpell = 25780, lines = { { 25780 } } },
+		{
+			key = "inner_fire",
+			class = "PRIEST",
+			castSpell = 588,
+			lines = { { 588, 7128, 602, 1006, 10951, 10952 } },
+		},
+		{ key = "shadowform", class = "PRIEST", castSpell = 15473, lines = { { 15473 } } },
+		{
+			key = "shaman_shield",
+			class = "SHAMAN",
+			castSpell = 324,
+			label = "Shield",
+			lines = { { 324, 325, 905, 945, 8134, 10431, 10432 }, { 408510 } },
+		},
+		{
+			key = "demon_armor",
+			class = "WARLOCK",
+			castSpell = 687,
+			lines = { { 687, 696, 706, 1086, 11733, 11734, 11735 } },
+		},
+		{
+			key = "mage_armor",
+			class = "MAGE",
+			castSpell = 6117,
+			label = "Armor",
+			lines = {
+				{ 168, 7300, 7301 }, -- Frost Armor
+				{ 7302, 7320, 10219, 10220 }, -- Ice Armor
+				{ 6117, 22782, 22783 }, -- Mage Armor
+			},
+		},
+	}
+end
+
+-- Shared with the options, which list the Forever buffs from here
+module.AURAS = AURAS
 
 -------------------------------------------------------------------------------
 --  SPELL DATA -- Class Specials (poisons / rites / imbues / shields)
@@ -461,6 +642,32 @@ local function PlayerHasAuraByID(ids)
 	return false
 end
 
+-- Only an aura the player cast, a secret source counts as own
+local function PlayerHasOwnAuraByID(ids)
+	for _, id in ipairs(ids) do
+		local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
+		if ok and result then
+			local own = result.isFromPlayerOrPlayerPet
+			if own == nil or E:IsSecretValue(own) or own then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+-- The highest rank of a list the player knows (WoW Forever)
+local function HighestKnown(list)
+	if not list then
+		return
+	end
+	for i = #list, 1, -1 do
+		if C_SpellBook_IsSpellKnown(list[i]) then
+			return list[i]
+		end
+	end
+end
+
 -- nil: aura not found, otherwise whether it counts (a buff about to run out does not)
 local function PlayerAuraWithDuration(id, showUnder)
 	local ok, result = pcall(C_UnitAuras_GetPlayerAuraBySpellID, id)
@@ -567,8 +774,10 @@ local function SafeUnitIsNotDead(unit)
 	return dead ~= true
 end
 
+-- Also returns the first unit without the buff (the click's target on WoW
+-- Forever, where the buffs are single target)
 local function CountGroupBuffCoverage(buffIDs, benefit)
-	local have, total = 0, 0
+	local have, total, first = 0, 0, nil
 	if IsInRaid() then
 		for i = 1, GetNumGroupMembers() do
 			local unit = "raid" .. i
@@ -581,10 +790,20 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 				total = total + 1
 				if UnitHasAuraByID(unit, buffIDs) then
 					have = have + 1
+				elseif not first then
+					first = unit
 				end
 			end
 		end
 	elseif IsInGroup() then
+		if UnitBenefits("player", benefit) then
+			total = total + 1
+			if PlayerHasAuraByID(buffIDs) then
+				have = have + 1
+			else
+				first = "player"
+			end
+		end
 		for i = 1, GetNumSubgroupMembers() do
 			local unit = "party" .. i
 			if
@@ -596,22 +815,20 @@ local function CountGroupBuffCoverage(buffIDs, benefit)
 				total = total + 1
 				if UnitHasAuraByID(unit, buffIDs) then
 					have = have + 1
+				elseif not first then
+					first = unit
 				end
-			end
-		end
-		if UnitBenefits("player", benefit) then
-			total = total + 1
-			if PlayerHasAuraByID(buffIDs) then
-				have = have + 1
 			end
 		end
 	else
 		total = 1
 		if PlayerHasAuraByID(buffIDs) then
 			have = 1
+		else
+			first = "player"
 		end
 	end
-	return have, total
+	return have, total, first
 end
 
 -- Classes of the other players in the group who are in range, so a buff they
@@ -900,12 +1117,14 @@ local function GetOrCreateIcon(index)
 	return btn
 end
 
-local function SetIconSpell(btn, spellID, texture)
+-- unit: the cast's target, nil casts as a plain spell button does
+local function SetIconSpell(btn, spellID, texture, unit)
 	if not InCombatLockdown() then
 		btn:SetAttribute("type", "spell")
 		btn:SetAttribute("spell", spellID)
 		btn:SetAttribute("item", nil)
 		btn:SetAttribute("macrotext", nil)
+		btn:SetAttribute("unit", unit)
 	end
 	btn._icon:SetTexture(texture or Tex(spellID) or 134400)
 	btn._tooltipSpell = spellID
@@ -918,6 +1137,7 @@ local function SetIconItem(btn, itemID, texture)
 		btn:SetAttribute("item", "item:" .. itemID)
 		btn:SetAttribute("spell", nil)
 		btn:SetAttribute("macrotext", nil)
+		btn:SetAttribute("unit", nil)
 	end
 	btn._icon:SetTexture(texture or C_Item_GetItemIconByID(itemID) or 134400)
 	btn._tooltipSpell = nil
@@ -930,6 +1150,7 @@ local function SetIconMacro(btn, macrotext, texture)
 		btn:SetAttribute("macrotext", macrotext)
 		btn:SetAttribute("spell", nil)
 		btn:SetAttribute("item", nil)
+		btn:SetAttribute("unit", nil)
 	end
 	btn._icon:SetTexture(texture or 134400)
 	btn._tooltipSpell = nil
@@ -944,6 +1165,7 @@ local function SetIconTexture(btn, texture)
 		btn:SetAttribute("spell", nil)
 		btn:SetAttribute("item", nil)
 		btn:SetAttribute("macrotext", nil)
+		btn:SetAttribute("unit", nil)
 	end
 	btn._icon:SetTexture(texture or 134400)
 	btn._tooltipSpell = nil
@@ -980,7 +1202,7 @@ local function AcquireEntry()
 	end
 	e.mode, e.spellID, e.itemID, e.macro, e.texture, e.label = nil, nil, nil, nil, nil, nil
 	e.dismissKey, e.bagCount, e.desaturated = nil, nil, false
-	e.tooltipSpell, e.clickThrough = nil, nil
+	e.tooltipSpell, e.clickThrough, e.unit = nil, nil, nil
 	return e
 end
 
@@ -997,18 +1219,25 @@ local function CollectRaidBuffs(missing, playerClass, db)
 	local classes = rb.fromGroup and (IsInGroup() or IsInRaid()) and BuildGroupClasses()
 	for _, buff in ipairs(RAID_BUFFS) do
 		if rb.enabled[buff.key] then
-			if buff.class == playerClass and Known(buff.castSpell) then
-				local groupHave, groupTotal = CountGroupBuffCoverage(buff.buffIDs, buff.benefit)
+			-- WoW Forever casts the highest known rank, Retail the one spell
+			local castSpell = buff.single and HighestKnown(buff.single) or buff.castSpell
+			if buff.class == playerClass and Known(castSpell) then
+				local groupHave, groupTotal, firstMissing = CountGroupBuffCoverage(buff.buffIDs, buff.benefit)
 				if groupTotal > 0 and groupHave < groupTotal then
 					local e = AcquireEntry()
 					e.mode = "spell"
-					e.spellID = buff.castSpell
+					e.spellID = castSpell
+					-- Single target on Forever: aimed at whoever lacks it
+					if buff.single and not buff.selfCast then
+						e.unit = firstMissing
+					end
 					e.label = ShortLabel(SpellName(buff.castSpell, buff.name))
 					e.dismissKey = "raidbuff:" .. buff.key
 					missing[#missing + 1] = e
 				end
 			elseif
 				classes
+				and not buff.talent
 				and classes[buff.class]
 				and UnitBenefits("player", buff.benefit)
 				and not PlayerHasAuraByID(buff.buffIDs)
@@ -1027,13 +1256,61 @@ local function CollectRaidBuffs(missing, playerClass, db)
 	end
 end
 
+-- WoW Forever self buffs (AURAS entries with lines): the index of the line
+-- that is up, nil while none is
+local function RankedAuraLineUp(aura)
+	local has = aura.own and PlayerHasOwnAuraByID or PlayerHasAuraByID
+	for i, line in ipairs(aura.lines) do
+		if has(line) or (aura.also and aura.also[i] and PlayerHasAuraByID(aura.also[i])) then
+			return i
+		end
+	end
+end
+
+-- The line last seen up per buff, for the session: the click recasts what the
+-- player used last (Blessing of Wisdom for a healer, not Might)
+local lastRankedLine = {}
+
+local function CollectRankedAura(missing, aura)
+	local up = RankedAuraLineUp(aura)
+	if up then
+		lastRankedLine[aura.key] = up
+		return
+	end
+
+	local last = lastRankedLine[aura.key]
+	local spellID = last and HighestKnown(aura.lines[last])
+	if not spellID then
+		for i = #aura.lines, 1, -1 do
+			spellID = HighestKnown(aura.lines[i])
+			if spellID then
+				break
+			end
+		end
+	end
+	if not spellID then
+		return
+	end
+
+	local e = AcquireEntry()
+	e.mode = "spell"
+	e.spellID = spellID
+	e.label = aura.label and L[aura.label] or ShortLabel(SpellName(spellID))
+	e.dismissKey = "aura:" .. aura.key
+	missing[#missing + 1] = e
+end
+
 local function CollectAuras(missing, playerClass, specID, db)
 	local au = db.auras
 	if not au.enable then
 		return
 	end
 	for _, aura in ipairs(AURAS) do
-		if
+		if aura.lines then
+			if au.enabled[aura.key] and aura.class == playerClass then
+				CollectRankedAura(missing, aura)
+			end
+		elseif
 			au.enabled[aura.key]
 			and aura.class == playerClass
 			and Known(aura.castSpell)
@@ -1448,7 +1725,7 @@ end
 
 local function ApplyEntry(btn, e)
 	if e.mode == "spell" then
-		SetIconSpell(btn, e.spellID, e.texture)
+		SetIconSpell(btn, e.spellID, e.texture, e.unit)
 	elseif e.mode == "item" then
 		SetIconItem(btn, e.itemID, e.texture)
 	elseif e.mode == "macro" then
@@ -1514,6 +1791,19 @@ local function BuildTestMissing(missing)
 end
 
 -- Shared with the options preview (Options/Widgets/BuffReminderPreview.lua)
+-- WoW Forever has none of the Retail-only spells and items above
+if E.Forever then
+	TEST_PREVIEW = {
+		{ spellID = 1126, label = "Mark of the Wild" },
+		{ spellID = 6673, label = "Battle Shout" },
+		{ spellID = 1243, label = "Fortitude" },
+		{ spellID = 1459, label = "Intellect" },
+		{ spellID = 14752, label = "Spirit" },
+		{ spellID = 6117, label = L["Armor"] },
+		{ spellID = 19740, label = L["Blessing"] },
+	}
+end
+
 module.TestPreview = TEST_PREVIEW
 module.CreateIconGlow = CreateIconGlow
 
@@ -1605,13 +1895,15 @@ function module:Refresh()
 	if inInstance or not db.hideInOpenWorld then
 		CollectRaidBuffs(missing, playerClass, db)
 		CollectAuras(missing, playerClass, specID, db)
-		if not inPvP then
+		-- The consumable and class special data is Retail's (Midnight items,
+		-- unranked spells), WoW Forever covers its class buffs in AURAS
+		if not inPvP and not E.Forever then
 			CollectConsumables(missing, playerClass, db.consumables)
 		end
 	end
 	-- Poisons, rites, imbues and shields are the player's own spells, unlike
 	-- consumables they count in PvP too
-	if db.consumables.enable and (inInstance or inPvP or not db.hideInOpenWorld) then
+	if not E.Forever and db.consumables.enable and (inInstance or inPvP or not db.hideInOpenWorld) then
 		CollectClassSpecials(missing, playerClass, db.consumables)
 	end
 	if inInstance or inPvP then
