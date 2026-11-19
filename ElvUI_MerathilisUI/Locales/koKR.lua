@@ -1061,6 +1061,8 @@ L["Restores any category group (e.g. \"The Armory\") you disbanded or removed a 
 	"해산했거나 분류를 제거한 모든 분류 그룹(예: \"전투정보실\")을 복원하고 그룹 이름 변경을 초기화합니다."
 L["Toggle Bag Bar"] = "가방 바 전환"
 L["Warband Bank"] = "전쟁부대 은행"
+L["Delete Character"] = true
+L["Delete All - %s"] = true
 L["Bank"] = "은행"
 L["All Bank Tabs"] = "모든 은행 탭"
 L["All Warband Tabs"] = "모든 전쟁부대 탭"

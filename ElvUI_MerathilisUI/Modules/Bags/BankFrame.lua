@@ -655,12 +655,7 @@ function module:ConstructBankFrame()
 	f.footer.goldText:FontTemplate()
 	f.footer.goldText:Point("LEFT", 4, 0)
 
-	f.footer.goldButton = CreateFrame("Button", nil, f.footer)
-	f.footer.goldButton:SetAllPoints(f.footer.goldText)
-	f.footer.goldButton:SetScript("OnEnter", function(self)
-		module:ShowGoldTooltip(self)
-	end)
-	f.footer.goldButton:SetScript("OnLeave", GameTooltip_Hide)
+	f.footer.goldButton = module:CreateGoldButton(f.footer, f.footer.goldText)
 
 	if #module.WarbandBagIDs > 0 then
 		f.footer.warbandGoldText = f.footer:CreateFontString(nil, "OVERLAY")
