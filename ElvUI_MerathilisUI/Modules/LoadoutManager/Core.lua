@@ -1611,12 +1611,14 @@ local function TryActivateSpecGroup(request)
 	-- The switch is a cast: it waits while you move (one that cannot start is
 	-- never retried, and the next cast would be taken for it) and for any cast
 	-- in progress to end. A restricted speed counts as standing still; the
-	-- cast name can read secret, so only its type is tested.
+	-- cast name can read secret, so only its type is tested. The extra
+	-- parentheses keep one value: with no cast, WoW Forever returns nothing at
+	-- all and a bare type() call errors.
 	local speed = GetUnitSpeed("player")
 	if
 		(not issecretvalue(speed) and (speed or 0) > 0)
-		or type(UnitCastingInfo("player")) ~= "nil"
-		or type(UnitChannelInfo("player")) ~= "nil"
+		or type((UnitCastingInfo("player"))) ~= "nil"
+		or type((UnitChannelInfo("player"))) ~= "nil"
 	then
 		DeferRequest(request, L["Talent swap held: you are moving or casting."], false, "availability")
 		return
@@ -2354,7 +2356,12 @@ local function OnEvent(_, event, ...)
 		CombatQueue.Drain()
 	elseif event == "CHALLENGE_MODE_START" then
 		CancelRequests()
-	elseif event == "PLAYER_STOPPED_MOVING" or event == "PLAYER_UPDATE_RESTING" then
+	elseif
+		event == "PLAYER_STOPPED_MOVING"
+		or event == "PLAYER_UPDATE_RESTING"
+		or event == "UNIT_SPELLCAST_CHANNEL_STOP"
+	then
+		-- A channel's end is its own event, a cast's is UNIT_SPELLCAST_STOP below
 		ResumeRequests("availability")
 	elseif event == "ADDON_RESTRICTION_STATE_CHANGED" then
 		-- Only the lift of the restriction the talent swap waits on resumes
@@ -2558,13 +2565,15 @@ UpdateRequestEvents = function()
 	for _, event in ipairs(TALENT_REQUEST_EVENTS) do
 		SetEventState(event, talent or (groupEvents and FOREVER_GROUP_EVENTS[event]))
 	end
-	-- Availability waits wake on movement, resting and the end of a cast
+	-- Availability waits wake on movement, resting and the end of a cast or a
+	-- channel
 	local availability = (gear and gear.waitReason == "availability")
 		or (talent and talent.waitReason == "availability")
 	local inFlight = talent and talent.inFlight
 	for _, event in ipairs(TALENT_CAST_EVENTS) do
 		SetEventState(event, inFlight or (availability and event == "UNIT_SPELLCAST_STOP"), true)
 	end
+	SetEventState("UNIT_SPELLCAST_CHANNEL_STOP", availability, true)
 
 	SetEventState("PLAYER_REGEN_DISABLED", talent)
 
