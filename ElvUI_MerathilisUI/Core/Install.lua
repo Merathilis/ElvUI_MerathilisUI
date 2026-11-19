@@ -30,22 +30,23 @@ local C_CVar_SetCVar = C_CVar.SetCVar
 local MAX_WOW_CHAT_CHANNELS = MAX_WOW_CHAT_CHANNELS or 20
 
 function MER:SetupCVars()
+	-- Our installer replaces ElvUI's, so run ElvUI's own CVar step first. Calling it instead of
+	-- copying it keeps us in sync with whatever ElvUI adds or drops; our values below win.
+	if E.SetupCVars then
+		E:SetupCVars(true)
+	end
+
 	-- Setup CVars
 	C_CVar_SetCVar("autoQuestProgress", 1)
 	C_CVar_SetCVar("alwaysShowActionBars", 1)
 	C_CVar_SetCVar("guildMemberNotify", 1)
 	C_CVar_SetCVar("TargetNearestUseNew", 1)
 	C_CVar_SetCVar("cameraSmoothStyle", 0)
-	C_CVar_SetCVar("cameraDistanceMaxZoomFactor", 2.6)
-	C_CVar_SetCVar("UberTooltips", 1)
-	C_CVar_SetCVar("lockActionBars", 1)
 	C_CVar_SetCVar("chatMouseScroll", 1)
-	C_CVar_SetCVar("countdownForCooldowns", 1)
 	C_CVar_SetCVar("showQuestTrackingTooltips", 1)
 	C_CVar_SetCVar("ffxGlow", 0)
 	C_CVar_SetCVar("floatingCombatTextCombatState", "1")
 	C_CVar_SetCVar("minimapTrackingShowAll", 1)
-	C_CVar_SetCVar("fstack_preferParentKeys", 0)
 	C_CVar_SetCVar("questTextContrast", 4) -- Black Parchment
 
 	-- Nameplates
