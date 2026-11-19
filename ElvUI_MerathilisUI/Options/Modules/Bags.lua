@@ -919,6 +919,49 @@ module:AddOptions(function()
 								name = L["Pinned Marker"],
 								desc = L["Shows a small pin icon on pinned items, also in their normal category."],
 							},
+							reagentBadge = {
+								order = 12.5,
+								type = "select",
+								name = L["Reagent Bag Icon"],
+								desc = L["Shows a small icon of your choice on items in the reagent bag, so they stand out from the same items in your other bags. Their stacks then only merge with other reagent bag stacks."],
+								hidden = function()
+									return BC.ReagentContainer == math.huge -- no reagent bag on this client
+								end,
+								values = function()
+									local names = {
+										GOLDLEAF = L["Golden Leaf"],
+										GOLDNUGGET = L["Gold Nugget"],
+										GOLDHAMMER = L["Golden Hammer"],
+										PROFESSION = L["Profession"],
+									}
+									local values = { NONE = L["None"] }
+									for _, style in ipairs(BC.REAGENT_BADGE_STYLES) do
+										local name = names[style]
+										if not name then
+											-- The game's own profession name, the key where the API is missing
+											local ok, skillLine =
+												pcall(C_TradeSkillUI.GetProfessionSkillLineID, Enum.Profession[style])
+											local okName, display = false, nil
+											if ok and skillLine then
+												okName, display =
+													pcall(C_TradeSkillUI.GetTradeSkillDisplayName, skillLine)
+											end
+											name = okName and display or style
+										end
+										local atlas = BC.REAGENT_BADGE_ATLAS[style]
+											or ("worldquest-icon-" .. strlower(style))
+										values[style] = CreateAtlasMarkup(atlas, 14, 14) .. " " .. name
+									end
+									return values
+								end,
+								sorting = function()
+									local order = { "NONE" }
+									for _, style in ipairs(BC.REAGENT_BADGE_STYLES) do
+										tinsert(order, style)
+									end
+									return order
+								end,
+							},
 							subHeaderIcons = {
 								order = 13,
 								type = "toggle",

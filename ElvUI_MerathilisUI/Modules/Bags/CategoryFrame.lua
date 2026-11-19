@@ -1549,6 +1549,11 @@ local function CreateSlotPoolFor(namePrefix, getContentChild, getOwnerFrame, isL
 		btn.pinIcon:Point("BOTTOMLEFT", 1, 1)
 		btn.pinIcon:Hide()
 
+		-- Reagent Bag Icon: marks items that sit in the reagent bag, so they
+		-- stand out from the same items in the other bags (atlas per option)
+		btn.reagentBadge = btn:CreateTexture(nil, "OVERLAY", nil, 4)
+		btn.reagentBadge:Hide()
+
 		-- Pawn upgrade-arrow overlay (same as ElvUI's own bags) - Blizzard has no
 		-- reliable native API for this, so it's driven entirely by the Pawn
 		-- addon's own PawnShouldItemLinkHaveUpgradeArrowUnbudgeted, if installed.
@@ -2058,6 +2063,8 @@ local function UpdateSlotVisual(btn, entry)
 
 	btn.pinIcon:SetSize(iconSize * 0.4, iconSize * 0.4)
 	btn.pinIcon:SetShown(module.db.effects.pinMarker and module:IsItemPinned(entry.itemID) or false)
+
+	module.PaintReagentBadge(btn, entry, iconSize)
 
 	-- Straddles the slot's top edge like a tab badge, so it doesn't cover
 	-- the icon or the item level. Static: the slot glow already pulses.
@@ -4546,15 +4553,85 @@ function module.GetItemMergeKey(link)
 	return (link:gsub("(|Hitem:[^|]-):Player%-%d+%-%x+([:|])", "%1:%2", 1))
 end
 
+-- Reagent Bag Icon styles, in option order: profession icons (named after the
+-- game's own profession names) and a few golden symbols. Module fields: this
+-- file is at the 200 locals limit.
+module.REAGENT_BADGE_STYLES = {
+	"GOLDLEAF",
+	"GOLDNUGGET",
+	"GOLDHAMMER",
+	"PROFESSION",
+	"Herbalism",
+	"Mining",
+	"Skinning",
+	"Alchemy",
+	"Tailoring",
+	"Leatherworking",
+	"Enchanting",
+	"Blacksmithing",
+	"Engineering",
+	"Jewelcrafting",
+	"Inscription",
+}
+
+module.REAGENT_BADGE_ATLAS = {
+	GOLDLEAF = "Professions_Tracking_Herb",
+	GOLDNUGGET = "Professions_Tracking_Ore",
+	GOLDHAMMER = "Professions-Crafting-Orders-Icon",
+	PROFESSION = "profession",
+}
+
+-- The atlas of the chosen style while the option is on, else nil
+function module.GetReagentBadgeAtlas()
+	local style = module.db.effects.reagentBadge
+	if not style or style == "NONE" then
+		return nil
+	end
+
+	return module.REAGENT_BADGE_ATLAS[style] or ("worldquest-icon-" .. strlower(style))
+end
+
+-- Only items that really sit in the reagent bag get it (the offline bank keeps
+-- the bag ID too); it moves left of the Warband marker when both show.
+function module.PaintReagentBadge(btn, entry, iconSize)
+	local badge = btn.reagentBadge
+	local atlas = entry.bagID == module.ReagentContainer and module.GetReagentBadgeAtlas()
+	if not atlas then
+		badge:Hide()
+		return
+	end
+
+	if badge.atlas ~= atlas then
+		badge.atlas = atlas
+		badge:SetAtlas(atlas)
+	end
+	badge:SetSize(iconSize * 0.4, iconSize * 0.4)
+
+	local anchor = btn.iconFrame or btn
+	badge:ClearAllPoints()
+	if btn.warboundIcon:IsShown() then
+		badge:Point("TOPRIGHT", btn.warboundIcon, "TOPLEFT", -1, 0)
+	else
+		badge:Point("TOPRIGHT", anchor, "TOPRIGHT", -1, -1)
+	end
+	badge:Show()
+end
+
 local function MergeDuplicateEntries(items)
 	if not module.db.mergeDuplicates or AnyItemPanelOpen() then
 		return items
 	end
 
+	-- With the Reagent Bag Icon on, reagent bag stacks only merge among
+	-- themselves, else the badge would vanish into one combined stack
+	local splitReagents = module.GetReagentBadgeAtlas() ~= nil
 	local seen, merged = {}, {}
 	for _, entry in ipairs(items) do
 		local key = module.GetItemMergeKey(entry.itemLink)
 		if key and not API.IsEquippableItem(entry.itemLink) and not module.unmergedLinks[key] then
+			if splitReagents and entry.bagID == module.ReagentContainer then
+				key = key .. "#reagent"
+			end
 			local existing = seen[key]
 			if existing then
 				-- Copy on first duplicate: the entry itself is also painted

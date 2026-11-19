@@ -196,6 +196,7 @@ local ICON_DECORATIONS = {
 	"JunkIcon",
 	"warboundIcon",
 	"pinIcon",
+	"reagentBadge",
 	"UpgradeIcon",
 	"equipIcon",
 	"ProfessionQualityOverlay",

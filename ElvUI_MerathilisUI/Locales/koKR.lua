@@ -1188,6 +1188,11 @@ L["Greys out grey-quality items, in addition to the coin icon they already get."
 	"이미 표시되는 동전 아이콘과 함께 회색 품질 아이템을 회색으로 표시합니다."
 L["Pinned Marker"] = "고정 표시"
 L["Shows a small pin icon on pinned items, also in their normal category."] = "고정된 아이템에 작은 핀 아이콘을 표시하며, 원래 분류에서도 표시됩니다."
+L["Reagent Bag Icon"] = true
+L["Shows a small icon of your choice on items in the reagent bag, so they stand out from the same items in your other bags. Their stacks then only merge with other reagent bag stacks."] = true
+L["Golden Leaf"] = true
+L["Gold Nugget"] = true
+L["Golden Hammer"] = true
 L["Sub-Header Icons"] = "하위 머리글 아이콘"
 L["Shows the expansion logo or equipment set icon in front of the sub-headers."] =
 	"하위 머리글 앞에 확장팩 로고 또는 장비 세트 아이콘을 표시합니다."
