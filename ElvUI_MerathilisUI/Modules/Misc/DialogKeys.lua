@@ -27,11 +27,15 @@ local _G = _G
 local next = next
 local pairs = pairs
 local setmetatable = setmetatable
+local tconcat = table.concat
+local tostring = tostring
+local type = type
 local wipe = wipe
 
 local ClearOverrideBindings = ClearOverrideBindings
 local CreateFrame = CreateFrame
 local GetActiveTitle = GetActiveTitle
+local GetBindingAction = GetBindingAction
 local GetNumActiveQuests = GetNumActiveQuests
 local GetNumQuestChoices = GetNumQuestChoices
 local GetTime = GetTime
@@ -101,6 +105,24 @@ local function DB()
 	return E.db.mui.misc.dialogKeys
 end
 
+-- /muidev debug DialogKeys, then /muidev log
+local DEBUG_CHANNEL = "DialogKeys"
+local function Debug(...)
+	F.Developer.Debug(DEBUG_CHANNEL, ...)
+end
+
+local function Debugging()
+	return F.Developer.IsDebugging(DEBUG_CHANNEL)
+end
+
+local function FrameName(frame)
+	if not frame then
+		return tostring(frame)
+	end
+
+	return frame.GetDebugName and frame:GetDebugName() or frame:GetName() or tostring(frame)
+end
+
 local function QueueSync()
 	if syncQueued then
 		return
@@ -136,6 +158,10 @@ end
 -- the click closes (and the Sync that runs inside it) must still find the key ours.
 local function OnPreClick(self, _, down)
 	local slot = self.slot
+	if Debugging() then
+		Debug("PreClick slot", slot, "down", down, "target", FrameName(boundTo[slot]))
+	end
+
 	if down then
 		heldAt[slot] = GetTime()
 	elseif not heldAt[slot] and boundTo[slot] then
@@ -224,6 +250,12 @@ local function ActiveWindow()
 				return "popup", popup
 			end
 		end
+	end
+
+	-- Immersion hides Blizzard's windows while its own one answers the NPC
+	local immersion = _G.ImmersionFrame
+	if immersion and immersion:IsVisible() then
+		return "immersion", immersion
 	end
 
 	local questFrame = _G.QuestFrame
@@ -356,6 +388,37 @@ local function QuestTargets(window)
 	end
 end
 
+-- Immersion's own window. Its accept key (and its number keys while its "[1-9]" option
+-- is on) is handled by Immersion before any binding, so only the number keys are ours:
+-- they press its reward choices, or else its choice rows, like its own number input does.
+local function ImmersionTargets(frame)
+	local content = frame.hasItems and frame.TalkBox and frame.TalkBox.Elements and frame.TalkBox.Elements.Content
+	local rewards = content and content.RewardsFrame and content.RewardsFrame.Buttons
+	if rewards then
+		local count = 0
+		for i = 1, #rewards do
+			local button = rewards[i]
+			if button.type == "choice" and button:IsVisible() then
+				count = count + 1
+				if count <= MAX_SLOT then
+					want[count] = button
+				end
+			end
+		end
+		return
+	end
+
+	local titles = frame.TitleButtons and frame.TitleButtons.Buttons
+	if titles then
+		for i = 1, MAX_SLOT do
+			local button = titles[i]
+			if button and button:IsShown() then
+				want[i] = button
+			end
+		end
+	end
+end
+
 -------------------------------------------------------------------------------
 --  Number labels: own FontStrings parented to the buttons they number, so they scroll,
 --  clip and hide with them. Blizzard's text and icons are untouched.
@@ -392,12 +455,16 @@ local function UpdateLabels()
 
 	for _, slot in pairs(bound) do
 		local button = slot > 0 and boundTo[slot]
-		if button and not shown[button] then
+		-- An Immersion row already numbered by Immersion itself keeps its own number
+		local counter = button and button.Counter
+		if button and not shown[button] and not (counter and counter:IsShown()) then
 			local choice = button.type == "choice"
-			local label = Label(button, choice and LABEL_SIZE or ROW_LABEL_SIZE)
+			local label = Label(button, (choice or counter) and LABEL_SIZE or ROW_LABEL_SIZE)
 			local icon = button.Icon or button
 			label:ClearAllPoints()
-			if choice then
+			if counter then
+				label:SetPoint("LEFT", button, "LEFT", 8, 0) -- Immersion row: where its own counter sits
+			elseif choice then
 				label:SetPoint("TOPLEFT", icon, "TOPLEFT", 2, -2) -- inside the item icon's corner
 			else
 				label:SetPoint("TOPLEFT", icon, "TOPLEFT", -2, 1) -- the bullet icon's corner, into the margin
@@ -470,10 +537,12 @@ Sync = function()
 	wipe(ready)
 
 	if enabled then
-		local window, popup = ActiveWindow()
+		local window, frame = ActiveWindow()
 		if window == "popup" then
 			-- Yes, the number keys stay the game's. Older popup code has no getter.
-			want[0] = (popup.GetButton1 and popup:GetButton1() or popup.button1) or false
+			want[0] = (frame.GetButton1 and frame:GetButton1() or frame.button1) or false
+		elseif window == "immersion" then
+			ImmersionTargets(frame)
 		elseif window == "gossip" then
 			GossipTargets()
 		elseif window == "greeting" then
@@ -535,6 +604,41 @@ Sync = function()
 
 	UpdateLabels()
 	ScheduleExpiry()
+
+	if Debugging() then
+		local window = enabled and ActiveWindow() or "none"
+		local slots = {}
+		for slot = 0, MAX_SLOT do
+			if want[slot] ~= nil then
+				slots[#slots + 1] = slot .. "=" .. FrameName(want[slot] or nil)
+			end
+		end
+		local keys = 0
+		for _ in pairs(bound) do
+			keys = keys + 1
+		end
+		-- What the game resolves the keys to right now, overrides included
+		Debug(
+			"Sync enabled",
+			enabled,
+			"window",
+			window,
+			"numbers",
+			DB().numbers,
+			"bound keys",
+			keys,
+			"want",
+			#slots > 0 and tconcat(slots, " ") or "-"
+		)
+		Debug(
+			"Resolves: SPACE =",
+			GetBindingAction("SPACE", true),
+			"| 1 =",
+			GetBindingAction("1", true),
+			"| 2 =",
+			GetBindingAction("2", true)
+		)
+	end
 end
 
 -- InCombatLockdown() already reports true at PLAYER_REGEN_DISABLED, but protected writes
@@ -627,6 +731,22 @@ local function Build()
 	hooksecurefunc("QuestFrameGreetingPanel_OnShow", OnListRefresh)
 	_G.QuestFrameGreetingPanel:HookScript("OnShow", OnListRefresh)
 	hooksecurefunc("QuestInfo_Display", OnListRefresh)
+
+	-- Immersion: its window shows and hides on its own, its rows are rebuilt in UpdateActive
+	F.Event.ContinueOnAddOnLoaded("Immersion", function()
+		local frame = _G.ImmersionFrame
+		if not frame then
+			return
+		end
+
+		frame:HookScript("OnShow", OnListRefresh)
+		frame:HookScript("OnHide", OnListRefresh)
+
+		local titles = frame.TitleButtons
+		if titles and type(titles.UpdateActive) == "function" then
+			hooksecurefunc(titles, "UpdateActive", OnListRefresh)
+		end
+	end)
 end
 
 local function SetGossipCallback(on)
@@ -658,6 +778,7 @@ end
 function module:DialogKeys()
 	local db = DB()
 	local on = db.enable == true
+	Debug("Apply enable", on, "key", db.key, "numbers", db.numbers, "combat", InCombatLockdown())
 
 	if InCombatLockdown() then
 		if enabled and not on then

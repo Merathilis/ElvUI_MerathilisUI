@@ -228,6 +228,20 @@ module:AddOptions(function()
 						name = F.NewFeatureText(L["Enable"]),
 						desc = L["Answer NPC windows from the keyboard: the dialog key accepts, continues and completes quests or picks the top choice of a gossip window, the number keys pick a numbered choice or reward."],
 					}),
+					-- Immersion hides Blizzard's gossip and quest windows and draws its own,
+					-- where only the number keys are ours (see ImmersionTargets in DialogKeys.lua)
+					immersionNote = {
+						order = 1.5,
+						type = "description",
+						fontSize = "medium",
+						name = F.String.Color(
+							L["Immersion is loaded: in its window the number keys pick Immersion's choices and quest rewards, while Immersion's own accept key answers the window instead of the Dialog Key."],
+							I.Enum.Colors.WARNING
+						),
+						hidden = function()
+							return not C_AddOns.IsAddOnLoaded("Immersion")
+						end,
+					},
 					key = {
 						order = 2,
 						type = "keybinding",

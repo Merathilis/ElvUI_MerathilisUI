@@ -198,6 +198,7 @@ L["Number Keys"] = true
 L["The number keys 1-0, on the top row or the numpad, pick the numbered choices. The numbers show on the choices."] = true
 L["Confirm Popups"] = true
 L["The dialog key also presses Yes on the popup that asks before abandoning a quest."] = true
+L["Immersion is loaded: in its window the number keys pick Immersion's choices and quest rewards, while Immersion's own accept key answers the window instead of the Dialog Key."] = true
 L["Adds a button to the trainer that learns everything available you can afford."] = true
 L["Learns %d available entries for %s."] = true
 L["Nothing to learn that you can afford."] = true
