@@ -406,6 +406,12 @@ P.misc = {
 		advanced = true,
 	},
 	blockRequest = false,
+	dialogKeys = {
+		enable = false,
+		key = "SPACE",
+		numbers = true,
+		popups = false,
+	},
 	singingSockets = {
 		enable = true,
 	},

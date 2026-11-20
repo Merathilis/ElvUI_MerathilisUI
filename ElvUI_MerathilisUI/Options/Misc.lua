@@ -16,6 +16,10 @@ module:AddOptions(function()
 		return not E.db.mui.misc.autoCombatLog.enable
 	end
 
+	local function DialogKeysDisabled()
+		return not E.db.mui.misc.dialogKeys.enable
+	end
+
 	options.general = {
 		order = 1,
 		type = "group",
@@ -205,6 +209,45 @@ module:AddOptions(function()
 								hidden = E.Forever,
 							},
 						},
+					},
+				},
+			}, "enable"),
+			dialogKeys = module.ModuleCard("miscDialogKeys", {
+				order = 47,
+				name = L["Dialog Keys"],
+				get = function(info)
+					return E.db.mui.misc.dialogKeys[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.misc.dialogKeys[info[#info]] = value
+					MI:DialogKeys()
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = F.NewFeatureText(L["Enable"]),
+						desc = L["Answer NPC windows from the keyboard: the dialog key accepts, continues and completes quests or picks the top choice of a gossip window, the number keys pick a numbered choice or reward."],
+					}),
+					key = {
+						order = 2,
+						type = "keybinding",
+						name = L["Dialog Key"],
+						desc = L["Presses the main button of the open NPC window. Only taken over while such a window is open and you are out of combat."],
+						disabled = DialogKeysDisabled,
+					},
+					numbers = {
+						order = 3,
+						type = "toggle",
+						name = L["Number Keys"],
+						desc = L["The number keys 1-0, on the top row or the numpad, pick the numbered choices. The numbers show on the choices."],
+						disabled = DialogKeysDisabled,
+					},
+					popups = {
+						order = 4,
+						type = "toggle",
+						name = L["Confirm Popups"],
+						desc = L["The dialog key also presses Yes on the popup that asks before abandoning a quest."],
+						disabled = DialogKeysDisabled,
 					},
 				},
 			}, "enable"),

@@ -208,6 +208,14 @@ L["Custom Color"] = "색상 개인설정"
 L["Trade Tabs"] = "제작 탭"
 L["Enable Tabs on the Profession Frames"] = "제작 전문 기술 창에 탭을 활성화합니다"
 L["Train All"] = "모두 배우기"
+L["Dialog Keys"] = true
+L["Answer NPC windows from the keyboard: the dialog key accepts, continues and completes quests or picks the top choice of a gossip window, the number keys pick a numbered choice or reward."] = true
+L["Dialog Key"] = true
+L["Presses the main button of the open NPC window. Only taken over while such a window is open and you are out of combat."] = true
+L["Number Keys"] = true
+L["The number keys 1-0, on the top row or the numpad, pick the numbered choices. The numbers show on the choices."] = true
+L["Confirm Popups"] = true
+L["The dialog key also presses Yes on the popup that asks before abandoning a quest."] = true
 L["Adds a button to the trainer that learns everything available you can afford."] =
 	"구매 가능한 기술을 한 번에 모두 배우는 버튼을 훈련사 창에 추가합니다."
 L["Learns %d available entries for %s."] = "배울 수 있는 %d개 항목을 %s에 배웠습니다."
