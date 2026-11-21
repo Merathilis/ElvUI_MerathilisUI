@@ -1654,7 +1654,8 @@ local function CreateHolder(name)
 	holder:SetSize(1, 1)
 	holder:SetFrameLevel(Minimap:GetFrameLevel() + 10)
 	holder:SetFrameStrata(Minimap:GetFrameStrata())
-	E.FrameLocks[holder] = true
+	-- ElvUI reparents FrameLocks entries after pet battles; keep the holder on the minimap
+	E.FrameLocks[holder] = { parent = Minimap, strata = Minimap:GetFrameStrata() }
 
 	return holder
 end

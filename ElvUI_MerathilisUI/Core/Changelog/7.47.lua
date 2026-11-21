@@ -14,6 +14,7 @@ MER.Changelog[747] = {
 		"[Bags]: Merge Duplicate Stacks now also merges stacks of a crafted item that were made by different players.",
 		"[Buff Reminder]: The reminders now hide or show right away when you enter or leave a city or inn, instead of waiting for the next buff or zone change.",
 		"[Buff Reminder]: On WoW Forever the raid buffs now know every rank: a higher rank no longer counts as missing, and a click casts your highest known rank on the groupmate who lacks it. Divine Spirit was added. The Retail-only consumables are hidden there.",
+		"[Minimap Buttons]: The collected minimap buttons stay attached to the minimap after a pet battle.",
 		"[Tracker]: The Bloodlust tracker also finds your own Bloodlust, Heroism, Time Warp or Fury of the Aspects when the game reports it only as a spellbook entry, instead of falling back to the faction icon.",
 	},
 	NEW = {
