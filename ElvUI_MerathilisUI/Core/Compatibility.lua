@@ -50,6 +50,7 @@ local SOUND_CLICK = 852 -- SOUNDKIT.IG_MAINMENU_OPTION
 -- at `E` (db.* / private.*), or at `root()` for plugins with their own SavedVariables.
 -- `retail` marks MerathilisUI features that are off on WoW Forever anyway.
 -- `addon` limits a check to when that addon is loaded too (skins of other addons).
+-- A check can carry its own `active` too, for settings that only clash in one mode.
 -- A `standalone` plugin is a whole addon: its side is on while it is loaded and
 -- turning it off disables the addon for this character.
 local ARMORY = "db.mui.armory.enable"
@@ -60,6 +61,24 @@ local GRADIENT = "db.mui.themes.gradientMode.enable"
 local VEHICLE_BAR = "db.mui.vehicleBar.enable"
 
 local plugins = {
+	{
+		-- Not a plugin, but ElvUI's own settings can clash with ours as well
+		addon = "ElvUI",
+		name = "ElvUI",
+		checks = {
+			{
+				-- Both sit on the cursor: the anchored unit tooltip covers the Name Hover text.
+				-- Only while Name Hover shows the Blizzard tooltip alongside, otherwise it hides it
+				feature = L["Name Hover"],
+				theirFeature = L["Cursor Anchor"],
+				mine = "db.mui.nameHover.enable",
+				theirs = "db.tooltip.cursorAnchor",
+				active = function()
+					return E.private.tooltip.enable and E.db.mui.nameHover.blizztooltip
+				end,
+			},
+		},
+	},
 	{
 		addon = "ElvUI_WindTools",
 		name = "WindTools",
@@ -447,6 +466,7 @@ local function CollectConflicts(includeKept)
 					if
 						not (check.retail and E.Forever)
 						and (not check.addon or IsAddOnLoaded(check.addon))
+						and (not check.active or check.active())
 						and (includeKept or not kept[check.key])
 						and IsOn(E, check.mine)
 						and (plugin.standalone or IsOn(root, check.theirs))
