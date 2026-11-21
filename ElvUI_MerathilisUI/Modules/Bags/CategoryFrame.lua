@@ -5198,9 +5198,19 @@ function module:RefreshCategoryFrame()
 		local numSlots = C_Container_GetContainerNumSlots(bagID)
 		-- Forever's quivers, ammo pouches and soul, herb or enchanting bags
 		-- only take their own kind of item, so their slots stay out of the
-		-- free slot count (the bag family is 0 for a normal bag)
+		-- free slot count (the bag family is 0 for a normal bag). The reagent
+		-- bag slot is the exception: its own family (and a profession bag put
+		-- there) takes materials, so only arrows (1), bullets (2) or soul
+		-- shards (4) keep a bag in that slot out of the count
 		local _, family = C_Container.GetContainerNumFreeSlots(bagID)
-		local special = E.Forever and family and family ~= 0
+		local special
+		if E.Forever and family and family ~= 0 then
+			if bagID == module.ReagentContainer then
+				special = family == 1 or family == 2 or family == 4
+			else
+				special = true
+			end
+		end
 		if not special then
 			totalSlots = totalSlots + numSlots
 		end
