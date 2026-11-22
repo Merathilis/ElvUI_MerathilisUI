@@ -185,9 +185,12 @@ function MER:Initialize()
 	self:UpdateScripts()
 	self:AddMoverCategories()
 
+	-- Pass the parsed version, otherwise ElvUI falls back to the raw TOC "Version" field,
+	-- which is still "@project-version@" in a git checkout. Numeric only (no variant suffix)
+	-- so ElvUI's outdated check can still compare it.
 	EP:RegisterPlugin(addon, function()
-		return self:GetModule("MER_Options"):OptionsCallback(false, xVersionString)
-	end)
+		return self:GetModule("MER_Options"):OptionsCallback()
+	end, false, MER.Version)
 
 	self:SecureHook(E, "UpdateAll", "UpdateModules")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
