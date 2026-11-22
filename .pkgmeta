@@ -18,8 +18,6 @@ ignore:
     - .editorconfig
     - .luacheckrc
     - .prettierrc
-    - m4.png
     - README.md
     - CHANGELOG.md
     - CREDITS.md
-    - m4.png
