@@ -76,7 +76,7 @@ local MODIFIER_COMBOS = { "", "SHIFT-", "CTRL-", "ALT-", "CTRL-SHIFT-", "ALT-SHI
 local MODIFIERS = { ALT = true, CTRL = true, SHIFT = true, META = true }
 
 local CELL_ATTRIBUTES =
-	{ "type", "spell", "item", "toy", "macro", "mount", "equipmentset", "panel", "marker", "action" }
+	{ "type", "spell", "item", "toy", "macro", "macrotext", "mount", "equipmentset", "panel", "marker", "action" }
 
 -- Runs in the restricted environment on every key down and up of a deck button.
 -- Must stay in sync with GetSector below.
@@ -271,6 +271,10 @@ local function WriteCell(button, index, entry)
 	elseif kind == "macro" then
 		Set("type", "macro")
 		Set("macro", entry.id)
+	elseif kind == "emote" then
+		-- The client's own command, so it is aimed at the target like typed
+		Set("type", "macro")
+		Set("macrotext", entry.command)
 	elseif kind == "mount" then
 		Set("type", "quickGridMount")
 		Set("mount", entry.id)
@@ -373,8 +377,12 @@ function module:CreateTile(parent)
 	tile.cooldown:SetHideCountdownNumbers(true)
 	E:RegisterCooldown(tile.cooldown)
 
+	-- Held on both sides, so a long emote command ends in an ellipsis
 	tile.label = tile:CreateFontString(nil, "OVERLAY")
-	tile.label:SetPoint("BOTTOM", 0, 3)
+	tile.label:SetPoint("BOTTOMLEFT", 2, 3)
+	tile.label:SetPoint("BOTTOMRIGHT", -2, 3)
+	tile.label:SetJustifyH("CENTER")
+	tile.label:SetWordWrap(false)
 	tile.label:SetFont(F.GetFontPath(I.Fonts.Primary), 10, "OUTLINE")
 
 	return tile

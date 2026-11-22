@@ -350,6 +350,7 @@ P.bags = {
 			placeholderAlpha = 0.4,
 			warboundMarker = true,
 			desaturateJunk = false,
+			unusableTint = true,
 			itemContextDim = true,
 			pinMarker = true,
 			-- Reagent Bag Icon style (module.REAGENT_BADGE_STYLES), "NONE" = off

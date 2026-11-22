@@ -4,7 +4,7 @@ local module = MER:GetModule("MER_QuickGrid")
 local _G = _G
 local format, ipairs, tonumber, type = format, ipairs, tonumber, type
 local tremove = table.remove
-local strmatch, strlower, strtrim = strmatch, strlower, strtrim
+local strmatch, strlower, strupper, strtrim, strsub = strmatch, strlower, strupper, strtrim, strsub
 
 local C_EquipmentSet = C_EquipmentSet
 local C_Item = C_Item
@@ -25,7 +25,7 @@ local PlayerHasToy = PlayerHasToy
 --  the top: 1 = N, 2 = NE, 3 = E, 4 = SE, 5 = S, 6 = SW, 7 = W, 8 = NW.
 --
 --  A cell entry is { kind, id, icon, name, label, inactive }:
---    kind      spell, item, toy, macro, mount, equipmentset, marker or panel
+--    kind      spell, item, toy, macro, mount, equipmentset, emote, marker or panel
 --    inactive  shown greyed out and does nothing (unknown spell, missing item)
 --  A nil entry leaves the cell empty.
 -------------------------------------------------------------------------------
@@ -173,6 +173,70 @@ local function EquipmentSetEntry(setID)
 	}
 end
 
+-------------------------------------------------------------------------------
+--  Emotes
+--  Saved by token ("DANCE"), which is the same in every language, while the
+--  command is not ("/dance", "/danse" on a French client). The command is
+--  looked up again when the cell is written and fired as macro text, aimed at
+--  the target like the typed command. Every emote shares one icon, the tile
+--  label shows its command.
+-------------------------------------------------------------------------------
+local EMOTE_ICON = "Interface\\Icons\\Spell_Shadow_SoothingKiss"
+
+-- token -> first command, and command (upper case, any alias) -> token,
+-- built on first use from the client's own emote strings
+local emoteCommands, emoteTokens
+
+local function BuildEmotes()
+	emoteCommands, emoteTokens = {}, {}
+	-- Indexes have gaps, so the walk runs to the client's own ceiling
+	for i = 1, (_G.MAXEMOTEINDEX or 1000) do
+		local token = _G["EMOTE" .. i .. "_TOKEN"]
+		if type(token) == "string" then
+			local j = 1
+			local cmd = _G["EMOTE" .. i .. "_CMD" .. j]
+			while type(cmd) == "string" do
+				if strsub(cmd, 1, 1) == "/" then
+					-- Several indexes alias one token; the first command is the emote's own
+					emoteCommands[token] = emoteCommands[token] or cmd
+					emoteTokens[strupper(cmd)] = emoteTokens[strupper(cmd)] or token
+				end
+				j = j + 1
+				cmd = _G["EMOTE" .. i .. "_CMD" .. j]
+			end
+		end
+	end
+end
+
+local function EmoteEntry(token)
+	if not emoteCommands then
+		BuildEmotes()
+	end
+
+	local command = emoteCommands[token]
+	-- A token this client has no command for (saved on another build) does nothing
+	local name = command or ("/" .. strlower(token))
+	return {
+		kind = "emote",
+		id = token,
+		command = command,
+		icon = EMOTE_ICON,
+		name = name,
+		label = name,
+		inactive = command == nil,
+	}
+end
+
+local function FindEmoteToken(text)
+	if strsub(text, 1, 1) ~= "/" then
+		return
+	end
+	if not emoteTokens then
+		BuildEmotes()
+	end
+	return emoteTokens[strupper(text)]
+end
+
 -- type and id from the portal flyout's resolvers (hearthstone, Dalaran)
 local function TravelItemEntry(kind, id, icon)
 	if kind == "spell" then
@@ -317,6 +381,8 @@ function module:CustomSlotEntry(slot)
 		return MountEntry(slot.id)
 	elseif slot.kind == "equipmentset" then
 		return EquipmentSetEntry(slot.id)
+	elseif slot.kind == "emote" and type(slot.id) == "string" then
+		return EmoteEntry(slot.id)
 	end
 end
 
@@ -432,6 +498,12 @@ function module:ParseSlotText(text)
 	local spellID = tonumber(strmatch(text, "spell:(%d+)"))
 	if spellID then
 		return SpellSlot(spellID)
+	end
+
+	-- "/dance": an emote command in any of its aliases
+	local emoteToken = FindEmoteToken(text)
+	if emoteToken then
+		return { kind = "emote", id = emoteToken }
 	end
 
 	local macroIndex = GetMacroIndexByName(text)

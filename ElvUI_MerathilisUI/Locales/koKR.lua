@@ -1195,6 +1195,8 @@ L["While a spell or window waits for an item (Disenchant, Milling, Prospecting, 
 L["Desaturate Junk"] = "잡탬 흑백처리"
 L["Greys out grey-quality items, in addition to the coin icon they already get."] =
 	"이미 표시되는 동전 아이콘과 함께 회색 품질 아이템을 회색으로 표시합니다."
+L["Tint Unusable Items"] = true
+L["Colors items your character can't use red: gear and consumables with a requirement you don't meet, items above your level and recipes you can't learn or already know."] = true
 L["Pinned Marker"] = "고정 표시"
 L["Shows a small pin icon on pinned items, also in their normal category."] = "고정된 아이템에 작은 핀 아이콘을 표시하며, 원래 분류에서도 표시됩니다."
 L["Reagent Bag Icon"] = true
@@ -2277,6 +2279,7 @@ L["Hold this key to open the deck. The free modifier combinations of the key ope
 L["Custom Deck"] = "사용자 지정 덱"
 L["Drag a spell, item or macro onto a field, or type the name of a spell, macro, mount, toy, item or equipment set. Empty a field to clear it."] =
 	"주문, 아이템, 매크로를 칸 위로 드래그하거나, 주문, 매크로, 탈것, 장난감, 아이템, 장비 세트의 이름을 입력하세요. 칸을 비우면 지워집니다."
+L["Emote commands such as /dance work too, aimed at your target like the typed command."] = true
 L["The center cancels."] = "중앙은 취소입니다."
 L["Could not find %s. Use the name of a spell, macro, mount, toy, item or equipment set."] =
 	"%s을(를) 찾을 수 없습니다. 주문, 매크로, 탈것, 장난감, 아이템, 장비 세트의 이름을 사용하세요."

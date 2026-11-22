@@ -913,6 +913,16 @@ module:AddOptions(function()
 								name = L["Desaturate Junk"],
 								desc = L["Greys out grey-quality items, in addition to the coin icon they already get."],
 							},
+							unusableTint = {
+								order = 11.5,
+								type = "toggle",
+								name = F.NewFeatureText(L["Tint Unusable Items"]),
+								desc = L["Colors items your character can't use red: gear and consumables with a requirement you don't meet, items above your level and recipes you can't learn or already know."],
+								set = function(info, value)
+									E.db.mui.bags.categorizedBags.effects[info[#info]] = value
+									BC:UpdateUnusableTint()
+								end,
+							},
 							pinMarker = {
 								order = 12,
 								type = "toggle",

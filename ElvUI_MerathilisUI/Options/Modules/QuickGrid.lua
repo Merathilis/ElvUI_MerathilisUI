@@ -131,6 +131,10 @@ module:AddOptions(function()
 		desc = module.TextCard(
 			1,
 			L["Drag a spell, item or macro onto a field, or type the name of a spell, macro, mount, toy, item or equipment set. Empty a field to clear it."]
+				.. " "
+				.. F.NewFeatureText(
+					L["Emote commands such as /dance work too, aimed at your target like the typed command."]
+				)
 		),
 	}
 

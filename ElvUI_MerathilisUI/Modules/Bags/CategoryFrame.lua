@@ -1964,6 +1964,8 @@ local function UpdateSlotVisual(btn, entry)
 	-- Locked (being moved/split) as before, plus optionally vendor trash, so
 	-- it reads as "sell me" at a glance; the junk coin icon stays either way.
 	SetItemButtonDesaturated(btn, entry.isLocked or (entry.isJunk and module.db.effects.desaturateJunk) or false)
+	-- Red icon for items the character can't use (UnusableTint.lua)
+	module.PaintUnusableTint(btn, entry)
 
 	local countFont = module.db.itemCountFont
 	if btn.Count then
@@ -6397,6 +6399,17 @@ function module.RepaintShownCooldowns()
 	end
 end
 
+-- Every slot button on screen, bag and bank, any display (UnusableTint.lua)
+function module.ForEachShownSlot(fn)
+	for _, pool in ipairs(slotPools) do
+		for _, btn in ipairs(pool) do
+			if btn:IsShown() then
+				fn(btn)
+			end
+		end
+	end
+end
+
 local function OnBagEvent(_, event)
 	-- Fires in bursts (once per item sharing the cooldown), so at most one
 	-- repaint per frame, and never a full rebuild
@@ -6625,6 +6638,7 @@ function module:Initialize()
 	module:UpdateOffline()
 	module:UpdateAutoGold()
 	module:UpdateGoldSession()
+	module:UpdateUnusableTint()
 
 	if not module:IsCategorizedBagsActive() then
 		return
@@ -6645,6 +6659,7 @@ function module:ProfileUpdate()
 	-- ElvUI's bag frame. Hiding our bank frame also ends the bank interaction.
 	module:UpdateJunkAutoSell()
 	module:UpdateGoldSession()
+	module:UpdateUnusableTint()
 
 	if not module:IsCategorizedBagsActive() then
 		module:HideCategoryFrame()
