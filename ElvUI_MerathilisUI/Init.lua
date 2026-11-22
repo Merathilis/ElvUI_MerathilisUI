@@ -112,6 +112,7 @@ MER.Modules.EquipManager = MER:NewModule("MER_EquipManager", "AceHook-3.0", "Ace
 MER.Modules.GroupFinder = MER:NewModule("MER_GroupFinder", "AceEvent-3.0")
 MER.Modules.HoverCast = MER:NewModule("MER_HoverCast", "AceEvent-3.0")
 MER.Modules.ItemLevel = MER:NewModule("MER_ItemLevel", "AceHook-3.0", "AceEvent-3.0")
+MER.Modules.KeybindProfiles = MER:NewModule("MER_KeybindProfiles", "AceEvent-3.0")
 MER.Modules.LoadoutManager = MER:NewModule("MER_LoadoutManager")
 MER.Modules.LocationPanel = MER:NewModule("MER_LocationPanel")
 MER.Modules.Loot = MER:NewModule("MER_Loot", "AceEvent-3.0")

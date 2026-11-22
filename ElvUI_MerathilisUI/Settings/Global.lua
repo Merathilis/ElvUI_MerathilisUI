@@ -48,6 +48,16 @@ G.bags = {
 	},
 }
 
+G.keybindProfiles = {
+	enable = false,
+	applyAs = "CHARACTER", -- CHARACTER: character specific bindings, CURRENT: the set the character uses now
+	autoApply = true, -- a character that never got a profile gets the one of its class at login
+	askBeforeApply = true,
+	skipCharacterSpecific = true, -- characters that already have character specific bindings are left alone
+	profiles = {}, -- [name] = { bindings = { [command] = { keys } }, count, class, source, client, saved }
+	classProfiles = {}, -- [class file or "ALL"] = profile name
+}
+
 G.mail = {
 	templates = {},
 	quickAttachRecipients = {},

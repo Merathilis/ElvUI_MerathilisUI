@@ -90,6 +90,12 @@ V.autoCombatLog = {
 	started = false,
 }
 
+-- Keybind Profiles: the profiles themselves are account wide (G.keybindProfiles)
+V.keybindProfiles = {
+	handled = false, -- Auto Apply already ran (or was declined) on this character
+	-- backup: { bindings, set } the key bindings from before the last applied profile, for Undo
+}
+
 -- Loadout Manager: gear sets and talent loadouts are per character
 V.loadoutManager = {
 	-- Off until the user opts in; switching it on is what registers events
