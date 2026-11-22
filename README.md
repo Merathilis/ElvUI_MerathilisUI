@@ -4,7 +4,7 @@
 
 <br/>
 
-<img src="https://img.shields.io/badge/Retail-Midnight-ff7f1a?style=for-the-badge&logo=battledotnet&logoColor=white&labelColor=1d1b19"/> <img src="https://img.shields.io/badge/WoW_Forever-Beta-ffa24d?style=for-the-badge&logo=battledotnet&logoColor=white&labelColor=1d1b19"/> <img src="https://img.shields.io/badge/ElvUI-16.01-1784d1?style=for-the-badge&labelColor=1d1b19"/> <img src="https://img.shields.io/badge/Version-7.46-d9480f?style=for-the-badge&labelColor=1d1b19"/>
+<img src="https://img.shields.io/badge/Retail-Midnight-ff7f1a?style=for-the-badge&logo=battledotnet&logoColor=white&labelColor=1d1b19"/> <img src="https://img.shields.io/badge/WoW_Forever-Live-ffa24d?style=for-the-badge&logo=battledotnet&logoColor=white&labelColor=1d1b19"/> <img src="https://img.shields.io/badge/ElvUI-16.01-1784d1?style=for-the-badge&labelColor=1d1b19"/> <img src="https://img.shields.io/badge/Version-7.46-d9480f?style=for-the-badge&labelColor=1d1b19"/>
 
 <a href="https://www.curseforge.com/wow/addons/merathilis-ui"><img src="https://img.shields.io/curseforge/dt/97589?style=for-the-badge&logo=curseforge&logoColor=white&label=CurseForge&color=f16436&labelColor=1d1b19"/></a> <a href="https://addons.wago.io/addons/elvui-merathilisui"><img src="https://img.shields.io/badge/Wago-Download-c1272d?style=for-the-badge&logoColor=white&labelColor=1d1b19"/></a> <a href="https://wowup.io/addons/2797823"><img src="https://img.shields.io/badge/WowUp-Download-8a5cf6?style=for-the-badge&labelColor=1d1b19"/></a> <a href="https://github.com/Merathilis/ElvUI_MerathilisUI/releases"><img src="https://img.shields.io/github/downloads/Merathilis/ElvUI_MerathilisUI/total?style=for-the-badge&logo=github&logoColor=white&label=GitHub&color=30363d&labelColor=1d1b19"/></a> <a href="https://discord.com/invite/28We6esE9v"><img src="https://img.shields.io/discord/284626725403361281?style=for-the-badge&logo=discord&logoColor=white&label=Discord&color=5865f2&labelColor=1d1b19"/></a>
 
@@ -24,9 +24,6 @@
 <p align="center"><sub>Screenshot also shows other AddOns.</sub></p>
 
 MerathilisUI is a plugin for **ElvUI** on **Retail** and **WoW Forever**. It gives your interface a clean, transparent design with class-colored gradients and adds a set of modules that go beyond what ElvUI offers out of the box. Everything is modular: turn off what you don't need, keep the rest.
-
-> [!NOTE]
-> Support for WoW Forever is still a work in progress. A few modules (e.g. the Armory) are not available there yet.
 
 | Why MerathilisUI? | |
 | --- | --- |
