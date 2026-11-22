@@ -487,7 +487,10 @@ function V2.Skin()
 	S:HandleScrollBar(scroll.scrollbar)
 	scroll.scrollbg:SetAlpha(0)
 	V2.Scroll_RefreshVisuals(scroll)
-	MER:SecureHook(scroll, "RefreshVisuals", V2.Scroll_RefreshVisuals)
+
+	-- Older RXP builds (WoW Forever) tint the arrows in UpdateSubTheme instead
+	local refreshMethod = scroll.RefreshVisuals and "RefreshVisuals" or "UpdateSubTheme"
+	MER:SecureHook(scroll, refreshMethod, V2.Scroll_RefreshVisuals)
 
 	V2.RefreshRows(guideSteps)
 	MER:SecureHook(guideSteps, "SetRows", V2.RefreshRows)
@@ -742,7 +745,16 @@ function module:RXPGuides()
 
 	SkinFonts()
 
-	if RXP.v2:IsGuideWindowEnabled() then
+	-- Older RXP builds (WoW Forever) only have IsEnabled
+	local v2 = RXP.v2
+	local useV2
+	if v2.IsGuideWindowEnabled then
+		useV2 = v2:IsGuideWindowEnabled()
+	else
+		useV2 = v2.IsEnabled and v2:IsEnabled()
+	end
+
+	if useV2 then
 		V2.Skin()
 	else
 		Legacy.Skin()
@@ -754,7 +766,7 @@ function module:RXPGuides()
 	LibStub("LibCandyBar-3.0").RegisterCallback(Timers, "LibCandyBar_Stop", Timers.Stop)
 
 	local tracker = RXP.tracker
-	if tracker then
+	if tracker and tracker.CreateLevelSplits then
 		Tracker_CreateLevelSplits(tracker)
 		MER:SecureHook(tracker, "CreateLevelSplits", Tracker_CreateLevelSplits)
 	end

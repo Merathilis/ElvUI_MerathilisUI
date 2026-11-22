@@ -16,6 +16,7 @@ MER.Changelog[747] = {
 		"[Buff Reminder]: On WoW Forever the raid buffs now know every rank: a higher rank no longer counts as missing, and a click casts your highest known rank on the groupmate who lacks it. Divine Spirit was added. The Retail-only consumables are hidden there.",
 		'[Core]: ElvUI\'s plugin list shows the real MerathilisUI version again instead of "@project-version@".',
 		"[Minimap Buttons]: The collected minimap buttons stay attached to the minimap after a pet battle.",
+		"[Skins]: The RestedXP Guides skin no longer throws an error on WoW Forever, where RestedXP ships an older version, and skins the guide window there too.",
 		"[Tracker]: The Bloodlust tracker also finds your own Bloodlust, Heroism, Time Warp or Fury of the Aspects when the game reports it only as a spellbook entry, instead of falling back to the faction icon.",
 	},
 	NEW = {
