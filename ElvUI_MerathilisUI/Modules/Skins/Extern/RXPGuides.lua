@@ -445,6 +445,19 @@ function V2.SetFrameBackdropShown(_, frame, shown)
 	end
 end
 
+-- Every later ApplyFrameBackdrop on a frame we took over is hidden again. Newer RXP builds
+-- use these for the mini windows in both window modes, so they are hooked either way.
+function V2.HookBackdrops()
+	local ui = RXP.ui and RXP.ui.v2
+	if not ui or not ui.ApplyFrameBackdrop then
+		return
+	end
+
+	MER:SecureHook(ui, "ApplyFrameBackdrop", V2.ApplyFrameBackdrop)
+	MER:SecureHook(ui, "AddFrameShadow", V2.ApplyFrameBackdrop)
+	MER:SecureHook(ui, "SetFrameBackdropShown", V2.SetFrameBackdropShown)
+end
+
 function V2.Skin()
 	local v2 = RXP.v2
 	local window = v2:GetGuideWindow()
@@ -452,11 +465,6 @@ function V2.Skin()
 		return
 	end
 
-	-- Every later ApplyFrameBackdrop on a frame we took over is hidden again
-	local ui = RXP.ui.v2
-	MER:SecureHook(ui, "ApplyFrameBackdrop", V2.ApplyFrameBackdrop)
-	MER:SecureHook(ui, "AddFrameShadow", V2.ApplyFrameBackdrop)
-	MER:SecureHook(ui, "SetFrameBackdropShown", V2.SetFrameBackdropShown)
 	MER:SecureHook(v2, "UpdateMenuTheme", V2.UpdateMenuTheme)
 
 	-- Header bar
@@ -507,6 +515,22 @@ end
 
 local IconFrames = {}
 
+-- Newer RXP builds put Active Items, Active Targets and Level Splits into V2 mini windows,
+-- AceGUI widgets whose frame, title tab and backdrop go through RXP's V2 backdrop helpers
+local function StyleMiniWindow(window)
+	local frame = window.frame
+	if frame.__MERSkin then
+		return
+	end
+
+	StyleCard(frame, window.title, window.title.text)
+
+	-- Sizes the title tab again for the ElvUI font
+	window:UpdateTheme()
+
+	frame.__MERSkin = true
+end
+
 -- The buttons are secure, RXP only creates and updates them out of combat
 local function StyleIconButton(button)
 	if button.__MERSkin then
@@ -542,12 +566,23 @@ local function CropIcon(button)
 	end
 end
 
+-- Newer RXP builds keep the buttons on V2 mini windows (AceGUI widgets), older ones on plain frames
+local function GetItemButtons()
+	local holder = RXP.activeItemWindow or RXP.activeItemFrame
+	return holder and holder.buttonList
+end
+
 function IconFrames.UpdateItems()
 	if InCombatLockdown() then
 		return
 	end
 
-	for _, button in next, RXP.activeItemFrame.buttonList do
+	local buttons = GetItemButtons()
+	if not buttons then
+		return
+	end
+
+	for _, button in next, buttons do
 		StyleIconButton(button)
 		CropIcon(button)
 	end
@@ -558,8 +593,12 @@ function IconFrames.UpdateTargets(targeting)
 		return
 	end
 
-	local frame = targeting.activeTargetFrame
-	for _, buttons in next, { frame.enemyTargetButtons, frame.friendlyTargetButtons } do
+	local holder = targeting.activeTargetWindow or targeting.activeTargetFrame
+	if not holder then
+		return
+	end
+
+	for _, buttons in next, { holder.enemyTargetButtons, holder.friendlyTargetButtons } do
 		for _, button in next, buttons do
 			StyleIconButton(button)
 			CropIcon(button)
@@ -576,24 +615,37 @@ local function IconFrame_UpdateVisuals(frame)
 	UseElvFont(frame.title.text)
 end
 
-function IconFrames.Skin()
-	local itemFrame = RXP.activeItemFrame
-	local targetFrame = RXP.targeting.activeTargetFrame
+local function StyleLegacyIconFrame(frame)
+	StyleCard(frame, frame.title, frame.title.text)
+	IconFrame_UpdateVisuals(frame)
+	MER:SecureHook(frame, "UpdateVisuals", IconFrame_UpdateVisuals)
+end
 
-	for _, frame in next, { itemFrame, targetFrame } do
-		StyleCard(frame, frame.title, frame.title.text)
-		IconFrame_UpdateVisuals(frame)
-		MER:SecureHook(frame, "UpdateVisuals", IconFrame_UpdateVisuals)
+function IconFrames.Skin()
+	local targeting = RXP.targeting
+
+	local itemWindow, itemFrame = RXP.activeItemWindow, RXP.activeItemFrame
+	if itemWindow then
+		StyleMiniWindow(itemWindow)
+	elseif itemFrame then
+		StyleLegacyIconFrame(itemFrame)
+
+		-- The item frame calls the original function through its own UpdateFrame field
+		MER:SecureHook(itemFrame, "UpdateFrame", IconFrames.UpdateItems)
+	end
+
+	local targetWindow, targetFrame = targeting.activeTargetWindow, targeting.activeTargetFrame
+	if targetWindow then
+		StyleMiniWindow(targetWindow)
+	elseif targetFrame then
+		StyleLegacyIconFrame(targetFrame)
 	end
 
 	IconFrames.UpdateItems()
 	MER:SecureHook(RXP, "UpdateItemFrame", IconFrames.UpdateItems)
 
-	-- The item frame calls the original function through its own UpdateFrame field
-	MER:SecureHook(itemFrame, "UpdateFrame", IconFrames.UpdateItems)
-
-	IconFrames.UpdateTargets(RXP.targeting)
-	MER:SecureHook(RXP.targeting, "UpdateTargetFrame", IconFrames.UpdateTargets)
+	IconFrames.UpdateTargets(targeting)
+	MER:SecureHook(targeting, "UpdateTargetFrame", IconFrames.UpdateTargets)
 end
 
 --[[ Timer bars ]]
@@ -664,6 +716,13 @@ local function Tracker_CreateLevelSplits(tracker)
 	SetCogIcon(frame.title.cog)
 
 	frame.__MERSkin = true
+end
+
+-- Newer RXP builds: a mini window, created once the tracker sets it up
+local function Splits_Create(splits)
+	if splits.window then
+		StyleMiniWindow(splits.window)
+	end
 end
 
 --[[ Fonts ]]
@@ -754,6 +813,8 @@ function module:RXPGuides()
 		useV2 = v2.IsEnabled and v2:IsEnabled()
 	end
 
+	V2.HookBackdrops()
+
 	if useV2 then
 		V2.Skin()
 	else
@@ -769,6 +830,12 @@ function module:RXPGuides()
 	if tracker and tracker.CreateLevelSplits then
 		Tracker_CreateLevelSplits(tracker)
 		MER:SecureHook(tracker, "CreateLevelSplits", Tracker_CreateLevelSplits)
+	end
+
+	local splits = tracker and tracker.splits
+	if splits and splits.Create then
+		Splits_Create(splits)
+		MER:SecureHook(splits, "Create", Splits_Create)
 	end
 
 	SkinBlizzardAdditions()
