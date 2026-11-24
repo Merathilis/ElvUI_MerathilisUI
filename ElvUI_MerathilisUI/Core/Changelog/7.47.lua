@@ -3,6 +3,7 @@ local MER = unpack(ElvUI_MerathilisUI)
 MER.Changelog[747] = {
 	RELEASE_DATE = "TBD",
 	FIXES = {
+		"[Armory]: On WoW Forever, the icon between level and class now shows your class icon instead of the default icon, as Forever's specs have no spec icon of their own.",
 		"[Bags]: The categorized bags close again when combat starts, for example through WindTools' option to hide the bags when entering combat. With the fade effect on, the window started to fade out and then came back.",
 		"[Bags]: Right-clicking an item while the merchant's buyback tab is open no longer sells it.",
 		"[Bags]: Right-clicking an item that can still be refunded at a merchant now asks before it is returned, like Blizzard's own bags do. Before, it went back without a question.",

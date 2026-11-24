@@ -11,7 +11,7 @@ local LSM = E.Libs.LSM
 local _G = _G
 local format, gsub, utf8sub = string.format, string.gsub, string.utf8sub
 local next, ipairs, pairs, pcall, select, max, min, unpack = next, ipairs, pairs, pcall, select, max, min, unpack
-local abs = math.abs
+local abs, floor = math.abs, math.floor
 local twipe, tsort = table.wipe, table.sort
 
 local CreateColor = CreateColor
@@ -729,8 +729,18 @@ function module:UpdateTitle(target)
 
 	target.levelText:SetText(level)
 
-	local fontIcon = E.db.mui.armory.icons[primaryTalentTreeIdx] or E.db.mui.armory.icons[0]
-	if module.db.specIcon.fontColor == "CLASS" then
+	local specIcons = E.db.mui.armory.icons
+	local fontIcon = specIcons[primaryTalentTreeIdx]
+
+	-- Forever has one class-wide spec per class (e.g. Priest = 1487) with no spec glyph, show the class icon instead
+	local classIconPath = not fontIcon and E.Forever and MER.ClassIcons[currentClass]
+	local classIcon = classIconPath
+		and format("|T%s:%d:%d|t", classIconPath, module.db.specIcon.size, module.db.specIcon.size)
+	fontIcon = fontIcon or specIcons[0]
+
+	if classIcon then
+		target.specIcon:SetText(classIcon)
+	elseif module.db.specIcon.fontColor == "CLASS" then
 		target.specIcon:SetText(F.String.RGB(fontIcon, classColorNormal))
 	else
 		target.specIcon:SetText(fontIcon)
@@ -777,8 +787,11 @@ function module:UpdateTitle(target)
 	local anchorWidth = totalWidth - (leftWidth + (iconWidth / 2))
 	local centerOffset = (totalWidth / 2) - anchorWidth
 
+	-- A texture icon (Forever class icon) sits higher than a glyph, move it down and the texts anchored to it back up
+	local iconShiftY = classIcon and floor(module.db.specIcon.size * 0.25 + 0.5) or 0
+
 	target.specIcon:ClearAllPoints()
-	target.specIcon:Point("TOP", target.frameModel, centerOffset, levelOffsetY)
+	target.specIcon:Point("TOP", target.frameModel, centerOffset, levelOffsetY - iconShiftY)
 	target.specIcon:SetJustifyH("CENTER")
 	target.specIcon:SetJustifyV("BOTTOM")
 
@@ -788,7 +801,7 @@ function module:UpdateTitle(target)
 		target.specIcon,
 		"BOTTOMLEFT",
 		(-iconPadding + module.db.levelText.offsetX),
-		module.db.levelText.offsetY
+		module.db.levelText.offsetY + iconShiftY
 	)
 	target.levelText:SetJustifyH("LEFT")
 	target.levelText:SetJustifyV("BOTTOM")
@@ -810,7 +823,7 @@ function module:UpdateTitle(target)
 		target.specIcon,
 		"BOTTOMRIGHT",
 		(iconPadding + module.db.classText.offsetX),
-		module.db.classText.offsetY
+		module.db.classText.offsetY + iconShiftY
 	)
 	target.classText:SetJustifyH("RIGHT")
 	target.classText:SetJustifyV("BOTTOM")
