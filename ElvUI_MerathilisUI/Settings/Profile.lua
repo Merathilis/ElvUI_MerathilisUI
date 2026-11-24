@@ -287,6 +287,7 @@ P.bags = {
 		anchorToCorner = true,
 		nestByExpansion = true,
 		nestByEquipmentSet = true,
+		equipmentSetSections = false,
 		alternatingRowBackground = true,
 		viewMode = "CATEGORY",
 		sidebarCollapsed = false,

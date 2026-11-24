@@ -1118,6 +1118,8 @@ L["Splits categories like Consumables or Trade Goods into sub-headers per expans
 	"소모품, 교역품 같은 분류를 확장팩별 하위 머리글로 나누며, 최신 확장팩이 먼저 표시됩니다."
 L["Group by Equipment Set"] = "장비 세트별 그룹화"
 L["Splits the gear categories into sub-headers per Blizzard equipment set."] = "장비 분류를 블리자드 장비 세트별 하위 머리글로 나눕니다."
+L["Sets as Own Sections"] = true
+L["Shows each equipment set as its own section, right after the category or group that holds the set gear, instead of sub-headers inside it."] = true
 L["Auto Height"] = "높이 자동 조절"
 L["Shrinks the bag and bank windows to fit their contents. The configured height becomes the maximum instead of a fixed size."] =
 	"가방과 은행 창을 내용물에 맞게 줄입니다. 설정된 높이는 고정 크기 대신 최대값이 됩니다."

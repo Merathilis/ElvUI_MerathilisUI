@@ -241,6 +241,15 @@ module:AddOptions(function()
 								name = L["Group by Equipment Set"],
 								desc = L["Splits the gear categories into sub-headers per Blizzard equipment set."],
 							},
+							equipmentSetSections = {
+								order = 8.5,
+								type = "toggle",
+								name = F.NewFeatureText(L["Sets as Own Sections"]),
+								desc = L["Shows each equipment set as its own section, right after the category or group that holds the set gear, instead of sub-headers inside it."],
+								disabled = function()
+									return BagsDisabled() or not E.db.mui.bags.categorizedBags.nestByEquipmentSet
+								end,
+							},
 							mergeDuplicates = {
 								order = 9,
 								type = "toggle",

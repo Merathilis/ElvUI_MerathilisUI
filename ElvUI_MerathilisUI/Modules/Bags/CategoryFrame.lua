@@ -3535,6 +3535,43 @@ local function NestsByEquipmentSet(cat)
 	return (cat and cat.nestByEquipmentSet and module.db.nestByEquipmentSet) or false
 end
 
+-- "Sets as Own Sections": the set items leave their category (or group) and each
+-- equipment set gets a section of its own right after it. Module fields, the
+-- main chunk is at its locals limit.
+function module.SplitsEquipmentSets(cat)
+	return NestsByEquipmentSet(cat) and module.db.equipmentSetSections or false
+end
+
+module.EQUIP_SET_SECTION_PREFIX = "EQUIPSET:"
+
+-- Appends one section per equipment set found in `items` (alphabetical, like
+-- the sub-headers), items without a set name are skipped.
+function module.AppendEquipmentSetSections(sections, items)
+	local buckets, names = {}, {}
+	for _, entry in ipairs(items) do
+		local name = entry.subgroupName
+		if name then
+			if not buckets[name] then
+				buckets[name] = {}
+				tinsert(names, name)
+			end
+			tinsert(buckets[name], entry)
+		end
+	end
+	tsort(names)
+
+	for _, name in ipairs(names) do
+		tinsert(sections, {
+			key = module.EQUIP_SET_SECTION_PREFIX .. name,
+			name = name,
+			icon = module:GetEquipmentSetIcon(name) or "bags-icon-equipment",
+			isAtlas = module:GetEquipmentSetIcon(name) == nil,
+			items = buckets[name],
+			isEquipSet = true,
+		})
+	end
+end
+
 -- Groups items sharing the same subgroupName (expansion name, or equipment
 -- set name) into contiguous runs, items without one first/unsorted. Returns
 -- the reordered items plus a list of { name, index } marking where a small
@@ -3783,17 +3820,26 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 
 				local mergedItems, groupMembers = {}, {}
 				local hasNesting, nestByExpansion = false, false
+				local setItems
 
 				for _, memberKey in ipairs(group.members) do
 					local memberCat = module:FindCategory(memberKey)
 					local memberItems = itemsByCategory[memberKey] or {}
+					local splitsSets = module.SplitsEquipmentSets(memberCat)
 
+					if splitsSets then
+						setItems = setItems or {}
+					end
 					for _, entry in ipairs(memberItems) do
-						tinsert(mergedItems, entry)
+						if splitsSets and entry.subgroupName then
+							tinsert(setItems, entry)
+						else
+							tinsert(mergedItems, entry)
+						end
 					end
 
 					if memberCat then
-						if NestsByEquipmentSet(memberCat) then
+						if NestsByEquipmentSet(memberCat) and not splitsSets then
 							hasNesting = true
 						end
 						if NestsByExpansion(memberCat) then
@@ -3827,14 +3873,27 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 						groupMembers = groupMembers,
 					})
 				end
+				if setItems then
+					module.AppendEquipmentSetSections(sections, setItems)
+				end
 			end
 		else
 			local items = itemsByCategory[cat.key] or {}
+			local splitsSets = module.SplitsEquipmentSets(cat)
+			local setItems
+			if splitsSets then
+				local rest = {}
+				setItems = {}
+				for _, entry in ipairs(items) do
+					tinsert(entry.subgroupName and setItems or rest, entry)
+				end
+				items = rest
+			end
 			-- The keyring stays listed while empty, it's a fixed container
 			-- like a bag rather than an item type that may or may not exist
 			if #items > 0 or not db.hideEmptyCategories or cat.isUser or cat.isKeyring then
 				local subHeaders
-				if NestsByExpansion(cat) or NestsByEquipmentSet(cat) then
+				if NestsByExpansion(cat) or (NestsByEquipmentSet(cat) and not splitsSets) then
 					items, subHeaders = GroupBySubgroup(items, NestsByExpansion(cat))
 				end
 				tinsert(sections, {
@@ -3845,6 +3904,9 @@ local function BuildCategorySectionsFrom(itemsByCategory)
 					items = items,
 					subHeaders = subHeaders,
 				})
+			end
+			if setItems then
+				module.AppendEquipmentSetSections(sections, setItems)
 			end
 		end
 	end
@@ -4854,6 +4916,7 @@ function module.GetSectionAssignHandler(ctx, section)
 		section.key == module.RecentCategory.key
 		or section.isGroup
 		or section.isBagSection
+		or section.isEquipSet
 		or section.key == module.AllItemsCategory.key
 	then
 		return nil
@@ -5061,6 +5124,7 @@ local function RenderCategorySections(ctx, sections)
 				section.key == module.RecentCategory.key
 					or section.key == module.AllItemsCategory.key
 					or section.isBagSection == true
+					or section.isEquipSet == true
 					or section.isGroup == true,
 				section.isGroup,
 				nil,
