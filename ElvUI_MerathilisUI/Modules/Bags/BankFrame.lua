@@ -925,6 +925,11 @@ function module:RefreshBankCategoryFrame()
 		return
 	end
 
+	-- Keep Layout While Taking Items Out (KeepLayout.lua)
+	if module.HoldLayoutPass("bank") then
+		return
+	end
+
 	local db = module.db
 	local f = module.bankFrame
 	module.TrimRecentItems()
@@ -1090,6 +1095,7 @@ function module:RefreshBankCategoryFrame()
 
 	module:UpdateBankFooter()
 	module:OfflineSyncFrame(f)
+	module.ArmLayoutHold("bank", usedSlots, totalSlots)
 end
 
 -------------------------------------------------------------------------------

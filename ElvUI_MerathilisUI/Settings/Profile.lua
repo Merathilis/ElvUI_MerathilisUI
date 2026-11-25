@@ -283,6 +283,7 @@ P.bags = {
 		hideEmptyCategories = true,
 		showKeyring = true,
 		mergeDuplicates = true,
+		keepLayout = false,
 		autoSize = false,
 		anchorToCorner = true,
 		nestByExpansion = true,

@@ -1956,6 +1956,9 @@ local function UpdateSlotVisual(btn, entry)
 	btn.itemID = entry.itemID
 	btn.itemLink = entry.itemLink
 	btn.isMerged = entry.isMerged
+	-- Keep Layout While Taking Items Out (KeepLayout.lua)
+	btn.holdSlots = entry.slotKeys
+	btn.holdCleared = nil
 
 	SetItemButtonTexture(btn, entry.icon)
 
@@ -4707,11 +4710,14 @@ local function MergeDuplicateEntries(items)
 						proxy[field] = value
 					end
 					proxy.isMerged = true
+					-- Every slot behind the merged button (KeepLayout.lua)
+					proxy.slotKeys = { existing.bagID * 1000 + existing.slotID }
 					merged[existing.mergeIndex] = proxy
 					seen[key] = proxy
 					proxy.mergeIndex = existing.mergeIndex
 					existing = proxy
 				end
+				tinsert(existing.slotKeys, entry.bagID * 1000 + entry.slotID)
 
 				existing.count = (existing.count or 1) + (entry.count or 1)
 				existing.isNew = existing.isNew or entry.isNew
@@ -5245,6 +5251,11 @@ function module:RefreshCategoryFrame()
 		return
 	end
 
+	-- Keep Layout While Taking Items Out (KeepLayout.lua)
+	if module.HoldLayoutPass("bag") then
+		return
+	end
+
 	-- Picks up a lowered Recent Items limit from the options without waiting
 	-- for the next item to come in.
 	TrimRecentItems()
@@ -5365,6 +5376,7 @@ function module:RefreshCategoryFrame()
 	module:UpdateJunkMarkButton()
 	module:UpdateQuickActionsButton()
 	module:OfflineSyncFrame(f)
+	module.ArmLayoutHold("bag", usedSlots, totalSlots)
 end
 
 -------------------------------------------------------------------------------
@@ -6432,6 +6444,9 @@ local refreshPending = false
 local function DoThrottledRefresh()
 	refreshPending = false
 
+	-- Only these passes may keep the layout (KeepLayout.lua)
+	module.holdEventPass = true
+
 	if module.frame and module.frame:IsShown() then
 		module:RefreshCategoryFrame()
 	end
@@ -6439,6 +6454,8 @@ local function DoThrottledRefresh()
 	if module.bankFrame and module.bankFrame:IsShown() and module.RefreshBankCategoryFrame then
 		module:RefreshBankCategoryFrame()
 	end
+
+	module.holdEventPass = nil
 
 	-- Bag icons and free slot counts (a bag swapped in from the popout)
 	if module.bagBarPopout and module.bagBarPopout:IsShown() then
@@ -6765,6 +6782,7 @@ module.VIEW_MODE_ROW_HEIGHT = VIEW_MODE_ROW_HEIGHT
 module.COLLAPSED_SIDEBAR_WIDTH = COLLAPSED_SIDEBAR_WIDTH
 module.SkinScrollBar = SkinScrollBar
 module.SetTitleCount = SetTitleCount
+module.AnyItemPanelOpen = AnyItemPanelOpen
 module.SetFillBar = SetFillBar
 module.CreateFillBar = CreateFillBar
 module.CountSearchHits = CountSearchHits

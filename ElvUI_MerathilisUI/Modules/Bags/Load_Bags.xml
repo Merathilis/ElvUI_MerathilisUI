@@ -4,6 +4,7 @@
     <Script file="Currencies.lua"/>
     <Script file="JunkMarker.lua"/>
     <Script file="UnusableTint.lua"/>
+    <Script file="KeepLayout.lua"/>
     <Script file="QuickActions.lua"/>
     <Script file="ListView.lua"/>
     <Script file="CompactView.lua"/>

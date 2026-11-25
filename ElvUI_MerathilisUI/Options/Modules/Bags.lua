@@ -256,6 +256,12 @@ module:AddOptions(function()
 								name = L["Merge Duplicate Stacks"],
 								desc = L["Shows identical items from several bag slots as one slot with the combined count. Gear is never merged, and merging pauses while a vendor, mailbox, trade, auction house or bank window is open, since those only ever take one stack at a time."],
 							},
+							keepLayout = {
+								order = 9.5,
+								type = "toggle",
+								name = F.NewFeatureText(L["Keep Layout While Taking Items Out"]),
+								desc = L["The bags and the bank keep every slot in place while you sell, use, delete or deposit items: an emptied slot stays as a gap and nothing moves under the cursor. The windows sort themselves again when an item comes in, when you sort or search, or when you reopen them. Not used by the List display."],
+							},
 							clearRecentOnClose = {
 								order = 10,
 								type = "toggle",

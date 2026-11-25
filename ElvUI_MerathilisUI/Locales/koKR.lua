@@ -1118,6 +1118,8 @@ L["Splits categories like Consumables or Trade Goods into sub-headers per expans
 	"소모품, 교역품 같은 분류를 확장팩별 하위 머리글로 나누며, 최신 확장팩이 먼저 표시됩니다."
 L["Group by Equipment Set"] = "장비 세트별 그룹화"
 L["Splits the gear categories into sub-headers per Blizzard equipment set."] = "장비 분류를 블리자드 장비 세트별 하위 머리글로 나눕니다."
+L["Keep Layout While Taking Items Out"] = true
+L["The bags and the bank keep every slot in place while you sell, use, delete or deposit items: an emptied slot stays as a gap and nothing moves under the cursor. The windows sort themselves again when an item comes in, when you sort or search, or when you reopen them. Not used by the List display."] = true
 L["Sets as Own Sections"] = true
 L["Shows each equipment set as its own section, right after the category or group that holds the set gear, instead of sub-headers inside it."] = true
 L["Auto Height"] = "높이 자동 조절"
