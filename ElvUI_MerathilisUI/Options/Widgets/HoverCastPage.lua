@@ -574,10 +574,15 @@ local function BuildKeybindButton(parent, width, getCurrentKey, onKeySet, onKeyC
 	end
 	RefreshLabel()
 
-	-- Stops capturing: disables keyboard + wheel so the page scrolls normally again
+	local OnWheel -- set below; on the button only while listening
+
+	-- Stops capturing: disables keyboard + wheel so the page scrolls normally again.
+	-- A wheel script grabs the wheel by itself (Blizzard's key binding capture sets
+	-- and clears it the same way), so the script goes too.
 	local function StopListening()
 		listening = false
 		kbBtn:EnableKeyboard(false)
+		kbBtn:SetScript("OnMouseWheel", nil)
 		kbBtn:EnableMouseWheel(false)
 		kbBtn.backdrop:SetBackdropColor(unpack(COLOR_BOX))
 		RefreshLabel()
@@ -590,6 +595,7 @@ local function BuildKeybindButton(parent, width, getCurrentKey, onKeySet, onKeyC
 				kbLbl:SetText(L["Press a key, click, or scroll..."])
 				kbBtn.backdrop:SetBackdropColor(unpack(COLOR_BOX_HOVER))
 				kbBtn:EnableKeyboard(true)
+				kbBtn:SetScript("OnMouseWheel", OnWheel)
 				kbBtn:EnableMouseWheel(true)
 			elseif button == "RightButton" then
 				if onKeyClear then
@@ -633,9 +639,10 @@ local function BuildKeybindButton(parent, width, getCurrentKey, onKeySet, onKeyC
 		end
 	end)
 
-	-- Wheel binding only via this capture button; MOUSEWHEELUP/DOWN bind through
+	-- Wheel binding only via this capture button, taken only while listening (OnClick
+	-- sets this handler, StopListening clears it); MOUSEWHEELUP/DOWN bind through
 	-- the keybind path (SetBindingClick), same as keyboard keys
-	kbBtn:SetScript("OnMouseWheel", function(_, delta)
+	OnWheel = function(_, delta)
 		if not listening then
 			return
 		end
@@ -645,7 +652,7 @@ local function BuildKeybindButton(parent, width, getCurrentKey, onKeySet, onKeyC
 		if onKeySet then
 			onKeySet(mods .. wheel)
 		end
-	end)
+	end
 
 	kbBtn:SetScript("OnEnter", function(self)
 		if not listening then
