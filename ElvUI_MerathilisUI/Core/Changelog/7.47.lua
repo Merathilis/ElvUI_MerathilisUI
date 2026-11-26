@@ -18,7 +18,7 @@ MER.Changelog[747] = {
 		'[Core]: ElvUI\'s plugin list shows the real MerathilisUI version again instead of "@project-version@".',
 		"[HoverCast]: The options page scrolls with the mouse wheel again while the cursor is over a key button. The button now only catches the wheel after a click, while it waits for a binding.",
 		"[Minimap Buttons]: The collected minimap buttons stay attached to the minimap after a pet battle.",
-		"[Skins]: The RestedXP Guides skin no longer throws an error on WoW Forever, where RestedXP ships an older version, and skins the guide window there too.",
+		"[Skins]: The RestedXP Guides skin no longer throws an error with newer RestedXP versions, which moved Active Items, Active Targets and Level Splits into their own small windows. These windows are now skinned as well. On WoW Forever, where RestedXP ships an older version, the error is gone too and the guide window is skinned there as well.",
 		"[Tracker]: The Bloodlust tracker also finds your own Bloodlust, Heroism, Time Warp or Fury of the Aspects when the game reports it only as a spellbook entry, instead of falling back to the faction icon.",
 	},
 	NEW = {
