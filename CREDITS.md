@@ -49,3 +49,5 @@
     -   Media/Icons/Fail.tga
 -   Icon made by juicy_fish art from www.flaticon.com
     -   Media/Icons/Install.tga
+-   Blinker (The Blinker Project Authors) and TikTok Sans (TikTok Inc.), SIL Open Font License 1.1, in the modified versions from EllesmereUI
+    -   Media/Fonts/NarrowHeavy.ttf (license: Media/Fonts/Licenses/NarrowHeavy-OFL.txt)

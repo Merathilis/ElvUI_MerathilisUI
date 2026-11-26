@@ -119,7 +119,7 @@ module:AddOptions(function()
 				fontSize = "medium",
 			},
 			primaryFont = FontOverrideGroup(7, L["Main Font"], I.Fonts.Primary),
-			numberFont = FontOverrideGroup(8, L["Number Font"], I.Fonts.GothamRaid),
+			numberFont = FontOverrideGroup(8, L["Number Font"], I.Fonts.Number),
 			fontScale = {
 				order = 9,
 				type = "range",

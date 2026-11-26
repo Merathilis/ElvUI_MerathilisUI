@@ -9,7 +9,9 @@ I.General = {
 
 I.Fonts = {
 	Primary = "Expressway",
-	GothamRaid = "GothamNarrow-Black",
+	Number = "MER Narrow Heavy",
+	-- Name of the number font before it was replaced, still registered for old profiles
+	LegacyNumber = "GothamNarrow-Black",
 	Runescape = "Runescape",
 	Icons = "Icons",
 }

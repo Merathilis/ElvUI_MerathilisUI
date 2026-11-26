@@ -186,51 +186,51 @@ function module:ElvUIFont()
 		auras = {
 			-- Buffs
 			buffs = {
-				countFont = F.FontOverride(I.Fonts.GothamRaid),
+				countFont = F.FontOverride(I.Fonts.Number),
 				countFontSize = F.FontSizeScaled(11),
-				countFontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+				countFontOutline = F.FontStyleOverride(I.Fonts.Number, "SHADOWOUTLINE"),
 
-				timeFont = F.FontOverride(I.Fonts.GothamRaid),
+				timeFont = F.FontOverride(I.Fonts.Number),
 				timeFontSize = F.FontSizeScaled(11),
-				timeFontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+				timeFontOutline = F.FontStyleOverride(I.Fonts.Number, "SHADOWOUTLINE"),
 			},
 
 			-- Debuffs
 			debuffs = {
-				countFont = F.FontOverride(I.Fonts.GothamRaid),
+				countFont = F.FontOverride(I.Fonts.Number),
 				countFontSize = F.FontSizeScaled(12),
-				countFontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+				countFontOutline = F.FontStyleOverride(I.Fonts.Number, "SHADOWOUTLINE"),
 
-				timeFont = F.FontOverride(I.Fonts.GothamRaid),
+				timeFont = F.FontOverride(I.Fonts.Number),
 				timeFontSize = F.FontSizeScaled(12),
-				timeFontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+				timeFontOutline = F.FontStyleOverride(I.Fonts.Number, "SHADOWOUTLINE"),
 			},
 		},
 
 		-- UnitFrames
 		unitframe = {
-			font = F.FontOverride(I.Fonts.GothamRaid),
+			font = F.FontOverride(I.Fonts.Number),
 			fontSize = F.FontSizeScaled(10),
-			fontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+			fontOutline = F.FontStyleOverride(I.Fonts.Number, "SHADOWOUTLINE"),
 
 			cooldown = {
 				fonts = {
 					enable = true,
-					font = F.FontOverride(I.Fonts.GothamRaid),
+					font = F.FontOverride(I.Fonts.Number),
 					fontSize = F.FontSizeScaled(16),
-					fontOutline = F.FontStyleOverride(I.Fonts.GothamRaid, "SHADOWOUTLINE"),
+					fontOutline = F.FontStyleOverride(I.Fonts.Number, "SHADOWOUTLINE"),
 				},
 			},
 
 			units = {
 				player = {
 					customTexts = customTextSize({
-						{ "BigName", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
-						{ "Group", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
-						{ "Life", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
-						{ "MERMana", I.Fonts.GothamRaid, 12, "SHADOWOUTLINE" },
-						{ "MERPower", I.Fonts.GothamRaid, 12, "SHADOWOUTLINE" },
-						{ "Percent", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+						{ "BigName", I.Fonts.Number, 11, "SHADOWOUTLINE" },
+						{ "Group", I.Fonts.Number, 11, "SHADOWOUTLINE" },
+						{ "Life", I.Fonts.Number, 11, "SHADOWOUTLINE" },
+						{ "MERMana", I.Fonts.Number, 12, "SHADOWOUTLINE" },
+						{ "MERPower", I.Fonts.Number, 12, "SHADOWOUTLINE" },
+						{ "Percent", I.Fonts.Number, 11, "SHADOWOUTLINE" },
 					}),
 
 					buffs = {
@@ -246,10 +246,10 @@ function module:ElvUIFont()
 
 				target = {
 					customTexts = customTextSize({
-						{ "BigName", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
-						{ "Life", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
-						{ "MERPower", I.Fonts.GothamRaid, 12, "SHADOWOUTLINE" },
-						{ "Percent", I.Fonts.GothamRaid, 11, "SHADOWOUTLINE" },
+						{ "BigName", I.Fonts.Number, 11, "SHADOWOUTLINE" },
+						{ "Life", I.Fonts.Number, 11, "SHADOWOUTLINE" },
+						{ "MERPower", I.Fonts.Number, 12, "SHADOWOUTLINE" },
+						{ "Percent", I.Fonts.Number, 11, "SHADOWOUTLINE" },
 					}),
 
 					buffs = {

@@ -1,7 +1,7 @@
 local MER, W, WF, F, E, I, V, P, G, L = unpack(ElvUI_MerathilisUI)
 local C = W.Utilities.Color
 
-local print, tonumber, type = print, tonumber, type
+local ipairs, print, tonumber, type = ipairs, print, tonumber, type
 local format = string.format
 
 local isFirstLine = true
@@ -140,6 +140,20 @@ function MER:UpdateScripts()
 	-- wrote go back to mMediaTag's defaults (off), so only MerathilisUI's Portraits show
 	if profileVersion < 7.41 and ResetMediaTagPortraits() then
 		UpdateMessage(L["Portraits"] .. ": " .. L["Update Database"], profileVersion)
+	end
+
+	-- The number font got a new name: its font and outline overrides move to the new key
+	if profileVersion < 7.47 then
+		local general = E.db.mui.general
+		for _, key in ipairs({ "fontOverride", "fontStyleOverride" }) do
+			local overrides = general and general[key]
+			if type(overrides) == "table" and overrides[I.Fonts.LegacyNumber] ~= nil then
+				if overrides[I.Fonts.LegacyNumber] ~= "DEFAULT" then
+					overrides[I.Fonts.Number] = overrides[I.Fonts.LegacyNumber]
+				end
+				overrides[I.Fonts.LegacyNumber] = nil
+			end
+		end
 	end
 
 	if not isFirstLine then

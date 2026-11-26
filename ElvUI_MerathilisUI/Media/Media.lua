@@ -177,7 +177,9 @@ end
 
 -- Fonts
 F.AddMedia("font", "Expressway.ttf", I.Fonts.Primary, nil, westAndRUBits)
-F.AddMedia("font", "GothamNarrow-Black.ttf", I.Fonts.GothamRaid, nil, westAndRUBits)
+F.AddMedia("font", "NarrowHeavy.ttf", I.Fonts.Number, nil, westAndRUBits)
+-- Profiles and preset codes saved with the old number font name keep working
+F.AddMedia("font", "NarrowHeavy.ttf", I.Fonts.LegacyNumber, nil, westAndRUBits)
 F.AddMedia("font", "Runescape.ttf", I.Fonts.Runescape, nil, westAndRUBits)
 F.AddMedia("font", "Armory_Icons.ttf", I.Fonts.Icons, nil, allLocaleBits)
 

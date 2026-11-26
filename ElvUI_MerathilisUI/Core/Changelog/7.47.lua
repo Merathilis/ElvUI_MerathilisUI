@@ -41,6 +41,7 @@ MER.Changelog[747] = {
 	},
 	IMPROVEMENTS = {
 		"[Compatibility Check]: Now also reports when Name Hover shows the Blizzard tooltip alongside while ElvUI's tooltip Cursor Anchor is on. Both sit at the mouse, so the tooltip covers the Name Hover text. Pick which one stays on.",
+		'[Fonts]: The number font (GothamNarrow-Black) was replaced by "MER Narrow Heavy", an open font under the SIL Open Font License with the full Cyrillic alphabet. Profiles that still name GothamNarrow-Black get the new font automatically.',
 		"[Installer]: The game settings step now also applies ElvUI's own recommended CVars, which were skipped because the MerathilisUI installer replaces ElvUI's. Changes ElvUI makes to them are picked up automatically, and MerathilisUI's own values still take priority.",
 		"[Locales]: The Korean translation is nearly complete, thanks to haslram.",
 	},
