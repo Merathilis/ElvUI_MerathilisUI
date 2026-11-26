@@ -51,3 +51,5 @@
     -   Media/Icons/Install.tga
 -   Blinker (The Blinker Project Authors) and TikTok Sans (TikTok Inc.), SIL Open Font License 1.1, in the modified versions from EllesmereUI
     -   Media/Fonts/NarrowHeavy.ttf (license: Media/Fonts/Licenses/NarrowHeavy-OFL.txt)
+-   RuneScape UF by nayfan (made with FontStruct), Creative Commons Attribution-NoDerivatives 3.0 (https://creativecommons.org/licenses/by-nd/3.0/)
+    -   Media/Fonts/Runescape.ttf
