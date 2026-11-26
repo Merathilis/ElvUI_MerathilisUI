@@ -225,7 +225,7 @@ module:AddOptions(function()
 				args = {
 					enable = module.ToggleCard({
 						order = 1,
-						name = F.NewFeatureText(L["Enable"]),
+						name = L["Enable"],
 						desc = L["Answer NPC windows from the keyboard: the dialog key accepts, continues and completes quests or picks the top choice of a gossip window, the number keys pick a numbered choice or reward."],
 					}),
 					-- Immersion hides Blizzard's gossip and quest windows and draws its own,

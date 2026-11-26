@@ -244,7 +244,7 @@ module:AddOptions(function()
 							equipmentSetSections = {
 								order = 8.5,
 								type = "toggle",
-								name = F.NewFeatureText(L["Sets as Own Sections"]),
+								name = L["Sets as Own Sections"],
 								desc = L["Shows each equipment set as its own section, right after the category or group that holds the set gear, instead of sub-headers inside it."],
 								disabled = function()
 									return BagsDisabled() or not E.db.mui.bags.categorizedBags.nestByEquipmentSet
@@ -259,7 +259,7 @@ module:AddOptions(function()
 							keepLayout = {
 								order = 9.5,
 								type = "toggle",
-								name = F.NewFeatureText(L["Keep Layout While Taking Items Out"]),
+								name = L["Keep Layout While Taking Items Out"],
 								desc = L["The bags and the bank keep every slot in place while you sell, use, delete or deposit items: an emptied slot stays as a gap and nothing moves under the cursor. The windows sort themselves again when an item comes in, when you sort or search, or when you reopen them. Not used by the List display."],
 							},
 							clearRecentOnClose = {
@@ -931,7 +931,7 @@ module:AddOptions(function()
 							unusableTint = {
 								order = 11.5,
 								type = "toggle",
-								name = F.NewFeatureText(L["Tint Unusable Items"]),
+								name = L["Tint Unusable Items"],
 								desc = L["Colors items your character can't use red: gear and consumables with a requirement you don't meet, items above your level and recipes you can't learn or already know."],
 								set = function(info, value)
 									E.db.mui.bags.categorizedBags.effects[info[#info]] = value

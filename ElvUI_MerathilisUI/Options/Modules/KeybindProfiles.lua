@@ -56,8 +56,6 @@ module:AddOptions(function()
 		return table.concat(lines, "\n")
 	end
 
-	F.MarkTabAsNew("keybindProfiles")
-
 	options.keybindProfiles = {
 		type = "group",
 		name = module:AddCategorieIcon(L["Keybind Profiles"], "keybind_profiles"),
@@ -65,7 +63,7 @@ module:AddOptions(function()
 			header = {
 				order = 0,
 				type = "header",
-				name = F.NewFeatureText(L["Keybind Profiles"]),
+				name = L["Keybind Profiles"],
 			},
 			description = {
 				order = 1,
