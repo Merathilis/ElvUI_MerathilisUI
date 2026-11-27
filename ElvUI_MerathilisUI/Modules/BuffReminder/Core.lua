@@ -197,7 +197,9 @@ local RAID_BUFFS = {
 -- (buffIDs). castSpell is rank 1, used for the label only, the click casts the
 -- highest known rank. The first four keep the Retail keys, so the profile
 -- switches are shared. selfCast: no target; talent: a groupmate of the class
--- may not have it, so no "from group" hint.
+-- may not have it, so no "from group" hint. Intellect and Divine Spirit serve
+-- every mana user (hunters included), Battle Shout raises melee attack power
+-- only (a hunter shoots with ranged).
 if E.Forever then
 	BUFF_BENEFICIARIES.intellect = {
 		DRUID = true,
@@ -207,6 +209,13 @@ if E.Forever then
 		PRIEST = true,
 		SHAMAN = true,
 		WARLOCK = true,
+	}
+	BUFF_BENEFICIARIES.attackPower = {
+		DRUID = true,
+		PALADIN = true,
+		ROGUE = true,
+		SHAMAN = true,
+		WARRIOR = true,
 	}
 
 	RAID_BUFFS = {
@@ -270,6 +279,7 @@ if E.Forever then
 			castSpell = 14752,
 			single = { 14752, 14818, 14819, 27841 },
 			buffIDs = { 14752, 14818, 14819, 16875, 27841, 27681 },
+			benefit = "intellect",
 			talent = true,
 		},
 	}

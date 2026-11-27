@@ -904,7 +904,20 @@ local function CreateMailButton(parent)
 
 	btn.ShouldShow = HasUnreadMail
 	btn.ShowTooltip = function(self)
-		local senders = GetLatestThreeSenders and { GetLatestThreeSenders() } or {}
+		-- Any of the three can be nil (unknown sender), so skip the gaps.
+		local senders = {}
+		if GetLatestThreeSenders then
+			local s1, s2, s3 = GetLatestThreeSenders()
+			if s1 then
+				senders[#senders + 1] = s1
+			end
+			if s2 then
+				senders[#senders + 1] = s2
+			end
+			if s3 then
+				senders[#senders + 1] = s3
+			end
+		end
 
 		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		_G.GameTooltip:AddLine(#senders > 0 and HAVE_MAIL_FROM or HAVE_MAIL)
