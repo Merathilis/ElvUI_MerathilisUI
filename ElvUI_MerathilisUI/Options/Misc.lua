@@ -1048,6 +1048,100 @@ module:AddOptions(function()
 		},
 	}
 
+	F.MarkTabAsNew("auctionFavorites")
+	options.auctionFavorites = {
+		order = 7,
+		type = "group",
+		name = L["Auction Favorites"],
+		get = function(info)
+			return E.global.mui.auctionFavorites[info[#info]]
+		end,
+		set = function(info, value)
+			E.global.mui.auctionFavorites[info[#info]] = value
+			E:StaticPopup_Show("PRIVATE_RL")
+		end,
+		args = {
+			enable = module.ToggleCard({
+				order = 1,
+				name = L["Enable"],
+				desc = L["Shares your auction house favorites between all characters of the account. Changes are applied when you open the auction house."],
+			}),
+			count = module.TextCard(2, function()
+				return format(L["Favorites in the account list: %d"], MI:AuctionFavorites_Count())
+			end),
+			presets = {
+				order = 3,
+				type = "group",
+				name = L["Season Consumables"],
+				guiInline = true,
+				get = function(info)
+					return E.global.mui.auctionFavorites.presets[info[#info]]
+				end,
+				set = function(info, value)
+					E.global.mui.auctionFavorites.presets[info[#info]] = value
+				end,
+				disabled = function()
+					return not E.global.mui.auctionFavorites.enable
+				end,
+				args = {
+					enable = module.ToggleCard({
+						order = 1,
+						name = L["Season Consumables"],
+						desc = L["Keeps the flasks, potions, gems and weapon oils of the current raid and Mythic+ season as favorites. Items of past seasons are taken off again after an update. Unfavorite an item to keep it off."],
+					}),
+					categories = {
+						order = 2,
+						type = "multiselect",
+						name = L["Categories"],
+						get = function(_, key)
+							return E.global.mui.auctionFavorites.presets.categories[key]
+						end,
+						set = function(_, key, value)
+							E.global.mui.auctionFavorites.presets.categories[key] = value
+						end,
+						disabled = function()
+							return not E.global.mui.auctionFavorites.enable
+								or not E.global.mui.auctionFavorites.presets.enable
+						end,
+						values = {
+							flasks = L["Flasks"],
+							potions = L["Potions"],
+							gems = L["Gems"],
+							weaponOils = L["Weapon Oils"],
+						},
+					},
+				},
+			},
+			removeOldExpansions = module.ResetButton({
+				order = 4,
+				type = "execute",
+				name = L["Remove Older Expansions"],
+				desc = L["Unfavorites consumables, gems, trade goods and item enhancements of older expansions on all characters. Equipment, recipes, pets, mounts and decor are kept."],
+				confirm = true,
+				disabled = function()
+					return not E.global.mui.auctionFavorites.enable
+				end,
+				func = function()
+					local removedCount, unresolvedCount = MI:AuctionFavorites_RemoveOldExpansions()
+					F.Print(format(L["Removed %d favorites of older expansions."], removedCount))
+					if unresolvedCount > 0 then
+						F.Print(format(L["%d items are still loading, click again in a moment."], unresolvedCount))
+					end
+				end,
+			}),
+			reset = module.ResetButton({
+				order = 5,
+				type = "execute",
+				name = L["Reset Account List"],
+				desc = L["Forgets the shared favorites. The favorites of your characters stay as they are."],
+				confirm = true,
+				func = function()
+					MI:AuctionFavorites_Reset()
+				end,
+			}),
+		},
+	}
+
 	options.raidInfo = {
 		order = 11,
 		type = "group",

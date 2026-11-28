@@ -2530,3 +2530,21 @@ L["A Yes / No popup before the profile is applied. No leaves this character alon
 L["Skip Set Up Characters"] = true
 L["Characters that already have character specific key bindings keep them."] = true
 L["All Other Classes"] = true
+
+-- Auction Favorites
+L["Auction Favorites"] = true
+L["Shares your auction house favorites between all characters of the account. Changes are applied when you open the auction house."] = true
+L["Favorites in the account list: %d"] = true
+L["Season Consumables"] = true
+L["Keeps the flasks, potions, gems and weapon oils of the current raid and Mythic+ season as favorites. Items of past seasons are taken off again after an update. Unfavorite an item to keep it off."] = true
+L["Flasks"] = true
+L["Potions"] = true
+L["Weapon Oils"] = true
+L["Reset Account List"] = true
+L["Forgets the shared favorites. The favorites of your characters stay as they are."] = true
+L["Auction favorites synced: %d added, %d removed."] = true
+L["Auction favorites are full, %d could not be added."] = true
+L["Remove Older Expansions"] = true
+L["Unfavorites consumables, gems, trade goods and item enhancements of older expansions on all characters. Equipment, recipes, pets, mounts and decor are kept."] = true
+L["Removed %d favorites of older expansions."] = true
+L["%d items are still loading, click again in a moment."] = true

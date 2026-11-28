@@ -9,6 +9,7 @@ MER.Changelog[748] = {
 		"[Profiles]: WoW Forever: Applying the Permoks Account Manager profile no longer throws a Lua error, and it uses its own Forever profile.",
 	},
 	NEW = {
+		"[Auction Favorites]: Shares your auction house favorites between all characters of the account. Optionally keeps the current season's flasks, potions, gems and weapon oils as favorites, and can clear out the consumables of older expansions.",
 		"[Group Finder]: Region Flags option shows the leader's country flag instead of the region tag (NA, DE, FR, ...). Off by default.",
 	},
 	IMPROVEMENTS = {},

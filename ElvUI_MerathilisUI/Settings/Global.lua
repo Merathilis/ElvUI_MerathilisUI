@@ -67,6 +67,22 @@ G.mediaPlayer = {
 	restoreMusic = false, -- game music was switched off for a track, switch it back on at the next login
 }
 
+G.auctionFavorites = {
+	enable = true,
+	list = {}, -- ["itemID:itemLevel:itemSuffix:speciesID"] = true, favorites of the whole account
+	removed = {}, -- [key] = time of the removal, taken off the other characters as well
+	presets = {
+		enable = false, -- current season's consumables as favorites
+		categories = {
+			flasks = true,
+			potions = true,
+			gems = true,
+			weaponOils = true,
+		},
+		added = {}, -- [key] = true, favorites the presets added
+	},
+}
+
 G.groupFinder = {
 	applications = {}, -- Mythic+ application counts of the whole account
 }
