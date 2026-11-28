@@ -5,7 +5,7 @@ if E.Forever then
 	return
 end
 
-local pairs, pcall, tonumber, tostring, type = pairs, pcall, tonumber, tostring, type
+local pairs, pcall, tonumber, type = pairs, pcall, tonumber, type
 local strfind, strlower, strsub = strfind, strlower, strsub
 
 -------------------------------------------------------------------------------
@@ -86,7 +86,8 @@ local ONE_CHAR = {
 }
 local KEYWORDS = { ["and"] = "and", ["or"] = "or", ["not"] = "not" }
 
--- Text -> list of { kind = "num" | "word" | operator, value }
+-- Text -> list of { kind = "num" | "word" | operator, value, text }.
+-- text is what was typed, so errors name it instead of the token kind.
 local function Tokenize(text)
 	local tokens, pos, length = {}, 1, #text
 	while pos <= length do
@@ -99,26 +100,28 @@ local function Tokenize(text)
 			if not number then
 				return nil, strsub(text, pos, last)
 			end
-			tokens[#tokens + 1] = { kind = "num", value = number }
+			tokens[#tokens + 1] = { kind = "num", value = number, text = strsub(text, pos, last) }
 			pos = last + 1
 		elseif strfind(c, "[%a_]") then
 			local _, last = strfind(text, "^[%w_]+", pos)
-			local word = strlower(strsub(text, pos, last))
+			local typed = strsub(text, pos, last)
+			local word = strlower(typed)
 			if KEYWORDS[word] then
-				tokens[#tokens + 1] = { kind = KEYWORDS[word] }
+				tokens[#tokens + 1] = { kind = KEYWORDS[word], text = typed }
 			elseif WORDS[word] then
-				tokens[#tokens + 1] = { kind = "word", value = WORDS[word] }
+				tokens[#tokens + 1] = { kind = "word", value = WORDS[word], text = typed }
 			else
-				return nil, strsub(text, pos, last)
+				return nil, typed
 			end
 			pos = last + 1
 		else
-			local two = TWO_CHAR[strsub(text, pos, pos + 1)]
+			local pair = strsub(text, pos, pos + 1)
+			local two = TWO_CHAR[pair]
 			if two then
-				tokens[#tokens + 1] = { kind = two }
+				tokens[#tokens + 1] = { kind = two, text = pair }
 				pos = pos + 2
 			elseif ONE_CHAR[c] then
-				tokens[#tokens + 1] = { kind = ONE_CHAR[c] }
+				tokens[#tokens + 1] = { kind = ONE_CHAR[c], text = c }
 				pos = pos + 1
 			else
 				return nil, c
@@ -208,7 +211,7 @@ local function Parse(tokens)
 			Take()
 			return inner
 		end
-		error(token.kind, 0)
+		error(token.text or token.kind, 0)
 	end
 
 	local function Unary()
@@ -278,7 +281,7 @@ local function Parse(tokens)
 	local root = Or()
 	if pos <= #tokens then
 		local extra = tokens[pos]
-		error(extra.kind == "num" and tostring(extra.value) or extra.kind, 0)
+		error(extra.text or extra.kind, 0)
 	end
 	return root
 end
