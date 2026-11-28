@@ -2686,6 +2686,8 @@ L["Lists the group members by role in the tooltip. With the Group Info tooltip o
 	"툴팁에 그룹 멤버를 역할별로 나열합니다. WindTools의 그룹 정보 툴팁이 있으면 이름만 추가됩니다."
 L["Region Tags"] = "지역 태그"
 L["Shows where the group leader plays from after the activity: the region on US realms (NA, OCE, MEX, BRA), the realm language on EU realms (EN, DE, FR, ES, IT, PT, RU)."] =
+L["Region Flags"] = true
+L["Shows a flag instead of the region text."] = true
 	"활동 이름 뒤에 파티장이 접속한 지역을 표시합니다: 미국 서버는 지역(NA, OCE, MEX, BRA), 유럽 서버는 서버 언어(EN, DE, FR, ES, IT, PT, RU)입니다."
 L["Group Notes"] = "그룹 메모"
 L["Shows the note of a group in its row, after the play style. Blizzard only shows it in the tooltip."] =

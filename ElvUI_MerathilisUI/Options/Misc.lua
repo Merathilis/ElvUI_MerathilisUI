@@ -911,8 +911,17 @@ module:AddOptions(function()
 						name = L["Region Tags"],
 						desc = L["Shows where the group leader plays from after the activity: the region on US realms (NA, OCE, MEX, BRA), the realm language on EU realms (EN, DE, FR, ES, IT, PT, RU)."],
 					},
-					groupNotes = {
+					regionFlags = {
 						order = 6,
+						type = "toggle",
+						name = F.NewFeatureText(L["Region Flags"]),
+						desc = L["Shows a flag instead of the region text."],
+						disabled = function()
+							return not E.db.mui.misc.groupFinder.enable or not E.db.mui.misc.groupFinder.regionTags
+						end,
+					},
+					groupNotes = {
+						order = 7,
 						type = "toggle",
 						name = L["Group Notes"],
 						desc = L["Shows the note of a group in its row, after the play style. Blizzard only shows it in the tooltip."],

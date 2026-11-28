@@ -120,6 +120,9 @@ F.AddMedia("icon", "New")
 F.AddMedia("icon", "German")
 F.AddMedia("icon", "Russian")
 F.AddMedia("icon", "Korean")
+for _, flag in ipairs({ "AU", "BR", "DE", "ES", "FR", "GB", "IT", "MX", "PT", "RU", "US" }) do
+	F.AddMedia("icon", "Flags/" .. flag)
+end
 
 F.AddMedia("texture", "arrow")
 F.AddMedia("texture", "pepeSmall")

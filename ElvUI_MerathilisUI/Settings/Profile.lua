@@ -434,6 +434,7 @@ P.misc = {
 		nameColors = true,
 		memberTooltip = true,
 		regionTags = true,
+		regionFlags = false, -- the country flag instead of the region text
 		groupNotes = true, -- the group's note in the row, after the play style
 		filterExpression = "",
 		applications = {

@@ -301,8 +301,27 @@ end
 
 function module:UpdateRegionTag(entry, info)
 	local data = self.db.regionTags and info and self:RegionOfRealm(LeaderRealm(info))
-	local tag = entry.MER_RegionTag
-	if not data then
+	local tag, flag = entry.MER_RegionTag, entry.MER_RegionFlag
+	local flagFile = data and self.db.regionFlags and I.Media.Icons.Flags[data.flag]
+
+	if flagFile then
+		if not flag then
+			-- After the activity line, which sizes to its text. 2:1 like the files
+			flag = CreateFrame("Frame", nil, entry)
+			flag:SetSize(16, 8)
+			flag:SetPoint("LEFT", entry.ActivityName, "RIGHT", 4, 0)
+			flag:CreateBackdrop("Transparent")
+			flag.Texture = flag:CreateTexture(nil, "ARTWORK")
+			flag.Texture:SetAllPoints()
+			entry.MER_RegionFlag = flag
+		end
+		flag.Texture:SetTexture(flagFile)
+		flag:Show()
+	elseif flag then
+		flag:Hide()
+	end
+
+	if not data or flagFile then
 		if tag then
 			tag:Hide()
 		end
@@ -833,6 +852,9 @@ function module:HookGroupFinder()
 			-- Turned off: rows lose the tag, the note and the dimming on their next update
 			if entry.MER_RegionTag then
 				entry.MER_RegionTag:Hide()
+			end
+			if entry.MER_RegionFlag then
+				entry.MER_RegionFlag:Hide()
 			end
 			if entry.MER_Note then
 				entry.MER_Note:Hide()

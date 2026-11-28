@@ -8,6 +8,8 @@ MER.Changelog[748] = {
 		"[Minimap Buttons]: The mail icon tooltip now lists every known sender when one of the last three is unknown.",
 		"[Profiles]: WoW Forever: Applying the Permoks Account Manager profile no longer throws a Lua error, and it uses its own Forever profile.",
 	},
-	NEW = {},
+	NEW = {
+		"[Group Finder]: Region Flags option shows the leader's country flag instead of the region tag (NA, DE, FR, ...). Off by default.",
+	},
 	IMPROVEMENTS = {},
 }

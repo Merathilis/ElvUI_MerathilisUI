@@ -22,15 +22,15 @@ local function Key(realm)
 	return (gsub(gsub(realm, "[ \t%-'%(%)%.]", ""), "[A-Z]", lower))
 end
 
--- Per region: the tags (key, label, tag, color), the realms off the default and
+-- Per region: the tags (key, label, tag, flag, color), the realms off the default and
 -- the default for every other realm. Accents and Cyrillic are byte escapes.
 local SETS = {
 	[1] = {
 		list = {
-			{ key = "na", label = L["North America"], tag = "NA", r = 1, g = 0.35, b = 0.35 },
-			{ key = "oce", label = L["Oceanic"], tag = "OCE", r = 0.35, g = 0.65, b = 1 },
-			{ key = "la", label = L["Latin America"], tag = "MEX", r = 1, g = 0.5, b = 0.82 },
-			{ key = "br", label = L["Brazil"], tag = "BRA", r = 0.35, g = 0.9, b = 0.45 },
+			{ key = "na", label = L["North America"], tag = "NA", flag = "US", r = 1, g = 0.35, b = 0.35 },
+			{ key = "oce", label = L["Oceanic"], tag = "OCE", flag = "AU", r = 0.35, g = 0.65, b = 1 },
+			{ key = "la", label = L["Latin America"], tag = "MEX", flag = "MX", r = 1, g = 0.5, b = 0.82 },
+			{ key = "br", label = L["Brazil"], tag = "BRA", flag = "BR", r = 0.35, g = 0.9, b = 0.45 },
 		},
 		realms = {
 			oce = {
@@ -54,13 +54,13 @@ local SETS = {
 	},
 	[3] = {
 		list = {
-			{ key = "en", label = L["English"], tag = "EN", r = 0.35, g = 0.65, b = 1 },
-			{ key = "de", label = L["German"], tag = "DE", r = 1, g = 0.82, b = 0.2 },
-			{ key = "fr", label = L["French"], tag = "FR", r = 0.6, g = 0.6, b = 1 },
-			{ key = "es", label = L["Spanish"], tag = "ES", r = 1, g = 0.55, b = 0.25 },
-			{ key = "it", label = L["Italian"], tag = "IT", r = 0.35, g = 0.9, b = 0.45 },
-			{ key = "pt", label = L["Portuguese"], tag = "PT", r = 0.3, g = 0.85, b = 0.75 },
-			{ key = "ru", label = L["Russian"], tag = "RU", r = 1, g = 0.35, b = 0.35 },
+			{ key = "en", label = L["English"], tag = "EN", flag = "GB", r = 0.35, g = 0.65, b = 1 },
+			{ key = "de", label = L["German"], tag = "DE", flag = "DE", r = 1, g = 0.82, b = 0.2 },
+			{ key = "fr", label = L["French"], tag = "FR", flag = "FR", r = 0.6, g = 0.6, b = 1 },
+			{ key = "es", label = L["Spanish"], tag = "ES", flag = "ES", r = 1, g = 0.55, b = 0.25 },
+			{ key = "it", label = L["Italian"], tag = "IT", flag = "IT", r = 0.35, g = 0.9, b = 0.45 },
+			{ key = "pt", label = L["Portuguese"], tag = "PT", flag = "PT", r = 0.3, g = 0.85, b = 0.75 },
+			{ key = "ru", label = L["Russian"], tag = "RU", flag = "RU", r = 1, g = 0.35, b = 0.35 },
 		},
 		language = true, -- filter titled language, short names in two columns
 		-- eu realms by language, english is everything else. accents and cyrillic
@@ -262,7 +262,7 @@ end
 
 local cache = {}
 
----Tag data { key, label, tag, r, g, b } of a realm, nil in regions without tags
+---Tag data { key, label, tag, flag, r, g, b } of a realm, nil in regions without tags
 ---@param realm string
 function module:RegionOfRealm(realm)
 	local s = Set()
